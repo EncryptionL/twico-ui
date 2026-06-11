@@ -23,6 +23,10 @@ export function Spinner({
 .twc-spinner[data-size="xl"] { --_sz: 52px; --_bw: 4px; }
 .twc-spinner[data-tone="white"] { --_c: #fff; border-color: rgba(255,255,255,0.3); }
 .twc-spinner[data-tone="neutral"] { --_c: var(--color-text); }
+/* A loading spinner conveys state — keep it spinning even under reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .twc-spinner { animation-duration: 0.65s !important; animation-iteration-count: infinite !important; }
+}
 `;
     document.head.appendChild(el);
   }, []);

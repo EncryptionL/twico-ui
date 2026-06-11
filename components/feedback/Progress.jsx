@@ -35,6 +35,10 @@ export function Progress({
   position: absolute; width: 40%; animation: twico-progress-indeterminate 1.3s var(--ease-standard) infinite;
 }
 .twc-progress__meta { display: flex; justify-content: space-between; font-size: var(--text-xs); color: var(--color-text-muted); }
+/* Indeterminate progress signals ongoing work — keep it animating under reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .twc-progress[data-indeterminate="true"] .twc-progress__bar { animation-duration: 1.3s !important; animation-iteration-count: infinite !important; }
+}
 `;
     document.head.appendChild(el);
   }, []);

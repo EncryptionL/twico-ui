@@ -28,6 +28,10 @@ export function Skeleton({
 .twc-skeleton[data-variant="rect"] { border-radius: var(--radius-lg); }
 .twc-skeleton__group { display: flex; flex-direction: column; gap: 8px; }
 .twc-skeleton__group .twc-skeleton:last-child { width: 70%; }
+/* The shimmer signals loading — keep it animating even under reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .twc-skeleton::after { animation-duration: 1.4s !important; animation-iteration-count: infinite !important; }
+}
 `;
     document.head.appendChild(el);
   }, []);
