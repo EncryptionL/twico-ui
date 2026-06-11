@@ -33,9 +33,15 @@ site/
   examples loaded from `<Name>Variations.jsx`, each with its own preview + copyable code), and a
   **props table**. The "Variations" heading renders synchronously so the on-this-page TOC finds it.
 - Code is highlighted with `prism-react-renderer` (bundled, not a CDN).
-- A header **JS / TS** toggle (`CodeLang.jsx` context, persisted via `useLocalStorage`) switches every
-  code block: highlighting (`jsx`↔`tsx`), file extensions in setup snippets (`.jsx`↔`.tsx`), the
-  `import type { … }` line on component pages, and any block's explicit `tsCode` variant.
+- Each code block has a toolbar: a **JS / TS** toggle (shared, persisted via `useLocalStorage` —
+  `CodeLang.jsx`) that switches highlighting (`jsx`↔`tsx`), setup file extensions (`.jsx`↔`.tsx`), the
+  `import type { … }` line, and any block's `tsCode`; plus **Expand/Collapse** (collapsed shows the
+  simple JSX, expanded the full form with imports — derived from the twico-ui exports used).
+- **Search** (`Search.jsx`, header + Cmd/Ctrl+K) runs Twico's `CommandPalette` over every component
+  (name + tagline + summary + group) and the docs pages.
+- **Anchor links** (`AnchorHeading.jsx`): hovering a component/section heading reveals a copy-link
+  button. The deep link is `#/components/<slug>?s=<section>`; `ComponentPage` reads `?s` and scrolls
+  to that anchor on load.
 - Dark mode toggles the `.dark` class on `<html>` and persists to `localStorage`.
 
 ## Regenerating the component reference

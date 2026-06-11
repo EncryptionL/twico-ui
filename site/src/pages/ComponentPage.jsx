@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useSearchParams } from "react-router-dom";
 import { Box, Stack, Heading, Text, Code } from "twico-ui";
 import { components } from "../data/components.js";
 import { slugify, groupedComponents } from "../data/site.js";
@@ -7,6 +7,7 @@ import CodeBlock from "../components/CodeBlock.jsx";
 import LiveExample from "../components/LiveExample.jsx";
 import PropsTable from "../components/PropsTable.jsx";
 import Variations from "../components/Variations.jsx";
+import AnchorHeading from "../components/AnchorHeading.jsx";
 
 // Live demo files are authored per component under src/demos/<Name>Demo.jsx.
 const demoLoaders = import.meta.glob("../demos/*Demo.jsx");
@@ -39,7 +40,19 @@ const pagerLinkStyle = {
 
 export default function ComponentPage() {
   const { slug } = useParams();
+  const [searchParams] = useSearchParams();
   const comp = components.find((c) => slugify(c.name) === slug);
+
+  // Deep link: ?s=<section> scrolls to that anchor (waiting for lazy sections).
+  React.useEffect(() => {
+    const s = searchParams.get("s");
+    if (!s) return undefined;
+    const t = setTimeout(() => {
+      const el = document.getElementById(s);
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 84, behavior: "smooth" });
+    }, 250);
+    return () => clearTimeout(t);
+  }, [searchParams, slug]);
 
   if (!comp) {
     return (
@@ -60,17 +73,17 @@ export default function ComponentPage() {
     <Stack as="article" gap={5}>
       <Stack as="section" gap={3}>
         <Text as="div" tone="primary" size="xs" weight="bold" style={{ textTransform: "uppercase", letterSpacing: "0.08em" }}>{comp.group}</Text>
-        <Heading level={1}>{comp.name}</Heading>
+        <AnchorHeading level={1} slug={slug}>{comp.name}</AnchorHeading>
         <Text size="lg" tone="muted">{comp.tagline}</Text>
       </Stack>
 
       <Stack as="section" gap={3}>
-        <Heading level={2} id="import">Import</Heading>
+        <AnchorHeading slug={slug} section="import">Import</AnchorHeading>
         <CodeBlock code={importLine} tsCode={importLineTs} />
       </Stack>
 
       <Stack as="section" gap={3}>
-        <Heading level={2} id="usage">Usage</Heading>
+        <AnchorHeading slug={slug} section="usage">Usage</AnchorHeading>
         <LiveExample code={comp.snippet}>
           {Demo ? (
             <React.Suspense fallback={<Text tone="muted">Loading preview…</Text>}>
@@ -80,10 +93,10 @@ export default function ComponentPage() {
         </LiveExample>
       </Stack>
 
-      <Variations name={comp.name} />
+      <Variations name={comp.name} slug={slug} />
 
       <Stack as="section" gap={3}>
-        <Heading level={2} id="props">Props</Heading>
+        <AnchorHeading slug={slug} section="props">Props</AnchorHeading>
         <PropsTable rows={comp.propsRows} />
       </Stack>
 
