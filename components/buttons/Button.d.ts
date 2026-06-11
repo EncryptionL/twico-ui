@@ -2,15 +2,15 @@ import * as React from "react";
 
 /**
  * Primary action button with solid / soft / outline / ghost / danger variants,
- * three sizes, loading state, icons, and a click ripple.
+ * four sizes, loading state, icons, and a click ripple.
  *
  * @startingPoint section="Buttons" subtitle="Action button with ripple + variants" viewport="700x200"
  */
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Visual style. @default "solid" */
   variant?: "solid" | "soft" | "outline" | "ghost" | "danger";
-  /** Control size. @default "md" */
-  size?: "sm" | "md" | "lg";
+  /** Control size; "xs" (~26px) is smaller than "sm". @default "md" */
+  size?: "xs" | "sm" | "md" | "lg";
   /** Icon node rendered before the label. */
   leftIcon?: React.ReactNode;
   /** Icon node rendered after the label. */

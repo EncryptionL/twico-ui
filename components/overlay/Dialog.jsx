@@ -26,6 +26,19 @@ const DIALOG_CSS = `
 }
 .twc-dialog[data-size="sm"] { --_mw: 380px; }
 .twc-dialog[data-size="lg"] { --_mw: 640px; }
+/* Near-fullscreen: fill the overlay's padded area (overlay already pads --space-4 each side). */
+.twc-dialog[data-size="full"] {
+  --_mw: none;
+  width: calc(100vw - var(--space-8));
+  height: calc(100vh - var(--space-8));
+  max-height: calc(100vh - var(--space-8));
+  border-radius: var(--radius-2xl);
+}
+/* Scroll-body: header + footer stay fixed, only the body scrolls. */
+.twc-dialog[data-scroll-body="true"] { display: flex; flex-direction: column; overflow: hidden; }
+.twc-dialog[data-scroll-body="true"] .twc-dialog__header { flex: none; }
+.twc-dialog[data-scroll-body="true"] .twc-dialog__body { flex: 1 1 auto; min-height: 0; overflow: auto; }
+.twc-dialog[data-scroll-body="true"] .twc-dialog__footer { flex: none; }
 .twc-dialog__header { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-5) var(--space-5) 0; }
 .twc-dialog__titles { flex: 1; min-width: 0; }
 .twc-dialog__title { font-size: var(--text-xl); font-weight: var(--font-bold); letter-spacing: -0.01em; }
@@ -49,6 +62,7 @@ export function Dialog({
   footer,
   children,
   size = "md",
+  scrollBody = false,
   closeOnBackdrop = true,
   className = "",
   ...rest
@@ -118,7 +132,7 @@ export function Dialog({
 
   const overlay = (
     <div className="twc-dialog__overlay" data-state={state} onMouseDown={(e) => { if (closeOnBackdrop && e.target === e.currentTarget) onClose?.(); }}>
-      <div ref={dialogRef} className={`twc-dialog ${className}`} data-state={state} data-size={size} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-describedby={description ? descId : undefined} {...rest}>
+      <div ref={dialogRef} className={`twc-dialog ${className}`} data-state={state} data-size={size} data-scroll-body={scrollBody ? "true" : undefined} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-describedby={description ? descId : undefined} {...rest}>
         {(title || description) ? (
           <div className="twc-dialog__header">
             <div className="twc-dialog__titles">

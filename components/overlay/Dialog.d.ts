@@ -13,8 +13,10 @@ export interface DialogProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   description?: React.ReactNode;
   /** Footer content, typically action buttons (right-aligned). */
   footer?: React.ReactNode;
-  /** @default "md" */
-  size?: "sm" | "md" | "lg";
+  /** `"full"` is a near-fullscreen panel (fills the viewport minus a small margin). @default "md" */
+  size?: "sm" | "md" | "lg" | "full";
+  /** Keep the header + footer fixed and scroll only the body (for long content). @default false */
+  scrollBody?: boolean;
   /** Close when the backdrop is clicked. @default true */
   closeOnBackdrop?: boolean;
   children?: React.ReactNode;

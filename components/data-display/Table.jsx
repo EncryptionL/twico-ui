@@ -25,11 +25,13 @@ const TABLE_CSS = `
 .twc-table tbody tr[data-selected="true"] { background: var(--color-primary-subtle); }
 .twc-table[data-size="sm"] thead th { padding: var(--space-2) var(--space-3); }
 .twc-table[data-size="sm"] tbody td { padding: var(--space-2) var(--space-3); }
+.twc-table[data-sticky="true"] thead th { position: sticky; top: 0; z-index: 1; background: var(--color-surface); box-shadow: inset 0 calc(-1 * var(--border-thin)) 0 0 var(--color-border); }
 `;
 
 export function Table({
   columns,
   data,
+  rows: rowsProp,
   hover = true,
   striped = false,
   size = "md",
@@ -39,6 +41,8 @@ export function Table({
   onSortChange,
   rowKey,
   selectedKeys,
+  stickyHeader = false,
+  maxHeight,
   className = "",
   ...rest
 }) {
@@ -50,21 +54,35 @@ export function Table({
     document.head.appendChild(el);
   }, []);
 
+  // Datatable-vocabulary aliases: prefer the existing names when both present.
+  const cols = React.useMemo(
+    () =>
+      (columns || []).map((c) => ({
+        ...c,
+        key: c.key !== undefined ? c.key : c.field,
+        header: c.header !== undefined ? c.header : c.headerName,
+        render: c.render !== undefined ? c.render : c.renderCell,
+      })),
+    [columns]
+  );
+  const source = data !== undefined ? data : rowsProp;
+  const dataRows = source || [];
+
   const [internalSort, setInternalSort] = React.useState(defaultSort || { key: null, dir: "asc" });
   const sort = (sortProp !== undefined ? sortProp : internalSort) || { key: null, dir: "asc" };
 
   const rows = React.useMemo(() => {
-    if (!sortable || !sort.key) return data;
-    const col = columns.find((c) => c.key === sort.key);
-    if (!col) return data;
-    const sorted = [...data].sort((a, b) => {
+    if (!sortable || !sort.key) return dataRows;
+    const col = cols.find((c) => c.key === sort.key);
+    if (!col) return dataRows;
+    const sorted = [...dataRows].sort((a, b) => {
       const av = a[sort.key], bv = b[sort.key];
       if (av == null) return 1; if (bv == null) return -1;
       if (typeof av === "number" && typeof bv === "number") return av - bv;
       return String(av).localeCompare(String(bv));
     });
     return sort.dir === "desc" ? sorted.reverse() : sorted;
-  }, [data, columns, sort, sortable]);
+  }, [dataRows, cols, sort, sortable]);
 
   function toggleSort(key) {
     const next = sort.key === key ? { key, dir: sort.dir === "asc" ? "desc" : "asc" } : { key, dir: "asc" };
@@ -75,12 +93,14 @@ export function Table({
   const keyFn = rowKey || ((_, i) => i);
   const selected = new Set(selectedKeys || []);
 
+  const wrapStyle = maxHeight !== undefined ? { ...rest.style, maxHeight, overflowY: "auto" } : rest.style;
+
   return (
-    <div className={`twc-table-wrap ${className}`} {...rest}>
-      <table className="twc-table" data-hover={hover || undefined} data-striped={striped || undefined} data-size={size}>
+    <div className={`twc-table-wrap ${className}`} {...rest} style={wrapStyle}>
+      <table className="twc-table" data-hover={hover || undefined} data-striped={striped || undefined} data-size={size} data-sticky={stickyHeader || undefined}>
         <thead>
           <tr>
-            {columns.map((c) => {
+            {cols.map((c) => {
               const active = sort.key === c.key;
               const canSort = sortable && c.sortable !== false;
               return (
@@ -102,7 +122,7 @@ export function Table({
             const k = keyFn(row, i);
             return (
               <tr key={k} data-selected={selected.has(k) || undefined}>
-                {columns.map((c) => (
+                {cols.map((c) => (
                   <td key={c.key} data-align={c.align}>
                     {c.render ? c.render(row[c.key], row, i) : row[c.key]}
                   </td>

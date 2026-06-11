@@ -12,12 +12,19 @@ export interface TableSort {
  * Data table with sticky-styled header, hover/striped rows, client-side
  * sorting, custom cell renderers, and row selection highlight. Sorting is
  * controlled via `sort` + `onSortChange`, or uncontrolled via `defaultSort`.
+ * A truly pinned header (`stickyHeader`) keeps thead visible while the body
+ * scrolls — pair it with `maxHeight` to give the table its own scroll area.
+ * Datatable-style aliases (`rows`, `field`, `headerName`, `renderCell`) are
+ * accepted alongside the native names, which always take precedence.
  *
  * @startingPoint section="Data display" subtitle="Sortable data table" viewport="700x320"
  */
 export interface TableProps<T = any> extends React.HTMLAttributes<HTMLDivElement> {
   columns: TableColumn<T>[];
-  data: T[];
+  /** Row objects. */
+  data?: T[];
+  /** Alias for `data` (Datatable vocabulary); `data` wins when both are set. */
+  rows?: T[];
   /** Row hover highlight. @default true */
   hover?: boolean;
   /** Zebra striping. @default false */
@@ -36,13 +43,21 @@ export interface TableProps<T = any> extends React.HTMLAttributes<HTMLDivElement
   rowKey?: (row: T, index: number) => string | number;
   /** Keys of rows to highlight as selected. */
   selectedKeys?: Array<string | number>;
+  /** Pin the header to the top while the body scrolls (use with `maxHeight` or a scroll container). @default false */
+  stickyHeader?: boolean;
+  /** Cap the table height and give it its own vertical scroll area (CSS length or number of px). */
+  maxHeight?: number | string;
 }
 
 export interface TableColumn<T = any> {
   /** Object key in each row + sort key. */
-  key: string;
+  key?: string;
+  /** Alias for `key` (Datatable vocabulary); `key` wins when both are set. */
+  field?: string;
   /** Header label. */
-  header: React.ReactNode;
+  header?: React.ReactNode;
+  /** Alias for `header` (Datatable vocabulary); `header` wins when both are set. */
+  headerName?: React.ReactNode;
   /** Cell alignment. @default "left" */
   align?: "left" | "center" | "right";
   /** Fixed column width (CSS value). */
@@ -51,6 +66,8 @@ export interface TableColumn<T = any> {
   sortable?: boolean;
   /** Custom cell renderer. */
   render?: (value: any, row: T, index: number) => React.ReactNode;
+  /** Alias for `render` (Datatable vocabulary); `render` wins when both are set. */
+  renderCell?: (value: any, row: T, index: number) => React.ReactNode;
 }
 
 export function Table<T = any>(props: TableProps<T>): React.JSX.Element;

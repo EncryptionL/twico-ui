@@ -66,10 +66,13 @@ export function Pagination({
   boundaries = 1,
   size = "md",
   showJumper = false,
+  showPageJumper,
   jumperLabel = "Go to",
   className = "",
   ...rest
 }) {
+  // `showPageJumper` is the preferred alias for `showJumper`; either enables the input.
+  const jumperEnabled = showPageJumper ?? showJumper;
   React.useInsertionEffect(() => {
     if (document.getElementById("twc-pagination-styles")) return;
     const el = document.createElement("style");
@@ -111,7 +114,7 @@ export function Pagination({
       <button type="button" className="twc-page" data-size={size} onClick={() => go(page + 1)} disabled={page >= total} aria-label="Next page">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
       </button>
-      {showJumper && total > 1 ? (
+      {jumperEnabled && total > 1 ? (
         <span className="twc-pagination__jump" data-size={size}>
           {jumperLabel}
           <input type="number" min={1} max={total} value={jump} placeholder={String(page)}

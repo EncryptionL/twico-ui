@@ -41,6 +41,8 @@ const CSS = `
 .twc-btn[data-block="true"] { width: 100%; }
 .twc-btn__content { display: inline-flex; align-items: center; gap: var(--space-2); min-width: 0; }
 
+/* xs: ~26px tall — composed from space tokens (no global control-h-xs token). */
+.twc-btn[data-size="xs"] { --_h: calc(var(--space-6) + var(--space-0-5)); --_px: var(--space-2-5); --_fs: var(--text-xs); }
 .twc-btn[data-size="sm"] { --_h: var(--control-h-sm); --_px: var(--space-3); --_fs: var(--text-xs); }
 .twc-btn[data-size="lg"] { --_h: var(--control-h-lg); --_px: var(--space-6); --_fs: var(--text-base); }
 

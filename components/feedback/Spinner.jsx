@@ -2,11 +2,14 @@ import React from "react";
 
 export function Spinner({
   size = "md",
+  color,
   tone = "current",
   label = "Loading",
   className = "",
   ...rest
 }) {
+  // `color` is the preferred name; `tone` is a deprecated alias. `color` wins when both are set.
+  const resolvedColor = color ?? tone;
   React.useInsertionEffect(() => {
     if (document.getElementById("twc-spinner-styles")) return;
     const el = document.createElement("style");
@@ -35,5 +38,5 @@ export function Spinner({
     document.head.appendChild(el);
   }, []);
 
-  return <span className={`twc-spinner ${className}`} data-size={size} data-tone={tone} role="status" aria-label={label} {...rest} />;
+  return <span className={`twc-spinner ${className}`} data-size={size} data-tone={resolvedColor} role="status" aria-label={label} {...rest} />;
 }

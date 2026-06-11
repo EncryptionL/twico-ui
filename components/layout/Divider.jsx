@@ -28,9 +28,12 @@ export function Divider({
     document.head.appendChild(el);
   }, []);
 
+  // Accept logical align values in addition to physical: start -> left, end -> right.
+  const resolvedAlign = align === "start" ? "left" : align === "end" ? "right" : align;
+
   if (children) {
     return (
-      <div className={`twc-divider-label ${className}`} data-align={align} role="separator" {...rest}>
+      <div className={`twc-divider-label ${className}`} data-align={resolvedAlign} role="separator" {...rest}>
         {children}
       </div>
     );

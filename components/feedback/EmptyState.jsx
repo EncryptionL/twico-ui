@@ -18,9 +18,12 @@ export function EmptyState({
   description,
   actions,
   bordered = false,
+  border,
   className = "",
   ...rest
 }) {
+  // `border` is the preferred alias for `bordered`; either enables the dashed border.
+  const hasBorder = border ?? bordered;
   React.useInsertionEffect(() => {
     if (document.getElementById("twc-empty-styles")) return;
     const el = document.createElement("style");
@@ -30,7 +33,7 @@ export function EmptyState({
   }, []);
 
   return (
-    <div className={`twc-empty ${className}`} data-bordered={bordered || undefined} {...rest}>
+    <div className={`twc-empty ${className}`} data-bordered={hasBorder || undefined} {...rest}>
       {icon ? <span className="twc-empty__icon" aria-hidden="true">{icon}</span> : null}
       {title ? <div className="twc-empty__title">{title}</div> : null}
       {description ? <div className="twc-empty__desc">{description}</div> : null}

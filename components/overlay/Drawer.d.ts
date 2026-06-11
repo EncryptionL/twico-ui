@@ -15,6 +15,10 @@ export interface DrawerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   footer?: React.ReactNode;
   /** Panel width (left/right) or height (top/bottom) — preset "sm" (320px) / "md" (380px) / "lg" (480px), number (px), or CSS value. */
   size?: "sm" | "md" | "lg" | number | string;
+  /** Panel width for `side="left"`/`"right"` — number (px) or CSS value. Side-aware alias for `size`; wins over `size` when set. @default undefined */
+  width?: number | string;
+  /** Panel height for `side="top"`/`"bottom"` — number (px) or CSS value. Side-aware alias for `size`; wins over `size` when set. @default undefined */
+  height?: number | string;
   /** Close when the backdrop is clicked. @default true */
   closeOnBackdrop?: boolean;
   children?: React.ReactNode;

@@ -23,6 +23,8 @@ const ICONBTN_CSS = `
               transform var(--duration-fast) var(--ease-spring);
 }
 .twc-iconbtn[data-round="true"] { border-radius: var(--radius-full); }
+/* xs: ~26px square — composed from space tokens (no global control-h-xs token). */
+.twc-iconbtn[data-size="xs"] { --_sz: calc(var(--space-6) + var(--space-0-5)); }
 .twc-iconbtn[data-size="sm"] { --_sz: var(--control-h-sm); }
 .twc-iconbtn[data-size="lg"] { --_sz: var(--control-h-lg); }
 .twc-iconbtn:focus-visible { outline: none; box-shadow: var(--ring); }
@@ -36,6 +38,8 @@ const ICONBTN_CSS = `
 .twc-iconbtn[data-variant="outline"] { border-color: var(--color-border-strong); color: var(--color-text); }
 .twc-iconbtn[data-variant="outline"]:hover:not(:disabled) { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-surface-sunken); }
 .twc-iconbtn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-iconbtn[data-variant="danger"] { background: var(--color-danger); color: var(--color-danger-fg); }
+.twc-iconbtn[data-variant="danger"]:hover:not(:disabled) { background: var(--color-danger-hover); }
 `;
 
 export function IconButton({

@@ -20,7 +20,10 @@ export interface TreeNode {
  * @startingPoint section="Navigation" subtitle="Hierarchical tree view" viewport="700x340"
  */
 export interface TreeViewProps extends React.HTMLAttributes<HTMLDivElement> {
-  data: TreeNode[];
+  /** Tree nodes. Alias of `items`; `data` wins when both are supplied. */
+  data?: TreeNode[];
+  /** Tree nodes (preferred name). Alias of `data`; ignored when `data` is set. @default [] */
+  items?: TreeNode[];
   /** Node ids expanded on first render (uncontrolled). */
   defaultExpanded?: string[];
   /** Controlled expanded node ids (pair with `onExpandedChange`). */
@@ -31,6 +34,8 @@ export interface TreeViewProps extends React.HTMLAttributes<HTMLDivElement> {
   selectedId?: string | null;
   /** Fired with the node when a row is clicked. */
   onSelect?: (node: TreeNode) => void;
+  /** Fired with just the node id when a row is clicked (companion to `onSelect`). */
+  onSelectedIdChange?: (id: string) => void;
 }
 
 export function TreeView(props: TreeViewProps): React.JSX.Element;

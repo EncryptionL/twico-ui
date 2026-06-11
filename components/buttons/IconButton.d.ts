@@ -8,10 +8,10 @@ import * as React from "react";
 export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** The icon node to render (e.g. a Lucide SVG). */
   icon?: React.ReactNode;
-  /** Visual style. @default "ghost" */
-  variant?: "solid" | "soft" | "outline" | "ghost";
-  /** Control size. @default "md" */
-  size?: "sm" | "md" | "lg";
+  /** Visual style; "danger" mirrors Button for icon-only destructive actions. @default "ghost" */
+  variant?: "solid" | "soft" | "outline" | "ghost" | "danger";
+  /** Control size; "xs" (~26px) is smaller than "sm". @default "md" */
+  size?: "xs" | "sm" | "md" | "lg";
   /** Fully rounded (circular). @default false */
   round?: boolean;
   /** Accessible label — required for icon-only buttons. */

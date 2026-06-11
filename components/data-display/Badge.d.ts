@@ -8,8 +8,8 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
   /** Fill style. @default "soft" */
   variant?: "soft" | "solid" | "outline";
-  /** @default "md" */
-  size?: "md" | "lg";
+  /** Size scale. @default "md" */
+  size?: "sm" | "md" | "lg";
   /** Show a leading status dot. */
   dot?: boolean;
   children?: React.ReactNode;

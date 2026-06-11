@@ -35,6 +35,25 @@ const TABS_CSS = `
   top: 4px; bottom: 4px; height: auto; background: var(--color-surface); box-shadow: var(--shadow-sm); border-radius: var(--radius-md);
 }
 .twc-tabs__panel { padding-top: var(--space-4); }
+
+/* Vertical orientation */
+.twc-tabs[data-orientation="vertical"] { display: flex; gap: var(--space-4); align-items: flex-start; }
+.twc-tabs[data-orientation="vertical"] .twc-tabs__list {
+  flex-direction: column; gap: 2px;
+  border-bottom: none; border-right: var(--border-thin) solid var(--color-border);
+}
+.twc-tabs[data-orientation="vertical"] .twc-tab { justify-content: flex-start; }
+.twc-tabs[data-orientation="vertical"][data-variant="pill"] .twc-tabs__list {
+  display: inline-flex; flex-direction: column; border-right: none;
+}
+.twc-tabs[data-orientation="vertical"] .twc-tabs__indicator {
+  bottom: auto; left: auto; right: -1px; width: 2.5px; height: auto;
+  transition: top var(--duration-base) var(--ease-spring), height var(--duration-base) var(--ease-spring);
+}
+.twc-tabs[data-orientation="vertical"][data-variant="pill"] .twc-tabs__indicator {
+  top: auto; right: 4px; left: 4px; width: auto;
+}
+.twc-tabs[data-orientation="vertical"] .twc-tabs__panel { padding-top: 0; flex: 1; min-width: 0; }
 `;
 
 export function Tabs({
@@ -43,9 +62,11 @@ export function Tabs({
   defaultValue,
   onChange,
   variant = "line",
+  orientation = "horizontal",
   className = "",
   ...rest
 }) {
+  const vertical = orientation === "vertical";
   React.useInsertionEffect(() => {
     if (document.getElementById("twc-tabs-styles")) return;
     const el = document.createElement("style");
@@ -57,7 +78,7 @@ export function Tabs({
   const [internal, setInternal] = React.useState(defaultValue ?? items[0]?.value);
   const active = value ?? internal;
   const listRef = React.useRef(null);
-  const [ind, setInd] = React.useState({ left: 0, width: 0 });
+  const [ind, setInd] = React.useState({ left: 0, width: 0, top: 0, height: 0 });
   const baseId = React.useId();
   const tabIdAt = (i) => `${baseId}-tab-${i}`;
   const panelId = `${baseId}-panel`;
@@ -67,10 +88,10 @@ export function Tabs({
     const list = listRef.current;
     if (!list) return;
     const el = list.querySelector('[data-active="true"]');
-    if (el) setInd({ left: el.offsetLeft, width: el.offsetWidth });
+    if (el) setInd({ left: el.offsetLeft, width: el.offsetWidth, top: el.offsetTop, height: el.offsetHeight });
   }, []);
 
-  React.useEffect(() => { updateIndicator(); }, [active, updateIndicator, items]);
+  React.useEffect(() => { updateIndicator(); }, [active, updateIndicator, items, orientation]);
   React.useEffect(() => {
     const r = () => updateIndicator();
     window.addEventListener("resize", r);
@@ -87,7 +108,11 @@ export function Tabs({
   // WAI-ARIA tabs keyboard pattern: arrows/Home/End move selection + focus
   // between tabs (roving tabindex keeps only the active tab in the tab order).
   function onListKeyDown(e) {
-    const keys = ["ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp", "Home", "End"];
+    // In each orientation only the matching arrow axis navigates; Home/End
+    // jump to the ends regardless. Keeps the orthogonal arrows free for the page.
+    const prevKey = vertical ? "ArrowUp" : "ArrowLeft";
+    const nextKey = vertical ? "ArrowDown" : "ArrowRight";
+    const keys = [prevKey, nextKey, "Home", "End"];
     if (!keys.includes(e.key)) return;
     const n = items.length;
     if (!n) return;
@@ -95,7 +120,7 @@ export function Tabs({
     let i = activeIndex < 0 ? 0 : activeIndex;
     if (e.key === "Home") i = 0;
     else if (e.key === "End") i = n - 1;
-    else { const dir = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : -1; i = (i + dir + n) % n; }
+    else { const dir = e.key === nextKey ? 1 : -1; i = (i + dir + n) % n; }
     const it = items[i];
     if (!it) return;
     select(it.value);
@@ -104,8 +129,8 @@ export function Tabs({
   }
 
   return (
-    <div className={`twc-tabs ${className}`} data-variant={variant} {...rest}>
-      <div className="twc-tabs__list" ref={listRef} role="tablist" onKeyDown={onListKeyDown}>
+    <div className={`twc-tabs ${className}`} data-variant={variant} data-orientation={orientation} {...rest}>
+      <div className="twc-tabs__list" ref={listRef} role="tablist" aria-orientation={orientation} onKeyDown={onListKeyDown}>
         {items.map((it, i) => (
           <button
             type="button"
@@ -124,7 +149,10 @@ export function Tabs({
             {it.count != null ? <span className="twc-tab__count">{it.count}</span> : null}
           </button>
         ))}
-        <span className="twc-tabs__indicator" style={{ left: ind.left, width: ind.width }} />
+        <span
+          className="twc-tabs__indicator"
+          style={vertical ? { top: ind.top, height: ind.height } : { left: ind.left, width: ind.width }}
+        />
       </div>
       {activeItem && activeItem.content !== undefined ? (
         <div className="twc-tabs__panel" role="tabpanel" id={panelId} aria-labelledby={activeIndex >= 0 ? tabIdAt(activeIndex) : undefined} tabIndex={0} key={active}>{activeItem.content}</div>

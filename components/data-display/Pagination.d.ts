@@ -18,8 +18,10 @@ export interface PaginationProps extends Omit<React.HTMLAttributes<HTMLElement>,
   boundaries?: number;
   /** @default "md" */
   size?: "sm" | "md";
-  /** Show a "Go to" page input for jumping directly to a page. @default false */
+  /** Show a "Go to" page input for jumping directly to a page. Prefer `showPageJumper`. @default false */
   showJumper?: boolean;
+  /** Show a "Go to" page input for jumping directly to a page; preferred alias for `showJumper`. @default false */
+  showPageJumper?: boolean;
   /** Label before the jump input. @default "Go to" */
   jumperLabel?: React.ReactNode;
 }

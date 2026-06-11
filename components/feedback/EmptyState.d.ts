@@ -12,8 +12,10 @@ export interface EmptyStateProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   description?: React.ReactNode;
   /** Action buttons row. */
   actions?: React.ReactNode;
-  /** Add a dashed border (good for drop targets / placeholders). @default false */
+  /** Add a dashed border (good for drop targets / placeholders). Prefer `border`. @default false */
   bordered?: boolean;
+  /** Add a dashed border (good for drop targets / placeholders); preferred alias for `bordered`. @default false */
+  border?: boolean;
 }
 
 export function EmptyState(props: EmptyStateProps): React.JSX.Element;

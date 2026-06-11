@@ -63,14 +63,18 @@ function Node({ node, depth, expanded, selectedId, tabbableId, rowRefs, onToggle
 
 export function TreeView({
   data,
+  items,
   defaultExpanded = [],
   expanded: expandedProp,
   onExpandedChange,
   selectedId: selectedProp,
   onSelect,
+  onSelectedIdChange,
   className = "",
   ...rest
 }) {
+  // `items` is the preferred alias for `data`; prefer `data` when both are given.
+  const nodes = data !== undefined ? data : (items ?? []);
   React.useInsertionEffect(() => {
     if (document.getElementById("twc-tree-styles")) return;
     const el = document.createElement("style");
@@ -92,7 +96,7 @@ export function TreeView({
     if (expandedProp === undefined) setExpInternal(n);
     onExpandedChange?.([...n]);
   };
-  const select = (node) => { if (selectedProp === undefined) setSelInternal(node.id); onSelect?.(node); };
+  const select = (node) => { if (selectedProp === undefined) setSelInternal(node.id); onSelect?.(node); onSelectedIdChange?.(node.id); };
 
   // Visible rows in render order + parent/children lookups, for roving-tabindex keyboard nav.
   const visible = [];
@@ -107,7 +111,7 @@ export function TreeView({
       if (kids && expanded.has(n.id)) walk(n.children, n.id);
     }
   };
-  walk(data, null);
+  walk(nodes, null);
 
   // One Tab stop: the last-focused row, else the selected row, else the first row.
   const tabbableId = visible.includes(focusId) ? focusId : visible.includes(selectedId) ? selectedId : visible[0];
@@ -141,7 +145,7 @@ export function TreeView({
   return (
     <div className={`twc-tree ${className}`} role="tree" onKeyDown={onKeyDown} {...rest}>
       <ul className="twc-tree__group" role="none">
-        {data.map((n) => (
+        {nodes.map((n) => (
           <Node key={n.id} node={n} depth={0} expanded={expanded} selectedId={selectedId} tabbableId={tabbableId}
                 rowRefs={rowRefs} onToggle={toggle} onSelect={select} onRowFocus={setFocusId} />
         ))}

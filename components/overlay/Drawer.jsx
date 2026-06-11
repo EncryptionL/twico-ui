@@ -55,6 +55,8 @@ export function Drawer({
   description,
   footer,
   size,
+  width,
+  height,
   closeOnBackdrop = true,
   children,
   className = "",
@@ -123,12 +125,16 @@ export function Drawer({
 
   if (!mounted) return null;
   const state = open ? "open" : "closed";
-  const dim = DRAWER_SIZES[size] || (typeof size === "number" ? `${size}px` : size);
-  const sizeVar = side === "left" || side === "right" ? { "--_w": dim } : { "--_h": dim };
+  const isHorizontal = side === "left" || side === "right";
+  // `width` (left/right) and `height` (top/bottom) are side-aware aliases that win over `size`.
+  const alias = isHorizontal ? width : height;
+  const raw = alias != null ? alias : size;
+  const dim = DRAWER_SIZES[raw] || (typeof raw === "number" ? `${raw}px` : raw);
+  const sizeVar = isHorizontal ? { "--_w": dim } : { "--_h": dim };
 
   const overlay = (
     <div className="twc-drawer__overlay" data-state={state} onMouseDown={(e) => { if (closeOnBackdrop && e.target === e.currentTarget) onClose?.(); }}>
-      <div ref={panelRef} className={`twc-drawer ${className}`} data-side={side} data-state={state} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-describedby={description ? descId : undefined} style={{ ...(size ? sizeVar : null), ...style }} {...rest}>
+      <div ref={panelRef} className={`twc-drawer ${className}`} data-side={side} data-state={state} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-describedby={description ? descId : undefined} style={{ ...(dim ? sizeVar : null), ...style }} {...rest}>
         {(title || description || onClose) ? (
           <div className="twc-drawer__header">
             <div className="twc-drawer__titles">

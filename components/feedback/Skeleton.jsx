@@ -24,8 +24,8 @@ export function Skeleton({
   animation: twico-shimmer 1.4s infinite;
 }
 .twc-skeleton[data-variant="text"] { height: 0.9em; border-radius: var(--radius-sm); }
-.twc-skeleton[data-variant="circle"] { border-radius: var(--radius-full); }
-.twc-skeleton[data-variant="rect"] { border-radius: var(--radius-lg); }
+.twc-skeleton[data-variant="circle"] { aspect-ratio: 1; border-radius: var(--radius-full); }
+.twc-skeleton[data-variant="rect"] { border-radius: var(--radius-md); }
 .twc-skeleton__group { display: flex; flex-direction: column; gap: 8px; }
 .twc-skeleton__group .twc-skeleton:last-child { width: 70%; }
 /* The shimmer signals loading — keep it animating even under reduced motion. */

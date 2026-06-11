@@ -28,6 +28,7 @@ export function Progress({
   background: var(--_c, var(--color-primary));
   transition: width var(--duration-slow) var(--ease-out);
 }
+.twc-progress[data-tone="info"]    .twc-progress__bar { --_c: var(--color-info); }
 .twc-progress[data-tone="success"] .twc-progress__bar { --_c: var(--color-success); }
 .twc-progress[data-tone="warning"] .twc-progress__bar { --_c: var(--color-warning); }
 .twc-progress[data-tone="danger"]  .twc-progress__bar { --_c: var(--color-danger); }

@@ -9,6 +9,7 @@ const TIMELINE_CSS = `
   background: var(--color-surface); border: var(--border-medium) solid var(--color-border-strong); color: var(--color-text-subtle); box-shadow: 0 0 0 4px var(--color-surface); }
 .twc-timeline__dot svg { width: 15px; height: 15px; }
 .twc-timeline__item[data-tone="primary"] .twc-timeline__dot { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-primary-fg); }
+.twc-timeline__item[data-tone="info"] .twc-timeline__dot { background: var(--color-info); border-color: var(--color-info); color: var(--color-info-fg); }
 .twc-timeline__item[data-tone="success"] .twc-timeline__dot { background: var(--color-success); border-color: var(--color-success); color: var(--color-success-fg); }
 .twc-timeline__item[data-tone="danger"] .twc-timeline__dot { background: var(--color-danger); border-color: var(--color-danger); color: var(--color-danger-fg); }
 .twc-timeline__item[data-tone="warning"] .twc-timeline__dot { background: var(--color-warning); border-color: var(--color-warning); color: var(--color-warning-fg); }

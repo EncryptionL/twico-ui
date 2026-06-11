@@ -10,7 +10,7 @@ export interface TimelineItem {
   /** Icon inside the node dot. */
   icon?: React.ReactNode;
   /** Node color. */
-  tone?: "primary" | "success" | "warning" | "danger";
+  tone?: "primary" | "info" | "success" | "warning" | "danger";
 }
 
 /**

@@ -13,6 +13,8 @@ export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "o
   onChange?: (value: string) => void;
   /** @default "line" */
   variant?: "line" | "pill";
+  /** Layout axis. Vertical stacks the tablist with the indicator on its trailing edge and the panel beside it; ArrowUp/ArrowDown navigate. @default "horizontal" */
+  orientation?: "horizontal" | "vertical";
 }
 
 export interface TabItem {

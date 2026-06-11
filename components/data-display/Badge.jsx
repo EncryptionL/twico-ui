@@ -8,6 +8,7 @@ const BADGE_CSS = `
   line-height: 1; letter-spacing: 0.01em; border-radius: var(--radius-full);
   border: var(--border-thin) solid transparent; white-space: nowrap;
 }
+.twc-badge[data-size="sm"] { height: 18px; gap: 4px; font-size: var(--text-xs); padding: 1px 7px; }
 .twc-badge[data-size="lg"] { height: 26px; font-size: var(--text-sm); padding: 3px 12px; }
 .twc-badge__dot { width: 6px; height: 6px; border-radius: var(--radius-full); background: currentColor; }
 

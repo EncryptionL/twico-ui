@@ -11,7 +11,7 @@ export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Maximum value. @default 100 */
   max?: number;
   /** @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger";
+  tone?: "primary" | "info" | "success" | "warning" | "danger";
   /** @default "md" */
   size?: "sm" | "md" | "lg";
   /** Animate as an indeterminate bar (ignores value). */
