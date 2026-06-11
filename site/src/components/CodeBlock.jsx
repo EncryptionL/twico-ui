@@ -1,18 +1,10 @@
 import React from "react";
 import { Highlight, themes } from "prism-react-renderer";
-import { Box, Button } from "twico-ui";
+import { Box, Button, useCopyToClipboard } from "twico-ui";
 
 export default function CodeBlock({ code, language = "jsx" }) {
-  const [copied, setCopied] = React.useState(false);
+  const { copied, copy } = useCopyToClipboard();
   const source = (code || "").replace(/\n+$/, "");
-
-  function copy() {
-    try {
-      navigator.clipboard.writeText(source);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1400);
-    } catch (e) {}
-  }
 
   return (
     <Box
@@ -25,7 +17,7 @@ export default function CodeBlock({ code, language = "jsx" }) {
       }}
     >
       <Box style={{ position: "absolute", top: 8, right: 8, zIndex: 1 }}>
-        <Button size="sm" variant="soft" onClick={copy} aria-label="Copy code">
+        <Button size="sm" variant="soft" onClick={() => copy(source)} aria-label="Copy code">
           {copied ? "Copied!" : "Copy"}
         </Button>
       </Box>

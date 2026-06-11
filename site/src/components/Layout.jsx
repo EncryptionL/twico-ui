@@ -1,11 +1,10 @@
 import React from "react";
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { Box, Stack, Button, IconButton, Drawer } from "twico-ui";
+import { Box, Stack, Button, IconButton, Drawer, useMediaQuery, useDisclosure } from "twico-ui";
 import Logo from "./Logo.jsx";
 import Sidebar from "./Sidebar.jsx";
 import ThemeToggle from "./ThemeToggle.jsx";
 import TableOfContents from "./TableOfContents.jsx";
-import { useMediaQuery } from "../hooks/useMediaQuery.js";
 import { REPO_URL, NPM_URL, CHANGELOG_URL } from "../data/site.js";
 
 const HEADER_H = 64;
@@ -23,10 +22,10 @@ export default function Layout() {
   const isHome = location.pathname === "/";
   const isMobile = useMediaQuery("(max-width: 859px)");
   const showToc = useMediaQuery("(min-width: 1200px)");
-  const [mobileNav, setMobileNav] = React.useState(false);
+  const nav = useDisclosure(false);
 
   React.useEffect(() => {
-    setMobileNav(false);
+    nav.onClose();
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
@@ -43,7 +42,7 @@ export default function Layout() {
       <Stack direction="row" justify="space-between" align="center" gap={4} style={{ height: HEADER_H, padding: "0 24px" }}>
         <Stack direction="row" align="center" gap={2}>
           {!isHome && isMobile ? (
-            <IconButton variant="ghost" aria-label="Toggle navigation" icon={MenuIcon} onClick={() => setMobileNav((v) => !v)} />
+            <IconButton variant="ghost" aria-label="Toggle navigation" icon={MenuIcon} onClick={nav.onToggle} />
           ) : null}
           <Link to="/" aria-label="Twico UI home" style={{ display: "inline-flex" }}><Logo /></Link>
         </Stack>
@@ -99,8 +98,8 @@ export default function Layout() {
         </Box>
       </Stack>
       {isMobile ? (
-        <Drawer open={mobileNav} onClose={() => setMobileNav(false)} side="left" size={288}>
-          <Sidebar onNavigate={() => setMobileNav(false)} />
+        <Drawer open={nav.open} onClose={nav.onClose} side="left" size={288}>
+          <Sidebar onNavigate={nav.onClose} />
         </Drawer>
       ) : null}
     </Box>

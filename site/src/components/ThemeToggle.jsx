@@ -1,10 +1,5 @@
 import React from "react";
-import { IconButton } from "twico-ui";
-
-function getInitial() {
-  if (typeof document === "undefined") return false;
-  return document.documentElement.classList.contains("dark");
-}
+import { IconButton, useColorScheme } from "twico-ui";
 
 const SunIcon = (
   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -18,26 +13,18 @@ const MoonIcon = (
   </svg>
 );
 
-// Drives `.dark` on <html> — the contract the whole token system keys off, so the entire docs
-// site (and every Twico UI component, including portaled overlays) re-themes. Rendered with
-// Twico UI's own IconButton.
+// Dark mode is just the `.dark` class on <html> — Twico UI's useColorScheme hook
+// manages that class + localStorage persistence, and every component (portaled
+// overlays included) re-themes off it.
 export default function ThemeToggle() {
-  const [dark, setDark] = React.useState(getInitial);
-
-  React.useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-    try {
-      localStorage.setItem("twico-theme", dark ? "dark" : "light");
-    } catch (e) {}
-  }, [dark]);
-
+  const { isDark, toggle } = useColorScheme();
   return (
     <IconButton
       variant="ghost"
-      icon={dark ? SunIcon : MoonIcon}
-      onClick={() => setDark((d) => !d)}
-      aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-      aria-pressed={dark}
+      icon={isDark ? SunIcon : MoonIcon}
+      onClick={toggle}
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      aria-pressed={isDark}
     />
   );
 }

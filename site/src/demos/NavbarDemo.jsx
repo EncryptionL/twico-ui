@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Navbar } from "twico-ui";
+import { Navbar, Button } from "twico-ui";
 
 export default function NavbarDemo() {
   const [active, setActive] = useState("Dashboard");
@@ -12,8 +12,7 @@ export default function NavbarDemo() {
         active: active === label,
         onClick: () => setActive(label),
       }))}
-      actions={<button onClick={() => alert("Sign in")}>Sign in</button>}
-      onMenuClick={() => alert("Open menu")}
+      actions={<Button size="sm">Sign in</Button>}
     />
   );
 }

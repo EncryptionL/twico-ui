@@ -17,10 +17,12 @@ const initialCards = [
 export default function KanbanDemo() {
   const [cards, setCards] = useState(initialCards);
   return (
-    <Kanban
-      columns={columns}
-      cards={cards}
-      onCardMove={(id, to, next) => setCards(next)}
-    />
+    <div style={{ width: "100%", overflowX: "auto" }}>
+      <Kanban
+        columns={columns}
+        cards={cards}
+        onCardMove={(id, to, next) => setCards(next)}
+      />
+    </div>
   );
 }

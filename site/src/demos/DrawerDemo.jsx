@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Drawer } from "twico-ui";
+import { Button, Drawer, Text } from "twico-ui";
 
 export default function DrawerDemo() {
   const [open, setOpen] = useState(false);
   return (
     <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
-      <button onClick={() => setOpen(true)}>Open filters</button>
+      <Button variant="soft" onClick={() => setOpen(true)}>Open filters</Button>
       <Drawer
         open={open}
         onClose={() => setOpen(false)}
@@ -13,9 +13,9 @@ export default function DrawerDemo() {
         size={380}
         title="Filters"
         description="Narrow down the results"
-        footer={<button onClick={() => setOpen(false)}>Apply</button>}
+        footer={<Button onClick={() => setOpen(false)}>Apply</Button>}
       >
-        <p>Adjust your filter options here, then apply the changes.</p>
+        <Text>Adjust your filter options here, then apply the changes.</Text>
       </Drawer>
     </div>
   );

@@ -1,21 +1,21 @@
 import React from "react";
-import { Divider } from "twico-ui";
+import { Divider, Text } from "twico-ui";
 
 export default function DividerDemo() {
   return (
-    <div style={{ width: 320, maxWidth: "100%" }}>
-      <p>Section one</p>
+    <div style={{ width: 380, maxWidth: "100%" }}>
+      <Text>Section one</Text>
       <Divider />
-      <p>Section two</p>
+      <Text>Section two</Text>
       <Divider>OR</Divider>
-      <p>Section three</p>
+      <Text>Section three</Text>
       <Divider align="left">LEFT</Divider>
       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-        <span>A</span>
+        <Text as="span">A</Text>
         <Divider orientation="vertical" />
-        <span>B</span>
+        <Text as="span">B</Text>
         <Divider orientation="vertical" />
-        <span>C</span>
+        <Text as="span">C</Text>
       </div>
     </div>
   );

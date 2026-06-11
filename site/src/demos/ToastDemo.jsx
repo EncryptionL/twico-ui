@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Toast, ToastViewport } from "twico-ui";
+import { Button, Toast, ToastViewport } from "twico-ui";
 
 const samples = [
   { tone: "success", title: "Saved", body: "Your changes were saved." },
@@ -15,9 +15,9 @@ export default function ToastDemo() {
   return (
     <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
       {samples.map((s) => (
-        <button key={s.tone} type="button" onClick={() => push(s)}>
+        <Button key={s.tone} variant="soft" size="sm" onClick={() => push(s)}>
           Show {s.tone}
-        </button>
+        </Button>
       ))}
       <ToastViewport>
         {toasts.map((t) => (
