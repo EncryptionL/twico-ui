@@ -33,8 +33,13 @@ const CSS = `
 .twc-btn:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-btn:active:not(:disabled) { transform: scale(var(--press-scale)); }
 .twc-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.twc-btn[data-loading="true"] { cursor: progress; color: transparent; }
+/* Hide the label/icons under the centered spinner via visibility on the content
+   span — variant rules set \`color\` later in this sheet, so a color-based hide
+   would lose the specificity tie and leave the label showing through. */
+.twc-btn[data-loading="true"] { cursor: progress; }
+.twc-btn[data-loading="true"] .twc-btn__content { visibility: hidden; }
 .twc-btn[data-block="true"] { width: 100%; }
+.twc-btn__content { display: inline-flex; align-items: center; gap: var(--space-2); min-width: 0; }
 
 .twc-btn[data-size="sm"] { --_h: var(--control-h-sm); --_px: var(--space-3); --_fs: var(--text-xs); }
 .twc-btn[data-size="lg"] { --_h: var(--control-h-lg); --_px: var(--space-6); --_fs: var(--text-base); }
@@ -130,9 +135,11 @@ export function Button({
       onClick={handleClick}
       {...rest}
     >
-      {leftIcon ? <span className="twc-btn__icon" aria-hidden="true">{leftIcon}</span> : null}
-      {children}
-      {rightIcon ? <span className="twc-btn__icon" aria-hidden="true">{rightIcon}</span> : null}
+      <span className="twc-btn__content">
+        {leftIcon ? <span className="twc-btn__icon" aria-hidden="true">{leftIcon}</span> : null}
+        {children}
+        {rightIcon ? <span className="twc-btn__icon" aria-hidden="true">{rightIcon}</span> : null}
+      </span>
       {loading ? <span className="twc-btn__spinner" aria-hidden="true" /> : null}
       {ripples.map((r) => (
         <span
