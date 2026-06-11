@@ -16,6 +16,8 @@ const CARD_CSS = `
 .twc-card[data-variant="soft"] { background: var(--color-surface-sunken); border: var(--border-thin) solid transparent; }
 .twc-card[data-interactive="true"] { cursor: pointer; }
 .twc-card[data-interactive="true"]:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--color-primary-border); }
+/* Fill the parent cell — equal-height cards in a grid/flex row. */
+.twc-card[data-full="true"] { height: 100%; }
 .twc-card[data-pad="md"] { padding: var(--space-5); }
 .twc-card[data-pad="lg"] { padding: var(--space-6); }
 .twc-card[data-pad="none"] { padding: 0; }
@@ -34,6 +36,7 @@ export function Card({
   variant = "elevated",
   padding = "md",
   interactive = false,
+  fullHeight = false,
   className = "",
   ...rest
 }) {
@@ -51,6 +54,7 @@ export function Card({
       data-variant={variant}
       data-pad={padding}
       data-interactive={interactive || undefined}
+      data-full={fullHeight || undefined}
       {...rest}
     >
       {(title || subtitle) ? (

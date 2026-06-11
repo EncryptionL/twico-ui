@@ -19,6 +19,8 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   padding?: "none" | "md" | "lg";
   /** Adds a hover-lift + pointer cursor. */
   interactive?: boolean;
+  /** Stretch to fill the parent cell (`height: 100%`) — equal-height cards in a grid/flex row. */
+  fullHeight?: boolean;
   children?: React.ReactNode;
 }
 

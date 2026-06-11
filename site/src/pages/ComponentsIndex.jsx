@@ -21,7 +21,7 @@ export default function ComponentsIndex() {
           <Grid minChildWidth={220} gap={3}>
             {list.map((c) => (
               <Link key={c.name} to={`/components/${slugify(c.name)}`} style={{ display: "block" }}>
-                <Card interactive>
+                <Card interactive fullHeight>
                   <Text as="div" weight="bold">{c.name}</Text>
                   <Text as="div" size="sm" tone="muted">{c.tagline}</Text>
                 </Card>
