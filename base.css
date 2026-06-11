@@ -75,6 +75,20 @@ select:focus-visible {
   color: var(--color-primary-subtle-fg);
 }
 
+/* Density — set data-density="compact" | "comfortable" on any ancestor (a form,
+   a toolbar, or <html>) to retune every control inside. Components size their
+   height from --control-h-*, so this cascades with zero per-component code. */
+[data-density="compact"] {
+  --control-h-sm: 1.75rem;  /* 28 */
+  --control-h-md: 2.125rem; /* 34 */
+  --control-h-lg: 2.5rem;   /* 40 */
+}
+[data-density="comfortable"] {
+  --control-h-sm: 2.25rem;  /* 36 */
+  --control-h-md: 2.75rem;  /* 44 */
+  --control-h-lg: 3.25rem;  /* 52 */
+}
+
 /* Honor reduced-motion globally */
 @media (prefers-reduced-motion: reduce) {
   *,

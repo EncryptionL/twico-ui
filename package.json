@@ -1,7 +1,7 @@
 {
   "name": "twico-ui",
   "version": "0.1.0",
-  "description": "Twico UI — a free, modern, themeable React + Tailwind-friendly component library. 60 components with dark mode, motion, and accessibility built in.",
+  "description": "Twico UI — a free, modern, themeable React + Tailwind-friendly component library. 59 components with dark mode, motion, and accessibility built in.",
   "license": "MIT",
   "author": "Twico UI",
   "homepage": "https://github.com/EncryptionL/twico-ui#readme",
@@ -54,10 +54,15 @@
   ],
   "scripts": {
     "build": "tsup",
+    "build:css": "node scripts/build-css.mjs",
+    "build:css:check": "node scripts/build-css.mjs --check",
     "typecheck": "tsc --noEmit",
     "check:exports": "attw --pack . --exclude-entrypoints styles.css",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "size": "size-limit",
     "release": "semantic-release",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build:css && npm run build"
   },
   "peerDependencies": {
     "react": ">=18",
@@ -67,12 +72,32 @@
     "@arethetypeswrong/cli": "^0.18.3",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
+    "@size-limit/preset-small-lib": "^11.1.6",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "jsdom": "^25.0.1",
     "semantic-release": "^24.2.3",
+    "size-limit": "^11.1.6",
     "tsup": "^8.3.5",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
   },
+  "size-limit": [
+    {
+      "name": "ESM (full barrel)",
+      "path": "dist/index.mjs",
+      "limit": "120 kB"
+    },
+    {
+      "name": "Button only (tree-shaken)",
+      "path": "dist/index.mjs",
+      "import": "{ Button }",
+      "limit": "12 kB"
+    }
+  ],
   "engines": {
     "node": ">=18"
   },

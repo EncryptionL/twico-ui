@@ -34,13 +34,15 @@
   --ring-offset: 0 0 0 2px var(--color-surface), 0 0 0 5px var(--color-ring);
 }
 
-/* Deeper, darker elevation in dark mode */
+/* Deeper, darker elevation in dark mode. Pure black drop-shadows are nearly
+   invisible against dark surfaces, so raised shadows (md/lg/xl) also carry a
+   hairline light outline that gives the surface a perceptible lifted edge. */
 .dark,
 [data-theme="dark"] {
   --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.30);
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.40), 0 1px 2px -1px rgb(0 0 0 / 0.30);
-  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.50), 0 2px 6px -2px rgb(0 0 0 / 0.40);
-  --shadow-lg: 0 12px 28px -6px rgb(0 0 0 / 0.60), 0 4px 10px -4px rgb(0 0 0 / 0.45);
-  --shadow-xl: 0 24px 48px -12px rgb(0 0 0 / 0.70), 0 8px 16px -8px rgb(0 0 0 / 0.50);
+  --shadow-md: 0 0 0 1px rgb(255 255 255 / 0.04), 0 4px 12px -2px rgb(0 0 0 / 0.55), 0 2px 6px -2px rgb(0 0 0 / 0.45);
+  --shadow-lg: 0 0 0 1px rgb(255 255 255 / 0.05), 0 12px 28px -6px rgb(0 0 0 / 0.65), 0 4px 10px -4px rgb(0 0 0 / 0.50);
+  --shadow-xl: 0 0 0 1px rgb(255 255 255 / 0.06), 0 24px 48px -12px rgb(0 0 0 / 0.75), 0 8px 16px -8px rgb(0 0 0 / 0.55);
   --shadow-brand: 0 8px 28px -6px rgb(99 102 241 / 0.60);
 }

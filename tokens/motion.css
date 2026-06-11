@@ -10,6 +10,7 @@
   --duration-base:    220ms; /* @kind other */
   --duration-slow:    320ms; /* @kind other */
   --duration-slower:  480ms; /* @kind other */
+  --duration-exit:    150ms; /* @kind other — overlay close animations; keep in lockstep with the JS unmount timeout */
 
   /* Easing curves */
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);   /* @kind other */
