@@ -9,6 +9,8 @@ import Accessibility from "./pages/Accessibility.jsx";
 import Hooks from "./pages/Hooks.jsx";
 import ComponentsIndex from "./pages/ComponentsIndex.jsx";
 import ComponentPage from "./pages/ComponentPage.jsx";
+import ThemeBuilder from "./pages/ThemeBuilder.jsx";
+import Playground from "./pages/Playground.jsx";
 
 export default function App() {
   return (
@@ -20,6 +22,8 @@ export default function App() {
         <Route path="/docs/dark-mode" element={<DarkMode />} />
         <Route path="/docs/accessibility" element={<Accessibility />} />
         <Route path="/docs/hooks" element={<Hooks />} />
+        <Route path="/theme-builder" element={<ThemeBuilder />} />
+        <Route path="/playground" element={<Playground />} />
         <Route path="/components" element={<ComponentsIndex />} />
         <Route path="/components/:slug" element={<ComponentPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

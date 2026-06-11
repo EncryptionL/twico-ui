@@ -14,6 +14,8 @@ const SearchIcon = (
 const DOC_CMDS = [
   { group: "Getting started", label: "Installation", keywords: "install setup npm yarn pnpm vite cra next.js getting started", to: "/docs/installation" },
   { group: "Getting started", label: "Theming", keywords: "tokens css variables colors radius shadow font rebrand theme", to: "/docs/theming" },
+  { group: "Getting started", label: "Theme builder", keywords: "theme builder brand color radius density rtl live preview export customize", to: "/theme-builder" },
+  { group: "Getting started", label: "Playground", keywords: "playground props knobs interactive try live", to: "/playground" },
   { group: "Getting started", label: "Dark mode", keywords: "dark light theme toggle usecolorscheme prefers color scheme", to: "/docs/dark-mode" },
   { group: "Getting started", label: "Accessibility", keywords: "a11y aria keyboard focus trap reduced motion screen reader", to: "/docs/accessibility" },
   { group: "Getting started", label: "Hooks", keywords: "hooks usemediaquery usedisclosure usecolorscheme uselocalstorage usecopytoclipboard", to: "/docs/hooks" },

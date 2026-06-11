@@ -12,9 +12,11 @@ export const GROUP_ORDER = [
 export const GETTING_STARTED = [
   { to: "/docs/installation", label: "Installation" },
   { to: "/docs/theming", label: "Theming" },
+  { to: "/theme-builder", label: "Theme builder" },
   { to: "/docs/dark-mode", label: "Dark mode" },
   { to: "/docs/accessibility", label: "Accessibility" },
   { to: "/docs/hooks", label: "Hooks" },
+  { to: "/playground", label: "Playground" },
 ];
 
 export const REPO_URL = "https://github.com/EncryptionL/twico-ui";
