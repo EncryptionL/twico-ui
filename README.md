@@ -8,6 +8,8 @@ npm install twico-ui
 
 > Requires **React 18+** (`react` and `react-dom` are peer dependencies).
 
+📖 **Documentation, live examples & API reference:** **https://encryptionl.github.io/twico-ui/**
+
 ## Framework setup
 
 Twico UI works in any React 18+ app. Every component ships with a `"use client"` boundary, so it drops straight into **Next.js App Router** Server Components without extra wrapping.

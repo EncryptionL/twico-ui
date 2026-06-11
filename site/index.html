@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twico UI — Free React component library</title>
+    <meta
+      name="description"
+      content="Twico UI — a free, modern, themeable React component library with dark mode, motion, and accessibility built in. 53 components styled with design tokens."
+    />
+    <script>
+      // Apply the saved theme before paint to avoid a flash of the wrong mode.
+      try {
+        var t = localStorage.getItem("twico-theme");
+        if (t === "dark" || (!t && matchMedia("(prefers-color-scheme: dark)").matches)) {
+          document.documentElement.classList.add("dark");
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
