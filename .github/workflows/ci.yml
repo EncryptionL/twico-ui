@@ -1,7 +1,7 @@
 name: CI
 
 # Runs on the dev integration branch and on PRs into dev/main.
-# Publishing is handled separately and ONLY from main (see publish.yml).
+# Publishing is automated separately and ONLY from main (see release.yml).
 on:
   push:
     branches:
@@ -14,6 +14,10 @@ on:
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
+
+# Least privilege: CI only needs to read the checked-out code.
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -44,6 +48,14 @@ jobs:
           head -1 dist/index.mjs | grep -q '"use client"' || { echo "::error::dist/index.mjs is missing the \"use client\" directive"; exit 1; }
           head -1 dist/index.cjs | grep -q '"use client"' || { echo "::error::dist/index.cjs is missing the \"use client\" directive"; exit 1; }
           echo "✓ both bundles start with \"use client\""
+
+      - name: Guard - no CDN references in shipped source
+        run: |
+          if grep -rInE "(fonts\.googleapis|fonts\.gstatic|cdnjs\.cloudflare|unpkg\.com|jsdelivr\.net|esm\.sh|skypack\.dev|//cdn\.)" --include="*.jsx" --include="*.ts" --include="*.css" components src styles tokens base.css; then
+            echo "::error::CDN reference found in shipped source — self-host fonts/icons/assets instead.";
+            exit 1;
+          fi
+          echo "✓ no CDN references in shipped source"
 
       - name: Verify package contents
         run: npm pack --dry-run
