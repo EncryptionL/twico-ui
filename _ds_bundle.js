@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/breadcrumb/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/carousel/Carousel.jsx"},{"name":"Chart","sourcePath":"components/chart/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/color-picker/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/command-palette/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/datatable/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/date-range/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/datepicker/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/divider/Divider.jsx"},{"name":"Drawer","sourcePath":"components/drawer/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/empty-state/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/file-upload/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/kanban/Kanban.jsx"},{"name":"List","sourcePath":"components/list/List.jsx"},{"name":"Navbar","sourcePath":"components/navbar/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/popover/Popover.jsx"},{"name":"Rating","sourcePath":"components/rating/Rating.jsx"},{"name":"Combobox","sourcePath":"components/selects/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/selects/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/selects/Select.jsx"},{"name":"Sidebar","sourcePath":"components/sidebar/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/slider/Slider.jsx"},{"name":"Stat","sourcePath":"components/stat/Stat.jsx"},{"name":"Stepper","sourcePath":"components/stepper/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/table/Pagination.jsx"},{"name":"Table","sourcePath":"components/table/Table.jsx"},{"name":"Timeline","sourcePath":"components/timeline/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/toggles/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/toggles/Radio.jsx"},{"name":"Switch","sourcePath":"components/toggles/Switch.jsx"},{"name":"TreeView","sourcePath":"components/tree-view/TreeView.jsx"}],"sourceHashes":{"assets/twico-icons.js":"5b2ce72508f0","components/breadcrumb/Breadcrumb.jsx":"821993b25cee","components/buttons/Button.jsx":"9a1909256b6d","components/buttons/IconButton.jsx":"c678d5f9b72f","components/carousel/Carousel.jsx":"f931784abc5e","components/chart/Chart.jsx":"58e454d689b3","components/color-picker/ColorPicker.jsx":"759ab6272981","components/command-palette/CommandPalette.jsx":"5126f62e49a2","components/data-display/Avatar.jsx":"84e0105bdc89","components/data-display/AvatarMenu.jsx":"1a913f14b680","components/data-display/Badge.jsx":"a776c3302e52","components/data-display/Card.jsx":"f3e9a6419bd2","components/data-display/Tag.jsx":"305b86edb492","components/datatable/Datatable.jsx":"711d5260bf73","components/date-range/DateRangePicker.jsx":"56f874cd13f4","components/datepicker/DatePicker.jsx":"9452e2245f8d","components/divider/Divider.jsx":"f0282ccedb8a","components/drawer/Drawer.jsx":"0d7c4617962b","components/empty-state/EmptyState.jsx":"946e2b7f4dac","components/feedback/Alert.jsx":"309656cf18af","components/feedback/Progress.jsx":"c9e63a7008ef","components/feedback/Skeleton.jsx":"1e4951aed985","components/feedback/Spinner.jsx":"62e85f6d7ee8","components/feedback/Toast.jsx":"451c5a57987c","components/file-upload/FileUpload.jsx":"ed29f22d9c8c","components/inputs/Currency.jsx":"e8a5c9b899e0","components/inputs/CurrencyField.jsx":"bfc3e8fc4c9e","components/inputs/Input.jsx":"6f022d62a61f","components/inputs/Textarea.jsx":"88884450f462","components/kanban/Kanban.jsx":"d1791b323776","components/list/List.jsx":"4a4934c4c164","components/navbar/Navbar.jsx":"59578d4341ac","components/navigation/Accordion.jsx":"195d58ca3cf7","components/navigation/Tabs.jsx":"9299d3574ee5","components/overlay/Dialog.jsx":"ec0e1cfff11a","components/overlay/Menu.jsx":"2d532af9e8a5","components/overlay/Tooltip.jsx":"38f77365a0f0","components/popover/Popover.jsx":"78cc784df531","components/rating/Rating.jsx":"44e3d22fc4f8","components/selects/Combobox.jsx":"9bfb2fb63827","components/selects/MultiSelect.jsx":"0322e16d48fb","components/selects/Select.jsx":"08b061d7c140","components/sidebar/Sidebar.jsx":"6bb2f73b92a6","components/slider/Slider.jsx":"17701db0438b","components/stat/Stat.jsx":"c7f50ba0e979","components/stepper/Stepper.jsx":"ee8ba7a090df","components/table/Pagination.jsx":"0c59b19379d0","components/table/Table.jsx":"3fc3b011ed36","components/timeline/Timeline.jsx":"d4b53bdd8682","components/toggles/Checkbox.jsx":"35e133600782","components/toggles/Radio.jsx":"f84d34f6e95f","components/toggles/Switch.jsx":"baed8b8e0421","components/tree-view/TreeView.jsx":"9aa87b42c767","src/index.ts":"a4d2278c9486","tsup.config.ts":"dea2a6007153","ui_kits/dashboard/DashboardApp.jsx":"de5cb936cdee","ui_kits/dashboard/data.js":"42e7935fb85d","ui_kits/showcase/Features.jsx":"b44ba8bfb104","ui_kits/showcase/Footer.jsx":"1ebd057f44e9","ui_kits/showcase/Hero.jsx":"23a63c187eb2","ui_kits/showcase/Nav.jsx":"3ac82cf8508a","ui_kits/showcase/Showcase.jsx":"7c8b42d7b181"},"inlinedExternals":[],"unexposedExports":[{"name":"clampPrecision","sourcePath":"components/inputs/Currency.jsx"}]} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"assets/twico-icons.js":"5b2ce72508f0","components/navigation/Breadcrumb.jsx":"821993b25cee","components/buttons/Button.jsx":"9a1909256b6d","components/buttons/IconButton.jsx":"c678d5f9b72f","components/data-display/Carousel.jsx":"f931784abc5e","components/data-display/Chart.jsx":"58e454d689b3","components/inputs/ColorPicker.jsx":"759ab6272981","components/overlay/CommandPalette.jsx":"5126f62e49a2","components/data-display/Avatar.jsx":"84e0105bdc89","components/data-display/AvatarMenu.jsx":"1a913f14b680","components/data-display/Badge.jsx":"a776c3302e52","components/data-display/Card.jsx":"f3e9a6419bd2","components/data-display/Tag.jsx":"305b86edb492","components/data-display/Datatable.jsx":"711d5260bf73","components/inputs/DateRangePicker.jsx":"56f874cd13f4","components/inputs/DatePicker.jsx":"9452e2245f8d","components/layout/Divider.jsx":"f0282ccedb8a","components/overlay/Drawer.jsx":"0d7c4617962b","components/feedback/EmptyState.jsx":"946e2b7f4dac","components/feedback/Alert.jsx":"309656cf18af","components/feedback/Progress.jsx":"c9e63a7008ef","components/feedback/Skeleton.jsx":"1e4951aed985","components/feedback/Spinner.jsx":"62e85f6d7ee8","components/feedback/Toast.jsx":"451c5a57987c","components/inputs/FileUpload.jsx":"ed29f22d9c8c","components/inputs/Currency.jsx":"e8a5c9b899e0","components/inputs/CurrencyField.jsx":"bfc3e8fc4c9e","components/inputs/Input.jsx":"6f022d62a61f","components/inputs/Textarea.jsx":"88884450f462","components/data-display/Kanban.jsx":"d1791b323776","components/data-display/List.jsx":"4a4934c4c164","components/navigation/Navbar.jsx":"59578d4341ac","components/navigation/Accordion.jsx":"195d58ca3cf7","components/navigation/Tabs.jsx":"9299d3574ee5","components/overlay/Dialog.jsx":"ec0e1cfff11a","components/overlay/Menu.jsx":"2d532af9e8a5","components/overlay/Tooltip.jsx":"38f77365a0f0","components/overlay/Popover.jsx":"78cc784df531","components/inputs/Rating.jsx":"44e3d22fc4f8","components/inputs/Combobox.jsx":"9bfb2fb63827","components/inputs/MultiSelect.jsx":"0322e16d48fb","components/inputs/Select.jsx":"08b061d7c140","components/navigation/Sidebar.jsx":"6bb2f73b92a6","components/inputs/Slider.jsx":"17701db0438b","components/data-display/Stat.jsx":"c7f50ba0e979","components/navigation/Stepper.jsx":"ee8ba7a090df","components/data-display/Pagination.jsx":"0c59b19379d0","components/data-display/Table.jsx":"3fc3b011ed36","components/data-display/Timeline.jsx":"d4b53bdd8682","components/inputs/Checkbox.jsx":"35e133600782","components/inputs/Radio.jsx":"f84d34f6e95f","components/inputs/Switch.jsx":"baed8b8e0421","components/navigation/TreeView.jsx":"9aa87b42c767","src/index.ts":"a4d2278c9486","tsup.config.ts":"dea2a6007153","ui_kits/dashboard/DashboardApp.jsx":"de5cb936cdee","ui_kits/dashboard/data.js":"42e7935fb85d","ui_kits/showcase/Features.jsx":"b44ba8bfb104","ui_kits/showcase/Footer.jsx":"1ebd057f44e9","ui_kits/showcase/Hero.jsx":"23a63c187eb2","ui_kits/showcase/Nav.jsx":"3ac82cf8508a","ui_kits/showcase/Showcase.jsx":"7c8b42d7b181"},"inlinedExternals":[],"unexposedExports":[{"name":"clampPrecision","sourcePath":"components/inputs/Currency.jsx"}]} */
 
 (() => {
 
@@ -64,7 +64,7 @@ try { (() => {
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "assets/twico-icons.js", error: String((e && e.message) || e) }); }
 
-// components/breadcrumb/Breadcrumb.jsx
+// components/navigation/Breadcrumb.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const BREADCRUMB_CSS = `
@@ -143,7 +143,7 @@ function Breadcrumb({
   }));
 }
 Object.assign(__ds_scope, { Breadcrumb });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/breadcrumb/Breadcrumb.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Breadcrumb.jsx", error: String((e && e.message) || e) }); }
 
 // components/buttons/Button.jsx
 try { (() => {
@@ -366,7 +366,7 @@ function IconButton({
 Object.assign(__ds_scope, { IconButton });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/buttons/IconButton.jsx", error: String((e && e.message) || e) }); }
 
-// components/carousel/Carousel.jsx
+// components/data-display/Carousel.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const CAROUSEL_CSS = `
@@ -482,9 +482,9 @@ function Carousel({
   }))) : null);
 }
 Object.assign(__ds_scope, { Carousel });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/carousel/Carousel.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data-display/Carousel.jsx", error: String((e && e.message) || e) }); }
 
-// components/chart/Chart.jsx
+// components/data-display/Chart.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const CHART_CSS = `
@@ -643,9 +643,9 @@ function shortNum(v) {
   return String(Math.round(v));
 }
 Object.assign(__ds_scope, { Chart });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/chart/Chart.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data-display/Chart.jsx", error: String((e && e.message) || e) }); }
 
-// components/color-picker/ColorPicker.jsx
+// components/inputs/ColorPicker.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const COLORPICKER_CSS = `
@@ -912,9 +912,9 @@ function ColorPicker({
   }))) : null) : null);
 }
 Object.assign(__ds_scope, { ColorPicker });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/color-picker/ColorPicker.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/inputs/ColorPicker.jsx", error: String((e && e.message) || e) }); }
 
-// components/command-palette/CommandPalette.jsx
+// components/overlay/CommandPalette.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const COMMAND_CSS = `
@@ -1091,7 +1091,7 @@ function CommandPalette({
   }))))));
 }
 Object.assign(__ds_scope, { CommandPalette });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/command-palette/CommandPalette.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlay/CommandPalette.jsx", error: String((e && e.message) || e) }); }
 
 // components/data-display/Avatar.jsx
 try { (() => {
@@ -1361,7 +1361,7 @@ function Tag({
 Object.assign(__ds_scope, { Tag });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data-display/Tag.jsx", error: String((e && e.message) || e) }); }
 
-// components/date-range/DateRangePicker.jsx
+// components/inputs/DateRangePicker.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const RANGE_CSS = `
@@ -1610,9 +1610,9 @@ function DateRangePicker({
   })))) : null);
 }
 Object.assign(__ds_scope, { DateRangePicker });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/date-range/DateRangePicker.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/inputs/DateRangePicker.jsx", error: String((e && e.message) || e) }); }
 
-// components/datepicker/DatePicker.jsx
+// components/inputs/DatePicker.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const DATEPICKER_CSS = `
@@ -1864,9 +1864,9 @@ function DatePicker({
   }, name.slice(0, 3))))) : null);
 }
 Object.assign(__ds_scope, { DatePicker });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/datepicker/DatePicker.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/inputs/DatePicker.jsx", error: String((e && e.message) || e) }); }
 
-// components/divider/Divider.jsx
+// components/layout/Divider.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const DIVIDER_CSS = `
@@ -1911,9 +1911,9 @@ function Divider({
   }, rest));
 }
 Object.assign(__ds_scope, { Divider });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/divider/Divider.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/layout/Divider.jsx", error: String((e && e.message) || e) }); }
 
-// components/drawer/Drawer.jsx
+// components/overlay/Drawer.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const DRAWER_CSS = `
@@ -2014,9 +2014,9 @@ function Drawer({
   }, footer) : null));
 }
 Object.assign(__ds_scope, { Drawer });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/drawer/Drawer.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlay/Drawer.jsx", error: String((e && e.message) || e) }); }
 
-// components/empty-state/EmptyState.jsx
+// components/feedback/EmptyState.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const EMPTY_CSS = `
@@ -2061,7 +2061,7 @@ function EmptyState({
   }, actions) : null);
 }
 Object.assign(__ds_scope, { EmptyState });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/empty-state/EmptyState.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/EmptyState.jsx", error: String((e && e.message) || e) }); }
 
 // components/feedback/Alert.jsx
 try { (() => {
@@ -2446,7 +2446,7 @@ function ToastViewport({
 Object.assign(__ds_scope, { Toast, ToastViewport });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Toast.jsx", error: String((e && e.message) || e) }); }
 
-// components/file-upload/FileUpload.jsx
+// components/inputs/FileUpload.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const UPLOAD_CSS = `
@@ -2611,7 +2611,7 @@ function FileUpload({
   })))))) : null);
 }
 Object.assign(__ds_scope, { FileUpload });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/file-upload/FileUpload.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/inputs/FileUpload.jsx", error: String((e && e.message) || e) }); }
 
 // components/inputs/Currency.jsx
 try { (() => {
@@ -3071,7 +3071,7 @@ function Textarea({
 Object.assign(__ds_scope, { Textarea });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/inputs/Textarea.jsx", error: String((e && e.message) || e) }); }
 
-// components/kanban/Kanban.jsx
+// components/data-display/Kanban.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const KANBAN_CSS = `
@@ -3186,9 +3186,9 @@ function Kanban({
   }));
 }
 Object.assign(__ds_scope, { Kanban });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/kanban/Kanban.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data-display/Kanban.jsx", error: String((e && e.message) || e) }); }
 
-// components/list/List.jsx
+// components/data-display/List.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const LIST_CSS = `
@@ -3258,9 +3258,9 @@ function List({
   }));
 }
 Object.assign(__ds_scope, { List });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/list/List.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data-display/List.jsx", error: String((e && e.message) || e) }); }
 
-// components/navbar/Navbar.jsx
+// components/navigation/Navbar.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const NAVBAR_CSS = `
@@ -3322,7 +3322,7 @@ function Navbar({
   }, actions) : null);
 }
 Object.assign(__ds_scope, { Navbar });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navbar/Navbar.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Navbar.jsx", error: String((e && e.message) || e) }); }
 
 // components/navigation/Accordion.jsx
 try { (() => {
@@ -3986,7 +3986,7 @@ function Tooltip({
 Object.assign(__ds_scope, { Tooltip });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlay/Tooltip.jsx", error: String((e && e.message) || e) }); }
 
-// components/popover/Popover.jsx
+// components/overlay/Popover.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const {
@@ -4134,9 +4134,9 @@ function Popover({
   }, trigger), pop && RD && RD.createPortal ? RD.createPortal(pop, document.body) : pop);
 }
 Object.assign(__ds_scope, { Popover });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/popover/Popover.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlay/Popover.jsx", error: String((e && e.message) || e) }); }
 
-// components/rating/Rating.jsx
+// components/inputs/Rating.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const RATING_CSS = `
@@ -4220,9 +4220,9 @@ function Rating({
   }, val.toFixed(1)) : null);
 }
 Object.assign(__ds_scope, { Rating });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/rating/Rating.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/inputs/Rating.jsx", error: String((e && e.message) || e) }); }
 
-// components/selects/Combobox.jsx
+// components/inputs/Combobox.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const COMBO_CSS = `
@@ -4547,9 +4547,9 @@ function Combobox({
   }, hint) : null);
 }
 Object.assign(__ds_scope, { Combobox });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/selects/Combobox.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/inputs/Combobox.jsx", error: String((e && e.message) || e) }); }
 
-// components/selects/MultiSelect.jsx
+// components/inputs/MultiSelect.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const MULTI_CSS = `
@@ -4870,9 +4870,9 @@ function MultiSelect({
   }, hint) : null);
 }
 Object.assign(__ds_scope, { MultiSelect });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/selects/MultiSelect.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/inputs/MultiSelect.jsx", error: String((e && e.message) || e) }); }
 
-// components/selects/Select.jsx
+// components/inputs/Select.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const {
@@ -5248,7 +5248,7 @@ function Select({
   }, hint) : null);
 }
 Object.assign(__ds_scope, { Select });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/selects/Select.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/inputs/Select.jsx", error: String((e && e.message) || e) }); }
 
 // components/inputs/CurrencyField.jsx
 try { (() => {
@@ -5382,7 +5382,7 @@ function CurrencyField({
 Object.assign(__ds_scope, { CurrencyField });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/inputs/CurrencyField.jsx", error: String((e && e.message) || e) }); }
 
-// components/sidebar/Sidebar.jsx
+// components/navigation/Sidebar.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const SIDEBAR_CSS = `
@@ -5496,9 +5496,9 @@ function Sidebar({
   })), /*#__PURE__*/React.createElement("span", null, "Collapse")) : null) : null);
 }
 Object.assign(__ds_scope, { Sidebar });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/sidebar/Sidebar.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Sidebar.jsx", error: String((e && e.message) || e) }); }
 
-// components/slider/Slider.jsx
+// components/inputs/Slider.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const SLIDER_CSS = `
@@ -5648,9 +5648,9 @@ function Slider({
   }, fmt(val)))));
 }
 Object.assign(__ds_scope, { Slider });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/slider/Slider.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/inputs/Slider.jsx", error: String((e && e.message) || e) }); }
 
-// components/stat/Stat.jsx
+// components/data-display/Stat.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const STAT_CSS = `
@@ -5731,9 +5731,9 @@ function Stat({
   }, helpText) : null) : null);
 }
 Object.assign(__ds_scope, { Stat });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/stat/Stat.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data-display/Stat.jsx", error: String((e && e.message) || e) }); }
 
-// components/stepper/Stepper.jsx
+// components/navigation/Stepper.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const STEPPER_CSS = `
@@ -5858,9 +5858,9 @@ function Stepper({
   }));
 }
 Object.assign(__ds_scope, { Stepper });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/stepper/Stepper.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Stepper.jsx", error: String((e && e.message) || e) }); }
 
-// components/table/Pagination.jsx
+// components/data-display/Pagination.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const PAGINATION_CSS = `
@@ -6013,9 +6013,9 @@ function Pagination({
   })) : null);
 }
 Object.assign(__ds_scope, { Pagination });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/table/Pagination.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data-display/Pagination.jsx", error: String((e && e.message) || e) }); }
 
-// components/datatable/Datatable.jsx
+// components/data-display/Datatable.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const DT_CSS = `
@@ -9047,9 +9047,9 @@ function Datatable({
   }), " Add filter"))) : null);
 }
 Object.assign(__ds_scope, { Datatable });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/datatable/Datatable.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data-display/Datatable.jsx", error: String((e && e.message) || e) }); }
 
-// components/table/Table.jsx
+// components/data-display/Table.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const TABLE_CSS = `
@@ -9170,9 +9170,9 @@ function Table({
   }))));
 }
 Object.assign(__ds_scope, { Table });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/table/Table.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data-display/Table.jsx", error: String((e && e.message) || e) }); }
 
-// components/timeline/Timeline.jsx
+// components/data-display/Timeline.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const TIMELINE_CSS = `
@@ -9233,9 +9233,9 @@ function Timeline({
   }, it.description) : null))));
 }
 Object.assign(__ds_scope, { Timeline });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/timeline/Timeline.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data-display/Timeline.jsx", error: String((e && e.message) || e) }); }
 
-// components/toggles/Checkbox.jsx
+// components/inputs/Checkbox.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 function Checkbox({
@@ -9329,9 +9329,9 @@ function Checkbox({
   }, description) : null) : null);
 }
 Object.assign(__ds_scope, { Checkbox });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/toggles/Checkbox.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/inputs/Checkbox.jsx", error: String((e && e.message) || e) }); }
 
-// components/toggles/Radio.jsx
+// components/inputs/Radio.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 function Radio({
@@ -9410,9 +9410,9 @@ function Radio({
   }, description) : null) : null);
 }
 Object.assign(__ds_scope, { Radio });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/toggles/Radio.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/inputs/Radio.jsx", error: String((e && e.message) || e) }); }
 
-// components/toggles/Switch.jsx
+// components/inputs/Switch.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 function Switch({
@@ -9488,9 +9488,9 @@ function Switch({
   }, description) : null) : null);
 }
 Object.assign(__ds_scope, { Switch });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/toggles/Switch.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/inputs/Switch.jsx", error: String((e && e.message) || e) }); }
 
-// components/tree-view/TreeView.jsx
+// components/navigation/TreeView.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 const TREE_CSS = `
@@ -9611,7 +9611,7 @@ function TreeView({
   }))));
 }
 Object.assign(__ds_scope, { TreeView });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/tree-view/TreeView.jsx", error: String((e && e.message) || e) }); }
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/TreeView.jsx", error: String((e && e.message) || e) }); }
 
 // src/index.ts
 try { (() => {

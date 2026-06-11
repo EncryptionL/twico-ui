@@ -1,6 +1,6 @@
 import React from "react";
 import { CURRENCIES, CURRENCY_OPTIONS, clampPrecision } from "./Currency.jsx";
-import { Select } from "../selects/Select.jsx";
+import { Select } from "./Select.jsx";
 
 const CURF_CSS = `
 /* Shared input shell (self-contained — CurrencyField must not depend on the

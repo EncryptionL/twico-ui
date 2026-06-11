@@ -166,40 +166,16 @@ shadows) · `motion.css` (durations, easings, keyframes) · `fonts.css` (`@font-
 **`assets/`** — `fonts/` (Plus Jakarta Sans, JetBrains Mono variable TTFs + OFL) ·
 `twico-icons.js` (Lucide → React helper).
 
-**`components/`** — 59 components across 34 groups (each: `.jsx` + `.d.ts` + `.prompt.md`, one
-`@dsCard` per directory):
+**`components/`** — 59 components across 8 group directories matching the docs-site taxonomy
+(each component: `.jsx` + `.d.ts` + `.prompt.md`; `@dsCard` previews live alongside):
 - `buttons/` — **Button**, **IconButton**
-- `inputs/` — **Input** (suffix icon; password reveal toggle), **Textarea**, **Currency** (fixed code-defined currency), **CurrencyField** (user-selectable currency) — symbol prefix + code suffix, precision-enforced
-- `selects/` — **Select** (custom popover), **Combobox** (searchable), **MultiSelect** — all support grouped + two-line options
-- `toggles/` — **Checkbox**, **Radio**, **Switch**
-- `data-display/` — **Card**, **Avatar**, **AvatarMenu** (avatar → account dropdown), **Badge**, **Tag**
-- `stat/` — **Stat** (KPI / metric card with trend delta)
-- `timeline/` — **Timeline** (vertical event feed with node dots + tones)
-- `list/` — **List** (rows with leading/trailing slots; static/link/button)
-- `carousel/` — **Carousel** (sliding slides — arrows, dots, autoplay)
-- `color-picker/` — **ColorPicker** (sat/value square, hue, hex, presets)
-- `tree-view/` — **TreeView** (hierarchical expand/collapse + selection)
-- `chart/` — **Chart** (dependency-free SVG bar & line, multi-series)
-- `kanban/` — **Kanban** (drag-and-drop board, columns of cards)
-- `date-range/` — **DateRangePicker** (range calendar + quick presets)
-- `command-palette/` — **CommandPalette** (⌘K searchable command menu)
-- `table/` — **Table**, **Pagination**
-- `datatable/` — **Datatable** (MUI Data Grid Premium-style: sort, filter incl. multi-value, searchable columns, hide, pin, reorder, resize, density, multi-format export (CSV/Excel/TSV/JSON), aggregation footer, row grouping/reorder/resize/pinning, inline editing, row/cell selection, batch actions, pivoting, server-side mode, pagination + jump-to-page, skeleton, full a11y; filter controls + pager reuse Select/Input/Pagination)
-- `feedback/` — **Alert**, **Spinner**, **Progress**, **Skeleton**, **Toast** (+ `ToastViewport`)
-- `empty-state/` — **EmptyState** (zero-data placeholder + CTA)
-- `navigation/` — **Tabs**, **Accordion**
-- `breadcrumb/` — **Breadcrumb** (path trail, icons, middle-collapse)
-- `stepper/` — **Stepper** (wizard progress, horizontal/vertical, error state)
-- `slider/` — **Slider** (range, value bubble, ticks, keyboard)
-- `rating/` — **Rating** (interactive/read-only stars)
-- `datepicker/` — **DatePicker** (calendar popover, min/max, month/year nav)
-- `file-upload/` — **FileUpload** (drag-and-drop dropzone + file list)
-- `divider/` — **Divider** (horizontal/vertical, labeled)
-- `overlay/` — **Tooltip**, **Dialog**, **Menu** (portaled dropdown — headings, shortcuts, rich header, keyboard nav)
-- `drawer/` — **Drawer** (slide-in panel from any edge)
-- `popover/` — **Popover** (portaled anchored panel, auto-flip)
-- `navbar/` — **Navbar** (top app bar — brand, links, actions)
-- `sidebar/` — **Sidebar** (collapsible side nav — sections, icons, badges)
+- `layout/` — **Box**, **Container**, **Grid**, **Stack**, **Divider** (horizontal/vertical, labeled)
+- `typography/` — **Code**, **Heading**, **Text**
+- `inputs/` — **Input** (suffix icon; password reveal toggle), **Textarea**, **Currency** (fixed code-defined currency), **CurrencyField** (user-selectable currency — symbol prefix + code suffix, precision-enforced), **Select** (custom popover), **Combobox** (searchable), **MultiSelect** (all selects support grouped + two-line options), **Checkbox**, **Radio**, **Switch**, **Slider** (range, value bubble, ticks, keyboard), **Rating** (interactive/read-only stars), **ColorPicker** (sat/value square, hue, hex, presets), **DatePicker** (calendar popover, min/max, month/year nav), **DateRangePicker** (range calendar + quick presets), **FileUpload** (drag-and-drop dropzone + file list)
+- `data-display/` — **Card**, **Avatar**, **AvatarMenu** (avatar → account dropdown), **Badge**, **Tag**, **Stat** (KPI / metric card with trend delta), **Timeline** (vertical event feed with node dots + tones), **List** (rows with leading/trailing slots; static/link/button), **Carousel** (sliding slides — arrows, dots, autoplay), **Chart** (dependency-free SVG bar & line, multi-series), **Kanban** (drag-and-drop board, columns of cards), **Table**, **Pagination**, **Datatable** (MUI Data Grid Premium-style: sort, filter incl. multi-value, searchable columns, hide, pin, reorder, resize, density, multi-format export (CSV/Excel/TSV/JSON), aggregation footer, row grouping/reorder/resize/pinning, inline editing, row/cell selection, batch actions, pivoting, server-side mode, pagination + jump-to-page, skeleton, full a11y; filter controls + pager reuse Select/Input/Pagination)
+- `navigation/` — **Tabs**, **Accordion**, **Breadcrumb** (path trail, icons, middle-collapse), **Stepper** (wizard progress, horizontal/vertical, error state), **Navbar** (top app bar — brand, links, actions), **Sidebar** (collapsible side nav — sections, icons, badges), **TreeView** (hierarchical expand/collapse + selection)
+- `feedback/` — **Alert**, **Spinner**, **Progress**, **Skeleton**, **Toast** (+ `ToastViewport`), **EmptyState** (zero-data placeholder + CTA)
+- `overlay/` — **Tooltip**, **Dialog**, **Menu** (portaled dropdown — headings, shortcuts, rich header, keyboard nav), **Drawer** (slide-in panel from any edge), **Popover** (portaled anchored panel, auto-flip), **CommandPalette** (⌘K searchable command menu)
 
 Mount in card/kit HTML via `const { Button } = window.TwicoUiDesignSystem_f2f16a` after loading
 `_ds_bundle.js`.

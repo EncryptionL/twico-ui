@@ -15,8 +15,8 @@ Key files:
 - `styles.css` — single CSS entry point (link this); pulls in `tokens/` + fonts + `base.css`.
 - `tokens/` — colors, typography, spacing, radius/shadows, motion, fonts.
 - `components/` — 59 React components (`.jsx` + `.d.ts` props + `.prompt.md` usage), grouped into
-  buttons / inputs / selects / toggles / data-display / datatable / table / feedback /
-  navigation / overlay / and more.
+  8 directories matching the docs-site taxonomy: buttons / layout / typography / inputs /
+  data-display / navigation / feedback / overlay.
 - `assets/` — self-hosted fonts + `twico-icons.js` (Lucide → React helper).
 - `ui_kits/showcase/` — the landing-page / live playground recreation.
 

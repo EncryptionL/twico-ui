@@ -29,7 +29,7 @@ This one repo holds three things:
 
 | Path | What |
 | --- | --- |
-| `components/<group>/<Name>.jsx` | A component (34 group dirs). Each has a sibling `<Name>.d.ts` (props contract) and `<Name>.prompt.md` (usage). `*.card.html` previews exist for most groups (35 files — not 1:1 with components). |
+| `components/<group>/<Name>.jsx` | A component. 8 group dirs matching the docs-site taxonomy: `buttons`, `layout`, `typography`, `inputs`, `data-display`, `navigation`, `feedback`, `overlay`. Each component has a sibling `<Name>.d.ts` (props contract) and `<Name>.prompt.md` (usage); `*.card.html` previews live alongside (35 files — not 1:1 with components). |
 | `hooks/index.js` + `hooks/index.d.ts` | The 23-hook API, re-exported via `export * from "../hooks"` in `src/index.ts`. See `docs/hooks.md`. |
 | `src/index.ts` | Barrel re-exporting every component (value + types) + hooks. **Update it when you add/remove a component.** |
 | `tokens/*.css`, `base.css`, `styles.css` | Design tokens (colors, fonts, typography, spacing, radius, motion) + reset. `styles.css` is the dev entry (`@import`s the rest). |
@@ -104,7 +104,9 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
 
 ## 5. Architecture notes
 
-- **Components are self-contained.** Each imports only `react` (and `react-dom` for portals),
+- **Components are self-contained.** Each imports only `react` (and `react-dom` for portals);
+  the only exceptions are composite components that reuse siblings (`AvatarMenu` → `Menu`,
+  `Datatable` → `Select`/`Input`/`MultiSelect`/`Pagination`, `CurrencyField` → `Select`). Each
   injects its own scoped CSS once via `React.useInsertionEffect` (a `<style>` tag keyed by id —
   some related components share one id, e.g. the input family shares `twc-field-styles`), and
   styles everything through CSS custom properties (`--color-*`, `--radius-*`, `--ease-*`, …).

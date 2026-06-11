@@ -508,7 +508,7 @@ export const components = [
   {
     "name": "Carousel",
     "slug": "carousel",
-    "group": "Feedback",
+    "group": "Data display",
     "summary": "Carousel is a sliding one-slide-per-view component with prev/next arrows, dot indicators, optional looping, and optional autoplay that pauses on hover. Use it to showcase a sequence of images or content panels where each child is a single slide.",
     "importName": "Carousel",
     "propsRows": [
@@ -1635,7 +1635,7 @@ export const components = [
   {
     "name": "Divider",
     "slug": "divider",
-    "group": "Feedback",
+    "group": "Layout",
     "summary": "Divider is a thin separator rule that visually splits content, either horizontally or vertically. Use it to break up sections, lists, or inline items, optionally with a centered or aligned label (e.g. \"OR\").",
     "importName": "Divider",
     "propsRows": [

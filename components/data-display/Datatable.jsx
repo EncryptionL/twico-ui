@@ -1,8 +1,8 @@
 import React from "react";
-import { Select } from "../selects/Select.jsx";
+import { Select } from "../inputs/Select.jsx";
 import { Input } from "../inputs/Input.jsx";
-import { MultiSelect } from "../selects/MultiSelect.jsx";
-import { Pagination } from "../table/Pagination.jsx";
+import { MultiSelect } from "../inputs/MultiSelect.jsx";
+import { Pagination } from "./Pagination.jsx";
 
 const DT_CSS = `
 .twc-dt { display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--color-text);

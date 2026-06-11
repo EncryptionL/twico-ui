@@ -32,7 +32,9 @@ twico-ui/
 
 Each component is a self-contained React function:
 
-- Imports only `react` (and `react-dom` for portals). **No other runtime dependencies.**
+- Imports only `react` (and `react-dom` for portals). **No other runtime dependencies.** The only
+  internal imports are composite components reusing siblings (`AvatarMenu` → `Menu`, `Datatable` →
+  `Select`/`Input`/`MultiSelect`/`Pagination`, `CurrencyField` → `Select`).
 - Injects its own scoped CSS once, via a `<style>` element keyed by a unique id, inside a
   `useEffect`. The CSS string is a **constant** — never built from props.
 - Styles everything through **CSS custom properties** (`--color-*`, `--radius-*`, `--space-*`,
