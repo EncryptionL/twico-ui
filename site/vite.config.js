@@ -9,6 +9,11 @@ export default defineConfig({
   // Served from https://encryptionl.github.io/twico-ui/ on GitHub Pages.
   base: "/twico-ui/",
   plugins: [react()],
+  // The library lives one level up (../src, ../styles/fonts). Allow the dev
+  // server to read it so the self-hosted fonts don't 403 during `npm run dev`.
+  server: {
+    fs: { allow: [".."] },
+  },
   resolve: {
     alias: {
       "twico-ui": fileURLToPath(new URL("../src/index.ts", import.meta.url)),

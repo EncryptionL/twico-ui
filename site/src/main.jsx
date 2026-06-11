@@ -9,7 +9,7 @@ import "../../styles/twico-ui.css";
 import "./docs.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <HashRouter>
+  <HashRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
     <App />
   </HashRouter>
 );
