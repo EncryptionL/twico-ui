@@ -40,6 +40,11 @@ Each component is a self-contained React function:
 - Icons are **inline SVG**. Fonts are self-hosted. **No CDNs** (see [security.md](./security.md)).
 - SSR-safe: no `window`/`document` at module or render scope.
 
+**Foundational primitives.** Beyond UI components, the library ships **layout** (`Stack`, `Grid`,
+`Container` — in `components/layout/`) and **typography** (`Heading`, `Text` — in
+`components/typography/`) primitives: pure, token-styled wrappers for building layouts and text
+without hand-rolled CSS. The documentation site is itself built from them (dogfooding).
+
 The barrel `src/index.ts` re-exports the value and the types for every component. It must be kept
 in sync when components are added or removed.
 

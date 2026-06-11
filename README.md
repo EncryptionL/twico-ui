@@ -1,6 +1,6 @@
 # Twico UI
 
-A **free**, modern, themeable **React** component library — 53 components with **dark mode**, motion, and accessibility built in. No runtime CSS framework required: components are styled with CSS custom properties (design tokens), so they theme by overriding variables and work great alongside Tailwind or plain CSS.
+A **free**, modern, themeable **React** component library — 58 components with **dark mode**, motion, and accessibility built in. No runtime CSS framework required: components are styled with CSS custom properties (design tokens), so they theme by overriding variables and work great alongside Tailwind or plain CSS.
 
 ```bash
 npm install twico-ui
@@ -139,6 +139,8 @@ See `styles/twico-ui.css` for the full token set (colors, typography, spacing, r
 ## Components
 
 **Buttons & actions:** Button, IconButton
+**Layout:** Stack, Grid, Container
+**Typography:** Heading, Text
 **Inputs:** Input, Textarea, Currency, CurrencyField, Select, MultiSelect, Combobox, Checkbox, Radio, Switch, Slider, Rating, FileUpload, DatePicker, DateRangePicker, ColorPicker
 **Data display:** Card, Avatar, AvatarMenu, Badge, Tag, Stat, List, Timeline, Chart, Table, Pagination, Datatable, Kanban
 **Navigation:** Tabs, Accordion, Breadcrumb, Stepper, Navbar, Sidebar, TreeView
