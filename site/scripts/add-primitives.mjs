@@ -10,6 +10,20 @@ const mod = await import(pathToFileURL(dataPath).href);
 
 const NEW = [
   {
+    name: "Box", slug: "box", group: "Layout", importName: "Box",
+    summary: "Generic, token-styled box — the building block for non-flex layout (padding, margin, background, border, radius, shadow) without writing CSS.",
+    propsRows: [
+      { prop: "p, px, py, pt, pr, pb, pl", type: "number | string", required: false, default: "—", description: "Padding — a spacing step (number) or any CSS length." },
+      { prop: "m, mx, my, mt, mr, mb, ml", type: "number | string", required: false, default: "—", description: "Margin — a spacing step or any CSS length." },
+      { prop: "bg", type: '"surface" | "surface-raised" | "surface-sunken" | "bg" | string', required: false, default: "—", description: "Background (surface token name or CSS)." },
+      { prop: "border", type: "boolean", required: false, default: "false", description: "Add a 1px token border." },
+      { prop: "radius", type: "string", required: false, default: "—", description: "Border-radius token suffix (e.g. \"lg\")." },
+      { prop: "shadow", type: "string", required: false, default: "—", description: "Box-shadow token suffix (e.g. \"md\")." },
+      { prop: "as", type: "ElementType", required: false, default: '"div"', description: "Element/tag to render." },
+    ],
+    snippet: 'import { Box } from "twico-ui";\n\n<Box p={4} bg="surface" border radius="lg" shadow="sm">\n  Padded, bordered surface.\n</Box>',
+  },
+  {
     name: "Stack", slug: "stack", group: "Layout", importName: "Stack",
     summary: "Flexbox layout primitive — arranges children in a row or column with token-based gaps. Reach for it instead of hand-written flex divs.",
     propsRows: [
@@ -68,6 +82,15 @@ const NEW = [
       { prop: "as", type: "ElementType", required: false, default: '"p"', description: "Element/tag to render." },
     ],
     snippet: 'import { Text } from "twico-ui";\n\n<Text>Default paragraph text.</Text>\n<Text size="sm" tone="muted">A muted caption.</Text>',
+  },
+  {
+    name: "Code", slug: "code", group: "Typography", importName: "Code",
+    summary: "Inline code with a mono font and a subtle token-styled surface — use it instead of a bare code tag.",
+    propsRows: [
+      { prop: "as", type: "ElementType", required: false, default: '"code"', description: "Element/tag to render." },
+      { prop: "children", type: "ReactNode", required: false, default: "—", description: "The inline code text." },
+    ],
+    snippet: 'import { Code, Text } from "twico-ui";\n\n<Text>Install with <Code>npm install twico-ui</Code>.</Text>',
   },
 ];
 

@@ -1,17 +1,22 @@
 import React from "react";
+import { Box } from "twico-ui";
 import ErrorBoundary from "./ErrorBoundary.jsx";
 import CodeBlock from "./CodeBlock.jsx";
 
 // A live, rendered preview (children) framed above its source code.
 export default function LiveExample({ children, code, language = "jsx" }) {
   return (
-    <div className="docs-example">
+    <Box>
       {children != null ? (
-        <div className="docs-preview">
+        <Box
+          border
+          radius="xl"
+          style={{ background: "var(--color-surface)", padding: "28px 24px", marginBottom: 12, display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", minHeight: 96 }}
+        >
           <ErrorBoundary>{children}</ErrorBoundary>
-        </div>
+        </Box>
       ) : null}
       {code ? <CodeBlock code={code} language={language} /> : null}
-    </div>
+    </Box>
   );
 }

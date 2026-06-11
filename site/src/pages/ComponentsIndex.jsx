@@ -8,22 +8,22 @@ export default function ComponentsIndex() {
   const groups = groupedComponents(components);
   const total = components.length;
   return (
-    <Stack as="article" gap={5} className="docs-article">
-      <Text as="div" tone="primary" className="docs-eyebrow">Components</Text>
+    <Stack as="article" gap={5}>
+      <Text tone="primary" size="xs" weight="bold" style={{ textTransform: "uppercase", letterSpacing: "0.08em" }}>Components</Text>
       <Heading level={1}>All components</Heading>
-      <Text size="lg" tone="muted" className="docs-lead">
+      <Text size="lg" tone="muted">
         {total ? `${total} ` : ""}components, each with live examples and a full props reference. Click any to dive in.
       </Text>
 
       {groups.map(([group, list]) => (
-        <Stack as="section" gap={3} key={group} className="comp-index-group">
+        <Stack as="section" gap={3} key={group}>
           <Heading level={2} id={slugify(group)}>{group}</Heading>
-          <Grid minChildWidth={220} gap={3} className="comp-grid">
+          <Grid minChildWidth={220} gap={3}>
             {list.map((c) => (
               <Link key={c.name} to={`/components/${slugify(c.name)}`} style={{ display: "block" }}>
                 <Card interactive>
-                  <Text as="div" className="comp-card__name">{c.name}</Text>
-                  <Text as="div" className="comp-card__summary">{c.summary}</Text>
+                  <Text as="div" weight="bold">{c.name}</Text>
+                  <Text as="div" size="sm" tone="muted">{c.summary}</Text>
                 </Card>
               </Link>
             ))}
@@ -31,7 +31,7 @@ export default function ComponentsIndex() {
         </Stack>
       ))}
 
-      {!total ? <Text tone="muted" className="docs-muted">Component reference is being generated.</Text> : null}
+      {!total ? <Text tone="muted">Component reference is being generated.</Text> : null}
     </Stack>
   );
 }

@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Heading, Text, Stack } from "twico-ui";
+import { Heading, Text, Stack, Code } from "twico-ui";
 import CodeBlock from "../components/CodeBlock.jsx";
 
 export default function Installation() {
   return (
-    <Stack as="article" gap={5} className="docs-article">
+    <Stack as="article" gap={5}>
       <Stack as="section" gap={3}>
-        <Text className="docs-eyebrow" tone="primary">Getting started</Text>
+        <Text tone="primary" size="xs" weight="bold" style={{ textTransform: "uppercase", letterSpacing: "0.08em" }}>Getting started</Text>
         <Heading level={1}>Installation</Heading>
-        <Text className="docs-lead" size="lg" tone="muted">
+        <Text size="lg" tone="muted">
           Twico UI works in any React 18+ app. Install the package, import the stylesheet once, and
           start using components.
         </Text>
@@ -18,8 +18,8 @@ export default function Installation() {
       <Stack as="section" gap={3}>
         <Heading level={2} id="install">Install</Heading>
         <CodeBlock code="npm install twico-ui" language="bash" />
-        <Text className="docs-muted" tone="muted">
-          <code>react</code> and <code>react-dom</code> are peer dependencies (React 18 or newer).
+        <Text tone="muted">
+          <Code>react</Code> and <Code>react-dom</Code> are peer dependencies (React 18 or newer).
         </Text>
       </Stack>
 
@@ -48,7 +48,7 @@ export default function App() {
       <Stack as="section" gap={3}>
         <Heading level={2} id="next-app">Next.js — App Router</Heading>
         <Text>
-          Import the CSS once in the root layout. Every component ships a <code>"use client"</code>{" "}
+          Import the CSS once in the root layout. Every component ships a <Code>"use client"</Code>{" "}
           boundary, so it drops straight into Server Components without extra wrapping.
         </Text>
         <CodeBlock
@@ -92,15 +92,15 @@ export default function App({ Component, pageProps }) {
 
       <Stack as="section" gap={3}>
         <Heading level={2} id="ssr">SSR &amp; hydration</Heading>
-        <ul className="docs-list">
-          <li>Components are <strong>SSR-safe</strong> — nothing touches <code>window</code>/<code>document</code> during render; all browser access is inside effects and handlers.</li>
+        <ul style={{ margin: 0, paddingLeft: 22, display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+          <li>Components are <strong>SSR-safe</strong> — nothing touches <Code>window</Code>/<Code>document</Code> during render; all browser access is inside effects and handlers.</li>
           <li>The global stylesheet provides tokens, the reset, and self-hosted fonts at first paint.</li>
           <li>Overlays (Menu, Popover, Select, Dialog, Drawer, CommandPalette) render through portals only while open, so they never run on the server.</li>
         </ul>
       </Stack>
 
-      <Text className="docs-next" tone="muted">
-        Next: <Link to="/docs/theming" className="docs-link">Theming →</Link>
+      <Text style={{ marginTop: "var(--space-4)", fontWeight: "var(--font-semibold)" }}>
+        Next: <Link to="/docs/theming" style={{ color: "var(--color-primary)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>Theming →</Link>
       </Text>
     </Stack>
   );

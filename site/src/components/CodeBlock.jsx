@@ -1,6 +1,6 @@
 import React from "react";
 import { Highlight, themes } from "prism-react-renderer";
-import { Button } from "twico-ui";
+import { Box, Button } from "twico-ui";
 
 export default function CodeBlock({ code, language = "jsx" }) {
   const [copied, setCopied] = React.useState(false);
@@ -15,15 +15,23 @@ export default function CodeBlock({ code, language = "jsx" }) {
   }
 
   return (
-    <div className="docs-code">
-      <div className="docs-code__copy">
+    <Box
+      style={{
+        position: "relative",
+        background: "#0b1021",
+        border: "1px solid var(--color-border)",
+        borderRadius: "var(--radius-lg)",
+        overflow: "hidden",
+      }}
+    >
+      <Box style={{ position: "absolute", top: 8, right: 8, zIndex: 1 }}>
         <Button size="sm" variant="soft" onClick={copy} aria-label="Copy code">
           {copied ? "Copied!" : "Copy"}
         </Button>
-      </div>
+      </Box>
       <Highlight code={source} language={language} theme={themes.nightOwl}>
-        {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={className} style={{ ...style, background: "transparent", margin: 0 }}>
+        {({ style, tokens, getLineProps, getTokenProps }) => (
+          <pre style={{ ...style, background: "transparent", margin: 0, padding: "16px 20px", overflowX: "auto", fontFamily: "var(--font-mono)", fontSize: "var(--text-sm)", lineHeight: 1.6 }}>
             {tokens.map((line, i) => (
               <div key={i} {...getLineProps({ line })}>
                 {line.map((token, k) => (
@@ -34,6 +42,6 @@ export default function CodeBlock({ code, language = "jsx" }) {
           </pre>
         )}
       </Highlight>
-    </div>
+    </Box>
   );
 }

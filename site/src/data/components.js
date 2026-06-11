@@ -275,6 +275,65 @@ export const components = [
     "snippet": "import { Badge } from \"twico-ui\";\n\n<Badge tone=\"success\" dot>Active</Badge>\n<Badge tone=\"warning\" variant=\"solid\">Pending</Badge>\n<Badge tone=\"neutral\" variant=\"outline\">Draft</Badge>\n<Badge tone=\"info\" size=\"lg\">12 new</Badge>"
   },
   {
+    "name": "Box",
+    "slug": "box",
+    "group": "Layout",
+    "importName": "Box",
+    "summary": "Generic, token-styled box — the building block for non-flex layout (padding, margin, background, border, radius, shadow) without writing CSS.",
+    "propsRows": [
+      {
+        "prop": "p, px, py, pt, pr, pb, pl",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Padding — a spacing step (number) or any CSS length."
+      },
+      {
+        "prop": "m, mx, my, mt, mr, mb, ml",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Margin — a spacing step or any CSS length."
+      },
+      {
+        "prop": "bg",
+        "type": "\"surface\" | \"surface-raised\" | \"surface-sunken\" | \"bg\" | string",
+        "required": false,
+        "default": "—",
+        "description": "Background (surface token name or CSS)."
+      },
+      {
+        "prop": "border",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Add a 1px token border."
+      },
+      {
+        "prop": "radius",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Border-radius token suffix (e.g. \"lg\")."
+      },
+      {
+        "prop": "shadow",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Box-shadow token suffix (e.g. \"md\")."
+      },
+      {
+        "prop": "as",
+        "type": "ElementType",
+        "required": false,
+        "default": "\"div\"",
+        "description": "Element/tag to render."
+      }
+    ],
+    "snippet": "import { Box } from \"twico-ui\";\n\n<Box p={4} bg=\"surface\" border radius=\"lg\" shadow=\"sm\">\n  Padded, bordered surface.\n</Box>"
+  },
+  {
     "name": "Breadcrumb",
     "slug": "breadcrumb",
     "group": "Navigation",
@@ -634,6 +693,30 @@ export const components = [
       }
     ],
     "snippet": "import { Checkbox } from \"twico-ui\";\n\n<Checkbox label=\"Subscribe to updates\" defaultChecked />\n<Checkbox label=\"Select all\" indeterminate />\n<Checkbox\n  label=\"Notifications\"\n  description=\"Get email alerts for new activity\"\n/>\n<Checkbox label=\"Disabled option\" disabled />\n<Checkbox label=\"Compact\" size=\"sm\" />"
+  },
+  {
+    "name": "Code",
+    "slug": "code",
+    "group": "Typography",
+    "importName": "Code",
+    "summary": "Inline code with a mono font and a subtle token-styled surface — use it instead of a bare code tag.",
+    "propsRows": [
+      {
+        "prop": "as",
+        "type": "ElementType",
+        "required": false,
+        "default": "\"code\"",
+        "description": "Element/tag to render."
+      },
+      {
+        "prop": "children",
+        "type": "ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "The inline code text."
+      }
+    ],
+    "snippet": "import { Code, Text } from \"twico-ui\";\n\n<Text>Install with <Code>npm install twico-ui</Code>.</Text>"
   },
   {
     "name": "ColorPicker",
@@ -1049,7 +1132,7 @@ export const components = [
     "name": "Datatable",
     "slug": "datatable",
     "group": "Data display",
-    "summary": "Datatable is an advanced, MUI Data Grid-style data table with sortable, filterable, hideable, pinnable, reorderable, and resizable columns, plus a toolbar, density control, multi-format export, optional checkbox selection with batch actions, an actions column, pagination, and a skeleton loading state. Use it to display large tabular datasets that need interactive sorting, filtering, grouping, aggregation, or a server-side mode where only the current page is loaded.</summary>\n",
+    "summary": "Datatable is an advanced, MUI Data Grid-style data table with sortable, filterable, hideable, pinnable, reorderable, and resizable columns, plus a toolbar, density control, multi-format export, optional checkbox selection with batch actions, an actions column, pagination, and a skeleton loading state. Use it to display large tabular datasets that need interactive sorting, filtering, grouping, aggregation, or a server-side mode where only the current page is loaded.",
     "importName": "Datatable",
     "propsRows": [
       {

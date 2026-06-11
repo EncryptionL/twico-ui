@@ -1,36 +1,32 @@
 import React from "react";
-import { Table } from "twico-ui";
+import { Table, Code, Text, Stack } from "twico-ui";
 
-// Dogfooding: the props reference for every component is rendered with Twico UI's own Table,
-// using its per-column `render` to keep the code-styled cells.
+// Dogfooding: the props reference for every component is rendered with Twico UI's
+// own Table, using its per-column `render` to style cells with Code/Text.
 const columns = [
   {
     key: "prop",
     header: "Prop",
     render: (_v, r) => (
-      <>
-        <code className="docs-prop">{r.prop}</code>
-        {r.required ? <span className="docs-req" title="Required">*</span> : null}
-      </>
+      <Stack direction="row" gap={1} align="center" inline>
+        <Code>{r.prop}</Code>
+        {r.required ? <Text as="span" tone="primary" weight="bold">*</Text> : null}
+      </Stack>
     ),
   },
-  { key: "type", header: "Type", render: (_v, r) => <code className="docs-type">{r.type}</code> },
+  { key: "type", header: "Type", render: (_v, r) => <Code>{r.type}</Code> },
   {
     key: "default",
     header: "Default",
     render: (_v, r) =>
-      r.default && r.default !== "—" ? (
-        <code className="docs-default">{r.default}</code>
-      ) : (
-        <span className="docs-muted">—</span>
-      ),
+      r.default && r.default !== "—" ? <Code>{r.default}</Code> : <Text as="span" tone="subtle">—</Text>,
   },
   { key: "description", header: "Description" },
 ];
 
 export default function PropsTable({ rows }) {
   if (!rows || !rows.length) {
-    return <p className="docs-muted">This component takes no props.</p>;
+    return <Text tone="subtle">This component takes no props.</Text>;
   }
   return <Table columns={columns} data={rows} rowKey={(r) => r.prop} striped hover={false} />;
 }

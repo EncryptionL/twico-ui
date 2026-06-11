@@ -1,9 +1,10 @@
 import React from "react";
-import { Outlet, Link, useLocation } from "react-router-dom";
-import { Stack, IconButton } from "twico-ui";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
+import { Box, Stack, Button, IconButton, Drawer } from "twico-ui";
 import Logo from "./Logo.jsx";
 import Sidebar from "./Sidebar.jsx";
 import ThemeToggle from "./ThemeToggle.jsx";
+import { useMediaQuery } from "../hooks/useMediaQuery.js";
 import { REPO_URL, NPM_URL, CHANGELOG_URL } from "../data/site.js";
 
 const MenuIcon = (
@@ -15,7 +16,9 @@ const GithubIcon = (
 
 export default function Layout() {
   const location = useLocation();
+  const navigate = useNavigate();
   const isHome = location.pathname === "/";
+  const isMobile = useMediaQuery("(max-width: 860px)");
   const [mobileNav, setMobileNav] = React.useState(false);
 
   React.useEffect(() => {
@@ -23,58 +26,69 @@ export default function Layout() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  return (
-    <div className="docs-root">
-      <header className="docs-header">
-        <Stack direction="row" justify="space-between" align="center" gap={4} className="docs-header__inner">
-          <Stack direction="row" align="center" gap={2}>
-            {!isHome ? (
-              <button
-                type="button"
-                className="docs-iconbtn docs-menu-btn"
-                aria-label="Toggle navigation"
-                onClick={() => setMobileNav((v) => !v)}
-              >
-                {MenuIcon}
-              </button>
-            ) : null}
-            <Link to="/" className="docs-brand" aria-label="Twico UI home">
-              <Logo />
-            </Link>
-          </Stack>
-          <Stack as="nav" direction="row" align="center" gap={1} aria-label="Primary">
-            <Link to="/docs/installation" className="docs-toplink">Docs</Link>
-            <Link to="/components" className="docs-toplink">Components</Link>
-            <a className="docs-toplink" href={CHANGELOG_URL} target="_blank" rel="noreferrer">Changelog</a>
-            <a className="docs-toplink" href={NPM_URL} target="_blank" rel="noreferrer">npm</a>
-            <IconButton
-              variant="ghost"
-              aria-label="GitHub repository"
-              icon={GithubIcon}
-              onClick={() => window.open(REPO_URL, "_blank", "noopener,noreferrer")}
-            />
-            <ThemeToggle />
-          </Stack>
+  const header = (
+    <Box
+      as="header"
+      style={{
+        position: "sticky", top: 0, zIndex: 50,
+        background: "color-mix(in srgb, var(--color-bg) 86%, transparent)",
+        backdropFilter: "saturate(180%) blur(10px)",
+        borderBottom: "1px solid var(--color-border)",
+      }}
+    >
+      <Stack direction="row" justify="space-between" align="center" gap={4} style={{ height: 60, maxWidth: 1280, margin: "0 auto", padding: "0 20px" }}>
+        <Stack direction="row" align="center" gap={2}>
+          {!isHome && isMobile ? (
+            <IconButton variant="ghost" aria-label="Toggle navigation" icon={MenuIcon} onClick={() => setMobileNav((v) => !v)} />
+          ) : null}
+          <Link to="/" aria-label="Twico UI home" style={{ display: "inline-flex" }}><Logo /></Link>
         </Stack>
-      </header>
+        <Stack direction="row" align="center" gap={1}>
+          {!isMobile ? (
+            <>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/docs/installation")}>Docs</Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/components")}>Components</Button>
+              <Button variant="ghost" size="sm" onClick={() => window.open(CHANGELOG_URL, "_blank", "noopener,noreferrer")}>Changelog</Button>
+              <Button variant="ghost" size="sm" onClick={() => window.open(NPM_URL, "_blank", "noopener,noreferrer")}>npm</Button>
+            </>
+          ) : null}
+          <IconButton variant="ghost" aria-label="GitHub repository" icon={GithubIcon} onClick={() => window.open(REPO_URL, "_blank", "noopener,noreferrer")} />
+          <ThemeToggle />
+        </Stack>
+      </Stack>
+    </Box>
+  );
 
-      {isHome ? (
-        <main className="docs-home-main">
-          <Outlet />
-        </main>
-      ) : (
-        <div className="docs-shell">
-          <aside className={`docs-sidebar ${mobileNav ? "is-open" : ""}`}>
-            <Sidebar onNavigate={() => setMobileNav(false)} />
-          </aside>
-          {mobileNav ? <div className="docs-scrim" onClick={() => setMobileNav(false)} /> : null}
-          <main className="docs-main">
-            <div className="docs-content">
-              <Outlet />
-            </div>
-          </main>
-        </div>
-      )}
-    </div>
+  if (isHome) {
+    return (
+      <Box style={{ minHeight: "100vh" }}>
+        {header}
+        <Box as="main"><Outlet /></Box>
+      </Box>
+    );
+  }
+
+  return (
+    <Box style={{ minHeight: "100vh" }}>
+      {header}
+      <Stack direction="row" gap={0} style={{ maxWidth: 1280, margin: "0 auto" }}>
+        {!isMobile ? (
+          <Box
+            as="aside"
+            style={{ width: 264, flex: "none", position: "sticky", top: 60, alignSelf: "flex-start", height: "calc(100vh - 60px)", overflowY: "auto", padding: "24px 12px 40px 20px" }}
+          >
+            <Sidebar />
+          </Box>
+        ) : null}
+        <Box as="main" style={{ flex: 1, minWidth: 0, padding: isMobile ? "24px 16px 56px" : "36px 28px 72px" }}>
+          <Box style={{ maxWidth: 840, margin: "0 auto" }}><Outlet /></Box>
+        </Box>
+      </Stack>
+      {isMobile ? (
+        <Drawer open={mobileNav} onClose={() => setMobileNav(false)} side="left" size={284}>
+          <Sidebar onNavigate={() => setMobileNav(false)} />
+        </Drawer>
+      ) : null}
+    </Box>
   );
 }

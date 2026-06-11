@@ -1,4 +1,5 @@
 import React from "react";
+import { Text } from "twico-ui";
 
 // Keeps one broken live demo from taking down the whole page.
 export default class ErrorBoundary extends React.Component {
@@ -12,9 +13,9 @@ export default class ErrorBoundary extends React.Component {
   render() {
     if (this.state.error) {
       return (
-        <div className="docs-demo-fallback">
+        <Text tone="subtle" align="center" style={{ width: "100%", padding: 16 }}>
           Preview unavailable. See the code example below.
-        </div>
+        </Text>
       );
     }
     return this.props.children;

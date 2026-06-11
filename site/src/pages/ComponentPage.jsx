@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import { Stack, Heading, Text } from "twico-ui";
+import { Box, Stack, Heading, Text, Code } from "twico-ui";
 import { components } from "../data/components.js";
 import { slugify, groupedComponents } from "../data/site.js";
 import CodeBlock from "../components/CodeBlock.jsx";
@@ -26,16 +26,26 @@ function adjacent(name) {
   return { prev: flat[i - 1], next: flat[i + 1] };
 }
 
+const pagerLinkStyle = {
+  display: "flex",
+  flexDirection: "column",
+  gap: 2,
+  padding: "var(--space-3) var(--space-4)",
+  border: "1px solid var(--color-border)",
+  borderRadius: "var(--radius-lg)",
+  textDecoration: "none",
+};
+
 export default function ComponentPage() {
   const { slug } = useParams();
   const comp = components.find((c) => slugify(c.name) === slug);
 
   if (!comp) {
     return (
-      <Stack as="article" gap={5} className="docs-article">
+      <Stack as="article" gap={5}>
         <Heading level={1}>Not found</Heading>
-        <Text className="docs-muted" tone="muted">No component matches “{slug}”.</Text>
-        <Link to="/components" className="docs-link">← All components</Link>
+        <Text tone="muted">No component matches “{slug}”.</Text>
+        <Link to="/components" style={{ color: "var(--color-primary)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>← All components</Link>
       </Stack>
     );
   }
@@ -45,11 +55,11 @@ export default function ComponentPage() {
   const { prev, next } = adjacent(comp.name);
 
   return (
-    <Stack as="article" gap={5} className="docs-article">
+    <Stack as="article" gap={5}>
       <Stack as="section" gap={3}>
-        <Text as="div" className="docs-eyebrow" tone="primary">{comp.group}</Text>
+        <Text as="div" tone="primary" size="xs" weight="bold" style={{ textTransform: "uppercase", letterSpacing: "0.08em" }}>{comp.group}</Text>
         <Heading level={1}>{comp.name}</Heading>
-        <Text className="docs-lead" size="lg" tone="muted">{comp.summary}</Text>
+        <Text size="lg" tone="muted">{comp.summary}</Text>
       </Stack>
 
       <Stack as="section" gap={3}>
@@ -61,7 +71,7 @@ export default function ComponentPage() {
         <Heading level={2} id="usage">Usage</Heading>
         <LiveExample code={comp.snippet}>
           {Demo ? (
-            <React.Suspense fallback={<Text className="docs-muted" tone="muted">Loading preview…</Text>}>
+            <React.Suspense fallback={<Text tone="muted">Loading preview…</Text>}>
               <Demo />
             </React.Suspense>
           ) : null}
@@ -73,20 +83,27 @@ export default function ComponentPage() {
         <PropsTable rows={comp.propsRows} />
       </Stack>
 
-      <nav className="docs-pager" aria-label="Component pager">
+      <Stack
+        as="nav"
+        direction="row"
+        justify="space-between"
+        gap={3}
+        aria-label="Component pager"
+        style={{ marginTop: "var(--space-10)", borderTop: "1px solid var(--color-border)", paddingTop: "var(--space-5)" }}
+      >
         {prev ? (
-          <Link to={`/components/${slugify(prev.name)}`} className="docs-pager__link">
-            <span>Previous</span>
-            <strong>{prev.name}</strong>
+          <Link to={`/components/${slugify(prev.name)}`} style={pagerLinkStyle}>
+            <Text as="span" size="xs" tone="subtle">Previous</Text>
+            <Text as="strong" weight="bold">{prev.name}</Text>
           </Link>
         ) : <span />}
         {next ? (
-          <Link to={`/components/${slugify(next.name)}`} className="docs-pager__link docs-pager__link--next">
-            <span>Next</span>
-            <strong>{next.name}</strong>
+          <Link to={`/components/${slugify(next.name)}`} style={{ ...pagerLinkStyle, textAlign: "right", alignItems: "flex-end" }}>
+            <Text as="span" size="xs" tone="subtle">Next</Text>
+            <Text as="strong" weight="bold">{next.name}</Text>
           </Link>
         ) : <span />}
-      </nav>
+      </Stack>
     </Stack>
   );
 }
