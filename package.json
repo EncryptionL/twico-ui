@@ -1,6 +1,6 @@
 {
   "name": "twico-ui",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "description": "Twico UI — a free, modern, themeable React + Tailwind-friendly component library. 53 components with dark mode, motion, and accessibility built in.",
   "license": "MIT",
   "author": "Twico UI",
@@ -50,6 +50,7 @@
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
+    "release": "semantic-release",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
@@ -57,8 +58,11 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "semantic-release": "^24.2.3",
     "tsup": "^8.3.5",
     "typescript": "^5.6.3"
   },

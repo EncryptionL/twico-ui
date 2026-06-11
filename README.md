@@ -164,20 +164,25 @@ npm publish          # prepublishOnly runs the build automatically
 
 See [`DESIGN-SYSTEM.md`](./DESIGN-SYSTEM.md) for the full design guide (tokens, voice, visual foundations, iconography).
 
-### Branching & releases
+### Versioning & releases
 
-Twico UI follows **[semantic versioning](https://semver.org/)** (`MAJOR.MINOR.PATCH`):
+Releases are **fully automated** with [semantic-release](https://semantic-release.gitbook.io/) following **[semantic versioning](https://semver.org/)** — there are **no manual version bumps**.
 
-- **`dev`** — the integration branch. All day-to-day work happens here or on `feat/*` / `fix/*` branches that merge into it. Every push and PR runs **CI** (`.github/workflows/ci.yml`): type-check, build, and an assertion that the `"use client"` banner survived bundling.
-- **`main`** — the release branch. It is the **only** branch wired to publish (`.github/workflows/publish.yml`). Merging `dev → main` triggers a release.
+- **`dev`** — the integration branch. Day-to-day work happens here or on `feat/*` / `fix/*` branches. Every push and PR runs **CI** (`.github/workflows/ci.yml`): type-check, build, and a check that the `"use client"` banner survived bundling.
+- **`main`** — the release branch. **Every push to `main`** runs `.github/workflows/release.yml`, which computes the next version from the commit history and releases it.
 
-To cut a release:
+Write [Conventional Commits](https://www.conventionalcommits.org/) and the version takes care of itself:
 
-1. On `dev`, bump the version in `package.json` per semver (`patch` = fixes, `minor` = new components/props, `major` = breaking changes).
-2. Open a PR from `dev` into `main` and merge it.
-3. The publish workflow builds, publishes to npm with provenance, and tags the commit `vX.Y.Z`. It is **idempotent** — if `package.json`'s version is already on npm, the publish step is skipped, so an accidental merge without a version bump never errors.
+| Commit | Example | Release |
+| --- | --- | --- |
+| `fix:` | `fix: clamp datatable menu to viewport` | **patch** — `x.y.Z` |
+| `feat:` | `feat: add Calendar component` | **minor** — `x.Y.0` |
+| `feat!:` / `BREAKING CHANGE:` | `feat!: rename Datatable props` | **major** — `X.0.0` |
+| `docs:` / `chore:` / `refactor:` / `test:` | — | no release |
 
-> Publishing requires an `NPM_TOKEN` repository secret (an npm automation token with publish rights).
+On each push to `main`, semantic-release picks the next version, publishes to **npm** (with provenance), tags **`vX.Y.Z`**, writes **`CHANGELOG.md`**, bumps `package.json`, and opens a **GitHub Release**. A push with no release-worthy commits does nothing.
+
+> The repo's `package.json` version stays `0.0.0-development` — the real version lives in the git tags and on npm. Requires an `NPM_TOKEN` repository secret (an npm automation token). If you enable branch protection on `main`, allow the release bot to push the changelog commit (or run semantic-release with a personal access token).
 
 ## License
 
