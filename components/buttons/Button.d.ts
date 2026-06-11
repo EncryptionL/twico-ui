@@ -21,6 +21,12 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   fullWidth?: boolean;
   /** Render as a different element (e.g. "a"). @default "button" */
   as?: "button" | "a";
+  /** Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href). */
+  href?: string;
+  /** Anchor target — only used with as="a" (e.g. "_blank"). */
+  target?: React.HTMLAttributeAnchorTarget;
+  /** Anchor rel — only used with as="a"; pair "noopener noreferrer" with target="_blank". */
+  rel?: string;
   children?: React.ReactNode;
 }
 

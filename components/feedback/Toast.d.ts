@@ -4,9 +4,9 @@ import * as React from "react";
  * Transient notification card. Render inside a <ToastViewport> and manage a
  * list in state (push on action, remove on close / timeout).
  */
-export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** @default "default" */
-  tone?: "default" | "success" | "warning" | "danger" | "info";
+export interface ToastProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+  /** Semantic tone. `"neutral"` is an alias for `"default"` (matches Badge's vocabulary). @default "default" */
+  tone?: "default" | "neutral" | "success" | "warning" | "danger" | "info";
   /** Bold heading. */
   title?: React.ReactNode;
   /** Override the tone icon. */

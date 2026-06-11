@@ -22,16 +22,24 @@ const TREE_CSS = `
 .twc-tree__badge { flex: none; font-size: 11px; color: var(--color-text-subtle); }
 `;
 
-function Node({ node, depth, expanded, selectedId, onToggle, onSelect }) {
+function Node({ node, depth, expanded, selectedId, tabbableId, rowRefs, onToggle, onSelect, onRowFocus }) {
   const hasChildren = Array.isArray(node.children) && node.children.length > 0;
   const open = expanded.has(node.id);
   return (
-    <li>
+    <li role="none">
       <button
+        type="button"
         className="twc-tree__row"
+        role="treeitem"
+        aria-level={depth + 1}
+        aria-selected={selectedId === node.id}
         data-selected={selectedId === node.id || undefined}
+        data-tree-id={node.id}
+        tabIndex={node.id === tabbableId ? 0 : -1}
+        ref={(el) => { if (el) rowRefs.current.set(node.id, el); else rowRefs.current.delete(node.id); }}
         style={{ paddingLeft: 8 + depth * 18 }}
         aria-expanded={hasChildren ? open : undefined}
+        onFocus={() => onRowFocus(node.id)}
         onClick={() => { if (hasChildren) onToggle(node.id); onSelect?.(node); }}
       >
         <span className="twc-tree__caret" data-open={open || undefined} data-leaf={!hasChildren || undefined} aria-hidden="true">
@@ -42,9 +50,10 @@ function Node({ node, depth, expanded, selectedId, onToggle, onSelect }) {
         {node.badge != null ? <span className="twc-tree__badge">{node.badge}</span> : null}
       </button>
       {hasChildren && open ? (
-        <ul className="twc-tree__group twc-tree__group--child">
+        <ul className="twc-tree__group twc-tree__group--child" role="group">
           {node.children.map((c) => (
-            <Node key={c.id} node={c} depth={depth + 1} expanded={expanded} selectedId={selectedId} onToggle={onToggle} onSelect={onSelect} />
+            <Node key={c.id} node={c} depth={depth + 1} expanded={expanded} selectedId={selectedId} tabbableId={tabbableId}
+                  rowRefs={rowRefs} onToggle={onToggle} onSelect={onSelect} onRowFocus={onRowFocus} />
           ))}
         </ul>
       ) : null}
@@ -55,6 +64,8 @@ function Node({ node, depth, expanded, selectedId, onToggle, onSelect }) {
 export function TreeView({
   data,
   defaultExpanded = [],
+  expanded: expandedProp,
+  onExpandedChange,
   selectedId: selectedProp,
   onSelect,
   className = "",
@@ -68,18 +79,71 @@ export function TreeView({
     document.head.appendChild(el);
   }, []);
 
-  const [expanded, setExpanded] = React.useState(() => new Set(defaultExpanded));
+  const [expInternal, setExpInternal] = React.useState(() => new Set(defaultExpanded));
+  const expanded = expandedProp !== undefined ? new Set(expandedProp) : expInternal;
   const [selInternal, setSelInternal] = React.useState(null);
   const selectedId = selectedProp !== undefined ? selectedProp : selInternal;
+  const [focusId, setFocusId] = React.useState(null);
+  const rowRefs = React.useRef(new Map());
 
-  const toggle = (id) => setExpanded((s) => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; });
+  const toggle = (id) => {
+    const n = new Set(expanded);
+    n.has(id) ? n.delete(id) : n.add(id);
+    if (expandedProp === undefined) setExpInternal(n);
+    onExpandedChange?.([...n]);
+  };
   const select = (node) => { if (selectedProp === undefined) setSelInternal(node.id); onSelect?.(node); };
 
+  // Visible rows in render order + parent/children lookups, for roving-tabindex keyboard nav.
+  const visible = [];
+  const parentOf = new Map();
+  const hasKids = new Map();
+  const walk = (nodes, parentId) => {
+    for (const n of nodes) {
+      visible.push(n.id);
+      parentOf.set(n.id, parentId);
+      const kids = Array.isArray(n.children) && n.children.length > 0;
+      hasKids.set(n.id, kids);
+      if (kids && expanded.has(n.id)) walk(n.children, n.id);
+    }
+  };
+  walk(data, null);
+
+  // One Tab stop: the last-focused row, else the selected row, else the first row.
+  const tabbableId = visible.includes(focusId) ? focusId : visible.includes(selectedId) ? selectedId : visible[0];
+
+  const focusRow = (id) => { setFocusId(id); rowRefs.current.get(id)?.focus(); };
+
+  // WAI-ARIA tree pattern: ArrowUp/Down move, ArrowRight expands/descends, ArrowLeft collapses/ascends, Home/End jump.
+  const onKeyDown = (e) => {
+    const row = e.target.closest?.("[data-tree-id]");
+    if (!row) return;
+    const id = row.getAttribute("data-tree-id");
+    const i = visible.indexOf(id);
+    if (i === -1) return;
+    const open = expanded.has(id);
+    let next = null;
+    if (e.key === "ArrowDown") next = visible[i + 1];
+    else if (e.key === "ArrowUp") next = visible[i - 1];
+    else if (e.key === "Home") next = visible[0];
+    else if (e.key === "End") next = visible[visible.length - 1];
+    else if (e.key === "ArrowRight") {
+      if (hasKids.get(id) && !open) { e.preventDefault(); toggle(id); return; }
+      if (hasKids.get(id) && open) next = visible[i + 1];
+    } else if (e.key === "ArrowLeft") {
+      if (hasKids.get(id) && open) { e.preventDefault(); toggle(id); return; }
+      next = parentOf.get(id);
+    } else return;
+    e.preventDefault();
+    if (next != null) focusRow(next);
+  };
+
   return (
-    <div className={`twc-tree ${className}`} role="tree" {...rest}>
-      <ul className="twc-tree__group">
+    <div className={`twc-tree ${className}`} role="tree" onKeyDown={onKeyDown} {...rest}>
+      <ul className="twc-tree__group" role="none">
         {data.map((n) => (
-          <Node key={n.id} node={n} depth={0} expanded={expanded} selectedId={selectedId} onToggle={toggle} onSelect={select} />
+          <Node key={n.id} node={n} depth={0} expanded={expanded} selectedId={selectedId} tabbableId={tabbableId}
+                rowRefs={rowRefs} onToggle={toggle} onSelect={select} onRowFocus={setFocusId} />
         ))}
       </ul>
     </div>

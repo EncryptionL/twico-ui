@@ -18,6 +18,8 @@ export interface RatingProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   color?: string;
   /** Display only, no interaction. @default false */
   readOnly?: boolean;
+  /** Disable all interaction and dim the control. @default false */
+  disabled?: boolean;
   /** Show the numeric value beside the stars. @default false */
   showValue?: boolean;
   onChange?: (value: number) => void;

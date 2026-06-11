@@ -139,7 +139,9 @@ export function Dialog({
   );
 
   // Portal to <body> so the overlay escapes any transformed / backdrop-filtered
-  // ancestor that would otherwise become its containing block.
+  // ancestor that would otherwise become its containing block. SSR renders null:
+  // there is no document, and portal output is client-only anyway (no hydration mismatch).
+  if (typeof document === "undefined") return null;
   const RD = typeof createPortal === "function" ? createPortal : null;
   return RD ? RD(overlay, document.body) : overlay;
 }

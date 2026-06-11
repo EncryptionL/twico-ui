@@ -8,6 +8,14 @@ const TONE = {
   danger: "--color-danger",
 };
 
+// Block javascript:/data:/vbscript: URLs (incl. whitespace/control-char obfuscation
+// that browsers strip) from reaching a DOM href. Consumer hrefs are a trust boundary.
+function safeHref(url) {
+  if (url == null) return undefined;
+  const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+  return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
+}
+
 /** Body text with token sizes and semantic color tones. Renders <p> by default. */
 export function Text({
   as: Tag = "p",
@@ -20,6 +28,7 @@ export function Text({
   children,
   ...rest
 }) {
+  if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   return (
     <Tag
       className={`twc-text ${className}`.trim()}

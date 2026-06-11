@@ -54,7 +54,7 @@ const CUR_CSS = `
 .twc-cur:hover:not(:focus-within) { border-color: var(--color-border-strong); }
 .twc-cur:focus-within { border-color: var(--color-primary); box-shadow: var(--ring); }
 .twc-cur[data-invalid="true"] { border-color: var(--color-danger); }
-.twc-cur[data-invalid="true"]:focus-within { box-shadow: 0 0 0 var(--ring-width) rgb(244 63 94 / 0.28); }
+.twc-cur[data-invalid="true"]:focus-within { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
 .twc-cur[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; }
 .twc-cur__sym, .twc-cur__code {
   display: inline-flex; align-items: center; padding: 0 var(--space-3);
@@ -106,6 +106,10 @@ export function Currency({
   const [internal, setInternal] = React.useState(() => clampPrecision(String(defaultValue ?? ""), prec));
   const shown = controlled ? clampPrecision(String(value ?? ""), prec) : internal;
 
+  // Link hint/error text to the input for screen readers (merged with any consumer-supplied ids).
+  const describedBy = [error ? `${fieldId}-error` : hint ? `${fieldId}-hint` : null, rest["aria-describedby"]]
+    .filter(Boolean).join(" ") || undefined;
+
   function handleChange(e) {
     const next = clampPrecision(e.target.value, prec);
     if (!controlled) setInternal(next);
@@ -113,13 +117,13 @@ export function Currency({
     onValueChange?.(next === "" ? null : Number(next), next);
   }
   function handleBlur(e) {
+    rest.onBlur?.(e); // consumer handler first, so it fires even when the value is empty/NaN
     if (shown === "" || shown == null) return;
     const n = Number(shown);
     if (Number.isNaN(n)) return;
     const fixed = n.toFixed(prec);
     if (!controlled) setInternal(fixed);
     onValueChange?.(Number(fixed), fixed);
-    rest.onBlur?.(e);
   }
 
   return (
@@ -129,14 +133,14 @@ export function Currency({
         <span className="twc-cur__sym" aria-hidden="true">{sym}</span>
         <input
           id={fieldId} className="twc-cur__el" inputMode="decimal" type="text"
-          value={shown} placeholder={placeholder} disabled={disabled}
+          value={shown} placeholder={placeholder} disabled={disabled} required={required || undefined}
           aria-invalid={invalid || undefined}
           {...rest}
-          onChange={handleChange} onBlur={handleBlur}
+          onChange={handleChange} onBlur={handleBlur} aria-describedby={describedBy}
         />
         <span className="twc-cur__code">{cur}</span>
       </div>
-      {error ? <span className="twc-field__error">{error}</span> : hint ? <span className="twc-field__hint">{hint}</span> : null}
+      {error ? <span id={`${fieldId}-error`} className="twc-field__error">{error}</span> : hint ? <span id={`${fieldId}-hint`} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
 }

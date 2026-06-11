@@ -21,8 +21,8 @@ export interface MenuItemDef {
 /**
  * Dropdown menu. Provide a `trigger` element and an `items` array. Renders in a
  * portal (never clipped), auto-flips near the viewport edge, supports an optional
- * rich `header`, and is keyboard-navigable (↑/↓, Enter, Esc). Closes on outside
- * click, Esc, or item selection.
+ * rich `header`, and is keyboard-navigable (↑/↓, Home/End, Enter/Space, Esc).
+ * Closes on outside click, Esc, or item selection.
  *
  * @startingPoint section="Overlay" subtitle="Dropdown menu with headings & shortcuts" viewport="700x360"
  */
@@ -36,6 +36,10 @@ export interface MenuProps extends React.HTMLAttributes<HTMLSpanElement> {
   header?: React.ReactNode;
   /** Fixed menu width in px (defaults to max(200, trigger width)). */
   width?: number;
+  /** Controlled open state — pair with `onOpenChange`. Omit for internal (uncontrolled) state. */
+  open?: boolean;
+  /** Called with the requested open state on trigger click, item select, Esc, or outside click. */
+  onOpenChange?: (open: boolean) => void;
 }
 
 export function Menu(props: MenuProps): React.JSX.Element;

@@ -24,6 +24,9 @@ const CAROUSEL_CSS = `
 
 export function Carousel({
   children,
+  index: indexProp,
+  defaultIndex = 0,
+  onIndexChange,
   showArrows = true,
   showDots = true,
   loop = true,
@@ -42,18 +45,27 @@ export function Carousel({
 
   const slides = React.Children.toArray(children);
   const count = slides.length;
-  const [index, setIndex] = React.useState(0);
+  const [internal, setInternal] = React.useState(defaultIndex);
+  const index = indexProp !== undefined ? indexProp : internal;
   const [paused, setPaused] = React.useState(false);
+
+  const setIndex = React.useCallback((i) => {
+    if (indexProp === undefined) setInternal(i);
+    onIndexChange?.(i);
+  }, [indexProp, onIndexChange]);
 
   const go = React.useCallback((i) => {
     setIndex(loop ? (i + count) % count : Math.min(Math.max(i, 0), count - 1));
-  }, [count, loop]);
+  }, [count, loop, setIndex]);
 
   React.useEffect(() => {
     if (!autoPlay || paused || count <= 1) return;
-    const t = setInterval(() => setIndex((i) => loop ? (i + 1) % count : (i + 1 >= count ? i : i + 1)), interval);
+    const t = setInterval(() => {
+      const next = loop ? (index + 1) % count : (index + 1 >= count ? index : index + 1);
+      if (next !== index) setIndex(next);
+    }, interval);
     return () => clearInterval(t);
-  }, [autoPlay, paused, count, interval, loop]);
+  }, [autoPlay, paused, count, interval, loop, index, setIndex]);
 
   const atStart = !loop && index === 0;
   const atEnd = !loop && index === count - 1;

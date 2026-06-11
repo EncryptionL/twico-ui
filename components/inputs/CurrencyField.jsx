@@ -17,7 +17,7 @@ const CURF_CSS = `
 .twc-cur:hover:not(:focus-within) { border-color: var(--color-border-strong); }
 .twc-cur:focus-within { border-color: var(--color-primary); box-shadow: var(--ring); }
 .twc-cur[data-invalid="true"] { border-color: var(--color-danger); }
-.twc-cur[data-invalid="true"]:focus-within { box-shadow: 0 0 0 var(--ring-width) rgb(244 63 94 / 0.28); }
+.twc-cur[data-invalid="true"]:focus-within { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
 .twc-cur[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; }
 .twc-cur__sym, .twc-cur__code {
   display: inline-flex; align-items: center; padding: 0 var(--space-3);
@@ -57,7 +57,7 @@ function useCurfStyles() {
 export function CurrencyField({
   label, hint, error, required = false, size = "md",
   currency, defaultCurrency = "USD", onCurrencyChange, currencies,
-  value, defaultValue = "", onValueChange,
+  value, defaultValue = "", onChange, onValueChange,
   disabled = false, id, placeholder = "0.00", className = "", ...rest
 }) {
   useCurfStyles();
@@ -75,6 +75,10 @@ export function CurrencyField({
   const [valInternal, setValInternal] = React.useState(() => clampPrecision(String(defaultValue ?? ""), prec));
   const shown = valControlled ? clampPrecision(String(value ?? ""), prec) : valInternal;
 
+  // Link hint/error text to the input for screen readers (merged with any consumer-supplied ids).
+  const describedBy = [error ? `${fieldId}-error` : hint ? `${fieldId}-hint` : null, rest["aria-describedby"]]
+    .filter(Boolean).join(" ") || undefined;
+
   const options = React.useMemo(() => {
     if (!currencies) return CURRENCY_OPTIONS;
     return currencies.map((c) => (typeof c === "string" ? { value: c, label: `${c} — ${(CURRENCIES[c] || {}).label || c}` } : c));
@@ -88,11 +92,13 @@ export function CurrencyField({
     if (!valControlled) setValInternal(reclamped);
   }
   function handleChange(e) {
+    onChange?.(e); // consumer handler first, then internal clamping/state
     const next = clampPrecision(e.target.value, prec);
     if (!valControlled) setValInternal(next);
     onValueChange?.(next === "" ? null : Number(next), next, cur);
   }
-  function handleBlur() {
+  function handleBlur(e) {
+    rest.onBlur?.(e); // consumer handler first, so it fires even when the value is empty/NaN
     if (shown === "" || shown == null) return;
     const n = Number(shown); if (Number.isNaN(n)) return;
     const fixed = n.toFixed(prec);
@@ -111,14 +117,14 @@ export function CurrencyField({
         <span className="twc-cur__sym" aria-hidden="true">{meta.symbol}</span>
         <input
           id={fieldId} className="twc-cur__el" inputMode="decimal" type="text"
-          value={shown} placeholder={placeholder} disabled={disabled}
+          value={shown} placeholder={placeholder} disabled={disabled} required={required || undefined}
           aria-invalid={invalid || undefined}
           {...rest}
-          onChange={handleChange} onBlur={handleBlur}
+          onChange={handleChange} onBlur={handleBlur} aria-describedby={describedBy}
         />
         <span className="twc-cur__code">{meta.code}</span>
       </div>
-      {error ? <span className="twc-field__error">{error}</span> : hint ? <span className="twc-field__hint">{hint}</span> : null}
+      {error ? <span id={`${fieldId}-error`} className="twc-field__error">{error}</span> : hint ? <span id={`${fieldId}-hint`} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
 }

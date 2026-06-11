@@ -5,7 +5,7 @@ import * as React from "react";
  *
  * @startingPoint section="Feedback" subtitle="Empty / zero-data state" viewport="700x300"
  */
-export interface EmptyStateProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface EmptyStateProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   /** Illustrative icon shown in a tinted tile. */
   icon?: React.ReactNode;
   title?: React.ReactNode;

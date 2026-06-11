@@ -82,6 +82,7 @@ export function Sidebar({
             <div key={i} className="twc-sidebar__section">{it.section}</div>
           ) : (
             <a key={i} className="twc-sidebar__item" href={safeHref(it.href) || "#"} data-active={it.active || undefined}
+               aria-current={it.active ? "page" : undefined}
                onClick={it.onClick} title={collapsed && typeof it.label === "string" ? it.label : undefined}>
               {it.icon ? (
                 <span className="twc-sidebar__ic" aria-hidden="true">{it.icon}</span>
@@ -98,7 +99,7 @@ export function Sidebar({
         <div className="twc-sidebar__foot">
           {footer ? <div className="twc-sidebar__foot-user">{footer}</div> : null}
           {collapsible ? (
-            <button className="twc-sidebar__collapse" onClick={toggle} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
+            <button type="button" className="twc-sidebar__collapse" onClick={toggle} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
               <span>Collapse</span>
             </button>

@@ -39,10 +39,33 @@ export function Tooltip({
     document.head.appendChild(el);
   }, []);
 
+  const id = React.useId();
   const [show, setShow] = React.useState(false);
   const timer = React.useRef(null);
   const open = () => { clearTimeout(timer.current); timer.current = setTimeout(() => setShow(true), delay); };
   const close = () => { clearTimeout(timer.current); setShow(false); };
+
+  // WCAG 1.4.13: Escape dismisses the tooltip; listener attached only while shown.
+  React.useEffect(() => {
+    if (!show) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") { clearTimeout(timer.current); setShow(false); }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [show]);
+
+  // Associate the trigger with the tooltip text for assistive technology.
+  const describedBy = show ? id : undefined;
+  const trigger =
+    React.isValidElement(children) && children.type !== React.Fragment ? (
+      React.cloneElement(children, {
+        "aria-describedby":
+          [children.props["aria-describedby"], describedBy].filter(Boolean).join(" ") || undefined,
+      })
+    ) : (
+      <span aria-describedby={describedBy}>{children}</span>
+    );
 
   return (
     <span
@@ -50,8 +73,15 @@ export function Tooltip({
       onMouseEnter={open} onMouseLeave={close} onFocus={open} onBlur={close}
       {...rest}
     >
-      {children}
-      <span className="twc-tooltip" data-place={placement} data-show={show || undefined} role="tooltip">
+      {trigger}
+      <span
+        id={id}
+        className="twc-tooltip"
+        data-place={placement}
+        data-show={show || undefined}
+        role="tooltip"
+        aria-hidden={show ? undefined : "true"}
+      >
         {label}
         <span className="twc-tooltip__arrow" aria-hidden="true" />
       </span>

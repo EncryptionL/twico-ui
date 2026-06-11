@@ -2,6 +2,14 @@ import React from "react";
 
 const LEVEL_SIZE = { 1: "4xl", 2: "2xl", 3: "xl", 4: "lg", 5: "base", 6: "sm" };
 
+// Block javascript:/data:/vbscript: URLs (incl. whitespace/control-char obfuscation
+// that browsers strip) from reaching a DOM href. Consumer hrefs are a trust boundary.
+function safeHref(url) {
+  if (url == null) return undefined;
+  const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+  return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
+}
+
 /** Heading (h1–h6) with token typography. `level` sets the tag + default size. */
 export function Heading({
   as,
@@ -15,6 +23,7 @@ export function Heading({
 }) {
   const Tag = as || `h${level}`;
   const sz = size || LEVEL_SIZE[level] || "2xl";
+  if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   return (
     <Tag
       className={`twc-heading ${className}`.trim()}

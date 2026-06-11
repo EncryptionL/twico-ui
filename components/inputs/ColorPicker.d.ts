@@ -14,6 +14,8 @@ export interface ColorPickerProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   defaultValue?: string;
   /** Preset swatches (hex strings). */
   presets?: string[];
+  /** Disable all interaction (the popover cannot be opened). @default false */
+  disabled?: boolean;
   onChange?: (hex: string) => void;
 }
 

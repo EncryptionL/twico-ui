@@ -34,6 +34,9 @@ export function Table({
   striped = false,
   size = "md",
   sortable = false,
+  sort: sortProp,
+  defaultSort,
+  onSortChange,
   rowKey,
   selectedKeys,
   className = "",
@@ -47,7 +50,8 @@ export function Table({
     document.head.appendChild(el);
   }, []);
 
-  const [sort, setSort] = React.useState({ key: null, dir: "asc" });
+  const [internalSort, setInternalSort] = React.useState(defaultSort || { key: null, dir: "asc" });
+  const sort = (sortProp !== undefined ? sortProp : internalSort) || { key: null, dir: "asc" };
 
   const rows = React.useMemo(() => {
     if (!sortable || !sort.key) return data;
@@ -63,7 +67,9 @@ export function Table({
   }, [data, columns, sort, sortable]);
 
   function toggleSort(key) {
-    setSort((s) => s.key === key ? { key, dir: s.dir === "asc" ? "desc" : "asc" } : { key, dir: "asc" });
+    const next = sort.key === key ? { key, dir: sort.dir === "asc" ? "desc" : "asc" } : { key, dir: "asc" };
+    if (sortProp === undefined) setInternalSort(next);
+    onSortChange?.(next);
   }
 
   const keyFn = rowKey || ((_, i) => i);

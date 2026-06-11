@@ -82,6 +82,14 @@ const CSS = `
 }
 `;
 
+// Block javascript:/data:/vbscript: URLs (incl. whitespace/control-char obfuscation
+// that browsers strip) from reaching a DOM href. Consumer hrefs are a trust boundary.
+function safeHref(url) {
+  if (url == null) return undefined;
+  const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+  return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
+}
+
 function useInjectedStyle(id, css) {
   React.useInsertionEffect(() => {
     if (document.getElementById(id)) return;
@@ -102,6 +110,7 @@ export function Button({
   fullWidth = false,
   disabled = false,
   as = "button",
+  href,
   className = "",
   onClick,
   ...rest
@@ -131,6 +140,7 @@ export function Button({
       data-loading={loading || undefined}
       data-block={fullWidth || undefined}
       disabled={Tag === "button" ? disabled || loading : undefined}
+      href={safeHref(href)}
       aria-busy={loading || undefined}
       onClick={handleClick}
       {...rest}

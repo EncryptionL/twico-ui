@@ -18,8 +18,10 @@ const ACCORDION_CSS = `
 .twc-accordion__chevron { flex: none; color: var(--color-text-subtle); transition: transform var(--duration-base) var(--ease-spring); }
 .twc-accordion__chevron svg { width: 18px; height: 18px; display: block; }
 .twc-accordion__trigger[data-open="true"] .twc-accordion__chevron { transform: rotate(180deg); color: var(--color-primary); }
-.twc-accordion__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--duration-base) var(--ease-standard); }
-.twc-accordion__panel[data-open="true"] { grid-template-rows: 1fr; }
+.twc-accordion__panel { display: grid; grid-template-rows: 0fr; visibility: hidden;
+  transition: grid-template-rows var(--duration-base) var(--ease-standard), visibility 0s var(--duration-base); }
+.twc-accordion__panel[data-open="true"] { grid-template-rows: 1fr; visibility: visible;
+  transition: grid-template-rows var(--duration-base) var(--ease-standard), visibility 0s; }
 .twc-accordion__panel-inner { overflow: hidden; }
 .twc-accordion__content { padding: 0 var(--space-4) var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-normal); }
 `;
@@ -28,6 +30,8 @@ export function Accordion({
   items,
   multiple = false,
   defaultOpen = [],
+  open: openProp,
+  onOpenChange,
   className = "",
   ...rest
 }) {
@@ -39,31 +43,34 @@ export function Accordion({
     document.head.appendChild(el);
   }, []);
 
-  const [open, setOpen] = React.useState(new Set(defaultOpen));
+  const [internal, setInternal] = React.useState(() => new Set(defaultOpen));
+  const open = openProp !== undefined ? new Set(openProp) : internal;
+  const baseId = React.useId();
 
   function toggle(val) {
-    setOpen((prev) => {
-      const next = new Set(prev);
-      if (next.has(val)) next.delete(val);
-      else { if (!multiple) next.clear(); next.add(val); }
-      return next;
-    });
+    const next = new Set(open);
+    if (next.has(val)) next.delete(val);
+    else { if (!multiple) next.clear(); next.add(val); }
+    if (openProp === undefined) setInternal(next);
+    onOpenChange?.([...next]);
   }
 
   return (
     <div className={`twc-accordion ${className}`} {...rest}>
-      {items.map((it) => {
+      {items.map((it, i) => {
         const isOpen = open.has(it.value);
+        const triggerId = `${baseId}-trigger-${i}`;
+        const panelId = `${baseId}-panel-${i}`;
         return (
           <div className="twc-accordion__item" key={it.value}>
-            <button className="twc-accordion__trigger" data-open={isOpen || undefined} aria-expanded={isOpen} onClick={() => toggle(it.value)}>
+            <button type="button" id={triggerId} className="twc-accordion__trigger" data-open={isOpen || undefined} aria-expanded={isOpen} aria-controls={panelId} onClick={() => toggle(it.value)}>
               {it.icon}
               <span className="twc-accordion__label">{it.label}</span>
               <span className="twc-accordion__chevron" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
               </span>
             </button>
-            <div className="twc-accordion__panel" data-open={isOpen || undefined}>
+            <div className="twc-accordion__panel" id={panelId} role="region" aria-labelledby={triggerId} data-open={isOpen || undefined}>
               <div className="twc-accordion__panel-inner">
                 <div className="twc-accordion__content">{it.content}</div>
               </div>

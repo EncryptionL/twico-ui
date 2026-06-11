@@ -28,6 +28,8 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   showAxis?: boolean;
   /** Series legend (multi-series). @default false */
   showLegend?: boolean;
+  /** Per-series colors (any CSS color), cycled when shorter than `series`. Defaults to the built-in token palette. */
+  colors?: string[];
   /** Tooltip value formatter. */
   valueFormat?: (value: number) => string;
 }

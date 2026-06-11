@@ -44,6 +44,8 @@ export function Menu({
   align = "start",
   header,
   width,
+  open: openProp,
+  onOpenChange,
   className = "",
   ...rest
 }) {
@@ -55,13 +57,30 @@ export function Menu({
     document.head.appendChild(el);
   }, []);
 
-  const [open, setOpen] = React.useState(false);
+  const [openState, setOpenState] = React.useState(false);
   const [render, setRender] = React.useState(false);
   const [pos, setPos] = React.useState(null);
   const [active, setActive] = React.useState(-1);
   const wrapRef = React.useRef(null);
   const menuRef = React.useRef(null);
   const menuId = React.useId();
+
+  // Controlled when an `open` prop is passed; uncontrolled (internal state) otherwise.
+  // Every internal open/close request goes through setOpen so `onOpenChange` always fires.
+  const controlled = openProp !== undefined;
+  const open = controlled ? !!openProp : openState;
+  const openRef = React.useRef(open);
+  openRef.current = open;
+  const controlledRef = React.useRef(controlled);
+  controlledRef.current = controlled;
+  const onOpenChangeRef = React.useRef(onOpenChange);
+  onOpenChangeRef.current = onOpenChange;
+  const setOpen = React.useCallback((next) => {
+    const value = typeof next === "function" ? next(openRef.current) : next;
+    if (value === openRef.current) return;
+    if (!controlledRef.current) setOpenState(value);
+    onOpenChangeRef.current?.(value);
+  }, []);
   const RD = { createPortal: (typeof createPortal === "function" ? createPortal : (typeof window !== "undefined" && window.ReactDOM && window.ReactDOM.createPortal)) };
 
   const interactiveIdx = items.map((it, i) => (!it.separator && !it.heading ? i : -1)).filter((i) => i >= 0);
@@ -121,7 +140,11 @@ export function Menu({
       let next = e.key === "ArrowDown" ? curPos + 1 : curPos - 1;
       if (next < 0) next = list.length - 1; if (next >= list.length) next = 0;
       setActive(list[next]);
-    } else if (e.key === "Enter" && active >= 0) {
+    } else if (e.key === "Home" || e.key === "End") {
+      e.preventDefault();
+      const list = interactiveIdx;
+      if (list.length) setActive(e.key === "Home" ? list[0] : list[list.length - 1]);
+    } else if ((e.key === "Enter" || e.key === " ") && active >= 0) {
       e.preventDefault();
       const it = items[active];
       if (it && !it.disabled) { it.onClick?.(); setOpen(false); }
@@ -138,6 +161,8 @@ export function Menu({
         return (
           <button
             key={i}
+            type="button"
+            id={`${menuId}-item-${i}`}
             className="twc-menu__item"
             role="menuitem"
             data-danger={it.danger || undefined}
@@ -158,6 +183,9 @@ export function Menu({
   // Make the trigger a proper, focusable menu button that announces its popup +
   // open state. Clone a passed element (so a <button>/IconButton keeps its own
   // semantics) or wrap a non-element trigger in a focusable role="button" span.
+  // aria-activedescendant mirrors the highlighted item for screen readers while
+  // DOM focus stays on the trigger.
+  const activeDescId = open && active >= 0 ? `${menuId}-item-${active}` : undefined;
   const triggerEl = React.isValidElement(trigger)
     ? React.cloneElement(trigger, {
         onClick: (e) => { trigger.props.onClick?.(e); toggle(); },
@@ -165,10 +193,11 @@ export function Menu({
         "aria-haspopup": "menu",
         "aria-expanded": open,
         "aria-controls": open ? menuId : undefined,
+        "aria-activedescendant": activeDescId,
       })
     : (
         <span role="button" tabIndex={0} aria-haspopup="menu" aria-expanded={open}
-          aria-controls={open ? menuId : undefined} onClick={toggle}>
+          aria-controls={open ? menuId : undefined} aria-activedescendant={activeDescId} onClick={toggle}>
           {trigger}
         </span>
       );

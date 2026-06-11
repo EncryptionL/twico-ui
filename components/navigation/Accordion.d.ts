@@ -11,6 +11,10 @@ export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
   multiple?: boolean;
   /** Values open on first render. */
   defaultOpen?: string[];
+  /** Controlled open panel values; pair with `onOpenChange`. */
+  open?: string[];
+  /** Called with the next open values whenever a panel is toggled. */
+  onOpenChange?: (values: string[]) => void;
 }
 
 export interface AccordionItem {

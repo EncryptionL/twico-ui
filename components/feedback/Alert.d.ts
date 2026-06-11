@@ -3,7 +3,7 @@ import * as React from "react";
 /**
  * Inline message banner with semantic tones, optional title, icon, and dismiss.
  */
-export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AlertProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   /** @default "info" */
   tone?: "info" | "success" | "warning" | "danger";
   /** Bold heading line. */

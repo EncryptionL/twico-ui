@@ -44,6 +44,9 @@ const DRAWER_CSS = `
 }
 `;
 
+// Preset sizes ("md" matches the CSS fallback width); numbers are px, other strings pass through.
+const DRAWER_SIZES = { sm: "320px", md: "380px", lg: "480px" };
+
 export function Drawer({
   open,
   onClose,
@@ -55,6 +58,7 @@ export function Drawer({
   closeOnBackdrop = true,
   children,
   className = "",
+  style,
   ...rest
 }) {
   const autoId = React.useId();
@@ -119,11 +123,12 @@ export function Drawer({
 
   if (!mounted) return null;
   const state = open ? "open" : "closed";
-  const sizeVar = side === "left" || side === "right" ? { "--_w": typeof size === "number" ? `${size}px` : size } : { "--_h": typeof size === "number" ? `${size}px` : size };
+  const dim = DRAWER_SIZES[size] || (typeof size === "number" ? `${size}px` : size);
+  const sizeVar = side === "left" || side === "right" ? { "--_w": dim } : { "--_h": dim };
 
   const overlay = (
     <div className="twc-drawer__overlay" data-state={state} onMouseDown={(e) => { if (closeOnBackdrop && e.target === e.currentTarget) onClose?.(); }}>
-      <div ref={panelRef} className={`twc-drawer ${className}`} data-side={side} data-state={state} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-describedby={description ? descId : undefined} style={size ? sizeVar : undefined} {...rest}>
+      <div ref={panelRef} className={`twc-drawer ${className}`} data-side={side} data-state={state} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-describedby={description ? descId : undefined} style={{ ...(size ? sizeVar : null), ...style }} {...rest}>
         {(title || description || onClose) ? (
           <div className="twc-drawer__header">
             <div className="twc-drawer__titles">
@@ -144,7 +149,9 @@ export function Drawer({
   );
 
   // Portal to <body> so the overlay escapes any transformed / backdrop-filtered
-  // ancestor that would otherwise become its containing block.
+  // ancestor that would otherwise become its containing block. SSR renders null:
+  // there is no document, and portal output is client-only anyway (no hydration mismatch).
+  if (typeof document === "undefined") return null;
   const RD = typeof createPortal === "function" ? createPortal : null;
   return RD ? RD(overlay, document.body) : overlay;
 }

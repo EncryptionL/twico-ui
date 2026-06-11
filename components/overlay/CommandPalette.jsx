@@ -58,6 +58,8 @@ export function CommandPalette({
   const [active, setActive] = React.useState(0);
   const inputRef = React.useRef(null);
   const listRef = React.useRef(null);
+  const paletteRef = React.useRef(null);
+  const baseId = React.useId();
 
   // Stay mounted through the exit animation so closing is smooth, then unmount.
   const [mounted, setMounted] = React.useState(open);
@@ -70,6 +72,45 @@ export function CommandPalette({
   React.useEffect(() => {
     if (open) { setQuery(""); setActive(0); const t = setTimeout(() => inputRef.current?.focus(), 30); return () => clearTimeout(t); }
   }, [open]);
+
+  // Modal a11y (1/2): remember the element that opened the palette and restore
+  // focus to it on close. Keyed on `open` only, so an unstable onClose identity
+  // can't clobber the saved trigger element.
+  React.useEffect(() => {
+    if (!open) return;
+    const prevFocused = document.activeElement;
+    return () => {
+      if (prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
+    };
+  }, [open]);
+
+  // Modal a11y (2/2): Escape closes; Tab/Shift+Tab are trapped inside the palette.
+  // The ref is read inside the handler so the trap works even though the panel
+  // mounts one render after `open` flips.
+  React.useEffect(() => {
+    if (!open) return;
+    const focusables = (node) =>
+      node
+        ? Array.from(
+            node.querySelectorAll(
+              'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            )
+          ).filter((el) => el.offsetParent !== null)
+        : [];
+    const onKey = (e) => {
+      if (e.key === "Escape") { e.preventDefault(); onClose?.(); return; }
+      if (e.key !== "Tab") return;
+      const node = paletteRef.current;
+      const f = focusables(node);
+      if (!f.length) { e.preventDefault(); node?.focus(); return; }
+      const first = f[0], last = f[f.length - 1], ae = document.activeElement;
+      if (e.shiftKey) {
+        if (ae === first || ae === node || !node.contains(ae)) { e.preventDefault(); last.focus(); }
+      } else if (ae === last || !node.contains(ae)) { e.preventDefault(); first.focus(); }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
 
   const q = query.trim().toLowerCase();
   const filtered = React.useMemo(() => commands.filter((c) =>
@@ -88,13 +129,13 @@ export function CommandPalette({
 
   React.useEffect(() => { setActive(0); }, [query]);
 
-  const run = (cmd) => { cmd?.onSelect?.(); onClose?.(); };
+  const run = (cmd) => { (cmd?.onSelect || cmd?.onClick)?.(); onClose?.(); };
 
+  // Escape is handled by the document-level listener above (works from any focus).
   function onKeyDown(e) {
     if (e.key === "ArrowDown") { e.preventDefault(); setActive((a) => Math.min(a + 1, flat.length - 1)); }
     else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => Math.max(a - 1, 0)); }
     else if (e.key === "Enter") { e.preventDefault(); run(flat[active]); }
-    else if (e.key === "Escape") { e.preventDefault(); onClose?.(); }
   }
 
   React.useEffect(() => {
@@ -102,20 +143,24 @@ export function CommandPalette({
     if (node) node.scrollIntoView({ block: "nearest" });
   }, [active]);
 
-  if (!mounted) return null;
+  if (!mounted || typeof document === "undefined") return null;
   const state = open ? "open" : "closed";
+  const listId = `${baseId}-list`;
+  const optionId = (i) => `${baseId}-opt-${i}`;
+  const activeId = flat[active] ? optionId(active) : undefined;
   let idx = -1;
 
   const overlay = (
     <div className="twc-cmdk__overlay" data-state={state} onMouseDown={(e) => { if (e.target === e.currentTarget) onClose?.(); }}>
-      <div className={`twc-cmdk ${className}`} data-state={state} role="dialog" aria-modal="true" aria-label="Command palette" {...rest}>
+      <div ref={paletteRef} className={`twc-cmdk ${className}`} data-state={state} role="dialog" aria-modal="true" aria-label="Command palette" tabIndex={-1} {...rest}>
         <div className="twc-cmdk__search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           <input ref={inputRef} className="twc-cmdk__input" value={query} placeholder={placeholder}
+            role="combobox" aria-expanded="true" aria-controls={listId} aria-activedescendant={activeId}
             onChange={(e) => setQuery(e.target.value)} onKeyDown={onKeyDown} />
           <span className="twc-cmdk__kbd">esc</span>
         </div>
-        <div className="twc-cmdk__list" ref={listRef}>
+        <div className="twc-cmdk__list" id={listId} role="listbox" ref={listRef}>
           {flat.length === 0 ? <div className="twc-cmdk__empty">{emptyText}</div> :
             groups.map((g) => (
               <div key={g.key || "_"} role="group">
@@ -123,7 +168,7 @@ export function CommandPalette({
                 {g.items.map((c) => {
                   idx += 1; const i = idx;
                   return (
-                    <button key={c.id || i} className="twc-cmdk__item" role="option" aria-selected={i === active}
+                    <button key={c.id || i} id={optionId(i)} type="button" className="twc-cmdk__item" role="option" aria-selected={i === active}
                       data-active={i === active || undefined} onMouseEnter={() => setActive(i)}
                       onMouseDown={(e) => e.preventDefault()} onClick={() => run(c)}>
                       {c.icon ? <span className="twc-cmdk__item-ic" aria-hidden="true">{c.icon}</span> : null}

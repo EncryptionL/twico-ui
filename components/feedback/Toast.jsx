@@ -50,8 +50,14 @@ export function Toast({
   onClose,
   duration = 4500,
   className = "",
+  onMouseEnter,
+  onMouseLeave,
+  onFocus,
+  onBlur,
   ...rest
 }) {
+  // "neutral" is accepted as an alias for "default" (matches Badge's tone vocabulary).
+  const resolvedTone = tone === "neutral" ? "default" : tone;
   React.useInsertionEffect(() => {
     if (document.getElementById("twc-toast-styles")) return;
     const el = document.createElement("style");
@@ -82,18 +88,18 @@ export function Toast({
   return (
     <div
       className={`twc-toast ${className}`}
-      data-tone={tone}
+      data-tone={resolvedTone}
       role="status"
       {...rest}
-      onMouseEnter={stop}
-      onMouseLeave={start}
-      onFocus={stop}
-      onBlur={start}
+      onMouseEnter={(e) => { onMouseEnter?.(e); stop(); }}
+      onMouseLeave={(e) => { onMouseLeave?.(e); start(); }}
+      onFocus={(e) => { onFocus?.(e); stop(); }}
+      onBlur={(e) => { onBlur?.(e); start(); }}
     >
       <span className="twc-toast__icon" aria-hidden="true">
         {icon || (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10" /><path d={TOAST_ICONS[tone] || TOAST_ICONS.default} />
+            <circle cx="12" cy="12" r="10" /><path d={TOAST_ICONS[resolvedTone] || TOAST_ICONS.default} />
           </svg>
         )}
       </span>

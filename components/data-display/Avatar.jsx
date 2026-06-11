@@ -35,6 +35,14 @@ function initials(name) {
   return (parts[0][0] + (parts[1] ? parts[1][0] : "")).toUpperCase();
 }
 
+// Block javascript:/vbscript: URLs (incl. whitespace/control-char obfuscation that
+// browsers strip) from reaching the <img> src; data:/blob: stay allowed for previews.
+function safeSrc(url) {
+  if (url == null) return undefined;
+  const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+  return s.startsWith("javascript:") || s.startsWith("vbscript:") ? undefined : url;
+}
+
 export function Avatar({
   src,
   name,
@@ -54,7 +62,8 @@ export function Avatar({
   }, []);
 
   const [errored, setErrored] = React.useState(false);
-  const showImg = src && !errored;
+  const cleanSrc = safeSrc(src);
+  const showImg = cleanSrc && !errored;
 
   return (
     <span
@@ -66,7 +75,7 @@ export function Avatar({
       {...rest}
     >
       {showImg
-        ? <img className="twc-avatar__img" src={src} alt={name || ""} onError={() => setErrored(true)} />
+        ? <img className="twc-avatar__img" src={cleanSrc} alt={name || ""} onError={() => setErrored(true)} />
         : initials(name)}
       {status ? <span className="twc-avatar__status" data-status={status} /> : null}
     </span>

@@ -108,6 +108,7 @@ export function Tabs({
       <div className="twc-tabs__list" ref={listRef} role="tablist" onKeyDown={onListKeyDown}>
         {items.map((it, i) => (
           <button
+            type="button"
             key={it.value}
             id={tabIdAt(i)}
             className="twc-tab"

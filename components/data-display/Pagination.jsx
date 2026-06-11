@@ -58,7 +58,8 @@ function buildPages(current, total, siblings = 1, boundaries = 1) {
 }
 
 export function Pagination({
-  page = 1,
+  page: pageProp,
+  defaultPage = 1,
   total,
   onChange,
   siblings = 1,
@@ -77,8 +78,14 @@ export function Pagination({
     document.head.appendChild(el);
   }, []);
 
+  const [internal, setInternal] = React.useState(defaultPage);
+  const page = pageProp !== undefined ? pageProp : internal;
   const pages = buildPages(page, total, siblings, boundaries);
-  const go = (p) => { if (p >= 1 && p <= total && p !== page) onChange?.(p); };
+  const go = (p) => {
+    if (p < 1 || p > total || p === page) return;
+    if (pageProp === undefined) setInternal(p);
+    onChange?.(p);
+  };
   const [jump, setJump] = React.useState("");
   const submitJump = () => {
     const n = parseInt(jump, 10);
@@ -88,20 +95,20 @@ export function Pagination({
 
   return (
     <nav className={`twc-pagination ${className}`} aria-label="Pagination" {...rest}>
-      <button className="twc-page" data-size={size} onClick={() => go(page - 1)} disabled={page <= 1} aria-label="Previous page">
+      <button type="button" className="twc-page" data-size={size} onClick={() => go(page - 1)} disabled={page <= 1} aria-label="Previous page">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
       </button>
       {pages.map((p, i) =>
         p === "…" ? (
           <span key={`e${i}`} className="twc-page twc-page__ellipsis" aria-hidden="true">…</span>
         ) : (
-          <button key={p} className="twc-page" data-size={size} data-active={p === page || undefined}
+          <button key={p} type="button" className="twc-page" data-size={size} data-active={p === page || undefined}
                   aria-current={p === page ? "page" : undefined} onClick={() => go(p)}>
             {p}
           </button>
         )
       )}
-      <button className="twc-page" data-size={size} onClick={() => go(page + 1)} disabled={page >= total} aria-label="Next page">
+      <button type="button" className="twc-page" data-size={size} onClick={() => go(page + 1)} disabled={page >= total} aria-label="Next page">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
       </button>
       {showJumper && total > 1 ? (

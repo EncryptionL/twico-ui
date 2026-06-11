@@ -29,6 +29,9 @@ const SELECT_CSS = `
 .twc-sel__chevron { flex: none; color: var(--color-text-subtle); display: inline-flex; transition: transform var(--duration-base) var(--ease-spring); }
 .twc-sel__trigger[data-open="true"] .twc-sel__chevron { transform: rotate(180deg); }
 .twc-sel__chevron svg { width: 16px; height: 16px; }
+.twc-sel__clear { flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: var(--radius-full); color: var(--color-text-subtle); cursor: pointer; }
+.twc-sel__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-sel__clear svg { width: 14px; height: 14px; }
 
 .twc-pop {
   position: absolute; z-index: var(--z-dropdown); top: calc(100% + 6px); left: 0; right: 0;
@@ -88,7 +91,8 @@ function ensureVisible(list, el) {
 export function Select({
   label, hint, error, required = false, size = "md",
   placeholder = "Select…", searchPlaceholder = "Search…", searchable, options, value, defaultValue = null,
-  onChange, disabled = false, placement = "bottom", portal = false, minWidth = 0, id, className = "", ...rest
+  onChange, clearable = false, disabled = false, placement = "bottom", portal = false, minWidth = 0, id, className = "",
+  onClick, onKeyDown, ...rest
 }) {
   React.useInsertionEffect(() => {
     if (document.getElementById("twc-select-styles")) return;
@@ -181,8 +185,13 @@ export function Select({
     if (value === undefined) setInternal(v);
     onChange?.(v); setOpen(false);
   }
-  function onKeyDown(e) {
+  function clear() {
+    if (value === undefined) setInternal(null);
+    onChange?.(null);
+  }
+  function handleKeyDown(e) {
     if (disabled) return;
+    if (!open && clearable && current != null && (e.key === "Delete" || e.key === "Backspace")) { e.preventDefault(); clear(); return; }
     if (!open && (e.key === "Enter" || e.key === " " || e.key === "ArrowDown")) { e.preventDefault(); setOpen(true); return; }
     if (!open) return;
     if (e.key === "Escape") setOpen(false);
@@ -194,6 +203,8 @@ export function Select({
   const listboxId = `${fieldId}-listbox`;
   const optionId = (i) => `${fieldId}-opt-${i}`;
   const activeId = open && visible[active] ? optionId(active) : undefined;
+  const descId = `${fieldId}-desc`;
+  const describedBy = error || hint ? descId : undefined;
 
   let counter = -1;
   const popInner = (
@@ -201,7 +212,7 @@ export function Select({
       {showSearch ? (
         <div className="twc-pop__search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          <input ref={searchRef} value={query} placeholder={searchPlaceholder} onKeyDown={onKeyDown}
+          <input ref={searchRef} value={query} placeholder={searchPlaceholder} onKeyDown={handleKeyDown}
             onChange={(e) => setQuery(e.target.value)} aria-label="Search options"
             role="combobox" aria-expanded={open} aria-controls={listboxId} aria-activedescendant={activeId} />
         </div>
@@ -261,15 +272,22 @@ export function Select({
         <button type="button" id={fieldId} ref={triggerRef} className="twc-sel__trigger" data-size={size}
           data-open={open || undefined} data-invalid={Boolean(error) || undefined} disabled={disabled}
           aria-haspopup="listbox" aria-expanded={open} aria-controls={open ? listboxId : undefined} aria-activedescendant={activeId}
-          onClick={() => setOpen((o) => !o)} onKeyDown={onKeyDown} {...rest}>
+          aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy}
+          onClick={(e) => { onClick?.(e); if (!e.defaultPrevented) setOpen((o) => !o); }}
+          onKeyDown={(e) => { onKeyDown?.(e); if (!e.defaultPrevented) handleKeyDown(e); }} {...rest}>
           <span className="twc-sel__value" data-placeholder={!selected || undefined}>{selected ? selected.label : placeholder}</span>
+          {clearable && selected && !disabled ? (
+            <span className="twc-sel__clear" aria-hidden="true" onClick={(e) => { e.stopPropagation(); clear(); }}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </span>
+          ) : null}
           <span className="twc-sel__chevron" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </span>
         </button>
         {popEl}
       </div>
-      {error ? <span className="twc-field__error">{error}</span> : hint ? <span className="twc-field__hint">{hint}</span> : null}
+      {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
 }

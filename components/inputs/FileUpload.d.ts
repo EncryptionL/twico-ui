@@ -7,7 +7,7 @@ import * as React from "react";
  *
  * @startingPoint section="Inputs" subtitle="Drag & drop file upload" viewport="700x320"
  */
-export interface FileUploadProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+export interface FileUploadProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
   /** Accepted file types (input accept string, e.g. "image/*,.pdf"). */
   accept?: string;
   /** Allow selecting multiple files. @default false */
@@ -17,6 +17,8 @@ export interface FileUploadProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   hint?: React.ReactNode;
   /** Controlled list of selected files. */
   value?: File[];
+  /** Uncontrolled initial file list. @default [] */
+  defaultValue?: File[];
   onChange?: (files: File[]) => void;
 }
 

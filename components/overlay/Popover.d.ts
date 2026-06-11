@@ -18,6 +18,10 @@ export interface PopoverProps extends React.HTMLAttributes<HTMLSpanElement> {
   width?: number;
   /** Panel content. */
   children?: React.ReactNode;
+  /** Controlled open state — pair with `onOpenChange`. Omit for internal (uncontrolled) state. */
+  open?: boolean;
+  /** Called with the requested open state on trigger click, Esc, or outside click. */
+  onOpenChange?: (open: boolean) => void;
 }
 
 export function Popover(props: PopoverProps): React.JSX.Element;

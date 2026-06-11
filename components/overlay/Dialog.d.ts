@@ -4,7 +4,7 @@ import * as React from "react";
  * Modal dialog with scrim, pop-in animation, Esc-to-close, and backdrop close.
  * Render conditionally and drive with `open` + `onClose`.
  */
-export interface DialogProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface DialogProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   /** Whether the dialog is visible. */
   open: boolean;
   /** Called on close (Esc, backdrop, close button). */

@@ -12,7 +12,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   hint?: React.ReactNode;
   /** Error message — turns the field red and replaces the hint. */
   error?: React.ReactNode;
-  /** Marks the field required (adds an asterisk). */
+  /** Marks the field required (adds an asterisk and forwards to the native input). */
   required?: boolean;
   /** Control size. @default "md" */
   size?: "sm" | "md" | "lg";

@@ -7,7 +7,9 @@ const RATING_CSS = `
   transition: transform var(--duration-fast) var(--ease-spring), color var(--duration-fast) var(--ease-standard); }
 .twc-rating__btn:focus-visible { outline: none; box-shadow: var(--ring); border-radius: var(--radius-sm); }
 .twc-rating[data-readonly="true"] .twc-rating__btn { cursor: default; }
-.twc-rating:not([data-readonly="true"]) .twc-rating__btn:hover { transform: scale(1.18); }
+.twc-rating[data-disabled="true"] { opacity: 0.55; }
+.twc-rating[data-disabled="true"] .twc-rating__btn { cursor: not-allowed; }
+.twc-rating:not([data-readonly="true"]):not([data-disabled="true"]) .twc-rating__btn:hover { transform: scale(1.18); }
 .twc-rating__btn[data-on="true"] { color: var(--_c, var(--color-warning)); }
 .twc-rating__btn svg { width: var(--_sz, 24px); height: var(--_sz, 24px); display: block; }
 .twc-rating[data-size="sm"] { --_sz: 18px; }
@@ -24,9 +26,11 @@ export function Rating({
   size = "md",
   color,
   readOnly = false,
+  disabled = false,
   showValue = false,
   onChange,
   className = "",
+  style,
   ...rest
 }) {
   React.useInsertionEffect(() => {
@@ -41,20 +45,37 @@ export function Rating({
   const [hover, setHover] = React.useState(0);
   const val = value !== undefined ? value : internal;
   const shown = hover || val;
+  const interactive = !readOnly && !disabled;
+  const btnRefs = React.useRef([]);
+  // The star that holds the roving tab stop: the checked star, or the first when unset.
+  const tabStar = Math.min(count, Math.max(1, Math.round(val) || 1));
 
-  const set = (v) => { if (readOnly) return; if (value === undefined) setInternal(v); onChange?.(v); };
+  const set = (v) => { if (!interactive) return; if (value === undefined) setInternal(v); onChange?.(v); };
+
+  const onKeyDown = (e) => {
+    if (!interactive) return;
+    let next;
+    if (e.key === "ArrowRight" || e.key === "ArrowUp") next = Math.min(count, val + 1);
+    else if (e.key === "ArrowLeft" || e.key === "ArrowDown") next = Math.max(1, val - 1);
+    else if (e.key === "Home") next = 1;
+    else if (e.key === "End") next = count;
+    else return;
+    e.preventDefault();
+    set(next);
+    btnRefs.current[next - 1]?.focus();
+  };
 
   return (
-    <div className={`twc-rating ${className}`} data-size={size} data-readonly={readOnly || undefined}
-      style={color ? { "--_c": color } : undefined} role="radiogroup" aria-label="Rating" {...rest}>
-      <span className="twc-rating__stars" onMouseLeave={() => setHover(0)}>
+    <div className={`twc-rating ${className}`} data-size={size} data-readonly={readOnly || undefined} data-disabled={disabled || undefined}
+      style={color ? { "--_c": color, ...style } : style} role="radiogroup" aria-label="Rating" aria-disabled={disabled || undefined} {...rest}>
+      <span className="twc-rating__stars" onMouseLeave={() => setHover(0)} onKeyDown={onKeyDown}>
         {Array.from({ length: count }).map((_, i) => {
           const n = i + 1;
           return (
-            <button key={n} type="button" className="twc-rating__btn" data-on={n <= shown || undefined}
-              aria-label={`${n} star${n > 1 ? "s" : ""}`} aria-pressed={n <= val}
-              disabled={readOnly} tabIndex={readOnly ? -1 : 0}
-              onMouseEnter={() => !readOnly && setHover(n)} onClick={() => set(n === val ? 0 : n)}>
+            <button key={n} ref={(el) => { btnRefs.current[i] = el; }} type="button" className="twc-rating__btn" data-on={n <= shown || undefined}
+              role="radio" aria-label={`${n} star${n > 1 ? "s" : ""}`} aria-checked={n === val}
+              disabled={readOnly || disabled} tabIndex={interactive && n === tabStar ? 0 : -1}
+              onMouseEnter={() => interactive && setHover(n)} onClick={() => set(n === val ? 0 : n)}>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d={StarPath} /></svg>
             </button>
           );

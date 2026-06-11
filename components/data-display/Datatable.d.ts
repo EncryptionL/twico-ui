@@ -31,7 +31,7 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
    * selected row objects, and a `clearSelection()` callback.
    */
   batchActions?: DatatableBatchAction[];
-  /** Row height preset. @default "standard" */
+  /** Row height preset. The toolbar density button cycles it locally; changing this prop re-applies it. @default "standard" */
   density?: "compact" | "standard" | "comfortable";
   /** Initial rows per page. 0 disables pagination. @default 10 */
   pageSize?: number;
@@ -81,11 +81,11 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
   onCellClick?: (value: any, row: any, field: string) => void;
   /** Fired when the active cell changes: ({ key, field } | null). */
   onActiveCellChange?: (cell: { key: string | number; field: string } | null) => void;
-  /** Initial “show totals row” state. Aggregation is OFF by default and is configured at runtime from the toolbar **Aggregation** panel (pick columns + function); a column's `aggregation` prop just seeds the initial choice. @default false */
+  /** “Show totals row” state (changing the prop re-applies it; the user can also toggle it in the toolbar **Aggregation** panel). Aggregation is configured at runtime from that panel (pick columns + function); a column's `aggregation` prop just seeds the initial choice. @default false */
   showAggregation?: boolean;
-  /** Accessible label for the grid (role="grid"). @default "Data table" */
+  /** Accessible label for the grid (role="grid"). A standard `aria-label` prop takes precedence. @default "Data table" */
   ariaLabel?: string;
-  /** Initial row-grouping fields (collapsible groups with subtotals). Users can also group via a column's ⋮ menu. @default [] */
+  /** Row-grouping fields (collapsible groups with subtotals). Changing the prop re-applies it; users can also group via a column's ⋮ menu. @default [] */
   rowGrouping?: string[];
   /** Enable row pinning — adds "Pin to top/bottom" to each row's actions menu; pinned rows stay sticky above/below the scroll body. @default false */
   rowPinning?: boolean;
@@ -113,8 +113,8 @@ export interface DatatableQuery {
   pageSize: number;
   /** Active sort, or null. */
   sort: { field: string; dir: "asc" | "desc" } | null;
-  /** Active column filters. */
-  filters: Array<{ field: string; op: string; value: string }>;
+  /** Active column filters. `value` is a `string[]` when `op === "isAnyOf"` (and empty for `isEmpty`/`isNotEmpty`). */
+  filters: Array<{ field: string; op: string; value: string | string[] }>;
   /** Quick-search text. */
   quickFilter: string;
 }
@@ -122,12 +122,14 @@ export interface DatatableQuery {
 export interface DatatableColumn {
   /** Row object key (also the sort/filter key). */
   field: string;
-  /** Header label. @default field */
+  /** Header label. @default field ("Actions" for actions columns) */
   headerName?: string;
   /** Data type. "actions" renders per-row action buttons via getActions. @default "string" */
   type?: "string" | "number" | "actions";
-  /** Column width in px. @default 160 (110 for actions) */
+  /** Column width in px. @default 160 (120 for actions) */
   width?: number;
+  /** Cell alignment; currently affects the actions column's button justification. @default "right" for number/actions columns, else "left" */
+  align?: "left" | "right";
   /** Allow sorting this column. @default true */
   sortable?: boolean;
   /** Allow filtering this column. @default true */
@@ -152,7 +154,7 @@ export interface DatatableColumn {
   editable?: boolean;
   /** Editor type. "select" (or any column with `valueOptions`) renders a dropdown; else a text/number input by column type. */
   editType?: "text" | "number" | "select";
-  /** Hide the column header ⋮ menu. @default true for actions columns, else false */
+  /** Hide the column header ⋮ menu. @default false */
   disableColumnMenu?: boolean;
   /** Distinct values for the "is any of" multi-value filter (recommended in server mode). */
   valueOptions?: Array<string | { value: string; label: string }>;

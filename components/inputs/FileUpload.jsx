@@ -46,6 +46,7 @@ export function FileUpload({
   disabled = false,
   hint,
   value,
+  defaultValue = [],
   onChange,
   className = "",
   ...rest
@@ -58,7 +59,7 @@ export function FileUpload({
     document.head.appendChild(el);
   }, []);
 
-  const [internal, setInternal] = React.useState([]);
+  const [internal, setInternal] = React.useState(defaultValue);
   const files = value !== undefined ? value : internal;
   const [drag, setDrag] = React.useState(false);
   const inputRef = React.useRef(null);

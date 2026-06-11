@@ -98,13 +98,17 @@ export function Slider({
   }
 
   const ticks = showTicks ? Math.floor((max - min) / step) + 1 : 0;
+  const labelId = label ? `${fieldId}-label` : undefined;
+  const display = fmt(val);
+  // Human-readable value for assistive tech, only when a custom format is in play.
+  const valueText = formatValue && (typeof display === "string" || typeof display === "number") ? String(display) : undefined;
 
   return (
     <div className={`twc-slider ${className}`} data-disabled={disabled || undefined} {...rest}>
       {(label || showValue) ? (
         <div className="twc-slider__head">
-          {label ? <label className="twc-slider__label" htmlFor={fieldId}>{label}</label> : <span />}
-          {showValue ? <span className="twc-slider__value">{fmt(val)}</span> : null}
+          {label ? <label className="twc-slider__label" id={labelId}>{label}</label> : <span />}
+          {showValue ? <span className="twc-slider__value">{display}</span> : null}
         </div>
       ) : null}
       <div className="twc-slider__track" ref={trackRef} data-show-bubble={dragging || undefined} onPointerDown={onPointerDown}>
@@ -126,11 +130,13 @@ export function Slider({
           aria-valuemin={min}
           aria-valuemax={max}
           aria-valuenow={val}
-          aria-label={typeof label === "string" ? label : "Slider"}
+          aria-valuetext={valueText}
+          aria-labelledby={labelId}
+          aria-label={labelId ? undefined : "Slider"}
           aria-disabled={disabled || undefined}
           onKeyDown={onKeyDown}
         >
-          <span className="twc-slider__bubble">{fmt(val)}</span>
+          <span className="twc-slider__bubble">{display}</span>
         </div>
       </div>
     </div>

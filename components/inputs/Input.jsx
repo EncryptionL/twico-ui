@@ -24,7 +24,7 @@ const FIELD_CSS = `
 .twc-input:hover:not([data-disabled]):not(:focus-within) { border-color: var(--color-border-strong); }
 .twc-input:focus-within { border-color: var(--color-primary); box-shadow: var(--ring); }
 .twc-input[data-invalid="true"] { border-color: var(--color-danger); }
-.twc-input[data-invalid="true"]:focus-within { box-shadow: 0 0 0 var(--ring-width) rgb(244 63 94 / 0.28); }
+.twc-input[data-invalid="true"]:focus-within { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
 .twc-input[data-disabled] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
 .twc-input__el {
   flex: 1; min-width: 0; border: none; outline: none; background: transparent;
@@ -69,6 +69,7 @@ export function Input({
   useFieldStyles();
   const autoId = React.useId();
   const fieldId = id || autoId;
+  const descId = `${fieldId}-desc`;
   const invalid = Boolean(error);
   const isPassword = type === "password";
   const [revealed, setRevealed] = React.useState(false);
@@ -105,12 +106,14 @@ export function Input({
           className="twc-input__el"
           type={effectiveType}
           disabled={disabled}
+          required={required || undefined}
           aria-invalid={invalid || undefined}
+          aria-describedby={error || hint ? descId : undefined}
           {...rest}
         />
         {suffix}
       </div>
-      {error ? <span className="twc-field__error">{error}</span> : hint ? <span className="twc-field__hint">{hint}</span> : null}
+      {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { createPortal } from "react-dom";
 
 const MULTI_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
@@ -9,11 +10,14 @@ const MULTI_CSS = `
 
 .twc-ms { position: relative; font-family: var(--font-sans); }
 .twc-ms__control {
+  --_h: var(--control-h-md);
   display: flex; align-items: center; flex-wrap: wrap; gap: 5px; width: 100%;
-  min-height: var(--control-h-md); padding: 5px var(--space-3); cursor: text;
+  min-height: var(--_h); padding: 5px var(--space-3); cursor: text;
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
+.twc-ms__control[data-size="sm"] { --_h: var(--control-h-sm); }
+.twc-ms__control[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-ms__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
 .twc-ms__control[data-open="true"] { border-color: var(--color-primary); box-shadow: var(--ring); }
 .twc-ms__control[data-invalid="true"] { border-color: var(--color-danger); }
@@ -32,6 +36,9 @@ const MULTI_CSS = `
 .twc-ms__chev { flex: none; display: inline-grid; place-items: center; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; padding: 0; transition: transform var(--duration-base) var(--ease-spring); }
 .twc-ms__control[data-open="true"] .twc-ms__chev { transform: rotate(180deg); }
 .twc-ms__chev svg { width: 16px; height: 16px; }
+.twc-ms__clear { flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; background: transparent; padding: 0; border-radius: var(--radius-full); color: var(--color-text-subtle); cursor: pointer; }
+.twc-ms__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-ms__clear svg { width: 14px; height: 14px; }
 
 .twc-pop {
   position: absolute; z-index: var(--z-dropdown); top: calc(100% + 6px); left: 0; right: 0;
@@ -39,6 +46,7 @@ const MULTI_CSS = `
   border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
   transform-origin: top; animation: twico-scale-in var(--duration-fast) var(--ease-spring);
 }
+.twc-pop[data-placement="top"] { top: auto; bottom: calc(100% + 6px); transform-origin: bottom; }
 .twc-pop__list { max-height: 260px; overflow-y: auto; padding: var(--space-1-5); }
 .twc-pop__group { padding: 8px 10px 4px; font-size: var(--text-xs); font-weight: var(--font-bold); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
 .twc-pop__group:not(:first-child) { margin-top: 4px; border-top: var(--border-thin) solid var(--color-divider); padding-top: 10px; }
@@ -52,7 +60,7 @@ const MULTI_CSS = `
 .twc-opt__box {
   flex: none; width: 18px; height: 18px; display: grid; place-items: center;
   border: var(--border-medium) solid var(--color-border-strong); border-radius: var(--radius-sm);
-  color: #fff; transition: background-color var(--duration-fast), border-color var(--duration-fast);
+  color: var(--color-primary-fg); transition: background-color var(--duration-fast), border-color var(--duration-fast);
 }
 .twc-opt[data-selected="true"] .twc-opt__box { background: var(--color-primary); border-color: var(--color-primary); }
 .twc-opt__box svg { width: 12px; height: 12px; opacity: 0; }
@@ -89,9 +97,10 @@ function ensureVisible(list, el) {
 }
 
 export function MultiSelect({
-  label, hint, error, required = false,
+  label, hint, error, required = false, size = "md",
   placeholder = "Select…", options, value, defaultValue = [],
-  onChange, disabled = false, id, className = "", ...rest
+  onChange, clearable = false, disabled = false, placement = "bottom", portal = false, minWidth = 0,
+  id, className = "", onFocus, onKeyDown, ...rest
 }) {
   React.useInsertionEffect(() => {
     if (document.getElementById("twc-ms-styles")) return;
@@ -110,8 +119,11 @@ export function MultiSelect({
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState("");
   const [active, setActive] = React.useState(0);
+  const [coords, setCoords] = React.useState(null);
   const wrapRef = React.useRef(null);
+  const controlRef = React.useRef(null);
   const inputRef = React.useRef(null);
+  const popRef = React.useRef(null);
   const listRef = React.useRef(null);
   const activeRef = React.useRef(null);
 
@@ -121,9 +133,36 @@ export function MultiSelect({
   );
   const visible = React.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
 
+  // Portal mode: measure the control and pin the popover with fixed positioning so
+  // it escapes any clipping/scrolling ancestor. Auto-flips up when there isn't
+  // enough room below (same logic as Select).
+  const place = React.useCallback(() => {
+    const el = controlRef.current; if (!el) return;
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const below = vh - r.bottom;
+    const flip = placement === "top" || (below < 260 && r.top > below);
+    setCoords({ left: r.left, width: Math.max(r.width, minWidth),
+      top: flip ? undefined : Math.round(r.bottom + 6),
+      bottom: flip ? Math.round(vh - r.top + 6) : undefined, flip });
+  }, [placement, minWidth]);
+
+  React.useEffect(() => {
+    if (!open || !portal) return;
+    place();
+    const onMove = () => place();
+    window.addEventListener("scroll", onMove, true);
+    window.addEventListener("resize", onMove);
+    return () => { window.removeEventListener("scroll", onMove, true); window.removeEventListener("resize", onMove); };
+  }, [open, portal, place]);
+
   React.useEffect(() => {
     if (!open) return;
-    const onDown = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) { setOpen(false); setQuery(""); } };
+    const onDown = (e) => {
+      if (wrapRef.current && wrapRef.current.contains(e.target)) return;
+      if (popRef.current && popRef.current.contains(e.target)) return;
+      setOpen(false); setQuery("");
+    };
     document.addEventListener("mousedown", onDown);
     return () => document.removeEventListener("mousedown", onDown);
   }, [open]);
@@ -139,7 +178,7 @@ export function MultiSelect({
     setQuery("");
     inputRef.current?.focus();
   }
-  function onKeyDown(e) {
+  function handleKeyDown(e) {
     if (e.key === "ArrowDown") { e.preventDefault(); if (!open) setOpen(true); else setActive((a) => Math.min(a + 1, visible.length - 1)); }
     else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => Math.max(a - 1, 0)); }
     else if (e.key === "Enter") { e.preventDefault(); if (open && visible[active]) toggle(visible[active].value); }
@@ -151,13 +190,62 @@ export function MultiSelect({
   const listboxId = `${fieldId}-listbox`;
   const optionId = (i) => `${fieldId}-opt-${i}`;
   const activeId = open && visible[active] ? optionId(active) : undefined;
+  const descId = `${fieldId}-desc`;
+  const describedBy = error || hint ? descId : undefined;
   let counter = -1;
+
+  const popInner = (
+    <div className="twc-pop__list" id={listboxId} ref={listRef} role="listbox" aria-multiselectable="true">
+      {visible.length === 0 ? <div className="twc-pop__empty">No results found</div> :
+        fGroups.map((g, gi) => (
+          <React.Fragment key={gi}>
+            {g.group ? <div className="twc-pop__group">{g.group}</div> : null}
+            {g.options.map((o) => {
+              counter += 1; const idx = counter; const isSel = selected.includes(o.value);
+              return (
+                <button key={o.value} id={optionId(idx)} type="button" className="twc-opt" role="option" aria-selected={isSel}
+                  ref={idx === active ? activeRef : null}
+                  data-selected={isSel || undefined} data-active={idx === active || undefined}
+                  onMouseEnter={() => setActive(idx)} onMouseDown={(e) => e.preventDefault()} onClick={() => toggle(o.value)}>
+                  <span className="twc-opt__box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                  <span className="twc-opt__main">
+                    <span className="twc-opt__label">{o.label}</span>
+                    {o.description ? <span className="twc-opt__desc">{o.description}</span> : null}
+                  </span>
+                </button>
+              );
+            })}
+          </React.Fragment>
+        ))}
+    </div>
+  );
+
+  const RD = { createPortal: (typeof createPortal === "function" ? createPortal : (typeof window !== "undefined" && window.ReactDOM && window.ReactDOM.createPortal)) };
+  const canPortal = portal && RD && RD.createPortal;
+
+  let popEl = null;
+  if (open) {
+    if (canPortal && coords) {
+      popEl = RD.createPortal(
+        <div className="twc-pop twc-pop--portal" ref={popRef}
+          data-placement={coords.flip ? "top" : undefined}
+          style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, right: "auto", zIndex: "var(--z-tooltip)" }}>
+          {popInner}
+        </div>, document.body);
+    } else if (!portal) {
+      popEl = (
+        <div className="twc-pop" ref={popRef} data-placement={placement === "top" ? "top" : undefined}>
+          {popInner}
+        </div>
+      );
+    }
+  }
 
   return (
     <div className={`twc-field ${className}`} ref={wrapRef}>
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
       <div className="twc-ms">
-        <div className="twc-ms__control" data-open={open || undefined} data-invalid={Boolean(error) || undefined} data-disabled={disabled || undefined}
+        <div className="twc-ms__control" ref={controlRef} data-size={size} data-open={open || undefined} data-invalid={Boolean(error) || undefined} data-disabled={disabled || undefined}
              onClick={() => { if (!disabled) { inputRef.current?.focus(); setOpen(true); } }}>
           {selectedOpts.map((o) => (
             <span className="twc-ms__chip" key={o.value}>
@@ -169,43 +257,25 @@ export function MultiSelect({
           ))}
           <input ref={inputRef} id={fieldId} className="twc-ms__input" role="combobox" aria-expanded={open} aria-autocomplete="list"
                  aria-controls={open ? listboxId : undefined} aria-activedescendant={activeId}
+                 aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy}
                  placeholder={selectedOpts.length ? "" : placeholder} value={query} disabled={disabled}
-                 onFocus={() => setOpen(true)} onChange={(e) => { setQuery(e.target.value); setOpen(true); }} onKeyDown={onKeyDown} {...rest} />
+                 onFocus={(e) => { onFocus?.(e); setOpen(true); }}
+                 onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
+                 onKeyDown={(e) => { onKeyDown?.(e); if (!e.defaultPrevented) handleKeyDown(e); }} {...rest} />
+          {clearable && selected.length > 0 && !disabled ? (
+            <button type="button" className="twc-ms__clear" aria-label="Clear all" onClick={(e) => { e.stopPropagation(); commit([]); setQuery(""); }}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+          ) : null}
           <button type="button" className="twc-ms__chev" aria-label="Toggle" tabIndex={-1}
                   onClick={(e) => { e.stopPropagation(); setOpen((o) => !o); inputRef.current?.focus(); }}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </button>
         </div>
 
-        {open ? (
-          <div className="twc-pop">
-            <div className="twc-pop__list" id={listboxId} ref={listRef} role="listbox" aria-multiselectable="true">
-              {visible.length === 0 ? <div className="twc-pop__empty">No results found</div> :
-                fGroups.map((g, gi) => (
-                  <React.Fragment key={gi}>
-                    {g.group ? <div className="twc-pop__group">{g.group}</div> : null}
-                    {g.options.map((o) => {
-                      counter += 1; const idx = counter; const isSel = selected.includes(o.value);
-                      return (
-                        <button key={o.value} id={optionId(idx)} type="button" className="twc-opt" role="option" aria-selected={isSel}
-                          ref={idx === active ? activeRef : null}
-                          data-selected={isSel || undefined} data-active={idx === active || undefined}
-                          onMouseEnter={() => setActive(idx)} onMouseDown={(e) => e.preventDefault()} onClick={() => toggle(o.value)}>
-                          <span className="twc-opt__box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-                          <span className="twc-opt__main">
-                            <span className="twc-opt__label">{o.label}</span>
-                            {o.description ? <span className="twc-opt__desc">{o.description}</span> : null}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </React.Fragment>
-                ))}
-            </div>
-          </div>
-        ) : null}
+        {popEl}
       </div>
-      {error ? <span className="twc-field__error">{error}</span> : hint ? <span className="twc-field__hint">{hint}</span> : null}
+      {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
 }

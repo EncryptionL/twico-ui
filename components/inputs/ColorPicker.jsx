@@ -6,8 +6,9 @@ const COLORPICKER_CSS = `
 .twc-cp__trigger { display: flex; align-items: center; gap: var(--space-2-5); height: var(--control-h-md); padding: 0 var(--space-2) 0 var(--space-2);
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
-.twc-cp__trigger:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
+.twc-cp__trigger:hover:not([data-open="true"]):not([data-disabled="true"]) { border-color: var(--color-border-strong); }
 .twc-cp__trigger[data-open="true"] { border-color: var(--color-primary); box-shadow: var(--ring); }
+.twc-cp__trigger[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
 .twc-cp__swatch { flex: none; width: 26px; height: 26px; border-radius: var(--radius-sm); box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12); }
 .twc-cp__value { flex: 1; font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-text); text-transform: uppercase; }
 .twc-cp__chev { flex: none; color: var(--color-text-subtle); display: inline-flex; }
@@ -16,6 +17,7 @@ const COLORPICKER_CSS = `
   background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg); padding: var(--space-3); animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top; }
 .twc-cp__area { position: relative; width: 100%; height: 140px; border-radius: var(--radius-md); cursor: crosshair; overflow: hidden; touch-action: none; }
+.twc-cp__area:focus-visible, .twc-cp__hue:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-cp__area-sat { position: absolute; inset: 0; background: linear-gradient(to right, #fff, hsl(var(--_h,0), 100%, 50%)); }
 .twc-cp__area-val { position: absolute; inset: 0; background: linear-gradient(to top, #000, transparent); }
 .twc-cp__area-knob { position: absolute; width: 14px; height: 14px; border-radius: var(--radius-full); border: 2px solid #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.3); transform: translate(-50%, -50%); pointer-events: none; }
@@ -61,6 +63,7 @@ export function ColorPicker({
   value,
   defaultValue = "#6366F1",
   presets = DEFAULT_PRESETS,
+  disabled = false,
   onChange,
   className = "",
   ...rest
@@ -80,6 +83,10 @@ export function ColorPicker({
   const wrapRef = React.useRef(null);
   const areaRef = React.useRef(null);
   const hueRef = React.useRef(null);
+  const labelId = React.useId();
+
+  // close the popover if the picker becomes disabled while open
+  React.useEffect(() => { if (disabled) setOpen(false); }, [disabled]);
 
   // sync external hex -> hsv when it changes and is valid
   React.useEffect(() => { const v = hexToHsv(hex); if (v && hsvToHex(v.h, v.s, v.v).toLowerCase() !== hsvToHex(hsv.h, hsv.s, hsv.v).toLowerCase()) setHsv(v); }, [hex]);
@@ -112,11 +119,33 @@ export function ColorPicker({
     window.addEventListener("pointermove", move); window.addEventListener("pointerup", up);
   };
 
+  const onAreaKeyDown = (e) => {
+    let { s, v } = hsv;
+    if (e.key === "ArrowRight") s = Math.min(100, s + 1);
+    else if (e.key === "ArrowLeft") s = Math.max(0, s - 1);
+    else if (e.key === "ArrowUp") v = Math.min(100, v + 1);
+    else if (e.key === "ArrowDown") v = Math.max(0, v - 1);
+    else return;
+    e.preventDefault();
+    commit({ ...hsv, s, v });
+  };
+  const onHueKeyDown = (e) => {
+    let h = hsv.h;
+    if (e.key === "ArrowRight" || e.key === "ArrowUp") h = Math.min(360, h + 1);
+    else if (e.key === "ArrowLeft" || e.key === "ArrowDown") h = Math.max(0, h - 1);
+    else if (e.key === "Home") h = 0;
+    else if (e.key === "End") h = 360;
+    else return;
+    e.preventDefault();
+    commit({ ...hsv, h });
+  };
+
   return (
     <div className={`twc-cp ${className}`} ref={wrapRef} {...rest}>
-      {label ? <span className="twc-cp__label">{label}</span> : null}
-      <div className="twc-cp__trigger" data-open={open || undefined} role="button" tabIndex={0}
-        onClick={() => setOpen((o) => !o)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOpen((o) => !o); } }}>
+      {label ? <span className="twc-cp__label" id={labelId}>{label}</span> : null}
+      <div className="twc-cp__trigger" data-open={open || undefined} data-disabled={disabled || undefined} role="button" tabIndex={disabled ? -1 : 0}
+        aria-haspopup="dialog" aria-expanded={open} aria-disabled={disabled || undefined} aria-labelledby={label ? labelId : undefined}
+        onClick={() => !disabled && setOpen((o) => !o)} onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setOpen((o) => !o); } }}>
         <span className="twc-cp__swatch" style={{ background: hex }} />
         <span className="twc-cp__value">{hex}</span>
         <span className="twc-cp__chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
@@ -124,17 +153,24 @@ export function ColorPicker({
 
       {open ? (
         <div className="twc-cp__pop" role="dialog" aria-label="Color picker">
-          <div className="twc-cp__area" ref={areaRef} style={{ "--_h": hsv.h }} onPointerDown={startDrag(dragArea)}>
+          <div className="twc-cp__area" ref={areaRef} style={{ "--_h": hsv.h }} onPointerDown={startDrag(dragArea)}
+            role="slider" tabIndex={0} aria-label="Saturation and brightness"
+            aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(hsv.s)}
+            aria-valuetext={`Saturation ${Math.round(hsv.s)}%, Brightness ${Math.round(hsv.v)}%`}
+            onKeyDown={onAreaKeyDown}>
             <div className="twc-cp__area-sat" />
             <div className="twc-cp__area-val" />
             <span className="twc-cp__area-knob" style={{ left: `${hsv.s}%`, top: `${100 - hsv.v}%`, background: hex }} />
           </div>
-          <div className="twc-cp__hue" ref={hueRef} onPointerDown={startDrag(dragHue)}>
+          <div className="twc-cp__hue" ref={hueRef} onPointerDown={startDrag(dragHue)}
+            role="slider" tabIndex={0} aria-label="Hue"
+            aria-valuemin={0} aria-valuemax={360} aria-valuenow={Math.round(hsv.h)}
+            onKeyDown={onHueKeyDown}>
             <span className="twc-cp__hue-knob" style={{ left: `${(hsv.h / 360) * 100}%` }} />
           </div>
           <div className="twc-cp__foot">
             <span className="twc-cp__swatch" style={{ background: hex }} />
-            <input className="twc-cp__hex" value={hex} maxLength={7}
+            <input className="twc-cp__hex" value={hex} maxLength={7} aria-label="Hex color"
               onChange={(e) => { let v = e.target.value; if (!v.startsWith("#")) v = "#" + v; if (value === undefined) setInternal(v); onChange?.(v); const p = hexToHsv(v); if (p) setHsv(p); }} />
           </div>
           {presets && presets.length ? (

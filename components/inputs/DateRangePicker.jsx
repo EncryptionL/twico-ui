@@ -6,8 +6,9 @@ const RANGE_CSS = `
 .twc-drp__control { display: flex; align-items: center; gap: var(--space-2); height: var(--control-h-md); padding: 0 var(--space-3);
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
-.twc-drp__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
+.twc-drp__control:hover:not([data-open="true"]):not([data-disabled="true"]) { border-color: var(--color-border-strong); }
 .twc-drp__control[data-open="true"] { border-color: var(--color-primary); box-shadow: var(--ring); }
+.twc-drp__control[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
 .twc-drp__ic { flex: none; color: var(--color-text-subtle); display: inline-flex; }
 .twc-drp__ic svg { width: 17px; height: 17px; }
 .twc-drp__text { flex: 1; font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; }
@@ -49,6 +50,7 @@ export function DateRangePicker({
   placeholder = "Select date range",
   presets = true,
   weekStartsOn = 0,
+  disabled = false,
   onChange,
   className = "",
   ...rest
@@ -67,6 +69,10 @@ export function DateRangePicker({
   const [view, setView] = React.useState(range.start || new Date());
   const [hover, setHover] = React.useState(null);
   const wrapRef = React.useRef(null);
+  const labelId = React.useId();
+
+  // close the popover if the picker becomes disabled while open
+  React.useEffect(() => { if (disabled) setOpen(false); }, [disabled]);
 
   React.useEffect(() => {
     if (!open) return;
@@ -110,9 +116,10 @@ export function DateRangePicker({
 
   return (
     <div className={`twc-drp ${className}`} ref={wrapRef} {...rest}>
-      {label ? <span className="twc-drp__label">{label}</span> : null}
-      <div className="twc-drp__control" data-open={open || undefined} role="button" tabIndex={0}
-        onClick={() => setOpen((o) => !o)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOpen((o) => !o); } }}>
+      {label ? <span className="twc-drp__label" id={labelId}>{label}</span> : null}
+      <div className="twc-drp__control" data-open={open || undefined} data-disabled={disabled || undefined} role="button" tabIndex={disabled ? -1 : 0}
+        aria-haspopup="dialog" aria-expanded={open} aria-disabled={disabled || undefined} aria-labelledby={label ? labelId : undefined}
+        onClick={() => !disabled && setOpen((o) => !o)} onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setOpen((o) => !o); } }}>
         <span className="twc-drp__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
         <span className="twc-drp__text" data-placeholder={!range.start || undefined}>{range.start ? text : placeholder}</span>
       </div>
@@ -122,15 +129,15 @@ export function DateRangePicker({
           {presets ? (
             <div className="twc-drp__presets">
               {[["Last 7 days", 7], ["Last 14 days", 14], ["Last 30 days", 30], ["Last 90 days", 90]].map(([lbl, n]) => (
-                <button key={n} className="twc-drp__preset" onClick={() => applyPreset(n)}>{lbl}</button>
+                <button key={n} type="button" className="twc-drp__preset" onClick={() => applyPreset(n)}>{lbl}</button>
               ))}
             </div>
           ) : null}
           <div className="twc-drp__cal">
             <div className="twc-drp__head">
-              <button className="twc-drp__nav" aria-label="Previous month" onClick={() => setView(new Date(y, m - 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+              <button type="button" className="twc-drp__nav" aria-label="Previous month" onClick={() => setView(new Date(y, m - 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
               <span className="twc-drp__title">{MONTHS[m]} {y}</span>
-              <button className="twc-drp__nav" aria-label="Next month" onClick={() => setView(new Date(y, m + 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+              <button type="button" className="twc-drp__nav" aria-label="Next month" onClick={() => setView(new Date(y, m + 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
             </div>
             <div className="twc-drp__grid">
               {dows.map((d) => <div key={d} className="twc-drp__dow">{d}</div>)}
@@ -138,7 +145,7 @@ export function DateRangePicker({
                 const d = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i);
                 const t = ymd(d), outside = d.getMonth() !== m;
                 return (
-                  <button key={i} className="twc-drp__day" data-outside={outside || undefined}
+                  <button key={i} type="button" className="twc-drp__day" data-outside={outside || undefined}
                     data-in={inRange(t) || undefined} data-edge={edgeOf(t) || undefined}
                     onMouseEnter={() => setHover(d)} onClick={() => clickDay(d)}>
                     {d.getDate()}

@@ -12,6 +12,22 @@ const BG = {
   bg: "--color-bg",
 };
 
+// Token name -> var(token); bare custom property ("--x") -> var(--x); anything else
+// is treated as a plain CSS background value and used as-is.
+function bgValue(bg) {
+  if (!bg) return undefined;
+  if (BG[bg]) return `var(${BG[bg]})`;
+  return String(bg).startsWith("--") ? `var(${bg})` : bg;
+}
+
+// Block javascript:/data:/vbscript: URLs (incl. whitespace/control-char obfuscation
+// that browsers strip) from reaching a DOM href. Consumer hrefs are a trust boundary.
+function safeHref(url) {
+  if (url == null) return undefined;
+  const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+  return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
+}
+
 /** Generic, token-styled element — the building block for non-flex layout. */
 export function Box({
   as: Tag = "div",
@@ -38,12 +54,13 @@ export function Box({
     marginRight: sp(mr ?? mx ?? m),
     marginBottom: sp(mb ?? my ?? m),
     marginLeft: sp(ml ?? mx ?? m),
-    background: bg ? `var(${BG[bg] || bg})` : undefined,
+    background: bgValue(bg),
     border: border ? "var(--border-thin, 1px) solid var(--color-border)" : undefined,
     borderRadius: radius ? `var(--radius-${radius})` : undefined,
     boxShadow: shadow ? `var(--shadow-${shadow})` : undefined,
     ...style,
   };
+  if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   return (
     <Tag className={`twc-box ${className}`.trim()} style={s} {...rest}>
       {children}

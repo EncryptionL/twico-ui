@@ -22,6 +22,8 @@ export interface DateRangePickerProps extends Omit<React.HTMLAttributes<HTMLDivE
   presets?: boolean;
   /** First day of week: 0 = Sunday, 1 = Monday. @default 0 */
   weekStartsOn?: 0 | 1;
+  /** Disable all interaction (the popover cannot be opened). @default false */
+  disabled?: boolean;
   onChange?: (range: DateRange) => void;
 }
 

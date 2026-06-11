@@ -11,11 +11,13 @@ const DATEPICKER_CSS = `
 .twc-dp__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
 .twc-dp__control[data-open="true"] { border-color: var(--color-primary); box-shadow: var(--ring); }
 .twc-dp__control[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
+.twc-dp__field { position: relative; display: flex; flex-direction: column; }
+.twc-dp__control[data-has-clear="true"] { padding-right: 34px; }
 .twc-dp__ic { flex: none; color: var(--color-text-subtle); display: inline-flex; }
 .twc-dp__ic svg { width: 17px; height: 17px; }
 .twc-dp__text { flex: 1; font-size: var(--text-sm); color: var(--color-text); }
 .twc-dp__text[data-placeholder="true"] { color: var(--color-text-subtle); }
-.twc-dp__clear { flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
+.twc-dp__clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
 .twc-dp__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dp__clear svg { width: 14px; height: 14px; }
 
@@ -83,12 +85,15 @@ export function DatePicker({
   const [open, setOpen] = React.useState(false);
   const [view, setView] = React.useState(selected || new Date());
   const [mode, setMode] = React.useState("days");
+  const [focusDate, setFocusDate] = React.useState(null);
   const wrapRef = React.useRef(null);
+  const gridRef = React.useRef(null);
 
   React.useEffect(() => {
     if (!open) return;
     setView(selected || new Date());
     setMode("days");
+    setFocusDate(null);
     const onDown = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false); };
     const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
     document.addEventListener("mousedown", onDown); document.addEventListener("keydown", onKey);
@@ -110,19 +115,61 @@ export function DatePicker({
   const today = new Date();
   const outOfRange = (d) => (min && d < new Date(min.getFullYear(), min.getMonth(), min.getDate())) || (max && d > new Date(max.getFullYear(), max.getMonth(), max.getDate()));
 
+  const keyOf = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+  const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+  const addMonths = (d, n) => { const last = new Date(d.getFullYear(), d.getMonth() + n + 1, 0); return new Date(last.getFullYear(), last.getMonth(), Math.min(d.getDate(), last.getDate())); };
+  const cells = Array.from({ length: 42 }, (_, i) => new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i));
+  // Roving tabindex: one Tab stop in the day grid — the focused day, else selected, else today, else the 1st.
+  const tabbableDate =
+    (focusDate && cells.some((c) => sameDay(c, focusDate)) ? focusDate : null) ||
+    (selected && cells.some((c) => sameDay(c, selected)) ? selected : null) ||
+    (cells.some((c) => sameDay(c, today)) ? today : null) ||
+    new Date(y, m, 1);
+
+  // Move DOM focus to the freshly navigated day once it exists (month may have re-rendered).
+  React.useEffect(() => {
+    if (!open || mode !== "days" || !focusDate) return;
+    gridRef.current?.querySelector(`[data-key="${keyOf(focusDate)}"]`)?.focus();
+  }, [focusDate, open, mode]);
+
+  // Calendar keyboard navigation: arrows move by day/week, Home/End to week edges, PageUp/PageDown by month.
+  const onGridKeyDown = (e) => {
+    const btn = e.target.closest?.("[data-key]");
+    if (!btn) return;
+    const [fy, fm, fd] = btn.getAttribute("data-key").split("-").map(Number);
+    const cur = new Date(fy, fm, fd);
+    let next = null;
+    if (e.key === "ArrowLeft") next = addDays(cur, -1);
+    else if (e.key === "ArrowRight") next = addDays(cur, 1);
+    else if (e.key === "ArrowUp") next = addDays(cur, -7);
+    else if (e.key === "ArrowDown") next = addDays(cur, 7);
+    else if (e.key === "Home") next = addDays(cur, -((cur.getDay() - weekStartsOn + 7) % 7));
+    else if (e.key === "End") next = addDays(cur, 6 - ((cur.getDay() - weekStartsOn + 7) % 7));
+    else if (e.key === "PageUp") next = addMonths(cur, -1);
+    else if (e.key === "PageDown") next = addMonths(cur, 1);
+    else return;
+    e.preventDefault();
+    setFocusDate(next);
+    if (next.getFullYear() !== y || next.getMonth() !== m) setView(new Date(next.getFullYear(), next.getMonth(), 1));
+  };
+
   return (
     <div className={`twc-dp ${className}`} ref={wrapRef} {...rest}>
-      {label ? <label className="twc-dp__label" htmlFor={fieldId}>{label}</label> : null}
-      <div className="twc-dp__control" id={fieldId} data-open={open || undefined} data-disabled={disabled || undefined}
-        role="button" tabIndex={disabled ? -1 : 0} aria-haspopup="dialog" aria-expanded={open}
-        onClick={() => !disabled && setOpen((o) => !o)}
-        onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && !disabled) { e.preventDefault(); setOpen((o) => !o); } }}>
-        <span className="twc-dp__ic" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        </span>
-        <span className="twc-dp__text" data-placeholder={!selected || undefined}>{selected ? fmt(selected) : placeholder}</span>
+      {label ? <label className="twc-dp__label" id={`${fieldId}-label`}>{label}</label> : null}
+      <div className="twc-dp__field">
+        <div className="twc-dp__control" id={fieldId} data-open={open || undefined} data-disabled={disabled || undefined}
+          data-has-clear={clearable && selected && !disabled ? "true" : undefined}
+          role="button" tabIndex={disabled ? -1 : 0} aria-haspopup="dialog" aria-expanded={open}
+          aria-labelledby={label ? `${fieldId}-label` : undefined}
+          onClick={() => !disabled && setOpen((o) => !o)}
+          onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && !disabled) { e.preventDefault(); setOpen((o) => !o); } }}>
+          <span className="twc-dp__ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </span>
+          <span className="twc-dp__text" data-placeholder={!selected || undefined}>{selected ? fmt(selected) : placeholder}</span>
+        </div>
         {clearable && selected && !disabled ? (
-          <button className="twc-dp__clear" aria-label="Clear" onClick={(e) => { e.stopPropagation(); pick(null); }}>
+          <button type="button" className="twc-dp__clear" aria-label="Clear" onClick={(e) => { e.stopPropagation(); pick(null); }}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
         ) : null}
@@ -131,26 +178,27 @@ export function DatePicker({
       {open ? (
         <div className="twc-dp__pop" role="dialog" aria-label="Choose date">
           <div className="twc-dp__head">
-            <button className="twc-dp__nav" aria-label="Previous" onClick={() => setView(mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1))}>
+            <button type="button" className="twc-dp__nav" aria-label="Previous" onClick={() => setView(mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1))}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
             </button>
-            <button className="twc-dp__title" onClick={() => setMode(mode === "days" ? "months" : "days")}>
+            <button type="button" className="twc-dp__title" onClick={() => setMode(mode === "days" ? "months" : "days")}>
               {mode === "days" ? `${MONTHS[m]} ${y}` : y}
             </button>
-            <button className="twc-dp__nav" aria-label="Next" onClick={() => setView(mode === "months" ? new Date(y + 1, m, 1) : new Date(y, m + 1, 1))}>
+            <button type="button" className="twc-dp__nav" aria-label="Next" onClick={() => setView(mode === "months" ? new Date(y + 1, m, 1) : new Date(y, m + 1, 1))}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </button>
           </div>
 
           {mode === "days" ? (
-            <div className="twc-dp__grid">
+            <div className="twc-dp__grid" ref={gridRef} onKeyDown={onGridKeyDown}>
               {dows.map((d) => <div key={d} className="twc-dp__dow">{d}</div>)}
-              {Array.from({ length: 42 }).map((_, i) => {
-                const d = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i);
+              {cells.map((d, i) => {
                 const outside = d.getMonth() !== m;
                 return (
-                  <button key={i} className="twc-dp__day" disabled={outOfRange(d)}
+                  <button key={i} type="button" className="twc-dp__day" disabled={outOfRange(d)}
                     data-outside={outside || undefined} data-today={sameDay(d, today) || undefined} data-selected={sameDay(d, selected) || undefined}
+                    data-key={keyOf(d)} tabIndex={sameDay(d, tabbableDate) ? 0 : -1}
+                    aria-pressed={!!sameDay(d, selected)} aria-current={sameDay(d, today) ? "date" : undefined}
                     aria-label={d.toDateString()} onClick={() => pick(d)}>
                     {d.getDate()}
                   </button>
@@ -160,7 +208,7 @@ export function DatePicker({
           ) : (
             <div className="twc-dp__months">
               {MONTHS.map((name, i) => (
-                <button key={i} className="twc-dp__mo" data-selected={selected && selected.getFullYear() === y && selected.getMonth() === i || undefined}
+                <button key={i} type="button" className="twc-dp__mo" data-selected={selected && selected.getFullYear() === y && selected.getMonth() === i || undefined}
                   onClick={() => { setView(new Date(y, i, 1)); setMode("days"); }}>
                   {name.slice(0, 3)}
                 </button>

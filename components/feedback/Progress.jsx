@@ -46,12 +46,14 @@ export function Progress({
   const pct = indeterminate ? 0 : Math.min(100, Math.max(0, (value / max) * 100));
 
   return (
-    <div className={`twc-progress-wrap ${className}`}>
+    // Single-root contract: className and ...rest (style, id, handlers, …) share the outer
+    // wrapper; role="progressbar" + aria-value* stay on the inner track.
+    <div className={`twc-progress-wrap ${className}`} {...rest}>
       {showLabel && !indeterminate ? (
         <div className="twc-progress__meta"><span>Progress</span><span>{Math.round(pct)}%</span></div>
       ) : null}
       <div className="twc-progress" data-tone={tone} data-size={size} data-indeterminate={indeterminate || undefined}
-           role="progressbar" aria-valuenow={indeterminate ? undefined : Math.round(pct)} aria-valuemin={0} aria-valuemax={100} {...rest}>
+           role="progressbar" aria-valuenow={indeterminate ? undefined : Math.round(pct)} aria-valuemin={0} aria-valuemax={100}>
         <div className="twc-progress__bar" style={indeterminate ? undefined : { width: `${pct}%` }} />
       </div>
     </div>

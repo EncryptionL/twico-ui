@@ -4,8 +4,10 @@ import * as React from "react";
  * Page navigation with first/last, prev/next, and smart ellipsis truncation.
  */
 export interface PaginationProps extends Omit<React.HTMLAttributes<HTMLElement>, "onChange"> {
-  /** Current 1-based page. @default 1 */
+  /** Controlled current 1-based page; when omitted the component manages its own page. */
   page?: number;
+  /** Initial 1-based page when uncontrolled (no `page` prop). @default 1 */
+  defaultPage?: number;
   /** Total number of pages. */
   total: number;
   /** Called with the new page when the user navigates. */

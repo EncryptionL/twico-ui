@@ -23,8 +23,15 @@ export interface SelectProps extends Omit<React.HTMLAttributes<HTMLButtonElement
   value?: string | null;
   /** Uncontrolled initial value. */
   defaultValue?: string | null;
-  onChange?: (value: string) => void;
+  /** Called with the chosen option's value, or `null` when cleared via `clearable`. */
+  onChange?: (value: string | null) => void;
+  /** Show a clear (×) affix when a value is selected; Delete/Backspace on the closed trigger also clears. @default false */
+  clearable?: boolean;
   disabled?: boolean;
+  /** Composed with the trigger's open/close toggle — your handler runs first; call `event.preventDefault()` to keep the menu from toggling. */
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  /** Composed with the trigger's keyboard navigation (Enter/Space/Arrows/Escape) — your handler runs first; call `event.preventDefault()` to suppress it. */
+  onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
   /** Open the menu upward instead of down (e.g. near a viewport bottom). @default "bottom" */
   placement?: "bottom" | "top";
   /** Render the dropdown in a portal (position:fixed on document.body) so it is never clipped by a

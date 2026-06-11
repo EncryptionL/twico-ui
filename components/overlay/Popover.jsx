@@ -10,6 +10,7 @@ const POPOVER_CSS = `
   box-shadow: var(--shadow-lg); font-family: var(--font-sans);
   transform-origin: top;
 }
+.twc-popover:focus { outline: none; }
 .twc-popover[data-state="open"] { animation: twico-scale-in var(--duration-fast) var(--ease-spring); }
 .twc-popover[data-state="closed"] { animation: twc-popover-out 120ms var(--ease-in) forwards; pointer-events: none; }
 @keyframes twc-popover-out { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.96); } }
@@ -29,6 +30,8 @@ export function Popover({
   placement = "bottom",
   align = "center",
   width,
+  open: openProp,
+  onOpenChange,
   className = "",
   ...rest
 }) {
@@ -40,11 +43,30 @@ export function Popover({
     document.head.appendChild(el);
   }, []);
 
-  const [open, setOpen] = React.useState(false);
+  const [openState, setOpenState] = React.useState(false);
   const [render, setRender] = React.useState(false);
   const [pos, setPos] = React.useState(null);
   const wrapRef = React.useRef(null);
   const popRef = React.useRef(null);
+  const popId = React.useId();
+
+  // Controlled when an `open` prop is passed; uncontrolled (internal state) otherwise.
+  // Every internal open/close request goes through setOpen so `onOpenChange` always fires.
+  const controlled = openProp !== undefined;
+  const open = controlled ? !!openProp : openState;
+  const openRef = React.useRef(open);
+  openRef.current = open;
+  const controlledRef = React.useRef(controlled);
+  controlledRef.current = controlled;
+  const onOpenChangeRef = React.useRef(onOpenChange);
+  onOpenChangeRef.current = onOpenChange;
+  const setOpen = React.useCallback((next) => {
+    const value = typeof next === "function" ? next(openRef.current) : next;
+    if (value === openRef.current) return;
+    if (!controlledRef.current) setOpenState(value);
+    onOpenChangeRef.current?.(value);
+  }, []);
+  const toggle = () => setOpen((o) => !o);
   const RD = { createPortal: (typeof createPortal === "function" ? createPortal : (typeof window !== "undefined" && window.ReactDOM && window.ReactDOM.createPortal)) };
 
   const place = React.useCallback(() => {
@@ -103,20 +125,65 @@ export function Popover({
     return () => clearTimeout(t);
   }, [open]);
 
+  // Remember what to restore focus to on open; restore it on close, but only if
+  // focus is still inside the panel (don't steal focus after an outside click).
+  const restoreRef = React.useRef(null);
+  const needFocusRef = React.useRef(false);
+  React.useEffect(() => {
+    if (open) {
+      restoreRef.current = document.activeElement;
+      needFocusRef.current = true;
+      return;
+    }
+    const prev = restoreRef.current;
+    restoreRef.current = null;
+    needFocusRef.current = false;
+    if (prev && typeof prev.focus === "function" && popRef.current?.contains(document.activeElement)) prev.focus();
+  }, [open]);
+
+  // Move focus into the panel once it has mounted and been positioned.
+  React.useEffect(() => {
+    if (open && render && pos && needFocusRef.current) {
+      needFocusRef.current = false;
+      popRef.current?.focus({ preventScroll: true });
+    }
+  }, [open, render, pos]);
+
   const pop = render && pos ? (
-    <div className="twc-popover" ref={popRef} data-state={open ? "open" : "closed"} data-flip={pos.flip || undefined} role="dialog"
+    <div className="twc-popover" id={popId} ref={popRef} tabIndex={-1} data-state={open ? "open" : "closed"} data-flip={pos.flip || undefined} role="dialog"
+      aria-labelledby={title ? `${popId}-title` : undefined}
       style={{ top: pos.top, bottom: pos.bottom, left: pos.left, width: pos.width }}>
       <span className="twc-popover__arrow" style={pos.arrow} aria-hidden="true" />
       <div className="twc-popover__inner">
-        {title ? <div className="twc-popover__title">{title}</div> : null}
+        {title ? <div className="twc-popover__title" id={`${popId}-title`}>{title}</div> : null}
         {children}
       </div>
     </div>
   ) : null;
 
+  // Make the trigger a proper, focusable disclosure button that announces its
+  // popup + open state. Clone a passed element (so a <button>/IconButton keeps
+  // its own semantics) or wrap a non-element trigger in a focusable
+  // role="button" span with Enter/Space activation.
+  const triggerEl = React.isValidElement(trigger)
+    ? React.cloneElement(trigger, {
+        onClick: (e) => { trigger.props.onClick?.(e); toggle(); },
+        tabIndex: trigger.props.tabIndex ?? 0,
+        "aria-haspopup": "dialog",
+        "aria-expanded": open,
+        "aria-controls": open ? popId : undefined,
+      })
+    : (
+        <span role="button" tabIndex={0} aria-haspopup="dialog" aria-expanded={open}
+          aria-controls={open ? popId : undefined} onClick={toggle}
+          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } }}>
+          {trigger}
+        </span>
+      );
+
   return (
     <span className={`twc-popover-wrap ${className}`} ref={wrapRef} {...rest}>
-      <span onClick={() => setOpen((o) => !o)}>{trigger}</span>
+      {triggerEl}
       {pop && RD && RD.createPortal ? RD.createPortal(pop, document.body) : pop}
     </span>
   );

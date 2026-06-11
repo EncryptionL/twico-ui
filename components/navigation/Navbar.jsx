@@ -16,7 +16,11 @@ const NAVBAR_CSS = `
 .twc-navbar__link svg { width: 16px; height: 16px; }
 .twc-navbar__spacer { flex: 1; }
 .twc-navbar__actions { display: flex; align-items: center; gap: var(--space-2); flex: none; }
-.twc-navbar__menu-btn { display: none; }
+.twc-navbar__menu-btn { display: none; place-items: center; width: 38px; height: 38px; flex: none; border: none; background: none;
+  color: var(--color-text); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast) var(--ease-standard); }
+.twc-navbar__menu-btn:hover { background: var(--color-surface-sunken); }
+.twc-navbar__menu-btn:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-navbar__menu-btn svg { width: 20px; height: 20px; }
 @media (max-width: 720px) {
   .twc-navbar__links { display: none; }
   .twc-navbar__menu-btn { display: inline-grid; }
@@ -50,10 +54,16 @@ export function Navbar({
 
   return (
     <header className={`twc-navbar ${className}`} data-sticky={sticky || undefined} {...rest}>
+      {onMenuClick ? (
+        <button type="button" className="twc-navbar__menu-btn" aria-label="Open menu" onClick={onMenuClick}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      ) : null}
       {brand ? <a className="twc-navbar__brand" href="#">{brand}</a> : null}
       <nav className="twc-navbar__links">
         {links.map((l, i) => (
-          <a key={i} className="twc-navbar__link" href={safeHref(l.href) || "#"} data-active={l.active || undefined} onClick={l.onClick}>
+          <a key={i} className="twc-navbar__link" href={safeHref(l.href) || "#"} data-active={l.active || undefined}
+             aria-current={l.active ? "page" : undefined} onClick={l.onClick}>
             {l.icon}{l.label}
           </a>
         ))}

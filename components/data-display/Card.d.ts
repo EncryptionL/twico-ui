@@ -6,7 +6,7 @@ import * as React from "react";
  *
  * @startingPoint section="Data display" subtitle="Content card with header & footer" viewport="700x260"
  */
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   /** Bold title in the card header. */
   title?: React.ReactNode;
   /** Muted subtitle under the title. */

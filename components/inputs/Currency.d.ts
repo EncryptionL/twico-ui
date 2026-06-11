@@ -1,5 +1,26 @@
 import * as React from "react";
 
+/** Metadata describing one built-in currency. */
+export interface CurrencyMeta {
+  /** ISO-style currency code, e.g. "USD". */
+  code: string;
+  /** Display symbol used as the input prefix, e.g. "$". */
+  symbol: string;
+  /** Number of decimal digits the currency allows, e.g. 2 (JPY/KRW use 0). */
+  precision: number;
+  /** Human-readable currency name, e.g. "US Dollar". */
+  label: string;
+}
+
+/** Built-in currency metadata table keyed by code (USD, EUR, GBP, JPY, IDR, …). */
+export const CURRENCIES: Record<string, CurrencyMeta>;
+
+/** The built-in currencies as { value, label } options, ready for a Select. */
+export const CURRENCY_OPTIONS: Array<{ value: string; label: string }>;
+
+/** Clamp a raw input string to the given decimal precision (e.g. precision 2: "2.259" → "2.25"). */
+export function clampPrecision(str: string | number | null | undefined, precision: number): string;
+
 /**
  * Currency input with a fixed currency defined in code. Shows the symbol as a
  * prefix and the currency code as a suffix, and enforces decimal precision
@@ -9,8 +30,11 @@ import * as React from "react";
  */
 export interface CurrencyProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "value" | "defaultValue" | "onChange"> {
   label?: React.ReactNode;
+  /** Helper text below the field; linked to the input via aria-describedby. */
   hint?: React.ReactNode;
+  /** Error text below the field; sets aria-invalid and is linked via aria-describedby (takes precedence over hint). */
   error?: React.ReactNode;
+  /** Intercepted to render the label asterisk, and forwarded to the native input as `required`. @default false */
   required?: boolean;
   size?: "sm" | "md" | "lg";
   /** Currency code (key in the built-in table), e.g. "USD", "EUR", "IDR", "JPY". @default "USD" */
@@ -25,7 +49,7 @@ export interface CurrencyProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   value?: string | number;
   /** Uncontrolled initial value. */
   defaultValue?: string | number;
-  /** Native change handler (receives the event). */
+  /** Native change handler (receives the event); fires alongside onValueChange. */
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   /** Convenience callback with the parsed numeric value and the formatted string. */
   onValueChange?: (value: number | null, formatted: string) => void;

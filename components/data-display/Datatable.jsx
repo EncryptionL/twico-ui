@@ -86,6 +86,8 @@ const DT_CSS = `
 .twc-dt__resizer::after { content: ""; position: absolute; top: 22%; right: 2px; width: 2px; height: 56%; background: transparent; border-radius: 2px; transition: background-color var(--duration-fast); }
 .twc-dt__th:hover .twc-dt__resizer::after { background: var(--color-border-strong); }
 .twc-dt__resizer:hover::after, .twc-dt__resizer[data-active="true"]::after { background: var(--color-primary); }
+.twc-dt__resizer:focus-visible { outline: none; }
+.twc-dt__resizer:focus-visible::after { background: var(--color-primary); }
 .twc-dt[data-resizing="true"] { cursor: col-resize; user-select: none; }
 
 /* Column reorder (drag) */
@@ -251,7 +253,7 @@ const DT_CSS = `
 
 /* Checkbox column */
 .twc-dt__check { width: 20px; height: 20px; display: grid; place-items: center; border: var(--border-medium) solid var(--color-border-strong);
-  border-radius: var(--radius-sm); background: var(--color-surface); color: #fff; cursor: pointer; transition: background-color var(--duration-fast), border-color var(--duration-fast); }
+  border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-primary-fg); cursor: pointer; transition: background-color var(--duration-fast), border-color var(--duration-fast); }
 .twc-dt__check[data-checked="true"], .twc-dt__check[data-indeterminate="true"] { background: var(--color-primary); border-color: var(--color-primary); }
 .twc-dt__check svg { width: 13px; height: 13px; opacity: 0; }
 .twc-dt__check[data-checked="true"] svg, .twc-dt__check[data-indeterminate="true"] svg { opacity: 1; }
@@ -313,7 +315,8 @@ const DT_CSS = `
 .twc-dt__col-name { flex: 1; font-size: var(--text-sm); }
 .twc-dt__sw { width: 32px; height: 18px; border-radius: var(--radius-full); background: var(--color-border-strong); position: relative; flex: none; transition: background-color var(--duration-base); }
 .twc-dt__sw[data-on="true"] { background: var(--color-primary); }
-.twc-dt__sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: var(--radius-full); background: #fff; box-shadow: var(--shadow-sm); transition: transform var(--duration-base) var(--ease-spring); }
+.twc-dt__sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: var(--radius-full); background: var(--color-primary-fg); box-shadow: var(--shadow-sm); transition: transform var(--duration-base) var(--ease-spring); }
+.twc-dt__sw:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-dt__sw[data-on="true"]::after { transform: translateX(14px); }
 .twc-dt__panel-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px 8px; }
 .twc-dt__panel-title { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
@@ -531,7 +534,7 @@ export function Datatable({
   editMode = false, onRowUpdate, onRowsChange, onBatchUpdate,
   showPageJumper = true,
   selectionMode = "none", onRowClick, onCellClick, onActiveCellChange,
-  showAggregation = false, ariaLabel = "Data table", rowGrouping = [],
+  showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [],
   rowPinning = false, rowReorder = false, rowResize = false, onRowOrderChange,
   pivot = null, pivotMode = false,
   className = "", ...rest
@@ -608,6 +611,19 @@ export function Datatable({
       return [...kept, ...added];
     });
   }, [columns]);
+
+  // Live-sync the props that seed internal toolbar state: changing the prop re-applies it
+  // (the user can still adjust each one from the toolbar between prop changes).
+  React.useEffect(() => { setDensity(densityProp); }, [densityProp]);
+  React.useEffect(() => { setAggOn(showAggregation); }, [showAggregation]);
+  // Keyed on content (not array identity) so inline `rowGrouping={[…]}` literals don't reset the user's grouping.
+  const rowGroupingKey = (rowGrouping || []).join("\u0000");
+  const rowGroupingKeyRef = React.useRef(rowGroupingKey);
+  React.useEffect(() => {
+    if (rowGroupingKeyRef.current === rowGroupingKey) return;
+    rowGroupingKeyRef.current = rowGroupingKey;
+    setGroupBy(rowGrouping || []);
+  }, [rowGroupingKey]);
 
   const widthOf = (c) => widths[c.field] ?? c.width ?? 160;
 
@@ -832,6 +848,23 @@ export function Datatable({
       return { left, right };
     });
   }
+  function toggleHiddenField(field) {
+    setHidden((h) => { const n = new Set(h); n.has(field) ? n.delete(field) : n.add(field); return n; });
+  }
+  // Keyboard alternative to drag-reorder: move a column one slot among the visible, unpinned columns.
+  function moveCol(field, dir) {
+    const mid = ordered.filter((c) => !pins.left.includes(c.field) && !pins.right.includes(c.field)).map((c) => c.field);
+    const i = mid.indexOf(field); const j = i + dir;
+    if (i === -1 || j < 0 || j >= mid.length) return;
+    const other = mid[j];
+    setOrder((prev) => {
+      const next = prev.filter((f) => f !== field);
+      const b = next.indexOf(other);
+      if (b === -1) return prev;
+      next.splice(dir > 0 ? b + 1 : b, 0, field);
+      return next;
+    });
+  }
 
   // Distinct value options for "is any of" filters (column.valueOptions, else derived from rows).
   function optionsForField(field) {
@@ -885,6 +918,10 @@ export function Datatable({
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     };
+    // Neutralize spreadsheet formula injection (CWE-1236): cells whose text starts with
+    // = + - @ (after optional whitespace) would execute as formulas in Excel/Sheets, so
+    // prefix them with a literal apostrophe. Real JS numbers can't carry a payload.
+    const defang = (v, s) => (typeof v !== "number" && /^\s*[=+\-@]/.test(s) ? "'" + s : s);
 
     if (format === "json") {
       const data = source.map((row) => Object.fromEntries(expCols.map((c) => [c.field, cellValue(c, row)])));
@@ -893,7 +930,7 @@ export function Datatable({
     }
     if (format === "excel") {
       // Excel opens an HTML table saved as .xls — no library needed.
-      const esc = (v) => String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const esc = (v) => defang(v, String(v == null ? "" : v)).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
       const head = `<tr>${expCols.map((c) => `<th>${esc(c.headerName)}</th>`).join("")}</tr>`;
       const body = source.map((row) => `<tr>${expCols.map((c) => `<td>${esc(cellValue(c, row))}</td>`).join("")}</tr>`).join("");
       const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8"></head><body><table border="1">${head}${body}</table></body></html>`;
@@ -903,7 +940,7 @@ export function Datatable({
     // csv (default) or tsv
     const sep = format === "tsv" ? "\t" : ",";
     const escape = (v) => {
-      const s = v == null ? "" : String(v);
+      const s = defang(v, v == null ? "" : String(v));
       return (format === "tsv" ? /[\t\n]/ : /[",\n]/).test(s) ? `"${s.replace(/"/g, '""')}"` : s;
     };
     const header = expCols.map((c) => escape(c.headerName)).join(sep);
@@ -1102,11 +1139,11 @@ export function Datatable({
     return (
       <div className="twc-dt__actions" style={{ justifyContent: col.align === "right" ? "flex-end" : "flex-start" }}>
         {inline.map((a, i) => (
-          <button key={i} className="twc-dt__act" data-danger={a.danger || undefined} title={a.label} aria-label={a.label}
+          <button type="button" key={i} className="twc-dt__act" data-danger={a.danger || undefined} title={a.label} aria-label={a.label}
             disabled={a.disabled} onClick={(e) => { e.stopPropagation(); a.onClick?.(row); }}>{a.icon}</button>
         ))}
         {menu.length ? (
-          <button className="twc-dt__act" aria-label="More actions" title="More"
+          <button type="button" className="twc-dt__act" aria-label="More actions" title="More"
             onClick={(e) => { e.stopPropagation(); setColMenu(null); setPanel(null); setRowMenu({ items: menu, row }); openRowMenu(e.currentTarget, "right", 200); }}>
             <Svg d={I.more} />
           </button>
@@ -1129,7 +1166,7 @@ export function Datatable({
     return (
       <tr key={`g${item.key}`} className="twc-dt__group-row" role="row">
         <td className="twc-dt__group-cell" role="gridcell" colSpan={totalCols} style={{ maxWidth: "none" }}>
-          <button className="twc-dt__group-toggle" style={{ marginLeft: item.depth * 18 }}
+          <button type="button" className="twc-dt__group-toggle" style={{ marginLeft: item.depth * 18 }}
             aria-expanded={!item.collapsed} onClick={() => toggleGroup(item.key)}>
             <span className="twc-dt__group-chev" data-open={!item.collapsed || undefined}><Svg d={I.chevDown} /></span>
             <span className="twc-dt__group-name">{colByField[item.field]?.headerName || item.field}:</span>
@@ -1250,7 +1287,7 @@ export function Datatable({
 
     return (
       <div className="twc-dt__scroll" style={{ maxHeight: height }}>
-        <table className="twc-dt__table twc-dt__pivot" role="grid" aria-label={ariaLabel + " (pivot)"}>
+        <table className="twc-dt__table twc-dt__pivot" role="grid" aria-label={(ariaLabelAttr || ariaLabel) + " (pivot)"}>
           <thead>
             {/* One row per column-grouping field (e.g. Year, then Month) */}
             {cFields.map((cf, lvl) => (
@@ -1314,16 +1351,16 @@ export function Datatable({
       <div className="twc-dt__toolbar">
         {batchActions.length && selected.size > 0 ? (
           <div className="twc-dt__batch">
-            <button className="twc-dt__batch-x" onClick={clearSelection} aria-label="Clear selection"><Svg d={I.x} /></button>
+            <button type="button" className="twc-dt__batch-x" onClick={clearSelection} aria-label="Clear selection"><Svg d={I.x} /></button>
             <span className="twc-dt__batch-count">{selected.size} selected</span>
             <div className="twc-dt__batch-actions">
               {batchEditableCols.length ? (
-                <button className="twc-dt__batch-btn" onClick={(e) => openBatchEditor(e.currentTarget)}>
+                <button type="button" className="twc-dt__batch-btn" onClick={(e) => openBatchEditor(e.currentTarget)}>
                   <Svg d={I.pencil} />Edit
                 </button>
               ) : null}
               {batchActions.map((a, i) => (
-                <button key={i} className="twc-dt__batch-btn" data-danger={a.danger || undefined} disabled={a.disabled}
+                <button type="button" key={i} className="twc-dt__batch-btn" data-danger={a.danger || undefined} disabled={a.disabled}
                   onClick={() => a.onClick?.([...selected], selectedRows, clearSelection)}>
                   {a.icon}{a.label}
                 </button>
@@ -1331,31 +1368,31 @@ export function Datatable({
             </div>
           </div>
         ) : null}
-        <button className="twc-dt__tbtn" data-active={panel === "columns" || undefined} data-tip="Show or hide columns"
+        <button type="button" className="twc-dt__tbtn" data-active={panel === "columns" || undefined} data-tip="Show or hide columns"
           onClick={(e) => { if (panel === "columns") { setPanel(null); closePanel(); } else { setColQuery(""); setPanel("columns"); setColMenu(null); openPanel(e.currentTarget, "left", 268); } }}>
           <Svg d={I.columns} /> Columns{hidden.size ? <span className="twc-dt__tbadge">{cols.length - hidden.size}</span> : null}
         </button>
-        <button className="twc-dt__tbtn" data-active={panel === "filters" || undefined} data-tip="Filter rows"
+        <button type="button" className="twc-dt__tbtn" data-active={panel === "filters" || undefined} data-tip="Filter rows"
           onClick={(e) => { if (panel === "filters") { setPanel(null); closePanel(); } else { setPanel("filters"); setColMenu(null); openPanel(e.currentTarget, "left", 480); } }}>
           <Svg d={I.filter} /> Filters{filters.length ? <span className="twc-dt__tbadge">{filters.length}</span> : null}
         </button>
-        <button className="twc-dt__tbtn" data-tip="Change row density" onClick={() => setDensity((d) => d === "compact" ? "standard" : d === "standard" ? "comfortable" : "compact")}>
+        <button type="button" className="twc-dt__tbtn" data-tip="Change row density" onClick={() => setDensity((d) => d === "compact" ? "standard" : d === "standard" ? "comfortable" : "compact")}>
           <Svg d={I.density} /> {density[0].toUpperCase() + density.slice(1)}
         </button>
-        <button className="twc-dt__tbtn" data-active={panel === "agg" || aggOn || undefined} aria-haspopup="dialog" aria-expanded={panel === "agg"} data-tip="Configure aggregation"
+        <button type="button" className="twc-dt__tbtn" data-active={panel === "agg" || aggOn || undefined} aria-haspopup="dialog" aria-expanded={panel === "agg"} data-tip="Configure aggregation"
           onClick={(e) => { if (panel === "agg") { setPanel(null); closePanel(); } else { setPanel("agg"); setColMenu(null); openPanel(e.currentTarget, "left", 300); } }}>
           <Svg d={I.sigma} /> Aggregation{aggOn && hasAggregation ? <span className="twc-dt__tbadge">{ordered.filter((c) => aggOf(c)).length}</span> : null}
         </button>
-        <button className="twc-dt__tbtn" data-active={panel === "pivot" || pivotActive || undefined} aria-haspopup="dialog" aria-expanded={panel === "pivot"} data-tip="Configure pivot"
+        <button type="button" className="twc-dt__tbtn" data-active={panel === "pivot" || pivotActive || undefined} aria-haspopup="dialog" aria-expanded={panel === "pivot"} data-tip="Configure pivot"
           onClick={(e) => { if (panel === "pivot") { setPanel(null); closePanel(); } else { setPanel("pivot"); setColMenu(null); openPanel(e.currentTarget, "left", 320); } }}>
           <Svg d={I.pivot} /> Pivot{pivotActive ? <span className="twc-dt__tdot" aria-label="on" role="img" /> : null}
         </button>
         {showExport ? (
           <span className="twc-dt__export">
-            <button className="twc-dt__export-main" onClick={() => exportData("csv")} aria-label="Export to CSV">
+            <button type="button" className="twc-dt__export-main" onClick={() => exportData("csv")} aria-label="Export to CSV">
               <Svg d={I.download} /> Export
             </button>
-            <button className="twc-dt__export-toggle" aria-label="More export formats" aria-haspopup="menu" aria-expanded={exportOpen}
+            <button type="button" className="twc-dt__export-toggle" aria-label="More export formats" aria-haspopup="menu" aria-expanded={exportOpen}
               onClick={(e) => { if (exportOpen) { setExportOpen(false); closeExport(); } else { setColMenu(null); setPanel(null); setRowMenu(null); setExportOpen(true); openExport(e.currentTarget, "right", 180); } }}>
               <Svg d={I.chevronDown} />
             </button>
@@ -1363,7 +1400,7 @@ export function Datatable({
         ) : null}
         <div className="twc-dt__search">
           <Svg d={I.search} />
-          <input placeholder="Search…" value={quick} onChange={(e) => { setQuick(e.target.value); setPage(0); }} />
+          <input placeholder="Search…" aria-label="Search rows" value={quick} onChange={(e) => { setQuick(e.target.value); setPage(0); }} />
         </div>
       </div>
 
@@ -1375,10 +1412,10 @@ export function Datatable({
           {activeGroupBy.map((f) => (
             <span key={f} className="twc-dt__groupchip">
               {colByField[f]?.headerName || f}
-              <button className="twc-dt__groupchip-x" aria-label={`Stop grouping by ${colByField[f]?.headerName || f}`} onClick={() => toggleGroupField(f)}><Svg d={I.x} /></button>
+              <button type="button" className="twc-dt__groupchip-x" aria-label={`Stop grouping by ${colByField[f]?.headerName || f}`} onClick={() => toggleGroupField(f)}><Svg d={I.x} /></button>
             </span>
           ))}
-          <button className="twc-dt__groupbar-clear" onClick={() => setGroupBy([])}>Clear all</button>
+          <button type="button" className="twc-dt__groupbar-clear" onClick={() => setGroupBy([])}>Clear all</button>
         </div>
       ) : null}
 
@@ -1386,7 +1423,7 @@ export function Datatable({
       {pivotActive ? renderPivot() : (
       <div className="twc-dt__scroll" style={{ maxHeight: height }}>
         <table className="twc-dt__table" style={{ width: tableMinWidth, minWidth: "100%" }}
-          ref={gridRef} role="grid" aria-label={ariaLabel}
+          ref={gridRef} role="grid" aria-label={ariaLabelAttr || ariaLabel}
           aria-rowcount={totalRows + 1} aria-colcount={ordered.length + (checkboxSelection ? 1 : 0)}
           aria-busy={loading || undefined} onKeyDown={onGridKeyDown}>
           <thead ref={theadRef}>
@@ -1435,13 +1472,23 @@ export function Datatable({
                         {c.sortable ? <span className="twc-dt__sort"><Svg d={I.arrow} /></span> : null}
                       </span>
                       {hasMenu ? (
-                        <button className="twc-dt__menu-btn" aria-label="Column menu"
+                        <button type="button" className="twc-dt__menu-btn" aria-label="Column menu"
                           onClick={(e) => { e.stopPropagation(); setPanel(null); setColMenu({ field: c.field }); openMenu(e.currentTarget, "right", 230); }}>
                           <Svg d={I.more} />
                         </button>
                       ) : null}
                     </div>
-                    {resizable ? <span className="twc-dt__resizer" data-active={resizing || undefined} onPointerDown={(e) => startResize(e, c.field)} onClick={(e) => e.stopPropagation()} title="Drag to resize" /> : null}
+                    {resizable ? <span className="twc-dt__resizer" data-active={resizing || undefined}
+                      role="separator" aria-orientation="vertical" aria-label={`Resize ${c.headerName} column`}
+                      aria-valuenow={w} aria-valuemin={72} tabIndex={0}
+                      onPointerDown={(e) => startResize(e, c.field)} onClick={(e) => e.stopPropagation()}
+                      onKeyDown={(e) => {
+                        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+                        e.preventDefault(); e.stopPropagation();
+                        const delta = e.key === "ArrowRight" ? 10 : -10;
+                        setWidths((m) => ({ ...m, [c.field]: Math.max(72, (m[c.field] ?? c.width ?? 160) + delta) }));
+                      }}
+                      title="Drag to resize" /> : null}
                   </th>
                 );
               })}
@@ -1545,7 +1592,7 @@ export function Datatable({
             { fmt: "tsv", label: "TSV (.tsv)", icon: I.fileText },
             { fmt: "json", label: "JSON (.json)", icon: I.braces },
           ].map((o) => (
-            <button key={o.fmt} className="twc-dt__mi" onClick={() => { exportData(o.fmt); setExportOpen(false); closeExport(); }}>
+            <button type="button" key={o.fmt} className="twc-dt__mi" onClick={() => { exportData(o.fmt); setExportOpen(false); closeExport(); }}>
               <Svg d={o.icon} /> {o.label}
             </button>
           ))}
@@ -1581,8 +1628,8 @@ export function Datatable({
             })}
           </div>
           <div className="twc-dt__cfg-foot">
-            <button className="twc-dt__cfg-btn" onClick={() => { setBatchEdit(null); closeBatchEdit(); }}>Cancel</button>
-            <button className="twc-dt__cfg-btn" data-primary="true" onClick={applyBatchEdit}>Apply to {selected.size}</button>
+            <button type="button" className="twc-dt__cfg-btn" onClick={() => { setBatchEdit(null); closeBatchEdit(); }}>Cancel</button>
+            <button type="button" className="twc-dt__cfg-btn" data-primary="true" onClick={applyBatchEdit}>Apply to {selected.size}</button>
           </div>
         </div>
       ) : null}
@@ -1597,17 +1644,21 @@ export function Datatable({
             const hasBottom = c.pinnable || c.hideable;
             return (<>
               {c.sortable ? (<>
-                <button className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "asc" || undefined} onClick={() => { setSort({ field: c.field, dir: "asc" }); close(); }}><Svg d={I.arrow} /> Sort ascending</button>
-                <button className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "desc" || undefined} onClick={() => { setSort({ field: c.field, dir: "desc" }); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(180deg)" }} /> Sort descending</button>
+                <button type="button" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "asc" || undefined} onClick={() => { setSort({ field: c.field, dir: "asc" }); close(); }}><Svg d={I.arrow} /> Sort ascending</button>
+                <button type="button" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "desc" || undefined} onClick={() => { setSort({ field: c.field, dir: "desc" }); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(180deg)" }} /> Sort descending</button>
               </>) : null}
-              {c.filterable ? <button className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); setPanel("filters"); openPanel(document.querySelector(".twc-dt__toolbar .twc-dt__tbtn:nth-child(2)"), "left", 480); }}><Svg d={I.filter} /> Filter</button> : null}
+              {c.filterable ? <button type="button" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); setPanel("filters"); openPanel(document.querySelector(".twc-dt__toolbar .twc-dt__tbtn:nth-child(2)"), "left", 480); }}><Svg d={I.filter} /> Filter</button> : null}
               {hasTop && hasBottom ? <div className="twc-dt__sep" /> : null}
-              {c.groupable ? <button className="twc-dt__mi" data-active={groupBy.includes(c.field) || undefined} onClick={() => { toggleGroupField(c.field); close(); }}><Svg d={I.group} /> {groupBy.includes(c.field) ? "Stop grouping" : "Group by this column"}</button> : null}
-              {c.pinnable ? (<>
-                <button className="twc-dt__mi" data-active={pins.left.includes(c.field) || undefined} onClick={() => { setPin(c.field, pins.left.includes(c.field) ? null : "left"); close(); }}><Svg d={I.pinL} /> {pins.left.includes(c.field) ? "Unpin" : "Pin to left"}</button>
-                <button className="twc-dt__mi" data-active={pins.right.includes(c.field) || undefined} onClick={() => { setPin(c.field, pins.right.includes(c.field) ? null : "right"); close(); }}><Svg d={I.pin} /> {pins.right.includes(c.field) ? "Unpin" : "Pin to right"}</button>
+              {c.groupable ? <button type="button" className="twc-dt__mi" data-active={groupBy.includes(c.field) || undefined} onClick={() => { toggleGroupField(c.field); close(); }}><Svg d={I.group} /> {groupBy.includes(c.field) ? "Stop grouping" : "Group by this column"}</button> : null}
+              {!disableColumnReorder && c.type !== "actions" && !pins.left.includes(c.field) && !pins.right.includes(c.field) ? (<>
+                <button type="button" className="twc-dt__mi" onClick={() => { moveCol(c.field, -1); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(-90deg)" }} /> Move left</button>
+                <button type="button" className="twc-dt__mi" onClick={() => { moveCol(c.field, 1); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(90deg)" }} /> Move right</button>
               </>) : null}
-              {c.hideable ? <button className="twc-dt__mi" onClick={() => { setHidden((h) => new Set(h).add(c.field)); close(); }}><Svg d={I.eyeOff} /> Hide column</button> : null}
+              {c.pinnable ? (<>
+                <button type="button" className="twc-dt__mi" data-active={pins.left.includes(c.field) || undefined} onClick={() => { setPin(c.field, pins.left.includes(c.field) ? null : "left"); close(); }}><Svg d={I.pinL} /> {pins.left.includes(c.field) ? "Unpin" : "Pin to left"}</button>
+                <button type="button" className="twc-dt__mi" data-active={pins.right.includes(c.field) || undefined} onClick={() => { setPin(c.field, pins.right.includes(c.field) ? null : "right"); close(); }}><Svg d={I.pin} /> {pins.right.includes(c.field) ? "Unpin" : "Pin to right"}</button>
+              </>) : null}
+              {c.hideable ? <button type="button" className="twc-dt__mi" onClick={() => { setHidden((h) => new Set(h).add(c.field)); close(); }}><Svg d={I.eyeOff} /> Hide column</button> : null}
             </>);
           })()}
         </div>
@@ -1618,7 +1669,7 @@ export function Datatable({
         <div className="twc-dt__pop" style={{ top: rowMenuPos.top, left: rowMenuPos.left, width: rowMenuPos.width, maxHeight: rowMenuPos.maxHeight, overflowY: "auto" }}>
           <Caret pos={rowMenuPos} />
           {rowMenu.items.map((a, i) => (
-            <button key={i} className="twc-dt__mi" disabled={a.disabled}
+            <button type="button" key={i} className="twc-dt__mi" disabled={a.disabled}
               style={a.danger ? { color: "var(--color-danger-subtle-fg)" } : undefined}
               onClick={() => { a.onClick?.(rowMenu.row); setRowMenu(null); closeRowMenu(); }}>
               {a.icon || null}{a.label}
@@ -1629,17 +1680,17 @@ export function Datatable({
 
       {/* Columns panel (searchable) */}
       {panel === "columns" && panelPos ? (
-        <div className="twc-dt__pop twc-dt__cols" style={{ top: panelPos.top, left: panelPos.left }}>
+        <div className="twc-dt__pop twc-dt__cols" style={{ top: panelPos.top, left: panelPos.left }} role="dialog" aria-label="Column settings">
           <div className="twc-dt__panel-head">
             <span className="twc-dt__panel-title">Columns</span>
             <div>
-              <button className="twc-dt__link" onClick={() => setHidden(new Set())}>Show all</button>
-              <button className="twc-dt__link" onClick={() => setHidden(new Set(cols.filter((c) => c.hideable).map((c) => c.field)))}>Hide all</button>
+              <button type="button" className="twc-dt__link" onClick={() => setHidden(new Set())}>Show all</button>
+              <button type="button" className="twc-dt__link" onClick={() => setHidden(new Set(cols.filter((c) => c.hideable).map((c) => c.field)))}>Hide all</button>
             </div>
           </div>
           <div className="twc-dt__col-search">
             <Svg d={I.search} />
-            <input autoFocus placeholder="Find column…" value={colQuery} onChange={(e) => setColQuery(e.target.value)} />
+            <input autoFocus placeholder="Find column…" aria-label="Find column" value={colQuery} onChange={(e) => setColQuery(e.target.value)} />
           </div>
           <div className="twc-dt__col-list">
             {shownColRows.length === 0 ? <div className="twc-dt__empty" style={{ padding: "18px 12px" }}>No columns found</div> :
@@ -1655,10 +1706,14 @@ export function Datatable({
                   onDragEnd={canDrag ? () => setDrag({ from: null, over: null, after: false }) : undefined}
                   onDragOver={canDrag && drag.from ? (e) => { e.preventDefault(); const r = e.currentTarget.getBoundingClientRect(); const after = e.clientY > r.top + r.height / 2; setDrag((d) => (d.over === c.field && d.after === after ? d : { ...d, over: c.field, after })); } : undefined}
                   onDrop={canDrag && drag.from ? (e) => { e.preventDefault(); onColDrop(c.field); } : undefined}
-                  onClick={() => c.hideable && setHidden((h) => { const n = new Set(h); n.has(c.field) ? n.delete(c.field) : n.add(c.field); return n; })}>
+                  onClick={() => c.hideable && toggleHiddenField(c.field)}>
                   {canDrag ? <span className="twc-dt__col-grip" aria-hidden="true"><Svg d={I.grip} /></span> : null}
                   <span className="twc-dt__col-name">{c.headerName}</span>
-                  <span className="twc-dt__sw" data-on={!hidden.has(c.field) || undefined} style={c.hideable ? undefined : { opacity: 0.4 }} />
+                  <span className="twc-dt__sw" data-on={!hidden.has(c.field) || undefined}
+                    role="switch" aria-checked={!hidden.has(c.field)} aria-label={c.headerName}
+                    aria-disabled={!c.hideable || undefined} tabIndex={c.hideable ? 0 : -1}
+                    onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && c.hideable) { e.preventDefault(); toggleHiddenField(c.field); } }}
+                    style={c.hideable ? undefined : { opacity: 0.4 }} />
                 </div>
               );
               })}
@@ -1671,7 +1726,7 @@ export function Datatable({
         <div className="twc-dt__pop twc-dt__cfg" style={{ top: panelPos.top, left: panelPos.left, width: 300 }} role="dialog" aria-label="Aggregation settings">
           <div className="twc-dt__panel-head">
             <span className="twc-dt__panel-title">Aggregation</span>
-            <button className="twc-dt__link" onClick={() => setAggConfig({})}>Clear</button>
+            <button type="button" className="twc-dt__link" onClick={() => setAggConfig({})}>Clear</button>
           </div>
           <div className="twc-dt__cfg-toggle">
             <span>Show totals row</span>
@@ -1707,7 +1762,7 @@ export function Datatable({
         <div className="twc-dt__pop twc-dt__cfg" style={{ top: panelPos.top, left: panelPos.left, width: 320 }} role="dialog" aria-label="Pivot settings">
           <div className="twc-dt__panel-head">
             <span className="twc-dt__panel-title">Pivot</span>
-            <button className="twc-dt__link" onClick={() => { setPivotConfig({ rows: [], columns: [], values: [] }); setPivotOn(false); }}>Reset</button>
+            <button type="button" className="twc-dt__link" onClick={() => { setPivotConfig({ rows: [], columns: [], values: [] }); setPivotOn(false); }}>Reset</button>
           </div>
           <div className="twc-dt__cfg-toggle">
             <span>Pivot mode</span>
@@ -1734,7 +1789,7 @@ export function Datatable({
                   <Select size="sm" value={v.agg || "sum"} options={aggOpts} portal
                     onChange={(a) => setPivotConfig((p) => ({ ...p, values: p.values.map((x, j) => (j === i ? { ...x, agg: a } : x)) }))} />
                 </div>
-                <button className="twc-dt__cfg-x" aria-label={`Remove ${colByField[v.field]?.headerName || v.field}`}
+                <button type="button" className="twc-dt__cfg-x" aria-label={`Remove ${colByField[v.field]?.headerName || v.field}`}
                   onClick={() => setPivotConfig((p) => ({ ...p, values: p.values.filter((_, j) => j !== i) }))}><Svg d={I.x} /></button>
               </div>
             ))}
@@ -1754,7 +1809,7 @@ export function Datatable({
         <div className="twc-dt__pop twc-dt__filters" style={{ top: panelPos.top, left: panelPos.left }}>
           <div className="twc-dt__panel-head">
             <span className="twc-dt__panel-title">Filters</span>
-            {filters.length ? <button className="twc-dt__link" onClick={() => setFilters([])}>Clear all</button> : null}
+            {filters.length ? <button type="button" className="twc-dt__link" onClick={() => setFilters([])}>Clear all</button> : null}
           </div>
           {filters.length === 0 ? <div className="twc-dt__empty" style={{ padding: "16px 12px" }}>No filters applied</div> :
             filters.map((f) => {
@@ -1786,12 +1841,12 @@ export function Datatable({
                         onChange={(e) => setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, value: e.target.value } : x))} />
                     )}
                   </div>
-                  <button className="twc-dt__frm-x" aria-label="Remove filter" onClick={() => setFilters((arr) => arr.filter((x) => x.id !== f.id))}><Svg d={I.x} /></button>
+                  <button type="button" className="twc-dt__frm-x" aria-label="Remove filter" onClick={() => setFilters((arr) => arr.filter((x) => x.id !== f.id))}><Svg d={I.x} /></button>
                 </div>
               );
             })}
           <div style={{ padding: "6px 4px 2px" }}>
-            <button className="twc-dt__mi" style={{ color: "var(--color-primary)" }} onClick={() => addFilter(cols[0].field)}><Svg d={I.plus} style={{ color: "var(--color-primary)" }} /> Add filter</button>
+            <button type="button" className="twc-dt__mi" style={{ color: "var(--color-primary)" }} onClick={() => addFilter(cols[0].field)}><Svg d={I.plus} style={{ color: "var(--color-primary)" }} /> Add filter</button>
           </div>
         </div>
       ) : null}

@@ -30,7 +30,7 @@ export function Switch({
 .twc-switch__thumb {
   position: absolute; top: var(--_pad); left: var(--_pad);
   width: calc(var(--_h) - var(--_pad) * 2); height: calc(var(--_h) - var(--_pad) * 2);
-  background: #fff; border-radius: var(--radius-full); box-shadow: var(--shadow-sm);
+  background: var(--color-primary-fg); border-radius: var(--radius-full); box-shadow: var(--shadow-sm);
   transition: transform var(--duration-base) var(--ease-spring);
 }
 .twc-switch__input:checked + .twc-switch__track { background: var(--color-primary); }

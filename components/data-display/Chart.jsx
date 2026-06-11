@@ -25,6 +25,7 @@ export function Chart({
   showGrid = true,
   showAxis = true,
   showLegend = false,
+  colors,
   valueFormat,
   className = "",
   ...rest
@@ -38,6 +39,7 @@ export function Chart({
   }, []);
 
   const keys = series || ["value"];
+  const palette = colors && colors.length ? colors : SERIES_COLORS;
   const W = 600, H = height, padL = showAxis ? 40 : 8, padR = 8, padT = 12, padB = showAxis ? 26 : 8;
   const innerW = W - padL - padR, innerH = H - padT - padB;
   const max = Math.max(1, ...data.flatMap((d) => keys.map((k) => Number(d[k]) || 0)));
@@ -69,7 +71,7 @@ export function Chart({
             const x = padL + groupW * gi + (groupW * barGap) / 2 + si * bw;
             const by = y(v);
             return <rect key={`${gi}-${si}`} className="twc-chart__bar" x={x + 1} y={by} width={Math.max(1, bw - 2)} height={padT + innerH - by}
-              rx="3" style={{ fill: keys.length > 1 ? SERIES_COLORS[si % SERIES_COLORS.length] : undefined }}>
+              rx="3" style={{ fill: keys.length > 1 || (colors && colors.length) ? palette[si % palette.length] : undefined }}>
               <title>{`${d.label ?? gi}: ${fmt(v)}`}</title>
             </rect>;
           }));
@@ -78,7 +80,7 @@ export function Chart({
         {type === "line" ? keys.map((k, si) => {
           const pts = data.map((d, i) => [padL + (innerW / Math.max(1, data.length - 1)) * i, y(Number(d[k]) || 0)]);
           const dPath = pts.map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
-          const color = SERIES_COLORS[si % SERIES_COLORS.length];
+          const color = palette[si % palette.length];
           return (
             <g key={k}>
               <path className="twc-chart__line" d={dPath} style={{ stroke: color }} />
@@ -95,7 +97,7 @@ export function Chart({
       </svg>
       {showLegend && keys.length > 1 ? (
         <div className="twc-chart__legend">
-          {keys.map((k, si) => <span key={k} className="twc-chart__leg"><span className="twc-chart__leg-sw" style={{ background: SERIES_COLORS[si % SERIES_COLORS.length] }} />{k}</span>)}
+          {keys.map((k, si) => <span key={k} className="twc-chart__leg"><span className="twc-chart__leg-sw" style={{ background: palette[si % palette.length] }} />{k}</span>)}
         </div>
       ) : null}
     </div>

@@ -2,6 +2,8 @@ import * as React from "react";
 
 /**
  * Linear progress bar — determinate or indeterminate, with semantic tones.
+ * `className` and all extra HTML attributes (`style`, `id`, handlers, …) land on the
+ * root wrapper; `role="progressbar"` + `aria-value*` live on the inner track.
  */
 export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Current value. @default 0 */

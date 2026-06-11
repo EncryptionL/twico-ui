@@ -11,8 +11,11 @@ export interface CurrencyOption { value: string; label: string; }
  */
 export interface CurrencyFieldProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "value" | "defaultValue" | "onChange"> {
   label?: React.ReactNode;
+  /** Helper text below the field; linked to the input via aria-describedby. */
   hint?: React.ReactNode;
+  /** Error text below the field; sets aria-invalid and is linked via aria-describedby (takes precedence over hint). */
   error?: React.ReactNode;
+  /** Intercepted to render the label asterisk, and forwarded to the native input as `required`. @default false */
   required?: boolean;
   size?: "sm" | "md" | "lg";
   /** Controlled selected currency code. */
@@ -27,6 +30,8 @@ export interface CurrencyFieldProps extends Omit<React.InputHTMLAttributes<HTMLI
   value?: string | number;
   /** Uncontrolled initial amount. */
   defaultValue?: string | number;
+  /** Native change handler (receives the event); fires alongside onValueChange, matching Currency. */
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   /** Callback with the parsed number, formatted string, and active currency code. */
   onValueChange?: (value: number | null, formatted: string, currency: string) => void;
 }

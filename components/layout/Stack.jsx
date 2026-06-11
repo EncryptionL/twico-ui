@@ -7,6 +7,14 @@ function space(v) {
   return v;
 }
 
+// Block javascript:/data:/vbscript: URLs (incl. whitespace/control-char obfuscation
+// that browsers strip) from reaching a DOM href. Consumer hrefs are a trust boundary.
+function safeHref(url) {
+  if (url == null) return undefined;
+  const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+  return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
+}
+
 /** Flex layout primitive — rows or columns with token-based gaps. */
 export function Stack({
   as: Tag = "div",
@@ -21,6 +29,7 @@ export function Stack({
   children,
   ...rest
 }) {
+  if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   return (
     <Tag
       className={`twc-stack ${className}`.trim()}

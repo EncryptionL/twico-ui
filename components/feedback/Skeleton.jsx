@@ -37,8 +37,9 @@ export function Skeleton({
   }, []);
 
   if (variant === "text" && lines > 1) {
+    // `height` and consumer `style` apply to the group wrapper; `width` applies per line.
     return (
-      <div className={`twc-skeleton__group ${className}`} {...rest}>
+      <div className={`twc-skeleton__group ${className}`} style={{ height, ...style }} {...rest}>
         {Array.from({ length: lines }).map((_, i) => (
           <span key={i} className="twc-skeleton" data-variant="text" style={{ width: width || "100%" }} />
         ))}

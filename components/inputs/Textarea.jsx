@@ -5,6 +5,7 @@ export function Textarea({
   hint,
   error,
   required = false,
+  size = "md",
   rows = 4,
   disabled = false,
   id,
@@ -30,6 +31,8 @@ export function Textarea({
   outline: none;
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
+.twc-textarea__el[data-size="sm"] { padding: var(--space-2) var(--space-2-5); }
+.twc-textarea__el[data-size="lg"] { padding: var(--space-3) var(--space-4); }
 .twc-textarea__el::placeholder { color: var(--color-text-subtle); }
 .twc-textarea__el:hover:not(:focus):not(:disabled) { border-color: var(--color-border-strong); }
 .twc-textarea__el:focus { border-color: var(--color-primary); box-shadow: var(--ring); }
@@ -41,6 +44,7 @@ export function Textarea({
 
   const autoId = React.useId();
   const fieldId = id || autoId;
+  const descId = `${fieldId}-desc`;
   const invalid = Boolean(error);
 
   return (
@@ -53,12 +57,15 @@ export function Textarea({
       <textarea
         id={fieldId}
         className="twc-textarea__el"
+        data-size={size}
         rows={rows}
         disabled={disabled}
+        required={required || undefined}
         aria-invalid={invalid || undefined}
+        aria-describedby={error || hint ? descId : undefined}
         {...rest}
       />
-      {error ? <span className="twc-field__error">{error}</span> : hint ? <span className="twc-field__hint">{hint}</span> : null}
+      {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
 }

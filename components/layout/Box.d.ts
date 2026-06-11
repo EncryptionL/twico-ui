@@ -20,7 +20,7 @@ export interface BoxProps extends React.HTMLAttributes<HTMLElement> {
   mr?: number | string;
   mb?: number | string;
   ml?: number | string;
-  /** Background: a surface token name ("surface" | "surface-raised" | "surface-sunken" | "bg") or CSS. */
+  /** Background: a surface token name ("surface" | "surface-raised" | "surface-sunken" | "bg"), a bare custom property ("--my-token", wrapped in var()), or any plain CSS background value (e.g. "#fff", "linear-gradient(...)") used as-is. */
   bg?: "surface" | "surface-raised" | "surface-sunken" | "bg" | string;
   /** Add a 1px token border. @default false */
   border?: boolean;
