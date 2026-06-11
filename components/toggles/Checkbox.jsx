@@ -13,7 +13,7 @@ export function Checkbox({
   onChange,
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-checkbox-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-checkbox-styles";

@@ -49,7 +49,7 @@ export function Stepper({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-stepper-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-stepper-styles";

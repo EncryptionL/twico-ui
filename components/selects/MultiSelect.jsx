@@ -93,7 +93,7 @@ export function MultiSelect({
   placeholder = "Select…", options, value, defaultValue = [],
   onChange, disabled = false, id, className = "", ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-ms-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-ms-styles"; el.textContent = MULTI_CSS;

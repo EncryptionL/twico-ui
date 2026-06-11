@@ -86,7 +86,7 @@ export function Select({
   placeholder = "Select…", searchPlaceholder = "Search…", searchable, options, value, defaultValue = null,
   onChange, disabled = false, placement = "bottom", portal = false, minWidth = 0, id, className = "", ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-select-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-select-styles"; el.textContent = SELECT_CSS;

@@ -30,7 +30,7 @@ export function Tag({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-tag-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-tag-styles";

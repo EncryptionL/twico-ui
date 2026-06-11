@@ -22,7 +22,7 @@ const LIST_CSS = `
 `;
 
 export function List({ items, plain = false, className = "", ...rest }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-list-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-list-styles";

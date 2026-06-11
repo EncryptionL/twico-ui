@@ -43,7 +43,7 @@ const FIELD_CSS = `
 `;
 
 function useFieldStyles() {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-field-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-field-styles";

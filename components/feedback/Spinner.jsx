@@ -7,7 +7,7 @@ export function Spinner({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-spinner-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-spinner-styles";

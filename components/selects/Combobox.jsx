@@ -89,7 +89,7 @@ export function Combobox({
   placeholder = "Select…", options, value, defaultValue = null,
   onChange, clearable = false, disabled = false, id, className = "", ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-combo-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-combo-styles"; el.textContent = COMBO_CSS;

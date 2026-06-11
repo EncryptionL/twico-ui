@@ -42,7 +42,7 @@ const CURF_CSS = `
 `;
 
 function useCurfStyles() {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-curf-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-curf-styles"; el.textContent = CURF_CSS;

@@ -24,7 +24,7 @@ const TIMELINE_CSS = `
 `;
 
 export function Timeline({ items, className = "", ...rest }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-timeline-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-timeline-styles";

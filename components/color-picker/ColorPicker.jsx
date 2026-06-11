@@ -65,7 +65,7 @@ export function ColorPicker({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-colorpicker-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-colorpicker-styles";

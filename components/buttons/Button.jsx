@@ -78,7 +78,7 @@ const CSS = `
 `;
 
 function useInjectedStyle(id, css) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById(id)) return;
     const el = document.createElement("style");
     el.id = id;

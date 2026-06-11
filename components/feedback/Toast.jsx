@@ -51,7 +51,7 @@ export function Toast({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-toast-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-toast-styles";
@@ -83,7 +83,7 @@ export function Toast({
 
 /** Fixed-position stack container for toasts. */
 export function ToastViewport({ children, className = "", ...rest }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-toast-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-toast-styles";

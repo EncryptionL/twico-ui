@@ -43,7 +43,7 @@ export function Drawer({
   const descId = `${autoId}-desc`;
   const panelRef = React.useRef(null);
 
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-drawer-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-drawer-styles";

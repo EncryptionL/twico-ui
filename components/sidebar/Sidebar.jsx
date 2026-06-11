@@ -54,7 +54,7 @@ export function Sidebar({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-sidebar-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-sidebar-styles";

@@ -74,7 +74,7 @@ const CUR_CSS = `
 `;
 
 function useCurStyles() {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-cur-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-cur-styles"; el.textContent = CUR_CSS;

@@ -47,7 +47,7 @@ export function Slider({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-slider-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-slider-styles";

@@ -50,7 +50,7 @@ export function Dialog({
   const descId = `${autoId}-desc`;
   const dialogRef = React.useRef(null);
 
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-dialog-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-dialog-styles";

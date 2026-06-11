@@ -42,7 +42,7 @@ export function Alert({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-alert-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-alert-styles";

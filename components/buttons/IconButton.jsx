@@ -49,7 +49,7 @@ export function IconButton({
   "aria-label": ariaLabel,
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-iconbtn-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-iconbtn-styles";

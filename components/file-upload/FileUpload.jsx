@@ -50,7 +50,7 @@ export function FileUpload({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-upload-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-upload-styles";

@@ -29,7 +29,7 @@ export function Rating({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-rating-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-rating-styles";

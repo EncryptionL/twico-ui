@@ -31,7 +31,7 @@ export function Accordion({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-accordion-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-accordion-styles";

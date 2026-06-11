@@ -43,7 +43,7 @@ export function Menu({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-menu-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-menu-styles";

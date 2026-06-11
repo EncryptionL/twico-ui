@@ -46,7 +46,7 @@ export function Tabs({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-tabs-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-tabs-styles";

@@ -28,7 +28,7 @@ export function Popover({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-popover-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-popover-styles";

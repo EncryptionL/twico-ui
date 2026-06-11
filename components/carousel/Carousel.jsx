@@ -32,7 +32,7 @@ export function Carousel({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-carousel-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-carousel-styles";

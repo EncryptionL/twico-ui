@@ -40,7 +40,7 @@ export function Navbar({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-navbar-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-navbar-styles";

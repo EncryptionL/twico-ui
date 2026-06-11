@@ -37,7 +37,7 @@ export function Card({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-card-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-card-styles";

@@ -36,7 +36,7 @@ export function CommandPalette({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-cmdk-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-cmdk-styles";

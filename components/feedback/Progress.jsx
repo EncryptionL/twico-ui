@@ -10,7 +10,7 @@ export function Progress({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-progress-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-progress-styles";

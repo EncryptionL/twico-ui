@@ -9,7 +9,7 @@ export function Skeleton({
   style,
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-skeleton-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-skeleton-styles";

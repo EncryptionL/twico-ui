@@ -45,7 +45,7 @@ export function Avatar({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-avatar-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-avatar-styles";

@@ -30,7 +30,7 @@ export function Kanban({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-kanban-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-kanban-styles";

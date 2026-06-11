@@ -536,7 +536,7 @@ export function Datatable({
   pivot = null, pivotMode = false,
   className = "", ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-dt-styles")) return;
     const el = document.createElement("style"); el.id = "twc-dt-styles"; el.textContent = DT_CSS;
     document.head.appendChild(el);

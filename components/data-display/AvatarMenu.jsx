@@ -29,7 +29,7 @@ export function AvatarMenu({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-avatar-menu-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-avatar-menu-styles";

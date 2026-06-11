@@ -20,7 +20,7 @@ export function Divider({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-divider-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-divider-styles";

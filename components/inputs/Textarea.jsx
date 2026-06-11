@@ -11,7 +11,7 @@ export function Textarea({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-textarea-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-textarea-styles";

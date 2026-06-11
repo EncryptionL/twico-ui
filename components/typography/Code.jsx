@@ -12,7 +12,7 @@ const CODE_CSS = `
 
 /** Inline code with mono font and a subtle token-styled surface. */
 export function Code({ as: Tag = "code", className = "", children, ...rest }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-code-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-code-styles";

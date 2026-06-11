@@ -39,7 +39,7 @@ export function Table({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-table-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-table-styles";

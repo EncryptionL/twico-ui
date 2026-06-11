@@ -31,7 +31,7 @@ export function Tooltip({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-tooltip-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-tooltip-styles";

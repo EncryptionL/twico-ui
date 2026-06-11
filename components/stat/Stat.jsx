@@ -37,7 +37,7 @@ export function Stat({
   className = "",
   ...rest
 }) {
-  React.useEffect(() => {
+  React.useInsertionEffect(() => {
     if (document.getElementById("twc-stat-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-stat-styles";
