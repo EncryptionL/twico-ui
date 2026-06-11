@@ -44,7 +44,8 @@ export default function Search() {
       group: c.group,
       label: c.name,
       description: c.tagline,
-      keywords: `${c.tagline} ${c.summary} ${c.group}`,
+      // Index prop names too, so searching "fullWidth" or "stickyHeader" finds the component.
+      keywords: `${c.tagline} ${c.summary} ${c.group} ${(c.propsRows || []).map((p) => p.prop).join(" ")}`,
       onSelect: () => go(`/components/${slugify(c.name)}`),
     }));
     return [...docs, ...comps];
