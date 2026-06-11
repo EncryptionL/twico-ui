@@ -32,6 +32,10 @@ site/
   fallback instead of breaking the page), a **code snippet**, a **Variations** section (several live
   examples loaded from `<Name>Variations.jsx`, each with its own preview + copyable code), and a
   **props table**. The "Variations" heading renders synchronously so the on-this-page TOC finds it.
+- The **props table** (`PropsTable.jsx`) renders union types as one wrapping chip per member and
+  complex single types as wrapping monospace, so a long `type` can never force horizontal scroll or
+  crush the description column. Each prop `description` in `components.js` is written as a single
+  informative sentence (~12–22 words) — what the prop does plus its effect or when to use it.
 - Code is highlighted with `prism-react-renderer` (bundled, not a CDN).
 - Each code block has a toolbar: a **JS / TS** toggle (shared, persisted via `useLocalStorage` —
   `CodeLang.jsx`) that switches highlighting (`jsx`↔`tsx`), setup file extensions (`.jsx`↔`.tsx`), the

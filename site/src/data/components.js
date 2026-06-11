@@ -12,28 +12,28 @@ export const components = [
         "type": "AccordionItem[]",
         "required": true,
         "default": "—",
-        "description": "Panels to render. Each item is { value, label, content, icon? }."
+        "description": "The array of disclosure panels to render, each an { value, label, content, icon? } object keyed by its unique value."
       },
       {
         "prop": "multiple",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Allow multiple panels to be open at the same time."
+        "description": "When true, lets several panels stay open simultaneously instead of collapsing others as each new panel expands."
       },
       {
         "prop": "defaultOpen",
         "type": "string[]",
         "required": false,
         "default": "[]",
-        "description": "Item values that are open on first render."
+        "description": "The list of item values that should start expanded on first render, useful for surfacing key sections by default."
       },
       {
         "prop": "...rest",
         "type": "React.HTMLAttributes<HTMLDivElement>",
         "required": false,
         "default": "—",
-        "description": "Standard div attributes (className, style, id, etc.) spread onto the root element."
+        "description": "Standard div attributes such as className, style, and id are spread onto the accordion's root element."
       }
     ],
     "snippet": "import { Accordion } from \"twico-ui\";\n\n<Accordion\n  multiple\n  defaultOpen={[\"a\"]}\n  items={[\n    { value: \"a\", label: \"Is Twico UI free?\", content: \"Yes — MIT licensed, forever.\" },\n    { value: \"b\", label: \"Does it support dark mode?\", content: \"Out of the box.\" },\n  ]}\n/>",
@@ -51,42 +51,42 @@ export const components = [
         "type": "\"info\" | \"success\" | \"warning\" | \"danger\"",
         "required": false,
         "default": "\"info\"",
-        "description": "Semantic color/icon of the banner."
+        "description": "Sets the semantic color and default icon, choosing between info, success, warning, or danger to match the message intent."
       },
       {
         "prop": "title",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Bold heading line shown above the body."
+        "description": "Renders a bold heading line above the body, useful for summarizing the alert before its supporting detail."
       },
       {
         "prop": "icon",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Override the default tone icon."
+        "description": "Overrides the default tone icon with your own node when you need a more specific or branded visual cue."
       },
       {
         "prop": "onClose",
         "type": "() => void",
         "required": false,
         "default": "—",
-        "description": "When provided, shows a close button and handles dismissal."
+        "description": "When provided, shows a dismiss button and runs this callback so the alert can be closed by the user."
       },
       {
         "prop": "children",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Body content of the alert."
+        "description": "The main body content of the alert, typically the descriptive message shown beneath the optional title."
       },
       {
         "prop": "...rest",
         "type": "React.HTMLAttributes<HTMLDivElement>",
         "required": false,
         "default": "—",
-        "description": "Any other div attributes (className, style, etc.) are spread onto the root."
+        "description": "Any other div attributes such as className, style, and id are spread onto the alert's root element."
       }
     ],
     "snippet": "import { Alert } from \"twico-ui\";\n\n<Alert tone=\"success\" title=\"Saved\" onClose={dismiss}>\n  Your changes are live.\n</Alert>\n\n<Alert tone=\"warning\">\n  Your trial ends in 3 days.\n</Alert>",
@@ -104,42 +104,42 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Image URL; falls back to initials on load error or when absent."
+        "description": "The image URL to display, gracefully falling back to derived initials when it is missing or fails to load."
       },
       {
         "prop": "name",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Full name used to derive initials and the accessible label."
+        "description": "The person's full name, used to derive the displayed initials and the avatar's accessible label."
       },
       {
         "prop": "size",
         "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Overall avatar size."
+        "description": "Sets the overall avatar dimensions from xs to xl to suit lists, headers, comments, or profile menus."
       },
       {
         "prop": "square",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Render a rounded square instead of a circle."
+        "description": "When true, renders the avatar as a rounded square instead of the default circle for a different visual style."
       },
       {
         "prop": "status",
         "type": "\"online\" | \"busy\" | \"away\" | \"offline\"",
         "required": false,
         "default": "—",
-        "description": "Presence indicator shown as a dot."
+        "description": "Shows a small presence dot indicating online, busy, away, or offline state on the avatar."
       },
       {
         "prop": "ring",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Adds a brand-colored ring around the avatar."
+        "description": "When true, adds a brand-colored ring around the avatar to emphasize or highlight the user."
       }
     ],
     "snippet": "import { Avatar } from \"twico-ui\";\n\n<Avatar src=\"/u/jane.jpg\" name=\"Jane Doe\" />\n<Avatar name=\"Sam Lee\" status=\"online\" />\n<Avatar name=\"Twico\" size=\"lg\" square ring />",
@@ -157,70 +157,70 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "User's full name; drives the initials and the header."
+        "description": "The user's full name, driving the derived initials and the rich header shown atop the dropdown."
       },
       {
         "prop": "src",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Avatar image URL."
+        "description": "The avatar image URL shown in both the trigger and the dropdown header, falling back to initials when absent."
       },
       {
         "prop": "email",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Email shown in the header (and trigger when showName)."
+        "description": "The email address shown in the dropdown header, and in the trigger when showName is enabled."
       },
       {
         "prop": "subtitle",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Subtitle override for the header/trigger; defaults to email."
+        "description": "Overrides the secondary line in the header and trigger, defaulting to the email when not provided."
       },
       {
         "prop": "status",
         "type": "\"online\" | \"busy\" | \"away\" | \"offline\"",
         "required": false,
         "default": "—",
-        "description": "Presence dot shown on the avatar."
+        "description": "Shows a presence dot indicating online, busy, away, or offline state on the trigger avatar."
       },
       {
         "prop": "size",
         "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
         "required": false,
         "default": "\"sm\"",
-        "description": "Trigger avatar size."
+        "description": "Sets the trigger avatar dimensions from xs to xl to fit a compact navbar or a roomier sidebar."
       },
       {
         "prop": "items",
         "type": "MenuItemDef[]",
         "required": true,
         "default": "—",
-        "description": "Menu items, same shape as Menu's items."
+        "description": "The account menu entries to render in the dropdown, using the same MenuItemDef shape as Menu's items."
       },
       {
         "prop": "showName",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Show name/email next to the avatar in the trigger."
+        "description": "When true, displays the name and email beside the avatar in the trigger instead of showing the avatar alone."
       },
       {
         "prop": "showChevron",
         "type": "boolean",
         "required": false,
         "default": "showName",
-        "description": "Show a chevron in the trigger; defaults to showName."
+        "description": "When true, shows a chevron in the trigger to hint at the dropdown, defaulting to the showName value."
       },
       {
         "prop": "align",
         "type": "\"start\" | \"end\"",
         "required": false,
         "default": "\"end\"",
-        "description": "Menu alignment relative to the trigger."
+        "description": "Aligns the dropdown's start or end edge to the trigger, defaulting to end for right-anchored account menus."
       }
     ],
     "snippet": "import { AvatarMenu } from \"twico-ui\";\n\n<AvatarMenu\n  name=\"Ada Park\"\n  email=\"ada@twico.dev\"\n  status=\"online\"\n  showName\n  items={[\n    { label: \"Profile\", onClick: openProfile },\n    { label: \"Settings\", shortcut: \"⌘,\", onClick: openSettings },\n    { separator: true },\n    { label: \"Sign out\", danger: true, onClick: signOut },\n  ]}\n/>",
@@ -238,42 +238,42 @@ export const components = [
         "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
         "required": false,
         "default": "\"primary\"",
-        "description": "Semantic color of the badge."
+        "description": "Sets the semantic color from six options like success or danger to convey the badge's state or category."
       },
       {
         "prop": "variant",
         "type": "\"soft\" | \"solid\" | \"outline\"",
         "required": false,
         "default": "\"soft\"",
-        "description": "Fill style of the badge."
+        "description": "Chooses the fill style between soft, solid, and outline to control how prominently the badge reads."
       },
       {
         "prop": "size",
         "type": "\"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Badge size."
+        "description": "Sets the badge size to md or lg, matching the surrounding text or list density."
       },
       {
         "prop": "dot",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Show a leading status dot."
+        "description": "When true, shows a small leading status dot before the label to reinforce the badge's state."
       },
       {
         "prop": "children",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Badge content (label or count)."
+        "description": "The badge content, typically a short status label or a small count shown inline next to text."
       },
       {
         "prop": "...rest",
         "type": "React.HTMLAttributes<HTMLSpanElement>",
         "required": false,
         "default": "—",
-        "description": "Standard span attributes (className, style, id, etc.) spread onto the root element."
+        "description": "Standard span attributes such as className, style, and id are spread onto the badge's root element."
       }
     ],
     "snippet": "import { Badge } from \"twico-ui\";\n\n<Badge tone=\"success\" dot>Active</Badge>\n<Badge tone=\"warning\" variant=\"solid\">Pending</Badge>\n<Badge tone=\"neutral\" variant=\"outline\">Draft</Badge>\n<Badge tone=\"info\" size=\"lg\">12 new</Badge>",
@@ -291,49 +291,49 @@ export const components = [
         "type": "number | string",
         "required": false,
         "default": "—",
-        "description": "Padding — a spacing step (number) or any CSS length."
+        "description": "Sets inner padding on the matching side(s), accepting a spacing-scale step (number) or any raw CSS length string."
       },
       {
         "prop": "m, mx, my, mt, mr, mb, ml",
         "type": "number | string",
         "required": false,
         "default": "—",
-        "description": "Margin — a spacing step or any CSS length."
+        "description": "Sets outer margin on the matching side(s), accepting a spacing-scale step (number) or any raw CSS length string."
       },
       {
         "prop": "bg",
         "type": "\"surface\" | \"surface-raised\" | \"surface-sunken\" | \"bg\" | string",
         "required": false,
         "default": "—",
-        "description": "Background (surface token name or CSS)."
+        "description": "Sets the background to a surface token like \"surface\" or \"surface-raised\", or to any custom CSS color value."
       },
       {
         "prop": "border",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Add a 1px token border."
+        "description": "When true, draws a 1px border using the theme's border token, useful for visually separating the box from its surroundings."
       },
       {
         "prop": "radius",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Border-radius token suffix (e.g. \"lg\")."
+        "description": "Applies a border-radius from the radius token scale by suffix (e.g. \"lg\") to round the box's corners."
       },
       {
         "prop": "shadow",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Box-shadow token suffix (e.g. \"md\")."
+        "description": "Applies an elevation box-shadow from the shadow token scale by suffix (e.g. \"md\") to lift the box off the page."
       },
       {
         "prop": "as",
         "type": "ElementType",
         "required": false,
         "default": "\"div\"",
-        "description": "Element/tag to render."
+        "description": "Sets which element or tag the box renders as, defaulting to \"div\" but accepting any semantic HTML element type."
       }
     ],
     "snippet": "import { Box } from \"twico-ui\";\n\n<Box p={4} bg=\"surface\" border radius=\"lg\" shadow=\"sm\">\n  Padded, bordered surface.\n</Box>",
@@ -351,21 +351,21 @@ export const components = [
         "type": "BreadcrumbItem[]",
         "required": true,
         "default": "—",
-        "description": "Ordered trail; the last item renders as the current page. Each item is { label, href?, icon?, onClick? }."
+        "description": "The ordered array of trail entries ({ label, href?, icon?, onClick? }), where the last item renders as the current, non-linked page."
       },
       {
         "prop": "separator",
         "type": "React.ReactNode",
         "required": false,
         "default": "<ChevronSep />",
-        "description": "Custom separator node between items (defaults to a chevron)."
+        "description": "The node drawn between adjacent items, defaulting to a chevron but replaceable with any custom divider such as a slash."
       },
       {
         "prop": "maxItems",
         "type": "number",
         "required": false,
         "default": "0",
-        "description": "Collapse to first + last items past this count (0 = never)."
+        "description": "Collapses the middle of the trail into an expandable ellipsis once the item count exceeds this number, with 0 disabling collapsing."
       }
     ],
     "snippet": "import { Breadcrumb } from \"twico-ui\";\n\n<Breadcrumb\n  items={[\n    { label: \"Home\", href: \"/\" },\n    { label: \"Projects\", href: \"/projects\" },\n    { label: \"Twico UI\" },\n  ]}\n/>\n\n<Breadcrumb maxItems={3} items={longTrail} />",
@@ -383,56 +383,56 @@ export const components = [
         "type": "\"solid\" | \"soft\" | \"outline\" | \"ghost\" | \"danger\"",
         "required": false,
         "default": "\"solid\"",
-        "description": "Visual style of the button."
+        "description": "Selects the visual style from solid, soft, outline, ghost, or danger to convey the action's prominence and intent."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Control size."
+        "description": "Sets the button height and padding (sm, md, or lg) to match the density of the surrounding UI."
       },
       {
         "prop": "leftIcon",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Icon node rendered before the label."
+        "description": "Renders an icon node before the label, commonly used to reinforce the action with a leading visual cue."
       },
       {
         "prop": "rightIcon",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Icon node rendered after the label."
+        "description": "Renders an icon node after the label, often a chevron or arrow signaling navigation or progression."
       },
       {
         "prop": "loading",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Show a spinner and block interaction."
+        "description": "When true, swaps in a spinner and disables interaction to signal an in-flight action and prevent duplicate clicks."
       },
       {
         "prop": "fullWidth",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Stretch to fill the container width."
+        "description": "Stretches the button to fill its container's width, handy for full-width CTAs and stacked mobile action buttons."
       },
       {
         "prop": "as",
         "type": "\"button\" | \"a\"",
         "required": false,
         "default": "\"button\"",
-        "description": "Render as a different element (e.g. an anchor)."
+        "description": "Chooses whether to render a native \"button\" or an \"a\" anchor, letting the button act as a real link when needed."
       },
       {
         "prop": "children",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Button label content."
+        "description": "The label content rendered inside the button, typically text but accepting any inline node alongside the icons."
       }
     ],
     "snippet": "import { Button } from \"twico-ui\";\n\n<Button variant=\"solid\" size=\"md\" onClick={save}>Save changes</Button>\n<Button variant=\"soft\" leftIcon={<PlusIcon />}>Add item</Button>\n<Button variant=\"outline\">Cancel</Button>\n<Button variant=\"ghost\">Skip</Button>\n<Button variant=\"danger\" loading>Deleting…</Button>",
@@ -450,56 +450,56 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Bold title shown in the card header."
+        "description": "Renders a bold title in the card header, giving the grouped content a clear heading at the top."
       },
       {
         "prop": "subtitle",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Muted subtitle under the title."
+        "description": "Renders a muted subtitle beneath the title to add supporting context or a brief secondary description."
       },
       {
         "prop": "footer",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Footer content, e.g. action buttons."
+        "description": "Renders pinned footer content such as action buttons below the card body, separated from the main content."
       },
       {
         "prop": "variant",
         "type": "\"elevated\" | \"outline\" | \"soft\"",
         "required": false,
         "default": "\"elevated\"",
-        "description": "Visual style of the card surface."
+        "description": "Selects the surface treatment from elevated, outline, or soft to control how the card stands out from the page."
       },
       {
         "prop": "padding",
         "type": "\"none\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Inner padding of the card."
+        "description": "Sets the card's inner padding to none, md, or lg, with none useful for edge-to-edge media or custom layouts."
       },
       {
         "prop": "interactive",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Adds a hover-lift effect and pointer cursor."
+        "description": "When true, adds a hover-lift effect and pointer cursor to signal the whole card is clickable."
       },
       {
         "prop": "fullHeight",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Stretches the card to fill its parent cell (height: 100%) so cards in a grid or flex row line up to equal height."
+        "description": "Stretches the card to fill its parent cell (height: 100%) so cards in a grid or flex row align to equal height."
       },
       {
         "prop": "children",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Body content of the card."
+        "description": "The main body content of the card, rendered between the optional header and footer regions."
       }
     ],
     "snippet": "import { Card } from \"twico-ui\";\n\n<Card\n  title=\"Monthly revenue\"\n  subtitle=\"June 2026\"\n  footer={<Button size=\"sm\">View report</Button>}\n>\n  Revenue grew 18% month over month.\n</Card>\n\n<Card variant=\"outline\" interactive>\n  Hover me — I lift.\n</Card>",
@@ -517,42 +517,42 @@ export const components = [
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Show prev/next arrows."
+        "description": "When true, displays prev/next arrow controls so users can step manually between slides in either direction."
       },
       {
         "prop": "showDots",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Show dot indicators."
+        "description": "When true, displays dot indicators beneath the slides showing position and letting users jump to a specific slide."
       },
       {
         "prop": "loop",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Wrap around at the ends."
+        "description": "When true, wraps navigation around the ends so advancing past the last slide returns to the first and vice versa."
       },
       {
         "prop": "autoPlay",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Auto-advance slides."
+        "description": "When true, automatically advances slides on a timer, pausing while the pointer hovers over the carousel."
       },
       {
         "prop": "interval",
         "type": "number",
         "required": false,
         "default": "4000",
-        "description": "Autoplay interval in ms."
+        "description": "Sets the delay in milliseconds between automatic slide advances when autoPlay is enabled, defaulting to 4000."
       },
       {
         "prop": "children",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Slides (each child is one slide)."
+        "description": "The slide elements, where each direct child is rendered as a single full-width slide in the carousel."
       }
     ],
     "snippet": "import { Carousel } from \"twico-ui\";\n\n<Carousel autoPlay interval={5000}>\n  <img src=\"/a.jpg\" alt=\"\" />\n  <img src=\"/b.jpg\" alt=\"\" />\n  <div>Any slide content</div>\n</Carousel>",
@@ -570,56 +570,56 @@ export const components = [
         "type": "\"bar\" | \"line\"",
         "required": false,
         "default": "\"bar\"",
-        "description": "Chart style: grouped bars or multi-line."
+        "description": "Selects the rendering style, drawing the data as grouped bars or as connected lines for trends over time."
       },
       {
         "prop": "data",
         "type": "ChartDatum[]",
         "required": true,
         "default": "—",
-        "description": "Data points; each has a label plus one numeric field per series."
+        "description": "Supplies the array of data points, each carrying a label plus one numeric field for every named series."
       },
       {
         "prop": "series",
         "type": "string[]",
         "required": false,
         "default": "[\"value\"]",
-        "description": "Series field names. Multiple keys produce grouped bars or multi-line."
+        "description": "Names the numeric fields to plot, where multiple keys yield grouped bars or multiple lines per data point."
       },
       {
         "prop": "height",
         "type": "number",
         "required": false,
         "default": "220",
-        "description": "Pixel height of the chart."
+        "description": "Sets the chart's pixel height, controlling its vertical footprint while it scales horizontally to its container."
       },
       {
         "prop": "showGrid",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Show horizontal grid lines."
+        "description": "Draws horizontal grid lines behind the data, on by default, to make values easier to read against the scale."
       },
       {
         "prop": "showAxis",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Show axis tick and label text."
+        "description": "Renders axis tick marks and label text, enabled by default, so viewers can map plotted values to categories."
       },
       {
         "prop": "showLegend",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Show a series legend (only for multi-series)."
+        "description": "Displays a legend keying each series to its color, off by default and most useful when plotting multiple series."
       },
       {
         "prop": "valueFormat",
         "type": "(value: number) => string",
         "required": false,
         "default": "—",
-        "description": "Formatter for tooltip values."
+        "description": "Formats raw numeric values into display strings for tooltips, letting you add units, separators, or currency symbols."
       }
     ],
     "snippet": "import { Chart } from \"twico-ui\";\n\n<Chart\n  type=\"bar\"\n  data={[\n    { label: \"Mon\", value: 240 },\n    { label: \"Tue\", value: 310 },\n    { label: \"Wed\", value: 280 },\n  ]}\n  valueFormat={(v) => `$${v}`}\n/>\n\n<Chart\n  type=\"line\"\n  series={[\"signups\", \"active\"]}\n  showLegend\n  data={[\n    { label: \"Jan\", signups: 120, active: 80 },\n    { label: \"Feb\", signups: 180, active: 140 },\n  ]}\n/>",
@@ -637,77 +637,77 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Text or node shown next to the box."
+        "description": "Renders text or a node beside the box, serving as the clickable caption that describes what the checkbox toggles."
       },
       {
         "prop": "description",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Secondary helper text under the label."
+        "description": "Shows secondary helper text below the label to clarify the option's meaning or consequences without crowding it."
       },
       {
         "prop": "indeterminate",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Renders the dash (mixed) state."
+        "description": "Displays the mixed dash state instead of a check, ideal for a select-all that is only partially selected."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Control size."
+        "description": "Adjusts the checkbox dimensions between sm and md to match the density of the surrounding form layout."
       },
       {
         "prop": "checked",
         "type": "boolean",
         "required": false,
         "default": "—",
-        "description": "Controlled checked state (native input attr)."
+        "description": "Drives the checked state in controlled mode, requiring an onChange handler to keep the input in sync."
       },
       {
         "prop": "defaultChecked",
         "type": "boolean",
         "required": false,
         "default": "—",
-        "description": "Initial checked state when uncontrolled (native input attr)."
+        "description": "Sets the initial checked state for uncontrolled usage, after which the input manages its own value internally."
       },
       {
         "prop": "disabled",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Disables interaction and dims the control (native input attr)."
+        "description": "Blocks interaction and dims the control when true, signaling the option is currently unavailable to the user."
       },
       {
         "prop": "onChange",
         "type": "React.ChangeEventHandler<HTMLInputElement>",
         "required": false,
         "default": "—",
-        "description": "Fires when the checked state changes (native input attr)."
+        "description": "Fires on every toggle with the native change event, letting you read the new checked state and update state."
       },
       {
         "prop": "id",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Input id; auto-generated when omitted (native input attr)."
+        "description": "Sets the input's id used to associate the label, auto-generated when omitted so the click target stays connected."
       },
       {
         "prop": "className",
         "type": "string",
         "required": false,
         "default": "\"\"",
-        "description": "Extra class names on the wrapping label (native input attr)."
+        "description": "Appends extra class names to the wrapping label element for custom spacing, alignment, or layout overrides."
       },
       {
         "prop": "...rest",
         "type": "Omit<React.InputHTMLAttributes<HTMLInputElement>, \"size\" | \"type\">",
         "required": false,
         "default": "—",
-        "description": "Other native checkbox input attributes (name, value, required, etc.)."
+        "description": "Forwards remaining native input attributes such as name, value, and required onto the underlying checkbox element."
       }
     ],
     "snippet": "import { Checkbox } from \"twico-ui\";\n\n<Checkbox label=\"Subscribe to updates\" defaultChecked />\n<Checkbox label=\"Select all\" indeterminate />\n<Checkbox\n  label=\"Notifications\"\n  description=\"Get email alerts for new activity\"\n/>\n<Checkbox label=\"Disabled option\" disabled />\n<Checkbox label=\"Compact\" size=\"sm\" />",
@@ -725,14 +725,14 @@ export const components = [
         "type": "ElementType",
         "required": false,
         "default": "\"code\"",
-        "description": "Element/tag to render."
+        "description": "Overrides the rendered element, defaulting to a code tag but allowing any tag when the semantics differ."
       },
       {
         "prop": "children",
         "type": "ReactNode",
         "required": false,
         "default": "—",
-        "description": "The inline code text."
+        "description": "Provides the inline code text or nodes shown in the mono font on the subtle token-styled surface."
       }
     ],
     "snippet": "import { Code, Text } from \"twico-ui\";\n\n<Text>Install with <Code>npm install twico-ui</Code>.</Text>",
@@ -750,35 +750,35 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Optional label shown above the picker trigger."
+        "description": "Renders an optional caption above the trigger to describe which color the picker controls, such as a brand color."
       },
       {
         "prop": "value",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Controlled hex value, e.g. \"#6366F1\"."
+        "description": "Sets the selected hex color in controlled mode, pairing with onChange to keep the displayed color in sync."
       },
       {
         "prop": "defaultValue",
         "type": "string",
         "required": false,
         "default": "\"#6366F1\"",
-        "description": "Uncontrolled initial hex value when value is not provided."
+        "description": "Provides the initial hex color for uncontrolled usage, after which the picker tracks selection internally."
       },
       {
         "prop": "presets",
         "type": "string[]",
         "required": false,
         "default": "8 default swatches (e.g. #6366F1, #0EA5E9, #14B8A6, ...)",
-        "description": "Preset swatch colors (hex strings) shown below the picker."
+        "description": "Lists hex swatch colors shown below the picker for quick one-click selection of common or brand-approved colors."
       },
       {
         "prop": "onChange",
         "type": "(hex: string) => void",
         "required": false,
         "default": "—",
-        "description": "Called with the new hex string whenever the color changes."
+        "description": "Fires with the new hex string whenever the user adjusts saturation, hue, the text field, or picks a preset."
       }
     ],
     "snippet": "import { ColorPicker } from \"twico-ui\";\n\n// Controlled\nconst [color, setColor] = React.useState(\"#6366F1\");\n<ColorPicker label=\"Brand color\" value={color} onChange={setColor} />\n\n// Uncontrolled with custom presets\n<ColorPicker\n  defaultValue=\"#14B8A6\"\n  presets={[\"#6366F1\", \"#14B8A6\", \"#F43F5E\"]}\n/>",
@@ -796,84 +796,84 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Field label shown above the control."
+        "description": "Renders a caption above the control to identify the field and improve accessibility for the searchable select."
       },
       {
         "prop": "hint",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Helper text shown below the field when there is no error."
+        "description": "Shows helper text below the field to guide input, displayed only while no error message is present."
       },
       {
         "prop": "error",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Error message; marks the field invalid and replaces the hint."
+        "description": "Displays an error message, marks the field invalid, and replaces the hint to flag a failed validation."
       },
       {
         "prop": "required",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Shows a required asterisk next to the label."
+        "description": "Adds a required asterisk next to the label, signaling that the user must select a value before submitting."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Control height/size."
+        "description": "Sets the control height across sm, md, or lg to match the density of the surrounding form."
       },
       {
         "prop": "placeholder",
         "type": "string",
         "required": false,
         "default": "\"Select…\"",
-        "description": "Field placeholder text."
+        "description": "Sets the muted text shown in the empty field before the user types to filter or selects an option."
       },
       {
         "prop": "options",
         "type": "Array<string | ComboboxOption | ComboboxGroup>",
         "required": true,
         "default": "—",
-        "description": "Options as strings, {value,label,description}, or {group,options} groups."
+        "description": "Defines the selectable items as plain strings, value/label/description objects, or grouped option collections."
       },
       {
         "prop": "value",
         "type": "string | null",
         "required": false,
         "default": "—",
-        "description": "Controlled selected value."
+        "description": "Sets the selected option's value in controlled mode, pairing with onChange to keep the field in sync."
       },
       {
         "prop": "defaultValue",
         "type": "string | null",
         "required": false,
         "default": "null",
-        "description": "Uncontrolled initial selected value."
+        "description": "Provides the initial selection for uncontrolled usage, defaulting to null so the field starts empty."
       },
       {
         "prop": "onChange",
         "type": "(value: string | null) => void",
         "required": false,
         "default": "—",
-        "description": "Called with the newly selected value (or null when cleared)."
+        "description": "Fires with the newly selected value, or null when the selection is cleared, so you can update state."
       },
       {
         "prop": "clearable",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Shows a clear (×) affix when a value is selected."
+        "description": "Adds a clear button when a value is selected, letting users reset the field back to an empty selection."
       },
       {
         "prop": "disabled",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Disables the field."
+        "description": "Blocks typing and selection while dimming the field, indicating the control is currently unavailable."
       }
     ],
     "snippet": "import { Combobox } from \"twico-ui\";\n\n<Combobox\n  label=\"Country\"\n  placeholder=\"Search a country\"\n  clearable\n  value={country}\n  onChange={setCountry}\n  options={[\n    { group: \"Asia\", options: [\n      { value: \"id\", label: \"Indonesia\", description: \"Jakarta\" },\n      { value: \"jp\", label: \"Japan\", description: \"Tokyo\" },\n    ]},\n    { group: \"Europe\", options: [\n      { value: \"de\", label: \"Germany\", description: \"Berlin\" },\n    ]},\n  ]}\n/>",
@@ -891,35 +891,35 @@ export const components = [
         "type": "boolean",
         "required": true,
         "default": "—",
-        "description": "Whether the palette is visible; you control this yourself."
+        "description": "Controls whether the palette overlay is visible; you own this state and typically toggle it on Cmd/Ctrl+K."
       },
       {
         "prop": "onClose",
         "type": "() => void",
         "required": false,
         "default": "—",
-        "description": "Called when the palette should close (Esc, overlay click, or after selecting)."
+        "description": "Fires when the palette should dismiss, such as on Esc, an overlay click, or after a command is selected."
       },
       {
         "prop": "commands",
         "type": "Command[]",
         "required": true,
         "default": "—",
-        "description": "List of commands to search and display, optionally grouped."
+        "description": "The list of Command objects to search, group, and render, each typically defining a label, action, and optional group."
       },
       {
         "prop": "placeholder",
         "type": "string",
         "required": false,
         "default": "\"Type a command or search…\"",
-        "description": "Placeholder text for the search input."
+        "description": "Sets the search input's placeholder text, defaulting to \"Type a command or search…\" to hint at the expected query."
       },
       {
         "prop": "emptyText",
         "type": "string",
         "required": false,
         "default": "\"No results found\"",
-        "description": "Message shown when no commands match the query."
+        "description": "The message shown when no command matches the current query, defaulting to \"No results found\"."
       }
     ],
     "snippet": "import { CommandPalette } from \"twico-ui\";\n\nconst [open, setOpen] = React.useState(false);\nReact.useEffect(() => {\n  const h = (e) => {\n    if ((e.metaKey || e.ctrlKey) && e.key === \"k\") { e.preventDefault(); setOpen(true); }\n  };\n  window.addEventListener(\"keydown\", h);\n  return () => window.removeEventListener(\"keydown\", h);\n}, []);\n\n<CommandPalette\n  open={open}\n  onClose={() => setOpen(false)}\n  commands={[\n    { group: \"Navigation\", label: \"Go to Dashboard\", shortcut: \"G D\", onSelect: goDash },\n    { group: \"Actions\", label: \"New project\", keywords: \"create add\", onSelect: create },\n  ]}\n/>",
@@ -937,21 +937,21 @@ export const components = [
         "type": "\"sm\" | \"md\" | \"lg\" | \"xl\" | \"full\" | string",
         "required": false,
         "default": "\"lg\"",
-        "description": "Max width (named token or any CSS length)."
+        "description": "Caps the maximum width using a named token (sm through xl, or full) or any CSS length, defaulting to \"lg\"."
       },
       {
         "prop": "padded",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Apply horizontal padding."
+        "description": "Adds responsive horizontal padding so content does not touch the viewport edges; enabled by default, set false to remove it."
       },
       {
         "prop": "as",
         "type": "ElementType",
         "required": false,
         "default": "\"div\"",
-        "description": "Element/tag to render."
+        "description": "Chooses the rendered HTML element or component (such as \"section\" or \"main\"), defaulting to \"div\" for semantic flexibility."
       }
     ],
     "snippet": "import { Container, Heading } from \"twico-ui\";\n\n<Container size=\"lg\">\n  <Heading level={1}>Page title</Heading>\n</Container>",
@@ -969,91 +969,91 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Field label rendered above the input."
+        "description": "Renders a label above the input describing the monetary field, accepting any ReactNode for icons or rich text."
       },
       {
         "prop": "hint",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Helper text shown below when there is no error."
+        "description": "Shows helper text below the input to guide entry, displayed only when no error is present."
       },
       {
         "prop": "error",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Error message; also marks the field invalid."
+        "description": "Displays an error message below the input and marks the field invalid, overriding any hint while set."
       },
       {
         "prop": "required",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Shows a required asterisk next to the label."
+        "description": "Marks the field as required and renders an asterisk beside the label; off by default."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Control height/size of the input."
+        "description": "Sets the input height and padding (sm, md, or lg) to match the surrounding form's density, defaulting to \"md\"."
       },
       {
         "prop": "currency",
         "type": "string",
         "required": false,
         "default": "\"USD\"",
-        "description": "Currency code from the built-in table (e.g. USD, EUR, IDR, JPY)."
+        "description": "Selects the fixed currency by code from the built-in table (e.g. USD, EUR, IDR, JPY), driving symbol and precision."
       },
       {
         "prop": "precision",
         "type": "number",
         "required": false,
         "default": "—",
-        "description": "Override the number of decimal digits allowed."
+        "description": "Overrides the number of decimal digits enforced while typing, instead of the currency's default precision."
       },
       {
         "prop": "symbol",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Override the displayed prefix symbol."
+        "description": "Overrides the prefix symbol shown before the amount, useful when the built-in symbol for the currency isn't desired."
       },
       {
         "prop": "code",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Override the displayed suffix code."
+        "description": "Overrides the suffix code displayed after the amount, replacing the default currency code label."
       },
       {
         "prop": "value",
         "type": "string | number",
         "required": false,
         "default": "—",
-        "description": "Controlled value of the input."
+        "description": "Sets the controlled amount as a string or number, keeping the input value driven entirely by your state."
       },
       {
         "prop": "defaultValue",
         "type": "string | number",
         "required": false,
         "default": "\"\"",
-        "description": "Uncontrolled initial value."
+        "description": "Sets the initial amount for uncontrolled usage, after which the input manages its own value; defaults to an empty string."
       },
       {
         "prop": "onChange",
         "type": "(e: React.ChangeEvent<HTMLInputElement>) => void",
         "required": false,
         "default": "—",
-        "description": "Native change handler receiving the event."
+        "description": "The native change handler receiving the raw input event, useful when you need the underlying DOM event."
       },
       {
         "prop": "onValueChange",
         "type": "(value: number | null, formatted: string) => void",
         "required": false,
         "default": "—",
-        "description": "Callback with the parsed numeric value and formatted string."
+        "description": "Fires with the parsed numeric value (or null) and the formatted display string whenever the amount changes."
       }
     ],
     "snippet": "import { Currency } from \"twico-ui\";\n\n<Currency label=\"Price\" currency=\"USD\" onValueChange={(n) => setPrice(n)} />\n<Currency label=\"Harga\" currency=\"IDR\" />\n<Currency label=\"Total\" currency=\"JPY\" />\n<Currency label=\"Custom\" symbol=\"₿\" code=\"BTC\" precision={8} />",
@@ -1071,84 +1071,84 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Field label rendered above the input."
+        "description": "Renders a label above the field describing the amount, accepting any ReactNode for icons or formatted text."
       },
       {
         "prop": "hint",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Helper text shown below the field when there is no error."
+        "description": "Shows helper text below the field to guide entry, displayed only when no error message is present."
       },
       {
         "prop": "error",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Error message; when set, the field is marked invalid."
+        "description": "Displays an error message and marks the field invalid when set, taking visual precedence over the hint."
       },
       {
         "prop": "required",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Marks the field as required and shows an asterisk."
+        "description": "Marks the field as required and renders an asterisk beside the label; off by default."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Control size."
+        "description": "Sets the input and dropdown height (sm, md, or lg) to match the surrounding form's density, defaulting to \"md\"."
       },
       {
         "prop": "currency",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Controlled selected currency code."
+        "description": "Controls the selected currency code from your state, keeping the chosen currency driven externally."
       },
       {
         "prop": "defaultCurrency",
         "type": "string",
         "required": false,
         "default": "\"USD\"",
-        "description": "Uncontrolled initial currency code."
+        "description": "Sets the initially selected currency code for uncontrolled usage, defaulting to \"USD\"."
       },
       {
         "prop": "onCurrencyChange",
         "type": "(code: string) => void",
         "required": false,
         "default": "—",
-        "description": "Called when the user picks a different currency."
+        "description": "Fires with the new code when the user picks a different currency from the searchable dropdown."
       },
       {
         "prop": "currencies",
         "type": "Array<string | CurrencyOption>",
         "required": false,
         "default": "—",
-        "description": "Limit the selectable currencies (codes or {value,label}); defaults to the full built-in list."
+        "description": "Restricts the selectable currencies to the given codes or {value,label} options, instead of the full built-in list."
       },
       {
         "prop": "value",
         "type": "string | number",
         "required": false,
         "default": "—",
-        "description": "Controlled amount string."
+        "description": "Sets the controlled amount as a string or number, keeping the entered value driven entirely by your state."
       },
       {
         "prop": "defaultValue",
         "type": "string | number",
         "required": false,
         "default": "\"\"",
-        "description": "Uncontrolled initial amount."
+        "description": "Sets the initial amount for uncontrolled usage, after which the field manages its own value; defaults to an empty string."
       },
       {
         "prop": "onValueChange",
         "type": "(value: number | null, formatted: string, currency: string) => void",
         "required": false,
         "default": "—",
-        "description": "Callback with the parsed number, formatted string, and active currency code."
+        "description": "Fires with the parsed number (or null), the formatted string, and the active currency code whenever either changes."
       }
     ],
     "snippet": "import { CurrencyField } from \"twico-ui\";\n\n<CurrencyField\n  label=\"Amount\"\n  defaultCurrency=\"USD\"\n  onValueChange={(n, str, code) => save(n, code)}\n/>\n\n{/* limit the currency choices */}\n<CurrencyField\n  label=\"Amount\"\n  defaultCurrency=\"EUR\"\n  currencies={[\"USD\", \"EUR\", \"GBP\", \"IDR\"]}\n/>",
@@ -1166,252 +1166,252 @@ export const components = [
         "type": "DatatableColumn array",
         "required": true,
         "default": "-",
-        "description": "Column definitions."
+        "description": "Defines each column's field, header, type, and behavior, controlling sorting, filtering, formatting, and pinning across the grid."
       },
       {
         "prop": "rows",
         "type": "any array",
         "required": true,
         "default": "-",
-        "description": "Row objects (current page in server mode)."
+        "description": "Supplies the row objects to render, holding only the current page's data when serverMode is enabled."
       },
       {
         "prop": "loading",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Show skeleton rows."
+        "description": "Replaces the grid body with skeleton rows while data is being fetched; off by default."
       },
       {
         "prop": "rowKey",
         "type": "(row,index)=>key",
         "required": false,
         "default": "(r,i)=>r.id??i",
-        "description": "Stable key per row."
+        "description": "Returns a stable unique key per row, defaulting to the row's id or its index, to keep selection and renders consistent."
       },
       {
         "prop": "checkboxSelection",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Leading selection checkbox column."
+        "description": "Adds a leading checkbox column for selecting rows, enabling batch actions; off by default."
       },
       {
         "prop": "batchActions",
         "type": "DatatableBatchAction array",
         "required": false,
         "default": "[]",
-        "description": "Selection-toolbar actions."
+        "description": "Defines actions shown in the selection toolbar that operate on the currently selected rows; empty by default."
       },
       {
         "prop": "density",
         "type": "compact|standard|comfortable",
         "required": false,
         "default": "standard",
-        "description": "Row height preset."
+        "description": "Sets the row height preset (compact, standard, or comfortable) to trade vertical space for readability, defaulting to standard."
       },
       {
         "prop": "pageSize",
         "type": "number",
         "required": false,
         "default": "10",
-        "description": "Initial rows per page; 0 off."
+        "description": "Sets the initial number of rows shown per page, defaulting to 10; pass 0 to disable pagination."
       },
       {
         "prop": "pageSizeOptions",
         "type": "number array",
         "required": false,
         "default": "[5,10,25,50]",
-        "description": "Rows-per-page options."
+        "description": "Lists the selectable rows-per-page values offered in the pagination control, defaulting to [5,10,25,50]."
       },
       {
         "prop": "height",
         "type": "number",
         "required": false,
         "default": "440",
-        "description": "Max scroll height px."
+        "description": "Sets the maximum scroll height of the grid body in pixels before rows scroll internally, defaulting to 440."
       },
       {
         "prop": "serverMode",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Server-side data mode."
+        "description": "Switches to server-side data handling so sorting, filtering, and paging are delegated to your backend; off by default."
       },
       {
         "prop": "rowCount",
         "type": "number",
         "required": false,
         "default": "-",
-        "description": "Total server row count."
+        "description": "Tells the grid the total number of server-side rows so pagination can render correctly in serverMode."
       },
       {
         "prop": "onServerChange",
         "type": "(state)=>void",
         "required": false,
         "default": "-",
-        "description": "Server query callback."
+        "description": "Fires with the current query state (sort, filter, page) in serverMode so you can fetch the matching rows."
       },
       {
         "prop": "showExport",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Show Export button."
+        "description": "Shows the toolbar Export button for downloading data in supported formats; enabled by default."
       },
       {
         "prop": "exportFilename",
         "type": "string",
         "required": false,
         "default": "export",
-        "description": "Export filename."
+        "description": "Sets the base filename used for exported files, defaulting to \"export\"."
       },
       {
         "prop": "aggregationValues",
         "type": "object|null",
         "required": false,
         "default": "null",
-        "description": "Server footer aggregations."
+        "description": "Supplies precomputed footer aggregation values for serverMode, where totals cannot be calculated client-side; null by default."
       },
       {
         "prop": "disableColumnReorder",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Disable column reorder."
+        "description": "Prevents users from dragging columns into a new order, locking the column arrangement; off by default."
       },
       {
         "prop": "disableColumnResize",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Disable column resize."
+        "description": "Prevents users from dragging column edges to resize them, locking column widths; off by default."
       },
       {
         "prop": "editMode",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "All columns editable."
+        "description": "Makes all columns editable inline so users can change cell values directly; off by default."
       },
       {
         "prop": "onRowUpdate",
         "type": "(updated,original,field)=>void",
         "required": false,
         "default": "-",
-        "description": "Cell edit committed."
+        "description": "Fires when an inline cell edit is committed, receiving the updated row, the original row, and the edited field."
       },
       {
         "prop": "onRowsChange",
         "type": "(rows)=>void",
         "required": false,
         "default": "-",
-        "description": "Next rows after edit."
+        "description": "Fires with the full next array of rows after an edit, letting you persist the new dataset."
       },
       {
         "prop": "onBatchUpdate",
         "type": "(rows,patch,keys)=>void",
         "required": false,
         "default": "-",
-        "description": "Batch edit applied."
+        "description": "Fires when a batch edit is applied, receiving the affected rows, the patch object, and the selected keys."
       },
       {
         "prop": "showPageJumper",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Go-to page jumper."
+        "description": "Shows a go-to-page input in the pagination footer for jumping directly to a page number; enabled by default."
       },
       {
         "prop": "selectionMode",
         "type": "none|row|cell",
         "required": false,
         "default": "none",
-        "description": "Click-to-select mode."
+        "description": "Sets click-to-select granularity (none, row, or cell), controlling what gets highlighted on click, defaulting to none."
       },
       {
         "prop": "onRowClick",
         "type": "(row,key)=>void",
         "required": false,
         "default": "-",
-        "description": "Row click handler."
+        "description": "Fires with the clicked row and its key, useful for navigation or opening a detail view."
       },
       {
         "prop": "onCellClick",
         "type": "(value,row,field)=>void",
         "required": false,
         "default": "-",
-        "description": "Cell click handler."
+        "description": "Fires with the clicked cell's value, its row, and the field name when a cell is clicked."
       },
       {
         "prop": "onActiveCellChange",
         "type": "(cell|null)=>void",
         "required": false,
         "default": "-",
-        "description": "Active cell changed."
+        "description": "Fires when the active cell changes via keyboard or click, receiving the new cell descriptor or null."
       },
       {
         "prop": "showAggregation",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Initial totals row."
+        "description": "Shows a totals row with column aggregations beneath the data on initial render; off by default."
       },
       {
         "prop": "ariaLabel",
         "type": "string",
         "required": false,
         "default": "Data table",
-        "description": "Grid aria-label."
+        "description": "Sets the grid's accessible aria-label for screen readers, defaulting to \"Data table\"."
       },
       {
         "prop": "rowGrouping",
         "type": "string array",
         "required": false,
         "default": "[]",
-        "description": "Initial group fields."
+        "description": "Lists the field names to group rows by on initial render, collapsing rows into expandable groups; empty by default."
       },
       {
         "prop": "rowPinning",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Enable row pinning."
+        "description": "Allows users to pin rows to the top or bottom so they stay visible while scrolling; off by default."
       },
       {
         "prop": "rowReorder",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Enable row reorder."
+        "description": "Enables drag-and-drop reordering of rows so users can change their sequence; off by default."
       },
       {
         "prop": "rowResize",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Enable row resize."
+        "description": "Allows users to drag row edges to adjust individual row heights; off by default."
       },
       {
         "prop": "onRowOrderChange",
         "type": "(keys)=>void",
         "required": false,
         "default": "-",
-        "description": "New row order keys."
+        "description": "Fires with the new array of row keys after a drag reorder, letting you persist the updated order."
       },
       {
         "prop": "pivot",
         "type": "object|null",
         "required": false,
         "default": "null",
-        "description": "Initial pivot model."
+        "description": "Supplies the initial pivot model defining row, column, and value fields for cross-tabulated analysis; null by default."
       },
       {
         "prop": "pivotMode",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Start in pivot view."
+        "description": "Renders the grid in pivot view from the start instead of the flat table layout; off by default."
       }
     ],
     "snippet": "import { Datatable } from \"twico-ui\";\n\nconst columns = [\n  { field: \"name\", headerName: \"Name\", width: 200 },\n  { field: \"email\", headerName: \"Email\", width: 220 },\n  { field: \"role\", headerName: \"Role\", width: 130 },\n  { field: \"mrr\", headerName: \"MRR\", type: \"number\", width: 110 },\n];\n\nfunction Example(props) {\n  return React.createElement(Datatable, { checkboxSelection: true, pageSize: 10, columns: columns, rows: props.users });\n}",
@@ -1429,77 +1429,77 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Optional field label shown above the control."
+        "description": "Optional field label rendered above the input to name the control and associate it for accessibility."
       },
       {
         "prop": "value",
         "type": "Date | null",
         "required": false,
         "default": "—",
-        "description": "Controlled selected date (or null)."
+        "description": "Controlled selected date, or null when empty; pair it with onChange to own the value in state."
       },
       {
         "prop": "defaultValue",
         "type": "Date | null",
         "required": false,
         "default": "null",
-        "description": "Uncontrolled initial date."
+        "description": "Initial date for uncontrolled usage when value is omitted, defaulting to null so the field starts empty."
       },
       {
         "prop": "placeholder",
         "type": "string",
         "required": false,
         "default": "\"Select date\"",
-        "description": "Text shown when no date is selected."
+        "description": "Text shown in the trigger when no date is selected, defaulting to \"Select date\" to prompt the user."
       },
       {
         "prop": "min",
         "type": "Date",
         "required": false,
         "default": "—",
-        "description": "Earliest selectable date."
+        "description": "Earliest selectable date; dates before it are disabled in the calendar grid to enforce a lower bound."
       },
       {
         "prop": "max",
         "type": "Date",
         "required": false,
         "default": "—",
-        "description": "Latest selectable date."
+        "description": "Latest selectable date; dates after it are disabled in the calendar grid to enforce an upper bound."
       },
       {
         "prop": "disabled",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Disables the control and prevents opening."
+        "description": "Disables the control and prevents the calendar popover from opening, useful for read-only or gated form states."
       },
       {
         "prop": "clearable",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Show a clear (×) button when a date is set."
+        "description": "Shows a clear (×) button when a date is set so users can reset the field, enabled by default."
       },
       {
         "prop": "format",
         "type": "(date: Date) => string",
         "required": false,
         "default": "—",
-        "description": "Custom display formatter; defaults to a localized medium date."
+        "description": "Custom formatter that turns the selected Date into display text, defaulting to a localized medium date string."
       },
       {
         "prop": "weekStartsOn",
         "type": "0 | 1",
         "required": false,
         "default": "0",
-        "description": "First day of week: 0 = Sunday, 1 = Monday."
+        "description": "Sets the first weekday column in the calendar, where 0 is Sunday (default) and 1 is Monday."
       },
       {
         "prop": "onChange",
         "type": "(date: Date | null) => void",
         "required": false,
         "default": "—",
-        "description": "Called with the new date (or null when cleared)."
+        "description": "Fires with the newly selected Date, or null when the value is cleared, so you can update state."
       }
     ],
     "snippet": "import { DatePicker } from \"twico-ui\";\n\nconst [date, setDate] = useState(null);\n\n<DatePicker\n  label=\"Start date\"\n  value={date}\n  onChange={setDate}\n  min={new Date()}\n  weekStartsOn={1}\n/>",
@@ -1517,49 +1517,49 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Optional label shown above the control."
+        "description": "Optional field label rendered above the control to name the date range input and aid accessibility."
       },
       {
         "prop": "value",
         "type": "DateRange",
         "required": false,
         "default": "—",
-        "description": "Controlled range ({ start, end })."
+        "description": "Controlled range as a { start, end } object; pair it with onChange to own the selection in state."
       },
       {
         "prop": "defaultValue",
         "type": "DateRange",
         "required": false,
         "default": "{ start: null, end: null }",
-        "description": "Uncontrolled initial range."
+        "description": "Initial range for uncontrolled usage, defaulting to { start: null, end: null } so the field starts empty."
       },
       {
         "prop": "placeholder",
         "type": "string",
         "required": false,
         "default": "\"Select date range\"",
-        "description": "Text shown when no range is selected."
+        "description": "Text shown in the trigger when no range is selected, defaulting to \"Select date range\" to prompt the user."
       },
       {
         "prop": "presets",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Show the quick-preset column."
+        "description": "Shows the quick-preset column (Last 7/14/30/90 days) for fast range selection, enabled by default."
       },
       {
         "prop": "weekStartsOn",
         "type": "0 | 1",
         "required": false,
         "default": "0",
-        "description": "First day of week: 0 = Sunday, 1 = Monday."
+        "description": "Sets the first weekday column in the calendar, where 0 is Sunday (default) and 1 is Monday."
       },
       {
         "prop": "onChange",
         "type": "(range: DateRange) => void",
         "required": false,
         "default": "—",
-        "description": "Called with the new range when selection changes."
+        "description": "Fires with the updated { start, end } range whenever the selection changes so you can update state."
       }
     ],
     "snippet": "import { DateRangePicker } from \"twico-ui\";\n\nconst [range, setRange] = useState({ start: null, end: null });\n\n<DateRangePicker\n  label=\"Reporting period\"\n  value={range}\n  onChange={setRange}\n  weekStartsOn={1}\n/>",
@@ -1577,56 +1577,56 @@ export const components = [
         "type": "boolean",
         "required": true,
         "default": "—",
-        "description": "Whether the dialog is visible; renders null when false."
+        "description": "Controls whether the modal is visible; the dialog renders null when false, so drive it from state."
       },
       {
         "prop": "onClose",
         "type": "() => void",
         "required": false,
         "default": "—",
-        "description": "Called on Esc, backdrop click, or the close button."
+        "description": "Called when the dialog requests to close via Esc, a backdrop click, or the close button."
       },
       {
         "prop": "title",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Heading text shown in the header."
+        "description": "Heading content rendered in the dialog header to announce the modal's purpose to the user."
       },
       {
         "prop": "description",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Secondary text shown beneath the title."
+        "description": "Secondary supporting text shown beneath the title to give context for the dialog's content or task."
       },
       {
         "prop": "footer",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Footer content, typically right-aligned action buttons."
+        "description": "Footer region for pinned actions, typically right-aligned confirm and cancel buttons below the body."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Max-width preset of the dialog panel."
+        "description": "Max-width preset of the panel (sm, md, or lg) to match the amount of content shown."
       },
       {
         "prop": "closeOnBackdrop",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Close when the backdrop is clicked."
+        "description": "Closes the dialog when the surrounding scrim is clicked, enabled by default; disable for required interactions."
       },
       {
         "prop": "children",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Main body content of the dialog."
+        "description": "Main body content of the dialog, such as forms, messages, or detail views requiring the user's attention."
       }
     ],
     "snippet": "import { Dialog, Button } from \"twico-ui\";\n\n<Dialog\n  open={open}\n  onClose={() => setOpen(false)}\n  title=\"Delete project?\"\n  description=\"This action cannot be undone.\"\n  footer={\n    <>\n      <Button variant=\"ghost\" onClick={() => setOpen(false)}>Cancel</Button>\n      <Button variant=\"danger\" onClick={confirm}>Delete</Button>\n    </>\n  }\n>\n  The project and all its data will be permanently removed.\n</Dialog>",
@@ -1644,35 +1644,35 @@ export const components = [
         "type": "\"horizontal\" | \"vertical\"",
         "required": false,
         "default": "\"horizontal\"",
-        "description": "Direction of the rule."
+        "description": "Direction of the separator rule, either horizontal (default) to split stacked content or vertical for inline items."
       },
       {
         "prop": "inset",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Indent the start of a horizontal rule."
+        "description": "Indents the start of a horizontal rule to align it with inset content like list item text."
       },
       {
         "prop": "align",
         "type": "\"left\" | \"center\" | \"right\"",
         "required": false,
         "default": "\"center\"",
-        "description": "Label alignment when children are provided."
+        "description": "Positions the optional label along the rule (left, center, or right) when children are provided."
       },
       {
         "prop": "children",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Optional label text rendered in the middle of the rule."
+        "description": "Optional label text rendered within the rule, such as \"OR\", to break content with a caption."
       },
       {
         "prop": "...rest",
         "type": "React.HTMLAttributes<HTMLElement>",
         "required": false,
         "default": "—",
-        "description": "Standard HTML attributes spread onto the underlying element."
+        "description": "Standard HTML attributes spread onto the underlying separator element for ids, ARIA, data, or event handlers."
       }
     ],
     "snippet": "import { Divider } from \"twico-ui\";\n\n<Divider />\n\n<Divider>OR</Divider>\n\n<span>A</span>\n<Divider orientation=\"vertical\" />\n<span>B</span>",
@@ -1690,63 +1690,63 @@ export const components = [
         "type": "boolean",
         "required": true,
         "default": "—",
-        "description": "Whether the drawer is visible; renders nothing when false."
+        "description": "Controls whether the panel is visible; the drawer renders nothing when false, so drive it from state."
       },
       {
         "prop": "onClose",
         "type": "() => void",
         "required": false,
         "default": "—",
-        "description": "Called when the drawer requests to close (Esc, backdrop click, or close button)."
+        "description": "Called when the drawer requests to close via Esc, a backdrop click, or the close button."
       },
       {
         "prop": "side",
         "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
         "required": false,
         "default": "\"right\"",
-        "description": "Edge the panel slides in from."
+        "description": "Screen edge the panel anchors to and slides in from, defaulting to right (left, right, top, or bottom)."
       },
       {
         "prop": "title",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Heading shown in the drawer header."
+        "description": "Heading content rendered in the drawer header to announce the panel's purpose to the user."
       },
       {
         "prop": "description",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Secondary text shown under the title."
+        "description": "Secondary supporting text shown under the title to give context for the drawer's content or task."
       },
       {
         "prop": "footer",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Footer content, typically right-aligned action buttons."
+        "description": "Footer region for pinned actions, typically right-aligned buttons displayed below the drawer body."
       },
       {
         "prop": "size",
         "type": "number | string",
         "required": false,
         "default": "—",
-        "description": "Panel width (left/right) or height (top/bottom); number is px or any CSS value."
+        "description": "Panel width for left/right or height for top/bottom; a number is treated as pixels or any CSS value."
       },
       {
         "prop": "closeOnBackdrop",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Close the drawer when the backdrop scrim is clicked."
+        "description": "Closes the drawer when the backdrop scrim is clicked, enabled by default; disable for required interactions."
       },
       {
         "prop": "children",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Body content of the drawer."
+        "description": "Body content of the drawer, such as nav menus, filters, detail views, or a cart over the page."
       }
     ],
     "snippet": "import { Drawer } from \"twico-ui\";\n\nconst [open, setOpen] = useState(false);\n\n<Drawer\n  open={open}\n  onClose={() => setOpen(false)}\n  side=\"right\"\n  title=\"Filters\"\n  description=\"Narrow down the results\"\n  footer={<button onClick={() => setOpen(false)}>Apply</button>}\n>\n  ...filter controls...\n</Drawer>",
@@ -1764,42 +1764,42 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Illustrative icon shown in a tinted tile."
+        "description": "Renders an illustrative icon inside a tinted tile above the title, signalling visually why the area has no content yet."
       },
       {
         "prop": "title",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Headline text for the empty state."
+        "description": "Sets the centered headline summarising the empty condition, such as \"No results\" or \"Your inbox is empty\"."
       },
       {
         "prop": "description",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Supporting text explaining the empty state."
+        "description": "Provides supporting copy beneath the title that explains the empty state and hints at how to fill it."
       },
       {
         "prop": "actions",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Action buttons row (call-to-action)."
+        "description": "Renders a row of call-to-action buttons below the text so users can immediately add content or take the next step."
       },
       {
         "prop": "bordered",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Add a dashed border, good for drop targets / placeholders."
+        "description": "Adds a dashed border around the placeholder when true, ideal for drop targets or visually distinct empty regions."
       },
       {
         "prop": "...rest",
         "type": "React.HTMLAttributes<HTMLDivElement>",
         "required": false,
         "default": "—",
-        "description": "Standard div attributes (className, style, etc.) spread onto the root."
+        "description": "Spreads standard div attributes like className, style, and event handlers onto the root container for customisation."
       }
     ],
     "snippet": "import { EmptyState, Button } from \"twico-ui\";\n\n<EmptyState\n  icon={<InboxIcon />}\n  title=\"No messages yet\"\n  description=\"When someone sends you a message, it'll show up here.\"\n  actions={<Button>Compose</Button>}\n/>",
@@ -1817,42 +1817,42 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Accepted file types as an input accept string, e.g. \"image/*,.pdf\"."
+        "description": "Restricts selectable files using a native input accept string such as \"image/*,.pdf\", filtering the browse dialog and drops."
       },
       {
         "prop": "multiple",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Allow selecting more than one file."
+        "description": "Allows selecting and attaching more than one file at a time when true; defaults to single-file selection."
       },
       {
         "prop": "disabled",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Disable the dropzone and file input."
+        "description": "Disables the dropzone and underlying input when true, blocking clicks, drops, and any further file changes."
       },
       {
         "prop": "hint",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Hint line under the prompt; defaults to the accept types or \"Any file\"."
+        "description": "Renders a hint line under the prompt, defaulting to the accepted types or \"Any file\" when not provided."
       },
       {
         "prop": "value",
         "type": "File[]",
         "required": false,
         "default": "—",
-        "description": "Controlled list of selected files."
+        "description": "Supplies the controlled array of selected File objects, making the component fully managed by parent state."
       },
       {
         "prop": "onChange",
         "type": "(files: File[]) => void",
         "required": false,
         "default": "—",
-        "description": "Called with the new file list whenever files are added or removed."
+        "description": "Fires with the updated File array whenever files are added or removed, letting you sync controlled state."
       }
     ],
     "snippet": "import { FileUpload } from \"twico-ui\";\n\nconst [files, setFiles] = React.useState([]);\n\n<FileUpload\n  multiple\n  accept=\"image/*,.pdf\"\n  value={files}\n  onChange={setFiles}\n  hint=\"PNG, JPG or PDF up to 10MB\"\n/>",
@@ -1870,42 +1870,42 @@ export const components = [
         "type": "number | string",
         "required": false,
         "default": "—",
-        "description": "Responsive auto-fill: minimum child width (number = px)."
+        "description": "Enables a responsive auto-fill grid where columns wrap once children fall below this minimum width (number is treated as px)."
       },
       {
         "prop": "columns",
         "type": "number",
         "required": false,
         "default": "—",
-        "description": "Fixed column count (when minChildWidth is unset)."
+        "description": "Sets a fixed number of equal columns, used when minChildWidth is unset for predictable non-responsive layouts."
       },
       {
         "prop": "gap",
         "type": "number | string",
         "required": false,
         "default": "4",
-        "description": "Gap as a spacing step or CSS length."
+        "description": "Controls spacing between grid cells as a spacing-step number or any CSS length, defaulting to step 4."
       },
       {
         "prop": "align",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "align-items value."
+        "description": "Maps to the CSS align-items value, controlling how children are aligned along the block (vertical) axis."
       },
       {
         "prop": "justify",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "justify-items value."
+        "description": "Maps to the CSS justify-items value, controlling how children are aligned along the inline (horizontal) axis."
       },
       {
         "prop": "as",
         "type": "ElementType",
         "required": false,
         "default": "\"div\"",
-        "description": "Element/tag to render."
+        "description": "Renders the grid as a different element or tag instead of the default div, for semantic markup."
       }
     ],
     "snippet": "import { Grid, Card } from \"twico-ui\";\n\n<Grid minChildWidth={220} gap={4}>\n  <Card>One</Card>\n  <Card>Two</Card>\n  <Card>Three</Card>\n</Grid>",
@@ -1923,28 +1923,28 @@ export const components = [
         "type": "1 | 2 | 3 | 4 | 5 | 6",
         "required": false,
         "default": "2",
-        "description": "Sets the rendered tag and the default size."
+        "description": "Chooses which h1-h6 tag renders and its default token size, keeping document hierarchy and typography consistent."
       },
       {
         "prop": "size",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Override the font-size token suffix (e.g. \"3xl\")."
+        "description": "Overrides the font-size token suffix (e.g. \"3xl\") to decouple visual scale from the semantic heading level."
       },
       {
         "prop": "align",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "text-align value."
+        "description": "Sets the CSS text-align value, letting you left-align, center, or right-align the heading text."
       },
       {
         "prop": "as",
         "type": "ElementType",
         "required": false,
         "default": "—",
-        "description": "Override the tag while keeping the level's size."
+        "description": "Renders a different tag while preserving the level's size, useful when semantics and visual weight should differ."
       }
     ],
     "snippet": "import { Heading } from \"twico-ui\";\n\n<Heading level={1}>Dashboard</Heading>\n<Heading level={3}>Recent activity</Heading>",
@@ -1962,35 +1962,35 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "The icon node to render (e.g. a Lucide SVG). Falls back to children if omitted."
+        "description": "Supplies the single icon node to render, such as a Lucide SVG, falling back to children when omitted."
       },
       {
         "prop": "variant",
         "type": "\"solid\" | \"soft\" | \"outline\" | \"ghost\"",
         "required": false,
         "default": "\"ghost\"",
-        "description": "Visual style of the button."
+        "description": "Selects the visual style among solid, soft, outline, or ghost; defaults to ghost for unobtrusive toolbar actions."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Control size."
+        "description": "Sets the button's dimensions and icon scale (sm, md, or lg) to fit dense toolbars or prominent controls."
       },
       {
         "prop": "round",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Fully rounded (circular) shape."
+        "description": "Renders a fully rounded circular button when true instead of the default squared shape with rounded corners."
       },
       {
         "prop": "aria-label",
         "type": "string",
         "required": true,
         "default": "—",
-        "description": "Accessible label required for icon-only buttons."
+        "description": "Provides the required accessible name for this icon-only button so screen readers announce its purpose."
       }
     ],
     "snippet": "import { IconButton } from \"twico-ui\";\n\n<IconButton aria-label=\"Settings\" icon={<SettingsIcon />} />\n<IconButton aria-label=\"Like\" variant=\"soft\" round icon={<HeartIcon />} />\n<IconButton aria-label=\"Delete\" variant=\"outline\" icon={<TrashIcon />} />",
@@ -2008,56 +2008,56 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Field label rendered above the control."
+        "description": "Renders a label node above the control so the field has an accessible, visible name for the user."
       },
       {
         "prop": "hint",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Helper text shown below when there is no error."
+        "description": "Shows helper text below the input to guide entry; it is hidden once an error message is present."
       },
       {
         "prop": "error",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Error message; turns the field red and replaces the hint."
+        "description": "Displays a validation error below the field, switches the control to its red invalid state, and replaces the hint."
       },
       {
         "prop": "required",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Marks the field required (adds an asterisk)."
+        "description": "Marks the field as required and appends an asterisk to the label to signal mandatory input; defaults to false."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Control size."
+        "description": "Sets the control height and padding (sm, md, or lg) to match the density of the surrounding form."
       },
       {
         "prop": "leftIcon",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Icon node inside the field on the leading edge (prefix)."
+        "description": "Renders an icon node inside the field on the leading edge, useful as a prefix like a search or mail glyph."
       },
       {
         "prop": "rightIcon",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Trailing icon/node inside the field; overrides the password reveal toggle when provided."
+        "description": "Renders a trailing icon node inside the field, overriding the built-in password reveal toggle when supplied."
       },
       {
         "prop": "...rest",
         "type": "Omit<React.InputHTMLAttributes<HTMLInputElement>, \"size\">",
         "required": false,
         "default": "—",
-        "description": "All native input attributes (type, placeholder, value, onChange, disabled, etc.)."
+        "description": "Forwards all native input attributes such as type, placeholder, value, onChange, and disabled straight to the element."
       }
     ],
     "snippet": "import { Input } from \"twico-ui\";\n\n<Input label=\"Email\" type=\"email\" placeholder=\"you@twico.dev\" required />\n<Input label=\"Search\" leftIcon={<SearchIcon />} placeholder=\"Search…\" />\n<Input label=\"Amount\" rightIcon={<span>USD</span>} placeholder=\"0.00\" />\n<Input label=\"Password\" type=\"password\" placeholder=\"••••••••\" />\n<Input label=\"Username\" hint=\"Choose a unique handle\" placeholder=\"twico\" />\n<Input label=\"Email\" type=\"email\" error=\"Invalid email address\" defaultValue=\"nope\" />",
@@ -2075,28 +2075,28 @@ export const components = [
         "type": "KanbanColumn[] ({ id: string; title: React.ReactNode; color?: string })",
         "required": true,
         "default": "—",
-        "description": "The board columns, each with an id matching cards' column, a title, and optional heading dot color."
+        "description": "Defines the board columns, each with an id matching cards' column field, a title, and an optional heading dot color."
       },
       {
         "prop": "cards",
         "type": "KanbanCard[] ({ id; column; title?; description?; tags?; footer?; ... })",
         "required": true,
         "default": "—",
-        "description": "The cards to display, each assigned to a column via its column field."
+        "description": "Supplies the cards to render, each assigned to a column via its column field and carrying title, description, and tags."
       },
       {
         "prop": "onCardMove",
         "type": "(cardId: string, toColumn: string, nextCards: KanbanCard[]) => void",
         "required": false,
         "default": "—",
-        "description": "Fired when a card is dropped into a different column, with the updated card list."
+        "description": "Fires when a card is dropped into a different column, passing the card id, target column, and updated card list."
       },
       {
         "prop": "renderCard",
         "type": "(card: KanbanCard) => React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Custom renderer for card contents; falls back to title, description, tags, and footer."
+        "description": "Overrides the default card contents with a custom renderer, falling back to title, description, tags, and footer."
       }
     ],
     "snippet": "import { Kanban } from \"twico-ui\";\n\n<Kanban\n  columns={[\n    { id: \"todo\", title: \"To do\", color: \"var(--slate-400)\" },\n    { id: \"doing\", title: \"In progress\", color: \"var(--amber-500)\" },\n    { id: \"done\", title: \"Done\", color: \"var(--emerald-500)\" },\n  ]}\n  cards={[\n    { id: \"1\", column: \"todo\", title: \"Design tokens\", tags: [\"Design\"] },\n    { id: \"2\", column: \"doing\", title: \"Datatable filters\" },\n    { id: \"3\", column: \"done\", title: \"Ship release\" },\n  ]}\n  onCardMove={(id, to) => save(id, to)}\n/>",
@@ -2114,14 +2114,14 @@ export const components = [
         "type": "ListItemData[]",
         "required": true,
         "default": "—",
-        "description": "Array of rows. Each item: { title, description?, leading?, trailing?, onClick?, href?, active? }."
+        "description": "Provides the rows to render, each with a title plus optional description, leading, trailing, onClick, href, and active fields."
       },
       {
         "prop": "plain",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Drop the card chrome (borderless, transparent)."
+        "description": "Drops the card chrome to render borderless, transparent rows when set to true; defaults to false for the boxed style."
       }
     ],
     "snippet": "import { List } from \"twico-ui\";\n\n<List\n  items={[\n    { title: \"Ada Park\", description: \"ada@twico.dev\", trailing: \"Active\", onClick: () => {} },\n    { title: \"report.pdf\", description: \"2.4 MB\", trailing: \"Today\" },\n  ]}\n/>",
@@ -2139,35 +2139,35 @@ export const components = [
         "type": "React.ReactNode",
         "required": true,
         "default": "—",
-        "description": "Clickable element that opens the menu (e.g. a Button or IconButton)."
+        "description": "Defines the clickable element that opens the menu, typically a Button or IconButton the dropdown anchors to."
       },
       {
         "prop": "items",
         "type": "MenuItemDef[]",
         "required": true,
         "default": "—",
-        "description": "Array of menu entries; each can be an item, separator, or heading."
+        "description": "Lists the menu entries, where each can be an action item, a separator, or a section heading."
       },
       {
         "prop": "align",
         "type": "\"start\" | \"end\"",
         "required": false,
         "default": "\"start\"",
-        "description": "Horizontal alignment of the menu relative to the trigger."
+        "description": "Aligns the menu horizontally to the trigger's start or end edge so it sits flush in tight layouts; defaults to start."
       },
       {
         "prop": "header",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Optional rich node rendered above the items (e.g. user info)."
+        "description": "Renders an optional rich node above the items, handy for surfacing user info or context at the top of the menu."
       },
       {
         "prop": "width",
         "type": "number",
         "required": false,
         "default": "—",
-        "description": "Fixed menu width in px; defaults to max(200, trigger width)."
+        "description": "Pins the menu to a fixed pixel width, otherwise it sizes to the larger of 200px and the trigger's width."
       }
     ],
     "snippet": "import { Menu, Button } from \"twico-ui\";\n\n<Menu\n  align=\"end\"\n  trigger={<Button>Options</Button>}\n  items={[\n    { label: \"Account\", heading: true },\n    { label: \"Profile\", onClick: openProfile, shortcut: \"⌘P\" },\n    { label: \"Settings\", onClick: openSettings },\n    { separator: true },\n    { label: \"Sign out\", danger: true, onClick: signOut },\n  ]}\n/>",
@@ -2185,70 +2185,70 @@ export const components = [
         "type": "Array<string | MultiSelectOption | MultiSelectGroup>",
         "required": true,
         "default": "—",
-        "description": "Options as strings, {value,label,description} objects, or {group,options} groups."
+        "description": "Supplies the selectable options as plain strings, {value,label,description} objects, or {group,options} grouped sections."
       },
       {
         "prop": "label",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Field label shown above the control."
+        "description": "Renders a label node above the control so the multi-select has an accessible, visible name for the user."
       },
       {
         "prop": "hint",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Helper text shown below when there is no error."
+        "description": "Shows helper text below the control to guide selection; it is hidden once an error message is present."
       },
       {
         "prop": "error",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Error message; shown below and styles the control as invalid."
+        "description": "Displays a validation error below the control and styles it as invalid to flag a selection problem."
       },
       {
         "prop": "required",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Marks the field required with an asterisk on the label."
+        "description": "Marks the field as required and adds an asterisk to the label to signal a mandatory selection; defaults to false."
       },
       {
         "prop": "placeholder",
         "type": "string",
         "required": false,
         "default": "\"Select…\"",
-        "description": "Placeholder text shown when no chips are selected."
+        "description": "Sets the prompt text shown when no chips are selected, defaulting to \"Select…\" to invite a choice."
       },
       {
         "prop": "value",
         "type": "string[]",
         "required": false,
         "default": "—",
-        "description": "Controlled selected values."
+        "description": "Controls the selected values as a string array, making the component fully controlled when paired with onChange."
       },
       {
         "prop": "defaultValue",
         "type": "string[]",
         "required": false,
         "default": "[]",
-        "description": "Uncontrolled initial selected values."
+        "description": "Seeds the initially selected values for uncontrolled usage, defaulting to an empty array of no selections."
       },
       {
         "prop": "onChange",
         "type": "(values: string[]) => void",
         "required": false,
         "default": "—",
-        "description": "Called with the new selected values array on change."
+        "description": "Fires with the new array of selected values whenever a chip is added or removed from the selection."
       },
       {
         "prop": "disabled",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Disables the control and prevents interaction."
+        "description": "Disables the control and blocks all interaction when set to true, greying out the field; defaults to false."
       }
     ],
     "snippet": "import { MultiSelect } from \"twico-ui\";\n\nconst [tags, setTags] = useState([\"react\", \"tailwind\"]);\n\n<MultiSelect\n  label=\"Tech stack\"\n  placeholder=\"Add technologies\"\n  value={tags}\n  onChange={setTags}\n  options={[\n    { group: \"Frameworks\", options: [\n      { value: \"react\", label: \"React\", description: \"UI library\" },\n      { value: \"vue\", label: \"Vue\", description: \"Progressive framework\" },\n    ]},\n    { group: \"Tooling\", options: [\"tailwind\", \"typescript\"] },\n  ]}\n/>",
@@ -2266,35 +2266,35 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Brand/logo node shown at the left."
+        "description": "Renders the brand or logo node in the navbar's left slot, typically a wordmark or icon linking home."
       },
       {
         "prop": "links",
         "type": "NavbarLink[]",
         "required": false,
         "default": "[]",
-        "description": "Center nav links: { label, href?, icon?, active?, onClick? }."
+        "description": "Inline navigation items shown centered, each with a label and optional href, icon, active state, or onClick."
       },
       {
         "prop": "actions",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Right-aligned actions such as buttons or an avatar."
+        "description": "Right-aligned content such as buttons, a search field, or an avatar for account and primary actions."
       },
       {
         "prop": "sticky",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Stick to the top with a translucent blur."
+        "description": "Pins the navbar to the top of the viewport with a translucent blur as the page scrolls; on by default."
       },
       {
         "prop": "onMenuClick",
         "type": "() => void",
         "required": false,
         "default": "—",
-        "description": "Hamburger handler shown on small screens."
+        "description": "Fires when the hamburger button (shown only on small screens) is clicked, typically to open a mobile drawer."
       }
     ],
     "snippet": "import { Navbar } from \"twico-ui\";\n\n<Navbar\n  brand={<>twico<span style={{ color: \"var(--color-primary)\" }}>UI</span></>}\n  links={[\n    { label: \"Dashboard\", active: true },\n    { label: \"Projects\" },\n    { label: \"Team\" },\n  ]}\n  actions={<button>Sign in</button>}\n/>",
@@ -2312,56 +2312,56 @@ export const components = [
         "type": "number",
         "required": false,
         "default": "1",
-        "description": "Current 1-based page."
+        "description": "The currently active 1-based page number, used to highlight the active button and compute which pages to show."
       },
       {
         "prop": "total",
         "type": "number",
         "required": true,
         "default": "—",
-        "description": "Total number of pages."
+        "description": "Total number of pages available, determining the range of page buttons and when ellipsis truncation appears."
       },
       {
         "prop": "onChange",
         "type": "(page: number) => void",
         "required": false,
         "default": "—",
-        "description": "Called with the new page when the user navigates."
+        "description": "Fires with the destination page number whenever the user clicks a page, prev, next, or jumper control."
       },
       {
         "prop": "siblings",
         "type": "number",
         "required": false,
         "default": "1",
-        "description": "Page numbers shown on each side of the current page."
+        "description": "Number of adjacent page buttons rendered on each side of the current page before ellipsis truncation kicks in."
       },
       {
         "prop": "boundaries",
         "type": "number",
         "required": false,
         "default": "1",
-        "description": "Page numbers always shown at each end (first/last)."
+        "description": "Number of page buttons always kept visible at each end so the first and last pages stay reachable."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Control size."
+        "description": "Sets the control density, sm or md, scaling button height and spacing to match the surrounding layout."
       },
       {
         "prop": "showJumper",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Show a \"Go to\" page input for jumping directly to a page."
+        "description": "Adds a \"Go to\" number input so users can jump directly to a specific page instead of clicking through."
       },
       {
         "prop": "jumperLabel",
         "type": "React.ReactNode",
         "required": false,
         "default": "\"Go to\"",
-        "description": "Label before the jump input."
+        "description": "Text or node rendered before the jumper input, defaulting to \"Go to\", to clarify what the field does."
       }
     ],
     "snippet": "import { Pagination } from \"twico-ui\";\n\nconst [page, setPage] = useState(1);\n\n<Pagination\n  page={page}\n  total={12}\n  onChange={setPage}\n  showJumper\n/>",
@@ -2379,42 +2379,42 @@ export const components = [
         "type": "React.ReactNode",
         "required": true,
         "default": "—",
-        "description": "The clickable element that toggles the panel open."
+        "description": "The clickable element the panel anchors to; clicking it toggles the popover open and closed."
       },
       {
         "prop": "title",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Optional bold title shown at the top of the panel."
+        "description": "Optional bold heading rendered at the top of the panel to introduce its interactive content."
       },
       {
         "prop": "placement",
         "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
         "required": false,
         "default": "\"bottom\"",
-        "description": "Side of the trigger to open toward."
+        "description": "Which side of the trigger the panel opens toward (top, bottom, left, or right), auto-flipping near viewport edges."
       },
       {
         "prop": "align",
         "type": "\"start\" | \"center\" | \"end\"",
         "required": false,
         "default": "\"center\"",
-        "description": "Cross-axis alignment for top/bottom placements."
+        "description": "Cross-axis alignment (start, center, or end) of the panel relative to the trigger for top and bottom placements."
       },
       {
         "prop": "width",
         "type": "number",
         "required": false,
         "default": "240",
-        "description": "Panel width in pixels."
+        "description": "Fixed width of the floating panel in pixels, controlling how much interactive content fits on each line."
       },
       {
         "prop": "children",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "The panel content."
+        "description": "The rich interactive content rendered inside the panel, such as inputs, buttons, or links."
       }
     ],
     "snippet": "import { Popover, Button, Input } from \"twico-ui\";\n\n<Popover\n  trigger={<Button variant=\"outline\">Share</Button>}\n  title=\"Share link\"\n  placement=\"bottom\"\n>\n  <Input defaultValue=\"https://twico.dev/x\" />\n  <Button fullWidth>Copy link</Button>\n</Popover>",
@@ -2432,42 +2432,42 @@ export const components = [
         "type": "number",
         "required": false,
         "default": "0",
-        "description": "Current progress value."
+        "description": "Current progress amount that drives how much of the bar is filled, interpreted relative to max."
       },
       {
         "prop": "max",
         "type": "number",
         "required": false,
         "default": "100",
-        "description": "Maximum value the bar represents."
+        "description": "Upper bound the bar represents, so value divided by max determines the filled percentage."
       },
       {
         "prop": "tone",
         "type": "\"primary\" | \"success\" | \"warning\" | \"danger\"",
         "required": false,
         "default": "\"primary\"",
-        "description": "Semantic color of the filled bar."
+        "description": "Semantic color of the filled portion (primary, success, warning, or danger) to convey the task's status."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Height of the bar."
+        "description": "Thickness of the bar, sm, md, or lg, to match the visual weight of the surrounding content."
       },
       {
         "prop": "indeterminate",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Animate as an indeterminate bar, ignoring value."
+        "description": "Switches to a continuously animated bar that ignores value, signaling work of unknown duration."
       },
       {
         "prop": "showLabel",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Show a percentage label above the bar."
+        "description": "Displays a percentage label above the bar so users can read the exact completion at a glance."
       }
     ],
     "snippet": "import { Progress } from \"twico-ui\";\n\n<Progress value={64} showLabel />\n<Progress value={90} tone=\"success\" />\n<Progress value={45} tone=\"warning\" size=\"lg\" />\n<Progress indeterminate />",
@@ -2485,28 +2485,28 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Text shown next to the radio dot."
+        "description": "Text or node rendered beside the radio dot, naming the option the user selects when choosing it."
       },
       {
         "prop": "description",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Secondary helper text under the label."
+        "description": "Secondary helper text shown under the label to add context or clarify what selecting the option means."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Visual size of the radio control."
+        "description": "Visual size of the radio control, sm or md, to align with the density of nearby form fields."
       },
       {
         "prop": "...rest",
         "type": "Omit<React.InputHTMLAttributes<HTMLInputElement>, \"size\" | \"type\">",
         "required": false,
         "default": "—",
-        "description": "Native input attributes such as name, value, checked, defaultChecked, disabled, onChange, id, className."
+        "description": "Native input attributes spread onto the element, including name, value, checked, defaultChecked, disabled, onChange, id, and className."
       }
     ],
     "snippet": "import { Radio } from \"twico-ui\";\n\n<Radio name=\"plan\" value=\"free\" label=\"Free\" defaultChecked />\n<Radio\n  name=\"plan\"\n  value=\"pro\"\n  label=\"Pro\"\n  description=\"$12 / month\"\n/>",
@@ -2524,56 +2524,56 @@ export const components = [
         "type": "number",
         "required": false,
         "default": "—",
-        "description": "Controlled value (0…count)."
+        "description": "Controlled rating from 0 to count, letting the parent own the score and re-render when it changes."
       },
       {
         "prop": "defaultValue",
         "type": "number",
         "required": false,
         "default": "0",
-        "description": "Uncontrolled initial value."
+        "description": "Initial score for uncontrolled usage, defaulting to 0 so no stars start filled until the user interacts."
       },
       {
         "prop": "count",
         "type": "number",
         "required": false,
         "default": "5",
-        "description": "Number of stars."
+        "description": "Total number of stars rendered, defaulting to 5, which sets the maximum selectable score."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Star size."
+        "description": "Sets the star size (sm, md, or lg) to match the surrounding text density, defaulting to md."
       },
       {
         "prop": "color",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Filled-star color (defaults to the warning/amber token)."
+        "description": "Overrides the filled-star color with any CSS color, falling back to the warning/amber token when omitted."
       },
       {
         "prop": "readOnly",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Display only, no interaction."
+        "description": "Renders the stars as a non-interactive display only, useful for showing an existing score without accepting input."
       },
       {
         "prop": "showValue",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Show the numeric value beside the stars."
+        "description": "Displays the numeric score beside the stars when enabled, giving an exact figure alongside the visual rating."
       },
       {
         "prop": "onChange",
         "type": "(value: number) => void",
         "required": false,
         "default": "—",
-        "description": "Called with the new rating when the user selects a star."
+        "description": "Fires with the new rating when the user clicks a star, or 0 when they clear the current selection."
       }
     ],
     "snippet": "import { Rating } from \"twico-ui\";\n\n// Interactive\nconst [r, setR] = React.useState(0);\n<Rating value={r} onChange={setR} />\n\n// Read-only display with numeric value\n<Rating value={4} readOnly showValue />\n\n// Uncontrolled, larger stars\n<Rating defaultValue={3} size=\"lg\" count={5} />",
@@ -2591,112 +2591,112 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Field label shown above the trigger."
+        "description": "Renders a field label above the trigger to identify what the select controls within a form."
       },
       {
         "prop": "hint",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Helper text shown below (hidden when error is set)."
+        "description": "Shows helper text below the trigger to guide selection, automatically hidden once an error message is set."
       },
       {
         "prop": "error",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Error message; marks the field invalid and replaces the hint."
+        "description": "Displays an error message and marks the field invalid, replacing the hint to flag failed validation."
       },
       {
         "prop": "required",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Adds a required asterisk to the label."
+        "description": "Appends a required asterisk to the label, signaling that a selection must be made before submitting."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Trigger height size."
+        "description": "Controls the trigger height (sm, md, or lg) to match the density of nearby form controls, defaulting to md."
       },
       {
         "prop": "placeholder",
         "type": "string",
         "required": false,
         "default": "\"Select…\"",
-        "description": "Text shown when no value is selected."
+        "description": "Text shown in the trigger when no value is selected, defaulting to \"Select…\" as a prompt to choose."
       },
       {
         "prop": "searchPlaceholder",
         "type": "string",
         "required": false,
         "default": "\"Search…\"",
-        "description": "Placeholder for the in-popover search box."
+        "description": "Placeholder text for the in-popover search box, defaulting to \"Search…\" to invite filtering of options."
       },
       {
         "prop": "searchable",
         "type": "boolean",
         "required": false,
         "default": "—",
-        "description": "Show the filter search box; auto-enables when there are more than 5 options if omitted."
+        "description": "Shows the filter search box inside the popover, auto-enabling when more than five options exist if left unset."
       },
       {
         "prop": "options",
         "type": "Array<string | SelectOption | SelectGroup>",
         "required": true,
         "default": "—",
-        "description": "Options: strings, {value,label,description}, or {group,options} groups."
+        "description": "The selectable items as plain strings, {value,label,description} objects, or {group,options} groups for two-line or grouped lists."
       },
       {
         "prop": "value",
         "type": "string | null",
         "required": false,
         "default": "—",
-        "description": "Controlled selected value."
+        "description": "Controlled selected value as a string or null, letting the parent own which option is currently chosen."
       },
       {
         "prop": "defaultValue",
         "type": "string | null",
         "required": false,
         "default": "null",
-        "description": "Uncontrolled initial value."
+        "description": "Initial selected value for uncontrolled usage, defaulting to null so nothing is selected at first."
       },
       {
         "prop": "onChange",
         "type": "(value: string) => void",
         "required": false,
         "default": "—",
-        "description": "Called with the selected value when an option is chosen."
+        "description": "Fires with the chosen value string when the user selects an option from the popover."
       },
       {
         "prop": "disabled",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Disables the trigger."
+        "description": "Disables the trigger so the popover cannot open and no selection can be made."
       },
       {
         "prop": "placement",
         "type": "\"bottom\" | \"top\"",
         "required": false,
         "default": "\"bottom\"",
-        "description": "Open the menu downward or upward."
+        "description": "Opens the menu downward or upward from the trigger, defaulting to \"bottom\" for the typical dropdown direction."
       },
       {
         "prop": "portal",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Render the dropdown in a body portal so it is never clipped; auto-flips near the viewport bottom."
+        "description": "Renders the dropdown in a body portal so it is never clipped, auto-flipping when near the viewport bottom."
       },
       {
         "prop": "minWidth",
         "type": "number",
         "required": false,
         "default": "0",
-        "description": "Minimum popover width in px when portaled."
+        "description": "Sets the minimum popover width in pixels when portaled, ensuring the menu stays at least this wide."
       }
     ],
     "snippet": "import { Select } from \"twico-ui\";\n\nconst [v, setV] = useState(null);\n\n<Select\n  label=\"Assignee\"\n  placeholder=\"Pick a teammate\"\n  value={v}\n  onChange={setV}\n  options={[\n    { group: \"Design\", options: [\n      { value: \"ada\", label: \"Ada Park\", description: \"Product designer\" },\n      { value: \"sam\", label: \"Sam Lee\", description: \"Brand designer\" },\n    ]},\n    { group: \"Engineering\", options: [\n      { value: \"jo\", label: \"Jo Kim\", description: \"Frontend\" },\n    ]},\n  ]}\n/>",
@@ -2714,56 +2714,56 @@ export const components = [
         "type": "SidebarItem[]",
         "required": true,
         "default": "—",
-        "description": "Nav entries; each is a link ({ label, icon?, href?, active?, onClick?, badge? }) or a heading ({ section })."
+        "description": "The navigation entries, each a link with label, icon, href, active, onClick, and badge, or a { section } heading."
       },
       {
         "prop": "brand",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Brand/logo shown in the header; hidden text when collapsed."
+        "description": "Brand or logo content shown in the header, with its text hidden when the sidebar collapses to the icon rail."
       },
       {
         "prop": "footer",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Content pinned above the collapse toggle, e.g. a user row."
+        "description": "Content pinned above the collapse toggle, such as a user row, anchored to the bottom of the panel."
       },
       {
         "prop": "collapsed",
         "type": "boolean",
         "required": false,
         "default": "—",
-        "description": "Controlled collapsed state."
+        "description": "Controlled collapsed state, letting the parent toggle the sidebar between full width and the icon-only rail."
       },
       {
         "prop": "defaultCollapsed",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Uncontrolled initial collapsed state."
+        "description": "Initial collapsed state for uncontrolled usage, defaulting to false so the sidebar starts fully expanded."
       },
       {
         "prop": "collapsible",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Whether to show the collapse toggle button."
+        "description": "Shows the collapse toggle button when true (the default), allowing users to switch to the icon-only rail."
       },
       {
         "prop": "onCollapsedChange",
         "type": "(collapsed: boolean) => void",
         "required": false,
         "default": "—",
-        "description": "Called when the collapse toggle changes state."
+        "description": "Fires with the new boolean state whenever the collapse toggle is activated, useful for persisting the preference."
       },
       {
         "prop": "...rest",
         "type": "React.HTMLAttributes<HTMLElement>",
         "required": false,
         "default": "—",
-        "description": "Other HTML attributes (className, style, etc.) spread onto the root <aside>."
+        "description": "Additional HTML attributes like className and style spread onto the root <aside> for custom styling or behavior."
       }
     ],
     "snippet": "import { Sidebar } from \"twico-ui\";\n\n<Sidebar\n  brand={<>twico<span style={{ color: \"var(--color-primary)\" }}>UI</span></>}\n  items={[\n    { section: \"Main\" },\n    { label: \"Dashboard\", icon: <HomeIcon />, active: true },\n    { label: \"Inbox\", icon: <MailIcon />, badge: 4 },\n    { section: \"Account\" },\n    { label: \"Settings\", icon: <CogIcon /> },\n  ]}\n  footer={<UserRow />}\n  defaultCollapsed={false}\n/>",
@@ -2781,28 +2781,28 @@ export const components = [
         "type": "\"text\" | \"circle\" | \"rect\"",
         "required": false,
         "default": "\"text\"",
-        "description": "Shape of the placeholder."
+        "description": "Chooses the placeholder shape: text for lines, circle for avatars, or rect for image and card blocks, defaulting to text."
       },
       {
         "prop": "width",
         "type": "string | number",
         "required": false,
         "default": "—",
-        "description": "CSS width, e.g. \"120px\" or 60."
+        "description": "Sets the placeholder width as a CSS string or number, such as \"120px\" or 60, to match expected content."
       },
       {
         "prop": "height",
         "type": "string | number",
         "required": false,
         "default": "—",
-        "description": "CSS height."
+        "description": "Sets the placeholder height as a CSS string or number to reserve the vertical space the real content will occupy."
       },
       {
         "prop": "lines",
         "type": "number",
         "required": false,
         "default": "1",
-        "description": "For text variant: number of lines (last is shortened)."
+        "description": "For the text variant, the number of lines to render, defaulting to 1, with the last line shortened for realism."
       }
     ],
     "snippet": "import { Skeleton } from \"twico-ui\";\n\n<Skeleton variant=\"circle\" width={40} height={40} />\n<Skeleton variant=\"text\" lines={3} />\n<Skeleton variant=\"rect\" height={120} />",
@@ -2820,77 +2820,77 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Label shown above the track."
+        "description": "Renders a label above the track to describe what the slider adjusts, such as volume or price."
       },
       {
         "prop": "value",
         "type": "number",
         "required": false,
         "default": "—",
-        "description": "Controlled current value."
+        "description": "Controlled current value, letting the parent own the slider position and re-render as the number changes."
       },
       {
         "prop": "defaultValue",
         "type": "number",
         "required": false,
         "default": "0",
-        "description": "Uncontrolled initial value."
+        "description": "Initial value for uncontrolled usage, defaulting to 0 so the thumb starts at the low end."
       },
       {
         "prop": "min",
         "type": "number",
         "required": false,
         "default": "0",
-        "description": "Minimum value of the range."
+        "description": "Lowest value the slider can reach, defaulting to 0, defining the start of the selectable range."
       },
       {
         "prop": "max",
         "type": "number",
         "required": false,
         "default": "100",
-        "description": "Maximum value of the range."
+        "description": "Highest value the slider can reach, defaulting to 100, defining the end of the selectable range."
       },
       {
         "prop": "step",
         "type": "number",
         "required": false,
         "default": "1",
-        "description": "Increment between selectable values."
+        "description": "Increment between selectable values, defaulting to 1, which controls how finely the thumb can be positioned."
       },
       {
         "prop": "disabled",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Disables interaction and dims the slider."
+        "description": "Disables dragging and keyboard input while dimming the slider to show it is currently inactive."
       },
       {
         "prop": "showValue",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Show the current value at the top-right."
+        "description": "Displays the current value at the top-right above the track when true (the default), for an always-visible readout."
       },
       {
         "prop": "showTicks",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Render step ticks along the rail."
+        "description": "Renders step ticks along the rail when enabled, helping users see and snap to discrete increments."
       },
       {
         "prop": "formatValue",
         "type": "(value: number) => React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Format the displayed value in the label and bubble."
+        "description": "Formats the displayed value in the label and drag bubble, useful for adding units, currency, or custom text."
       },
       {
         "prop": "onChange",
         "type": "(value: number) => void",
         "required": false,
         "default": "—",
-        "description": "Called with the new value when it changes."
+        "description": "Fires with the new number whenever the value changes via drag or keyboard, keeping state in sync."
       }
     ],
     "snippet": "import { Slider } from \"twico-ui\";\n\nconst [vol, setVol] = React.useState(40);\n\n<Slider label=\"Volume\" value={vol} onChange={setVol} />\n\n<Slider\n  label=\"Price\"\n  min={0}\n  max={1000}\n  step={50}\n  showTicks\n  defaultValue={250}\n  formatValue={(v) => `$${v}`}\n/>",
@@ -2908,21 +2908,21 @@ export const components = [
         "type": "\"sm\" | \"md\" | \"lg\" | \"xl\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Diameter of the spinner."
+        "description": "Sets the spinner diameter (sm, md, lg, or xl) so it fits its context, from inside a button to over a panel."
       },
       {
         "prop": "tone",
         "type": "\"primary\" | \"neutral\" | \"white\"",
         "required": false,
         "default": "\"primary\"",
-        "description": "Color tone; use \"white\" on colored backgrounds."
+        "description": "Picks the stroke color (primary, neutral, or white); use \"white\" when spinning over colored or dark backgrounds."
       },
       {
         "prop": "label",
         "type": "string",
         "required": false,
         "default": "\"Loading\"",
-        "description": "Accessible label exposed via aria-label."
+        "description": "Accessible name exposed via aria-label so screen readers announce the loading state, defaulting to \"Loading\"."
       }
     ],
     "snippet": "import { Spinner } from \"twico-ui\";\n\n<Spinner />\n<Spinner size=\"lg\" />\n<Spinner tone=\"white\" /> {/* on a colored button/background */}",
@@ -2940,49 +2940,49 @@ export const components = [
         "type": "\"row\" | \"column\"",
         "required": false,
         "default": "\"column\"",
-        "description": "Main-axis direction."
+        "description": "Sets the main-axis flow, stacking children vertically with \"column\" (default) or side by side with \"row\"."
       },
       {
         "prop": "gap",
         "type": "number | string",
         "required": false,
         "default": "4",
-        "description": "Gap as a spacing step (number → --space-*) or any CSS length."
+        "description": "Sets spacing between children, as a numeric spacing step mapped to --space-* or any raw CSS length string."
       },
       {
         "prop": "align",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "align-items value."
+        "description": "Maps to the align-items value, controlling how children line up along the cross axis."
       },
       {
         "prop": "justify",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "justify-content value."
+        "description": "Maps to the justify-content value, controlling how children are distributed along the main axis."
       },
       {
         "prop": "wrap",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Wrap children onto multiple lines."
+        "description": "Allows children to wrap onto multiple lines instead of overflowing when they exceed the container width."
       },
       {
         "prop": "inline",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Use inline-flex instead of flex."
+        "description": "Renders the stack as inline-flex rather than block-level flex, so it sits inline with surrounding content."
       },
       {
         "prop": "as",
         "type": "ElementType",
         "required": false,
         "default": "\"div\"",
-        "description": "Element/tag to render."
+        "description": "Overrides the rendered element or tag (default \"div\"), useful for semantic wrappers like nav, ul, or section."
       }
     ],
     "snippet": "import { Stack } from \"twico-ui\";\n\n<Stack direction=\"row\" gap={3} align=\"center\" wrap>\n  <Button>Save</Button>\n  <Button variant=\"ghost\">Cancel</Button>\n</Stack>",
@@ -3000,49 +3000,49 @@ export const components = [
         "type": "React.ReactNode",
         "required": true,
         "default": "—",
-        "description": "Metric label shown above the value."
+        "description": "Renders the metric's caption shown above the value, naming what the number represents such as \"Revenue\"."
       },
       {
         "prop": "value",
         "type": "React.ReactNode",
         "required": true,
         "default": "—",
-        "description": "The large primary metric value."
+        "description": "Renders the large primary metric value that anchors the card, like a count, currency amount, or percentage."
       },
       {
         "prop": "icon",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Icon shown top-right in a tinted tile."
+        "description": "Renders an optional icon in a tinted tile at the top-right corner to visually reinforce the metric's meaning."
       },
       {
         "prop": "delta",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Trend value, e.g. \"+12.5%\" or \"-3%\"."
+        "description": "Shows the trend change beside the value, such as \"+12.5%\" or \"-3%\", to convey movement over a period."
       },
       {
         "prop": "deltaDirection",
         "type": "\"up\" | \"down\" | \"flat\"",
         "required": false,
         "default": "—",
-        "description": "Force trend direction/color; otherwise inferred from a leading \"-\"."
+        "description": "Forces the delta's direction and color (up, down, or flat); otherwise it is inferred from a leading minus sign."
       },
       {
         "prop": "helpText",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Muted text after the delta, e.g. \"vs last month\"."
+        "description": "Renders muted context after the delta, such as \"vs last month\", to clarify the comparison period."
       },
       {
         "prop": "plain",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Drop the card chrome (no border/background/padding)."
+        "description": "Strips the card chrome (border, background, and padding) so the stat blends into an existing surface."
       }
     ],
     "snippet": "import { Stat } from \"twico-ui\";\n\n<Stat\n  label=\"Revenue\"\n  value=\"$48,200\"\n  delta=\"+12.5%\"\n  helpText=\"vs last month\"\n/>\n<Stat\n  label=\"Churn\"\n  value=\"2.1%\"\n  delta=\"-0.4%\"\n  deltaDirection=\"up\"\n  helpText=\"improved\"\n/>",
@@ -3060,35 +3060,35 @@ export const components = [
         "type": "Step[]  ({ title, description?, icon?, error? })",
         "required": true,
         "default": "—",
-        "description": "The ordered list of steps to render."
+        "description": "The ordered array of step objects to render, each with a title and optional description, icon, and error flag."
       },
       {
         "prop": "active",
         "type": "number",
         "required": false,
         "default": "0",
-        "description": "Index of the current step; earlier steps show complete, later steps are upcoming."
+        "description": "Zero-based index of the current step; earlier steps render as complete and later steps as upcoming."
       },
       {
         "prop": "orientation",
         "type": "\"horizontal\" | \"vertical\"",
         "required": false,
         "default": "\"horizontal\"",
-        "description": "Layout direction of the stepper."
+        "description": "Lays the stepper out horizontally (default) or vertically to fit wide toolbars or narrow sidebars."
       },
       {
         "prop": "clickable",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Allow clicking completed/active steps to navigate."
+        "description": "Lets users click completed or active steps to navigate back, enabling jump-around movement through the flow."
       },
       {
         "prop": "onStepClick",
         "type": "(index: number) => void",
         "required": false,
         "default": "—",
-        "description": "Fired with the step index when a clickable step is clicked."
+        "description": "Callback fired with the clicked step's index when steps are clickable, letting you drive navigation."
       }
     ],
     "snippet": "import { Stepper } from \"twico-ui\";\n\n<Stepper\n  active={1}\n  steps={[\n    { title: \"Account\", description: \"Your details\" },\n    { title: \"Payment\", description: \"Billing info\" },\n    { title: \"Confirm\" },\n  ]}\n/>\n\n<Stepper\n  orientation=\"vertical\"\n  active={2}\n  clickable\n  onStepClick={setActive}\n  steps={steps}\n/>",
@@ -3106,28 +3106,28 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Text shown next to the switch."
+        "description": "Renders the title text shown beside the switch, naming the setting it toggles like \"Enable notifications\"."
       },
       {
         "prop": "description",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Secondary helper text below the label."
+        "description": "Renders secondary helper text below the label to explain what the setting does or its consequences."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Visual size of the track and thumb."
+        "description": "Sets the visual size of the track and thumb (sm or md) to match the density of the surrounding form."
       },
       {
         "prop": "...rest",
         "type": "Omit<React.InputHTMLAttributes<HTMLInputElement>, \"size\" | \"type\">",
         "required": false,
         "default": "—",
-        "description": "Native checkbox input attributes (checked, defaultChecked, disabled, onChange, id, etc.); rendered with role=switch."
+        "description": "Spreads native checkbox input attributes like checked, defaultChecked, disabled, and onChange onto the role=switch input."
       }
     ],
     "snippet": "import { Switch } from \"twico-ui\";\n\n<Switch label=\"Dark mode\" defaultChecked />\n\n<Switch\n  label=\"Email notifications\"\n  description=\"Send me product updates\"\n/>\n\n<Switch label=\"Compact view\" size=\"sm\" />",
@@ -3145,56 +3145,56 @@ export const components = [
         "type": "TableColumn<T>[]",
         "required": true,
         "default": "—",
-        "description": "Column definitions (key, header, align, width, sortable, render)."
+        "description": "Defines each column with key, header, optional align, width, sortable flag, and a custom render function for cell content."
       },
       {
         "prop": "data",
         "type": "T[]",
         "required": true,
         "default": "—",
-        "description": "Array of row objects to display."
+        "description": "Supplies the array of row objects rendered as table rows, with each column reading its value by key."
       },
       {
         "prop": "hover",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Highlight rows on hover."
+        "description": "Highlights the row under the cursor on mouse-over, on by default to aid scanning and pointing at dense rows."
       },
       {
         "prop": "striped",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Apply zebra striping to alternate rows."
+        "description": "Applies zebra striping to alternating rows when enabled, improving readability across wide tables of similar-looking data."
       },
       {
         "prop": "size",
         "type": "\"sm\" | \"md\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Cell padding density."
+        "description": "Controls cell padding density, choosing sm for compact rows or md for the default roomier spacing."
       },
       {
         "prop": "sortable",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Enable click-to-sort headers (client-side)."
+        "description": "Enables client-side click-to-sort headers when true, letting users reorder rows by any column marked sortable."
       },
       {
         "prop": "rowKey",
         "type": "(row: T, index: number) => string | number",
         "required": false,
         "default": "—",
-        "description": "Returns a stable key per row; defaults to row index."
+        "description": "Returns a stable unique key for each row from its data and index, defaulting to the row index."
       },
       {
         "prop": "selectedKeys",
         "type": "Array<string | number>",
         "required": false,
         "default": "—",
-        "description": "Keys of rows to highlight as selected."
+        "description": "Lists the keys of rows to render with selected-row highlighting, useful for marking chosen or active records."
       }
     ],
     "snippet": "import { Table } from \"twico-ui\";\n\n<Table\n  sortable\n  striped\n  rowKey={(r) => r.id}\n  columns={[\n    { key: \"name\", header: \"Name\" },\n    { key: \"role\", header: \"Role\" },\n    { key: \"status\", header: \"Status\" },\n    { key: \"mrr\", header: \"MRR\", align: \"right\" },\n  ]}\n  data={users}\n/>",
@@ -3212,35 +3212,35 @@ export const components = [
         "type": "TabItem[]",
         "required": true,
         "default": "—",
-        "description": "Tabs to render. Each item is { value, label, icon?, count?, content? }."
+        "description": "Defines the tabs to render, each carrying a value, label, and optional icon, count badge, and content."
       },
       {
         "prop": "value",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Controlled active tab value; pair with onChange."
+        "description": "Sets the active tab value for controlled usage, kept in sync by handling onChange yourself."
       },
       {
         "prop": "defaultValue",
         "type": "string",
         "required": false,
         "default": "items[0]?.value",
-        "description": "Initial active tab value for uncontrolled usage."
+        "description": "Sets the initially active tab for uncontrolled usage, defaulting to the first item's value when omitted."
       },
       {
         "prop": "onChange",
         "type": "(value: string) => void",
         "required": false,
         "default": "—",
-        "description": "Called with the new value when the active tab changes."
+        "description": "Fires with the newly selected tab value whenever the user switches tabs, used to drive controlled state."
       },
       {
         "prop": "variant",
         "type": "\"line\" | \"pill\"",
         "required": false,
         "default": "\"line\"",
-        "description": "Visual style: underline indicator or pill background."
+        "description": "Selects the visual style, rendering either a line underline indicator or a pill-shaped background behind the active tab."
       }
     ],
     "snippet": "import { Tabs } from \"twico-ui\";\n\n<Tabs\n  variant=\"line\"\n  defaultValue=\"overview\"\n  items={[\n    { value: \"overview\", label: \"Overview\", content: <p>Overview panel</p> },\n    { value: \"activity\", label: \"Activity\", count: 12, content: <p>Activity panel</p> },\n    { value: \"settings\", label: \"Settings\", content: <p>Settings panel</p> },\n  ]}\n/>",
@@ -3258,21 +3258,21 @@ export const components = [
         "type": "(e: React.MouseEvent<HTMLButtonElement>) => void",
         "required": false,
         "default": "—",
-        "description": "Shows a remove (×) button and handles its click."
+        "description": "Renders the remove (×) button and handles its click, letting users dismiss the tag as a filter or selection."
       },
       {
         "prop": "leftIcon",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Optional leading icon shown before the content."
+        "description": "Renders an optional leading icon before the label, useful for signaling the tag's category or status."
       },
       {
         "prop": "children",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "The tag's label content."
+        "description": "Provides the tag's label content, typically the filter name, selected item, or keyword being displayed."
       }
     ],
     "snippet": "import { Tag } from \"twico-ui\";\n\n<Tag onRemove={() => remove(\"react\")}>React</Tag>\n<Tag leftIcon={<span>#</span>}>design-system</Tag>\n<Tag>read-only</Tag>",
@@ -3290,35 +3290,35 @@ export const components = [
         "type": "\"xs\" | \"sm\" | \"base\" | \"lg\" | \"xl\"",
         "required": false,
         "default": "\"base\"",
-        "description": "Font-size token suffix."
+        "description": "Picks the font-size token from xs to xl, scaling the body text to fit its context, base by default."
       },
       {
         "prop": "tone",
         "type": "\"default\" | \"muted\" | \"subtle\" | \"primary\" | \"danger\"",
         "required": false,
         "default": "\"default\"",
-        "description": "Semantic color."
+        "description": "Applies a semantic color such as muted, subtle, primary, or danger to convey emphasis or meaning."
       },
       {
         "prop": "weight",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Font-weight token suffix (e.g. \"semibold\")."
+        "description": "Sets the font-weight token suffix like semibold to adjust how heavy the text appears."
       },
       {
         "prop": "align",
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "text-align value."
+        "description": "Sets the text-align value, controlling whether the text reads left, center, right, or justified."
       },
       {
         "prop": "as",
         "type": "ElementType",
         "required": false,
         "default": "\"p\"",
-        "description": "Element/tag to render."
+        "description": "Chooses the element or tag rendered, defaulting to p so you can swap in span or other tags."
       }
     ],
     "snippet": "import { Text } from \"twico-ui\";\n\n<Text>Default paragraph text.</Text>\n<Text size=\"sm\" tone=\"muted\">A muted caption.</Text>",
@@ -3336,35 +3336,35 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Field label rendered above the textarea."
+        "description": "Renders a field label above the textarea, identifying what longer-form input the control collects."
       },
       {
         "prop": "hint",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Helper text shown below when there is no error."
+        "description": "Shows helper text below the textarea to guide input, hidden whenever an error message is present."
       },
       {
         "prop": "error",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Error message; when set, marks the field invalid and replaces the hint."
+        "description": "Displays an error message and marks the field invalid when set, replacing the hint text below."
       },
       {
         "prop": "required",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Shows a required asterisk next to the label."
+        "description": "Adds a required asterisk beside the label when true, signaling that the field must be filled in."
       },
       {
         "prop": "...rest",
         "type": "React.TextareaHTMLAttributes<HTMLTextAreaElement>",
         "required": false,
         "default": "—",
-        "description": "Native textarea attributes such as rows, value, placeholder, disabled, and onChange."
+        "description": "Spreads native textarea attributes such as rows, value, placeholder, disabled, and onChange onto the underlying element."
       }
     ],
     "snippet": "import { Textarea } from \"twico-ui\";\n\n<Textarea\n  label=\"Bio\"\n  rows={4}\n  placeholder=\"Tell us about yourself\"\n  hint=\"Max 280 characters\"\n/>",
@@ -3382,21 +3382,21 @@ export const components = [
         "type": "TimelineItem[] — { title, time?, description?, icon?, tone? }",
         "required": true,
         "default": "—",
-        "description": "Events to render; tone is one of primary/success/warning/danger."
+        "description": "Array of events to render as connected node dots, each with a title, optional time, description, icon, and primary/success/warning/danger tone."
       },
       {
         "prop": "className",
         "type": "string",
         "required": false,
         "default": "\"\"",
-        "description": "Extra class appended to the root <ul>."
+        "description": "Extra CSS class appended to the root <ul> so you can layer custom spacing or styling onto the timeline."
       },
       {
         "prop": "...rest",
         "type": "React.HTMLAttributes<HTMLUListElement>",
         "required": false,
         "default": "—",
-        "description": "Any other standard ul attributes spread onto the root element."
+        "description": "Any other standard <ul> attributes are spread onto the root element, useful for id, aria-label, or data hooks."
       }
     ],
     "snippet": "import { Timeline } from \"twico-ui\";\n\n<Timeline\n  items={[\n    { title: \"Order placed\", time: \"9:41 AM\", description: \"We received your order.\", tone: \"primary\" },\n    { title: \"Shipped\", time: \"2:10 PM\", description: \"Left the warehouse.\", tone: \"success\" },\n    { title: \"Out for delivery\", time: \"Tomorrow\" },\n  ]}\n/>",
@@ -3414,56 +3414,56 @@ export const components = [
         "type": "\"default\" | \"success\" | \"warning\" | \"danger\" | \"info\"",
         "required": false,
         "default": "\"default\"",
-        "description": "Color accent and default icon conveying the message intent."
+        "description": "Sets the color accent and default icon to convey intent, choosing among default, success, warning, danger, or info."
       },
       {
         "prop": "title",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Bold heading text for the toast."
+        "description": "Bold heading text shown above the body content to summarize what the toast is reporting at a glance."
       },
       {
         "prop": "icon",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Custom icon overriding the default tone icon."
+        "description": "Custom leading icon that overrides the default tone icon when you want a more specific visual marker."
       },
       {
         "prop": "onClose",
         "type": "() => void",
         "required": false,
         "default": "—",
-        "description": "When provided, shows a close button and handles dismissal."
+        "description": "Callback invoked on dismissal; providing it also reveals the close button so users can manually remove the toast."
       },
       {
         "prop": "duration",
         "type": "number",
         "required": false,
         "default": "4500",
-        "description": "Milliseconds before the toast auto-dismisses (it calls onClose). The countdown pauses while hovered or focused; pass 0 or Infinity to keep it open until closed manually."
+        "description": "Milliseconds before the toast auto-dismisses and calls onClose (default 4500); the countdown pauses on hover or focus, and 0 or Infinity keeps it open."
       },
       {
         "prop": "children",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Body/description content of the toast."
+        "description": "Body or description content rendered beneath the title to give users the detailed message of the notification."
       },
       {
         "prop": "limit (ToastViewport)",
         "type": "number",
         "required": false,
         "default": "—",
-        "description": "Caps how many toasts the viewport shows at once, keeping the most recent and dropping older ones so a burst never floods the screen."
+        "description": "Caps how many toasts the viewport shows at once, keeping the most recent and dropping older ones so bursts never flood the screen."
       },
       {
         "prop": "...rest",
         "type": "React.HTMLAttributes<HTMLDivElement>",
         "required": false,
         "default": "—",
-        "description": "Any other div attributes spread onto the root element."
+        "description": "Any other standard <div> attributes are spread onto the root toast element for ids, roles, or data attributes."
       }
     ],
     "snippet": "import { Toast, ToastViewport } from \"twico-ui\";\n\nconst [toasts, setToasts] = useState([]);\nconst push = (t) => setToasts((s) => [...s, { id: Date.now(), ...t }]);\nconst remove = (id) => setToasts((s) => s.filter((t) => t.id !== id));\n\n{/* limit caps what's shown; each toast auto-dismisses after ~4.5s */}\n<ToastViewport limit={4}>\n  {toasts.map((t) => (\n    <Toast\n      key={t.id}\n      tone={t.tone}\n      title={t.title}\n      onClose={() => remove(t.id)}\n    >\n      {t.body}\n    </Toast>\n  ))}\n</ToastViewport>",
@@ -3481,28 +3481,28 @@ export const components = [
         "type": "React.ReactNode",
         "required": true,
         "default": "—",
-        "description": "The tooltip text or content shown on hover/focus."
+        "description": "The short hint text or content revealed on hover or focus, ideal for describing icon buttons without cluttering the layout."
       },
       {
         "prop": "placement",
         "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
         "required": false,
         "default": "\"top\"",
-        "description": "Side of the trigger where the tooltip appears."
+        "description": "Chooses which side of the trigger the tooltip appears on, one of top, bottom, left, or right (default top)."
       },
       {
         "prop": "delay",
         "type": "number",
         "required": false,
         "default": "120",
-        "description": "Open delay in milliseconds before the tooltip shows."
+        "description": "Open delay in milliseconds before the tooltip appears (default 120), preventing flicker as the pointer passes over triggers."
       },
       {
         "prop": "children",
         "type": "React.ReactNode",
         "required": true,
         "default": "—",
-        "description": "The single trigger element the tooltip wraps."
+        "description": "The single trigger element the tooltip wraps and attaches its hover and focus listeners to."
       }
     ],
     "snippet": "import { Tooltip } from \"twico-ui\";\n\n<Tooltip label=\"Copy to clipboard\" placement=\"top\">\n  <button aria-label=\"Copy\">Copy</button>\n</Tooltip>",
@@ -3520,28 +3520,28 @@ export const components = [
         "type": "TreeNode[]",
         "required": true,
         "default": "—",
-        "description": "The node tree to render. Each node is { id, label, icon?, badge?, children? }."
+        "description": "The hierarchical node tree to render, where each node is { id, label, icon?, badge?, children? } and children nest further levels."
       },
       {
         "prop": "defaultExpanded",
         "type": "string[]",
         "required": false,
         "default": "[]",
-        "description": "Node ids expanded on first render."
+        "description": "Node ids that start expanded on first render, letting you reveal specific branches of the tree by default."
       },
       {
         "prop": "selectedId",
         "type": "string | null",
         "required": false,
         "default": "—",
-        "description": "Controlled selected node id. When omitted, selection is managed internally."
+        "description": "Controlled id of the currently selected node; omit it to let the component manage selection internally on its own."
       },
       {
         "prop": "onSelect",
         "type": "(node: TreeNode) => void",
         "required": false,
         "default": "—",
-        "description": "Fired with the node when a row is clicked."
+        "description": "Callback fired with the clicked node when a row is selected, letting you react to navigation or load its contents."
       }
     ],
     "snippet": "import { TreeView } from \"twico-ui\";\n\n<TreeView\n  defaultExpanded={[\"src\"]}\n  onSelect={(node) => open(node.id)}\n  data={[\n    { id: \"src\", label: \"src\", children: [\n      { id: \"app\", label: \"App.tsx\" },\n      { id: \"comp\", label: \"components\", children: [\n        { id: \"btn\", label: \"Button.tsx\", badge: 3 },\n      ]},\n    ]},\n  ]}\n/>",
