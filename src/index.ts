@@ -54,9 +54,11 @@ export { Timeline } from "../components/timeline/Timeline";
 export { Toast, ToastViewport } from "../components/feedback/Toast";
 export { Tooltip } from "../components/overlay/Tooltip";
 export { TreeView } from "../components/tree-view/TreeView";
+export { Box } from "../components/layout/Box";
 export { Container } from "../components/layout/Container";
 export { Grid } from "../components/layout/Grid";
 export { Stack } from "../components/layout/Stack";
+export { Code } from "../components/typography/Code";
 export { Heading } from "../components/typography/Heading";
 export { Text } from "../components/typography/Text";
 
@@ -112,8 +114,10 @@ export type { TimelineItem, TimelineProps } from "../components/timeline/Timelin
 export type { ToastProps, ToastViewportProps } from "../components/feedback/Toast";
 export type { TooltipProps } from "../components/overlay/Tooltip";
 export type { TreeNode, TreeViewProps } from "../components/tree-view/TreeView";
+export type { BoxProps } from "../components/layout/Box";
 export type { ContainerProps } from "../components/layout/Container";
 export type { GridProps } from "../components/layout/Grid";
 export type { StackProps } from "../components/layout/Stack";
+export type { CodeProps } from "../components/typography/Code";
 export type { HeadingProps } from "../components/typography/Heading";
 export type { TextProps } from "../components/typography/Text";

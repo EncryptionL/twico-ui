@@ -6,7 +6,7 @@ Guidance for any agent or contributor working in this repository. Read this firs
 
 ## 1. What this repository is
 
-**Twico UI** is a **free, MIT-licensed React component library** (58 components, dark mode,
+**Twico UI** is a **free, MIT-licensed React component library** (60 components, dark mode,
 motion, accessibility, design tokens). This one repo holds three things:
 
 1. **The npm package** — `src/index.ts` (barrel) → `components/**` (the React components) →
