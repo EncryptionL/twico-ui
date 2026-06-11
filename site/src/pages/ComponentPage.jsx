@@ -9,9 +9,15 @@ import PropsTable from "../components/PropsTable.jsx";
 
 // Live demo files are authored per component under src/demos/<Name>Demo.jsx.
 const demoLoaders = import.meta.glob("../demos/*Demo.jsx");
+// Cache one lazy component per name at module scope. Recreating React.lazy on
+// every render makes the demo re-suspend forever under router transitions, which
+// stalls client-side navigation (the page only updates after a manual refresh).
+const demoCache = {};
 function demoComponentFor(name) {
+  if (name in demoCache) return demoCache[name];
   const match = Object.keys(demoLoaders).find((p) => p.endsWith(`/${name}Demo.jsx`));
-  return match ? React.lazy(demoLoaders[match]) : null;
+  demoCache[name] = match ? React.lazy(demoLoaders[match]) : null;
+  return demoCache[name];
 }
 
 function adjacent(name) {
