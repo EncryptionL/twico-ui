@@ -30,11 +30,19 @@ export function List({ items, plain = false, className = "", ...rest }) {
     document.head.appendChild(el);
   }, []);
 
+  // Block javascript:/data:/vbscript: URLs from reaching a DOM href (trust boundary).
+  const safeHref = (url) => {
+    if (url == null) return undefined;
+    const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+    return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
+  };
+
   return (
     <ul className={`twc-list ${className}`} data-plain={plain || undefined} {...rest}>
       {items.map((it, i) => {
-        const interactive = Boolean(it.onClick || it.href);
-        const Tag = it.href ? "a" : interactive ? "button" : "div";
+        const href = safeHref(it.href);
+        const interactive = Boolean(it.onClick || href);
+        const Tag = href ? "a" : interactive ? "button" : "div";
         const content = (
           <>
             {it.leading ? <span className="twc-list__lead" aria-hidden="true">{it.leading}</span> : null}
@@ -51,7 +59,7 @@ export function List({ items, plain = false, className = "", ...rest }) {
               className="twc-list__item"
               data-interactive={interactive || undefined}
               data-active={it.active || undefined}
-              href={it.href}
+              href={href}
               type={Tag === "button" ? "button" : undefined}
               onClick={it.onClick}
             >

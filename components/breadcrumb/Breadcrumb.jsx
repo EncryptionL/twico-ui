@@ -12,6 +12,14 @@ const BREADCRUMB_CSS = `
 .twc-breadcrumb__ellipsis:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 `;
 
+// Block javascript:/data:/vbscript: URLs (incl. whitespace/control-char obfuscation
+// that browsers strip) from reaching a DOM href. Consumer hrefs are a trust boundary.
+function safeHref(url) {
+  if (url == null) return undefined;
+  const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+  return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
+}
+
 const ChevronSep = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
 );
@@ -55,7 +63,7 @@ export function Breadcrumb({
             ) : (
               <a
                 className="twc-breadcrumb__item"
-                href={last ? undefined : (it.href || "#")}
+                href={last ? undefined : (safeHref(it.href) || "#")}
                 aria-current={last ? "page" : undefined}
                 onClick={it.onClick}
               >

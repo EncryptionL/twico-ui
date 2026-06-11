@@ -64,6 +64,13 @@ export function Sidebar({
   const collapsed = collapsedProp !== undefined ? collapsedProp : internal;
   const toggle = () => { const next = !collapsed; if (collapsedProp === undefined) setInternal(next); onCollapsedChange?.(next); };
 
+  // Block javascript:/data:/vbscript: URLs from reaching a DOM href (trust boundary).
+  const safeHref = (url) => {
+    if (url == null) return undefined;
+    const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+    return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
+  };
+
   return (
     <aside className={`twc-sidebar ${className}`} data-collapsed={collapsed || undefined} {...rest}>
       {brand ? <div className="twc-sidebar__head"><span className="twc-sidebar__brand">{brand}</span></div> : null}
@@ -72,7 +79,7 @@ export function Sidebar({
           it.section ? (
             <div key={i} className="twc-sidebar__section">{it.section}</div>
           ) : (
-            <a key={i} className="twc-sidebar__item" href={it.href || "#"} data-active={it.active || undefined}
+            <a key={i} className="twc-sidebar__item" href={safeHref(it.href) || "#"} data-active={it.active || undefined}
                onClick={it.onClick} title={collapsed && typeof it.label === "string" ? it.label : undefined}>
               {it.icon ? <span className="twc-sidebar__ic" aria-hidden="true">{it.icon}</span> : null}
               <span className="twc-sidebar__label">{it.label}</span>

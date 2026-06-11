@@ -23,6 +23,14 @@ const NAVBAR_CSS = `
 }
 `;
 
+// Block javascript:/data:/vbscript: URLs (incl. whitespace/control-char obfuscation)
+// from reaching a DOM href. Consumer hrefs are a trust boundary.
+function safeHref(url) {
+  if (url == null) return undefined;
+  const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+  return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
+}
+
 export function Navbar({
   brand,
   links = [],
@@ -45,7 +53,7 @@ export function Navbar({
       {brand ? <a className="twc-navbar__brand" href="#">{brand}</a> : null}
       <nav className="twc-navbar__links">
         {links.map((l, i) => (
-          <a key={i} className="twc-navbar__link" href={l.href || "#"} data-active={l.active || undefined} onClick={l.onClick}>
+          <a key={i} className="twc-navbar__link" href={safeHref(l.href) || "#"} data-active={l.active || undefined} onClick={l.onClick}>
             {l.icon}{l.label}
           </a>
         ))}
