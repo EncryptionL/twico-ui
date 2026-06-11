@@ -6,15 +6,19 @@ Guidance for any agent or contributor working in this repository. Read this firs
 
 ## 1. What this repository is
 
-**Twico UI** is a **free, MIT-licensed React component library** (60 components, dark mode,
-motion, accessibility, design tokens). This one repo holds three things:
+**Twico UI** is a **free, MIT-licensed React component library** — **59 components** (60 exported
+component values: `Toast.jsx` also exports `ToastViewport`) **+ 23 hooks**, with dark mode, motion,
+accessibility, and design tokens. Zero runtime dependencies (peer: `react`/`react-dom` ≥18).
+This one repo holds three things:
 
-1. **The npm package** — `src/index.ts` (barrel) → `components/**` (the React components) →
+1. **The npm package** — `src/index.ts` (barrel) → `components/**` + `hooks/` →
    built by `tsup` to `dist/`. This is what consumers `npm install twico-ui`.
 2. **The design system** — `tokens/`, `styles/`, `guidelines/`, `ui_kits/`, and the
-   `*.card.html` preview cards. Source of truth for the visual language.
-3. **The documentation website** — `site/` (Vite + React) deployed to GitHub Pages. It
-   **dogfoods** the library (imports it from source via an alias).
+   `*.card.html` preview cards. Source of truth for the visual language. `DESIGN-SYSTEM.md`
+   is the written guide; `SKILL.md` + `_ds_bundle.js` + `_ds_manifest.json` are generated
+   artifacts that package the system for AI design tooling.
+3. **The documentation website** — `site/` (Vite + React, `HashRouter`) deployed to GitHub
+   Pages at `/twico-ui/`. It **dogfoods** the library (Vite alias `twico-ui` → `../src/index.ts`).
 
 > The published npm tarball contains **only** `dist/` + `styles/` + `README.md` + `LICENSE`
 > (see `files` in `package.json`). Everything else is repo-only.
@@ -25,15 +29,18 @@ motion, accessibility, design tokens). This one repo holds three things:
 
 | Path | What |
 | --- | --- |
-| `components/<group>/<Name>.jsx` | A component. Each has a sibling `<Name>.d.ts` (props contract), `<Name>.prompt.md` (usage), and the group has one `*.card.html` preview. |
-| `src/index.ts` | Auto-generated barrel re-exporting every component + its types. **Update it when you add/remove a component.** |
-| `tokens/*.css`, `base.css`, `styles.css` | Design tokens + reset. `styles/twico-ui.css` is the concatenated, shippable stylesheet (`twico-ui/styles.css`). |
-| `assets/fonts/`, `styles/fonts/` | Self-hosted OFL fonts (Plus Jakarta Sans, JetBrains Mono). |
+| `components/<group>/<Name>.jsx` | A component (34 group dirs). Each has a sibling `<Name>.d.ts` (props contract) and `<Name>.prompt.md` (usage). `*.card.html` previews exist for most groups (35 files — not 1:1 with components). |
+| `hooks/index.js` + `hooks/index.d.ts` | The 23-hook API, re-exported via `export * from "../hooks"` in `src/index.ts`. See `docs/hooks.md`. |
+| `src/index.ts` | Barrel re-exporting every component (value + types) + hooks. **Update it when you add/remove a component.** |
+| `tokens/*.css`, `base.css`, `styles.css` | Design tokens (colors, fonts, typography, spacing, radius, motion) + reset. `styles.css` is the dev entry (`@import`s the rest). |
+| `styles/twico-ui.css` | The concatenated, **shippable** stylesheet (`twico-ui/styles.css`). **Manually maintained** — re-concatenate it when token/base files change; no script does this. |
+| `assets/fonts/` (source), `styles/fonts/` (shipped copy) | Self-hosted OFL fonts (Plus Jakarta Sans, JetBrains Mono variable `.ttf`). Duplicated on purpose — keep both in sync. |
 | `tsup.config.ts`, `tsconfig.json`, `scripts/add-use-client.mjs` | The build. |
-| `site/` | The docs website (own `package.json`). |
-| `docs/` | **Developer/contributor documentation — see rule §4.** |
-| `.github/workflows/` | `ci.yml`, `release.yml`, `deploy-docs.yml`, `codeql.yml`. |
-| `DESIGN-SYSTEM.md` | The full design guide (tokens, voice, visual foundations). |
+| `site/` | The docs website (own `package.json`, `private: true`). Generators live in `site/scripts/` (`gen-docs.mjs`, …). |
+| `guidelines/` | 13 `*.card.html` foundation previews (colors, type, spacing, motion, iconography). |
+| `ui_kits/` | 5 HTML preview kits (auth, dashboard, pricing, settings, showcase) — design validation only, never shipped. |
+| `docs/` | **Developer/contributor documentation — see rule §4.1.** Index: `docs/README.md`. |
+| `.github/workflows/` | `ci.yml`, `release.yml`, `deploy-docs.yml`, `codeql.yml` (+ `dependabot.yml`, targets `dev`). |
 
 ---
 
@@ -75,8 +82,8 @@ exception is the `*.card.html` / `ui_kits/*.html` **preview** files, which are n
 and never part of the docs site.
 
 ### 4.3 Conventional Commits + automated SemVer
-Releases are **fully automated** by semantic-release. **Never bump the version manually.**
-Write [Conventional Commits](https://www.conventionalcommits.org/):
+Releases are **fully automated** by semantic-release (`.releaserc.json`, branch `main`).
+**Never bump the version manually.** Write [Conventional Commits](https://www.conventionalcommits.org/):
 `fix:` → patch, `feat:` → minor, `feat!:`/`BREAKING CHANGE:` → major, `docs:`/`chore:`/`ci:`/
 `refactor:`/`test:` → no release. See `docs/releases.md`.
 
@@ -98,14 +105,31 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
 ## 5. Architecture notes
 
 - **Components are self-contained.** Each imports only `react` (and `react-dom` for portals),
-  injects its own scoped CSS once via a `<style>` tag keyed by id, and styles everything through
-  CSS custom properties (`--color-*`, `--radius-*`, `--ease-*`, …). No CSS-in-JS libs, no npm deps.
-- **Theming** is pure token override; **dark mode** is the `.dark` class on `<html>`.
-- **`"use client"`** is prepended to the built bundles by `scripts/add-use-client.mjs` after
-  tsup (a tsup `banner` is stripped by esbuild). This is what makes the package importable into
-  Next.js App Router Server Components. CI asserts it survived bundling.
-- **Overlays** (Menu, Select, Popover, Dialog, Drawer, CommandPalette) portal to `document.body`
-  only while open (SSR-safe).
+  injects its own scoped CSS once via `React.useInsertionEffect` (a `<style>` tag keyed by id —
+  some related components share one id, e.g. the input family shares `twc-field-styles`), and
+  styles everything through CSS custom properties (`--color-*`, `--radius-*`, `--ease-*`, …).
+  Class names use a `twc-` BEM-ish prefix; **variants/states are `data-*` attributes**, not
+  class toggles. No CSS-in-JS libs, no npm deps.
+- **Theming** is pure token override; **dark mode** is the `.dark` class (or
+  `[data-theme="dark"]`) on `<html>` — only semantic aliases flip, primitives stay static.
+  `useColorScheme` handles toggle + persistence (`twico-theme`) + cross-instance sync and
+  suppresses CSS transitions during the flip so the page re-themes in one frame.
+- **`"use client"`** is prepended to both built bundles by `scripts/add-use-client.mjs` after
+  tsup (a tsup `banner` is stripped by esbuild) and the sourcemaps are shifted one line. This is
+  what makes the package importable into Next.js App Router Server Components. CI asserts it
+  survived bundling on line 1 of `dist/index.mjs` **and** `dist/index.cjs`.
+- **Overlays follow one pattern** (Dialog, Drawer, Menu, Popover, CommandPalette always portal
+  to `document.body`; Select portals when its `portal` prop is set): render only while open
+  (SSR-safe), animate **out as well as in** via a `data-state="open" | "closed"` attribute —
+  the component stays mounted through the exit animation, then unmounts on a short timeout
+  (~130–200 ms). `prefers-reduced-motion` collapses the animations. Tooltip is the exception:
+  it never portals, stays mounted, and eases both ways with a plain CSS transition. Backdrop
+  dismissal uses `onMouseDown` + an `e.target === e.currentTarget` guard. Portaling matters:
+  any ancestor with `transform`/`filter`/`backdrop-filter` becomes the containing block for
+  `position: fixed` (the docs-site navbar's `backdrop-filter` bit us here).
+- **Hooks** (23, `hooks/index.js`) are all SSR-safe (guarded `window`/`document`, sensible
+  server defaults) and memoize returned callbacks. Per-condition `types` in the `exports` map
+  gives correct resolution for ESM **and** CJS TypeScript consumers (`npm run check:exports`).
 
 ## 6. Adding or changing a component
 
@@ -113,13 +137,37 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
 2. Add `components/<group>/<Name>.d.ts` (props interface) and `<Name>.prompt.md`.
 3. Re-export it (value + types) from `src/index.ts`.
 4. `npm run build && npm run typecheck` — both must pass; `"use client"` must remain line 1.
-5. Update the docs site reference (`site/src/data/components.js` + a `site/src/demos/<Name>Demo.jsx`).
+5. Update the docs site: a `components.js` entry (props rows: one informative sentence per prop,
+   ~12–22 words), a `site/src/demos/<Name>Demo.jsx`, a `<Name>Variations.jsx`, and the manual
+   sync points below.
 6. **Update `/docs`** (rule §4.1) and commit with a Conventional Commit.
 
-## 7. Verification expectations
+## 7. Docs site conventions (`site/`)
+
+- **className-free.** Site code uses only Twico components + inline `style` objects built from
+  design tokens. No CSS files, no class names, no UI frameworks — the site is proof the library
+  needs none.
+- `site/src/data/components.js` (the component reference: summaries, props rows, snippets,
+  taglines) is generated by `site/scripts/gen-docs.mjs` and **re-running it overwrites manual
+  edits** — keep deliberate hand edits in mind before regenerating.
+- Demos (`<Name>Demo.jsx`) and Variations (`<Name>Variations.jsx`, default-exporting
+  `[{ title, description?, code, render }]`) are lazy-loaded via `import.meta.glob` and
+  error-boundaried.
+- Code blocks: per-block **JS/TS toggle** (persisted), **Expand/Collapse** (imports derived from
+  `site/src/data/exports.js`), copy button. **Search** (Ctrl/Cmd+K) runs the library's own
+  CommandPalette. Headings get copyable deep links (`#/components/<slug>?s=<section>`).
+- **Manual sync points** (no automation — update these when the public API changes):
+  `site/src/data/exports.js` (component + hook names), `Search.jsx` `DOC_CMDS` (doc pages),
+  `site/src/data/site.js` `GROUP_ORDER` (nav grouping).
+- Route changes scroll instantly to top; in-page anchors scroll smoothly (reduced-motion-safe).
+  The "On this page" TOC only renders ≥1200 px viewports.
+
+## 8. Verification expectations
 
 Before pushing: `npm run build` + `npm run typecheck` clean, `npm run check:exports` is green
 (JS + TS resolution across ESM/CJS — `are-the-types-wrong`), `npm pack --dry-run` shows only the
 intended files, `npm audit --omit=dev` is 0, and the docs site builds (`cd site && npm run build`).
-For UI behavior, a headless render-check of the docs demos is the established bar (see
-`docs/docs-site.md`).
+For UI behavior, the established bar is a **headless render-check**: serve `site/dist` with
+`vite preview`, drive every route with Playwright, and require zero `pageerror`s — plus targeted
+interaction tests (open/close overlays, toasts, etc.) for whatever you touched. See
+`docs/docs-site.md`.

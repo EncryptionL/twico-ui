@@ -166,7 +166,7 @@ shadows) · `motion.css` (durations, easings, keyframes) · `fonts.css` (`@font-
 **`assets/`** — `fonts/` (Plus Jakarta Sans, JetBrains Mono variable TTFs + OFL) ·
 `twico-icons.js` (Lucide → React helper).
 
-**`components/`** — 55 components across 28 groups (each: `.jsx` + `.d.ts` + `.prompt.md`, one
+**`components/`** — 59 components across 34 groups (each: `.jsx` + `.d.ts` + `.prompt.md`, one
 `@dsCard` per directory):
 - `buttons/` — **Button**, **IconButton**
 - `inputs/` — **Input** (suffix icon; password reveal toggle), **Textarea**, **Currency** (fixed code-defined currency), **CurrencyField** (user-selectable currency) — symbol prefix + code suffix, precision-enforced
