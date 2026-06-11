@@ -149,6 +149,20 @@ See `styles/twico-ui.css` for the full token set (colors, typography, spacing, r
 
 Every component ships full TypeScript types (e.g. `import type { DatatableProps } from "twico-ui"`).
 
+## Hooks
+
+The same SSR-safe, fully-typed React hooks the components are built on are exported from the package:
+
+```jsx
+import { useMediaQuery, useDisclosure, useColorScheme, useCopyToClipboard } from "twico-ui";
+```
+
+**State:** `useDisclosure`, `useToggle`, `useControllableState`, `useLocalStorage`, `usePrevious`
+**Responsive & theme:** `useMediaQuery`, `usePrefersReducedMotion`, `useColorScheme`, `useWindowSize`
+**Events & DOM:** `useEventListener`, `useClickOutside`, `useKeyPress`, `useHover`, `useIntersectionObserver`, `useScrollLock`
+**Timing:** `useDebouncedValue`, `useDebouncedCallback`, `useInterval`, `useTimeout`
+**Utilities:** `useCopyToClipboard`, `useId`, `useMounted`, `useIsomorphicLayoutEffect`
+
 ## Building & publishing (maintainers)
 
 This repo is both the Twico UI **design system** and the source of the npm package. The published package contains only the built output (`dist/` + `styles/`).

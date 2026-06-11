@@ -62,6 +62,9 @@ export { Code } from "../components/typography/Code";
 export { Heading } from "../components/typography/Heading";
 export { Text } from "../components/typography/Text";
 
+// Hooks — the same primitives the components and docs site are built on.
+export * from "../hooks";
+
 export type { AccordionProps, AccordionItem } from "../components/navigation/Accordion";
 export type { AlertProps } from "../components/feedback/Alert";
 export type { AvatarMenuProps } from "../components/data-display/AvatarMenu";

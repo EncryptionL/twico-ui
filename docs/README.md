@@ -16,11 +16,12 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 | [releases.md](./releases.md) | Automated semantic-versioning, Conventional Commits, `dev → main` flow, version sync, npm publishing. |
 | [security.md](./security.md) | Security standards: URL sanitization, the no-CDN rule, dependency auditing, CodeQL, Dependabot. |
 | [docs-site.md](./docs-site.md) | How the documentation website works, regenerating it, deploying to GitHub Pages, the render-check. |
+| [hooks.md](./hooks.md) | The exported React hooks API — where it lives, the full set, conventions, how to add one. |
 | [documentation.md](./documentation.md) | The "document everything in `/docs`" policy — what, where, when. |
 
 ## At a glance
 
-- **Package:** `twico-ui` — 53 React components, zero runtime dependencies, MIT.
+- **Package:** `twico-ui` — 60 React components + a hooks API, zero runtime dependencies, MIT.
 - **Build:** `tsup` (`src/index.ts` → `dist/` ESM+CJS+`.d.ts`) + a `"use client"` post-build step.
 - **Releases:** automated by semantic-release on every push to `main`.
 - **Docs site:** Vite + React, dogfoods the library, deployed to GitHub Pages.
