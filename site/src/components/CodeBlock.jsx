@@ -1,5 +1,6 @@
 import React from "react";
 import { Highlight, themes } from "prism-react-renderer";
+import { Button } from "twico-ui";
 
 export default function CodeBlock({ code, language = "jsx" }) {
   const [copied, setCopied] = React.useState(false);
@@ -15,9 +16,11 @@ export default function CodeBlock({ code, language = "jsx" }) {
 
   return (
     <div className="docs-code">
-      <button type="button" className="docs-code__copy" onClick={copy} aria-label="Copy code">
-        {copied ? "Copied!" : "Copy"}
-      </button>
+      <div className="docs-code__copy">
+        <Button size="sm" variant="soft" onClick={copy} aria-label="Copy code">
+          {copied ? "Copied!" : "Copy"}
+        </Button>
+      </div>
       <Highlight code={source} language={language} theme={themes.nightOwl}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={{ ...style, background: "transparent", margin: 0 }}>

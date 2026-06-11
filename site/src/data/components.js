@@ -820,6 +820,37 @@ export const components = [
     "snippet": "import { CommandPalette } from \"twico-ui\";\n\nconst [open, setOpen] = React.useState(false);\nReact.useEffect(() => {\n  const h = (e) => {\n    if ((e.metaKey || e.ctrlKey) && e.key === \"k\") { e.preventDefault(); setOpen(true); }\n  };\n  window.addEventListener(\"keydown\", h);\n  return () => window.removeEventListener(\"keydown\", h);\n}, []);\n\n<CommandPalette\n  open={open}\n  onClose={() => setOpen(false)}\n  commands={[\n    { group: \"Navigation\", label: \"Go to Dashboard\", shortcut: \"G D\", onSelect: goDash },\n    { group: \"Actions\", label: \"New project\", keywords: \"create add\", onSelect: create },\n  ]}\n/>"
   },
   {
+    "name": "Container",
+    "slug": "container",
+    "group": "Layout",
+    "importName": "Container",
+    "summary": "Centers content and caps its width with responsive horizontal padding — the outer wrapper for a page or section.",
+    "propsRows": [
+      {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\" | \"xl\" | \"full\" | string",
+        "required": false,
+        "default": "\"lg\"",
+        "description": "Max width (named token or any CSS length)."
+      },
+      {
+        "prop": "padded",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Apply horizontal padding."
+      },
+      {
+        "prop": "as",
+        "type": "ElementType",
+        "required": false,
+        "default": "\"div\"",
+        "description": "Element/tag to render."
+      }
+    ],
+    "snippet": "import { Container, Heading } from \"twico-ui\";\n\n<Container size=\"lg\">\n  <Heading level={1}>Page title</Heading>\n</Container>"
+  },
+  {
     "name": "Currency",
     "slug": "currency",
     "group": "Inputs",
@@ -1709,6 +1740,96 @@ export const components = [
       }
     ],
     "snippet": "import { FileUpload } from \"twico-ui\";\n\nconst [files, setFiles] = React.useState([]);\n\n<FileUpload\n  multiple\n  accept=\"image/*,.pdf\"\n  value={files}\n  onChange={setFiles}\n  hint=\"PNG, JPG or PDF up to 10MB\"\n/>"
+  },
+  {
+    "name": "Grid",
+    "slug": "grid",
+    "group": "Layout",
+    "importName": "Grid",
+    "summary": "CSS grid primitive — a responsive auto-fill grid (minChildWidth) or a fixed column count (columns).",
+    "propsRows": [
+      {
+        "prop": "minChildWidth",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Responsive auto-fill: minimum child width (number = px)."
+      },
+      {
+        "prop": "columns",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Fixed column count (when minChildWidth is unset)."
+      },
+      {
+        "prop": "gap",
+        "type": "number | string",
+        "required": false,
+        "default": "4",
+        "description": "Gap as a spacing step or CSS length."
+      },
+      {
+        "prop": "align",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "align-items value."
+      },
+      {
+        "prop": "justify",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "justify-items value."
+      },
+      {
+        "prop": "as",
+        "type": "ElementType",
+        "required": false,
+        "default": "\"div\"",
+        "description": "Element/tag to render."
+      }
+    ],
+    "snippet": "import { Grid, Card } from \"twico-ui\";\n\n<Grid minChildWidth={220} gap={4}>\n  <Card>One</Card>\n  <Card>Two</Card>\n  <Card>Three</Card>\n</Grid>"
+  },
+  {
+    "name": "Heading",
+    "slug": "heading",
+    "group": "Typography",
+    "importName": "Heading",
+    "summary": "Heading (h1–h6) with consistent token typography. Use it instead of bare heading tags.",
+    "propsRows": [
+      {
+        "prop": "level",
+        "type": "1 | 2 | 3 | 4 | 5 | 6",
+        "required": false,
+        "default": "2",
+        "description": "Sets the rendered tag and the default size."
+      },
+      {
+        "prop": "size",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Override the font-size token suffix (e.g. \"3xl\")."
+      },
+      {
+        "prop": "align",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "text-align value."
+      },
+      {
+        "prop": "as",
+        "type": "ElementType",
+        "required": false,
+        "default": "—",
+        "description": "Override the tag while keeping the level's size."
+      }
+    ],
+    "snippet": "import { Heading } from \"twico-ui\";\n\n<Heading level={1}>Dashboard</Heading>\n<Heading level={3}>Recent activity</Heading>"
   },
   {
     "name": "IconButton",
@@ -2672,6 +2793,65 @@ export const components = [
     "snippet": "import { Spinner } from \"twico-ui\";\n\n<Spinner />\n<Spinner size=\"lg\" />\n<Spinner tone=\"white\" /> {/* on a colored button/background */}"
   },
   {
+    "name": "Stack",
+    "slug": "stack",
+    "group": "Layout",
+    "importName": "Stack",
+    "summary": "Flexbox layout primitive — arranges children in a row or column with token-based gaps. Reach for it instead of hand-written flex divs.",
+    "propsRows": [
+      {
+        "prop": "direction",
+        "type": "\"row\" | \"column\"",
+        "required": false,
+        "default": "\"column\"",
+        "description": "Main-axis direction."
+      },
+      {
+        "prop": "gap",
+        "type": "number | string",
+        "required": false,
+        "default": "4",
+        "description": "Gap as a spacing step (number → --space-*) or any CSS length."
+      },
+      {
+        "prop": "align",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "align-items value."
+      },
+      {
+        "prop": "justify",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "justify-content value."
+      },
+      {
+        "prop": "wrap",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Wrap children onto multiple lines."
+      },
+      {
+        "prop": "inline",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Use inline-flex instead of flex."
+      },
+      {
+        "prop": "as",
+        "type": "ElementType",
+        "required": false,
+        "default": "\"div\"",
+        "description": "Element/tag to render."
+      }
+    ],
+    "snippet": "import { Stack } from \"twico-ui\";\n\n<Stack direction=\"row\" gap={3} align=\"center\" wrap>\n  <Button>Save</Button>\n  <Button variant=\"ghost\">Cancel</Button>\n</Stack>"
+  },
+  {
     "name": "Stat",
     "slug": "stat",
     "group": "Data display",
@@ -2954,6 +3134,51 @@ export const components = [
       }
     ],
     "snippet": "import { Tag } from \"twico-ui\";\n\n<Tag onRemove={() => remove(\"react\")}>React</Tag>\n<Tag leftIcon={<span>#</span>}>design-system</Tag>\n<Tag>read-only</Tag>"
+  },
+  {
+    "name": "Text",
+    "slug": "text",
+    "group": "Typography",
+    "importName": "Text",
+    "summary": "Body text with token sizes and semantic color tones. Use it instead of bare paragraph/span tags.",
+    "propsRows": [
+      {
+        "prop": "size",
+        "type": "\"xs\" | \"sm\" | \"base\" | \"lg\" | \"xl\"",
+        "required": false,
+        "default": "\"base\"",
+        "description": "Font-size token suffix."
+      },
+      {
+        "prop": "tone",
+        "type": "\"default\" | \"muted\" | \"subtle\" | \"primary\" | \"danger\"",
+        "required": false,
+        "default": "\"default\"",
+        "description": "Semantic color."
+      },
+      {
+        "prop": "weight",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Font-weight token suffix (e.g. \"semibold\")."
+      },
+      {
+        "prop": "align",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "text-align value."
+      },
+      {
+        "prop": "as",
+        "type": "ElementType",
+        "required": false,
+        "default": "\"p\"",
+        "description": "Element/tag to render."
+      }
+    ],
+    "snippet": "import { Text } from \"twico-ui\";\n\n<Text>Default paragraph text.</Text>\n<Text size=\"sm\" tone=\"muted\">A muted caption.</Text>"
   },
   {
     "name": "Textarea",

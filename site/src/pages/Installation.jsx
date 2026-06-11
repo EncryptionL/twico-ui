@@ -1,31 +1,37 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Heading, Text, Stack } from "twico-ui";
 import CodeBlock from "../components/CodeBlock.jsx";
 
 export default function Installation() {
   return (
-    <article className="docs-article">
-      <div className="docs-eyebrow">Getting started</div>
-      <h1>Installation</h1>
-      <p className="docs-lead">
-        Twico UI works in any React 18+ app. Install the package, import the stylesheet once, and
-        start using components.
-      </p>
+    <Stack as="article" gap={5} className="docs-article">
+      <Stack as="section" gap={3}>
+        <Text className="docs-eyebrow" tone="primary">Getting started</Text>
+        <Heading level={1}>Installation</Heading>
+        <Text className="docs-lead" size="lg" tone="muted">
+          Twico UI works in any React 18+ app. Install the package, import the stylesheet once, and
+          start using components.
+        </Text>
+      </Stack>
 
-      <h2 id="install">Install</h2>
-      <CodeBlock code="npm install twico-ui" language="bash" />
-      <p className="docs-muted">
-        <code>react</code> and <code>react-dom</code> are peer dependencies (React 18 or newer).
-      </p>
+      <Stack as="section" gap={3}>
+        <Heading level={2} id="install">Install</Heading>
+        <CodeBlock code="npm install twico-ui" language="bash" />
+        <Text className="docs-muted" tone="muted">
+          <code>react</code> and <code>react-dom</code> are peer dependencies (React 18 or newer).
+        </Text>
+      </Stack>
 
-      <h2 id="react">React (Vite / CRA)</h2>
-      <p>Import the stylesheet once at your entry, then use components anywhere:</p>
-      <CodeBlock
-        code={`// main.jsx
+      <Stack as="section" gap={3}>
+        <Heading level={2} id="react">React (Vite / CRA)</Heading>
+        <Text>Import the stylesheet once at your entry, then use components anywhere:</Text>
+        <CodeBlock
+          code={`// main.jsx
 import "twico-ui/styles.css";`}
-      />
-      <CodeBlock
-        code={`// App.jsx
+        />
+        <CodeBlock
+          code={`// App.jsx
 import { Button, Datatable, Input } from "twico-ui";
 
 export default function App() {
@@ -36,15 +42,17 @@ export default function App() {
     </div>
   );
 }`}
-      />
+        />
+      </Stack>
 
-      <h2 id="next-app">Next.js — App Router</h2>
-      <p>
-        Import the CSS once in the root layout. Every component ships a <code>"use client"</code>{" "}
-        boundary, so it drops straight into Server Components without extra wrapping.
-      </p>
-      <CodeBlock
-        code={`// app/layout.tsx
+      <Stack as="section" gap={3}>
+        <Heading level={2} id="next-app">Next.js — App Router</Heading>
+        <Text>
+          Import the CSS once in the root layout. Every component ships a <code>"use client"</code>{" "}
+          boundary, so it drops straight into Server Components without extra wrapping.
+        </Text>
+        <CodeBlock
+          code={`// app/layout.tsx
 import "twico-ui/styles.css";
 
 export default function RootLayout({ children }) {
@@ -54,9 +62,9 @@ export default function RootLayout({ children }) {
     </html>
   );
 }`}
-      />
-      <CodeBlock
-        code={`// app/page.tsx — a Server Component, no "use client" needed
+        />
+        <CodeBlock
+          code={`// app/page.tsx — a Server Component, no "use client" needed
 import { Stat, Button } from "twico-ui";
 
 export default function Page() {
@@ -67,28 +75,33 @@ export default function Page() {
     </main>
   );
 }`}
-      />
+        />
+      </Stack>
 
-      <h2 id="next-pages">Next.js — Pages Router</h2>
-      <CodeBlock
-        code={`// pages/_app.tsx
+      <Stack as="section" gap={3}>
+        <Heading level={2} id="next-pages">Next.js — Pages Router</Heading>
+        <CodeBlock
+          code={`// pages/_app.tsx
 import "twico-ui/styles.css";
 
 export default function App({ Component, pageProps }) {
   return <Component {...pageProps} />;
 }`}
-      />
+        />
+      </Stack>
 
-      <h2 id="ssr">SSR &amp; hydration</h2>
-      <ul className="docs-list">
-        <li>Components are <strong>SSR-safe</strong> — nothing touches <code>window</code>/<code>document</code> during render; all browser access is inside effects and handlers.</li>
-        <li>The global stylesheet provides tokens, the reset, and self-hosted fonts at first paint.</li>
-        <li>Overlays (Menu, Popover, Select, Dialog, Drawer, CommandPalette) render through portals only while open, so they never run on the server.</li>
-      </ul>
+      <Stack as="section" gap={3}>
+        <Heading level={2} id="ssr">SSR &amp; hydration</Heading>
+        <ul className="docs-list">
+          <li>Components are <strong>SSR-safe</strong> — nothing touches <code>window</code>/<code>document</code> during render; all browser access is inside effects and handlers.</li>
+          <li>The global stylesheet provides tokens, the reset, and self-hosted fonts at first paint.</li>
+          <li>Overlays (Menu, Popover, Select, Dialog, Drawer, CommandPalette) render through portals only while open, so they never run on the server.</li>
+        </ul>
+      </Stack>
 
-      <p className="docs-next">
+      <Text className="docs-next" tone="muted">
         Next: <Link to="/docs/theming" className="docs-link">Theming →</Link>
-      </p>
-    </article>
+      </Text>
+    </Stack>
   );
 }

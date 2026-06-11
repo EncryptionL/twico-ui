@@ -1,5 +1,7 @@
 export const GROUP_ORDER = [
   "Buttons & actions",
+  "Layout",
+  "Typography",
   "Inputs",
   "Data display",
   "Navigation",

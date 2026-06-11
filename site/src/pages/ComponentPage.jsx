@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
+import { Stack, Heading, Text } from "twico-ui";
 import { components } from "../data/components.js";
 import { slugify, groupedComponents } from "../data/site.js";
 import CodeBlock from "../components/CodeBlock.jsx";
@@ -25,11 +26,11 @@ export default function ComponentPage() {
 
   if (!comp) {
     return (
-      <article className="docs-article">
-        <h1>Not found</h1>
-        <p className="docs-muted">No component matches “{slug}”.</p>
+      <Stack as="article" gap={5} className="docs-article">
+        <Heading level={1}>Not found</Heading>
+        <Text className="docs-muted" tone="muted">No component matches “{slug}”.</Text>
         <Link to="/components" className="docs-link">← All components</Link>
-      </article>
+      </Stack>
     );
   }
 
@@ -38,25 +39,33 @@ export default function ComponentPage() {
   const { prev, next } = adjacent(comp.name);
 
   return (
-    <article className="docs-article">
-      <div className="docs-eyebrow">{comp.group}</div>
-      <h1>{comp.name}</h1>
-      <p className="docs-lead">{comp.summary}</p>
+    <Stack as="article" gap={5} className="docs-article">
+      <Stack as="section" gap={3}>
+        <Text as="div" className="docs-eyebrow" tone="primary">{comp.group}</Text>
+        <Heading level={1}>{comp.name}</Heading>
+        <Text className="docs-lead" size="lg" tone="muted">{comp.summary}</Text>
+      </Stack>
 
-      <h2 id="import">Import</h2>
-      <CodeBlock code={importLine} />
+      <Stack as="section" gap={3}>
+        <Heading level={2} id="import">Import</Heading>
+        <CodeBlock code={importLine} />
+      </Stack>
 
-      <h2 id="usage">Usage</h2>
-      <LiveExample code={comp.snippet}>
-        {Demo ? (
-          <React.Suspense fallback={<div className="docs-muted">Loading preview…</div>}>
-            <Demo />
-          </React.Suspense>
-        ) : null}
-      </LiveExample>
+      <Stack as="section" gap={3}>
+        <Heading level={2} id="usage">Usage</Heading>
+        <LiveExample code={comp.snippet}>
+          {Demo ? (
+            <React.Suspense fallback={<Text className="docs-muted" tone="muted">Loading preview…</Text>}>
+              <Demo />
+            </React.Suspense>
+          ) : null}
+        </LiveExample>
+      </Stack>
 
-      <h2 id="props">Props</h2>
-      <PropsTable rows={comp.propsRows} />
+      <Stack as="section" gap={3}>
+        <Heading level={2} id="props">Props</Heading>
+        <PropsTable rows={comp.propsRows} />
+      </Stack>
 
       <nav className="docs-pager" aria-label="Component pager">
         {prev ? (
@@ -72,6 +81,6 @@ export default function ComponentPage() {
           </Link>
         ) : <span />}
       </nav>
-    </article>
+    </Stack>
   );
 }

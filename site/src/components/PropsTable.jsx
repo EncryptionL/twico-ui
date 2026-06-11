@@ -1,34 +1,36 @@
 import React from "react";
+import { Table } from "twico-ui";
+
+// Dogfooding: the props reference for every component is rendered with Twico UI's own Table,
+// using its per-column `render` to keep the code-styled cells.
+const columns = [
+  {
+    key: "prop",
+    header: "Prop",
+    render: (_v, r) => (
+      <>
+        <code className="docs-prop">{r.prop}</code>
+        {r.required ? <span className="docs-req" title="Required">*</span> : null}
+      </>
+    ),
+  },
+  { key: "type", header: "Type", render: (_v, r) => <code className="docs-type">{r.type}</code> },
+  {
+    key: "default",
+    header: "Default",
+    render: (_v, r) =>
+      r.default && r.default !== "—" ? (
+        <code className="docs-default">{r.default}</code>
+      ) : (
+        <span className="docs-muted">—</span>
+      ),
+  },
+  { key: "description", header: "Description" },
+];
 
 export default function PropsTable({ rows }) {
   if (!rows || !rows.length) {
     return <p className="docs-muted">This component takes no props.</p>;
   }
-  return (
-    <div className="docs-table-wrap">
-      <table className="docs-table">
-        <thead>
-          <tr>
-            <th>Prop</th>
-            <th>Type</th>
-            <th>Default</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r) => (
-            <tr key={r.prop}>
-              <td>
-                <code className="docs-prop">{r.prop}</code>
-                {r.required ? <span className="docs-req" title="Required">*</span> : null}
-              </td>
-              <td><code className="docs-type">{r.type}</code></td>
-              <td>{r.default && r.default !== "—" ? <code className="docs-default">{r.default}</code> : <span className="docs-muted">—</span>}</td>
-              <td>{r.description}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+  return <Table columns={columns} data={rows} rowKey={(r) => r.prop} striped hover={false} />;
 }

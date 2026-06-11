@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Card, Stack, Grid, Heading, Text } from "twico-ui";
 import { components } from "../data/components.js";
 import { groupedComponents, slugify } from "../data/site.js";
 
@@ -7,28 +8,30 @@ export default function ComponentsIndex() {
   const groups = groupedComponents(components);
   const total = components.length;
   return (
-    <article className="docs-article">
-      <div className="docs-eyebrow">Components</div>
-      <h1>All components</h1>
-      <p className="docs-lead">
+    <Stack as="article" gap={5} className="docs-article">
+      <Text as="div" tone="primary" className="docs-eyebrow">Components</Text>
+      <Heading level={1}>All components</Heading>
+      <Text size="lg" tone="muted" className="docs-lead">
         {total ? `${total} ` : ""}components, each with live examples and a full props reference. Click any to dive in.
-      </p>
+      </Text>
 
       {groups.map(([group, list]) => (
-        <section key={group} className="comp-index-group">
-          <h2 id={slugify(group)}>{group}</h2>
-          <div className="comp-grid">
+        <Stack as="section" gap={3} key={group} className="comp-index-group">
+          <Heading level={2} id={slugify(group)}>{group}</Heading>
+          <Grid minChildWidth={220} gap={3} className="comp-grid">
             {list.map((c) => (
-              <Link key={c.name} to={`/components/${slugify(c.name)}`} className="comp-card">
-                <div className="comp-card__name">{c.name}</div>
-                <div className="comp-card__summary">{c.summary}</div>
+              <Link key={c.name} to={`/components/${slugify(c.name)}`} style={{ display: "block" }}>
+                <Card interactive>
+                  <Text as="div" className="comp-card__name">{c.name}</Text>
+                  <Text as="div" className="comp-card__summary">{c.summary}</Text>
+                </Card>
               </Link>
             ))}
-          </div>
-        </section>
+          </Grid>
+        </Stack>
       ))}
 
-      {!total ? <p className="docs-muted">Component reference is being generated.</p> : null}
-    </article>
+      {!total ? <Text tone="muted" className="docs-muted">Component reference is being generated.</Text> : null}
+    </Stack>
   );
 }
