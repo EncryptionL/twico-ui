@@ -7,7 +7,7 @@ import Logo from "../components/Logo.jsx";
 import { REPO_URL, NPM_URL, CHANGELOG_URL } from "../data/site.js";
 
 const FEATURES = [
-  { title: "59 components", core: true, body: "Buttons, inputs, selects, overlays, a full Datatable, and more — everything a web app needs." },
+  { title: "61 components", core: true, body: "Buttons, inputs, selects, overlays, a full Datatable, and more — everything a web app needs." },
   { title: "Token-themed", body: "Every color, radius, shadow, and font is a CSS variable. Rebrand by overriding a handful of them." },
   { title: "Dark mode", body: "A single .dark class on <html> re-themes the whole system, portaled overlays included." },
   { title: "Accessible", body: "ARIA roles, keyboard navigation, focus trapping in modals, and reduced-motion support." },
@@ -45,7 +45,7 @@ export default function Home() {
         </Stack>
 
         <Text size="sm" tone="subtle" align="center">
-          Requires React 18+ · 59 components ·{" "}
+          Requires React 18+ · 61 components ·{" "}
           <Link to="/docs/dark-mode" style={docsLinkStyle}>dark mode</Link> ·{" "}
           <Link to="/docs/accessibility" style={docsLinkStyle}>accessible</Link>
         </Text>

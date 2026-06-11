@@ -263,10 +263,10 @@ export const components = [
       },
       {
         "prop": "size",
-        "type": "\"md\" | \"lg\"",
+        "type": "\"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Sets the badge size to md or lg, matching the surrounding text or list density."
+        "description": "Adds a new \"sm\" option (smaller font padding/height than md) to the existing size scale; md/lg unchanged and md remains the default."
       },
       {
         "prop": "dot",
@@ -401,10 +401,10 @@ export const components = [
       },
       {
         "prop": "size",
-        "type": "\"sm\" | \"md\" | \"lg\"",
+        "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Sets the button height and padding (sm, md, or lg) to match the density of the surrounding UI."
+        "description": "Adds a new \"xs\" size (~26px tall, smaller than \"sm\") to the existing union; sm/md/lg are unchanged. xs height is composed locally from space tokens (no global control-h-xs token)."
       },
       {
         "prop": "leftIcon",
@@ -766,6 +766,13 @@ export const components = [
         "description": "Appends extra class names to the wrapping label element for custom spacing, alignment, or layout overrides."
       },
       {
+        "prop": "error",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Error message shown below the control; tints the box red and wires aria-invalid/aria-describedby."
+      },
+      {
         "prop": "...rest",
         "type": "Omit<React.InputHTMLAttributes<HTMLInputElement>, \"size\" | \"type\">",
         "required": false,
@@ -849,6 +856,27 @@ export const components = [
         "required": false,
         "default": "false",
         "description": "Disable all interaction (the popover cannot be opened)."
+      },
+      {
+        "prop": "hint",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Helper text shown below when there is no error."
+      },
+      {
+        "prop": "error",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Error message — turns the field red and replaces the hint."
+      },
+      {
+        "prop": "required",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Marks the field required (adds an asterisk to the label)."
       }
     ],
     "snippet": "import { ColorPicker } from \"twico-ui\";\n\n// Controlled\nconst [color, setColor] = React.useState(\"#6366F1\");\n<ColorPicker label=\"Brand color\" value={color} onChange={setColor} />\n\n// Uncontrolled with custom presets\n<ColorPicker\n  defaultValue=\"#14B8A6\"\n  presets={[\"#6366F1\", \"#14B8A6\", \"#F43F5E\"]}\n/>",
@@ -1524,6 +1552,27 @@ export const components = [
         "required": false,
         "default": "\"right\" for number/actions columns, else \"left\"",
         "description": "Cell alignment; currently affects the actions column's button justification. Already supported at runtime — newly exposed in the .d.ts."
+      },
+      {
+        "prop": "virtualized",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Opt into row virtualization (windowing). Active only when pagination is off (pageSize={0}) and row grouping is not active; otherwise ignored and the table renders normally. Pair with a fixed height. Selection/inline-edit keep working because they key off the row id, not the rendered index."
+      },
+      {
+        "prop": "overscan",
+        "type": "number",
+        "required": false,
+        "default": "8",
+        "description": "Extra rows rendered above and below the visible window for smoother fast scrolling when virtualized."
+      },
+      {
+        "prop": "rowHeight",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Estimated/fixed row height in px used to compute the virtualization window. Set if rows have a custom height so the scrollbar stays accurate."
       }
     ],
     "snippet": "import { Datatable } from \"twico-ui\";\n\nconst columns = [\n  { field: \"name\", headerName: \"Name\", width: 200 },\n  { field: \"email\", headerName: \"Email\", width: 220 },\n  { field: \"role\", headerName: \"Role\", width: 130 },\n  { field: \"mrr\", headerName: \"MRR\", type: \"number\", width: 110 },\n];\n\nfunction Example(props) {\n  return React.createElement(Datatable, { checkboxSelection: true, pageSize: 10, columns: columns, rows: props.users });\n}",
@@ -1601,10 +1650,10 @@ export const components = [
       },
       {
         "prop": "weekStartsOn",
-        "type": "0 | 1",
+        "type": "0 | 1 | 2 | 3 | 4 | 5 | 6",
         "required": false,
         "default": "0",
-        "description": "Sets the first weekday column in the calendar, where 0 is Sunday (default) and 1 is Monday."
+        "description": "Widened from 0|1 to any weekday; controls which day the calendar grid + weekday header start on (0 = Sunday)."
       },
       {
         "prop": "onChange",
@@ -1612,6 +1661,34 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Fires with the newly selected Date, or null when the value is cleared, so you can update state."
+      },
+      {
+        "prop": "hint",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Helper text shown below when there is no error."
+      },
+      {
+        "prop": "error",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Error message — turns the field red and replaces the hint."
+      },
+      {
+        "prop": "required",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Marks the field required (adds an asterisk to the label)."
+      },
+      {
+        "prop": "locale",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "BCP-47 locale for Intl-derived month/weekday names and date formatting; omit for the runtime default."
       }
     ],
     "snippet": "import { DatePicker } from \"twico-ui\";\n\nconst [date, setDate] = useState(null);\n\n<DatePicker\n  label=\"Start date\"\n  value={date}\n  onChange={setDate}\n  min={new Date()}\n  weekStartsOn={1}\n/>",
@@ -1661,10 +1738,10 @@ export const components = [
       },
       {
         "prop": "weekStartsOn",
-        "type": "0 | 1",
+        "type": "0 | 1 | 2 | 3 | 4 | 5 | 6",
         "required": false,
         "default": "0",
-        "description": "Sets the first weekday column in the calendar, where 0 is Sunday (default) and 1 is Monday."
+        "description": "Widened from 0|1 to any weekday; controls which day the calendar grid + weekday header start on (0 = Sunday)."
       },
       {
         "prop": "onChange",
@@ -1679,6 +1756,34 @@ export const components = [
         "required": false,
         "default": "false",
         "description": "Disable all interaction (the popover cannot be opened)."
+      },
+      {
+        "prop": "hint",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Helper text shown below when there is no error."
+      },
+      {
+        "prop": "error",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Error message — turns the field red and replaces the hint."
+      },
+      {
+        "prop": "required",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Marks the field required (adds an asterisk to the label)."
+      },
+      {
+        "prop": "locale",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "BCP-47 locale for Intl-derived month/weekday names and date formatting; omit for the runtime default."
       }
     ],
     "snippet": "import { DateRangePicker } from \"twico-ui\";\n\nconst [range, setRange] = useState({ start: null, end: null });\n\n<DateRangePicker\n  label=\"Reporting period\"\n  value={range}\n  onChange={setRange}\n  weekStartsOn={1}\n/>",
@@ -1728,10 +1833,10 @@ export const components = [
       },
       {
         "prop": "size",
-        "type": "\"sm\" | \"md\" | \"lg\"",
+        "type": "\"sm\" | \"md\" | \"lg\" | \"full\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Max-width preset of the panel (sm, md, or lg) to match the amount of content shown."
+        "description": "Adds a new \"full\" option: a near-fullscreen panel that fills the viewport minus a small margin (existing sm/md/lg unchanged)."
       },
       {
         "prop": "closeOnBackdrop",
@@ -1746,6 +1851,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Main body content of the dialog, such as forms, messages, or detail views requiring the user's attention."
+      },
+      {
+        "prop": "scrollBody",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Keep the header and footer fixed and scroll only the body, so long content does not overflow the viewport."
       }
     ],
     "snippet": "import { Dialog, Button } from \"twico-ui\";\n\n<Dialog\n  open={open}\n  onClose={() => setOpen(false)}\n  title=\"Delete project?\"\n  description=\"This action cannot be undone.\"\n  footer={\n    <>\n      <Button variant=\"ghost\" onClick={() => setOpen(false)}>Cancel</Button>\n      <Button variant=\"danger\" onClick={confirm}>Delete</Button>\n    </>\n  }\n>\n  The project and all its data will be permanently removed.\n</Dialog>",
@@ -1774,10 +1886,10 @@ export const components = [
       },
       {
         "prop": "align",
-        "type": "\"left\" | \"center\" | \"right\"",
+        "type": "\"left\" | \"center\" | \"right\" | \"start\" | \"end\"",
         "required": false,
         "default": "\"center\"",
-        "description": "Positions the optional label along the rule (left, center, or right) when children are provided."
+        "description": "Label alignment when children are provided; logical start/end now accepted and map to left/right (additive — existing left/center/right unchanged)."
       },
       {
         "prop": "children",
@@ -1866,6 +1978,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Body content of the drawer, such as nav menus, filters, detail views, or a cart over the page."
+      },
+      {
+        "prop": "width",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Panel width for side=\"left\"/\"right\" (number = px, or any CSS value). Side-aware alias for `size`; wins over `size` when set."
+      },
+      {
+        "prop": "height",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Panel height for side=\"top\"/\"bottom\" (number = px, or any CSS value). Side-aware alias for `size`; wins over `size` when set."
       }
     ],
     "snippet": "import { Drawer } from \"twico-ui\";\n\nconst [open, setOpen] = useState(false);\n\n<Drawer\n  open={open}\n  onClose={() => setOpen(false)}\n  side=\"right\"\n  title=\"Filters\"\n  description=\"Narrow down the results\"\n  footer={<button onClick={() => setOpen(false)}>Apply</button>}\n>\n  ...filter controls...\n</Drawer>",
@@ -1912,6 +2038,13 @@ export const components = [
         "required": false,
         "default": "false",
         "description": "Adds a dashed border around the placeholder when true, ideal for drop targets or visually distinct empty regions."
+      },
+      {
+        "prop": "border",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Add a dashed border (good for drop targets / placeholders); preferred alias for bordered."
       },
       {
         "prop": "...rest",
@@ -1979,6 +2112,27 @@ export const components = [
         "required": false,
         "default": "[]",
         "description": "Uncontrolled initial file list."
+      },
+      {
+        "prop": "label",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Field label rendered above the dropzone."
+      },
+      {
+        "prop": "error",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Error message shown below the dropzone; turns the border red (sets aria-invalid)."
+      },
+      {
+        "prop": "required",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Marks the field required (adds an asterisk to the label)."
       }
     ],
     "snippet": "import { FileUpload } from \"twico-ui\";\n\nconst [files, setFiles] = React.useState([]);\n\n<FileUpload\n  multiple\n  accept=\"image/*,.pdf\"\n  value={files}\n  onChange={setFiles}\n  hint=\"PNG, JPG or PDF up to 10MB\"\n/>",
@@ -2092,17 +2246,17 @@ export const components = [
       },
       {
         "prop": "variant",
-        "type": "\"solid\" | \"soft\" | \"outline\" | \"ghost\"",
+        "type": "\"solid\" | \"soft\" | \"outline\" | \"ghost\" | \"danger\"",
         "required": false,
         "default": "\"ghost\"",
-        "description": "Selects the visual style among solid, soft, outline, or ghost; defaults to ghost for unobtrusive toolbar actions."
+        "description": "Adds a new \"danger\" variant mirroring Button's danger (red background var(--color-danger), var(--color-danger-fg) icon, var(--color-danger-hover) on hover) for icon-only destructive actions."
       },
       {
         "prop": "size",
-        "type": "\"sm\" | \"md\" | \"lg\"",
+        "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
-        "description": "Sets the button's dimensions and icon scale (sm, md, or lg) to fit dense toolbars or prominent controls."
+        "description": "Adds a new \"xs\" size (~26px square, smaller than \"sm\") to the existing union; sm/md/lg are unchanged."
       },
       {
         "prop": "round",
@@ -2551,6 +2705,13 @@ export const components = [
         "required": false,
         "default": "1",
         "description": "Initial 1-based page when uncontrolled (no `page` prop)."
+      },
+      {
+        "prop": "showPageJumper",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Show a \"Go to\" page input for jumping directly to a page; preferred alias for showJumper."
       }
     ],
     "snippet": "import { Pagination } from \"twico-ui\";\n\nconst [page, setPage] = useState(1);\n\n<Pagination\n  page={page}\n  total={12}\n  onChange={setPage}\n  showJumper\n/>",
@@ -2646,10 +2807,10 @@ export const components = [
       },
       {
         "prop": "tone",
-        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\"",
+        "type": "\"primary\" | \"info\" | \"success\" | \"warning\" | \"danger\"",
         "required": false,
         "default": "\"primary\"",
-        "description": "Semantic color of the filled portion (primary, success, warning, or danger) to convey the task's status."
+        "description": "Added `info` value to the existing tone union; maps the bar fill to var(--color-info)."
       },
       {
         "prop": "size",
@@ -2703,6 +2864,13 @@ export const components = [
         "required": false,
         "default": "\"md\"",
         "description": "Visual size of the radio control, sm or md, to align with the density of nearby form fields."
+      },
+      {
+        "prop": "error",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Error message shown below the control; tints the dot red and wires aria-invalid/aria-describedby."
       },
       {
         "prop": "...rest",
@@ -3108,6 +3276,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Fires with the new number whenever the value changes via drag or keyboard, keeping state in sync."
+      },
+      {
+        "prop": "hint",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Helper text shown below the track when there is no error."
+      },
+      {
+        "prop": "error",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Error message shown below the track; turns it red (sets aria-invalid) and replaces the hint."
       }
     ],
     "snippet": "import { Slider } from \"twico-ui\";\n\nconst [vol, setVol] = React.useState(40);\n\n<Slider label=\"Volume\" value={vol} onChange={setVol} />\n\n<Slider\n  label=\"Price\"\n  min={0}\n  max={1000}\n  step={50}\n  showTicks\n  defaultValue={250}\n  formatValue={(v) => `$${v}`}\n/>",
@@ -3140,6 +3322,13 @@ export const components = [
         "required": false,
         "default": "\"Loading\"",
         "description": "Accessible name exposed via aria-label so screen readers announce the loading state, defaulting to \"Loading\"."
+      },
+      {
+        "prop": "color",
+        "type": "\"current\" | \"primary\" | \"neutral\" | \"white\"",
+        "required": false,
+        "default": "\"current\"",
+        "description": "Preferred name for the spinner color; supersedes the deprecated `tone` prop. Wins over `tone` when both are set. Inherits currentColor by default (visible inside buttons, themed)."
       }
     ],
     "snippet": "import { Spinner } from \"twico-ui\";\n\n<Spinner />\n<Spinner size=\"lg\" />\n<Spinner tone=\"white\" /> {/* on a colored button/background */}",
@@ -3340,6 +3529,13 @@ export const components = [
         "description": "Sets the visual size of the track and thumb (sm or md) to match the density of the surrounding form."
       },
       {
+        "prop": "error",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Error message shown below the control; tints the track red and wires aria-invalid/aria-describedby."
+      },
+      {
         "prop": "...rest",
         "type": "Omit<React.InputHTMLAttributes<HTMLInputElement>, \"size\" | \"type\">",
         "required": false,
@@ -3433,6 +3629,48 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Fired when a sortable header is clicked with the next sort state."
+      },
+      {
+        "prop": "stickyHeader",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Pin the header to the top while the body scrolls (use with maxHeight or an enclosing scroll container)."
+      },
+      {
+        "prop": "maxHeight",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Cap the table height and give it its own vertical scroll area (CSS length or number of px); enables stickyHeader to shine."
+      },
+      {
+        "prop": "rows",
+        "type": "T[]",
+        "required": false,
+        "default": "—",
+        "description": "Alias for data (Datatable vocabulary); data wins when both are set."
+      },
+      {
+        "prop": "field (column)",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Alias for key (Datatable vocabulary); key wins when both are set."
+      },
+      {
+        "prop": "headerName (column)",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Alias for header (Datatable vocabulary); header wins when both are set."
+      },
+      {
+        "prop": "renderCell (column)",
+        "type": "(value: any, row: T, index: number) => React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Alias for render (Datatable vocabulary); render wins when both are set."
       }
     ],
     "snippet": "import { Table } from \"twico-ui\";\n\n<Table\n  sortable\n  striped\n  rowKey={(r) => r.id}\n  columns={[\n    { key: \"name\", header: \"Name\" },\n    { key: \"role\", header: \"Role\" },\n    { key: \"status\", header: \"Status\" },\n    { key: \"mrr\", header: \"MRR\", align: \"right\" },\n  ]}\n  data={users}\n/>",
@@ -3479,6 +3717,13 @@ export const components = [
         "required": false,
         "default": "\"line\"",
         "description": "Selects the visual style, rendering either a line underline indicator or a pill-shaped background behind the active tab."
+      },
+      {
+        "prop": "orientation",
+        "type": "\"horizontal\" | \"vertical\"",
+        "required": false,
+        "default": "\"horizontal\"",
+        "description": "Layout axis. Vertical stacks the tablist with the active indicator on its trailing edge and the panel beside it; ArrowUp/ArrowDown navigate between tabs (Home/End still jump to ends)."
       }
     ],
     "snippet": "import { Tabs } from \"twico-ui\";\n\n<Tabs\n  variant=\"line\"\n  defaultValue=\"overview\"\n  items={[\n    { value: \"overview\", label: \"Overview\", content: <p>Overview panel</p> },\n    { value: \"activity\", label: \"Activity\", count: 12, content: <p>Activity panel</p> },\n    { value: \"settings\", label: \"Settings\", content: <p>Settings panel</p> },\n  ]}\n/>",
@@ -3635,6 +3880,13 @@ export const components = [
         "required": false,
         "default": "\"\"",
         "description": "Extra CSS class appended to the root <ul> so you can layer custom spacing or styling onto the timeline."
+      },
+      {
+        "prop": "tone (TimelineItem)",
+        "type": "\"primary\" | \"info\" | \"success\" | \"warning\" | \"danger\"",
+        "required": false,
+        "default": "—",
+        "description": "Added `info` value to the per-item node tone union; maps the dot to var(--color-info) with var(--color-info-fg) icon color."
       },
       {
         "prop": "...rest",
@@ -3801,9 +4053,143 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Fired with the next expanded ids whenever a row expands or collapses."
+      },
+      {
+        "prop": "items",
+        "type": "TreeNode[]",
+        "required": false,
+        "default": "[]",
+        "description": "Tree nodes (preferred name). Alias of `data`; ignored when `data` is set."
+      },
+      {
+        "prop": "onSelectedIdChange",
+        "type": "(id: string) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fired with just the node id when a row is clicked (companion to onSelect, which keeps firing the full node)."
       }
     ],
     "snippet": "import { TreeView } from \"twico-ui\";\n\n<TreeView\n  defaultExpanded={[\"src\"]}\n  onSelect={(node) => open(node.id)}\n  data={[\n    { id: \"src\", label: \"src\", children: [\n      { id: \"app\", label: \"App.tsx\" },\n      { id: \"comp\", label: \"components\", children: [\n        { id: \"btn\", label: \"Button.tsx\", badge: 3 },\n      ]},\n    ]},\n  ]}\n/>",
     "tagline": "Hierarchical expand and collapse tree"
+  },
+  {
+    "name": "Field",
+    "slug": "field",
+    "group": "Inputs",
+    "importName": "Field",
+    "tagline": "Shared label / hint / error / required field chrome",
+    "summary": "Field is the reusable form-field wrapper that supplies the label, required asterisk, helper hint, and error message (with the matching ARIA ids) that Input and Select already use internally. Wrap any control with it to get consistent field spacing, the danger-colored error treatment, and the aria-describedby target without re-implementing the markup.",
+    "propsRows": [
+      {
+        "prop": "label",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Field label rendered above the control."
+      },
+      {
+        "prop": "hint",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Helper text shown below when there is no error."
+      },
+      {
+        "prop": "error",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Error message — replaces the hint and renders in the danger color."
+      },
+      {
+        "prop": "required",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Marks the field required, adding an asterisk after the label."
+      },
+      {
+        "prop": "htmlFor",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id of the control the <label> binds to (sets the label's htmlFor)."
+      },
+      {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Spacing scale for parity with Input/Select; exposed via data-size on the root."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "auto",
+        "description": "Base id; the hint/error element gets `${id}-desc` for your control's aria-describedby."
+      },
+      {
+        "prop": "children",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "The control(s) the field wraps."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLDivElement>",
+        "required": false,
+        "default": "—",
+        "description": "Other div attributes spread onto the .twc-field root."
+      }
+    ],
+    "snippet": "import { Field, Input } from \"twico-ui\";\n\n// Wrap any control to get the shared label/hint/error chrome.\n<Field label=\"Email\" hint=\"We'll never share it.\" required htmlFor=\"email\">\n  <input id=\"email\" type=\"email\" />\n</Field>\n\n<Field label=\"Token\" error=\"That token is invalid.\" htmlFor=\"tok\">\n  <input id=\"tok\" aria-invalid aria-describedby=\"<id>-desc\" />\n</Field>"
+  },
+  {
+    "name": "ToastProvider",
+    "slug": "toast-provider",
+    "group": "Feedback",
+    "importName": "ToastProvider, useToast",
+    "tagline": "Imperative toast manager (useToast)",
+    "summary": "ToastProvider drops a ready-made toast manager into your tree: it owns the toast list and renders a single ToastViewport, so you no longer hand-manage an array in state. Anywhere beneath it, call const { toast } = useToast() and fire toast.success(\"Saved\") or toast.error({ title, description }); each toast auto-dismisses on the shared timer.",
+    "propsRows": [
+      {
+        "prop": "children",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Your app — anything under the provider can call useToast()."
+      },
+      {
+        "prop": "limit",
+        "type": "number",
+        "required": false,
+        "default": "4",
+        "description": "Maximum toasts shown at once (the most recent are kept)."
+      },
+      {
+        "prop": "duration",
+        "type": "number",
+        "required": false,
+        "default": "4500",
+        "description": "Default auto-dismiss duration (ms) for toasts that don't set their own."
+      },
+      {
+        "prop": "toast() (useToast)",
+        "type": "(opts) => number",
+        "required": false,
+        "default": "—",
+        "description": "Push a toast; has tone helpers toast.success/warning/danger/error/info(title, options?)."
+      },
+      {
+        "prop": "dismiss / clear (useToast)",
+        "type": "(id) => void / () => void",
+        "required": false,
+        "default": "—",
+        "description": "Remove one toast by id, or clear them all."
+      }
+    ],
+    "snippet": "import { ToastProvider, useToast, Button } from \"twico-ui\";\n\nfunction App() {\n  return (\n    <ToastProvider limit={4}>\n      <Page />\n    </ToastProvider>\n  );\n}\n\nfunction Page() {\n  const { toast } = useToast();\n  return (\n    <Button onClick={() => toast.success(\"Saved\")}>Save</Button>\n  );\n}"
   }
 ];

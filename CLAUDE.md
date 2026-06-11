@@ -6,9 +6,10 @@ Guidance for any agent or contributor working in this repository. Read this firs
 
 ## 1. What this repository is
 
-**Twico UI** is a **free, MIT-licensed React component library** — **59 components** (60 exported
-component values: `Toast.jsx` also exports `ToastViewport`) **+ 23 hooks**, with dark mode, motion,
-accessibility, and design tokens. Zero runtime dependencies (peer: `react`/`react-dom` ≥18).
+**Twico UI** is a **free, MIT-licensed React component library** — **61 components** (63 exported
+component values: `Toast.jsx` also exports `ToastViewport`; `ToastProvider.jsx` also exports the
+`useToast` hook) **+ 23 standalone hooks**, with dark mode, motion, accessibility, RTL support, a
+density scale, and design tokens. Zero runtime dependencies (peer: `react`/`react-dom` ≥18).
 This one repo holds three things:
 
 1. **The npm package** — `src/index.ts` (barrel) → `components/**` + `hooks/` →
@@ -33,7 +34,7 @@ This one repo holds three things:
 | `hooks/index.js` + `hooks/index.d.ts` | The 23-hook API, re-exported via `export * from "../hooks"` in `src/index.ts`. See `docs/hooks.md`. |
 | `src/index.ts` | Barrel re-exporting every component (value + types) + hooks. **Update it when you add/remove a component.** |
 | `tokens/*.css`, `base.css`, `styles.css` | Design tokens (colors, fonts, typography, spacing, radius, motion) + reset. `styles.css` is the dev entry (`@import`s the rest). |
-| `styles/twico-ui.css` | The concatenated, **shippable** stylesheet (`twico-ui/styles.css`). **Manually maintained** — re-concatenate it when token/base files change; no script does this. |
+| `styles/twico-ui.css` | The concatenated, **shippable** stylesheet (`twico-ui/styles.css`). **Generated** by `scripts/build-css.mjs` from `tokens/*` + `base.css` — run `npm run build:css` after editing a token; CI's `build:css:check` fails on drift. |
 | `assets/fonts/` (source), `styles/fonts/` (shipped copy) | Self-hosted OFL fonts (Plus Jakarta Sans, JetBrains Mono variable `.ttf`). Duplicated on purpose — keep both in sync. |
 | `tsup.config.ts`, `tsconfig.json`, `scripts/add-use-client.mjs` | The build. |
 | `site/` | The docs website (own `package.json`, `private: true`). Generators live in `site/scripts/` (`gen-docs.mjs`, …). |
@@ -52,12 +53,18 @@ npm install
 npm run build          # tsup -> dist/ (ESM + CJS + .d.ts + .d.cts), then prepends "use client"
 npm run typecheck      # tsc --noEmit
 npm run check:exports  # are-the-types-wrong: JS + TS resolve across ESM/CJS
+npm test               # vitest (unit tests in tests/); test:run for CI
+npm run build:css      # regenerate styles/twico-ui.css from tokens (build:css:check guards drift)
+npm run size           # size-limit budget check
 npm pack --dry-run     # preview the published tarball
 
 # Docs site
 cd site && npm install
 npm run dev          # http://localhost:5173/twico-ui/
 npm run build        # -> site/dist
+npm run gen:exports  # regenerate src/data/exports.js hooks list from hooks/index.js
+npm run render-check # headless route sweep (needs a running preview)
+npm run test:visual  # Playwright pixel diffs (baselines seeded via visual.yml)
 node scripts/gen-docs.mjs <workflow-output.json>   # regenerate component reference + demos
 ```
 
@@ -123,15 +130,21 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
 - **Overlays follow one pattern** (Dialog, Drawer, Menu, Popover, CommandPalette always portal
   to `document.body`; Select portals when its `portal` prop is set): render only while open
   (SSR-safe), animate **out as well as in** via a `data-state="open" | "closed"` attribute —
-  the component stays mounted through the exit animation, then unmounts on a short timeout
-  (~130–200 ms). `prefers-reduced-motion` collapses the animations. Tooltip is the exception:
-  it never portals, stays mounted, and eases both ways with a plain CSS transition. Backdrop
-  dismissal uses `onMouseDown` + an `e.target === e.currentTarget` guard. Portaling matters:
-  any ancestor with `transform`/`filter`/`backdrop-filter` becomes the containing block for
-  `position: fixed` (the docs-site navbar's `backdrop-filter` bit us here).
-- **Hooks** (23, `hooks/index.js`) are all SSR-safe (guarded `window`/`document`, sensible
-  server defaults) and memoize returned callbacks. Per-condition `types` in the `exports` map
-  gives correct resolution for ESM **and** CJS TypeScript consumers (`npm run check:exports`).
+  the component stays mounted through a `var(--duration-exit)` animation, then unmounts on a
+  170 ms timeout kept in lockstep with that token. `prefers-reduced-motion` collapses the
+  animations. Tooltip is the exception: it never portals, stays mounted, and eases both ways with
+  a plain CSS transition. Backdrop dismissal uses `onMouseDown` + an `e.target === e.currentTarget`
+  guard. Portaling matters: any ancestor with `transform`/`filter`/`backdrop-filter` becomes the
+  containing block for `position: fixed` (the docs-site navbar's `backdrop-filter` bit us here).
+- **RTL + density.** Component CSS uses **logical properties** (`padding-inline`, `inset-inline-*`,
+  `text-align: start`, …) so `dir="rtl"` on any ancestor mirrors the UI; nav chevrons add a scoped
+  `[dir="rtl"] … { transform: scaleX(-1) }`. `data-density="compact" | "comfortable"` on any
+  ancestor retunes every control inside by remapping `--control-h-*` (base.css) — no per-component
+  code. Both are demoed live on the docs-site **Theme builder** page.
+- **Hooks** (23 standalone in `hooks/index.js`; plus the component-coupled `useToast`, exported
+  from `components/feedback/ToastProvider.jsx`) are all SSR-safe (guarded `window`/`document`,
+  sensible server defaults) and memoize returned callbacks. Per-condition `types` in the `exports`
+  map gives correct resolution for ESM **and** CJS TypeScript consumers (`npm run check:exports`).
 
 ## 6. Adding or changing a component
 

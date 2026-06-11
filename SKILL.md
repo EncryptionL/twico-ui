@@ -14,7 +14,7 @@ Key files:
 - `DESIGN-SYSTEM.md` — the full design guide (content voice, visual foundations, iconography, manifest).
 - `styles.css` — single CSS entry point (link this); pulls in `tokens/` + fonts + `base.css`.
 - `tokens/` — colors, typography, spacing, radius/shadows, motion, fonts.
-- `components/` — 59 React components (`.jsx` + `.d.ts` props + `.prompt.md` usage), grouped into
+- `components/` — 61 React components (`.jsx` + `.d.ts` props + `.prompt.md` usage), grouped into
   8 directories matching the docs-site taxonomy: buttons / layout / typography / inputs /
   data-display / navigation / feedback / overlay.
 - `assets/` — self-hosted fonts + `twico-icons.js` (Lucide → React helper).

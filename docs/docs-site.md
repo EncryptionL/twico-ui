@@ -16,16 +16,27 @@ bundled by Vite from `styles/fonts/` (**no CDN**).
 
 ```
 site/
-├─ src/pages/        Home, Installation, Theming, DarkMode, Accessibility, ComponentsIndex, ComponentPage
-├─ src/components/   Layout, Sidebar, CodeBlock, LiveExample, PropsTable, ThemeToggle, ErrorBoundary, Logo
+├─ src/pages/        Home, Installation, Theming, ThemeBuilder, DarkMode, Accessibility, Hooks,
+│                    Playground, ComponentsIndex, ComponentPage
+├─ src/components/   Layout, Sidebar, CodeBlock, LiveExample, PropsTable, Search, ThemeToggle, ErrorBoundary, Logo
 ├─ src/data/
 │   ├─ components.js  AUTO-GENERATED: per-component summary + props table + usage snippet
+│   ├─ exports.js     GENERATED (gen-exports.mjs): every twico-ui export name (for snippet imports)
 │   └─ site.js        nav groups, slugs, repo/npm links
 ├─ src/demos/<Name>Demo.jsx        one self-contained live demo per component (lazy-loaded)
 ├─ src/demos/<Name>Variations.jsx  default-exports [{ title, description?, code, render }] — the
 │                                  live "Variations" section examples (lazy-loaded, error-boundaried)
-└─ scripts/gen-docs.mjs            generates components.js + the demo files
+└─ scripts/
+    ├─ gen-docs.mjs     generates components.js + the demo files
+    ├─ gen-exports.mjs  regenerates exports.js hooks list from hooks/index.js (--check guards drift)
+    └─ render-check.mjs headless route sweep — fails on any uncaught page error (the behavioral gate)
 ```
+
+- **Theme builder** (`pages/ThemeBuilder.jsx`) is the flagship demo: live controls for brand
+  color, radius, type scale, density (`data-density`) and direction (`dir`) re-theme a gallery via
+  inline CSS custom properties, with a copy-pasteable `:root` override export. **Playground**
+  (`pages/Playground.jsx`) gives a curated set live prop knobs + a reactive code snippet. Both are
+  className-free (pure Twico UI + token styles).
 
 - Routing uses `HashRouter` (bulletproof for GitHub Pages — no 404 on refresh).
 - Each component page renders its **live demo** (in an `ErrorBoundary`, so a bad demo degrades to a
@@ -42,7 +53,7 @@ site/
   `import type { … }` line, and any block's `tsCode`; plus **Expand/Collapse** (collapsed shows the
   simple JSX, expanded the full form with imports — derived from the twico-ui exports used).
 - **Search** (`Search.jsx`, header + Cmd/Ctrl+K) runs Twico's `CommandPalette` over every component
-  (name + tagline + summary + group) and the docs pages.
+  (name + tagline + summary + group + **prop names**, so "fullWidth" finds Button) and the docs pages.
 - **Anchor links** (`AnchorHeading.jsx`): hovering a component/section heading reveals a copy-link
   button. The deep link is `#/components/<slug>?s=<section>`; `ComponentPage` reads `?s` and scrolls
   to that anchor on load.
