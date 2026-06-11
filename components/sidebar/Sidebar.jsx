@@ -21,6 +21,8 @@ const SIDEBAR_CSS = `
 .twc-sidebar__item:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-sidebar__ic { flex: none; display: inline-flex; }
 .twc-sidebar__ic svg { width: 19px; height: 19px; }
+.twc-sidebar__ic--initial { width: 19px; justify-content: center; font-size: var(--text-sm); font-weight: var(--font-bold); text-transform: uppercase; line-height: 1; }
+.twc-sidebar:not([data-collapsed="true"]) .twc-sidebar__ic--initial { display: none; }
 .twc-sidebar__label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__label, .twc-sidebar[data-collapsed="true"] .twc-sidebar__badge { display: none; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__head { padding: 0; justify-content: center; }
@@ -81,7 +83,11 @@ export function Sidebar({
           ) : (
             <a key={i} className="twc-sidebar__item" href={safeHref(it.href) || "#"} data-active={it.active || undefined}
                onClick={it.onClick} title={collapsed && typeof it.label === "string" ? it.label : undefined}>
-              {it.icon ? <span className="twc-sidebar__ic" aria-hidden="true">{it.icon}</span> : null}
+              {it.icon ? (
+                <span className="twc-sidebar__ic" aria-hidden="true">{it.icon}</span>
+              ) : typeof it.label === "string" ? (
+                <span className="twc-sidebar__ic twc-sidebar__ic--initial" aria-hidden="true">{it.label.charAt(0)}</span>
+              ) : null}
               <span className="twc-sidebar__label">{it.label}</span>
               {it.badge != null ? <span className="twc-sidebar__badge">{it.badge}</span> : null}
             </a>
