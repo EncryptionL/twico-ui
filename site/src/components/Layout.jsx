@@ -5,6 +5,7 @@ import Logo from "./Logo.jsx";
 import Sidebar from "./Sidebar.jsx";
 import ThemeToggle from "./ThemeToggle.jsx";
 import TableOfContents from "./TableOfContents.jsx";
+import PageTransition from "./PageTransition.jsx";
 import { REPO_URL, NPM_URL, CHANGELOG_URL } from "../data/site.js";
 
 const HEADER_H = 64;
@@ -66,7 +67,7 @@ export default function Layout() {
     return (
       <Box style={{ minHeight: "100vh" }}>
         {header}
-        <Box as="main"><Outlet /></Box>
+        <Box as="main"><PageTransition><Outlet /></PageTransition></Box>
       </Box>
     );
   }
@@ -91,7 +92,7 @@ export default function Layout() {
             style={{ width: "100%", maxWidth: showToc ? 1120 : 880, padding: isMobile ? "24px 16px 64px" : "44px 44px 88px" }}
           >
             <Box as="article" id="doc-article" style={{ flex: 1, minWidth: 0, maxWidth: 760 }}>
-              <Outlet />
+              <PageTransition><Outlet /></PageTransition>
             </Box>
             {showToc ? <TableOfContents /> : null}
           </Stack>
