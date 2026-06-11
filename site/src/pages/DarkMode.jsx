@@ -1,21 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Card, Stack, Heading, Text, Code } from "twico-ui";
+import { Button, Card, Stack, Heading, Text, Code, useColorScheme } from "twico-ui";
 import CodeBlock from "../components/CodeBlock.jsx";
 import LiveExample from "../components/LiveExample.jsx";
 
 function DarkDemo() {
-  const [dark, setDark] = React.useState(
-    typeof document !== "undefined" && document.documentElement.classList.contains("dark")
-  );
-  const toggle = () => {
-    const next = !dark;
-    document.documentElement.classList.toggle("dark", next);
-    setDark(next);
-  };
+  const { isDark, toggle } = useColorScheme();
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}>
-      <Button onClick={toggle}>{dark ? "Switch to light" : "Switch to dark"}</Button>
+      <Button onClick={toggle}>{isDark ? "Switch to light" : "Switch to dark"}</Button>
       <Card>The surfaces, text, borders, and shadows here all flip with the theme.</Card>
     </div>
   );
@@ -34,19 +27,35 @@ export default function DarkMode() {
 
       <Stack as="section" gap={3}>
         <Heading level={2} id="toggle">Toggle it</Heading>
-        <CodeBlock code={`document.documentElement.classList.toggle("dark");`} />
+        <Text>
+          The <Code>useColorScheme</Code> hook is the easiest way: it flips the class on{" "}
+          <Code>&lt;html&gt;</Code>, persists the choice, keeps every instance in sync, and disables
+          transitions for the switch so the whole UI re-themes at once — no element-by-element ripple.
+        </Text>
+        <CodeBlock
+          code={`import { useColorScheme } from "twico-ui";
 
+function ThemeButton() {
+  const { isDark, toggle } = useColorScheme();
+  return <button onClick={toggle}>{isDark ? "Light" : "Dark"}</button>;
+}`}
+        />
         <LiveExample>
           <DarkDemo />
         </LiveExample>
+        <Text tone="muted">Wiring it yourself? It ultimately just toggles a class on the root:</Text>
+        <CodeBlock code={`document.documentElement.classList.toggle("dark");`} />
       </Stack>
 
       <Stack as="section" gap={3}>
         <Heading level={2} id="persist">Persist the choice</Heading>
-        <Text>Read a saved preference (or the system setting) before paint to avoid a flash:</Text>
+        <Text>
+          <Code>useColorScheme</Code> already saves the preference to localStorage. To also avoid a
+          flash on the very first load — before React mounts — read it in <Code>&lt;head&gt;</Code>:
+        </Text>
         <CodeBlock
           code={`// in <head>, before your app renders
-const saved = localStorage.getItem("theme");
+const saved = localStorage.getItem("twico-theme");
 const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
 if (saved === "dark" || (!saved && prefersDark)) {
   document.documentElement.classList.add("dark");
