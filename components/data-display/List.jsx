@@ -5,10 +5,10 @@ const LIST_CSS = `
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; }
 .twc-list[data-plain="true"] { background: transparent; border: none; border-radius: 0; }
 .twc-list__item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4);
-  border-bottom: var(--border-thin) solid var(--color-divider); text-align: left; }
+  border-bottom: var(--border-thin) solid var(--color-divider); text-align: start; }
 .twc-list__item:last-child { border-bottom: none; }
-.twc-list[data-plain="true"] .twc-list__item { padding-left: 0; padding-right: 0; }
-.twc-list__item[data-interactive="true"] { cursor: pointer; background: transparent; border-left: none; border-right: none; border-top: none; width: 100%; font: inherit; color: inherit;
+.twc-list[data-plain="true"] .twc-list__item { padding-inline-start: 0; padding-inline-end: 0; }
+.twc-list__item[data-interactive="true"] { cursor: pointer; background: transparent; border-inline-start: none; border-inline-end: none; border-top: none; width: 100%; font: inherit; color: inherit;
   transition: background-color var(--duration-fast) var(--ease-standard); }
 .twc-list__item[data-interactive="true"]:hover { background: var(--color-surface-sunken); }
 .twc-list__item[data-interactive="true"]:focus-visible { outline: none; box-shadow: var(--ring); }

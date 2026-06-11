@@ -36,7 +36,7 @@ const COMBO_CSS = `
 .twc-cb__chev svg { width: 16px; height: 16px; }
 
 .twc-pop {
-  position: absolute; z-index: var(--z-dropdown); top: calc(100% + 6px); left: 0; right: 0;
+  position: absolute; z-index: var(--z-dropdown); top: calc(100% + 6px); inset-inline-start: 0; inset-inline-end: 0;
   background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
   transform-origin: top; animation: twico-scale-in var(--duration-fast) var(--ease-spring);
@@ -47,7 +47,7 @@ const COMBO_CSS = `
 .twc-pop__group:not(:first-child) { margin-top: 4px; border-top: var(--border-thin) solid var(--color-divider); padding-top: 10px; }
 .twc-opt {
   display: flex; align-items: center; gap: var(--space-2-5); width: 100%; padding: 8px 10px;
-  border: none; background: transparent; cursor: pointer; text-align: left;
+  border: none; background: transparent; cursor: pointer; text-align: start;
   font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md);
   transition: background-color var(--duration-fast) var(--ease-standard);
 }

@@ -22,17 +22,17 @@ const DATEPICKER_CSS = `
 .twc-dp__control[data-invalid="true"][data-open="true"] { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
 .twc-dp__control[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
 .twc-dp__field { position: relative; display: flex; flex-direction: column; }
-.twc-dp__control[data-has-clear="true"] { padding-right: 34px; }
+.twc-dp__control[data-has-clear="true"] { padding-inline-end: 34px; }
 .twc-dp__ic { flex: none; color: var(--color-text-subtle); display: inline-flex; }
 .twc-dp__ic svg { width: 17px; height: 17px; }
 .twc-dp__text { flex: 1; font-size: var(--text-sm); color: var(--color-text); }
 .twc-dp__text[data-placeholder="true"] { color: var(--color-text-subtle); }
-.twc-dp__clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
+.twc-dp__clear { position: absolute; inset-inline-end: 10px; top: 50%; transform: translateY(-50%); display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
 .twc-dp__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dp__clear svg { width: 14px; height: 14px; }
 
 .twc-dp__pop {
-  position: absolute; z-index: var(--z-popover); top: calc(100% + 6px); left: 0; width: 280px;
+  position: absolute; z-index: var(--z-popover); top: calc(100% + 6px); inset-inline-start: 0; width: 280px;
   background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: var(--space-3);
   animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top;
@@ -58,6 +58,7 @@ const DATEPICKER_CSS = `
 .twc-dp__mo { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
 .twc-dp__mo:hover { background: var(--color-surface-sunken); }
 .twc-dp__mo[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
+[dir="rtl"] .twc-dp__nav svg { transform: scaleX(-1); }
 `;
 
 // Default-locale fallbacks — preserve the exact strings the component shipped with

@@ -15,9 +15,10 @@ const PAGINATION_CSS = `
 .twc-page[data-active="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-semibold); }
 .twc-page:disabled { opacity: 0.4; cursor: not-allowed; }
 .twc-page svg { width: 17px; height: 17px; }
+[dir="rtl"] .twc-page svg { transform: scaleX(-1); }
 .twc-page__ellipsis { color: var(--color-text-subtle); cursor: default; }
 .twc-page[data-size="sm"] { min-width: 30px; height: 30px; font-size: var(--text-xs); }
-.twc-pagination__jump { display: inline-flex; align-items: center; gap: 7px; margin-left: 8px;
+.twc-pagination__jump { display: inline-flex; align-items: center; gap: 7px; margin-inline-start: 8px;
   font-size: var(--text-sm); color: var(--color-text-muted); white-space: nowrap; }
 .twc-pagination__jump input {
   width: 56px; height: 34px; text-align: center; box-sizing: border-box;

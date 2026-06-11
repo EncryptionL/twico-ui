@@ -3,14 +3,14 @@ import React from "react";
 const TAG_CSS = `
 .twc-tag {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 4px 6px 4px 11px; height: 28px;
+  padding-block: 4px; padding-inline: 11px 6px; height: 28px;
   font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-medium);
   color: var(--color-text); background: var(--color-surface-sunken);
   border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-full); white-space: nowrap;
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
-.twc-tag[data-no-remove="true"] { padding-right: 11px; }
+.twc-tag[data-no-remove="true"] { padding-inline-end: 11px; }
 .twc-tag__remove {
   display: inline-grid; place-items: center;
   width: 18px; height: 18px; border: none; padding: 0; margin: 0;

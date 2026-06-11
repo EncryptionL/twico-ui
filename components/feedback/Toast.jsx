@@ -11,7 +11,7 @@ const TOAST_CSS = `
   font-family: var(--font-sans); overflow: hidden;
   animation: twico-slide-in-right var(--duration-base) var(--ease-spring);
 }
-.twc-toast::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--_accent, var(--color-primary)); }
+.twc-toast::before { content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 4px; background: var(--_accent, var(--color-primary)); }
 .twc-toast[data-tone="success"] { --_accent: var(--color-success); }
 .twc-toast[data-tone="warning"] { --_accent: var(--color-warning); }
 .twc-toast[data-tone="danger"]  { --_accent: var(--color-danger); }
@@ -30,7 +30,7 @@ const TOAST_CSS = `
 .twc-toast__close svg { width: 15px; height: 15px; }
 .twc-toast-viewport {
   position: fixed; z-index: var(--z-toast); display: flex; flex-direction: column; gap: 12px;
-  bottom: 20px; right: 20px;
+  bottom: 20px; inset-inline-end: 20px;
 }
 `;
 

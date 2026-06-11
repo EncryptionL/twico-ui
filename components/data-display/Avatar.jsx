@@ -19,7 +19,7 @@ const AVATAR_CSS = `
 .twc-avatar[data-square="true"], .twc-avatar[data-square="true"] .twc-avatar__img { border-radius: var(--radius-md); }
 .twc-avatar__ring { box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-primary); }
 .twc-avatar__status {
-  position: absolute; right: 0; bottom: 0;
+  position: absolute; inset-inline-end: 0; bottom: 0;
   width: 28%; height: 28%; min-width: 8px; min-height: 8px;
   border-radius: var(--radius-full); border: 2px solid var(--color-surface);
 }

@@ -26,8 +26,8 @@ const STEPPER_CSS = `
 .twc-step[data-state="upcoming"] .twc-step__title { color: var(--color-text-muted); }
 .twc-step__desc { font-size: var(--text-xs); color: var(--color-text-subtle); }
 .twc-step__connector { background: var(--color-border); transition: background-color var(--duration-base) var(--ease-standard); }
-.twc-stepper[data-orientation="horizontal"] .twc-step__connector { position: absolute; top: 16px; height: 2px; left: calc(50% + 22px); right: calc(-50% + 22px); }
-.twc-stepper[data-orientation="vertical"] .twc-step__connector { width: 2px; flex: 1; min-height: 22px; margin: 4px 0; align-self: stretch; margin-left: 15px; }
+.twc-stepper[data-orientation="horizontal"] .twc-step__connector { position: absolute; top: 16px; height: 2px; inset-inline-start: calc(50% + 22px); inset-inline-end: calc(-50% + 22px); }
+.twc-stepper[data-orientation="vertical"] .twc-step__connector { width: 2px; flex: 1; min-height: 22px; margin: 4px 0; align-self: stretch; margin-inline-start: 15px; }
 .twc-stepper[data-orientation="vertical"] .twc-step__col { display: flex; flex-direction: column; align-items: center; }
 .twc-step[data-state="complete"] .twc-step__connector, .twc-step[data-state="active"] .twc-step__connector { background: var(--color-primary); }
 .twc-stepper[data-orientation="vertical"] .twc-step__vbody { padding-bottom: var(--space-2); }

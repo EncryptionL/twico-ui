@@ -25,7 +25,7 @@ const MENU_CSS = `
   display: flex; align-items: center; gap: var(--space-2-5); width: 100%;
   padding: 8px 10px; border: none; background: transparent; cursor: pointer;
   font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-medium);
-  color: var(--color-text); text-align: left; border-radius: var(--radius-md);
+  color: var(--color-text); text-align: start; border-radius: var(--radius-md);
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-menu__item:hover:not(:disabled), .twc-menu__item[data-active="true"]:not(:disabled) { background: var(--color-surface-sunken); }
@@ -35,7 +35,7 @@ const MENU_CSS = `
 .twc-menu__item[data-danger="true"]:hover:not(:disabled), .twc-menu__item[data-danger="true"][data-active="true"]:not(:disabled) { background: var(--color-danger-subtle); }
 .twc-menu__item svg { width: 16px; height: 16px; flex: none; }
 .twc-menu__item-label { flex: 1 1 auto; min-width: 0; }
-.twc-menu__shortcut { margin-left: auto; padding-left: var(--space-3); font-size: var(--text-xs); color: var(--color-text-subtle); font-family: var(--font-mono); }
+.twc-menu__shortcut { margin-inline-start: auto; padding-inline-start: var(--space-3); font-size: var(--text-xs); color: var(--color-text-subtle); font-family: var(--font-mono); }
 `;
 
 export function Menu({

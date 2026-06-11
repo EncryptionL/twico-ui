@@ -23,11 +23,11 @@ const RANGE_CSS = `
 .twc-drp__ic svg { width: 17px; height: 17px; }
 .twc-drp__text { flex: 1; font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; }
 .twc-drp__text[data-placeholder="true"] { color: var(--color-text-subtle); }
-.twc-drp__pop { position: absolute; z-index: var(--z-popover); top: calc(100% + 6px); left: 0; display: flex;
+.twc-drp__pop { position: absolute; z-index: var(--z-popover); top: calc(100% + 6px); inset-inline-start: 0; display: flex;
   background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg); animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top; }
-.twc-drp__presets { display: flex; flex-direction: column; gap: 2px; padding: var(--space-3); border-right: var(--border-thin) solid var(--color-divider); min-width: 130px; }
-.twc-drp__preset { border: none; background: none; text-align: left; font-family: inherit; font-size: var(--text-sm); color: var(--color-text);
+.twc-drp__presets { display: flex; flex-direction: column; gap: 2px; padding: var(--space-3); border-inline-end: var(--border-thin) solid var(--color-divider); min-width: 130px; }
+.twc-drp__preset { border: none; background: none; text-align: start; font-family: inherit; font-size: var(--text-sm); color: var(--color-text);
   padding: 7px 10px; border-radius: var(--radius-md); cursor: pointer; white-space: nowrap; }
 .twc-drp__preset:hover { background: var(--color-surface-sunken); }
 .twc-drp__cal { padding: var(--space-3); width: 268px; }
@@ -46,6 +46,7 @@ const RANGE_CSS = `
 .twc-drp__day[data-edge="end"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: 0 var(--radius-md) var(--radius-md) 0; font-weight: var(--font-bold); }
 .twc-drp__day[data-edge="both"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: var(--radius-md); font-weight: var(--font-bold); }
 .twc-drp__day:disabled { opacity: 0.3; cursor: not-allowed; }
+[dir="rtl"] .twc-drp__nav svg { transform: scaleX(-1); }
 `;
 
 // Default-locale fallbacks — preserve the exact strings the component shipped with

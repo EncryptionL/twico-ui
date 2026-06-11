@@ -13,7 +13,7 @@ const SELECT_CSS = `
   --_h: var(--control-h-md);
   display: flex; align-items: center; gap: var(--space-2); width: 100%;
   min-height: var(--_h); padding: 0 var(--space-3); cursor: pointer;
-  background: var(--color-surface); color: var(--color-text); text-align: left;
+  background: var(--color-surface); color: var(--color-text); text-align: start;
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
   font-family: inherit; font-size: var(--text-sm);
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
@@ -34,7 +34,7 @@ const SELECT_CSS = `
 .twc-sel__clear svg { width: 14px; height: 14px; }
 
 .twc-pop {
-  position: absolute; z-index: var(--z-dropdown); top: calc(100% + 6px); left: 0; right: 0;
+  position: absolute; z-index: var(--z-dropdown); top: calc(100% + 6px); inset-inline-start: 0; inset-inline-end: 0;
   background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
   transform-origin: top;
@@ -54,7 +54,7 @@ const SELECT_CSS = `
 .twc-pop__group:not(:first-child) { margin-top: 4px; border-top: var(--border-thin) solid var(--color-divider); padding-top: 10px; }
 .twc-opt {
   display: flex; align-items: center; gap: var(--space-2-5); width: 100%; padding: 8px 10px;
-  border: none; background: transparent; cursor: pointer; text-align: left;
+  border: none; background: transparent; cursor: pointer; text-align: start;
   font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md);
   transition: background-color var(--duration-fast) var(--ease-standard);
 }

@@ -2,7 +2,7 @@ import React from "react";
 
 const SIDEBAR_CSS = `
 .twc-sidebar { display: flex; flex-direction: column; height: 100%; font-family: var(--font-sans);
-  background: var(--color-surface); border-right: var(--border-thin) solid var(--color-border);
+  background: var(--color-surface); border-inline-end: var(--border-thin) solid var(--color-border);
   flex: 0 0 248px; min-width: 0; width: 248px; max-width: 248px;
   transition: flex-basis var(--duration-base) var(--ease-standard), width var(--duration-base) var(--ease-standard), max-width var(--duration-base) var(--ease-standard); overflow: hidden; }
 .twc-sidebar[data-collapsed="true"] { flex-basis: 68px; width: 68px; max-width: 68px; }
@@ -14,7 +14,7 @@ const SIDEBAR_CSS = `
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__section { display: none; }
 .twc-sidebar__item { display: flex; align-items: center; gap: var(--space-3); padding: 9px 11px; border-radius: var(--radius-md);
   font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-muted); text-decoration: none; cursor: pointer;
-  border: none; background: none; font-family: inherit; width: 100%; min-width: 0; text-align: left; white-space: nowrap; overflow: hidden;
+  border: none; background: none; font-family: inherit; width: 100%; min-width: 0; text-align: start; white-space: nowrap; overflow: hidden;
   transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
 .twc-sidebar__item:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-sidebar__item[data-active="true"] { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); }

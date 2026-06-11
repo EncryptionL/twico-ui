@@ -9,7 +9,7 @@ const ACCORDION_CSS = `
   display: flex; align-items: center; gap: var(--space-3); width: 100%;
   padding: var(--space-4); border: none; background: transparent; cursor: pointer;
   font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold);
-  color: var(--color-text); text-align: left;
+  color: var(--color-text); text-align: start;
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-accordion__trigger:hover { background: var(--color-surface-sunken); }

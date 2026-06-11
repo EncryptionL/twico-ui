@@ -24,17 +24,17 @@ const CURF_CSS = `
   background: var(--color-surface-sunken); color: var(--color-text-muted);
   font-size: var(--text-sm); font-weight: var(--font-semibold); white-space: nowrap; flex: none;
 }
-.twc-cur__sym { border-right: var(--border-thin) solid var(--color-border); }
-.twc-cur__code { border-left: var(--border-thin) solid var(--color-border); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+.twc-cur__sym { border-inline-end: var(--border-thin) solid var(--color-border); }
+.twc-cur__code { border-inline-start: var(--border-thin) solid var(--color-border); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
 .twc-cur__el {
   flex: 1; min-width: 0; border: none; outline: none; background: transparent;
   font-family: inherit; font-size: var(--text-sm); color: var(--color-text);
-  text-align: right; padding: 0 var(--space-3); font-variant-numeric: tabular-nums;
+  text-align: end; padding: 0 var(--space-3); font-variant-numeric: tabular-nums;
 }
 .twc-cur__el:focus, .twc-cur__el:focus-visible { outline: none; box-shadow: none; }
 .twc-cur__el::placeholder { color: var(--color-text-subtle); }
 .twc-cur__el::-webkit-outer-spin-button, .twc-cur__el::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-.twc-curf__pick { flex: none; display: flex; align-items: stretch; border-right: var(--border-thin) solid var(--color-border); }
+.twc-curf__pick { flex: none; display: flex; align-items: stretch; border-inline-end: var(--border-thin) solid var(--color-border); }
 .twc-curf__pick .twc-field { width: 132px; }
 .twc-curf__pick .twc-sel__trigger { height: 100%; border: none; border-radius: 0; background: var(--color-surface-sunken); box-shadow: none; }
 .twc-curf__pick .twc-sel__trigger:focus-visible { box-shadow: var(--ring); }

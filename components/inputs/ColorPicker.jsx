@@ -23,7 +23,7 @@ const COLORPICKER_CSS = `
 .twc-cp__value { flex: 1; font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-text); text-transform: uppercase; }
 .twc-cp__chev { flex: none; color: var(--color-text-subtle); display: inline-flex; }
 .twc-cp__chev svg { width: 16px; height: 16px; }
-.twc-cp__pop { position: absolute; z-index: var(--z-popover); top: calc(100% + 6px); left: 0; width: 240px;
+.twc-cp__pop { position: absolute; z-index: var(--z-popover); top: calc(100% + 6px); inset-inline-start: 0; width: 240px;
   background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg); padding: var(--space-3); animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top; }
 .twc-cp__area { position: relative; width: 100%; height: 140px; border-radius: var(--radius-md); cursor: crosshair; overflow: hidden; touch-action: none; }

@@ -11,7 +11,7 @@ const AVATARMENU_CSS = `
 .twc-avatar-menu__text { display: flex; flex-direction: column; align-items: flex-start; gap: 0; min-width: 0; line-height: 1.2; }
 .twc-avatar-menu__name { font-size: var(--text-sm); font-weight: var(--font-semibold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
 .twc-avatar-menu__sub { font-size: var(--text-xs); color: var(--color-text-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
-.twc-avatar-menu__chev { color: var(--color-text-subtle); display: inline-flex; flex: none; margin-right: 2px; transition: transform var(--duration-base) var(--ease-spring); }
+.twc-avatar-menu__chev { color: var(--color-text-subtle); display: inline-flex; flex: none; margin-inline-end: 2px; transition: transform var(--duration-base) var(--ease-spring); }
 .twc-avatar-menu__chev svg { width: 15px; height: 15px; }
 `;
 

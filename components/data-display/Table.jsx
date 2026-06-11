@@ -4,12 +4,12 @@ const TABLE_CSS = `
 .twc-table-wrap { width: 100%; overflow-x: auto; border-radius: var(--radius-lg); border: var(--border-thin) solid var(--color-border); background: var(--color-surface); }
 .twc-table { width: 100%; border-collapse: collapse; font-family: var(--font-sans); font-size: var(--text-sm); color: var(--color-text); }
 .twc-table thead th {
-  text-align: left; font-weight: var(--font-semibold); color: var(--color-text-muted);
+  text-align: start; font-weight: var(--font-semibold); color: var(--color-text-muted);
   font-size: var(--text-xs); letter-spacing: var(--tracking-wide); text-transform: uppercase;
   padding: var(--space-3) var(--space-4); background: var(--color-surface-sunken);
   border-bottom: var(--border-thin) solid var(--color-border); white-space: nowrap;
 }
-.twc-table th[data-align="right"], .twc-table td[data-align="right"] { text-align: right; }
+.twc-table th[data-align="right"], .twc-table td[data-align="right"] { text-align: end; }
 .twc-table th[data-align="center"], .twc-table td[data-align="center"] { text-align: center; }
 .twc-table th[data-sortable="true"] { cursor: pointer; user-select: none; }
 .twc-table th[data-sortable="true"]:hover { color: var(--color-text); }

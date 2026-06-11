@@ -61,12 +61,12 @@ const CUR_CSS = `
   background: var(--color-surface-sunken); color: var(--color-text-muted);
   font-size: var(--text-sm); font-weight: var(--font-semibold); white-space: nowrap; flex: none;
 }
-.twc-cur__sym { border-right: var(--border-thin) solid var(--color-border); }
-.twc-cur__code { border-left: var(--border-thin) solid var(--color-border); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+.twc-cur__sym { border-inline-end: var(--border-thin) solid var(--color-border); }
+.twc-cur__code { border-inline-start: var(--border-thin) solid var(--color-border); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
 .twc-cur__el {
   flex: 1; min-width: 0; border: none; outline: none; background: transparent;
   font-family: inherit; font-size: var(--text-sm); color: var(--color-text);
-  text-align: right; padding: 0 var(--space-3); font-variant-numeric: tabular-nums;
+  text-align: end; padding: 0 var(--space-3); font-variant-numeric: tabular-nums;
 }
 .twc-cur__el:focus, .twc-cur__el:focus-visible { outline: none; box-shadow: none; }
 .twc-cur__el::placeholder { color: var(--color-text-subtle); }

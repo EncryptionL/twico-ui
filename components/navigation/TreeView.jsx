@@ -3,9 +3,9 @@ import React from "react";
 const TREE_CSS = `
 .twc-tree { font-family: var(--font-sans); font-size: var(--text-sm); user-select: none; }
 .twc-tree__group { list-style: none; margin: 0; padding: 0; }
-.twc-tree__group--child { margin-left: 0; overflow: hidden; }
+.twc-tree__group--child { margin-inline-start: 0; overflow: hidden; }
 .twc-tree__row { display: flex; align-items: center; gap: 6px; width: 100%; border: none; background: none; font: inherit; cursor: pointer;
-  color: var(--color-text); text-align: left; padding: 6px 8px; border-radius: var(--radius-md);
+  color: var(--color-text); text-align: start; padding: 6px 8px; border-radius: var(--radius-md);
   transition: background-color var(--duration-fast) var(--ease-standard); }
 .twc-tree__row:hover { background: var(--color-surface-sunken); }
 .twc-tree__row:focus-visible { outline: none; box-shadow: var(--ring); }

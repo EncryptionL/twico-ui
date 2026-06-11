@@ -13,9 +13,10 @@ const CAROUSEL_CSS = `
 .twc-carousel__arrow:hover { background: var(--color-surface); }
 .twc-carousel__arrow:active { transform: translateY(-50%) scale(0.9); }
 .twc-carousel__arrow:disabled { opacity: 0; pointer-events: none; }
-.twc-carousel__arrow[data-dir="prev"] { left: 12px; }
-.twc-carousel__arrow[data-dir="next"] { right: 12px; }
+.twc-carousel__arrow[data-dir="prev"] { inset-inline-start: 12px; }
+.twc-carousel__arrow[data-dir="next"] { inset-inline-end: 12px; }
 .twc-carousel__arrow svg { width: 18px; height: 18px; }
+[dir="rtl"] .twc-carousel__arrow svg { transform: scaleX(-1); }
 .twc-carousel__dots { display: flex; justify-content: center; gap: 7px; margin-top: var(--space-3); }
 .twc-carousel__dot { width: 8px; height: 8px; border-radius: var(--radius-full); border: none; padding: 0; cursor: pointer;
   background: var(--color-border-strong); transition: width var(--duration-base) var(--ease-spring), background-color var(--duration-fast); }

@@ -8,6 +8,7 @@ const BREADCRUMB_CSS = `
 .twc-breadcrumb__item svg { width: 15px; height: 15px; flex: none; }
 .twc-breadcrumb__sep { display: inline-flex; align-items: center; color: var(--color-text-subtle); pointer-events: none; }
 .twc-breadcrumb__sep svg { width: 15px; height: 15px; }
+[dir="rtl"] .twc-breadcrumb__sep svg { transform: scaleX(-1); }
 .twc-breadcrumb__ellipsis { border: none; background: transparent; cursor: pointer; color: var(--color-text-subtle); padding: 3px 7px; border-radius: var(--radius-sm); font: inherit; }
 .twc-breadcrumb__ellipsis:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 `;

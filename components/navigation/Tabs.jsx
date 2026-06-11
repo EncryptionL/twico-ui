@@ -40,11 +40,11 @@ const TABS_CSS = `
 .twc-tabs[data-orientation="vertical"] { display: flex; gap: var(--space-4); align-items: flex-start; }
 .twc-tabs[data-orientation="vertical"] .twc-tabs__list {
   flex-direction: column; gap: 2px;
-  border-bottom: none; border-right: var(--border-thin) solid var(--color-border);
+  border-bottom: none; border-inline-end: var(--border-thin) solid var(--color-border);
 }
 .twc-tabs[data-orientation="vertical"] .twc-tab { justify-content: flex-start; }
 .twc-tabs[data-orientation="vertical"][data-variant="pill"] .twc-tabs__list {
-  display: inline-flex; flex-direction: column; border-right: none;
+  display: inline-flex; flex-direction: column; border-inline-end: none;
 }
 .twc-tabs[data-orientation="vertical"] .twc-tabs__indicator {
   bottom: auto; left: auto; right: -1px; width: 2.5px; height: auto;

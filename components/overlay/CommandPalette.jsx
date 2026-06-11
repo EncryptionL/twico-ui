@@ -25,7 +25,7 @@ const COMMAND_CSS = `
 .twc-cmdk__list { flex: 1; overflow-y: auto; padding: var(--space-2); }
 .twc-cmdk__group-label { font-size: 10px; font-weight: var(--font-bold); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--color-text-subtle); padding: var(--space-3) var(--space-3) var(--space-1); }
 .twc-cmdk__item { display: flex; align-items: center; gap: var(--space-3); width: 100%; padding: 10px 12px; border: none; background: none; cursor: pointer;
-  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); text-align: left; border-radius: var(--radius-md); }
+  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); text-align: start; border-radius: var(--radius-md); }
 .twc-cmdk__item[data-active="true"] { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); }
 .twc-cmdk__item-ic { flex: none; display: inline-flex; color: var(--color-text-muted); }
 .twc-cmdk__item[data-active="true"] .twc-cmdk__item-ic { color: var(--color-primary); }
