@@ -53,6 +53,7 @@ export default function ComponentPage() {
 
   const Demo = demoComponentFor(comp.name);
   const importLine = `import { ${comp.importName} } from "twico-ui";`;
+  const importLineTs = `${importLine}\nimport type { ${comp.name}Props } from "twico-ui";`;
   const { prev, next } = adjacent(comp.name);
 
   return (
@@ -65,7 +66,7 @@ export default function ComponentPage() {
 
       <Stack as="section" gap={3}>
         <Heading level={2} id="import">Import</Heading>
-        <CodeBlock code={importLine} />
+        <CodeBlock code={importLine} tsCode={importLineTs} />
       </Stack>
 
       <Stack as="section" gap={3}>

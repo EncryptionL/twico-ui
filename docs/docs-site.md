@@ -33,6 +33,9 @@ site/
   examples loaded from `<Name>Variations.jsx`, each with its own preview + copyable code), and a
   **props table**. The "Variations" heading renders synchronously so the on-this-page TOC finds it.
 - Code is highlighted with `prism-react-renderer` (bundled, not a CDN).
+- A header **JS / TS** toggle (`CodeLang.jsx` context, persisted via `useLocalStorage`) switches every
+  code block: highlighting (`jsx`↔`tsx`), file extensions in setup snippets (`.jsx`↔`.tsx`), the
+  `import type { … }` line on component pages, and any block's explicit `tsCode` variant.
 - Dark mode toggles the `.dark` class on `<html>` and persists to `localStorage`.
 
 ## Regenerating the component reference

@@ -1,10 +1,16 @@
 import React from "react";
 import { Highlight, themes } from "prism-react-renderer";
 import { Box, Button, useCopyToClipboard } from "twico-ui";
+import { useCodeLang, toTs } from "./CodeLang.jsx";
 
-export default function CodeBlock({ code, language = "jsx" }) {
+export default function CodeBlock({ code, tsCode, language = "jsx" }) {
   const { copied, copy } = useCopyToClipboard();
-  const source = (code || "").replace(/\n+$/, "");
+  const { lang } = useCodeLang();
+  const isTs = lang === "ts";
+  // TS view: an explicit tsCode if given, otherwise the JS snippet with .jsx -> .tsx.
+  const raw = isTs ? (tsCode != null ? tsCode : toTs(code)) : code;
+  const source = String(raw || "").replace(/\n+$/, "");
+  const hlLang = language === "jsx" || language === "tsx" ? (isTs ? "tsx" : "jsx") : language;
 
   return (
     <Box
@@ -22,7 +28,7 @@ export default function CodeBlock({ code, language = "jsx" }) {
           {copied ? "Copied!" : "Copy"}
         </Button>
       </Box>
-      <Highlight code={source} language={language} theme={themes.nightOwl}>
+      <Highlight code={source} language={hlLang} theme={themes.nightOwl}>
         {({ style, tokens, getLineProps, getTokenProps }) => (
           <pre style={{ ...style, background: "transparent", margin: 0, padding: "16px 20px", overflowX: "auto", textAlign: "left", fontFamily: "var(--font-mono)", fontSize: "var(--text-sm)", lineHeight: 1.6 }}>
             {tokens.map((line, i) => (

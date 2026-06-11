@@ -52,7 +52,7 @@ export default function App() {
           boundary, so it drops straight into Server Components without extra wrapping.
         </Text>
         <CodeBlock
-          code={`// app/layout.tsx
+          code={`// app/layout.jsx
 import "twico-ui/styles.css";
 
 export default function RootLayout({ children }) {
@@ -62,9 +62,19 @@ export default function RootLayout({ children }) {
     </html>
   );
 }`}
+          tsCode={`// app/layout.tsx
+import "twico-ui/styles.css";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}`}
         />
         <CodeBlock
-          code={`// app/page.tsx — a Server Component, no "use client" needed
+          code={`// app/page.jsx — a Server Component, no "use client" needed
 import { Stat, Button } from "twico-ui";
 
 export default function Page() {
@@ -81,10 +91,17 @@ export default function Page() {
       <Stack as="section" gap={3}>
         <Heading level={2} id="next-pages">Next.js — Pages Router</Heading>
         <CodeBlock
-          code={`// pages/_app.tsx
+          code={`// pages/_app.jsx
 import "twico-ui/styles.css";
 
 export default function App({ Component, pageProps }) {
+  return <Component {...pageProps} />;
+}`}
+          tsCode={`// pages/_app.tsx
+import "twico-ui/styles.css";
+import type { AppProps } from "next/app";
+
+export default function App({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;
 }`}
         />

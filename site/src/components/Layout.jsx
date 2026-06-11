@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar.jsx";
 import ThemeToggle from "./ThemeToggle.jsx";
 import TableOfContents from "./TableOfContents.jsx";
 import PageTransition from "./PageTransition.jsx";
+import { CodeLangToggle } from "./CodeLang.jsx";
 import { REPO_URL, NPM_URL, CHANGELOG_URL } from "../data/site.js";
 
 const HEADER_H = 64;
@@ -56,6 +57,7 @@ export default function Layout() {
               <Button variant="ghost" size="sm" onClick={() => window.open(NPM_URL, "_blank", "noopener,noreferrer")}>npm</Button>
             </>
           ) : null}
+          {!isMobile && !isHome ? <CodeLangToggle /> : null}
           <IconButton variant="ghost" aria-label="GitHub repository" icon={GithubIcon} onClick={() => window.open(REPO_URL, "_blank", "noopener,noreferrer")} />
           <ThemeToggle />
         </Stack>
