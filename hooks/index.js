@@ -126,22 +126,41 @@ export function useColorScheme({ storageKey = "twico-theme", attribute = "class"
   useIsomorphicLayoutEffect(() => {
     apply(theme);
   }, [theme, apply]);
+  const themeRef = React.useRef(theme);
+  useIsomorphicLayoutEffect(() => {
+    themeRef.current = theme;
+  }, [theme]);
+
   const setTheme = React.useCallback(
     (t) => {
       setThemeState(t);
       try {
         if (canUseDOM) window.localStorage.setItem(storageKey, t);
       } catch (e) {}
+      // Notify every other useColorScheme instance (e.g. a page toggle + the navbar).
+      if (canUseDOM) window.dispatchEvent(new Event("twico:colorscheme"));
     },
     [storageKey]
   );
-  const toggle = React.useCallback(() => setThemeState((prev) => {
-    const next = prev === "dark" ? "light" : "dark";
-    try {
-      if (canUseDOM) window.localStorage.setItem(storageKey, next);
-    } catch (e) {}
-    return next;
-  }), [storageKey]);
+  const toggle = React.useCallback(() => {
+    setTheme(themeRef.current === "dark" ? "light" : "dark");
+  }, [setTheme]);
+
+  // Keep every instance — and other tabs — in sync with the active theme.
+  React.useEffect(() => {
+    if (!canUseDOM) return undefined;
+    const sync = () => setThemeState(read());
+    const onStorage = (e) => {
+      if (e.key === storageKey) sync();
+    };
+    window.addEventListener("twico:colorscheme", sync);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener("twico:colorscheme", sync);
+      window.removeEventListener("storage", onStorage);
+    };
+  }, [storageKey]);
+
   return { theme, setTheme, toggle, isDark: theme === "dark" };
 }
 
