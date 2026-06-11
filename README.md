@@ -162,7 +162,7 @@ npm publish          # prepublishOnly runs the build automatically
 - A post-build step (`scripts/add-use-client.mjs`) prepends the `"use client"` directive to the bundles (a tsup `banner` is stripped by esbuild), so the package imports cleanly into Next.js App Router Server Components.
 - `react` / `react-dom` stay external (peer deps).
 
-See [`DESIGN-SYSTEM.md`](./DESIGN-SYSTEM.md) for the full design guide (tokens, voice, visual foundations, iconography).
+See [`DESIGN-SYSTEM.md`](./DESIGN-SYSTEM.md) for the full design guide (tokens, voice, visual foundations, iconography). Contributor/developer docs (architecture, releases, security, the docs site) live in [`docs/`](./docs/); the security policy is in [`SECURITY.md`](./SECURITY.md).
 
 ### Versioning & releases
 
@@ -182,7 +182,7 @@ Write [Conventional Commits](https://www.conventionalcommits.org/) and the versi
 
 On each push to `main`, semantic-release picks the next version, publishes to **npm** (with provenance), tags **`vX.Y.Z`**, writes **`CHANGELOG.md`**, bumps `package.json`, and opens a **GitHub Release**. A push with no release-worthy commits does nothing.
 
-> The repo's `package.json` version stays `0.0.0-development` — the real version lives in the git tags and on npm. Requires an `NPM_TOKEN` repository secret (an npm automation token). If you enable branch protection on `main`, allow the release bot to push the changelog commit (or run semantic-release with a personal access token).
+> **Version stays in sync automatically.** On every release the bot commits the bumped `package.json` (and `CHANGELOG.md`) back to `main`, so the `package.json` version on `main` always matches the latest version published to npm — they never drift. Requires an `NPM_TOKEN` repository secret (an npm automation token). If you enable branch protection on `main`, allow the release bot to push the changelog commit (or run semantic-release with a personal access token).
 
 ## License
 

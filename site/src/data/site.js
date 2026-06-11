@@ -16,6 +16,7 @@ export const GETTING_STARTED = [
 
 export const REPO_URL = "https://github.com/EncryptionL/twico-ui";
 export const NPM_URL = "https://www.npmjs.com/package/twico-ui";
+export const CHANGELOG_URL = "https://github.com/EncryptionL/twico-ui/releases";
 
 export const slugify = (name) => name.toLowerCase();
 
