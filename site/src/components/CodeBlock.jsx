@@ -14,6 +14,7 @@ export default function CodeBlock({ code, language = "jsx" }) {
         border: "1px solid var(--color-border)",
         borderRadius: "var(--radius-lg)",
         overflow: "hidden",
+        colorScheme: "dark", // the code surface is always dark — keep its scrollbar dark too
       }}
     >
       <Box style={{ position: "absolute", top: 8, right: 8, zIndex: 1 }}>
