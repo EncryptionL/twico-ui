@@ -1,0 +1,29 @@
+<!-- @dsCard group="Spacing" viewport="700x170" name="Elevation" subtitle="Soft, slate-tinted shadows — xs to xl + brand glow" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-sans); padding: 26px; }
+  .row { display: flex; gap: 24px; align-items: center; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .box { width: 78px; height: 60px; background: var(--color-surface); border-radius: var(--radius-lg); }
+  .lbl { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-subtle); }
+</style>
+</head>
+<body>
+<div class="row" id="r"></div>
+<script>
+  const tokens = ["xs","sm","md","lg","xl","brand"];
+  const r = document.getElementById('r');
+  tokens.forEach(t => {
+    const item = document.createElement('div'); item.className = 'item';
+    const box = document.createElement('div'); box.className = 'box';
+    box.style.boxShadow = `var(--shadow-${t})`;
+    const lbl = document.createElement('div'); lbl.className = 'lbl'; lbl.textContent = 'shadow-' + t;
+    item.appendChild(box); item.appendChild(lbl); r.appendChild(item);
+  });
+</script>
+</body>
+</html>

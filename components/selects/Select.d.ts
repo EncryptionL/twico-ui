@@ -1,0 +1,50 @@
+import * as React from "react";
+
+/**
+ * Custom select with a rounded popover (no native browser dropdown). Supports
+ * grouped options and two-line (title + subtitle) options. Keyboard navigable.
+ *
+ * @startingPoint section="Selects" subtitle="Custom select with grouped options" viewport="700x160"
+ */
+export interface SelectProps extends Omit<React.HTMLAttributes<HTMLButtonElement>, "onChange" | "defaultValue"> {
+  label?: React.ReactNode;
+  hint?: React.ReactNode;
+  error?: React.ReactNode;
+  required?: boolean;
+  size?: "sm" | "md" | "lg";
+  placeholder?: string;
+  /** Placeholder for the in-popover search box. @default "Search…" */
+  searchPlaceholder?: string;
+  /** Show a search box inside the dropdown to filter options. Omit to auto-enable when there are >5 options. */
+  searchable?: boolean;
+  /** Options — strings, {value,label,description}, or {group,options} groups. */
+  options: Array<string | SelectOption | SelectGroup>;
+  /** Controlled selected value. */
+  value?: string | null;
+  /** Uncontrolled initial value. */
+  defaultValue?: string | null;
+  onChange?: (value: string) => void;
+  disabled?: boolean;
+  /** Open the menu upward instead of down (e.g. near a viewport bottom). @default "bottom" */
+  placement?: "bottom" | "top";
+  /** Render the dropdown in a portal (position:fixed on document.body) so it is never clipped by a
+   *  scrolling/overflow-hidden ancestor; auto-flips up near the viewport bottom. @default false */
+  portal?: boolean;
+  /** Minimum popover width in px when portaled (useful when the trigger is narrow). @default 0 */
+  minWidth?: number;
+}
+
+export interface SelectOption {
+  value: string;
+  label: string;
+  /** Optional second line shown under the label. */
+  description?: string;
+}
+
+/** A group heading with its own options. */
+export interface SelectGroup {
+  group: string;
+  options: Array<string | SelectOption>;
+}
+
+export function Select(props: SelectProps): React.JSX.Element;

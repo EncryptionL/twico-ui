@@ -1,0 +1,49 @@
+name: CI
+
+# Runs on the dev integration branch and on PRs into dev/main.
+# Publishing is handled separately and ONLY from main (see publish.yml).
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+      - main
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build & type-check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Assert "use client" banner survived bundling
+        run: |
+          head -1 dist/index.mjs | grep -q '"use client"' || { echo "::error::dist/index.mjs is missing the \"use client\" directive"; exit 1; }
+          head -1 dist/index.cjs | grep -q '"use client"' || { echo "::error::dist/index.cjs is missing the \"use client\" directive"; exit 1; }
+          echo "✓ both bundles start with \"use client\""
+
+      - name: Verify package contents
+        run: npm pack --dry-run

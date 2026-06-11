@@ -1,0 +1,40 @@
+<!-- @dsCard group="Colors" viewport="700x170" name="Semantic tones" subtitle="Success · Warning · Danger · Info — solid + soft pairings" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--color-surface); font-family: var(--font-sans); padding: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .tone { display: flex; flex-direction: column; gap: 6px; }
+  .solid { height: 50px; border-radius: var(--radius-md) var(--radius-md) 0 0; display: flex; align-items: center; padding: 0 12px; font-weight: 700; font-size: 13px; }
+  .soft { height: 34px; border-radius: 0 0 var(--radius-md) var(--radius-md); display: flex; align-items: center; padding: 0 12px; font-weight: 600; font-size: 12px; }
+  .name { font-size: 11px; font-weight: 700; color: var(--color-text); letter-spacing: 0.02em; }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="tone">
+    <span class="name">SUCCESS</span>
+    <div class="solid" style="background:var(--color-success);color:var(--color-success-fg)">#10B981</div>
+    <div class="soft" style="background:var(--color-success-subtle);color:var(--color-success-subtle-fg)">subtle</div>
+  </div>
+  <div class="tone">
+    <span class="name">WARNING</span>
+    <div class="solid" style="background:var(--color-warning);color:var(--color-warning-fg)">#F59E0B</div>
+    <div class="soft" style="background:var(--color-warning-subtle);color:var(--color-warning-subtle-fg)">subtle</div>
+  </div>
+  <div class="tone">
+    <span class="name">DANGER</span>
+    <div class="solid" style="background:var(--color-danger);color:var(--color-danger-fg)">#F43F5E</div>
+    <div class="soft" style="background:var(--color-danger-subtle);color:var(--color-danger-subtle-fg)">subtle</div>
+  </div>
+  <div class="tone">
+    <span class="name">INFO</span>
+    <div class="solid" style="background:var(--color-info);color:var(--color-info-fg)">#0EA5E9</div>
+    <div class="soft" style="background:var(--color-info-subtle);color:var(--color-info-subtle-fg)">subtle</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!-- @dsCard group="Components" viewport="900x440" name="Kanban board" subtitle="Drag cards between columns — tags, avatars, counts" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Kanban — Twico UI</title>
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); padding: 24px; font-family: var(--font-sans); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { Kanban, Avatar, Badge } = window.TwicoUiDesignSystem_f2f16a;
+  function Demo() {
+    const columns = [
+      { id: "todo", title: "To do", color: "var(--slate-400)" },
+      { id: "doing", title: "In progress", color: "var(--amber-500)" },
+      { id: "review", title: "Review", color: "var(--sky-500)" },
+      { id: "done", title: "Done", color: "var(--emerald-500)" },
+    ];
+    const [cards, setCards] = React.useState([
+      { id: "1", column: "todo", title: "Define color tokens", description: "Brand + semantic scales.", tags: ["Design"], footer: <Avatar name="Ada Park" size="xs" /> },
+      { id: "2", column: "todo", title: "Audit a11y on forms", tags: ["A11y"], footer: <Avatar name="Sam Lee" size="xs" /> },
+      { id: "3", column: "doing", title: "Datatable filters", description: "Multi-value “is any of”.", tags: ["Eng"], footer: <Avatar name="Jo Kim" size="xs" /> },
+      { id: "4", column: "review", title: "Dark mode pass", tags: ["Design"], footer: <Avatar name="Wade W" size="xs" /> },
+      { id: "5", column: "done", title: "Ship Button v2", tags: ["Eng"], footer: <Badge tone="success" dot>Live</Badge> },
+    ]);
+    return <Kanban columns={columns} cards={cards} onCardMove={(id, to, next) => setCards(next)} />;
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>

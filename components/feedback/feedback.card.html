@@ -1,0 +1,59 @@
+<!-- @dsCard group="Components" viewport="700x460" name="Feedback" subtitle="Alert · Spinner · Progress · Skeleton · Toast" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Feedback — Twico UI</title>
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); padding: 24px; font-family: var(--font-sans); }
+  .grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 18px; align-items: start; }
+  .stack { display: flex; flex-direction: column; gap: 12px; }
+  .row { display: flex; align-items: center; gap: 18px; }
+  .lbl { font-size: var(--text-xs); font-weight: 600; letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--color-text-subtle); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { Alert, Spinner, Progress, Skeleton, Toast } = window.TwicoUiDesignSystem_f2f16a;
+
+  function Demo() {
+    return (
+      <div className="grid">
+        <div className="stack">
+          <Alert tone="success" title="Deployment complete" onClose={() => {}}>Your site is live at twico.dev.</Alert>
+          <Alert tone="warning" title="Trial ending soon">3 days left on your free trial.</Alert>
+          <Alert tone="danger">Could not connect to the server.</Alert>
+          <Toast tone="info" title="New comment" onClose={() => {}}>Ada mentioned you in “Roadmap”.</Toast>
+        </div>
+        <div className="stack" style={{ gap: 18 }}>
+          <div className="row">
+            <span className="lbl">Spinners</span>
+            <Spinner size="sm" /><Spinner /><Spinner size="lg" />
+          </div>
+          <div className="stack" style={{ gap: 10 }}>
+            <span className="lbl">Progress</span>
+            <Progress value={72} showLabel />
+            <Progress value={90} tone="success" />
+            <Progress indeterminate />
+          </div>
+          <div className="stack" style={{ gap: 10 }}>
+            <span className="lbl">Skeleton</span>
+            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+              <Skeleton variant="circle" width={40} height={40} />
+              <div style={{ flex: 1 }}><Skeleton variant="text" lines={2} /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>

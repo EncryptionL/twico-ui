@@ -1,0 +1,46 @@
+/* ============================================================
+   Twico UI — Radius, borders & elevation
+   No pointy corners — everything rounds.
+   ============================================================ */
+
+:root {
+  /* Corner radii — base control radius is --radius-md (10px) */
+  --radius-xs:   4px;
+  --radius-sm:   6px;
+  --radius-md:   10px;   /* buttons, inputs, selects, badges */
+  --radius-lg:   14px;   /* cards, popovers, menus */
+  --radius-xl:   18px;   /* large cards, sheets */
+  --radius-2xl:  24px;   /* hero panels, modals */
+  --radius-full: 9999px; /* pills, avatars, switches */
+
+  /* Border widths */
+  --border-thin:   1px;
+  --border-medium: 1.5px;
+  --border-thick:  2px;
+
+  /* Elevation — soft, slate-tinted, crisp (light) */
+  --shadow-xs: 0 1px 2px 0 rgb(15 23 42 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(15 23 42 / 0.08), 0 1px 2px -1px rgb(15 23 42 / 0.06);
+  --shadow-md: 0 4px 12px -2px rgb(15 23 42 / 0.10), 0 2px 6px -2px rgb(15 23 42 / 0.06);
+  --shadow-lg: 0 12px 28px -6px rgb(15 23 42 / 0.14), 0 4px 10px -4px rgb(15 23 42 / 0.08);
+  --shadow-xl: 0 24px 48px -12px rgb(15 23 42 / 0.20), 0 8px 16px -8px rgb(15 23 42 / 0.10);
+
+  /* Brand-tinted glow (primary buttons on hover, focus accents) */
+  --shadow-brand: 0 8px 24px -6px rgb(99 102 241 / 0.45);
+
+  /* Focus ring (composable as box-shadow) */
+  --ring-width: 3px;
+  --ring: 0 0 0 var(--ring-width) var(--color-ring);
+  --ring-offset: 0 0 0 2px var(--color-surface), 0 0 0 5px var(--color-ring);
+}
+
+/* Deeper, darker elevation in dark mode */
+.dark,
+[data-theme="dark"] {
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.30);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.40), 0 1px 2px -1px rgb(0 0 0 / 0.30);
+  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.50), 0 2px 6px -2px rgb(0 0 0 / 0.40);
+  --shadow-lg: 0 12px 28px -6px rgb(0 0 0 / 0.60), 0 4px 10px -4px rgb(0 0 0 / 0.45);
+  --shadow-xl: 0 24px 48px -12px rgb(0 0 0 / 0.70), 0 8px 16px -8px rgb(0 0 0 / 0.50);
+  --shadow-brand: 0 8px 28px -6px rgb(99 102 241 / 0.60);
+}

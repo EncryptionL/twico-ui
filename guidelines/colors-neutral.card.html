@@ -1,0 +1,29 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Neutrals — Slate" subtitle="Slate scale for text, borders, and surfaces" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--color-surface); font-family: var(--font-sans); padding: 20px; }
+  .scale { display: grid; grid-template-columns: repeat(11, 1fr); gap: 6px; }
+  .sw { border-radius: var(--radius-md); height: 64px; box-shadow: var(--shadow-xs); border: 1px solid var(--color-border); }
+  .cap { font-size: 10px; font-weight: 600; color: var(--color-text-muted); text-align: center; margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .step { display: flex; flex-direction: column; }
+</style>
+</head>
+<body>
+<div class="scale" id="s"></div>
+<script>
+  const steps = [50,100,200,300,400,500,600,700,800,900,950];
+  const s = document.getElementById('s');
+  steps.forEach(n => {
+    const wrap = document.createElement('div'); wrap.className = 'step';
+    const sw = document.createElement('div'); sw.className = 'sw';
+    sw.style.background = `var(--slate-${n})`;
+    const cap = document.createElement('div'); cap.className = 'cap'; cap.textContent = n;
+    wrap.appendChild(sw); wrap.appendChild(cap); s.appendChild(wrap);
+  });
+</script>
+</body>
+</html>

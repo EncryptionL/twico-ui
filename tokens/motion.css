@@ -1,0 +1,78 @@
+/* ============================================================
+   Twico UI — Motion tokens & keyframes
+   Lively: spring entrances, gentle press-scale, ripples.
+   ============================================================ */
+
+:root {
+  /* Durations */
+  --duration-instant: 80ms;  /* @kind other */
+  --duration-fast:    140ms; /* @kind other */
+  --duration-base:    220ms; /* @kind other */
+  --duration-slow:    320ms; /* @kind other */
+  --duration-slower:  480ms; /* @kind other */
+
+  /* Easing curves */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);   /* @kind other */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);  /* @kind other */
+  --ease-in:       cubic-bezier(0.4, 0, 1, 1);     /* @kind other */
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */
+  --ease-emphasis: cubic-bezier(0.2, 0.8, 0.2, 1); /* @kind other */
+
+  /* Press feedback */
+  --press-scale: 0.96; /* @kind other */
+}
+
+/* ---- Keyframes ---- */
+@keyframes twico-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes twico-scale-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes twico-pop-in {
+  0%   { opacity: 0; transform: scale(0.85); }
+  60%  { opacity: 1; transform: scale(1.03); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes twico-slide-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes twico-slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes twico-slide-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes twico-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes twico-ripple {
+  to { transform: scale(2.6); opacity: 0; }
+}
+
+@keyframes twico-shimmer {
+  100% { transform: translateX(100%); }
+}
+
+@keyframes twico-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+
+@keyframes twico-progress-indeterminate {
+  0%   { left: -40%; right: 100%; }
+  60%  { left: 100%; right: -90%; }
+  100% { left: 100%; right: -90%; }
+}

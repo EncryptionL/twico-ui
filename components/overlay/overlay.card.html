@@ -1,0 +1,66 @@
+<!-- @dsCard group="Components" viewport="700x380" name="Tooltip · Menu · Dialog" subtitle="Overlays — hover tooltip, dropdown menu, and a modal dialog" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Overlays — Twico UI</title>
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="../../assets/twico-icons.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-sans); }
+  .stage { position: relative; min-height: 380px; padding: 24px; }
+  .bar { display: flex; gap: 12px; align-items: center; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { Tooltip, Menu, Dialog, Button, IconButton } = window.TwicoUiDesignSystem_f2f16a;
+  const Icon = window.TwicoIcon;
+
+  function Demo() {
+    const [open, setOpen] = React.useState(true);
+    return (
+      <div className="stage">
+        <div className="bar">
+          <Tooltip label="Copy link" placement="top">
+            <IconButton aria-label="Copy" variant="outline" icon={<Icon name="Link" />} />
+          </Tooltip>
+          <Menu
+            trigger={<Button variant="outline" rightIcon={<Icon name="ChevronDown" size={16} />}>Options</Button>}
+            items={[
+              { label: "Account", heading: true },
+              { label: "Profile", icon: <Icon name="User" size={16} />, shortcut: "⌘P" },
+              { label: "Billing", icon: <Icon name="CreditCard" size={16} /> },
+              { separator: true },
+              { label: "Sign out", icon: <Icon name="LogOut" size={16} />, danger: true },
+            ]}
+          />
+          <Button onClick={() => setOpen(true)} leftIcon={<Icon name="Trash2" size={16} />} variant="soft">Delete…</Button>
+        </div>
+
+        <Dialog
+          open={open}
+          onClose={() => setOpen(false)}
+          title="Delete project?"
+          description="This permanently removes “Marketing site” and all of its data."
+          footer={<>
+            <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button variant="danger" onClick={() => setOpen(false)}>Delete project</Button>
+          </>}
+        >
+          You have 3 deployments and 12 assets that will be lost. This action cannot be undone.
+        </Dialog>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>

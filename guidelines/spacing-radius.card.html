@@ -1,0 +1,31 @@
+<!-- @dsCard group="Spacing" viewport="700x150" name="Corner radii" subtitle="No pointy corners — xs (4px) to 2xl (24px) + full" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--color-surface); color: var(--color-text); font-family: var(--font-sans); padding: 22px; }
+  .row { display: flex; gap: 16px; align-items: flex-start; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .box { width: 72px; height: 72px; background: var(--color-primary-subtle); border: 1.5px solid var(--color-primary-border); }
+  .lbl { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-subtle); }
+  .px { font-size: 11px; font-weight: 700; color: var(--color-text-muted); }
+</style>
+</head>
+<body>
+<div class="row" id="r"></div>
+<script>
+  const tokens = [["xs","4px"],["sm","6px"],["md","10px"],["lg","14px"],["xl","18px"],["2xl","24px"],["full","∞"]];
+  const r = document.getElementById('r');
+  tokens.forEach(([t, px]) => {
+    const item = document.createElement('div'); item.className = 'item';
+    const box = document.createElement('div'); box.className = 'box';
+    box.style.borderRadius = `var(--radius-${t})`;
+    const lbl = document.createElement('div'); lbl.className = 'lbl'; lbl.textContent = 'radius-' + t;
+    const px2 = document.createElement('div'); px2.className = 'px'; px2.textContent = px;
+    item.appendChild(box); item.appendChild(px2); item.appendChild(lbl); r.appendChild(item);
+  });
+</script>
+</body>
+</html>

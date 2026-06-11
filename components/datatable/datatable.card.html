@@ -1,0 +1,150 @@
+<!-- @dsCard group="Components" viewport="900x600" name="Datatable" subtitle="Server-side MUI-style grid — sort, filter, hide, pin, reorder, resize, export, aggregation" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Datatable — Twico UI</title>
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="../../assets/twico-icons.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); padding: 20px; font-family: var(--font-sans); }
+  .bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .pill { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--color-primary-subtle-fg); background: var(--color-primary-subtle); padding: 4px 10px; border-radius: var(--radius-full); }
+  .hint { font-size: 12px; color: var(--color-text-subtle); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { Datatable, Badge, Avatar } = window.TwicoUiDesignSystem_f2f16a;
+  const Icon = window.TwicoIcon;
+
+  // ---- Fake backend (240 rows that never all reach the client at once) ----
+  const FIRST = ["Jane","Wade","Esther","Cameron","Brooklyn","Leslie","Guy","Jacob","Arlene","Devon","Floyd","Marvin","Bessie","Ralph","Kathryn","Jerome","Cody","Theresa","Dianne","Nathan"];
+  const LAST = ["Cooper","Warren","Howard","Williamson","Simmons","Alexander","Hawkins","Jones","McCoy","Lane","Miles","Black","Fox","Reed","Murphy","Bell","Cohen","Nguyen","Flores","Reyes"];
+  const ROLES = ["Admin","Editor","Viewer"], PLANS = ["Free","Pro","Team"], STATUS = ["Active","Invited","Suspended"];
+  const DB = Array.from({ length: 240 }, (_, i) => {
+    const f = FIRST[i % FIRST.length], l = LAST[(i * 7) % LAST.length];
+    return { id: i + 1, name: `${f} ${l}`, email: `${f.toLowerCase()}.${l.toLowerCase()}${i}@twico.dev`,
+      role: ROLES[i % 3], plan: PLANS[(i * 2) % 3], status: STATUS[i % 3], mrr: [0,12,29,49][(i*3)%4], seats: (i % 12) + 1 };
+  });
+
+  function matchOp(raw, op, val, type) {
+    if (op === "isEmpty") return raw == null || raw === "";
+    if (op === "isNotEmpty") return !(raw == null || raw === "");
+    if (op === "isAnyOf") return !Array.isArray(val) || val.length === 0 || val.map(String).includes(String(raw));
+    if (val === "" || val == null) return true;
+    if (type === "number") { const a = +raw, b = +val;
+      return ({ "=":a===b, "!=":a!==b, ">":a>b, ">=":a>=b, "<":a<b, "<=":a<=b })[op]; }
+    const s = String(raw ?? "").toLowerCase(), t = String(val).toLowerCase();
+    if (op === "equals") return s === t; if (op === "startsWith") return s.startsWith(t);
+    if (op === "endsWith") return s.endsWith(t); return s.includes(t);
+  }
+  const TYPE = { seats: "number", mrr: "number" };
+  function queryBackend({ page, pageSize, sort, filters, quickFilter }) {
+    let out = DB;
+    if (quickFilter) { const q = quickFilter.toLowerCase();
+      out = out.filter((r) => ["name","email","role","plan","status"].some((k) => String(r[k]).toLowerCase().includes(q))); }
+    for (const f of filters) out = out.filter((r) => matchOp(r[f.field], f.op, f.value, TYPE[f.field] || "string"));
+    if (sort) { out = [...out].sort((a, b) => { const av = a[sort.field], bv = b[sort.field];
+      const r = (TYPE[sort.field] === "number") ? av - bv : String(av).localeCompare(String(bv)); return sort.dir === "desc" ? -r : r; }); }
+    // Server computes ALL aggregation functions per field, so the footer honors whatever the user picks.
+    const stats = (key) => {
+      const nums = out.map((r) => r[key]).filter((v) => v != null);
+      const sum = nums.reduce((s, n) => s + n, 0);
+      return { sum, avg: nums.length ? Math.round((sum / nums.length) * 100) / 100 : 0, min: Math.min(...nums), max: Math.max(...nums), count: nums.length };
+    };
+    const agg = { seats: stats("seats"), mrr: stats("mrr") };
+    return { rows: out.slice(page * pageSize, page * pageSize + pageSize), total: out.length, agg };
+  }
+
+  const toneFor = (s) => s === "Active" ? "success" : s === "Invited" ? "info" : "danger";
+  const columns = [
+    { field: "name", headerName: "Member", width: 210, renderCell: (v) => (
+        <span style={{display:"inline-flex",alignItems:"center",gap:10}}><Avatar name={v} size="sm" /><strong style={{fontWeight:600}}>{v}</strong></span>) },
+    { field: "email", headerName: "Email", width: 250, editable: true },
+    { field: "role", headerName: "Role", width: 120, editable: true, editType: "select", valueOptions: ["Admin", "Editor", "Viewer"] },
+    { field: "plan", headerName: "Plan", width: 110, valueOptions: ["Free", "Pro", "Team"] },
+    { field: "status", headerName: "Status", width: 140, valueOptions: ["Active", "Invited", "Suspended"], renderCell: (v) => <Badge tone={toneFor(v)} dot>{v}</Badge> },
+    { field: "seats", headerName: "Seats", type: "number", width: 100, editable: true, aggregation: "sum" },
+    { field: "mrr", headerName: "MRR", type: "number", width: 110, aggregation: "sum", valueFormatter: (v) => `$${v}` },
+    { field: "actions", type: "actions", width: 124, pinned: "right", getActions: (row) => [
+      { icon: <Icon name="Pencil" size={16} />, label: "Edit", onClick: (r) => alert("Edit " + r.name) },
+      { icon: <Icon name="Mail" size={16} />, label: "Email", onClick: (r) => alert("Email " + r.email) },
+      { icon: <Icon name="Copy" size={16} />, label: "Duplicate", showInMenu: true, onClick: (r) => alert("Duplicate " + r.name) },
+      { icon: <Icon name="Ban" size={16} />, label: "Suspend", showInMenu: true, onClick: (r) => alert("Suspend " + r.name) },
+      { icon: <Icon name="Trash2" size={16} />, label: "Delete", showInMenu: true, danger: true, onClick: (r) => alert("Delete " + r.name) },
+    ] },
+  ];
+
+  function Demo() {
+    const [data, setData] = React.useState({ rows: [], total: 0, agg: {} });
+    const [loading, setLoading] = React.useState(true);
+    const reqId = React.useRef(0);
+    const onServerChange = React.useCallback((query) => {
+      const id = ++reqId.current;
+      setLoading(true);
+      // simulate network latency; ignore stale responses
+      setTimeout(() => { if (id !== reqId.current) return; setData(queryBackend(query)); setLoading(false); }, 650);
+    }, []);
+    const lastQuery = React.useRef({ page: 0, pageSize: 10, sort: null, filters: [], quickFilter: "" });
+    const onServerChangeTracked = React.useCallback((q) => { lastQuery.current = q; onServerChange(q); }, [onServerChange]);
+    // Commit an inline edit back to the “server”, then refetch the current page.
+    const onRowUpdate = React.useCallback((updated) => {
+      const i = DB.findIndex((r) => r.id === updated.id);
+      if (i !== -1) DB[i] = { ...DB[i], ...updated };
+      setData(queryBackend(lastQuery.current));
+    }, []);
+    // Apply one or more columns across many selected rows at once, then refetch the page.
+    const onBatchUpdate = React.useCallback((changedRows, patch) => {
+      const ids = new Set(changedRows.map((r) => r.id));
+      for (let i = 0; i < DB.length; i++) if (ids.has(DB[i].id)) DB[i] = { ...DB[i], ...patch };
+      setData(queryBackend(lastQuery.current));
+    }, []);
+    const batchActions = [
+      { icon: <Icon name="Mail" size={15} />, label: "Email", onClick: (keys, rows, clear) => { alert(`Email ${keys.length} member(s)`); } },
+      { icon: <Icon name="Download" size={15} />, label: "Export", onClick: (keys) => alert(`Export ${keys.length} row(s)`) },
+      { icon: <Icon name="Trash2" size={15} />, label: "Delete", danger: true, onClick: (keys, rows, clear) => { alert(`Delete ${keys.length} member(s)`); clear(); } },
+    ];
+    const [active, setActive] = React.useState(null);
+    return (
+      <div>
+        <div className="bar">
+          <span className="pill">Server-side</span>
+          <span className="hint">Toolbar: <b>Aggregation</b> — pick which columns total &amp; how (off by default) · <b>Pivot</b> — build your own rows × columns × values cross-tab · drag rows to reorder, drag a row's bottom edge to resize · ⋮ → Pin / Group by. {active ? <b>Selected: {active.field} = “{String(active.value)}”</b> : "240 rows server-side."}</span>
+        </div>
+        <Datatable
+          columns={columns}
+          rows={data.rows}
+          rowCount={data.total}
+          loading={loading}
+          serverMode
+          onServerChange={onServerChangeTracked}
+          onRowUpdate={onRowUpdate}
+          onBatchUpdate={onBatchUpdate}
+          aggregationValues={data.agg}
+          checkboxSelection
+          batchActions={batchActions}
+          selectionMode="cell"
+          rowPinning
+          rowReorder
+          rowResize
+          pivot={{ rows: ["role"], columns: ["status", "plan"], values: [{ field: "mrr", agg: "sum", label: "MRR", valueFormatter: (v) => `$${v.toLocaleString()}` }, { field: "seats", agg: "sum", label: "Seats" }] }}
+          onCellClick={(value, row, field) => setActive({ field, value })}
+          pageSize={10}
+          pageSizeOptions={[10, 25, 50, 100]}
+          height={400}
+          rowKey={(r) => r.id}
+        />
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>

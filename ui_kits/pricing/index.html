@@ -1,0 +1,109 @@
+<!-- @dsCard group="Pricing" viewport="1280x900" -->
+<!-- @startingPoint section="Pricing" subtitle="Pricing page — plan tiers, billing toggle, FAQ" viewport="1280x900" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pricing — Twico UI</title>
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="../../assets/twico-icons.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  html, body { height: 100%; }
+  body { margin: 0; font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); }
+  .pr { max-width: 1040px; margin: 0 auto; padding: 56px 24px 80px; }
+  .pr__head { text-align: center; margin-bottom: 32px; }
+  .pr__head h1 { font-size: clamp(32px, 5vw, 46px); font-weight: 800; letter-spacing: -0.03em; margin: 0 0 12px; }
+  .pr__head p { color: var(--color-text-muted); font-size: 17px; margin: 0 auto 24px; max-width: 520px; }
+  .pr__toggle { display: inline-flex; align-items: center; gap: 12px; font-size: 14px; }
+  .pr__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+  .pr__plan { background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-2xl); padding: 28px; display: flex; flex-direction: column; gap: 18px; position: relative; transition: transform var(--duration-base) var(--ease-spring), box-shadow var(--duration-base); }
+  .pr__plan:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .pr__plan[data-featured="true"] { border-color: var(--color-primary); box-shadow: var(--shadow-brand); }
+  .pr__pop { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); }
+  .pr__plan-name { font-size: var(--text-lg); font-weight: var(--font-bold); }
+  .pr__price { display: flex; align-items: baseline; gap: 4px; }
+  .pr__price b { font-size: 42px; font-weight: 800; letter-spacing: -0.03em; }
+  .pr__price span { color: var(--color-text-muted); font-size: 14px; }
+  .pr__features { display: flex; flex-direction: column; gap: 11px; margin: 0; padding: 0; list-style: none; }
+  .pr__feat { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--color-text-muted); }
+  .pr__feat svg { width: 18px; height: 18px; color: var(--color-success); flex: none; margin-top: 1px; }
+  .pr__feat[data-off="true"] { opacity: 0.5; }
+  .pr__feat[data-off="true"] svg { color: var(--color-text-subtle); }
+  .pr__faq { max-width: 680px; margin: 56px auto 0; }
+  .pr__faq h2 { text-align: center; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 22px; }
+  @media (max-width: 880px) { .pr__grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { Button, Badge, Switch, Accordion } = window.TwicoUiDesignSystem_f2f16a;
+  const Icon = window.TwicoIcon;
+
+  const PLANS = [
+    { name: "Free", monthly: 0, yearly: 0, blurb: "For side projects and trying things out.", cta: "Get started", variant: "outline",
+      feats: [["Up to 3 projects", 1], ["Community support", 1], ["1 GB storage", 1], ["Advanced analytics", 0], ["SSO & SAML", 0]] },
+    { name: "Pro", monthly: 12, yearly: 120, blurb: "For growing teams that ship often.", cta: "Start free trial", variant: "solid", featured: true,
+      feats: [["Unlimited projects", 1], ["Priority support", 1], ["50 GB storage", 1], ["Advanced analytics", 1], ["SSO & SAML", 0]] },
+    { name: "Team", monthly: 29, yearly: 290, blurb: "For organizations that need control.", cta: "Contact sales", variant: "outline",
+      feats: [["Everything in Pro", 1], ["Dedicated support", 1], ["Unlimited storage", 1], ["Advanced analytics", 1], ["SSO & SAML", 1]] },
+  ];
+
+  function App() {
+    const [yearly, setYearly] = React.useState(false);
+    return (
+      <div className="pr">
+        <div className="pr__head">
+          <h1>Simple, transparent pricing</h1>
+          <p>Start free, upgrade when you grow. No hidden fees — cancel anytime.</p>
+          <div className="pr__toggle">
+            <span style={{ fontWeight: yearly ? 400 : 700 }}>Monthly</span>
+            <Switch checked={yearly} onChange={(e) => setYearly(e.target.checked)} />
+            <span style={{ fontWeight: yearly ? 700 : 400 }}>Yearly</span>
+            <Badge tone="success" variant="soft">Save 17%</Badge>
+          </div>
+        </div>
+
+        <div className="pr__grid">
+          {PLANS.map((p) => (
+            <div className="pr__plan" key={p.name} data-featured={p.featured || undefined}>
+              {p.featured ? <span className="pr__pop"><Badge tone="primary" variant="solid">Most popular</Badge></span> : null}
+              <div className="pr__plan-name">{p.name}</div>
+              <div className="pr__price">
+                <b>${yearly ? Math.round(p.yearly / 12) : p.monthly}</b><span>/ mo</span>
+              </div>
+              <div style={{ fontSize: 14, color: "var(--color-text-muted)", marginTop: -8 }}>{p.blurb}</div>
+              <Button variant={p.variant} fullWidth size="lg">{p.cta}</Button>
+              <ul className="pr__features">
+                {p.feats.map(([f, on], i) => (
+                  <li className="pr__feat" key={i} data-off={!on || undefined}>
+                    <Icon name={on ? "Check" : "Minus"} /> {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="pr__faq">
+          <h2>Frequently asked questions</h2>
+          <Accordion items={[
+            { value: "1", label: "Is there really a free plan?", content: "Yes — the Free plan is free forever, no credit card required." },
+            { value: "2", label: "Can I change plans later?", content: "Absolutely. Upgrade or downgrade anytime; changes are prorated." },
+            { value: "3", label: "What payment methods do you accept?", content: "All major credit cards and invoicing on the Team plan." },
+            { value: "4", label: "Do you offer discounts?", content: "Yearly billing saves 17%, and we offer discounts for students and nonprofits." },
+          ]} defaultOpen={["1"]} />
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

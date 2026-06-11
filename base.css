@@ -1,0 +1,88 @@
+/* ============================================================
+   Twico UI — Base layer
+   Minimal, non-destructive resets + sensible element defaults.
+   Applies the brand font + semantic colors to the document.
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-feature-settings: "cv05" 1; /* single-storey a for Plus Jakarta */
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  font-weight: var(--font-normal);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: background-color var(--duration-base) var(--ease-standard),
+              color var(--duration-base) var(--ease-standard);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+}
+
+p { margin: 0; }
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+a:hover { color: var(--color-primary-hover); }
+
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* Keyboard focus ring for standalone interactive elements.
+   NOTE: text inputs / textarea / select are deliberately excluded — in Twico UI
+   every text field lives inside a bordered wrapper that shows focus via
+   :focus-within, so the bare control must NOT paint its own box ring (that was
+   the recurring "boxy purple outline" on search/command inputs). A field that is
+   genuinely standalone opts back in with its own higher-specificity :focus rule
+   (e.g. .twc-pagination__jump input, .twc-cp__hex). */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  box-shadow: none;
+}
+
+::selection {
+  background: var(--color-primary-subtle);
+  color: var(--color-primary-subtle-fg);
+}
+
+/* Honor reduced-motion globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

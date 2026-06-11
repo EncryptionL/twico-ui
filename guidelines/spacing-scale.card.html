@@ -1,0 +1,33 @@
+<!-- @dsCard group="Spacing" viewport="700x160" name="Spacing scale" subtitle="4px base grid — space-1 through space-16" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--color-surface); color: var(--color-text); font-family: var(--font-sans); padding: 22px; }
+  .row { display: flex; align-items: flex-end; gap: 14px; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .bar { background: var(--color-primary-subtle); border: 1px solid var(--color-primary-border); border-radius: var(--radius-sm); width: 100%; }
+  .box { width: 30px; display: flex; align-items: flex-end; }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-subtle); }
+  .px { font-size: 11px; font-weight: 700; color: var(--color-text-muted); }
+</style>
+</head>
+<body>
+<div class="row" id="r"></div>
+<script>
+  const tokens = [["1","4"],["2","8"],["3","12"],["4","16"],["5","20"],["6","24"],["8","32"],["10","40"],["12","48"],["16","64"]];
+  const r = document.getElementById('r');
+  tokens.forEach(([t, px]) => {
+    const item = document.createElement('div'); item.className = 'item';
+    const box = document.createElement('div'); box.className = 'box'; box.style.height = px + 'px';
+    const bar = document.createElement('div'); bar.className = 'bar'; bar.style.height = px + 'px';
+    box.appendChild(bar);
+    const px2 = document.createElement('div'); px2.className = 'px'; px2.textContent = px;
+    const lbl = document.createElement('div'); lbl.className = 'lbl'; lbl.textContent = 'space-' + t;
+    item.appendChild(box); item.appendChild(px2); item.appendChild(lbl); r.appendChild(item);
+  });
+</script>
+</body>
+</html>

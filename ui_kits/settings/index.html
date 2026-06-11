@@ -1,0 +1,154 @@
+<!-- @dsCard group="Settings" viewport="1280x900" -->
+<!-- @startingPoint section="Settings" subtitle="Account settings — tabbed sections, forms" viewport="1280x900" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Settings — Twico UI</title>
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="../../assets/twico-icons.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  html, body { height: 100%; }
+  body { margin: 0; font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); }
+  .set { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .set__head h1 { font-size: var(--text-3xl); font-weight: var(--font-extrabold); letter-spacing: -0.02em; margin: 0; }
+  .set__head p { color: var(--color-text-muted); font-size: var(--text-sm); margin: 4px 0 24px; }
+  .set__card { background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-xl); padding: 26px; margin-top: 20px; }
+  .set__card h2 { font-size: var(--text-lg); font-weight: var(--font-bold); margin: 0 0 4px; }
+  .set__card .desc { color: var(--color-text-muted); font-size: var(--text-sm); margin: 0 0 20px; }
+  .set__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .set__rowitem { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--color-divider); }
+  .set__rowitem:last-child { border-bottom: none; }
+  .set__rowitem .rt { font-size: var(--text-sm); font-weight: var(--font-semibold); }
+  .set__rowitem .rd { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 2px; }
+  .set__avatar { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  .set__actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+  .set__danger { border-color: color-mix(in srgb, var(--color-danger) 40%, var(--color-border)); }
+  @media (max-width: 640px) { .set__grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { Tabs, Input, Textarea, Select, Button, Switch, Avatar, Badge, Divider, Radio } = window.TwicoUiDesignSystem_f2f16a;
+  const Icon = window.TwicoIcon;
+
+  function Profile() {
+    return (
+      <div className="set__card">
+        <h2>Profile</h2>
+        <p className="desc">This information is shown on your public profile.</p>
+        <div className="set__avatar">
+          <Avatar name="Ada Park" size="xl" />
+          <div style={{ display: "flex", gap: 8 }}>
+            <Button variant="outline" size="sm" leftIcon={<Icon name="Upload" size={15} />}>Change</Button>
+            <Button variant="ghost" size="sm">Remove</Button>
+          </div>
+        </div>
+        <div className="set__grid">
+          <Input label="First name" defaultValue="Ada" />
+          <Input label="Last name" defaultValue="Park" />
+          <Input label="Email" type="email" defaultValue="ada@twico.dev" leftIcon={<Icon name="Mail" size={16} />} />
+          <Select label="Role" defaultValue="admin" options={[{value:"admin",label:"Administrator"},{value:"editor",label:"Editor"}]} />
+        </div>
+        <div style={{ marginTop: 16 }}><Textarea label="Bio" rows={3} defaultValue="Design systems engineer at Twico." hint="Max 280 characters." /></div>
+        <div className="set__actions"><Button variant="ghost">Cancel</Button><Button>Save changes</Button></div>
+      </div>
+    );
+  }
+
+  function Notifications() {
+    const rows = [
+      ["Product updates", "News about features and releases."],
+      ["Security alerts", "Critical alerts about your account."],
+      ["Weekly digest", "A summary of your workspace activity."],
+      ["Mentions", "When someone @mentions you."],
+    ];
+    return (
+      <div className="set__card">
+        <h2>Notifications</h2>
+        <p className="desc">Choose what we email you about.</p>
+        {rows.map(([t, d], i) => (
+          <div className="set__rowitem" key={i}>
+            <div><div className="rt">{t}</div><div className="rd">{d}</div></div>
+            <Switch defaultChecked={i < 2} />
+          </div>
+        ))}
+        <div className="set__actions"><Button>Save preferences</Button></div>
+      </div>
+    );
+  }
+
+  function Billing() {
+    return (
+      <div className="set__card">
+        <h2>Billing</h2>
+        <p className="desc">Manage your plan and payment method.</p>
+        <div className="set__rowitem">
+          <div><div className="rt">Current plan · <Badge tone="primary">Team</Badge></div><div className="rd">$29 / month · renews Jul 1, 2026</div></div>
+          <Button variant="outline" size="sm">Change plan</Button>
+        </div>
+        <div className="set__rowitem">
+          <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+            <span style={{ display:"grid", placeItems:"center", width:40, height:28, borderRadius:6, background:"var(--color-surface-sunken)" }}><Icon name="CreditCard" size={18} /></span>
+            <div><div className="rt">Visa •••• 4242</div><div className="rd">Expires 08 / 27</div></div>
+          </div>
+          <Button variant="ghost" size="sm">Update</Button>
+        </div>
+      </div>
+    );
+  }
+
+  function Security() {
+    return (
+      <>
+        <div className="set__card">
+          <h2>Password</h2>
+          <p className="desc">Update your password regularly to keep your account secure.</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 380 }}>
+            <Input label="Current password" type="password" />
+            <Input label="New password" type="password" hint="Use 8+ characters." />
+          </div>
+          <div className="set__actions"><Button>Update password</Button></div>
+        </div>
+        <div className="set__card">
+          <div className="set__rowitem">
+            <div><div className="rt">Two-factor authentication</div><div className="rd">Add an extra layer of security to your account.</div></div>
+            <Switch />
+          </div>
+        </div>
+        <div className="set__card set__danger">
+          <h2 style={{ color: "var(--color-danger-subtle-fg)" }}>Delete account</h2>
+          <p className="desc">Permanently remove your account and all data. This cannot be undone.</p>
+          <Button variant="danger" leftIcon={<Icon name="Trash2" size={15} />}>Delete my account</Button>
+        </div>
+      </>
+    );
+  }
+
+  function App() {
+    return (
+      <div className="set">
+        <div className="set__head">
+          <h1>Settings</h1>
+          <p>Manage your account, notifications, billing, and security.</p>
+        </div>
+        <Tabs defaultValue="profile" items={[
+          { value: "profile", label: "Profile", icon: <Icon name="User" size={15} />, content: <Profile /> },
+          { value: "notif", label: "Notifications", icon: <Icon name="Bell" size={15} />, content: <Notifications /> },
+          { value: "billing", label: "Billing", icon: <Icon name="CreditCard" size={15} />, content: <Billing /> },
+          { value: "security", label: "Security", icon: <Icon name="Shield" size={15} />, content: <Security /> },
+        ]} />
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

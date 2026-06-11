@@ -1,0 +1,76 @@
+import React from "react";
+
+const ACCORDION_CSS = `
+.twc-accordion { display: flex; flex-direction: column; font-family: var(--font-sans);
+  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-surface); }
+.twc-accordion__item { border-bottom: var(--border-thin) solid var(--color-divider); }
+.twc-accordion__item:last-child { border-bottom: none; }
+.twc-accordion__trigger {
+  display: flex; align-items: center; gap: var(--space-3); width: 100%;
+  padding: var(--space-4); border: none; background: transparent; cursor: pointer;
+  font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold);
+  color: var(--color-text); text-align: left;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+.twc-accordion__trigger:hover { background: var(--color-surface-sunken); }
+.twc-accordion__trigger:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-accordion__label { flex: 1; }
+.twc-accordion__chevron { flex: none; color: var(--color-text-subtle); transition: transform var(--duration-base) var(--ease-spring); }
+.twc-accordion__chevron svg { width: 18px; height: 18px; display: block; }
+.twc-accordion__trigger[data-open="true"] .twc-accordion__chevron { transform: rotate(180deg); color: var(--color-primary); }
+.twc-accordion__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--duration-base) var(--ease-standard); }
+.twc-accordion__panel[data-open="true"] { grid-template-rows: 1fr; }
+.twc-accordion__panel-inner { overflow: hidden; }
+.twc-accordion__content { padding: 0 var(--space-4) var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-normal); }
+`;
+
+export function Accordion({
+  items,
+  multiple = false,
+  defaultOpen = [],
+  className = "",
+  ...rest
+}) {
+  React.useEffect(() => {
+    if (document.getElementById("twc-accordion-styles")) return;
+    const el = document.createElement("style");
+    el.id = "twc-accordion-styles";
+    el.textContent = ACCORDION_CSS;
+    document.head.appendChild(el);
+  }, []);
+
+  const [open, setOpen] = React.useState(new Set(defaultOpen));
+
+  function toggle(val) {
+    setOpen((prev) => {
+      const next = new Set(prev);
+      if (next.has(val)) next.delete(val);
+      else { if (!multiple) next.clear(); next.add(val); }
+      return next;
+    });
+  }
+
+  return (
+    <div className={`twc-accordion ${className}`} {...rest}>
+      {items.map((it) => {
+        const isOpen = open.has(it.value);
+        return (
+          <div className="twc-accordion__item" key={it.value}>
+            <button className="twc-accordion__trigger" data-open={isOpen || undefined} aria-expanded={isOpen} onClick={() => toggle(it.value)}>
+              {it.icon}
+              <span className="twc-accordion__label">{it.label}</span>
+              <span className="twc-accordion__chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div className="twc-accordion__panel" data-open={isOpen || undefined}>
+              <div className="twc-accordion__panel-inner">
+                <div className="twc-accordion__content">{it.content}</div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}

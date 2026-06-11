@@ -1,0 +1,29 @@
+<!-- @dsCard group="Brand" viewport="700x150" name="Iconography — Lucide" subtitle="2px rounded strokes, 24×24 grid — the system's icon set" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<style>
+  body { margin: 0; font-family: var(--font-sans); padding: 22px; background: var(--color-surface); color: var(--color-text); }
+  .grid { display: flex; flex-wrap: wrap; gap: 10px; }
+  .cell { width: 48px; height: 48px; border-radius: var(--radius-md); border: 1px solid var(--color-border); display: grid; place-items: center; color: var(--color-text); background: var(--color-surface); transition: all .15s var(--ease-spring); }
+  .cell:hover { color: var(--color-primary); border-color: var(--color-primary-border); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+  .cell svg { width: 22px; height: 22px; }
+</style>
+</head>
+<body>
+<div class="grid" id="g"></div>
+<script>
+  const names = ["home","search","settings","bell","user","heart","star","mail","calendar","folder","file-text","download","trash-2","pencil","plus","check","chevron-right","arrow-right","layout-dashboard","credit-card","lock","sun","moon","zap","sparkles","filter","palette","code"];
+  const g = document.getElementById('g');
+  names.forEach(n => {
+    const c = document.createElement('div'); c.className = 'cell';
+    const i = document.createElement('i'); i.setAttribute('data-lucide', n);
+    c.appendChild(i); g.appendChild(c);
+  });
+  lucide.createIcons();
+</script>
+</body>
+</html>

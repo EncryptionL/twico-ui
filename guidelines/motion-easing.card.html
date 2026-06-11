@@ -1,0 +1,25 @@
+<!-- @dsCard group="Motion" viewport="700x180" name="Easing & duration" subtitle="Lively springs and decel curves — the system's motion vocabulary" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--color-surface); color: var(--color-text); font-family: var(--font-sans); padding: 20px; }
+  .track { display: flex; align-items: center; gap: 14px; padding: 7px 0; }
+  .name { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-subtle); width: 130px; flex: none; }
+  .rail { position: relative; flex: 1; height: 14px; }
+  .dot { position: absolute; top: 0; width: 14px; height: 14px; border-radius: var(--radius-full); background: var(--color-primary); }
+  @keyframes runStandard { 0%,12% { left: 0; } 50%,62% { left: calc(100% - 14px); } 100% { left: 0; } }
+  .e-standard { animation: runStandard 2.6s var(--ease-standard) infinite; }
+  .e-out      { animation: runStandard 2.6s var(--ease-out) infinite; background: var(--color-info); }
+  .e-spring   { animation: runStandard 2.6s var(--ease-spring) infinite; background: var(--color-success); }
+  @media (prefers-reduced-motion: reduce) { .dot { animation: none !important; left: calc(50% - 7px) !important; } }
+</style>
+</head>
+<body>
+  <div class="track"><span class="name">ease-standard</span><span class="rail"><span class="dot e-standard"></span></span></div>
+  <div class="track"><span class="name">ease-out</span><span class="rail"><span class="dot e-out"></span></span></div>
+  <div class="track"><span class="name">ease-spring</span><span class="rail"><span class="dot e-spring"></span></span></div>
+</body>
+</html>

@@ -1,0 +1,181 @@
+/* ============================================================
+   Twico UI — Color tokens
+   Primitive palettes (raw scales) + semantic aliases.
+   Semantic aliases flip under .dark / [data-theme="dark"].
+   Re-theme by overriding the --brand-* scale or the --color-* aliases.
+   ============================================================ */
+
+:root {
+  /* ---- Primitive: Indigo (brand) ---- */
+  --indigo-50:  #eef2ff;
+  --indigo-100: #e0e7ff;
+  --indigo-200: #c7d2fe;
+  --indigo-300: #a5b4fc;
+  --indigo-400: #818cf8;
+  --indigo-500: #6366f1;
+  --indigo-600: #4f46e5;
+  --indigo-700: #4338ca;
+  --indigo-800: #3730a3;
+  --indigo-900: #312e81;
+  --indigo-950: #1e1b4b;
+
+  /* Brand alias — remap these to re-skin the whole library */
+  --brand-50:  var(--indigo-50);
+  --brand-100: var(--indigo-100);
+  --brand-200: var(--indigo-200);
+  --brand-300: var(--indigo-300);
+  --brand-400: var(--indigo-400);
+  --brand-500: var(--indigo-500);
+  --brand-600: var(--indigo-600);
+  --brand-700: var(--indigo-700);
+  --brand-800: var(--indigo-800);
+  --brand-900: var(--indigo-900);
+  --brand-950: var(--indigo-950);
+
+  /* ---- Primitive: Slate (neutral) ---- */
+  --slate-50:  #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  --slate-950: #020617;
+
+  /* ---- Primitive: Semantic hues ---- */
+  --emerald-400: #34d399;
+  --emerald-500: #10b981;
+  --emerald-600: #059669;
+  --emerald-50:  #ecfdf5;
+
+  --amber-400: #fbbf24;
+  --amber-500: #f59e0b;
+  --amber-600: #d97706;
+  --amber-50:  #fffbeb;
+
+  --rose-400: #fb7185;
+  --rose-500: #f43f5e;
+  --rose-600: #e11d48;
+  --rose-50:  #fff1f2;
+
+  --sky-400: #38bdf8;
+  --sky-500: #0ea5e9;
+  --sky-600: #0284c7;
+  --sky-50:  #f0f9ff;
+
+  /* ============================================================
+     SEMANTIC ALIASES — LIGHT (default)
+     ============================================================ */
+
+  /* Surfaces & backgrounds */
+  --color-bg:             var(--slate-50);    /* app/page background */
+  --color-surface:        #ffffff;            /* cards, panels, sheets */
+  --color-surface-raised: #ffffff;            /* menus, popovers (with shadow) */
+  --color-surface-sunken: var(--slate-100);   /* wells, inset areas */
+  --color-overlay:        rgb(15 23 42 / 0.45); /* modal scrim */
+
+  /* Borders & dividers */
+  --color-border:         var(--slate-200);
+  --color-border-strong:  var(--slate-300);
+  --color-divider:        var(--slate-200);
+
+  /* Text */
+  --color-text:           var(--slate-900);
+  --color-text-muted:     var(--slate-600);
+  --color-text-subtle:    var(--slate-400);
+  --color-text-inverted:  #ffffff;
+
+  /* Primary / brand */
+  --color-primary:         var(--brand-500);
+  --color-primary-hover:   var(--brand-600);
+  --color-primary-active:  var(--brand-700);
+  --color-primary-fg:      #ffffff;
+  --color-primary-subtle:      var(--brand-50);
+  --color-primary-subtle-fg:   var(--brand-700);
+  --color-primary-border:      var(--brand-200);
+
+  /* Focus ring */
+  --color-ring: rgb(99 102 241 / 0.45);
+
+  /* Success */
+  --color-success:        var(--emerald-600);
+  --color-success-fg:     #ffffff;
+  --color-success-subtle:    var(--emerald-50);
+  --color-success-subtle-fg: var(--emerald-600);
+
+  /* Warning */
+  --color-warning:        var(--amber-500);
+  --color-warning-fg:     #ffffff;
+  --color-warning-subtle:    var(--amber-50);
+  --color-warning-subtle-fg: var(--amber-600);
+
+  /* Danger */
+  --color-danger:         var(--rose-500);
+  --color-danger-hover:   var(--rose-600);
+  --color-danger-fg:      #ffffff;
+  --color-danger-subtle:     var(--rose-50);
+  --color-danger-subtle-fg:  var(--rose-600);
+
+  /* Info */
+  --color-info:           var(--sky-500);
+  --color-info-fg:        #ffffff;
+  --color-info-subtle:       var(--sky-50);
+  --color-info-subtle-fg:    var(--sky-600);
+}
+
+/* ============================================================
+   SEMANTIC ALIASES — DARK
+   Toggle by adding class="dark" or data-theme="dark" to <html>.
+   ============================================================ */
+
+.dark,
+[data-theme="dark"] {
+  --color-bg:             var(--slate-950);
+  --color-surface:        var(--slate-900);
+  --color-surface-raised: var(--slate-800);
+  --color-surface-sunken: #0b1222;
+  --color-overlay:        rgb(2 6 23 / 0.65);
+
+  --color-border:         #25324a;
+  --color-border-strong:  var(--slate-700);
+  --color-divider:        #1c2840;
+
+  --color-text:           var(--slate-50);
+  --color-text-muted:     var(--slate-300);
+  --color-text-subtle:    var(--slate-500);
+  --color-text-inverted:  var(--slate-900);
+
+  --color-primary:         var(--brand-500);
+  --color-primary-hover:   var(--brand-400);
+  --color-primary-active:  var(--brand-300);
+  --color-primary-fg:      #ffffff;
+  --color-primary-subtle:      rgb(99 102 241 / 0.16);
+  --color-primary-subtle-fg:   var(--brand-300);
+  --color-primary-border:      rgb(99 102 241 / 0.35);
+
+  --color-ring: rgb(129 140 248 / 0.55);
+
+  --color-success:        var(--emerald-500);
+  --color-success-fg:     #052e1d;
+  --color-success-subtle:    rgb(16 185 129 / 0.15);
+  --color-success-subtle-fg: var(--emerald-400);
+
+  --color-warning:        var(--amber-500);
+  --color-warning-fg:     #2c1701;
+  --color-warning-subtle:    rgb(245 158 11 / 0.15);
+  --color-warning-subtle-fg: var(--amber-400);
+
+  --color-danger:         var(--rose-500);
+  --color-danger-hover:   var(--rose-400);
+  --color-danger-fg:      #2c0610;
+  --color-danger-subtle:     rgb(244 63 94 / 0.15);
+  --color-danger-subtle-fg:  var(--rose-400);
+
+  --color-info:           var(--sky-500);
+  --color-info-fg:        #04212f;
+  --color-info-subtle:       rgb(14 165 233 / 0.15);
+  --color-info-subtle-fg:    var(--sky-400);
+}

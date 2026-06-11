@@ -1,0 +1,41 @@
+<!-- @dsCard group="Colors" viewport="700x230" name="Surfaces — Light & Dark" subtitle="Semantic surface/text/border tokens flip with the .dark class" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-sans); padding: 18px; background: #e7eaf0; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .panel { background: var(--color-bg); border-radius: var(--radius-xl); padding: 16px; border: 1px solid var(--color-border); }
+  .mode { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-subtle); margin-bottom: 12px; }
+  .surface { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 12px 14px; box-shadow: var(--shadow-sm); }
+  .t1 { color: var(--color-text); font-weight: 700; font-size: 15px; }
+  .t2 { color: var(--color-text-muted); font-size: 13px; margin-top: 2px; }
+  .t3 { color: var(--color-text-subtle); font-size: 12px; margin-top: 2px; }
+  .chip { display: inline-block; margin-top: 10px; padding: 4px 10px; border-radius: var(--radius-full); background: var(--color-primary); color: var(--color-primary-fg); font-size: 12px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="pair">
+  <div class="panel">
+    <div class="mode">Light</div>
+    <div class="surface">
+      <div class="t1">Surface card</div>
+      <div class="t2">Muted body copy on a raised surface.</div>
+      <div class="t3">Subtle caption text</div>
+      <span class="chip">Primary</span>
+    </div>
+  </div>
+  <div class="panel dark">
+    <div class="mode">Dark</div>
+    <div class="surface">
+      <div class="t1">Surface card</div>
+      <div class="t2">Muted body copy on a raised surface.</div>
+      <div class="t3">Subtle caption text</div>
+      <span class="chip">Primary</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

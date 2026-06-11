@@ -1,0 +1,143 @@
+<!-- @dsCard group="Auth" viewport="1280x820" -->
+<!-- @startingPoint section="Auth" subtitle="Sign in / sign up / reset — split auth screen" viewport="1280x820" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Auth — Twico UI</title>
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="../../assets/twico-icons.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  html, body { height: 100%; }
+  body { margin: 0; font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); }
+  .auth { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+  .auth__aside { position: relative; overflow: hidden; color: #fff; padding: 48px; display: flex; flex-direction: column; justify-content: space-between;
+    background: linear-gradient(150deg, var(--brand-500), var(--brand-700) 60%, var(--brand-900)); }
+  .auth__aside::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px); background-size: 22px 22px; mask-image: radial-gradient(ellipse 70% 60% at 70% 30%, #000, transparent 75%); }
+  .auth__brand { display: inline-flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 800; letter-spacing: -0.03em; position: relative; z-index: 1; }
+  .auth__brand span { width: 38px; height: 38px; border-radius: var(--radius-lg); background: rgba(255,255,255,0.18); display: grid; place-items: center; backdrop-filter: blur(4px); }
+  .auth__pitch { position: relative; z-index: 1; }
+  .auth__pitch h2 { font-size: 34px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin: 0 0 14px; max-width: 420px; }
+  .auth__pitch p { font-size: 16px; opacity: 0.9; max-width: 400px; line-height: 1.6; margin: 0; }
+  .auth__quote { position: relative; z-index: 1; font-size: 14px; opacity: 0.85; }
+  .auth__main { display: flex; align-items: center; justify-content: center; padding: 40px; }
+  .auth__card { width: 100%; max-width: 380px; }
+  .auth__title { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 4px; }
+  .auth__sub { color: var(--color-text-muted); font-size: 14px; margin: 0 0 26px; }
+  .auth__form { display: flex; flex-direction: column; gap: 16px; }
+  .auth__row { display: flex; align-items: center; justify-content: space-between; }
+  .auth__link { color: var(--color-primary); font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; }
+  .auth__oauth { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .auth__foot { text-align: center; font-size: 14px; color: var(--color-text-muted); margin-top: 22px; }
+  @media (max-width: 860px) { .auth { grid-template-columns: 1fr; } .auth__aside { display: none; } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { Input, Button, Checkbox, Divider, Alert, Avatar } = window.TwicoUiDesignSystem_f2f16a;
+  const Icon = window.TwicoIcon;
+
+  function AuthAside() {
+    return (
+      <div className="auth__aside">
+        <div className="auth__brand"><span><Icon name="Blocks" size={22} /></span> twico UI</div>
+        <div className="auth__pitch">
+          <h2>Build beautiful products, faster.</h2>
+          <p>The free React + Tailwind component library with dark mode, motion, and accessibility built in.</p>
+        </div>
+        <div className="auth__quote">“Twico UI cut our design-to-ship time in half.” — Acme Inc.</div>
+      </div>
+    );
+  }
+
+  function SignIn({ go }) {
+    const [show, setShow] = React.useState(false);
+    return (
+      <div className="auth__card">
+        <h1 className="auth__title">Welcome back</h1>
+        <p className="auth__sub">Sign in to your Twico UI workspace.</p>
+        <div className="auth__form">
+          <div className="auth__oauth">
+            <Button variant="outline" leftIcon={<Icon name="Github" size={16} />}>GitHub</Button>
+            <Button variant="outline" leftIcon={<Icon name="Chrome" size={16} />}>Google</Button>
+          </div>
+          <Divider>or</Divider>
+          <Input label="Email" type="email" placeholder="you@twico.dev" leftIcon={<Icon name="Mail" size={16} />} required />
+          <Input label="Password" type={show ? "text" : "password"} placeholder="••••••••"
+            leftIcon={<Icon name="Lock" size={16} />}
+            rightIcon={<span style={{cursor:"pointer",display:"inline-flex"}} onClick={() => setShow((s) => !s)}><Icon name={show ? "EyeOff" : "Eye"} size={16} /></span>} />
+          <div className="auth__row">
+            <Checkbox label="Remember me" defaultChecked />
+            <a className="auth__link" onClick={() => go("reset")}>Forgot password?</a>
+          </div>
+          <Button fullWidth size="lg" onClick={() => go("done")}>Sign in</Button>
+        </div>
+        <div className="auth__foot">New here? <a className="auth__link" onClick={() => go("signup")}>Create an account</a></div>
+      </div>
+    );
+  }
+
+  function SignUp({ go }) {
+    return (
+      <div className="auth__card">
+        <h1 className="auth__title">Create your account</h1>
+        <p className="auth__sub">Start building with Twico UI — free forever.</p>
+        <div className="auth__form">
+          <Input label="Full name" placeholder="Ada Lovelace" leftIcon={<Icon name="User" size={16} />} required />
+          <Input label="Work email" type="email" placeholder="you@twico.dev" leftIcon={<Icon name="Mail" size={16} />} required />
+          <Input label="Password" type="password" placeholder="8+ characters" leftIcon={<Icon name="Lock" size={16} />} hint="Use 8 or more characters." />
+          <Checkbox label={<span>I agree to the <a className="auth__link">Terms</a> and <a className="auth__link">Privacy Policy</a>.</span>} />
+          <Button fullWidth size="lg" onClick={() => go("done")}>Create account</Button>
+        </div>
+        <div className="auth__foot">Already have an account? <a className="auth__link" onClick={() => go("signin")}>Sign in</a></div>
+      </div>
+    );
+  }
+
+  function Reset({ go }) {
+    return (
+      <div className="auth__card">
+        <h1 className="auth__title">Reset password</h1>
+        <p className="auth__sub">We'll email you a secure reset link.</p>
+        <div className="auth__form">
+          <Input label="Email" type="email" placeholder="you@twico.dev" leftIcon={<Icon name="Mail" size={16} />} required />
+          <Button fullWidth size="lg" onClick={() => go("done")}>Send reset link</Button>
+          <Button fullWidth variant="ghost" leftIcon={<Icon name="ArrowLeft" size={16} />} onClick={() => go("signin")}>Back to sign in</Button>
+        </div>
+      </div>
+    );
+  }
+
+  function Done({ go }) {
+    return (
+      <div className="auth__card" style={{ textAlign: "center" }}>
+        <span style={{ display: "inline-grid", placeItems: "center", width: 60, height: 60, borderRadius: "var(--radius-2xl)", background: "var(--color-success-subtle)", color: "var(--color-success-subtle-fg)", marginBottom: 18 }}><Icon name="Check" size={30} /></span>
+        <h1 className="auth__title">You're all set</h1>
+        <p className="auth__sub">Welcome to Twico UI. Redirecting to your dashboard…</p>
+        <Button fullWidth size="lg" onClick={() => go("signin")} leftIcon={<Icon name="RotateCcw" size={16} />}>Start over</Button>
+      </div>
+    );
+  }
+
+  function App() {
+    const [screen, setScreen] = React.useState("signin");
+    const map = { signin: SignIn, signup: SignUp, reset: Reset, done: Done };
+    const Cur = map[screen];
+    return (
+      <div className="auth">
+        <AuthAside />
+        <div className="auth__main"><Cur go={setScreen} /></div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!-- @dsCard group="Components" viewport="700x440" name="Command palette" subtitle="⌘K menu — search, groups, keyboard nav" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Command palette — Twico UI</title>
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="../../assets/twico-icons.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); padding: 24px; font-family: var(--font-sans); min-height: 420px; }
+  .hint { color: var(--color-text-muted); font-size: 14px; margin-top: 12px; }
+  kbd { font-family: var(--font-mono); font-size: 11px; background: var(--color-surface-sunken); border: 1px solid var(--color-border); border-radius: 4px; padding: 2px 6px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { CommandPalette, Button } = window.TwicoUiDesignSystem_f2f16a;
+  const Icon = window.TwicoIcon;
+  function Demo() {
+    const [open, setOpen] = React.useState(true);
+    React.useEffect(() => {
+      const h = (e) => { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); setOpen(true); } };
+      window.addEventListener("keydown", h); return () => window.removeEventListener("keydown", h);
+    }, []);
+    const cmds = [
+      { group: "Navigation", label: "Go to Dashboard", icon: <Icon name="LayoutDashboard" size={18} />, shortcut: "G D" },
+      { group: "Navigation", label: "Go to Projects", icon: <Icon name="Folder" size={18} />, shortcut: "G P" },
+      { group: "Navigation", label: "Go to Team", icon: <Icon name="Users" size={18} /> },
+      { group: "Actions", label: "Create new project", description: "Start from a blank canvas", icon: <Icon name="Plus" size={18} />, keywords: "add new", shortcut: "C" },
+      { group: "Actions", label: "Invite teammate", icon: <Icon name="UserPlus" size={18} />, keywords: "add member" },
+      { group: "Preferences", label: "Toggle dark mode", icon: <Icon name="Moon" size={18} /> },
+      { group: "Preferences", label: "Open settings", icon: <Icon name="Settings" size={18} />, shortcut: "⌘," },
+    ];
+    return (
+      <div>
+        <Button onClick={() => setOpen(true)} leftIcon={<Icon name="Search" size={16} />}>Open command palette</Button>
+        <div className="hint">Press <kbd>⌘ K</kbd> / <kbd>Ctrl K</kbd> · navigate with <kbd>↑</kbd> <kbd>↓</kbd> · <kbd>Enter</kbd> to run · <kbd>Esc</kbd> to close.</div>
+        <CommandPalette open={open} onClose={() => setOpen(false)} commands={cmds} />
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>

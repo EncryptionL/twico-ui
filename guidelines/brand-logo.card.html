@@ -1,0 +1,37 @@
+<!-- @dsCard group="Brand" viewport="700x220" name="Logo & wordmark" subtitle="Twico UI lockup — mark + wordmark, on light and dark" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<style>
+  body { margin: 0; font-family: var(--font-sans); padding: 18px; background: #e7eaf0; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .panel { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: 26px; display: flex; align-items: center; justify-content: center; }
+  .lockup { display: inline-flex; align-items: center; gap: 14px; }
+  .mark { width: 52px; height: 52px; border-radius: var(--radius-lg); background: var(--color-primary); color: #fff; display: grid; place-items: center; box-shadow: var(--shadow-brand); }
+  .mark svg { width: 30px; height: 30px; }
+  .word { font-size: 34px; font-weight: 800; letter-spacing: -0.04em; color: var(--color-text); line-height: 1; }
+  .word b { color: var(--color-primary); }
+  .word span { font-weight: 600; color: var(--color-text-subtle); margin-left: 8px; font-size: 22px; letter-spacing: 0; vertical-align: 2px; }
+</style>
+</head>
+<body>
+<div class="pair">
+  <div class="panel">
+    <div class="lockup">
+      <div class="mark"><i data-lucide="blocks"></i></div>
+      <div class="word"><b>twico</b><span>UI</span></div>
+    </div>
+  </div>
+  <div class="panel dark">
+    <div class="lockup">
+      <div class="mark"><i data-lucide="blocks"></i></div>
+      <div class="word"><b>twico</b><span>UI</span></div>
+    </div>
+  </div>
+</div>
+<script>lucide.createIcons();</script>
+</body>
+</html>
