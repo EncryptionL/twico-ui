@@ -8,7 +8,7 @@ const DIALOG_CSS = `
   background: var(--color-overlay); backdrop-filter: blur(3px);
 }
 .twc-dialog__overlay[data-state="open"] { animation: twico-fade-in var(--duration-base) var(--ease-out); }
-.twc-dialog__overlay[data-state="closed"] { animation: twc-dialog-fade-out 150ms var(--ease-in) forwards; pointer-events: none; }
+.twc-dialog__overlay[data-state="closed"] { animation: twc-dialog-fade-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
 .twc-dialog {
   position: relative; width: 100%; max-width: var(--_mw, 480px);
   max-height: calc(100vh - 48px); overflow: auto;
@@ -18,7 +18,7 @@ const DIALOG_CSS = `
   font-family: var(--font-sans);
 }
 .twc-dialog[data-state="open"] { animation: twico-pop-in var(--duration-base) var(--ease-spring); }
-.twc-dialog[data-state="closed"] { animation: twc-dialog-pop-out 150ms var(--ease-in) forwards; }
+.twc-dialog[data-state="closed"] { animation: twc-dialog-pop-out var(--duration-exit) var(--ease-in) forwards; }
 @keyframes twc-dialog-fade-out { from { opacity: 1; } to { opacity: 0; } }
 @keyframes twc-dialog-pop-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(8px) scale(0.985); } }
 @media (prefers-reduced-motion: reduce) {

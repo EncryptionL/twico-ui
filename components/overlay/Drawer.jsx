@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 const DRAWER_CSS = `
 .twc-drawer__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(2px); }
 .twc-drawer__overlay[data-state="open"] { animation: twico-fade-in var(--duration-base) var(--ease-out); }
-.twc-drawer__overlay[data-state="closed"] { animation: twc-drawer-fade-out 180ms var(--ease-in) forwards; pointer-events: none; }
+.twc-drawer__overlay[data-state="closed"] { animation: twc-drawer-fade-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
 @keyframes twc-drawer-fade-out { from { opacity: 1; } to { opacity: 0; } }
 .twc-drawer {
   position: fixed; z-index: var(--z-modal); background: var(--color-surface); color: var(--color-text);
@@ -18,10 +18,10 @@ const DRAWER_CSS = `
 .twc-drawer[data-side="left"][data-state="open"] { animation: twc-drawer-l var(--duration-base) var(--ease-out); }
 .twc-drawer[data-side="bottom"][data-state="open"] { animation: twc-drawer-b var(--duration-base) var(--ease-out); }
 .twc-drawer[data-side="top"][data-state="open"] { animation: twc-drawer-t var(--duration-base) var(--ease-out); }
-.twc-drawer[data-side="right"][data-state="closed"] { animation: twc-drawer-r-out 180ms var(--ease-in) forwards; }
-.twc-drawer[data-side="left"][data-state="closed"] { animation: twc-drawer-l-out 180ms var(--ease-in) forwards; }
-.twc-drawer[data-side="bottom"][data-state="closed"] { animation: twc-drawer-b-out 180ms var(--ease-in) forwards; }
-.twc-drawer[data-side="top"][data-state="closed"] { animation: twc-drawer-t-out 180ms var(--ease-in) forwards; }
+.twc-drawer[data-side="right"][data-state="closed"] { animation: twc-drawer-r-out var(--duration-exit) var(--ease-in) forwards; }
+.twc-drawer[data-side="left"][data-state="closed"] { animation: twc-drawer-l-out var(--duration-exit) var(--ease-in) forwards; }
+.twc-drawer[data-side="bottom"][data-state="closed"] { animation: twc-drawer-b-out var(--duration-exit) var(--ease-in) forwards; }
+.twc-drawer[data-side="top"][data-state="closed"] { animation: twc-drawer-t-out var(--duration-exit) var(--ease-in) forwards; }
 @keyframes twc-drawer-r { from { transform: translateX(100%); } to { transform: translateX(0); } }
 @keyframes twc-drawer-l { from { transform: translateX(-100%); } to { transform: translateX(0); } }
 @keyframes twc-drawer-b { from { transform: translateY(100%); } to { transform: translateY(0); } }
@@ -80,7 +80,7 @@ export function Drawer({
   const [mounted, setMounted] = React.useState(open);
   React.useEffect(() => {
     if (open) { setMounted(true); return; }
-    const t = setTimeout(() => setMounted(false), 200);
+    const t = setTimeout(() => setMounted(false), 170);
     return () => clearTimeout(t);
   }, [open]);
 

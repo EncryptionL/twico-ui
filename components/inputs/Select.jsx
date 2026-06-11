@@ -40,7 +40,7 @@ const SELECT_CSS = `
   transform-origin: top;
 }
 .twc-pop[data-state="open"] { animation: twico-scale-in var(--duration-fast) var(--ease-spring); }
-.twc-pop[data-state="closed"] { animation: twc-select-out 120ms var(--ease-in) forwards; pointer-events: none; }
+.twc-pop[data-state="closed"] { animation: twc-select-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
 @keyframes twc-select-out { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.97); } }
 @media (prefers-reduced-motion: reduce) { .twc-pop[data-state] { animation-duration: 1ms; } }
 .twc-pop[data-placement="top"] { top: auto; bottom: calc(100% + 6px); transform-origin: bottom; }
@@ -177,7 +177,7 @@ export function Select({
   // Keep the listbox mounted through the close animation, then unmount.
   React.useEffect(() => {
     if (open) { setRender(true); return; }
-    const t = setTimeout(() => setRender(false), 130);
+    const t = setTimeout(() => setRender(false), 170);
     return () => clearTimeout(t);
   }, [open]);
 

@@ -12,7 +12,7 @@ const POPOVER_CSS = `
 }
 .twc-popover:focus { outline: none; }
 .twc-popover[data-state="open"] { animation: twico-scale-in var(--duration-fast) var(--ease-spring); }
-.twc-popover[data-state="closed"] { animation: twc-popover-out 120ms var(--ease-in) forwards; pointer-events: none; }
+.twc-popover[data-state="closed"] { animation: twc-popover-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
 @keyframes twc-popover-out { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.96); } }
 @media (prefers-reduced-motion: reduce) { .twc-popover[data-state] { animation-duration: 1ms; } }
 .twc-popover[data-flip="true"] { transform-origin: bottom; }
@@ -121,7 +121,7 @@ export function Popover({
   // Keep the popover mounted through the close animation, then unmount.
   React.useEffect(() => {
     if (open) { setRender(true); return; }
-    const t = setTimeout(() => setRender(false), 130);
+    const t = setTimeout(() => setRender(false), 170);
     return () => clearTimeout(t);
   }, [open]);
 

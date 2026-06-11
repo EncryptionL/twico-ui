@@ -5,12 +5,12 @@ const COMMAND_CSS = `
 .twc-cmdk__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(3px);
   display: flex; align-items: flex-start; justify-content: center; padding-top: 12vh; }
 .twc-cmdk__overlay[data-state="open"] { animation: twico-fade-in var(--duration-base) var(--ease-out); }
-.twc-cmdk__overlay[data-state="closed"] { animation: twc-cmdk-fade-out 150ms var(--ease-in) forwards; pointer-events: none; }
+.twc-cmdk__overlay[data-state="closed"] { animation: twc-cmdk-fade-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
 .twc-cmdk { width: 100%; max-width: 560px; max-height: 60vh; display: flex; flex-direction: column; overflow: hidden;
   background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-xl); font-family: var(--font-sans); }
 .twc-cmdk[data-state="open"] { animation: twico-pop-in var(--duration-base) var(--ease-spring); }
-.twc-cmdk[data-state="closed"] { animation: twc-cmdk-pop-out 150ms var(--ease-in) forwards; }
+.twc-cmdk[data-state="closed"] { animation: twc-cmdk-pop-out var(--duration-exit) var(--ease-in) forwards; }
 @keyframes twc-cmdk-fade-out { from { opacity: 1; } to { opacity: 0; } }
 @keyframes twc-cmdk-pop-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(-8px) scale(0.985); } }
 @media (prefers-reduced-motion: reduce) {

@@ -11,7 +11,7 @@ const MENU_CSS = `
   transform-origin: top;
 }
 .twc-menu[data-state="open"] { animation: twico-scale-in var(--duration-fast) var(--ease-spring); }
-.twc-menu[data-state="closed"] { animation: twc-menu-out 120ms var(--ease-in) forwards; pointer-events: none; }
+.twc-menu[data-state="closed"] { animation: twc-menu-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
 @keyframes twc-menu-out { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.96); } }
 @media (prefers-reduced-motion: reduce) { .twc-menu[data-state] { animation-duration: 1ms; } }
 .twc-menu[data-flip="true"] { transform-origin: bottom; }
@@ -121,7 +121,7 @@ export function Menu({
   // Keep the menu mounted through the close animation, then unmount.
   React.useEffect(() => {
     if (open) { setRender(true); return; }
-    const t = setTimeout(() => setRender(false), 130);
+    const t = setTimeout(() => setRender(false), 170);
     return () => clearTimeout(t);
   }, [open]);
 
