@@ -9,6 +9,14 @@ import { CodeLangProvider } from "./components/CodeLang.jsx";
 // No site-specific CSS — the docs site is styled solely by Twico UI components.
 import "../../styles/twico-ui.css";
 
+// Smooth in-page scrolling (TOC clicks, heading anchors, deep links) — unless the
+// reader prefers reduced motion. Scoped to the docs site, not the shipped library.
+try {
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.documentElement.style.scrollBehavior = "smooth";
+  }
+} catch (e) {}
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <HashRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
     <CodeLangProvider>

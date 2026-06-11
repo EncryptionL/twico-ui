@@ -28,15 +28,36 @@ function adjacent(name) {
   return { prev: flat[i - 1], next: flat[i + 1] };
 }
 
-const pagerLinkStyle = {
-  display: "flex",
-  flexDirection: "column",
-  gap: 2,
-  padding: "var(--space-3) var(--space-4)",
-  border: "1px solid var(--color-border)",
-  borderRadius: "var(--radius-lg)",
-  textDecoration: "none",
-};
+function PagerLink({ to, dir, name }) {
+  const [hover, setHover] = React.useState(false);
+  const next = dir === "next";
+  return (
+    <Link
+      to={to}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        flex: 1,
+        maxWidth: 300,
+        display: "flex",
+        flexDirection: "column",
+        gap: 4,
+        padding: "12px 18px",
+        border: `1px solid ${hover ? "var(--color-primary)" : "var(--color-border)"}`,
+        borderRadius: "var(--radius-lg)",
+        background: hover ? "var(--color-surface-sunken)" : "transparent",
+        textDecoration: "none",
+        textAlign: next ? "right" : "left",
+        transition: "border-color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard)",
+      }}
+    >
+      <Text as="span" size="xs" tone="subtle">{next ? "Next" : "Previous"}</Text>
+      <Text as="span" weight="bold" style={{ color: hover ? "var(--color-primary)" : "var(--color-text)" }}>
+        {next ? `${name} →` : `← ${name}`}
+      </Text>
+    </Link>
+  );
+}
 
 export default function ComponentPage() {
   const { slug } = useParams();
@@ -104,22 +125,12 @@ export default function ComponentPage() {
         as="nav"
         direction="row"
         justify="space-between"
-        gap={3}
+        gap={4}
         aria-label="Component pager"
-        style={{ marginTop: "var(--space-10)", borderTop: "1px solid var(--color-border)", paddingTop: "var(--space-5)" }}
+        style={{ marginTop: "var(--space-10)", borderTop: "1px solid var(--color-border)", paddingTop: "var(--space-6)" }}
       >
-        {prev ? (
-          <Link to={`/components/${slugify(prev.name)}`} style={pagerLinkStyle}>
-            <Text as="span" size="xs" tone="subtle">Previous</Text>
-            <Text as="strong" weight="bold">{prev.name}</Text>
-          </Link>
-        ) : <span />}
-        {next ? (
-          <Link to={`/components/${slugify(next.name)}`} style={{ ...pagerLinkStyle, textAlign: "right", alignItems: "flex-end" }}>
-            <Text as="span" size="xs" tone="subtle">Next</Text>
-            <Text as="strong" weight="bold">{next.name}</Text>
-          </Link>
-        ) : <span />}
+        {prev ? <PagerLink to={`/components/${slugify(prev.name)}`} dir="prev" name={prev.name} /> : <span style={{ flex: 1 }} />}
+        {next ? <PagerLink to={`/components/${slugify(next.name)}`} dir="next" name={next.name} /> : <span style={{ flex: 1 }} />}
       </Stack>
     </Stack>
   );

@@ -28,7 +28,8 @@ export default function Layout() {
 
   React.useEffect(() => {
     nav.onClose();
-    window.scrollTo(0, 0);
+    // Jump to top on navigation (don't smooth-scroll the whole page on route change).
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, [location.pathname]);
 
   const header = (
@@ -89,9 +90,9 @@ export default function Layout() {
         <Box as="main" style={{ flex: 1, minWidth: 0, display: "flex", justifyContent: "center" }}>
           <Stack
             direction="row"
-            gap={9}
+            gap="clamp(40px, 5vw, 72px)"
             align="flex-start"
-            style={{ width: "100%", maxWidth: showToc ? 1120 : 880, padding: isMobile ? "24px 16px 64px" : "44px 44px 88px" }}
+            style={{ width: "100%", maxWidth: showToc ? 1160 : 880, padding: isMobile ? "24px 16px 64px" : "44px 44px 88px" }}
           >
             <Box as="article" id="doc-article" style={{ flex: 1, minWidth: 0, maxWidth: 760 }}>
               <PageTransition><Outlet /></PageTransition>
