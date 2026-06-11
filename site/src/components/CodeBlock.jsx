@@ -24,7 +24,7 @@ export default function CodeBlock({ code, language = "jsx" }) {
       </Box>
       <Highlight code={source} language={language} theme={themes.nightOwl}>
         {({ style, tokens, getLineProps, getTokenProps }) => (
-          <pre style={{ ...style, background: "transparent", margin: 0, padding: "16px 20px", overflowX: "auto", fontFamily: "var(--font-mono)", fontSize: "var(--text-sm)", lineHeight: 1.6 }}>
+          <pre style={{ ...style, background: "transparent", margin: 0, padding: "16px 20px", overflowX: "auto", textAlign: "left", fontFamily: "var(--font-mono)", fontSize: "var(--text-sm)", lineHeight: 1.6 }}>
             {tokens.map((line, i) => (
               <div key={i} {...getLineProps({ line })}>
                 {line.map((token, k) => (
