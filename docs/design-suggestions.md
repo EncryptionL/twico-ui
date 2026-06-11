@@ -45,3 +45,23 @@ ships, delete it here and document it in the relevant doc.
 | Bundle-size budget (`size-limit`) in CI | Keeps the zero-dep promise honest as components grow. | Small CI step. |
 | Automate `styles/twico-ui.css` concatenation | It is hand-maintained today; a script + CI drift-guard (`tokens/* + base.css` → concat → diff) removes a whole class of stale-stylesheet bugs. | Small script + CI step. |
 | Automate `site/src/data/exports.js` sync | Generated from `src/index.ts` at site build time instead of hand-maintained. | Small Vite plugin or prebuild script. |
+
+## From the 2026-06-12 full audit — deferred items
+
+Confirmed findings that are **breaking renames or large features**, deferred from the immediate
+fix pass (additive fixes shipped). Each needs a deprecation path or real design time:
+
+| Finding | Why deferred |
+| --- | --- |
+| Unify `Table` vs `Datatable` vocabularies (`data/key/header/render` vs `rows/field/headerName/renderCell`) | Breaking on one of the two; needs aliases + deprecation cycle. |
+| `Button` mixes the semantic `danger` into the `variant` axis; `IconButton` can't render danger at all | API redesign (`tone` × `variant`); additive `danger` on IconButton is the cheap first step. |
+| `Dialog.size` is `"sm"\|"md"\|"lg"` but `Drawer.size` is a raw CSS dimension | Same prop name, different semantics — needs a deprecating rename (`width`/`height` on Drawer). |
+| `CurrencyField` uses `onValueChange`; everything else uses `onChange(value)` | Add `onChange` alias, deprecate later. |
+| `CommandPalette` items use `onSelect`; every other item array uses `onClick` | Alias + deprecate. |
+| `Pagination.showJumper` vs `Datatable.showPageJumper`; `Box.border` vs `EmptyState.bordered`; `Divider.align` physical (`left/right`) vs logical (`start/end`) elsewhere | Naming standardization sweep with aliases. |
+| `Spinner.tone` holds literal colors (`"white"`); `Progress`/`Timeline` tone unions omit `"info"` | Rename to `color` + alias; additive `"info"`. |
+| `Badge` size scale starts at `"md"` (no `"sm"`) | Additive but needs design of an actual smaller badge. |
+| Toggle family (`Checkbox`/`Radio`/`Switch`) has no `error` state; picker family lacks `label`/`hint`/`error`/`required` | Field-affordance sweep — pairs with the `Field` wrapper proposal above. |
+| Keyboard alternatives for drag interactions: Kanban card moves, Datatable column resize/reorder + row reorder | Real feature work (roving tabindex, move menus, `role="separator"` resize). |
+| `TreeView.data`→`items`, `onSelect(node)`→id-first | Breaking; alias path. |
+| `Datatable` header/row/export menus lack `role="menu"`/focus management | Larger a11y rework of the menu plumbing. |

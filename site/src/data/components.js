@@ -29,6 +29,20 @@ export const components = [
         "description": "The list of item values that should start expanded on first render, useful for surfacing key sections by default."
       },
       {
+        "prop": "open",
+        "type": "string[]",
+        "required": false,
+        "default": "—",
+        "description": "Controlled open panel values; pair with onOpenChange. When set, internal state is bypassed and defaultOpen is ignored."
+      },
+      {
+        "prop": "onOpenChange",
+        "type": "(values: string[]) => void",
+        "required": false,
+        "default": "—",
+        "description": "Called with the next open values whenever a panel trigger is toggled (fires in both controlled and uncontrolled modes)."
+      },
+      {
         "prop": "...rest",
         "type": "React.HTMLAttributes<HTMLDivElement>",
         "required": false,
@@ -433,6 +447,27 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "The label content rendered inside the button, typically text but accepting any inline node alongside the icons."
+      },
+      {
+        "prop": "href",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Link destination — only used with as=\"a\"; scheme-sanitized (javascript:/data:/vbscript: render without href)."
+      },
+      {
+        "prop": "target",
+        "type": "React.HTMLAttributeAnchorTarget",
+        "required": false,
+        "default": "—",
+        "description": "Anchor target — only used with as=\"a\" (e.g. \"_blank\")."
+      },
+      {
+        "prop": "rel",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Anchor rel — only used with as=\"a\"; pair \"noopener noreferrer\" with target=\"_blank\"."
       }
     ],
     "snippet": "import { Button } from \"twico-ui\";\n\n<Button variant=\"solid\" size=\"md\" onClick={save}>Save changes</Button>\n<Button variant=\"soft\" leftIcon={<PlusIcon />}>Add item</Button>\n<Button variant=\"outline\">Cancel</Button>\n<Button variant=\"ghost\">Skip</Button>\n<Button variant=\"danger\" loading>Deleting…</Button>",
@@ -553,6 +588,27 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "The slide elements, where each direct child is rendered as a single full-width slide in the carousel."
+      },
+      {
+        "prop": "index",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Controlled active slide index — pair with onIndexChange."
+      },
+      {
+        "prop": "defaultIndex",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Initial slide index when uncontrolled."
+      },
+      {
+        "prop": "onIndexChange",
+        "type": "(index: number) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fired when the active slide changes (arrows, dots, or autoplay)."
       }
     ],
     "snippet": "import { Carousel } from \"twico-ui\";\n\n<Carousel autoPlay interval={5000}>\n  <img src=\"/a.jpg\" alt=\"\" />\n  <img src=\"/b.jpg\" alt=\"\" />\n  <div>Any slide content</div>\n</Carousel>",
@@ -620,6 +676,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Formats raw numeric values into display strings for tooltips, letting you add units, separators, or currency symbols."
+      },
+      {
+        "prop": "colors",
+        "type": "string[]",
+        "required": false,
+        "default": "built-in token palette",
+        "description": "Per-series colors (any CSS color), cycled when shorter than series."
       }
     ],
     "snippet": "import { Chart } from \"twico-ui\";\n\n<Chart\n  type=\"bar\"\n  data={[\n    { label: \"Mon\", value: 240 },\n    { label: \"Tue\", value: 310 },\n    { label: \"Wed\", value: 280 },\n  ]}\n  valueFormat={(v) => `$${v}`}\n/>\n\n<Chart\n  type=\"line\"\n  series={[\"signups\", \"active\"]}\n  showLegend\n  data={[\n    { label: \"Jan\", signups: 120, active: 80 },\n    { label: \"Feb\", signups: 180, active: 140 },\n  ]}\n/>",
@@ -779,6 +842,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Fires with the new hex string whenever the user adjusts saturation, hue, the text field, or picks a preset."
+      },
+      {
+        "prop": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Disable all interaction (the popover cannot be opened)."
       }
     ],
     "snippet": "import { ColorPicker } from \"twico-ui\";\n\n// Controlled\nconst [color, setColor] = React.useState(\"#6366F1\");\n<ColorPicker label=\"Brand color\" value={color} onChange={setColor} />\n\n// Uncontrolled with custom presets\n<ColorPicker\n  defaultValue=\"#14B8A6\"\n  presets={[\"#6366F1\", \"#14B8A6\", \"#F43F5E\"]}\n/>",
@@ -874,6 +944,27 @@ export const components = [
         "required": false,
         "default": "false",
         "description": "Blocks typing and selection while dimming the field, indicating the control is currently unavailable."
+      },
+      {
+        "prop": "placement",
+        "type": "\"bottom\" | \"top\"",
+        "required": false,
+        "default": "\"bottom\"",
+        "description": "Open the menu upward instead of down (e.g. near a viewport bottom)."
+      },
+      {
+        "prop": "portal",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Render the dropdown in a portal (position:fixed on document.body) so it is never clipped by a scrolling/overflow-hidden ancestor; auto-flips up near the viewport bottom."
+      },
+      {
+        "prop": "minWidth",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Minimum popover width in px when portaled (useful when the control is narrow)."
       }
     ],
     "snippet": "import { Combobox } from \"twico-ui\";\n\n<Combobox\n  label=\"Country\"\n  placeholder=\"Search a country\"\n  clearable\n  value={country}\n  onChange={setCountry}\n  options={[\n    { group: \"Asia\", options: [\n      { value: \"id\", label: \"Indonesia\", description: \"Jakarta\" },\n      { value: \"jp\", label: \"Japan\", description: \"Tokyo\" },\n    ]},\n    { group: \"Europe\", options: [\n      { value: \"de\", label: \"Germany\", description: \"Berlin\" },\n    ]},\n  ]}\n/>",
@@ -920,6 +1011,13 @@ export const components = [
         "required": false,
         "default": "\"No results found\"",
         "description": "The message shown when no command matches the current query, defaulting to \"No results found\"."
+      },
+      {
+        "prop": "onClick",
+        "type": "() => void",
+        "required": false,
+        "default": "—",
+        "description": "Alias for onSelect, matching the other item-array APIs (Menu, List, Sidebar, ...) — used when onSelect is absent; palette closes after it runs."
       }
     ],
     "snippet": "import { CommandPalette } from \"twico-ui\";\n\nconst [open, setOpen] = React.useState(false);\nReact.useEffect(() => {\n  const h = (e) => {\n    if ((e.metaKey || e.ctrlKey) && e.key === \"k\") { e.preventDefault(); setOpen(true); }\n  };\n  window.addEventListener(\"keydown\", h);\n  return () => window.removeEventListener(\"keydown\", h);\n}, []);\n\n<CommandPalette\n  open={open}\n  onClose={() => setOpen(false)}\n  commands={[\n    { group: \"Navigation\", label: \"Go to Dashboard\", shortcut: \"G D\", onSelect: goDash },\n    { group: \"Actions\", label: \"New project\", keywords: \"create add\", onSelect: create },\n  ]}\n/>",
@@ -1149,6 +1247,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Fires with the parsed number (or null), the formatted string, and the active currency code whenever either changes."
+      },
+      {
+        "prop": "onChange",
+        "type": "(e: React.ChangeEvent<HTMLInputElement>) => void",
+        "required": false,
+        "default": "—",
+        "description": "Native change handler (receives the event); fires alongside onValueChange, matching Currency. Previously typed-out via Omit and silently dropped at runtime."
       }
     ],
     "snippet": "import { CurrencyField } from \"twico-ui\";\n\n<CurrencyField\n  label=\"Amount\"\n  defaultCurrency=\"USD\"\n  onValueChange={(n, str, code) => save(n, code)}\n/>\n\n{/* limit the currency choices */}\n<CurrencyField\n  label=\"Amount\"\n  defaultCurrency=\"EUR\"\n  currencies={[\"USD\", \"EUR\", \"GBP\", \"IDR\"]}\n/>",
@@ -1412,6 +1517,13 @@ export const components = [
         "required": false,
         "default": "false",
         "description": "Renders the grid in pivot view from the start instead of the flat table layout; off by default."
+      },
+      {
+        "prop": "align",
+        "type": "\"left\" | \"right\"",
+        "required": false,
+        "default": "\"right\" for number/actions columns, else \"left\"",
+        "description": "Cell alignment; currently affects the actions column's button justification. Already supported at runtime — newly exposed in the .d.ts."
       }
     ],
     "snippet": "import { Datatable } from \"twico-ui\";\n\nconst columns = [\n  { field: \"name\", headerName: \"Name\", width: 200 },\n  { field: \"email\", headerName: \"Email\", width: 220 },\n  { field: \"role\", headerName: \"Role\", width: 130 },\n  { field: \"mrr\", headerName: \"MRR\", type: \"number\", width: 110 },\n];\n\nfunction Example(props) {\n  return React.createElement(Datatable, { checkboxSelection: true, pageSize: 10, columns: columns, rows: props.users });\n}",
@@ -1560,6 +1672,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Fires with the updated { start, end } range whenever the selection changes so you can update state."
+      },
+      {
+        "prop": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Disable all interaction (the popover cannot be opened)."
       }
     ],
     "snippet": "import { DateRangePicker } from \"twico-ui\";\n\nconst [range, setRange] = useState({ start: null, end: null });\n\n<DateRangePicker\n  label=\"Reporting period\"\n  value={range}\n  onChange={setRange}\n  weekStartsOn={1}\n/>",
@@ -1729,10 +1848,10 @@ export const components = [
       },
       {
         "prop": "size",
-        "type": "number | string",
+        "type": "\"sm\" | \"md\" | \"lg\" | number | string",
         "required": false,
         "default": "—",
-        "description": "Panel width for left/right or height for top/bottom; a number is treated as pixels or any CSS value."
+        "description": "Accepts preset \"sm\" (320px), \"md\" (380px), \"lg\" (480px) mapped to panel width (left/right) or height (top/bottom), in addition to number (px) and raw CSS values."
       },
       {
         "prop": "closeOnBackdrop",
@@ -1853,6 +1972,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Fires with the updated File array whenever files are added or removed, letting you sync controlled state."
+      },
+      {
+        "prop": "defaultValue",
+        "type": "File[]",
+        "required": false,
+        "default": "[]",
+        "description": "Uncontrolled initial file list."
       }
     ],
     "snippet": "import { FileUpload } from \"twico-ui\";\n\nconst [files, setFiles] = React.useState([]);\n\n<FileUpload\n  multiple\n  accept=\"image/*,.pdf\"\n  value={files}\n  onChange={setFiles}\n  hint=\"PNG, JPG or PDF up to 10MB\"\n/>",
@@ -2097,6 +2223,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Overrides the default card contents with a custom renderer, falling back to title, description, tags, and footer."
+      },
+      {
+        "prop": "defaultCards",
+        "type": "KanbanCard[]",
+        "required": false,
+        "default": "[]",
+        "description": "Initial cards when uncontrolled (the board applies moves internally)."
       }
     ],
     "snippet": "import { Kanban } from \"twico-ui\";\n\n<Kanban\n  columns={[\n    { id: \"todo\", title: \"To do\", color: \"var(--slate-400)\" },\n    { id: \"doing\", title: \"In progress\", color: \"var(--amber-500)\" },\n    { id: \"done\", title: \"Done\", color: \"var(--emerald-500)\" },\n  ]}\n  cards={[\n    { id: \"1\", column: \"todo\", title: \"Design tokens\", tags: [\"Design\"] },\n    { id: \"2\", column: \"doing\", title: \"Datatable filters\" },\n    { id: \"3\", column: \"done\", title: \"Ship release\" },\n  ]}\n  onCardMove={(id, to) => save(id, to)}\n/>",
@@ -2168,6 +2301,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Pins the menu to a fixed pixel width, otherwise it sizes to the larger of 200px and the trigger's width."
+      },
+      {
+        "prop": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "—",
+        "description": "Controlled open state - pair with onOpenChange. Omit for internal (uncontrolled) state."
+      },
+      {
+        "prop": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "required": false,
+        "default": "—",
+        "description": "Called with the requested open state on trigger click, item select, Esc, or outside click."
       }
     ],
     "snippet": "import { Menu, Button } from \"twico-ui\";\n\n<Menu\n  align=\"end\"\n  trigger={<Button>Options</Button>}\n  items={[\n    { label: \"Account\", heading: true },\n    { label: \"Profile\", onClick: openProfile, shortcut: \"⌘P\" },\n    { label: \"Settings\", onClick: openSettings },\n    { separator: true },\n    { label: \"Sign out\", danger: true, onClick: signOut },\n  ]}\n/>",
@@ -2249,6 +2396,41 @@ export const components = [
         "required": false,
         "default": "false",
         "description": "Disables the control and blocks all interaction when set to true, greying out the field; defaults to false."
+      },
+      {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Control height preset, matching Select/Combobox."
+      },
+      {
+        "prop": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Show a clear-all (×) affix when at least one value is selected."
+      },
+      {
+        "prop": "placement",
+        "type": "\"bottom\" | \"top\"",
+        "required": false,
+        "default": "\"bottom\"",
+        "description": "Open the menu upward instead of down (e.g. near a viewport bottom)."
+      },
+      {
+        "prop": "portal",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Render the dropdown in a portal (position:fixed on document.body) so it is never clipped by a scrolling/overflow-hidden ancestor; auto-flips up near the viewport bottom."
+      },
+      {
+        "prop": "minWidth",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Minimum popover width in px when portaled (useful when the control is narrow)."
       }
     ],
     "snippet": "import { MultiSelect } from \"twico-ui\";\n\nconst [tags, setTags] = useState([\"react\", \"tailwind\"]);\n\n<MultiSelect\n  label=\"Tech stack\"\n  placeholder=\"Add technologies\"\n  value={tags}\n  onChange={setTags}\n  options={[\n    { group: \"Frameworks\", options: [\n      { value: \"react\", label: \"React\", description: \"UI library\" },\n      { value: \"vue\", label: \"Vue\", description: \"Progressive framework\" },\n    ]},\n    { group: \"Tooling\", options: [\"tailwind\", \"typescript\"] },\n  ]}\n/>",
@@ -2362,6 +2544,13 @@ export const components = [
         "required": false,
         "default": "\"Go to\"",
         "description": "Text or node rendered before the jumper input, defaulting to \"Go to\", to clarify what the field does."
+      },
+      {
+        "prop": "defaultPage",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": "Initial 1-based page when uncontrolled (no `page` prop)."
       }
     ],
     "snippet": "import { Pagination } from \"twico-ui\";\n\nconst [page, setPage] = useState(1);\n\n<Pagination\n  page={page}\n  total={12}\n  onChange={setPage}\n  showJumper\n/>",
@@ -2415,6 +2604,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "The rich interactive content rendered inside the panel, such as inputs, buttons, or links."
+      },
+      {
+        "prop": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "—",
+        "description": "Controlled open state - pair with onOpenChange. Omit for internal (uncontrolled) state."
+      },
+      {
+        "prop": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "required": false,
+        "default": "—",
+        "description": "Called with the requested open state on trigger click, Esc, or outside click."
       }
     ],
     "snippet": "import { Popover, Button, Input } from \"twico-ui\";\n\n<Popover\n  trigger={<Button variant=\"outline\">Share</Button>}\n  title=\"Share link\"\n  placement=\"bottom\"\n>\n  <Input defaultValue=\"https://twico.dev/x\" />\n  <Button fullWidth>Copy link</Button>\n</Popover>",
@@ -2574,6 +2777,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Fires with the new rating when the user clicks a star, or 0 when they clear the current selection."
+      },
+      {
+        "prop": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Disable all interaction and dim the control."
       }
     ],
     "snippet": "import { Rating } from \"twico-ui\";\n\n// Interactive\nconst [r, setR] = React.useState(0);\n<Rating value={r} onChange={setR} />\n\n// Read-only display with numeric value\n<Rating value={4} readOnly showValue />\n\n// Uncontrolled, larger stars\n<Rating defaultValue={3} size=\"lg\" count={5} />",
@@ -2697,6 +2907,13 @@ export const components = [
         "required": false,
         "default": "0",
         "description": "Sets the minimum popover width in pixels when portaled, ensuring the menu stays at least this wide."
+      },
+      {
+        "prop": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Show a clear (×) affix when a value is selected; Delete/Backspace on the closed trigger also clears. Emits onChange(null)."
       }
     ],
     "snippet": "import { Select } from \"twico-ui\";\n\nconst [v, setV] = useState(null);\n\n<Select\n  label=\"Assignee\"\n  placeholder=\"Pick a teammate\"\n  value={v}\n  onChange={setV}\n  options={[\n    { group: \"Design\", options: [\n      { value: \"ada\", label: \"Ada Park\", description: \"Product designer\" },\n      { value: \"sam\", label: \"Sam Lee\", description: \"Brand designer\" },\n    ]},\n    { group: \"Engineering\", options: [\n      { value: \"jo\", label: \"Jo Kim\", description: \"Frontend\" },\n    ]},\n  ]}\n/>",
@@ -3195,6 +3412,27 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Lists the keys of rows to render with selected-row highlighting, useful for marking chosen or active records."
+      },
+      {
+        "prop": "sort",
+        "type": "TableSort | null",
+        "required": false,
+        "default": "—",
+        "description": "Controlled sort state — pair with onSortChange (null = unsorted)."
+      },
+      {
+        "prop": "defaultSort",
+        "type": "TableSort",
+        "required": false,
+        "default": "{ key: null, dir: \"asc\" }",
+        "description": "Initial sort when uncontrolled."
+      },
+      {
+        "prop": "onSortChange",
+        "type": "(sort: TableSort) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fired when a sortable header is clicked with the next sort state."
       }
     ],
     "snippet": "import { Table } from \"twico-ui\";\n\n<Table\n  sortable\n  striped\n  rowKey={(r) => r.id}\n  columns={[\n    { key: \"name\", header: \"Name\" },\n    { key: \"role\", header: \"Role\" },\n    { key: \"status\", header: \"Status\" },\n    { key: \"mrr\", header: \"MRR\", align: \"right\" },\n  ]}\n  data={users}\n/>",
@@ -3360,6 +3598,13 @@ export const components = [
         "description": "Adds a required asterisk beside the label when true, signaling that the field must be filled in."
       },
       {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Control size — same padding steps as Input."
+      },
+      {
         "prop": "...rest",
         "type": "React.TextareaHTMLAttributes<HTMLTextAreaElement>",
         "required": false,
@@ -3411,10 +3656,10 @@ export const components = [
     "propsRows": [
       {
         "prop": "tone",
-        "type": "\"default\" | \"success\" | \"warning\" | \"danger\" | \"info\"",
+        "type": "\"default\" | \"neutral\" | \"success\" | \"warning\" | \"danger\" | \"info\"",
         "required": false,
         "default": "\"default\"",
-        "description": "Sets the color accent and default icon to convey intent, choosing among default, success, warning, danger, or info."
+        "description": "\"neutral\" is now accepted as an alias for \"default\" (aligns with Badge's tone vocabulary). No new standalone props were added."
       },
       {
         "prop": "title",
@@ -3542,6 +3787,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Callback fired with the clicked node when a row is selected, letting you react to navigation or load its contents."
+      },
+      {
+        "prop": "expanded",
+        "type": "string[]",
+        "required": false,
+        "default": "—",
+        "description": "Controlled expanded node ids (pair with `onExpandedChange`)."
+      },
+      {
+        "prop": "onExpandedChange",
+        "type": "(ids: string[]) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fired with the next expanded ids whenever a row expands or collapses."
       }
     ],
     "snippet": "import { TreeView } from \"twico-ui\";\n\n<TreeView\n  defaultExpanded={[\"src\"]}\n  onSelect={(node) => open(node.id)}\n  data={[\n    { id: \"src\", label: \"src\", children: [\n      { id: \"app\", label: \"App.tsx\" },\n      { id: \"comp\", label: \"components\", children: [\n        { id: \"btn\", label: \"Button.tsx\", badge: 3 },\n      ]},\n    ]},\n  ]}\n/>",
