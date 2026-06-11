@@ -1,19 +1,35 @@
 import React from "react";
+import { createPortal } from "react-dom";
 
 const DRAWER_CSS = `
-.twc-drawer__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(2px); animation: twico-fade-in var(--duration-base) var(--ease-out); }
+.twc-drawer__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(2px); }
+.twc-drawer__overlay[data-state="open"] { animation: twico-fade-in var(--duration-base) var(--ease-out); }
+.twc-drawer__overlay[data-state="closed"] { animation: twc-drawer-fade-out 180ms var(--ease-in) forwards; pointer-events: none; }
+@keyframes twc-drawer-fade-out { from { opacity: 1; } to { opacity: 0; } }
 .twc-drawer {
   position: fixed; z-index: var(--z-modal); background: var(--color-surface); color: var(--color-text);
   display: flex; flex-direction: column; box-shadow: var(--shadow-xl); font-family: var(--font-sans);
 }
-.twc-drawer[data-side="right"] { top: 0; right: 0; height: 100%; width: var(--_w, 380px); max-width: 92vw; border-left: var(--border-thin) solid var(--color-border); border-top-left-radius: var(--radius-2xl); border-bottom-left-radius: var(--radius-2xl); animation: twc-drawer-r var(--duration-base) var(--ease-out); }
-.twc-drawer[data-side="left"] { top: 0; left: 0; height: 100%; width: var(--_w, 380px); max-width: 92vw; border-right: var(--border-thin) solid var(--color-border); border-top-right-radius: var(--radius-2xl); border-bottom-right-radius: var(--radius-2xl); animation: twc-drawer-l var(--duration-base) var(--ease-out); }
-.twc-drawer[data-side="bottom"] { left: 0; right: 0; bottom: 0; width: 100%; max-height: 88vh; height: var(--_h, auto); border-top: var(--border-thin) solid var(--color-border); border-top-left-radius: var(--radius-2xl); border-top-right-radius: var(--radius-2xl); animation: twc-drawer-b var(--duration-base) var(--ease-out); }
-.twc-drawer[data-side="top"] { left: 0; right: 0; top: 0; width: 100%; max-height: 88vh; height: var(--_h, auto); border-bottom: var(--border-thin) solid var(--color-border); border-bottom-left-radius: var(--radius-2xl); border-bottom-right-radius: var(--radius-2xl); animation: twc-drawer-t var(--duration-base) var(--ease-out); }
+.twc-drawer[data-side="right"] { top: 0; right: 0; height: 100%; width: var(--_w, 380px); max-width: 92vw; border-left: var(--border-thin) solid var(--color-border); border-top-left-radius: var(--radius-2xl); border-bottom-left-radius: var(--radius-2xl); }
+.twc-drawer[data-side="left"] { top: 0; left: 0; height: 100%; width: var(--_w, 380px); max-width: 92vw; border-right: var(--border-thin) solid var(--color-border); border-top-right-radius: var(--radius-2xl); border-bottom-right-radius: var(--radius-2xl); }
+.twc-drawer[data-side="bottom"] { left: 0; right: 0; bottom: 0; width: 100%; max-height: 88vh; height: var(--_h, auto); border-top: var(--border-thin) solid var(--color-border); border-top-left-radius: var(--radius-2xl); border-top-right-radius: var(--radius-2xl); }
+.twc-drawer[data-side="top"] { left: 0; right: 0; top: 0; width: 100%; max-height: 88vh; height: var(--_h, auto); border-bottom: var(--border-thin) solid var(--color-border); border-bottom-left-radius: var(--radius-2xl); border-bottom-right-radius: var(--radius-2xl); }
+.twc-drawer[data-side="right"][data-state="open"] { animation: twc-drawer-r var(--duration-base) var(--ease-out); }
+.twc-drawer[data-side="left"][data-state="open"] { animation: twc-drawer-l var(--duration-base) var(--ease-out); }
+.twc-drawer[data-side="bottom"][data-state="open"] { animation: twc-drawer-b var(--duration-base) var(--ease-out); }
+.twc-drawer[data-side="top"][data-state="open"] { animation: twc-drawer-t var(--duration-base) var(--ease-out); }
+.twc-drawer[data-side="right"][data-state="closed"] { animation: twc-drawer-r-out 180ms var(--ease-in) forwards; }
+.twc-drawer[data-side="left"][data-state="closed"] { animation: twc-drawer-l-out 180ms var(--ease-in) forwards; }
+.twc-drawer[data-side="bottom"][data-state="closed"] { animation: twc-drawer-b-out 180ms var(--ease-in) forwards; }
+.twc-drawer[data-side="top"][data-state="closed"] { animation: twc-drawer-t-out 180ms var(--ease-in) forwards; }
 @keyframes twc-drawer-r { from { transform: translateX(100%); } to { transform: translateX(0); } }
 @keyframes twc-drawer-l { from { transform: translateX(-100%); } to { transform: translateX(0); } }
 @keyframes twc-drawer-b { from { transform: translateY(100%); } to { transform: translateY(0); } }
 @keyframes twc-drawer-t { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+@keyframes twc-drawer-r-out { from { transform: translateX(0); } to { transform: translateX(100%); } }
+@keyframes twc-drawer-l-out { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@keyframes twc-drawer-b-out { from { transform: translateY(0); } to { transform: translateY(100%); } }
+@keyframes twc-drawer-t-out { from { transform: translateY(0); } to { transform: translateY(-100%); } }
 .twc-drawer__header { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-5) var(--space-5) var(--space-3); }
 .twc-drawer__titles { flex: 1; min-width: 0; }
 .twc-drawer__title { font-size: var(--text-xl); font-weight: var(--font-bold); letter-spacing: -0.01em; }
@@ -23,6 +39,9 @@ const DRAWER_CSS = `
 .twc-drawer__close svg { width: 18px; height: 18px; }
 .twc-drawer__body { flex: 1; overflow-y: auto; padding: var(--space-2) var(--space-5) var(--space-5); font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-normal); }
 .twc-drawer__footer { display: flex; gap: var(--space-2); justify-content: flex-end; padding: var(--space-4) var(--space-5); border-top: var(--border-thin) solid var(--color-divider); }
+@media (prefers-reduced-motion: reduce) {
+  .twc-drawer__overlay[data-state], .twc-drawer[data-state] { animation-duration: 1ms; }
+}
 `;
 
 export function Drawer({
@@ -50,6 +69,14 @@ export function Drawer({
     el.textContent = DRAWER_CSS;
     document.head.appendChild(el);
   }, []);
+
+  // Stay mounted through the slide-out animation so closing is smooth, then unmount.
+  const [mounted, setMounted] = React.useState(open);
+  React.useEffect(() => {
+    if (open) { setMounted(true); return; }
+    const t = setTimeout(() => setMounted(false), 200);
+    return () => clearTimeout(t);
+  }, [open]);
 
   // Modal a11y (1/2): move focus into the drawer on open and restore it to the
   // previously-focused element on close. Keyed on `open` only, so an unstable
@@ -90,12 +117,13 @@ export function Drawer({
     return () => document.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  if (!open) return null;
+  if (!mounted) return null;
+  const state = open ? "open" : "closed";
   const sizeVar = side === "left" || side === "right" ? { "--_w": typeof size === "number" ? `${size}px` : size } : { "--_h": typeof size === "number" ? `${size}px` : size };
 
-  return (
-    <div className="twc-drawer__overlay" onMouseDown={(e) => { if (closeOnBackdrop && e.target === e.currentTarget) onClose?.(); }}>
-      <div ref={panelRef} className={`twc-drawer ${className}`} data-side={side} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-describedby={description ? descId : undefined} style={size ? sizeVar : undefined} {...rest}>
+  const overlay = (
+    <div className="twc-drawer__overlay" data-state={state} onMouseDown={(e) => { if (closeOnBackdrop && e.target === e.currentTarget) onClose?.(); }}>
+      <div ref={panelRef} className={`twc-drawer ${className}`} data-side={side} data-state={state} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-describedby={description ? descId : undefined} style={size ? sizeVar : undefined} {...rest}>
         {(title || description || onClose) ? (
           <div className="twc-drawer__header">
             <div className="twc-drawer__titles">
@@ -114,4 +142,9 @@ export function Drawer({
       </div>
     </div>
   );
+
+  // Portal to <body> so the overlay escapes any transformed / backdrop-filtered
+  // ancestor that would otherwise become its containing block.
+  const RD = typeof createPortal === "function" ? createPortal : null;
+  return RD ? RD(overlay, document.body) : overlay;
 }

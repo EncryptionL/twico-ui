@@ -8,8 +8,12 @@ const POPOVER_CSS = `
   background: var(--color-surface-raised); color: var(--color-text);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg); font-family: var(--font-sans);
-  animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top;
+  transform-origin: top;
 }
+.twc-popover[data-state="open"] { animation: twico-scale-in var(--duration-fast) var(--ease-spring); }
+.twc-popover[data-state="closed"] { animation: twc-popover-out 120ms var(--ease-in) forwards; pointer-events: none; }
+@keyframes twc-popover-out { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.96); } }
+@media (prefers-reduced-motion: reduce) { .twc-popover[data-state] { animation-duration: 1ms; } }
 .twc-popover[data-flip="true"] { transform-origin: bottom; }
 .twc-popover__arrow { position: absolute; width: 11px; height: 11px; background: var(--color-surface-raised);
   border-left: var(--border-thin) solid var(--color-border); border-top: var(--border-thin) solid var(--color-border);
@@ -37,6 +41,7 @@ export function Popover({
   }, []);
 
   const [open, setOpen] = React.useState(false);
+  const [render, setRender] = React.useState(false);
   const [pos, setPos] = React.useState(null);
   const wrapRef = React.useRef(null);
   const popRef = React.useRef(null);
@@ -91,8 +96,15 @@ export function Popover({
     };
   }, [open, place]);
 
-  const pop = open && pos ? (
-    <div className="twc-popover" ref={popRef} data-flip={pos.flip || undefined} role="dialog"
+  // Keep the popover mounted through the close animation, then unmount.
+  React.useEffect(() => {
+    if (open) { setRender(true); return; }
+    const t = setTimeout(() => setRender(false), 130);
+    return () => clearTimeout(t);
+  }, [open]);
+
+  const pop = render && pos ? (
+    <div className="twc-popover" ref={popRef} data-state={open ? "open" : "closed"} data-flip={pos.flip || undefined} role="dialog"
       style={{ top: pos.top, bottom: pos.bottom, left: pos.left, width: pos.width }}>
       <span className="twc-popover__arrow" style={pos.arrow} aria-hidden="true" />
       <div className="twc-popover__inner">

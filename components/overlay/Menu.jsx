@@ -8,8 +8,12 @@ const MENU_CSS = `
   padding: var(--space-1-5); background: var(--color-surface-raised);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg); font-family: var(--font-sans);
-  transform-origin: top; animation: twico-scale-in var(--duration-fast) var(--ease-spring);
+  transform-origin: top;
 }
+.twc-menu[data-state="open"] { animation: twico-scale-in var(--duration-fast) var(--ease-spring); }
+.twc-menu[data-state="closed"] { animation: twc-menu-out 120ms var(--ease-in) forwards; pointer-events: none; }
+@keyframes twc-menu-out { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.96); } }
+@media (prefers-reduced-motion: reduce) { .twc-menu[data-state] { animation-duration: 1ms; } }
 .twc-menu[data-flip="true"] { transform-origin: bottom; }
 .twc-menu__header { display: flex; align-items: center; gap: var(--space-2-5); padding: 8px 10px 10px; margin-bottom: var(--space-1-5); border-bottom: var(--border-thin) solid var(--color-divider); }
 .twc-menu__header-main { min-width: 0; }
@@ -52,6 +56,7 @@ export function Menu({
   }, []);
 
   const [open, setOpen] = React.useState(false);
+  const [render, setRender] = React.useState(false);
   const [pos, setPos] = React.useState(null);
   const [active, setActive] = React.useState(-1);
   const wrapRef = React.useRef(null);
@@ -94,6 +99,13 @@ export function Menu({
     };
   }, [open, place]);
 
+  // Keep the menu mounted through the close animation, then unmount.
+  React.useEffect(() => {
+    if (open) { setRender(true); return; }
+    const t = setTimeout(() => setRender(false), 130);
+    return () => clearTimeout(t);
+  }, [open]);
+
   const toggle = () => { setOpen((o) => !o); setActive(-1); };
 
   function onKeyDown(e) {
@@ -116,8 +128,8 @@ export function Menu({
     }
   }
 
-  const menu = open && pos ? (
-    <div className="twc-menu" id={menuId} ref={menuRef} data-align={align} data-flip={pos.flip || undefined} role="menu"
+  const menu = render && pos ? (
+    <div className="twc-menu" id={menuId} ref={menuRef} data-state={open ? "open" : "closed"} data-align={align} data-flip={pos.flip || undefined} role="menu"
       style={{ top: pos.top, bottom: pos.bottom, left: pos.left, minWidth: pos.width }}>
       {header ? <div className="twc-menu__header">{header}</div> : null}
       {items.map((it, i) => {

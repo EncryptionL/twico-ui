@@ -1,11 +1,21 @@
 import React from "react";
+import { createPortal } from "react-dom";
 
 const COMMAND_CSS = `
 .twc-cmdk__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(3px);
-  display: flex; align-items: flex-start; justify-content: center; padding-top: 12vh; animation: twico-fade-in var(--duration-base) var(--ease-out); }
+  display: flex; align-items: flex-start; justify-content: center; padding-top: 12vh; }
+.twc-cmdk__overlay[data-state="open"] { animation: twico-fade-in var(--duration-base) var(--ease-out); }
+.twc-cmdk__overlay[data-state="closed"] { animation: twc-cmdk-fade-out 150ms var(--ease-in) forwards; pointer-events: none; }
 .twc-cmdk { width: 100%; max-width: 560px; max-height: 60vh; display: flex; flex-direction: column; overflow: hidden;
   background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-xl); font-family: var(--font-sans); animation: twico-pop-in var(--duration-base) var(--ease-spring); }
+  box-shadow: var(--shadow-xl); font-family: var(--font-sans); }
+.twc-cmdk[data-state="open"] { animation: twico-pop-in var(--duration-base) var(--ease-spring); }
+.twc-cmdk[data-state="closed"] { animation: twc-cmdk-pop-out 150ms var(--ease-in) forwards; }
+@keyframes twc-cmdk-fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes twc-cmdk-pop-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(-8px) scale(0.985); } }
+@media (prefers-reduced-motion: reduce) {
+  .twc-cmdk__overlay[data-state], .twc-cmdk[data-state] { animation-duration: 1ms; }
+}
 .twc-cmdk__search { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-5); border-bottom: var(--border-thin) solid var(--color-divider); }
 .twc-cmdk__search svg { width: 20px; height: 20px; color: var(--color-text-subtle); flex: none; }
 .twc-cmdk__input { flex: 1; min-width: 0; border: none; outline: none; background: transparent; font-family: inherit; font-size: var(--text-lg); color: var(--color-text); }
@@ -49,6 +59,14 @@ export function CommandPalette({
   const inputRef = React.useRef(null);
   const listRef = React.useRef(null);
 
+  // Stay mounted through the exit animation so closing is smooth, then unmount.
+  const [mounted, setMounted] = React.useState(open);
+  React.useEffect(() => {
+    if (open) { setMounted(true); return; }
+    const t = setTimeout(() => setMounted(false), 170);
+    return () => clearTimeout(t);
+  }, [open]);
+
   React.useEffect(() => {
     if (open) { setQuery(""); setActive(0); const t = setTimeout(() => inputRef.current?.focus(), 30); return () => clearTimeout(t); }
   }, [open]);
@@ -84,12 +102,13 @@ export function CommandPalette({
     if (node) node.scrollIntoView({ block: "nearest" });
   }, [active]);
 
-  if (!open) return null;
+  if (!mounted) return null;
+  const state = open ? "open" : "closed";
   let idx = -1;
 
-  return (
-    <div className="twc-cmdk__overlay" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose?.(); }}>
-      <div className={`twc-cmdk ${className}`} role="dialog" aria-modal="true" aria-label="Command palette" {...rest}>
+  const overlay = (
+    <div className="twc-cmdk__overlay" data-state={state} onMouseDown={(e) => { if (e.target === e.currentTarget) onClose?.(); }}>
+      <div className={`twc-cmdk ${className}`} data-state={state} role="dialog" aria-modal="true" aria-label="Command palette" {...rest}>
         <div className="twc-cmdk__search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           <input ref={inputRef} className="twc-cmdk__input" value={query} placeholder={placeholder}
@@ -122,4 +141,9 @@ export function CommandPalette({
       </div>
     </div>
   );
+
+  // Portal to <body> so the overlay escapes any transformed / backdrop-filtered
+  // ancestor (e.g. a sticky navbar) that would otherwise become its containing block.
+  const RD = typeof createPortal === "function" ? createPortal : null;
+  return RD ? RD(overlay, document.body) : overlay;
 }

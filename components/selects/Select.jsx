@@ -34,8 +34,12 @@ const SELECT_CSS = `
   position: absolute; z-index: var(--z-dropdown); top: calc(100% + 6px); left: 0; right: 0;
   background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
-  transform-origin: top; animation: twico-scale-in var(--duration-fast) var(--ease-spring);
+  transform-origin: top;
 }
+.twc-pop[data-state="open"] { animation: twico-scale-in var(--duration-fast) var(--ease-spring); }
+.twc-pop[data-state="closed"] { animation: twc-select-out 120ms var(--ease-in) forwards; pointer-events: none; }
+@keyframes twc-select-out { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.97); } }
+@media (prefers-reduced-motion: reduce) { .twc-pop[data-state] { animation-duration: 1ms; } }
 .twc-pop[data-placement="top"] { top: auto; bottom: calc(100% + 6px); transform-origin: bottom; }
 .twc-pop__search { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border-bottom: var(--border-thin) solid var(--color-divider); }
 .twc-pop__search svg { width: 15px; height: 15px; color: var(--color-text-subtle); flex: none; }
@@ -100,6 +104,7 @@ export function Select({
   const [internal, setInternal] = React.useState(defaultValue);
   const current = value !== undefined ? value : internal;
   const [open, setOpen] = React.useState(false);
+  const [render, setRender] = React.useState(false);
   const [active, setActive] = React.useState(0);
   const [coords, setCoords] = React.useState(null);
   const [query, setQuery] = React.useState("");
@@ -165,6 +170,13 @@ export function Select({
 
   React.useEffect(() => { if (open) ensureVisible(listRef.current, activeRef.current); }, [active, open]);
 
+  // Keep the listbox mounted through the close animation, then unmount.
+  React.useEffect(() => {
+    if (open) { setRender(true); return; }
+    const t = setTimeout(() => setRender(false), 130);
+    return () => clearTimeout(t);
+  }, [open]);
+
   function commit(v) {
     if (value === undefined) setInternal(v);
     onChange?.(v); setOpen(false);
@@ -223,18 +235,19 @@ export function Select({
   const RD = { createPortal: (typeof createPortal === "function" ? createPortal : (typeof window !== "undefined" && window.ReactDOM && window.ReactDOM.createPortal)) };
   const canPortal = portal && RD && RD.createPortal;
 
+  const popState = open ? "open" : "closed";
   let popEl = null;
-  if (open) {
+  if (render) {
     if (canPortal && coords) {
       popEl = RD.createPortal(
         <div className="twc-pop twc-pop--portal" id={listboxId} role="listbox" ref={popRef}
-          data-placement={coords.flip ? "top" : undefined}
+          data-state={popState} data-placement={coords.flip ? "top" : undefined}
           style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, right: "auto", zIndex: "var(--z-tooltip)" }}>
           {popInner}
         </div>, document.body);
     } else if (!portal) {
       popEl = (
-        <div className="twc-pop" id={listboxId} role="listbox" ref={popRef} data-placement={placement === "top" ? "top" : undefined}>
+        <div className="twc-pop" id={listboxId} role="listbox" ref={popRef} data-state={popState} data-placement={placement === "top" ? "top" : undefined}>
           {popInner}
         </div>
       );

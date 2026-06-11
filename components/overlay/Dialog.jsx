@@ -1,12 +1,14 @@
 import React from "react";
+import { createPortal } from "react-dom";
 
 const DIALOG_CSS = `
 .twc-dialog__overlay {
   position: fixed; inset: 0; z-index: var(--z-modal);
   display: grid; place-items: center; padding: var(--space-4);
   background: var(--color-overlay); backdrop-filter: blur(3px);
-  animation: twico-fade-in var(--duration-base) var(--ease-out);
 }
+.twc-dialog__overlay[data-state="open"] { animation: twico-fade-in var(--duration-base) var(--ease-out); }
+.twc-dialog__overlay[data-state="closed"] { animation: twc-dialog-fade-out 150ms var(--ease-in) forwards; pointer-events: none; }
 .twc-dialog {
   position: relative; width: 100%; max-width: var(--_mw, 480px);
   max-height: calc(100vh - 48px); overflow: auto;
@@ -14,7 +16,13 @@ const DIALOG_CSS = `
   border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-2xl); box-shadow: var(--shadow-xl);
   font-family: var(--font-sans);
-  animation: twico-pop-in var(--duration-base) var(--ease-spring);
+}
+.twc-dialog[data-state="open"] { animation: twico-pop-in var(--duration-base) var(--ease-spring); }
+.twc-dialog[data-state="closed"] { animation: twc-dialog-pop-out 150ms var(--ease-in) forwards; }
+@keyframes twc-dialog-fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes twc-dialog-pop-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(8px) scale(0.985); } }
+@media (prefers-reduced-motion: reduce) {
+  .twc-dialog__overlay[data-state], .twc-dialog[data-state] { animation-duration: 1ms; }
 }
 .twc-dialog[data-size="sm"] { --_mw: 380px; }
 .twc-dialog[data-size="lg"] { --_mw: 640px; }
@@ -58,6 +66,14 @@ export function Dialog({
     document.head.appendChild(el);
   }, []);
 
+  // Stay mounted through the exit animation so closing is smooth, then unmount.
+  const [mounted, setMounted] = React.useState(open);
+  React.useEffect(() => {
+    if (open) { setMounted(true); return; }
+    const t = setTimeout(() => setMounted(false), 170);
+    return () => clearTimeout(t);
+  }, [open]);
+
   // Modal a11y (1/2): move focus into the dialog on open and restore it to the
   // previously-focused element on close. Keyed on `open` only, so an unstable
   // onClose identity can't clobber the saved trigger element.
@@ -97,11 +113,12 @@ export function Dialog({
     return () => document.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  if (!open) return null;
+  if (!mounted) return null;
+  const state = open ? "open" : "closed";
 
-  return (
-    <div className="twc-dialog__overlay" onMouseDown={(e) => { if (closeOnBackdrop && e.target === e.currentTarget) onClose?.(); }}>
-      <div ref={dialogRef} className={`twc-dialog ${className}`} data-size={size} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-describedby={description ? descId : undefined} {...rest}>
+  const overlay = (
+    <div className="twc-dialog__overlay" data-state={state} onMouseDown={(e) => { if (closeOnBackdrop && e.target === e.currentTarget) onClose?.(); }}>
+      <div ref={dialogRef} className={`twc-dialog ${className}`} data-state={state} data-size={size} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-describedby={description ? descId : undefined} {...rest}>
         {(title || description) ? (
           <div className="twc-dialog__header">
             <div className="twc-dialog__titles">
@@ -120,4 +137,9 @@ export function Dialog({
       </div>
     </div>
   );
+
+  // Portal to <body> so the overlay escapes any transformed / backdrop-filtered
+  // ancestor that would otherwise become its containing block.
+  const RD = typeof createPortal === "function" ? createPortal : null;
+  return RD ? RD(overlay, document.body) : overlay;
 }
