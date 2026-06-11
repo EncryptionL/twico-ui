@@ -17,6 +17,7 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 | [security.md](./security.md) | Security standards: URL sanitization, the no-CDN rule, dependency auditing, CodeQL, Dependabot. |
 | [docs-site.md](./docs-site.md) | How the documentation website works, regenerating it, deploying to GitHub Pages, the render-check. |
 | [hooks.md](./hooks.md) | The exported React hooks API — where it lives, the full set, conventions, how to add one. |
+| [datatable.md](./datatable.md) | Datatable advanced features — opt-in row virtualization, keyboard row reorder, and ARIA menu semantics. |
 | [documentation.md](./documentation.md) | The "document everything in `/docs`" policy — what, where, when. |
 | [design-suggestions.md](./design-suggestions.md) | Reviewed-but-not-yet-implemented proposals (component API, visual, site, infra) to pick up later. |
 

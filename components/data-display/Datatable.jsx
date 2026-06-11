@@ -222,6 +222,18 @@ const DT_CSS = `
 .twc-dt__row[data-row-dragging] { opacity: 0.4; }
 .twc-dt__row[data-row-dropbefore] > .twc-dt__td { box-shadow: inset 0 3px 0 var(--color-primary); }
 .twc-dt__row[data-row-dropafter] > .twc-dt__td { box-shadow: inset 0 -3px 0 var(--color-primary); }
+/* Keyboard row reorder (grabbed) */
+.twc-dt__row[data-row-grabbed] > .twc-dt__td { background: var(--color-primary-subtle); box-shadow: inset 0 0 0 2px var(--color-primary); }
+.twc-dt__row[data-row-grabtarget] > .twc-dt__td { box-shadow: inset 0 3px 0 var(--color-primary); }
+.twc-dt__row[data-row-grabtarget="after"] > .twc-dt__td { box-shadow: inset 0 -3px 0 var(--color-primary); }
+.twc-dt__row-handle { display: inline-flex; align-items: center; justify-content: center; color: var(--color-text-subtle);
+  background: transparent; border: none; padding: 0; margin: 0; cursor: grab; border-radius: var(--radius-sm); opacity: 0; transition: opacity var(--duration-fast), color var(--duration-fast); }
+.twc-dt__row:hover .twc-dt__row-handle, .twc-dt__row-handle:focus-visible { opacity: 0.7; }
+.twc-dt__row-handle:focus-visible { outline: none; box-shadow: var(--ring); color: var(--color-primary); }
+.twc-dt__row-handle[data-grabbed="true"] { opacity: 1; color: var(--color-primary); }
+.twc-dt__row-handle svg { width: 14px; height: 14px; }
+/* Visually-hidden aria-live region for reorder announcements */
+.twc-dt__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 /* Row resizing — must not steal positioning from a pinned first column (checkbox/select) */
 .twc-dt__row > .twc-dt__td:first-child:not([data-pin]) { position: relative; }
 .twc-dt__row-resizer { position: absolute; left: 0; right: 0; bottom: -3px; height: 7px; cursor: row-resize; z-index: 6; touch-action: none; }
@@ -537,6 +549,7 @@ export function Datatable({
   showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [],
   rowPinning = false, rowReorder = false, rowResize = false, onRowOrderChange,
   pivot = null, pivotMode = false,
+  virtualized = false, overscan = 8, rowHeight,
   className = "", ...rest
 }) {
   React.useInsertionEffect(() => {
@@ -587,6 +600,14 @@ export function Datatable({
   const [rowOrder, setRowOrder] = React.useState(null);
   const [rowHeights, setRowHeights] = React.useState({});
   const [rowDrag, setRowDrag] = React.useState({ from: null, over: null, after: false });
+  // Keyboard row reorder ("grab" mode): { key, index } where index is the live target slot among middleRows.
+  const [rowGrab, setRowGrab] = React.useState(null);
+  const [reorderMsg, setReorderMsg] = React.useState("");
+  const rowFocusRef = React.useRef(null); // key to restore focus to after a keyboard drop
+  // Row virtualization scroll state.
+  const scrollRef = React.useRef(null);
+  const [scrollTop, setScrollTop] = React.useState(0);
+  const [viewportH, setViewportH] = React.useState(0);
   const [pivotOn, setPivotOn] = React.useState(pivotMode);
   // Runtime, user-editable aggregation config: { [field]: "sum"|"avg"|"min"|"max"|"count" }
   const [aggConfig, setAggConfig] = React.useState(() => {
@@ -635,6 +656,39 @@ export function Datatable({
   const [rowMenuPos, openRowMenu, closeRowMenu] = useFloating();
   const [exportOpen, setExportOpen] = React.useState(false);
   const [exportPos, openExport, closeExport] = useFloating();
+  // ARIA menu focus management: remember the trigger so focus returns to it on close.
+  const menuTriggerRef = React.useRef(null);
+  const colMenuRef = React.useRef(null);
+  const rowMenuRef = React.useRef(null);
+  const exportMenuRef = React.useRef(null);
+  // Move focus to the first item when a menu opens; restore to the trigger when it closes.
+  function focusFirstItem(container) {
+    if (!container) return;
+    const first = container.querySelector('[role="menuitem"]:not([disabled])');
+    if (first) first.focus();
+  }
+  function restoreTriggerFocus() {
+    const t = menuTriggerRef.current; menuTriggerRef.current = null;
+    if (t && document.contains(t)) t.focus();
+  }
+  // Roving ArrowUp/Down + Home/End inside an open menu; Tab/Escape close-and-restore is handled by the
+  // shared outside-click/Escape effects plus onKeyDown below.
+  function onMenuKeyDown(e, closeFn) {
+    const container = e.currentTarget;
+    const items = Array.from(container.querySelectorAll('[role="menuitem"]:not([disabled])'));
+    if (!items.length) return;
+    const idx = items.indexOf(document.activeElement);
+    if (e.key === "ArrowDown") { e.preventDefault(); items[(idx + 1 + items.length) % items.length].focus(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); items[(idx - 1 + items.length) % items.length].focus(); }
+    else if (e.key === "Home") { e.preventDefault(); items[0].focus(); }
+    else if (e.key === "End") { e.preventDefault(); items[items.length - 1].focus(); }
+    else if (e.key === "Tab") { e.preventDefault(); closeFn(); restoreTriggerFocus(); }
+    else if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); closeFn(); restoreTriggerFocus(); }
+  }
+  // After each menu opens (its container mounts), pull focus to the first item.
+  React.useEffect(() => { if (colMenu) focusFirstItem(colMenuRef.current); }, [colMenu]);
+  React.useEffect(() => { if (rowMenu) focusFirstItem(rowMenuRef.current); }, [rowMenu]);
+  React.useEffect(() => { if (exportOpen) focusFirstItem(exportMenuRef.current); }, [exportOpen]);
 
   React.useEffect(() => {
     if (!colMenu && !panel && !rowMenu) return;
@@ -795,6 +849,8 @@ export function Datatable({
   const pinnedBottomRows = canPinRows ? pinnedRows.bottom.map((k) => leafRows.find((r, i) => keyOf(r, i) === k)).filter(Boolean) : [];
   const middleRows = canPinRows ? leafRows.filter((r, i) => !pinSideOf(keyOf(r, i))) : leafRows;
   const keyIndex = React.useMemo(() => { const m = new Map(); leafRows.forEach((r, i) => m.set(keyOf(r, i), i)); return m; }, [leafRows]);
+  // Position of each key within middleRows — used by keyboard reorder to highlight the live target slot.
+  const keyIndexMid = React.useMemo(() => { const m = new Map(); middleRows.forEach((r, i) => m.set(keyOf(r, keyIndex.get(keyOf(r)) ?? i), i)); return m; }, [middleRows, keyIndex]);
 
   // ---- Row reordering (drag) + row resizing (drag bottom edge) ----
   const canReorderRows = rowReorder && !activeGroupBy.length && !sort;
@@ -818,6 +874,90 @@ export function Datatable({
     const onUp = () => { window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp); };
     window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
   }
+
+  // Commit a keyboard reorder that moves `fromKey` to the slot occupied by `middleRows[targetIndex]`,
+  // sharing the same persistence path as drag-drop (setRowOrder/onRowOrderChange). Targeting by the
+  // neighbor's key (not a raw index) keeps it correct when pinned rows are interleaved.
+  function commitRowMove(fromKey, targetIndex) {
+    const targetRow = middleRows[Math.max(0, Math.min(targetIndex, middleRows.length - 1))];
+    const targetKey = targetRow ? keyOf(targetRow, keyIndex.get(keyOf(targetRow)) ?? 0) : null;
+    const base = (rowOrder && rowOrder.length ? rowOrder.slice() : processed.map((r) => keyOf(r)));
+    for (const r of processed) { const k = keyOf(r); if (!base.includes(k)) base.push(k); }
+    const fromIdx = base.indexOf(fromKey);
+    if (fromIdx === -1) return;
+    base.splice(fromIdx, 1);
+    let insertAt = targetKey == null ? base.length : base.indexOf(targetKey);
+    if (insertAt === -1) insertAt = base.length;
+    // Moving down past the target lands after it; moving up lands before it.
+    const fromMid = keyIndexMid.get(fromKey);
+    if (fromMid != null && targetIndex > fromMid) insertAt += 1;
+    base.splice(insertAt, 0, fromKey);
+    setRowOrder(base); onRowOrderChange?.(base);
+  }
+  // Keyboard reorder on a row drag handle: Enter/Space grabs & drops, ArrowUp/Down move, Escape cancels.
+  function onRowHandleKey(e, key, currentIdx, rowLabel) {
+    const grabbed = rowGrab && rowGrab.key === key;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (!grabbed) {
+        setRowGrab({ key, index: currentIdx });
+        setReorderMsg(`${rowLabel} grabbed, row ${currentIdx + 1} of ${middleRows.length}. Use the up and down arrow keys to move, Enter to drop, Escape to cancel.`);
+      } else {
+        rowFocusRef.current = key;
+        commitRowMove(key, rowGrab.index);
+        setReorderMsg(`${rowLabel} dropped at row ${rowGrab.index + 1} of ${middleRows.length}.`);
+        setRowGrab(null);
+      }
+    } else if (grabbed && (e.key === "ArrowUp" || e.key === "ArrowDown")) {
+      e.preventDefault();
+      const next = Math.max(0, Math.min(rowGrab.index + (e.key === "ArrowDown" ? 1 : -1), middleRows.length - 1));
+      if (next !== rowGrab.index) { setRowGrab({ key, index: next }); setReorderMsg(`${rowLabel} moved to row ${next + 1} of ${middleRows.length}. Press Enter to drop.`); }
+    } else if (grabbed && e.key === "Escape") {
+      e.preventDefault();
+      rowFocusRef.current = key;
+      setRowGrab(null);
+      setReorderMsg("Reorder cancelled.");
+    }
+  }
+  // Restore focus to a moved row's drag handle after a keyboard drop/cancel re-renders the rows.
+  React.useEffect(() => {
+    if (rowFocusRef.current == null) return;
+    const key = rowFocusRef.current; rowFocusRef.current = null;
+    const root = gridRef.current; if (!root) return;
+    const sel = (typeof CSS !== "undefined" && CSS.escape) ? CSS.escape(String(key)) : String(key).replace(/"/g, '\\"');
+    const el = root.querySelector(`.twc-dt__row-handle[data-row-key="${sel}"]`);
+    if (el) el.focus();
+  });
+
+  // ---- Row virtualization (opt-in) ----
+  // Estimated fixed row height from density (overridable via rowHeight). Windowing only kicks in
+  // when there's a fixed scroll viewport to measure against AND pagination is off, and never while
+  // row grouping is active (group rows have variable structure) — see docs for the trade-off.
+  const estRowH = rowHeight ?? (density === "compact" ? 36 : density === "comfortable" ? 56 : 44);
+  // Only window when pagination is off (a paginated slice is already small) and not grouping/loading.
+  const virtualizing = virtualized && !paginated && !activeGroupBy.length && !loading;
+  // Measure the scroll viewport so the window matches what's actually visible.
+  React.useEffect(() => {
+    if (!virtualizing) return;
+    const el = scrollRef.current; if (!el) return;
+    const measure = () => setViewportH(el.clientHeight);
+    measure();
+    const ro = window.ResizeObserver ? new ResizeObserver(measure) : null;
+    if (ro) ro.observe(el);
+    return () => ro && ro.disconnect();
+  }, [virtualizing, height]);
+  const onScrollVirtual = React.useCallback((e) => { setScrollTop(e.currentTarget.scrollTop); }, []);
+  // Window the middle (non-pinned) rows. Pinned top/bottom rows always render (they're sticky).
+  const vh = viewportH || (typeof height === "number" ? height : 440);
+  const vWindow = React.useMemo(() => {
+    if (!virtualizing) return null;
+    const total = middleRows.length;
+    const visCount = Math.ceil(vh / estRowH) + 1;
+    let start = Math.max(0, Math.floor(scrollTop / estRowH) - overscan);
+    let end = Math.min(total, Math.floor(scrollTop / estRowH) + visCount + overscan);
+    if (start > end) start = end;
+    return { start, end, padTop: start * estRowH, padBottom: Math.max(0, (total - end) * estRowH) };
+  }, [virtualizing, middleRows.length, vh, estRowH, scrollTop, overscan]);
 
   // Server-side: report state changes so the parent can fetch the right slice (debounced).
   const onServerChangeRef = React.useRef(onServerChange);
@@ -1144,7 +1284,8 @@ export function Datatable({
         ))}
         {menu.length ? (
           <button type="button" className="twc-dt__act" aria-label="More actions" title="More"
-            onClick={(e) => { e.stopPropagation(); setColMenu(null); setPanel(null); setRowMenu({ items: menu, row }); openRowMenu(e.currentTarget, "right", 200); }}>
+            aria-haspopup="menu" aria-expanded={(rowMenu && rowMenu.row === row) || undefined}
+            onClick={(e) => { e.stopPropagation(); menuTriggerRef.current = e.currentTarget; setColMenu(null); setPanel(null); setRowMenu({ items: menu, row }); openRowMenu(e.currentTarget, "right", 200); }}>
             <Svg d={I.more} />
           </button>
         ) : null}
@@ -1178,13 +1319,32 @@ export function Datatable({
       </tr>
     );
   }
-  function renderLeaf(row, ri, pinSide) {
+  // Focusable keyboard drag handle for a reorderable row (mirrors the Kanban grab pattern).
+  function rowHandle(k, midIdx, row) {
+    const grabbed = rowGrab && rowGrab.key === k;
+    const label = String(row[ordered[0]?.field] ?? `Row ${(midIdx ?? 0) + 1}`);
+    return (
+      <button type="button" className="twc-dt__row-handle" data-row-key={k} data-grabbed={grabbed || undefined}
+        aria-label={`Reorder ${label}`} aria-roledescription="Draggable row" aria-pressed={grabbed || undefined}
+        title="Drag, or press Enter to reorder with the keyboard"
+        onKeyDown={(e) => onRowHandleKey(e, k, midIdx ?? 0, label)}
+        onClick={(e) => e.stopPropagation()}
+        onBlur={() => { if (rowGrab && rowGrab.key === k) { setRowGrab(null); } }}>
+        <Svg d={I.grip} aria-hidden="true" />
+      </button>
+    );
+  }
+  function renderLeaf(row, ri, pinSide, midIdx) {
     const k = keyOf(row, ri); const sel = selected.has(k);
     const rowActive = selectionMode === "row" && activeRow === k;
     const stickyStyle = pinSide === "top" ? { position: "sticky", top: headH, zIndex: 5 } : pinSide === "bottom" ? { position: "sticky", bottom: 0, zIndex: 5 } : undefined;
     const h = rowHeights[k];
     const rowStyle = { ...(stickyStyle || {}), ...(h ? { height: h } : {}) };
     const reorderable = canReorderRows && !pinSide;
+    const grabbed = rowGrab && rowGrab.key === k;
+    // The grabbed row's live target slot lights up the row currently occupying that index.
+    const grabTarget = rowGrab && !grabbed && midIdx != null && rowGrab.index === midIdx
+      ? (rowGrab.index >= keyIndexMid.get(rowGrab.key) ? "after" : "before") : undefined;
     return (
       <tr key={(pinSide ? "p-" : "") + k} className="twc-dt__row" role="row" aria-rowindex={(paginated && !serverMode ? page * rowsPerPage : 0) + ri + 2}
         aria-selected={(checkboxSelection ? sel : rowActive) || undefined}
@@ -1192,6 +1352,8 @@ export function Datatable({
         data-pinned-row={pinSide || undefined}
         data-reorderable={reorderable || undefined}
         data-row-dragging={rowDrag.from === k || undefined}
+        data-row-grabbed={grabbed || undefined}
+        data-row-grabtarget={grabTarget}
         data-row-dropbefore={(reorderable && rowDrag.over === k && !rowDrag.after) || undefined}
         data-row-dropafter={(reorderable && rowDrag.over === k && rowDrag.after) || undefined}
         data-selectable={selectionMode !== "none" || undefined}
@@ -1204,9 +1366,12 @@ export function Datatable({
         onClick={(e) => handleRowClick(e, k, row)}>
         {checkboxSelection ? (
           <td className="twc-dt__td" role="gridcell" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: 0, width: 44 }}>
-            <span className="twc-dt__check" data-checked={sel || undefined} onClick={() => toggleRow(k)}
-              role="checkbox" aria-checked={sel} aria-label="Select row" tabIndex={0}
-              onKeyDown={(e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggleRow(k); } }}><Svg d={I.check} /></span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+              {reorderable ? rowHandle(k, midIdx, row) : null}
+              <span className="twc-dt__check" data-checked={sel || undefined} onClick={() => toggleRow(k)}
+                role="checkbox" aria-checked={sel} aria-label="Select row" tabIndex={0}
+                onKeyDown={(e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggleRow(k); } }}><Svg d={I.check} /></span>
+            </span>
             {rowResize && !pinSide ? <span className="twc-dt__row-resizer" title="Drag to resize row" onPointerDown={(e) => startRowResize(e, k, e.currentTarget.closest("tr"))} onClick={(e) => e.stopPropagation()} /> : null}
           </td>
         ) : null}
@@ -1227,7 +1392,14 @@ export function Datatable({
               onClick={selectionMode === "cell" ? (e) => handleCellClick(e, k, row, c) : undefined}
               onFocus={() => setFocus((f) => (f.r === ri && f.c === ci ? f : { r: ri, c: ci }))}
               onDoubleClick={editable ? () => beginEdit(k, c, row) : undefined}>
-              {isEditing ? (
+              {!checkboxSelection && reorderable && ci === 0 && !isEditing ? (
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 6, maxWidth: "100%" }}>
+                  {rowHandle(k, midIdx, row)}
+                  <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
+                    {isActions ? renderActions(c, row) : c.renderCell ? c.renderCell(val, row) : c.valueFormatter ? c.valueFormatter(val, row) : val}
+                  </span>
+                </span>
+              ) : isEditing ? (
                 <EditCell col={c} value={editing.value} options={c.valueOptions ? optionsForField(c.field) : null}
                   onChange={(v) => setEditing((e) => ({ ...e, value: v }))}
                   onCommit={() => commitEdit()} onCommitValue={(v) => commitEdit(v)} onCancel={cancelEdit} onKeyDown={onEditKey} />
@@ -1393,7 +1565,7 @@ export function Datatable({
               <Svg d={I.download} /> Export
             </button>
             <button type="button" className="twc-dt__export-toggle" aria-label="More export formats" aria-haspopup="menu" aria-expanded={exportOpen}
-              onClick={(e) => { if (exportOpen) { setExportOpen(false); closeExport(); } else { setColMenu(null); setPanel(null); setRowMenu(null); setExportOpen(true); openExport(e.currentTarget, "right", 180); } }}>
+              onClick={(e) => { if (exportOpen) { setExportOpen(false); closeExport(); } else { menuTriggerRef.current = e.currentTarget; setColMenu(null); setPanel(null); setRowMenu(null); setExportOpen(true); openExport(e.currentTarget, "right", 180); } }}>
               <Svg d={I.chevronDown} />
             </button>
           </span>
@@ -1419,9 +1591,12 @@ export function Datatable({
         </div>
       ) : null}
 
+      {/* Visually-hidden live region for keyboard-reorder announcements */}
+      <div className="twc-dt__sr" role="status" aria-live="polite">{reorderMsg}</div>
+
       {/* Grid */}
       {pivotActive ? renderPivot() : (
-      <div className="twc-dt__scroll" style={{ maxHeight: height }}>
+      <div className="twc-dt__scroll" style={{ maxHeight: height }} ref={scrollRef} onScroll={virtualizing ? onScrollVirtual : undefined}>
         <table className="twc-dt__table" style={{ width: tableMinWidth, minWidth: "100%" }}
           ref={gridRef} role="grid" aria-label={ariaLabelAttr || ariaLabel}
           aria-rowcount={totalRows + 1} aria-colcount={ordered.length + (checkboxSelection ? 1 : 0)}
@@ -1473,7 +1648,8 @@ export function Datatable({
                       </span>
                       {hasMenu ? (
                         <button type="button" className="twc-dt__menu-btn" aria-label="Column menu"
-                          onClick={(e) => { e.stopPropagation(); setPanel(null); setColMenu({ field: c.field }); openMenu(e.currentTarget, "right", 230); }}>
+                          aria-haspopup="menu" aria-expanded={colMenu?.field === c.field || undefined}
+                          onClick={(e) => { e.stopPropagation(); menuTriggerRef.current = e.currentTarget; setPanel(null); setColMenu({ field: c.field }); openMenu(e.currentTarget, "right", 230); }}>
                           <Svg d={I.more} />
                         </button>
                       ) : null}
@@ -1516,7 +1692,13 @@ export function Datatable({
               return displayItems.map((item) => item.kind === "group" ? renderGroupRow(item) : renderLeaf(item.row, ++li));
             })() : (<>
               {pinnedTopRows.map((row) => renderLeaf(row, keyIndex.get(keyOf(row)), "top"))}
-              {middleRows.map((row) => renderLeaf(row, keyIndex.get(keyOf(row))))}
+              {vWindow ? (<>
+                {vWindow.padTop > 0 ? <tr aria-hidden="true" className="twc-dt__vspacer"><td colSpan={totalCols} style={{ height: vWindow.padTop, padding: 0, border: "none", maxWidth: "none" }} /></tr> : null}
+                {middleRows.slice(vWindow.start, vWindow.end).map((row, i) => renderLeaf(row, keyIndex.get(keyOf(row)), undefined, vWindow.start + i))}
+                {vWindow.padBottom > 0 ? <tr aria-hidden="true" className="twc-dt__vspacer"><td colSpan={totalCols} style={{ height: vWindow.padBottom, padding: 0, border: "none", maxWidth: "none" }} /></tr> : null}
+              </>) : (
+                middleRows.map((row, i) => renderLeaf(row, keyIndex.get(keyOf(row)), undefined, i))
+              )}
               {pinnedBottomRows.map((row) => renderLeaf(row, keyIndex.get(keyOf(row)), "bottom"))}
             </>)}
           </tbody>
@@ -1584,7 +1766,9 @@ export function Datatable({
 
       {/* Export options menu */}
       {exportOpen && exportPos ? (
-        <div className="twc-dt__pop" style={{ top: exportPos.top, left: exportPos.left, width: exportPos.width, maxHeight: exportPos.maxHeight, overflowY: "auto" }}>
+        <div className="twc-dt__pop" role="menu" aria-label="Export format" ref={exportMenuRef}
+          onKeyDown={(e) => onMenuKeyDown(e, () => { setExportOpen(false); closeExport(); })}
+          style={{ top: exportPos.top, left: exportPos.left, width: exportPos.width, maxHeight: exportPos.maxHeight, overflowY: "auto" }}>
           <Caret pos={exportPos} />
           {[
             { fmt: "csv", label: "CSV (.csv)", icon: I.fileText },
@@ -1592,7 +1776,7 @@ export function Datatable({
             { fmt: "tsv", label: "TSV (.tsv)", icon: I.fileText },
             { fmt: "json", label: "JSON (.json)", icon: I.braces },
           ].map((o) => (
-            <button type="button" key={o.fmt} className="twc-dt__mi" onClick={() => { exportData(o.fmt); setExportOpen(false); closeExport(); }}>
+            <button type="button" key={o.fmt} role="menuitem" className="twc-dt__mi" onClick={() => { exportData(o.fmt); setExportOpen(false); closeExport(); restoreTriggerFocus(); }}>
               <Svg d={o.icon} /> {o.label}
             </button>
           ))}
@@ -1636,29 +1820,31 @@ export function Datatable({
 
       {/* Column header menu */}
       {colMenu && menuPos ? (
-        <div className="twc-dt__pop" style={{ top: menuPos.top, left: menuPos.left, width: menuPos.width, maxHeight: menuPos.maxHeight, overflowY: "auto" }}>
+        <div className="twc-dt__pop" role="menu" aria-label="Column options" ref={colMenuRef}
+          onKeyDown={(e) => onMenuKeyDown(e, () => { setColMenu(null); closeMenu(); })}
+          style={{ top: menuPos.top, left: menuPos.left, width: menuPos.width, maxHeight: menuPos.maxHeight, overflowY: "auto" }}>
           <Caret pos={menuPos} />
           {(() => {
-            const c = colByField[colMenu.field]; const close = () => { setColMenu(null); closeMenu(); };
+            const c = colByField[colMenu.field]; const close = () => { setColMenu(null); closeMenu(); restoreTriggerFocus(); };
             const hasTop = c.sortable || c.filterable;
             const hasBottom = c.pinnable || c.hideable;
             return (<>
               {c.sortable ? (<>
-                <button type="button" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "asc" || undefined} onClick={() => { setSort({ field: c.field, dir: "asc" }); close(); }}><Svg d={I.arrow} /> Sort ascending</button>
-                <button type="button" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "desc" || undefined} onClick={() => { setSort({ field: c.field, dir: "desc" }); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(180deg)" }} /> Sort descending</button>
+                <button type="button" role="menuitem" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "asc" || undefined} onClick={() => { setSort({ field: c.field, dir: "asc" }); close(); }}><Svg d={I.arrow} /> Sort ascending</button>
+                <button type="button" role="menuitem" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "desc" || undefined} onClick={() => { setSort({ field: c.field, dir: "desc" }); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(180deg)" }} /> Sort descending</button>
               </>) : null}
-              {c.filterable ? <button type="button" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); setPanel("filters"); openPanel(document.querySelector(".twc-dt__toolbar .twc-dt__tbtn:nth-child(2)"), "left", 480); }}><Svg d={I.filter} /> Filter</button> : null}
+              {c.filterable ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); restoreTriggerFocus(); setPanel("filters"); openPanel(document.querySelector(".twc-dt__toolbar .twc-dt__tbtn:nth-child(2)"), "left", 480); }}><Svg d={I.filter} /> Filter</button> : null}
               {hasTop && hasBottom ? <div className="twc-dt__sep" /> : null}
-              {c.groupable ? <button type="button" className="twc-dt__mi" data-active={groupBy.includes(c.field) || undefined} onClick={() => { toggleGroupField(c.field); close(); }}><Svg d={I.group} /> {groupBy.includes(c.field) ? "Stop grouping" : "Group by this column"}</button> : null}
+              {c.groupable ? <button type="button" role="menuitem" className="twc-dt__mi" data-active={groupBy.includes(c.field) || undefined} onClick={() => { toggleGroupField(c.field); close(); }}><Svg d={I.group} /> {groupBy.includes(c.field) ? "Stop grouping" : "Group by this column"}</button> : null}
               {!disableColumnReorder && c.type !== "actions" && !pins.left.includes(c.field) && !pins.right.includes(c.field) ? (<>
-                <button type="button" className="twc-dt__mi" onClick={() => { moveCol(c.field, -1); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(-90deg)" }} /> Move left</button>
-                <button type="button" className="twc-dt__mi" onClick={() => { moveCol(c.field, 1); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(90deg)" }} /> Move right</button>
+                <button type="button" role="menuitem" className="twc-dt__mi" onClick={() => { moveCol(c.field, -1); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(-90deg)" }} /> Move left</button>
+                <button type="button" role="menuitem" className="twc-dt__mi" onClick={() => { moveCol(c.field, 1); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(90deg)" }} /> Move right</button>
               </>) : null}
               {c.pinnable ? (<>
-                <button type="button" className="twc-dt__mi" data-active={pins.left.includes(c.field) || undefined} onClick={() => { setPin(c.field, pins.left.includes(c.field) ? null : "left"); close(); }}><Svg d={I.pinL} /> {pins.left.includes(c.field) ? "Unpin" : "Pin to left"}</button>
-                <button type="button" className="twc-dt__mi" data-active={pins.right.includes(c.field) || undefined} onClick={() => { setPin(c.field, pins.right.includes(c.field) ? null : "right"); close(); }}><Svg d={I.pin} /> {pins.right.includes(c.field) ? "Unpin" : "Pin to right"}</button>
+                <button type="button" role="menuitem" className="twc-dt__mi" data-active={pins.left.includes(c.field) || undefined} onClick={() => { setPin(c.field, pins.left.includes(c.field) ? null : "left"); close(); }}><Svg d={I.pinL} /> {pins.left.includes(c.field) ? "Unpin" : "Pin to left"}</button>
+                <button type="button" role="menuitem" className="twc-dt__mi" data-active={pins.right.includes(c.field) || undefined} onClick={() => { setPin(c.field, pins.right.includes(c.field) ? null : "right"); close(); }}><Svg d={I.pin} /> {pins.right.includes(c.field) ? "Unpin" : "Pin to right"}</button>
               </>) : null}
-              {c.hideable ? <button type="button" className="twc-dt__mi" onClick={() => { setHidden((h) => new Set(h).add(c.field)); close(); }}><Svg d={I.eyeOff} /> Hide column</button> : null}
+              {c.hideable ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={() => { setHidden((h) => new Set(h).add(c.field)); close(); }}><Svg d={I.eyeOff} /> Hide column</button> : null}
             </>);
           })()}
         </div>
@@ -1666,12 +1852,14 @@ export function Datatable({
 
       {/* Row actions overflow menu */}
       {rowMenu && rowMenuPos ? (
-        <div className="twc-dt__pop" style={{ top: rowMenuPos.top, left: rowMenuPos.left, width: rowMenuPos.width, maxHeight: rowMenuPos.maxHeight, overflowY: "auto" }}>
+        <div className="twc-dt__pop" role="menu" aria-label="Row actions" ref={rowMenuRef}
+          onKeyDown={(e) => onMenuKeyDown(e, () => { setRowMenu(null); closeRowMenu(); })}
+          style={{ top: rowMenuPos.top, left: rowMenuPos.left, width: rowMenuPos.width, maxHeight: rowMenuPos.maxHeight, overflowY: "auto" }}>
           <Caret pos={rowMenuPos} />
           {rowMenu.items.map((a, i) => (
-            <button type="button" key={i} className="twc-dt__mi" disabled={a.disabled}
+            <button type="button" key={i} role="menuitem" className="twc-dt__mi" disabled={a.disabled}
               style={a.danger ? { color: "var(--color-danger-subtle-fg)" } : undefined}
-              onClick={() => { a.onClick?.(rowMenu.row); setRowMenu(null); closeRowMenu(); }}>
+              onClick={() => { a.onClick?.(rowMenu.row); setRowMenu(null); closeRowMenu(); restoreTriggerFocus(); }}>
               {a.icon || null}{a.label}
             </button>
           ))}

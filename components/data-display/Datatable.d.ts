@@ -89,7 +89,10 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
   rowGrouping?: string[];
   /** Enable row pinning — adds "Pin to top/bottom" to each row's actions menu; pinned rows stay sticky above/below the scroll body. @default false */
   rowPinning?: boolean;
-  /** Enable drag-to-reorder of rows (whole row is draggable). Persists via `onRowOrderChange`. Disabled while sorting or grouping. @default false */
+  /** Enable reorder of rows: the whole row is mouse-draggable, and a focusable drag handle supports
+   *  keyboard reorder (Enter/Space grabs, ArrowUp/ArrowDown move, Enter/Space drops, Escape cancels;
+   *  changes are announced via a visually-hidden live region). Persists via `onRowOrderChange`.
+   *  Disabled while sorting or grouping. @default false */
   rowReorder?: boolean;
   /** Enable drag-to-resize row height (handle on the row's bottom edge). @default false */
   rowResize?: boolean;
@@ -103,6 +106,18 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
   } | null;
   /** Start in pivot view. @default false */
   pivotMode?: boolean;
+  /**
+   * Opt into row virtualization (windowing): render only the rows near the viewport for large
+   * datasets. Active only when pagination is effectively off (`pageSize={0}`) **and** row grouping
+   * is **not** active; otherwise it is ignored and the table renders normally. Pair with a fixed
+   * `height` so there is a scroll viewport to window against. Selection and inline edit keep working
+   * because they key off the row id, not its rendered index. @default false
+   */
+  virtualized?: boolean;
+  /** Extra rows rendered above and below the visible window (smoother fast scrolling) when `virtualized`. @default 8 */
+  overscan?: number;
+  /** Estimated/fixed row height in px used to compute the virtualization window. Defaults to the density preset (compact 36 / standard 44 / comfortable 56). Set this if your rows have a custom height. */
+  rowHeight?: number;
 }
 
 /** Query state reported by a server-mode Datatable. */
