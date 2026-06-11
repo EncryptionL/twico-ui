@@ -6,6 +6,8 @@
    ============================================================ */
 
 :root {
+  color-scheme: light; /* native UI (scrollbars, form controls) follows the theme */
+
   /* ---- Primitive: Indigo (brand) ---- */
   --indigo-50:  #eef2ff;
   --indigo-100: #e0e7ff;
@@ -133,6 +135,7 @@
 
 .dark,
 [data-theme="dark"] {
+  color-scheme: dark;
   --color-bg:             var(--slate-950);
   --color-surface:        var(--slate-900);
   --color-surface-raised: var(--slate-800);

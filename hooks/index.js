@@ -84,8 +84,9 @@ export function usePrefersReducedMotion() {
  * Light/dark theme state synced to a class (default `.dark`) on `<html>` and
  * persisted to localStorage — the contract Twico UI's tokens key off.
  */
-export function useColorScheme({ storageKey = "twico-theme", attribute = "class", element } = {}) {
+export function useColorScheme({ storageKey = "twico-theme", attribute = "class", element, disableTransitionsOnChange = true } = {}) {
   const getTarget = () => element || (canUseDOM ? document.documentElement : null);
+  const firstApply = React.useRef(true);
   const read = () => {
     if (!canUseDOM) return "light";
     try {
@@ -99,10 +100,28 @@ export function useColorScheme({ storageKey = "twico-theme", attribute = "class"
     (t) => {
       const target = getTarget();
       if (!target) return;
+      // Re-theme the whole UI at once. Without this, every element animates its
+      // color transition on its own duration, so the switch looks like it ripples
+      // component-by-component. Disable transitions for the flip, force a reflow,
+      // then restore — but never on the first (mount) apply, so we don't suppress
+      // initial entrance animations.
+      const skip = firstApply.current || !disableTransitionsOnChange || !canUseDOM;
+      firstApply.current = false;
+      let css;
+      if (!skip) {
+        css = document.createElement("style");
+        css.appendChild(document.createTextNode("*,*::before,*::after{transition:none!important}"));
+        document.head.appendChild(css);
+      }
       if (attribute === "class") target.classList.toggle("dark", t === "dark");
       else target.setAttribute(attribute, t);
+      if (css) {
+        // Force the browser to apply the change without transitions, then restore.
+        window.getComputedStyle(document.body);
+        setTimeout(() => { if (css.parentNode) css.parentNode.removeChild(css); }, 1);
+      }
     },
-    [attribute, element]
+    [attribute, element, disableTransitionsOnChange]
   );
   useIsomorphicLayoutEffect(() => {
     apply(theme);

@@ -43,6 +43,8 @@ export interface UseColorSchemeOptions {
   attribute?: string;
   /** Element to theme. @default document.documentElement */
   element?: HTMLElement | null;
+  /** Disable CSS transitions during the switch so the UI re-themes instantly. @default true */
+  disableTransitionsOnChange?: boolean;
 }
 
 /** Light/dark theme state synced to `<html>` and persisted to localStorage. */
