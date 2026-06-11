@@ -6,6 +6,7 @@ import Installation from "./pages/Installation.jsx";
 import Theming from "./pages/Theming.jsx";
 import DarkMode from "./pages/DarkMode.jsx";
 import Accessibility from "./pages/Accessibility.jsx";
+import Hooks from "./pages/Hooks.jsx";
 import ComponentsIndex from "./pages/ComponentsIndex.jsx";
 import ComponentPage from "./pages/ComponentPage.jsx";
 
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/docs/theming" element={<Theming />} />
         <Route path="/docs/dark-mode" element={<DarkMode />} />
         <Route path="/docs/accessibility" element={<Accessibility />} />
+        <Route path="/docs/hooks" element={<Hooks />} />
         <Route path="/components" element={<ComponentsIndex />} />
         <Route path="/components/:slug" element={<ComponentPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

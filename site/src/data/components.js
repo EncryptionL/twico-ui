@@ -36,7 +36,8 @@ export const components = [
         "description": "Standard div attributes (className, style, id, etc.) spread onto the root element."
       }
     ],
-    "snippet": "import { Accordion } from \"twico-ui\";\n\n<Accordion\n  multiple\n  defaultOpen={[\"a\"]}\n  items={[\n    { value: \"a\", label: \"Is Twico UI free?\", content: \"Yes — MIT licensed, forever.\" },\n    { value: \"b\", label: \"Does it support dark mode?\", content: \"Out of the box.\" },\n  ]}\n/>"
+    "snippet": "import { Accordion } from \"twico-ui\";\n\n<Accordion\n  multiple\n  defaultOpen={[\"a\"]}\n  items={[\n    { value: \"a\", label: \"Is Twico UI free?\", content: \"Yes — MIT licensed, forever.\" },\n    { value: \"b\", label: \"Does it support dark mode?\", content: \"Out of the box.\" },\n  ]}\n/>",
+    "tagline": "Expandable, stacked disclosure panels"
   },
   {
     "name": "Alert",
@@ -88,7 +89,8 @@ export const components = [
         "description": "Any other div attributes (className, style, etc.) are spread onto the root."
       }
     ],
-    "snippet": "import { Alert } from \"twico-ui\";\n\n<Alert tone=\"success\" title=\"Saved\" onClose={dismiss}>\n  Your changes are live.\n</Alert>\n\n<Alert tone=\"warning\">\n  Your trial ends in 3 days.\n</Alert>"
+    "snippet": "import { Alert } from \"twico-ui\";\n\n<Alert tone=\"success\" title=\"Saved\" onClose={dismiss}>\n  Your changes are live.\n</Alert>\n\n<Alert tone=\"warning\">\n  Your trial ends in 3 days.\n</Alert>",
+    "tagline": "Inline message banner with semantic tones"
   },
   {
     "name": "Avatar",
@@ -140,7 +142,8 @@ export const components = [
         "description": "Adds a brand-colored ring around the avatar."
       }
     ],
-    "snippet": "import { Avatar } from \"twico-ui\";\n\n<Avatar src=\"/u/jane.jpg\" name=\"Jane Doe\" />\n<Avatar name=\"Sam Lee\" status=\"online\" />\n<Avatar name=\"Twico\" size=\"lg\" square ring />"
+    "snippet": "import { Avatar } from \"twico-ui\";\n\n<Avatar src=\"/u/jane.jpg\" name=\"Jane Doe\" />\n<Avatar name=\"Sam Lee\" status=\"online\" />\n<Avatar name=\"Twico\" size=\"lg\" square ring />",
+    "tagline": "User image with initials fallback and presence dot"
   },
   {
     "name": "AvatarMenu",
@@ -220,7 +223,8 @@ export const components = [
         "description": "Menu alignment relative to the trigger."
       }
     ],
-    "snippet": "import { AvatarMenu } from \"twico-ui\";\n\n<AvatarMenu\n  name=\"Ada Park\"\n  email=\"ada@twico.dev\"\n  status=\"online\"\n  showName\n  items={[\n    { label: \"Profile\", onClick: openProfile },\n    { label: \"Settings\", shortcut: \"⌘,\", onClick: openSettings },\n    { separator: true },\n    { label: \"Sign out\", danger: true, onClick: signOut },\n  ]}\n/>"
+    "snippet": "import { AvatarMenu } from \"twico-ui\";\n\n<AvatarMenu\n  name=\"Ada Park\"\n  email=\"ada@twico.dev\"\n  status=\"online\"\n  showName\n  items={[\n    { label: \"Profile\", onClick: openProfile },\n    { label: \"Settings\", shortcut: \"⌘,\", onClick: openSettings },\n    { separator: true },\n    { label: \"Sign out\", danger: true, onClick: signOut },\n  ]}\n/>",
+    "tagline": "Avatar that opens an account dropdown"
   },
   {
     "name": "Badge",
@@ -272,7 +276,8 @@ export const components = [
         "description": "Standard span attributes (className, style, id, etc.) spread onto the root element."
       }
     ],
-    "snippet": "import { Badge } from \"twico-ui\";\n\n<Badge tone=\"success\" dot>Active</Badge>\n<Badge tone=\"warning\" variant=\"solid\">Pending</Badge>\n<Badge tone=\"neutral\" variant=\"outline\">Draft</Badge>\n<Badge tone=\"info\" size=\"lg\">12 new</Badge>"
+    "snippet": "import { Badge } from \"twico-ui\";\n\n<Badge tone=\"success\" dot>Active</Badge>\n<Badge tone=\"warning\" variant=\"solid\">Pending</Badge>\n<Badge tone=\"neutral\" variant=\"outline\">Draft</Badge>\n<Badge tone=\"info\" size=\"lg\">12 new</Badge>",
+    "tagline": "Compact status label or count chip"
   },
   {
     "name": "Box",
@@ -331,7 +336,8 @@ export const components = [
         "description": "Element/tag to render."
       }
     ],
-    "snippet": "import { Box } from \"twico-ui\";\n\n<Box p={4} bg=\"surface\" border radius=\"lg\" shadow=\"sm\">\n  Padded, bordered surface.\n</Box>"
+    "snippet": "import { Box } from \"twico-ui\";\n\n<Box p={4} bg=\"surface\" border radius=\"lg\" shadow=\"sm\">\n  Padded, bordered surface.\n</Box>",
+    "tagline": "Token-styled box for non-flex layout"
   },
   {
     "name": "Breadcrumb",
@@ -362,7 +368,8 @@ export const components = [
         "description": "Collapse to first + last items past this count (0 = never)."
       }
     ],
-    "snippet": "import { Breadcrumb } from \"twico-ui\";\n\n<Breadcrumb\n  items={[\n    { label: \"Home\", href: \"/\" },\n    { label: \"Projects\", href: \"/projects\" },\n    { label: \"Twico UI\" },\n  ]}\n/>\n\n<Breadcrumb maxItems={3} items={longTrail} />"
+    "snippet": "import { Breadcrumb } from \"twico-ui\";\n\n<Breadcrumb\n  items={[\n    { label: \"Home\", href: \"/\" },\n    { label: \"Projects\", href: \"/projects\" },\n    { label: \"Twico UI\" },\n  ]}\n/>\n\n<Breadcrumb maxItems={3} items={longTrail} />",
+    "tagline": "Navigation trail to the current page"
   },
   {
     "name": "Button",
@@ -428,7 +435,8 @@ export const components = [
         "description": "Button label content."
       }
     ],
-    "snippet": "import { Button } from \"twico-ui\";\n\n<Button variant=\"solid\" size=\"md\" onClick={save}>Save changes</Button>\n<Button variant=\"soft\" leftIcon={<PlusIcon />}>Add item</Button>\n<Button variant=\"outline\">Cancel</Button>\n<Button variant=\"ghost\">Skip</Button>\n<Button variant=\"danger\" loading>Deleting…</Button>"
+    "snippet": "import { Button } from \"twico-ui\";\n\n<Button variant=\"solid\" size=\"md\" onClick={save}>Save changes</Button>\n<Button variant=\"soft\" leftIcon={<PlusIcon />}>Add item</Button>\n<Button variant=\"outline\">Cancel</Button>\n<Button variant=\"ghost\">Skip</Button>\n<Button variant=\"danger\" loading>Deleting…</Button>",
+    "tagline": "Action button with five variants and loading state"
   },
   {
     "name": "Card",
@@ -487,7 +495,8 @@ export const components = [
         "description": "Body content of the card."
       }
     ],
-    "snippet": "import { Card } from \"twico-ui\";\n\n<Card\n  title=\"Monthly revenue\"\n  subtitle=\"June 2026\"\n  footer={<Button size=\"sm\">View report</Button>}\n>\n  Revenue grew 18% month over month.\n</Card>\n\n<Card variant=\"outline\" interactive>\n  Hover me — I lift.\n</Card>"
+    "snippet": "import { Card } from \"twico-ui\";\n\n<Card\n  title=\"Monthly revenue\"\n  subtitle=\"June 2026\"\n  footer={<Button size=\"sm\">View report</Button>}\n>\n  Revenue grew 18% month over month.\n</Card>\n\n<Card variant=\"outline\" interactive>\n  Hover me — I lift.\n</Card>",
+    "tagline": "Surface container with header, body, and footer"
   },
   {
     "name": "Carousel",
@@ -539,7 +548,8 @@ export const components = [
         "description": "Slides (each child is one slide)."
       }
     ],
-    "snippet": "import { Carousel } from \"twico-ui\";\n\n<Carousel autoPlay interval={5000}>\n  <img src=\"/a.jpg\" alt=\"\" />\n  <img src=\"/b.jpg\" alt=\"\" />\n  <div>Any slide content</div>\n</Carousel>"
+    "snippet": "import { Carousel } from \"twico-ui\";\n\n<Carousel autoPlay interval={5000}>\n  <img src=\"/a.jpg\" alt=\"\" />\n  <img src=\"/b.jpg\" alt=\"\" />\n  <div>Any slide content</div>\n</Carousel>",
+    "tagline": "Sliding one-slide-per-view with arrows and dots"
   },
   {
     "name": "Chart",
@@ -605,7 +615,8 @@ export const components = [
         "description": "Formatter for tooltip values."
       }
     ],
-    "snippet": "import { Chart } from \"twico-ui\";\n\n<Chart\n  type=\"bar\"\n  data={[\n    { label: \"Mon\", value: 240 },\n    { label: \"Tue\", value: 310 },\n    { label: \"Wed\", value: 280 },\n  ]}\n  valueFormat={(v) => `$${v}`}\n/>\n\n<Chart\n  type=\"line\"\n  series={[\"signups\", \"active\"]}\n  showLegend\n  data={[\n    { label: \"Jan\", signups: 120, active: 80 },\n    { label: \"Feb\", signups: 180, active: 140 },\n  ]}\n/>"
+    "snippet": "import { Chart } from \"twico-ui\";\n\n<Chart\n  type=\"bar\"\n  data={[\n    { label: \"Mon\", value: 240 },\n    { label: \"Tue\", value: 310 },\n    { label: \"Wed\", value: 280 },\n  ]}\n  valueFormat={(v) => `$${v}`}\n/>\n\n<Chart\n  type=\"line\"\n  series={[\"signups\", \"active\"]}\n  showLegend\n  data={[\n    { label: \"Jan\", signups: 120, active: 80 },\n    { label: \"Feb\", signups: 180, active: 140 },\n  ]}\n/>",
+    "tagline": "Dependency-free SVG bar and line charts"
   },
   {
     "name": "Checkbox",
@@ -692,7 +703,8 @@ export const components = [
         "description": "Other native checkbox input attributes (name, value, required, etc.)."
       }
     ],
-    "snippet": "import { Checkbox } from \"twico-ui\";\n\n<Checkbox label=\"Subscribe to updates\" defaultChecked />\n<Checkbox label=\"Select all\" indeterminate />\n<Checkbox\n  label=\"Notifications\"\n  description=\"Get email alerts for new activity\"\n/>\n<Checkbox label=\"Disabled option\" disabled />\n<Checkbox label=\"Compact\" size=\"sm\" />"
+    "snippet": "import { Checkbox } from \"twico-ui\";\n\n<Checkbox label=\"Subscribe to updates\" defaultChecked />\n<Checkbox label=\"Select all\" indeterminate />\n<Checkbox\n  label=\"Notifications\"\n  description=\"Get email alerts for new activity\"\n/>\n<Checkbox label=\"Disabled option\" disabled />\n<Checkbox label=\"Compact\" size=\"sm\" />",
+    "tagline": "Accessible checkbox with an indeterminate state"
   },
   {
     "name": "Code",
@@ -716,7 +728,8 @@ export const components = [
         "description": "The inline code text."
       }
     ],
-    "snippet": "import { Code, Text } from \"twico-ui\";\n\n<Text>Install with <Code>npm install twico-ui</Code>.</Text>"
+    "snippet": "import { Code, Text } from \"twico-ui\";\n\n<Text>Install with <Code>npm install twico-ui</Code>.</Text>",
+    "tagline": "Inline code with a mono surface"
   },
   {
     "name": "ColorPicker",
@@ -761,7 +774,8 @@ export const components = [
         "description": "Called with the new hex string whenever the color changes."
       }
     ],
-    "snippet": "import { ColorPicker } from \"twico-ui\";\n\n// Controlled\nconst [color, setColor] = React.useState(\"#6366F1\");\n<ColorPicker label=\"Brand color\" value={color} onChange={setColor} />\n\n// Uncontrolled with custom presets\n<ColorPicker\n  defaultValue=\"#14B8A6\"\n  presets={[\"#6366F1\", \"#14B8A6\", \"#F43F5E\"]}\n/>"
+    "snippet": "import { ColorPicker } from \"twico-ui\";\n\n// Controlled\nconst [color, setColor] = React.useState(\"#6366F1\");\n<ColorPicker label=\"Brand color\" value={color} onChange={setColor} />\n\n// Uncontrolled with custom presets\n<ColorPicker\n  defaultValue=\"#14B8A6\"\n  presets={[\"#6366F1\", \"#14B8A6\", \"#F43F5E\"]}\n/>",
+    "tagline": "Popover color input with hue and swatches"
   },
   {
     "name": "Combobox",
@@ -855,7 +869,8 @@ export const components = [
         "description": "Disables the field."
       }
     ],
-    "snippet": "import { Combobox } from \"twico-ui\";\n\n<Combobox\n  label=\"Country\"\n  placeholder=\"Search a country\"\n  clearable\n  value={country}\n  onChange={setCountry}\n  options={[\n    { group: \"Asia\", options: [\n      { value: \"id\", label: \"Indonesia\", description: \"Jakarta\" },\n      { value: \"jp\", label: \"Japan\", description: \"Tokyo\" },\n    ]},\n    { group: \"Europe\", options: [\n      { value: \"de\", label: \"Germany\", description: \"Berlin\" },\n    ]},\n  ]}\n/>"
+    "snippet": "import { Combobox } from \"twico-ui\";\n\n<Combobox\n  label=\"Country\"\n  placeholder=\"Search a country\"\n  clearable\n  value={country}\n  onChange={setCountry}\n  options={[\n    { group: \"Asia\", options: [\n      { value: \"id\", label: \"Indonesia\", description: \"Jakarta\" },\n      { value: \"jp\", label: \"Japan\", description: \"Tokyo\" },\n    ]},\n    { group: \"Europe\", options: [\n      { value: \"de\", label: \"Germany\", description: \"Berlin\" },\n    ]},\n  ]}\n/>",
+    "tagline": "Searchable single-select with typeahead filtering"
   },
   {
     "name": "CommandPalette",
@@ -900,7 +915,8 @@ export const components = [
         "description": "Message shown when no commands match the query."
       }
     ],
-    "snippet": "import { CommandPalette } from \"twico-ui\";\n\nconst [open, setOpen] = React.useState(false);\nReact.useEffect(() => {\n  const h = (e) => {\n    if ((e.metaKey || e.ctrlKey) && e.key === \"k\") { e.preventDefault(); setOpen(true); }\n  };\n  window.addEventListener(\"keydown\", h);\n  return () => window.removeEventListener(\"keydown\", h);\n}, []);\n\n<CommandPalette\n  open={open}\n  onClose={() => setOpen(false)}\n  commands={[\n    { group: \"Navigation\", label: \"Go to Dashboard\", shortcut: \"G D\", onSelect: goDash },\n    { group: \"Actions\", label: \"New project\", keywords: \"create add\", onSelect: create },\n  ]}\n/>"
+    "snippet": "import { CommandPalette } from \"twico-ui\";\n\nconst [open, setOpen] = React.useState(false);\nReact.useEffect(() => {\n  const h = (e) => {\n    if ((e.metaKey || e.ctrlKey) && e.key === \"k\") { e.preventDefault(); setOpen(true); }\n  };\n  window.addEventListener(\"keydown\", h);\n  return () => window.removeEventListener(\"keydown\", h);\n}, []);\n\n<CommandPalette\n  open={open}\n  onClose={() => setOpen(false)}\n  commands={[\n    { group: \"Navigation\", label: \"Go to Dashboard\", shortcut: \"G D\", onSelect: goDash },\n    { group: \"Actions\", label: \"New project\", keywords: \"create add\", onSelect: create },\n  ]}\n/>",
+    "tagline": "Cmd-K command overlay with keyboard navigation"
   },
   {
     "name": "Container",
@@ -931,7 +947,8 @@ export const components = [
         "description": "Element/tag to render."
       }
     ],
-    "snippet": "import { Container, Heading } from \"twico-ui\";\n\n<Container size=\"lg\">\n  <Heading level={1}>Page title</Heading>\n</Container>"
+    "snippet": "import { Container, Heading } from \"twico-ui\";\n\n<Container size=\"lg\">\n  <Heading level={1}>Page title</Heading>\n</Container>",
+    "tagline": "Centers and caps page content width"
   },
   {
     "name": "Currency",
@@ -1032,7 +1049,8 @@ export const components = [
         "description": "Callback with the parsed numeric value and formatted string."
       }
     ],
-    "snippet": "import { Currency } from \"twico-ui\";\n\n<Currency label=\"Price\" currency=\"USD\" onValueChange={(n) => setPrice(n)} />\n<Currency label=\"Harga\" currency=\"IDR\" />\n<Currency label=\"Total\" currency=\"JPY\" />\n<Currency label=\"Custom\" symbol=\"₿\" code=\"BTC\" precision={8} />"
+    "snippet": "import { Currency } from \"twico-ui\";\n\n<Currency label=\"Price\" currency=\"USD\" onValueChange={(n) => setPrice(n)} />\n<Currency label=\"Harga\" currency=\"IDR\" />\n<Currency label=\"Total\" currency=\"JPY\" />\n<Currency label=\"Custom\" symbol=\"₿\" code=\"BTC\" precision={8} />",
+    "tagline": "Money input with a fixed currency and precision"
   },
   {
     "name": "CurrencyField",
@@ -1126,7 +1144,8 @@ export const components = [
         "description": "Callback with the parsed number, formatted string, and active currency code."
       }
     ],
-    "snippet": "import { CurrencyField } from \"twico-ui\";\n\n<CurrencyField\n  label=\"Amount\"\n  defaultCurrency=\"USD\"\n  onValueChange={(n, str, code) => save(n, code)}\n/>\n\n{/* limit the currency choices */}\n<CurrencyField\n  label=\"Amount\"\n  defaultCurrency=\"EUR\"\n  currencies={[\"USD\", \"EUR\", \"GBP\", \"IDR\"]}\n/>"
+    "snippet": "import { CurrencyField } from \"twico-ui\";\n\n<CurrencyField\n  label=\"Amount\"\n  defaultCurrency=\"USD\"\n  onValueChange={(n, str, code) => save(n, code)}\n/>\n\n{/* limit the currency choices */}\n<CurrencyField\n  label=\"Amount\"\n  defaultCurrency=\"EUR\"\n  currencies={[\"USD\", \"EUR\", \"GBP\", \"IDR\"]}\n/>",
+    "tagline": "Money input with a selectable currency"
   },
   {
     "name": "Datatable",
@@ -1388,7 +1407,8 @@ export const components = [
         "description": "Start in pivot view."
       }
     ],
-    "snippet": "import { Datatable } from \"twico-ui\";\n\nconst columns = [\n  { field: \"name\", headerName: \"Name\", width: 200 },\n  { field: \"email\", headerName: \"Email\", width: 220 },\n  { field: \"role\", headerName: \"Role\", width: 130 },\n  { field: \"mrr\", headerName: \"MRR\", type: \"number\", width: 110 },\n];\n\nfunction Example(props) {\n  return React.createElement(Datatable, { checkboxSelection: true, pageSize: 10, columns: columns, rows: props.users });\n}"
+    "snippet": "import { Datatable } from \"twico-ui\";\n\nconst columns = [\n  { field: \"name\", headerName: \"Name\", width: 200 },\n  { field: \"email\", headerName: \"Email\", width: 220 },\n  { field: \"role\", headerName: \"Role\", width: 130 },\n  { field: \"mrr\", headerName: \"MRR\", type: \"number\", width: 110 },\n];\n\nfunction Example(props) {\n  return React.createElement(Datatable, { checkboxSelection: true, pageSize: 10, columns: columns, rows: props.users });\n}",
+    "tagline": "Advanced data grid with sorting, filtering, and export"
   },
   {
     "name": "DatePicker",
@@ -1475,7 +1495,8 @@ export const components = [
         "description": "Called with the new date (or null when cleared)."
       }
     ],
-    "snippet": "import { DatePicker } from \"twico-ui\";\n\nconst [date, setDate] = useState(null);\n\n<DatePicker\n  label=\"Start date\"\n  value={date}\n  onChange={setDate}\n  min={new Date()}\n  weekStartsOn={1}\n/>"
+    "snippet": "import { DatePicker } from \"twico-ui\";\n\nconst [date, setDate] = useState(null);\n\n<DatePicker\n  label=\"Start date\"\n  value={date}\n  onChange={setDate}\n  min={new Date()}\n  weekStartsOn={1}\n/>",
+    "tagline": "Calendar-popover input for a single date"
   },
   {
     "name": "DateRangePicker",
@@ -1534,7 +1555,8 @@ export const components = [
         "description": "Called with the new range when selection changes."
       }
     ],
-    "snippet": "import { DateRangePicker } from \"twico-ui\";\n\nconst [range, setRange] = useState({ start: null, end: null });\n\n<DateRangePicker\n  label=\"Reporting period\"\n  value={range}\n  onChange={setRange}\n  weekStartsOn={1}\n/>"
+    "snippet": "import { DateRangePicker } from \"twico-ui\";\n\nconst [range, setRange] = useState({ start: null, end: null });\n\n<DateRangePicker\n  label=\"Reporting period\"\n  value={range}\n  onChange={setRange}\n  weekStartsOn={1}\n/>",
+    "tagline": "Calendar input for a start and end date"
   },
   {
     "name": "Dialog",
@@ -1600,7 +1622,8 @@ export const components = [
         "description": "Main body content of the dialog."
       }
     ],
-    "snippet": "import { Dialog, Button } from \"twico-ui\";\n\n<Dialog\n  open={open}\n  onClose={() => setOpen(false)}\n  title=\"Delete project?\"\n  description=\"This action cannot be undone.\"\n  footer={\n    <>\n      <Button variant=\"ghost\" onClick={() => setOpen(false)}>Cancel</Button>\n      <Button variant=\"danger\" onClick={confirm}>Delete</Button>\n    </>\n  }\n>\n  The project and all its data will be permanently removed.\n</Dialog>"
+    "snippet": "import { Dialog, Button } from \"twico-ui\";\n\n<Dialog\n  open={open}\n  onClose={() => setOpen(false)}\n  title=\"Delete project?\"\n  description=\"This action cannot be undone.\"\n  footer={\n    <>\n      <Button variant=\"ghost\" onClick={() => setOpen(false)}>Cancel</Button>\n      <Button variant=\"danger\" onClick={confirm}>Delete</Button>\n    </>\n  }\n>\n  The project and all its data will be permanently removed.\n</Dialog>",
+    "tagline": "Modal overlay with focus trap and scrim"
   },
   {
     "name": "Divider",
@@ -1645,7 +1668,8 @@ export const components = [
         "description": "Standard HTML attributes spread onto the underlying element."
       }
     ],
-    "snippet": "import { Divider } from \"twico-ui\";\n\n<Divider />\n\n<Divider>OR</Divider>\n\n<span>A</span>\n<Divider orientation=\"vertical\" />\n<span>B</span>"
+    "snippet": "import { Divider } from \"twico-ui\";\n\n<Divider />\n\n<Divider>OR</Divider>\n\n<span>A</span>\n<Divider orientation=\"vertical\" />\n<span>B</span>",
+    "tagline": "Separator rule with an optional label"
   },
   {
     "name": "Drawer",
@@ -1718,7 +1742,8 @@ export const components = [
         "description": "Body content of the drawer."
       }
     ],
-    "snippet": "import { Drawer } from \"twico-ui\";\n\nconst [open, setOpen] = useState(false);\n\n<Drawer\n  open={open}\n  onClose={() => setOpen(false)}\n  side=\"right\"\n  title=\"Filters\"\n  description=\"Narrow down the results\"\n  footer={<button onClick={() => setOpen(false)}>Apply</button>}\n>\n  ...filter controls...\n</Drawer>"
+    "snippet": "import { Drawer } from \"twico-ui\";\n\nconst [open, setOpen] = useState(false);\n\n<Drawer\n  open={open}\n  onClose={() => setOpen(false)}\n  side=\"right\"\n  title=\"Filters\"\n  description=\"Narrow down the results\"\n  footer={<button onClick={() => setOpen(false)}>Apply</button>}\n>\n  ...filter controls...\n</Drawer>",
+    "tagline": "Slide-in panel anchored to any edge"
   },
   {
     "name": "EmptyState",
@@ -1770,7 +1795,8 @@ export const components = [
         "description": "Standard div attributes (className, style, etc.) spread onto the root."
       }
     ],
-    "snippet": "import { EmptyState, Button } from \"twico-ui\";\n\n<EmptyState\n  icon={<InboxIcon />}\n  title=\"No messages yet\"\n  description=\"When someone sends you a message, it'll show up here.\"\n  actions={<Button>Compose</Button>}\n/>"
+    "snippet": "import { EmptyState, Button } from \"twico-ui\";\n\n<EmptyState\n  icon={<InboxIcon />}\n  title=\"No messages yet\"\n  description=\"When someone sends you a message, it'll show up here.\"\n  actions={<Button>Compose</Button>}\n/>",
+    "tagline": "Zero-data placeholder with icon and actions"
   },
   {
     "name": "FileUpload",
@@ -1822,7 +1848,8 @@ export const components = [
         "description": "Called with the new file list whenever files are added or removed."
       }
     ],
-    "snippet": "import { FileUpload } from \"twico-ui\";\n\nconst [files, setFiles] = React.useState([]);\n\n<FileUpload\n  multiple\n  accept=\"image/*,.pdf\"\n  value={files}\n  onChange={setFiles}\n  hint=\"PNG, JPG or PDF up to 10MB\"\n/>"
+    "snippet": "import { FileUpload } from \"twico-ui\";\n\nconst [files, setFiles] = React.useState([]);\n\n<FileUpload\n  multiple\n  accept=\"image/*,.pdf\"\n  value={files}\n  onChange={setFiles}\n  hint=\"PNG, JPG or PDF up to 10MB\"\n/>",
+    "tagline": "Drag-and-drop dropzone with a file list"
   },
   {
     "name": "Grid",
@@ -1874,7 +1901,8 @@ export const components = [
         "description": "Element/tag to render."
       }
     ],
-    "snippet": "import { Grid, Card } from \"twico-ui\";\n\n<Grid minChildWidth={220} gap={4}>\n  <Card>One</Card>\n  <Card>Two</Card>\n  <Card>Three</Card>\n</Grid>"
+    "snippet": "import { Grid, Card } from \"twico-ui\";\n\n<Grid minChildWidth={220} gap={4}>\n  <Card>One</Card>\n  <Card>Two</Card>\n  <Card>Three</Card>\n</Grid>",
+    "tagline": "Responsive CSS grid primitive"
   },
   {
     "name": "Heading",
@@ -1912,7 +1940,8 @@ export const components = [
         "description": "Override the tag while keeping the level's size."
       }
     ],
-    "snippet": "import { Heading } from \"twico-ui\";\n\n<Heading level={1}>Dashboard</Heading>\n<Heading level={3}>Recent activity</Heading>"
+    "snippet": "import { Heading } from \"twico-ui\";\n\n<Heading level={1}>Dashboard</Heading>\n<Heading level={3}>Recent activity</Heading>",
+    "tagline": "Headings with consistent token typography"
   },
   {
     "name": "IconButton",
@@ -1957,7 +1986,8 @@ export const components = [
         "description": "Accessible label required for icon-only buttons."
       }
     ],
-    "snippet": "import { IconButton } from \"twico-ui\";\n\n<IconButton aria-label=\"Settings\" icon={<SettingsIcon />} />\n<IconButton aria-label=\"Like\" variant=\"soft\" round icon={<HeartIcon />} />\n<IconButton aria-label=\"Delete\" variant=\"outline\" icon={<TrashIcon />} />"
+    "snippet": "import { IconButton } from \"twico-ui\";\n\n<IconButton aria-label=\"Settings\" icon={<SettingsIcon />} />\n<IconButton aria-label=\"Like\" variant=\"soft\" round icon={<HeartIcon />} />\n<IconButton aria-label=\"Delete\" variant=\"outline\" icon={<TrashIcon />} />",
+    "tagline": "Icon-only button with a required aria-label"
   },
   {
     "name": "Input",
@@ -2023,7 +2053,8 @@ export const components = [
         "description": "All native input attributes (type, placeholder, value, onChange, disabled, etc.)."
       }
     ],
-    "snippet": "import { Input } from \"twico-ui\";\n\n<Input label=\"Email\" type=\"email\" placeholder=\"you@twico.dev\" required />\n<Input label=\"Search\" leftIcon={<SearchIcon />} placeholder=\"Search…\" />\n<Input label=\"Amount\" rightIcon={<span>USD</span>} placeholder=\"0.00\" />\n<Input label=\"Password\" type=\"password\" placeholder=\"••••••••\" />\n<Input label=\"Username\" hint=\"Choose a unique handle\" placeholder=\"twico\" />\n<Input label=\"Email\" type=\"email\" error=\"Invalid email address\" defaultValue=\"nope\" />"
+    "snippet": "import { Input } from \"twico-ui\";\n\n<Input label=\"Email\" type=\"email\" placeholder=\"you@twico.dev\" required />\n<Input label=\"Search\" leftIcon={<SearchIcon />} placeholder=\"Search…\" />\n<Input label=\"Amount\" rightIcon={<span>USD</span>} placeholder=\"0.00\" />\n<Input label=\"Password\" type=\"password\" placeholder=\"••••••••\" />\n<Input label=\"Username\" hint=\"Choose a unique handle\" placeholder=\"twico\" />\n<Input label=\"Email\" type=\"email\" error=\"Invalid email address\" defaultValue=\"nope\" />",
+    "tagline": "Text field with label, icons, and validation"
   },
   {
     "name": "Kanban",
@@ -2061,7 +2092,8 @@ export const components = [
         "description": "Custom renderer for card contents; falls back to title, description, tags, and footer."
       }
     ],
-    "snippet": "import { Kanban } from \"twico-ui\";\n\n<Kanban\n  columns={[\n    { id: \"todo\", title: \"To do\", color: \"var(--slate-400)\" },\n    { id: \"doing\", title: \"In progress\", color: \"var(--amber-500)\" },\n    { id: \"done\", title: \"Done\", color: \"var(--emerald-500)\" },\n  ]}\n  cards={[\n    { id: \"1\", column: \"todo\", title: \"Design tokens\", tags: [\"Design\"] },\n    { id: \"2\", column: \"doing\", title: \"Datatable filters\" },\n    { id: \"3\", column: \"done\", title: \"Ship release\" },\n  ]}\n  onCardMove={(id, to) => save(id, to)}\n/>"
+    "snippet": "import { Kanban } from \"twico-ui\";\n\n<Kanban\n  columns={[\n    { id: \"todo\", title: \"To do\", color: \"var(--slate-400)\" },\n    { id: \"doing\", title: \"In progress\", color: \"var(--amber-500)\" },\n    { id: \"done\", title: \"Done\", color: \"var(--emerald-500)\" },\n  ]}\n  cards={[\n    { id: \"1\", column: \"todo\", title: \"Design tokens\", tags: [\"Design\"] },\n    { id: \"2\", column: \"doing\", title: \"Datatable filters\" },\n    { id: \"3\", column: \"done\", title: \"Ship release\" },\n  ]}\n  onCardMove={(id, to) => save(id, to)}\n/>",
+    "tagline": "Drag-and-drop board of columns and cards"
   },
   {
     "name": "List",
@@ -2085,7 +2117,8 @@ export const components = [
         "description": "Drop the card chrome (borderless, transparent)."
       }
     ],
-    "snippet": "import { List } from \"twico-ui\";\n\n<List\n  items={[\n    { title: \"Ada Park\", description: \"ada@twico.dev\", trailing: \"Active\", onClick: () => {} },\n    { title: \"report.pdf\", description: \"2.4 MB\", trailing: \"Today\" },\n  ]}\n/>"
+    "snippet": "import { List } from \"twico-ui\";\n\n<List\n  items={[\n    { title: \"Ada Park\", description: \"ada@twico.dev\", trailing: \"Active\", onClick: () => {} },\n    { title: \"report.pdf\", description: \"2.4 MB\", trailing: \"Today\" },\n  ]}\n/>",
+    "tagline": "Vertical rows with leading and trailing slots"
   },
   {
     "name": "Menu",
@@ -2130,7 +2163,8 @@ export const components = [
         "description": "Fixed menu width in px; defaults to max(200, trigger width)."
       }
     ],
-    "snippet": "import { Menu, Button } from \"twico-ui\";\n\n<Menu\n  align=\"end\"\n  trigger={<Button>Options</Button>}\n  items={[\n    { label: \"Account\", heading: true },\n    { label: \"Profile\", onClick: openProfile, shortcut: \"⌘P\" },\n    { label: \"Settings\", onClick: openSettings },\n    { separator: true },\n    { label: \"Sign out\", danger: true, onClick: signOut },\n  ]}\n/>"
+    "snippet": "import { Menu, Button } from \"twico-ui\";\n\n<Menu\n  align=\"end\"\n  trigger={<Button>Options</Button>}\n  items={[\n    { label: \"Account\", heading: true },\n    { label: \"Profile\", onClick: openProfile, shortcut: \"⌘P\" },\n    { label: \"Settings\", onClick: openSettings },\n    { separator: true },\n    { label: \"Sign out\", danger: true, onClick: signOut },\n  ]}\n/>",
+    "tagline": "Portaled dropdown menu with icons and shortcuts"
   },
   {
     "name": "MultiSelect",
@@ -2210,7 +2244,8 @@ export const components = [
         "description": "Disables the control and prevents interaction."
       }
     ],
-    "snippet": "import { MultiSelect } from \"twico-ui\";\n\nconst [tags, setTags] = useState([\"react\", \"tailwind\"]);\n\n<MultiSelect\n  label=\"Tech stack\"\n  placeholder=\"Add technologies\"\n  value={tags}\n  onChange={setTags}\n  options={[\n    { group: \"Frameworks\", options: [\n      { value: \"react\", label: \"React\", description: \"UI library\" },\n      { value: \"vue\", label: \"Vue\", description: \"Progressive framework\" },\n    ]},\n    { group: \"Tooling\", options: [\"tailwind\", \"typescript\"] },\n  ]}\n/>"
+    "snippet": "import { MultiSelect } from \"twico-ui\";\n\nconst [tags, setTags] = useState([\"react\", \"tailwind\"]);\n\n<MultiSelect\n  label=\"Tech stack\"\n  placeholder=\"Add technologies\"\n  value={tags}\n  onChange={setTags}\n  options={[\n    { group: \"Frameworks\", options: [\n      { value: \"react\", label: \"React\", description: \"UI library\" },\n      { value: \"vue\", label: \"Vue\", description: \"Progressive framework\" },\n    ]},\n    { group: \"Tooling\", options: [\"tailwind\", \"typescript\"] },\n  ]}\n/>",
+    "tagline": "Multi-select with removable chips and search"
   },
   {
     "name": "Navbar",
@@ -2255,7 +2290,8 @@ export const components = [
         "description": "Hamburger handler shown on small screens."
       }
     ],
-    "snippet": "import { Navbar } from \"twico-ui\";\n\n<Navbar\n  brand={<>twico<span style={{ color: \"var(--color-primary)\" }}>UI</span></>}\n  links={[\n    { label: \"Dashboard\", active: true },\n    { label: \"Projects\" },\n    { label: \"Team\" },\n  ]}\n  actions={<button>Sign in</button>}\n/>"
+    "snippet": "import { Navbar } from \"twico-ui\";\n\n<Navbar\n  brand={<>twico<span style={{ color: \"var(--color-primary)\" }}>UI</span></>}\n  links={[\n    { label: \"Dashboard\", active: true },\n    { label: \"Projects\" },\n    { label: \"Team\" },\n  ]}\n  actions={<button>Sign in</button>}\n/>",
+    "tagline": "Sticky top app bar with brand and actions"
   },
   {
     "name": "Pagination",
@@ -2321,7 +2357,8 @@ export const components = [
         "description": "Label before the jump input."
       }
     ],
-    "snippet": "import { Pagination } from \"twico-ui\";\n\nconst [page, setPage] = useState(1);\n\n<Pagination\n  page={page}\n  total={12}\n  onChange={setPage}\n  showJumper\n/>"
+    "snippet": "import { Pagination } from \"twico-ui\";\n\nconst [page, setPage] = useState(1);\n\n<Pagination\n  page={page}\n  total={12}\n  onChange={setPage}\n  showJumper\n/>",
+    "tagline": "Page navigation with smart ellipsis truncation"
   },
   {
     "name": "Popover",
@@ -2373,7 +2410,8 @@ export const components = [
         "description": "The panel content."
       }
     ],
-    "snippet": "import { Popover, Button, Input } from \"twico-ui\";\n\n<Popover\n  trigger={<Button variant=\"outline\">Share</Button>}\n  title=\"Share link\"\n  placement=\"bottom\"\n>\n  <Input defaultValue=\"https://twico.dev/x\" />\n  <Button fullWidth>Copy link</Button>\n</Popover>"
+    "snippet": "import { Popover, Button, Input } from \"twico-ui\";\n\n<Popover\n  trigger={<Button variant=\"outline\">Share</Button>}\n  title=\"Share link\"\n  placement=\"bottom\"\n>\n  <Input defaultValue=\"https://twico.dev/x\" />\n  <Button fullWidth>Copy link</Button>\n</Popover>",
+    "tagline": "Click-triggered floating panel, portaled and flipping"
   },
   {
     "name": "Progress",
@@ -2425,7 +2463,8 @@ export const components = [
         "description": "Show a percentage label above the bar."
       }
     ],
-    "snippet": "import { Progress } from \"twico-ui\";\n\n<Progress value={64} showLabel />\n<Progress value={90} tone=\"success\" />\n<Progress value={45} tone=\"warning\" size=\"lg\" />\n<Progress indeterminate />"
+    "snippet": "import { Progress } from \"twico-ui\";\n\n<Progress value={64} showLabel />\n<Progress value={90} tone=\"success\" />\n<Progress value={45} tone=\"warning\" size=\"lg\" />\n<Progress indeterminate />",
+    "tagline": "Linear progress bar, determinate or indeterminate"
   },
   {
     "name": "Radio",
@@ -2463,7 +2502,8 @@ export const components = [
         "description": "Native input attributes such as name, value, checked, defaultChecked, disabled, onChange, id, className."
       }
     ],
-    "snippet": "import { Radio } from \"twico-ui\";\n\n<Radio name=\"plan\" value=\"free\" label=\"Free\" defaultChecked />\n<Radio\n  name=\"plan\"\n  value=\"pro\"\n  label=\"Pro\"\n  description=\"$12 / month\"\n/>"
+    "snippet": "import { Radio } from \"twico-ui\";\n\n<Radio name=\"plan\" value=\"free\" label=\"Free\" defaultChecked />\n<Radio\n  name=\"plan\"\n  value=\"pro\"\n  label=\"Pro\"\n  description=\"$12 / month\"\n/>",
+    "tagline": "Single radio button for grouped choices"
   },
   {
     "name": "Rating",
@@ -2529,7 +2569,8 @@ export const components = [
         "description": "Called with the new rating when the user selects a star."
       }
     ],
-    "snippet": "import { Rating } from \"twico-ui\";\n\n// Interactive\nconst [r, setR] = React.useState(0);\n<Rating value={r} onChange={setR} />\n\n// Read-only display with numeric value\n<Rating value={4} readOnly showValue />\n\n// Uncontrolled, larger stars\n<Rating defaultValue={3} size=\"lg\" count={5} />"
+    "snippet": "import { Rating } from \"twico-ui\";\n\n// Interactive\nconst [r, setR] = React.useState(0);\n<Rating value={r} onChange={setR} />\n\n// Read-only display with numeric value\n<Rating value={4} readOnly showValue />\n\n// Uncontrolled, larger stars\n<Rating defaultValue={3} size=\"lg\" count={5} />",
+    "tagline": "Star-rating input or read-only display"
   },
   {
     "name": "Select",
@@ -2651,7 +2692,8 @@ export const components = [
         "description": "Minimum popover width in px when portaled."
       }
     ],
-    "snippet": "import { Select } from \"twico-ui\";\n\nconst [v, setV] = useState(null);\n\n<Select\n  label=\"Assignee\"\n  placeholder=\"Pick a teammate\"\n  value={v}\n  onChange={setV}\n  options={[\n    { group: \"Design\", options: [\n      { value: \"ada\", label: \"Ada Park\", description: \"Product designer\" },\n      { value: \"sam\", label: \"Sam Lee\", description: \"Brand designer\" },\n    ]},\n    { group: \"Engineering\", options: [\n      { value: \"jo\", label: \"Jo Kim\", description: \"Frontend\" },\n    ]},\n  ]}\n/>"
+    "snippet": "import { Select } from \"twico-ui\";\n\nconst [v, setV] = useState(null);\n\n<Select\n  label=\"Assignee\"\n  placeholder=\"Pick a teammate\"\n  value={v}\n  onChange={setV}\n  options={[\n    { group: \"Design\", options: [\n      { value: \"ada\", label: \"Ada Park\", description: \"Product designer\" },\n      { value: \"sam\", label: \"Sam Lee\", description: \"Brand designer\" },\n    ]},\n    { group: \"Engineering\", options: [\n      { value: \"jo\", label: \"Jo Kim\", description: \"Frontend\" },\n    ]},\n  ]}\n/>",
+    "tagline": "Styled single-select with search and grouping"
   },
   {
     "name": "Sidebar",
@@ -2717,7 +2759,8 @@ export const components = [
         "description": "Other HTML attributes (className, style, etc.) spread onto the root <aside>."
       }
     ],
-    "snippet": "import { Sidebar } from \"twico-ui\";\n\n<Sidebar\n  brand={<>twico<span style={{ color: \"var(--color-primary)\" }}>UI</span></>}\n  items={[\n    { section: \"Main\" },\n    { label: \"Dashboard\", icon: <HomeIcon />, active: true },\n    { label: \"Inbox\", icon: <MailIcon />, badge: 4 },\n    { section: \"Account\" },\n    { label: \"Settings\", icon: <CogIcon /> },\n  ]}\n  footer={<UserRow />}\n  defaultCollapsed={false}\n/>"
+    "snippet": "import { Sidebar } from \"twico-ui\";\n\n<Sidebar\n  brand={<>twico<span style={{ color: \"var(--color-primary)\" }}>UI</span></>}\n  items={[\n    { section: \"Main\" },\n    { label: \"Dashboard\", icon: <HomeIcon />, active: true },\n    { label: \"Inbox\", icon: <MailIcon />, badge: 4 },\n    { section: \"Account\" },\n    { label: \"Settings\", icon: <CogIcon /> },\n  ]}\n  footer={<UserRow />}\n  defaultCollapsed={false}\n/>",
+    "tagline": "Collapsible side navigation with grouped items"
   },
   {
     "name": "Skeleton",
@@ -2755,7 +2798,8 @@ export const components = [
         "description": "For text variant: number of lines (last is shortened)."
       }
     ],
-    "snippet": "import { Skeleton } from \"twico-ui\";\n\n<Skeleton variant=\"circle\" width={40} height={40} />\n<Skeleton variant=\"text\" lines={3} />\n<Skeleton variant=\"rect\" height={120} />"
+    "snippet": "import { Skeleton } from \"twico-ui\";\n\n<Skeleton variant=\"circle\" width={40} height={40} />\n<Skeleton variant=\"text\" lines={3} />\n<Skeleton variant=\"rect\" height={120} />",
+    "tagline": "Shimmering placeholder shown while content loads"
   },
   {
     "name": "Slider",
@@ -2842,7 +2886,8 @@ export const components = [
         "description": "Called with the new value when it changes."
       }
     ],
-    "snippet": "import { Slider } from \"twico-ui\";\n\nconst [vol, setVol] = React.useState(40);\n\n<Slider label=\"Volume\" value={vol} onChange={setVol} />\n\n<Slider\n  label=\"Price\"\n  min={0}\n  max={1000}\n  step={50}\n  showTicks\n  defaultValue={250}\n  formatValue={(v) => `$${v}`}\n/>"
+    "snippet": "import { Slider } from \"twico-ui\";\n\nconst [vol, setVol] = React.useState(40);\n\n<Slider label=\"Volume\" value={vol} onChange={setVol} />\n\n<Slider\n  label=\"Price\"\n  min={0}\n  max={1000}\n  step={50}\n  showTicks\n  defaultValue={250}\n  formatValue={(v) => `$${v}`}\n/>",
+    "tagline": "Range input with a value bubble and ticks"
   },
   {
     "name": "Spinner",
@@ -2873,7 +2918,8 @@ export const components = [
         "description": "Accessible label exposed via aria-label."
       }
     ],
-    "snippet": "import { Spinner } from \"twico-ui\";\n\n<Spinner />\n<Spinner size=\"lg\" />\n<Spinner tone=\"white\" /> {/* on a colored button/background */}"
+    "snippet": "import { Spinner } from \"twico-ui\";\n\n<Spinner />\n<Spinner size=\"lg\" />\n<Spinner tone=\"white\" /> {/* on a colored button/background */}",
+    "tagline": "Indeterminate loading spinner"
   },
   {
     "name": "Stack",
@@ -2932,7 +2978,8 @@ export const components = [
         "description": "Element/tag to render."
       }
     ],
-    "snippet": "import { Stack } from \"twico-ui\";\n\n<Stack direction=\"row\" gap={3} align=\"center\" wrap>\n  <Button>Save</Button>\n  <Button variant=\"ghost\">Cancel</Button>\n</Stack>"
+    "snippet": "import { Stack } from \"twico-ui\";\n\n<Stack direction=\"row\" gap={3} align=\"center\" wrap>\n  <Button>Save</Button>\n  <Button variant=\"ghost\">Cancel</Button>\n</Stack>",
+    "tagline": "Flex row or column with token gaps"
   },
   {
     "name": "Stat",
@@ -2991,7 +3038,8 @@ export const components = [
         "description": "Drop the card chrome (no border/background/padding)."
       }
     ],
-    "snippet": "import { Stat } from \"twico-ui\";\n\n<Stat\n  label=\"Revenue\"\n  value=\"$48,200\"\n  delta=\"+12.5%\"\n  helpText=\"vs last month\"\n/>\n<Stat\n  label=\"Churn\"\n  value=\"2.1%\"\n  delta=\"-0.4%\"\n  deltaDirection=\"up\"\n  helpText=\"improved\"\n/>"
+    "snippet": "import { Stat } from \"twico-ui\";\n\n<Stat\n  label=\"Revenue\"\n  value=\"$48,200\"\n  delta=\"+12.5%\"\n  helpText=\"vs last month\"\n/>\n<Stat\n  label=\"Churn\"\n  value=\"2.1%\"\n  delta=\"-0.4%\"\n  deltaDirection=\"up\"\n  helpText=\"improved\"\n/>",
+    "tagline": "KPI card with a value and trend delta"
   },
   {
     "name": "Stepper",
@@ -3036,7 +3084,8 @@ export const components = [
         "description": "Fired with the step index when a clickable step is clicked."
       }
     ],
-    "snippet": "import { Stepper } from \"twico-ui\";\n\n<Stepper\n  active={1}\n  steps={[\n    { title: \"Account\", description: \"Your details\" },\n    { title: \"Payment\", description: \"Billing info\" },\n    { title: \"Confirm\" },\n  ]}\n/>\n\n<Stepper\n  orientation=\"vertical\"\n  active={2}\n  clickable\n  onStepClick={setActive}\n  steps={steps}\n/>"
+    "snippet": "import { Stepper } from \"twico-ui\";\n\n<Stepper\n  active={1}\n  steps={[\n    { title: \"Account\", description: \"Your details\" },\n    { title: \"Payment\", description: \"Billing info\" },\n    { title: \"Confirm\" },\n  ]}\n/>\n\n<Stepper\n  orientation=\"vertical\"\n  active={2}\n  clickable\n  onStepClick={setActive}\n  steps={steps}\n/>",
+    "tagline": "Multi-step progress indicator for wizards"
   },
   {
     "name": "Switch",
@@ -3074,7 +3123,8 @@ export const components = [
         "description": "Native checkbox input attributes (checked, defaultChecked, disabled, onChange, id, etc.); rendered with role=switch."
       }
     ],
-    "snippet": "import { Switch } from \"twico-ui\";\n\n<Switch label=\"Dark mode\" defaultChecked />\n\n<Switch\n  label=\"Email notifications\"\n  description=\"Send me product updates\"\n/>\n\n<Switch label=\"Compact view\" size=\"sm\" />"
+    "snippet": "import { Switch } from \"twico-ui\";\n\n<Switch label=\"Dark mode\" defaultChecked />\n\n<Switch\n  label=\"Email notifications\"\n  description=\"Send me product updates\"\n/>\n\n<Switch label=\"Compact view\" size=\"sm\" />",
+    "tagline": "Toggle control for instant on/off settings"
   },
   {
     "name": "Table",
@@ -3140,7 +3190,8 @@ export const components = [
         "description": "Keys of rows to highlight as selected."
       }
     ],
-    "snippet": "import { Table } from \"twico-ui\";\n\n<Table\n  sortable\n  striped\n  rowKey={(r) => r.id}\n  columns={[\n    { key: \"name\", header: \"Name\" },\n    { key: \"role\", header: \"Role\" },\n    { key: \"status\", header: \"Status\" },\n    { key: \"mrr\", header: \"MRR\", align: \"right\" },\n  ]}\n  data={users}\n/>"
+    "snippet": "import { Table } from \"twico-ui\";\n\n<Table\n  sortable\n  striped\n  rowKey={(r) => r.id}\n  columns={[\n    { key: \"name\", header: \"Name\" },\n    { key: \"role\", header: \"Role\" },\n    { key: \"status\", header: \"Status\" },\n    { key: \"mrr\", header: \"MRR\", align: \"right\" },\n  ]}\n  data={users}\n/>",
+    "tagline": "Sortable data table with custom cell renderers"
   },
   {
     "name": "Tabs",
@@ -3185,7 +3236,8 @@ export const components = [
         "description": "Visual style: underline indicator or pill background."
       }
     ],
-    "snippet": "import { Tabs } from \"twico-ui\";\n\n<Tabs\n  variant=\"line\"\n  defaultValue=\"overview\"\n  items={[\n    { value: \"overview\", label: \"Overview\", content: <p>Overview panel</p> },\n    { value: \"activity\", label: \"Activity\", count: 12, content: <p>Activity panel</p> },\n    { value: \"settings\", label: \"Settings\", content: <p>Settings panel</p> },\n  ]}\n/>"
+    "snippet": "import { Tabs } from \"twico-ui\";\n\n<Tabs\n  variant=\"line\"\n  defaultValue=\"overview\"\n  items={[\n    { value: \"overview\", label: \"Overview\", content: <p>Overview panel</p> },\n    { value: \"activity\", label: \"Activity\", count: 12, content: <p>Activity panel</p> },\n    { value: \"settings\", label: \"Settings\", content: <p>Settings panel</p> },\n  ]}\n/>",
+    "tagline": "Tabbed navigation with a sliding indicator"
   },
   {
     "name": "Tag",
@@ -3216,7 +3268,8 @@ export const components = [
         "description": "The tag's label content."
       }
     ],
-    "snippet": "import { Tag } from \"twico-ui\";\n\n<Tag onRemove={() => remove(\"react\")}>React</Tag>\n<Tag leftIcon={<span>#</span>}>design-system</Tag>\n<Tag>read-only</Tag>"
+    "snippet": "import { Tag } from \"twico-ui\";\n\n<Tag onRemove={() => remove(\"react\")}>React</Tag>\n<Tag leftIcon={<span>#</span>}>design-system</Tag>\n<Tag>read-only</Tag>",
+    "tagline": "Removable chip for filters and keywords"
   },
   {
     "name": "Text",
@@ -3261,7 +3314,8 @@ export const components = [
         "description": "Element/tag to render."
       }
     ],
-    "snippet": "import { Text } from \"twico-ui\";\n\n<Text>Default paragraph text.</Text>\n<Text size=\"sm\" tone=\"muted\">A muted caption.</Text>"
+    "snippet": "import { Text } from \"twico-ui\";\n\n<Text>Default paragraph text.</Text>\n<Text size=\"sm\" tone=\"muted\">A muted caption.</Text>",
+    "tagline": "Body text with token sizes and tones"
   },
   {
     "name": "Textarea",
@@ -3306,7 +3360,8 @@ export const components = [
         "description": "Native textarea attributes such as rows, value, placeholder, disabled, and onChange."
       }
     ],
-    "snippet": "import { Textarea } from \"twico-ui\";\n\n<Textarea\n  label=\"Bio\"\n  rows={4}\n  placeholder=\"Tell us about yourself\"\n  hint=\"Max 280 characters\"\n/>"
+    "snippet": "import { Textarea } from \"twico-ui\";\n\n<Textarea\n  label=\"Bio\"\n  rows={4}\n  placeholder=\"Tell us about yourself\"\n  hint=\"Max 280 characters\"\n/>",
+    "tagline": "Multi-line text field with validation"
   },
   {
     "name": "Timeline",
@@ -3337,7 +3392,8 @@ export const components = [
         "description": "Any other standard ul attributes spread onto the root element."
       }
     ],
-    "snippet": "import { Timeline } from \"twico-ui\";\n\n<Timeline\n  items={[\n    { title: \"Order placed\", time: \"9:41 AM\", description: \"We received your order.\", tone: \"primary\" },\n    { title: \"Shipped\", time: \"2:10 PM\", description: \"Left the warehouse.\", tone: \"success\" },\n    { title: \"Out for delivery\", time: \"Tomorrow\" },\n  ]}\n/>"
+    "snippet": "import { Timeline } from \"twico-ui\";\n\n<Timeline\n  items={[\n    { title: \"Order placed\", time: \"9:41 AM\", description: \"We received your order.\", tone: \"primary\" },\n    { title: \"Shipped\", time: \"2:10 PM\", description: \"Left the warehouse.\", tone: \"success\" },\n    { title: \"Out for delivery\", time: \"Tomorrow\" },\n  ]}\n/>",
+    "tagline": "Vertical event feed of connected nodes"
   },
   {
     "name": "Toast",
@@ -3389,7 +3445,8 @@ export const components = [
         "description": "Any other div attributes spread onto the root element."
       }
     ],
-    "snippet": "import { Toast, ToastViewport } from \"twico-ui\";\n\nconst [toasts, setToasts] = useState([]);\nconst push = (t) => setToasts((s) => [...s, { id: Date.now(), ...t }]);\nconst remove = (id) => setToasts((s) => s.filter((t) => t.id !== id));\n\n<ToastViewport>\n  {toasts.map((t) => (\n    <Toast\n      key={t.id}\n      tone={t.tone}\n      title={t.title}\n      onClose={() => remove(t.id)}\n    >\n      {t.body}\n    </Toast>\n  ))}\n</ToastViewport>"
+    "snippet": "import { Toast, ToastViewport } from \"twico-ui\";\n\nconst [toasts, setToasts] = useState([]);\nconst push = (t) => setToasts((s) => [...s, { id: Date.now(), ...t }]);\nconst remove = (id) => setToasts((s) => s.filter((t) => t.id !== id));\n\n<ToastViewport>\n  {toasts.map((t) => (\n    <Toast\n      key={t.id}\n      tone={t.tone}\n      title={t.title}\n      onClose={() => remove(t.id)}\n    >\n      {t.body}\n    </Toast>\n  ))}\n</ToastViewport>",
+    "tagline": "Transient notification card in a fixed viewport"
   },
   {
     "name": "Tooltip",
@@ -3427,7 +3484,8 @@ export const components = [
         "description": "The single trigger element the tooltip wraps."
       }
     ],
-    "snippet": "import { Tooltip } from \"twico-ui\";\n\n<Tooltip label=\"Copy to clipboard\" placement=\"top\">\n  <button aria-label=\"Copy\">Copy</button>\n</Tooltip>"
+    "snippet": "import { Tooltip } from \"twico-ui\";\n\n<Tooltip label=\"Copy to clipboard\" placement=\"top\">\n  <button aria-label=\"Copy\">Copy</button>\n</Tooltip>",
+    "tagline": "Hover or focus hint on a trigger"
   },
   {
     "name": "TreeView",
@@ -3465,6 +3523,7 @@ export const components = [
         "description": "Fired with the node when a row is clicked."
       }
     ],
-    "snippet": "import { TreeView } from \"twico-ui\";\n\n<TreeView\n  defaultExpanded={[\"src\"]}\n  onSelect={(node) => open(node.id)}\n  data={[\n    { id: \"src\", label: \"src\", children: [\n      { id: \"app\", label: \"App.tsx\" },\n      { id: \"comp\", label: \"components\", children: [\n        { id: \"btn\", label: \"Button.tsx\", badge: 3 },\n      ]},\n    ]},\n  ]}\n/>"
+    "snippet": "import { TreeView } from \"twico-ui\";\n\n<TreeView\n  defaultExpanded={[\"src\"]}\n  onSelect={(node) => open(node.id)}\n  data={[\n    { id: \"src\", label: \"src\", children: [\n      { id: \"app\", label: \"App.tsx\" },\n      { id: \"comp\", label: \"components\", children: [\n        { id: \"btn\", label: \"Button.tsx\", badge: 3 },\n      ]},\n    ]},\n  ]}\n/>",
+    "tagline": "Hierarchical expand and collapse tree"
   }
 ];

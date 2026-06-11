@@ -14,6 +14,7 @@ export const GETTING_STARTED = [
   { to: "/docs/theming", label: "Theming" },
   { to: "/docs/dark-mode", label: "Dark mode" },
   { to: "/docs/accessibility", label: "Accessibility" },
+  { to: "/docs/hooks", label: "Hooks" },
 ];
 
 export const REPO_URL = "https://github.com/EncryptionL/twico-ui";

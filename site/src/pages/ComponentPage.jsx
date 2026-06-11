@@ -59,7 +59,7 @@ export default function ComponentPage() {
       <Stack as="section" gap={3}>
         <Text as="div" tone="primary" size="xs" weight="bold" style={{ textTransform: "uppercase", letterSpacing: "0.08em" }}>{comp.group}</Text>
         <Heading level={1}>{comp.name}</Heading>
-        <Text size="lg" tone="muted">{comp.summary}</Text>
+        <Text size="lg" tone="muted">{comp.tagline}</Text>
       </Stack>
 
       <Stack as="section" gap={3}>
