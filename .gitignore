@@ -7,3 +7,9 @@ dist/
 
 # Pasted screenshots from the design-handoff chat — not part of the library
 uploads/
+
+# Test artifacts
+site/test-results/
+site/playwright-report/
+site/blob-report/
+coverage/

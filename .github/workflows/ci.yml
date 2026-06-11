@@ -40,11 +40,23 @@ jobs:
       - name: Type-check
         run: npm run typecheck
 
+      - name: Unit tests
+        run: npm run test:run
+
       - name: Build
         run: npm run build
 
       - name: Verify JS + TS resolution (ESM + CJS exports, types)
         run: npm run check:exports
+
+      - name: Guard - shippable stylesheet is in sync with token sources
+        run: npm run build:css:check
+
+      - name: Guard - docs hooks list is in sync with hooks/index.js
+        run: node site/scripts/gen-exports.mjs --check
+
+      - name: Guard - bundle size budget
+        run: npm run size
 
       - name: Assert "use client" banner survived bundling
         run: |
