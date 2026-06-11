@@ -14,7 +14,7 @@ export default function SelectDemo() {
     ]},
   ];
   return (
-    <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center", maxWidth: 320 }}>
+    <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center", width: 320, maxWidth: "100%" }}>
       <Select
         label="Assignee"
         placeholder="Pick a teammate"

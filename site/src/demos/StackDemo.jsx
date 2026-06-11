@@ -10,7 +10,7 @@ export default function StackDemo() {
         <Button variant="ghost">Cancel</Button>
         <Badge>row</Badge>
       </Stack>
-      <Stack gap={2} style={{ maxWidth: 220 }}>
+      <Stack gap={2} style={{ width: 220, maxWidth: "100%" }}>
         <Button fullWidth>Top</Button>
         <Button fullWidth variant="soft">Middle</Button>
         <Button fullWidth variant="outline">Bottom</Button>

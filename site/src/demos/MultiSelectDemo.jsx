@@ -12,7 +12,7 @@ export default function MultiSelectDemo() {
     { group: "Tooling", options: ["tailwind", "typescript", "vite"] },
   ];
   return (
-    <div style={{ maxWidth: 420 }}>
+    <div style={{ width: 420, maxWidth: "100%" }}>
       <MultiSelect
         label="Tech stack"
         placeholder="Add technologies"

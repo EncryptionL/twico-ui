@@ -10,7 +10,7 @@ const items = [
 
 export default function TimelineDemo() {
   return (
-    <div style={{ maxWidth: 420 }}>
+    <div style={{ width: 420, maxWidth: "100%" }}>
       <Timeline items={items} />
     </div>
   );

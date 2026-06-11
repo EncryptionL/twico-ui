@@ -4,7 +4,7 @@ import { Textarea } from "twico-ui";
 export default function TextareaDemo() {
   const [bio, setBio] = useState("");
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 360 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 16, width: 360, maxWidth: "100%" }}>
       <Textarea
         label="Bio"
         required

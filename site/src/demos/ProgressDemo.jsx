@@ -4,7 +4,7 @@ import { Progress } from "twico-ui";
 export default function ProgressDemo() {
   const [value, setValue] = useState(64);
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 360 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 16, width: 360, maxWidth: "100%" }}>
       <Progress value={value} showLabel />
       <input
         type="range"

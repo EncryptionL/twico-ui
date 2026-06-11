@@ -3,7 +3,7 @@ import { Skeleton } from "twico-ui";
 
 export default function SkeletonDemo() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 320 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 16, width: 320, maxWidth: "100%" }}>
       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
         <Skeleton variant="circle" width={40} height={40} />
         <div style={{ flex: 1 }}>

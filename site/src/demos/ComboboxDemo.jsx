@@ -15,7 +15,7 @@ const options = [
 export default function ComboboxDemo() {
   const [country, setCountry] = useState(null);
   return (
-    <div style={{ maxWidth: 320 }}>
+    <div style={{ width: 320, maxWidth: "100%" }}>
       <Combobox
         label="Country"
         placeholder="Search a country"

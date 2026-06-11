@@ -9,7 +9,7 @@ export default function ListDemo() {
     { name: "Mira Sato", email: "mira@twico.dev" },
   ];
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 360 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 16, width: 360, maxWidth: "100%" }}>
       <List
         items={people.map((p) => ({
           title: p.name,

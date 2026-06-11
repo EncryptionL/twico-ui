@@ -3,7 +3,7 @@ import { Divider } from "twico-ui";
 
 export default function DividerDemo() {
   return (
-    <div style={{ maxWidth: 320 }}>
+    <div style={{ width: 320, maxWidth: "100%" }}>
       <p>Section one</p>
       <Divider />
       <p>Section two</p>

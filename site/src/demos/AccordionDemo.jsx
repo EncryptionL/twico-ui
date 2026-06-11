@@ -8,7 +8,7 @@ export default function AccordionDemo() {
     { value: "c", label: "Can I open multiple panels?", content: "Set the multiple prop to true." },
   ];
   return (
-    <div style={{ maxWidth: 480 }}>
+    <div style={{ width: 480, maxWidth: "100%" }}>
       <Accordion multiple defaultOpen={["a"]} items={items} />
     </div>
   );

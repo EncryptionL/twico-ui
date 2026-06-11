@@ -6,7 +6,7 @@ export default function InputDemo() {
   const [password, setPassword] = useState("");
   const valid = email === "" || email.includes("@");
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 360 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 16, width: 360, maxWidth: "100%" }}>
       <Input
         label="Email"
         type="email"

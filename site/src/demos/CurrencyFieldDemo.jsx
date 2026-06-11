@@ -6,7 +6,7 @@ export default function CurrencyFieldDemo() {
   const [formatted, setFormatted] = useState("");
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 360 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 12, width: 360, maxWidth: "100%" }}>
       <CurrencyField
         label="Amount"
         defaultValue="1250.5"
