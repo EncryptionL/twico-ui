@@ -6,6 +6,7 @@ import { slugify, groupedComponents } from "../data/site.js";
 import CodeBlock from "../components/CodeBlock.jsx";
 import LiveExample from "../components/LiveExample.jsx";
 import PropsTable from "../components/PropsTable.jsx";
+import Variations from "../components/Variations.jsx";
 
 // Live demo files are authored per component under src/demos/<Name>Demo.jsx.
 const demoLoaders = import.meta.glob("../demos/*Demo.jsx");
@@ -77,6 +78,8 @@ export default function ComponentPage() {
           ) : null}
         </LiveExample>
       </Stack>
+
+      <Variations name={comp.name} />
 
       <Stack as="section" gap={3}>
         <Heading level={2} id="props">Props</Heading>

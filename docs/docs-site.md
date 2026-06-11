@@ -21,13 +21,17 @@ site/
 ├─ src/data/
 │   ├─ components.js  AUTO-GENERATED: per-component summary + props table + usage snippet
 │   └─ site.js        nav groups, slugs, repo/npm links
-├─ src/demos/<Name>Demo.jsx   one self-contained live demo per component (lazy-loaded, error-boundaried)
-└─ scripts/gen-docs.mjs       generates components.js + the demo files
+├─ src/demos/<Name>Demo.jsx        one self-contained live demo per component (lazy-loaded)
+├─ src/demos/<Name>Variations.jsx  default-exports [{ title, description?, code, render }] — the
+│                                  live "Variations" section examples (lazy-loaded, error-boundaried)
+└─ scripts/gen-docs.mjs            generates components.js + the demo files
 ```
 
 - Routing uses `HashRouter` (bulletproof for GitHub Pages — no 404 on refresh).
 - Each component page renders its **live demo** (in an `ErrorBoundary`, so a bad demo degrades to a
-  fallback instead of breaking the page), a **code snippet**, and a **props table**.
+  fallback instead of breaking the page), a **code snippet**, a **Variations** section (several live
+  examples loaded from `<Name>Variations.jsx`, each with its own preview + copyable code), and a
+  **props table**. The "Variations" heading renders synchronously so the on-this-page TOC finds it.
 - Code is highlighted with `prism-react-renderer` (bundled, not a CDN).
 - Dark mode toggles the `.dark` class on `<html>` and persists to `localStorage`.
 
