@@ -3,6 +3,37 @@ import { CURRENCIES, CURRENCY_OPTIONS, clampPrecision } from "./Currency.jsx";
 import { Select } from "../selects/Select.jsx";
 
 const CURF_CSS = `
+/* Shared input shell (self-contained — CurrencyField must not depend on the
+   Currency component being rendered on the same page to get these styles). */
+.twc-cur {
+  --_h: var(--control-h-md);
+  display: flex; align-items: stretch; height: var(--_h);
+  background: var(--color-surface); border: var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-md); overflow: hidden;
+  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+.twc-cur[data-size="sm"] { --_h: var(--control-h-sm); }
+.twc-cur[data-size="lg"] { --_h: var(--control-h-lg); }
+.twc-cur:hover:not(:focus-within) { border-color: var(--color-border-strong); }
+.twc-cur:focus-within { border-color: var(--color-primary); box-shadow: var(--ring); }
+.twc-cur[data-invalid="true"] { border-color: var(--color-danger); }
+.twc-cur[data-invalid="true"]:focus-within { box-shadow: 0 0 0 var(--ring-width) rgb(244 63 94 / 0.28); }
+.twc-cur[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; }
+.twc-cur__sym, .twc-cur__code {
+  display: inline-flex; align-items: center; padding: 0 var(--space-3);
+  background: var(--color-surface-sunken); color: var(--color-text-muted);
+  font-size: var(--text-sm); font-weight: var(--font-semibold); white-space: nowrap; flex: none;
+}
+.twc-cur__sym { border-right: var(--border-thin) solid var(--color-border); }
+.twc-cur__code { border-left: var(--border-thin) solid var(--color-border); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+.twc-cur__el {
+  flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+  font-family: inherit; font-size: var(--text-sm); color: var(--color-text);
+  text-align: right; padding: 0 var(--space-3); font-variant-numeric: tabular-nums;
+}
+.twc-cur__el:focus, .twc-cur__el:focus-visible { outline: none; box-shadow: none; }
+.twc-cur__el::placeholder { color: var(--color-text-subtle); }
+.twc-cur__el::-webkit-outer-spin-button, .twc-cur__el::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .twc-curf__pick { flex: none; display: flex; align-items: stretch; border-right: var(--border-thin) solid var(--color-border); }
 .twc-curf__pick .twc-field { width: 132px; }
 .twc-curf__pick .twc-sel__trigger { height: 100%; border: none; border-radius: 0; background: var(--color-surface-sunken); box-shadow: none; }
