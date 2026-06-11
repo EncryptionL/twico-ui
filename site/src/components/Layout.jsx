@@ -4,8 +4,11 @@ import { Box, Stack, Button, IconButton, Drawer } from "twico-ui";
 import Logo from "./Logo.jsx";
 import Sidebar from "./Sidebar.jsx";
 import ThemeToggle from "./ThemeToggle.jsx";
+import TableOfContents from "./TableOfContents.jsx";
 import { useMediaQuery } from "../hooks/useMediaQuery.js";
 import { REPO_URL, NPM_URL, CHANGELOG_URL } from "../data/site.js";
+
+const HEADER_H = 64;
 
 const MenuIcon = (
   <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
@@ -18,7 +21,8 @@ export default function Layout() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
-  const isMobile = useMediaQuery("(max-width: 860px)");
+  const isMobile = useMediaQuery("(max-width: 859px)");
+  const showToc = useMediaQuery("(min-width: 1200px)");
   const [mobileNav, setMobileNav] = React.useState(false);
 
   React.useEffect(() => {
@@ -31,12 +35,12 @@ export default function Layout() {
       as="header"
       style={{
         position: "sticky", top: 0, zIndex: 50,
-        background: "color-mix(in srgb, var(--color-bg) 86%, transparent)",
-        backdropFilter: "saturate(180%) blur(10px)",
+        background: "color-mix(in srgb, var(--color-bg) 88%, transparent)",
+        backdropFilter: "saturate(180%) blur(12px)",
         borderBottom: "1px solid var(--color-border)",
       }}
     >
-      <Stack direction="row" justify="space-between" align="center" gap={4} style={{ height: 60, maxWidth: 1280, margin: "0 auto", padding: "0 20px" }}>
+      <Stack direction="row" justify="space-between" align="center" gap={4} style={{ height: HEADER_H, padding: "0 24px" }}>
         <Stack direction="row" align="center" gap={2}>
           {!isHome && isMobile ? (
             <IconButton variant="ghost" aria-label="Toggle navigation" icon={MenuIcon} onClick={() => setMobileNav((v) => !v)} />
@@ -71,21 +75,31 @@ export default function Layout() {
   return (
     <Box style={{ minHeight: "100vh" }}>
       {header}
-      <Stack direction="row" gap={0} style={{ maxWidth: 1280, margin: "0 auto" }}>
+      <Stack direction="row" gap={0} align="flex-start">
         {!isMobile ? (
           <Box
             as="aside"
-            style={{ width: 264, flex: "none", position: "sticky", top: 60, alignSelf: "flex-start", height: "calc(100vh - 60px)", overflowY: "auto", padding: "24px 12px 40px 20px" }}
+            style={{ width: 268, flex: "none", position: "sticky", top: HEADER_H, alignSelf: "flex-start", height: `calc(100vh - ${HEADER_H}px)`, overflowY: "auto", padding: "28px 12px 48px 24px", borderRight: "1px solid var(--color-border)" }}
           >
             <Sidebar />
           </Box>
         ) : null}
-        <Box as="main" style={{ flex: 1, minWidth: 0, padding: isMobile ? "24px 16px 56px" : "36px 28px 72px" }}>
-          <Box style={{ maxWidth: 840, margin: "0 auto" }}><Outlet /></Box>
+        <Box as="main" style={{ flex: 1, minWidth: 0, display: "flex", justifyContent: "center" }}>
+          <Stack
+            direction="row"
+            gap={9}
+            align="flex-start"
+            style={{ width: "100%", maxWidth: showToc ? 1120 : 880, padding: isMobile ? "24px 16px 64px" : "44px 44px 88px" }}
+          >
+            <Box as="article" id="doc-article" style={{ flex: 1, minWidth: 0, maxWidth: 760 }}>
+              <Outlet />
+            </Box>
+            {showToc ? <TableOfContents /> : null}
+          </Stack>
         </Box>
       </Stack>
       {isMobile ? (
-        <Drawer open={mobileNav} onClose={() => setMobileNav(false)} side="left" size={284}>
+        <Drawer open={mobileNav} onClose={() => setMobileNav(false)} side="left" size={288}>
           <Sidebar onNavigate={() => setMobileNav(false)} />
         </Drawer>
       ) : null}
