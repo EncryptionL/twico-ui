@@ -43,6 +43,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify JS + TS resolution (ESM + CJS exports, types)
+        run: npm run check:exports
+
       - name: Assert "use client" banner survived bundling
         run: |
           head -1 dist/index.mjs | grep -q '"use client"' || { echo "::error::dist/index.mjs is missing the \"use client\" directive"; exit 1; }

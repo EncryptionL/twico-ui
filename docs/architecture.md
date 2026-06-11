@@ -62,6 +62,23 @@ in sync when components are added or removed.
    what lets the package import into a Next.js App Router Server Component. CI asserts line 1 of each
    bundle is `"use client"`.
 
+### Package entry & resolution (JS + TS, ESM + CJS)
+
+With `dts: true` + dual `format`, `tsup` emits `dist/index.d.cts` alongside `dist/index.d.ts`. The
+`exports` map uses **per-condition `types`** so both module systems resolve the right declarations:
+
+```jsonc
+"exports": { ".": {
+  "import":  { "types": "./dist/index.d.ts",  "default": "./dist/index.mjs" },
+  "require": { "types": "./dist/index.d.cts", "default": "./dist/index.cjs" }
+}}
+```
+
+So the package works identically from JavaScript (ESM **or** CommonJS) and TypeScript.
+`npm run check:exports` (are-the-types-wrong) guards every resolution mode — `node10`,
+`node16` CJS/ESM, and `bundler` — and runs in CI (the `styles.css` asset entry is excluded since
+it carries no types).
+
 ## Styling / theming
 
 - `styles.css` (dev entry) `@import`s `tokens/*` + `base.css`.

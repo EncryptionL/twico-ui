@@ -42,9 +42,10 @@ motion, accessibility, design tokens). This one repo holds three things:
 ```bash
 # Library
 npm install
-npm run build        # tsup -> dist/ (ESM + CJS + .d.ts), then prepends "use client"
-npm run typecheck    # tsc --noEmit
-npm pack --dry-run   # preview the published tarball
+npm run build          # tsup -> dist/ (ESM + CJS + .d.ts + .d.cts), then prepends "use client"
+npm run typecheck      # tsc --noEmit
+npm run check:exports  # are-the-types-wrong: JS + TS resolve across ESM/CJS
+npm pack --dry-run     # preview the published tarball
 
 # Docs site
 cd site && npm install
@@ -117,7 +118,8 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
 
 ## 7. Verification expectations
 
-Before pushing: `npm run build` + `npm run typecheck` clean, `npm pack --dry-run` shows only the
+Before pushing: `npm run build` + `npm run typecheck` clean, `npm run check:exports` is green
+(JS + TS resolution across ESM/CJS — `are-the-types-wrong`), `npm pack --dry-run` shows only the
 intended files, `npm audit --omit=dev` is 0, and the docs site builds (`cd site && npm run build`).
 For UI behavior, a headless render-check of the docs demos is the established bar (see
 `docs/docs-site.md`).

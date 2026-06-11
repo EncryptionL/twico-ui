@@ -81,6 +81,22 @@ export default function App({ Component, pageProps }: AppProps) {
 - The global stylesheet (`twico-ui/styles.css`) provides the design tokens, base reset, and self-hosted fonts at first paint. Each component also injects its own scoped CSS on mount, so styles settle immediately after hydration.
 - Overlays (Menu, Popover, Select, CommandPalette, Drawer, Dialog) render through React **portals** to `document.body` only while open, so they never run on the server.
 
+## TypeScript & JavaScript
+
+Twico UI ships as a dual **ESM + CommonJS** package with bundled type declarations, so it works identically in a plain JavaScript project or a TypeScript one:
+
+- **TypeScript** — every component and hook ships full types; `import { Button, type ButtonProps } from "twico-ui"` resolves and is fully checked. Verified across `node10`, `node16` (CJS **and** ESM), and `bundler` resolution with [are-the-types-wrong](https://github.com/arethetypeswrong/arethetypeswrong.github.io) (`npm run check:exports`).
+- **JavaScript (ESM)** — `import { Button } from "twico-ui"`.
+- **JavaScript (CommonJS)** — `const { Button } = require("twico-ui")`.
+
+```tsx
+// TypeScript — full prop types + autocomplete
+import { Button } from "twico-ui";
+import type { ButtonProps } from "twico-ui";
+
+const props: ButtonProps = { variant: "soft", size: "sm" };
+```
+
 ## Quick start
 
 Import the stylesheet **once** at your app root, then use any component:
