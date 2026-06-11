@@ -1,5 +1,13 @@
 import React from "react";
 
+const FIELD_CSS = `
+.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
+.twc-field__req { color: var(--color-danger); }
+.twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
+`;
+
 const DATEPICKER_CSS = `
 .twc-dp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-dp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
@@ -10,6 +18,8 @@ const DATEPICKER_CSS = `
 }
 .twc-dp__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
 .twc-dp__control[data-open="true"] { border-color: var(--color-primary); box-shadow: var(--ring); }
+.twc-dp__control[data-invalid="true"] { border-color: var(--color-danger); }
+.twc-dp__control[data-invalid="true"][data-open="true"] { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
 .twc-dp__control[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
 .twc-dp__field { position: relative; display: flex; flex-direction: column; }
 .twc-dp__control[data-has-clear="true"] { padding-right: 34px; }
@@ -50,12 +60,33 @@ const DATEPICKER_CSS = `
 .twc-dp__mo[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
 `;
 
+// Default-locale fallbacks — preserve the exact strings the component shipped with
+// so output is byte-identical when `locale` is omitted (Intl short weekdays are 3-letter).
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const DOW = ["Su","Mo","Tu","We","Th","Fr","Sa"];
+// Full month names (January…December), Intl-derived for the given locale.
+const monthNames = (locale) => {
+  const f = new Intl.DateTimeFormat(locale, { month: "long" });
+  return Array.from({ length: 12 }, (_, i) => f.format(new Date(2021, i, 1)));
+};
+// Abbreviated month names (Jan…Dec) for the month grid, Intl-derived.
+const monthShortNames = (locale) => {
+  const f = new Intl.DateTimeFormat(locale, { month: "short" });
+  return Array.from({ length: 12 }, (_, i) => f.format(new Date(2021, i, 1)));
+};
+// Weekday header labels in calendar column order (starting at `weekStartsOn`), Intl-derived.
+const weekdayNames = (locale, weekStartsOn) => {
+  const f = new Intl.DateTimeFormat(locale, { weekday: "short" });
+  // 2021-08-01 is a Sunday — index 0..6 maps to Sun..Sat.
+  return Array.from({ length: 7 }, (_, i) => f.format(new Date(2021, 7, 1 + ((i + weekStartsOn) % 7))));
+};
 const sameDay = (a, b) => a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 
 export function DatePicker({
   label,
+  hint,
+  error,
+  required = false,
   value,
   defaultValue = null,
   placeholder = "Select date",
@@ -64,6 +95,7 @@ export function DatePicker({
   disabled = false,
   clearable = true,
   format,
+  locale,
   weekStartsOn = 0,
   onChange,
   id,
@@ -71,6 +103,12 @@ export function DatePicker({
   ...rest
 }) {
   React.useInsertionEffect(() => {
+    if (!document.getElementById("twc-field-styles")) {
+      const fel = document.createElement("style");
+      fel.id = "twc-field-styles";
+      fel.textContent = FIELD_CSS;
+      document.head.appendChild(fel);
+    }
     if (document.getElementById("twc-datepicker-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-datepicker-styles";
@@ -80,6 +118,8 @@ export function DatePicker({
 
   const autoId = React.useId();
   const fieldId = id || autoId;
+  const descId = `${fieldId}-desc`;
+  const invalid = Boolean(error);
   const [internal, setInternal] = React.useState(defaultValue);
   const selected = value !== undefined ? value : internal;
   const [open, setOpen] = React.useState(false);
@@ -100,10 +140,19 @@ export function DatePicker({
     return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
   }, [open]);
 
+  // Locale-aware month/weekday names — fall back to the shipped English arrays
+  // when `locale` is omitted so default output stays byte-identical.
+  const months = React.useMemo(() => (locale === undefined ? MONTHS : monthNames(locale)), [locale]);
+  const monthsShort = React.useMemo(() => (locale === undefined ? MONTHS.map((n) => n.slice(0, 3)) : monthShortNames(locale)), [locale]);
+  const dows = React.useMemo(
+    () => (locale === undefined ? Array.from({ length: 7 }, (_, i) => DOW[(i + weekStartsOn) % 7]) : weekdayNames(locale, weekStartsOn)),
+    [locale, weekStartsOn],
+  );
+
   const fmt = (d) => {
     if (!d) return "";
     if (format) return format(d);
-    return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+    return d.toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric" });
   };
   const pick = (d) => { if (value === undefined) setInternal(d); onChange?.(d); setOpen(false); };
 
@@ -111,7 +160,6 @@ export function DatePicker({
   const first = new Date(y, m, 1);
   const startOffset = (first.getDay() - weekStartsOn + 7) % 7;
   const gridStart = new Date(y, m, 1 - startOffset);
-  const dows = Array.from({ length: 7 }, (_, i) => DOW[(i + weekStartsOn) % 7]);
   const today = new Date();
   const outOfRange = (d) => (min && d < new Date(min.getFullYear(), min.getMonth(), min.getDate())) || (max && d > new Date(max.getFullYear(), max.getMonth(), max.getDate()));
 
@@ -154,13 +202,19 @@ export function DatePicker({
   };
 
   return (
-    <div className={`twc-dp ${className}`} ref={wrapRef} {...rest}>
-      {label ? <label className="twc-dp__label" id={`${fieldId}-label`}>{label}</label> : null}
+    <div className={`twc-dp twc-field ${className}`} ref={wrapRef} {...rest}>
+      {label ? (
+        <label className="twc-field__label" id={`${fieldId}-label`}>
+          {label}{required ? <span className="twc-field__req">*</span> : null}
+        </label>
+      ) : null}
       <div className="twc-dp__field">
         <div className="twc-dp__control" id={fieldId} data-open={open || undefined} data-disabled={disabled || undefined}
           data-has-clear={clearable && selected && !disabled ? "true" : undefined}
+          data-invalid={invalid || undefined}
           role="button" tabIndex={disabled ? -1 : 0} aria-haspopup="dialog" aria-expanded={open}
           aria-labelledby={label ? `${fieldId}-label` : undefined}
+          aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
           onClick={() => !disabled && setOpen((o) => !o)}
           onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && !disabled) { e.preventDefault(); setOpen((o) => !o); } }}>
           <span className="twc-dp__ic" aria-hidden="true">
@@ -182,7 +236,7 @@ export function DatePicker({
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
             </button>
             <button type="button" className="twc-dp__title" onClick={() => setMode(mode === "days" ? "months" : "days")}>
-              {mode === "days" ? `${MONTHS[m]} ${y}` : y}
+              {mode === "days" ? `${months[m]} ${y}` : y}
             </button>
             <button type="button" className="twc-dp__nav" aria-label="Next" onClick={() => setView(mode === "months" ? new Date(y + 1, m, 1) : new Date(y, m + 1, 1))}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
@@ -191,7 +245,7 @@ export function DatePicker({
 
           {mode === "days" ? (
             <div className="twc-dp__grid" ref={gridRef} onKeyDown={onGridKeyDown}>
-              {dows.map((d) => <div key={d} className="twc-dp__dow">{d}</div>)}
+              {dows.map((d, i) => <div key={i} className="twc-dp__dow">{d}</div>)}
               {cells.map((d, i) => {
                 const outside = d.getMonth() !== m;
                 return (
@@ -199,7 +253,7 @@ export function DatePicker({
                     data-outside={outside || undefined} data-today={sameDay(d, today) || undefined} data-selected={sameDay(d, selected) || undefined}
                     data-key={keyOf(d)} tabIndex={sameDay(d, tabbableDate) ? 0 : -1}
                     aria-pressed={!!sameDay(d, selected)} aria-current={sameDay(d, today) ? "date" : undefined}
-                    aria-label={d.toDateString()} onClick={() => pick(d)}>
+                    aria-label={locale === undefined ? d.toDateString() : d.toLocaleDateString(locale, { weekday: "long", year: "numeric", month: "long", day: "numeric" })} onClick={() => pick(d)}>
                     {d.getDate()}
                   </button>
                 );
@@ -207,16 +261,17 @@ export function DatePicker({
             </div>
           ) : (
             <div className="twc-dp__months">
-              {MONTHS.map((name, i) => (
+              {monthsShort.map((name, i) => (
                 <button key={i} type="button" className="twc-dp__mo" data-selected={selected && selected.getFullYear() === y && selected.getMonth() === i || undefined}
                   onClick={() => { setView(new Date(y, i, 1)); setMode("days"); }}>
-                  {name.slice(0, 3)}
+                  {name}
                 </button>
               ))}
             </div>
           )}
         </div>
       ) : null}
+      {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
 }

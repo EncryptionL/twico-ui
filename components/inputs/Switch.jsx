@@ -3,6 +3,7 @@ import React from "react";
 export function Switch({
   label,
   description,
+  error,
   checked,
   defaultChecked,
   disabled = false,
@@ -37,18 +38,25 @@ export function Switch({
 .twc-switch__input:checked + .twc-switch__track .twc-switch__thumb { transform: translateX(calc(var(--_w) - var(--_h))); }
 .twc-switch__input:focus-visible + .twc-switch__track { box-shadow: var(--ring); }
 .twc-switch__input:active + .twc-switch__track .twc-switch__thumb { width: calc(var(--_h) - var(--_pad) * 2 + 4px); }
+.twc-switch[data-invalid="true"] .twc-switch__track { box-shadow: inset 0 0 0 var(--border-medium) var(--color-danger); }
 .twc-switch__text { display: flex; flex-direction: column; gap: 2px; }
 .twc-switch__label { font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); line-height: 1.3; }
 .twc-switch__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
 `;
     document.head.appendChild(el);
   }, []);
 
   const autoId = React.useId();
   const fieldId = id || autoId;
+  const errId = `${fieldId}-error`;
+  const invalid = Boolean(error);
 
-  return (
-    <label className={`twc-switch ${className}`} data-size={size} data-disabled={disabled || undefined} htmlFor={fieldId}>
+  const describedBy = [rest["aria-describedby"], error ? errId : null].filter(Boolean).join(" ") || undefined;
+
+  const control = (
+    <label className={`twc-switch ${className}`} data-size={size} data-invalid={invalid || undefined} data-disabled={disabled || undefined} htmlFor={fieldId}>
       <input
         id={fieldId}
         type="checkbox"
@@ -59,6 +67,8 @@ export function Switch({
         disabled={disabled}
         onChange={onChange}
         {...rest}
+        aria-invalid={invalid || undefined}
+        aria-describedby={describedBy}
       />
       <span className="twc-switch__track" aria-hidden="true">
         <span className="twc-switch__thumb" />
@@ -70,5 +80,13 @@ export function Switch({
         </span>
       ) : null}
     </label>
+  );
+
+  if (!error) return control;
+  return (
+    <div className="twc-field">
+      {control}
+      <span id={errId} className="twc-field__error">{error}</span>
+    </div>
   );
 }

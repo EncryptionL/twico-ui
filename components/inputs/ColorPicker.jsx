@@ -1,5 +1,13 @@
 import React from "react";
 
+const FIELD_CSS = `
+.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
+.twc-field__req { color: var(--color-danger); }
+.twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
+`;
+
 const COLORPICKER_CSS = `
 .twc-cp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-cp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
@@ -8,6 +16,8 @@ const COLORPICKER_CSS = `
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
 .twc-cp__trigger:hover:not([data-open="true"]):not([data-disabled="true"]) { border-color: var(--color-border-strong); }
 .twc-cp__trigger[data-open="true"] { border-color: var(--color-primary); box-shadow: var(--ring); }
+.twc-cp__trigger[data-invalid="true"] { border-color: var(--color-danger); }
+.twc-cp__trigger[data-invalid="true"][data-open="true"] { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
 .twc-cp__trigger[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
 .twc-cp__swatch { flex: none; width: 26px; height: 26px; border-radius: var(--radius-sm); box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12); }
 .twc-cp__value { flex: 1; font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-text); text-transform: uppercase; }
@@ -60,6 +70,9 @@ const DEFAULT_PRESETS = ["#6366F1","#0EA5E9","#14B8A6","#22C55E","#F59E0B","#F43
 
 export function ColorPicker({
   label,
+  hint,
+  error,
+  required = false,
   value,
   defaultValue = "#6366F1",
   presets = DEFAULT_PRESETS,
@@ -69,6 +82,12 @@ export function ColorPicker({
   ...rest
 }) {
   React.useInsertionEffect(() => {
+    if (!document.getElementById("twc-field-styles")) {
+      const fel = document.createElement("style");
+      fel.id = "twc-field-styles";
+      fel.textContent = FIELD_CSS;
+      document.head.appendChild(fel);
+    }
     if (document.getElementById("twc-colorpicker-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-colorpicker-styles";
@@ -84,6 +103,8 @@ export function ColorPicker({
   const areaRef = React.useRef(null);
   const hueRef = React.useRef(null);
   const labelId = React.useId();
+  const descId = `${labelId}-desc`;
+  const invalid = Boolean(error);
 
   // close the popover if the picker becomes disabled while open
   React.useEffect(() => { if (disabled) setOpen(false); }, [disabled]);
@@ -141,10 +162,15 @@ export function ColorPicker({
   };
 
   return (
-    <div className={`twc-cp ${className}`} ref={wrapRef} {...rest}>
-      {label ? <span className="twc-cp__label" id={labelId}>{label}</span> : null}
-      <div className="twc-cp__trigger" data-open={open || undefined} data-disabled={disabled || undefined} role="button" tabIndex={disabled ? -1 : 0}
+    <div className={`twc-cp twc-field ${className}`} ref={wrapRef} {...rest}>
+      {label ? (
+        <span className="twc-field__label" id={labelId}>
+          {label}{required ? <span className="twc-field__req">*</span> : null}
+        </span>
+      ) : null}
+      <div className="twc-cp__trigger" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} role="button" tabIndex={disabled ? -1 : 0}
         aria-haspopup="dialog" aria-expanded={open} aria-disabled={disabled || undefined} aria-labelledby={label ? labelId : undefined}
+        aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
         onClick={() => !disabled && setOpen((o) => !o)} onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setOpen((o) => !o); } }}>
         <span className="twc-cp__swatch" style={{ background: hex }} />
         <span className="twc-cp__value">{hex}</span>
@@ -183,6 +209,7 @@ export function ColorPicker({
           ) : null}
         </div>
       ) : null}
+      {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
 }

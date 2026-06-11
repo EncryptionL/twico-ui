@@ -1,5 +1,13 @@
 import React from "react";
 
+const FIELD_CSS = `
+.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
+.twc-field__req { color: var(--color-danger); }
+.twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
+`;
+
 const RANGE_CSS = `
 .twc-drp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-drp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
@@ -8,6 +16,8 @@ const RANGE_CSS = `
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
 .twc-drp__control:hover:not([data-open="true"]):not([data-disabled="true"]) { border-color: var(--color-border-strong); }
 .twc-drp__control[data-open="true"] { border-color: var(--color-primary); box-shadow: var(--ring); }
+.twc-drp__control[data-invalid="true"] { border-color: var(--color-danger); }
+.twc-drp__control[data-invalid="true"][data-open="true"] { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
 .twc-drp__control[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
 .twc-drp__ic { flex: none; color: var(--color-text-subtle); display: inline-flex; }
 .twc-drp__ic svg { width: 17px; height: 17px; }
@@ -38,17 +48,34 @@ const RANGE_CSS = `
 .twc-drp__day:disabled { opacity: 0.3; cursor: not-allowed; }
 `;
 
+// Default-locale fallbacks — preserve the exact strings the component shipped with
+// so output is byte-identical when `locale` is omitted (Intl short weekdays are 3-letter).
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const DOW = ["Su","Mo","Tu","We","Th","Fr","Sa"];
+// Full month names (January…December), Intl-derived for the given locale.
+const monthNames = (locale) => {
+  const f = new Intl.DateTimeFormat(locale, { month: "long" });
+  return Array.from({ length: 12 }, (_, i) => f.format(new Date(2021, i, 1)));
+};
+// Weekday header labels in calendar column order (starting at `weekStartsOn`), Intl-derived.
+const weekdayNames = (locale, weekStartsOn) => {
+  const f = new Intl.DateTimeFormat(locale, { weekday: "short" });
+  // 2021-08-01 is a Sunday — index 0..6 maps to Sun..Sat.
+  return Array.from({ length: 7 }, (_, i) => f.format(new Date(2021, 7, 1 + ((i + weekStartsOn) % 7))));
+};
 const ymd = (d) => d ? new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime() : null;
-const fmtD = (d) => d ? d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) : "";
+const fmtD = (d, locale) => d ? d.toLocaleDateString(locale, { month: "short", day: "numeric", year: "numeric" }) : "";
 
 export function DateRangePicker({
   label,
+  hint,
+  error,
+  required = false,
   value,
   defaultValue = { start: null, end: null },
   placeholder = "Select date range",
   presets = true,
+  locale,
   weekStartsOn = 0,
   disabled = false,
   onChange,
@@ -56,6 +83,12 @@ export function DateRangePicker({
   ...rest
 }) {
   React.useInsertionEffect(() => {
+    if (!document.getElementById("twc-field-styles")) {
+      const fel = document.createElement("style");
+      fel.id = "twc-field-styles";
+      fel.textContent = FIELD_CSS;
+      document.head.appendChild(fel);
+    }
     if (document.getElementById("twc-drp-styles")) return;
     const el = document.createElement("style");
     el.id = "twc-drp-styles";
@@ -70,6 +103,8 @@ export function DateRangePicker({
   const [hover, setHover] = React.useState(null);
   const wrapRef = React.useRef(null);
   const labelId = React.useId();
+  const descId = `${labelId}-desc`;
+  const invalid = Boolean(error);
 
   // close the popover if the picker becomes disabled while open
   React.useEffect(() => { if (disabled) setOpen(false); }, [disabled]);
@@ -94,10 +129,17 @@ export function DateRangePicker({
     set({ start, end }); setView(start); setOpen(false);
   };
 
+  // Locale-aware month/weekday names — fall back to the shipped English arrays
+  // when `locale` is omitted so default output stays byte-identical.
+  const months = React.useMemo(() => (locale === undefined ? MONTHS : monthNames(locale)), [locale]);
+  const dows = React.useMemo(
+    () => (locale === undefined ? Array.from({ length: 7 }, (_, i) => DOW[(i + weekStartsOn) % 7]) : weekdayNames(locale, weekStartsOn)),
+    [locale, weekStartsOn],
+  );
+
   const y = view.getFullYear(), m = view.getMonth();
   const startOffset = (new Date(y, m, 1).getDay() - weekStartsOn + 7) % 7;
   const gridStart = new Date(y, m, 1 - startOffset);
-  const dows = Array.from({ length: 7 }, (_, i) => DOW[(i + weekStartsOn) % 7]);
 
   const edgeOf = (t) => {
     const s = ymd(range.start), e = ymd(range.end) || (range.start && hover ? ymd(hover) : null);
@@ -112,13 +154,18 @@ export function DateRangePicker({
     return t > Math.min(s, e) && t < Math.max(s, e);
   };
 
-  const text = range.start ? `${fmtD(range.start)} – ${range.end ? fmtD(range.end) : "…"}` : "";
+  const text = range.start ? `${fmtD(range.start, locale)} – ${range.end ? fmtD(range.end, locale) : "…"}` : "";
 
   return (
-    <div className={`twc-drp ${className}`} ref={wrapRef} {...rest}>
-      {label ? <span className="twc-drp__label" id={labelId}>{label}</span> : null}
-      <div className="twc-drp__control" data-open={open || undefined} data-disabled={disabled || undefined} role="button" tabIndex={disabled ? -1 : 0}
+    <div className={`twc-drp twc-field ${className}`} ref={wrapRef} {...rest}>
+      {label ? (
+        <span className="twc-field__label" id={labelId}>
+          {label}{required ? <span className="twc-field__req">*</span> : null}
+        </span>
+      ) : null}
+      <div className="twc-drp__control" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} role="button" tabIndex={disabled ? -1 : 0}
         aria-haspopup="dialog" aria-expanded={open} aria-disabled={disabled || undefined} aria-labelledby={label ? labelId : undefined}
+        aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
         onClick={() => !disabled && setOpen((o) => !o)} onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setOpen((o) => !o); } }}>
         <span className="twc-drp__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
         <span className="twc-drp__text" data-placeholder={!range.start || undefined}>{range.start ? text : placeholder}</span>
@@ -136,11 +183,11 @@ export function DateRangePicker({
           <div className="twc-drp__cal">
             <div className="twc-drp__head">
               <button type="button" className="twc-drp__nav" aria-label="Previous month" onClick={() => setView(new Date(y, m - 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-              <span className="twc-drp__title">{MONTHS[m]} {y}</span>
+              <span className="twc-drp__title">{months[m]} {y}</span>
               <button type="button" className="twc-drp__nav" aria-label="Next month" onClick={() => setView(new Date(y, m + 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
             </div>
             <div className="twc-drp__grid">
-              {dows.map((d) => <div key={d} className="twc-drp__dow">{d}</div>)}
+              {dows.map((d, i) => <div key={i} className="twc-drp__dow">{d}</div>)}
               {Array.from({ length: 42 }).map((_, i) => {
                 const d = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i);
                 const t = ymd(d), outside = d.getMonth() !== m;
@@ -156,6 +203,7 @@ export function DateRangePicker({
           </div>
         </div>
       ) : null}
+      {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
 }

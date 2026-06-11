@@ -2,6 +2,11 @@ import React from "react";
 
 const UPLOAD_CSS = `
 .twc-upload { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-3); }
+.twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
+.twc-field__req { color: var(--color-danger); }
+.twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
+.twc-upload__zone[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-upload__zone {
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
   gap: 6px; padding: var(--space-8) var(--space-6); cursor: pointer;
@@ -44,10 +49,14 @@ export function FileUpload({
   accept,
   multiple = false,
   disabled = false,
+  label,
   hint,
+  error,
+  required = false,
   value,
   defaultValue = [],
   onChange,
+  id,
   className = "",
   ...rest
 }) {
@@ -64,6 +73,11 @@ export function FileUpload({
   const [drag, setDrag] = React.useState(false);
   const inputRef = React.useRef(null);
 
+  const autoId = React.useId();
+  const fieldId = id || autoId;
+  const descId = `${fieldId}-desc`;
+  const invalid = Boolean(error);
+
   const set = (next) => { if (value === undefined) setInternal(next); onChange?.(next); };
 
   function addFiles(list) {
@@ -74,9 +88,18 @@ export function FileUpload({
 
   return (
     <div className={`twc-upload ${className}`} {...rest}>
+      {label ? (
+        <label className="twc-field__label" htmlFor={fieldId}>
+          {label}{required ? <span className="twc-field__req">*</span> : null}
+        </label>
+      ) : null}
       <div
+        id={fieldId}
         className="twc-upload__zone" data-drag={drag || undefined} data-disabled={disabled || undefined}
+        data-invalid={invalid || undefined}
         role="button" tabIndex={disabled ? -1 : 0}
+        aria-invalid={invalid || undefined}
+        aria-describedby={error || hint ? descId : undefined}
         onClick={() => !disabled && inputRef.current?.click()}
         onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && !disabled) { e.preventDefault(); inputRef.current?.click(); } }}
         onDragOver={(e) => { e.preventDefault(); if (!disabled) setDrag(true); }}
@@ -87,7 +110,7 @@ export function FileUpload({
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
         </span>
         <span className="twc-upload__title"><em>Click to upload</em> or drag and drop</span>
-        <span className="twc-upload__hint">{hint || (accept ? accept.replace(/\./g, "").toUpperCase() : "Any file")}</span>
+        <span className="twc-upload__hint" id={!error && hint ? descId : undefined}>{hint || (accept ? accept.replace(/\./g, "").toUpperCase() : "Any file")}</span>
         <input ref={inputRef} className="twc-upload__input" type="file" accept={accept} multiple={multiple} disabled={disabled}
           onChange={(e) => { if (e.target.files.length) addFiles(e.target.files); e.target.value = ""; }} />
       </div>
@@ -109,6 +132,7 @@ export function FileUpload({
           ))}
         </div>
       ) : null}
+      {error ? <span id={descId} className="twc-field__error">{error}</span> : null}
     </div>
   );
 }

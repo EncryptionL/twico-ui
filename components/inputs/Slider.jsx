@@ -2,6 +2,9 @@ import React from "react";
 
 const SLIDER_CSS = `
 .twc-slider { font-family: var(--font-sans); }
+.twc-slider__msgs { display: flex; flex-direction: column; gap: var(--space-1-5); margin-top: var(--space-2); }
+.twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
 .twc-slider__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--space-2); }
 .twc-slider__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
 .twc-slider__value { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-primary); font-variant-numeric: tabular-nums; }
@@ -33,6 +36,8 @@ const SLIDER_CSS = `
 
 export function Slider({
   label,
+  hint,
+  error,
   value,
   defaultValue = 0,
   min = 0,
@@ -99,6 +104,8 @@ export function Slider({
 
   const ticks = showTicks ? Math.floor((max - min) / step) + 1 : 0;
   const labelId = label ? `${fieldId}-label` : undefined;
+  const descId = `${fieldId}-desc`;
+  const invalid = Boolean(error);
   const display = fmt(val);
   // Human-readable value for assistive tech, only when a custom format is in play.
   const valueText = formatValue && (typeof display === "string" || typeof display === "number") ? String(display) : undefined;
@@ -133,12 +140,19 @@ export function Slider({
           aria-valuetext={valueText}
           aria-labelledby={labelId}
           aria-label={labelId ? undefined : "Slider"}
+          aria-describedby={error || hint ? descId : undefined}
+          aria-invalid={invalid || undefined}
           aria-disabled={disabled || undefined}
           onKeyDown={onKeyDown}
         >
           <span className="twc-slider__bubble">{display}</span>
         </div>
       </div>
+      {error || hint ? (
+        <div className="twc-slider__msgs">
+          {error ? <span id={descId} className="twc-field__error">{error}</span> : <span id={descId} className="twc-field__hint">{hint}</span>}
+        </div>
+      ) : null}
     </div>
   );
 }

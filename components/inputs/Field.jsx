@@ -1,0 +1,55 @@
+import React from "react";
+
+// Shared form-field chrome (label + hint/error). Mirrors the exact markup Input.jsx and
+// Select.jsx inline so any control wrapped in <Field> looks and behaves identically.
+const FIELD_CSS = `
+.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
+.twc-field__req { color: var(--color-danger); }
+.twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
+`;
+
+function useFieldStyles() {
+  React.useInsertionEffect(() => {
+    if (document.getElementById("twc-field-styles")) return;
+    const el = document.createElement("style");
+    el.id = "twc-field-styles";
+    el.textContent = FIELD_CSS;
+    document.head.appendChild(el);
+  }, []);
+}
+
+export function Field({
+  label,
+  hint,
+  error,
+  required = false,
+  htmlFor,
+  size = "md",
+  id,
+  className = "",
+  children,
+  ...rest
+}) {
+  useFieldStyles();
+  const autoId = React.useId();
+  const fieldId = id || autoId;
+  // Stable id for the hint/error element so the consumer can point their control's
+  // aria-describedby at it. Same `${id}-desc` convention Input/Select use internally.
+  const descId = `${fieldId}-desc`;
+
+  return (
+    <div className={`twc-field ${className}`} data-size={size} {...rest}>
+      {label ? (
+        <label className="twc-field__label" htmlFor={htmlFor}>
+          {label}{required ? <span className="twc-field__req">*</span> : null}
+        </label>
+      ) : null}
+      {children}
+      {error
+        ? <span id={descId} className="twc-field__error">{error}</span>
+        : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
+    </div>
+  );
+}

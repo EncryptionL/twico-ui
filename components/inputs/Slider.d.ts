@@ -9,6 +9,10 @@ import * as React from "react";
 export interface SliderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
   /** Label shown above the track. */
   label?: React.ReactNode;
+  /** Helper text shown below the track when there is no error. */
+  hint?: React.ReactNode;
+  /** Error message shown below the track — turns it red (sets `aria-invalid`) and replaces the hint. */
+  error?: React.ReactNode;
   /** Controlled value. */
   value?: number;
   /** Uncontrolled initial value. @default 0 */
