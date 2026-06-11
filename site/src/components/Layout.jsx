@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar.jsx";
 import ThemeToggle from "./ThemeToggle.jsx";
 import TableOfContents from "./TableOfContents.jsx";
 import PageTransition from "./PageTransition.jsx";
+import Search from "./Search.jsx";
 import { REPO_URL, NPM_URL, CHANGELOG_URL } from "../data/site.js";
 
 const HEADER_H = 64;
@@ -47,7 +48,8 @@ export default function Layout() {
           ) : null}
           <Link to="/" aria-label="Twico UI home" style={{ display: "inline-flex" }}><Logo /></Link>
         </Stack>
-        <Stack direction="row" align="center" gap={1}>
+        <Stack direction="row" align="center" gap={2}>
+          <Search />
           {!isMobile ? (
             <>
               <Button variant="ghost" size="sm" onClick={() => navigate("/docs/installation")}>Docs</Button>
