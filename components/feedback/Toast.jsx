@@ -48,6 +48,7 @@ export function Toast({
   children,
   icon,
   onClose,
+  duration = 4500,
   className = "",
   ...rest
 }) {
@@ -59,8 +60,36 @@ export function Toast({
     document.head.appendChild(el);
   }, []);
 
+  // Auto-dismiss after `duration` ms (paused while hovered/focused). 0/Infinity keeps it open.
+  // onClose is read through a ref so an inline handler doesn't reset the timer every render.
+  const onCloseRef = React.useRef(onClose);
+  React.useEffect(() => {
+    onCloseRef.current = onClose;
+  });
+  const timer = React.useRef();
+  const stop = React.useCallback(() => clearTimeout(timer.current), []);
+  const start = React.useCallback(() => {
+    stop();
+    if (duration && duration !== Infinity && onCloseRef.current) {
+      timer.current = setTimeout(() => onCloseRef.current && onCloseRef.current(), duration);
+    }
+  }, [duration, stop]);
+  React.useEffect(() => {
+    start();
+    return stop;
+  }, [start, stop]);
+
   return (
-    <div className={`twc-toast ${className}`} data-tone={tone} role="status" {...rest}>
+    <div
+      className={`twc-toast ${className}`}
+      data-tone={tone}
+      role="status"
+      {...rest}
+      onMouseEnter={stop}
+      onMouseLeave={start}
+      onFocus={stop}
+      onBlur={start}
+    >
       <span className="twc-toast__icon" aria-hidden="true">
         {icon || (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -81,8 +110,8 @@ export function Toast({
   );
 }
 
-/** Fixed-position stack container for toasts. */
-export function ToastViewport({ children, className = "", ...rest }) {
+/** Fixed-position stack container for toasts. Pass `limit` to cap how many show at once. */
+export function ToastViewport({ children, limit, className = "", ...rest }) {
   React.useInsertionEffect(() => {
     if (document.getElementById("twc-toast-styles")) return;
     const el = document.createElement("style");
@@ -90,5 +119,6 @@ export function ToastViewport({ children, className = "", ...rest }) {
     el.textContent = TOAST_CSS;
     document.head.appendChild(el);
   }, []);
-  return <div className={`twc-toast-viewport ${className}`} {...rest}>{children}</div>;
+  const shown = limit && limit > 0 ? React.Children.toArray(children).slice(-limit) : children;
+  return <div className={`twc-toast-viewport ${className}`} {...rest}>{shown}</div>;
 }

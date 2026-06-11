@@ -19,7 +19,8 @@ export default function ToastDemo() {
           Show {s.tone}
         </Button>
       ))}
-      <ToastViewport>
+      {/* limit caps how many show at once; each toast auto-dismisses after ~4.5s (pause on hover). */}
+      <ToastViewport limit={4}>
         {toasts.map((t) => (
           <Toast key={t.id} tone={t.tone} title={t.title} onClose={() => remove(t.id)}>
             {t.body}

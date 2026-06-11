@@ -13,12 +13,16 @@ export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
   icon?: React.ReactNode;
   /** Show close button + handle dismissal. */
   onClose?: () => void;
+  /** Auto-dismiss after this many ms (paused on hover/focus). `0`/`Infinity` keeps it open. @default 4500 */
+  duration?: number;
   children?: React.ReactNode;
 }
 
 export function Toast(props: ToastProps): React.JSX.Element;
 
 export interface ToastViewportProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Cap how many toasts are shown at once (keeps the most recent). */
+  limit?: number;
   children?: React.ReactNode;
 }
 
