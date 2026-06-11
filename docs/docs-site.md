@@ -55,6 +55,6 @@ npm run build     # -> site/dist  (must succeed; it also compiles the library so
   headless browser, visiting every component page to confirm each demo mounts without throwing
   (no error-boundary fallback, no console/page errors) and that overlays open on interaction.
 - **Deploy:** `.github/workflows/deploy-docs.yml` builds `site/` and publishes to GitHub Pages on push
-  to `main` or `dev` (and via manual dispatch). `enablement: true` lets the workflow turn Pages on; if
-  blocked, enable it once under **Settings → Pages → Source = GitHub Actions**. Vite `base` is
-  `/twico-ui/` to match the Pages path.
+  to **`main`** only (the release branch) — or via manual dispatch. `enablement: true` lets the workflow
+  turn Pages on; if blocked, enable it once under **Settings → Pages → Source = GitHub Actions**. Vite
+  `base` is `/twico-ui/` to match the Pages path.

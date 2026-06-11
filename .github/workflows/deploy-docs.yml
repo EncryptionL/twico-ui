@@ -1,15 +1,13 @@
 name: Deploy docs site
 
 # Builds the documentation site (site/) and deploys it to GitHub Pages.
-# Runs from main (release) and dev (so the site can go live before the first
-# release), and can be triggered manually. `enablement: true` lets the workflow
-# turn Pages on by itself; if that is blocked, enable it once under
-# Settings -> Pages -> Source = GitHub Actions.
+# Deploys ONLY from main (the release branch); also triggerable manually.
+# `enablement: true` lets the workflow turn Pages on by itself; if that is
+# blocked, enable it once under Settings -> Pages -> Source = GitHub Actions.
 on:
   push:
     branches:
       - main
-      - dev
     paths:
       - "site/**"
       - "components/**"
