@@ -42,6 +42,11 @@ site/
 - **Anchor links** (`AnchorHeading.jsx`): hovering a component/section heading reveals a copy-link
   button. The deep link is `#/components/<slug>?s=<section>`; `ComponentPage` reads `?s` and scrolls
   to that anchor on load.
+- **Navigation feel:** in-page anchor jumps ease via a global `scroll-behavior: smooth` set on
+  `<html>` from `main.jsx` (skipped under `prefers-reduced-motion`); route changes force
+  `behavior: "instant"` so a new page lands at the top without a long animated scroll. Each component
+  page ends with a **Prev/Next pager** (`ComponentPage.jsx`), and the right-hand "On this page" TOC is
+  spaced off the article so it doesn't crowd the content.
 - Dark mode toggles the `.dark` class on `<html>` and persists to `localStorage`.
 
 ## Regenerating the component reference

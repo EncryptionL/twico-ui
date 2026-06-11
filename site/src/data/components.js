@@ -488,6 +488,13 @@ export const components = [
         "description": "Adds a hover-lift effect and pointer cursor."
       },
       {
+        "prop": "fullHeight",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Stretches the card to fill its parent cell (height: 100%) so cards in a grid or flex row line up to equal height."
+      },
+      {
         "prop": "children",
         "type": "React.ReactNode",
         "required": false,
@@ -3431,11 +3438,25 @@ export const components = [
         "description": "When provided, shows a close button and handles dismissal."
       },
       {
+        "prop": "duration",
+        "type": "number",
+        "required": false,
+        "default": "4500",
+        "description": "Milliseconds before the toast auto-dismisses (it calls onClose). The countdown pauses while hovered or focused; pass 0 or Infinity to keep it open until closed manually."
+      },
+      {
         "prop": "children",
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
         "description": "Body/description content of the toast."
+      },
+      {
+        "prop": "limit (ToastViewport)",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Caps how many toasts the viewport shows at once, keeping the most recent and dropping older ones so a burst never floods the screen."
       },
       {
         "prop": "...rest",
@@ -3445,7 +3466,7 @@ export const components = [
         "description": "Any other div attributes spread onto the root element."
       }
     ],
-    "snippet": "import { Toast, ToastViewport } from \"twico-ui\";\n\nconst [toasts, setToasts] = useState([]);\nconst push = (t) => setToasts((s) => [...s, { id: Date.now(), ...t }]);\nconst remove = (id) => setToasts((s) => s.filter((t) => t.id !== id));\n\n<ToastViewport>\n  {toasts.map((t) => (\n    <Toast\n      key={t.id}\n      tone={t.tone}\n      title={t.title}\n      onClose={() => remove(t.id)}\n    >\n      {t.body}\n    </Toast>\n  ))}\n</ToastViewport>",
+    "snippet": "import { Toast, ToastViewport } from \"twico-ui\";\n\nconst [toasts, setToasts] = useState([]);\nconst push = (t) => setToasts((s) => [...s, { id: Date.now(), ...t }]);\nconst remove = (id) => setToasts((s) => s.filter((t) => t.id !== id));\n\n{/* limit caps what's shown; each toast auto-dismisses after ~4.5s */}\n<ToastViewport limit={4}>\n  {toasts.map((t) => (\n    <Toast\n      key={t.id}\n      tone={t.tone}\n      title={t.title}\n      onClose={() => remove(t.id)}\n    >\n      {t.body}\n    </Toast>\n  ))}\n</ToastViewport>",
     "tagline": "Transient notification card in a fixed viewport"
   },
   {

@@ -48,6 +48,23 @@ without hand-rolled CSS. The documentation site is itself built from them (dogfo
 The barrel `src/index.ts` re-exports the value and the types for every component. It must be kept
 in sync when components are added or removed.
 
+**Overlays** (`Dialog`, `Drawer`, `Menu`, `Select`, `Popover`, `CommandPalette`) all follow one
+pattern:
+
+- **Portal to `document.body`** via `react-dom`'s `createPortal`, only while rendered. This is not
+  optional polish — a `position: fixed` overlay rendered inline is positioned relative to the nearest
+  ancestor that establishes a containing block, and `transform`, `filter`, `backdrop-filter`,
+  `will-change`, `perspective`, or `contain` on any ancestor create one. The docs-site navbar uses
+  `backdrop-filter` (frosted glass), so an inline overlay would size/hit-test against the ~64px navbar
+  instead of the viewport (backdrop clicks miss; positioning breaks). Portaling to `<body>` escapes it.
+- **Smooth open *and* close.** Each tracks a `mounted`/`render` flag so it stays in the tree through
+  its exit animation, driven by a `data-state="open" | "closed"` attribute (CSS `@keyframes` per
+  state), then unmounts on a short timeout (~120–200ms matching the animation). `prefers-reduced-motion`
+  collapses the animation. `Tooltip` is the exception — it stays mounted and toggles a CSS
+  `transition`, so it eases both ways for free.
+- **Backdrop close** uses `onMouseDown` with an `e.target === e.currentTarget` guard so only clicks on
+  the overlay itself (not bubbled from the panel) dismiss it.
+
 ## Build pipeline
 
 `npm run build` runs `tsup`:
