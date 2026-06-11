@@ -36,9 +36,24 @@ the latest npm release** — they never drift. Don't edit the version manually; 
 
 ## First release baseline
 
-A `v0.0.0` git tag is seeded so the **first** automated release is `0.1.0` (not semantic-release's
-default of `1.0.0`), keeping the library on its 0.x line until a `feat!:`/`BREAKING CHANGE:` takes it
-to `1.0.0`.
+A `v0.0.0` git tag was seeded so the **first** automated release would be `0.1.0` (not
+semantic-release's default of `1.0.0`), keeping the library on its 0.x line until a
+`feat!:`/`BREAKING CHANGE:` takes it to `1.0.0`.
+
+**However, `0.1.0` was published to npm manually** (2026-06-11, from commit `90893af`) before
+semantic-release ever ran. With only the `v0.0.0` tag, the next release run would recompute
+`0.1.0` and **fail on the npm publish collision**. The fix (done 2026-06-12): an annotated
+`v0.1.0` tag now points at `90893af`, so semantic-release's baseline matches reality and the
+next `dev → main` merge computes from there (the pending `feat:` commits → `0.2.0`).
+
+## Why you don't see version bumps in `dev` commits
+
+This is by design. Version numbers are owned by the bot and only ever change **on `main`, at
+release time**: semantic-release analyzes the commits since the last tag, picks the bump, updates
+`package.json` + `CHANGELOG.md`, tags `vX.Y.Z`, publishes to npm, and commits the bump back to
+`main`. Commits on `dev` intentionally never touch the version — the Conventional Commit *types*
+(`feat:`/`fix:`/…) are the version record until they land on `main`. To "see" the pending version:
+every `feat:` on dev = minor bump queued, every `fix:` = patch queued.
 
 ## Changelog
 
