@@ -6,8 +6,8 @@ import * as React from "react";
 export interface SpinnerProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** @default "md" */
   size?: "sm" | "md" | "lg" | "xl";
-  /** @default "primary" — use "white" on colored backgrounds. */
-  tone?: "primary" | "neutral" | "white";
+  /** Color. @default "current" — inherits currentColor (visible inside buttons, themed). */
+  tone?: "current" | "primary" | "neutral" | "white";
   /** Accessible label. @default "Loading" */
   label?: string;
 }

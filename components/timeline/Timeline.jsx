@@ -12,7 +12,9 @@ const TIMELINE_CSS = `
 .twc-timeline__item[data-tone="success"] .twc-timeline__dot { background: var(--color-success); border-color: var(--color-success); color: var(--color-success-fg); }
 .twc-timeline__item[data-tone="danger"] .twc-timeline__dot { background: var(--color-danger); border-color: var(--color-danger); color: var(--color-danger-fg); }
 .twc-timeline__item[data-tone="warning"] .twc-timeline__dot { background: var(--color-warning); border-color: var(--color-warning); color: var(--color-warning-fg); }
-.twc-timeline__line { position: absolute; top: 34px; bottom: -6px; left: 50%; width: 2px; transform: translateX(-50%); background: var(--color-border); border-radius: var(--radius-full); }
+/* Extend the rail through the item's bottom padding (--space-6) and slightly into
+   the next dot so the line actually connects the dots instead of stopping short. */
+.twc-timeline__line { position: absolute; top: 32px; bottom: calc(-1 * var(--space-6) - 8px); left: 50%; width: 2px; transform: translateX(-50%); background: var(--color-border); border-radius: var(--radius-full); }
 .twc-timeline__item:last-child .twc-timeline__line { display: none; }
 .twc-timeline__body { flex: 1; min-width: 0; padding-top: 5px; }
 .twc-timeline__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); }
