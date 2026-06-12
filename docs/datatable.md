@@ -120,16 +120,24 @@ closed itself on its own outside-click. Now there is at most **one** `.twc-dt__p
 shows full option labels instead of truncating to `Ava Cr…`. The two `openPanel(…, "left", 580)` call
 sites (the Filters toolbar button and the column-menu **Filter** item) match the panel width.
 
-### Toolbar tooltip stacking
+### Toolbar tooltip stacking and clipping
 
-`.twc-dt__toolbar` carries `position: relative; z-index: 10`. The toolbar buttons show their label
-as a CSS `::after` tooltip that hangs **below** the bar (`top: calc(100% + 8px)`), overlapping the
-table area. The toolbar and the scroll viewport (`.twc-dt__scroll`, which holds the sticky header at
-`z-index: 3`) are flex **siblings** inside `.twc-dt`; without a stacking context on the toolbar the
-later-in-DOM scroll painted over the tooltip, so a hover label like *"Show or hide columns"* was
-clipped behind the header/first rows. The `z-index: 10` lifts the whole toolbar subtree (tooltip
-included) above the scroll. The `.twc-dt__pop` overlays are unaffected — they sit at
-`var(--z-popover)` (~1000), far above 10.
+The toolbar buttons show their label as a CSS `::after` tooltip that hangs **below** the bar
+(`top: calc(100% + 8px)`), overlapping the table area. Two separate things conspired to hide it, so
+the fix has two parts:
+
+1. **Stacking** — `.twc-dt__toolbar` carries `position: relative; z-index: 10`. The toolbar and the
+   scroll viewport (`.twc-dt__scroll`, which holds the sticky header at `z-index: 3`) are flex
+   **siblings** inside `.twc-dt`; without a stacking context on the toolbar the later-in-DOM scroll
+   painted *over* the tooltip. The `z-index: 10` lifts the whole toolbar subtree (tooltip included)
+   above the scroll. The `.twc-dt__pop` overlays are unaffected — they sit at `var(--z-popover)`
+   (~1000), far above 10.
+2. **Clipping** — even on top, a **centered** tooltip (`left: 50%; translateX(-50%)`) on the
+   left-most button (Columns) extended past `.twc-dt`'s left border and got cut by its
+   `overflow: hidden` (the label read *"…or hide columns"*). Tooltips are now **edge-anchored** so
+   they grow *inward*: tool buttons use `inset-inline-start: 0` (extend toward the table), and the
+   end-aligned export split-button uses `inset-inline-end: 0` (extend back toward the table). Logical
+   properties keep this correct under RTL. Neither tooltip crosses the clipped border now.
 
 ## Excel export — real `.xlsx` (OOXML), no dependency
 

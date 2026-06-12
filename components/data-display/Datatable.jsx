@@ -26,15 +26,20 @@ const DT_CSS = `
 .twc-dt__tbtn:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dt__tbtn[data-tip], .twc-dt__export-toggle[data-tip], .twc-dt__export-main[data-tip] { position: relative; }
 .twc-dt__tbtn[data-tip]::after, .twc-dt__export-toggle[data-tip]::after, .twc-dt__export-main[data-tip]::after {
-  content: attr(data-tip); position: absolute; top: calc(100% + 8px); left: 50%;
-  transform: translateX(-50%) translateY(2px); transform-origin: top center;
+  content: attr(data-tip); position: absolute; top: calc(100% + 8px); inset-inline-start: 0;
+  transform: translateY(2px); transform-origin: top center;
   background: var(--color-text); color: var(--color-surface);
   font-size: var(--text-xs); font-weight: var(--font-medium); letter-spacing: 0;
   padding: 5px 9px; border-radius: var(--radius-md); white-space: nowrap;
   box-shadow: var(--shadow-md); opacity: 0; pointer-events: none; z-index: var(--z-tooltip);
   transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring); }
+/* The toolbar tool buttons sit at the grid's start edge: anchor their tooltip to the button's
+   start so it grows inward (over the table) and is never clipped by .twc-dt's overflow:hidden left
+   border. The export split-button sits at the end edge, so anchor its tooltip to the end instead.
+   inset-inline-* keeps both correct under RTL. */
+.twc-dt__export-toggle[data-tip]::after, .twc-dt__export-main[data-tip]::after { inset-inline-start: auto; inset-inline-end: 0; }
 .twc-dt__tbtn[data-tip]:hover::after, .twc-dt__export-toggle[data-tip]:hover::after, .twc-dt__export-main[data-tip]:hover::after {
-  opacity: 1; transform: translateX(-50%) translateY(0); transition-delay: 0.4s; }
+  opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
 .twc-dt__tbtn[data-active="true"] { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); }
 .twc-dt__tbtn svg { width: 16px; height: 16px; }
 .twc-dt__export { display: inline-flex; align-items: stretch; border-radius: var(--radius-md); box-shadow: var(--shadow-xs); }
