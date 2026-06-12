@@ -54,6 +54,8 @@ site/
   simple JSX, expanded the full form with imports — derived from the twico-ui exports used).
 - **Search** (`Search.jsx`, header + Cmd/Ctrl+K) runs Twico's `CommandPalette` over every component
   (name + tagline + summary + group + **prop names**, so "fullWidth" finds Button) and the docs pages.
+  It is a docs-browsing aid, so it is **hidden on the marketing landing page** (`/`); the navbar there
+  shows Docs / Components / Theme builder / Changelog / npm instead.
 - **Anchor links** (`AnchorHeading.jsx`): hovering a component/section heading reveals a copy-link
   button. The deep link is `#/components/<slug>?s=<section>`; `ComponentPage` reads `?s` and scrolls
   to that anchor on load.

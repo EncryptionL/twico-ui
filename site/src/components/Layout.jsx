@@ -50,11 +50,13 @@ export default function Layout() {
           <Link to="/" aria-label="Twico UI home" style={{ display: "inline-flex" }}><Logo /></Link>
         </Stack>
         <Stack direction="row" align="center" gap={2}>
-          <Search />
+          {/* Search is for browsing the docs — hide it on the marketing landing page. */}
+          {!isHome ? <Search /> : null}
           {!isMobile ? (
             <>
               <Button variant="ghost" size="sm" onClick={() => navigate("/docs/installation")}>Docs</Button>
               <Button variant="ghost" size="sm" onClick={() => navigate("/components")}>Components</Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/theme-builder")}>Theme builder</Button>
               <Button variant="ghost" size="sm" onClick={() => window.open(CHANGELOG_URL, "_blank", "noopener,noreferrer")}>Changelog</Button>
               <Button variant="ghost" size="sm" onClick={() => window.open(NPM_URL, "_blank", "noopener,noreferrer")}>npm</Button>
             </>
