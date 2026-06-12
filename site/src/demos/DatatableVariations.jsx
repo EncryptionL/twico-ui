@@ -47,21 +47,21 @@ const DB = makePeople(300);
 
 const SERVER_COLUMNS = [
   { field: "name", headerName: "Name", width: 230, renderCell: NameCell },
-  { field: "role", headerName: "Role", width: 120, valueOptions: ROLE_OPTIONS },
-  { field: "department", headerName: "Department", width: 150, valueOptions: DEPARTMENT_OPTIONS },
+  { field: "role", headerName: "Role", width: 120, editable: true, editType: "select", valueOptions: ROLE_OPTIONS },
+  { field: "department", headerName: "Department", width: 150, editable: true, editType: "select", valueOptions: DEPARTMENT_OPTIONS },
   {
     field: "status", headerName: "Status", width: 130,
-    valueOptions: STATUS_OPTIONS, renderCell: StatusBadge,
+    editable: true, editType: "select", valueOptions: STATUS_OPTIONS, renderCell: StatusBadge,
   },
   { field: "country", headerName: "Country", width: 110, valueOptions: COUNTRY_OPTIONS },
-  { field: "seats", headerName: "Seats", type: "number", width: 100, aggregation: "sum" },
+  { field: "seats", headerName: "Seats", type: "number", width: 100, editable: true, aggregation: "sum" },
   {
     field: "mrr", headerName: "MRR", type: "number", width: 120,
     aggregation: "sum", valueFormatter: (v) => usd(v),
   },
   {
     field: "salary", headerName: "Salary", type: "number", width: 140,
-    aggregation: "avg", valueFormatter: (v) => usd(v),
+    editable: true, aggregation: "avg", valueFormatter: (v) => usd(v),
   },
 ];
 
@@ -82,11 +82,13 @@ function load(q) {
 
 function ServerSideDemo() {
   const reqId = React.useRef(0);
-  const [state, setState] = React.useState(() =>
-    load({ page: 0, pageSize: SERVER_PAGE_SIZE, sort: null, filters: [], quickFilter: "" })
-  );
+  // Remember the active query so a write (edit / batch / delete) can re-fetch the
+  // same page after it mutates the backing "database".
+  const lastQuery = React.useRef({ page: 0, pageSize: SERVER_PAGE_SIZE, sort: null, filters: [], quickFilter: "" });
+  const [state, setState] = React.useState(() => load(lastQuery.current));
 
-  const handleServerChange = React.useCallback((q) => {
+  const fetchPage = React.useCallback((q) => {
+    lastQuery.current = q;
     const id = ++reqId.current;
     setState((s) => ({ ...s, loading: true }));
     // Fake network latency; only the LATEST request is allowed to win.
@@ -96,14 +98,48 @@ function ServerSideDemo() {
     }, 350);
   }, []);
 
+  const handleServerChange = React.useCallback((q) => fetchPage(q), [fetchPage]);
+
+  // All three writes persist to the server (mutate DB) then re-fetch the current page.
+  const handleRowUpdate = React.useCallback((updated) => {
+    const i = DB.findIndex((r) => r.id === updated.id);
+    if (i >= 0) DB[i] = updated;
+    fetchPage(lastQuery.current);
+  }, [fetchPage]);
+
+  const handleBatchUpdate = React.useCallback((changed) => {
+    for (const c of changed) {
+      const i = DB.findIndex((r) => r.id === c.id);
+      if (i >= 0) DB[i] = c;
+    }
+    fetchPage(lastQuery.current);
+  }, [fetchPage]);
+
+  const batchActions = React.useMemo(() => [
+    {
+      label: "Delete", danger: true,
+      onClick: (keys, rows, clear) => {
+        for (const k of keys) {
+          const i = DB.findIndex((r) => r.id === k);
+          if (i >= 0) DB.splice(i, 1);
+        }
+        clear();
+        fetchPage(lastQuery.current);
+      },
+    },
+  ], [fetchPage]);
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
       <Alert tone="info" title="Simulated backend">
         <Text size="sm" tone="muted" style={{ margin: 0 }}>
-          Sorting, the per-column filter panel, quick search, and paging all round-trip
-          &ldquo;to the server&rdquo; (250ms debounce + ~350ms latency). The footer totals are
-          computed server-side over the full filtered result; the skeleton shows while a request
-          is in flight, and stale responses are discarded so the latest query always wins.
+          The same Datatable, in server mode against a 300-row &ldquo;backend.&rdquo; Sorting, the
+          per-column filter panel, quick search, and paging round-trip through onServerChange
+          (250ms debounce + ~350ms latency); the footer totals are computed server-side. Editing
+          also works server-side: double-click an editable cell, or tick rows and use the Edit
+          button to batch-update a column — each write mutates the backend and re-fetches the page
+          (onRowUpdate / onBatchUpdate). Delete removes the selected rows on the server. The
+          skeleton shows while a request is in flight; stale responses are dropped.
         </Text>
       </Alert>
       <Datatable
@@ -112,6 +148,10 @@ function ServerSideDemo() {
         rowCount={state.total}
         loading={state.loading}
         onServerChange={handleServerChange}
+        onRowUpdate={handleRowUpdate}
+        onBatchUpdate={handleBatchUpdate}
+        checkboxSelection
+        batchActions={batchActions}
         aggregationValues={state.agg}
         showAggregation
         pageSize={SERVER_PAGE_SIZE}
@@ -334,22 +374,22 @@ function CustomRenderersDemo() {
 /* ================================================================= variations */
 const variations = [
   {
-    title: "Server-side data (sorting, filtering, paging, aggregation)",
+    title: "Server-side data — sort, filter, page, edit & batch update",
     description:
-      "A full server-mode grid wired to a simulated 300-row backend — sort, the per-column filter panel, quick search, paging, and the totals footer all round-trip through onServerChange with debounce + latency.",
+      "The same Datatable in server mode against a simulated 300-row backend. Sort, the per-column filter panel, quick search, paging, and the totals footer round-trip through onServerChange (debounce + latency). Editing is server-side too: inline-edit a cell or batch-update a column across selected rows — each write mutates the backend and re-fetches the page (onRowUpdate / onBatchUpdate), and Delete removes selected rows on the server.",
     code: `import { Datatable, runDatatableQuery } from "twico-ui";
 
 const DB = makePeople(300); // your data (or a REST / GraphQL endpoint)
 
 const columns = [
   { field: "name", headerName: "Name", renderCell: NameCell },
-  { field: "role", headerName: "Role", valueOptions: ["Admin", "Editor", "Viewer"] },
-  { field: "department", headerName: "Department", valueOptions: DEPARTMENT_OPTIONS },
-  { field: "status", headerName: "Status", valueOptions: STATUS_OPTIONS, renderCell: StatusBadge },
-  { field: "country", headerName: "Country", valueOptions: COUNTRY_OPTIONS },
-  { field: "seats", headerName: "Seats", type: "number", aggregation: "sum" },
+  // editable columns work in server mode too (double-click + batch Edit button)
+  { field: "role", headerName: "Role", editable: true, editType: "select", valueOptions: ["Admin", "Editor", "Viewer"] },
+  { field: "department", headerName: "Department", editable: true, editType: "select", valueOptions: DEPARTMENT_OPTIONS },
+  { field: "status", headerName: "Status", editable: true, editType: "select", valueOptions: STATUS_OPTIONS, renderCell: StatusBadge },
+  { field: "seats", headerName: "Seats", type: "number", editable: true, aggregation: "sum" },
   { field: "mrr", headerName: "MRR", type: "number", aggregation: "sum", valueFormatter: usd },
-  { field: "salary", headerName: "Salary", type: "number", aggregation: "avg", valueFormatter: usd },
+  { field: "salary", headerName: "Salary", type: "number", editable: true, aggregation: "avg", valueFormatter: usd },
 ];
 
 // Your backend. runDatatableQuery applies the grid's own filter/sort/search/paging
@@ -366,12 +406,13 @@ function load(q) {
 }
 
 function ServerSideDemo() {
-  const [state, setState] = useState(() =>
-    load({ page: 0, pageSize: 10, sort: null, filters: [], quickFilter: "" })
-  );
+  const lastQuery = useRef({ page: 0, pageSize: 10, sort: null, filters: [], quickFilter: "" });
+  const [state, setState] = useState(() => load(lastQuery.current));
 
-  // onServerChange fires (debounced) whenever sort/filters/search/page change.
-  const onServerChange = (q) => {
+  // Re-fetch a page. onServerChange fires (debounced) on sort/filter/search/page;
+  // the write handlers below call it again after mutating the backend.
+  const fetchPage = (q) => {
+    lastQuery.current = q;
     setState((s) => ({ ...s, loading: true }));
     setTimeout(() => setState(load(q)), 350); // <- replace with your fetch(q)
   };
@@ -383,7 +424,26 @@ function ServerSideDemo() {
       rows={state.rows}
       rowCount={state.total}
       loading={state.loading}
-      onServerChange={onServerChange}
+      onServerChange={fetchPage}
+      // persist a single inline edit on the server, then re-fetch
+      onRowUpdate={(updated) => {
+        const i = DB.findIndex((r) => r.id === updated.id);
+        if (i >= 0) DB[i] = updated;
+        fetchPage(lastQuery.current);
+      }}
+      // batch edit: write the chosen column across every selected row, then re-fetch
+      onBatchUpdate={(changed) => {
+        changed.forEach((c) => { const i = DB.findIndex((r) => r.id === c.id); if (i >= 0) DB[i] = c; });
+        fetchPage(lastQuery.current);
+      }}
+      checkboxSelection
+      batchActions={[
+        { label: "Delete", danger: true, onClick: (keys, rows, clear) => {
+          keys.forEach((k) => { const i = DB.findIndex((r) => r.id === k); if (i >= 0) DB.splice(i, 1); });
+          clear();
+          fetchPage(lastQuery.current);
+        } },
+      ]}
       aggregationValues={state.agg}
       showAggregation
       pageSize={10}

@@ -428,7 +428,7 @@ export const VARIATIONS = [
   },
   {
     "component": "Datatable",
-    "title": "Server-side data (sorting, filtering, paging, aggregation)",
+    "title": "Server-side data — sort, filter, page, edit & batch update",
     "i": 0
   },
   {
