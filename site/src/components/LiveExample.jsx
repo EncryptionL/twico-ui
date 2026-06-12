@@ -11,7 +11,7 @@ export default function LiveExample({ children, code, language = "jsx" }) {
         <Box
           border
           radius="xl"
-          style={{ background: "var(--color-surface)", padding: "28px 24px", marginBottom: 12, display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", justifyContent: "center", minHeight: 96 }}
+          style={{ background: "var(--color-surface)", padding: "28px 24px", marginBottom: 12, display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", justifyContent: "center", minHeight: 96, minWidth: 0, maxWidth: "100%", overflowX: "auto" }}
         >
           <ErrorBoundary>{children}</ErrorBoundary>
         </Box>

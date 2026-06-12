@@ -110,7 +110,7 @@ const columns = [
 
 export default function DatatableDemo() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", width: "100%", minWidth: 0, maxWidth: "100%" }}>
       <Text tone="muted" size="sm">
         Try it: sort a column, open the Columns / Filters / Density / Export buttons in the toolbar,
         drag or pin a column header, and tick rows to select them.

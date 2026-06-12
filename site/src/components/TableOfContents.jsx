@@ -13,12 +13,30 @@ export default function TableOfContents() {
   const [active, setActive] = React.useState("");
 
   React.useEffect(() => {
-    const t = setTimeout(() => {
-      const scope = document.getElementById("doc-article");
-      const hs = scope ? Array.from(scope.querySelectorAll("h2[id], h3[id]")) : [];
-      setItems(hs.map((h) => ({ id: h.id, text: h.textContent || "", level: Number(h.tagName[1]) })));
-    }, 0);
-    return () => clearTimeout(t);
+    const scope = document.getElementById("doc-article");
+    if (!scope) return;
+    let raf = 0;
+    const scan = () => {
+      const hs = Array.from(scope.querySelectorAll("h2[id], h3[id]"));
+      setItems((prev) => {
+        const next = hs.map((h) => ({ id: h.id, text: (h.textContent || "").trim(), level: Number(h.tagName[1]) }));
+        // Avoid needless re-renders when nothing changed.
+        if (prev.length === next.length && prev.every((p, i) => p.id === next[i].id && p.text === next[i].text)) return prev;
+        return next;
+      });
+    };
+    scan();
+    // The Variations section (and other content) loads lazily, so its h3 headings
+    // appear after the first scan — re-scan whenever the article subtree changes.
+    const obs = new MutationObserver(() => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(scan);
+    });
+    obs.observe(scope, { childList: true, subtree: true });
+    return () => {
+      obs.disconnect();
+      cancelAnimationFrame(raf);
+    };
   }, [location.pathname]);
 
   React.useEffect(() => {
