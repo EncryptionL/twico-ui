@@ -433,7 +433,7 @@ const I = {
   grip: "M9 5h.01M9 12h.01M9 19h.01M15 5h.01M15 12h.01M15 19h.01",
   pencil: "M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z",
   sigma: "M18 7V5a1 1 0 0 0-1-1H6l6 8-6 8h11a1 1 0 0 0 1-1v-2",
-  chevDown: "m6 9 6 6 6-6",
+  chevDown: "M6 9l6 6 6-6",
   group: "M3 6h7M3 12h11M3 18h7M17 9l3 3-3 3",
   pinUp: "M12 19V5M6 11l6-6 6 6",
   pinDown: "M12 5v14M6 13l6 6 6-6",
@@ -622,7 +622,22 @@ export function Datatable({
     };
   }), [columns]);
 
-  const keyOf = rowKey || ((r, i) => r.id ?? i);
+  // Stable per-row key. Prefer rowKey, then r.id; otherwise fall back to a key
+  // tied to the row's object IDENTITY (a WeakMap), NOT its index — an index-based
+  // key collapses/shifts across pages, sort, grouping and pinning, which would
+  // mis-target selection, inline-edit commits and "select all" for id-less rows.
+  const _autoKey = React.useRef();
+  if (!_autoKey.current) _autoKey.current = { map: new WeakMap(), n: 0 };
+  const keyOf = rowKey || ((r, i) => {
+    if (r != null && r.id != null) return r.id;
+    if (r != null && typeof r === "object") {
+      const m = _autoKey.current.map;
+      let k = m.get(r);
+      if (k === undefined) { k = "·r" + _autoKey.current.n++; m.set(r, k); }
+      return k;
+    }
+    return i;
+  });
   const [sort, setSort] = React.useState(null);
   const [filters, setFilters] = React.useState([]);
   const [hidden, setHidden] = React.useState(() => new Set());
@@ -2046,12 +2061,12 @@ export function Datatable({
           {!pivotActive && pivotOn ? <div className="twc-dt__cfg-hint">Add at least one <b>Row</b> field and one <b>Value</b> to see the pivot.</div> : null}
           <div className="twc-dt__cfg-section">
             <span className="twc-dt__cfg-label">Rows</span>
-            <MultiSelect placeholder="Add row fields…" value={pivotConfig.rows} options={fieldOpts}
+            <MultiSelect portal placeholder="Add row fields…" value={pivotConfig.rows} options={fieldOpts}
               onChange={(vals) => { setPivotConfig((p) => ({ ...p, rows: vals })); if (vals.length) setPivotOn(true); }} />
           </div>
           <div className="twc-dt__cfg-section">
             <span className="twc-dt__cfg-label">Columns</span>
-            <MultiSelect placeholder="Add column fields…" value={pivotConfig.columns} options={fieldOpts}
+            <MultiSelect portal placeholder="Add column fields…" value={pivotConfig.columns} options={fieldOpts}
               onChange={(vals) => setPivotConfig((p) => ({ ...p, columns: vals }))} />
           </div>
           <div className="twc-dt__cfg-section">
