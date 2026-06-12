@@ -13,7 +13,12 @@ export default function LiveExample({ children, code, language = "jsx" }) {
           radius="xl"
           style={{ background: "var(--color-surface)", padding: "28px 24px", marginBottom: 12, display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", justifyContent: "center", minHeight: 96, minWidth: 0, maxWidth: "100%", overflowX: "auto" }}
         >
-          <ErrorBoundary>{children}</ErrorBoundary>
+          {/* min-width:0 + max-width:100% let a wide demo (e.g. a many-column
+              Datatable) shrink to the card and scroll INTERNALLY instead of
+              overflowing the centered flex on both sides. */}
+          <Box style={{ minWidth: 0, maxWidth: "100%" }}>
+            <ErrorBoundary>{children}</ErrorBoundary>
+          </Box>
         </Box>
       ) : null}
       {code ? <CodeBlock code={code} language={language} /> : null}
