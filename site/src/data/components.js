@@ -2835,7 +2835,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Datatable } from \"twico-ui\";\n\nconst columns = [\n  { field: \"name\", headerName: \"Name\", width: 200 },\n  { field: \"email\", headerName: \"Email\", width: 220 },\n  { field: \"role\", headerName: \"Role\", width: 130 },\n  { field: \"mrr\", headerName: \"MRR\", type: \"number\", width: 110 },\n];\n\nfunction Example(props) {\n  return React.createElement(Datatable, { checkboxSelection: true, pageSize: 10, columns: columns, rows: props.users });\n}",
+    "snippet": "import { Datatable } from \"twico-ui\";\n\nconst columns = [\n  { field: \"name\", headerName: \"Name\", width: 200 },\n  { field: \"email\", headerName: \"Email\", width: 220 },\n  { field: \"role\", headerName: \"Role\", width: 130 },\n  { field: \"mrr\", headerName: \"MRR\", type: \"number\", width: 110, aggregation: \"sum\" },\n];\n\nconst rows = [\n  { id: 1, name: \"Ava Stone\", email: \"ava@acme.io\", role: \"Admin\", mrr: 480 },\n  { id: 2, name: \"Liam Reed\", email: \"liam@acme.io\", role: \"Editor\", mrr: 120 },\n  { id: 3, name: \"Noah Park\", email: \"noah@acme.io\", role: \"Viewer\", mrr: 60 },\n];\n\nexport default function Example() {\n  return (\n    <Datatable\n      columns={columns}\n      rows={rows}\n      checkboxSelection\n      pageSize={10}\n    />\n  );\n}",
     "tagline": "Advanced data grid with sorting, filtering, and export"
   },
   {

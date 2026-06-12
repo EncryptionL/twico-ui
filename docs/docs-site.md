@@ -86,6 +86,16 @@ node scripts/gen-docs.mjs <path-to-extraction-output.json>
 When adding a component by hand, add its `site/src/demos/<Name>Demo.jsx` and a `components.js` entry
 (name, slug, group, summary, importName, propsRows, snippet).
 
+The **`snippet`** is the copy-paste "Usage" code shown on each component page. It should be a clean,
+ready-to-run component — `const columns`/`const rows` literals plus an
+`export default function Example() { return (<Component … />); }` with idiomatic JSX. A few snippets
+that were originally machine-extracted came out as `React.createElement(...)` wrappers taking a
+`props.users`-style argument; rewrite those by hand to plain JSX with inline sample data (the
+Datatable snippet is the canonical example). Hand-editing a `snippet` is safe: the
+`enrich-props.mjs --check` CI guard only re-derives `propsRows` (inherited DOM props) — it round-trips
+the rest of the entry unchanged, so run `node scripts/enrich-props.mjs` once after editing to
+re-canonicalize the file's formatting and the check stays green.
+
 ## Build, render-check, deploy
 
 ```bash
