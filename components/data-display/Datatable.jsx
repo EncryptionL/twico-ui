@@ -14,8 +14,11 @@ const DT_CSS = `
   width: 100%; min-width: 0; max-width: 100%; }
 
 /* Toolbar */
-.twc-dt__toolbar { position: relative; display: flex; align-items: center; gap: 6px; padding: 8px 10px;
+.twc-dt__toolbar { position: relative; z-index: 10; display: flex; align-items: center; gap: 6px; padding: 8px 10px;
   border-bottom: var(--border-thin) solid var(--color-divider); flex-wrap: wrap; }
+/* z-index above the scroll area's sticky header (z:3) so a toolbar button's
+   hover tooltip (a ::after that hangs below the bar) paints over the table
+   instead of being covered by the header/first rows. */
 .twc-dt__tbtn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px;
   border: var(--border-thin) solid transparent; border-radius: var(--radius-md); background: transparent;
   font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold); color: var(--color-text-muted);
@@ -588,6 +591,112 @@ function EditCell({ col, value, options, onChange, onCommit, onCommitValue, onCa
       />
     </div>
   );
+}
+
+// ---- Minimal, dependency-free .xlsx (OOXML) writer -------------------------
+// Builds a real SpreadsheetML workbook and packs it into a ZIP by hand (stored,
+// no compression — so no deflate dependency), keeping the library's zero-runtime
+// -deps rule. Strings use inline-string cells so there is no shared-strings part;
+// finite numbers become numeric cells so Excel/Sheets treat them as numbers.
+// All of this runs only inside the export click handler, never at render scope,
+// so TextEncoder / the DOM are safe to touch (SSR-safe).
+let _crcTable = null;
+function crc32(bytes) {
+  if (!_crcTable) {
+    _crcTable = new Uint32Array(256);
+    for (let n = 0; n < 256; n++) {
+      let c = n;
+      for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+      _crcTable[n] = c >>> 0;
+    }
+  }
+  let crc = 0xffffffff;
+  for (let i = 0; i < bytes.length; i++) crc = (crc >>> 8) ^ _crcTable[(crc ^ bytes[i]) & 0xff];
+  return (crc ^ 0xffffffff) >>> 0;
+}
+// Pack [{ name, data: Uint8Array }] into an uncompressed (method 0) ZIP archive.
+function zipStore(files) {
+  const u16 = (n) => [n & 255, (n >>> 8) & 255];
+  const u32 = (n) => [n & 255, (n >>> 8) & 255, (n >>> 16) & 255, (n >>> 24) & 255];
+  const enc = new TextEncoder();
+  const local = [];
+  const central = [];
+  let offset = 0;
+  const DOSTIME = 0;
+  const DOSDATE = 0x21; // 1980-01-01, a valid fixed timestamp
+  for (const f of files) {
+    const nameB = enc.encode(f.name);
+    const data = f.data;
+    const crc = crc32(data);
+    const hdr = [
+      ...u32(0x04034b50), ...u16(20), ...u16(0), ...u16(0), ...u16(DOSTIME), ...u16(DOSDATE),
+      ...u32(crc), ...u32(data.length), ...u32(data.length), ...u16(nameB.length), ...u16(0),
+    ];
+    local.push(Uint8Array.from(hdr), nameB, data);
+    central.push(Uint8Array.from([
+      ...u32(0x02014b50), ...u16(20), ...u16(20), ...u16(0), ...u16(0), ...u16(DOSTIME), ...u16(DOSDATE),
+      ...u32(crc), ...u32(data.length), ...u32(data.length), ...u16(nameB.length),
+      ...u16(0), ...u16(0), ...u16(0), ...u16(0), ...u32(0), ...u32(offset),
+    ]), nameB);
+    offset += hdr.length + nameB.length + data.length;
+  }
+  const cdStart = offset;
+  let cdSize = 0;
+  for (const c of central) cdSize += c.length;
+  const end = Uint8Array.from([
+    ...u32(0x06054b50), ...u16(0), ...u16(0), ...u16(files.length), ...u16(files.length),
+    ...u32(cdSize), ...u32(cdStart), ...u16(0),
+  ]);
+  const parts = [...local, ...central, end];
+  let total = 0;
+  for (const p of parts) total += p.length;
+  const out = new Uint8Array(total);
+  let at = 0;
+  for (const p of parts) { out.set(p, at); at += p.length; }
+  return out;
+}
+// 0-based column index -> spreadsheet letters (0->A, 26->AA, …).
+function colLetter(n) {
+  let s = "";
+  for (n += 1; n > 0; n = Math.floor((n - 1) / 26)) s = String.fromCharCode(65 + ((n - 1) % 26)) + s;
+  return s;
+}
+// Wrap a <worksheet> XML string in the fixed package parts and return ZIP bytes.
+function xlsxPackage(sheetXml) {
+  const enc = (s) => new TextEncoder().encode(s);
+  const XD = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
+  const NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
+  return zipStore([
+    { name: "[Content_Types].xml", data: enc(XD +
+      '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">' +
+      '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>' +
+      '<Default Extension="xml" ContentType="application/xml"/>' +
+      '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>' +
+      '<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>' +
+      '<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>' +
+      "</Types>") },
+    { name: "_rels/.rels", data: enc(XD +
+      '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+      '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>' +
+      "</Relationships>") },
+    { name: "xl/workbook.xml", data: enc(XD +
+      `<workbook xmlns="${NS}" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">` +
+      '<sheets><sheet name="Sheet1" sheetId="1" r:id="rId1"/></sheets></workbook>') },
+    { name: "xl/_rels/workbook.xml.rels", data: enc(XD +
+      '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+      '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>' +
+      '<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>' +
+      "</Relationships>") },
+    { name: "xl/styles.xml", data: enc(XD +
+      `<styleSheet xmlns="${NS}">` +
+      '<fonts count="1"><font><sz val="11"/><name val="Calibri"/></font></fonts>' +
+      '<fills count="1"><fill><patternFill patternType="none"/></fill></fills>' +
+      '<borders count="1"><border/></borders>' +
+      '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>' +
+      '<cellXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/></cellXfs>' +
+      "</styleSheet>") },
+    { name: "xl/worksheets/sheet1.xml", data: enc(sheetXml) },
+  ]);
 }
 
 export function Datatable({
@@ -1164,12 +1273,29 @@ export function Datatable({
       return;
     }
     if (format === "excel") {
-      // Excel opens an HTML table saved as .xls — no library needed.
-      const esc = (v) => defang(v, String(v == null ? "" : v)).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      const head = `<tr>${expCols.map((c) => `<th>${esc(c.headerName)}</th>`).join("")}</tr>`;
-      const body = source.map((row) => `<tr>${expCols.map((c) => `<td>${esc(cellValue(c, row))}</td>`).join("")}</tr>`).join("");
-      const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8"></head><body><table border="1">${head}${body}</table></body></html>`;
-      download(html, "application/vnd.ms-excel;charset=utf-8;", "xls");
+      // Real OOXML .xlsx, hand-built (no SheetJS) — see xlsxPackage above.
+      // Strip XML-1.0-illegal control chars so the package never opens corrupt.
+      const xesc = (s) => s.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "")
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const cell = (ref, v) => {
+        if (typeof v === "number" && Number.isFinite(v)) return `<c r="${ref}"><v>${v}</v></c>`;
+        const s = defang(v, v == null ? "" : String(v)); // numbers can't carry a formula payload
+        return `<c r="${ref}" t="inlineStr"><is><t xml:space="preserve">${xesc(s)}</t></is></c>`;
+      };
+      const rowXml = (cells, r) => `<row r="${r}">${cells.map((v, ci) => cell(`${colLetter(ci)}${r}`, v)).join("")}</row>`;
+      // <dimension> + <sheetViews> aren't strictly required (every reader auto-computes them) but
+      // match what Excel itself emits, so stricter consumers never see a surprise. CT_Worksheet is
+      // an ordered sequence: dimension, then sheetViews, then sheetData.
+      const lastCell = `${expCols.length ? colLetter(expCols.length - 1) : "A"}${source.length + 1}`;
+      const sheet = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n` +
+        '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
+        `<dimension ref="A1:${lastCell}"/>` +
+        '<sheetViews><sheetView tabSelected="1" workbookViewId="0"/></sheetViews>' +
+        "<sheetData>" +
+        rowXml(expCols.map((c) => c.headerName), 1) +
+        source.map((row, ri) => rowXml(expCols.map((c) => cellValue(c, row)), ri + 2)).join("") +
+        "</sheetData></worksheet>";
+      download(xlsxPackage(sheet), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx");
       return;
     }
     // csv (default) or tsv
@@ -1867,7 +1993,7 @@ export function Datatable({
           <Caret pos={exportPos} />
           {[
             { fmt: "csv", label: "CSV (.csv)", icon: I.fileText },
-            { fmt: "excel", label: "Excel (.xls)", icon: I.sheet },
+            { fmt: "excel", label: "Excel (.xlsx)", icon: I.sheet },
             { fmt: "tsv", label: "TSV (.tsv)", icon: I.fileText },
             { fmt: "json", label: "JSON (.json)", icon: I.braces },
           ].map((o) => (

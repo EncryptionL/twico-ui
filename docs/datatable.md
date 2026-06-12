@@ -119,3 +119,38 @@ closed itself on its own outside-click. Now there is at most **one** `.twc-dt__p
 (`.twc-dt__f-val`, `flex: 1; min-width: 140px`) the rest — ~274px — so the `is any of` MultiSelect
 shows full option labels instead of truncating to `Ava Cr…`. The two `openPanel(…, "left", 580)` call
 sites (the Filters toolbar button and the column-menu **Filter** item) match the panel width.
+
+### Toolbar tooltip stacking
+
+`.twc-dt__toolbar` carries `position: relative; z-index: 10`. The toolbar buttons show their label
+as a CSS `::after` tooltip that hangs **below** the bar (`top: calc(100% + 8px)`), overlapping the
+table area. The toolbar and the scroll viewport (`.twc-dt__scroll`, which holds the sticky header at
+`z-index: 3`) are flex **siblings** inside `.twc-dt`; without a stacking context on the toolbar the
+later-in-DOM scroll painted over the tooltip, so a hover label like *"Show or hide columns"* was
+clipped behind the header/first rows. The `z-index: 10` lifts the whole toolbar subtree (tooltip
+included) above the scroll. The `.twc-dt__pop` overlays are unaffected — they sit at
+`var(--z-popover)` (~1000), far above 10.
+
+## Excel export — real `.xlsx` (OOXML), no dependency
+
+`Export → Excel` produces a genuine **`.xlsx`** (Office Open XML SpreadsheetML), not the old
+HTML-table-saved-as-`.xls` trick (which made Excel show a *"format and extension don't match"*
+warning). It is built **without any library**, preserving the package's zero-runtime-deps rule:
+
+- **`xlsxPackage(sheetXml)`** wraps a worksheet in the fixed OPC parts: `[Content_Types].xml`,
+  `_rels/.rels`, `xl/workbook.xml`, `xl/_rels/workbook.xml.rels`, a minimal `xl/styles.xml`, and
+  `xl/worksheets/sheet1.xml`.
+- **`zipStore(files)`** packs them into a ZIP using **stored** entries (method 0, no compression) —
+  so there's no deflate dependency — with a table-based **`crc32`** for each entry, correct
+  local-header / central-directory / EOCD records, and accumulated offsets.
+- **Cells**: finite numbers (`Number.isFinite`) become numeric cells (`<c><v>…</v></c>`) so Excel
+  treats them as numbers; everything else is an inline string (`t="inlineStr"`,
+  `<t xml:space="preserve">`). Column refs come from **`colLetter`** (`0→A … 26→AA`).
+- **Safety carried over from CSV**: the formula-injection **defang** (cells starting with `= + - @`
+  get a leading apostrophe; numbers are exempt — CWE-1236) still applies, plus XML escaping of
+  `& < >` and stripping of XML-1.0-illegal control chars so the package never opens corrupt.
+- The download uses MIME
+  `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet` and extension `.xlsx`.
+
+Exported scope is unchanged: all filtered+sorted rows in client mode, the loaded page in server
+mode; per-column `exportValue` still overrides the cell value.
