@@ -21,8 +21,8 @@ const DT_CSS = `
   font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold); color: var(--color-text-muted);
   cursor: pointer; transition: background-color var(--duration-fast), color var(--duration-fast); }
 .twc-dt__tbtn:hover { background: var(--color-surface-sunken); color: var(--color-text); }
-.twc-dt__tbtn[data-tip], .twc-dt__export-toggle[data-tip] { position: relative; }
-.twc-dt__tbtn[data-tip]::after, .twc-dt__export-toggle[data-tip]::after {
+.twc-dt__tbtn[data-tip], .twc-dt__export-toggle[data-tip], .twc-dt__export-main[data-tip] { position: relative; }
+.twc-dt__tbtn[data-tip]::after, .twc-dt__export-toggle[data-tip]::after, .twc-dt__export-main[data-tip]::after {
   content: attr(data-tip); position: absolute; top: calc(100% + 8px); left: 50%;
   transform: translateX(-50%) translateY(2px); transform-origin: top center;
   background: var(--color-text); color: var(--color-surface);
@@ -30,16 +30,16 @@ const DT_CSS = `
   padding: 5px 9px; border-radius: var(--radius-md); white-space: nowrap;
   box-shadow: var(--shadow-md); opacity: 0; pointer-events: none; z-index: var(--z-tooltip);
   transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring); }
-.twc-dt__tbtn[data-tip]:hover::after, .twc-dt__export-toggle[data-tip]:hover::after {
+.twc-dt__tbtn[data-tip]:hover::after, .twc-dt__export-toggle[data-tip]:hover::after, .twc-dt__export-main[data-tip]:hover::after {
   opacity: 1; transform: translateX(-50%) translateY(0); transition-delay: 0.4s; }
 .twc-dt__tbtn[data-active="true"] { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); }
 .twc-dt__tbtn svg { width: 16px; height: 16px; }
-.twc-dt__export { display: inline-flex; align-items: stretch; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-xs); }
+.twc-dt__export { display: inline-flex; align-items: stretch; border-radius: var(--radius-md); box-shadow: var(--shadow-xs); }
 .twc-dt__export-main, .twc-dt__export-toggle { height: 32px; border: none; appearance: none; -webkit-appearance: none; background: var(--color-primary); color: var(--color-primary-fg);
   font-family: inherit; font-weight: var(--font-semibold); cursor: pointer; display: inline-flex; align-items: center; transition: background-color var(--duration-fast); }
-.twc-dt__export-main { gap: 6px; padding: 0 12px; font-size: var(--text-xs); border-radius: 0; }
+.twc-dt__export-main { gap: 6px; padding: 0 12px; font-size: var(--text-xs); border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); }
 .twc-dt__export-main svg { width: 16px; height: 16px; }
-.twc-dt__export-toggle { padding: 0 7px; gap: 0; border-radius: 0; border-inline-start: var(--border-thin) solid color-mix(in srgb, var(--color-primary-fg) 28%, var(--color-primary)); }
+.twc-dt__export-toggle { padding: 0 7px; gap: 0; border-start-end-radius: var(--radius-md); border-end-end-radius: var(--radius-md); border-inline-start: var(--border-thin) solid color-mix(in srgb, var(--color-primary-fg) 28%, var(--color-primary)); }
 .twc-dt__export-toggle svg { width: 15px; height: 15px; transition: transform var(--duration-base) var(--ease-spring); }
 .twc-dt__export-main:hover, .twc-dt__export-toggle:hover { background: var(--color-primary-hover); }
 .twc-dt__export-toggle[aria-expanded="true"] { background: var(--color-primary-active); }
@@ -1656,10 +1656,10 @@ export function Datatable({
         </button>
         {showExport ? (
           <span className="twc-dt__export">
-            <button type="button" className="twc-dt__export-main" onClick={() => exportData("csv")} aria-label="Export to CSV">
+            <button type="button" className="twc-dt__export-main" data-tip="Export to CSV" onClick={() => exportData("csv")} aria-label="Export to CSV">
               <Svg d={I.download} /><span className="twc-dt__tlabel">Export</span>
             </button>
-            <button type="button" className="twc-dt__export-toggle" aria-label="More export formats" aria-haspopup="menu" aria-expanded={exportOpen}
+            <button type="button" className="twc-dt__export-toggle" data-tip="More formats" aria-label="More export formats" aria-haspopup="menu" aria-expanded={exportOpen}
               onClick={(e) => { if (exportOpen) { setExportOpen(false); closeExport(); } else { menuTriggerRef.current = e.currentTarget; setColMenu(null); setPanel(null); setRowMenu(null); setExportOpen(true); openExport(e.currentTarget, "right", 180); } }}>
               <Svg d={I.chevronDown} />
             </button>
