@@ -428,28 +428,43 @@ export const VARIATIONS = [
   },
   {
     "component": "Datatable",
-    "title": "Custom cell renderers",
+    "title": "Server-side data (sorting, filtering, paging, aggregation)",
     "i": 0
   },
   {
     "component": "Datatable",
-    "title": "Checkbox selection + batch actions",
+    "title": "Row grouping with subtotals",
     "i": 1
   },
   {
     "component": "Datatable",
-    "title": "Actions column",
+    "title": "Pivot table",
     "i": 2
   },
   {
     "component": "Datatable",
-    "title": "Aggregation footer",
+    "title": "Inline editing",
     "i": 3
   },
   {
     "component": "Datatable",
-    "title": "Compact density + pinned column",
+    "title": "Virtualized large dataset",
     "i": 4
+  },
+  {
+    "component": "Datatable",
+    "title": "Row reorder + pinning",
+    "i": 5
+  },
+  {
+    "component": "Datatable",
+    "title": "Actions column + batch actions",
+    "i": 6
+  },
+  {
+    "component": "Datatable",
+    "title": "Custom cell renderers",
+    "i": 7
   },
   {
     "component": "DatePicker",
