@@ -13,28 +13,35 @@ ships, delete it here and document it in the relevant doc.
 > the visual-regression scaffold, `size-limit`, and the `build:css` / `gen-exports` automation.
 > Field-affordance + naming-alias + a11y items from the audit also shipped (see the git log).
 
+> **Second wave shipped (2026-06-12, cont.).** Also done and removed: **search over variation
+> titles** (`gen-variations-index.mjs` → `variations.js`, deep-links to `?s=variation-<i>`), the
+> **Datatable column-reorder keyboard path** (Move left/right in the header menu, boundary-gated +
+> announced), and formal `@deprecated` tags on the clear aliases (`Spinner.tone`,
+> `Pagination.showJumper`, `EmptyState.bordered`).
+
 ## Still open
 
-### Docs site
-| Suggestion | Why | Scope |
-| --- | --- | --- |
-| Search over **variation titles** | Prop names are indexed now; variation example titles still aren't (they live in lazy `*Variations.jsx`, not `components.js`). | Small: surface variation titles into the search index at build time. |
-| Versioned docs | Once releases flow regularly, pin docs per minor (GH Pages subfolders). | CI change; needs a real release cadence first. |
+These are genuinely deferred — each needs a **major version** (breaking) or a precondition that
+isn't met yet. Nothing here blocks current usage.
 
-### Breaking / deprecation-cycle work (aliases shipped; canonical rename later)
-These now have **additive aliases** so nothing is broken; the remaining work is to pick the
-canonical name, mark the old one `@deprecated`, and remove it in the next major.
-
-| Item | State |
+### Needs a release cadence
+| Suggestion | Why deferred |
 | --- | --- |
-| Unify `Table` vs `Datatable` vocabularies (`data/key/header/render` ↔ `rows/field/headerName/renderCell`) | Table accepts both now; still need to choose one canonical set + deprecate the other across both. |
-| `Button` folds the semantic `danger` into the `variant` axis | IconButton `danger` shipped; the proper fix is a `tone` × `variant` split on Button (breaking). |
-| `Drawer.size` raw dimension vs `Dialog.size` token | `width`/`height` + `sm/md/lg` presets shipped on Drawer; eventually deprecate the overloaded `size`. |
-| `CurrencyField.onValueChange`, `CommandPalette` item `onSelect`, `Pagination.showJumper`, `EmptyState.bordered`, `Spinner.tone`, `Divider` physical `align` | All have the consistent new alias now; deprecate the originals once they've bedded in. |
-| `TreeView.data` / `onSelect(node)` | `items` alias + `onSelectedIdChange` shipped; deprecate `data` + make `onSelect` id-first in a major. |
+| Versioned docs | Pin docs per minor in GH Pages subfolders — only worth it once releases actually flow. CI change. |
 
-### Component API (additive, not yet done)
-| Suggestion | Why | Scope |
-| --- | --- | --- |
-| Datatable **column-reorder keyboard path** | Row reorder + column resize are keyboard-operable; column reordering is still drag-only — add "Move left/Move right" items to the column header menu. | Additive; the header menu already exists. |
-| Datatable virtualization for **variable row heights** | Windowing assumes a fixed row height; tall `renderCell` content or `rowResize` can drift the scrollbar. | Measure-and-cache row heights (larger change). |
+### Breaking — schedule for the next major
+The new, consistent names all ship today as **additive aliases**, so nothing is broken. The
+remaining work is the breaking half: make the new name canonical and remove/redesign the old one.
+
+| Item | What's left |
+| --- | --- |
+| Unify `Table` vs `Datatable` vocabularies (`data/key/header/render` ↔ `rows/field/headerName/renderCell`) | Table accepts both now; pick one canonical set and deprecate the other across both. |
+| `Button` folds the semantic `danger` into the `variant` axis | IconButton `danger` shipped; the proper fix is a `tone` × `variant` split on Button. |
+| `Drawer.size` overload | `width`/`height` + `sm/md/lg` presets shipped; eventually deprecate the overloaded `size`. |
+| `TreeView.data` / `onSelect(node)` | `items` alias + `onSelectedIdChange` shipped; deprecate `data`, make `onSelect` id-first. |
+| `CurrencyField.onValueChange`, `CommandPalette` item `onSelect`, `Divider` physical `align` | Kept as-is for now (richer signature / semantically fine); revisit if a consistency pass is wanted. |
+
+### Larger feature
+| Suggestion | Why deferred |
+| --- | --- |
+| Datatable virtualization for **variable row heights** | Windowing assumes a fixed row height; tall `renderCell` content or `rowResize` can drift the scrollbar. Needs measure-and-cache row heights. |

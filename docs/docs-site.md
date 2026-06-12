@@ -27,9 +27,10 @@ site/
 ├─ src/demos/<Name>Variations.jsx  default-exports [{ title, description?, code, render }] — the
 │                                  live "Variations" section examples (lazy-loaded, error-boundaried)
 └─ scripts/
-    ├─ gen-docs.mjs     generates components.js + the demo files
-    ├─ gen-exports.mjs  regenerates exports.js hooks list from hooks/index.js (--check guards drift)
-    └─ render-check.mjs headless route sweep — fails on any uncaught page error (the behavioral gate)
+    ├─ gen-docs.mjs            generates components.js + the demo files
+    ├─ gen-exports.mjs         regenerates exports.js hooks list from hooks/index.js (--check guards drift)
+    ├─ gen-variations-index.mjs  extracts every *Variations.jsx title into variations.js for search (--check guards drift)
+    └─ render-check.mjs        headless route sweep — fails on any uncaught page error (the behavioral gate)
 ```
 
 - **Theme builder** (`pages/ThemeBuilder.jsx`) is the flagship demo: live controls for brand
@@ -53,9 +54,10 @@ site/
   `import type { … }` line, and any block's `tsCode`; plus **Expand/Collapse** (collapsed shows the
   simple JSX, expanded the full form with imports — derived from the twico-ui exports used).
 - **Search** (`Search.jsx`, header + Cmd/Ctrl+K) runs Twico's `CommandPalette` over every component
-  (name + tagline + summary + group + **prop names**, so "fullWidth" finds Button) and the docs pages.
-  It is a docs-browsing aid, so it is **hidden on the marketing landing page** (`/`); the navbar there
-  shows Docs / Components / Theme builder / Changelog / npm instead.
+  (name + tagline + summary + group + **prop names**, so "fullWidth" finds Button), the docs pages,
+  and every **live "Variations" example** (from `variations.js`; "autoplay" → Carousel: Autoplay,
+  deep-linking to `?s=variation-<i>`). It is a docs-browsing aid, so it is **hidden on the marketing
+  landing page** (`/`); the navbar there shows Docs / Components / Theme builder / Changelog / npm.
 - **Anchor links** (`AnchorHeading.jsx`): hovering a component/section heading reveals a copy-link
   button. The deep link is `#/components/<slug>?s=<section>`; `ComponentPage` reads `?s` and scrolls
   to that anchor on load.
