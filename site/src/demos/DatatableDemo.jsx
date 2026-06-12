@@ -12,6 +12,12 @@ const PencilIcon = () => (
 const TrashIcon = () => (
   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" /></svg>
 );
+const DownloadIcon = () => (
+  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" /></svg>
+);
+const MailIcon = () => (
+  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18v12H3z" /><path d="M3 7l9 6 9-6" /></svg>
+);
 
 // Deterministic dataset — 48 people derived from their index.
 const rows = makePeople(48);
@@ -97,9 +103,9 @@ const columns = [
   },
   {
     field: "actions",
-    headerName: "",
+    headerName: "Actions",
     type: "actions",
-    width: 64,
+    width: 110,
     getActions: () => [
       { icon: <EyeIcon />, label: "View", onClick: () => {} },
       { icon: <PencilIcon />, label: "Edit", showInMenu: true, onClick: () => {} },
@@ -108,18 +114,26 @@ const columns = [
   },
 ];
 
+// Actions for the selection toolbar that appears when one or more rows are ticked.
+const batchActions = [
+  { label: "Export", icon: <DownloadIcon />, onClick: (keys, rows, clear) => clear() },
+  { label: "Email", icon: <MailIcon />, onClick: (keys, rows, clear) => clear() },
+  { label: "Delete", icon: <TrashIcon />, danger: true, onClick: (keys, rows, clear) => clear() },
+];
+
 export default function DatatableDemo() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", width: "100%", minWidth: 0, maxWidth: "100%" }}>
       <Text tone="muted" size="sm">
-        Try it: sort a column, open the Columns / Filters / Density / Export buttons in the toolbar,
-        drag or pin a column header, and tick rows to select them.
+        Try it: sort a column, open the toolbar tools (hover for labels), drag or pin a column
+        header, and tick rows — a selection toolbar with batch actions appears.
       </Text>
       <Datatable
         rows={rows}
         columns={columns}
         ariaLabel="Team members"
         checkboxSelection
+        batchActions={batchActions}
         pageSize={8}
         density="standard"
         showAggregation
