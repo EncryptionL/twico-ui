@@ -351,11 +351,11 @@ const DT_CSS = `
 .twc-dt__link:hover { background: var(--color-primary-subtle); }
 
 /* Filter panel */
-.twc-dt__filters { width: 460px; max-width: calc(100vw - 32px); }
+.twc-dt__filters { width: 580px; max-width: calc(100vw - 32px); }
 .twc-dt__frow { display: flex; align-items: center; gap: 6px; padding: 5px 4px; }
-.twc-dt__f-col { width: 130px; flex: none; }
-.twc-dt__f-op { width: 132px; flex: none; }
-.twc-dt__f-val { flex: 1; min-width: 0; }
+.twc-dt__f-col { width: 118px; flex: none; }
+.twc-dt__f-op { width: 118px; flex: none; }
+.twc-dt__f-val { flex: 1; min-width: 140px; }
 .twc-dt__frm-x { display: inline-grid; place-items: center; width: 30px; height: 38px; border: none; background: transparent; color: var(--color-text-subtle); border-radius: var(--radius-md); cursor: pointer; flex: none; align-self: flex-start; }
 .twc-dt__frm-x:hover { background: var(--color-danger-subtle); color: var(--color-danger-subtle-fg); }
 .twc-dt__frm-x svg { width: 15px; height: 15px; }
@@ -1380,7 +1380,7 @@ export function Datatable({
         {menu.length ? (
           <button type="button" className="twc-dt__act" aria-label="More actions" title="More"
             aria-haspopup="menu" aria-expanded={(rowMenu && rowMenu.row === row) || undefined}
-            onClick={(e) => { e.stopPropagation(); menuTriggerRef.current = e.currentTarget; setColMenu(null); setPanel(null); setRowMenu({ items: menu, row }); openRowMenu(e.currentTarget, "right", 200); }}>
+            onClick={(e) => { e.stopPropagation(); menuTriggerRef.current = e.currentTarget; setColMenu(null); closeMenu(); setPanel(null); closePanel(); setExportOpen(false); closeExport(); setRowMenu({ items: menu, row }); openRowMenu(e.currentTarget, "right", 200); }}>
             <Svg d={I.more} />
           </button>
         ) : null}
@@ -1640,7 +1640,7 @@ export function Datatable({
           <Svg d={I.columns} /><span className="twc-dt__tlabel">Columns</span>{hidden.size ? <span className="twc-dt__tbadge">{cols.length - hidden.size}</span> : null}
         </button>
         <button type="button" className="twc-dt__tbtn" data-active={panel === "filters" || undefined} data-tip="Filter rows"
-          onClick={(e) => { if (panel === "filters") { setPanel(null); closePanel(); } else { setPanel("filters"); setColMenu(null); openPanel(e.currentTarget, "left", 480); } }}>
+          onClick={(e) => { if (panel === "filters") { setPanel(null); closePanel(); } else { setPanel("filters"); setColMenu(null); openPanel(e.currentTarget, "left", 580); } }}>
           <Svg d={I.filter} /><span className="twc-dt__tlabel">Filters</span>{filters.length ? <span className="twc-dt__tbadge">{filters.length}</span> : null}
         </button>
         <button type="button" className="twc-dt__tbtn" data-tip="Change row density" onClick={() => setDensity((d) => d === "compact" ? "standard" : d === "standard" ? "comfortable" : "compact")}>
@@ -1744,7 +1744,7 @@ export function Datatable({
                       {hasMenu ? (
                         <button type="button" className="twc-dt__menu-btn" aria-label="Column menu"
                           aria-haspopup="menu" aria-expanded={colMenu?.field === c.field || undefined}
-                          onClick={(e) => { e.stopPropagation(); menuTriggerRef.current = e.currentTarget; setPanel(null); setColMenu({ field: c.field }); openMenu(e.currentTarget, "right", 230); }}>
+                          onClick={(e) => { e.stopPropagation(); menuTriggerRef.current = e.currentTarget; setPanel(null); closePanel(); setRowMenu(null); closeRowMenu(); setExportOpen(false); closeExport(); setColMenu({ field: c.field }); openMenu(e.currentTarget, "right", 230); }}>
                           <Svg d={I.more} />
                         </button>
                       ) : null}
@@ -1928,7 +1928,7 @@ export function Datatable({
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "asc" || undefined} onClick={() => { setSort({ field: c.field, dir: "asc" }); close(); }}><Svg d={I.arrow} /> Sort ascending</button>
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "desc" || undefined} onClick={() => { setSort({ field: c.field, dir: "desc" }); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(180deg)" }} /> Sort descending</button>
               </>) : null}
-              {c.filterable ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); restoreTriggerFocus(); setPanel("filters"); openPanel(document.querySelector(".twc-dt__toolbar .twc-dt__tbtn:nth-child(2)"), "left", 480); }}><Svg d={I.filter} /> Filter</button> : null}
+              {c.filterable ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); restoreTriggerFocus(); setPanel("filters"); openPanel(document.querySelector(".twc-dt__toolbar .twc-dt__tbtn:nth-child(2)"), "left", 580); }}><Svg d={I.filter} /> Filter</button> : null}
               {hasTop && hasBottom ? <div className="twc-dt__sep" /> : null}
               {c.groupable ? <button type="button" role="menuitem" className="twc-dt__mi" data-active={groupBy.includes(c.field) || undefined} onClick={() => { toggleGroupField(c.field); close(); }}><Svg d={I.group} /> {groupBy.includes(c.field) ? "Stop grouping" : "Group by this column"}</button> : null}
               {!disableColumnReorder && c.type !== "actions" && !pins.left.includes(c.field) && !pins.right.includes(c.field) ? (() => {

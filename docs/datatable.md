@@ -101,3 +101,21 @@ The three `.twc-dt__pop` menus — **column-header menu**, **row-actions overflo
 
 These are presentation/a11y-only changes — click behavior and the existing outside-click/Escape
 dismissal are unchanged.
+
+### Mutual exclusion between overlays
+
+The grid has several independent floating overlays — the **column-header menu**, the **row-actions
+overflow menu**, the **filters panel**, and the **export-format menu**. Opening any one now
+**dismisses every other**: each trigger's `onClick` clears the sibling overlay state *and* calls its
+`close*()` floating-dismiss helper before opening itself. Previously, opening the column menu while a
+row menu was open (or vice-versa) left the first one stranded on screen, because each overlay only
+closed itself on its own outside-click. Now there is at most **one** `.twc-dt__pop` /
+`.twc-dt__filters` open at any time.
+
+### Filter row layout
+
+`.twc-dt__filters` is **580px** wide (was 460). The field (`.twc-dt__f-col`) and operator
+(`.twc-dt__f-op`) selectors are fixed at **118px** each, leaving the **value** control
+(`.twc-dt__f-val`, `flex: 1; min-width: 140px`) the rest — ~274px — so the `is any of` MultiSelect
+shows full option labels instead of truncating to `Ava Cr…`. The two `openPanel(…, "left", 580)` call
+sites (the Filters toolbar button and the column-menu **Filter** item) match the panel width.
