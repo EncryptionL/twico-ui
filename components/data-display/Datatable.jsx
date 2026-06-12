@@ -7,7 +7,11 @@ import { Pagination } from "./Pagination.jsx";
 const DT_CSS = `
 .twc-dt { display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--color-text);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
-  background: var(--color-surface); overflow: hidden; }
+  background: var(--color-surface); overflow: hidden;
+  /* Stay inside the parent even in a flex/grid container: min-width:0 lets a wide
+     grid shrink (default min-width:auto would force it to its content width and
+     overflow), so the internal __scroll handles horizontal scrolling. */
+  width: 100%; min-width: 0; max-width: 100%; }
 
 /* Toolbar */
 .twc-dt__toolbar { position: relative; display: flex; align-items: center; gap: 6px; padding: 8px 10px;
