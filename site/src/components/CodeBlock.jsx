@@ -29,12 +29,42 @@ function deriveImport(body) {
 }
 
 function SegToggle({ lang, setLang }) {
-  const isTs = lang === "ts";
+  const seg = (val, label) => {
+    const active = lang === val;
+    return (
+      <button
+        type="button"
+        onClick={() => setLang(val)}
+        aria-pressed={active}
+        style={{
+          appearance: "none",
+          border: "none",
+          cursor: "pointer",
+          fontFamily: "var(--font-sans)",
+          fontSize: "var(--text-xs)",
+          fontWeight: active ? "var(--font-bold)" : "var(--font-medium)",
+          letterSpacing: "0.02em",
+          padding: "5px 14px",
+          borderRadius: "var(--radius-sm)",
+          background: active ? "var(--color-primary)" : "transparent",
+          color: active ? "var(--color-primary-fg)" : "var(--color-text-subtle)",
+          boxShadow: active ? "var(--shadow-sm)" : "none",
+          transition: "background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard)",
+        }}
+      >
+        {label}
+      </button>
+    );
+  };
   return (
-    <Stack direction="row" gap={1} inline role="group" aria-label="Code language" style={{ background: "var(--color-surface-sunken)", borderRadius: "var(--radius-md)", padding: 3 }}>
-      <Button size="sm" variant={!isTs ? "soft" : "ghost"} onClick={() => setLang("js")} aria-pressed={!isTs}>JS</Button>
-      <Button size="sm" variant={isTs ? "soft" : "ghost"} onClick={() => setLang("ts")} aria-pressed={isTs}>TS</Button>
-    </Stack>
+    <span
+      role="group"
+      aria-label="Code language"
+      style={{ display: "inline-flex", gap: 2, background: "var(--color-surface-sunken)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 3 }}
+    >
+      {seg("js", "JS")}
+      {seg("ts", "TS")}
+    </span>
   );
 }
 
