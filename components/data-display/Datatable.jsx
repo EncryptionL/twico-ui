@@ -538,17 +538,50 @@ export function runDatatableQuery(rows, query, options = {}) {
 
 function useFloating() {
   const [pos, setPos] = React.useState(null);
-  const open = (el, align = "left", width = 220) => {
-    const r = el.getBoundingClientRect();
+  // Remember the trigger + alignment so the popover can be re-placed as the page
+  // scrolls or resizes (a fixed popover otherwise stays at its open-time viewport
+  // coordinates while the trigger scrolls away — it detaches and floats wrong).
+  const cfg = React.useRef(null);
+  const place = React.useCallback(() => {
+    const c = cfg.current;
+    if (!c || !c.el || !c.el.isConnected) return null;
+    const r = c.el.getBoundingClientRect();
     const vw = window.innerWidth, vh = window.innerHeight, M = 8;
+    // Trigger scrolled fully out of view -> signal the popover should close.
+    if (r.bottom <= 0 || r.top >= vh || r.right <= 0 || r.left >= vw) return false;
     // anchor left edge; right-aligned menus start from the trigger's right edge
-    let left = align === "right" ? r.right - width : r.left;
+    let left = c.align === "right" ? r.right - c.width : r.left;
     // clamp into the viewport so menus never clip off-screen
-    left = Math.max(M, Math.min(left, vw - width - M));
-    let top = r.bottom + 6;
-    setPos({ top, left, width, anchorX: r.left + r.width / 2, maxHeight: Math.max(180, vh - top - M) });
-  };
-  return [pos, open, () => setPos(null)];
+    left = Math.max(M, Math.min(left, vw - c.width - M));
+    const top = r.bottom + 6;
+    return { top, left, width: c.width, anchorX: r.left + r.width / 2, maxHeight: Math.max(180, vh - top - M) };
+  }, []);
+  const open = React.useCallback((el, align = "left", width = 220) => {
+    cfg.current = { el, align, width };
+    const p = place();
+    if (p) setPos(p);
+  }, [place]);
+  const close = React.useCallback(() => { cfg.current = null; setPos(null); }, []);
+
+  const isOpen = pos != null;
+  React.useEffect(() => {
+    if (!isOpen) return undefined;
+    const update = () => {
+      const p = place();
+      if (p === false) { cfg.current = null; setPos(null); } // trigger left the viewport
+      else if (p) setPos((cur) => (cur && cur.top === p.top && cur.left === p.left && cur.maxHeight === p.maxHeight ? cur : p));
+    };
+    // capture:true so scroll inside ANY ancestor (the grid's own __scroll, a modal,
+    // the page) re-places the popover, not just window scroll.
+    window.addEventListener("scroll", update, true);
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update, true);
+      window.removeEventListener("resize", update);
+    };
+  }, [isOpen, place]);
+
+  return [pos, open, close];
 }
 
 function Caret({ pos }) {
@@ -1455,6 +1488,12 @@ export function Datatable({
     document.addEventListener("mousedown", onDown); document.addEventListener("keydown", onKey);
     return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
   }, [batchEdit]);
+  // The editor targets the current selection, so if the selection empties (rows
+  // deselected, cleared, or removed) while it's open, close it — never show
+  // "Edit 0 selected rows" / "Apply to 0".
+  React.useEffect(() => {
+    if (batchEdit && selected.size === 0) { setBatchEdit(null); closeBatchEdit(); }
+  }, [batchEdit, selected.size, closeBatchEdit]);
 
   function applyBatchEdit() {
     if (!batchEdit) return;

@@ -18,6 +18,13 @@ the one piece of server-side glue that would otherwise force consumers to re-imp
 operator semantics by hand, so it lives **in the library**, not in the docs — the docs just call it.
 The exported function reuses the component's own `testFilter`, so the two can never drift.
 
+**Editing works in server mode too.** `editable` columns, the batch editor, and `checkboxSelection`
+batch actions are independent of `serverMode`. The grid never mutates your `rows`; it just reports
+intent through `onRowUpdate(updatedRow, …)` and `onBatchUpdate(changedRows, patch, selectedKeys)`. In
+server mode you handle those by writing to your backend and re-fetching the current page (re-run the
+last `onServerChange` query). The docs-site "Server-side data" variation shows exactly this: each
+inline edit / batch update / delete mutates the simulated `DB` and re-issues the last query.
+
 ## Row virtualization (windowing)
 
 Opt in with `virtualized` to render only the rows near the viewport for large client datasets.
@@ -111,6 +118,20 @@ overflow menu**, the **filters panel**, and the **export-format menu**. Opening 
 row menu was open (or vice-versa) left the first one stranded on screen, because each overlay only
 closed itself on its own outside-click. Now there is at most **one** `.twc-dt__pop` /
 `.twc-dt__filters` open at any time.
+
+### Floating popovers track the trigger on scroll
+
+Every grid popover (`.twc-dt__pop`, the filter/agg/pivot panels, the batch editor) is
+`position: fixed`, positioned by the internal **`useFloating`** hook from the trigger's
+`getBoundingClientRect()`. It originally computed that **once at open**, so scrolling the page left the
+fixed popover frozen at its open-time viewport coordinates while the trigger scrolled away — the
+popover visibly detached and floated in the wrong place. `useFloating` now keeps a ref to the trigger
+and, while open, listens to `scroll` (with `capture: true`, so scrolling *any* ancestor — the page,
+the grid's own `__scroll`, a modal — counts) and `resize`, **re-placing** the popover so it tracks the
+trigger; if the trigger scrolls fully out of the viewport it **closes** instead. This matches the
+pattern the shared overlay components (Menu, Popover, Select/MultiSelect/Combobox, AvatarMenu) already
+used — the Datatable hook was the lone exception. Relatedly, the batch editor closes itself if the
+selection empties while it is open (no more "Edit 0 selected rows").
 
 ### Filter row layout
 
