@@ -458,7 +458,7 @@ export const VARIATIONS = [
   },
   {
     "component": "Datatable",
-    "title": "Actions column + batch actions",
+    "title": "Actions column, batch actions & batch edit",
     "i": 6
   },
   {

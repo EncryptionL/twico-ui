@@ -267,29 +267,33 @@ function ReorderPinningDemo() {
   );
 }
 
-/* ====================================================== 7. ACTIONS + BATCH */
+/* ============================================ 7. ACTIONS + BATCH + BATCH EDIT */
 function ActionsBatchDemo() {
-  const data = React.useMemo(() => makePeople(10), []);
+  const [rows, setRows] = React.useState(() => makePeople(10));
   return (
     <Datatable
-      rows={data}
+      rows={rows}
       checkboxSelection
       height={400}
+      // Inline edit persists single-cell changes; batch edit persists the popover.
+      onRowUpdate={(updated) => setRows((d) => d.map((r) => (r.id === updated.id ? updated : r)))}
+      onBatchUpdate={(changed) => setRows((d) => d.map((r) => changed.find((c) => c.id === r.id) || r))}
       batchActions={[
         { icon: <DownloadIcon />, label: "Export selected", onClick: (keys, rs, clear) => clear() },
         { icon: <MailIcon />, label: "Email", onClick: (keys, rs, clear) => clear() },
-        { icon: <TrashIcon />, label: "Delete", danger: true, onClick: (keys, rs, clear) => clear() },
+        { icon: <TrashIcon />, label: "Delete", danger: true, onClick: (keys, rs, clear) => { setRows((d) => d.filter((r) => !keys.includes(r.id))); clear(); } },
       ]}
       columns={[
-        { field: "name", headerName: "Name", width: 200 },
-        { field: "email", headerName: "Email", width: 220 },
-        { field: "role", headerName: "Role", width: 120 },
+        { field: "name", headerName: "Name", width: 190 },
+        { field: "email", headerName: "Email", width: 210 },
+        { field: "role", headerName: "Role", width: 120, editable: true, editType: "select", valueOptions: ROLE_OPTIONS },
+        { field: "status", headerName: "Status", width: 130, editable: true, editType: "select", valueOptions: STATUS_OPTIONS, renderCell: StatusBadge },
         {
-          field: "actions", headerName: "", type: "actions", width: 110,
-          getActions: () => [
-            { icon: <PencilIcon />, label: "Edit", onClick: () => {} },
+          field: "actions", headerName: "Actions", type: "actions", width: 110,
+          getActions: (row) => [
+            { icon: <PencilIcon />, label: "View", onClick: () => {} },
             { icon: <MailIcon />, label: "Email", showInMenu: true, onClick: () => {} },
-            { icon: <TrashIcon />, label: "Delete", showInMenu: true, danger: true, onClick: () => {} },
+            { icon: <TrashIcon />, label: "Delete", showInMenu: true, danger: true, onClick: () => setRows((d) => d.filter((r) => r.id !== row.id)) },
           ],
         },
       ]}
@@ -503,30 +507,51 @@ function ServerSideDemo() {
     render: () => <ReorderPinningDemo />,
   },
   {
-    title: "Actions column + batch actions",
+    title: "Actions column, batch actions & batch edit",
     description:
-      "Checkbox selection swaps the toolbar for batch actions (export / email / delete), while a per-row actions column adds inline buttons plus an overflow menu.",
-    code: `<Datatable
-  rows={makePeople(10)}
-  checkboxSelection
-  batchActions={[
-    { icon: <DownloadIcon />, label: "Export selected", onClick: (k, r, clear) => clear() },
-    { icon: <MailIcon />, label: "Email", onClick: (k, r, clear) => clear() },
-    { icon: <TrashIcon />, label: "Delete", danger: true, onClick: (k, r, clear) => clear() },
-  ]}
-  columns={[
-    { field: "name", headerName: "Name" },
-    { field: "email", headerName: "Email" },
-    { field: "role", headerName: "Role" },
-    {
-      field: "actions", type: "actions", width: 110,
-      getActions: () => [
-        { icon: <PencilIcon />, label: "Edit", onClick: () => {} },
-        { icon: <TrashIcon />, label: "Delete", showInMenu: true, danger: true, onClick: () => {} },
-      ],
-    },
-  ]}
-/>`,
+      "Three selection patterns at once. A per-row actions column adds inline icon buttons plus an overflow (⋮) menu (showInMenu). Ticking rows swaps the toolbar for your batchActions (export / email / delete). And because some columns are editable, the grid adds a built-in Edit button to that toolbar — pick a column and a value to write it across every selected row in one go (onBatchUpdate); double-clicking a single cell edits just that one (onRowUpdate).",
+    code: `function Example() {
+  const [rows, setRows] = useState(() => makePeople(10));
+
+  return (
+    <Datatable
+      rows={rows}
+      checkboxSelection
+      // batch edit -> "changed" is every selected row with the chosen column(s) overwritten
+      onBatchUpdate={(changed) =>
+        setRows((d) => d.map((r) => changed.find((c) => c.id === r.id) || r))
+      }
+      // single-cell inline edit (double-click an editable cell)
+      onRowUpdate={(updated) =>
+        setRows((d) => d.map((r) => (r.id === updated.id ? updated : r)))
+      }
+      // actions shown in the toolbar while >=1 row is selected
+      batchActions={[
+        { icon: <DownloadIcon />, label: "Export selected", onClick: (keys, rs, clear) => clear() },
+        { icon: <MailIcon />, label: "Email", onClick: (keys, rs, clear) => clear() },
+        { icon: <TrashIcon />, label: "Delete", danger: true,
+          onClick: (keys, rs, clear) => { setRows((d) => d.filter((r) => !keys.includes(r.id))); clear(); } },
+      ]}
+      columns={[
+        { field: "name", headerName: "Name" },
+        { field: "email", headerName: "Email" },
+        // editable columns -> double-click to edit AND enable the batch Edit button
+        { field: "role", headerName: "Role", editable: true, editType: "select", valueOptions: ROLE_OPTIONS },
+        { field: "status", headerName: "Status", editable: true, editType: "select", valueOptions: STATUS_OPTIONS, renderCell: StatusBadge },
+        {
+          // per-row actions: inline buttons + an overflow menu (showInMenu)
+          field: "actions", headerName: "Actions", type: "actions", width: 110,
+          getActions: (row) => [
+            { icon: <PencilIcon />, label: "View", onClick: () => {} },
+            { icon: <MailIcon />, label: "Email", showInMenu: true, onClick: () => {} },
+            { icon: <TrashIcon />, label: "Delete", showInMenu: true, danger: true,
+              onClick: () => setRows((d) => d.filter((r) => r.id !== row.id)) },
+          ],
+        },
+      ]}
+    />
+  );
+}`,
     render: () => <ActionsBatchDemo />,
   },
   {

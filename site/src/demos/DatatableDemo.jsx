@@ -19,9 +19,6 @@ const MailIcon = () => (
   <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18v12H3z" /><path d="M3 7l9 6 9-6" /></svg>
 );
 
-// Deterministic dataset — 48 people derived from their index.
-const rows = makePeople(48);
-
 const ROLE_OPTIONS = ["Admin", "Editor", "Viewer"];
 const DEPARTMENT_OPTIONS = ["Engineering", "Design", "Sales", "Marketing", "Support", "Finance"];
 const STATUS_OPTIONS = ["active", "invited", "suspended"];
@@ -43,9 +40,13 @@ const columns = [
   },
   { field: "email", headerName: "Email", width: 220 },
   {
+    // editable: double-click to edit inline; with rows selected, the toolbar's
+    // "Edit" button writes one value across every selected row.
     field: "role",
     headerName: "Role",
     width: 130,
+    editable: true,
+    editType: "select",
     valueOptions: ROLE_OPTIONS,
     renderCell: (value) => (
       <Badge variant="soft" size="sm" tone="neutral">{value}</Badge>
@@ -55,12 +56,16 @@ const columns = [
     field: "department",
     headerName: "Department",
     width: 150,
+    editable: true,
+    editType: "select",
     valueOptions: DEPARTMENT_OPTIONS,
   },
   {
     field: "status",
     headerName: "Status",
     width: 130,
+    editable: true,
+    editType: "select",
     valueOptions: STATUS_OPTIONS,
     renderCell: (value) => (
       <Badge variant="soft" size="sm" tone={STATUS_TONE[value]}>{value}</Badge>
@@ -77,6 +82,7 @@ const columns = [
     headerName: "Seats",
     type: "number",
     width: 110,
+    editable: true,
     aggregation: "sum",
   },
   {
@@ -93,6 +99,7 @@ const columns = [
     headerName: "Salary",
     type: "number",
     width: 130,
+    editable: true,
     aggregation: "avg",
     valueFormatter: (value) => usd(value),
   },
@@ -114,19 +121,41 @@ const columns = [
   },
 ];
 
-// Actions for the selection toolbar that appears when one or more rows are ticked.
-const batchActions = [
-  { label: "Export", icon: <DownloadIcon />, onClick: (keys, rows, clear) => clear() },
-  { label: "Email", icon: <MailIcon />, onClick: (keys, rows, clear) => clear() },
-  { label: "Delete", icon: <TrashIcon />, danger: true, onClick: (keys, rows, clear) => clear() },
-];
-
 export default function DatatableDemo() {
+  // Stateful rows so inline edits and the batch editor persist their changes.
+  const [rows, setRows] = React.useState(() => makePeople(48));
+
+  // Commit a single inline-cell edit.
+  const handleRowUpdate = React.useCallback((updated) => {
+    setRows((prev) => prev.map((r) => (r.id === updated.id ? updated : r)));
+  }, []);
+
+  // Commit the batch editor: `changed` is every selected row with the chosen
+  // column(s) overwritten (the value you picked in the Edit popover).
+  const handleBatchUpdate = React.useCallback((changed) => {
+    setRows((prev) => prev.map((r) => changed.find((c) => c.id === r.id) || r));
+  }, []);
+
+  // Actions for the selection toolbar that appears when one or more rows are ticked.
+  // (A built-in "Edit" button is added automatically because columns are editable.)
+  const batchActions = React.useMemo(() => [
+    { label: "Export", icon: <DownloadIcon />, onClick: (keys, rs, clear) => clear() },
+    { label: "Email", icon: <MailIcon />, onClick: (keys, rs, clear) => clear() },
+    {
+      label: "Delete",
+      icon: <TrashIcon />,
+      danger: true,
+      onClick: (keys, rs, clear) => { setRows((prev) => prev.filter((r) => !keys.includes(r.id))); clear(); },
+    },
+  ], []);
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", width: "100%", minWidth: 0, maxWidth: "100%" }}>
       <Text tone="muted" size="sm">
         Try it: sort a column, open the toolbar tools (hover for labels), drag or pin a column
-        header, and tick rows — a selection toolbar with batch actions appears.
+        header, double-click an editable cell (Role, Department, Status, Seats, Salary) to edit it,
+        and tick rows — a selection toolbar appears with batch actions plus an <strong>Edit</strong>{" "}
+        button that sets one value across every selected row.
       </Text>
       <Datatable
         rows={rows}
@@ -134,6 +163,8 @@ export default function DatatableDemo() {
         ariaLabel="Team members"
         checkboxSelection
         batchActions={batchActions}
+        onRowUpdate={handleRowUpdate}
+        onBatchUpdate={handleBatchUpdate}
         pageSize={8}
         density="standard"
         showAggregation

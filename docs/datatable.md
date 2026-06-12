@@ -162,3 +162,26 @@ warning). It is built **without any library**, preserving the package's zero-run
 
 Exported scope is unchanged: all filtered+sorted rows in client mode, the loaded page in server
 mode; per-column `exportValue` still overrides the cell value.
+
+## Batch edit — update a column across selected rows
+
+When **any column is `editable`** and `checkboxSelection` is on, selecting one or more rows adds a
+built-in **Edit** button to the selection toolbar (next to your `batchActions`). It opens a small
+popover listing the editable columns; pick one or more, set a new value, and **Apply** writes it
+across every selected row at once. The grid fires **`onBatchUpdate(changedRows, patch, selectedKeys)`**
+— `patch` is the `{ field: value }` you chose, `changedRows` are the selected rows with that patch
+applied — so you persist it the same way you handle `onRowUpdate` for a single inline edit. This is a
+separate path from per-row `getActions` (inline action buttons + a `showInMenu` overflow menu) and
+from `batchActions` (your own toolbar buttons over the selection); a grid can use all three at once.
+
+### Docs-site demo parity
+
+The component page's **Usage** block renders `site/src/demos/<Name>Demo.jsx` but shows the `snippet`
+from `site/src/data/components.js` as its code. For most components those line up, but the Datatable
+demo is a kitchen sink — so its `snippet` is hand-maintained to **mirror the demo column-for-column**
+(name/email/role/department/status/country/seats/mrr/salary/startDate/actions) and feature-for-feature
+(checkbox selection, `batchActions`, an `actions` column with `getActions`, `editable` columns +
+`onRowUpdate`/`onBatchUpdate`, aggregation, row pinning). Keep them in sync when either changes —
+otherwise the shown code stops matching the rendered table (a real bug report we got). The
+"Actions column, batch actions & batch edit" variation demonstrates the same selection features in
+isolation with copy-pasteable code.
