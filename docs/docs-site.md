@@ -28,6 +28,8 @@ site/
 │                                  live "Variations" section examples (lazy-loaded, error-boundaried)
 └─ scripts/
     ├─ gen-docs.mjs            generates components.js + the demo files
+    ├─ enrich-props.mjs        appends the inherited DOM props (onClick, id, style, …) each component
+    │                          forwards via ...rest, derived from its .d.ts root element (--check guards drift)
     ├─ gen-exports.mjs         regenerates exports.js hooks list from hooks/index.js (--check guards drift)
     ├─ gen-variations-index.mjs  extracts every *Variations.jsx title into variations.js for search (--check guards drift)
     └─ render-check.mjs        headless route sweep — fails on any uncaught page error (the behavioral gate)
@@ -47,7 +49,10 @@ site/
 - The **props table** (`PropsTable.jsx`) renders union types as one wrapping chip per member and
   complex single types as wrapping monospace, so a long `type` can never force horizontal scroll or
   crush the description column. Each prop `description` in `components.js` is written as a single
-  informative sentence (~12–22 words) — what the prop does plus its effect or when to use it.
+  informative sentence (~12–22 words) — what the prop does plus its effect or when to use it. Beyond
+  the component-specific props, the table also lists the common **inherited DOM props** each component
+  forwards via `...rest` (e.g. `onClick`, `id`, `style`), appended by `enrich-props.mjs` from the
+  component's `.d.ts` root element, then a final `...rest` catch-all row.
 - Code is highlighted with `prism-react-renderer` (bundled, not a CDN).
 - Each code block has a toolbar: a **JS / TS** toggle (shared, persisted via `useLocalStorage` —
   `CodeLang.jsx`) that switches highlighting (`jsx`↔`tsx`), setup file extensions (`.jsx`↔`.tsx`), the

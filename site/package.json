@@ -12,7 +12,8 @@
     "gen:variations": "node scripts/gen-variations-index.mjs",
     "render-check": "node scripts/render-check.mjs",
     "test:visual": "playwright test",
-    "test:visual:update": "playwright test --update-snapshots"
+    "test:visual:update": "playwright test --update-snapshots",
+    "gen:props": "node scripts/enrich-props.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

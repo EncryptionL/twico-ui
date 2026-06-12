@@ -58,6 +58,9 @@ jobs:
       - name: Guard - docs variations search index is in sync
         run: node site/scripts/gen-variations-index.mjs --check
 
+      - name: Guard - component reference inherited-prop enrichment is in sync
+        run: node site/scripts/enrich-props.mjs --check
+
       - name: Guard - bundle size budget
         run: npm run size
 
