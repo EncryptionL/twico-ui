@@ -58,6 +58,16 @@ const DT_CSS = `
   font-size: var(--text-sm); color: var(--color-text); width: 150px; }
 .twc-dt__search input:focus, .twc-dt__search input:focus-visible { outline: none; box-shadow: none; }
 .twc-dt__search input::placeholder { color: var(--color-text-subtle); }
+.twc-dt__tlabel { display: inline; }
+/* Narrow grid: collapse the toolbar to icon-only buttons (labels survive as
+   hover tooltips via data-tip) and let the search flex so nothing wraps. */
+.twc-dt__toolbar[data-compact="true"] { flex-wrap: nowrap; gap: 4px; }
+.twc-dt__toolbar[data-compact="true"] .twc-dt__tlabel { display: none; }
+.twc-dt__toolbar[data-compact="true"] .twc-dt__tbtn { padding: 0 8px; gap: 0; }
+.twc-dt__toolbar[data-compact="true"] .twc-dt__tbtn .twc-dt__tbadge { margin-inline-start: 4px; }
+.twc-dt__toolbar[data-compact="true"] .twc-dt__export-main { padding: 0 9px; gap: 0; }
+.twc-dt__toolbar[data-compact="true"] .twc-dt__search { flex: 1 1 64px; min-width: 0; margin-inline-start: 6px; padding: 0 8px; }
+.twc-dt__toolbar[data-compact="true"] .twc-dt__search input { width: 100%; min-width: 0; }
 
 /* Scroll area + table */
 .twc-dt__scroll { overflow: auto; position: relative; }
@@ -647,6 +657,22 @@ export function Datatable({
   const [rowGrab, setRowGrab] = React.useState(null);
   const [reorderMsg, setReorderMsg] = React.useState("");
   const rowFocusRef = React.useRef(null); // key to restore focus to after a keyboard drop
+  // Collapse the toolbar to icon-only when the grid is too narrow for full labels.
+  const rootRef = React.useRef(null);
+  const [compact, setCompact] = React.useState(false);
+  React.useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return undefined;
+    const measure = () => setCompact((el.clientWidth || 0) < 720);
+    measure();
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(measure) : null;
+    if (ro) ro.observe(el);
+    else if (typeof window !== "undefined") window.addEventListener("resize", measure);
+    return () => {
+      if (ro) ro.disconnect();
+      else if (typeof window !== "undefined") window.removeEventListener("resize", measure);
+    };
+  }, []);
   // Row virtualization scroll state.
   const scrollRef = React.useRef(null);
   const [scrollTop, setScrollTop] = React.useState(0);
@@ -1571,10 +1597,10 @@ export function Datatable({
   }
 
   return (
-    <div className={`twc-dt ${className}`} data-density={density} data-resizing={resizing || undefined} {...rest}>
+    <div className={`twc-dt ${className}`} ref={rootRef} data-density={density} data-resizing={resizing || undefined} {...rest}>
       {/* PIVOT_RENDER_ANCHOR */}
       {/* Toolbar */}
-      <div className="twc-dt__toolbar">
+      <div className="twc-dt__toolbar" data-compact={compact || undefined}>
         {batchActions.length && selected.size > 0 ? (
           <div className="twc-dt__batch">
             <button type="button" className="twc-dt__batch-x" onClick={clearSelection} aria-label="Clear selection"><Svg d={I.x} /></button>
@@ -1596,27 +1622,27 @@ export function Datatable({
         ) : null}
         <button type="button" className="twc-dt__tbtn" data-active={panel === "columns" || undefined} data-tip="Show or hide columns"
           onClick={(e) => { if (panel === "columns") { setPanel(null); closePanel(); } else { setColQuery(""); setPanel("columns"); setColMenu(null); openPanel(e.currentTarget, "left", 268); } }}>
-          <Svg d={I.columns} /> Columns{hidden.size ? <span className="twc-dt__tbadge">{cols.length - hidden.size}</span> : null}
+          <Svg d={I.columns} /><span className="twc-dt__tlabel">Columns</span>{hidden.size ? <span className="twc-dt__tbadge">{cols.length - hidden.size}</span> : null}
         </button>
         <button type="button" className="twc-dt__tbtn" data-active={panel === "filters" || undefined} data-tip="Filter rows"
           onClick={(e) => { if (panel === "filters") { setPanel(null); closePanel(); } else { setPanel("filters"); setColMenu(null); openPanel(e.currentTarget, "left", 480); } }}>
-          <Svg d={I.filter} /> Filters{filters.length ? <span className="twc-dt__tbadge">{filters.length}</span> : null}
+          <Svg d={I.filter} /><span className="twc-dt__tlabel">Filters</span>{filters.length ? <span className="twc-dt__tbadge">{filters.length}</span> : null}
         </button>
         <button type="button" className="twc-dt__tbtn" data-tip="Change row density" onClick={() => setDensity((d) => d === "compact" ? "standard" : d === "standard" ? "comfortable" : "compact")}>
-          <Svg d={I.density} /> {density[0].toUpperCase() + density.slice(1)}
+          <Svg d={I.density} /><span className="twc-dt__tlabel">{density[0].toUpperCase() + density.slice(1)}</span>
         </button>
         <button type="button" className="twc-dt__tbtn" data-active={panel === "agg" || aggOn || undefined} aria-haspopup="dialog" aria-expanded={panel === "agg"} data-tip="Configure aggregation"
           onClick={(e) => { if (panel === "agg") { setPanel(null); closePanel(); } else { setPanel("agg"); setColMenu(null); openPanel(e.currentTarget, "left", 300); } }}>
-          <Svg d={I.sigma} /> Aggregation{aggOn && hasAggregation ? <span className="twc-dt__tbadge">{ordered.filter((c) => aggOf(c)).length}</span> : null}
+          <Svg d={I.sigma} /><span className="twc-dt__tlabel">Aggregation</span>{aggOn && hasAggregation ? <span className="twc-dt__tbadge">{ordered.filter((c) => aggOf(c)).length}</span> : null}
         </button>
         <button type="button" className="twc-dt__tbtn" data-active={panel === "pivot" || pivotActive || undefined} aria-haspopup="dialog" aria-expanded={panel === "pivot"} data-tip="Configure pivot"
           onClick={(e) => { if (panel === "pivot") { setPanel(null); closePanel(); } else { setPanel("pivot"); setColMenu(null); openPanel(e.currentTarget, "left", 320); } }}>
-          <Svg d={I.pivot} /> Pivot{pivotActive ? <span className="twc-dt__tdot" aria-label="on" role="img" /> : null}
+          <Svg d={I.pivot} /><span className="twc-dt__tlabel">Pivot</span>{pivotActive ? <span className="twc-dt__tdot" aria-label="on" role="img" /> : null}
         </button>
         {showExport ? (
           <span className="twc-dt__export">
             <button type="button" className="twc-dt__export-main" onClick={() => exportData("csv")} aria-label="Export to CSV">
-              <Svg d={I.download} /> Export
+              <Svg d={I.download} /><span className="twc-dt__tlabel">Export</span>
             </button>
             <button type="button" className="twc-dt__export-toggle" aria-label="More export formats" aria-haspopup="menu" aria-expanded={exportOpen}
               onClick={(e) => { if (exportOpen) { setExportOpen(false); closeExport(); } else { menuTriggerRef.current = e.currentTarget; setColMenu(null); setPanel(null); setRowMenu(null); setExportOpen(true); openExport(e.currentTarget, "right", 180); } }}>
