@@ -424,8 +424,54 @@ const variations = [
     title: "Server-side data (sorting, filtering, paging, aggregation)",
     description:
       "A full server-mode grid wired to a simulated 300-row backend — sort, the per-column filter panel, quick search, paging, and the totals footer all round-trip through onServerChange with debounce + latency.",
-    code: `// One in-memory "database" the fake backend queries.
-const DB = makePeople(300);
+    code: `// makePeople(), usd, NameCell, StatusBadge and the *_OPTIONS arrays are your
+// own data + cell renderers. serverMode means the grid never sorts/filters/pages
+// the rows you pass — it calls onServerChange with the query and you return the
+// matching page. The query() helper below stands in for your real backend.
+
+const DB = makePeople(300);                 // your data source (DB / REST / GraphQL)
+const STRING_FIELDS = ["name", "email", "role", "department", "status", "country", "startDate"];
+const COL_TYPE = { seats: "number", mrr: "number", salary: "number" }; // others default to string
+
+// Apply one filter exactly like the grid's own filter panel does, per operator.
+function testFilter(raw, op, target, type) {
+  if (op === "isEmpty") return raw == null || raw === "";
+  if (op === "isNotEmpty") return !(raw == null || raw === "");
+  if (op === "isAnyOf") return !target?.length || target.map(String).includes(String(raw));
+  if (target === "" || target == null) return true;
+  if (type === "number") {
+    const a = Number(raw), b = Number(target);
+    if (Number.isNaN(a) || Number.isNaN(b)) return true;
+    return ({ "=": a === b, "!=": a !== b, ">": a > b, ">=": a >= b, "<": a < b, "<=": a <= b })[op] ?? true;
+  }
+  const s = String(raw ?? "").toLowerCase(), t = String(target).toLowerCase();
+  if (op === "equals") return s === t;
+  if (op === "startsWith") return s.startsWith(t);
+  if (op === "endsWith") return s.endsWith(t);
+  return s.includes(t);
+}
+
+// The "backend": quickFilter -> column filters -> sort -> aggregate -> page slice.
+// In a real app this is one fetch() to your API with the query state.
+function query(q) {
+  let rows = DB;
+  const quick = (q.quickFilter || "").trim().toLowerCase();
+  if (quick) rows = rows.filter((r) => STRING_FIELDS.some((f) => String(r[f] ?? "").toLowerCase().includes(quick)));
+  for (const f of q.filters || []) rows = rows.filter((r) => testFilter(r[f.field], f.op, f.value, COL_TYPE[f.field] || "string"));
+  if (q.sort) {
+    const { field, dir } = q.sort, sign = dir === "desc" ? -1 : 1, numeric = COL_TYPE[field] === "number";
+    rows = rows.slice().sort((a, b) => (numeric ? a[field] - b[field] : String(a[field]).localeCompare(String(b[field]))) * sign);
+  }
+  const total = rows.length;
+  const sum = (k) => rows.reduce((n, r) => n + Number(r[k] || 0), 0); // aggregate the FILTERED set
+  const agg = {
+    salary: { sum: sum("salary"), avg: total ? Math.round(sum("salary") / total) : 0 },
+    mrr: { sum: sum("mrr") },
+    seats: { sum: sum("seats") },
+  };
+  const start = q.page * q.pageSize;
+  return { rows: rows.slice(start, start + q.pageSize), total, agg };
+}
 
 function ServerSideDemo() {
   const reqId = React.useRef(0);
