@@ -3,6 +3,21 @@
 Developer notes for the larger, opt-in capabilities of `components/data-display/Datatable.jsx`.
 Everything here is **additive**: with the relevant prop off, the table renders exactly as before.
 
+## Server mode + `runDatatableQuery`
+
+With `serverMode`, the grid does **not** sort/filter/paginate the `rows` you pass (they're the
+already-fetched current page). It calls `onServerChange(query)` — `{ page, pageSize, sort, filters,
+quickFilter }` (the `DatatableQuery` type) — whenever the query changes, debounced; you fetch the
+matching slice and feed back `rows` + `rowCount` (+ optional `aggregationValues`, `loading`).
+
+To make a backend (or a fake one, or a test) return **exactly** what client mode would, the package
+exports **`runDatatableQuery(rows, query, { columns })`** — it applies the same quick-search, filter
+operators (`testFilter`), sort, and paging the grid uses internally, and returns `{ rows, total,
+filtered }` (`filtered` is the full pre-paging set, e.g. for computing aggregation totals). This is
+the one piece of server-side glue that would otherwise force consumers to re-implement the grid's
+operator semantics by hand, so it lives **in the library**, not in the docs — the docs just call it.
+The exported function reuses the component's own `testFilter`, so the two can never drift.
+
 ## Row virtualization (windowing)
 
 Opt in with `virtualized` to render only the rows near the viewport for large client datasets.

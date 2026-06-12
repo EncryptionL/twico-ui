@@ -18,7 +18,7 @@ export { Combobox } from "../components/inputs/Combobox";
 export { CommandPalette } from "../components/overlay/CommandPalette";
 export { Currency } from "../components/inputs/Currency";
 export { CurrencyField } from "../components/inputs/CurrencyField";
-export { Datatable } from "../components/data-display/Datatable";
+export { Datatable, runDatatableQuery } from "../components/data-display/Datatable";
 export { DatePicker } from "../components/inputs/DatePicker";
 export { DateRangePicker } from "../components/inputs/DateRangePicker";
 export { Dialog } from "../components/overlay/Dialog";

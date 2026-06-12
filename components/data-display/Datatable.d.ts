@@ -214,3 +214,21 @@ export interface DatatableBatchAction {
 }
 
 export function Datatable(props: DatatableProps): React.JSX.Element;
+
+/**
+ * Apply a `DatatableQuery` (the object a `serverMode` grid passes to
+ * `onServerChange`) to a plain array of rows — quick search, per-column filters,
+ * sort, and paging — with the same operator semantics the grid uses in client
+ * mode. Use it to back a `serverMode` Datatable from any data source (or a fake
+ * backend in tests) and get identical results. Pass `columns` so number columns
+ * sort/compare numerically and quick-search scans the intended fields.
+ *
+ * @returns `rows` (the current page), `total` (filtered count, for `rowCount`),
+ *  and `filtered` (the full filtered+sorted set before paging — handy for
+ *  computing server-side aggregation totals).
+ */
+export function runDatatableQuery<T = any>(
+  rows: T[],
+  query: DatatableQuery,
+  options?: { columns?: DatatableColumn[]; searchFields?: string[] }
+): { rows: T[]; total: number; filtered: T[] };

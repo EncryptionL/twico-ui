@@ -480,6 +480,44 @@ function testFilter(raw, op, target, type) {
   }
 }
 
+/**
+ * Apply a Datatable server-query (the object passed to `onServerChange`) to a
+ * plain array of rows — quick search, per-column filters, sort, and paging —
+ * using the EXACT same operator semantics the grid uses in client mode. Returns
+ * the current page (`rows`), the filtered `total` (for `rowCount`), and the full
+ * `filtered` set (pre-paging, e.g. to compute server-side aggregation totals).
+ *
+ * Lets you drive a `serverMode` Datatable from any backend (or fake one in tests)
+ * and get results identical to client mode. Pass `columns` so number columns
+ * compare numerically and quick-search scans the right fields.
+ */
+export function runDatatableQuery(rows, query, options = {}) {
+  const q = query || {};
+  const cols = options.columns || [];
+  const typeOf = (field) => (cols.find((c) => c.field === field)?.type === "number" ? "number" : "string");
+  const searchFields = options.searchFields
+    || (cols.length ? cols.filter((c) => c.field && c.type !== "actions").map((c) => c.field)
+                    : (rows && rows[0] ? Object.keys(rows[0]) : []));
+
+  let out = Array.isArray(rows) ? rows : [];
+  const quick = String(q.quickFilter || "").trim().toLowerCase();
+  if (quick) out = out.filter((r) => searchFields.some((f) => String(r[f] ?? "").toLowerCase().includes(quick)));
+  for (const f of q.filters || []) out = out.filter((r) => testFilter(r[f.field], f.op, f.value, typeOf(f.field)));
+  if (q.sort && q.sort.field) {
+    const { field, dir } = q.sort, numeric = typeOf(field) === "number";
+    out = [...out].sort((a, b) => {
+      const av = a[field], bv = b[field];
+      if (av == null) return 1; if (bv == null) return -1;
+      const r = numeric ? av - bv : String(av).localeCompare(String(bv));
+      return dir === "desc" ? -r : r;
+    });
+  }
+  const total = out.length;
+  const pageSize = q.pageSize ?? 0;
+  const page = pageSize > 0 ? out.slice((q.page || 0) * pageSize, (q.page || 0) * pageSize + pageSize) : out;
+  return { rows: page, total, filtered: out };
+}
+
 function useFloating() {
   const [pos, setPos] = React.useState(null);
   const open = (el, align = "left", width = 220) => {
