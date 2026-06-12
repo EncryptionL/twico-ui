@@ -55,6 +55,9 @@ jobs:
       - name: Guard - docs hooks list is in sync with hooks/index.js
         run: node site/scripts/gen-exports.mjs --check
 
+      - name: Guard - docs variations search index is in sync
+        run: node site/scripts/gen-variations-index.mjs --check
+
       - name: Guard - bundle size budget
         run: npm run size
 

@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { CommandPalette, Button, IconButton, useDisclosure, useEventListener, useMediaQuery } from "twico-ui";
 import { components } from "../data/components.js";
+import { VARIATIONS } from "../data/variations.js";
 import { slugify } from "../data/site.js";
 
 const SearchIcon = (
@@ -50,7 +51,19 @@ export default function Search() {
       keywords: `${c.tagline} ${c.summary} ${c.group} ${(c.propsRows || []).map((p) => p.prop).join(" ")}`,
       onSelect: () => go(`/components/${slugify(c.name)}`),
     }));
-    return [...docs, ...comps];
+    // Index each live "Variations" example, deep-linking to its anchor on the page.
+    const byName = new Map(components.map((c) => [c.name, c]));
+    const variations = VARIATIONS.filter((v) => byName.has(v.component)).map((v) => {
+      const slug = slugify(v.component);
+      return {
+        group: "Examples",
+        label: `${v.component}: ${v.title}`,
+        description: "Live example",
+        keywords: `${v.component} ${v.title} ${byName.get(v.component).group} example variation demo`,
+        onSelect: () => go(`/components/${slug}?s=variation-${v.i}`),
+      };
+    });
+    return [...docs, ...comps, ...variations];
   }, [navigate, onClose]);
 
   return (

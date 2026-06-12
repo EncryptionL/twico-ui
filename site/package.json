@@ -9,6 +9,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "gen:exports": "node scripts/gen-exports.mjs",
+    "gen:variations": "node scripts/gen-variations-index.mjs",
     "render-check": "node scripts/render-check.mjs",
     "test:visual": "playwright test",
     "test:visual:update": "playwright test --update-snapshots"
