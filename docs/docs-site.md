@@ -57,7 +57,10 @@ site/
 - Each code block has a toolbar: a **JS / TS** toggle (shared, persisted via `useLocalStorage` —
   `CodeLang.jsx`) that switches highlighting (`jsx`↔`tsx`), setup file extensions (`.jsx`↔`.tsx`), the
   `import type { … }` line, and any block's `tsCode`; plus **Expand/Collapse** (collapsed shows the
-  simple JSX, expanded the full form with imports — derived from the twico-ui exports used).
+  simple JSX, expanded the full form with imports — derived from the twico-ui exports used). A **long**
+  snippet (> 16 lines, e.g. the Datatable Usage) is additionally **height-clamped** to ~360px while
+  collapsed, with a bottom fade + "Expand code" affordance — otherwise the collapsed view dumped the
+  whole body and "Expand" only added the import lines, which read as doing nothing.
 - **Search** (`Search.jsx`, header + Cmd/Ctrl+K) runs Twico's `CommandPalette` over every component
   (name + tagline + summary + group + **prop names**, so "fullWidth" finds Button), the docs pages,
   and every **live "Variations" example** (from `variations.js`; "autoplay" → Carousel: Autoplay,

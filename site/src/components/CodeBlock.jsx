@@ -83,7 +83,12 @@ export default function CodeBlock({ code, tsCode, language = "jsx" }) {
   const derived = isJsx && !hasImports && body.trim() ? deriveImport(body) : "";
   const shortCode = isJsx && body.trim() ? body : full0;
   const fullCode = hasImports ? full0 : derived ? `${derived}\n\n${body}` : full0;
-  const expandable = isJsx && fullCode.trim() !== shortCode.trim();
+  // A long snippet is collapsed to a fixed-height preview (with a fade) so "Expand"
+  // is meaningful; short ones only toggle the leading import lines as before.
+  const COLLAPSE_LINES = 16;
+  const tall = isJsx && shortCode.split("\n").length > COLLAPSE_LINES;
+  const expandable = isJsx && (fullCode.trim() !== shortCode.trim() || tall);
+  const clamp = expandable && !expanded && tall;
 
   const source = expandable && expanded ? fullCode : shortCode;
   const hlLang = isJsx ? (isTs ? "tsx" : "jsx") : language;
@@ -105,7 +110,7 @@ export default function CodeBlock({ code, tsCode, language = "jsx" }) {
           </Stack>
         </Stack>
       ) : null}
-      <Box style={{ position: "relative", background: "#0b1021", colorScheme: "dark" }}>
+      <Box style={{ position: "relative", background: "#0b1021", colorScheme: "dark", maxHeight: clamp ? 360 : undefined, overflow: clamp ? "hidden" : undefined }}>
         {!isJsx ? (
           <Box style={{ position: "absolute", top: 8, right: 8, zIndex: 1 }}>
             <Button size="sm" variant="soft" onClick={() => copy(source)} aria-label="Copy code">
@@ -126,6 +131,25 @@ export default function CodeBlock({ code, tsCode, language = "jsx" }) {
             </pre>
           )}
         </Highlight>
+        {clamp ? (
+          // Fade + click-to-expand affordance so a long snippet reads as truncated.
+          <button
+            type="button"
+            onClick={() => setExpanded(true)}
+            aria-label="Expand code"
+            style={{
+              position: "absolute", left: 0, right: 0, bottom: 0, height: 96, width: "100%",
+              border: "none", cursor: "pointer", display: "flex", alignItems: "flex-end",
+              justifyContent: "center", padding: "0 0 10px",
+              background: "linear-gradient(to bottom, rgba(11,16,33,0), rgba(11,16,33,0.85) 55%, #0b1021)",
+              color: "var(--color-primary-fg)",
+            }}
+          >
+            <span style={{ fontFamily: "var(--font-sans)", fontSize: "var(--text-xs)", fontWeight: "var(--font-bold)", letterSpacing: "0.02em", background: "var(--color-primary)", padding: "4px 12px", borderRadius: "var(--radius-full)", boxShadow: "var(--shadow-sm)" }}>
+              Expand code
+            </span>
+          </button>
+        ) : null}
       </Box>
     </Box>
   );
