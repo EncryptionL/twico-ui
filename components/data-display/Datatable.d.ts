@@ -57,7 +57,11 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
   /** Server-mode precomputed aggregation. Per field, either a scalar/node (used as-is) or a per-function map
    *  `{ sum, avg, min, max, count }` so the footer honors whichever function the user picks in the panel. */
   aggregationValues?: Record<string, React.ReactNode | Partial<Record<"sum" | "avg" | "min" | "max" | "count", React.ReactNode>>> | null;
-  /** Disable drag-to-reorder of columns. @default false */
+  /** Disable column reordering. When enabled (the default), columns can be reordered by dragging
+   *  the header label, or via the header column menu's "Move left" / "Move right" items (a keyboard-
+   *  accessible alternative; the move is announced through a visually-hidden live region). Both paths
+   *  rearrange only the movable, unpinned columns and leave pinned/actions columns in place.
+   *  @default false */
   disableColumnReorder?: boolean;
   /** Disable drag-to-resize of columns. @default false */
   disableColumnResize?: boolean;

@@ -49,6 +49,28 @@ fully keyboard-driven reorder, mirroring the Kanban grab pattern:
 
 Like drag reorder, it's disabled while sorting or grouping (`canReorderRows`).
 
+## Keyboard column reorder
+
+Columns have long been reorderable by dragging the header label (HTML5 drag, gated on
+`!disableColumnReorder` and only for unpinned, non-`actions` columns). The header **column menu**
+(the `⋮` button → `.twc-dt__pop` `role="menu"`) now also exposes a keyboard-accessible path with two
+items:
+
+- **Move left** / **Move right** — shift the column one slot earlier/later among the *movable middle*
+  columns (the visible, unpinned, non-`actions` band — the exact set the drag path rearranges).
+- They go through the same internal `order` state (`setOrder`) the drag handler mutates via the shared
+  `moveCol(field, dir)` helper. Column order is internal-only — there is **no** `onColumnOrderChange`
+  prop to reuse (unlike rows' `onRowOrderChange`), so nothing else needs wiring.
+- The items only render when reordering is enabled and the column is in the movable band (same gate as
+  the draggable header). **Move left** is `disabled` on the first movable column and **Move right** on
+  the last, so a column can never move into a pinned band. Disabled items are skipped by the menu's
+  roving focus (`[role="menuitem"]:not([disabled])`).
+- Choosing an item closes the menu (like every other column-menu action) and announces
+  `"Moved <column> left/right."` through the same visually-hidden `.twc-dt__sr` live region used by row
+  reorder.
+
+No new public prop: this reuses `disableColumnReorder` and the existing reorder state.
+
 ## ARIA menu semantics for the floating menus
 
 The three `.twc-dt__pop` menus — **column-header menu**, **row-actions overflow menu**, and the

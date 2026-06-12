@@ -299,6 +299,7 @@ const DT_CSS = `
   font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); text-align: start;
   border-radius: var(--radius-md); cursor: pointer; transition: background-color var(--duration-fast); }
 .twc-dt__mi:hover { background: var(--color-surface-sunken); }
+.twc-dt__mi:disabled { color: var(--color-text-subtle); opacity: 0.5; cursor: default; pointer-events: none; }
 .twc-dt__mi svg { width: 16px; height: 16px; color: var(--color-text-subtle); flex: none; }
 .twc-dt__mi[data-active="true"] { color: var(--color-primary); }
 .twc-dt__mi[data-active="true"] svg { color: var(--color-primary); }
@@ -991,9 +992,18 @@ export function Datatable({
   function toggleHiddenField(field) {
     setHidden((h) => { const n = new Set(h); n.has(field) ? n.delete(field) : n.add(field); return n; });
   }
-  // Keyboard alternative to drag-reorder: move a column one slot among the visible, unpinned columns.
+  // The visible, unpinned columns in current order — the movable "middle" band that the
+  // drag-reorder path can rearrange (pinned/left/right + actions stay put). Shared by the
+  // keyboard moveCol() below and the column menu's Move left/right enable gate.
+  const movableMidFields = React.useMemo(
+    () => ordered.filter((c) => !pins.left.includes(c.field) && !pins.right.includes(c.field)).map((c) => c.field),
+    [ordered, pins]
+  );
+  // Keyboard alternative to drag-reorder: move a column one slot among the visible, unpinned
+  // columns. Goes through the same `order` state the drag path mutates (no public callback exists
+  // for columns) and announces via the shared aria-live region.
   function moveCol(field, dir) {
-    const mid = ordered.filter((c) => !pins.left.includes(c.field) && !pins.right.includes(c.field)).map((c) => c.field);
+    const mid = movableMidFields;
     const i = mid.indexOf(field); const j = i + dir;
     if (i === -1 || j < 0 || j >= mid.length) return;
     const other = mid[j];
@@ -1004,6 +1014,8 @@ export function Datatable({
       next.splice(dir > 0 ? b + 1 : b, 0, field);
       return next;
     });
+    const label = colByField[field]?.headerName || field;
+    setReorderMsg(`Moved ${label} ${dir < 0 ? "left" : "right"}.`);
   }
 
   // Distinct value options for "is any of" filters (column.valueOptions, else derived from rows).
@@ -1836,10 +1848,16 @@ export function Datatable({
               {c.filterable ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); restoreTriggerFocus(); setPanel("filters"); openPanel(document.querySelector(".twc-dt__toolbar .twc-dt__tbtn:nth-child(2)"), "left", 480); }}><Svg d={I.filter} /> Filter</button> : null}
               {hasTop && hasBottom ? <div className="twc-dt__sep" /> : null}
               {c.groupable ? <button type="button" role="menuitem" className="twc-dt__mi" data-active={groupBy.includes(c.field) || undefined} onClick={() => { toggleGroupField(c.field); close(); }}><Svg d={I.group} /> {groupBy.includes(c.field) ? "Stop grouping" : "Group by this column"}</button> : null}
-              {!disableColumnReorder && c.type !== "actions" && !pins.left.includes(c.field) && !pins.right.includes(c.field) ? (<>
-                <button type="button" role="menuitem" className="twc-dt__mi" onClick={() => { moveCol(c.field, -1); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(-90deg)" }} /> Move left</button>
-                <button type="button" role="menuitem" className="twc-dt__mi" onClick={() => { moveCol(c.field, 1); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(90deg)" }} /> Move right</button>
-              </>) : null}
+              {!disableColumnReorder && c.type !== "actions" && !pins.left.includes(c.field) && !pins.right.includes(c.field) ? (() => {
+                // Position within the movable middle band — same set the drag path can rearrange.
+                const midIdx = movableMidFields.indexOf(c.field);
+                const atFirst = midIdx <= 0;
+                const atLast = midIdx === -1 || midIdx >= movableMidFields.length - 1;
+                return (<>
+                  <button type="button" role="menuitem" className="twc-dt__mi" disabled={atFirst} aria-disabled={atFirst || undefined} onClick={() => { moveCol(c.field, -1); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(-90deg)" }} /> Move left</button>
+                  <button type="button" role="menuitem" className="twc-dt__mi" disabled={atLast} aria-disabled={atLast || undefined} onClick={() => { moveCol(c.field, 1); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(90deg)" }} /> Move right</button>
+                </>);
+              })() : null}
               {c.pinnable ? (<>
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={pins.left.includes(c.field) || undefined} onClick={() => { setPin(c.field, pins.left.includes(c.field) ? null : "left"); close(); }}><Svg d={I.pinL} /> {pins.left.includes(c.field) ? "Unpin" : "Pin to left"}</button>
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={pins.right.includes(c.field) || undefined} onClick={() => { setPin(c.field, pins.right.includes(c.field) ? null : "right"); close(); }}><Svg d={I.pin} /> {pins.right.includes(c.field) ? "Unpin" : "Pin to right"}</button>
