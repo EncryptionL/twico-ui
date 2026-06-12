@@ -1,5 +1,5 @@
 import React from "react";
-import { Datatable, Badge, Avatar, Alert, Text, Progress } from "twico-ui";
+import { Datatable, runDatatableQuery, Badge, Avatar, Alert, Text, Progress } from "twico-ui";
 import { makePeople, usd, STATUS_TONE } from "./_datatableData.js";
 
 /* ------------------------------------------------------------------ icons */
@@ -39,105 +39,11 @@ const NameCell = (v, row) => (
 );
 
 /* ================================================================== 1. SERVER */
-/**
- * Component-faithful filter test. Mirrors the operators the Datatable's own
- * filter panel applies so the simulated backend returns exactly what the user
- * expects to see for each operator.
- */
-function testFilter(raw, op, target, type) {
-  if (op === "isEmpty") return raw == null || raw === "";
-  if (op === "isNotEmpty") return !(raw == null || raw === "");
-  if (op === "isAnyOf") {
-    if (!Array.isArray(target) || target.length === 0) return true;
-    return target.map(String).includes(String(raw));
-  }
-  if (target === "" || target == null) return true;
-  if (type === "number") {
-    const a = Number(raw), b = Number(target);
-    if (Number.isNaN(a) || Number.isNaN(b)) return true;
-    switch (op) {
-      case "=": return a === b;
-      case "!=": return a !== b;
-      case ">": return a > b;
-      case ">=": return a >= b;
-      case "<": return a < b;
-      case "<=": return a <= b;
-      default: return true;
-    }
-  }
-  const s = String(raw ?? "").toLowerCase(), t = String(target).toLowerCase();
-  switch (op) {
-    case "equals": return s === t;
-    case "startsWith": return s.startsWith(t);
-    case "endsWith": return s.endsWith(t);
-    default: return s.includes(t);
-  }
-}
-
-// The single in-memory "database" the simulated backend queries against.
+// The single in-memory "database" the simulated backend queries against. In a
+// real app this lives behind your API; `runDatatableQuery` (from twico-ui)
+// applies the grid's own filter/sort/search/paging semantics so a fake or real
+// backend returns exactly what client mode would.
 const DB = makePeople(300);
-
-// Column type lookup used by the query() to pick numeric vs. string comparison.
-const SERVER_COL_TYPE = {
-  name: "string", email: "string", role: "string", department: "string",
-  status: "string", country: "string", seats: "number", mrr: "number",
-  salary: "number", score: "number", startDate: "string",
-};
-
-const STRING_FIELDS = ["name", "email", "role", "department", "status", "country", "startDate"];
-
-/**
- * Run a full server-style query over DB: quick-filter -> column filters ->
- * sort -> aggregation (over the FILTERED set) -> page slice. Pure + synchronous;
- * the latency is faked by the caller.
- */
-function query(q) {
-  let filtered = DB;
-
-  // 1) quick filter — case-insensitive substring across all string fields.
-  const quick = (q.quickFilter || "").trim().toLowerCase();
-  if (quick) {
-    filtered = filtered.filter((r) =>
-      STRING_FIELDS.some((f) => String(r[f] ?? "").toLowerCase().includes(quick))
-    );
-  }
-
-  // 2) per-column filters.
-  for (const f of q.filters || []) {
-    const type = SERVER_COL_TYPE[f.field] || "string";
-    filtered = filtered.filter((r) => testFilter(r[f.field], f.op, f.value, type));
-  }
-
-  // 3) sort.
-  if (q.sort && q.sort.field) {
-    const { field, dir } = q.sort;
-    const numeric = SERVER_COL_TYPE[field] === "number";
-    const sign = dir === "desc" ? -1 : 1;
-    filtered = filtered.slice().sort((a, b) => {
-      if (numeric) return (Number(a[field]) - Number(b[field])) * sign;
-      return String(a[field] ?? "").localeCompare(String(b[field] ?? "")) * sign;
-    });
-  }
-
-  const total = filtered.length;
-
-  // 4) aggregation over the FILTERED set (per-function maps per field). Pass RAW
-  // numbers — each column's own valueFormatter (usd) formats the footer value, so
-  // pre-formatting here would double-format into "$NaN".
-  const sum = (key) => filtered.reduce((acc, r) => acc + Number(r[key] || 0), 0);
-  const salarySum = sum("salary");
-  const agg = {
-    salary: { sum: salarySum, avg: total ? Math.round(salarySum / total) : 0 },
-    mrr: { sum: sum("mrr") },
-    seats: { sum: sum("seats") },
-  };
-
-  // 5) page slice.
-  const start = q.page * q.pageSize;
-  const rows = filtered.slice(start, start + q.pageSize);
-
-  return { rows, total, agg };
-}
 
 const SERVER_COLUMNS = [
   { field: "name", headerName: "Name", width: 230, renderCell: NameCell },
@@ -161,29 +67,32 @@ const SERVER_COLUMNS = [
 
 const SERVER_PAGE_SIZE = 10;
 
+// Stands in for your backend: runDatatableQuery does the filter/sort/search/page
+// work; you only add app-specific totals over the filtered set for the footer.
+function load(q) {
+  const { rows, total, filtered } = runDatatableQuery(DB, q, { columns: SERVER_COLUMNS });
+  const sum = (k) => filtered.reduce((n, r) => n + Number(r[k] || 0), 0);
+  const agg = {
+    salary: { sum: sum("salary"), avg: total ? Math.round(sum("salary") / total) : 0 },
+    mrr: { sum: sum("mrr") },
+    seats: { sum: sum("seats") },
+  };
+  return { rows, total, agg, loading: false };
+}
+
 function ServerSideDemo() {
   const reqId = React.useRef(0);
-  // Seed synchronously by running the query once for page 0 so the first paint
-  // already has data (no flash of empty state).
-  const seed = React.useMemo(
-    () => query({ page: 0, pageSize: SERVER_PAGE_SIZE, sort: null, filters: [], quickFilter: "" }),
-    []
+  const [state, setState] = React.useState(() =>
+    load({ page: 0, pageSize: SERVER_PAGE_SIZE, sort: null, filters: [], quickFilter: "" })
   );
-  const [state, setState] = React.useState({
-    rows: seed.rows,
-    total: seed.total,
-    agg: seed.agg,
-    loading: false,
-  });
 
   const handleServerChange = React.useCallback((q) => {
     const id = ++reqId.current;
     setState((s) => ({ ...s, loading: true }));
     // Fake network latency; only the LATEST request is allowed to win.
     setTimeout(() => {
-      const { rows, total, agg } = query(q);
       if (id !== reqId.current) return; // stale response — drop it.
-      setState({ rows, total, agg, loading: false });
+      setState(load(q));
     }, 350);
   }, []);
 
@@ -424,93 +333,57 @@ const variations = [
     title: "Server-side data (sorting, filtering, paging, aggregation)",
     description:
       "A full server-mode grid wired to a simulated 300-row backend — sort, the per-column filter panel, quick search, paging, and the totals footer all round-trip through onServerChange with debounce + latency.",
-    code: `// makePeople(), usd, NameCell, StatusBadge and the *_OPTIONS arrays are your
-// own data + cell renderers. serverMode means the grid never sorts/filters/pages
-// the rows you pass — it calls onServerChange with the query and you return the
-// matching page. The query() helper below stands in for your real backend.
+    code: `import { Datatable, runDatatableQuery } from "twico-ui";
 
-const DB = makePeople(300);                 // your data source (DB / REST / GraphQL)
-const STRING_FIELDS = ["name", "email", "role", "department", "status", "country", "startDate"];
-const COL_TYPE = { seats: "number", mrr: "number", salary: "number" }; // others default to string
+const DB = makePeople(300); // your data (or a REST / GraphQL endpoint)
 
-// Apply one filter exactly like the grid's own filter panel does, per operator.
-function testFilter(raw, op, target, type) {
-  if (op === "isEmpty") return raw == null || raw === "";
-  if (op === "isNotEmpty") return !(raw == null || raw === "");
-  if (op === "isAnyOf") return !target?.length || target.map(String).includes(String(raw));
-  if (target === "" || target == null) return true;
-  if (type === "number") {
-    const a = Number(raw), b = Number(target);
-    if (Number.isNaN(a) || Number.isNaN(b)) return true;
-    return ({ "=": a === b, "!=": a !== b, ">": a > b, ">=": a >= b, "<": a < b, "<=": a <= b })[op] ?? true;
-  }
-  const s = String(raw ?? "").toLowerCase(), t = String(target).toLowerCase();
-  if (op === "equals") return s === t;
-  if (op === "startsWith") return s.startsWith(t);
-  if (op === "endsWith") return s.endsWith(t);
-  return s.includes(t);
-}
+const columns = [
+  { field: "name", headerName: "Name", renderCell: NameCell },
+  { field: "role", headerName: "Role", valueOptions: ["Admin", "Editor", "Viewer"] },
+  { field: "department", headerName: "Department", valueOptions: DEPARTMENT_OPTIONS },
+  { field: "status", headerName: "Status", valueOptions: STATUS_OPTIONS, renderCell: StatusBadge },
+  { field: "country", headerName: "Country", valueOptions: COUNTRY_OPTIONS },
+  { field: "seats", headerName: "Seats", type: "number", aggregation: "sum" },
+  { field: "mrr", headerName: "MRR", type: "number", aggregation: "sum", valueFormatter: usd },
+  { field: "salary", headerName: "Salary", type: "number", aggregation: "avg", valueFormatter: usd },
+];
 
-// The "backend": quickFilter -> column filters -> sort -> aggregate -> page slice.
-// In a real app this is one fetch() to your API with the query state.
-function query(q) {
-  let rows = DB;
-  const quick = (q.quickFilter || "").trim().toLowerCase();
-  if (quick) rows = rows.filter((r) => STRING_FIELDS.some((f) => String(r[f] ?? "").toLowerCase().includes(quick)));
-  for (const f of q.filters || []) rows = rows.filter((r) => testFilter(r[f.field], f.op, f.value, COL_TYPE[f.field] || "string"));
-  if (q.sort) {
-    const { field, dir } = q.sort, sign = dir === "desc" ? -1 : 1, numeric = COL_TYPE[field] === "number";
-    rows = rows.slice().sort((a, b) => (numeric ? a[field] - b[field] : String(a[field]).localeCompare(String(b[field]))) * sign);
-  }
-  const total = rows.length;
-  const sum = (k) => rows.reduce((n, r) => n + Number(r[k] || 0), 0); // aggregate the FILTERED set
+// Your backend. runDatatableQuery applies the grid's own filter/sort/search/paging
+// to an array; swap it for a fetch(). You add app-specific totals for the footer.
+function load(q) {
+  const { rows, total, filtered } = runDatatableQuery(DB, q, { columns });
+  const sum = (k) => filtered.reduce((n, r) => n + r[k], 0);
   const agg = {
     salary: { sum: sum("salary"), avg: total ? Math.round(sum("salary") / total) : 0 },
     mrr: { sum: sum("mrr") },
     seats: { sum: sum("seats") },
   };
-  const start = q.page * q.pageSize;
-  return { rows: rows.slice(start, start + q.pageSize), total, agg };
+  return { rows, total, agg, loading: false };
 }
 
 function ServerSideDemo() {
-  const reqId = React.useRef(0);
-  const [state, setState] = React.useState(() => {
-    const r = query({ page: 0, pageSize: 10, sort: null, filters: [], quickFilter: "" });
-    return { rows: r.rows, total: r.total, agg: r.agg, loading: false };
-  });
+  const [state, setState] = useState(() =>
+    load({ page: 0, pageSize: 10, sort: null, filters: [], quickFilter: "" })
+  );
 
-  const onServerChange = React.useCallback((q) => {
-    const id = ++reqId.current;
+  // onServerChange fires (debounced) whenever sort/filters/search/page change.
+  const onServerChange = (q) => {
     setState((s) => ({ ...s, loading: true }));
-    setTimeout(() => {                         // fake ~350ms latency
-      const { rows, total, agg } = query(q);   // quickFilter -> filters -> sort -> agg -> page
-      if (id !== reqId.current) return;        // latest request wins
-      setState({ rows, total, agg, loading: false });
-    }, 350);
-  }, []);
+    setTimeout(() => setState(load(q)), 350); // <- replace with your fetch(q)
+  };
 
   return (
     <Datatable
       serverMode
+      columns={columns}
       rows={state.rows}
       rowCount={state.total}
       loading={state.loading}
       onServerChange={onServerChange}
-      aggregationValues={state.agg}   // { salary:{avg,sum}, mrr:{sum}, seats:{sum} }
+      aggregationValues={state.agg}
       showAggregation
       pageSize={10}
       pageSizeOptions={[10, 25, 50]}
-      columns={[
-        { field: "name", headerName: "Name", renderCell: NameCell },
-        { field: "role", headerName: "Role", valueOptions: ["Admin", "Editor", "Viewer"] },
-        { field: "department", headerName: "Department", valueOptions: DEPARTMENT_OPTIONS },
-        { field: "status", headerName: "Status", valueOptions: STATUS_OPTIONS, renderCell: StatusBadge },
-        { field: "country", headerName: "Country", valueOptions: COUNTRY_OPTIONS },
-        { field: "seats", headerName: "Seats", type: "number", aggregation: "sum" },
-        { field: "mrr", headerName: "MRR", type: "number", aggregation: "sum", valueFormatter: usd },
-        { field: "salary", headerName: "Salary", type: "number", aggregation: "avg", valueFormatter: usd },
-      ]}
     />
   );
 }`,
