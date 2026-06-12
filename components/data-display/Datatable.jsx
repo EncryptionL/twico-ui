@@ -569,7 +569,7 @@ function EditCell({ col, value, options, onChange, onCommit, onCommitValue, onCa
     return (
       <div className="twc-dt__editor-wrap" ref={ref}
         onKeyDown={(e) => { if (e.key === "Escape") { e.stopPropagation(); onCancel(); } }}>
-        <Select size="sm" value={value ?? ""} options={opts} placeholder="Select…"
+        <Select size="sm" portal value={value ?? ""} options={opts} placeholder="Select…"
           onChange={(v) => onCommitValue(v)} />
       </div>
     );
@@ -1831,7 +1831,7 @@ export function Datatable({
             <div className="twc-dt__rpp">
               <span className="twc-dt__rpp-label">Rows per page</span>
               <div style={{ width: 78 }}>
-                <Select size="sm" value={String(rowsPerPage)} options={rppOptions} placement="top" onChange={(v) => { setRowsPerPage(Number(v)); setPage(0); }} />
+                <Select size="sm" portal value={String(rowsPerPage)} options={rppOptions} placement="top" onChange={(v) => { setRowsPerPage(Number(v)); setPage(0); }} />
               </div>
             </div>
           ) : null}
@@ -2092,12 +2092,12 @@ export function Datatable({
               return (
                 <div className="twc-dt__frow" key={f.id}>
                   <div className="twc-dt__f-col">
-                    <Select size="sm" value={f.field}
+                    <Select size="sm" portal value={f.field}
                       options={filterableCols.map((c) => ({ value: c.field, label: c.headerName }))}
                       onChange={(v) => { const nc = colByField[v]; setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, field: v, op: opsFor(nc.type)[0].value, value: "" } : x)); }} />
                   </div>
                   <div className="twc-dt__f-op">
-                    <Select size="sm" value={f.op}
+                    <Select size="sm" portal value={f.op}
                       options={ops.map((o) => ({ value: o.value, label: o.label }))}
                       onChange={(v) => setFilters((arr) => arr.map((x) => {
                         if (x.id !== f.id) return x;
@@ -2107,7 +2107,7 @@ export function Datatable({
                   </div>
                   <div className="twc-dt__f-val">
                     {op.noInput ? null : op.multi ? (
-                      <MultiSelect placeholder="Any of…" value={Array.isArray(f.value) ? f.value : []}
+                      <MultiSelect portal placeholder="Any of…" value={Array.isArray(f.value) ? f.value : []}
                         options={optionsForField(f.field)}
                         onChange={(vals) => setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, value: vals } : x))} />
                     ) : (
