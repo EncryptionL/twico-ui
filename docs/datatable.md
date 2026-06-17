@@ -138,6 +138,20 @@ pattern the shared overlay components (Menu, Popover, Select/MultiSelect/Combobo
 used — the Datatable hook was the lone exception. Relatedly, the batch editor closes itself if the
 selection empties while it is open (no more "Edit 0 selected rows").
 
+### Column auto-fit (double-click the resize handle)
+
+The header resize handle (`.twc-dt__resizer`) still drags to resize, and now **double-clicking** it
+(or focusing it and pressing **Enter/Space**) auto-fits the column to its content, Excel-style.
+`autoFitColumn(field, thEl)` measures the **widest content** among the header and the currently
+**rendered** body cells of that column: each cell's content is cloned into an off-screen,
+`white-space: nowrap`, unconstrained `<div>` and its `scrollWidth` is read, so it works for plain text,
+numbers, and `renderCell` output (badges, avatars) alike — and because it measures the *natural* width
+(not the clipped `scrollWidth` of the live cell) it can **shrink** an over-wide column as well as grow a
+truncated one. The result is `clamp(72, content + cell padding + 6, 640)` written into the same
+`widths` state the drag path uses. Only rendered rows are measured (the current page / virtualization
+window), which is the standard grid trade-off. Gated by the same `disableColumnResize` / per-column
+`resizable` flags as drag resize.
+
 ### Filter row layout
 
 `.twc-dt__filters` is **580px** wide (was 460). The field (`.twc-dt__f-col`) and operator

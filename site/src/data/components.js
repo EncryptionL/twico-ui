@@ -2615,7 +2615,7 @@ export const components = [
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Prevents users from dragging column edges to resize them, locking column widths; off by default."
+        "description": "Prevents resizing columns, locking their widths; off by default. When enabled, drag a header's right edge to resize, or double-click it to auto-fit the column to its content (Excel-style)."
       },
       {
         "prop": "editMode",

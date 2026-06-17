@@ -1271,6 +1271,43 @@ export function Datatable({
     window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
   }
 
+  // Excel-style auto-fit: double-clicking the resize handle sizes the column to the
+  // widest content among the header and the currently-rendered body cells. Each cell's
+  // content is cloned into an off-screen, unconstrained, nowrap node and measured, so it
+  // works for text, numbers, badges, and avatars alike — and can shrink as well as grow.
+  function autoFitColumn(field, thEl) {
+    const ci = ordered.findIndex((x) => x.field === field);
+    const table = thEl && thEl.closest("table");
+    if (ci < 0 || !table) return;
+    const cells = [thEl, ...table.querySelectorAll(`td[data-c="${ci}"]`)];
+    const meas = document.createElement("div");
+    meas.setAttribute("aria-hidden", "true");
+    meas.style.cssText =
+      "position:fixed;left:-9999px;top:-9999px;visibility:hidden;pointer-events:none;white-space:nowrap;display:inline-block;box-sizing:content-box;padding:0;";
+    document.body.appendChild(meas);
+    let content = 0, pad = 0;
+    try {
+      for (const cell of cells) {
+        // measure the header's inner content (skip the resizer/absolute bits) and full td content
+        const src = cell.tagName === "TH" ? (cell.querySelector(".twc-dt__th-inner") || cell) : cell;
+        const cs = getComputedStyle(cell);
+        meas.style.font = cs.font;
+        meas.style.fontFamily = cs.fontFamily;
+        meas.style.fontSize = cs.fontSize;
+        meas.style.fontWeight = cs.fontWeight;
+        meas.style.letterSpacing = cs.letterSpacing;
+        meas.innerHTML = src.innerHTML;
+        content = Math.max(content, meas.scrollWidth);
+        pad = Math.max(pad, (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0));
+      }
+    } finally {
+      meas.innerHTML = "";
+      document.body.removeChild(meas);
+    }
+    const w = Math.min(640, Math.max(72, Math.ceil(content) + Math.ceil(pad) + 6));
+    setWidths((m) => ({ ...m, [field]: w }));
+  }
+
   // ---- Column reorder (HTML5 drag-and-drop on header label) ----
   function onColDrop(targetField) {
     const fromField = drag.from;
@@ -1920,16 +1957,22 @@ export function Datatable({
                       ) : null}
                     </div>
                     {resizable ? <span className="twc-dt__resizer" data-active={resizing || undefined}
-                      role="separator" aria-orientation="vertical" aria-label={`Resize ${c.headerName} column`}
+                      role="separator" aria-orientation="vertical" aria-label={`Resize ${c.headerName} column (double-click to fit content)`}
                       aria-valuenow={w} aria-valuemin={72} tabIndex={0}
                       onPointerDown={(e) => startResize(e, c.field)} onClick={(e) => e.stopPropagation()}
+                      onDoubleClick={(e) => { e.preventDefault(); e.stopPropagation(); autoFitColumn(c.field, e.currentTarget.closest("th")); }}
                       onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault(); e.stopPropagation();
+                          autoFitColumn(c.field, e.currentTarget.closest("th"));
+                          return;
+                        }
                         if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
                         e.preventDefault(); e.stopPropagation();
                         const delta = e.key === "ArrowRight" ? 10 : -10;
                         setWidths((m) => ({ ...m, [c.field]: Math.max(72, (m[c.field] ?? c.width ?? 160) + delta) }));
                       }}
-                      title="Drag to resize" /> : null}
+                      title="Drag to resize · double-click to fit content" /> : null}
                   </th>
                 );
               })}

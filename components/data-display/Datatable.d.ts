@@ -63,7 +63,9 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
    *  rearrange only the movable, unpinned columns and leave pinned/actions columns in place.
    *  @default false */
   disableColumnReorder?: boolean;
-  /** Disable drag-to-resize of columns. @default false */
+  /** Disable column resizing. When enabled (the default off), drag a header's right edge to resize a
+   *  column, or **double-click** that edge to auto-fit the column to its widest visible content
+   *  (header + rendered cells), Excel-style. @default false */
   disableColumnResize?: boolean;
   /** Make all columns editable by default (double-click a cell to edit; per-column `editable` overrides). @default false */
   editMode?: boolean;
