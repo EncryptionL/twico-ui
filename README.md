@@ -162,7 +162,7 @@ import { indigo, slate, emerald, amber, rose, sky } from "twico-ui/colors";
 const brand = indigo[500]; // "#6366f1"
 ```
 
-Each hue is an object keyed by shade (`50`–`950` for `indigo`/`slate`; `50/400/500/600` for the four semantic hues). These are static values — unlike the `--color-*` aliases, they do not flip in dark mode.
+Each hue is an object keyed by shade — a full `50`–`950` ramp (`50, 100, 200, … 900, 950`). These are static values — unlike the `--color-*` aliases, they do not flip in dark mode.
 
 ## Components
 

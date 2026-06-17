@@ -24,8 +24,8 @@ describe("twico-ui/colors ↔ tokens/colors.css", () => {
   const prims = cssPrimitives();
 
   it("CSS declares the primitives the test expects to find", () => {
-    // Sanity: indigo/slate are full 11-step scales; the four semantic hues are 4-step.
-    expect(Object.keys(prims).length).toBe(11 + 11 + 4 + 4 + 4 + 4);
+    // Sanity: all six hues are full 11-step ramps (50–950).
+    expect(Object.keys(prims).length).toBe(11 * 6);
   });
 
   for (const [hue, scale] of Object.entries(SCALES)) {
