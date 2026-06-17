@@ -651,6 +651,104 @@ export const components = [
         "description": "Sets which element or tag the box renders as, defaulting to \"div\" but accepting any semantic HTML element type."
       },
       {
+        "prop": "p",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Padding on all sides — a spacing-scale step (number) or any CSS length."
+      },
+      {
+        "prop": "px",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Horizontal padding (inline start + end) — spacing step or CSS length."
+      },
+      {
+        "prop": "py",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Vertical padding (block start + end) — spacing step or CSS length."
+      },
+      {
+        "prop": "pt",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Padding top — spacing step or CSS length."
+      },
+      {
+        "prop": "pr",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Padding right (inline end) — spacing step or CSS length."
+      },
+      {
+        "prop": "pb",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Padding bottom — spacing step or CSS length."
+      },
+      {
+        "prop": "pl",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Padding left (inline start) — spacing step or CSS length."
+      },
+      {
+        "prop": "m",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Margin on all sides — a spacing-scale step (number) or any CSS length."
+      },
+      {
+        "prop": "mx",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Horizontal margin (inline start + end) — spacing step or CSS length."
+      },
+      {
+        "prop": "my",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Vertical margin (block start + end) — spacing step or CSS length."
+      },
+      {
+        "prop": "mt",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Margin top — spacing step or CSS length."
+      },
+      {
+        "prop": "mr",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Margin right (inline end) — spacing step or CSS length."
+      },
+      {
+        "prop": "mb",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Margin bottom — spacing step or CSS length."
+      },
+      {
+        "prop": "ml",
+        "type": "number | string",
+        "required": false,
+        "default": "—",
+        "description": "Margin left (inline start) — spacing step or CSS length."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
