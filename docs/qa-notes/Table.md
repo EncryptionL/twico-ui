@@ -1,12 +1,12 @@
 # QA notes — Table
 
 - **Group:** data-display
-- **Status:** open (1 issue)
+- **Status:** clean
 - **Reviewed:** 2026-06-17
 
 ## Open issues
 
-- [ ] **[P2] Sticky header z-index stacking conflict** — When table has stickyHeader=true AND rows are selected (background: primary-subtle), the header stays at z-index: 1 but selected rows may paint *over* it visually if they scroll up. The header's inset shadow (box-shadow: inset 0 calc(-1 * var(--border-thin))...) doesn't always clip selected-row color. _Fix:_ Ensure selected row background is lighter or add a subtle outline to the header, or use z-index: 2 for header. `Table.jsx:28`
+- [x] **[P2] Sticky header z-index stacking conflict** — ✓ fixed 2026-06-17 (header bumped to z-index: 2 so a selected row's tint can't paint over it). When table has stickyHeader=true AND rows are selected (background: primary-subtle), the header stays at z-index: 1 but selected rows may paint *over* it visually if they scroll up. The header's inset shadow (box-shadow: inset 0 calc(-1 * var(--border-thin))...) doesn't always clip selected-row color. _Fix:_ Ensure selected row background is lighter or add a subtle outline to the header, or use z-index: 2 for header. `Table.jsx:28`
 
 ## Verified OK
 

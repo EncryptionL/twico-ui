@@ -103,6 +103,11 @@ export function Tabs({
   React.useEffect(() => {
     const r = () => updateIndicator();
     window.addEventListener("resize", r);
+    // Re-measure once webfonts finish loading: tab widths change after a late font
+    // swap, otherwise the indicator stays sized to the fallback font until a resize.
+    if (typeof document !== "undefined" && document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(r).catch(() => {});
+    }
     return () => window.removeEventListener("resize", r);
   }, [updateIndicator]);
 
