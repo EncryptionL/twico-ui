@@ -40,7 +40,7 @@ const DATEPICKER_CSS = `
 .twc-dp__clear svg { width: 14px; height: 14px; }
 
 .twc-dp__pop {
-  position: absolute; z-index: var(--z-popover); top: calc(100% + 6px); inset-inline-start: 0; width: 280px;
+  position: fixed; z-index: var(--z-popover); width: 280px;
   background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: var(--space-3);
   animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top;
@@ -271,7 +271,7 @@ export function DatePicker({
 
       {open && coords ? createPortal(
         <div className="twc-dp__pop" ref={popRef} role="dialog" aria-label="Choose date"
-          style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, insetInlineStart: "auto", zIndex: "var(--z-tooltip)" }}>
+          style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" }}>
           <div className="twc-dp__head">
             <button type="button" className="twc-dp__nav" aria-label="Previous" onClick={() => setView(mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1))}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
