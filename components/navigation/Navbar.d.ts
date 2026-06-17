@@ -17,6 +17,11 @@ export interface NavbarLink {
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   /** Brand/logo node at the left. */
   brand?: React.ReactNode;
+  /** If set, the brand becomes a link to this URL (sanitized). Otherwise the brand is a
+   *  plain, non-navigating element unless `onBrandClick` is given. */
+  brandHref?: string;
+  /** Click handler for the brand; renders it as a button when `brandHref` is not set. */
+  onBrandClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   /** Center nav links. */
   links?: NavbarLink[];
   /** Right-aligned actions (buttons, avatar, etc.). */

@@ -6,7 +6,9 @@ const NAVBAR_CSS = `
 .twc-navbar[data-sticky="true"] { position: sticky; top: 0; z-index: var(--z-sticky);
   background: color-mix(in srgb, var(--color-surface) 85%, transparent); backdrop-filter: blur(10px); }
 .twc-navbar__brand { display: inline-flex; align-items: center; gap: var(--space-2-5); font-weight: var(--font-extrabold);
-  font-size: var(--text-lg); letter-spacing: -0.02em; color: var(--color-text); text-decoration: none; flex: none; }
+  font-size: var(--text-lg); letter-spacing: -0.02em; color: var(--color-text); text-decoration: none; flex: none;
+  border: none; background: none; padding: 0; font-family: inherit; }
+button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-navbar__links { display: flex; align-items: center; gap: 2px; }
 .twc-navbar__link { display: inline-flex; align-items: center; gap: 7px; padding: 8px 12px; border-radius: var(--radius-md);
   font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-muted); text-decoration: none; cursor: pointer;
@@ -37,6 +39,8 @@ function safeHref(url) {
 
 export function Navbar({
   brand,
+  brandHref,
+  onBrandClick,
   links = [],
   actions,
   sticky = true,
@@ -59,7 +63,11 @@ export function Navbar({
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
       ) : null}
-      {brand ? <a className="twc-navbar__brand" href="#">{brand}</a> : null}
+      {brand ? (
+        brandHref ? <a className="twc-navbar__brand" href={safeHref(brandHref)}>{brand}</a>
+        : onBrandClick ? <button type="button" className="twc-navbar__brand" onClick={onBrandClick}>{brand}</button>
+        : <span className="twc-navbar__brand">{brand}</span>
+      ) : null}
       <nav className="twc-navbar__links">
         {links.map((l, i) => {
           const href = safeHref(l.href);
