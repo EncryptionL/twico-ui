@@ -7,6 +7,17 @@ name: Interaction check
 #                              keyboard, require zero pageerrors / console errors
 # Both scripts exit non-zero on any error, failing the job.
 on:
+  push:
+    branches: [dev, main]
+    paths:
+      - "site/**"
+      - "components/**"
+      - "src/**"
+      - "hooks/**"
+      - "styles/**"
+      - "tokens/**"
+      - "base.css"
+      - ".github/workflows/interaction.yml"
   pull_request:
     branches: [dev, main]
     paths:
