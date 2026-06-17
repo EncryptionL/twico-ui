@@ -265,28 +265,36 @@ function EditingDemo() {
 }
 
 /* ============================================================== 5. VIRTUALIZED */
+// Notes of deliberately varied length so rows differ in height once the Note column wraps.
+const NOTES = [
+  "Primary account owner.",
+  "Renewal next quarter — flagged for an upsell about additional seats and the analytics add-on, pending a budget sign-off from their finance team.",
+  "Trial converted last month.",
+  "Key stakeholder; prefers email over calls and owns the security review for their whole org.",
+  "—",
+  "Migrated off the legacy plan; watch for billing edge cases around mid-cycle proration and the grandfathered discount that carried over.",
+];
 function VirtualizedDemo() {
-  const data = React.useMemo(() => makePeople(500), []);
+  const data = React.useMemo(() => makePeople(500).map((r, i) => ({ ...r, note: NOTES[i % NOTES.length] })), []);
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
       <Text size="sm" tone="muted" style={{ margin: 0 }}>
-        Pagination is off (<code>pageSize={0}</code>) and <code>virtualized</code> is on, so the
-        grid windows the rows — only the handful near the viewport are in the DOM while you scroll
-        all 500 rows.
+        Pagination is off (<code>pageSize={0}</code>) and <code>virtualized</code> is on, so the grid
+        windows the rows — only the handful near the viewport are in the DOM while you scroll all 500.
+        The <strong>Note</strong> column wraps, so rows differ in height; windowing measures each row,
+        so the scrollbar and spacing stay accurate (variable-height virtualization).
       </Text>
       <Datatable
         rows={data}
         pageSize={0}
         virtualized
-        height={420}
-        density="compact"
+        height={440}
         columns={[
-          { field: "name", headerName: "Name", width: 220, renderCell: NameCell },
-          { field: "role", headerName: "Role", width: 120 },
-          { field: "department", headerName: "Department", width: 150 },
-          { field: "status", headerName: "Status", width: 130, renderCell: StatusBadge },
-          { field: "country", headerName: "Country", width: 100 },
-          { field: "mrr", headerName: "MRR", type: "number", width: 120, valueFormatter: (v) => usd(v) },
+          { field: "name", headerName: "Name", width: 200, renderCell: NameCell },
+          { field: "role", headerName: "Role", width: 110 },
+          { field: "status", headerName: "Status", width: 120, renderCell: StatusBadge },
+          { field: "note", headerName: "Note", width: 300, wrapText: true },
+          { field: "mrr", headerName: "MRR", type: "number", width: 110, valueFormatter: (v) => usd(v) },
         ]}
       />
     </div>
@@ -555,21 +563,20 @@ function ServerSideDemo() {
     render: () => <EditingDemo />,
   },
   {
-    title: "Virtualized large dataset",
+    title: "Virtualized large dataset (variable row heights)",
     description:
-      "With pagination off and virtualization on, the grid windows ~500 rows so only the visible slice is rendered, keeping scrolling smooth.",
+      "With pagination off and virtualization on, the grid windows ~500 rows so only the visible slice is in the DOM. The wrapped Note column makes rows differ in height — windowing measures each rendered row and caches it by key, so the scrollbar and row spacing stay accurate even with mixed heights.",
     code: `<Datatable
-  rows={makePeople(500)}   // large dataset
+  rows={bigRows}           // 500 rows, each with a variable-length note
   pageSize={0}             // pagination off -> one long scroll body
   virtualized              // render only rows near the viewport
-  height={420}
-  density="compact"
+  height={440}
   columns={[
     { field: "name", headerName: "Name", renderCell: NameCell },
     { field: "role", headerName: "Role" },
-    { field: "department", headerName: "Department" },
     { field: "status", headerName: "Status", renderCell: StatusBadge },
-    { field: "country", headerName: "Country" },
+    // wrapText -> some rows are taller; virtualization measures + caches each height
+    { field: "note", headerName: "Note", width: 300, wrapText: true },
     { field: "mrr", headerName: "MRR", type: "number", valueFormatter: usd },
   ]}
 />`,

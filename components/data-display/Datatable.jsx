@@ -1200,15 +1200,52 @@ export function Datatable({
   const onScrollVirtual = React.useCallback((e) => { setScrollTop(e.currentTarget.scrollTop); }, []);
   // Window the middle (non-pinned) rows. Pinned top/bottom rows always render (they're sticky).
   const vh = viewportH || (typeof height === "number" ? height : 440);
-  const vWindow = React.useMemo(() => {
+  // Variable-height windowing: cache each row's MEASURED height by its stable key — rows can differ
+  // in height (tall renderCell content, wrapped text, a drag-resized row), so a single fixed height
+  // would drift the scrollbar. Unmeasured rows fall back to estRowH until they scroll into view once.
+  const rowHRef = React.useRef(new Map());
+  const [measureTick, setMeasureTick] = React.useState(0);
+  // Prefix-sum of row tops: offsets[i] = y of row i's top, offsets[total] = total height. Rebuilt only
+  // when the row set or a measurement changes — NOT on every scroll.
+  const offsets = React.useMemo(() => {
     if (!virtualizing) return null;
     const total = middleRows.length;
-    const visCount = Math.ceil(vh / estRowH) + 1;
-    let start = Math.max(0, Math.floor(scrollTop / estRowH) - overscan);
-    let end = Math.min(total, Math.floor(scrollTop / estRowH) + visCount + overscan);
+    const arr = new Float64Array(total + 1);
+    for (let i = 0; i < total; i++) {
+      const h = rowHRef.current.get(String(keyOf(middleRows[i]))) ?? estRowH;
+      arr[i + 1] = arr[i] + h;
+    }
+    return arr;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [virtualizing, middleRows, estRowH, measureTick]);
+  // The window = rows intersecting [scrollTop, scrollTop+vh], padded by `overscan` rows each side,
+  // binary-searched against `offsets` so scrolling stays O(log n).
+  const vWindow = React.useMemo(() => {
+    if (!virtualizing || !offsets) return null;
+    const total = middleRows.length;
+    const totalH = offsets[total];
+    const firstBottomBelow = (y) => { let lo = 0, hi = total; while (lo < hi) { const m = (lo + hi) >> 1; if (offsets[m + 1] <= y) lo = m + 1; else hi = m; } return lo; };
+    const firstTopAtOrBelow = (y, from) => { let lo = from, hi = total; while (lo < hi) { const m = (lo + hi) >> 1; if (offsets[m] < y) lo = m + 1; else hi = m; } return lo; };
+    let start = firstBottomBelow(scrollTop);
+    let end = firstTopAtOrBelow(scrollTop + vh, start);
+    start = Math.max(0, start - overscan);
+    end = Math.min(total, end + overscan);
     if (start > end) start = end;
-    return { start, end, padTop: start * estRowH, padBottom: Math.max(0, (total - end) * estRowH) };
-  }, [virtualizing, middleRows.length, vh, estRowH, scrollTop, overscan]);
+    return { start, end, padTop: offsets[start], padBottom: Math.max(0, totalH - offsets[end]) };
+  }, [virtualizing, offsets, middleRows.length, vh, scrollTop, overscan]);
+  // After each render, measure the windowed rows; if a height changed, refine the cache and re-window.
+  // Self-stabilizing: once a row is measured its height doesn't change from being measured again.
+  React.useLayoutEffect(() => {
+    if (!virtualizing) return;
+    const el = scrollRef.current; if (!el) return;
+    let changed = false;
+    for (const tr of el.querySelectorAll("tr[data-vrow]")) {
+      const key = tr.getAttribute("data-vrow");
+      const h = tr.offsetHeight;
+      if (h > 0 && rowHRef.current.get(key) !== h) { rowHRef.current.set(key, h); changed = true; }
+    }
+    if (changed) setMeasureTick((t) => t + 1);
+  });
 
   // Server-side: report state changes so the parent can fetch the right slice (debounced).
   const onServerChangeRef = React.useRef(onServerChange);
@@ -1678,6 +1715,7 @@ export function Datatable({
         data-row-grabtarget={grabTarget}
         data-row-dropbefore={(reorderable && rowDrag.over === k && !rowDrag.after) || undefined}
         data-row-dropafter={(reorderable && rowDrag.over === k && rowDrag.after) || undefined}
+        data-vrow={virtualizing && midIdx != null ? String(k) : undefined}
         data-selectable={selectionMode !== "none" || undefined}
         style={Object.keys(rowStyle).length ? rowStyle : undefined}
         draggable={reorderable || undefined}

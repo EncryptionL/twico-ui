@@ -448,7 +448,7 @@ export const VARIATIONS = [
   },
   {
     "component": "Datatable",
-    "title": "Virtualized large dataset",
+    "title": "Virtualized large dataset (variable row heights)",
     "i": 4
   },
   {

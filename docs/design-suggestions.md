@@ -19,6 +19,13 @@ ships, delete it here and document it in the relevant doc.
 > announced), and formal `@deprecated` tags on the clear aliases (`Spinner.tone`,
 > `Pagination.showJumper`, `EmptyState.bordered`).
 
+> **Third wave shipped (2026-06-17).** **Datatable variable-height row virtualization** — windowing
+> now measures and caches each rendered row's real height (by stable key) and drives the window off a
+> prefix-sum of those heights, so tall `renderCell` content, `wrapText` columns, and `rowResize` no
+> longer drift the scrollbar (see `docs/datatable.md` → "Row virtualization"). Shipped alongside it
+> (not from this backlog): Datatable **wrap text**, **double-click column auto-fit**, **pin from the
+> Columns panel**, and the floating-popover scroll-tracking + pinned-editable-cell alignment fixes.
+
 ## Still open
 
 These are genuinely deferred — each needs a **major version** (breaking) or a precondition that
@@ -41,7 +48,4 @@ remaining work is the breaking half: make the new name canonical and remove/rede
 | `TreeView.data` / `onSelect(node)` | `items` alias + `onSelectedIdChange` shipped; deprecate `data`, make `onSelect` id-first. |
 | `CurrencyField.onValueChange`, `CommandPalette` item `onSelect`, `Divider` physical `align` | Kept as-is for now (richer signature / semantically fine); revisit if a consistency pass is wanted. |
 
-### Larger feature
-| Suggestion | Why deferred |
-| --- | --- |
-| Datatable virtualization for **variable row heights** | Windowing assumes a fixed row height; tall `renderCell` content or `rowResize` can drift the scrollbar. Needs measure-and-cache row heights. |
+_(The "Larger feature" backlog — Datatable variable-height virtualization — shipped on 2026-06-17; see the Third-wave note above.)_

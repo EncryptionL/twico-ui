@@ -43,14 +43,24 @@ How it works:
 - **Gate.** Windowing is active only when `virtualized` is true, **pagination is effectively off**
   (`pageSize={0}`), row grouping is **not** active, and the table is not in `loading`/skeleton state.
   If any of those don't hold (e.g. you keep pagination, or group rows), it silently renders normally.
-  Row grouping and virtualization are mutually exclusive by design — group/subtotal rows have variable
-  structure that doesn't fit a fixed-height window.
-- **Estimated row height** comes from density (`compact 36 / standard 44 / comfortable 56`px) unless
-  you pass `rowHeight`. This must match the rendered row height for the scrollbar to be accurate.
+  Row grouping and virtualization are mutually exclusive by design — group/subtotal rows interleave
+  with leaf rows and don't fit the flat windowed list (this is structural, not a row-height limit).
+- **Variable row heights are supported.** Rows do **not** have to be uniform — tall `renderCell`
+  content, `wrapText` columns, and drag-resized rows all work. After each render a `useLayoutEffect`
+  measures every windowed row (`tr[data-vrow]`, by `offsetHeight`) and caches its height in a `Map`
+  keyed by the row's **stable key** (`keyOf`). A `Float64Array` prefix-sum of those heights
+  (`offsets[i]` = the y of row *i*'s top) gives exact cumulative offsets; it is rebuilt only when the
+  row set or a measurement changes, never on scroll.
+- **Estimated row height** (`rowHeight`, default the density preset `compact 36 / standard 44 /
+  comfortable 56`) is now only the placeholder for rows **not yet measured** — they refine to their
+  real height the first time they scroll into view. It no longer has to match the rendered height for
+  the scrollbar to be correct; a good estimate just reduces first-paint jitter.
 - **The window** is computed from the scroll container's `scrollTop` (tracked via `onScroll`) and the
-  measured viewport height (a `ResizeObserver` on the `.twc-dt__scroll` element). Rows
-  `[start - overscan, end + overscan]` of the **middle** (non-pinned) rows render; a top spacer `<tr>`
-  (`height = start * rowHeight`) and a bottom spacer keep total height and the scrollbar correct.
+  measured viewport height (a `ResizeObserver` on the `.twc-dt__scroll` element), then **binary-searched
+  against `offsets`** (O(log n) per scroll) for the rows intersecting `[scrollTop, scrollTop + vh]`.
+  Rows `[start - overscan, end + overscan]` of the **middle** (non-pinned) rows render; a top spacer
+  `<tr>` of `height = offsets[start]` and a bottom spacer of `totalHeight - offsets[end]` keep the
+  scrollbar exact.
 - **Pinned rows** (`rowPinning`) always render in their sticky bands — only the scrollable middle band
   is windowed. The sticky header cooperates because it lives outside the windowed `<tbody>` rows.
 - **Selection & inline edit keep working** because they key off the row **id** (`rowKey`), not the
@@ -161,9 +171,10 @@ wrapped column's `<td>` gets `data-wrap="true"`, which the CSS turns into
 `white-space: normal; word-break: break-word; overflow-wrap: anywhere; vertical-align: top` with a bit
 of block padding. The cell keeps its `height: var(--_rowh)` — but `height` on a table cell is a
 **minimum**, so single-line cells are unchanged while taller content grows the row. The menu item
-reads "Wrap text" / "Unwrap text" and is gated to `c.type !== "actions"`. Caveat: wrapping makes rows
-variable-height, so it doesn't combine with `virtualized` (which assumes a fixed `rowHeight`) — same
-trade-off as row grouping.
+reads "Wrap text" / "Unwrap text" and is gated to `c.type !== "actions"`. Wrapping makes rows
+variable-height, which **now works with `virtualized`** too — windowing measures and caches each
+row's real height (see "Row virtualization"). (Row grouping is still mutually exclusive with
+virtualization, but for a structural reason, not row height.)
 
 ### Pinning from the Columns panel
 
