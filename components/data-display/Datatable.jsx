@@ -163,32 +163,32 @@ const DT_CSS = `
 .twc-dt__pivot-vhcell, .twc-dt__pivot-cell { min-width: 104px; }
 .twc-dt__pivot-rowhead { min-width: 180px; }
 /* Corner (row-field label) */
-.twc-dt__pivot-corner { position: sticky; left: 0; top: 0; vertical-align: middle; text-align: center; background: var(--color-surface-sunken); z-index: 9 !important; border-right: var(--border-medium) solid var(--color-border-strong); }
+.twc-dt__pivot-corner { position: sticky; inset-inline-start: 0; top: 0; vertical-align: middle; text-align: center; background: var(--color-surface-sunken); z-index: 9 !important; border-inline-end: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__pivot-corner-label { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
 /* Column-group header levels (e.g. Status ▸ Plan) */
-.twc-dt__pivot-colgroup { text-align: center !important; border-left: var(--border-medium) solid var(--color-border-strong);
+.twc-dt__pivot-colgroup { text-align: center !important; border-inline-start: var(--border-medium) solid var(--color-border-strong);
   background: var(--color-surface-sunken); font-weight: var(--font-bold); color: var(--color-text); letter-spacing: var(--tracking-wide); }
 /* Value sub-header (field + aggregation), centered to sit over its column */
-.twc-dt__pivot-vhcell { vertical-align: bottom; text-align: center !important; border-left: var(--border-thin) solid var(--color-divider); padding-top: 6px; padding-bottom: 6px; }
-.twc-dt__pivot-vhcell[data-group-start] { border-left: var(--border-medium) solid var(--color-border-strong); }
+.twc-dt__pivot-vhcell { vertical-align: bottom; text-align: center !important; border-inline-start: var(--border-thin) solid var(--color-divider); padding-top: 6px; padding-bottom: 6px; }
+.twc-dt__pivot-vhcell[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__pivot-vh { display: inline-flex; flex-direction: column; align-items: center; gap: 1px; line-height: 1.15; }
 .twc-dt__pivot-vh-label { font-weight: var(--font-bold); color: var(--color-text); text-transform: none; letter-spacing: 0; }
 .twc-dt__pivot-vh-agg { font-size: 10px; font-weight: var(--font-semibold); color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.04em; }
 /* Row headers + record counts (must outrank .twc-dt__row > .twc-dt__td:first-child = (0,3,0)) */
 .twc-dt__pivot tbody .twc-dt__pivot-rowhead[data-pin],
-.twc-dt__pivot tfoot .twc-dt__pivot-rowhead[data-pin] { position: sticky; left: 0; z-index: 5; }
-.twc-dt__pivot-rowhead { font-weight: var(--font-semibold); color: var(--color-text); background: var(--color-surface); border-right: var(--border-medium) solid var(--color-border-strong); }
+.twc-dt__pivot tfoot .twc-dt__pivot-rowhead[data-pin] { position: sticky; inset-inline-start: 0; z-index: 5; }
+.twc-dt__pivot-rowhead { font-weight: var(--font-semibold); color: var(--color-text); background: var(--color-surface); border-inline-end: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-rowhead { background: color-mix(in srgb, var(--color-surface-sunken) 45%, var(--color-surface)); }
 .twc-dt__pivot-rowcount { color: var(--color-text-subtle); font-weight: var(--font-normal); font-size: var(--text-xs); }
 /* Body value cells — centered under their header, with group separators */
-.twc-dt__pivot-cell { text-align: center !important; border-left: var(--border-thin) solid var(--color-divider); font-variant-numeric: tabular-nums; }
-.twc-dt__pivot-cell[data-group-start] { border-left: var(--border-medium) solid var(--color-border-strong); }
+.twc-dt__pivot-cell { text-align: center !important; border-inline-start: var(--border-thin) solid var(--color-divider); font-variant-numeric: tabular-nums; }
+.twc-dt__pivot-cell[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-cell { background: color-mix(in srgb, var(--color-surface-sunken) 45%, transparent); }
 .twc-dt__pivot td[data-empty] { color: var(--color-text-subtle); }
 /* Total column group (right) */
 .twc-dt__pivot-total-h:not(.twc-dt__pivot-vhcell) { text-align: center !important; vertical-align: middle; }
 .twc-dt__pivot-total, .twc-dt__pivot-total-h { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); font-weight: var(--font-bold); }
-.twc-dt__pivot-total[data-group-start], .twc-dt__pivot-total-h[data-group-start] { border-left: var(--border-medium) solid var(--color-primary) !important; }
+.twc-dt__pivot-total[data-group-start], .twc-dt__pivot-total-h[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-primary) !important; }
 .twc-dt__pivot-total-h .twc-dt__pivot-vh-label { color: var(--color-primary-subtle-fg); }
 .twc-dt__pivot-total-h .twc-dt__pivot-vh-agg { color: var(--color-primary); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-total { background: var(--color-primary-subtle); }
@@ -291,10 +291,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 /* Pinning */
 .twc-dt__th[data-pin], .twc-dt__td[data-pin] { position: sticky; z-index: 2; }
 .twc-dt__th[data-pin] { z-index: 4; }
-.twc-dt__th[data-pin-edge="left"], .twc-dt__td[data-pin-edge="left"] { box-shadow: 6px 0 8px -6px rgb(15 23 42 / 0.18); }
-.twc-dt__th[data-pin-edge="right"], .twc-dt__td[data-pin-edge="right"] { box-shadow: -6px 0 8px -6px rgb(15 23 42 / 0.18); }
-.dark .twc-dt__th[data-pin-edge="left"], .dark .twc-dt__td[data-pin-edge="left"] { box-shadow: 6px 0 10px -6px rgb(0 0 0 / 0.5); }
-.dark .twc-dt__th[data-pin-edge="right"], .dark .twc-dt__td[data-pin-edge="right"] { box-shadow: -6px 0 10px -6px rgb(0 0 0 / 0.5); }
+/* Pinned-edge separator shadow. box-shadow has no logical form, so --_pin-sx carries
+   the x-direction and flips under RTL (left-pinned sits at the inline-start = right edge). */
+.twc-dt__th[data-pin-edge], .twc-dt__td[data-pin-edge] { --_pin-sx: 6px; }
+[dir="rtl"] .twc-dt__th[data-pin-edge], [dir="rtl"] .twc-dt__td[data-pin-edge] { --_pin-sx: -6px; }
+.twc-dt__th[data-pin-edge="left"], .twc-dt__td[data-pin-edge="left"] { box-shadow: var(--_pin-sx) 0 8px -6px rgb(15 23 42 / 0.18); }
+.twc-dt__th[data-pin-edge="right"], .twc-dt__td[data-pin-edge="right"] { box-shadow: calc(-1 * var(--_pin-sx)) 0 8px -6px rgb(15 23 42 / 0.18); }
+.dark .twc-dt__th[data-pin-edge="left"], .dark .twc-dt__td[data-pin-edge="left"] { box-shadow: var(--_pin-sx) 0 10px -6px rgb(0 0 0 / 0.5); }
+.dark .twc-dt__th[data-pin-edge="right"], .dark .twc-dt__td[data-pin-edge="right"] { box-shadow: calc(-1 * var(--_pin-sx)) 0 10px -6px rgb(0 0 0 / 0.5); }
 
 /* Checkbox column */
 .twc-dt__check { width: 20px; height: 20px; display: grid; place-items: center; border: var(--border-medium) solid var(--color-border-strong);
@@ -386,7 +390,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__empty { padding: 30px 12px; text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
 
 /* Action cell */
-.twc-dt__th[data-actions-col="true"], .twc-dt__td[data-actions="true"] { border-left: var(--border-thin) solid var(--color-border); }
+.twc-dt__th[data-actions-col="true"], .twc-dt__td[data-actions="true"] { border-inline-start: var(--border-thin) solid var(--color-border); }
 .twc-dt__td[data-actions="true"] { overflow: visible; }
 .twc-dt__actions { display: inline-flex; align-items: center; gap: 2px; width: 100%; }
 
@@ -1005,13 +1009,13 @@ export function Datatable({
       let off = leadW;
       for (const f of pins.left) { if (f === field) break; off += widthOf(colByField[f] || {}); }
       const isEdge = pins.left[pins.left.length - 1] === field;
-      return { style: { left: off }, pin: "left", edge: isEdge ? "left" : undefined };
+      return { style: { insetInlineStart: off }, pin: "left", edge: isEdge ? "left" : undefined };
     }
     if (pins.right.includes(field)) {
       let off = 0; const rev = [...pins.right].reverse();
       for (const f of rev) { if (f === field) break; off += widthOf(colByField[f] || {}); }
       const isEdge = pins.right[0] === field;
-      return { style: { right: off }, pin: "right", edge: isEdge ? "right" : undefined };
+      return { style: { insetInlineEnd: off }, pin: "right", edge: isEdge ? "right" : undefined };
     }
     return {};
   };
@@ -1748,7 +1752,7 @@ export function Datatable({
         onDragEnd={reorderable ? () => setRowDrag({ from: null, over: null, after: false }) : undefined}
         onClick={(e) => handleRowClick(e, k, row)}>
         {checkboxSelection ? (
-          <td className="twc-dt__td" role="gridcell" data-pin="left" data-pin-edge={(pins.left.length || showRowNum) ? undefined : "left"} style={{ left: 0, width: 44 }}>
+          <td className="twc-dt__td" role="gridcell" data-pin="left" data-pin-edge={(pins.left.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: 0, width: 44 }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
               {reorderable ? rowHandle(k, midIdx, row) : null}
               <span className="twc-dt__check" data-checked={sel || undefined} onClick={() => toggleRow(k)}
@@ -1759,7 +1763,7 @@ export function Datatable({
           </td>
         ) : null}
         {showRowNum ? (
-          <td className="twc-dt__td twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: numLeft, width: NUM_W }}>
+          <td className="twc-dt__td twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W }}>
             {typeof ri === "number" ? ((paginated || serverMode ? page * rowsPerPage : 0) + ri + 1) : ""}
           </td>
         ) : null}
@@ -1853,7 +1857,7 @@ export function Datatable({
             {cFields.map((cf, lvl) => (
               <tr role="row" key={`lvl${lvl}`}>
                 {lvl === 0 ? (
-                  <th className="twc-dt__th twc-dt__pivot-corner" data-pin="left" data-pin-edge="left" style={{ left: 0 }} rowSpan={totalHeaderRows} scope="col">
+                  <th className="twc-dt__th twc-dt__pivot-corner" data-pin="left" data-pin-edge="left" style={{ insetInlineStart: 0 }} rowSpan={totalHeaderRows} scope="col">
                     <span className="twc-dt__pivot-corner-label">{rowFieldLabel}</span>
                   </th>
                 ) : null}
@@ -1880,7 +1884,7 @@ export function Datatable({
               const subset = rowMap.get(rk);
               return (
                 <tr key={rk} className="twc-dt__row" role="row" data-zebra={rIdx % 2 === 1 || undefined}>
-                  <th className="twc-dt__td twc-dt__pivot-rowhead" scope="row" data-pin="left" data-pin-edge="left" style={{ left: 0 }}>
+                  <th className="twc-dt__td twc-dt__pivot-rowhead" scope="row" data-pin="left" data-pin-edge="left" style={{ insetInlineStart: 0 }}>
                     {rk} <span className="twc-dt__pivot-rowcount">({subset.length})</span>
                   </th>
                   {leafPaths.map((path) => { const cell = rowsForLeaf(subset, path); return values.map((v, vi) => {
@@ -1894,7 +1898,7 @@ export function Datatable({
           </tbody>
           <tfoot>
             <tr role="row">
-              <th className="twc-dt__pivot-rowhead twc-dt__pivot-grand" data-pin="left" data-pin-edge="left" style={{ left: 0 }} scope="row">Total</th>
+              <th className="twc-dt__pivot-rowhead twc-dt__pivot-grand" data-pin="left" data-pin-edge="left" style={{ insetInlineStart: 0 }} scope="row">Total</th>
               {leafPaths.map((path) => { const sub = rowsForLeaf(rows, path); return values.map((v, vi) => <td key={leafKey(path) + v.field} data-num="true" data-group-start={vi === 0 || undefined} className="twc-dt__pivot-cell twc-dt__pivot-grand">{fmt(sub.length ? aggOf(sub, v) : null, v)}</td>); })}
               {values.map((v, vi) => <td key={"t" + v.field} data-num="true" data-group-start={vi === 0 || undefined} className="twc-dt__pivot-cell twc-dt__pivot-grand twc-dt__pivot-total">{fmt(aggOf(rows, v), v)}</td>)}
             </tr>
@@ -1992,7 +1996,7 @@ export function Datatable({
           <thead ref={theadRef}>
             <tr role="row" aria-rowindex={1}>
               {checkboxSelection ? (
-                <th className="twc-dt__th" role="columnheader" aria-label="Select" data-pin="left" data-pin-edge={(pins.left.length || showRowNum) ? undefined : "left"} style={{ left: 0, width: 44, minWidth: 44 }}>
+                <th className="twc-dt__th" role="columnheader" aria-label="Select" data-pin="left" data-pin-edge={(pins.left.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: 0, width: 44, minWidth: 44 }}>
                   <div className="twc-dt__th-inner" style={{ justifyContent: "center", padding: 0 }}>
                     <span className="twc-dt__check" data-checked={allSel || undefined} data-indeterminate={(!allSel && someSel) || undefined} onClick={toggleAll}
                       role="checkbox" aria-checked={allSel ? true : someSel ? "mixed" : false} aria-label="Select all rows" tabIndex={0}
@@ -2003,7 +2007,7 @@ export function Datatable({
                 </th>
               ) : null}
               {showRowNum ? (
-                <th className="twc-dt__th twc-dt__rownum" role="columnheader" aria-label="Row number" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: numLeft, width: NUM_W, minWidth: NUM_W }}>
+                <th className="twc-dt__th twc-dt__rownum" role="columnheader" aria-label="Row number" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W, minWidth: NUM_W }}>
                   <div className="twc-dt__th-inner">
                     <span className="twc-dt__th-label" style={{ flex: "none", cursor: "default" }}>#</span>
                     <button type="button" className="twc-dt__menu-btn" aria-label="Row number column menu"
@@ -2080,8 +2084,8 @@ export function Datatable({
             {loading ? (
               Array.from({ length: paginated ? Math.min(rowsPerPage, 8) : 8 }).map((_, ri) => (
                 <tr key={ri} className="twc-dt__row">
-                  {checkboxSelection ? <td className="twc-dt__td" data-pin="left" style={{ left: 0, width: 44 }}><span className="twc-dt__sk" style={{ "--_w": "18px", height: 18, borderRadius: 4 }} /></td> : null}
-                  {showRowNum ? <td className="twc-dt__td twc-dt__rownum" aria-hidden="true" data-pin="left" style={{ left: numLeft, width: NUM_W }}><span className="twc-dt__sk" style={{ "--_w": "16px", height: 14, borderRadius: 4 }} /></td> : null}
+                  {checkboxSelection ? <td className="twc-dt__td" data-pin="left" style={{ insetInlineStart: 0, width: 44 }}><span className="twc-dt__sk" style={{ "--_w": "18px", height: 18, borderRadius: 4 }} /></td> : null}
+                  {showRowNum ? <td className="twc-dt__td twc-dt__rownum" aria-hidden="true" data-pin="left" style={{ insetInlineStart: numLeft, width: NUM_W }}><span className="twc-dt__sk" style={{ "--_w": "16px", height: 14, borderRadius: 4 }} /></td> : null}
                   {ordered.map((c, ci) => {
                     const st = stickyOf(c.field);
                     return <td key={c.field} className="twc-dt__td" data-num={c.type === "number" || undefined} data-pin={st.pin} data-pin-edge={st.edge} style={{ width: widthOf(c), ...st.style }}>
@@ -2112,8 +2116,8 @@ export function Datatable({
           {hasAggregation && aggOn && !loading && paged.length > 0 ? (
             <tfoot>
               <tr role="row">
-                {checkboxSelection ? <td data-pin="left" data-pin-edge={(pins.left.length || showRowNum) ? undefined : "left"} style={{ left: 0, width: 44 }} /> : null}
-                {showRowNum ? <td className="twc-dt__rownum" aria-hidden="true" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: numLeft, width: NUM_W }} /> : null}
+                {checkboxSelection ? <td data-pin="left" data-pin-edge={(pins.left.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: 0, width: 44 }} /> : null}
+                {showRowNum ? <td className="twc-dt__rownum" aria-hidden="true" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W }} /> : null}
                 {ordered.map((c) => {
                   const st = stickyOf(c.field);
                   const v = aggregate(c);
