@@ -106,7 +106,7 @@ function ensureVisible(list, el) {
 export function MultiSelect({
   label, hint, error, required = false, size = "md", tone = "primary",
   placeholder = "Select…", options, value, defaultValue = [],
-  onChange, clearable = false, disabled = false, placement = "bottom", portal = false, minWidth = 0,
+  onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
   id, className = "", onFocus, onKeyDown, ...rest
 }) {
   React.useInsertionEffect(() => {

@@ -98,7 +98,7 @@ function ensureVisible(list, el) {
 export function Select({
   label, hint, error, required = false, size = "md", tone = "primary",
   placeholder = "Select…", searchPlaceholder = "Search…", searchable, options, value, defaultValue = null,
-  onChange, clearable = false, disabled = false, placement = "bottom", portal = false, minWidth = 0, id, className = "",
+  onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0, id, className = "",
   onClick, onKeyDown, ...rest
 }) {
   React.useInsertionEffect(() => {

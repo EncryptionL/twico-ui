@@ -1,4 +1,5 @@
 import React from "react";
+import { createPortal } from "react-dom";
 
 const FIELD_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
@@ -110,7 +111,10 @@ export function DateRangePicker({
   const [open, setOpen] = React.useState(false);
   const [view, setView] = React.useState(range.start || new Date());
   const [hover, setHover] = React.useState(null);
+  const [coords, setCoords] = React.useState(null);
   const wrapRef = React.useRef(null);
+  const triggerRef = React.useRef(null);
+  const popRef = React.useRef(null);
   const labelId = React.useId();
   const descId = `${labelId}-desc`;
   const invalid = Boolean(error);
@@ -118,9 +122,35 @@ export function DateRangePicker({
   // close the popover if the picker becomes disabled while open
   React.useEffect(() => { if (disabled) setOpen(false); }, [disabled]);
 
+  // Portal the calendar to <body> with fixed positioning so it escapes any clipping
+  // or scrolling ancestor; flips up when there isn't room below.
+  const POP_W = 420;
+  const place = React.useCallback(() => {
+    const el = triggerRef.current; if (!el) return;
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const below = vh - r.bottom;
+    const flip = below < 380 && r.top > below;
+    let left = Math.min(r.left, window.innerWidth - POP_W - 8);
+    left = Math.max(8, left);
+    setCoords({ left, top: flip ? undefined : Math.round(r.bottom + 6), bottom: flip ? Math.round(vh - r.top + 6) : undefined });
+  }, []);
+  React.useEffect(() => {
+    if (!open) return undefined;
+    place();
+    const onMove = () => place();
+    window.addEventListener("scroll", onMove, true);
+    window.addEventListener("resize", onMove);
+    return () => { window.removeEventListener("scroll", onMove, true); window.removeEventListener("resize", onMove); };
+  }, [open, place]);
+
   React.useEffect(() => {
     if (!open) return;
-    const onDown = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false); };
+    const onDown = (e) => {
+      if (wrapRef.current && wrapRef.current.contains(e.target)) return;
+      if (popRef.current && popRef.current.contains(e.target)) return;
+      setOpen(false);
+    };
     const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
     document.addEventListener("mousedown", onDown); document.addEventListener("keydown", onKey);
     return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
@@ -172,7 +202,7 @@ export function DateRangePicker({
           {label}{required ? <span className="twc-field__req">*</span> : null}
         </span>
       ) : null}
-      <div className="twc-drp__control" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-tone={tone} role="button" tabIndex={disabled ? -1 : 0}
+      <div ref={triggerRef} className="twc-drp__control" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-tone={tone} role="button" tabIndex={disabled ? -1 : 0}
         aria-haspopup="dialog" aria-expanded={open} aria-disabled={disabled || undefined} aria-labelledby={label ? labelId : undefined}
         aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
         onClick={() => !disabled && setOpen((o) => !o)} onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setOpen((o) => !o); } }}>
@@ -180,8 +210,9 @@ export function DateRangePicker({
         <span className="twc-drp__text" data-placeholder={!range.start || undefined}>{range.start ? text : placeholder}</span>
       </div>
 
-      {open ? (
-        <div className="twc-drp__pop" role="dialog" aria-label="Choose date range">
+      {open && coords ? createPortal(
+        <div className="twc-drp__pop" ref={popRef} role="dialog" aria-label="Choose date range"
+          style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, insetInlineStart: "auto", zIndex: "var(--z-tooltip)" }}>
           {presets ? (
             <div className="twc-drp__presets">
               {[["Last 7 days", 7], ["Last 14 days", 14], ["Last 30 days", 30], ["Last 90 days", 90]].map(([lbl, n]) => (
@@ -210,7 +241,7 @@ export function DateRangePicker({
               })}
             </div>
           </div>
-        </div>
+        </div>, document.body
       ) : null}
       {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>

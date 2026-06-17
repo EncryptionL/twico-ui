@@ -31,7 +31,8 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   /** Open the menu upward instead of down (e.g. near a viewport bottom). @default "bottom" */
   placement?: "bottom" | "top";
   /** Render the dropdown in a portal (position:fixed on document.body) so it is never clipped by a
-   *  scrolling/overflow-hidden ancestor; auto-flips up near the viewport bottom. @default false */
+   *  scrolling/overflow-hidden ancestor; auto-flips up near the viewport bottom. Set false to render
+   *  inline. @default true */
   portal?: boolean;
   /** Minimum popover width in px when portaled (useful when the control is narrow). @default 0 */
   minWidth?: number;

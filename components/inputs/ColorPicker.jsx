@@ -1,4 +1,5 @@
 import React from "react";
+import { createPortal } from "react-dom";
 
 const FIELD_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
@@ -107,9 +108,34 @@ export function ColorPicker({
   const hex = (value !== undefined ? value : internal) || "#000000";
   const [open, setOpen] = React.useState(false);
   const [hsv, setHsv] = React.useState(() => hexToHsv(hex) || { h: 239, s: 60, v: 94 });
+  const [coords, setCoords] = React.useState(null);
   const wrapRef = React.useRef(null);
+  const triggerRef = React.useRef(null);
+  const popRef = React.useRef(null);
   const areaRef = React.useRef(null);
   const hueRef = React.useRef(null);
+
+  // Pin the popover with fixed positioning, portaled to <body>, so it escapes any
+  // clipping/scrolling ancestor (cards, panels, dialogs). Flips up when low on room.
+  const POP_W = 240;
+  const place = React.useCallback(() => {
+    const el = triggerRef.current; if (!el) return;
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const below = vh - r.bottom;
+    const flip = below < 340 && r.top > below;
+    let left = Math.min(r.left, window.innerWidth - POP_W - 8);
+    left = Math.max(8, left);
+    setCoords({ left, top: flip ? undefined : Math.round(r.bottom + 6), bottom: flip ? Math.round(vh - r.top + 6) : undefined });
+  }, []);
+  React.useEffect(() => {
+    if (!open) return undefined;
+    place();
+    const onMove = () => place();
+    window.addEventListener("scroll", onMove, true);
+    window.addEventListener("resize", onMove);
+    return () => { window.removeEventListener("scroll", onMove, true); window.removeEventListener("resize", onMove); };
+  }, [open, place]);
   const labelId = React.useId();
   const descId = `${labelId}-desc`;
   const invalid = Boolean(error);
@@ -122,7 +148,11 @@ export function ColorPicker({
 
   React.useEffect(() => {
     if (!open) return;
-    const onDown = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false); };
+    const onDown = (e) => {
+      if (wrapRef.current && wrapRef.current.contains(e.target)) return;
+      if (popRef.current && popRef.current.contains(e.target)) return;
+      setOpen(false);
+    };
     const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
     document.addEventListener("mousedown", onDown); document.addEventListener("keydown", onKey);
     return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
@@ -176,7 +206,7 @@ export function ColorPicker({
           {label}{required ? <span className="twc-field__req">*</span> : null}
         </span>
       ) : null}
-      <div className="twc-cp__trigger" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} role="button" tabIndex={disabled ? -1 : 0}
+      <div ref={triggerRef} className="twc-cp__trigger" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} role="button" tabIndex={disabled ? -1 : 0}
         aria-haspopup="dialog" aria-expanded={open} aria-disabled={disabled || undefined} aria-labelledby={label ? labelId : undefined}
         aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
         onClick={() => !disabled && setOpen((o) => !o)} onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setOpen((o) => !o); } }}>
@@ -185,8 +215,9 @@ export function ColorPicker({
         <span className="twc-cp__chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
       </div>
 
-      {open ? (
-        <div className="twc-cp__pop" role="dialog" aria-label="Color picker">
+      {open && coords ? createPortal(
+        <div className="twc-cp__pop" ref={popRef} role="dialog" aria-label="Color picker"
+          style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, insetInlineStart: "auto", zIndex: "var(--z-tooltip)" }}>
           <div className="twc-cp__area" ref={areaRef} style={{ "--_h": hsv.h }} onPointerDown={startDrag(dragArea)}
             role="slider" tabIndex={0} aria-label="Saturation and brightness"
             aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(hsv.s)}
@@ -215,7 +246,7 @@ export function ColorPicker({
               ))}
             </div>
           ) : null}
-        </div>
+        </div>, document.body
       ) : null}
       {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>

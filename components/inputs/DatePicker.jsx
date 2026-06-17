@@ -1,4 +1,5 @@
 import React from "react";
+import { createPortal } from "react-dom";
 
 const FIELD_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
@@ -135,15 +136,44 @@ export function DatePicker({
   const [view, setView] = React.useState(selected || new Date());
   const [mode, setMode] = React.useState("days");
   const [focusDate, setFocusDate] = React.useState(null);
+  const [coords, setCoords] = React.useState(null);
   const wrapRef = React.useRef(null);
+  const triggerRef = React.useRef(null);
+  const popRef = React.useRef(null);
   const gridRef = React.useRef(null);
+
+  // Portal the calendar to <body> with fixed positioning so it escapes any clipping
+  // or scrolling ancestor; flips up when there isn't room below.
+  const POP_W = 280;
+  const place = React.useCallback(() => {
+    const el = triggerRef.current; if (!el) return;
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const below = vh - r.bottom;
+    const flip = below < 360 && r.top > below;
+    let left = Math.min(r.left, window.innerWidth - POP_W - 8);
+    left = Math.max(8, left);
+    setCoords({ left, top: flip ? undefined : Math.round(r.bottom + 6), bottom: flip ? Math.round(vh - r.top + 6) : undefined });
+  }, []);
+  React.useEffect(() => {
+    if (!open) return undefined;
+    place();
+    const onMove = () => place();
+    window.addEventListener("scroll", onMove, true);
+    window.addEventListener("resize", onMove);
+    return () => { window.removeEventListener("scroll", onMove, true); window.removeEventListener("resize", onMove); };
+  }, [open, place]);
 
   React.useEffect(() => {
     if (!open) return;
     setView(selected || new Date());
     setMode("days");
     setFocusDate(null);
-    const onDown = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false); };
+    const onDown = (e) => {
+      if (wrapRef.current && wrapRef.current.contains(e.target)) return;
+      if (popRef.current && popRef.current.contains(e.target)) return;
+      setOpen(false);
+    };
     const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
     document.addEventListener("mousedown", onDown); document.addEventListener("keydown", onKey);
     return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
@@ -218,7 +248,7 @@ export function DatePicker({
         </label>
       ) : null}
       <div className="twc-dp__field">
-        <div className="twc-dp__control" id={fieldId} data-open={open || undefined} data-disabled={disabled || undefined}
+        <div ref={triggerRef} className="twc-dp__control" id={fieldId} data-open={open || undefined} data-disabled={disabled || undefined}
           data-tone={tone}
           data-has-clear={clearable && selected && !disabled ? "true" : undefined}
           data-invalid={invalid || undefined}
@@ -239,8 +269,9 @@ export function DatePicker({
         ) : null}
       </div>
 
-      {open ? (
-        <div className="twc-dp__pop" role="dialog" aria-label="Choose date">
+      {open && coords ? createPortal(
+        <div className="twc-dp__pop" ref={popRef} role="dialog" aria-label="Choose date"
+          style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, insetInlineStart: "auto", zIndex: "var(--z-tooltip)" }}>
           <div className="twc-dp__head">
             <button type="button" className="twc-dp__nav" aria-label="Previous" onClick={() => setView(mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1))}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
@@ -279,7 +310,7 @@ export function DatePicker({
               ))}
             </div>
           )}
-        </div>
+        </div>, document.body
       ) : null}
       {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>
