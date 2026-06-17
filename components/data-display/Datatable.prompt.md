@@ -117,7 +117,7 @@ this column"). Rows collapse under group headers showing the value, a count, and
 same `aggregation` config). A "Grouped by" chip bar lets users remove or clear groupings. Groups the current
 page; disable pagination (`pageSize={0}`) to group all client-side rows. Set `groupable: false` on a column to opt out.
 
-**Row pinning** — set `rowPinning` and each row's actions overflow (⋮) menu gains "Pin to top" / "Pin to bottom".
+**Row pinning** — set `rowPinning` and each row's actions overflow (⋮) menu gains "Pin to top" / "Pin to bottom". If you don't supply an `actions` column, the grid adds a minimal trailing one so the ⋮ menu exists.
 Pinned rows stay sticky above/below the scrolling body (top pins sit just under the header). Pinning is disabled
 while row grouping is active.
 

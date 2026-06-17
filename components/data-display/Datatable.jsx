@@ -778,16 +778,28 @@ export function Datatable({
     document.head.appendChild(el);
   }, []);
 
-  const cols = React.useMemo(() => columns.map((c) => {
-    const isActions = c.type === "actions";
-    return {
-      width: isActions ? 120 : 160, type: "string",
-      sortable: !isActions, filterable: !isActions, hideable: !isActions, pinnable: true,
-      groupable: !isActions && c.type !== "number",
-      disableColumnMenu: false, headerName: isActions ? "Actions" : c.field,
-      align: c.type === "number" ? "right" : isActions ? "right" : "left", ...c,
-    };
-  }), [columns]);
+  const cols = React.useMemo(() => {
+    const out = columns.map((c) => {
+      const isActions = c.type === "actions";
+      return {
+        width: isActions ? 120 : 160, type: "string",
+        sortable: !isActions, filterable: !isActions, hideable: !isActions, pinnable: true,
+        groupable: !isActions && c.type !== "number",
+        disableColumnMenu: false, headerName: isActions ? "Actions" : c.field,
+        align: c.type === "number" ? "right" : isActions ? "right" : "left", ...c,
+      };
+    });
+    // Row pinning exposes "Pin to top/bottom" through a row's ⋮ actions menu. If the consumer didn't
+    // supply an actions column there'd be no menu to host them, so add a minimal trailing one.
+    if (rowPinning && !out.some((c) => c.type === "actions")) {
+      out.push({
+        field: "__pinactions__", type: "actions", width: 52, headerName: "", align: "right",
+        sortable: false, filterable: false, hideable: false, pinnable: false, groupable: false,
+        disableColumnMenu: true, getActions: () => [],
+      });
+    }
+    return out;
+  }, [columns, rowPinning]);
 
   // Stable per-row key. Prefer rowKey, then r.id; otherwise fall back to a key
   // tied to the row's object IDENTITY (a WeakMap), NOT its index — an index-based
@@ -1669,7 +1681,7 @@ export function Datatable({
   const filterableCols = cols.filter((c) => c.filterable);
   const orderIdxOf = (f) => { const i = order.indexOf(f); return i === -1 ? 9999 : i; };
   const shownColRows = cols
-    .filter((c) => c.headerName.toLowerCase().includes(colQuery.trim().toLowerCase()))
+    .filter((c) => c.field !== "__pinactions__" && c.headerName.toLowerCase().includes(colQuery.trim().toLowerCase()))
     .sort((a, b) => orderIdxOf(a.field) - orderIdxOf(b.field));
   // The row-number gutter gets its own show/hide row in the Columns panel when the feature is enabled.
   const rowNumMatch = rowNumbers && "row number".includes(colQuery.trim().toLowerCase());
