@@ -198,6 +198,21 @@ column's values). Fixed with a higher-specificity re-assert:
 absolutely-positioned edit hint). Any future per-cell rule that touches `position` must keep pinned
 cells `sticky`.
 
+### Auto row numbers (`rowNumbers`)
+
+`rowNumbers` adds a leading **`#`** gutter that auto-numbers rows. It's a special sticky-left column
+(class `.twc-dt__rownum`, fixed `NUM_W = 56px`), rendered **after** the checkbox column and **before**
+the data columns — not part of `columns`, not sortable/hideable/reorderable. The leading offset for
+pinned-left data columns is `leadW = (checkboxSelection ? 44 : 0) + (rowNumbers ? 56 : 0)`, and the
+number column itself is pinned at `numLeft = checkboxSelection ? 44 : 0`; the edge shadow moves to
+whichever leading column is right-most. The displayed value is
+`((paginated || serverMode) ? page × pageSize : 0) + rowIndex + 1`, so numbering **follows the current
+sort/filter order and continues across pages** (page 2 of a 10-row page starts at 11; server mode uses
+the current page index). Header/skeleton/aggregation-footer all get a matching cell so columns stay
+aligned, and `totalCols` (group rows, empty state, virtualization spacers) counts it. The cells are
+`aria-hidden` — screen readers already get each row's position from `aria-rowindex`, so the gutter is
+purely visual and isn't double-counted in `aria-colcount`/`aria-colindex`.
+
 ### Filter row layout
 
 `.twc-dt__filters` is **580px** wide (was 460). The field (`.twc-dt__f-col`) and operator

@@ -14,6 +14,7 @@ import { Datatable } from "./Datatable";
 <Datatable
   loading={isLoading}
   checkboxSelection
+  rowNumbers
   pageSize={10}
   rowKey={(r) => r.id}
   columns={[
@@ -30,6 +31,9 @@ import { Datatable } from "./Datatable";
 ```
 
 **Interactions**
+- **`rowNumbers`** adds a sticky-left auto-numbered gutter (1, 2, 3…) that follows the current
+  sort/filter order and continues across pages (server mode uses page × pageSize); it sits after the
+  checkbox column.
 - Click a header to cycle sort (asc → desc → none); the **⋮** menu has sort, filter, group, move, pin left/right, **wrap text** (multi-line cells instead of clipping — also seedable per column via `wrapText`), and hide.
 - **Drag a column header** to reorder (middle, non-pinned columns), **or drag rows in the Columns panel** to reorder any column; **drag the right edge** of a header to resize it, or **double-click** that edge to auto-fit the column to its content (Excel-style).
 - **Inline editing** — set `editable: true` on a column (or `editMode` on the grid for all columns) and **double-click a cell** to edit. Enter or blur commits, Esc cancels. Columns with `valueOptions` edit via a searchable dropdown; number/currency columns get a number input.

@@ -163,6 +163,7 @@ export default function DatatableDemo() {
         columns={columns}
         ariaLabel="Team members"
         checkboxSelection
+        rowNumbers
         batchActions={batchActions}
         onRowUpdate={handleRowUpdate}
         onBatchUpdate={handleBatchUpdate}

@@ -271,6 +271,10 @@ const DT_CSS = `
 .twc-dt__td[data-wrap="true"] { white-space: normal; overflow: hidden; text-overflow: clip;
   word-break: break-word; overflow-wrap: anywhere; vertical-align: top; padding-block: 10px; line-height: 1.45; }
 .twc-dt__td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
+/* Auto row-number gutter (rowNumbers) — a sticky-left ordinal column. */
+.twc-dt__rownum { text-align: end; font-variant-numeric: tabular-nums; color: var(--color-text-subtle);
+  font-size: var(--text-xs); padding-inline: 8px; }
+th.twc-dt__rownum { color: var(--color-text-muted); }
 .twc-dt[data-density="compact"] .twc-dt__td { --_rowh: 36px; }
 .twc-dt[data-density="comfortable"] .twc-dt__td { --_rowh: 56px; }
 .twc-dt__row:hover .twc-dt__td { background: var(--color-surface-sunken); }
@@ -762,6 +766,7 @@ export function Datatable({
   showPageJumper = true,
   selectionMode = "none", onRowClick, onCellClick, onActiveCellChange,
   showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [],
+  rowNumbers = false,
   rowPinning = false, rowReorder = false, rowResize = false, onRowOrderChange,
   pivot = null, pivotMode = false,
   virtualized = false, overscan = 8, rowHeight,
@@ -973,9 +978,14 @@ export function Datatable({
     return [...L, ...mid, ...R];
   }, [pins, hidden, visibleCols, colByField, order]);
 
+  // Leading sticky-left columns: the selection checkbox (44px) and the optional row-number column,
+  // in that order. Pinned-left data columns start after both.
+  const NUM_W = 56;
+  const numLeft = checkboxSelection ? 44 : 0;        // x of the row-number column
+  const leadW = numLeft + (rowNumbers ? NUM_W : 0);  // x where pinned-left data columns begin
   const stickyOf = (field) => {
     if (pins.left.includes(field)) {
-      let off = checkboxSelection ? 44 : 0;
+      let off = leadW;
       for (const f of pins.left) { if (f === field) break; off += widthOf(colByField[f] || {}); }
       const isEdge = pins.left[pins.left.length - 1] === field;
       return { style: { left: off }, pin: "left", edge: isEdge ? "left" : undefined };
@@ -1652,7 +1662,7 @@ export function Datatable({
     );
   }
 
-  const tableMinWidth = (checkboxSelection ? 44 : 0) + ordered.reduce((a, c) => a + widthOf(c), 0);
+  const tableMinWidth = leadW + ordered.reduce((a, c) => a + widthOf(c), 0);
   const filterableCols = cols.filter((c) => c.filterable);
   const orderIdxOf = (f) => { const i = order.indexOf(f); return i === -1 ? 9999 : i; };
   const shownColRows = cols
@@ -1660,7 +1670,7 @@ export function Datatable({
     .sort((a, b) => orderIdxOf(a.field) - orderIdxOf(b.field));
   const rppOptions = Array.from(new Set([...(pageSizeOptions || []), pageSize].filter((n) => n > 0))).sort((a, b) => a - b).map((n) => ({ value: String(n), label: String(n) }));
 
-  const totalCols = ordered.length + (checkboxSelection ? 1 : 0);
+  const totalCols = ordered.length + (checkboxSelection ? 1 : 0) + (rowNumbers ? 1 : 0);
   function renderGroupRow(item) {
     const subs = aggOn ? subtotalText(item.rows) : [];
     return (
@@ -1725,7 +1735,7 @@ export function Datatable({
         onDragEnd={reorderable ? () => setRowDrag({ from: null, over: null, after: false }) : undefined}
         onClick={(e) => handleRowClick(e, k, row)}>
         {checkboxSelection ? (
-          <td className="twc-dt__td" role="gridcell" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: 0, width: 44 }}>
+          <td className="twc-dt__td" role="gridcell" data-pin="left" data-pin-edge={(pins.left.length || rowNumbers) ? undefined : "left"} style={{ left: 0, width: 44 }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
               {reorderable ? rowHandle(k, midIdx, row) : null}
               <span className="twc-dt__check" data-checked={sel || undefined} onClick={() => toggleRow(k)}
@@ -1733,6 +1743,11 @@ export function Datatable({
                 onKeyDown={(e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggleRow(k); } }}><Svg d={I.check} /></span>
             </span>
             {rowResize && !pinSide ? <span className="twc-dt__row-resizer" title="Drag to resize row" onPointerDown={(e) => startRowResize(e, k, e.currentTarget.closest("tr"))} onClick={(e) => e.stopPropagation()} /> : null}
+          </td>
+        ) : null}
+        {rowNumbers ? (
+          <td className="twc-dt__td twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: numLeft, width: NUM_W }}>
+            {typeof ri === "number" ? ((paginated || serverMode ? page * rowsPerPage : 0) + ri + 1) : ""}
           </td>
         ) : null}
         {ordered.map((c, ci) => {
@@ -1964,7 +1979,7 @@ export function Datatable({
           <thead ref={theadRef}>
             <tr role="row" aria-rowindex={1}>
               {checkboxSelection ? (
-                <th className="twc-dt__th" role="columnheader" aria-label="Select" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: 0, width: 44, minWidth: 44 }}>
+                <th className="twc-dt__th" role="columnheader" aria-label="Select" data-pin="left" data-pin-edge={(pins.left.length || rowNumbers) ? undefined : "left"} style={{ left: 0, width: 44, minWidth: 44 }}>
                   <div className="twc-dt__th-inner" style={{ justifyContent: "center", padding: 0 }}>
                     <span className="twc-dt__check" data-checked={allSel || undefined} data-indeterminate={(!allSel && someSel) || undefined} onClick={toggleAll}
                       role="checkbox" aria-checked={allSel ? true : someSel ? "mixed" : false} aria-label="Select all rows" tabIndex={0}
@@ -1972,6 +1987,11 @@ export function Datatable({
                       <Svg d={allSel ? I.check : I.minus} />
                     </span>
                   </div>
+                </th>
+              ) : null}
+              {rowNumbers ? (
+                <th className="twc-dt__th twc-dt__rownum" role="columnheader" aria-label="Row number" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: numLeft, width: NUM_W, minWidth: NUM_W }}>
+                  <div className="twc-dt__th-inner" style={{ justifyContent: "flex-end" }}>#</div>
                 </th>
               ) : null}
               {ordered.map((c) => {
@@ -2041,6 +2061,7 @@ export function Datatable({
               Array.from({ length: paginated ? Math.min(rowsPerPage, 8) : 8 }).map((_, ri) => (
                 <tr key={ri} className="twc-dt__row">
                   {checkboxSelection ? <td className="twc-dt__td" data-pin="left" style={{ left: 0, width: 44 }}><span className="twc-dt__sk" style={{ "--_w": "18px", height: 18, borderRadius: 4 }} /></td> : null}
+                  {rowNumbers ? <td className="twc-dt__td twc-dt__rownum" aria-hidden="true" data-pin="left" style={{ left: numLeft, width: NUM_W }}><span className="twc-dt__sk" style={{ "--_w": "16px", height: 14, borderRadius: 4 }} /></td> : null}
                   {ordered.map((c, ci) => {
                     const st = stickyOf(c.field);
                     return <td key={c.field} className="twc-dt__td" data-num={c.type === "number" || undefined} data-pin={st.pin} data-pin-edge={st.edge} style={{ width: widthOf(c), ...st.style }}>
@@ -2071,7 +2092,8 @@ export function Datatable({
           {hasAggregation && aggOn && !loading && paged.length > 0 ? (
             <tfoot>
               <tr role="row">
-                {checkboxSelection ? <td data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: 0, width: 44 }} /> : null}
+                {checkboxSelection ? <td data-pin="left" data-pin-edge={(pins.left.length || rowNumbers) ? undefined : "left"} style={{ left: 0, width: 44 }} /> : null}
+                {rowNumbers ? <td className="twc-dt__rownum" aria-hidden="true" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: numLeft, width: NUM_W }} /> : null}
                 {ordered.map((c) => {
                   const st = stickyOf(c.field);
                   const v = aggregate(c);

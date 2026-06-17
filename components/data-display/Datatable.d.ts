@@ -25,6 +25,11 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
   rowKey?: (row: any, index: number) => string | number;
   /** Render a leading checkbox-selection column. @default false */
   checkboxSelection?: boolean;
+  /** Render a leading auto-numbered row column (1, 2, 3…). The number reflects each row's position in
+   *  the current sorted/filtered order and continues across pages (page 2 starts where page 1 ended;
+   *  in server mode it uses the current page × pageSize). Sits after the checkbox column, sticky-left.
+   *  @default false */
+  rowNumbers?: boolean;
   /**
    * Actions shown in the toolbar when one or more rows are selected (requires
    * `checkboxSelection`). Each handler receives the selected keys, the resolved
