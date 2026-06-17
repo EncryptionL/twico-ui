@@ -67,6 +67,26 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "Tones",
+    description: "Set tone to color the filled track and thumb with a semantic intent.",
+    code: `<div style={{ display: "grid", gap: 20 }}>
+  <Slider label="Primary" tone="primary" defaultValue={60} />
+  <Slider label="Success" tone="success" defaultValue={60} />
+  <Slider label="Warning" tone="warning" defaultValue={60} />
+  <Slider label="Danger" tone="danger" defaultValue={60} />
+  <Slider label="Info" tone="info" defaultValue={60} />
+</div>`,
+    render: () => (
+      <div style={{ display: "grid", gap: 20, width: 340, maxWidth: "100%" }}>
+        <Slider label="Primary" tone="primary" defaultValue={60} />
+        <Slider label="Success" tone="success" defaultValue={60} />
+        <Slider label="Warning" tone="warning" defaultValue={60} />
+        <Slider label="Danger" tone="danger" defaultValue={60} />
+        <Slider label="Info" tone="info" defaultValue={60} />
+      </div>
+    ),
+  },
 ];
 
 export default variations;

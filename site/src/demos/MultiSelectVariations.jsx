@@ -107,6 +107,37 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "Tones",
+    description:
+      "The tone prop colors the selected chips and focus accent — primary, success, warning, danger, and info.",
+    code: `<MultiSelect tone="primary" label="Primary" options={fruitOptions} defaultValue={["Apple", "Cherry"]} />
+<MultiSelect tone="success" label="Success" options={fruitOptions} defaultValue={["Apple", "Cherry"]} />
+<MultiSelect tone="warning" label="Warning" options={fruitOptions} defaultValue={["Apple", "Cherry"]} />
+<MultiSelect tone="danger"  label="Danger"  options={fruitOptions} defaultValue={["Apple", "Cherry"]} />
+<MultiSelect tone="info"    label="Info"    options={fruitOptions} defaultValue={["Apple", "Cherry"]} />`,
+    render: () => (
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+          gap: 16,
+          width: "100%",
+        }}
+      >
+        {["primary", "success", "warning", "danger", "info"].map((tone) => (
+          <MultiSelect
+            key={tone}
+            tone={tone}
+            label={tone[0].toUpperCase() + tone.slice(1)}
+            placeholder="Add fruits"
+            options={fruitOptions}
+            defaultValue={["Apple", "Cherry"]}
+          />
+        ))}
+      </div>
+    ),
+  },
 ];
 
 export default variations;

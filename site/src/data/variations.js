@@ -862,6 +862,11 @@ export const VARIATIONS = [
     "i": 3
   },
   {
+    "component": "MultiSelect",
+    "title": "Tones",
+    "i": 4
+  },
+  {
     "component": "Navbar",
     "title": "Brand, links, and actions",
     "i": 0
@@ -977,6 +982,11 @@ export const VARIATIONS = [
     "i": 3
   },
   {
+    "component": "Radio",
+    "title": "Tones",
+    "i": 4
+  },
+  {
     "component": "Rating",
     "title": "Sizes",
     "i": 0
@@ -1000,6 +1010,11 @@ export const VARIATIONS = [
     "component": "Rating",
     "title": "Controlled",
     "i": 4
+  },
+  {
+    "component": "Rating",
+    "title": "Tones",
+    "i": 5
   },
   {
     "component": "Select",
@@ -1095,6 +1110,11 @@ export const VARIATIONS = [
     "component": "Slider",
     "title": "Disabled",
     "i": 4
+  },
+  {
+    "component": "Slider",
+    "title": "Tones",
+    "i": 5
   },
   {
     "component": "Spinner",
@@ -1197,6 +1217,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Stepper",
+    "title": "Tones",
+    "i": 5
+  },
+  {
     "component": "Switch",
     "title": "Basic",
     "i": 0
@@ -1275,6 +1300,11 @@ export const VARIATIONS = [
     "component": "Tabs",
     "title": "Controlled",
     "i": 4
+  },
+  {
+    "component": "Tabs",
+    "title": "Tones",
+    "i": 5
   },
   {
     "component": "Tag",
@@ -1375,6 +1405,11 @@ export const VARIATIONS = [
     "component": "Timeline",
     "title": "Activity feed",
     "i": 4
+  },
+  {
+    "component": "Timeline",
+    "title": "All tones",
+    "i": 5
   },
   {
     "component": "Toast",

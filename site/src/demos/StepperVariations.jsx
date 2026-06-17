@@ -126,6 +126,22 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "Tones",
+    description: "Set tone to color the completed markers, active ring, and connector with a semantic intent.",
+    code: `<Stepper tone="primary" active={1} steps={steps} />
+<Stepper tone="success" active={1} steps={steps} />
+<Stepper tone="warning" active={1} steps={steps} />
+<Stepper tone="danger" active={1} steps={steps} />
+<Stepper tone="info" active={1} steps={steps} />`,
+    render: () => (
+      <div style={{ display: "flex", flexDirection: "column", gap: 24, width: 480, maxWidth: "100%" }}>
+        {["primary", "success", "warning", "danger", "info"].map((tone) => (
+          <Stepper key={tone} tone={tone} active={1} steps={baseSteps} />
+        ))}
+      </div>
+    ),
+  },
 ];
 
 export default variations;

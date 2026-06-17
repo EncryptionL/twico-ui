@@ -54,6 +54,24 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "Tones",
+    description: "Color intents. Each radio uses its own name so all stay selected and show their accent.",
+    code: `<Radio name="tone-primary" value="a" label="Primary" tone="primary" defaultChecked />
+<Radio name="tone-success" value="a" label="Success" tone="success" defaultChecked />
+<Radio name="tone-warning" value="a" label="Warning" tone="warning" defaultChecked />
+<Radio name="tone-danger" value="a" label="Danger" tone="danger" defaultChecked />
+<Radio name="tone-info" value="a" label="Info" tone="info" defaultChecked />`,
+    render: () => (
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <Radio name="tone-primary" value="a" label="Primary" tone="primary" defaultChecked />
+        <Radio name="tone-success" value="a" label="Success" tone="success" defaultChecked />
+        <Radio name="tone-warning" value="a" label="Warning" tone="warning" defaultChecked />
+        <Radio name="tone-danger" value="a" label="Danger" tone="danger" defaultChecked />
+        <Radio name="tone-info" value="a" label="Info" tone="info" defaultChecked />
+      </div>
+    ),
+  },
 ];
 
 export default variations;

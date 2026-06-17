@@ -156,6 +156,31 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "Tones",
+    description: "Color intents tint the active label and indicator: primary, success, warning, danger, info.",
+    code: `<Tabs variant="line" tone="primary" defaultValue="overview" items={items} />
+<Tabs variant="line" tone="success" defaultValue="overview" items={items} />
+<Tabs variant="line" tone="warning" defaultValue="overview" items={items} />
+<Tabs variant="pill" tone="danger" defaultValue="overview" items={items} />
+<Tabs variant="pill" tone="info" defaultValue="overview" items={items} />`,
+    render: () => {
+      const items = [
+        { value: "overview", label: "Overview", content: <p>Project overview and key metrics.</p> },
+        { value: "activity", label: "Activity", content: <p>Recent activity feed.</p> },
+        { value: "settings", label: "Settings", content: <p>Workspace settings.</p> },
+      ];
+      return (
+        <div style={{ display: "grid", gap: 24, width: 420, maxWidth: "100%" }}>
+          <Tabs variant="line" tone="primary" defaultValue="overview" items={items} />
+          <Tabs variant="line" tone="success" defaultValue="overview" items={items} />
+          <Tabs variant="line" tone="warning" defaultValue="overview" items={items} />
+          <Tabs variant="pill" tone="danger" defaultValue="overview" items={items} />
+          <Tabs variant="pill" tone="info" defaultValue="overview" items={items} />
+        </div>
+      );
+    },
+  },
 ];
 
 export default variations;

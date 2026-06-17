@@ -65,6 +65,24 @@ const variations = [
 <Rating value={value} onChange={setValue} showValue />`,
     render: () => <ControlledRating />,
   },
+  {
+    title: "Tones",
+    description: "Color the filled stars by intent with the tone prop (default is warning/gold).",
+    code: `<Rating defaultValue={4} tone="primary" readOnly />
+<Rating defaultValue={4} tone="success" readOnly />
+<Rating defaultValue={4} tone="warning" readOnly />
+<Rating defaultValue={4} tone="danger" readOnly />
+<Rating defaultValue={4} tone="info" readOnly />`,
+    render: () => (
+      <div style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "flex-start" }}>
+        <Rating defaultValue={4} tone="primary" readOnly />
+        <Rating defaultValue={4} tone="success" readOnly />
+        <Rating defaultValue={4} tone="warning" readOnly />
+        <Rating defaultValue={4} tone="danger" readOnly />
+        <Rating defaultValue={4} tone="info" readOnly />
+      </div>
+    ),
+  },
 ];
 
 export default variations;

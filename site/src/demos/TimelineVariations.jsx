@@ -128,6 +128,32 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "All tones",
+    description: "Every node tone side by side — primary, info, success, warning, and danger — so you can see each accent color on its dot.",
+    code: `<Timeline
+  items={[
+    { title: "Primary", time: "Step 1", description: "The default brand accent.", tone: "primary" },
+    { title: "Info", time: "Step 2", description: "Neutral, informational events.", tone: "info" },
+    { title: "Success", time: "Step 3", description: "Something completed successfully.", tone: "success" },
+    { title: "Warning", time: "Step 4", description: "Needs attention soon.", tone: "warning" },
+    { title: "Danger", time: "Step 5", description: "An error or failed step.", tone: "danger" },
+  ]}
+/>`,
+    render: () => (
+      <div style={{ display: "flex", width: 440, maxWidth: "100%" }}>
+        <Timeline
+          items={[
+            { title: "Primary", time: "Step 1", description: "The default brand accent.", tone: "primary" },
+            { title: "Info", time: "Step 2", description: "Neutral, informational events.", tone: "info" },
+            { title: "Success", time: "Step 3", description: "Something completed successfully.", tone: "success" },
+            { title: "Warning", time: "Step 4", description: "Needs attention soon.", tone: "warning" },
+            { title: "Danger", time: "Step 5", description: "An error or failed step.", tone: "danger" },
+          ]}
+        />
+      </div>
+    ),
+  },
 ];
 
 export default variations;
