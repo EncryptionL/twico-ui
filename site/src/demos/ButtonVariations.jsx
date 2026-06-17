@@ -8,19 +8,33 @@ const PlusIcon = () => (
 const variations = [
   {
     title: "Variants",
-    description: "Five visual styles, from highest to lowest emphasis.",
+    description: "Four fill styles, from highest to lowest emphasis.",
     code: `<Button>Solid</Button>
 <Button variant="soft">Soft</Button>
 <Button variant="outline">Outline</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="danger">Danger</Button>`,
+<Button variant="ghost">Ghost</Button>`,
     render: () => (
       <>
         <Button>Solid</Button>
         <Button variant="soft">Soft</Button>
         <Button variant="outline">Outline</Button>
         <Button variant="ghost">Ghost</Button>
-        <Button variant="danger">Danger</Button>
+      </>
+    ),
+  },
+  {
+    title: "Tones",
+    description: "tone is a separate axis from variant — pair tone=\"danger\" with any fill style.",
+    code: `<Button tone="danger">Delete</Button>
+<Button variant="soft" tone="danger">Delete</Button>
+<Button variant="outline" tone="danger">Delete</Button>
+<Button variant="ghost" tone="danger">Delete</Button>`,
+    render: () => (
+      <>
+        <Button tone="danger">Delete</Button>
+        <Button variant="soft" tone="danger">Delete</Button>
+        <Button variant="outline" tone="danger">Delete</Button>
+        <Button variant="ghost" tone="danger">Delete</Button>
       </>
     ),
   },

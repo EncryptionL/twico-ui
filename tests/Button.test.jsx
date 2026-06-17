@@ -20,11 +20,12 @@ describe("Button", () => {
     expect(onClick).not.toHaveBeenCalled();
   });
 
-  it("merges consumer className and reflects variant/size as data-attributes", () => {
-    render(<Button className="mine" variant="danger" size="lg">X</Button>);
+  it("merges consumer className and reflects variant/tone/size as data-attributes", () => {
+    render(<Button className="mine" variant="soft" tone="danger" size="lg">X</Button>);
     const btn = screen.getByRole("button");
     expect(btn).toHaveClass("twc-btn", "mine");
-    expect(btn).toHaveAttribute("data-variant", "danger");
+    expect(btn).toHaveAttribute("data-variant", "soft");
+    expect(btn).toHaveAttribute("data-tone", "danger");
     expect(btn).toHaveAttribute("data-size", "lg");
   });
 

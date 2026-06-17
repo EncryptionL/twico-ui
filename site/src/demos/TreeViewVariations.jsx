@@ -13,7 +13,7 @@ function SelectableTree() {
   const [selectedId, setSelectedId] = React.useState("app");
   return (
     <TreeView
-      data={[
+      items={[
         { id: "src", label: "src", children: [
           { id: "app", label: "App.tsx" },
           { id: "index", label: "index.ts" },
@@ -22,7 +22,7 @@ function SelectableTree() {
       ]}
       defaultExpanded={["src"]}
       selectedId={selectedId}
-      onSelect={(node) => setSelectedId(node.id)}
+      onSelect={(id) => setSelectedId(id)}
     />
   );
 }
@@ -33,7 +33,7 @@ const variations = [
     description: "Nested folders with icons. Carets expand and collapse groups.",
     code: `<TreeView
   defaultExpanded={["src", "comp"]}
-  data={[
+  items={[
     { id: "src", label: "src", icon: <FolderIcon />, children: [
       { id: "app", label: "App.tsx", icon: <FileIcon /> },
       { id: "comp", label: "components", icon: <FolderIcon />, children: [
@@ -48,7 +48,7 @@ const variations = [
       <div style={{ width: 280, maxWidth: "100%" }}>
         <TreeView
           defaultExpanded={["src", "comp"]}
-          data={[
+          items={[
             { id: "src", label: "src", icon: <FolderIcon />, children: [
               { id: "app", label: "App.tsx", icon: <FileIcon /> },
               { id: "comp", label: "components", icon: <FolderIcon />, children: [
@@ -67,7 +67,7 @@ const variations = [
     description: "Trailing meta on a node — counts, file sizes, or statuses.",
     code: `<TreeView
   defaultExpanded={["inbox"]}
-  data={[
+  items={[
     { id: "inbox", label: "Inbox", badge: 12, children: [
       { id: "work", label: "Work", badge: 5 },
       { id: "social", label: "Social", badge: 7 },
@@ -80,7 +80,7 @@ const variations = [
       <div style={{ width: 280, maxWidth: "100%" }}>
         <TreeView
           defaultExpanded={["inbox"]}
-          data={[
+          items={[
             { id: "inbox", label: "Inbox", badge: 12, children: [
               { id: "work", label: "Work", badge: 5 },
               { id: "social", label: "Social", badge: 7 },
@@ -96,7 +96,7 @@ const variations = [
     title: "Collapsed by default",
     description: "Omit defaultExpanded to start fully collapsed — only top-level rows show.",
     code: `<TreeView
-  data={[
+  items={[
     { id: "docs", label: "Documentation", children: [
       { id: "start", label: "Getting started" },
       { id: "api", label: "API reference" },
@@ -109,7 +109,7 @@ const variations = [
     render: () => (
       <div style={{ width: 280, maxWidth: "100%" }}>
         <TreeView
-          data={[
+          items={[
             { id: "docs", label: "Documentation", children: [
               { id: "start", label: "Getting started" },
               { id: "api", label: "API reference" },
@@ -129,7 +129,7 @@ const variations = [
   const [selectedId, setSelectedId] = React.useState("app");
   return (
     <TreeView
-      data={[
+      items={[
         { id: "src", label: "src", children: [
           { id: "app", label: "App.tsx" },
           { id: "index", label: "index.ts" },
@@ -138,7 +138,7 @@ const variations = [
       ]}
       defaultExpanded={["src"]}
       selectedId={selectedId}
-      onSelect={(node) => setSelectedId(node.id)}
+      onSelect={(id) => setSelectedId(id)}
     />
   );
 }`,

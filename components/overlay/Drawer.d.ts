@@ -13,12 +13,10 @@ export interface DrawerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   description?: React.ReactNode;
   /** Footer content, typically action buttons (right-aligned). */
   footer?: React.ReactNode;
-  /** Panel width (left/right) or height (top/bottom) — preset "sm" (320px) / "md" (380px) / "lg" (480px), number (px), or CSS value. */
-  size?: "sm" | "md" | "lg" | number | string;
-  /** Panel width for `side="left"`/`"right"` — number (px) or CSS value. Side-aware alias for `size`; wins over `size` when set. @default undefined */
-  width?: number | string;
-  /** Panel height for `side="top"`/`"bottom"` — number (px) or CSS value. Side-aware alias for `size`; wins over `size` when set. @default undefined */
-  height?: number | string;
+  /** Panel width for `side="left"`/`"right"` — preset "sm" (320px) / "md" (380px) / "lg" (480px), a number (px), or a CSS length. Ignored for top/bottom. @default "md" */
+  width?: "sm" | "md" | "lg" | number | string;
+  /** Panel height for `side="top"`/`"bottom"` — preset "sm" / "md" / "lg", a number (px), or a CSS length. Ignored for left/right. @default "md" */
+  height?: "sm" | "md" | "lg" | number | string;
   /** Close when the backdrop is clicked. @default true */
   closeOnBackdrop?: boolean;
   children?: React.ReactNode;

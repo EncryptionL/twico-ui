@@ -10,4 +10,5 @@ const [open, setOpen] = React.useState(false);
 </Drawer>
 ```
 
-Props: `open`, `onClose`, `side` (left/right/top/bottom), `title`, `description`, `footer`, `size`, `closeOnBackdrop`.
+Props: `open`, `onClose`, `side` (left/right/top/bottom), `title`, `description`, `footer`,
+`width` (left/right) / `height` (top/bottom) — `"sm"|"md"|"lg"` | number | CSS length, `closeOnBackdrop`.

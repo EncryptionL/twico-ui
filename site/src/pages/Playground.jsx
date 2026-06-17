@@ -31,10 +31,11 @@ const CONFIGS = [
   {
     id: "button",
     name: "Button",
-    blurb: "Action button with variants, sizes, loading and full-width states.",
+    blurb: "Action button with variant × tone, sizes, loading and full-width states.",
     knobs: [
       { prop: "children", type: "text", default: "Get started" },
-      { prop: "variant", type: "enum", default: "solid", options: ["solid", "soft", "outline", "ghost", "danger"] },
+      { prop: "variant", type: "enum", default: "solid", options: ["solid", "soft", "outline", "ghost"] },
+      { prop: "tone", type: "enum", default: "primary", options: ["primary", "danger"] },
       { prop: "size", type: "enum", default: "md", options: ["xs", "sm", "md", "lg"] },
       { prop: "loading", type: "bool", default: false },
       { prop: "fullWidth", type: "bool", default: false },
@@ -43,6 +44,7 @@ const CONFIGS = [
     render: (p) => (
       <Button
         variant={p.variant}
+        tone={p.tone}
         size={p.size}
         loading={p.loading}
         fullWidth={p.fullWidth}

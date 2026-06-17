@@ -37,29 +37,29 @@ function TypeCell({ type }) {
 // own Table, using its per-column `render` to style cells with Code/Text.
 const columns = [
   {
-    key: "prop",
-    header: "Prop",
+    field: "prop",
+    headerName: "Prop",
     width: "20%",
-    render: (_v, r) => (
+    renderCell: (_v, r) => (
       <Stack direction="row" gap={1} align="center" inline style={{ flexWrap: "wrap", rowGap: 2 }}>
         <Code>{r.prop}</Code>
         {r.required ? <Text as="span" tone="primary" weight="bold">*</Text> : null}
       </Stack>
     ),
   },
-  { key: "type", header: "Type", width: "28%", render: (_v, r) => <TypeCell type={r.type} /> },
+  { field: "type", headerName: "Type", width: "28%", renderCell: (_v, r) => <TypeCell type={r.type} /> },
   {
-    key: "default",
-    header: "Default",
+    field: "default",
+    headerName: "Default",
     width: "12%",
-    render: (_v, r) =>
+    renderCell: (_v, r) =>
       r.default && r.default !== "—" ? <Code>{r.default}</Code> : <Text as="span" tone="subtle">—</Text>,
   },
   {
-    key: "description",
-    header: "Description",
+    field: "description",
+    headerName: "Description",
     width: "40%",
-    render: (_v, r) => (
+    renderCell: (_v, r) => (
       <Text as="span" tone="muted" style={{ lineHeight: 1.55 }}>
         {r.description}
       </Text>
@@ -71,5 +71,5 @@ export default function PropsTable({ rows }) {
   if (!rows || !rows.length) {
     return <Text tone="subtle">This component takes no props.</Text>;
   }
-  return <Table columns={columns} data={rows} rowKey={(r) => r.prop} striped hover={false} />;
+  return <Table columns={columns} rows={rows} rowKey={(r) => r.prop} striped hover={false} />;
 }

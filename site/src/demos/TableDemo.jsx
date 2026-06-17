@@ -8,10 +8,10 @@ const users = [
 ];
 
 const columns = [
-  { key: "name", header: "Name" },
-  { key: "role", header: "Role" },
-  { key: "status", header: "Status" },
-  { key: "mrr", header: "MRR", align: "right" },
+  { field: "name", headerName: "Name" },
+  { field: "role", headerName: "Role" },
+  { field: "status", headerName: "Status" },
+  { field: "mrr", headerName: "MRR", align: "right" },
 ];
 
 export default function TableDemo() {
@@ -23,7 +23,7 @@ export default function TableDemo() {
       rowKey={(r) => r.id}
       selectedKeys={selectedKeys}
       columns={columns}
-      data={users}
+      rows={users}
     />
   );
 }

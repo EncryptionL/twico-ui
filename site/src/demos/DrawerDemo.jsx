@@ -10,7 +10,7 @@ export default function DrawerDemo() {
         open={open}
         onClose={() => setOpen(false)}
         side="right"
-        size={380}
+        width={380}
         title="Filters"
         description="Narrow down the results"
         footer={<Button onClick={() => setOpen(false)}>Apply</Button>}

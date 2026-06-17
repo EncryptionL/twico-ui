@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TreeView } from "twico-ui";
 
-const data = [
+const items = [
   { id: "src", label: "src", children: [
     { id: "app", label: "App.tsx" },
     { id: "comp", label: "components", badge: 2, children: [
@@ -16,10 +16,10 @@ export default function TreeViewDemo() {
   const [selectedId, setSelectedId] = useState("app");
   return (
     <TreeView
-      data={data}
+      items={items}
       defaultExpanded={["src", "comp"]}
       selectedId={selectedId}
-      onSelect={(node) => setSelectedId(node.id)}
+      onSelect={(id) => setSelectedId(id)}
     />
   );
 }

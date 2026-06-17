@@ -30,7 +30,7 @@ function HeaderFooterExample() {
         open={open}
         onClose={() => setOpen(false)}
         side="right"
-        size={380}
+        width={380}
         title="Filters"
         description="Narrow down the results"
         footer={<Button onClick={() => setOpen(false)}>Apply</Button>}
@@ -50,7 +50,7 @@ function SizeExample() {
         open={open}
         onClose={() => setOpen(false)}
         side="right"
-        size={520}
+        width={520}
         title="Order details"
       >
         <Text>A wider panel (520px) suited to dense content and detail views.</Text>
@@ -64,7 +64,7 @@ function BarePanelExample() {
   return (
     <>
       <Button variant="outline" onClick={() => setOpen(true)}>Open menu</Button>
-      <Drawer open={open} onClose={() => setOpen(false)} side="left" size={260}>
+      <Drawer open={open} onClose={() => setOpen(false)} side="left" width={260}>
         <Text>A bare panel with no title, description, or footer — ideal for a navigation menu.</Text>
       </Drawer>
     </>
@@ -107,7 +107,7 @@ const variations = [
   open={open}
   onClose={close}
   side="right"
-  size={380}
+  width={380}
   title="Filters"
   description="Narrow down the results"
   footer={<Button onClick={close}>Apply</Button>}
@@ -119,7 +119,7 @@ const variations = [
   {
     title: "Custom size",
     description: "Set the panel width (left/right) or height (top/bottom).",
-    code: `<Drawer open={open} onClose={close} side="right" size={520} title="Order details">
+    code: `<Drawer open={open} onClose={close} side="right" width={520} title="Order details">
   …
 </Drawer>`,
     render: () => <SizeExample />,
@@ -127,7 +127,7 @@ const variations = [
   {
     title: "Bare panel",
     description: "No title, description, or footer — just content.",
-    code: `<Drawer open={open} onClose={close} side="left" size={260}>
+    code: `<Drawer open={open} onClose={close} side="left" width={260}>
   …navigation links…
 </Drawer>`,
     render: () => <BarePanelExample />,

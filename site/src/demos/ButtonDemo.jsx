@@ -11,7 +11,7 @@ export default function ButtonDemo() {
       <Button variant="soft" size="sm">Add item</Button>
       <Button variant="outline">Cancel</Button>
       <Button variant="ghost">Skip</Button>
-      <Button variant="danger" loading>Deleting…</Button>
+      <Button tone="danger" loading>Deleting…</Button>
     </div>
   );
 }

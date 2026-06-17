@@ -814,10 +814,17 @@ export const components = [
     "propsRows": [
       {
         "prop": "variant",
-        "type": "\"solid\" | \"soft\" | \"outline\" | \"ghost\" | \"danger\"",
+        "type": "\"solid\" | \"soft\" | \"outline\" | \"ghost\"",
         "required": false,
         "default": "\"solid\"",
-        "description": "Selects the visual style from solid, soft, outline, ghost, or danger to convey the action's prominence and intent."
+        "description": "Fill style: solid (primary CTA), soft (tinted), outline, or ghost. Cross with `tone` for color."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"danger\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Color/intent, orthogonal to variant — primary by default; tone=\"danger\" makes a destructive button in any variant."
       },
       {
         "prop": "size",
@@ -953,7 +960,7 @@ export const components = [
         "description": "Every other standard prop for <button> — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Button } from \"twico-ui\";\n\n<Button variant=\"solid\" size=\"md\" onClick={save}>Save changes</Button>\n<Button variant=\"soft\" leftIcon={<PlusIcon />}>Add item</Button>\n<Button variant=\"outline\">Cancel</Button>\n<Button variant=\"ghost\">Skip</Button>\n<Button variant=\"danger\" loading>Deleting…</Button>",
+    "snippet": "import { Button } from \"twico-ui\";\n\n<Button variant=\"solid\" size=\"md\" onClick={save}>Save changes</Button>\n<Button variant=\"soft\" leftIcon={<PlusIcon />}>Add item</Button>\n<Button variant=\"outline\">Cancel</Button>\n<Button variant=\"ghost\">Skip</Button>\n<Button tone=\"danger\" loading>Deleting…</Button>",
     "tagline": "Action button with five variants and loading state"
   },
   {
@@ -3464,13 +3471,6 @@ export const components = [
         "description": "Footer region for pinned actions, typically right-aligned buttons displayed below the drawer body."
       },
       {
-        "prop": "size",
-        "type": "\"sm\" | \"md\" | \"lg\" | number | string",
-        "required": false,
-        "default": "—",
-        "description": "Accepts preset \"sm\" (320px), \"md\" (380px), \"lg\" (480px) mapped to panel width (left/right) or height (top/bottom), in addition to number (px) and raw CSS values."
-      },
-      {
         "prop": "closeOnBackdrop",
         "type": "boolean",
         "required": false,
@@ -3486,17 +3486,17 @@ export const components = [
       },
       {
         "prop": "width",
-        "type": "number | string",
+        "type": "\"sm\" | \"md\" | \"lg\" | number | string",
         "required": false,
-        "default": "—",
-        "description": "Panel width for side=\"left\"/\"right\" (number = px, or any CSS value). Side-aware alias for `size`; wins over `size` when set."
+        "default": "\"md\"",
+        "description": "Panel width for side left/right — preset sm/md/lg, a number (px), or a CSS length."
       },
       {
         "prop": "height",
-        "type": "number | string",
+        "type": "\"sm\" | \"md\" | \"lg\" | number | string",
         "required": false,
-        "default": "—",
-        "description": "Panel height for side=\"top\"/\"bottom\" (number = px, or any CSS value). Side-aware alias for `size`; wins over `size` when set."
+        "default": "\"md\"",
+        "description": "Panel height for side top/bottom — preset sm/md/lg, a number (px), or a CSS length."
       },
       {
         "prop": "onClick",
@@ -6746,13 +6746,6 @@ export const components = [
         "description": "Defines each column with key, header, optional align, width, sortable flag, and a custom render function for cell content."
       },
       {
-        "prop": "data",
-        "type": "T[]",
-        "required": true,
-        "default": "—",
-        "description": "Supplies the array of row objects rendered as table rows, with each column reading its value by key."
-      },
-      {
         "prop": "hover",
         "type": "boolean",
         "required": false,
@@ -6834,7 +6827,7 @@ export const components = [
         "type": "T[]",
         "required": false,
         "default": "—",
-        "description": "Alias for data (Datatable vocabulary); data wins when both are set."
+        "description": "Row objects."
       },
       {
         "prop": "field (column)",
@@ -6921,7 +6914,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Table } from \"twico-ui\";\n\n<Table\n  sortable\n  striped\n  rowKey={(r) => r.id}\n  columns={[\n    { key: \"name\", header: \"Name\" },\n    { key: \"role\", header: \"Role\" },\n    { key: \"status\", header: \"Status\" },\n    { key: \"mrr\", header: \"MRR\", align: \"right\" },\n  ]}\n  data={users}\n/>",
+    "snippet": "import { Table } from \"twico-ui\";\n\n<Table\n  sortable\n  striped\n  rowKey={(r) => r.id}\n  columns={[\n    { field: \"name\", headerName: \"Name\" },\n    { field: \"role\", headerName: \"Role\" },\n    { field: \"status\", headerName: \"Status\" },\n    { field: \"mrr\", headerName: \"MRR\", align: \"right\" },\n  ]}\n  rows={users}\n/>",
     "tagline": "Sortable data table with custom cell renderers"
   },
   {
@@ -7702,13 +7695,6 @@ export const components = [
     "importName": "TreeView",
     "propsRows": [
       {
-        "prop": "data",
-        "type": "TreeNode[]",
-        "required": true,
-        "default": "—",
-        "description": "The hierarchical node tree to render, where each node is { id, label, icon?, badge?, children? } and children nest further levels."
-      },
-      {
         "prop": "defaultExpanded",
         "type": "string[]",
         "required": false,
@@ -7724,10 +7710,10 @@ export const components = [
       },
       {
         "prop": "onSelect",
-        "type": "(node: TreeNode) => void",
+        "type": "(id: string, node: TreeNode) => void",
         "required": false,
         "default": "—",
-        "description": "Callback fired with the clicked node when a row is selected, letting you react to navigation or load its contents."
+        "description": "Fired when a row is clicked, id first (the full node is the second argument)."
       },
       {
         "prop": "expanded",
@@ -7748,14 +7734,7 @@ export const components = [
         "type": "TreeNode[]",
         "required": false,
         "default": "[]",
-        "description": "Tree nodes (preferred name). Alias of `data`; ignored when `data` is set."
-      },
-      {
-        "prop": "onSelectedIdChange",
-        "type": "(id: string) => void",
-        "required": false,
-        "default": "—",
-        "description": "Fired with just the node id when a row is clicked (companion to onSelect, which keeps firing the full node)."
+        "description": "Tree nodes."
       },
       {
         "prop": "onClick",
@@ -7821,7 +7800,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { TreeView } from \"twico-ui\";\n\n<TreeView\n  defaultExpanded={[\"src\"]}\n  onSelect={(node) => open(node.id)}\n  data={[\n    { id: \"src\", label: \"src\", children: [\n      { id: \"app\", label: \"App.tsx\" },\n      { id: \"comp\", label: \"components\", children: [\n        { id: \"btn\", label: \"Button.tsx\", badge: 3 },\n      ]},\n    ]},\n  ]}\n/>",
+    "snippet": "import { TreeView } from \"twico-ui\";\n\n<TreeView\n  defaultExpanded={[\"src\"]}\n  onSelect={(id) => open(id)}\n  items={[\n    { id: \"src\", label: \"src\", children: [\n      { id: \"app\", label: \"App.tsx\" },\n      { id: \"comp\", label: \"components\", children: [\n        { id: \"btn\", label: \"Button.tsx\", badge: 3 },\n      ]},\n    ]},\n  ]}\n/>",
     "tagline": "Hierarchical expand and collapse tree"
   },
   {

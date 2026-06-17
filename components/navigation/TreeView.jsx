@@ -62,19 +62,16 @@ function Node({ node, depth, expanded, selectedId, tabbableId, rowRefs, onToggle
 }
 
 export function TreeView({
-  data,
-  items,
+  items = [],
   defaultExpanded = [],
   expanded: expandedProp,
   onExpandedChange,
   selectedId: selectedProp,
   onSelect,
-  onSelectedIdChange,
   className = "",
   ...rest
 }) {
-  // `items` is the preferred alias for `data`; prefer `data` when both are given.
-  const nodes = data !== undefined ? data : (items ?? []);
+  const nodes = items;
   React.useInsertionEffect(() => {
     if (document.getElementById("twc-tree-styles")) return;
     const el = document.createElement("style");
@@ -96,7 +93,8 @@ export function TreeView({
     if (expandedProp === undefined) setExpInternal(n);
     onExpandedChange?.([...n]);
   };
-  const select = (node) => { if (selectedProp === undefined) setSelInternal(node.id); onSelect?.(node); onSelectedIdChange?.(node.id); };
+  // onSelect is id-first (the id you usually need), with the full node as a second arg.
+  const select = (node) => { if (selectedProp === undefined) setSelInternal(node.id); onSelect?.(node.id, node); };
 
   // Visible rows in render order + parent/children lookups, for roving-tabindex keyboard nav.
   const visible = [];

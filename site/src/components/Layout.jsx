@@ -104,7 +104,7 @@ export default function Layout() {
         </Box>
       </Stack>
       {isMobile ? (
-        <Drawer open={nav.open} onClose={nav.onClose} side="left" size={288}>
+        <Drawer open={nav.open} onClose={nav.onClose} side="left" width={288}>
           <Sidebar onNavigate={nav.onClose} />
         </Drawer>
       ) : null}

@@ -7,13 +7,14 @@ import { Table } from "./Table";
   sortable striped
   rowKey={(r) => r.id}
   columns={[
-    { key: "name", header: "Name" },
-    { key: "role", header: "Role" },
-    { key: "status", header: "Status", render: (v) => <Badge tone={v === "Active" ? "success" : "neutral"}>{v}</Badge> },
-    { key: "mrr", header: "MRR", align: "right" },
+    { field: "name", headerName: "Name" },
+    { field: "role", headerName: "Role" },
+    { field: "status", headerName: "Status", renderCell: (v) => <Badge tone={v === "Active" ? "success" : "neutral"}>{v}</Badge> },
+    { field: "mrr", headerName: "MRR", align: "right" },
   ]}
-  data={users}
+  rows={users}
 />
 ```
 
-Columns support `align`, `width`, `sortable`, and a `render(value, row, i)` function.
+Uses the same vocabulary as `Datatable`: columns take `field`, `headerName`, `align`, `width`,
+`sortable`, and `renderCell(value, row, i)`; rows go in `rows`. Sort state is `{ field, dir }`.

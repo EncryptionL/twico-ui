@@ -23,7 +23,7 @@ function ConfirmDialogExample() {
   const [open, setOpen] = React.useState(false);
   return (
     <>
-      <Button variant="danger" onClick={() => setOpen(true)}>Delete project</Button>
+      <Button tone="danger" onClick={() => setOpen(true)}>Delete project</Button>
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
@@ -32,7 +32,7 @@ function ConfirmDialogExample() {
         footer={
           <>
             <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button variant="danger" onClick={() => setOpen(false)}>Delete</Button>
+            <Button tone="danger" onClick={() => setOpen(false)}>Delete</Button>
           </>
         }
       >
@@ -120,7 +120,7 @@ const variations = [
     description: "Destructive flow with Cancel + danger action in the footer.",
     code: `const [open, setOpen] = React.useState(false);
 
-<Button variant="danger" onClick={() => setOpen(true)}>Delete project</Button>
+<Button tone="danger" onClick={() => setOpen(true)}>Delete project</Button>
 <Dialog
   open={open}
   onClose={() => setOpen(false)}
@@ -129,7 +129,7 @@ const variations = [
   footer={
     <>
       <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
-      <Button variant="danger" onClick={() => setOpen(false)}>Delete</Button>
+      <Button tone="danger" onClick={() => setOpen(false)}>Delete</Button>
     </>
   }
 >

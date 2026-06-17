@@ -8,10 +8,10 @@ const users = [
 ];
 
 const columns = [
-  { key: "name", header: "Name" },
-  { key: "role", header: "Role" },
-  { key: "status", header: "Status" },
-  { key: "mrr", header: "MRR", align: "right" },
+  { field: "name", headerName: "Name" },
+  { field: "role", headerName: "Role" },
+  { field: "status", headerName: "Status" },
+  { field: "mrr", headerName: "MRR", align: "right" },
 ];
 
 const variations = [
@@ -19,36 +19,36 @@ const variations = [
     title: "Basic",
     description: "Columns + data with default hover rows.",
     code: `const columns = [
-  { key: "name", header: "Name" },
-  { key: "role", header: "Role" },
-  { key: "status", header: "Status" },
-  { key: "mrr", header: "MRR", align: "right" },
+  { field: "name", headerName: "Name" },
+  { field: "role", headerName: "Role" },
+  { field: "status", headerName: "Status" },
+  { field: "mrr", headerName: "MRR", align: "right" },
 ];
 
-<Table columns={columns} data={users} />`,
-    render: () => (
+<Table columns={columns} rows={users} />`,
+    renderCell: () => (
       <div style={{ width: 520, maxWidth: "100%" }}>
-        <Table columns={columns} data={users} />
+        <Table columns={columns} rows={users} />
       </div>
     ),
   },
   {
     title: "Sortable + striped",
     description: "Click a header to sort client-side. Zebra striping for scannability.",
-    code: `<Table sortable striped columns={columns} data={users} />`,
-    render: () => (
+    code: `<Table sortable striped columns={columns} rows={users} />`,
+    renderCell: () => (
       <div style={{ width: 520, maxWidth: "100%" }}>
-        <Table sortable striped columns={columns} data={users} />
+        <Table sortable striped columns={columns} rows={users} />
       </div>
     ),
   },
   {
     title: "Small size",
     description: "Denser rows with the sm size.",
-    code: `<Table size="sm" columns={columns} data={users} />`,
-    render: () => (
+    code: `<Table size="sm" columns={columns} rows={users} />`,
+    renderCell: () => (
       <div style={{ width: 520, maxWidth: "100%" }}>
-        <Table size="sm" columns={columns} data={users} />
+        <Table size="sm" columns={columns} rows={users} />
       </div>
     ),
   },
@@ -56,35 +56,35 @@ const variations = [
     title: "Custom cell renderer",
     description: "A column render() function turns the status into a Badge.",
     code: `const columns = [
-  { key: "name", header: "Name" },
-  { key: "role", header: "Role" },
+  { field: "name", headerName: "Name" },
+  { field: "role", headerName: "Role" },
   {
-    key: "status",
-    header: "Status",
-    render: (v) => (
+    field: "status",
+    headerName: "Status",
+    renderCell: (v) => (
       <Badge tone={v === "Active" ? "success" : "neutral"}>{v}</Badge>
     ),
   },
-  { key: "mrr", header: "MRR", align: "right" },
+  { field: "mrr", headerName: "MRR", align: "right" },
 ];
 
-<Table columns={columns} data={users} />`,
-    render: () => {
+<Table columns={columns} rows={users} />`,
+    renderCell: () => {
       const richColumns = [
-        { key: "name", header: "Name" },
-        { key: "role", header: "Role" },
+        { field: "name", headerName: "Name" },
+        { field: "role", headerName: "Role" },
         {
-          key: "status",
-          header: "Status",
-          render: (v) => (
+          field: "status",
+          headerName: "Status",
+          renderCell: (v) => (
             <Badge tone={v === "Active" ? "success" : "neutral"}>{v}</Badge>
           ),
         },
-        { key: "mrr", header: "MRR", align: "right" },
+        { field: "mrr", headerName: "MRR", align: "right" },
       ];
       return (
         <div style={{ width: 520, maxWidth: "100%" }}>
-          <Table columns={richColumns} data={users} />
+          <Table columns={richColumns} rows={users} />
         </div>
       );
     },
@@ -96,15 +96,15 @@ const variations = [
   rowKey={(r) => r.id}
   selectedKeys={[1, 3]}
   columns={columns}
-  data={users}
+  rows={users}
 />`,
-    render: () => (
+    renderCell: () => (
       <div style={{ width: 520, maxWidth: "100%" }}>
         <Table
           rowKey={(r) => r.id}
           selectedKeys={[1, 3]}
           columns={columns}
-          data={users}
+          rows={users}
         />
       </div>
     ),

@@ -60,8 +60,8 @@ const GROUPS = [
 ];
 
 const columns = [
-  { key: "hook", header: "Hook", render: (_v, r) => <Code>{r.hook}</Code> },
-  { key: "desc", header: "What it does" },
+  { field: "hook", headerName: "Hook", renderCell: (_v, r) => <Code>{r.hook}</Code> },
+  { field: "desc", headerName: "What it does" },
 ];
 
 export default function Hooks() {
@@ -87,7 +87,7 @@ export default function Hooks() {
       {GROUPS.map((g) => (
         <Stack as="section" gap={3} key={g.id}>
           <Heading level={2} id={g.id}>{g.title}</Heading>
-          <Table columns={columns} data={g.rows.map(([hook, desc]) => ({ hook, desc }))} rowKey={(r) => r.hook} striped hover={false} />
+          <Table columns={columns} rows={g.rows.map(([hook, desc]) => ({ hook, desc }))} rowKey={(r) => r.hook} striped hover={false} />
         </Stack>
       ))}
 

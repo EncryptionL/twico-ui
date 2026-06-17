@@ -7,8 +7,10 @@ import { Button } from "./Button";
 <Button variant="soft" leftIcon={<PlusIcon />}>Add item</Button>
 <Button variant="outline">Cancel</Button>
 <Button variant="ghost">Skip</Button>
-<Button variant="danger" loading>Deleting…</Button>
+<Button tone="danger" loading>Deleting…</Button>
 ```
 
-Variants: `solid` (primary CTA), `soft` (tinted secondary), `outline`, `ghost`, `danger`.
-Sizes: `sm` · `md` · `lg`. Props: `leftIcon`, `rightIcon`, `loading`, `fullWidth`, `as="a"`.
+Two orthogonal axes: `variant` = fill style — `solid` (primary CTA), `soft` (tinted), `outline`,
+`ghost`; `tone` = color — `primary` (default) or `danger`. A destructive button is `tone="danger"`
+with any variant. Sizes: `sm` · `md` · `lg`. Props: `leftIcon`, `rightIcon`, `loading`, `fullWidth`,
+`as="a"`.

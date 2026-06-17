@@ -3,8 +3,8 @@ import { render, screen, act, within } from "@testing-library/react";
 import { Table } from "../components/data-display/Table.jsx";
 
 const columns = [
-  { key: "name", header: "Name", sortable: true },
-  { key: "age", header: "Age", sortable: true },
+  { field: "name", headerName: "Name", sortable: true },
+  { field: "age", headerName: "Age", sortable: true },
 ];
 const data = [
   { name: "Cara", age: 30 },
@@ -19,7 +19,7 @@ function bodyNames() {
 
 describe("Table sorting", () => {
   it("clicking a sortable header sorts ascending then descending", () => {
-    render(<Table sortable columns={columns} data={data} />);
+    render(<Table sortable columns={columns} rows={data} />);
     const nameHeader = screen.getByText("Name");
     act(() => nameHeader.click());
     expect(bodyNames()).toEqual(["Alan", "Bea", "Cara"]);
@@ -29,7 +29,7 @@ describe("Table sorting", () => {
 
   it("controlled sort calls onSortChange and respects the sort prop", () => {
     const onSortChange = vi.fn();
-    render(<Table sortable columns={columns} data={data} sort={{ key: "age", dir: "asc" }} onSortChange={onSortChange} />);
+    render(<Table sortable columns={columns} rows={data} sort={{ field: "age", dir: "asc" }} onSortChange={onSortChange} />);
     expect(bodyNames()).toEqual(["Alan", "Cara", "Bea"]); // by age asc: 25,30,40
     act(() => screen.getByText("Name").click());
     expect(onSortChange).toHaveBeenCalled();

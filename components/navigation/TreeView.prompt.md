@@ -5,8 +5,8 @@ import { TreeView } from "./TreeView";
 
 <TreeView
   defaultExpanded={["src"]}
-  onSelect={(node) => open(node.id)}
-  data={[
+  onSelect={(id) => open(id)}
+  items={[
     { id: "src", label: "src", icon: <FolderIcon />, children: [
       { id: "app", label: "App.tsx", icon: <FileIcon /> },
       { id: "comp", label: "components", icon: <FolderIcon />, children: [
@@ -17,4 +17,5 @@ import { TreeView } from "./TreeView";
 />
 ```
 
-Nodes: `{ id, label, icon?, badge?, children? }`. Props: `data`, `defaultExpanded`, `selectedId`, `onSelect`.
+Nodes: `{ id, label, icon?, badge?, children? }`. Props: `items`, `defaultExpanded`, `selectedId`,
+`onSelect(id, node)` (id-first).

@@ -30,7 +30,6 @@ const TABLE_CSS = `
 
 export function Table({
   columns,
-  data,
   rows: rowsProp,
   hover = true,
   striped = false,
@@ -54,29 +53,23 @@ export function Table({
     document.head.appendChild(el);
   }, []);
 
-  // Datatable-vocabulary aliases: prefer the existing names when both present.
+  // Normalize each column to the canonical Datatable vocabulary (field / headerName / renderCell);
+  // `header`/`render` are local shorthands for the render below.
   const cols = React.useMemo(
-    () =>
-      (columns || []).map((c) => ({
-        ...c,
-        key: c.key !== undefined ? c.key : c.field,
-        header: c.header !== undefined ? c.header : c.headerName,
-        render: c.render !== undefined ? c.render : c.renderCell,
-      })),
+    () => (columns || []).map((c) => ({ ...c, header: c.headerName, render: c.renderCell })),
     [columns]
   );
-  const source = data !== undefined ? data : rowsProp;
-  const dataRows = source || [];
+  const dataRows = rowsProp || [];
 
-  const [internalSort, setInternalSort] = React.useState(defaultSort || { key: null, dir: "asc" });
-  const sort = (sortProp !== undefined ? sortProp : internalSort) || { key: null, dir: "asc" };
+  const [internalSort, setInternalSort] = React.useState(defaultSort || { field: null, dir: "asc" });
+  const sort = (sortProp !== undefined ? sortProp : internalSort) || { field: null, dir: "asc" };
 
   const rows = React.useMemo(() => {
-    if (!sortable || !sort.key) return dataRows;
-    const col = cols.find((c) => c.key === sort.key);
+    if (!sortable || !sort.field) return dataRows;
+    const col = cols.find((c) => c.field === sort.field);
     if (!col) return dataRows;
     const sorted = [...dataRows].sort((a, b) => {
-      const av = a[sort.key], bv = b[sort.key];
+      const av = a[sort.field], bv = b[sort.field];
       if (av == null) return 1; if (bv == null) return -1;
       if (typeof av === "number" && typeof bv === "number") return av - bv;
       return String(av).localeCompare(String(bv));
@@ -84,8 +77,8 @@ export function Table({
     return sort.dir === "desc" ? sorted.reverse() : sorted;
   }, [dataRows, cols, sort, sortable]);
 
-  function toggleSort(key) {
-    const next = sort.key === key ? { key, dir: sort.dir === "asc" ? "desc" : "asc" } : { key, dir: "asc" };
+  function toggleSort(field) {
+    const next = sort.field === field ? { field, dir: sort.dir === "asc" ? "desc" : "asc" } : { field, dir: "asc" };
     if (sortProp === undefined) setInternalSort(next);
     onSortChange?.(next);
   }
@@ -101,12 +94,12 @@ export function Table({
         <thead>
           <tr>
             {cols.map((c) => {
-              const active = sort.key === c.key;
+              const active = sort.field === c.field;
               const canSort = sortable && c.sortable !== false;
               return (
-                <th key={c.key} data-align={c.align} data-sortable={canSort || undefined} data-active={active || undefined} data-dir={active ? sort.dir : undefined}
+                <th key={c.field} data-align={c.align} data-sortable={canSort || undefined} data-active={active || undefined} data-dir={active ? sort.dir : undefined}
                     style={c.width ? { width: c.width } : undefined}
-                    onClick={canSort ? () => toggleSort(c.key) : undefined}>
+                    onClick={canSort ? () => toggleSort(c.field) : undefined}>
                   {canSort ? (
                     <span className="twc-table__sort">{c.header}
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>
@@ -123,8 +116,8 @@ export function Table({
             return (
               <tr key={k} data-selected={selected.has(k) || undefined}>
                 {cols.map((c) => (
-                  <td key={c.key} data-align={c.align}>
-                    {c.render ? c.render(row[c.key], row, i) : row[c.key]}
+                  <td key={c.field} data-align={c.align}>
+                    {c.render ? c.render(row[c.field], row, i) : row[c.field]}
                   </td>
                 ))}
               </tr>

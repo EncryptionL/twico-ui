@@ -54,7 +54,6 @@ export function Drawer({
   title,
   description,
   footer,
-  size,
   width,
   height,
   closeOnBackdrop = true,
@@ -126,9 +125,9 @@ export function Drawer({
   if (!mounted) return null;
   const state = open ? "open" : "closed";
   const isHorizontal = side === "left" || side === "right";
-  // `width` (left/right) and `height` (top/bottom) are side-aware aliases that win over `size`.
-  const alias = isHorizontal ? width : height;
-  const raw = alias != null ? alias : size;
+  // The panel's cross-axis size is `width` for left/right, `height` for top/bottom — only the one
+  // matching the side applies. Each accepts a preset ("sm"/"md"/"lg"), a number (px), or a CSS length.
+  const raw = isHorizontal ? width : height;
   const dim = DRAWER_SIZES[raw] || (typeof raw === "number" ? `${raw}px` : raw);
   const sizeVar = isHorizontal ? { "--_w": dim } : { "--_h": dim };
 

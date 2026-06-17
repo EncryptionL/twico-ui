@@ -158,28 +158,33 @@ export const VARIATIONS = [
   },
   {
     "component": "Button",
-    "title": "Sizes",
+    "title": "Tones",
     "i": 1
   },
   {
     "component": "Button",
-    "title": "With icons",
+    "title": "Sizes",
     "i": 2
   },
   {
     "component": "Button",
-    "title": "Loading",
+    "title": "With icons",
     "i": 3
   },
   {
     "component": "Button",
-    "title": "Disabled",
+    "title": "Loading",
     "i": 4
   },
   {
     "component": "Button",
-    "title": "Full width",
+    "title": "Disabled",
     "i": 5
+  },
+  {
+    "component": "Button",
+    "title": "Full width",
+    "i": 6
   },
   {
     "component": "Card",

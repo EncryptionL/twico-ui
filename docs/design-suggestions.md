@@ -26,26 +26,30 @@ ships, delete it here and document it in the relevant doc.
 > (not from this backlog): Datatable **wrap text**, **double-click column auto-fit**, **pin from the
 > Columns panel**, and the floating-popover scroll-tracking + pinned-editable-cell alignment fixes.
 
+> **Fourth wave shipped (2026-06-17) — the breaking API unifications.** The deferred "next major"
+> cleanups are now done (one coordinated breaking change; the old names are **removed**, not just
+> deprecated):
+> - **Table** uses the Datatable vocabulary as canonical — `rows` / column `field` / `headerName` /
+>   `renderCell`, and `TableSort` is `{ field, dir }`. The old `data` / `key` / `header` / `render`
+>   names are gone.
+> - **Button** splits color out of fill: `variant` is `solid|soft|outline|ghost`, `tone` is
+>   `primary|danger` (default `primary`). A destructive button is `tone="danger"` with any variant;
+>   `variant="danger"` no longer exists.
+> - **Drawer** drops the overloaded `size`; use `width` (left/right) / `height` (top/bottom), each
+>   accepting `sm|md|lg` | number | CSS length.
+> - **TreeView** drops `data` (use `items`) and `onSelectedIdChange`; `onSelect(id, node)` is id-first.
+
 ## Still open
 
-These are genuinely deferred — each needs a **major version** (breaking) or a precondition that
-isn't met yet. Nothing here blocks current usage.
+These are genuinely deferred — each needs a precondition that isn't met yet. Nothing here blocks
+current usage.
 
 ### Needs a release cadence
 | Suggestion | Why deferred |
 | --- | --- |
 | Versioned docs | Pin docs per minor in GH Pages subfolders — only worth it once releases actually flow. CI change. |
 
-### Breaking — schedule for the next major
-The new, consistent names all ship today as **additive aliases**, so nothing is broken. The
-remaining work is the breaking half: make the new name canonical and remove/redesign the old one.
-
-| Item | What's left |
+### Possible future consistency pass
+| Item | Why deferred |
 | --- | --- |
-| Unify `Table` vs `Datatable` vocabularies (`data/key/header/render` ↔ `rows/field/headerName/renderCell`) | Table accepts both now; pick one canonical set and deprecate the other across both. |
-| `Button` folds the semantic `danger` into the `variant` axis | IconButton `danger` shipped; the proper fix is a `tone` × `variant` split on Button. |
-| `Drawer.size` overload | `width`/`height` + `sm/md/lg` presets shipped; eventually deprecate the overloaded `size`. |
-| `TreeView.data` / `onSelect(node)` | `items` alias + `onSelectedIdChange` shipped; deprecate `data`, make `onSelect` id-first. |
-| `CurrencyField.onValueChange`, `CommandPalette` item `onSelect`, `Divider` physical `align` | Kept as-is for now (richer signature / semantically fine); revisit if a consistency pass is wanted. |
-
-_(The "Larger feature" backlog — Datatable variable-height virtualization — shipped on 2026-06-17; see the Third-wave note above.)_
+| `CurrencyField.onValueChange`, `CommandPalette` item `onSelect`, `Divider` physical `align` | Kept as-is (richer signature / semantically fine); revisit only if a broader consistency pass is wanted. |

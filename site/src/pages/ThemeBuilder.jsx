@@ -219,12 +219,12 @@ function CssBlock({ code }) {
  * ------------------------------------------------------------------ */
 
 const TABLE_COLUMNS = [
-  { key: "plan", header: "Plan" },
-  { key: "seats", header: "Seats", align: "right" },
+  { field: "plan", headerName: "Plan" },
+  { field: "seats", headerName: "Seats", align: "right" },
   {
-    key: "status",
-    header: "Status",
-    render: (v) => (
+    field: "status",
+    headerName: "Status",
+    renderCell: (v) => (
       <Badge size="sm" tone={v === "Active" ? "success" : "neutral"} variant="soft" dot>
         {v}
       </Badge>
@@ -273,7 +273,7 @@ function PreviewGallery() {
             <Button variant="soft">Soft</Button>
             <Button variant="outline">Outline</Button>
             <Button variant="ghost">Ghost</Button>
-            <Button variant="danger">Danger</Button>
+            <Button tone="danger">Danger</Button>
           </Stack>
           <Stack direction="row" gap={2} wrap align="center">
             <Badge tone="primary">Primary</Badge>
@@ -329,7 +329,7 @@ function PreviewGallery() {
               <Heading level={3} style={{ margin: 0 }}>150</Heading>
             </Card>
           </Grid>
-          <Table columns={TABLE_COLUMNS} data={TABLE_DATA} rowKey={(r) => r.plan} size="sm" />
+          <Table columns={TABLE_COLUMNS} rows={TABLE_DATA} rowKey={(r) => r.plan} size="sm" />
         </Stack>
       ) : null}
     </Stack>

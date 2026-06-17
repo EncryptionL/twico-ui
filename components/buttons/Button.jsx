@@ -46,35 +46,42 @@ const CSS = `
 .twc-btn[data-size="sm"] { --_h: var(--control-h-sm); --_px: var(--space-3); --_fs: var(--text-xs); }
 .twc-btn[data-size="lg"] { --_h: var(--control-h-lg); --_px: var(--space-6); --_fs: var(--text-base); }
 
+/* tone supplies the accent color set; variant decides how it's applied. Default tone is primary;
+   danger reuses its (active-less) hover for the pressed state. */
+.twc-btn {
+  --_accent: var(--color-primary); --_accent-hover: var(--color-primary-hover); --_accent-active: var(--color-primary-active);
+  --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg);
+}
+.twc-btn[data-tone="danger"] {
+  --_accent: var(--color-danger); --_accent-hover: var(--color-danger-hover); --_accent-active: var(--color-danger-hover);
+  --_accent-fg: var(--color-danger-fg); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg);
+}
 /* solid */
-.twc-btn[data-variant="solid"] { background: var(--color-primary); color: var(--color-primary-fg); }
-.twc-btn[data-variant="solid"]:hover:not(:disabled) { background: var(--color-primary-hover); box-shadow: var(--shadow-brand); }
-.twc-btn[data-variant="solid"]:active:not(:disabled) { background: var(--color-primary-active); }
+.twc-btn[data-variant="solid"] { background: var(--_accent); color: var(--_accent-fg); }
+.twc-btn[data-variant="solid"]:hover:not(:disabled) { background: var(--_accent-hover); box-shadow: var(--shadow-brand); }
+.twc-btn[data-variant="solid"]:active:not(:disabled) { background: var(--_accent-active); }
 /* soft */
-.twc-btn[data-variant="soft"] { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); }
-.twc-btn[data-variant="soft"]:hover:not(:disabled) { background: var(--color-primary-subtle); filter: brightness(0.97); }
+.twc-btn[data-variant="soft"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); }
+.twc-btn[data-variant="soft"]:hover:not(:disabled) { background: var(--_accent-subtle); filter: brightness(0.97); }
 .dark .twc-btn[data-variant="soft"]:hover:not(:disabled) { filter: brightness(1.25); }
-/* outline */
+/* outline — neutral at rest, accent on hover */
 .twc-btn[data-variant="outline"] { background: transparent; color: var(--color-text); border-color: var(--color-border-strong); }
-.twc-btn[data-variant="outline"]:hover:not(:disabled) { background: var(--color-surface-sunken); border-color: var(--color-primary); color: var(--color-primary); }
-/* ghost */
+.twc-btn[data-variant="outline"]:hover:not(:disabled) { background: var(--color-surface-sunken); border-color: var(--_accent); color: var(--_accent); }
+/* ghost — neutral at rest, accent on hover */
 .twc-btn[data-variant="ghost"] { background: transparent; color: var(--color-text-muted); }
-.twc-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--color-text); }
-/* danger */
-.twc-btn[data-variant="danger"] { background: var(--color-danger); color: var(--color-danger-fg); }
-.twc-btn[data-variant="danger"]:hover:not(:disabled) { background: var(--color-danger-hover); }
+.twc-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
 
 .twc-btn__spinner {
   position: absolute; inset: 0; margin: auto;
   width: 1.1em; height: 1.1em;
   border: 2px solid currentColor; border-right-color: transparent;
   border-radius: var(--radius-full);
-  color: var(--color-primary-fg);
+  color: var(--_accent-fg);
   animation: twico-spin 0.6s linear infinite;
 }
 .twc-btn[data-variant="soft"] .twc-btn__spinner,
 .twc-btn[data-variant="outline"] .twc-btn__spinner,
-.twc-btn[data-variant="ghost"] .twc-btn__spinner { color: var(--color-primary); }
+.twc-btn[data-variant="ghost"] .twc-btn__spinner { color: var(--_accent); }
 
 .twc-ripple {
   position: absolute; border-radius: var(--radius-full);
@@ -105,6 +112,7 @@ function useInjectedStyle(id, css) {
 export function Button({
   children,
   variant = "solid",
+  tone = "primary",
   size = "md",
   leftIcon,
   rightIcon,
@@ -138,6 +146,7 @@ export function Button({
     <Tag
       className={`twc-btn ${className}`}
       data-variant={variant}
+      data-tone={tone}
       data-size={size}
       data-loading={loading || undefined}
       data-block={fullWidth || undefined}

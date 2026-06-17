@@ -1,9 +1,9 @@
 import * as React from "react";
 
-/** Sort state: the sorted column key (null = unsorted) and direction. */
+/** Sort state: the sorted column field (null = unsorted) and direction. */
 export interface TableSort {
-  /** Column key being sorted, or null for no sort. */
-  key: string | null;
+  /** Column field being sorted, or null for no sort. */
+  field: string | null;
   /** Sort direction. */
   dir: "asc" | "desc";
 }
@@ -14,16 +14,14 @@ export interface TableSort {
  * controlled via `sort` + `onSortChange`, or uncontrolled via `defaultSort`.
  * A truly pinned header (`stickyHeader`) keeps thead visible while the body
  * scrolls — pair it with `maxHeight` to give the table its own scroll area.
- * Datatable-style aliases (`rows`, `field`, `headerName`, `renderCell`) are
- * accepted alongside the native names, which always take precedence.
+ * Uses the same vocabulary as `Datatable` (`rows`, `field`, `headerName`,
+ * `renderCell`) so columns/data move between the two without renaming.
  *
  * @startingPoint section="Data display" subtitle="Sortable data table" viewport="700x320"
  */
 export interface TableProps<T = any> extends React.HTMLAttributes<HTMLDivElement> {
   columns: TableColumn<T>[];
   /** Row objects. */
-  data?: T[];
-  /** Alias for `data` (Datatable vocabulary); `data` wins when both are set. */
   rows?: T[];
   /** Row hover highlight. @default true */
   hover?: boolean;
@@ -35,7 +33,7 @@ export interface TableProps<T = any> extends React.HTMLAttributes<HTMLDivElement
   sortable?: boolean;
   /** Controlled sort state — pair with `onSortChange` (null = unsorted). */
   sort?: TableSort | null;
-  /** Initial sort when uncontrolled. @default { key: null, dir: "asc" } */
+  /** Initial sort when uncontrolled. @default { field: null, dir: "asc" } */
   defaultSort?: TableSort;
   /** Fired when a sortable header is clicked with the next sort state: (sort). */
   onSortChange?: (sort: TableSort) => void;
@@ -51,12 +49,8 @@ export interface TableProps<T = any> extends React.HTMLAttributes<HTMLDivElement
 
 export interface TableColumn<T = any> {
   /** Object key in each row + sort key. */
-  key?: string;
-  /** Alias for `key` (Datatable vocabulary); `key` wins when both are set. */
-  field?: string;
+  field: string;
   /** Header label. */
-  header?: React.ReactNode;
-  /** Alias for `header` (Datatable vocabulary); `header` wins when both are set. */
   headerName?: React.ReactNode;
   /** Cell alignment. @default "left" */
   align?: "left" | "center" | "right";
@@ -64,9 +58,7 @@ export interface TableColumn<T = any> {
   width?: string;
   /** Disable sorting for this column when the table is sortable. */
   sortable?: boolean;
-  /** Custom cell renderer. */
-  render?: (value: any, row: T, index: number) => React.ReactNode;
-  /** Alias for `render` (Datatable vocabulary); `render` wins when both are set. */
+  /** Custom cell renderer: (value, row, index). */
   renderCell?: (value: any, row: T, index: number) => React.ReactNode;
 }
 
