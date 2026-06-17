@@ -129,17 +129,37 @@ function ServerSideDemo() {
     },
   ], [fetchPage]);
 
+  // Data columns + a per-row actions column. The single-row Delete is also a
+  // server write: it removes the row from the backend and re-fetches the page.
+  const columns = React.useMemo(() => [
+    ...SERVER_COLUMNS,
+    {
+      field: "actions", headerName: "Actions", type: "actions", width: 96,
+      getActions: (row) => [
+        { icon: <MailIcon />, label: "Email", onClick: () => {} },
+        {
+          icon: <TrashIcon />, label: "Delete", showInMenu: true, danger: true,
+          onClick: () => {
+            const i = DB.findIndex((r) => r.id === row.id);
+            if (i >= 0) DB.splice(i, 1);
+            fetchPage(lastQuery.current);
+          },
+        },
+      ],
+    },
+  ], [fetchPage]);
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
       <Alert tone="info" title="Simulated backend">
         <Text size="sm" tone="muted" style={{ margin: 0 }}>
-          The same Datatable, in server mode against a 300-row &ldquo;backend.&rdquo; Sorting, the
-          per-column filter panel, quick search, and paging round-trip through onServerChange
-          (250ms debounce + ~350ms latency); the footer totals are computed server-side. Editing
-          also works server-side: double-click an editable cell, or tick rows and use the Edit
-          button to batch-update a column — each write mutates the backend and re-fetches the page
-          (onRowUpdate / onBatchUpdate). Delete removes the selected rows on the server. The
-          skeleton shows while a request is in flight; stale responses are dropped.
+          The same Datatable, in server mode against a 300-row &ldquo;backend.&rdquo; Everything
+          round-trips through the server: sorting, the per-column filter panel, quick search, paging,
+          and the footer totals (onServerChange). So do all the writes — double-click an editable
+          cell (onRowUpdate), tick rows and hit Edit to batch-update a column (onBatchUpdate), delete
+          the selected rows (batch action), or delete a single row from its ⋮ menu. Each write
+          mutates the backend and re-fetches the current page; the skeleton shows while a request is
+          in flight and stale responses are dropped.
         </Text>
       </Alert>
       <Datatable
@@ -157,7 +177,7 @@ function ServerSideDemo() {
         pageSize={SERVER_PAGE_SIZE}
         pageSizeOptions={[10, 25, 50]}
         height={420}
-        columns={SERVER_COLUMNS}
+        columns={columns}
       />
     </div>
   );
@@ -376,7 +396,7 @@ const variations = [
   {
     title: "Server-side data — sort, filter, page, edit & batch update",
     description:
-      "The same Datatable in server mode against a simulated 300-row backend. Sort, the per-column filter panel, quick search, paging, and the totals footer round-trip through onServerChange (debounce + latency). Editing is server-side too: inline-edit a cell or batch-update a column across selected rows — each write mutates the backend and re-fetches the page (onRowUpdate / onBatchUpdate), and Delete removes selected rows on the server.",
+      "The same Datatable in server mode against a simulated 300-row backend. Reads round-trip through onServerChange (sort, the per-column filter panel, quick search, paging, and the totals footer). So do ALL the writes: inline-edit a cell (onRowUpdate), batch-update a column across selected rows (onBatchUpdate), batch-delete selected rows, or delete a single row from its ⋮ menu — each one mutates the backend and re-fetches the current page, with a skeleton while in flight and stale responses dropped.",
     code: `import { Datatable, runDatatableQuery } from "twico-ui";
 
 const DB = makePeople(300); // your data (or a REST / GraphQL endpoint)
@@ -417,10 +437,27 @@ function ServerSideDemo() {
     setTimeout(() => setState(load(q)), 350); // <- replace with your fetch(q)
   };
 
+  // Delete one row on the server, then re-fetch.
+  const deleteRow = (id) => {
+    const i = DB.findIndex((r) => r.id === id);
+    if (i >= 0) DB.splice(i, 1);
+    fetchPage(lastQuery.current);
+  };
+
   return (
     <Datatable
       serverMode
-      columns={columns}
+      // data columns + a per-row actions column (single-row delete = a server write)
+      columns={[
+        ...columns,
+        {
+          field: "actions", headerName: "Actions", type: "actions", width: 96,
+          getActions: (row) => [
+            { icon: <MailIcon />, label: "Email", onClick: () => {} },
+            { icon: <TrashIcon />, label: "Delete", showInMenu: true, danger: true, onClick: () => deleteRow(row.id) },
+          ],
+        },
+      ]}
       rows={state.rows}
       rowCount={state.total}
       loading={state.loading}

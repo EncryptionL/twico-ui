@@ -18,12 +18,17 @@ the one piece of server-side glue that would otherwise force consumers to re-imp
 operator semantics by hand, so it lives **in the library**, not in the docs — the docs just call it.
 The exported function reuses the component's own `testFilter`, so the two can never drift.
 
-**Editing works in server mode too.** `editable` columns, the batch editor, and `checkboxSelection`
-batch actions are independent of `serverMode`. The grid never mutates your `rows`; it just reports
-intent through `onRowUpdate(updatedRow, …)` and `onBatchUpdate(changedRows, patch, selectedKeys)`. In
-server mode you handle those by writing to your backend and re-fetching the current page (re-run the
-last `onServerChange` query). The docs-site "Server-side data" variation shows exactly this: each
-inline edit / batch update / delete mutates the simulated `DB` and re-issues the last query.
+**Every write works in server mode too.** `editable` columns, the batch editor, `checkboxSelection`
+batch actions, and a per-row `actions` column are all independent of `serverMode`. The grid never
+mutates your `rows`; it only reports intent — `onRowUpdate(updatedRow, …)`,
+`onBatchUpdate(changedRows, patch, selectedKeys)`, a `batchActions` handler `(keys, rows, clear)`, and
+an actions column's `getActions(row)` `onClick`. In server mode you handle each by writing to your
+backend and re-fetching the current page (re-run the last `onServerChange` query). The docs-site
+"Server-side data" variation demonstrates the full set against a simulated 300-row `DB`: inline edit,
+batch-update a column across the selection, batch-delete the selection, **and** single-row delete from
+the row's ⋮ menu — each mutates `DB` and re-issues the last query. The one caveat: a batch op only
+affects rows the grid currently has (the loaded page), since `changedRows`/selected rows are resolved
+from the current `rows`; selection does not span pages in server mode.
 
 ## Row virtualization (windowing)
 
