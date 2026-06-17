@@ -31,7 +31,9 @@ const AVATAR_CSS = `
 
 function initials(name) {
   if (!name) return "?";
-  const parts = name.trim().split(/\s+/);
+  const trimmed = name.trim();
+  if (!trimmed) return "?";
+  const parts = trimmed.split(/\s+/);
   return (parts[0][0] + (parts[1] ? parts[1][0] : "")).toUpperCase();
 }
 

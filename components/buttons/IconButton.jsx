@@ -40,7 +40,9 @@ const ICONBTN_CSS = `
   --_accent-fg: var(--color-danger-fg); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
 .twc-iconbtn[data-variant="solid"] { background: var(--_accent); color: var(--_accent-fg); }
 .twc-iconbtn[data-variant="solid"]:hover:not(:disabled) { background: var(--_accent-hover); box-shadow: var(--shadow-brand); }
+.twc-iconbtn[data-variant="solid"]:active:not(:disabled) { filter: brightness(0.92); }
 .twc-iconbtn[data-variant="soft"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); }
+.twc-iconbtn[data-variant="soft"]:hover:not(:disabled) { background: var(--_accent-subtle); }
 .twc-iconbtn[data-variant="outline"] { border-color: var(--color-border-strong); color: var(--color-text); }
 .twc-iconbtn[data-variant="outline"]:hover:not(:disabled) { border-color: var(--_accent); color: var(--_accent); background: var(--color-surface-sunken); }
 .twc-iconbtn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }

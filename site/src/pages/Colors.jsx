@@ -124,6 +124,35 @@ const color = indigo[500]; // "#6366f1"`}
         </div>
       </Stack>
 
+      {/* ── Tones ───────────────────────────────────────────────────────── */}
+      <Stack as="section" gap={3}>
+        <Heading level={2} id="tones">Tones</Heading>
+        <Text>
+          Many components take a <Code>tone</Code> prop that recolors them by intent. These are the six
+          tones — each maps to a semantic token family. Each component documents the exact subset it
+          supports in its props table (e.g. Button is <Code>primary · danger</Code>; Badge supports all six).
+        </Text>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: "var(--space-3)" }}>
+          {[
+            ["primary", "var(--color-primary)", "var(--color-primary-fg)"],
+            ["success", "var(--color-success)", "var(--color-success-fg)"],
+            ["warning", "var(--color-warning)", "var(--color-warning-fg)"],
+            ["danger", "var(--color-danger)", "var(--color-danger-fg)"],
+            ["info", "var(--color-info)", "var(--color-info-fg)"],
+            ["neutral", "var(--color-text)", "var(--color-surface)"],
+          ].map(([name, bg, fg]) => (
+            <div key={name} style={{ borderRadius: "var(--radius-lg)", overflow: "hidden", border: "1px solid var(--color-border)" }}>
+              <div style={{ background: bg, color: fg, padding: "18px 14px", fontWeight: 700, fontSize: 14, textTransform: "capitalize" }}>{name}</div>
+              <div style={{ padding: "9px 12px", background: "var(--color-surface)" }}><Code style={{ fontSize: 11 }}>{`tone="${name}"`}</Code></div>
+            </div>
+          ))}
+        </div>
+        <Text size="sm" tone="muted">
+          Live tone examples appear on each component page (Button, Badge, Alert, Tag, Switch, Checkbox, …).
+          Fill is a separate axis — <Code>variant</Code> (e.g. <Code>solid · soft · outline</Code>).
+        </Text>
+      </Stack>
+
       {/* ── Semantic tokens ─────────────────────────────────────────────── */}
       <Stack as="section" gap={3}>
         <Heading level={2} id="semantic">Semantic tokens</Heading>

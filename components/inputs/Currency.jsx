@@ -33,7 +33,7 @@ export function clampPrecision(str, precision) {
   if (precision <= 0) return s.split(".")[0];
   const [int, dec] = s.split(".");
   if (dec == null) return s;
-  return int + "." + dec.slice(0, precision);
+  return (int || "0") + "." + dec.slice(0, precision);
 }
 
 const CUR_CSS = `

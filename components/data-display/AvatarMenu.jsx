@@ -51,7 +51,19 @@ export function AvatarMenu({
   );
 
   const trigger = (
-    <span className="twc-avatar-menu" role="button" tabIndex={0} aria-haspopup="menu" aria-label={`${name || "Account"} menu`}>
+    <span
+      className="twc-avatar-menu"
+      role="button"
+      tabIndex={0}
+      aria-haspopup="menu"
+      aria-label={`${name || "Account"} menu`}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          e.currentTarget.click();
+        }
+      }}
+    >
       <Avatar name={name} src={src} size={size} status={status} />
       {showName ? (
         <span className="twc-avatar-menu__text">

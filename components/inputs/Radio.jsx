@@ -6,6 +6,7 @@ export function Radio({
   error,
   checked,
   defaultChecked,
+  required = false,
   disabled = false,
   size = "md",
   tone = "primary",
@@ -80,6 +81,7 @@ export function Radio({
         disabled={disabled}
         onChange={onChange}
         {...rest}
+        aria-required={required || undefined}
         aria-invalid={invalid || undefined}
         aria-describedby={describedBy}
       />

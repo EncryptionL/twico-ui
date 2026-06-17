@@ -27,6 +27,8 @@ export function Chart({
   showLegend = false,
   colors,
   valueFormat,
+  ariaLabel,
+  "aria-label": ariaLabelProp,
   className = "",
   ...rest
 }) {
@@ -47,10 +49,11 @@ export function Chart({
   const y = (v) => padT + innerH - (v / niceMax) * innerH;
   const fmt = valueFormat || ((v) => v.toLocaleString());
   const ticks = 4;
+  const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? `${type} chart`;
 
   return (
     <div className={`twc-chart ${className}`} {...rest}>
-      <svg viewBox={`0 0 ${W} ${H}`} role="img" preserveAspectRatio="none">
+      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} preserveAspectRatio="none">
         {showGrid ? Array.from({ length: ticks + 1 }).map((_, i) => {
           const gy = padT + (innerH / ticks) * i;
           return <line key={i} className="twc-chart__grid" x1={padL} y1={gy} x2={W - padR} y2={gy} />;

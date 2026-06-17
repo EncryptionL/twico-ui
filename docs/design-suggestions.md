@@ -52,6 +52,24 @@ ships, delete it here and document it in the relevant doc.
 > See [tone-variant-system.md](./tone-variant-system.md). Layout primitives, surfaces/overlays, and
 > structural/display components are intentionally excluded (no meaningful color axis).
 
+> **QA hardening pass shipped (2026-06-17).** A senior-engineer audit of all 61 components surfaced
+> 47 issues; the vetted real ones were fixed and verified (build + 96 tests + 69/69 render-check +
+> an interaction harness):
+> - **Overlay clipping (whole class):** ColorPicker, DatePicker, DateRangePicker, and **Tooltip** now
+>   portal to `<body>` with fixed positioning; Select/Combobox/MultiSelect default `portal=true`.
+>   Verified each opens fully on-screen inside an overflow container.
+> - **Functional:** Dialog close button now renders without a title (`title || description || onClose`);
+>   Avatar `initials()` guards whitespace-only names; Progress guards `max=0` (no NaN); Currency
+>   normalizes `.5` → `0.5`; Toast effect got its `[onClose]` dep.
+> - **a11y:** `aria-required` on Input/Checkbox/Radio/Switch/Textarea/FileUpload; Dialog/Drawer get an
+>   `aria-label` fallback when title-less; AvatarMenu opens on Enter/Space; Breadcrumb's current item
+>   is a `<span aria-current>` not an empty `<a>`; Chart `<svg>` takes an `ariaLabel`.
+> - **RTL / visual:** Tabs vertical indicator + Divider label use logical properties; IconButton gains
+>   soft-hover and solid-active states.
+>
+> Deferred (genuinely larger, not blocking): full **Datatable RTL** (pinned-column/​pivot/​resizer use
+> physical left/right); Navbar/Sidebar "render as button when no href"; index-vs-stable keys in nav lists.
+
 ## Still open
 
 These are genuinely deferred — each needs a precondition that isn't met yet. Nothing here blocks

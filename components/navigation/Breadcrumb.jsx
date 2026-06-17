@@ -61,11 +61,19 @@ export function Breadcrumb({
           <React.Fragment key={i}>
             {it.ellipsis ? (
               <button className="twc-breadcrumb__ellipsis" aria-label="Show more" onClick={() => setExpanded(true)}>…</button>
+            ) : last ? (
+              <span
+                className="twc-breadcrumb__item"
+                aria-current="page"
+                onClick={it.onClick}
+              >
+                {it.icon ? <span aria-hidden="true" style={{ display: "inline-flex" }}>{it.icon}</span> : null}
+                {it.label}
+              </span>
             ) : (
               <a
                 className="twc-breadcrumb__item"
-                href={last ? undefined : (safeHref(it.href) || "#")}
-                aria-current={last ? "page" : undefined}
+                href={safeHref(it.href) || "#"}
                 onClick={it.onClick}
               >
                 {it.icon ? <span aria-hidden="true" style={{ display: "inline-flex" }}>{it.icon}</span> : null}

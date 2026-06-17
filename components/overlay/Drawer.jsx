@@ -133,7 +133,7 @@ export function Drawer({
 
   const overlay = (
     <div className="twc-drawer__overlay" data-state={state} onMouseDown={(e) => { if (closeOnBackdrop && e.target === e.currentTarget) onClose?.(); }}>
-      <div ref={panelRef} className={`twc-drawer ${className}`} data-side={side} data-state={state} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-describedby={description ? descId : undefined} style={{ ...(dim ? sizeVar : null), ...style }} {...rest}>
+      <div ref={panelRef} className={`twc-drawer ${className}`} data-side={side} data-state={state} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-label={!title ? "Drawer" : undefined} aria-describedby={description ? descId : undefined} style={{ ...(dim ? sizeVar : null), ...style }} {...rest}>
         {(title || description || onClose) ? (
           <div className="twc-drawer__header">
             <div className="twc-drawer__titles">

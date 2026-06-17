@@ -106,6 +106,7 @@ export function FileUpload({
         className="twc-upload__zone" data-drag={drag || undefined} data-disabled={disabled || undefined}
         data-invalid={invalid || undefined} data-tone={tone}
         role="button" tabIndex={disabled ? -1 : 0}
+        aria-required={required || undefined}
         aria-invalid={invalid || undefined}
         aria-describedby={error || hint ? descId : undefined}
         onClick={() => !disabled && inputRef.current?.click()}

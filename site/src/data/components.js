@@ -1462,6 +1462,13 @@ export const components = [
         "description": "Inline styles merged onto the root element after the component's own."
       },
       {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Accessible name for the chart's <svg role=\"img\">; defaults to a description of the chart type."
+      },
+      {
         "prop": "...rest",
         "type": "React.HTMLAttributes<HTMLElement>",
         "required": false,

@@ -32,6 +32,8 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   colors?: string[];
   /** Tooltip value formatter. */
   valueFormat?: (value: number) => string;
+  /** Accessible name for the chart's `<svg role="img">`. Defaults to `"<type> chart"`. Also accepts `aria-label`. */
+  ariaLabel?: string;
 }
 
 export function Chart(props: ChartProps): React.JSX.Element;

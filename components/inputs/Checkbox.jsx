@@ -7,6 +7,7 @@ export function Checkbox({
   checked,
   defaultChecked,
   indeterminate = false,
+  required = false,
   disabled = false,
   size = "md",
   tone = "primary",
@@ -81,6 +82,7 @@ export function Checkbox({
         disabled={disabled}
         onChange={onChange}
         {...rest}
+        aria-required={required || undefined}
         aria-invalid={invalid || undefined}
         aria-describedby={describedBy}
       />

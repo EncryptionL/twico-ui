@@ -115,6 +115,7 @@ export function Input({
           type={effectiveType}
           disabled={disabled}
           required={required || undefined}
+          aria-required={required || undefined}
           aria-invalid={invalid || undefined}
           aria-describedby={error || hint ? descId : undefined}
           {...rest}

@@ -71,7 +71,7 @@ export function Toast({
   const onCloseRef = React.useRef(onClose);
   React.useEffect(() => {
     onCloseRef.current = onClose;
-  });
+  }, [onClose]);
   const timer = React.useRef();
   const stop = React.useCallback(() => clearTimeout(timer.current), []);
   const start = React.useCallback(() => {

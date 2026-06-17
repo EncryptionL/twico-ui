@@ -1,9 +1,10 @@
 import React from "react";
+import { createPortal } from "react-dom";
 
 const TOOLTIP_CSS = `
-.twc-tooltip-wrap { position: relative; display: inline-flex; }
+.twc-tooltip-wrap { display: inline-flex; }
 .twc-tooltip {
-  position: absolute; z-index: var(--z-tooltip); pointer-events: none;
+  position: fixed; z-index: var(--z-tooltip); pointer-events: none;
   padding: 6px 10px; border-radius: var(--radius-md);
   background: var(--color-text); color: var(--color-surface);
   font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-medium);
@@ -21,6 +22,7 @@ const TOOLTIP_CSS = `
 .twc-tooltip[data-place="bottom"] .twc-tooltip__arrow { top: -3px; left: 50%; margin-left: -3.5px; }
 .twc-tooltip[data-place="left"] .twc-tooltip__arrow   { right: -3px; top: 50%; margin-top: -3.5px; }
 .twc-tooltip[data-place="right"] .twc-tooltip__arrow  { left: -3px; top: 50%; margin-top: -3.5px; }
+@media (prefers-reduced-motion: reduce) { .twc-tooltip { transition: opacity var(--duration-fast) linear; transform: none; } }
 `;
 
 export function Tooltip({
@@ -41,9 +43,37 @@ export function Tooltip({
 
   const id = React.useId();
   const [show, setShow] = React.useState(false);
+  const [coords, setCoords] = React.useState(null);
   const timer = React.useRef(null);
+  const wrapRef = React.useRef(null);
   const open = () => { clearTimeout(timer.current); timer.current = setTimeout(() => setShow(true), delay); };
   const close = () => { clearTimeout(timer.current); setShow(false); };
+
+  // Portaled to <body> with fixed positioning so it is never clipped by an overflow/
+  // scroll ancestor. Coords are measured from the trigger; CSS data-place supplies the
+  // centering translate + arrow, so only the anchor edges are set here.
+  const place = React.useCallback(() => {
+    const el = wrapRef.current; if (!el) return;
+    const r = el.getBoundingClientRect();
+    const cx = Math.round(r.left + r.width / 2), cy = Math.round(r.top + r.height / 2);
+    const vw = window.innerWidth, vh = window.innerHeight, gap = 8;
+    const base = { left: "auto", right: "auto", top: "auto", bottom: "auto" };
+    if (placement === "bottom") setCoords({ ...base, left: cx, top: Math.round(r.bottom + gap) });
+    else if (placement === "left") setCoords({ ...base, top: cy, right: Math.round(vw - r.left + gap) });
+    else if (placement === "right") setCoords({ ...base, top: cy, left: Math.round(r.right + gap) });
+    else setCoords({ ...base, left: cx, bottom: Math.round(vh - r.top + gap) }); // top (default)
+  }, [placement]);
+  // Measure once on mount (client-only, so SSR renders no portal — no hydration diff)
+  // and keep the closed tooltip positioned so the first open animates in smoothly.
+  React.useEffect(() => { place(); }, [place]);
+  React.useEffect(() => {
+    if (!show) return undefined;
+    place();
+    const onMove = () => place();
+    window.addEventListener("scroll", onMove, true);
+    window.addEventListener("resize", onMove);
+    return () => { window.removeEventListener("scroll", onMove, true); window.removeEventListener("resize", onMove); };
+  }, [show, place]);
 
   // WCAG 1.4.13: Escape dismisses the tooltip; listener attached only while shown.
   React.useEffect(() => {
@@ -69,22 +99,25 @@ export function Tooltip({
 
   return (
     <span
+      ref={wrapRef}
       className={`twc-tooltip-wrap ${className}`}
       onMouseEnter={open} onMouseLeave={close} onFocus={open} onBlur={close}
       {...rest}
     >
       {trigger}
-      <span
-        id={id}
-        className="twc-tooltip"
-        data-place={placement}
-        data-show={show || undefined}
-        role="tooltip"
-        aria-hidden={show ? undefined : "true"}
-      >
-        {label}
-        <span className="twc-tooltip__arrow" aria-hidden="true" />
-      </span>
+      {coords ? createPortal(
+        <span
+          id={id}
+          className="twc-tooltip"
+          data-place={placement}
+          data-show={show || undefined}
+          role="tooltip"
+          aria-hidden={show ? undefined : "true"}
+          style={{ position: "fixed", left: coords.left, right: coords.right, top: coords.top, bottom: coords.bottom }}
+        >
+          {label}
+          <span className="twc-tooltip__arrow" aria-hidden="true" />
+        </span>, document.body) : null}
     </span>
   );
 }

@@ -6,6 +6,7 @@ export function Switch({
   error,
   checked,
   defaultChecked,
+  required = false,
   disabled = false,
   size = "md",
   tone = "primary",
@@ -75,6 +76,7 @@ export function Switch({
         disabled={disabled}
         onChange={onChange}
         {...rest}
+        aria-required={required || undefined}
         aria-invalid={invalid || undefined}
         aria-describedby={describedBy}
       />

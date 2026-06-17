@@ -54,11 +54,11 @@ const TABS_CSS = `
   display: inline-flex; flex-direction: column; border-inline-end: none;
 }
 .twc-tabs[data-orientation="vertical"] .twc-tabs__indicator {
-  bottom: auto; left: auto; right: -1px; width: 2.5px; height: auto;
+  bottom: auto; inset-inline-start: auto; inset-inline-end: -1px; width: 2.5px; height: auto;
   transition: top var(--duration-base) var(--ease-spring), height var(--duration-base) var(--ease-spring);
 }
 .twc-tabs[data-orientation="vertical"][data-variant="pill"] .twc-tabs__indicator {
-  top: auto; right: 4px; left: 4px; width: auto;
+  top: auto; inset-inline-end: 4px; inset-inline-start: 4px; width: auto;
 }
 .twc-tabs[data-orientation="vertical"] .twc-tabs__panel { padding-top: 0; flex: 1; min-width: 0; }
 `;
