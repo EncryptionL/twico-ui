@@ -153,9 +153,10 @@ export default function DatatableDemo() {
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", width: "100%", minWidth: 0, maxWidth: "100%" }}>
       <Text tone="muted" size="sm">
         Try it: sort a column, open the toolbar tools (hover for labels), drag or pin a column
-        header, double-click an editable cell (Role, Department, Status, Seats, Salary) to edit it,
-        and tick rows — a selection toolbar appears with batch actions plus an <strong>Edit</strong>{" "}
-        button that sets one value across every selected row.
+        header (double-click its right edge to auto-fit the width), use a column's ⋮ menu to{" "}
+        <strong>wrap text</strong>, double-click an editable cell (Role, Department, Status, Seats,
+        Salary) to edit it, and tick rows — a selection toolbar appears with batch actions plus an{" "}
+        <strong>Edit</strong> button that sets one value across every selected row.
       </Text>
       <Datatable
         rows={rows}

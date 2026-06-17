@@ -266,6 +266,10 @@ const DT_CSS = `
 .twc-dt__td { padding: 0 12px; height: var(--_rowh, 44px); border-bottom: var(--border-thin) solid var(--color-divider);
   font-size: var(--text-sm); color: var(--color-text); background: var(--color-surface);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 0; }
+/* Wrap-text columns: content flows onto multiple lines (the row grows down) instead of
+   clipping to one line. height stays a per-row minimum, so single-line cells are unchanged. */
+.twc-dt__td[data-wrap="true"] { white-space: normal; overflow: hidden; text-overflow: clip;
+  word-break: break-word; overflow-wrap: anywhere; vertical-align: top; padding-block: 10px; line-height: 1.45; }
 .twc-dt__td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
 .twc-dt[data-density="compact"] .twc-dt__td { --_rowh: 36px; }
 .twc-dt[data-density="comfortable"] .twc-dt__td { --_rowh: 56px; }
@@ -450,6 +454,7 @@ const I = {
   fileText: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M9 13h6M9 17h6",
   sheet: "M3 3h18v18H3zM3 9h18M3 15h18M9 3v18M15 3v18",
   braces: "M8 3H7a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2 2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h1M16 3h1a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2 2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-1",
+  wrap: "M3 6h18M3 12h15a3 3 0 1 1 0 6h-4M16 16l-2 2 2 2M3 18h6",
 };
 function Svg({ d, ...p }) {
   return (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
@@ -788,6 +793,11 @@ export function Datatable({
   const [sort, setSort] = React.useState(null);
   const [filters, setFilters] = React.useState([]);
   const [hidden, setHidden] = React.useState(() => new Set());
+  // Per-column text wrapping: cells in these fields wrap onto multiple lines
+  // (the row grows down) instead of clipping to one line. Seeded from a column's
+  // `wrapText`, toggled live from the column ⋮ menu.
+  const [wrapped, setWrapped] = React.useState(() => new Set((columns || []).filter((c) => c.wrapText).map((c) => c.field)));
+  const toggleWrap = (field) => setWrapped((w) => { const n = new Set(w); n.has(field) ? n.delete(field) : n.add(field); return n; });
   const [pins, setPins] = React.useState(() => {
     const left = [], right = [];
     columns.forEach((c) => { if (c.pinned === "left") left.push(c.field); else if (c.pinned === "right") right.push(c.field); });
@@ -1688,7 +1698,7 @@ export function Datatable({
               tabIndex={focus.r === ri && focus.c === ci ? 0 : -1}
               data-num={c.type === "number" || undefined} data-actions={isActions || undefined}
               data-editable={editable && !isEditing || undefined} data-editing={isEditing || undefined}
-              data-cell-active={cellActive || undefined}
+              data-cell-active={cellActive || undefined} data-wrap={wrapped.has(c.field) || undefined}
               data-pin={st.pin} data-pin-edge={st.edge}
               style={{ width: widthOf(c), ...st.style }} title={isActions || c.renderCell || editable ? undefined : String(val ?? "")}
               onClick={selectionMode === "cell" ? (e) => handleCellClick(e, k, row, c) : undefined}
@@ -2158,6 +2168,7 @@ export function Datatable({
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={pins.left.includes(c.field) || undefined} onClick={() => { setPin(c.field, pins.left.includes(c.field) ? null : "left"); close(); }}><Svg d={I.pinL} /> {pins.left.includes(c.field) ? "Unpin" : "Pin to left"}</button>
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={pins.right.includes(c.field) || undefined} onClick={() => { setPin(c.field, pins.right.includes(c.field) ? null : "right"); close(); }}><Svg d={I.pin} /> {pins.right.includes(c.field) ? "Unpin" : "Pin to right"}</button>
               </>) : null}
+              {c.type !== "actions" ? <button type="button" role="menuitem" className="twc-dt__mi" data-active={wrapped.has(c.field) || undefined} onClick={() => { toggleWrap(c.field); close(); }}><Svg d={I.wrap} /> {wrapped.has(c.field) ? "Unwrap text" : "Wrap text"}</button> : null}
               {c.hideable ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={() => { setHidden((h) => new Set(h).add(c.field)); close(); }}><Svg d={I.eyeOff} /> Hide column</button> : null}
             </>);
           })()}

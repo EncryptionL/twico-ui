@@ -30,7 +30,7 @@ import { Datatable } from "./Datatable";
 ```
 
 **Interactions**
-- Click a header to cycle sort (asc → desc → none); the **⋮** menu has sort, filter, pin left/right, and hide.
+- Click a header to cycle sort (asc → desc → none); the **⋮** menu has sort, filter, group, move, pin left/right, **wrap text** (multi-line cells instead of clipping — also seedable per column via `wrapText`), and hide.
 - **Drag a column header** to reorder (middle, non-pinned columns), **or drag rows in the Columns panel** to reorder any column; **drag the right edge** of a header to resize it, or **double-click** that edge to auto-fit the column to its content (Excel-style).
 - **Inline editing** — set `editable: true` on a column (or `editMode` on the grid for all columns) and **double-click a cell** to edit. Enter or blur commits, Esc cancels. Columns with `valueOptions` edit via a searchable dropdown; number/currency columns get a number input.
 - **Batch edit** — with `checkboxSelection`, selecting rows shows an **Edit** button in the selection toolbar (when editable columns exist). It opens a panel to set one or more columns at once and **Apply** them to every selected row; fires `onBatchUpdate(changedRows, patch, selectedKeys)` plus `onRowsChange`.s` (or `editType: "select"`) edit via a dropdown; number columns get a number input. On commit the grid calls `onRowUpdate(updatedRow, originalRow, field)`; pass `onRowsChange` to also receive the full next rows array (client mode).

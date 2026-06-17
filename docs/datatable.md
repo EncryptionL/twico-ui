@@ -152,6 +152,19 @@ truncated one. The result is `clamp(72, content + cell padding + 6, 640)` writte
 window), which is the standard grid trade-off. Gated by the same `disableColumnResize` / per-column
 `resizable` flags as drag resize.
 
+### Wrap text (column ⋮ menu)
+
+A **Wrap text** toggle in each non-actions column's header menu makes that column's cells flow onto
+multiple lines (the row grows **down**) instead of clipping to one line with an ellipsis. State lives
+in a `wrapped` Set of fields (seeded from a column's `wrapText` prop, toggled live from the menu); a
+wrapped column's `<td>` gets `data-wrap="true"`, which the CSS turns into
+`white-space: normal; word-break: break-word; overflow-wrap: anywhere; vertical-align: top` with a bit
+of block padding. The cell keeps its `height: var(--_rowh)` — but `height` on a table cell is a
+**minimum**, so single-line cells are unchanged while taller content grows the row. The menu item
+reads "Wrap text" / "Unwrap text" and is gated to `c.type !== "actions"`. Caveat: wrapping makes rows
+variable-height, so it doesn't combine with `virtualized` (which assumes a fixed `rowHeight`) — same
+trade-off as row grouping.
+
 ### Filter row layout
 
 `.twc-dt__filters` is **580px** wide (was 460). The field (`.twc-dt__f-col`) and operator

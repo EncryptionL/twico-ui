@@ -177,6 +177,9 @@ export interface DatatableColumn {
   editType?: "text" | "number" | "select";
   /** Hide the column header ⋮ menu. @default false */
   disableColumnMenu?: boolean;
+  /** Start with this column's cell text wrapped onto multiple lines (the row grows down) instead of
+   *  clipped to one line. Users can also toggle it live from the column ⋮ menu ("Wrap text"). @default false */
+  wrapText?: boolean;
   /** Distinct values for the "is any of" multi-value filter (recommended in server mode). */
   valueOptions?: Array<string | { value: string; label: string }>;
   /** Format the raw value to a string/number for display. */
