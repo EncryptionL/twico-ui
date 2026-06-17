@@ -28,7 +28,8 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
   /** Render a leading auto-numbered row column (1, 2, 3…). The number reflects each row's position in
    *  the current sorted/filtered order and continues across pages (page 2 starts where page 1 ended;
    *  in server mode it uses the current page × pageSize). Sits after the checkbox column, sticky-left.
-   *  @default false */
+   *  This prop is the initial state — when enabled, users can hide/show the column from the toolbar's
+   *  **Columns** panel ("Row number"). @default false */
   rowNumbers?: boolean;
   /**
    * Actions shown in the toolbar when one or more rows are selected (requires

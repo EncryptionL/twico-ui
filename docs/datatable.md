@@ -213,6 +213,12 @@ aligned, and `totalCols` (group rows, empty state, virtualization spacers) count
 `aria-hidden` — screen readers already get each row's position from `aria-rowindex`, so the gutter is
 purely visual and isn't double-counted in `aria-colcount`/`aria-colindex`.
 
+**Show/hide at runtime.** The `rowNumbers` prop is only the *initial* state: rendering reads a
+`showRowNum` state (seeded from the prop), and when the feature is enabled the **Columns** toolbar
+panel gets a "Row number" entry with a visibility switch (gated by the panel's search via
+`rowNumMatch`). Toggling it off just stops rendering the gutter — the leading offsets, `totalCols`,
+and edge-shadow all key off `showRowNum`, so the rest of the grid re-flows with no other change.
+
 ### Filter row layout
 
 `.twc-dt__filters` is **580px** wide (was 460). The field (`.twc-dt__f-col`) and operator

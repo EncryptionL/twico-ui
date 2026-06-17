@@ -808,6 +808,9 @@ export function Datatable({
   const [sort, setSort] = React.useState(null);
   const [filters, setFilters] = React.useState([]);
   const [hidden, setHidden] = React.useState(() => new Set());
+  // Runtime visibility of the row-number gutter, seeded from the `rowNumbers` prop and
+  // toggled from the Columns panel (the prop just enables the feature + sets the default).
+  const [showRowNum, setShowRowNum] = React.useState(rowNumbers);
   // Per-column text wrapping: cells in these fields wrap onto multiple lines
   // (the row grows down) instead of clipping to one line. Seeded from a column's
   // `wrapText`, toggled live from the column ⋮ menu.
@@ -982,7 +985,7 @@ export function Datatable({
   // in that order. Pinned-left data columns start after both.
   const NUM_W = 56;
   const numLeft = checkboxSelection ? 44 : 0;        // x of the row-number column
-  const leadW = numLeft + (rowNumbers ? NUM_W : 0);  // x where pinned-left data columns begin
+  const leadW = numLeft + (showRowNum ? NUM_W : 0);  // x where pinned-left data columns begin
   const stickyOf = (field) => {
     if (pins.left.includes(field)) {
       let off = leadW;
@@ -1668,9 +1671,11 @@ export function Datatable({
   const shownColRows = cols
     .filter((c) => c.headerName.toLowerCase().includes(colQuery.trim().toLowerCase()))
     .sort((a, b) => orderIdxOf(a.field) - orderIdxOf(b.field));
+  // The row-number gutter gets its own show/hide row in the Columns panel when the feature is enabled.
+  const rowNumMatch = rowNumbers && "row number".includes(colQuery.trim().toLowerCase());
   const rppOptions = Array.from(new Set([...(pageSizeOptions || []), pageSize].filter((n) => n > 0))).sort((a, b) => a - b).map((n) => ({ value: String(n), label: String(n) }));
 
-  const totalCols = ordered.length + (checkboxSelection ? 1 : 0) + (rowNumbers ? 1 : 0);
+  const totalCols = ordered.length + (checkboxSelection ? 1 : 0) + (showRowNum ? 1 : 0);
   function renderGroupRow(item) {
     const subs = aggOn ? subtotalText(item.rows) : [];
     return (
@@ -1735,7 +1740,7 @@ export function Datatable({
         onDragEnd={reorderable ? () => setRowDrag({ from: null, over: null, after: false }) : undefined}
         onClick={(e) => handleRowClick(e, k, row)}>
         {checkboxSelection ? (
-          <td className="twc-dt__td" role="gridcell" data-pin="left" data-pin-edge={(pins.left.length || rowNumbers) ? undefined : "left"} style={{ left: 0, width: 44 }}>
+          <td className="twc-dt__td" role="gridcell" data-pin="left" data-pin-edge={(pins.left.length || showRowNum) ? undefined : "left"} style={{ left: 0, width: 44 }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
               {reorderable ? rowHandle(k, midIdx, row) : null}
               <span className="twc-dt__check" data-checked={sel || undefined} onClick={() => toggleRow(k)}
@@ -1745,7 +1750,7 @@ export function Datatable({
             {rowResize && !pinSide ? <span className="twc-dt__row-resizer" title="Drag to resize row" onPointerDown={(e) => startRowResize(e, k, e.currentTarget.closest("tr"))} onClick={(e) => e.stopPropagation()} /> : null}
           </td>
         ) : null}
-        {rowNumbers ? (
+        {showRowNum ? (
           <td className="twc-dt__td twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: numLeft, width: NUM_W }}>
             {typeof ri === "number" ? ((paginated || serverMode ? page * rowsPerPage : 0) + ri + 1) : ""}
           </td>
@@ -1979,7 +1984,7 @@ export function Datatable({
           <thead ref={theadRef}>
             <tr role="row" aria-rowindex={1}>
               {checkboxSelection ? (
-                <th className="twc-dt__th" role="columnheader" aria-label="Select" data-pin="left" data-pin-edge={(pins.left.length || rowNumbers) ? undefined : "left"} style={{ left: 0, width: 44, minWidth: 44 }}>
+                <th className="twc-dt__th" role="columnheader" aria-label="Select" data-pin="left" data-pin-edge={(pins.left.length || showRowNum) ? undefined : "left"} style={{ left: 0, width: 44, minWidth: 44 }}>
                   <div className="twc-dt__th-inner" style={{ justifyContent: "center", padding: 0 }}>
                     <span className="twc-dt__check" data-checked={allSel || undefined} data-indeterminate={(!allSel && someSel) || undefined} onClick={toggleAll}
                       role="checkbox" aria-checked={allSel ? true : someSel ? "mixed" : false} aria-label="Select all rows" tabIndex={0}
@@ -1989,7 +1994,7 @@ export function Datatable({
                   </div>
                 </th>
               ) : null}
-              {rowNumbers ? (
+              {showRowNum ? (
                 <th className="twc-dt__th twc-dt__rownum" role="columnheader" aria-label="Row number" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: numLeft, width: NUM_W, minWidth: NUM_W }}>
                   <div className="twc-dt__th-inner" style={{ justifyContent: "flex-end" }}>#</div>
                 </th>
@@ -2061,7 +2066,7 @@ export function Datatable({
               Array.from({ length: paginated ? Math.min(rowsPerPage, 8) : 8 }).map((_, ri) => (
                 <tr key={ri} className="twc-dt__row">
                   {checkboxSelection ? <td className="twc-dt__td" data-pin="left" style={{ left: 0, width: 44 }}><span className="twc-dt__sk" style={{ "--_w": "18px", height: 18, borderRadius: 4 }} /></td> : null}
-                  {rowNumbers ? <td className="twc-dt__td twc-dt__rownum" aria-hidden="true" data-pin="left" style={{ left: numLeft, width: NUM_W }}><span className="twc-dt__sk" style={{ "--_w": "16px", height: 14, borderRadius: 4 }} /></td> : null}
+                  {showRowNum ? <td className="twc-dt__td twc-dt__rownum" aria-hidden="true" data-pin="left" style={{ left: numLeft, width: NUM_W }}><span className="twc-dt__sk" style={{ "--_w": "16px", height: 14, borderRadius: 4 }} /></td> : null}
                   {ordered.map((c, ci) => {
                     const st = stickyOf(c.field);
                     return <td key={c.field} className="twc-dt__td" data-num={c.type === "number" || undefined} data-pin={st.pin} data-pin-edge={st.edge} style={{ width: widthOf(c), ...st.style }}>
@@ -2092,8 +2097,8 @@ export function Datatable({
           {hasAggregation && aggOn && !loading && paged.length > 0 ? (
             <tfoot>
               <tr role="row">
-                {checkboxSelection ? <td data-pin="left" data-pin-edge={(pins.left.length || rowNumbers) ? undefined : "left"} style={{ left: 0, width: 44 }} /> : null}
-                {rowNumbers ? <td className="twc-dt__rownum" aria-hidden="true" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: numLeft, width: NUM_W }} /> : null}
+                {checkboxSelection ? <td data-pin="left" data-pin-edge={(pins.left.length || showRowNum) ? undefined : "left"} style={{ left: 0, width: 44 }} /> : null}
+                {showRowNum ? <td className="twc-dt__rownum" aria-hidden="true" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: numLeft, width: NUM_W }} /> : null}
                 {ordered.map((c) => {
                   const st = stickyOf(c.field);
                   const v = aggregate(c);
@@ -2276,7 +2281,15 @@ export function Datatable({
             <input autoFocus placeholder="Find column…" aria-label="Find column" value={colQuery} onChange={(e) => setColQuery(e.target.value)} />
           </div>
           <div className="twc-dt__col-list">
-            {shownColRows.length === 0 ? <div className="twc-dt__empty" style={{ padding: "18px 12px" }}>No columns found</div> :
+            {rowNumMatch ? (
+              <div className="twc-dt__col-row" onClick={() => setShowRowNum((v) => !v)}>
+                <span className="twc-dt__col-name">Row number</span>
+                <span className="twc-dt__sw" data-on={showRowNum || undefined}
+                  role="switch" aria-checked={showRowNum} aria-label="Row number column" tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setShowRowNum((v) => !v); } }} />
+              </div>
+            ) : null}
+            {shownColRows.length === 0 ? (rowNumMatch ? null : <div className="twc-dt__empty" style={{ padding: "18px 12px" }}>No columns found</div>) :
               shownColRows.map((c) => {
                 const canDrag = !disableColumnReorder && !colQuery.trim();
                 return (
