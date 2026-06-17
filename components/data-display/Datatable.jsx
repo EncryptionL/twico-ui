@@ -351,7 +351,12 @@ const DT_CSS = `
 .twc-dt__col-grip { display: inline-flex; color: var(--color-text-subtle); flex: none; opacity: 0.45; }
 .twc-dt__col-row:hover .twc-dt__col-grip { opacity: 0.8; }
 .twc-dt__col-grip svg { width: 14px; height: 14px; }
-.twc-dt__col-name { flex: 1; font-size: var(--text-sm); }
+.twc-dt__col-name { flex: 1; font-size: var(--text-sm); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.twc-dt__col-pins { display: inline-flex; gap: 2px; flex: none; }
+.twc-dt__col-pin { display: inline-grid; place-items: center; width: 24px; height: 24px; border: none; padding: 0; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm); transition: background-color var(--duration-fast), color var(--duration-fast); }
+.twc-dt__col-pin:hover { background: var(--color-surface); color: var(--color-text); }
+.twc-dt__col-pin[data-on="true"] { color: var(--color-primary); background: var(--color-primary-subtle); }
+.twc-dt__col-pin svg { width: 14px; height: 14px; }
 .twc-dt__sw { width: 32px; height: 18px; border-radius: var(--radius-full); background: var(--color-border-strong); position: relative; flex: none; transition: background-color var(--duration-base); }
 .twc-dt__sw[data-on="true"] { background: var(--color-primary); }
 .twc-dt__sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: var(--radius-full); background: var(--color-primary-fg); box-shadow: var(--shadow-sm); transition: transform var(--duration-base) var(--ease-spring); }
@@ -2222,6 +2227,17 @@ export function Datatable({
                   onClick={() => c.hideable && toggleHiddenField(c.field)}>
                   {canDrag ? <span className="twc-dt__col-grip" aria-hidden="true"><Svg d={I.grip} /></span> : null}
                   <span className="twc-dt__col-name">{c.headerName}</span>
+                  {c.pinnable && c.type !== "actions" ? (
+                    // Pin from here too, so columns scrolled out of view (no reachable header ⋮) can still be pinned.
+                    <span className="twc-dt__col-pins" draggable={false} onClick={(e) => e.stopPropagation()}>
+                      <button type="button" className="twc-dt__col-pin" data-on={pins.left.includes(c.field) || undefined}
+                        aria-pressed={pins.left.includes(c.field)} aria-label={`Pin ${c.headerName} to left`} title={pins.left.includes(c.field) ? "Unpin" : "Pin to left"}
+                        onClick={() => setPin(c.field, pins.left.includes(c.field) ? null : "left")}><Svg d={I.pinL} /></button>
+                      <button type="button" className="twc-dt__col-pin" data-on={pins.right.includes(c.field) || undefined}
+                        aria-pressed={pins.right.includes(c.field)} aria-label={`Pin ${c.headerName} to right`} title={pins.right.includes(c.field) ? "Unpin" : "Pin to right"}
+                        onClick={() => setPin(c.field, pins.right.includes(c.field) ? null : "right")}><Svg d={I.pin} /></button>
+                    </span>
+                  ) : null}
                   <span className="twc-dt__sw" data-on={!hidden.has(c.field) || undefined}
                     role="switch" aria-checked={!hidden.has(c.field)} aria-label={c.headerName}
                     aria-disabled={!c.hideable || undefined} tabIndex={c.hideable ? 0 : -1}

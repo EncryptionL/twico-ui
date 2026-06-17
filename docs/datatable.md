@@ -165,6 +165,19 @@ reads "Wrap text" / "Unwrap text" and is gated to `c.type !== "actions"`. Caveat
 variable-height, so it doesn't combine with `virtualized` (which assumes a fixed `rowHeight`) — same
 trade-off as row grouping.
 
+### Pinning from the Columns panel
+
+Columns can be pinned two ways: from a column header's **⋮ menu** ("Pin to left/right"), and — added
+because the header menu is only reachable when that column is **scrolled into view** — from the
+**Columns** toolbar panel. In a narrow layout the grid shows only a few columns at a time, so a column
+scrolled off to the right has no on-screen ⋮ button and *felt* unpinnable; the panel lists **every**
+column regardless of scroll, and each non-`actions` row now carries **pin-left** / **pin-right** icon
+buttons (`.twc-dt__col-pin`, `data-on` = active) beside its visibility switch. Both paths call the same
+`setPin(field, side)`, so state stays consistent. The buttons `stopPropagation` so a click pins rather
+than toggling the row's visibility, and the wrapper is `draggable={false}` so it doesn't start a column
+drag-reorder. This is the fix for "some columns can't be pinned" — they were simply scrolled out of
+reach of their header menu.
+
 ### Filter row layout
 
 `.twc-dt__filters` is **580px** wide (was 460). The field (`.twc-dt__f-col`) and operator
