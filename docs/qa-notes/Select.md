@@ -6,7 +6,7 @@
 
 ## Open issues
 
-- [ ] **[P1] Portal z-index string vs numeric mismatch** — Portal popover uses CSS var `z-index: "var(--z-tooltip)"` (line 263) but this should be just the CSS variable without quotes in the style object. Fix: change to `zIndex: "var(--z-tooltip)"` in camelCase JS prop. `Select.jsx:263`.
+- [x] **[P1] Portal z-index string vs numeric mismatch** — Portal popover uses CSS var `z-index: "var(--z-tooltip)"` (line 263) but this should be just the CSS variable without quotes in the style object. Fix: change to `zIndex: "var(--z-tooltip)"` in camelCase JS prop. `Select.jsx:263`. — ✓ fixed 2026-06-17
 
 - [ ] **[P2] Popover viewport flip animation mismatch** — When menu flips to top, transform-origin is set to bottom (CSS line 53) but animation timing remains the same (line 52). During the flip-and-open transition, the visual effect might feel jerky. Consider adding a CSS animation-delay or transform-origin class based on data-placement. `Select.jsx:52-53`.
 

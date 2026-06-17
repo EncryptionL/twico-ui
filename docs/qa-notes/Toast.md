@@ -1,12 +1,12 @@
 # QA notes — Toast
 
 - **Group:** Feedback
-- **Status:** open
+- **Status:** resolved
 - **Reviewed:** 2026-06-17
 
-## Open issues
+## Resolved issues
 
-- [ ] **[P2] RTL slide animation** — The toast entry animation uses `animation: twico-slide-in-right`, which is a physical direction animation (`translateX(24px)`). In RTL layouts, toasts will slide in from the left (incorrect; should come from the right in RTL). _Fix:_ Create a logical variant of the animation that responds to document direction, or use `transform` directions relative to `inset-inline-end` positioning. `components/feedback/Toast.jsx:12` and `styles/twico-ui.css:467-470`
+- [x] **[P2] RTL slide animation** — The toast entry animation used the physical-direction `twico-slide-in-right` keyframe (`translateX(24px)`), so RTL toasts slid in from the wrong side. _Fixed:_ `Toast.jsx` now injects its own `twc-toast-slide-in` keyframe (LTR behaviour identical to before) plus a `[dir="rtl"] .twc-toast` override using `twc-toast-slide-in-rtl` (`translateX(-24px)`), so RTL toasts enter from the inline-end edge. `components/feedback/Toast.jsx`
 
 ## Verified OK
 

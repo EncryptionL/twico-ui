@@ -1,13 +1,13 @@
 # QA notes — Stepper
 
 - **Group:** navigation
-- **Status:** open
+- **Status:** clean
 - **Reviewed:** 2026-06-17
 
 ## Open issues
 
-- [ ] **[P1] Clickable steps are not keyboard-operable** — When `clickable` is set, the click handler is attached to the step's `<div>` (`onClick={() => onStepClick?.(i)}`) with only a `data-clickable` + `cursor:pointer` style. The element is not focusable (no `tabIndex`), exposes no `role="button"`, and has no `onKeyDown` for Enter/Space, so keyboard and screen-reader users cannot activate steps that mouse users can. _Fix:_ when `isClickable`, render the indicator/step as a `<button type="button">` (or add `role="button"`, `tabIndex={0}`, and an Enter/Space `onKeyDown`). `components/navigation/Stepper.jsx:88-89,102-103`.
-- [ ] **[P2] No programmatic indication of the current step** — The active step is conveyed only visually (ring + color via `data-state="active"`). There is no `aria-current="step"` (or any text alternative) on the active step, and the check/bang glyphs are `aria-hidden`, so assistive tech cannot tell which step is current or that earlier steps are complete / a step has errored. _Fix:_ add `aria-current="step"` to the active step and a visually-hidden status label (e.g. "completed", "error") so state is announced. `components/navigation/Stepper.jsx:88,102`.
+- [x] **[P1] Clickable steps are not keyboard-operable** — When `clickable` is set, the click handler is attached to the step's `<div>` (`onClick={() => onStepClick?.(i)}`) with only a `data-clickable` + `cursor:pointer` style. The element is not focusable (no `tabIndex`), exposes no `role="button"`, and has no `onKeyDown` for Enter/Space, so keyboard and screen-reader users cannot activate steps that mouse users can. _Fix:_ when `isClickable`, render the indicator/step as a `<button type="button">` (or add `role="button"`, `tabIndex={0}`, and an Enter/Space `onKeyDown`). `components/navigation/Stepper.jsx:88-89,102-103`. — ✓ fixed 2026-06-17
+- [x] **[P2] No programmatic indication of the current step** — The active step is conveyed only visually (ring + color via `data-state="active"`). There is no `aria-current="step"` (or any text alternative) on the active step, and the check/bang glyphs are `aria-hidden`, so assistive tech cannot tell which step is current or that earlier steps are complete / a step has errored. _Fix:_ add `aria-current="step"` to the active step and a visually-hidden status label (e.g. "completed", "error") so state is announced. `components/navigation/Stepper.jsx:88,102`. — ✓ fixed 2026-06-17
 
 ## Verified OK
 

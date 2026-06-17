@@ -1,12 +1,12 @@
 # QA notes — Input
 
 - **Group:** inputs
-- **Status:** open
+- **Status:** clean
 - **Reviewed:** 2026-06-17
 
 ## Open issues
 
-- [ ] **[P1] Textarea styling leakage** — The `twc-textarea__el` selector uses `data-size` and `data-tone` attributes that conflict with Input CSS logic if both exist on same page. The textarea uses inline `data-*` attributes (line 68-69) but Input applies them to a wrapper `.twc-input` div (line 110). When both load, CSS specificity could cause misalignment. _Fix:_ Namespace textarea styles separately or ensure wrapper element always takes precedence. `Input.jsx:110`, `Textarea.jsx:68-69`.
+- [x] **[P1] Textarea styling leakage** — The `twc-textarea__el` selector uses `data-size` and `data-tone` attributes that conflict with Input CSS logic if both exist on same page. The textarea uses inline `data-*` attributes (line 68-69) but Input applies them to a wrapper `.twc-input` div (line 110). When both load, CSS specificity could cause misalignment. _Fix:_ Namespace textarea styles separately or ensure wrapper element always takes precedence. `Input.jsx:110`, `Textarea.jsx:68-69`. — ✓ fixed 2026-06-17
 
 ## Verified OK
 

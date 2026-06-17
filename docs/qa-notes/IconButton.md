@@ -1,11 +1,11 @@
 # QA notes — IconButton
 
 - **Group:** buttons
-- **Status:** open
+- **Status:** clean
 - **Reviewed:** 2026-06-17
 
 ## Open issues
-- [ ] **[P2] No default `type="button"`** — The rendered `<button>` has no explicit `type`, so it defaults to `type="submit"`. An icon button placed in a `<form>` (e.g. a clear/close affordance in a search field) will submit the form on click. `type` is only present if the consumer passes it through `...rest`. _Fix:_ default `type="button"` (overridable via `...rest`), e.g. add `type="button"` on the element before `{...rest}`. `components/buttons/IconButton.jsx:71-81`
+- [x] **[P2] No default `type="button"`** — The rendered `<button>` has no explicit `type`, so it defaults to `type="submit"`. An icon button placed in a `<form>` (e.g. a clear/close affordance in a search field) will submit the form on click. `type` is only present if the consumer passes it through `...rest`. _Fix:_ default `type="button"` (overridable via `...rest`), e.g. add `type="button"` on the element before `{...rest}`. `components/buttons/IconButton.jsx:71-81` — ✓ fixed 2026-06-17
 
 ## Verified OK
 - `aria-label` is required in the type contract (`IconButton.d.ts:21`) and forwarded to the button (line 79), so the icon-only control is always labeled for AT. The icon node is `aria-hidden`-equivalent (decorative SVG inside a labeled button) — correct.

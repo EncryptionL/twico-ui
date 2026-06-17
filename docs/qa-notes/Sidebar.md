@@ -1,13 +1,13 @@
 # QA notes — Sidebar
 
 - **Group:** navigation
-- **Status:** open
+- **Status:** clean
 - **Reviewed:** 2026-06-17
 
 ## Open issues
 
-- [ ] **[P1] onClick items jump the page to `#`** — Nav items always render as `<a href={safeHref(it.href) || "#"}>`. The collapsed/uncontrolled demos and many real sidebars drive navigation purely from `onClick` with no `href`; because `href` defaults to `"#"` and no handler calls `preventDefault`, clicking scrolls the viewport to the top and pushes a `#` history entry. Same root cause as Navbar. _Fix:_ render a `<button>` when no `href` is supplied (also resolves the deferred render-as-button item), or drop the `"#"` fallback so the anchor is inert. `components/navigation/Sidebar.jsx:84`.
-- [ ] **[P2] Collapsed labels are visually hidden but stay in the a11y tree** — In collapsed mode `.twc-sidebar__label`/`__badge` are hidden with `display: none` (good, fully removes them), but the row's accessible name then falls back to the first-letter "initial" span which is `aria-hidden="true"`, leaving the link with **no accessible name** for screen readers when there is no icon-with-label. The native `title` is set only when collapsed AND label is a string, which helps sighted hover but `title` is not a reliable accessible name. _Fix:_ keep an `aria-label={typeof it.label === "string" ? it.label : undefined}` on the anchor so the collapsed icon-only link is still announced. `components/navigation/Sidebar.jsx:84-92`.
+- [x] **[P1] onClick items jump the page to `#`** — Nav items always render as `<a href={safeHref(it.href) || "#"}>`. The collapsed/uncontrolled demos and many real sidebars drive navigation purely from `onClick` with no `href`; because `href` defaults to `"#"` and no handler calls `preventDefault`, clicking scrolls the viewport to the top and pushes a `#` history entry. Same root cause as Navbar. _Fix:_ render a `<button>` when no `href` is supplied (also resolves the deferred render-as-button item), or drop the `"#"` fallback so the anchor is inert. `components/navigation/Sidebar.jsx:84`. — ✓ fixed 2026-06-17
+- [x] **[P2] Collapsed labels are visually hidden but stay in the a11y tree** — In collapsed mode `.twc-sidebar__label`/`__badge` are hidden with `display: none` (good, fully removes them), but the row's accessible name then falls back to the first-letter "initial" span which is `aria-hidden="true"`, leaving the link with **no accessible name** for screen readers when there is no icon-with-label. The native `title` is set only when collapsed AND label is a string, which helps sighted hover but `title` is not a reliable accessible name. _Fix:_ keep an `aria-label={typeof it.label === "string" ? it.label : undefined}` on the anchor so the collapsed icon-only link is still announced. `components/navigation/Sidebar.jsx:84-92`. — ✓ fixed 2026-06-17
 - [ ] **[deferred] Items render as `<a>` even with no href** — Items without `href` still emit an anchor pointing at `"#"`; see P1 for the consequence.
 - [ ] **[deferred] index-as-key on items/sections** — `items.map((it, i) => … key={i})` uses the array index for both section headings and links; inserting/removing items can desync. `components/navigation/Sidebar.jsx:80-95`.
 

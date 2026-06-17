@@ -6,7 +6,7 @@
 
 ## Open issues
 
-- [ ] **[P2] Selection logic doesn't prevent end < start** — User can select end date before start date; component doesn't enforce start <= end constraint. Current code likely just stores them but renders range selection logic might be fragile. _Fix:_ Add a callback or internal logic to ensure start <= end; swap if needed. `DateRangePicker.jsx`.
+- [x] **[P2] Selection logic doesn't prevent end < start** — User can select end date before start date; component doesn't enforce start <= end constraint. Current code likely just stores them but renders range selection logic might be fragile. _Fix:_ Add a callback or internal logic to ensure start <= end; swap if needed. `DateRangePicker.jsx`. — ✓ fixed 2026-06-17
 
 - [ ] **[P1] Preset buttons not keyboard accessible** — Line 40 renders preset buttons but they lack tabIndex=0 or aria-label, making them hard to discover via keyboard. _Fix:_ Add tabIndex={0} and descriptive aria-label to each preset button. `DateRangePicker.jsx:~line-preset-rendering`.
 

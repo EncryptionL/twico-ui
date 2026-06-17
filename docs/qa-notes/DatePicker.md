@@ -1,12 +1,12 @@
 # QA notes — DatePicker
 
 - **Group:** inputs
-- **Status:** open
+- **Status:** clean
 - **Reviewed:** 2026-06-17
 
 ## Open issues
 
-- [ ] **[P2] Month/year navigation doesn't constrain to current date bounds** — User can navigate calendar forward indefinitely but there's no maxDate prop to prevent selection outside a valid range. Consider adding min/maxDate constraints if the use case requires it. Currently only enforces disabledDates. `DatePicker.jsx`.
+- [x] **[P2] Month/year navigation doesn't constrain to current date bounds** — User can navigate calendar forward indefinitely but there's no maxDate prop to prevent selection outside a valid range. Consider adding min/maxDate constraints if the use case requires it. Currently only enforces disabledDates. `DatePicker.jsx`. — ✓ fixed 2026-06-17
 
 ## Verified OK
 

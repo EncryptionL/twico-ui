@@ -8,7 +8,7 @@
 
 - [ ] **[P2] `side` is physical, not logical, so RTL drawers do not mirror** — `side="right"`/`"left"` map to physical `right: 0`/`left: 0` plus a physical `border-left`/`border-right` and matching radii (`Drawer.jsx:13-14`). In an RTL document a `side="right"` drawer still slides from the visual right with its border on the left edge — i.e. it does not flip to the leading edge. This is arguably intentional (the prop names physical edges), but it is the one place in the family that is not RTL-aware. _Fix (optional):_ document that `side` is physical, or add an `inline-start`/`inline-end` option built on logical properties. `Drawer.jsx:13-14`
 
-- [ ] **[P2] Body scroll not locked while open** — Same as Dialog: the scrim is fixed and full-viewport but the page behind it still scrolls (wheel after pointer leaves the panel; iOS body scroll under the panel). _Fix:_ set `body { overflow: hidden }` on open and restore on unmount (SSR-guarded), or document as consumer responsibility. `Drawer.jsx:80-84`
+- [x] **[P2] Body scroll not locked while open** — Same as Dialog: the scrim is fixed and full-viewport but the page behind it still scrolls (wheel after pointer leaves the panel; iOS body scroll under the panel). _Fix:_ set `body { overflow: hidden }` on open and restore on unmount (SSR-guarded), or document as consumer responsibility. `Drawer.jsx:80-84` — ✓ fixed 2026-06-17
 
 - [ ] **[P2] Initial focus lands on the panel container, not the first control** — On open focus moves to the panel node (`tabIndex={-1}`) rather than the first focusable. APG-acceptable, but a filter/details drawer would feel better focusing its first field or the close button. _Fix (optional):_ focus the first focusable, falling back to the panel. `Drawer.jsx:89-97`
 

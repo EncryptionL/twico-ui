@@ -1,12 +1,12 @@
 # QA notes — Pagination
 
 - **Group:** data-display
-- **Status:** open (1 issue)
+- **Status:** clean
 - **Reviewed:** 2026-06-17
 
 ## Open issues
 
-- [ ] **[P2] Jump input validation not enforced** — The page jumper input(type="number") accepts any number but doesn't validate it's in [1, total]. If a user types "999" in a 12-page table and hits Enter, the input handler should clamp or reject it before calling onChange. _Fix:_ Add validation in the jump input's onChange: `Math.min(Math.max(+val, 1), total)` before calling setPage. `Pagination.jsx:100+` (see full readPagination for onKeyDown logic).
+- [x] **[P2] Jump input validation not enforced** — The page jumper input(type="number") accepts any number but doesn't validate it's in [1, total]. If a user types "999" in a 12-page table and hits Enter, the input handler should clamp or reject it before calling onChange. _Fix:_ Add validation in the jump input's onChange: `Math.min(Math.max(+val, 1), total)` before calling setPage. `Pagination.jsx:100+` (see full readPagination for onKeyDown logic). — ✓ fixed 2026-06-17
 
 ## Verified OK
 
