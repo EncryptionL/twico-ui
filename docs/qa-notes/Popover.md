@@ -2,13 +2,13 @@
 
 - **Group:** overlay
 - **Reviewed:** 2026-06-17
-- **Status:** open
+- **Status:** clean
 
 ## Open issues
 
-- [ ] **[P2] `left`/`right` placement is never clamped or flipped to the viewport** — For vertical placements the left coordinate is clamped to `[M, vw - w - M]` (`Popover.jsx:85`), but the `left`/`right` branch computes `left = onRight ? r.right + gap : r.left - w - gap` with no clamp and no flip (`Popover.jsx:91-96`). A `placement="left"` popover on a trigger near the left edge renders with a negative `left` (panel pushed off-screen / horizontally scrolling the document); a `placement="right"` popover near the right edge overflows past `vw`. Unlike top/bottom, it never flips to the opposite side when space runs out. _Fix:_ if the chosen horizontal side overflows, flip to the other side (mirror the top/bottom flip logic) and/or clamp into the viewport, recomputing the arrow offset. `Popover.jsx:90-96`
+- [x] **[P2] `left`/`right` placement is never clamped or flipped to the viewport** — For vertical placements the left coordinate is clamped to `[M, vw - w - M]` (`Popover.jsx:85`), but the `left`/`right` branch computes `left = onRight ? r.right + gap : r.left - w - gap` with no clamp and no flip (`Popover.jsx:91-96`). A `placement="left"` popover on a trigger near the left edge renders with a negative `left` (panel pushed off-screen / horizontally scrolling the document); a `placement="right"` popover near the right edge overflows past `vw`. Unlike top/bottom, it never flips to the opposite side when space runs out. _Fix:_ if the chosen horizontal side overflows, flip to the other side (mirror the top/bottom flip logic) and/or clamp into the viewport, recomputing the arrow offset. `Popover.jsx:90-96` — ✓ fixed 2026-06-17
 
-- [ ] **[P2] Vertical centering for `left`/`right` assumes a short panel** — `top = Math.max(M, Math.min(tp - 40, vh - 80))` (`Popover.jsx:94`) hard-codes a ~80 px tall panel: it centers by subtracting 40 and bounds the bottom at `vh - 80`. A taller popover (e.g. the 320 px "About this metric" variation used with side placement) is not vertically centered on the trigger and can overflow the bottom of the viewport, and the arrow (`arrow.top = tp - top - 5.5`) can point outside the panel. _Fix:_ measure the panel height (as `place()` already can via `popRef`) and center with the real height, clamping against it. `Popover.jsx:93-95`
+- [x] **[P2] Vertical centering for `left`/`right` assumes a short panel** — `top = Math.max(M, Math.min(tp - 40, vh - 80))` (`Popover.jsx:94`) hard-codes a ~80 px tall panel: it centers by subtracting 40 and bounds the bottom at `vh - 80`. A taller popover (e.g. the 320 px "About this metric" variation used with side placement) is not vertically centered on the trigger and can overflow the bottom of the viewport, and the arrow (`arrow.top = tp - top - 5.5`) can point outside the panel. _Fix:_ measure the panel height (as `place()` already can via `popRef`) and center with the real height, clamping against it. `Popover.jsx:93-95` — ✓ fixed 2026-06-17
 
 ## Verified OK
 

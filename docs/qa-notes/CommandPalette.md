@@ -2,11 +2,11 @@
 
 - **Group:** overlay
 - **Reviewed:** 2026-06-17
-- **Status:** open
+- **Status:** clean
 
 ## Open issues
 
-- [ ] **[P2] Tab moves DOM focus into the option buttons and breaks arrow-nav** — The combobox pattern keeps DOM focus on the input and tracks the highlight with `aria-activedescendant` (`CommandPalette.jsx:159`), while ArrowUp/Down/Enter are handled only on the input's `onKeyDown` (`CommandPalette.jsx:135-139`). The option rows are real, tabbable `<button>`s (`CommandPalette.jsx:171`). Because the focus trap (`CommandPalette.jsx:90-113`) includes those buttons in its focusable set, pressing Tab moves real focus off the input onto an option; arrow navigation then silently stops working until the user Tabs back to the input. _Fix:_ give the option buttons `tabIndex={-1}` so they stay out of the tab sequence (activation is mouse/`aria-activedescendant`-driven), keeping the input the sole tab stop. `CommandPalette.jsx:171`
+- [x] **[P2] Tab moves DOM focus into the option buttons and breaks arrow-nav** — The combobox pattern keeps DOM focus on the input and tracks the highlight with `aria-activedescendant` (`CommandPalette.jsx:159`), while ArrowUp/Down/Enter are handled only on the input's `onKeyDown` (`CommandPalette.jsx:135-139`). The option rows are real, tabbable `<button>`s (`CommandPalette.jsx:171`). Because the focus trap (`CommandPalette.jsx:90-113`) includes those buttons in its focusable set, pressing Tab moves real focus off the input onto an option; arrow navigation then silently stops working until the user Tabs back to the input. _Fix:_ give the option buttons `tabIndex={-1}` so they stay out of the tab sequence (activation is mouse/`aria-activedescendant`-driven), keeping the input the sole tab stop. `CommandPalette.jsx:171` — ✓ fixed 2026-06-17
 
 - [x] **[P2] Enter with no matching results closes the palette** — `run(flat[active])` is called on Enter (`CommandPalette.jsx:138`); when the filtered list is empty, `flat[active]` is `undefined`, and `run` still calls `onClose?.()` unconditionally after the optional-chained no-op (`CommandPalette.jsx:132`). So hitting Enter on a "No results" state dismisses the palette rather than doing nothing. Minor but surprising. _Fix:_ early-return from `run` (and skip `onClose`) when the command is `undefined`. `CommandPalette.jsx:132`, `CommandPalette.jsx:138` — ✓ fixed 2026-06-17
 

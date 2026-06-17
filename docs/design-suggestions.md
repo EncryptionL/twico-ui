@@ -70,6 +70,18 @@ ships, delete it here and document it in the relevant doc.
 > Deferred (genuinely larger, not blocking): full **Datatable RTL** (pinned-column/​pivot/​resizer use
 > physical left/right); Navbar/Sidebar "render as button when no href"; index-vs-stable keys in nav lists.
 
+> **Deferred-complex bucket cleared (2026-06-17).** The above deferred items are now done and verified:
+> - **Menu / CommandPalette** Tab focus management (items `tabindex=-1`; Menu closes on Tab, CommandPalette
+>   keeps focus on the input) and **Popover** side-placement (real-height centering + flip + viewport clamp).
+> - **Datatable RTL** — pinned-column offsets, pivot borders, and the pinned-edge shadow now use logical
+>   properties (`inset-inline-*` + a direction variable); LTR is byte-identical, RTL mirrors (probe-verified).
+> - **Navbar/Sidebar** render `<button>` for onClick-only items; **Navbar brand** is `<span>` / `brandHref` /
+>   `onBrandClick` instead of a hardcoded `href="#"`.
+>
+> Still genuinely open (low-priority / by-design, tracked in `docs/qa-notes/`): Datatable sticky-header↔pinned
+> z-index edge; **Drawer** `width`/`height` name physical edges *by design* (not made logical); Heading/Text
+> accept physical `align` values; Currency edit-then-format display; a few minor P2 polish items.
+
 ## Still open
 
 These are genuinely deferred — each needs a precondition that isn't met yet. Nothing here blocks
