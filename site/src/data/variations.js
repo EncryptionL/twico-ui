@@ -693,18 +693,23 @@ export const VARIATIONS = [
   },
   {
     "component": "IconButton",
-    "title": "Sizes",
+    "title": "Tones",
     "i": 1
   },
   {
     "component": "IconButton",
-    "title": "Round",
+    "title": "Sizes",
     "i": 2
   },
   {
     "component": "IconButton",
-    "title": "Disabled",
+    "title": "Round",
     "i": 3
+  },
+  {
+    "component": "IconButton",
+    "title": "Disabled",
+    "i": 4
   },
   {
     "component": "Input",

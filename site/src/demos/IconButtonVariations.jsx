@@ -27,6 +27,22 @@ const variations = [
     ),
   },
   {
+    title: "Tones",
+    description: "tone is a separate axis from variant (mirrors Button) — pair tone=\"danger\" with any fill style for destructive actions.",
+    code: `<IconButton aria-label="Delete" tone="danger" icon={<TrashIcon />} />
+<IconButton aria-label="Delete" variant="soft" tone="danger" icon={<TrashIcon />} />
+<IconButton aria-label="Delete" variant="outline" tone="danger" icon={<TrashIcon />} />
+<IconButton aria-label="Delete" variant="solid" tone="danger" icon={<TrashIcon />} />`,
+    render: () => (
+      <>
+        <IconButton aria-label="Delete (ghost danger)" tone="danger" icon={<TrashIcon />} />
+        <IconButton aria-label="Delete (soft danger)" variant="soft" tone="danger" icon={<TrashIcon />} />
+        <IconButton aria-label="Delete (outline danger)" variant="outline" tone="danger" icon={<TrashIcon />} />
+        <IconButton aria-label="Delete (solid danger)" variant="solid" tone="danger" icon={<TrashIcon />} />
+      </>
+    ),
+  },
+  {
     title: "Sizes",
     code: `<IconButton aria-label="Like" variant="soft" size="sm" icon={<HeartIcon />} />
 <IconButton aria-label="Like" variant="soft" size="md" icon={<HeartIcon />} />

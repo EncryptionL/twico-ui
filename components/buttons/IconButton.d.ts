@@ -8,8 +8,11 @@ import * as React from "react";
 export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** The icon node to render (e.g. a Lucide SVG). */
   icon?: React.ReactNode;
-  /** Visual style; "danger" mirrors Button for icon-only destructive actions. @default "ghost" */
-  variant?: "solid" | "soft" | "outline" | "ghost" | "danger";
+  /** Fill style (same axes as Button). @default "ghost" */
+  variant?: "solid" | "soft" | "outline" | "ghost";
+  /** Color/intent, orthogonal to `variant` (mirrors Button). A destructive icon button is
+   *  `tone="danger"` with any variant. @default "primary" */
+  tone?: "primary" | "danger";
   /** Control size; "xs" (~26px) is smaller than "sm". @default "md" */
   size?: "xs" | "sm" | "md" | "lg";
   /** Fully rounded (circular). @default false */

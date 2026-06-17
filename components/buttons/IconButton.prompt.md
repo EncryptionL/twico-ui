@@ -5,7 +5,9 @@ import { IconButton } from "./IconButton";
 
 <IconButton aria-label="Settings" icon={<SettingsIcon />} />
 <IconButton aria-label="Like" variant="soft" round icon={<HeartIcon />} />
-<IconButton aria-label="Delete" variant="outline" icon={<TrashIcon />} />
+<IconButton aria-label="Delete" tone="danger" icon={<TrashIcon />} />
 ```
 
-Variants: `solid` · `soft` · `outline` · `ghost`. Sizes: `sm` · `md` · `lg`. `round` makes it circular.
+Same two axes as Button: `variant` = fill (`solid` · `soft` · `outline` · `ghost`, default `ghost`);
+`tone` = color (`primary` · `danger`, default `primary`). A destructive icon button is `tone="danger"`
+with any variant. Sizes: `sm` · `md` · `lg`. `round` makes it circular.

@@ -4059,10 +4059,17 @@ export const components = [
       },
       {
         "prop": "variant",
-        "type": "\"solid\" | \"soft\" | \"outline\" | \"ghost\" | \"danger\"",
+        "type": "\"solid\" | \"soft\" | \"outline\" | \"ghost\"",
         "required": false,
         "default": "\"ghost\"",
-        "description": "Adds a new \"danger\" variant mirroring Button's danger (red background var(--color-danger), var(--color-danger-fg) icon, var(--color-danger-hover) on hover) for icon-only destructive actions."
+        "description": "Fill style (same axes as Button): solid, soft, outline, or ghost; ghost by default. Cross with `tone` for color."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"danger\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Color/intent, orthogonal to variant (mirrors Button) — primary by default; tone=\"danger\" makes an icon-only destructive button in any variant."
       },
       {
         "prop": "size",

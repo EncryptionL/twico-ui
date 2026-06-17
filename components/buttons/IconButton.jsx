@@ -32,20 +32,25 @@ const ICONBTN_CSS = `
 .twc-iconbtn:disabled { opacity: 0.5; cursor: not-allowed; }
 .twc-iconbtn svg { width: 1.25em; height: 1.25em; }
 
-.twc-iconbtn[data-variant="solid"] { background: var(--color-primary); color: var(--color-primary-fg); }
-.twc-iconbtn[data-variant="solid"]:hover:not(:disabled) { background: var(--color-primary-hover); box-shadow: var(--shadow-brand); }
-.twc-iconbtn[data-variant="soft"] { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); }
+/* tone supplies the accent set; variant decides how it's applied — mirrors Button. Default tone
+   primary; danger reuses its (active-less) hover for the pressed state. */
+.twc-iconbtn { --_accent: var(--color-primary); --_accent-hover: var(--color-primary-hover);
+  --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); }
+.twc-iconbtn[data-tone="danger"] { --_accent: var(--color-danger); --_accent-hover: var(--color-danger-hover);
+  --_accent-fg: var(--color-danger-fg); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
+.twc-iconbtn[data-variant="solid"] { background: var(--_accent); color: var(--_accent-fg); }
+.twc-iconbtn[data-variant="solid"]:hover:not(:disabled) { background: var(--_accent-hover); box-shadow: var(--shadow-brand); }
+.twc-iconbtn[data-variant="soft"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); }
 .twc-iconbtn[data-variant="outline"] { border-color: var(--color-border-strong); color: var(--color-text); }
-.twc-iconbtn[data-variant="outline"]:hover:not(:disabled) { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-surface-sunken); }
-.twc-iconbtn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--color-text); }
-.twc-iconbtn[data-variant="danger"] { background: var(--color-danger); color: var(--color-danger-fg); }
-.twc-iconbtn[data-variant="danger"]:hover:not(:disabled) { background: var(--color-danger-hover); }
+.twc-iconbtn[data-variant="outline"]:hover:not(:disabled) { border-color: var(--_accent); color: var(--_accent); background: var(--color-surface-sunken); }
+.twc-iconbtn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
 `;
 
 export function IconButton({
   children,
   icon,
   variant = "ghost",
+  tone = "primary",
   size = "md",
   round = false,
   disabled = false,
@@ -65,6 +70,7 @@ export function IconButton({
     <button
       className={`twc-iconbtn ${className}`}
       data-variant={variant}
+      data-tone={tone}
       data-size={size}
       data-round={round || undefined}
       disabled={disabled}

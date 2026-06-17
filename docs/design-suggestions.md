@@ -32,9 +32,12 @@ ships, delete it here and document it in the relevant doc.
 > - **Table** uses the Datatable vocabulary as canonical — `rows` / column `field` / `headerName` /
 >   `renderCell`, and `TableSort` is `{ field, dir }`. The old `data` / `key` / `header` / `render`
 >   names are gone.
-> - **Button** splits color out of fill: `variant` is `solid|soft|outline|ghost`, `tone` is
->   `primary|danger` (default `primary`). A destructive button is `tone="danger"` with any variant;
->   `variant="danger"` no longer exists.
+> - **Button** (and **IconButton**, aligned 2026-06-17 for consistency) split color out of fill:
+>   `variant` is `solid|soft|outline|ghost`, `tone` is `primary|danger` (default `primary`). A
+>   destructive button is `tone="danger"` with any variant; `variant="danger"` no longer exists.
+>   (Other intent-bearing components — Badge, Alert, Progress, Spinner, Toast, Timeline, Text — already
+>   expose `tone`; the per-item `danger` boolean on Menu items / Datatable actions is a separate,
+>   intentional pattern, not a color axis.)
 > - **Drawer** drops the overloaded `size`; use `width` (left/right) / `height` (top/bottom), each
 >   accepting `sm|md|lg` | number | CSS length.
 > - **TreeView** drops `data` (use `items`) and `onSelectedIdChange`; `onSelect(id, node)` is id-first.
