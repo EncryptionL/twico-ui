@@ -793,7 +793,7 @@ export function Datatable({
     // supply an actions column there'd be no menu to host them, so add a minimal trailing one.
     if (rowPinning && !out.some((c) => c.type === "actions")) {
       out.push({
-        field: "__pinactions__", type: "actions", width: 52, headerName: "", align: "right",
+        field: "__pinactions__", type: "actions", width: 96, headerName: "Actions", align: "right",
         sortable: false, filterable: false, hideable: false, pinnable: false, groupable: false,
         disableColumnMenu: true, getActions: () => [],
       });

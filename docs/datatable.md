@@ -92,10 +92,10 @@ Like drag reorder, it's disabled while sorting or grouping (`canReorderRows`).
 `renderActions` (`canPinRows` appends them to whatever `getActions` returns). That menu only exists on
 an `actions`-type column — so a table with `rowPinning` but **no** actions column had no ⋮ menu and the
 pin items were unreachable. The `cols` memo now appends a minimal trailing actions column
-(`field: "__pinactions__"`, blank header, `getActions: () => []`) when `rowPinning` is on and the
-consumer didn't supply one; with `canPinRows` the pin items make its menu non-empty, so every row gets
-a ⋮ → Pin to top/bottom. The synthetic column is excluded from the Columns panel and skipped when an
-actions column already exists (no duplicate).
+(`field: "__pinactions__"`, header **"Actions"** to match an explicit actions column,
+`getActions: () => []`) when `rowPinning` is on and the consumer didn't supply one; with `canPinRows`
+the pin items make its menu non-empty, so every row gets a ⋮ → Pin to top/bottom. The synthetic column
+is excluded from the Columns panel and skipped when an actions column already exists (no duplicate).
 
 ## Keyboard column reorder
 
