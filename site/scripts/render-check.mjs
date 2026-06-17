@@ -32,6 +32,7 @@ const routes = [
   "#/components",
   "#/docs/installation",
   "#/docs/theming",
+  "#/docs/colors",
   "#/docs/dark-mode",
   "#/docs/accessibility",
   "#/docs/hooks",

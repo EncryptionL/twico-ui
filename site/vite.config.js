@@ -15,8 +15,11 @@ export default defineConfig({
     fs: { allow: [".."] },
   },
   resolve: {
-    alias: {
-      "twico-ui": fileURLToPath(new URL("../src/index.ts", import.meta.url)),
-    },
+    // Array form so the more specific subpath alias is matched before the bare
+    // package alias (order matters). `twico-ui/colors` dogfoods the real export.
+    alias: [
+      { find: "twico-ui/colors", replacement: fileURLToPath(new URL("../src/colors.ts", import.meta.url)) },
+      { find: "twico-ui", replacement: fileURLToPath(new URL("../src/index.ts", import.meta.url)) },
+    ],
   },
 });

@@ -43,6 +43,16 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./colors": {
+      "import": {
+        "types": "./dist/colors.d.ts",
+        "default": "./dist/colors.mjs"
+      },
+      "require": {
+        "types": "./dist/colors.d.cts",
+        "default": "./dist/colors.cjs"
+      }
+    },
     "./styles.css": "./styles/twico-ui.css",
     "./package.json": "./package.json"
   },
@@ -57,7 +67,7 @@
     "build:css": "node scripts/build-css.mjs",
     "build:css:check": "node scripts/build-css.mjs --check",
     "typecheck": "tsc --noEmit",
-    "check:exports": "attw --pack . --exclude-entrypoints styles.css",
+    "check:exports": "attw --pack . --profile node16 --exclude-entrypoints styles.css",
     "test": "vitest",
     "test:run": "vitest run",
     "size": "size-limit",

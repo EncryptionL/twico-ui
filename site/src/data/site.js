@@ -12,6 +12,7 @@ export const GROUP_ORDER = [
 export const GETTING_STARTED = [
   { to: "/docs/installation", label: "Installation" },
   { to: "/docs/theming", label: "Theming" },
+  { to: "/docs/colors", label: "Colors" },
   { to: "/theme-builder", label: "Theme builder" },
   { to: "/docs/dark-mode", label: "Dark mode" },
   { to: "/docs/accessibility", label: "Accessibility" },

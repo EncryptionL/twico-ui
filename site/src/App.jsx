@@ -4,6 +4,7 @@ import Layout from "./components/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import Installation from "./pages/Installation.jsx";
 import Theming from "./pages/Theming.jsx";
+import Colors from "./pages/Colors.jsx";
 import DarkMode from "./pages/DarkMode.jsx";
 import Accessibility from "./pages/Accessibility.jsx";
 import Hooks from "./pages/Hooks.jsx";
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/docs/installation" element={<Installation />} />
         <Route path="/docs/theming" element={<Theming />} />
+        <Route path="/docs/colors" element={<Colors />} />
         <Route path="/docs/dark-mode" element={<DarkMode />} />
         <Route path="/docs/accessibility" element={<Accessibility />} />
         <Route path="/docs/hooks" element={<Hooks />} />

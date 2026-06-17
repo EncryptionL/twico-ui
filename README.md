@@ -85,7 +85,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
 Twico UI ships as a dual **ESM + CommonJS** package with bundled type declarations, so it works identically in a plain JavaScript project or a TypeScript one:
 
-- **TypeScript** — every component and hook ships full types; `import { Button, type ButtonProps } from "twico-ui"` resolves and is fully checked. Verified across `node10`, `node16` (CJS **and** ESM), and `bundler` resolution with [are-the-types-wrong](https://github.com/arethetypeswrong/arethetypeswrong.github.io) (`npm run check:exports`).
+- **TypeScript** — every component and hook ships full types; `import { Button, type ButtonProps } from "twico-ui"` resolves and is fully checked. Verified across `node16` (CJS **and** ESM) and `bundler` resolution with [are-the-types-wrong](https://github.com/arethetypeswrong/arethetypeswrong.github.io) (`npm run check:exports`). The `twico-ui/colors` subpath uses `exports`, a Node 12.7+ feature, so it requires `node16`-style resolution (the main entry also resolves under legacy `node10`).
 - **JavaScript (ESM)** — `import { Button } from "twico-ui"`.
 - **JavaScript (CommonJS)** — `const { Button } = require("twico-ui")`.
 
@@ -151,6 +151,18 @@ All visuals derive from CSS custom properties. Override them in your own CSS to 
 ```
 
 See `styles/twico-ui.css` for the full token set (colors, typography, spacing, radius, motion). The bundled stylesheet also self-hosts the default fonts (Plus Jakarta Sans + JetBrains Mono, OFL) under `twico-ui/styles/fonts/`.
+
+### Colors in JavaScript
+
+For app theming prefer the semantic CSS variables above. When a token is awkward (charts, canvas, inline maths), the **primitive scales** are also available as JS — `import { red } from '@mui/material/colors'`–style:
+
+```js
+import { indigo, slate, emerald, amber, rose, sky } from "twico-ui/colors";
+
+const brand = indigo[500]; // "#6366f1"
+```
+
+Each hue is an object keyed by shade (`50`–`950` for `indigo`/`slate`; `50/400/500/600` for the four semantic hues). These are static values — unlike the `--color-*` aliases, they do not flip in dark mode.
 
 ## Components
 

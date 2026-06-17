@@ -16,7 +16,7 @@
 // build via `onSuccess` -> scripts/add-use-client.mjs. In a plain React app
 // (Vite/CRA) the directive is an inert string literal — harmless.
 export default {
-  entry: { index: "src/index.ts" },
+  entry: { index: "src/index.ts", colors: "src/colors.ts" },
   format: ["esm", "cjs"],
   onSuccess: "node scripts/add-use-client.mjs",
   dts: true,
