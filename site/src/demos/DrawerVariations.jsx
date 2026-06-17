@@ -21,6 +21,19 @@ function SidesExample() {
   );
 }
 
+function LogicalSidesExample() {
+  const [side, setSide] = React.useState(null);
+  return (
+    <>
+      <Button variant="soft" onClick={() => setSide("start")}>Start</Button>
+      <Button variant="soft" onClick={() => setSide("end")}>End</Button>
+      <Drawer open={side !== null} onClose={() => setSide(null)} side={side || "end"} title={`Panel from the ${side || ""}`}>
+        <Text>Logical sides mirror under <code>dir="rtl"</code>: a <code>start</code> drawer sits on the right in RTL, <code>end</code> on the left.</Text>
+      </Drawer>
+    </>
+  );
+}
+
 function HeaderFooterExample() {
   const [open, setOpen] = React.useState(false);
   return (
@@ -146,6 +159,15 @@ const variations = [
   …
 </Drawer>`,
     render: () => <NoBackdropCloseExample />,
+  },
+  {
+    title: "Logical sides (RTL-aware)",
+    description: "side=\"start\" / \"end\" use logical edges, so they mirror under dir=\"rtl\" (left/right stay physical).",
+    code: `<Drawer open={open} onClose={close} side="end" title="Details">
+  …
+</Drawer>
+{/* In an RTL document this slides in from the left instead of the right. */}`,
+    render: () => <LogicalSidesExample />,
   },
 ];
 

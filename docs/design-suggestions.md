@@ -78,9 +78,12 @@ ships, delete it here and document it in the relevant doc.
 > - **Navbar/Sidebar** render `<button>` for onClick-only items; **Navbar brand** is `<span>` / `brandHref` /
 >   `onBrandClick` instead of a hardcoded `href="#"`.
 >
+> **Drawer** gained logical `side="start"/"end"` (RTL-mirroring) alongside the physical
+> `left/right/top/bottom`; probe-verified (`end` → right in LTR, left in RTL).
+>
 > Still genuinely open (low-priority / by-design, tracked in `docs/qa-notes/`): Datatable sticky-header↔pinned
-> z-index edge; **Drawer** `width`/`height` name physical edges *by design* (not made logical); Heading/Text
-> accept physical `align` values; Currency edit-then-format display; a few minor P2 polish items.
+> z-index edge; Dialog/Drawer initial focus lands on the panel (APG-acceptable); Heading/Text accept physical
+> `align` values; Currency edit-then-format display; a few minor P2 polish items.
 
 ## Still open
 

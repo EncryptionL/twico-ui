@@ -14,6 +14,11 @@ const DRAWER_CSS = `
 .twc-drawer[data-side="left"] { top: 0; left: 0; height: 100%; width: var(--_w, 380px); max-width: 92vw; border-right: var(--border-thin) solid var(--color-border); border-top-right-radius: var(--radius-2xl); border-bottom-right-radius: var(--radius-2xl); }
 .twc-drawer[data-side="bottom"] { left: 0; right: 0; bottom: 0; width: 100%; max-height: 88vh; height: var(--_h, auto); border-top: var(--border-thin) solid var(--color-border); border-top-left-radius: var(--radius-2xl); border-top-right-radius: var(--radius-2xl); }
 .twc-drawer[data-side="top"] { left: 0; right: 0; top: 0; width: 100%; max-height: 88vh; height: var(--_h, auto); border-bottom: var(--border-thin) solid var(--color-border); border-bottom-left-radius: var(--radius-2xl); border-bottom-right-radius: var(--radius-2xl); }
+/* Logical sides — mirror under dir="rtl". --_off carries the off-screen slide direction. */
+.twc-drawer[data-side="end"]   { top: 0; height: 100%; inset-inline-end: 0; width: var(--_w, 380px); max-width: 92vw; border-inline-start: var(--border-thin) solid var(--color-border); border-start-start-radius: var(--radius-2xl); border-end-start-radius: var(--radius-2xl); --_off: 100%; }
+.twc-drawer[data-side="start"] { top: 0; height: 100%; inset-inline-start: 0; width: var(--_w, 380px); max-width: 92vw; border-inline-end: var(--border-thin) solid var(--color-border); border-start-end-radius: var(--radius-2xl); border-end-end-radius: var(--radius-2xl); --_off: -100%; }
+[dir="rtl"] .twc-drawer[data-side="end"]   { --_off: -100%; }
+[dir="rtl"] .twc-drawer[data-side="start"] { --_off: 100%; }
 .twc-drawer[data-side="right"][data-state="open"] { animation: twc-drawer-r var(--duration-base) var(--ease-out); }
 .twc-drawer[data-side="left"][data-state="open"] { animation: twc-drawer-l var(--duration-base) var(--ease-out); }
 .twc-drawer[data-side="bottom"][data-state="open"] { animation: twc-drawer-b var(--duration-base) var(--ease-out); }
@@ -30,6 +35,10 @@ const DRAWER_CSS = `
 @keyframes twc-drawer-l-out { from { transform: translateX(0); } to { transform: translateX(-100%); } }
 @keyframes twc-drawer-b-out { from { transform: translateY(0); } to { transform: translateY(100%); } }
 @keyframes twc-drawer-t-out { from { transform: translateY(0); } to { transform: translateY(-100%); } }
+.twc-drawer[data-side="start"][data-state="open"], .twc-drawer[data-side="end"][data-state="open"] { animation: twc-drawer-in-x var(--duration-base) var(--ease-out); }
+.twc-drawer[data-side="start"][data-state="closed"], .twc-drawer[data-side="end"][data-state="closed"] { animation: twc-drawer-out-x var(--duration-exit) var(--ease-in) forwards; }
+@keyframes twc-drawer-in-x { from { transform: translateX(var(--_off)); } to { transform: translateX(0); } }
+@keyframes twc-drawer-out-x { from { transform: translateX(0); } to { transform: translateX(var(--_off)); } }
 .twc-drawer__header { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-5) var(--space-5) var(--space-3); }
 .twc-drawer__titles { flex: 1; min-width: 0; }
 .twc-drawer__title { font-size: var(--text-xl); font-weight: var(--font-bold); letter-spacing: -0.01em; }
@@ -133,7 +142,7 @@ export function Drawer({
 
   if (!mounted) return null;
   const state = open ? "open" : "closed";
-  const isHorizontal = side === "left" || side === "right";
+  const isHorizontal = side === "left" || side === "right" || side === "start" || side === "end";
   // The panel's cross-axis size is `width` for left/right, `height` for top/bottom — only the one
   // matching the side applies. Each accepts a preset ("sm"/"md"/"lg"), a number (px), or a CSS length.
   const raw = isHorizontal ? width : height;

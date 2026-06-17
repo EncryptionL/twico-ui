@@ -6,7 +6,7 @@
 
 ## Open issues
 
-- [ ] **[P2] `side` is physical, not logical, so RTL drawers do not mirror** — `side="right"`/`"left"` map to physical `right: 0`/`left: 0` plus a physical `border-left`/`border-right` and matching radii (`Drawer.jsx:13-14`). In an RTL document a `side="right"` drawer still slides from the visual right with its border on the left edge — i.e. it does not flip to the leading edge. This is arguably intentional (the prop names physical edges), but it is the one place in the family that is not RTL-aware. _Fix (optional):_ document that `side` is physical, or add an `inline-start`/`inline-end` option built on logical properties. `Drawer.jsx:13-14`
+- [x] **[P2] `side` is physical, not logical, so RTL drawers do not mirror** — `side="left"/"right"/"top"/"bottom"` remain *physical by design* (they name explicit edges). Added **logical** `side="start"/"end"` (inline-start/inline-end) built on logical properties + a direction-flipping slide variable, so they mirror under `dir="rtl"`. Probe-verified: `end` sits at the right edge in LTR, the left edge in RTL. `Drawer.jsx` — ✓ fixed 2026-06-17
 
 - [x] **[P2] Body scroll not locked while open** — Same as Dialog: the scrim is fixed and full-viewport but the page behind it still scrolls (wheel after pointer leaves the panel; iOS body scroll under the panel). _Fix:_ set `body { overflow: hidden }` on open and restore on unmount (SSR-guarded), or document as consumer responsibility. `Drawer.jsx:80-84` — ✓ fixed 2026-06-17
 

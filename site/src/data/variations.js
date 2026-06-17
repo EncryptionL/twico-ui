@@ -607,6 +607,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Drawer",
+    "title": "Logical sides (RTL-aware)",
+    "i": 5
+  },
+  {
     "component": "EmptyState",
     "title": "With call to action",
     "i": 0

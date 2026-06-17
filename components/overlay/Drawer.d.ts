@@ -7,8 +7,9 @@ import * as React from "react";
 export interface DrawerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   open: boolean;
   onClose?: () => void;
-  /** Edge the panel slides from. @default "right" */
-  side?: "left" | "right" | "top" | "bottom";
+  /** Edge the panel slides from. `left`/`right`/`top`/`bottom` are physical; `start`/`end`
+   *  are logical (inline-start/inline-end) and mirror under `dir="rtl"`. @default "right" */
+  side?: "left" | "right" | "top" | "bottom" | "start" | "end";
   title?: React.ReactNode;
   description?: React.ReactNode;
   /** Footer content, typically action buttons (right-aligned). */
