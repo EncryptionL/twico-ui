@@ -15,7 +15,14 @@ const CURF_CSS = `
 .twc-cur[data-size="sm"] { --_h: var(--control-h-sm); }
 .twc-cur[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-cur:hover:not(:focus-within) { border-color: var(--color-border-strong); }
-.twc-cur:focus-within { border-color: var(--color-primary); box-shadow: var(--ring); }
+/* tone → focus/open accent (default primary; reproduces current look). */
+.twc-cur { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-cur[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
+.twc-cur[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
+.twc-cur[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
+.twc-cur[data-tone="info"]    { --_accent: var(--color-info);    --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-info) 32%, transparent); }
+.twc-cur[data-tone="neutral"] { --_accent: var(--color-border-strong); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-text) 14%, transparent); }
+.twc-cur:focus-within { border-color: var(--_accent); box-shadow: var(--_ring); }
 .twc-cur[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-cur[data-invalid="true"]:focus-within { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
 .twc-cur[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; }
@@ -55,7 +62,7 @@ function useCurfStyles() {
  * currency drives the prefix symbol, suffix code, and the enforced precision.
  */
 export function CurrencyField({
-  label, hint, error, required = false, size = "md",
+  label, hint, error, required = false, size = "md", tone = "primary",
   currency, defaultCurrency = "USD", onCurrencyChange, currencies,
   value, defaultValue = "", onChange, onValueChange,
   disabled = false, id, placeholder = "0.00", className = "", ...rest
@@ -109,7 +116,7 @@ export function CurrencyField({
   return (
     <div className={`twc-field ${className}`}>
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
-      <div className="twc-cur" data-size={size} data-invalid={invalid || undefined} data-disabled={disabled || undefined}>
+      <div className="twc-cur" data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined}>
         <span className="twc-curf__pick">
           <Select size={size} value={cur} options={options} disabled={disabled} searchable portal minWidth={260}
             aria-label="Currency" onChange={setCurrency} />

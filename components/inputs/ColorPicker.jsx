@@ -37,7 +37,14 @@ const COLORPICKER_CSS = `
 .twc-cp__foot { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); }
 .twc-cp__hex { flex: 1; min-width: 0; height: 32px; padding: 0 8px; font-family: var(--font-mono); font-size: var(--text-xs); text-transform: uppercase;
   color: var(--color-text); background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-sm); outline: none; }
-.twc-cp__hex:focus { border-color: var(--color-primary); box-shadow: var(--ring); }
+/* tone → focus/open accent (default primary; reproduces current look). */
+.twc-cp__hex { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-cp__hex[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
+.twc-cp__hex[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
+.twc-cp__hex[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
+.twc-cp__hex[data-tone="info"]    { --_accent: var(--color-info);    --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-info) 32%, transparent); }
+.twc-cp__hex[data-tone="neutral"] { --_accent: var(--color-border-strong); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-text) 14%, transparent); }
+.twc-cp__hex:focus { border-color: var(--_accent); box-shadow: var(--_ring); }
 .twc-cp__presets { display: flex; flex-wrap: wrap; gap: 5px; margin-top: var(--space-3); }
 .twc-cp__preset { width: 22px; height: 22px; border-radius: var(--radius-sm); border: none; cursor: pointer; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12); padding: 0;
   transition: transform var(--duration-fast) var(--ease-spring); }
@@ -77,6 +84,7 @@ export function ColorPicker({
   defaultValue = "#6366F1",
   presets = DEFAULT_PRESETS,
   disabled = false,
+  tone = "primary",
   onChange,
   className = "",
   ...rest
@@ -196,7 +204,7 @@ export function ColorPicker({
           </div>
           <div className="twc-cp__foot">
             <span className="twc-cp__swatch" style={{ background: hex }} />
-            <input className="twc-cp__hex" value={hex} maxLength={7} aria-label="Hex color"
+            <input className="twc-cp__hex" data-tone={tone} value={hex} maxLength={7} aria-label="Hex color"
               onChange={(e) => { let v = e.target.value; if (!v.startsWith("#")) v = "#" + v; if (value === undefined) setInternal(v); onChange?.(v); const p = hexToHsv(v); if (p) setHsv(p); }} />
           </div>
           {presets && presets.length ? (

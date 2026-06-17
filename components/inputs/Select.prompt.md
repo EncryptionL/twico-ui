@@ -24,3 +24,4 @@ const [v, setV] = React.useState(null);
 
 Options: strings, `{value,label,description}`, or `{group,options}` groups.
 Keyboard: ↑/↓ move, Enter select, Esc close.
+`tone` ("primary" | "success" | "warning" | "danger" | "info" | "neutral", default "primary") sets the focus/open border and ring color.

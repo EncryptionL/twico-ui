@@ -59,6 +59,21 @@ const variations = [
     code: `<Switch aria-label="Toggle dark mode" defaultChecked />`,
     render: () => <Switch aria-label="Toggle dark mode" defaultChecked />,
   },
+  {
+    title: "Tones",
+    description: "Recolor the ON track with any of the six semantic intents.",
+    code: `<Switch tone="success" label="Success" defaultChecked />
+<Switch tone="danger" label="Danger" defaultChecked />`,
+    render: () => (
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <Switch tone="primary" label="Primary" defaultChecked />
+        <Switch tone="success" label="Success" defaultChecked />
+        <Switch tone="warning" label="Warning" defaultChecked />
+        <Switch tone="danger" label="Danger" defaultChecked />
+        <Switch tone="info" label="Info" defaultChecked />
+      </div>
+    ),
+  },
 ];
 
 export default variations;

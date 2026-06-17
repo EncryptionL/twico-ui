@@ -14,7 +14,9 @@ export interface RatingProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   count?: number;
   /** @default "md" */
   size?: "sm" | "md" | "lg";
-  /** Filled-star color (defaults to the warning/amber token). */
+  /** Color intent for filled stars. @default "warning" */
+  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  /** Explicit filled-star color; overrides `tone` when set. */
   color?: string;
   /** Display only, no interaction. @default false */
   readOnly?: boolean;

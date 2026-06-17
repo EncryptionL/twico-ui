@@ -118,10 +118,17 @@ export const components = [
     "propsRows": [
       {
         "prop": "tone",
-        "type": "\"info\" | \"success\" | \"warning\" | \"danger\"",
+        "type": "\"info\" | \"success\" | \"warning\" | \"danger\" | \"primary\" | \"neutral\"",
         "required": false,
         "default": "\"info\"",
-        "description": "Sets the semantic color and default icon, choosing between info, success, warning, or danger to match the message intent."
+        "description": "Sets the semantic color from six intents (info, success, warning, danger, primary, neutral); defaults to info."
+      },
+      {
+        "prop": "variant",
+        "type": "\"soft\" | \"solid\" | \"outline\"",
+        "required": false,
+        "default": "\"soft\"",
+        "description": "Chooses the fill style between soft (tinted), solid (filled), and outline; defaults to soft."
       },
       {
         "prop": "title",
@@ -1403,6 +1410,13 @@ export const components = [
         "description": "Adjusts the checkbox dimensions between sm and md to match the density of the surrounding form layout."
       },
       {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Sets the accent color of the checked/active state from six semantic intents like success, danger, or info."
+      },
+      {
         "prop": "checked",
         "type": "boolean",
         "required": false,
@@ -1628,6 +1642,13 @@ export const components = [
         "description": "Renders an optional caption above the trigger to describe which color the picker controls, such as a brand color."
       },
       {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the hex-input focus accent using one of six semantic intents; defaults to primary."
+      },
+      {
         "prop": "value",
         "type": "string",
         "required": false,
@@ -1791,6 +1812,13 @@ export const components = [
         "required": false,
         "default": "\"md\"",
         "description": "Sets the control height across sm, md, or lg to match the density of the surrounding form."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary."
       },
       {
         "prop": "placeholder",
@@ -2176,6 +2204,13 @@ export const components = [
         "description": "Sets the input height and padding (sm, md, or lg) to match the surrounding form's density, defaulting to \"md\"."
       },
       {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary."
+      },
+      {
         "prop": "currency",
         "type": "string",
         "required": false,
@@ -2353,6 +2388,13 @@ export const components = [
         "required": false,
         "default": "\"md\"",
         "description": "Sets the input and dropdown height (sm, md, or lg) to match the surrounding form's density, defaulting to \"md\"."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary."
       },
       {
         "prop": "currency",
@@ -2860,6 +2902,13 @@ export const components = [
         "description": "Optional field label rendered above the input to name the control and associate it for accessibility."
       },
       {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary."
+      },
+      {
         "prop": "value",
         "type": "Date | null",
         "required": false,
@@ -3037,6 +3086,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Optional field label rendered above the control to name the date range input and aid accessibility."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary."
       },
       {
         "prop": "value",
@@ -3696,6 +3752,13 @@ export const components = [
         "description": "Restricts selectable files using a native input accept string such as \"image/*,.pdf\", filtering the browse dialog and drops."
       },
       {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the dropzone focus ring and drag-active border using one of six semantic intents; defaults to primary."
+      },
+      {
         "prop": "multiple",
         "type": "boolean",
         "required": false,
@@ -4202,6 +4265,13 @@ export const components = [
         "description": "Sets the control height and padding (sm, md, or lg) to match the density of the surrounding form."
       },
       {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary."
+      },
+      {
         "prop": "leftIcon",
         "type": "React.ReactNode",
         "required": false,
@@ -4706,6 +4776,13 @@ export const components = [
         "required": false,
         "default": "\"md\"",
         "description": "Control height preset, matching Select/Combobox."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary."
       },
       {
         "prop": "clearable",
@@ -5330,6 +5407,13 @@ export const components = [
         "description": "Visual size of the radio control, sm or md, to align with the density of nearby form fields."
       },
       {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Sets the accent color of the checked/active state from six semantic intents like success, danger, or info."
+      },
+      {
         "prop": "error",
         "type": "React.ReactNode",
         "required": false,
@@ -5465,6 +5549,13 @@ export const components = [
         "required": false,
         "default": "\"md\"",
         "description": "Sets the star size (sm, md, or lg) to match the surrounding text density, defaulting to md."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"warning\"",
+        "description": "Sets the filled-star color from six semantic intents; defaults to warning (gold). The explicit color prop overrides it."
       },
       {
         "prop": "color",
@@ -5609,6 +5700,13 @@ export const components = [
         "required": false,
         "default": "\"md\"",
         "description": "Controls the trigger height (sm, md, or lg) to match the density of nearby form controls, defaulting to md."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary."
       },
       {
         "prop": "placeholder",
@@ -6001,6 +6099,13 @@ export const components = [
         "description": "Renders a label above the track to describe what the slider adjusts, such as volume or price."
       },
       {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Sets the filled-track and thumb accent color from six semantic intents; defaults to primary."
+      },
+      {
         "prop": "value",
         "type": "number",
         "required": false,
@@ -6167,10 +6272,10 @@ export const components = [
       },
       {
         "prop": "tone",
-        "type": "\"primary\" | \"neutral\" | \"white\"",
+        "type": "\"current\" | \"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | \"white\"",
         "required": false,
-        "default": "\"primary\"",
-        "description": "Picks the stroke color (primary, neutral, or white); use \"white\" when spinning over colored or dark backgrounds."
+        "default": "\"current\"",
+        "description": "Deprecated alias for color."
       },
       {
         "prop": "label",
@@ -6181,10 +6286,10 @@ export const components = [
       },
       {
         "prop": "color",
-        "type": "\"current\" | \"primary\" | \"neutral\" | \"white\"",
+        "type": "\"current\" | \"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | \"white\"",
         "required": false,
         "default": "\"current\"",
-        "description": "Preferred name for the spinner color; supersedes the deprecated `tone` prop. Wins over `tone` when both are set. Inherits currentColor by default (visible inside buttons, themed)."
+        "description": "Sets the spinner color; defaults to currentColor so it adapts inside buttons and themed contexts."
       },
       {
         "prop": "onClick",
@@ -6514,6 +6619,13 @@ export const components = [
         "description": "The ordered array of step objects to render, each with a title and optional description, icon, and error flag."
       },
       {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Sets the active/completed step marker and connector accent color from six semantic intents; defaults to primary."
+      },
+      {
         "prop": "active",
         "type": "number",
         "required": false,
@@ -6635,6 +6747,13 @@ export const components = [
         "required": false,
         "default": "\"md\"",
         "description": "Sets the visual size of the track and thumb (sm or md) to match the density of the surrounding form."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Sets the ON-track accent color from six semantic intents; defaults to primary."
       },
       {
         "prop": "error",
@@ -6967,6 +7086,13 @@ export const components = [
         "description": "Selects the visual style, rendering either a line underline indicator or a pill-shaped background behind the active tab."
       },
       {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Sets the active-indicator and active-label accent color from six semantic intents; defaults to primary."
+      },
+      {
         "prop": "orientation",
         "type": "\"horizontal\" | \"vertical\"",
         "required": false,
@@ -7053,6 +7179,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Renders the remove (×) button and handles its click, letting users dismiss the tag as a filter or selection."
+      },
+      {
+        "prop": "variant",
+        "type": "\"soft\" | \"solid\" | \"outline\"",
+        "required": false,
+        "default": "\"soft\"",
+        "description": "Chooses the fill style between soft, solid, and outline to control how prominently the tag reads."
+      },
+      {
+        "prop": "tone",
+        "type": "\"neutral\" | \"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\"",
+        "required": false,
+        "default": "\"neutral\"",
+        "description": "Sets the semantic color from six options like success or danger; defaults to neutral (the classic chip)."
       },
       {
         "prop": "leftIcon",
@@ -7151,10 +7291,10 @@ export const components = [
       },
       {
         "prop": "tone",
-        "type": "\"default\" | \"muted\" | \"subtle\" | \"primary\" | \"danger\"",
+        "type": "\"default\" | \"muted\" | \"subtle\" | \"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
         "required": false,
         "default": "\"default\"",
-        "description": "Applies a semantic color such as muted, subtle, primary, or danger to convey emphasis or meaning."
+        "description": "Sets the text color — neutral roles (default, muted, subtle) plus the six semantic color intents."
       },
       {
         "prop": "weight",
@@ -7285,6 +7425,13 @@ export const components = [
         "required": false,
         "default": "\"md\"",
         "description": "Control size — same padding steps as Input."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary."
       },
       {
         "prop": "onChange",

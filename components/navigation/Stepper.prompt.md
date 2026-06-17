@@ -13,3 +13,5 @@ import { Stepper } from "./Stepper";
 ```
 
 Steps: `{ title, description?, icon?, error? }`. Props: `active`, `orientation`, `clickable`, `onStepClick`.
+
+`tone` sets the color intent (primary · success · warning · danger · info · neutral, default primary).

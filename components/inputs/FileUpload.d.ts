@@ -13,6 +13,8 @@ export interface FileUploadProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   /** Allow selecting multiple files. @default false */
   multiple?: boolean;
   disabled?: boolean;
+  /** Color intent for the focus/open accent. @default "primary" */
+  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
   /** Field label rendered above the dropzone. */
   label?: React.ReactNode;
   /** Hint line under the prompt (defaults to the accept types). */

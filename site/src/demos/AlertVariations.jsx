@@ -68,6 +68,20 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "Fills",
+    description: "Three variants — soft (default, tinted), solid (filled), and outline (border only).",
+    code: `<Alert tone="success" variant="soft" title="Soft">Tinted background.</Alert>
+<Alert tone="danger" variant="solid" title="Solid">Filled, high emphasis.</Alert>
+<Alert tone="info" variant="outline" title="Outline">Border only.</Alert>`,
+    render: () => (
+      <div style={{ display: "flex", flexDirection: "column", gap: 12, width: 380, maxWidth: "100%" }}>
+        <Alert tone="success" variant="soft" title="Soft">Tinted background.</Alert>
+        <Alert tone="danger" variant="solid" title="Solid">Filled, high emphasis.</Alert>
+        <Alert tone="info" variant="outline" title="Outline">Border only.</Alert>
+      </div>
+    ),
+  },
 ];
 
 export default variations;

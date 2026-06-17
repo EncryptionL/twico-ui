@@ -17,7 +17,14 @@ const DATEPICKER_CSS = `
   cursor: pointer; transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .twc-dp__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
-.twc-dp__control[data-open="true"] { border-color: var(--color-primary); box-shadow: var(--ring); }
+/* tone → focus/open accent (default primary; reproduces current look). */
+.twc-dp__control { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-dp__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
+.twc-dp__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
+.twc-dp__control[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
+.twc-dp__control[data-tone="info"]    { --_accent: var(--color-info);    --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-info) 32%, transparent); }
+.twc-dp__control[data-tone="neutral"] { --_accent: var(--color-border-strong); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-text) 14%, transparent); }
+.twc-dp__control[data-open="true"] { border-color: var(--_accent); box-shadow: var(--_ring); }
 .twc-dp__control[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-dp__control[data-invalid="true"][data-open="true"] { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
 .twc-dp__control[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
@@ -94,6 +101,7 @@ export function DatePicker({
   min,
   max,
   disabled = false,
+  tone = "primary",
   clearable = true,
   format,
   locale,
@@ -211,6 +219,7 @@ export function DatePicker({
       ) : null}
       <div className="twc-dp__field">
         <div className="twc-dp__control" id={fieldId} data-open={open || undefined} data-disabled={disabled || undefined}
+          data-tone={tone}
           data-has-clear={clearable && selected && !disabled ? "true" : undefined}
           data-invalid={invalid || undefined}
           role="button" tabIndex={disabled ? -1 : 0} aria-haspopup="dialog" aria-expanded={open}

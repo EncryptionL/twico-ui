@@ -33,6 +33,8 @@ export interface DateRangePickerProps extends Omit<React.HTMLAttributes<HTMLDivE
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   /** Disable all interaction (the popover cannot be opened). @default false */
   disabled?: boolean;
+  /** Color intent for the focus/open accent. @default "primary" */
+  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
   onChange?: (range: DateRange) => void;
 }
 

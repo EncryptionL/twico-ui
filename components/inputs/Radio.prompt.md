@@ -8,3 +8,5 @@ import { Radio } from "./Radio";
 ```
 
 Props: `label`, `description`, `size` (sm/md), plus native radio attrs.
+
+`tone` sets the color intent (primary · success · warning · danger · info · neutral, default primary).

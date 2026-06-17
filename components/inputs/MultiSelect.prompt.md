@@ -22,3 +22,4 @@ const [tags, setTags] = React.useState(["react", "tailwind"]);
 
 Props: `options` (strings / {value,label,description} / {group,options}), `value`/`defaultValue`
 (string[]), `onChange(values)`, plus field props. Backspace on empty input removes the last chip.
+Set `tone` (`primary` default, `success`/`warning`/`danger`/`info`/`neutral`) to recolor the focus/open accent.

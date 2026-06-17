@@ -8,10 +8,20 @@ const ALERT_CSS = `
   border: var(--border-thin) solid transparent;
   animation: twico-slide-down var(--duration-base) var(--ease-out);
 }
-.twc-alert[data-tone="info"]    { background: var(--color-info-subtle); color: var(--color-info-subtle-fg); border-color: color-mix(in srgb, var(--color-info) 30%, transparent); }
-.twc-alert[data-tone="success"] { background: var(--color-success-subtle); color: var(--color-success-subtle-fg); border-color: color-mix(in srgb, var(--color-success) 30%, transparent); }
-.twc-alert[data-tone="warning"] { background: var(--color-warning-subtle); color: var(--color-warning-subtle-fg); border-color: color-mix(in srgb, var(--color-warning) 30%, transparent); }
-.twc-alert[data-tone="danger"]  { background: var(--color-danger-subtle); color: var(--color-danger-subtle-fg); border-color: color-mix(in srgb, var(--color-danger) 30%, transparent); }
+/* tone → accent set (default info). Mirrors Button's --_accent model + Badge's tones. */
+.twc-alert { --_accent: var(--color-info); --_accent-fg: var(--color-info-fg); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }
+.twc-alert[data-tone="success"] { --_accent: var(--color-success); --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); }
+.twc-alert[data-tone="warning"] { --_accent: var(--color-warning); --_accent-fg: var(--color-warning-fg); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
+.twc-alert[data-tone="danger"]  { --_accent: var(--color-danger); --_accent-fg: var(--color-danger-fg); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
+.twc-alert[data-tone="primary"] { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); }
+.twc-alert[data-tone="neutral"] { --_accent: var(--color-text); --_accent-fg: var(--color-surface); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text); }
+
+/* variant = fill (soft default reproduces the original tinted alert) */
+.twc-alert[data-variant="soft"]    { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: color-mix(in srgb, var(--_accent) 30%, transparent); }
+.twc-alert[data-variant="solid"]   { background: var(--_accent); color: var(--_accent-fg); border-color: transparent; }
+.twc-alert[data-variant="outline"] { background: transparent; color: var(--_accent-subtle-fg); border-color: var(--_accent); }
+.twc-alert[data-variant="solid"] .twc-alert__desc { color: var(--_accent-fg); opacity: 0.92; }
+
 .twc-alert__icon { flex: none; margin-top: 1px; }
 .twc-alert__icon svg { width: 20px; height: 20px; }
 .twc-alert__body { flex: 1; min-width: 0; }
@@ -31,11 +41,14 @@ const ICONS = {
   success: "m9 12 2 2 4-4",
   warning: "M12 9v4M12 17h.01",
   danger: "M15 9l-6 6M9 9l6 6",
+  primary: "M12 16v-4M12 8h.01",
+  neutral: "M12 16v-4M12 8h.01",
 };
 
 export function Alert({
   children,
   tone = "info",
+  variant = "soft",
   title,
   icon,
   onClose,
@@ -51,7 +64,7 @@ export function Alert({
   }, []);
 
   return (
-    <div className={`twc-alert ${className}`} data-tone={tone} role="alert" {...rest}>
+    <div className={`twc-alert ${className}`} data-tone={tone} data-variant={variant} role="alert" {...rest}>
       <span className="twc-alert__icon" aria-hidden="true">
         {icon || (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

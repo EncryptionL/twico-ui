@@ -9,5 +9,5 @@ import { Text } from "twico-ui";
 ```
 
 - `size` — `"xs" | "sm" | "base" | "lg" | "xl"` (or any token suffix).
-- `tone` — `"default" | "muted" | "subtle" | "primary" | "danger"`.
+- `tone` — text roles `"default" | "muted" | "subtle"` plus color intents `"primary" | "success" | "warning" | "danger" | "info" | "neutral"`.
 - `weight` — token suffix (e.g. `"semibold"`); `align`; `as` (default `"p"`).

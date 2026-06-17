@@ -11,6 +11,8 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   /** Render the dash (mixed) state. */
   indeterminate?: boolean;
   size?: "sm" | "md";
+  /** Color intent. @default "primary" */
+  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
 }
 
 export function Checkbox(props: CheckboxProps): React.JSX.Element;

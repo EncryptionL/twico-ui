@@ -25,3 +25,5 @@ const [country, setCountry] = React.useState(null);
 
 Props: `options` (strings / {value,label,description} / {group,options}), `value`/`defaultValue`,
 `onChange`, `placeholder`, `clearable`, `size`, plus field props. Keyboard: ↑/↓, Enter, Esc.
+
+`tone` (`primary` | `success` | `warning` | `danger` | `info` | `neutral`, default `primary`) recolors the focus/open border and ring accent.

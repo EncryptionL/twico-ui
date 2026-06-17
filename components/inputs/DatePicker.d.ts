@@ -25,6 +25,8 @@ export interface DatePickerProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   /** Latest selectable date. */
   max?: Date;
   disabled?: boolean;
+  /** Color intent for the focus/open accent. @default "primary" */
+  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
   /** Show a clear (×) button when a date is set. @default true */
   clearable?: boolean;
   /** Custom display formatter (defaults to a localized medium date). */

@@ -6,8 +6,8 @@ export interface TextProps extends React.HTMLAttributes<HTMLElement> {
   as?: keyof React.JSX.IntrinsicElements;
   /** Font-size token suffix. @default "base" */
   size?: "xs" | "sm" | "base" | "lg" | "xl" | string;
-  /** Semantic color tone. @default "default" */
-  tone?: "default" | "muted" | "subtle" | "primary" | "danger";
+  /** Semantic color tone — text roles (default/muted/subtle) plus the color intents. @default "default" */
+  tone?: "default" | "muted" | "subtle" | "primary" | "success" | "warning" | "danger" | "info" | "neutral";
   /** Font-weight token suffix (e.g. "medium", "semibold", "bold"). */
   weight?: "medium" | "semibold" | "bold" | string;
   align?: React.CSSProperties["textAlign"];

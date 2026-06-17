@@ -6,4 +6,6 @@ import { Textarea } from "./Textarea";
 <Textarea label="Bio" rows={4} placeholder="Tell us about yourself" hint="Max 280 characters" />
 ```
 
-Props: `label`, `hint`, `error`, `required`, `rows`, plus native textarea attrs.
+Set `tone` to recolor the focus accent and ring to any of the six intents (`primary`, `success`, `warning`, `danger`, `info`, `neutral`); it defaults to `primary`.
+
+Props: `label`, `hint`, `error`, `required`, `rows`, `tone`, plus native textarea attrs.

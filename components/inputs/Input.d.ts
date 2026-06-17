@@ -16,6 +16,8 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   required?: boolean;
   /** Control size. @default "md" */
   size?: "sm" | "md" | "lg";
+  /** Color intent for the focus/open accent. @default "primary" */
+  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
   /** Icon node inside the field, leading edge (prefix). */
   leftIcon?: React.ReactNode;
   /** Optional suffix icon/node inside the field, trailing edge. For `type="password"`, omitting this

@@ -18,6 +18,8 @@ export interface CurrencyFieldProps extends Omit<React.InputHTMLAttributes<HTMLI
   /** Intercepted to render the label asterisk, and forwarded to the native input as `required`. @default false */
   required?: boolean;
   size?: "sm" | "md" | "lg";
+  /** Color intent for the focus/open accent. @default "primary" */
+  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
   /** Controlled selected currency code. */
   currency?: string;
   /** Uncontrolled initial currency code. @default "USD" */

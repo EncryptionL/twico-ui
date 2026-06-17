@@ -9,5 +9,6 @@ const [r, setR] = React.useState(0);
 <Rating defaultValue={3} size="lg" count={5} />
 ```
 
-Props: `value`/`defaultValue`, `count`, `size` (sm/md/lg), `color`, `readOnly`, `showValue`, `onChange`.
+Props: `value`/`defaultValue`, `count`, `size` (sm/md/lg), `tone` (color intent, default
+`warning`/gold), `color` (explicit override), `readOnly`, `showValue`, `onChange`.
 Click the current star again to clear to 0.

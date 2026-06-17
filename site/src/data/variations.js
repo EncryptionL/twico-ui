@@ -42,6 +42,11 @@ export const VARIATIONS = [
     "i": 3
   },
   {
+    "component": "Alert",
+    "title": "Fills",
+    "i": 4
+  },
+  {
     "component": "AvatarMenu",
     "title": "Avatar only",
     "i": 0
@@ -270,6 +275,11 @@ export const VARIATIONS = [
     "component": "Checkbox",
     "title": "Disabled",
     "i": 3
+  },
+  {
+    "component": "Checkbox",
+    "title": "Tones",
+    "i": 4
   },
   {
     "component": "Code",
@@ -1212,6 +1222,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Switch",
+    "title": "Tones",
+    "i": 5
+  },
+  {
     "component": "Table",
     "title": "Basic",
     "i": 0
@@ -1280,6 +1295,11 @@ export const VARIATIONS = [
     "component": "Tag",
     "title": "Removable list",
     "i": 3
+  },
+  {
+    "component": "Tag",
+    "title": "Tones & variants",
+    "i": 4
   },
   {
     "component": "Text",

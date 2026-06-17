@@ -13,4 +13,4 @@ import { CurrencyField } from "./CurrencyField";
 
 The currency dropdown is searchable. Switching currency re-clamps the amount to the new precision.
 Props: `currency`/`defaultCurrency`, `onCurrencyChange`, `currencies` (limit the list), `value`/`defaultValue`,
-`onValueChange(number, formatted, code)`, plus field props. For a fixed code-defined currency, use `Currency`.
+`onValueChange(number, formatted, code)`, plus field props. Set `tone` (`primary`/`success`/`warning`/`danger`/`info`/`neutral`) to recolor the focus accent (default `primary`). For a fixed code-defined currency, use `Currency`.

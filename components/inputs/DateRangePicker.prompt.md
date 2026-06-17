@@ -9,3 +9,4 @@ const [range, setRange] = React.useState({ start: null, end: null });
 
 Props: `value`/`defaultValue` ({start,end}), `presets`, `weekStartsOn` (0/1), `placeholder`, `onChange`.
 Click a start day, then an end day; presets fill common ranges. Closes on outside-click / Esc.
+`tone` ("primary" | "success" | "warning" | "danger" | "info" | "neutral") sets the control's focus/open accent color.

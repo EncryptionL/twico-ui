@@ -69,6 +69,23 @@ const remove = (name) => setTags((prev) => prev.filter((t) => t !== name));
 ))}`,
     render: () => <RemovableList />,
   },
+  {
+    title: "Tones & variants",
+    description: "Six color intents across the soft (default), solid, and outline fills.",
+    code: `<Tag tone="primary">primary</Tag>
+<Tag tone="success" variant="solid">success</Tag>
+<Tag tone="danger" variant="outline">danger</Tag>`,
+    render: () => (
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        <Tag tone="primary">primary</Tag>
+        <Tag tone="success">success</Tag>
+        <Tag tone="warning" variant="solid">warning</Tag>
+        <Tag tone="danger" variant="solid">danger</Tag>
+        <Tag tone="info" variant="outline">info</Tag>
+        <Tag tone="neutral" variant="outline">neutral</Tag>
+      </div>
+    ),
+  },
 ];
 
 export default variations;

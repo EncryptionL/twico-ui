@@ -14,6 +14,8 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   required?: boolean;
   /** Control size — same padding steps as Input. @default "md" */
   size?: "sm" | "md" | "lg";
+  /** Color intent for the focus/open accent. @default "primary" */
+  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
 }
 
 export function Textarea(props: TextareaProps): React.JSX.Element;

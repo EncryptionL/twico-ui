@@ -15,3 +15,5 @@ import { Tabs } from "./Tabs";
 ```
 
 Items: `{ value, label, icon?, count?, content? }`. Controlled via `value` + `onChange`.
+
+`tone` sets the color intent (primary · success · warning · danger · info · neutral, default primary).

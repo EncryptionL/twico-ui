@@ -15,9 +15,16 @@ const UPLOAD_CSS = `
   transition: border-color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-upload__zone:hover { border-color: var(--color-primary); background: var(--color-surface-sunken); }
-.twc-upload__zone[data-drag="true"] { border-color: var(--color-primary); background: var(--color-primary-subtle); }
+/* tone → focus/open accent (default primary; reproduces current look). */
+.twc-upload__zone { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-upload__zone[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
+.twc-upload__zone[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
+.twc-upload__zone[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
+.twc-upload__zone[data-tone="info"]    { --_accent: var(--color-info);    --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-info) 32%, transparent); }
+.twc-upload__zone[data-tone="neutral"] { --_accent: var(--color-border-strong); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-text) 14%, transparent); }
+.twc-upload__zone[data-drag="true"] { border-color: var(--_accent); background: var(--color-primary-subtle); }
 .twc-upload__zone[data-disabled="true"] { opacity: 0.6; cursor: not-allowed; }
-.twc-upload__zone:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-upload__zone:focus-visible { outline: none; box-shadow: var(--_ring); }
 .twc-upload__icon { display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: var(--radius-lg);
   background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); margin-bottom: 4px; }
 .twc-upload__icon svg { width: 24px; height: 24px; }
@@ -49,6 +56,7 @@ export function FileUpload({
   accept,
   multiple = false,
   disabled = false,
+  tone = "primary",
   label,
   hint,
   error,
@@ -96,7 +104,7 @@ export function FileUpload({
       <div
         id={fieldId}
         className="twc-upload__zone" data-drag={drag || undefined} data-disabled={disabled || undefined}
-        data-invalid={invalid || undefined}
+        data-invalid={invalid || undefined} data-tone={tone}
         role="button" tabIndex={disabled ? -1 : 0}
         aria-invalid={invalid || undefined}
         aria-describedby={error || hint ? descId : undefined}

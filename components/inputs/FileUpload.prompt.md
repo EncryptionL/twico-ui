@@ -10,3 +10,4 @@ const [files, setFiles] = React.useState([]);
 
 Props: `accept`, `multiple`, `disabled`, `hint`, `value` (File[]), `onChange`.
 Supports drag-drop onto the zone or click to open the file dialog.
+Set `tone` (`primary` | `success` | `warning` | `danger` | `info` | `neutral`) to recolor the focus/open accent.

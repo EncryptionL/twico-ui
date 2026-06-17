@@ -2,6 +2,13 @@ import React from "react";
 
 const SLIDER_CSS = `
 .twc-slider { font-family: var(--font-sans); }
+/* tone → accent set (default primary). Mirrors Button's --_accent model; Badge's tone vocabulary. */
+.twc-slider { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); --_accent-border: var(--color-primary-border); }
+.twc-slider[data-tone="success"] { --_accent: var(--color-success); --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); --_accent-border: var(--color-success); }
+.twc-slider[data-tone="warning"] { --_accent: var(--color-warning); --_accent-fg: var(--color-warning-fg); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); --_accent-border: var(--color-warning); }
+.twc-slider[data-tone="danger"]  { --_accent: var(--color-danger); --_accent-fg: var(--color-danger-fg); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); --_accent-border: var(--color-danger); }
+.twc-slider[data-tone="info"]    { --_accent: var(--color-info); --_accent-fg: var(--color-info-fg); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); --_accent-border: var(--color-info); }
+.twc-slider[data-tone="neutral"] { --_accent: var(--color-text); --_accent-fg: var(--color-surface); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text-muted); --_accent-border: var(--color-border-strong); }
 .twc-slider__msgs { display: flex; flex-direction: column; gap: var(--space-1-5); margin-top: var(--space-2); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
@@ -14,10 +21,10 @@ const SLIDER_CSS = `
 .twc-slider[data-disabled="true"] { opacity: 0.55; }
 .twc-slider[data-disabled="true"] .twc-slider__track { cursor: not-allowed; }
 .twc-slider__rail { position: absolute; left: 0; right: 0; height: 6px; border-radius: var(--radius-full); background: var(--color-surface-sunken); box-shadow: inset 0 0 0 1px var(--color-border); }
-.twc-slider__fill { position: absolute; height: 6px; border-radius: var(--radius-full); background: var(--color-primary); }
+.twc-slider__fill { position: absolute; height: 6px; border-radius: var(--radius-full); background: var(--_accent); }
 .twc-slider__thumb {
   position: absolute; width: 18px; height: 18px; border-radius: var(--radius-full);
-  background: var(--color-surface); border: var(--border-thick) solid var(--color-primary);
+  background: var(--color-surface); border: var(--border-thick) solid var(--_accent);
   box-shadow: var(--shadow-sm); transform: translateX(-50%); top: 50%; margin-top: -9px;
   transition: box-shadow var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
 }
@@ -43,6 +50,7 @@ export function Slider({
   min = 0,
   max = 100,
   step = 1,
+  tone = "primary",
   disabled = false,
   showValue = true,
   showTicks = false,
@@ -111,7 +119,7 @@ export function Slider({
   const valueText = formatValue && (typeof display === "string" || typeof display === "number") ? String(display) : undefined;
 
   return (
-    <div className={`twc-slider ${className}`} data-disabled={disabled || undefined} {...rest}>
+    <div className={`twc-slider ${className}`} data-tone={tone} data-disabled={disabled || undefined} {...rest}>
       {(label || showValue) ? (
         <div className="twc-slider__head">
           {label ? <label className="twc-slider__label" id={labelId}>{label}</label> : <span />}

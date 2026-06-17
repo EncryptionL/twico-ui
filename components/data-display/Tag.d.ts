@@ -8,6 +8,10 @@ export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
   onRemove?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   /** Optional leading icon. */
   leftIcon?: React.ReactNode;
+  /** Fill style. @default "soft" */
+  variant?: "soft" | "solid" | "outline";
+  /** Color intent. @default "neutral" */
+  tone?: "neutral" | "primary" | "success" | "warning" | "danger" | "info";
   children?: React.ReactNode;
 }
 

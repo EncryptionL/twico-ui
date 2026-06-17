@@ -14,6 +14,8 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   error?: React.ReactNode;
   required?: boolean;
   size?: "sm" | "md" | "lg";
+  /** Color intent for the focus/open accent. @default "primary" */
+  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
   /** Field placeholder. */
   placeholder?: string;
   /** Options — strings, {value,label,description}, or {group,options} groups. */

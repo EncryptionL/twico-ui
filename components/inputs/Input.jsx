@@ -22,7 +22,14 @@ const FIELD_CSS = `
 .twc-input[data-size="sm"] { --_h: var(--control-h-sm); padding-inline: var(--space-2-5); }
 .twc-input[data-size="lg"] { --_h: var(--control-h-lg); padding-inline: var(--space-4); }
 .twc-input:hover:not([data-disabled]):not(:focus-within) { border-color: var(--color-border-strong); }
-.twc-input:focus-within { border-color: var(--color-primary); box-shadow: var(--ring); }
+/* tone → focus/open accent (default primary; reproduces current look). */
+.twc-input { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-input[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
+.twc-input[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
+.twc-input[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
+.twc-input[data-tone="info"]    { --_accent: var(--color-info);    --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-info) 32%, transparent); }
+.twc-input[data-tone="neutral"] { --_accent: var(--color-border-strong); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-text) 14%, transparent); }
+.twc-input:focus-within { border-color: var(--_accent); box-shadow: var(--_ring); }
 .twc-input[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-input[data-invalid="true"]:focus-within { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
 .twc-input[data-disabled] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
@@ -58,6 +65,7 @@ export function Input({
   error,
   required = false,
   size = "md",
+  tone = "primary",
   leftIcon,
   rightIcon,
   type = "text",
@@ -99,7 +107,7 @@ export function Input({
           {label}{required ? <span className="twc-field__req">*</span> : null}
         </label>
       ) : null}
-      <div className="twc-input" data-size={size} data-invalid={invalid || undefined} data-disabled={disabled || undefined}>
+      <div className="twc-input" data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined}>
         {leftIcon ? <span className="twc-input__affix">{leftIcon}</span> : null}
         <input
           id={fieldId}

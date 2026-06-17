@@ -58,6 +58,21 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "Tones",
+    description: "Recolor the checked state with any of the six semantic intents.",
+    code: `<Checkbox tone="success" label="Success" defaultChecked />
+<Checkbox tone="danger" label="Danger" defaultChecked />`,
+    render: () => (
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <Checkbox tone="primary" label="Primary" defaultChecked />
+        <Checkbox tone="success" label="Success" defaultChecked />
+        <Checkbox tone="warning" label="Warning" defaultChecked />
+        <Checkbox tone="danger" label="Danger" defaultChecked />
+        <Checkbox tone="info" label="Info" defaultChecked />
+      </div>
+    ),
+  },
 ];
 
 export default variations;

@@ -15,7 +15,14 @@ const RANGE_CSS = `
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
 .twc-drp__control:hover:not([data-open="true"]):not([data-disabled="true"]) { border-color: var(--color-border-strong); }
-.twc-drp__control[data-open="true"] { border-color: var(--color-primary); box-shadow: var(--ring); }
+/* tone → focus/open accent (default primary; reproduces current look). */
+.twc-drp__control { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-drp__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
+.twc-drp__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
+.twc-drp__control[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
+.twc-drp__control[data-tone="info"]    { --_accent: var(--color-info);    --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-info) 32%, transparent); }
+.twc-drp__control[data-tone="neutral"] { --_accent: var(--color-border-strong); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-text) 14%, transparent); }
+.twc-drp__control[data-open="true"] { border-color: var(--_accent); box-shadow: var(--_ring); }
 .twc-drp__control[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-drp__control[data-invalid="true"][data-open="true"] { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
 .twc-drp__control[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
@@ -79,6 +86,7 @@ export function DateRangePicker({
   locale,
   weekStartsOn = 0,
   disabled = false,
+  tone = "primary",
   onChange,
   className = "",
   ...rest
@@ -164,7 +172,7 @@ export function DateRangePicker({
           {label}{required ? <span className="twc-field__req">*</span> : null}
         </span>
       ) : null}
-      <div className="twc-drp__control" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} role="button" tabIndex={disabled ? -1 : 0}
+      <div className="twc-drp__control" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-tone={tone} role="button" tabIndex={disabled ? -1 : 0}
         aria-haspopup="dialog" aria-expanded={open} aria-disabled={disabled || undefined} aria-labelledby={label ? labelId : undefined}
         aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
         onClick={() => !disabled && setOpen((o) => !o)} onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setOpen((o) => !o); } }}>

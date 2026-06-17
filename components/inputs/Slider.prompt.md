@@ -10,4 +10,5 @@ const [vol, setVol] = React.useState(40);
 ```
 
 Props: `value`/`defaultValue`, `min`, `max`, `step`, `showValue`, `showTicks`, `formatValue`, `disabled`.
+`tone` sets the color intent (primary · success · warning · danger · info · neutral, default primary).
 Keyboard: ←/→/↑/↓ step, Home/End to ends.

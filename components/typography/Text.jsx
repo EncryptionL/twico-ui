@@ -6,6 +6,12 @@ const TONE = {
   subtle: "--color-text-subtle",
   primary: "--color-primary",
   danger: "--color-danger",
+  // New intents use the readable "-subtle-fg" (text-grade) tokens where the base hue
+  // would be too light for text contrast (warning/info especially).
+  success: "--color-success",
+  warning: "--color-warning-subtle-fg",
+  info: "--color-info-subtle-fg",
+  neutral: "--color-text-muted",
 };
 
 // Block javascript:/data:/vbscript: URLs (incl. whitespace/control-char obfuscation

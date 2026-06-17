@@ -10,7 +10,15 @@ const RATING_CSS = `
 .twc-rating[data-disabled="true"] { opacity: 0.55; }
 .twc-rating[data-disabled="true"] .twc-rating__btn { cursor: not-allowed; }
 .twc-rating:not([data-readonly="true"]):not([data-disabled="true"]) .twc-rating__btn:hover { transform: scale(1.18); }
-.twc-rating__btn[data-on="true"] { color: var(--_c, var(--color-warning)); }
+/* tone -> star color (default warning = gold). An explicit color prop (--_c) still wins. */
+.twc-rating { --_accent: var(--color-warning); }
+.twc-rating[data-tone="primary"] { --_accent: var(--color-primary); }
+.twc-rating[data-tone="success"] { --_accent: var(--color-success); }
+.twc-rating[data-tone="warning"] { --_accent: var(--color-warning); }
+.twc-rating[data-tone="danger"]  { --_accent: var(--color-danger); }
+.twc-rating[data-tone="info"]    { --_accent: var(--color-info); }
+.twc-rating[data-tone="neutral"] { --_accent: var(--color-text); }
+.twc-rating__btn[data-on="true"] { color: var(--_c, var(--_accent)); }
 .twc-rating__btn svg { width: var(--_sz, 24px); height: var(--_sz, 24px); display: block; }
 .twc-rating[data-size="sm"] { --_sz: 18px; }
 .twc-rating[data-size="lg"] { --_sz: 32px; }
@@ -24,6 +32,7 @@ export function Rating({
   defaultValue = 0,
   count = 5,
   size = "md",
+  tone = "warning",
   color,
   readOnly = false,
   disabled = false,
@@ -66,7 +75,7 @@ export function Rating({
   };
 
   return (
-    <div className={`twc-rating ${className}`} data-size={size} data-readonly={readOnly || undefined} data-disabled={disabled || undefined}
+    <div className={`twc-rating ${className}`} data-size={size} data-tone={tone} data-readonly={readOnly || undefined} data-disabled={disabled || undefined}
       style={color ? { "--_c": color, ...style } : style} role="radiogroup" aria-label="Rating" aria-disabled={disabled || undefined} {...rest}>
       <span className="twc-rating__stars" onMouseLeave={() => setHover(0)} onKeyDown={onKeyDown}>
         {Array.from({ length: count }).map((_, i) => {

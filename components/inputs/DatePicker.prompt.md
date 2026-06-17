@@ -11,3 +11,6 @@ const [date, setDate] = React.useState(null);
 Props: `value`/`defaultValue` (Date|null), `min`, `max`, `placeholder`, `clearable`,
 `format(date)`, `weekStartsOn` (0/1), `onChange`. Click the month/year title to jump months;
 closes on outside-click / Esc.
+
+Set `tone` ("primary" | "success" | "warning" | "danger" | "info" | "neutral", default "primary")
+to recolor the control's focus/open border and ring.

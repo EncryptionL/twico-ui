@@ -8,4 +8,4 @@ import { Spinner } from "./Spinner";
 <Spinner tone="white" />  {/* on a colored button/background */}
 ```
 
-Props: `size` (sm/md/lg/xl), `tone` (primary/neutral/white).
+Props: `size` (sm/md/lg/xl), `color`/`tone` (`current` default · `primary` · `success` · `warning` · `danger` · `info` · `neutral` · `white`).

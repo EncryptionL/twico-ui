@@ -12,6 +12,8 @@ export interface SelectProps extends Omit<React.HTMLAttributes<HTMLButtonElement
   error?: React.ReactNode;
   required?: boolean;
   size?: "sm" | "md" | "lg";
+  /** Color intent for the focus/open accent. @default "primary" */
+  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
   placeholder?: string;
   /** Placeholder for the in-popover search box. @default "Search…" */
   searchPlaceholder?: string;

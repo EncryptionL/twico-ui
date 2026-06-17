@@ -42,6 +42,16 @@ ships, delete it here and document it in the relevant doc.
 >   accepting `sm|md|lg` | number | CSS length.
 > - **TreeView** drops `data` (use `items`) and `onSelectedIdChange`; `onSelect(id, node)` is id-first.
 
+> **Fifth wave shipped (2026-06-17) — library-wide `tone` × `variant` (additive, non-breaking).**
+> Every component that renders an accent now takes the 6-intent `tone` axis; the chip/banner gained a
+> `variant` axis; defaults reproduce the prior look exactly. Selection controls (Checkbox, Radio,
+> Switch, Slider), nav (Tabs, Stepper), the whole field family (Input, Textarea, Select, Combobox,
+> MultiSelect, Currency, CurrencyField, DatePicker, DateRangePicker, FileUpload, ColorPicker → focus/
+> open accent), and Rating gained `tone`; **Tag** and **Alert** gained `soft|solid|outline`; Alert/Text/
+> Spinner tone sets were normalized to the full intents. All wired through the shared `--_accent` model.
+> See [tone-variant-system.md](./tone-variant-system.md). Layout primitives, surfaces/overlays, and
+> structural/display components are intentionally excluded (no meaningful color axis).
+
 ## Still open
 
 These are genuinely deferred — each needs a precondition that isn't met yet. Nothing here blocks

@@ -19,12 +19,19 @@ const MULTI_CSS = `
 .twc-ms__control[data-size="sm"] { --_h: var(--control-h-sm); }
 .twc-ms__control[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-ms__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
-.twc-ms__control[data-open="true"] { border-color: var(--color-primary); box-shadow: var(--ring); }
+/* tone → focus/open accent + selected-chip color (default primary; reproduces current look). */
+.twc-ms__control { --_accent: var(--color-primary); --_ring: var(--ring); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); }
+.twc-ms__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); }
+.twc-ms__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
+.twc-ms__control[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
+.twc-ms__control[data-tone="info"]    { --_accent: var(--color-info);    --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-info) 32%, transparent); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }
+.twc-ms__control[data-tone="neutral"] { --_accent: var(--color-border-strong); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-text) 14%, transparent); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text-muted); }
+.twc-ms__control[data-open="true"] { border-color: var(--_accent); box-shadow: var(--_ring); }
 .twc-ms__control[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-ms__control[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
 .twc-ms__chip {
   display: inline-flex; align-items: center; gap: 5px; padding: 2px 4px 2px 9px; height: 24px;
-  background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg);
+  background: var(--_accent-subtle); color: var(--_accent-subtle-fg);
   border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: var(--font-semibold);
 }
 .twc-ms__chip-x { display: inline-grid; place-items: center; width: 16px; height: 16px; border: none; padding: 0; background: transparent; color: inherit; cursor: pointer; border-radius: var(--radius-full); opacity: 0.7; }
@@ -97,7 +104,7 @@ function ensureVisible(list, el) {
 }
 
 export function MultiSelect({
-  label, hint, error, required = false, size = "md",
+  label, hint, error, required = false, size = "md", tone = "primary",
   placeholder = "Select…", options, value, defaultValue = [],
   onChange, clearable = false, disabled = false, placement = "bottom", portal = false, minWidth = 0,
   id, className = "", onFocus, onKeyDown, ...rest
@@ -245,7 +252,7 @@ export function MultiSelect({
     <div className={`twc-field ${className}`} ref={wrapRef}>
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
       <div className="twc-ms">
-        <div className="twc-ms__control" ref={controlRef} data-size={size} data-open={open || undefined} data-invalid={Boolean(error) || undefined} data-disabled={disabled || undefined}
+        <div className="twc-ms__control" ref={controlRef} data-size={size} data-tone={tone} data-open={open || undefined} data-invalid={Boolean(error) || undefined} data-disabled={disabled || undefined}
              onClick={() => { if (!disabled) { inputRef.current?.focus(); setOpen(true); } }}>
           {selectedOpts.map((o) => (
             <span className="twc-ms__chip" key={o.value}>

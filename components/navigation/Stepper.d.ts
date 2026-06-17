@@ -23,6 +23,8 @@ export interface StepperProps extends React.HTMLAttributes<HTMLDivElement> {
   active?: number;
   /** @default "horizontal" */
   orientation?: "horizontal" | "vertical";
+  /** Color intent. @default "primary" */
+  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
   /** Allow clicking completed/active steps. @default false */
   clickable?: boolean;
   /** Fired when a clickable step is clicked. */

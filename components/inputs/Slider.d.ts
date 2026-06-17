@@ -28,6 +28,8 @@ export interface SliderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   showValue?: boolean;
   /** Render step ticks along the rail. @default false */
   showTicks?: boolean;
+  /** Color intent. @default "primary" */
+  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
   /** Format the displayed value (label + bubble). */
   formatValue?: (value: number) => React.ReactNode;
   onChange?: (value: number) => void;

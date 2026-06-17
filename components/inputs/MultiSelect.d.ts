@@ -15,6 +15,8 @@ export interface MultiSelectProps extends Omit<React.InputHTMLAttributes<HTMLInp
   required?: boolean;
   /** Control height preset, matching Select/Combobox. @default "md" */
   size?: "sm" | "md" | "lg";
+  /** Color intent for the focus/open accent. @default "primary" */
+  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
   placeholder?: string;
   /** Options — strings, {value,label,description}, or {group,options} groups. */
   options: Array<string | MultiSelectOption | MultiSelectGroup>;

@@ -20,7 +20,14 @@ const COMBO_CSS = `
 .twc-cb__control[data-size="sm"] { --_h: var(--control-h-sm); }
 .twc-cb__control[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-cb__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
-.twc-cb__control[data-open="true"] { border-color: var(--color-primary); box-shadow: var(--ring); }
+/* tone → focus/open accent (default primary; reproduces current look). */
+.twc-cb__control { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-cb__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
+.twc-cb__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
+.twc-cb__control[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
+.twc-cb__control[data-tone="info"]    { --_accent: var(--color-info);    --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-info) 32%, transparent); }
+.twc-cb__control[data-tone="neutral"] { --_accent: var(--color-border-strong); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-text) 14%, transparent); }
+.twc-cb__control[data-open="true"] { border-color: var(--_accent); box-shadow: var(--_ring); }
 .twc-cb__control[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-cb__control[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; }
 .twc-cb__input { flex: 1; min-width: 0; border: none; outline: none; background: transparent; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); height: calc(var(--_h) - 2px); cursor: text; }
@@ -87,7 +94,7 @@ function ensureVisible(list, el) {
 }
 
 export function Combobox({
-  label, hint, error, required = false, size = "md",
+  label, hint, error, required = false, size = "md", tone = "primary",
   placeholder = "Select…", options, value, defaultValue = null,
   onChange, clearable = false, disabled = false, placement = "bottom", portal = false, minWidth = 0,
   id, className = "", onFocus, onKeyDown, ...rest
@@ -234,7 +241,7 @@ export function Combobox({
     <div className={`twc-field ${className}`} ref={wrapRef}>
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
       <div className="twc-cb">
-        <div className="twc-cb__control" ref={controlRef} data-size={size} data-open={open || undefined} data-invalid={Boolean(error) || undefined} data-disabled={disabled || undefined}
+        <div className="twc-cb__control" ref={controlRef} data-size={size} data-tone={tone} data-open={open || undefined} data-invalid={Boolean(error) || undefined} data-disabled={disabled || undefined}
              onClick={() => { if (!disabled) { inputRef.current?.focus(); if (!open) openMenu(); } }}>
           <input
             ref={inputRef} id={fieldId} className="twc-cb__input" role="combobox" aria-expanded={open} aria-autocomplete="list"

@@ -28,6 +28,10 @@ export function Spinner({
 .twc-spinner[data-size="lg"] { --_sz: 36px; --_bw: 3.5px; }
 .twc-spinner[data-size="xl"] { --_sz: 52px; --_bw: 4px; }
 .twc-spinner[data-tone="primary"] { --_c: var(--color-primary); --_track: var(--color-border); }
+.twc-spinner[data-tone="success"] { --_c: var(--color-success); --_track: var(--color-border); }
+.twc-spinner[data-tone="warning"] { --_c: var(--color-warning); --_track: var(--color-border); }
+.twc-spinner[data-tone="danger"]  { --_c: var(--color-danger); --_track: var(--color-border); }
+.twc-spinner[data-tone="info"]    { --_c: var(--color-info); --_track: var(--color-border); }
 .twc-spinner[data-tone="white"] { --_c: #fff; --_track: rgba(255,255,255,0.35); }
 .twc-spinner[data-tone="neutral"] { --_c: var(--color-text); --_track: var(--color-border); }
 /* A loading spinner conveys state — keep it spinning even under reduced motion. */

@@ -8,3 +8,5 @@ import { Switch } from "./Switch";
 ```
 
 Props: `label`, `description`, `size` (sm/md), plus native checkbox attrs (role=switch).
+
+`tone` sets the color intent (primary · success · warning · danger · info · neutral, default primary).
