@@ -467,7 +467,6 @@ const I = {
   chevronDown: "M6 9l6 6 6-6",
   fileText: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M9 13h6M9 17h6",
   sheet: "M3 3h18v18H3zM3 9h18M3 15h18M9 3v18M15 3v18",
-  braces: "M8 3H7a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2 2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h1M16 3h1a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2 2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-1",
   wrap: "M3 6h18M3 12h15a3 3 0 1 1 0 6h-4M16 16l-2 2 2 2M3 18h6",
 };
 function Svg({ d, ...p }) {
@@ -1424,11 +1423,6 @@ export function Datatable({
     // prefix them with a literal apostrophe. Real JS numbers can't carry a payload.
     const defang = (v, s) => (typeof v !== "number" && /^\s*[=+\-@]/.test(s) ? "'" + s : s);
 
-    if (format === "json") {
-      const data = source.map((row) => Object.fromEntries(expCols.map((c) => [c.field, cellValue(c, row)])));
-      download(JSON.stringify(data, null, 2), "application/json;charset=utf-8;", "json");
-      return;
-    }
     if (format === "excel") {
       // Real OOXML .xlsx, hand-built (no SheetJS) — see xlsxPackage above.
       // Strip XML-1.0-illegal control chars so the package never opens corrupt.
@@ -1455,16 +1449,15 @@ export function Datatable({
       download(xlsxPackage(sheet), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx");
       return;
     }
-    // csv (default) or tsv
-    const sep = format === "tsv" ? "\t" : ",";
+    // csv (default)
     const escape = (v) => {
       const s = defang(v, v == null ? "" : String(v));
-      return (format === "tsv" ? /[\t\n]/ : /[",\n]/).test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+      return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
     };
-    const header = expCols.map((c) => escape(c.headerName)).join(sep);
-    const lines = source.map((row) => expCols.map((c) => escape(cellValue(c, row))).join(sep));
+    const header = expCols.map((c) => escape(c.headerName)).join(",");
+    const lines = source.map((row) => expCols.map((c) => escape(cellValue(c, row))).join(","));
     const text = "\uFEFF" + [header, ...lines].join("\r\n");
-    download(text, format === "tsv" ? "text/tab-separated-values;charset=utf-8;" : "text/csv;charset=utf-8;", format === "tsv" ? "tsv" : "csv");
+    download(text, "text/csv;charset=utf-8;", "csv");
   }
 
   // ---- Aggregation / summary footer ----
@@ -2185,8 +2178,6 @@ export function Datatable({
           {[
             { fmt: "csv", label: "CSV (.csv)", icon: I.fileText },
             { fmt: "excel", label: "Excel (.xlsx)", icon: I.sheet },
-            { fmt: "tsv", label: "TSV (.tsv)", icon: I.fileText },
-            { fmt: "json", label: "JSON (.json)", icon: I.braces },
           ].map((o) => (
             <button type="button" key={o.fmt} role="menuitem" className="twc-dt__mi" onClick={() => { exportData(o.fmt); setExportOpen(false); closeExport(); restoreTriggerFocus(); }}>
               <Svg d={o.icon} /> {o.label}

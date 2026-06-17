@@ -58,7 +58,7 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
   onServerChange?: (state: DatatableQuery) => void;
   /** Show the Export toolbar button (split button: click = CSV, chevron = format menu). @default true */
   showExport?: boolean;
-  /** Filename (without extension) for exports (CSV / Excel / TSV / JSON). @default "export" */
+  /** Filename (without extension) for exports (CSV / Excel). @default "export" */
   exportFilename?: string;
   /** Server-mode precomputed aggregation. Per field, either a scalar/node (used as-is) or a per-function map
    *  `{ sum, avg, min, max, count }` so the footer honors whichever function the user picks in the panel. */

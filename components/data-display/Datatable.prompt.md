@@ -1,7 +1,7 @@
 Advanced data table (Material UI Data Grid Premium style). Columns are sortable,
 filterable (per-column operators + a quick search), hideable (with a searchable
 column list), pinnable (left/right, sticky), **drag-to-reorder**, and **drag-to-resize**.
-Includes a column/filter toolbar, density control, **multi-format export** (CSV/Excel/TSV/JSON), an optional
+Includes a column/filter toolbar, density control, **export** (CSV/Excel), an optional
 **aggregation/summary footer**, optional checkbox selection with a **batch-action
 toolbar**, an **actions column** (per-row icon buttons + overflow menu), page-number
 **pagination** with a rows-per-page selector, and a skeleton loading state. The filter
@@ -39,7 +39,7 @@ import { Datatable } from "./Datatable";
 - **Drag a column header** to reorder (middle, non-pinned columns), **or drag rows in the Columns panel** to reorder any column; **drag the right edge** of a header to resize it, or **double-click** that edge to auto-fit the column to its content (Excel-style).
 - **Inline editing** — set `editable: true` on a column (or `editMode` on the grid for all columns) and **double-click a cell** to edit. Enter or blur commits, Esc cancels. Columns with `valueOptions` edit via a searchable dropdown; number/currency columns get a number input.
 - **Batch edit** — with `checkboxSelection`, selecting rows shows an **Edit** button in the selection toolbar (when editable columns exist). It opens a panel to set one or more columns at once and **Apply** them to every selected row; fires `onBatchUpdate(changedRows, patch, selectedKeys)` plus `onRowsChange`.s` (or `editType: "select"`) edit via a dropdown; number columns get a number input. On commit the grid calls `onRowUpdate(updatedRow, originalRow, field)`; pass `onRowsChange` to also receive the full next rows array (client mode).
-- **Export** is a split button: clicking it downloads the current view as **CSV** by default; the chevron opens a format menu (**CSV**, **Excel `.xlsx`**, **TSV**, **JSON**). Exports all filtered+sorted rows client-side (the loaded page in server mode). Customize a column's exported value with `exportValue`.
+- **Export** is a split button: clicking it downloads the current view as **CSV** by default; the chevron opens a format menu (**CSV**, **Excel `.xlsx`**). Exports all filtered+sorted rows client-side (the loaded page in server mode). Customize a column's exported value with `exportValue`.
 - **Columns** toolbar button → a searchable, **drag-to-reorder** panel of visibility toggles, each row also with **pin left / pin right** controls (so you can pin any column without scrolling its header into view). **Filters** opens empty — add rows manually with **Add filter**
   (string: contains/equals/is any of/starts/ends/empty; number: =, ≠, >, ≥, <, ≤) built from `Select` + `Input`.
 - **Density** cycles row height. The search box quick-filters across visible columns.
