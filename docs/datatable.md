@@ -216,8 +216,19 @@ purely visual and isn't double-counted in `aria-colcount`/`aria-colindex`.
 **Show/hide at runtime.** The `rowNumbers` prop is only the *initial* state: rendering reads a
 `showRowNum` state (seeded from the prop), and when the feature is enabled the **Columns** toolbar
 panel gets a "Row number" entry with a visibility switch (gated by the panel's search via
-`rowNumMatch`). Toggling it off just stops rendering the gutter — the leading offsets, `totalCols`,
-and edge-shadow all key off `showRowNum`, so the rest of the grid re-flows with no other change.
+`rowNumMatch`). The `#` header also has its own **⋮ menu** with a "Hide column" item; both paths set
+`showRowNum`. Toggling it off just stops rendering the gutter — the leading offsets, `totalCols`, and
+edge-shadow all key off `showRowNum`, so the rest of the grid re-flows with no other change. The
+header menu reuses the shared `colMenu` state with a `"__rownum__"` sentinel field (branched before
+the normal `colByField[...]` lookup, which would otherwise be undefined for the gutter).
+
+### Empty-state vs. collapsed groups (fix)
+
+The "No rows match your filters" empty state must distinguish "no data" from "all groups collapsed."
+`leafRows` is derived from the **leaf** items of `displayItems`, so collapsing every group leaves it
+empty even though the group-header rows should still render. The empty check therefore keys off the
+*displayed* item count, not `leafRows`: `displayItems ? displayItems.length === 0 : paged.length === 0`
+— grouped mode shows the collapsed headers, flat mode falls back to the current page's row count.
 
 ### Filter row layout
 

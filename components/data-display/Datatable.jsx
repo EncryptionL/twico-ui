@@ -1996,7 +1996,14 @@ export function Datatable({
               ) : null}
               {showRowNum ? (
                 <th className="twc-dt__th twc-dt__rownum" role="columnheader" aria-label="Row number" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ left: numLeft, width: NUM_W, minWidth: NUM_W }}>
-                  <div className="twc-dt__th-inner" style={{ justifyContent: "flex-end" }}>#</div>
+                  <div className="twc-dt__th-inner">
+                    <span className="twc-dt__th-label" style={{ flex: "none", cursor: "default" }}>#</span>
+                    <button type="button" className="twc-dt__menu-btn" aria-label="Row number column menu"
+                      aria-haspopup="menu" aria-expanded={colMenu?.field === "__rownum__" || undefined}
+                      onClick={(e) => { e.stopPropagation(); menuTriggerRef.current = e.currentTarget; setPanel(null); closePanel(); setRowMenu(null); closeRowMenu(); setExportOpen(false); closeExport(); setColMenu({ field: "__rownum__" }); openMenu(e.currentTarget, "right", 180); }}>
+                      <Svg d={I.more} />
+                    </button>
+                  </div>
                 </th>
               ) : null}
               {ordered.map((c) => {
@@ -2075,7 +2082,7 @@ export function Datatable({
                   })}
                 </tr>
               ))
-            ) : leafRows.length === 0 ? (
+            ) : (displayItems ? displayItems.length === 0 : paged.length === 0) ? (
               <tr><td className="twc-dt__td" colSpan={totalCols} style={{ maxWidth: "none" }}>
                 <div className="twc-dt__empty">No rows match your filters</div>
               </td></tr>
@@ -2217,7 +2224,10 @@ export function Datatable({
           onKeyDown={(e) => onMenuKeyDown(e, () => { setColMenu(null); closeMenu(); })}
           style={{ top: menuPos.top, left: menuPos.left, width: menuPos.width, maxHeight: menuPos.maxHeight, overflowY: "auto" }}>
           <Caret pos={menuPos} />
-          {(() => {
+          {colMenu.field === "__rownum__" ? (() => {
+            const close = () => { setColMenu(null); closeMenu(); restoreTriggerFocus(); };
+            return <button type="button" role="menuitem" className="twc-dt__mi" onClick={() => { setShowRowNum(false); close(); }}><Svg d={I.eyeOff} /> Hide column</button>;
+          })() : (() => {
             const c = colByField[colMenu.field]; const close = () => { setColMenu(null); closeMenu(); restoreTriggerFocus(); };
             const hasTop = c.sortable || c.filterable;
             const hasBottom = c.pinnable || c.hideable;
