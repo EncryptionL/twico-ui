@@ -109,6 +109,15 @@ npm run build     # -> site/dist  (must succeed; it also compiles the library so
 - **Render-check (the verification bar):** serve `site/dist` (`npm run preview`) and drive it with a
   headless browser, visiting every component page to confirm each demo mounts without throwing
   (no error-boundary fallback, no console/page errors) and that overlays open on interaction.
+  `node scripts/render-check.mjs` (override the URL with `ORIGIN=…`).
+- **Interaction sweep (deeper gate):** `node scripts/interaction-sweep.mjs` visits every component
+  route and *exercises* it — clicks up to 18 overlay/control triggers (Escape after each) and drives
+  up to 10 inputs via the keyboard — asserting zero pageerrors/console errors throughout. Exits
+  non-zero on any error (override the URL with `BASE=…`).
+- **CI enforcement:** `.github/workflows/interaction.yml` runs **both** of the above against a
+  `vite preview` server on every PR to `dev`/`main` that touches the UI (and on manual dispatch), so
+  the §8 behavioral bar is automated, not just local. (`visual.yml` separately does Playwright pixel
+  diffs of key pages.)
 - **Deploy:** `.github/workflows/deploy-docs.yml` builds `site/` and publishes to GitHub Pages on push
   to **`main`** only (the release branch) — or via manual dispatch. `enablement: true` lets the workflow
   turn Pages on; if blocked, enable it once under **Settings → Pages → Source = GitHub Actions**. Vite

@@ -1,0 +1,60 @@
+name: Interaction check
+
+# Headless behavior gate (the local bar from CLAUDE.md §8, now enforced in CI):
+# builds the docs site, serves it with `vite preview`, then drives every component route
+#   - render-check.mjs       : load each route, require zero pageerrors
+#   - interaction-sweep.mjs  : click every overlay trigger + drive every input via the
+#                              keyboard, require zero pageerrors / console errors
+# Both scripts exit non-zero on any error, failing the job.
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - "site/**"
+      - "components/**"
+      - "src/**"
+      - "hooks/**"
+      - "styles/**"
+      - "tokens/**"
+      - "base.css"
+  workflow_dispatch:
+
+concurrency:
+  group: interaction-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  interaction:
+    name: Render + interaction sweep
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: site/package-lock.json
+      - name: Install site deps
+        run: npm ci
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Build site
+        run: npm run build
+      - name: Serve preview + render-check + interaction sweep
+        run: |
+          npm run preview -- --port 4173 --strictPort &
+          PREVIEW_PID=$!
+          # wait for the preview server (base path is /twico-ui/)
+          for i in $(seq 1 60); do
+            curl -sf http://localhost:4173/twico-ui/ >/dev/null && break
+            sleep 1
+          done
+          node scripts/render-check.mjs
+          node scripts/interaction-sweep.mjs
+          kill "$PREVIEW_PID" 2>/dev/null || true
