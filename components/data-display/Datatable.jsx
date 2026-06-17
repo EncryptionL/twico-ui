@@ -273,8 +273,11 @@ const DT_CSS = `
 .twc-dt__td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
 /* Auto row-number gutter (rowNumbers) — a sticky-left ordinal column. */
 .twc-dt__rownum { text-align: end; font-variant-numeric: tabular-nums; color: var(--color-text-subtle);
-  font-size: var(--text-xs); padding-inline: 8px; }
+  font-size: var(--text-xs); }
+td.twc-dt__rownum { padding-inline: 8px; }
 th.twc-dt__rownum { color: var(--color-text-muted); }
+/* Tighten the narrow gutter header so the # label and its ⋮ menu button fit without overflowing. */
+th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-content: space-between; }
 .twc-dt[data-density="compact"] .twc-dt__td { --_rowh: 36px; }
 .twc-dt[data-density="comfortable"] .twc-dt__td { --_rowh: 56px; }
 .twc-dt__row:hover .twc-dt__td { background: var(--color-surface-sunken); }
