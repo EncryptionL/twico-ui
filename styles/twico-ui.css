@@ -566,4 +566,14 @@ select:focus-visible {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  /* Loading spinners are functional status indicators, not decorative motion: a frozen spinner
+     reads as a stuck/broken UI. Keep them rotating (the only continuous animation exempted here). */
+  .twc-spinner {
+    animation-duration: 0.65s !important;
+    animation-iteration-count: infinite !important;
+  }
+  .twc-btn__spinner {
+    animation-duration: 0.6s !important;
+    animation-iteration-count: infinite !important;
+  }
 }

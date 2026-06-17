@@ -105,6 +105,12 @@ it carries no types).
   `twico-ui/styles.css`; its `@font-face` rules point to `./fonts/*.ttf` (self-hosted).
 - **Dark mode** = `.dark` class on `<html>`; every `--color-*` token flips. Portaled overlays
   re-theme too because they read the same tokens.
+- **Reduced motion.** `base.css` has the standard blanket `@media (prefers-reduced-motion: reduce)`
+  reset (`animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; …` on `*`).
+  **Loading spinners are exempt** (`.twc-spinner`, `.twc-btn__spinner` re-assert their infinite spin)
+  — they're functional status indicators, and a frozen spinner reads as a stuck/broken UI. Everything
+  else (fades, slides, ripples) still collapses. Edit the rule in `base.css` and regenerate with
+  `npm run build:css` (the `build:css:check` CI guard fails on drift).
 
 ## Docs site (dogfooding)
 
