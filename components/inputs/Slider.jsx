@@ -47,9 +47,9 @@ export function Slider({
   error,
   value,
   defaultValue = 0,
-  min = 0,
-  max = 100,
-  step = 1,
+  min: minProp = 0,
+  max: maxProp = 100,
+  step: stepProp = 1,
   tone = "primary",
   disabled = false,
   showValue = true,
@@ -60,6 +60,10 @@ export function Slider({
   className = "",
   ...rest
 }) {
+  // Guard against invalid range/step props so the component never produces NaN/Infinity.
+  const min = Number.isFinite(minProp) ? minProp : 0;
+  const max = Number.isFinite(maxProp) && maxProp > min ? maxProp : min + 1;
+  const step = Number.isFinite(stepProp) && stepProp > 0 ? stepProp : 1;
   React.useInsertionEffect(() => {
     if (document.getElementById("twc-slider-styles")) return;
     const el = document.createElement("style");

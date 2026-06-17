@@ -290,7 +290,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 
 /* Pinning */
 .twc-dt__th[data-pin], .twc-dt__td[data-pin] { position: sticky; z-index: 2; }
-.twc-dt__th[data-pin] { z-index: 4; }
+/* Pinned header cells must outrank every pinned BODY cell (z:2) — including a selected/active
+   row's opaque primary-subtle pinned cell — so a selected row's background can never bleed up
+   over the sticky header in the pinned (corner) zone. z:5 keeps a clear margin above z:2. */
+.twc-dt__th[data-pin] { z-index: 5; }
 /* Pinned-edge separator shadow. box-shadow has no logical form, so --_pin-sx carries
    the x-direction and flips under RTL (left-pinned sits at the inline-start = right edge). */
 .twc-dt__th[data-pin-edge], .twc-dt__td[data-pin-edge] { --_pin-sx: 6px; }

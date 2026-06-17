@@ -108,7 +108,12 @@ export function Drawer({
     if (!open) return;
     const node = panelRef.current;
     const prevFocused = document.activeElement;
-    node?.focus();
+    // Focus the first focusable element inside the panel (same selector as the
+    // focus trap); fall back to the panel container when there is nothing to land on.
+    const first = node?.querySelector(
+      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    (first || node)?.focus();
     return () => {
       if (prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
     };

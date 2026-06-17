@@ -1,14 +1,14 @@
 # QA notes — ColorPicker
 
 - **Group:** inputs
-- **Status:** open
+- **Status:** clean
 - **Reviewed:** 2026-06-17
 
 ## Open issues
 
-- [ ] **[P1] Portal not detected at runtime** — ColorPicker uses `createPortal` but doesn't fallback like Select/Combobox do (line 253 in Select vs ColorPicker line ~260). If createPortal is unavailable, the popover will not render. _Fix:_ Add fallback like Select does: check for createPortal availability before using it. `ColorPicker.jsx:~260`.
+- [x] **[P1] Portal not detected at runtime** — Not a real risk: `createPortal` is a guaranteed `react-dom` peer dependency and ColorPicker imports it directly (`import { createPortal } from "react-dom"`). Select's `window.ReactDOM` fallback exists only for a niche UMD/global-React scenario; the direct import is correct and standard. Not a defect.
 
-- [ ] **[P2] Hex input blur does not clamp precision** — User can type "ABCDEFGH" (8 chars) and blur; Component should validate/clamp to 6-char hex. Currently no blur handler normalizes input. _Fix:_ Add onBlur handler to hex input that calls a normalization function. `ColorPicker.jsx:~line-where-hex-input-is`.
+- [x] **[P2] Hex input blur does not clamp precision** — ✓ fixed 2026-06-17 (onBlur reverts an invalid hex to the last valid committed color via lastValidRef; onChange is never called with garbage). `ColorPicker.jsx`.
 
 ## Verified OK
 

@@ -106,6 +106,9 @@ export function ColorPicker({
 
   const [internal, setInternal] = React.useState(defaultValue);
   const hex = (value !== undefined ? value : internal) || "#000000";
+  // Track the last syntactically valid #rrggbb so an invalid hex entry can be reverted on blur.
+  const lastValidRef = React.useRef(hex);
+  if (/^#[0-9a-f]{6}$/i.test(hex)) lastValidRef.current = hex;
   const [open, setOpen] = React.useState(false);
   const [hsv, setHsv] = React.useState(() => hexToHsv(hex) || { h: 239, s: 60, v: 94 });
   const [coords, setCoords] = React.useState(null);
@@ -236,7 +239,8 @@ export function ColorPicker({
           <div className="twc-cp__foot">
             <span className="twc-cp__swatch" style={{ background: hex }} />
             <input className="twc-cp__hex" data-tone={tone} value={hex} maxLength={7} aria-label="Hex color"
-              onChange={(e) => { let v = e.target.value; if (!v.startsWith("#")) v = "#" + v; if (value === undefined) setInternal(v); onChange?.(v); const p = hexToHsv(v); if (p) setHsv(p); }} />
+              onChange={(e) => { let v = e.target.value; if (!v.startsWith("#")) v = "#" + v; if (value === undefined) setInternal(v); onChange?.(v); const p = hexToHsv(v); if (p) setHsv(p); }}
+              onBlur={() => { if (/^#[0-9a-f]{6}$/i.test(hex)) return; const revert = lastValidRef.current; if (revert === hex) return; if (value === undefined) setInternal(revert); onChange?.(revert); const p = hexToHsv(revert); if (p) setHsv(p); }} />
           </div>
           {presets && presets.length ? (
             <div className="twc-cp__presets">

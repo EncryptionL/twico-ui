@@ -2,7 +2,7 @@
 
 - **Group:** overlay
 - **Reviewed:** 2026-06-17
-- **Status:** open
+- **Status:** clean
 
 ## Open issues
 
@@ -10,7 +10,7 @@
 
 - [x] **[P2] Body scroll not locked while open** — Same as Dialog: the scrim is fixed and full-viewport but the page behind it still scrolls (wheel after pointer leaves the panel; iOS body scroll under the panel). _Fix:_ set `body { overflow: hidden }` on open and restore on unmount (SSR-guarded), or document as consumer responsibility. `Drawer.jsx:80-84` — ✓ fixed 2026-06-17
 
-- [ ] **[P2] Initial focus lands on the panel container, not the first control** — On open focus moves to the panel node (`tabIndex={-1}`) rather than the first focusable. APG-acceptable, but a filter/details drawer would feel better focusing its first field or the close button. _Fix (optional):_ focus the first focusable, falling back to the panel. `Drawer.jsx:89-97`
+- [x] **[P2] Initial focus lands on the panel container, not the first control** — On open focus moves to the panel node (`tabIndex={-1}`) rather than the first focusable. APG-acceptable, but a filter/details drawer would feel better focusing its first field or the close button. _Fix:_ query the first focusable with the same selector as the focus trap and focus it, falling back to the panel node when none exists; focus-restore-on-close unchanged. `Drawer.jsx:107-120` — ✓ fixed 2026-06-17
 
 ## Verified OK
 

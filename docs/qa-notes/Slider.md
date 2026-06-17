@@ -1,14 +1,14 @@
 # QA notes — Slider
 
 - **Group:** inputs
-- **Status:** open
+- **Status:** clean
 - **Reviewed:** 2026-06-17
 
 ## Open issues
 
 - [x] **[P2] Slider value label color hardcoded to primary** — Line 17 of CSS shows `.twc-slider__value { color: var(--color-primary) }` but should respect tone variant. If tone="danger", the value should display in danger color. _Fix:_ Use `color: var(--_accent)` like other tone-aware components. `Slider.jsx:CSS line 17`. — ✓ fixed 2026-06-17
 
-- [ ] **[P2] No validation of min/max/step** — User can pass min=100, max=50, or step=0 without error. Component will behave unexpectedly. _Fix:_ Add defensive checks on mount or in effect. `Slider.jsx:44-62`.
+- [x] **[P2] No validation of min/max/step** — ✓ fixed 2026-06-17 (guarded locals: non-finite min→0, max≤min→min+1, step≤0→1, applied everywhere; valid props unchanged). `Slider.jsx`.
 
 ## Verified OK
 

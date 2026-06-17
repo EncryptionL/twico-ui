@@ -1,12 +1,12 @@
 # QA notes — Kanban
 
 - **Group:** data-display
-- **Status:** open (1 issue)
+- **Status:** clean
 - **Reviewed:** 2026-06-17
 
 ## Open issues
 
-- [ ] **[P1] Missing column focus restoration after drag-reorder** — When a card is keyboard-moved between columns and drops (Enter), focusIdRef.current is set but the focus restoration check in useEffect(focusIdRef) happens *before* the card is re-rendered into its new column's DOM position. If React batches the state update, the querySelector may find the old card element or none, leaving focus lost. _Fix:_ Use a useLayoutEffect or ensure focusIdRef clears *after* rendering via a ref callback on the card elements. See `Kanban.jsx:54–61`.
+- [x] **[P1] Missing column focus restoration after drag-reorder** — ✓ fixed 2026-06-17 (focus deferred to requestAnimationFrame so it runs after the card re-renders in its new column). When a card is keyboard-moved between columns and drops (Enter), focusIdRef.current is set but the focus restoration check in useEffect(focusIdRef) happens *before* the card is re-rendered into its new column's DOM position. If React batches the state update, the querySelector may find the old card element or none, leaving focus lost. _Fix:_ Use a useLayoutEffect or ensure focusIdRef clears *after* rendering via a ref callback on the card elements. See `Kanban.jsx:54–61`.
 
 ## Verified OK
 

@@ -52,12 +52,18 @@ export function Kanban({
   const focusIdRef = React.useRef(null);
 
   // Restore focus to a card after a keyboard drop re-parents it into another column.
+  // The card may not have rendered into its new column yet when this effect runs, so
+  // defer the focus() to the next frame (after the DOM has settled) and clear the ref then.
   React.useEffect(() => {
-    if (focusIdRef.current == null) return;
-    const id = focusIdRef.current;
-    focusIdRef.current = null;
-    const els = rootRef.current ? rootRef.current.querySelectorAll(".twc-kanban__card") : [];
-    for (const el of els) if (el.getAttribute("data-card-id") === id) { el.focus(); break; }
+    if (focusIdRef.current == null) return undefined;
+    const raf = requestAnimationFrame(() => {
+      const id = focusIdRef.current;
+      if (id == null) return;
+      focusIdRef.current = null;
+      const els = rootRef.current ? rootRef.current.querySelectorAll(".twc-kanban__card") : [];
+      for (const el of els) if (el.getAttribute("data-card-id") === id) { el.focus(); break; }
+    });
+    return () => cancelAnimationFrame(raf);
   });
 
   const move = (cardId, toCol) => {
