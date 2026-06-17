@@ -102,7 +102,7 @@ export function CommandPalette({
       node
         ? Array.from(
             node.querySelectorAll(
-              'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+              'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])'
             )
           ).filter((el) => el.offsetParent !== null)
         : [];
@@ -178,6 +178,7 @@ export function CommandPalette({
                   idx += 1; const i = idx;
                   return (
                     <button key={c.id || i} id={optionId(i)} type="button" className="twc-cmdk__item" role="option" aria-selected={i === active}
+                      tabIndex={-1}
                       data-active={i === active || undefined} onMouseEnter={() => setActive(i)}
                       onMouseDown={(e) => e.preventDefault()} onClick={() => run(c)}>
                       {c.icon ? <span className="twc-cmdk__item-ic" aria-hidden="true">{c.icon}</span> : null}

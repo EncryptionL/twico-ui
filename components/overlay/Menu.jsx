@@ -133,6 +133,9 @@ export function Menu({
       return;
     }
     if (e.key === "Escape") { e.preventDefault(); setOpen(false); return; }
+    // APG: Tab closes the menu and lets focus move on naturally (the items are not in
+    // the tab order — focus is managed via aria-activedescendant on the trigger).
+    if (e.key === "Tab") { setOpen(false); return; }
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       e.preventDefault();
       const list = interactiveIdx;
@@ -165,6 +168,7 @@ export function Menu({
             id={`${menuId}-item-${i}`}
             className="twc-menu__item"
             role="menuitem"
+            tabIndex={-1}
             data-danger={it.danger || undefined}
             data-active={active === i || undefined}
             disabled={it.disabled}

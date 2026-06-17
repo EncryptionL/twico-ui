@@ -87,12 +87,18 @@ export function Popover({
       arrow = { left: Math.min(Math.max(r.left + r.width / 2 - l - 5.5, 10), w - 20), [flip ? "bottom" : "top"]: -6 };
       return setPos({ top, bottom, left, width: w, flip, arrow });
     }
-    // left / right
-    const onRight = placement === "right";
+    // left / right — center on the trigger using the REAL panel height, flip to the
+    // other side when there isn't room, and clamp within the viewport.
+    const ph = popRef.current ? popRef.current.offsetHeight : 120;
+    let onRight = placement === "right";
+    const spaceRight = vw - r.right - gap, spaceLeft = r.left - gap;
+    if (onRight && spaceRight < w + M && spaceLeft > spaceRight) onRight = false;
+    else if (!onRight && spaceLeft < w + M && spaceRight > spaceLeft) onRight = true;
     left = onRight ? r.right + gap : r.left - w - gap;
-    let tp = r.top + r.height / 2;
-    top = Math.max(M, Math.min(tp - 40, vh - 80));
-    arrow = { top: tp - top - 5.5, [onRight ? "left" : "right"]: -6 };
+    left = Math.max(M, Math.min(left, vw - w - M));
+    const cy = r.top + r.height / 2;
+    top = Math.max(M, Math.min(cy - ph / 2, vh - ph - M));
+    arrow = { top: Math.min(Math.max(cy - top - 5.5, 8), ph - 18), [onRight ? "left" : "right"]: -6 };
     setPos({ top, left, width: w, flip: false, arrow });
   }, [placement, align, width]);
 
@@ -124,6 +130,10 @@ export function Popover({
     const t = setTimeout(() => setRender(false), 170);
     return () => clearTimeout(t);
   }, [open]);
+
+  // Re-measure once the panel is in the DOM so left/right placement centers on the
+  // real panel height (the first place() runs before the panel mounts).
+  React.useEffect(() => { if (render && open) place(); }, [render, place]);
 
   // Remember what to restore focus to on open; restore it on close, but only if
   // focus is still inside the panel (don't steal focus after an outside click).
