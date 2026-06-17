@@ -104,7 +104,7 @@ const DT_CSS = `
 .twc-dt__menu-btn svg { width: 16px; height: 16px; }
 
 /* Column resize handle */
-.twc-dt__resizer { position: absolute; top: 0; right: 0; width: 8px; height: 100%; cursor: col-resize; z-index: 6; touch-action: none; }
+.twc-dt__resizer { position: absolute; top: 0; inset-inline-end: 0; width: 8px; height: 100%; cursor: col-resize; z-index: 6; touch-action: none; }
 .twc-dt__resizer::after { content: ""; position: absolute; top: 22%; right: 2px; width: 2px; height: 56%; background: transparent; border-radius: 2px; transition: background-color var(--duration-fast); }
 .twc-dt__th:hover .twc-dt__resizer::after { background: var(--color-border-strong); }
 .twc-dt__resizer:hover::after, .twc-dt__resizer[data-active="true"]::after { background: var(--color-primary); }

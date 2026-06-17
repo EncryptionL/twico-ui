@@ -33,7 +33,13 @@ export function Progress({
 .twc-progress[data-tone="warning"] .twc-progress__bar { --_c: var(--color-warning); }
 .twc-progress[data-tone="danger"]  .twc-progress__bar { --_c: var(--color-danger); }
 .twc-progress[data-indeterminate="true"] .twc-progress__bar {
-  position: absolute; width: 40%; animation: twico-progress-indeterminate 1.3s var(--ease-standard) infinite;
+  position: absolute; width: 40%; animation: twc-progress-indeterminate 1.3s var(--ease-standard) infinite;
+}
+/* Logical-property keyframe so the indeterminate bar follows document direction (RTL-safe). */
+@keyframes twc-progress-indeterminate {
+  0%   { inset-inline-start: -40%; inset-inline-end: 100%; }
+  60%  { inset-inline-start: 100%; inset-inline-end: -90%; }
+  100% { inset-inline-start: 100%; inset-inline-end: -90%; }
 }
 .twc-progress__meta { display: flex; justify-content: space-between; font-size: var(--text-xs); color: var(--color-text-muted); }
 /* Indeterminate progress signals ongoing work — keep it animating under reduced motion. */

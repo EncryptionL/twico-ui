@@ -61,12 +61,21 @@ export function Navbar({
       ) : null}
       {brand ? <a className="twc-navbar__brand" href="#">{brand}</a> : null}
       <nav className="twc-navbar__links">
-        {links.map((l, i) => (
-          <a key={i} className="twc-navbar__link" href={safeHref(l.href) || "#"} data-active={l.active || undefined}
-             aria-current={l.active ? "page" : undefined} onClick={l.onClick}>
-            {l.icon}{l.label}
-          </a>
-        ))}
+        {links.map((l, i) => {
+          const href = safeHref(l.href);
+          const inner = <>{l.icon}{l.label}</>;
+          return href != null ? (
+            <a key={i} className="twc-navbar__link" href={href} data-active={l.active || undefined}
+               aria-current={l.active ? "page" : undefined} onClick={l.onClick}>
+              {inner}
+            </a>
+          ) : (
+            <button key={i} type="button" className="twc-navbar__link" data-active={l.active || undefined}
+                    aria-current={l.active ? "page" : undefined} onClick={l.onClick}>
+              {inner}
+            </button>
+          );
+        })}
       </nav>
       <span className="twc-navbar__spacer" />
       {actions ? <div className="twc-navbar__actions">{actions}</div> : null}

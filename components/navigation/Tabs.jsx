@@ -112,6 +112,7 @@ export function Tabs({
   }
 
   const activeItem = items.find((i) => i.value === active);
+  const panelRendered = activeItem != null && activeItem.content !== undefined;
 
   // WAI-ARIA tabs keyboard pattern: arrows/Home/End move selection + focus
   // between tabs (roving tabindex keeps only the active tab in the tab order).
@@ -147,7 +148,7 @@ export function Tabs({
             className="twc-tab"
             role="tab"
             aria-selected={it.value === active}
-            aria-controls={panelId}
+            aria-controls={it.value === active && panelRendered ? panelId : undefined}
             tabIndex={it.value === active ? 0 : -1}
             data-active={it.value === active || undefined}
             onClick={() => select(it.value)}
@@ -162,7 +163,7 @@ export function Tabs({
           style={vertical ? { top: ind.top, height: ind.height } : { left: ind.left, width: ind.width }}
         />
       </div>
-      {activeItem && activeItem.content !== undefined ? (
+      {panelRendered ? (
         <div className="twc-tabs__panel" role="tabpanel" id={panelId} aria-labelledby={activeIndex >= 0 ? tabIdAt(activeIndex) : undefined} tabIndex={0} key={active}>{activeItem.content}</div>
       ) : null}
     </div>

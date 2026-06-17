@@ -69,6 +69,15 @@ export function CommandPalette({
     return () => clearTimeout(t);
   }, [open]);
 
+  // Lock body scroll while open so the page behind the scrim can't scroll; restore
+  // the previous overflow value on close/unmount. SSR-safe: effects run client-only.
+  React.useEffect(() => {
+    if (!open) return undefined;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
+  }, [open]);
+
   React.useEffect(() => {
     if (open) { setQuery(""); setActive(0); const t = setTimeout(() => inputRef.current?.focus(), 30); return () => clearTimeout(t); }
   }, [open]);
@@ -135,7 +144,7 @@ export function CommandPalette({
   function onKeyDown(e) {
     if (e.key === "ArrowDown") { e.preventDefault(); setActive((a) => Math.min(a + 1, flat.length - 1)); }
     else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => Math.max(a - 1, 0)); }
-    else if (e.key === "Enter") { e.preventDefault(); run(flat[active]); }
+    else if (e.key === "Enter") { e.preventDefault(); const cmd = flat[active]; if (cmd) run(cmd); }
   }
 
   React.useEffect(() => {

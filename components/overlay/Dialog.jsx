@@ -88,6 +88,15 @@ export function Dialog({
     return () => clearTimeout(t);
   }, [open]);
 
+  // Lock body scroll while open so the page behind the scrim can't scroll; restore
+  // the previous overflow value on close/unmount. SSR-safe: effects run client-only.
+  React.useEffect(() => {
+    if (!open) return undefined;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
+  }, [open]);
+
   // Modal a11y (1/2): move focus into the dialog on open and restore it to the
   // previously-focused element on close. Keyed on `open` only, so an unstable
   // onClose identity can't clobber the saved trigger element.

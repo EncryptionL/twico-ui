@@ -128,16 +128,22 @@ export function Button({
   useInjectedStyle("twc-btn-styles", CSS);
   const [ripples, setRipples] = React.useState([]);
   const Tag = as;
+  const inert = Tag === "a" && (disabled || loading);
 
   function handleClick(e) {
-    if (disabled || loading) return;
+    if (disabled || loading) {
+      if (inert) e.preventDefault();
+      return;
+    }
     const rect = e.currentTarget.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
+    // Keyboard activation (Enter/Space) has no pointer coords — clientX/Y are 0 and
+    // e.detail is 0 — so center the ripple instead of pinning it to the corner.
+    const keyboard = e.detail === 0 || (e.clientX === 0 && e.clientY === 0);
+    const x = keyboard ? rect.width / 2 - size / 2 : e.clientX - rect.left - size / 2;
+    const y = keyboard ? rect.height / 2 - size / 2 : e.clientY - rect.top - size / 2;
     const id = Date.now() + Math.random();
-    setRipples((r) => [
-      ...r,
-      { id, size, x: e.clientX - rect.left - size / 2, y: e.clientY - rect.top - size / 2 },
-    ]);
+    setRipples((r) => [...r, { id, size, x, y }]);
     setTimeout(() => setRipples((r) => r.filter((x) => x.id !== id)), 600);
     onClick?.(e);
   }
@@ -151,7 +157,10 @@ export function Button({
       data-loading={loading || undefined}
       data-block={fullWidth || undefined}
       disabled={Tag === "button" ? disabled || loading : undefined}
-      href={safeHref(href)}
+      type={Tag === "button" ? "button" : undefined}
+      href={inert ? undefined : safeHref(href)}
+      aria-disabled={inert || undefined}
+      tabIndex={inert ? -1 : undefined}
       aria-busy={loading || undefined}
       onClick={handleClick}
       {...rest}

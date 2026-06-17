@@ -6,7 +6,7 @@ const CODE_CSS = `
   background: var(--color-surface-sunken); color: var(--color-text);
   padding: 1px 6px; border-radius: var(--radius-sm);
   border: var(--border-thin) solid var(--color-border);
-  white-space: nowrap;
+  white-space: normal; overflow-wrap: anywhere; word-break: break-word;
 }
 `;
 

@@ -81,17 +81,34 @@ export function Sidebar({
           it.section ? (
             <div key={i} className="twc-sidebar__section">{it.section}</div>
           ) : (
-            <a key={i} className="twc-sidebar__item" href={safeHref(it.href) || "#"} data-active={it.active || undefined}
-               aria-current={it.active ? "page" : undefined}
-               onClick={it.onClick} title={collapsed && typeof it.label === "string" ? it.label : undefined}>
-              {it.icon ? (
-                <span className="twc-sidebar__ic" aria-hidden="true">{it.icon}</span>
-              ) : typeof it.label === "string" ? (
-                <span className="twc-sidebar__ic twc-sidebar__ic--initial" aria-hidden="true">{it.label.charAt(0)}</span>
-              ) : null}
-              <span className="twc-sidebar__label">{it.label}</span>
-              {it.badge != null ? <span className="twc-sidebar__badge">{it.badge}</span> : null}
-            </a>
+            (() => {
+              const href = safeHref(it.href);
+              const labelStr = typeof it.label === "string" ? it.label : undefined;
+              const inner = (
+                <>
+                  {it.icon ? (
+                    <span className="twc-sidebar__ic" aria-hidden="true">{it.icon}</span>
+                  ) : labelStr != null ? (
+                    <span className="twc-sidebar__ic twc-sidebar__ic--initial" aria-hidden="true">{labelStr.charAt(0)}</span>
+                  ) : null}
+                  <span className="twc-sidebar__label">{it.label}</span>
+                  {it.badge != null ? <span className="twc-sidebar__badge">{it.badge}</span> : null}
+                </>
+              );
+              const common = {
+                className: "twc-sidebar__item",
+                "data-active": it.active || undefined,
+                "aria-current": it.active ? "page" : undefined,
+                onClick: it.onClick,
+                title: collapsed && labelStr != null ? labelStr : undefined,
+                "aria-label": collapsed && labelStr != null ? labelStr : undefined,
+              };
+              return href != null ? (
+                <a key={i} href={href} {...common}>{inner}</a>
+              ) : (
+                <button key={i} type="button" {...common}>{inner}</button>
+              );
+            })()
           )
         )}
       </nav>

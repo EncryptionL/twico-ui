@@ -76,6 +76,7 @@ export function IconButton({
       data-size={size}
       data-round={round || undefined}
       disabled={disabled}
+      type="button"
       aria-label={ariaLabel}
       {...rest}
     >

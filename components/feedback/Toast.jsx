@@ -9,7 +9,18 @@ const TOAST_CSS = `
   border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
   font-family: var(--font-sans); overflow: hidden;
-  animation: twico-slide-in-right var(--duration-base) var(--ease-spring);
+  animation: twc-toast-slide-in var(--duration-base) var(--ease-spring);
+}
+/* Slides in from the inline-end edge. LTR behaviour matches the previous translateX(24px); */
+/* the [dir="rtl"] override flips the offset so RTL toasts enter from the left as expected. */
+@keyframes twc-toast-slide-in {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+[dir="rtl"] .twc-toast { animation-name: twc-toast-slide-in-rtl; }
+@keyframes twc-toast-slide-in-rtl {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 .twc-toast::before { content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 4px; background: var(--_accent, var(--color-primary)); }
 .twc-toast[data-tone="success"] { --_accent: var(--color-success); }

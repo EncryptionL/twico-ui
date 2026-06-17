@@ -14,7 +14,7 @@ const SLIDER_CSS = `
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
 .twc-slider__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--space-2); }
 .twc-slider__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
-.twc-slider__value { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-primary); font-variant-numeric: tabular-nums; }
+.twc-slider__value { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--_accent); font-variant-numeric: tabular-nums; }
 .twc-slider__track {
   position: relative; height: 22px; display: flex; align-items: center; cursor: pointer; touch-action: none;
 }

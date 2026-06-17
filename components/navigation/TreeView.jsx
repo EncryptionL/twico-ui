@@ -13,6 +13,8 @@ const TREE_CSS = `
 .twc-tree__caret { flex: none; width: 18px; height: 18px; display: grid; place-items: center; color: var(--color-text-subtle);
   transition: transform var(--duration-base) var(--ease-spring); }
 .twc-tree__caret[data-open="true"] { transform: rotate(90deg); }
+[dir="rtl"] .twc-tree__caret { transform: scaleX(-1); }
+[dir="rtl"] .twc-tree__caret[data-open="true"] { transform: scaleX(-1) rotate(90deg); }
 .twc-tree__caret[data-leaf="true"] { visibility: hidden; }
 .twc-tree__caret svg { width: 14px; height: 14px; }
 .twc-tree__ic { flex: none; display: inline-flex; color: var(--color-text-muted); }
@@ -37,7 +39,7 @@ function Node({ node, depth, expanded, selectedId, tabbableId, rowRefs, onToggle
         data-tree-id={node.id}
         tabIndex={node.id === tabbableId ? 0 : -1}
         ref={(el) => { if (el) rowRefs.current.set(node.id, el); else rowRefs.current.delete(node.id); }}
-        style={{ paddingLeft: 8 + depth * 18 }}
+        style={{ paddingInlineStart: 8 + depth * 18 }}
         aria-expanded={hasChildren ? open : undefined}
         onFocus={() => onRowFocus(node.id)}
         onClick={() => { if (hasChildren) onToggle(node.id); onSelect?.(node); }}

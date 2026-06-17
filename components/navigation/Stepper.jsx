@@ -78,6 +78,16 @@ export function Stepper({
         const state = stateOf(i, step);
         const last = i === steps.length - 1;
         const isClickable = clickable && i <= active;
+        const interactive = isClickable
+          ? {
+              role: "button",
+              tabIndex: 0,
+              onClick: () => onStepClick?.(i),
+              onKeyDown: (e) => {
+                if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onStepClick?.(i); }
+              },
+            }
+          : null;
         const indicator = (
           <span className="twc-step__indicator" aria-hidden="true">
             {state === "complete" ? <CheckIcon /> : state === "error" ? <BangIcon /> : (step.icon || i + 1)}
@@ -86,7 +96,7 @@ export function Stepper({
         if (orientation === "vertical") {
           return (
             <div key={i} className="twc-step" data-state={state} data-clickable={isClickable || undefined}
-                 onClick={isClickable ? () => onStepClick?.(i) : undefined}>
+                 aria-current={state === "active" ? "step" : undefined} {...interactive}>
               <div className="twc-step__col">
                 {indicator}
                 {!last ? <span className="twc-step__connector" /> : null}
@@ -100,7 +110,7 @@ export function Stepper({
         }
         return (
           <div key={i} className="twc-step" data-state={state} data-clickable={isClickable || undefined}
-               onClick={isClickable ? () => onStepClick?.(i) : undefined}>
+               aria-current={state === "active" ? "step" : undefined} {...interactive}>
             {indicator}
             {!last ? <span className="twc-step__connector" /> : null}
             <div className="twc-step__body">

@@ -160,7 +160,12 @@ export function DateRangePicker({
 
   const clickDay = (d) => {
     if (!range.start || (range.start && range.end)) { set({ start: d, end: null }); }
-    else { if (ymd(d) < ymd(range.start)) set({ start: d, end: range.start }); else set({ start: range.start, end: d }); setOpen(false); }
+    else {
+      // second pick: normalize so the committed range always has start <= end (swap if before the first pick).
+      const [start, end] = ymd(d) < ymd(range.start) ? [d, range.start] : [range.start, d];
+      set({ start, end });
+      setOpen(false);
+    }
   };
 
   const applyPreset = (days) => {
