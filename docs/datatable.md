@@ -175,8 +175,17 @@ column regardless of scroll, and each non-`actions` row now carries **pin-left**
 buttons (`.twc-dt__col-pin`, `data-on` = active) beside its visibility switch. Both paths call the same
 `setPin(field, side)`, so state stays consistent. The buttons `stopPropagation` so a click pins rather
 than toggling the row's visibility, and the wrapper is `draggable={false}` so it doesn't start a column
-drag-reorder. This is the fix for "some columns can't be pinned" — they were simply scrolled out of
-reach of their header menu.
+drag-reorder.
+
+**Pinned + editable cells must stay sticky.** A pinned cell relies on `position: sticky` to line up
+with its (also sticky) header. The editable-cell rule `.twc-dt__td[data-editable="true"]` sets
+`position: relative` at **equal specificity** but **later** in the stylesheet, so for a column that is
+both `editable` and pinned the body cells lost `sticky` and drifted out of alignment (the header pinned
+correctly, the data column underneath did not — e.g. the "Status" header ending up over a different
+column's values). Fixed with a higher-specificity re-assert:
+`.twc-dt__td[data-pin][data-editable="true"] { position: sticky; }` (sticky still anchors the
+absolutely-positioned edit hint). Any future per-cell rule that touches `position` must keep pinned
+cells `sticky`.
 
 ### Filter row layout
 

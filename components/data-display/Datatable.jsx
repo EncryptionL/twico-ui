@@ -385,6 +385,11 @@ const DT_CSS = `
 
 /* Editable cells */
 .twc-dt__td[data-editable="true"] { position: relative; cursor: text; padding-inline-end: 30px; }
+/* A pinned cell must stay position:sticky to line up with its (also sticky) header. The rule above
+   sets position:relative at equal specificity, so an editable AND pinned column's body cells would
+   un-stick and drift out of alignment. Re-assert sticky for that combination (sticky still anchors
+   the absolutely-positioned edit hint). */
+.twc-dt__td[data-pin][data-editable="true"] { position: sticky; }
 .twc-dt__td[data-editable="true"]:hover { box-shadow: inset 0 0 0 1px var(--color-border-strong); }
 .twc-dt__edit-hint { position: absolute; inset-inline-end: 8px; top: 50%; transform: translateY(-50%); display: none;
   align-items: center; justify-content: center; color: var(--color-primary); pointer-events: none; }
