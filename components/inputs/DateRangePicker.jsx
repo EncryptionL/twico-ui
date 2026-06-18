@@ -239,6 +239,8 @@ export function DateRangePicker({
                 return (
                   <button key={i} type="button" className="twc-drp__day" data-outside={outside || undefined}
                     data-in={inRange(t) || undefined} data-edge={edgeOf(t) || undefined}
+                    aria-pressed={!!edgeOf(t)}
+                    aria-label={locale === undefined ? d.toDateString() : d.toLocaleDateString(locale, { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
                     onMouseEnter={() => setHover(d)} onClick={() => clickDay(d)}>
                     {d.getDate()}
                   </button>

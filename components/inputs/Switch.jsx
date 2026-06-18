@@ -27,7 +27,8 @@ export function Switch({
 .twc-switch[data-tone="danger"]  { --_accent: var(--color-danger); --_accent-fg: var(--color-danger-fg); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); --_accent-border: var(--color-danger); }
 .twc-switch[data-tone="info"]    { --_accent: var(--color-info); --_accent-fg: var(--color-info-fg); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); --_accent-border: var(--color-info); }
 .twc-switch[data-tone="neutral"] { --_accent: var(--color-text); --_accent-fg: var(--color-surface); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text-muted); --_accent-border: var(--color-border-strong); }
-.twc-switch { display: inline-flex; align-items: center; gap: var(--space-3); cursor: pointer; font-family: var(--font-sans); }
+.twc-switch { display: inline-flex; align-items: center; gap: var(--space-3); cursor: pointer; font-family: var(--font-sans); --_tx: 1; }
+[dir="rtl"] .twc-switch { --_tx: -1; }
 .twc-switch[data-disabled="true"] { cursor: not-allowed; opacity: 0.55; }
 .twc-switch__input { position: absolute; opacity: 0; width: 0; height: 0; }
 .twc-switch__track {
@@ -39,13 +40,13 @@ export function Switch({
 .twc-switch[data-size="sm"] .twc-switch__track { --_w: 36px; --_h: 20px; }
 .twc-switch[data-size="lg"] .twc-switch__track { --_w: 52px; --_h: 28px; --_pad: 4px; }
 .twc-switch__thumb {
-  position: absolute; top: var(--_pad); left: var(--_pad);
+  position: absolute; top: var(--_pad); inset-inline-start: var(--_pad);
   width: calc(var(--_h) - var(--_pad) * 2); height: calc(var(--_h) - var(--_pad) * 2);
   background: var(--_accent-fg); border-radius: var(--radius-full); box-shadow: var(--shadow-sm);
   transition: transform var(--duration-base) var(--ease-spring);
 }
 .twc-switch__input:checked + .twc-switch__track { background: var(--_accent); }
-.twc-switch__input:checked + .twc-switch__track .twc-switch__thumb { transform: translateX(calc(var(--_w) - var(--_h))); }
+.twc-switch__input:checked + .twc-switch__track .twc-switch__thumb { transform: translateX(calc((var(--_w) - var(--_h)) * var(--_tx))); }
 .twc-switch__input:focus-visible + .twc-switch__track { box-shadow: var(--ring); }
 .twc-switch__input:active + .twc-switch__track .twc-switch__thumb { width: calc(var(--_h) - var(--_pad) * 2 + 4px); }
 .twc-switch[data-invalid="true"] .twc-switch__track { box-shadow: inset 0 0 0 var(--border-medium) var(--color-danger); }

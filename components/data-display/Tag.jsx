@@ -60,7 +60,7 @@ export function Tag({
       {leftIcon}
       {children}
       {onRemove ? (
-        <button className="twc-tag__remove" onClick={onRemove} aria-label="Remove" type="button">
+        <button className="twc-tag__remove" onClick={(e) => { e.stopPropagation(); onRemove(e); }} aria-label="Remove" type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
       ) : null}

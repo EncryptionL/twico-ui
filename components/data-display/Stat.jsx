@@ -45,7 +45,8 @@ export function Stat({
     document.head.appendChild(el);
   }, []);
 
-  const dir = deltaDirection || (typeof delta === "string" && delta.trim().startsWith("-") ? "down" : delta != null ? "up" : undefined);
+  const isNeg = delta != null && String(delta).trim().startsWith("-");
+  const dir = deltaDirection || (delta != null ? (isNeg ? "down" : "up") : undefined);
 
   return (
     <div className={`twc-stat ${className}`} data-plain={plain || undefined} {...rest}>

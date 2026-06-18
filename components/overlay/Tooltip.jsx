@@ -49,6 +49,8 @@ export function Tooltip({
   const tipRef = React.useRef(null);
   const open = () => { clearTimeout(timer.current); timer.current = setTimeout(() => setShow(true), delay); };
   const close = () => { clearTimeout(timer.current); setShow(false); };
+  // Clear any pending open-delay timer if the component unmounts before it fires.
+  React.useEffect(() => () => clearTimeout(timer.current), []);
 
   // Portaled to <body> with fixed positioning so it is never clipped by an overflow/
   // scroll ancestor. Coords are measured from the trigger; CSS data-place supplies the

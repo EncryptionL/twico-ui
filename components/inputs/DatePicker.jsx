@@ -179,6 +179,21 @@ export function DatePicker({
     return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
   }, [open]);
 
+  // Move focus into the calendar when it opens (it's portaled to <body>, so Tab from the
+  // trigger would skip it), and return focus to the trigger on close.
+  const prevOpen = React.useRef(false);
+  React.useEffect(() => {
+    let id;
+    if (!prevOpen.current && open) {
+      id = setTimeout(() => gridRef.current?.querySelector('[tabindex="0"]')?.focus({ preventScroll: true }), 30);
+    } else if (prevOpen.current && !open) {
+      const ae = typeof document !== "undefined" ? document.activeElement : null;
+      if (!ae || ae === document.body) triggerRef.current?.focus();
+    }
+    prevOpen.current = open;
+    return () => clearTimeout(id);
+  }, [open]);
+
   // Locale-aware month/weekday names — fall back to the shipped English arrays
   // when `locale` is omitted so default output stays byte-identical.
   const months = React.useMemo(() => (locale === undefined ? MONTHS : monthNames(locale)), [locale]);
@@ -225,17 +240,24 @@ export function DatePicker({
     if (!btn) return;
     const [fy, fm, fd] = btn.getAttribute("data-key").split("-").map(Number);
     const cur = new Date(fy, fm, fd);
-    let next = null;
-    if (e.key === "ArrowLeft") next = addDays(cur, -1);
-    else if (e.key === "ArrowRight") next = addDays(cur, 1);
-    else if (e.key === "ArrowUp") next = addDays(cur, -7);
-    else if (e.key === "ArrowDown") next = addDays(cur, 7);
-    else if (e.key === "Home") next = addDays(cur, -((cur.getDay() - weekStartsOn + 7) % 7));
-    else if (e.key === "End") next = addDays(cur, 6 - ((cur.getDay() - weekStartsOn + 7) % 7));
-    else if (e.key === "PageUp") next = addMonths(cur, -1);
-    else if (e.key === "PageDown") next = addMonths(cur, 1);
+    // Per-key stepper: arrows ±1/±7, Home/End within the week, PageUp/PageDown ±month.
+    // Reused to keep stepping in the same direction past out-of-range (disabled) days.
+    let step;
+    if (e.key === "ArrowLeft") step = (d) => addDays(d, -1);
+    else if (e.key === "ArrowRight") step = (d) => addDays(d, 1);
+    else if (e.key === "ArrowUp") step = (d) => addDays(d, -7);
+    else if (e.key === "ArrowDown") step = (d) => addDays(d, 7);
+    else if (e.key === "Home") step = (d) => addDays(d, -((d.getDay() - weekStartsOn + 7) % 7));
+    else if (e.key === "End") step = (d) => addDays(d, 6 - ((d.getDay() - weekStartsOn + 7) % 7));
+    else if (e.key === "PageUp") step = (d) => addMonths(d, -1);
+    else if (e.key === "PageDown") step = (d) => addMonths(d, 1);
     else return;
     e.preventDefault();
+    let next = step(cur);
+    // Skip over out-of-range days in the same direction; bail if none is reachable.
+    let guard = 0;
+    while (outOfRange(next) && guard < 366) { next = step(next); guard += 1; }
+    if (outOfRange(next)) return;
     setFocusDate(next);
     if (next.getFullYear() !== y || next.getMonth() !== m) setView(new Date(next.getFullYear(), next.getMonth(), 1));
   };

@@ -23,6 +23,8 @@ export function useToast() {
 export function ToastProvider({ children, limit = 4, duration = 4500, ...viewportProps }) {
   const [toasts, setToasts] = React.useState([]);
   const idRef = React.useRef(0);
+  const limitRef = React.useRef(limit);
+  React.useEffect(() => { limitRef.current = limit; }, [limit]);
 
   const dismiss = React.useCallback((id) => {
     setToasts((s) => s.filter((t) => t.id !== id));
@@ -34,7 +36,7 @@ export function ToastProvider({ children, limit = 4, duration = 4500, ...viewpor
       const id = (idRef.current += 1);
       const next =
         typeof opts === "string" ? { title: opts } : opts && typeof opts === "object" ? opts : {};
-      setToasts((s) => [...s, { id, ...next }]);
+      setToasts((s) => { const arr = [...s, { id, ...next }]; const n = limitRef.current; return n && n > 0 ? arr.slice(-n) : arr; });
       return id;
     };
     const withTone = (tone) => (title, options) =>

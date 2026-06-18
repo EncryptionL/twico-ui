@@ -50,7 +50,8 @@ export function Progress({
     document.head.appendChild(el);
   }, []);
 
-  const pct = indeterminate ? 0 : (max > 0 ? Math.min(100, Math.max(0, (value / max) * 100)) : 0);
+  const v = Number.isFinite(value) ? value : 0;
+  const pct = indeterminate ? 0 : (max > 0 ? Math.min(100, Math.max(0, (v / max) * 100)) : 0);
 
   return (
     // Single-root contract: className and ...rest (style, id, handlers, …) share the outer

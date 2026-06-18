@@ -35,6 +35,11 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
    * Actions shown in the toolbar when one or more rows are selected (requires
    * `checkboxSelection`). Each handler receives the selected keys, the resolved
    * selected row objects, and a `clearSelection()` callback.
+   *
+   * Server-mode caveat: the resolved `selectedRows` argument can only include rows
+   * on the currently loaded page (the table never holds off-page rows). For
+   * cross-page selections, use the complete `selectedKeys` array and re-fetch the
+   * full row objects server-side rather than relying on `selectedRows`.
    */
   batchActions?: DatatableBatchAction[];
   /** Row height preset. The toolbar density button cycles it locally; changing this prop re-applies it. @default "standard" */
@@ -81,7 +86,9 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
   onRowsChange?: (rows: any[]) => void;
   /** Fired when the built-in batch editor applies columns across selected rows:
    *  (changedRows, patch, selectedKeys). The selection-toolbar "Edit" button appears
-   *  automatically when there are editable columns. */
+   *  automatically when there are editable columns. Server-mode caveat: `changedRows`
+   *  resolves only rows on the currently loaded page; for cross-page selections use the
+   *  complete `selectedKeys` array and apply the `patch` server-side. */
   onBatchUpdate?: (changedRows: any[], patch: Record<string, any>, selectedKeys: Array<string | number>) => void;
   /** Show a "Go to" page jumper in the footer when there are more than 5 pages. @default true */
   showPageJumper?: boolean;

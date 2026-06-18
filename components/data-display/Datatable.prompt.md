@@ -96,7 +96,10 @@ to a selection bar:
 />
 ```
 
-Each batch handler receives `(selectedKeys, selectedRows, clearSelection)`.
+Each batch handler receives `(selectedKeys, selectedRows, clearSelection)`. **Server-mode caveat:**
+`selectedRows` (and `onBatchUpdate`'s `changedRows`) resolve only the rows on the currently loaded page,
+since the table never holds off-page rows. For cross-page selections, use the complete `selectedKeys`
+array and re-fetch the full rows (or apply the patch) server-side rather than relying on the resolved rows.
 
 **Click-to-select** — separate from checkbox multi-select. `selectionMode="row"` highlights the row you click
 (fires `onRowClick(row, key)`); `selectionMode="cell"` highlights a single cell with a ring (fires

@@ -94,9 +94,11 @@ export function CurrencyField({
   function setCurrency(next) {
     if (!curControlled) setCurInternal(next);
     onCurrencyChange?.(next);
-    // re-clamp current value to the new currency's precision
+    // re-clamp current value to the new currency's precision, and notify the consumer
+    // so a controlled value (and any formatted display) stays in sync with what's shown.
     const reclamped = clampPrecision(shown, (CURRENCIES[next] || CURRENCIES.USD).precision);
     if (!valControlled) setValInternal(reclamped);
+    onValueChange?.(reclamped === "" ? null : Number(reclamped), reclamped, next);
   }
   function handleChange(e) {
     onChange?.(e); // consumer handler first, then internal clamping/state

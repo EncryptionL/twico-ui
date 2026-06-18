@@ -77,7 +77,7 @@ export function Avatar({
       {...rest}
     >
       {showImg
-        ? <img className="twc-avatar__img" src={cleanSrc} alt={name || ""} onError={() => setErrored(true)} />
+        ? <img key={cleanSrc} className="twc-avatar__img" src={cleanSrc} alt={name || ""} onError={() => setErrored(true)} />
         : initials(name)}
       {status ? <span className="twc-avatar__status" data-status={status} /> : null}
     </span>

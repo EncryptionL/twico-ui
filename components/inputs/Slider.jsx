@@ -88,10 +88,17 @@ export function Slider({
   const setVal = (v) => { if (value === undefined) setInternal(v); onChange?.(v); };
 
   const fromClientX = (clientX) => {
-    const r = trackRef.current.getBoundingClientRect();
+    const node = trackRef.current;
+    if (!node) return val; // ref gone (e.g. a stray event after unmount) — never crash
+    const r = node.getBoundingClientRect();
     const ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
     return clampSnap(min + ratio * (max - min));
   };
+
+  // Detach any in-flight drag listeners if the component unmounts mid-drag, so we
+  // neither leak window listeners nor fire setState/getBoundingClientRect after unmount.
+  const dragCleanupRef = React.useRef(null);
+  React.useEffect(() => () => dragCleanupRef.current?.(), []);
 
   function onPointerDown(e) {
     if (disabled) return;
@@ -99,8 +106,15 @@ export function Slider({
     setDragging(true);
     setVal(fromClientX(e.clientX));
     const move = (ev) => setVal(fromClientX(ev.clientX));
-    const up = () => { setDragging(false); window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up); };
-    window.addEventListener("pointermove", move); window.addEventListener("pointerup", up);
+    const detach = () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      dragCleanupRef.current = null;
+    };
+    const up = () => { setDragging(false); detach(); };
+    dragCleanupRef.current = detach;
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
   }
   function onKeyDown(e) {
     if (disabled) return;
@@ -136,7 +150,7 @@ export function Slider({
         {showTicks ? (
           <div className="twc-slider__ticks">
             {Array.from({ length: ticks }).map((_, i) => (
-              <span key={i} className="twc-slider__tick" style={{ left: `${(i / (ticks - 1)) * 100}%` }} />
+              <span key={i} className="twc-slider__tick" style={{ left: `${ticks > 1 ? (i / (ticks - 1)) * 100 : 0}%` }} />
             ))}
           </div>
         ) : null}

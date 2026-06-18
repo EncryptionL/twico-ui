@@ -57,12 +57,6 @@ export function AvatarMenu({
       tabIndex={0}
       aria-haspopup="menu"
       aria-label={`${name || "Account"} menu`}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          e.currentTarget.click();
-        }
-      }}
     >
       <Avatar name={name} src={src} size={size} status={status} />
       {showName ? (

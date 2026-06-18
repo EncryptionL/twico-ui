@@ -161,6 +161,21 @@ export function ColorPicker({
     return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
   }, [open]);
 
+  // Move focus into the popover when it opens (it's portaled to <body>, so Tab from the
+  // trigger would otherwise skip it entirely), and return focus to the trigger on close.
+  const prevOpen = React.useRef(false);
+  React.useEffect(() => {
+    let id;
+    if (!prevOpen.current && open) {
+      id = setTimeout(() => areaRef.current?.focus({ preventScroll: true }), 20);
+    } else if (prevOpen.current && !open) {
+      const ae = typeof document !== "undefined" ? document.activeElement : null;
+      if (!ae || ae === document.body) triggerRef.current?.focus();
+    }
+    prevOpen.current = open;
+    return () => clearTimeout(id);
+  }, [open]);
+
   const commit = (next) => { const h = hsvToHex(next.h, next.s, next.v); setHsv(next); if (value === undefined) setInternal(h); onChange?.(h); };
 
   const dragArea = (e) => {

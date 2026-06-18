@@ -13,7 +13,8 @@ const TABLE_CSS = `
 .twc-table th[data-align="center"], .twc-table td[data-align="center"] { text-align: center; }
 .twc-table th[data-sortable="true"] { cursor: pointer; user-select: none; }
 .twc-table th[data-sortable="true"]:hover { color: var(--color-text); }
-.twc-table__sort { display: inline-flex; align-items: center; gap: 5px; }
+.twc-table__sort { display: inline-flex; align-items: center; gap: 5px; background: none; border: none; padding: 0; margin: 0; font: inherit; color: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; }
+.twc-table__sort:focus-visible { outline: var(--border-medium) solid var(--color-primary); outline-offset: 2px; border-radius: var(--radius-sm); }
 .twc-table__sort svg { width: 13px; height: 13px; opacity: 0.5; transition: opacity var(--duration-fast), transform var(--duration-fast); }
 .twc-table th[data-active="true"] .twc-table__sort svg { opacity: 1; color: var(--color-primary); }
 .twc-table th[data-dir="desc"] .twc-table__sort svg { transform: rotate(180deg); }
@@ -101,11 +102,11 @@ export function Table({
               return (
                 <th key={c.field} data-align={c.align} data-sortable={canSort || undefined} data-active={active || undefined} data-dir={active ? sort.dir : undefined}
                     style={c.width ? { width: c.width } : undefined}
-                    onClick={canSort ? () => toggleSort(c.field) : undefined}>
+                    aria-sort={active ? (sort.dir === "asc" ? "ascending" : "descending") : (canSort ? "none" : undefined)}>
                   {canSort ? (
-                    <span className="twc-table__sort">{c.header}
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>
-                    </span>
+                    <button type="button" className="twc-table__sort" onClick={() => toggleSort(c.field)}>{c.header}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+                    </button>
                   ) : c.header}
                 </th>
               );

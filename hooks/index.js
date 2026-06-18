@@ -170,13 +170,18 @@ export function useEventListener(eventName, handler, element, options) {
   useIsomorphicLayoutEffect(() => {
     saved.current = handler;
   }, [handler]);
+  // Destructure to primitives so an inline `options` object/boolean doesn't re-bind every render.
+  const capture = typeof options === "boolean" ? options : (options && options.capture);
+  const passive = typeof options === "object" && options ? options.passive : undefined;
+  const once = typeof options === "object" && options ? options.once : undefined;
   React.useEffect(() => {
     const target = (element && element.current) || element || (canUseDOM ? window : null);
     if (!target || !target.addEventListener) return undefined;
+    const opts = typeof options === "boolean" ? options : { capture, passive, once };
     const listener = (e) => saved.current(e);
-    target.addEventListener(eventName, listener, options);
-    return () => target.removeEventListener(eventName, listener, options);
-  }, [eventName, element, options]);
+    target.addEventListener(eventName, listener, opts);
+    return () => target.removeEventListener(eventName, listener, opts);
+  }, [eventName, element, capture, passive, once]);
 }
 
 /** Call `handler` when a pointer/touch event lands outside `ref`. */
@@ -194,7 +199,7 @@ export function useClickOutside(ref, handler, events = ["mousedown", "touchstart
     };
     events.forEach((ev) => document.addEventListener(ev, listener, true));
     return () => events.forEach((ev) => document.removeEventListener(ev, listener, true));
-  }, [ref, events]);
+  }, [ref, events.join(",")]);
 }
 
 /** Run `handler` on a keydown matching `key`, with optional modifier requirements. */
@@ -244,10 +249,14 @@ export function useLocalStorage(key, initialValue) {
 export function useCopyToClipboard(timeout = 1500) {
   const [copied, setCopied] = React.useState(false);
   const copy = React.useCallback(async (text) => {
+    // No Clipboard API (SSR, insecure HTTP context, older browser) → report failure
+    // rather than a false success, so `copied`/the return value reflect reality.
+    if (!canUseDOM || !navigator.clipboard) {
+      setCopied(false);
+      return false;
+    }
     try {
-      if (canUseDOM && navigator.clipboard) {
-        await navigator.clipboard.writeText(text);
-      }
+      await navigator.clipboard.writeText(text);
       setCopied(true);
       return true;
     } catch (e) {
@@ -366,14 +375,25 @@ export function useIntersectionObserver(ref, options = {}) {
   return entry;
 }
 
+// Shared ref-count so nested locks (e.g. a Dialog over a Drawer) don't clobber each
+// other's saved overflow: only the first lock saves+sets, only the last restores.
+let __scrollLockCount = 0;
+let __scrollLockSaved = "";
+
 /** Lock body scroll while `locked` is true — for modals/drawers. */
 export function useScrollLock(locked = true) {
   useIsomorphicLayoutEffect(() => {
     if (!canUseDOM || !locked) return undefined;
-    const original = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    if (__scrollLockCount === 0) {
+      __scrollLockSaved = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+    }
+    __scrollLockCount += 1;
     return () => {
-      document.body.style.overflow = original;
+      __scrollLockCount -= 1;
+      if (__scrollLockCount === 0) {
+        document.body.style.overflow = __scrollLockSaved;
+      }
     };
   }, [locked]);
 }

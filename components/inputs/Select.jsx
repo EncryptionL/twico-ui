@@ -188,6 +188,18 @@ export function Select({
     return () => clearTimeout(t);
   }, [open]);
 
+  // On close, return focus to the trigger if it's still inside the (closing) popover —
+  // e.g. a searchable Select moves focus into the search input on open, which would
+  // otherwise drop to <body> when the popover unmounts. Never steals focus the user moved.
+  const prevOpen = React.useRef(false);
+  React.useEffect(() => {
+    if (prevOpen.current && !open) {
+      const ae = typeof document !== "undefined" ? document.activeElement : null;
+      if (popRef.current && ae && popRef.current.contains(ae)) triggerRef.current?.focus();
+    }
+    prevOpen.current = open;
+  }, [open]);
+
   function commit(v) {
     if (value === undefined) setInternal(v);
     onChange?.(v); setOpen(false);
@@ -201,6 +213,7 @@ export function Select({
     if (!open && clearable && current != null && (e.key === "Delete" || e.key === "Backspace")) { e.preventDefault(); clear(); return; }
     if (!open && (e.key === "Enter" || e.key === " " || e.key === "ArrowDown")) { e.preventDefault(); setOpen(true); return; }
     if (!open) return;
+    if (e.key === "Tab") { setOpen(false); return; }
     if (e.key === "Escape") setOpen(false);
     else if (e.key === "ArrowDown") { e.preventDefault(); setActive((a) => Math.min(a + 1, visible.length - 1)); }
     else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => Math.max(a - 1, 0)); }

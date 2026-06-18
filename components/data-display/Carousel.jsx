@@ -72,12 +72,14 @@ export function Carousel({
   const atEnd = !loop && index === count - 1;
 
   return (
-    <div className={`twc-carousel ${className}`} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
+    <div className={`twc-carousel ${className}`}
+      onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)} onBlurCapture={() => setPaused(false)}
       role="region" aria-roledescription="carousel" {...rest}>
       <div className="twc-carousel__viewport">
         <div className="twc-carousel__track" style={{ transform: `translateX(-${index * 100}%)` }}>
           {slides.map((s, i) => (
-            <div className="twc-carousel__slide" key={i} aria-hidden={i !== index} role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${count}`}>{s}</div>
+            <div className="twc-carousel__slide" key={i} role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${count}`} aria-hidden={i !== index || undefined} inert={i !== index || undefined}>{s}</div>
           ))}
         </div>
       </div>

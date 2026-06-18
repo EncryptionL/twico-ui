@@ -31,8 +31,9 @@ export function Divider({
     document.head.appendChild(el);
   }, []);
 
-  // Accept logical align values in addition to physical: start -> left, end -> right.
-  const resolvedAlign = align === "start" ? "left" : align === "end" ? "right" : align;
+  // Canonicalize to the logical values the CSS targets (data-align="start"/"end"),
+  // accepting physical aliases too: left -> start, right -> end.
+  const resolvedAlign = align === "left" ? "start" : align === "right" ? "end" : align;
 
   if (children) {
     return (

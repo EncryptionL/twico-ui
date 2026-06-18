@@ -11,7 +11,7 @@ export interface DividerProps extends React.HTMLAttributes<HTMLElement> {
   inset?: boolean;
   /** Label alignment when children are provided — logical, so it mirrors under RTL.
    *  (`"left"`/`"right"` are still accepted as aliases for `"start"`/`"end"`.) @default "center" */
-  align?: "start" | "center" | "end";
+  align?: "start" | "center" | "end" | "left" | "right";
   /** Optional label text rendered in the middle of the rule. */
   children?: React.ReactNode;
 }
