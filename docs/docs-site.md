@@ -114,10 +114,14 @@ npm run build     # -> site/dist  (must succeed; it also compiles the library so
   route and *exercises* it — clicks up to 18 overlay/control triggers (Escape after each) and drives
   up to 10 inputs via the keyboard — asserting zero pageerrors/console errors throughout. Exits
   non-zero on any error (override the URL with `BASE=…`).
-- **CI enforcement:** `.github/workflows/interaction.yml` runs **both** of the above against a
-  `vite preview` server on every PR to `dev`/`main` that touches the UI (and on manual dispatch), so
-  the §8 behavioral bar is automated, not just local. (`visual.yml` separately does Playwright pixel
-  diffs of key pages.)
+- **Behavioral assertions (deepest gate):** `node scripts/behavior-check.mjs` asserts each interactive
+  component *does the right thing* — Switch/Checkbox toggle, Select/DatePicker open + commit + close,
+  Dialog/Drawer open + trap focus + Escape, Menu/Popover/CommandPalette keyboard-nav, Slider/Rating/
+  Pagination respond — 34 assertions across 18 components. (This is the gate that caught the
+  Dialog/Drawer focus-on-open timing bug.)
+- **CI enforcement:** `.github/workflows/interaction.yml` runs **all three** against a `vite preview`
+  server on every push/PR to `dev`/`main` that touches the UI (and on manual dispatch), so the §8
+  behavioral bar is automated, not just local. (`visual.yml` separately does Playwright pixel diffs.)
 - **Deploy:** `.github/workflows/deploy-docs.yml` builds `site/` and publishes to GitHub Pages on push
   to **`main`** only (the release branch) — or via manual dispatch. `enablement: true` lets the workflow
   turn Pages on; if blocked, enable it once under **Settings → Pages → Source = GitHub Actions**. Vite

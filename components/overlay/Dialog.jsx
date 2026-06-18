@@ -101,7 +101,10 @@ export function Dialog({
   // previously-focused element on close. Keyed on `open` only, so an unstable
   // onClose identity can't clobber the saved trigger element.
   React.useEffect(() => {
-    if (!open) return;
+    // Gate on `mounted` too: the panel renders one render AFTER `open` flips (mounted is
+    // set in the effect above), so keying only on [open] runs this before dialogRef exists
+    // and focus never moves inside. [open, mounted] re-runs once the panel is in the DOM.
+    if (!open || !mounted) return undefined;
     const node = dialogRef.current;
     const prevFocused = document.activeElement;
     // Focus the first focusable element inside the panel (same selector as the
@@ -113,7 +116,7 @@ export function Dialog({
     return () => {
       if (prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
     };
-  }, [open]);
+  }, [open, mounted]);
 
   // Modal a11y (2/2): Escape closes; Tab/Shift+Tab are trapped inside the dialog.
   React.useEffect(() => {

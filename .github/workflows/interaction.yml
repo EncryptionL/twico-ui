@@ -5,7 +5,9 @@ name: Interaction check
 #   - render-check.mjs       : load each route, require zero pageerrors
 #   - interaction-sweep.mjs  : click every overlay trigger + drive every input via the
 #                              keyboard, require zero pageerrors / console errors
-# Both scripts exit non-zero on any error, failing the job.
+#   - behavior-check.mjs     : per-component behavioral assertions (toggles toggle, overlays
+#                              open/close + trap focus, controls commit values / keyboard-nav)
+# All three exit non-zero on any error/assertion failure, failing the job.
 on:
   push:
     branches: [dev, main]
@@ -68,4 +70,5 @@ jobs:
           done
           node scripts/render-check.mjs
           node scripts/interaction-sweep.mjs
+          node scripts/behavior-check.mjs
           kill "$PREVIEW_PID" 2>/dev/null || true
