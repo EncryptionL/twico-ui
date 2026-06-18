@@ -8,13 +8,11 @@ const DIVIDER_CSS = `
 /* Labeled divider */
 .twc-divider-label { display: flex; align-items: center; gap: var(--space-3); margin: var(--space-4) 0; font-family: var(--font-sans); color: var(--color-text-muted); font-size: var(--text-xs); font-weight: var(--font-semibold); letter-spacing: var(--tracking-wide); text-transform: uppercase; }
 .twc-divider-label::before, .twc-divider-label::after { content: ""; height: 1px; background: var(--color-divider); flex: 1; }
-.twc-divider-label[data-align="left"]::before { flex: 0 0 var(--space-6); }
-.twc-divider-label[data-align="right"]::after { flex: 0 0 var(--space-6); }
-/* RTL: mirror the short segment so a "start"-aligned (left) label stays at the inline-start. */
-[dir="rtl"] .twc-divider-label[data-align="left"]::before { flex: 1; }
-[dir="rtl"] .twc-divider-label[data-align="left"]::after { flex: 0 0 var(--space-6); }
-[dir="rtl"] .twc-divider-label[data-align="right"]::after { flex: 1; }
-[dir="rtl"] .twc-divider-label[data-align="right"]::before { flex: 0 0 var(--space-6); }
+/* Logical align: the short segment sits on the inline-start (start) or inline-end (end).
+   Because the label is a flex row, an rtl direction reverses the main axis automatically,
+   so ::before/::after land on the correct inline edge under RTL — no physical override needed. */
+.twc-divider-label[data-align="start"]::before { flex: 0 0 var(--space-6); }
+.twc-divider-label[data-align="end"]::after { flex: 0 0 var(--space-6); }
 `;
 
 export function Divider({

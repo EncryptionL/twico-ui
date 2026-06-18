@@ -10,7 +10,7 @@ export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputEle
   description?: React.ReactNode;
   /** Error message shown below the control; tints the track red and wires `aria-invalid`/`aria-describedby`. @default undefined */
   error?: React.ReactNode;
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg";
   /** Color intent. @default "primary" */
   tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
 }

@@ -18,3 +18,5 @@ import { Table } from "./Table";
 
 Uses the same vocabulary as `Datatable`: columns take `field`, `headerName`, `align`, `width`,
 `sortable`, and `renderCell(value, row, i)`; rows go in `rows`. Sort state is `{ field, dir }`.
+
+`size` accepts `"sm" | "md" | "lg"` (default `"md"`) to tune cell padding density.

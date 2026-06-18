@@ -7,6 +7,6 @@ import { Switch } from "./Switch";
 <Switch label="Email notifications" description="Send me product updates" />
 ```
 
-Props: `label`, `description`, `size` (sm/md), plus native checkbox attrs (role=switch).
+Props: `label`, `description`, `size` (sm/md/lg), plus native checkbox attrs (role=switch).
 
 `tone` sets the color intent (primary · success · warning · danger · info · neutral, default primary).

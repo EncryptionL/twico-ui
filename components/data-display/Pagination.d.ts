@@ -17,7 +17,7 @@ export interface PaginationProps extends Omit<React.HTMLAttributes<HTMLElement>,
   /** Page numbers always shown at each end (first/last). @default 1 */
   boundaries?: number;
   /** @default "md" */
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg";
   /** Show a "Go to" page input for jumping directly to a page. @deprecated Use `showPageJumper`. @default false */
   showJumper?: boolean;
   /** Show a "Go to" page input for jumping directly to a page; preferred alias for `showJumper`. @default false */

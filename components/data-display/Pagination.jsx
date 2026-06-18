@@ -18,6 +18,8 @@ const PAGINATION_CSS = `
 [dir="rtl"] .twc-page svg { transform: scaleX(-1); }
 .twc-page__ellipsis { color: var(--color-text-subtle); cursor: default; }
 .twc-page[data-size="sm"] { min-width: 30px; height: 30px; font-size: var(--text-xs); }
+.twc-page[data-size="lg"] { min-width: 42px; height: 42px; font-size: var(--text-base); }
+.twc-page[data-size="lg"] svg { width: 20px; height: 20px; }
 .twc-pagination__jump { display: inline-flex; align-items: center; gap: 7px; margin-inline-start: 8px;
   font-size: var(--text-sm); color: var(--color-text-muted); white-space: nowrap; }
 .twc-pagination__jump input {
@@ -32,6 +34,7 @@ const PAGINATION_CSS = `
 .twc-pagination__jump input:hover { border-color: var(--color-border-strong); }
 .twc-pagination__jump input:focus { border-color: var(--color-primary); box-shadow: var(--ring); }
 .twc-pagination__jump[data-size="sm"] input { height: 30px; width: 50px; }
+.twc-pagination__jump[data-size="lg"] input { height: 40px; width: 62px; font-size: var(--text-base); }
 `;
 
 function range(start, end) {

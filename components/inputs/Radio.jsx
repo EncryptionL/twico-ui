@@ -42,6 +42,7 @@ export function Radio({
   transition: border-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
 }
 .twc-radio[data-size="sm"] .twc-radio__dot { --_sz: 16px; }
+.twc-radio[data-size="lg"] .twc-radio__dot { --_sz: 25px; }
 .twc-radio__dot::after {
   content: ""; width: 50%; height: 50%; border-radius: var(--radius-full);
   background: var(--_accent); transform: scale(0);

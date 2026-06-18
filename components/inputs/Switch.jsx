@@ -37,6 +37,7 @@ export function Switch({
   transition: background-color var(--duration-base) var(--ease-standard);
 }
 .twc-switch[data-size="sm"] .twc-switch__track { --_w: 36px; --_h: 20px; }
+.twc-switch[data-size="lg"] .twc-switch__track { --_w: 52px; --_h: 28px; --_pad: 4px; }
 .twc-switch__thumb {
   position: absolute; top: var(--_pad); left: var(--_pad);
   width: calc(var(--_h) - var(--_pad) * 2); height: calc(var(--_h) - var(--_pad) * 2);

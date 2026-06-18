@@ -19,6 +19,7 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 | [hooks.md](./hooks.md) | The exported React hooks API — where it lives, the full set, conventions, how to add one. |
 | [colors.md](./colors.md) | The `twico-ui/colors` JS export, the primitive↔semantic split, the drift guard, and the MUI-style Color docs page. |
 | [tone-variant-system.md](./tone-variant-system.md) | The library-wide `tone` × `variant` model: the `--_accent` pattern, which components have which axis, and how to extend it. |
+| [prop-conventions.md](./prop-conventions.md) | The standard prop vocabulary (size/tone/variant/value/onChange/items/overlay/label/…) every component follows. |
 | [datatable.md](./datatable.md) | Datatable advanced features — opt-in row virtualization, keyboard row reorder, and ARIA menu semantics. |
 | [documentation.md](./documentation.md) | The "document everything in `/docs`" policy — what, where, when. |
 | [design-suggestions.md](./design-suggestions.md) | Reviewed-but-not-yet-implemented proposals (component API, visual, site, infra) to pick up later. |

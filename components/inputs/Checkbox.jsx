@@ -44,6 +44,7 @@ export function Checkbox({
               transform var(--duration-fast) var(--ease-spring);
 }
 .twc-check[data-size="sm"] .twc-check__box { --_sz: 16px; }
+.twc-check[data-size="lg"] .twc-check__box { --_sz: 24px; }
 .twc-check__svg { width: 70%; height: 70%; stroke-dasharray: 24; stroke-dashoffset: 24; transition: stroke-dashoffset var(--duration-base) var(--ease-out); }
 .twc-check__input:checked + .twc-check__box,
 .twc-check__input:indeterminate + .twc-check__box { background: var(--_accent); border-color: var(--_accent); }

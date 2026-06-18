@@ -9,8 +9,9 @@ export interface DividerProps extends React.HTMLAttributes<HTMLElement> {
   orientation?: "horizontal" | "vertical";
   /** Indent the start of a horizontal rule. */
   inset?: boolean;
-  /** Label alignment when children are provided. Logical `"start"`/`"end"` map to `"left"`/`"right"`. @default "center" */
-  align?: "left" | "center" | "right" | "start" | "end";
+  /** Label alignment when children are provided — logical, so it mirrors under RTL.
+   *  (`"left"`/`"right"` are still accepted as aliases for `"start"`/`"end"`.) @default "center" */
+  align?: "start" | "center" | "end";
   /** Optional label text rendered in the middle of the rule. */
   children?: React.ReactNode;
 }

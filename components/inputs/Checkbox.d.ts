@@ -10,7 +10,7 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   error?: React.ReactNode;
   /** Render the dash (mixed) state. */
   indeterminate?: boolean;
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg";
   /** Color intent. @default "primary" */
   tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
 }

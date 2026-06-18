@@ -28,7 +28,7 @@ export interface TableProps<T = any> extends React.HTMLAttributes<HTMLDivElement
   /** Zebra striping. @default false */
   striped?: boolean;
   /** @default "md" */
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg";
   /** Enable click-to-sort headers. @default false */
   sortable?: boolean;
   /** Controlled sort state — pair with `onSortChange` (null = unsorted). */

@@ -25,6 +25,8 @@ const TABLE_CSS = `
 .twc-table tbody tr[data-selected="true"] { background: var(--color-primary-subtle); }
 .twc-table[data-size="sm"] thead th { padding: var(--space-2) var(--space-3); }
 .twc-table[data-size="sm"] tbody td { padding: var(--space-2) var(--space-3); }
+.twc-table[data-size="lg"] thead th { padding: var(--space-4) var(--space-5); }
+.twc-table[data-size="lg"] tbody td { padding: var(--space-4) var(--space-5); font-size: var(--text-base); }
 .twc-table[data-sticky="true"] thead th { position: sticky; top: 0; z-index: 2; background: var(--color-surface); box-shadow: inset 0 calc(-1 * var(--border-thin)) 0 0 var(--color-border); }
 `;
 

@@ -10,4 +10,4 @@ import { Checkbox } from "./Checkbox";
 
 `tone` sets the color intent (primary · success · warning · danger · info · neutral, default primary).
 
-Props: `label`, `description`, `indeterminate`, `size` (sm/md), `tone`, plus native checkbox attrs.
+Props: `label`, `description`, `indeterminate`, `size` (sm/md/lg), `tone`, plus native checkbox attrs.
