@@ -22,6 +22,11 @@ export const VARIATIONS = [
     "i": 3
   },
   {
+    "component": "Accordion",
+    "title": "All props",
+    "i": 4
+  },
+  {
     "component": "Alert",
     "title": "Tones",
     "i": 0
@@ -45,6 +50,11 @@ export const VARIATIONS = [
     "component": "Alert",
     "title": "Fills",
     "i": 4
+  },
+  {
+    "component": "Alert",
+    "title": "All props",
+    "i": 5
   },
   {
     "component": "AvatarMenu",
@@ -72,6 +82,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "AvatarMenu",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Avatar",
     "title": "Sizes",
     "i": 0
@@ -92,6 +107,11 @@ export const VARIATIONS = [
     "i": 3
   },
   {
+    "component": "Avatar",
+    "title": "All props",
+    "i": 4
+  },
+  {
     "component": "Badge",
     "title": "Tones",
     "i": 0
@@ -110,6 +130,11 @@ export const VARIATIONS = [
     "component": "Badge",
     "title": "Sizes",
     "i": 3
+  },
+  {
+    "component": "Badge",
+    "title": "All props",
+    "i": 4
   },
   {
     "component": "Box",
@@ -137,6 +162,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Box",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Breadcrumb",
     "title": "Basic trail",
     "i": 0
@@ -155,6 +185,11 @@ export const VARIATIONS = [
     "component": "Breadcrumb",
     "title": "Collapsed middle",
     "i": 3
+  },
+  {
+    "component": "Breadcrumb",
+    "title": "All props",
+    "i": 4
   },
   {
     "component": "Button",
@@ -192,6 +227,11 @@ export const VARIATIONS = [
     "i": 6
   },
   {
+    "component": "Button",
+    "title": "All props",
+    "i": 7
+  },
+  {
     "component": "Card",
     "title": "Variants",
     "i": 0
@@ -212,6 +252,11 @@ export const VARIATIONS = [
     "i": 3
   },
   {
+    "component": "Card",
+    "title": "All props",
+    "i": 4
+  },
+  {
     "component": "Carousel",
     "title": "Default",
     "i": 0
@@ -230,6 +275,11 @@ export const VARIATIONS = [
     "component": "Carousel",
     "title": "Arrows only, no loop",
     "i": 3
+  },
+  {
+    "component": "Carousel",
+    "title": "All props",
+    "i": 4
   },
   {
     "component": "Chart",
@@ -257,6 +307,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Chart",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Checkbox",
     "title": "Basic states",
     "i": 0
@@ -282,6 +337,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Checkbox",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Code",
     "title": "Inline code",
     "i": 0
@@ -302,6 +362,11 @@ export const VARIATIONS = [
     "i": 3
   },
   {
+    "component": "Code",
+    "title": "All props",
+    "i": 4
+  },
+  {
     "component": "ColorPicker",
     "title": "Basic",
     "i": 0
@@ -320,6 +385,11 @@ export const VARIATIONS = [
     "component": "ColorPicker",
     "title": "Controlled",
     "i": 3
+  },
+  {
+    "component": "ColorPicker",
+    "title": "All props",
+    "i": 4
   },
   {
     "component": "Combobox",
@@ -347,6 +417,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Combobox",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "CommandPalette",
     "title": "Grouped with icons & shortcuts",
     "i": 0
@@ -365,6 +440,11 @@ export const VARIATIONS = [
     "component": "CommandPalette",
     "title": "Empty state",
     "i": 3
+  },
+  {
+    "component": "CommandPalette",
+    "title": "All props",
+    "i": 4
   },
   {
     "component": "Container",
@@ -392,6 +472,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Container",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "CurrencyField",
     "title": "Basic",
     "i": 0
@@ -417,6 +502,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "CurrencyField",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Currency",
     "title": "Currencies",
     "i": 0
@@ -440,6 +530,11 @@ export const VARIATIONS = [
     "component": "Currency",
     "title": "Error & disabled",
     "i": 4
+  },
+  {
+    "component": "Currency",
+    "title": "All props",
+    "i": 5
   },
   {
     "component": "Datatable",
@@ -482,6 +577,11 @@ export const VARIATIONS = [
     "i": 7
   },
   {
+    "component": "Datatable",
+    "title": "All props",
+    "i": 8
+  },
+  {
     "component": "DatePicker",
     "title": "With label",
     "i": 0
@@ -505,6 +605,11 @@ export const VARIATIONS = [
     "component": "DatePicker",
     "title": "Disabled",
     "i": 4
+  },
+  {
+    "component": "DatePicker",
+    "title": "All props",
+    "i": 5
   },
   {
     "component": "DateRangePicker",
@@ -532,6 +637,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "DateRangePicker",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Dialog",
     "title": "Basic",
     "i": 0
@@ -557,6 +667,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Dialog",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Divider",
     "title": "Plain rule",
     "i": 0
@@ -580,6 +695,11 @@ export const VARIATIONS = [
     "component": "Divider",
     "title": "Vertical",
     "i": 4
+  },
+  {
+    "component": "Divider",
+    "title": "All props",
+    "i": 5
   },
   {
     "component": "Drawer",
@@ -612,6 +732,11 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "Drawer",
+    "title": "All props",
+    "i": 6
+  },
+  {
     "component": "EmptyState",
     "title": "With call to action",
     "i": 0
@@ -637,6 +762,31 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "EmptyState",
+    "title": "All props",
+    "i": 5
+  },
+  {
+    "component": "Field",
+    "title": "Label, hint & required",
+    "i": 0
+  },
+  {
+    "component": "Field",
+    "title": "Error state",
+    "i": 1
+  },
+  {
+    "component": "Field",
+    "title": "Sizes",
+    "i": 2
+  },
+  {
+    "component": "Field",
+    "title": "All props",
+    "i": 3
+  },
+  {
     "component": "FileUpload",
     "title": "Default",
     "i": 0
@@ -655,6 +805,11 @@ export const VARIATIONS = [
     "component": "FileUpload",
     "title": "Disabled",
     "i": 3
+  },
+  {
+    "component": "FileUpload",
+    "title": "All props",
+    "i": 4
   },
   {
     "component": "Grid",
@@ -682,6 +837,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Grid",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Heading",
     "title": "Levels",
     "i": 0
@@ -700,6 +860,11 @@ export const VARIATIONS = [
     "component": "Heading",
     "title": "Alignment",
     "i": 3
+  },
+  {
+    "component": "Heading",
+    "title": "All props",
+    "i": 4
   },
   {
     "component": "IconButton",
@@ -727,6 +892,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "IconButton",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Input",
     "title": "Label, hint & required",
     "i": 0
@@ -750,6 +920,11 @@ export const VARIATIONS = [
     "component": "Input",
     "title": "Password & disabled",
     "i": 4
+  },
+  {
+    "component": "Input",
+    "title": "All props",
+    "i": 5
   },
   {
     "component": "Kanban",
@@ -780,6 +955,11 @@ export const VARIATIONS = [
     "component": "Kanban",
     "title": "Custom card renderer",
     "i": 5
+  },
+  {
+    "component": "Kanban",
+    "title": "All props",
+    "i": 6
   },
   {
     "component": "List",
@@ -827,6 +1007,31 @@ export const VARIATIONS = [
     "i": 8
   },
   {
+    "component": "List",
+    "title": "All props",
+    "i": 9
+  },
+  {
+    "component": "List",
+    "title": "Ada Park",
+    "i": 10
+  },
+  {
+    "component": "List",
+    "title": "Account settings",
+    "i": 11
+  },
+  {
+    "component": "List",
+    "title": "Ada Park",
+    "i": 12
+  },
+  {
+    "component": "List",
+    "title": "Account settings",
+    "i": 13
+  },
+  {
     "component": "Menu",
     "title": "Basic",
     "i": 0
@@ -845,6 +1050,11 @@ export const VARIATIONS = [
     "component": "Menu",
     "title": "Rich header & fixed width",
     "i": 3
+  },
+  {
+    "component": "Menu",
+    "title": "All props",
+    "i": 4
   },
   {
     "component": "MultiSelect",
@@ -872,6 +1082,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "MultiSelect",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Navbar",
     "title": "Brand, links, and actions",
     "i": 0
@@ -897,6 +1112,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Navbar",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Pagination",
     "title": "Basic",
     "i": 0
@@ -915,6 +1135,11 @@ export const VARIATIONS = [
     "component": "Pagination",
     "title": "With page jumper",
     "i": 3
+  },
+  {
+    "component": "Pagination",
+    "title": "All props",
+    "i": 4
   },
   {
     "component": "Popover",
@@ -942,6 +1167,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Popover",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Progress",
     "title": "Tones",
     "i": 0
@@ -967,6 +1197,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Progress",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Radio",
     "title": "Grouped",
     "i": 0
@@ -990,6 +1225,11 @@ export const VARIATIONS = [
     "component": "Radio",
     "title": "Tones",
     "i": 4
+  },
+  {
+    "component": "Radio",
+    "title": "All props",
+    "i": 5
   },
   {
     "component": "Rating",
@@ -1022,6 +1262,11 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "Rating",
+    "title": "All props",
+    "i": 6
+  },
+  {
     "component": "Select",
     "title": "Sizes",
     "i": 0
@@ -1045,6 +1290,11 @@ export const VARIATIONS = [
     "component": "Select",
     "title": "Disabled",
     "i": 4
+  },
+  {
+    "component": "Select",
+    "title": "All props",
+    "i": 5
   },
   {
     "component": "Sidebar",
@@ -1072,6 +1322,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Sidebar",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Skeleton",
     "title": "Variants",
     "i": 0
@@ -1090,6 +1345,11 @@ export const VARIATIONS = [
     "component": "Skeleton",
     "title": "Card placeholder",
     "i": 3
+  },
+  {
+    "component": "Skeleton",
+    "title": "All props",
+    "i": 4
   },
   {
     "component": "Slider",
@@ -1122,6 +1382,11 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "Slider",
+    "title": "All props",
+    "i": 6
+  },
+  {
     "component": "Spinner",
     "title": "Sizes",
     "i": 0
@@ -1145,6 +1410,11 @@ export const VARIATIONS = [
     "component": "Spinner",
     "title": "Accessible label",
     "i": 4
+  },
+  {
+    "component": "Spinner",
+    "title": "All props",
+    "i": 5
   },
   {
     "component": "Stack",
@@ -1172,6 +1442,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Stack",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Stat",
     "title": "Basic",
     "i": 0
@@ -1195,6 +1470,11 @@ export const VARIATIONS = [
     "component": "Stat",
     "title": "Plain",
     "i": 4
+  },
+  {
+    "component": "Stat",
+    "title": "All props",
+    "i": 5
   },
   {
     "component": "Stepper",
@@ -1227,6 +1507,11 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "Stepper",
+    "title": "All props",
+    "i": 6
+  },
+  {
     "component": "Switch",
     "title": "Basic",
     "i": 0
@@ -1257,6 +1542,11 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "Switch",
+    "title": "All props",
+    "i": 6
+  },
+  {
     "component": "Table",
     "title": "Basic",
     "i": 0
@@ -1280,6 +1570,11 @@ export const VARIATIONS = [
     "component": "Table",
     "title": "Selected rows",
     "i": 4
+  },
+  {
+    "component": "Table",
+    "title": "All props",
+    "i": 5
   },
   {
     "component": "Tabs",
@@ -1312,6 +1607,11 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "Tabs",
+    "title": "All props",
+    "i": 6
+  },
+  {
     "component": "Tag",
     "title": "Basic",
     "i": 0
@@ -1335,6 +1635,11 @@ export const VARIATIONS = [
     "component": "Tag",
     "title": "Tones & variants",
     "i": 4
+  },
+  {
+    "component": "Tag",
+    "title": "All props",
+    "i": 5
   },
   {
     "component": "Text",
@@ -1362,6 +1667,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Text",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Textarea",
     "title": "Basic",
     "i": 0
@@ -1385,6 +1695,11 @@ export const VARIATIONS = [
     "component": "Textarea",
     "title": "With length limit",
     "i": 4
+  },
+  {
+    "component": "Textarea",
+    "title": "All props",
+    "i": 5
   },
   {
     "component": "Timeline",
@@ -1417,6 +1732,26 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "Timeline",
+    "title": "All props",
+    "i": 6
+  },
+  {
+    "component": "Timeline",
+    "title": "Order placed",
+    "i": 7
+  },
+  {
+    "component": "ToastProvider",
+    "title": "Default",
+    "i": 0
+  },
+  {
+    "component": "ToastProvider",
+    "title": "All props",
+    "i": 1
+  },
+  {
     "component": "Toast",
     "title": "Tones",
     "i": 0
@@ -1442,6 +1777,11 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "Toast",
+    "title": "All props",
+    "i": 5
+  },
+  {
     "component": "Tooltip",
     "title": "Placements",
     "i": 0
@@ -1462,6 +1802,11 @@ export const VARIATIONS = [
     "i": 3
   },
   {
+    "component": "Tooltip",
+    "title": "All props",
+    "i": 4
+  },
+  {
     "component": "TreeView",
     "title": "File explorer",
     "i": 0
@@ -1480,5 +1825,10 @@ export const VARIATIONS = [
     "component": "TreeView",
     "title": "Controlled selection",
     "i": 3
+  },
+  {
+    "component": "TreeView",
+    "title": "All props",
+    "i": 4
   }
 ];

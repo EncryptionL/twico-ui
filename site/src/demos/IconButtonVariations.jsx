@@ -80,6 +80,32 @@ const variations = [
       </>
     ),
   },
+  {
+    title: "All props",
+    description: "Every IconButton-specific prop in one place. aria-label is required for icon-only buttons. variant and tone are orthogonal axes; size and round shape the control; icon is the rendered node.",
+    code: `<IconButton
+  icon={<HeartIcon />}
+  aria-label="Add to favorites"  // required for icon-only buttons
+  variant="soft"                 // solid | soft | outline | ghost
+  tone="primary"                 // primary | danger
+  size="md"                      // xs | sm | md | lg
+  round={true}                   // fully circular
+  onClick={() => {}}             // inherited DOM handler
+/>`,
+    render: () => (
+      <>
+        <IconButton
+          icon={<HeartIcon />}
+          aria-label="Add to favorites"
+          variant="soft"
+          tone="primary"
+          size="md"
+          round={true}
+          onClick={() => {}}
+        />
+      </>
+    ),
+  },
 ];
 
 export default variations;

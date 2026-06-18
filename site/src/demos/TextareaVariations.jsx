@@ -1,6 +1,37 @@
 import React from "react";
 import { Textarea } from "twico-ui";
 
+function TextareaAllProps() {
+  const [value, setValue] = React.useState("Twico UI ships with dark mode, motion, and RTL out of the box.");
+  return (
+    <div style={{ width: 340, maxWidth: "100%", display: "flex", flexDirection: "column", gap: 16 }}>
+      <Textarea
+        label="Release notes"
+        required                      // adds the asterisk + forwards to the native textarea
+        size="md"                     // sm | md | lg
+        tone="info"                   // primary | success | warning | danger | info | neutral
+        hint="Markdown is supported"  // shown below; error replaces it when present
+        value={value}                 // or defaultValue for uncontrolled
+        onChange={(e) => setValue(e.target.value)}
+        rows={4}
+        maxLength={500}
+        placeholder="What changed in this release?"
+        disabled={false}
+        readOnly={false}
+      />
+      {/* error replaces the hint and outlines the field in red */}
+      <Textarea
+        label="Summary"
+        size="lg"
+        tone="danger"
+        error="Summary is required"
+        rows={2}
+        placeholder="One-line summary"
+      />
+    </div>
+  );
+}
+
 const variations = [
   {
     title: "Basic",
@@ -103,6 +134,38 @@ const variations = [
         />
       </div>
     ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every Textarea-specific prop in one place — label, required, size, tone, and the hint/error pair (error replaces hint and turns the field red). Shown controlled via value + onChange; disabled/readOnly are left off so the field stays interactive. Native textarea attributes (rows, maxLength, placeholder) pass straight through.",
+    code: `const [value, setValue] = React.useState("Twico UI ships with dark mode, motion, and RTL out of the box.");
+
+<Textarea
+  label="Release notes"
+  required                      // adds the asterisk + forwards to the native textarea
+  size="md"                     // sm | md | lg
+  tone="info"                   // primary | success | warning | danger | info | neutral
+  hint="Markdown is supported"  // shown below; error replaces it when present
+  value={value}                 // or defaultValue for uncontrolled
+  onChange={(e) => setValue(e.target.value)}
+  rows={4}
+  maxLength={500}
+  placeholder="What changed in this release?"
+  disabled={false}
+  readOnly={false}
+/>
+
+{/* error replaces the hint and outlines the field in red */}
+<Textarea
+  label="Summary"
+  size="lg"
+  tone="danger"
+  error="Summary is required"
+  rows={2}
+  placeholder="One-line summary"
+/>`,
+    render: () => <TextareaAllProps />,
   },
 ];
 

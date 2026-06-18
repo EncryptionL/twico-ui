@@ -94,6 +94,46 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "All props",
+    description: "Every Button prop in one place — fill variant, tone, size, left/right icons, loading and fullWidth flags, onClick, and the as=\"a\" link form (href is scheme-sanitized).",
+    code: `<Button
+  variant="soft"        // solid | soft | outline | ghost
+  tone="danger"         // primary | danger
+  size="md"             // xs | sm | md | lg
+  leftIcon={<PlusIcon />}
+  rightIcon={<PlusIcon />}
+  loading={false}
+  fullWidth={false}
+  onClick={() => {}}
+>
+  Save changes
+</Button>
+
+// Render as a link instead of a button:
+<Button as="a" href="/docs" target="_blank" rel="noopener noreferrer" variant="outline">
+  Open docs
+</Button>`,
+    render: () => (
+      <>
+        <Button
+          variant="soft"
+          tone="danger"
+          size="md"
+          leftIcon={<PlusIcon />}
+          rightIcon={<PlusIcon />}
+          loading={false}
+          fullWidth={false}
+          onClick={() => {}}
+        >
+          Save changes
+        </Button>
+        <Button as="a" href="/docs" target="_blank" rel="noopener noreferrer" variant="outline">
+          Open docs
+        </Button>
+      </>
+    ),
+  },
 ];
 
 export default variations;

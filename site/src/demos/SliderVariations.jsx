@@ -1,6 +1,28 @@
 import React from "react";
 import { Slider } from "twico-ui";
 
+function SliderAllProps() {
+  const [value, setValue] = React.useState(120); // or defaultValue for uncontrolled
+  return (
+    <div style={{ width: 340, maxWidth: "100%" }}>
+      <Slider
+        label="Brightness"
+        hint="Drag or use arrow keys to adjust" // error replaces hint when set
+        value={value}
+        onChange={setValue}
+        min={0}
+        max={200}
+        step={10}
+        tone="info"
+        disabled={false}
+        showValue={true}
+        showTicks={true}
+        formatValue={(v) => `${v} lux`}
+      />
+    </div>
+  );
+}
+
 const variations = [
   {
     title: "Basic",
@@ -86,6 +108,31 @@ const variations = [
         <Slider label="Info" tone="info" defaultValue={60} />
       </div>
     ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every Slider-specific prop in one place. Controlled with value + onChange; defaultValue is the uncontrolled alternative. hint shows helper text — passing error replaces it and turns the track red.",
+    code: `function SliderAllProps() {
+  const [value, setValue] = React.useState(120); // or defaultValue for uncontrolled
+  return (
+    <Slider
+      label="Brightness"
+      hint="Drag or use arrow keys to adjust" // error replaces hint when set
+      value={value}
+      onChange={setValue}
+      min={0}
+      max={200}
+      step={10}
+      tone="info"               // primary | success | warning | danger | info | neutral
+      disabled={false}
+      showValue={true}
+      showTicks={true}
+      formatValue={(v) => \`\${v} lux\`}
+    />
+  );
+}`,
+    render: () => <SliderAllProps />,
   },
 ];
 

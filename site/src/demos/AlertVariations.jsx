@@ -15,6 +15,22 @@ function DismissibleExample() {
   );
 }
 
+function AlertAllProps() {
+  const [open, setOpen] = React.useState(true);
+  if (!open) return <Alert tone="neutral">Dismissed — re-render the demo to bring it back.</Alert>;
+  return (
+    <Alert
+      tone="primary"            // info | success | warning | danger | primary | neutral
+      variant="soft"            // soft | solid | outline
+      title="New feature available"
+      icon={<SparkIcon />}      // overrides the default tone icon
+      onClose={() => setOpen(false)} // shows the close button + handles dismissal
+    >
+      Try the redesigned dashboard — children render as the description.
+    </Alert>
+  );
+}
+
 const variations = [
   {
     title: "Tones",
@@ -79,6 +95,30 @@ const variations = [
         <Alert tone="success" variant="soft" title="Soft">Tinted background.</Alert>
         <Alert tone="danger" variant="solid" title="Solid">Filled, high emphasis.</Alert>
         <Alert tone="info" variant="outline" title="Outline">Border only.</Alert>
+      </div>
+    ),
+  },
+  {
+    title: "All props",
+    description: "Every Alert-specific prop in one place — tone, variant, title, a custom icon, children (the description), and onClose (which renders the dismiss button and handles dismissal). Set onClose to false-y / omit it to hide the close button.",
+    code: `function AlertAllProps() {
+  const [open, setOpen] = React.useState(true);
+  if (!open) return <Alert tone="neutral">Dismissed — re-render the demo to bring it back.</Alert>;
+  return (
+    <Alert
+      tone="primary"            // info | success | warning | danger | primary | neutral
+      variant="soft"            // soft | solid | outline
+      title="New feature available"
+      icon={<SparkIcon />}      // overrides the default tone icon
+      onClose={() => setOpen(false)} // shows the close button + handles dismissal
+    >
+      Try the redesigned dashboard — children render as the description.
+    </Alert>
+  );
+}`,
+    render: () => (
+      <div style={{ width: 380, maxWidth: "100%" }}>
+        <AlertAllProps />
       </div>
     ),
   },

@@ -1,4 +1,6 @@
 import React from "react";
+import { usePreviewFit } from "../components/previewFit.js";
+import { slugify } from "../data/site.js";
 import {
   Stack,
   Grid,
@@ -287,6 +289,7 @@ function KnobLabel({ name, type }) {
 /* --------------------------- one playground --------------------------- */
 
 function PlaygroundCard({ config }) {
+  usePreviewFit();
   const initial = React.useMemo(() => {
     const s = {};
     for (const k of config.knobs) s[k.prop] = k.default;
@@ -314,7 +317,7 @@ function PlaygroundCard({ config }) {
         >
           <Stack gap={1} style={{ flex: "1 1 260px", minWidth: 0 }}>
             <Stack direction="row" gap={2} align="center">
-              <Heading level={3} size="lg">{config.name}</Heading>
+              <Heading level={2} size="lg" id={slugify(config.name)}>{config.name}</Heading>
               <Badge tone="neutral" variant="soft" size="sm">
                 {config.knobs.length} props
               </Badge>
@@ -326,6 +329,7 @@ function PlaygroundCard({ config }) {
 
         {/* live preview stage */}
         <Box
+          data-twc-preview
           style={{
             background:
               "radial-gradient(circle at 1px 1px, var(--color-border) 1px, transparent 0) 0 0 / 16px 16px",
@@ -335,8 +339,9 @@ function PlaygroundCard({ config }) {
             padding: "var(--space-7) var(--space-5)",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "safe center",
             minHeight: 120,
+            minWidth: 0,
           }}
         >
           {config.render(state, set)}

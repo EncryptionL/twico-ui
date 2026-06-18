@@ -51,7 +51,43 @@ const variations = [
 />`,
     render: () => <ControlledExample />,
   },
+  {
+    title: "All props",
+    description:
+      "Every ColorPicker-specific prop in one place: a controlled value with onChange, label, hint, required, presets, tone, and disabled. Pass error instead of hint to turn the field red (it replaces the hint).",
+    code: `const [color, setColor] = React.useState("#8B5CF6");
+
+<ColorPicker
+  label="Brand color"
+  value={color}              // or defaultValue="#8B5CF6" for uncontrolled
+  onChange={setColor}
+  hint="Pick from the palette or enter a hex"  // error replaces the hint and turns the field red
+  required={true}
+  presets={["#8B5CF6", "#6366F1", "#0EA5E9", "#14B8A6", "#22C55E", "#F59E0B", "#F43F5E"]}
+  tone="info"                // primary | success | warning | danger | info | neutral
+  disabled={false}
+/>`,
+    render: () => <ColorPickerAllProps />,
+  },
 ];
+
+function ColorPickerAllProps() {
+  const [color, setColor] = React.useState("#8B5CF6");
+  return (
+    <div style={{ width: 340, maxWidth: "100%" }}>
+      <ColorPicker
+        label="Brand color"
+        value={color}
+        onChange={setColor}
+        hint="Pick from the palette or enter a hex"
+        required={true}
+        presets={["#8B5CF6", "#6366F1", "#0EA5E9", "#14B8A6", "#22C55E", "#F59E0B", "#F43F5E"]}
+        tone="info"
+        disabled={false}
+      />
+    </div>
+  );
+}
 
 function ControlledExample() {
   const [color, setColor] = React.useState("#0EA5E9");

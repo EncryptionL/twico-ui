@@ -72,6 +72,23 @@ const variations = [
       <Spinner size="lg" tone="primary" label="Loading results" />
     ),
   },
+  {
+    title: "All props",
+    description: "Every Spinner prop in one place — size, color (the preferred name; tone is its deprecated alias and color wins when both are set), and an accessible label announced via role=\"status\".",
+    code: `<Spinner
+  size="lg"              // sm | md | lg | xl
+  color="primary"       // current | primary | success | warning | danger | info | neutral | white
+  // tone="primary"     // deprecated alias of color — color wins when both are set
+  label="Loading results"
+/>`,
+    render: () => (
+      <Spinner
+        size="lg"
+        color="primary"
+        label="Loading results"
+      />
+    ),
+  },
 ];
 
 export default variations;

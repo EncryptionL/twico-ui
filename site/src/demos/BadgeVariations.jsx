@@ -64,6 +64,25 @@ const variations = [
       </>
     ),
   },
+  {
+    title: "All props",
+    description: "Every Badge-specific prop in one place: tone, variant, size, dot, and children.",
+    code: `<Badge
+  tone="success"      // primary | success | warning | danger | info | neutral
+  variant="soft"      // soft | solid | outline
+  size="lg"           // sm | md | lg
+  dot                 // leading status dot
+>
+  Active
+</Badge>`,
+    render: () => (
+      <>
+        <Badge tone="success" variant="soft" size="lg" dot>
+          Active
+        </Badge>
+      </>
+    ),
+  },
 ];
 
 export default variations;

@@ -24,7 +24,11 @@ export const REPO_URL = "https://github.com/EncryptionL/twico-ui";
 export const NPM_URL = "https://www.npmjs.com/package/twico-ui";
 export const CHANGELOG_URL = "https://github.com/EncryptionL/twico-ui/releases";
 
-export const slugify = (name) => name.toLowerCase();
+// Lowercase + collapse any non-alphanumeric run to a single hyphen, so headings get
+// valid anchor ids (e.g. "Buttons & actions" -> "buttons-actions"). Component names are
+// single alphanumeric words, so their route slugs are unchanged.
+export const slugify = (name) =>
+  String(name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
 export function groupedComponents(components) {
   const map = new Map(GROUP_ORDER.map((g) => [g, []]));

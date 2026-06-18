@@ -45,6 +45,7 @@ const NameCell = (v, row) => (
 // backend returns exactly what client mode would.
 const DB = makePeople(300);
 
+/** @type {import("twico-ui").DatatableColumn[]} */
 const SERVER_COLUMNS = [
   { field: "name", headerName: "Name", width: 230, renderCell: NameCell },
   { field: "role", headerName: "Role", width: 120, editable: true, editType: "select", valueOptions: ROLE_OPTIONS },
@@ -131,7 +132,7 @@ function ServerSideDemo() {
 
   // Data columns + a per-row actions column. The single-row Delete is also a
   // server write: it removes the row from the backend and re-fetches the page.
-  const columns = React.useMemo(() => [
+  const columns = React.useMemo(() => /** @type {import("twico-ui").DatatableColumn[]} */ ([
     ...SERVER_COLUMNS,
     {
       field: "actions", headerName: "Actions", type: "actions", width: 96,
@@ -147,7 +148,7 @@ function ServerSideDemo() {
         },
       ],
     },
-  ], [fetchPage]);
+  ]), [fetchPage]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
@@ -395,6 +396,157 @@ function CustomRenderersDemo() {
         },
         { field: "mrr", headerName: "MRR", type: "number", width: 120, valueFormatter: (v) => usd(v) },
       ]}
+    />
+  );
+}
+
+/* ============================================================ 9. ALL PROPS */
+// One Datatable wired to EVERY Datatable-specific prop (top-level + the full
+// column / row-action / batch-action contracts). Mutually-exclusive props use
+// their interactive "off" form with a comment pointing at the alternative, so the
+// grid stays fully usable while still naming every prop in one place.
+function DatatableAllProps() {
+  const [rows, setRows] = React.useState(() =>
+    makePeople(24).map((r, i) => ({ ...r, note: NOTES[i % NOTES.length] }))
+  );
+
+  // Persist a single inline edit (double-click an editable cell).
+  const handleRowUpdate = React.useCallback((updated) => {
+    setRows((prev) => prev.map((r) => (r.id === updated.id ? updated : r)));
+  }, []);
+  // Persist a batch edit (tick rows -> toolbar "Edit" button).
+  const handleBatchUpdate = React.useCallback((changed) => {
+    setRows((prev) => prev.map((r) => changed.find((c) => c.id === r.id) || r));
+  }, []);
+  // Controlled-rows callback: the full next array after any client-mode edit.
+  const handleRowsChange = React.useCallback((next) => setRows(next), []);
+  // Persist a drag/keyboard row reorder.
+  const handleRowOrderChange = React.useCallback((keys) => {
+    setRows((prev) => {
+      const byKey = new Map(prev.map((r) => [r.id, r]));
+      return keys.map((k) => byKey.get(k)).filter(Boolean);
+    });
+  }, []);
+
+  return (
+    <Datatable
+      /* ---- data ---- */
+      rows={rows}
+      loading={false}                          // true => shimmering skeleton rows
+      rowKey={(row) => row.id}                 // stable key per row (defaults to row.id ?? index)
+      columns={[
+        {
+          field: "name", headerName: "Name", type: "string", width: 220,
+          align: "left", sortable: true, filterable: true, hideable: false,
+          pinnable: true, pinned: "left", resizable: true, groupable: true,
+          disableColumnMenu: false, aggregation: "count",
+          aggregationFormatter: (v) => `${v} people`,
+          exportValue: (v, row) => `${v} <${row.email}>`,
+          renderCell: NameCell,
+        },
+        {
+          field: "role", headerName: "Role", width: 130,
+          editable: true, editType: "select", valueOptions: ROLE_OPTIONS,
+        },
+        {
+          field: "department", headerName: "Department", width: 150,
+          editable: true, editType: "select", groupable: true,
+          // object-form options ({ value, label }) are supported too
+          valueOptions: DEPARTMENT_OPTIONS.map((d) => ({ value: d, label: d })),
+        },
+        {
+          field: "status", headerName: "Status", width: 130,
+          editable: true, editType: "select", valueOptions: STATUS_OPTIONS,
+          renderCell: StatusBadge,
+        },
+        {
+          field: "note", headerName: "Note", width: 240, wrapText: true,
+          filterable: false, sortable: false,
+        },
+        {
+          field: "seats", headerName: "Seats", type: "number", width: 110,
+          align: "right", editable: true, editType: "number", aggregation: "sum",
+        },
+        {
+          field: "mrr", headerName: "MRR", type: "number", width: 130,
+          aggregation: "sum", valueFormatter: (v) => usd(v),
+          aggregationFormatter: (v) => usd(v), exportValue: (v) => v,
+        },
+        {
+          field: "salary", headerName: "Salary", type: "number", width: 140,
+          editable: true, editType: "number", pinnable: true,
+          // a function aggregation gets the column's values + the rows
+          aggregation: (vals) => Math.round(vals.reduce((n, v) => n + v, 0) / vals.length),
+          aggregationFormatter: (v) => usd(v), valueFormatter: (v) => usd(v),
+        },
+        {
+          field: "actions", headerName: "Actions", type: "actions", width: 120,
+          align: "right", pinned: "right", disableColumnMenu: true,
+          getActions: (row) => [
+            { icon: <PencilIcon />, label: "Edit", onClick: () => {} },
+            { icon: <MailIcon />, label: "Email", showInMenu: true, onClick: () => {} },
+            { icon: <DownloadIcon />, label: "Export", showInMenu: true, disabled: true, onClick: () => {} },
+            { icon: <TrashIcon />, label: "Delete", showInMenu: true, danger: true,
+              onClick: () => setRows((d) => d.filter((r) => r.id !== row.id)) },
+          ],
+        },
+      ]}
+      /* ---- selection + actions ---- */
+      checkboxSelection                         // leading checkbox column
+      rowNumbers                                // leading auto-numbered column
+      batchActions={[
+        { icon: <DownloadIcon />, label: "Export", onClick: (keys, rs, clear) => clear() },
+        { icon: <MailIcon />, label: "Email", disabled: false, onClick: (keys, rs, clear) => clear() },
+        { icon: <TrashIcon />, label: "Delete", danger: true,
+          onClick: (keys, rs, clear) => { setRows((d) => d.filter((r) => !keys.includes(r.id))); clear(); } },
+      ]}
+      /* ---- editing (callbacks) ---- */
+      editMode={false}                          // true makes every column editable by default
+      onRowUpdate={handleRowUpdate}             // (updatedRow, originalRow, field) after a single cell edit
+      onRowsChange={handleRowsChange}           // full next rows array after a client-mode edit
+      onBatchUpdate={handleBatchUpdate}         // (changedRows, patch, selectedKeys) after the batch editor applies
+      /* ---- click selection (callbacks) ---- */
+      selectionMode="cell"                      // "none" | "row" | "cell"
+      onCellClick={(value, row, field) => {}}   // fires in "cell" mode
+      onRowClick={(row, key) => {}}             // fires only when selectionMode="row"
+      onActiveCellChange={(cell) => {}}         // ({ key, field } | null) when the active cell moves
+      /* ---- row features ---- */
+      rowGrouping={[]}                          // e.g. ["department"] to group rows by default
+      rowPinning                                // adds "Pin to top/bottom" to each row's menu
+      rowReorder                                // drag / keyboard reorder
+      rowResize                                 // drag the row's bottom edge to resize
+      onRowOrderChange={handleRowOrderChange}   // new array of row keys after a reorder
+      /* ---- columns ---- */
+      disableColumnReorder={false}              // true locks column order
+      disableColumnResize={false}               // true locks column widths
+      /* ---- density / layout ---- */
+      density="standard"                        // "compact" | "standard" | "comfortable"
+      height={420}                              // scroll-area max height in px
+      /* ---- pagination ---- */
+      pageSize={10}                             // 0 disables pagination
+      pageSizeOptions={[5, 10, 25, 50]}
+      showPageJumper                            // "Go to" jumper when > 5 pages
+      /* ---- aggregation / pivot ---- */
+      showAggregation                           // totals row on by default
+      pivot={{                                  // seeds the toolbar "Pivot" panel
+        rows: ["department"], columns: ["role"],
+        values: [{ field: "mrr", agg: "sum", label: "MRR", valueFormatter: (v) => usd(v) }],
+      }}
+      pivotMode={false}                         // true starts in pivot view
+      /* ---- virtualization (active only when pageSize=0 + no grouping) ---- */
+      virtualized={false}                       // true windows large datasets
+      overscan={8}                              // extra rows above/below the window
+      rowHeight={44}                            // estimate for not-yet-measured rows
+      /* ---- export ---- */
+      showExport                                // Export split button (CSV + format menu)
+      exportFilename="members"                  // file name (no extension)
+      /* ---- server mode (inert here — shown for completeness) ---- */
+      serverMode={false}                        // true => onServerChange drives sort/filter/page
+      rowCount={rows.length}                    // total server rows (required in server mode)
+      onServerChange={(query) => {}}            // (debounced) fires when the query changes in server mode
+      aggregationValues={null}                  // server-precomputed footer totals in server mode
+      /* ---- a11y ---- */
+      ariaLabel="Team members"                  // role="grid" label
     />
   );
 }
@@ -680,6 +832,119 @@ function ServerSideDemo() {
   ]}
 />`,
     render: () => <CustomRenderersDemo />,
+  },
+  {
+    title: "All props",
+    description:
+      "Every Datatable-specific prop in one grid — the top-level props plus the full column, row-action, and batch-action contracts. Mutually-exclusive props are shown in their interactive form with a comment pointing at the alternative (serverMode/pivotMode/virtualized are off so client paging, selection, inline + batch editing, row reorder/pin/resize, grouping, aggregation, and CSV/Excel export all stay live). The server-mode props (rowCount, onServerChange, aggregationValues) and the pivot model are passed for completeness — they take effect once serverMode/pivotMode are on.",
+    code: `function DatatableAllProps() {
+  const [rows, setRows] = React.useState(() =>
+    makePeople(24).map((r, i) => ({ ...r, note: NOTES[i % NOTES.length] }))
+  );
+
+  return (
+    <Datatable
+      /* ---- data ---- */
+      rows={rows}
+      loading={false}                          // true => shimmering skeleton rows
+      rowKey={(row) => row.id}                 // stable key per row (defaults to row.id ?? index)
+      columns={[
+        {
+          field: "name", headerName: "Name", type: "string", width: 220,
+          align: "left", sortable: true, filterable: true, hideable: false,
+          pinnable: true, pinned: "left", resizable: true, groupable: true,
+          disableColumnMenu: false, aggregation: "count",
+          aggregationFormatter: (v) => \`\${v} people\`,
+          exportValue: (v, row) => \`\${v} <\${row.email}>\`,
+          renderCell: NameCell,
+        },
+        { field: "role", headerName: "Role", width: 130, editable: true, editType: "select", valueOptions: ["Admin", "Editor", "Viewer"] },
+        // object-form options ({ value, label }) are supported too
+        { field: "department", headerName: "Department", width: 150, editable: true, editType: "select", groupable: true,
+          valueOptions: DEPARTMENT_OPTIONS.map((d) => ({ value: d, label: d })) },
+        { field: "status", headerName: "Status", width: 130, editable: true, editType: "select", valueOptions: STATUS_OPTIONS, renderCell: StatusBadge },
+        { field: "note", headerName: "Note", width: 240, wrapText: true, filterable: false, sortable: false },
+        { field: "seats", headerName: "Seats", type: "number", width: 110, align: "right", editable: true, editType: "number", aggregation: "sum" },
+        { field: "mrr", headerName: "MRR", type: "number", width: 130, aggregation: "sum", valueFormatter: usd, aggregationFormatter: usd, exportValue: (v) => v },
+        // a function aggregation gets the column's values + the rows
+        { field: "salary", headerName: "Salary", type: "number", width: 140, editable: true, editType: "number", pinnable: true,
+          aggregation: (vals) => Math.round(vals.reduce((n, v) => n + v, 0) / vals.length),
+          aggregationFormatter: usd, valueFormatter: usd },
+        {
+          field: "actions", headerName: "Actions", type: "actions", width: 120,
+          align: "right", pinned: "right", disableColumnMenu: true,
+          getActions: (row) => [
+            { icon: <PencilIcon />, label: "Edit", onClick: () => {} },
+            { icon: <MailIcon />, label: "Email", showInMenu: true, onClick: () => {} },
+            { icon: <DownloadIcon />, label: "Export", showInMenu: true, disabled: true, onClick: () => {} },
+            { icon: <TrashIcon />, label: "Delete", showInMenu: true, danger: true,
+              onClick: () => setRows((d) => d.filter((r) => r.id !== row.id)) },
+          ],
+        },
+      ]}
+      /* ---- selection + actions ---- */
+      checkboxSelection                         // leading checkbox column
+      rowNumbers                                // leading auto-numbered column
+      batchActions={[
+        { icon: <DownloadIcon />, label: "Export", onClick: (keys, rs, clear) => clear() },
+        { icon: <MailIcon />, label: "Email", disabled: false, onClick: (keys, rs, clear) => clear() },
+        { icon: <TrashIcon />, label: "Delete", danger: true,
+          onClick: (keys, rs, clear) => { setRows((d) => d.filter((r) => !keys.includes(r.id))); clear(); } },
+      ]}
+      /* ---- editing (callbacks) ---- */
+      editMode={false}                          // true makes every column editable by default
+      onRowUpdate={(updated) => setRows((p) => p.map((r) => (r.id === updated.id ? updated : r)))}  // (updatedRow, originalRow, field)
+      onRowsChange={(next) => setRows(next)}     // full next rows array after a client-mode edit
+      onBatchUpdate={(changed) => setRows((p) => p.map((r) => changed.find((c) => c.id === r.id) || r))}  // (changedRows, patch, selectedKeys)
+      /* ---- click selection (callbacks) ---- */
+      selectionMode="cell"                      // "none" | "row" | "cell"
+      onCellClick={(value, row, field) => {}}   // fires in "cell" mode
+      onRowClick={(row, key) => {}}             // fires only when selectionMode="row"
+      onActiveCellChange={(cell) => {}}         // ({ key, field } | null) when the active cell moves
+      /* ---- row features ---- */
+      rowGrouping={[]}                          // e.g. ["department"] to group rows by default
+      rowPinning                                // adds "Pin to top/bottom" to each row's menu
+      rowReorder                                // drag / keyboard reorder
+      rowResize                                 // drag the row's bottom edge to resize
+      onRowOrderChange={(keys) => setRows((p) => {  // new array of row keys after a reorder
+        const byKey = new Map(p.map((r) => [r.id, r]));
+        return keys.map((k) => byKey.get(k)).filter(Boolean);
+      })}
+      /* ---- columns ---- */
+      disableColumnReorder={false}              // true locks column order
+      disableColumnResize={false}               // true locks column widths
+      /* ---- density / layout ---- */
+      density="standard"                        // "compact" | "standard" | "comfortable"
+      height={420}                              // scroll-area max height in px
+      /* ---- pagination ---- */
+      pageSize={10}                             // 0 disables pagination
+      pageSizeOptions={[5, 10, 25, 50]}
+      showPageJumper                            // "Go to" jumper when > 5 pages
+      /* ---- aggregation / pivot ---- */
+      showAggregation                           // totals row on by default
+      pivot={{                                  // seeds the toolbar "Pivot" panel
+        rows: ["department"], columns: ["role"],
+        values: [{ field: "mrr", agg: "sum", label: "MRR", valueFormatter: usd }],
+      }}
+      pivotMode={false}                         // true starts in pivot view
+      /* ---- virtualization (active only when pageSize=0 + no grouping) ---- */
+      virtualized={false}                       // true windows large datasets
+      overscan={8}                              // extra rows above/below the window
+      rowHeight={44}                            // estimate for not-yet-measured rows
+      /* ---- export ---- */
+      showExport                                // Export split button (CSV + format menu)
+      exportFilename="members"                  // file name (no extension)
+      /* ---- server mode (inert here — shown for completeness) ---- */
+      serverMode={false}                        // true => onServerChange drives sort/filter/page
+      rowCount={rows.length}                    // total server rows (required in server mode)
+      onServerChange={(query) => {}}            // (debounced) fires when the query changes in server mode
+      aggregationValues={null}                  // server-precomputed footer totals in server mode
+      /* ---- a11y ---- */
+      ariaLabel="Team members"                  // role="grid" label
+    />
+  );
+}`,
+    render: () => <DatatableAllProps />,
   },
 ];
 

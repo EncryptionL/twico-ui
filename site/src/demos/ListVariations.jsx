@@ -136,6 +136,55 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "All props",
+    description:
+      "Every List prop in one place. items carries all ListItemData fields — title, description, leading, trailing, plus active and either onClick (button row) or href (link row); the two are mutually exclusive per item, so href wins if both are set. plain drops the card chrome.",
+    code: `<List
+  plain={false}                       // true drops the border + background
+  items={[
+    {
+      leading: <Avatar name="Ada Park" size="sm" />,  // icon / avatar
+      title: "Ada Park",                              // ReactNode (required)
+      description: "ada@twico.dev",                    // secondary text
+      trailing: <Badge tone="success">Active</Badge>, // badge / meta / switch
+      active: true,                                    // highlight as selected
+      onClick: () => {},                               // makes the row a button
+    },
+    {
+      leading: <FileIcon />,
+      title: "Account settings",
+      description: "Profile, security",
+      trailing: <ChevronIcon />,
+      href: "#account",                                // makes the row a link (wins over onClick)
+    },
+  ]}
+/>`,
+    render: () => (
+      <div style={{ width: 360, maxWidth: "100%" }}>
+        <List
+          plain={false}
+          items={[
+            {
+              leading: <Avatar name="Ada Park" size="sm" />,
+              title: "Ada Park",
+              description: "ada@twico.dev",
+              trailing: <Badge tone="success">Active</Badge>,
+              active: true,
+              onClick: () => {},
+            },
+            {
+              leading: <FileIcon />,
+              title: "Account settings",
+              description: "Profile, security",
+              trailing: <ChevronIcon />,
+              href: "#account",
+            },
+          ]}
+        />
+      </div>
+    ),
+  },
 ];
 
 export default variations;

@@ -87,6 +87,41 @@ const variations = [
       </Container>
     ),
   },
+  {
+    title: "All props",
+    description:
+      "Every Container-specific prop in one place — the element tag (as), the named/custom max-width (size), the horizontal-padding flag (padded), and the anchor props (href, target, rel) that only apply when as=\"a\" (href is scheme-sanitized).",
+    code: `<Container
+  as="section"          // div | section | main | a | any intrinsic tag
+  size="md"             // sm 640 | md 768 | lg 1024 | xl 1280 | full | any CSS length
+  padded={true}         // false removes responsive horizontal padding
+>
+  <Heading level={3}>Centered, max-width section</Heading>
+</Container>
+
+// Render as a link instead — href/target/rel only apply when as="a":
+<Container as="a" href="/docs" target="_blank" rel="noopener noreferrer" size="sm">
+  Open the docs
+</Container>`,
+    render: () => (
+      <div style={{ width: "100%", display: "grid", gap: "var(--space-3)" }}>
+        <Container as="section" size="md" padded={true} style={frame}>
+          <Heading level={3}>Centered, max-width section</Heading>
+          <Text tone="muted">as=&quot;section&quot;, size=&quot;md&quot;, padded=&#123;true&#125;</Text>
+        </Container>
+        <Container
+          as="a"
+          href="/docs"
+          target="_blank"
+          rel="noopener noreferrer"
+          size="sm"
+          style={{ ...frame, display: "block", textDecoration: "none" }}
+        >
+          <Text tone="muted">as=&quot;a&quot; — href, target=&quot;_blank&quot;, rel=&quot;noopener noreferrer&quot;</Text>
+        </Container>
+      </div>
+    ),
+  },
 ];
 
 export default variations;

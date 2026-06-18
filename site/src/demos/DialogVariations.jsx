@@ -97,6 +97,43 @@ function ContentOnlyDialogExample() {
   );
 }
 
+function DialogAllProps() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <>
+      <Button variant="soft" onClick={() => setOpen(true)}>Open all-props dialog</Button>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Update billing details"
+        description="Every Dialog prop demonstrated in one place."
+        size="lg"
+        scrollBody={true}
+        closeOnBackdrop={true}
+        footer={
+          <>
+            <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button onClick={() => setOpen(false)}>Save</Button>
+          </>
+        }
+      >
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <p style={{ margin: 0 }}>
+            With scrollBody enabled, the header and footer stay fixed while this body
+            scrolls. Resize the content below to see it in action.
+          </p>
+          {Array.from({ length: 12 }).map((_, i) => (
+            <p key={i} style={{ margin: 0 }}>
+              Line {i + 1}: long-form content that overflows the panel height so the
+              body region scrolls independently of the pinned header and footer.
+            </p>
+          ))}
+        </div>
+      </Dialog>
+    </>
+  );
+}
+
 const variations = [
   {
     title: "Basic",
@@ -188,6 +225,40 @@ const variations = [
   </div>
 </Dialog>`,
     render: () => <ContentOnlyDialogExample />,
+  },
+  {
+    title: "All props",
+    description:
+      "Every Dialog-specific prop in one place — open/onClose control, title, description, footer actions, size, scrollBody (pins header + footer), closeOnBackdrop, and children.",
+    code: `const [open, setOpen] = React.useState(false);
+
+<Button variant="soft" onClick={() => setOpen(true)}>Open all-props dialog</Button>
+<Dialog
+  open={open}                       // controlled visibility (required)
+  onClose={() => setOpen(false)}    // Esc, backdrop, and close button
+  title="Update billing details"
+  description="Every Dialog prop demonstrated in one place."
+  size="lg"                         // sm | md | lg | full
+  scrollBody={true}                 // pin header + footer, scroll only the body
+  closeOnBackdrop={true}            // set false to require an explicit action
+  footer={
+    <>
+      <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+      <Button onClick={() => setOpen(false)}>Save</Button>
+    </>
+  }
+>
+  {/* children render inside the scrollable body */}
+  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+    <p style={{ margin: 0 }}>
+      With scrollBody enabled, the header and footer stay fixed while this body scrolls.
+    </p>
+    {Array.from({ length: 12 }).map((_, i) => (
+      <p key={i} style={{ margin: 0 }}>Line {i + 1}: long-form content that overflows.</p>
+    ))}
+  </div>
+</Dialog>`,
+    render: () => <DialogAllProps />,
   },
 ];
 

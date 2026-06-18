@@ -70,6 +70,38 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "All props",
+    description:
+      "Every Divider-specific prop in one place. A horizontal labeled rule uses children, align, and inset; a separate vertical rule shows orientation. inset only affects horizontal rules; align only applies when children (a label) is provided.",
+    code: `{/* Horizontal: children (label) + align + inset */}
+<Divider
+  orientation="horizontal"   // horizontal | vertical
+  align="start"              // start | center | end (left/right aliases accepted)
+  inset                      // indent the start of the rule
+>
+  SECTION
+</Divider>
+
+{/* Vertical rule (orientation), inset/align don't apply here */}
+<div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+  <Text as="span">A</Text>
+  <Divider orientation="vertical" />
+  <Text as="span">B</Text>
+</div>`,
+    render: () => (
+      <div style={{ width: 340, maxWidth: "100%" }}>
+        <Divider orientation="horizontal" align="start" inset>
+          SECTION
+        </Divider>
+        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+          <Text as="span">A</Text>
+          <Divider orientation="vertical" />
+          <Text as="span">B</Text>
+        </div>
+      </div>
+    ),
+  },
 ];
 
 export default variations;

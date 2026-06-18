@@ -1,6 +1,29 @@
 import React from "react";
 import { DateRangePicker } from "twico-ui";
 
+// Stateful wrapper for the "All props" demo: render() runs inside .map(), so hooks
+// cannot live there — keep the controlled value + onChange in a module-level component.
+function DateRangePickerAllProps() {
+  const [value, setValue] = React.useState({ start: new Date(2026, 5, 1), end: new Date(2026, 5, 14) });
+  return (
+    <div style={{ width: 340, maxWidth: "100%" }}>
+      <DateRangePicker
+        label="Reporting period"
+        required
+        value={value}
+        onChange={setValue}
+        placeholder="Select a date range"
+        hint="Pick a start day, then an end day."
+        presets
+        locale="en-US"
+        weekStartsOn={1}
+        disabled={false}
+        tone="info"
+      />
+    </div>
+  );
+}
+
 const variations = [
   {
     title: "Basic",
@@ -60,6 +83,30 @@ const variations = [
         <DateRangePicker placeholder="Select dates…" />
       </div>
     ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every DateRangePicker-specific prop in one place — label, required asterisk, controlled value + onChange, placeholder, hint (error would replace it and turn the field red), the preset column, locale and weekStartsOn for the calendar, the disabled flag (off here so it stays interactive), and the tone accent.",
+    code: `const [value, setValue] = React.useState({
+  start: new Date(2026, 5, 1),
+  end: new Date(2026, 5, 14),
+});
+
+<DateRangePicker
+  label="Reporting period"
+  required                       // adds the asterisk
+  value={value}                  // controlled — or defaultValue for uncontrolled
+  onChange={setValue}            // (range: { start, end }) => void
+  placeholder="Select a date range"
+  hint="Pick a start day, then an end day."  // error="…" replaces the hint + turns red
+  presets                        // show the quick-preset column
+  locale="en-US"                 // BCP-47 month/weekday names + formatting
+  weekStartsOn={1}               // 0 = Sunday … 6 = Saturday
+  disabled={false}               // true blocks opening the popover
+  tone="info"                    // primary | success | warning | danger | info | neutral
+/>`,
+    render: () => <DateRangePickerAllProps />,
   },
 ];
 

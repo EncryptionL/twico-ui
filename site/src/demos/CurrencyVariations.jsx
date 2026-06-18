@@ -1,6 +1,32 @@
 import React from "react";
 import { Currency } from "twico-ui";
 
+// Stateful wrapper so the "All props" example can show the controlled value form
+// (render is called inside a .map() and must not call hooks directly).
+function CurrencyAllProps() {
+  const [value, setValue] = React.useState("1299.50");
+  const [amount, setAmount] = React.useState(1299.5);
+  return (
+    <div style={{ width: 340, maxWidth: "100%" }}>
+      <Currency
+        label="Amount"
+        hint={amount != null ? `Parsed value: ${amount}` : "Enter an amount"}
+        required={false}
+        size="md"
+        tone="primary"
+        currency="EUR"
+        precision={2}
+        symbol="€"
+        code="EUR"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onValueChange={(num) => setAmount(num)}
+        disabled={false}
+      />
+    </div>
+  );
+}
+
 const variations = [
   {
     title: "Currencies",
@@ -64,6 +90,29 @@ const variations = [
         <Currency label="Locked" currency="GBP" defaultValue="199.00" disabled />
       </div>
     ),
+  },
+  {
+    title: "All props",
+    description: "Every Currency-specific prop in one place — label, hint (error replaces it and marks the field invalid), required, size, tone, currency (sets symbol/code/precision defaults), the precision/symbol/code overrides, the controlled value + native onChange, and the convenience onValueChange callback.",
+    code: `const [value, setValue] = React.useState("1299.50");
+const [amount, setAmount] = React.useState(1299.5);
+
+<Currency
+  label="Amount"
+  hint={amount != null ? \`Parsed value: \${amount}\` : "Enter an amount"}  // error="…" replaces hint + marks invalid
+  required={false}
+  size="md"                 // sm | md | lg
+  tone="primary"            // primary | success | warning | danger | info | neutral
+  currency="EUR"            // USD | EUR | GBP | JPY | IDR | … (sets symbol/code/precision)
+  precision={2}             // override the currency's decimal precision
+  symbol="€"                // override the prefix symbol
+  code="EUR"                // override the suffix code
+  value={value}             // controlled — or defaultValue="0.00" for uncontrolled
+  onChange={(e) => setValue(e.target.value)}              // native change event
+  onValueChange={(num, formatted) => setAmount(num)}      // parsed number + formatted string
+  disabled={false}
+/>`,
+    render: () => <CurrencyAllProps />,
   },
 ];
 

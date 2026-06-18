@@ -23,6 +23,7 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 | [datatable.md](./datatable.md) | Datatable advanced features — opt-in row virtualization, keyboard row reorder, and ARIA menu semantics. |
 | [documentation.md](./documentation.md) | The "document everything in `/docs`" policy — what, where, when. |
 | [design-suggestions.md](./design-suggestions.md) | Reviewed-but-not-yet-implemented proposals (component API, visual, site, infra) to pick up later. |
+| [qa-notes/](./qa-notes/) | Per-component QA review notes plus the pre-publish audit ([publish-audit.md](./qa-notes/publish-audit.md)) and the copy-paste example-snippet audit ([examples-audit.md](./qa-notes/examples-audit.md)). |
 
 ## At a glance
 

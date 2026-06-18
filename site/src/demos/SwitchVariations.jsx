@@ -1,6 +1,23 @@
 import React from "react";
 import { Switch } from "twico-ui";
 
+function SwitchAllProps() {
+  const [on, setOn] = React.useState(true);
+  return (
+    <Switch
+      label="Two-factor authentication"
+      description="Require a one-time code at every sign-in"
+      tone="success"
+      size="lg"
+      checked={on}
+      onChange={(e) => setOn(e.target.checked)}
+      required
+      disabled={false}
+      aria-label="Two-factor authentication"
+    />
+  );
+}
+
 const variations = [
   {
     title: "Basic",
@@ -71,6 +88,41 @@ const variations = [
         <Switch tone="warning" label="Warning" defaultChecked />
         <Switch tone="danger" label="Danger" defaultChecked />
         <Switch tone="info" label="Info" defaultChecked />
+      </div>
+    ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every Switch-specific prop in one place — label, description, tone, size, the controlled checked + onChange pair (or defaultChecked for the uncontrolled form), required, and disabled. The error prop is shown separately below; when set it replaces the description tint, paints the track red, and wires aria-invalid/aria-describedby.",
+    code: `const [on, setOn] = React.useState(true);
+
+<Switch
+  label="Two-factor authentication"
+  description="Require a one-time code at every sign-in"
+  tone="success"           // primary | success | warning | danger | info | neutral
+  size="lg"                // sm | md | lg
+  checked={on}             // or defaultChecked for uncontrolled
+  onChange={(e) => setOn(e.target.checked)}
+  required
+  disabled={false}
+  aria-label="Two-factor authentication"
+/>
+
+// error replaces description, reddens the track, and wires aria-invalid:
+<Switch
+  label="Accept terms"
+  error="You must accept the terms to continue"
+  defaultChecked={false}
+/>`,
+    render: () => (
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <SwitchAllProps />
+        <Switch
+          label="Accept terms"
+          error="You must accept the terms to continue"
+          defaultChecked={false}
+        />
       </div>
     ),
   },

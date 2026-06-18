@@ -14,6 +14,38 @@ const MoreIcon = () => (
   <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><circle cx="12" cy="5" r="2" /><circle cx="12" cy="12" r="2" /><circle cx="12" cy="19" r="2" /></svg>
 );
 
+// Stateful wrapper: `render` runs inside .map() so it can't call hooks directly.
+// Uses the controlled open form (open + onOpenChange) — swap for defaultOpen to go uncontrolled.
+function MenuAllProps() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <Menu
+      trigger={<Button variant="soft">Account</Button>}
+      align="end"
+      width={260}
+      open={open}                          // controlled — or use defaultOpen={false} for uncontrolled
+      onOpenChange={setOpen}               // fires on trigger click, select, Esc, outside click
+      header={
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <Avatar name="Jane Doe" />
+          <div>
+            <div style={{ fontWeight: 600 }}>Jane Doe</div>
+            <div style={{ fontSize: 13, opacity: 0.7 }}>jane@example.com</div>
+          </div>
+        </div>
+      }
+      items={[
+        { label: "Account", heading: true },                                  // uppercase section heading
+        { label: "Profile", icon: <UserIcon />, shortcut: "⌘P", onClick: () => {} },
+        { label: "Settings", icon: <SettingsIcon />, shortcut: "⌘,", onClick: () => {} },
+        { label: "Billing", disabled: true },                                 // non-interactive
+        { separator: true },                                                  // divider line
+        { label: "Sign out", icon: <LogOutIcon />, danger: true, onClick: () => {} },
+      ]}
+    />
+  );
+}
+
 const variations = [
   {
     title: "Basic",
@@ -136,6 +168,38 @@ const variations = [
         ]}
       />
     ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every Menu-specific prop in one place — trigger, items (with label, icon, onClick, shortcut, danger, disabled, separator and heading), align, header, width, and the controlled open + onOpenChange pair (swap for defaultOpen to go uncontrolled).",
+    code: `const [open, setOpen] = React.useState(false);
+
+<Menu
+  trigger={<Button variant="soft">Account</Button>}
+  align="end"                          // start | end
+  width={260}                          // fixed px width (else max(200, trigger width))
+  open={open}                          // controlled — or use defaultOpen={false} for uncontrolled
+  onOpenChange={setOpen}               // fires on trigger click, select, Esc, outside click
+  header={
+    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <Avatar name="Jane Doe" />
+      <div>
+        <div style={{ fontWeight: 600 }}>Jane Doe</div>
+        <div style={{ fontSize: 13, opacity: 0.7 }}>jane@example.com</div>
+      </div>
+    </div>
+  }
+  items={[
+    { label: "Account", heading: true },                                  // uppercase section heading
+    { label: "Profile", icon: <UserIcon />, shortcut: "⌘P", onClick: () => {} },
+    { label: "Settings", icon: <SettingsIcon />, shortcut: "⌘,", onClick: () => {} },
+    { label: "Billing", disabled: true },                                 // non-interactive
+    { separator: true },                                                  // divider line
+    { label: "Sign out", icon: <LogOutIcon />, danger: true, onClick: () => {} },
+  ]}
+/>`,
+    render: () => <MenuAllProps />,
   },
 ];
 

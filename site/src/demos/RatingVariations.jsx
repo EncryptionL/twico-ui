@@ -6,6 +6,24 @@ function ControlledRating() {
   return <Rating value={value} onChange={setValue} showValue />;
 }
 
+function RatingAllProps() {
+  const [value, setValue] = React.useState(4);
+  return (
+    <Rating
+      value={value}                 // controlled value (0…count)
+      // defaultValue={4}           // or defaultValue for uncontrolled
+      onChange={setValue}           // fires with the new value (0 clears)
+      count={5}
+      size="md"                     // sm | md | lg
+      tone="warning"                // primary | success | warning | danger | info | neutral
+      color="#f59e0b"               // overrides `tone` when set
+      readOnly={false}
+      disabled={false}
+      showValue
+    />
+  );
+}
+
 const variations = [
   {
     title: "Sizes",
@@ -82,6 +100,26 @@ const variations = [
         <Rating defaultValue={4} tone="info" readOnly />
       </div>
     ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every Rating-specific prop in one place. Controlled via value/onChange; color overrides tone; readOnly and disabled are off so it stays interactive.",
+    code: `const [value, setValue] = React.useState(4);
+
+<Rating
+  value={value}                 // controlled value (0…count)
+  // defaultValue={4}           // or defaultValue for uncontrolled
+  onChange={setValue}           // fires with the new value (0 clears)
+  count={5}
+  size="md"                     // sm | md | lg
+  tone="warning"                // primary | success | warning | danger | info | neutral
+  color="#f59e0b"               // overrides \`tone\` when set
+  readOnly={false}
+  disabled={false}
+  showValue
+/>`,
+    render: () => <RatingAllProps />,
   },
 ];
 

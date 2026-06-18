@@ -15,6 +15,32 @@ const stackOptions = [
   { group: "Tooling", options: ["tailwind", "typescript", "vite"] },
 ];
 
+function MultiSelectAllProps() {
+  const [value, setValue] = React.useState(["react", "tailwind"]);
+  return (
+    <div style={{ width: 340, maxWidth: "100%" }}>
+      <MultiSelect
+        label="Tech stack"
+        hint="Type to filter; Backspace removes the last chip" // error replaces hint when set
+        required
+        size="md"
+        tone="primary"
+        placeholder="Add technologies"
+        options={stackOptions}
+        value={value} // or defaultValue for uncontrolled
+        onChange={setValue}
+        clearable
+        disabled={false}
+        placement="bottom"
+        portal
+        minWidth={320}
+        onFocus={() => {}}
+        onKeyDown={() => {}}
+      />
+    </div>
+  );
+}
+
 const variations = [
   {
     title: "Basic",
@@ -125,7 +151,7 @@ const variations = [
           width: "100%",
         }}
       >
-        {["primary", "success", "warning", "danger", "info"].map((tone) => (
+        {(/** @type {("primary" | "success" | "warning" | "danger" | "info")[]} */ (["primary", "success", "warning", "danger", "info"])).map((tone) => (
           <MultiSelect
             key={tone}
             tone={tone}
@@ -137,6 +163,39 @@ const variations = [
         ))}
       </div>
     ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every MultiSelect-specific prop in one place — label/hint (error replaces hint), required, size, tone, placeholder, grouped options, controlled value + onChange, clearable, disabled, placement, portal, minWidth, plus the composed onFocus and onKeyDown handlers. The value is controlled here; swap in defaultValue for an uncontrolled field.",
+    code: `const [value, setValue] = React.useState(["react", "tailwind"]);
+
+<MultiSelect
+  label="Tech stack"
+  hint="Type to filter; Backspace removes the last chip" // error replaces hint when set
+  required
+  size="md"             // sm | md | lg
+  tone="primary"        // primary | success | warning | danger | info | neutral
+  placeholder="Add technologies"
+  options={[
+    { group: "Frameworks", options: [
+      { value: "react", label: "React", description: "UI library" },
+      { value: "vue", label: "Vue", description: "Progressive framework" },
+      { value: "svelte", label: "Svelte", description: "Compiler-based" },
+    ]},
+    { group: "Tooling", options: ["tailwind", "typescript", "vite"] },
+  ]}
+  value={value}         // or defaultValue for uncontrolled
+  onChange={setValue}
+  clearable
+  disabled={false}
+  placement="bottom"    // bottom | top
+  portal                // false renders the dropdown inline
+  minWidth={320}        // min popover width in px when portaled
+  onFocus={(e) => {}}   // runs before the field's open-on-focus
+  onKeyDown={(e) => {}} // runs before the field's keyboard nav
+/>`,
+    render: () => <MultiSelectAllProps />,
   },
 ];
 

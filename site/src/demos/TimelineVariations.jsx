@@ -154,6 +154,39 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "All props",
+    description:
+      "Every Timeline prop in one place. The component takes a single items array; each TimelineItem exercises all of its fields — title, the muted time stamp, a supporting description, an inline-SVG icon inside the node dot, and tone (primary | info | success | warning | danger).",
+    code: `<Timeline
+  items={[
+    {
+      title: "Order placed",          // ReactNode — required event title
+      time: "9:41 AM",                 // ReactNode — muted stamp at the right of the title
+      description: "Confirmation email sent.", // ReactNode — supporting copy under the title
+      icon: <CheckIcon />,             // ReactNode — inline SVG inside the node dot
+      tone: "primary",                 // primary | info | success | warning | danger
+    },
+    { title: "Payment verified", time: "9:42 AM", description: "Card authorized for $129.00.", icon: <DotIcon />, tone: "info" },
+    { title: "Shipped", time: "2:10 PM", description: "Left the warehouse via express.", icon: <TruckIcon />, tone: "success" },
+    { title: "Out for delivery", time: "Today", description: "Running slightly behind schedule.", icon: <DotIcon />, tone: "warning" },
+    { title: "Delivery failed", time: "5:00 PM", description: "Recipient unavailable — will retry.", icon: <DotIcon />, tone: "danger" },
+  ]}
+/>`,
+    render: () => (
+      <div style={{ width: 440, maxWidth: "100%" }}>
+        <Timeline
+          items={[
+            { title: "Order placed", time: "9:41 AM", description: "Confirmation email sent.", icon: <CheckIcon />, tone: "primary" },
+            { title: "Payment verified", time: "9:42 AM", description: "Card authorized for $129.00.", icon: <DotIcon />, tone: "info" },
+            { title: "Shipped", time: "2:10 PM", description: "Left the warehouse via express.", icon: <TruckIcon />, tone: "success" },
+            { title: "Out for delivery", time: "Today", description: "Running slightly behind schedule.", icon: <DotIcon />, tone: "warning" },
+            { title: "Delivery failed", time: "5:00 PM", description: "Recipient unavailable — will retry.", icon: <DotIcon />, tone: "danger" },
+          ]}
+        />
+      </div>
+    ),
+  },
 ];
 
 export default variations;

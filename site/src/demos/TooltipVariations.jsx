@@ -88,6 +88,26 @@ const variations = [
       </Tooltip>
     ),
   },
+  {
+    title: "All props",
+    description: "Every Tooltip-specific prop in one place: the label (any React node), the placement, and the open delay — wrapped around its single trigger child.",
+    code: `<Tooltip
+  label={<span>Profile <InfoIcon /></span>}   // any React node
+  placement="right"                            // top | bottom | left | right
+  delay={200}                                  // open delay in ms
+>
+  <Button variant="soft" size="sm">Hover me</Button>
+</Tooltip>`,
+    render: () => (
+      <Tooltip
+        label={<span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>Profile <InfoIcon /></span>}
+        placement="right"
+        delay={200}
+      >
+        <Button variant="soft" size="sm">Hover me</Button>
+      </Tooltip>
+    ),
+  },
 ];
 
 export default variations;

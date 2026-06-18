@@ -17,15 +17,51 @@ function splitImports(code) {
   };
 }
 
-// Derive the `import { … } from "twico-ui"` line for a body that has none.
-function deriveImport(body) {
+const REACT_HOOKS = [
+  "useState", "useEffect", "useRef", "useMemo", "useCallback",
+  "useReducer", "useLayoutEffect", "useId", "useTransition", "useDeferredValue",
+];
+
+// Build the import lines the *expanded* view should show so the copied code is
+// actually runnable:
+//  - a React import when the body uses React.* (default import) or bare hooks
+//    (named import) — UNLESS the body already imports from "react";
+//  - the snippet's own existing imports (e.g. its `twico-ui` line);
+//  - a derived `import { … } from "twico-ui"` only when the body references Twico
+//    exports and provided none of its own.
+// (Previously the React import was only added when a snippet had NO imports at all,
+// so every stateful snippet that shipped its own twico-ui line silently lost it.)
+function buildImports(existing, body) {
+  const lines = [];
+  if (!/from\s+["']react["']/.test(existing)) {
+    if (/\bReact\./.test(body)) {
+      lines.push('import React from "react";');
+    } else {
+      const hooks = REACT_HOOKS.filter((h) => new RegExp(`\\b${h}\\b`).test(body));
+      if (hooks.length) lines.push(`import { ${hooks.join(", ")} } from "react";`);
+    }
+  }
+  // Every Twico export the body actually references.
   const used = EXPORT_NAMES.filter((name) =>
     name.startsWith("use") ? new RegExp(`\\b${name}\\b`).test(body) : new RegExp(`<${name}[\\s/>]`).test(body)
   );
-  const out = [];
-  if (/\bReact\.|\buseState\b|\buseEffect\b|\buseRef\b/.test(body)) out.push('import React from "react";');
-  if (used.length) out.push(`import { ${used.join(", ")} } from "twico-ui";`);
-  return out.join("\n");
+  // Merge `used` into the snippet's existing twico-ui import (so a partial import —
+  // e.g. only Card while the body also renders <Button/> — is completed), or add a
+  // fresh import line when the snippet provided none.
+  const twicoRe = /import\s*\{([^}]*)\}\s*from\s*["']twico-ui["'];?/;
+  if (twicoRe.test(existing)) {
+    lines.push(
+      existing.replace(twicoRe, (_full, names) => {
+        const have = names.split(",").map((s) => s.trim()).filter(Boolean);
+        const all = Array.from(new Set([...have, ...used]));
+        return `import { ${all.join(", ")} } from "twico-ui";`;
+      })
+    );
+  } else {
+    if (existing) lines.push(existing);
+    if (used.length) lines.push(`import { ${used.join(", ")} } from "twico-ui";`);
+  }
+  return lines.join("\n");
 }
 
 function SegToggle({ lang, setLang }) {
@@ -79,10 +115,9 @@ export default function CodeBlock({ code, tsCode, language = "jsx" }) {
   const full0 = String(raw || "").replace(/\n+$/, "");
 
   const { imports, body } = splitImports(full0);
-  const hasImports = imports.length > 0;
-  const derived = isJsx && !hasImports && body.trim() ? deriveImport(body) : "";
+  const fullImports = isJsx && body.trim() ? buildImports(imports, body) : imports;
   const shortCode = isJsx && body.trim() ? body : full0;
-  const fullCode = hasImports ? full0 : derived ? `${derived}\n\n${body}` : full0;
+  const fullCode = fullImports ? `${fullImports}\n\n${body}` : full0;
   // A long snippet is collapsed to a fixed-height preview (with a fade) so "Expand"
   // is meaningful; short ones only toggle the leading import lines as before.
   const COLLAPSE_LINES = 16;

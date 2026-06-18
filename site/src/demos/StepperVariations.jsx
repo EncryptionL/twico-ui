@@ -24,6 +24,26 @@ function ClickableExample() {
   );
 }
 
+const allPropsSteps = [
+  { title: "Account", description: "Your details", icon: <UserIcon /> },
+  { title: "Payment", description: "Card declined", icon: <CardIcon />, error: true },
+  { title: "Confirm", description: "Review order", icon: <CheckCircleIcon /> },
+];
+
+function StepperAllProps() {
+  const [active, setActive] = React.useState(2);
+  return (
+    <Stepper
+      steps={allPropsSteps}
+      active={active}                 // controlled index — or defaultActive for uncontrolled
+      orientation="horizontal"        // horizontal | vertical
+      tone="info"                     // primary | success | warning | danger | info | neutral
+      clickable={true}
+      onStepClick={setActive}
+    />
+  );
+}
+
 const variations = [
   {
     title: "Horizontal",
@@ -136,9 +156,38 @@ const variations = [
 <Stepper tone="info" active={1} steps={steps} />`,
     render: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 24, width: 480, maxWidth: "100%" }}>
-        {["primary", "success", "warning", "danger", "info"].map((tone) => (
+        {(/** @type {("primary" | "success" | "warning" | "danger" | "info")[]} */ (["primary", "success", "warning", "danger", "info"])).map((tone) => (
           <Stepper key={tone} tone={tone} active={1} steps={baseSteps} />
         ))}
+      </div>
+    ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every Stepper prop in one place — the steps array (each step's title, description, icon and error flag), the controlled active index paired with onStepClick (use defaultActive instead for the uncontrolled form), orientation, semantic tone, and the clickable flag that lets users jump back to completed/active steps.",
+    code: `const steps = [
+  { title: "Account", description: "Your details", icon: <UserIcon /> },
+  { title: "Payment", description: "Card declined", icon: <CardIcon />, error: true },
+  { title: "Confirm", description: "Review order", icon: <CheckCircleIcon /> },
+];
+
+function StepperAllProps() {
+  const [active, setActive] = React.useState(2);
+  return (
+    <Stepper
+      steps={steps}
+      active={active}                 // controlled index — or defaultActive for uncontrolled
+      orientation="horizontal"        // horizontal | vertical
+      tone="info"                     // primary | success | warning | danger | info | neutral
+      clickable={true}
+      onStepClick={setActive}
+    />
+  );
+}`,
+    render: () => (
+      <div style={{ width: 480, maxWidth: "100%" }}>
+        <StepperAllProps />
       </div>
     ),
   },

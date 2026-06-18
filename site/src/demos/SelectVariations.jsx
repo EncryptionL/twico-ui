@@ -19,6 +19,37 @@ const COUNTRIES = [
   "Germany", "India", "Japan", "Kenya", "Mexico", "Norway",
 ];
 
+// Stateful demo for the "All props" example — render() is called inside .map(),
+// so hooks must live in a module-level component, not inline in render.
+function SelectAllProps() {
+  const [value, setValue] = React.useState("ravi"); // or defaultValue for uncontrolled
+  return (
+    <div style={{ width: 340, maxWidth: "100%" }}>
+      <Select
+        label="Assignee"
+        hint="Pick who owns this task"      // error (below) replaces the hint when set
+        error={undefined}                   // e.g. "Please choose a teammate"
+        required
+        size="md"                            // sm | md | lg
+        tone="primary"                       // primary | success | warning | danger | info | neutral
+        placeholder="Pick a teammate"
+        searchable                           // omit to auto-enable past 5 options
+        searchPlaceholder="Search people…"
+        options={PEOPLE}                     // strings, {value,label,description}, or {group,options}
+        value={value}                        // controlled — or defaultValue for uncontrolled
+        onChange={setValue}                  // (value: string | null) — null when cleared
+        clearable                            // shows a × affix; Delete/Backspace also clears
+        disabled={false}
+        placement="bottom"                   // bottom | top
+        portal                               // render in a portal so nothing clips it
+        minWidth={240}                       // min popover width in px when portaled
+        onClick={() => {}}                   // composed; preventDefault() to stop the toggle
+        onKeyDown={() => {}}                 // composed; preventDefault() to suppress nav
+      />
+    </div>
+  );
+}
+
 const variations = [
   {
     title: "Sizes",
@@ -130,6 +161,43 @@ const variations = [
         />
       </div>
     ),
+  },
+  {
+    title: "All props",
+    description: "Every Select-specific prop in one place — label/hint/error, required, size, tone, placeholder, the in-popover search (searchable + searchPlaceholder), grouped options, controlled value + onChange, clearable, disabled, placement, portal + minWidth, and the composed onClick/onKeyDown handlers.",
+    code: `const [value, setValue] = React.useState("ravi"); // or defaultValue for uncontrolled
+
+<Select
+  label="Assignee"
+  hint="Pick who owns this task"      // error (below) replaces the hint when set
+  error={undefined}                   // e.g. "Please choose a teammate"
+  required
+  size="md"                            // sm | md | lg
+  tone="primary"                       // primary | success | warning | danger | info | neutral
+  placeholder="Pick a teammate"
+  searchable                           // omit to auto-enable past 5 options
+  searchPlaceholder="Search people…"
+  options={[                           // strings, {value,label,description}, or {group,options}
+    { group: "Design", options: [
+      { value: "ada", label: "Ada Park", description: "Product designer" },
+      { value: "sam", label: "Sam Lee", description: "Brand designer" },
+    ]},
+    { group: "Engineering", options: [
+      { value: "jo", label: "Jo Kim", description: "Frontend" },
+      { value: "ravi", label: "Ravi Shah", description: "Backend" },
+    ]},
+  ]}
+  value={value}                        // controlled — or defaultValue for uncontrolled
+  onChange={setValue}                  // (value: string | null) — null when cleared
+  clearable                            // shows a × affix; Delete/Backspace also clears
+  disabled={false}
+  placement="bottom"                   // bottom | top
+  portal                               // render in a portal so nothing clips it
+  minWidth={240}                       // min popover width in px when portaled
+  onClick={() => {}}                   // composed; preventDefault() to stop the toggle
+  onKeyDown={() => {}}                 // composed; preventDefault() to suppress nav
+/>`,
+    render: () => <SelectAllProps />,
   },
 ];
 

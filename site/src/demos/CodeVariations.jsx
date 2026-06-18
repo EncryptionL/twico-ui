@@ -55,6 +55,36 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "All props",
+    description:
+      "Every Code-specific prop in one place — as picks the rendered tag, and the as=\"a\" link form adds href (scheme-sanitized), target, and rel.",
+    code: `// Default inline <code> element:
+<Code as="code">npm install twico-ui</Code>
+
+// Render as a scheme-sanitized link instead:
+<Code
+  as="a"                              // any intrinsic tag: code | kbd | a | span …
+  href="https://github.com/twico-ui"  // only used with as="a"; javascript:/data:/vbscript: are stripped
+  target="_blank"                     // only used with as="a"
+  rel="noopener noreferrer"           // pair with target="_blank"
+>
+  twico-ui/twico-ui
+</Code>`,
+    render: () => (
+      <>
+        <Code as="code">npm install twico-ui</Code>
+        <Code
+          as="a"
+          href="https://github.com/twico-ui"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          twico-ui/twico-ui
+        </Code>
+      </>
+    ),
+  },
 ];
 
 export default variations;

@@ -25,6 +25,30 @@ const fullItems = [
   { label: "Settings", icon: <CogIcon /> },
 ];
 
+function SidebarAllProps() {
+  const [collapsed, setCollapsed] = React.useState(false); // or defaultCollapsed for uncontrolled
+  return (
+    <div style={{ display: "flex", height: 460 }}>
+      <Sidebar
+        brand={<Brand />}
+        items={[
+          // Each SidebarItem supports section | label, icon, href, active, badge, onClick
+          { section: "Main" },
+          { label: "Dashboard", icon: <HomeIcon />, href: "#dashboard", active: true, onClick: () => {} },
+          { label: "Inbox", icon: <InboxIcon />, href: "#inbox", badge: 4, onClick: () => {} },
+          { label: "Reports", icon: <ReportsIcon />, href: "#reports", onClick: () => {} },
+          { section: "Account" },
+          { label: "Settings", icon: <CogIcon />, href: "#settings", onClick: () => {} },
+        ]}
+        footer={<span>Jane Doe</span>}
+        collapsed={collapsed} // controlled — use defaultCollapsed instead for uncontrolled
+        onCollapsedChange={setCollapsed}
+        collapsible
+      />
+    </div>
+  );
+}
+
 const variations = [
   {
     title: "Sections, icons and badges",
@@ -134,6 +158,34 @@ const variations = [
         />
       </div>
     ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every Sidebar-specific prop in one place — brand, items (with every SidebarItem field: section, label, icon, href, active, badge, onClick), footer, the controlled collapsed state with onCollapsedChange, and collapsible.",
+    code: `function SidebarAllProps() {
+  const [collapsed, setCollapsed] = React.useState(false); // or defaultCollapsed for uncontrolled
+
+  return (
+    <Sidebar
+      brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+      items={[
+        // Each SidebarItem supports section | label, icon, href, active, badge, onClick
+        { section: "Main" },
+        { label: "Dashboard", icon: <HomeIcon />, href: "#dashboard", active: true, onClick: () => {} },
+        { label: "Inbox", icon: <InboxIcon />, href: "#inbox", badge: 4, onClick: () => {} },
+        { label: "Reports", icon: <ReportsIcon />, href: "#reports", onClick: () => {} },
+        { section: "Account" },
+        { label: "Settings", icon: <CogIcon />, href: "#settings", onClick: () => {} },
+      ]}
+      footer={<span>Jane Doe</span>}
+      collapsed={collapsed}             // controlled — use defaultCollapsed instead for uncontrolled
+      onCollapsedChange={setCollapsed}
+      collapsible                       // set false to pin expanded and hide the toggle
+    />
+  );
+}`,
+    render: () => <SidebarAllProps />,
   },
 ];
 

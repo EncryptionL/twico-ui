@@ -14,6 +14,57 @@ const BellIcon = () => (
   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6Z" /><path d="M10 20a2 2 0 0 0 4 0" /></svg>
 );
 
+// Every Navbar prop in one place. Active link state and the brand/menu click
+// handlers need state, so the example lives in a small local component.
+function NavbarAllProps() {
+  const [active, setActive] = React.useState("Home");
+  const [log, setLog] = React.useState("");
+  return (
+    <Navbar
+      sticky={false}
+      brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+      onBrandClick={() => setLog("brand clicked")}
+      links={[
+        { label: "Home", icon: <HomeIcon />, active: active === "Home", onClick: () => setActive("Home") },
+        { label: "Files", icon: <FolderIcon />, active: active === "Files", onClick: () => setActive("Files") },
+        { label: "Docs", icon: <UsersIcon />, href: "https://example.com/docs", active: active === "Docs" },
+      ]}
+      onMenuClick={() => setLog("menu clicked (small screens)")}
+      actions={
+        <>
+          <IconButton aria-label="Notifications" icon={<BellIcon />} />
+          <Avatar name="Ada Park" size="sm" />
+        </>
+      }
+    />
+  );
+}
+
+const navbarAllPropsCode = `function NavbarAllProps() {
+  const [active, setActive] = React.useState("Home");
+  const [log, setLog] = React.useState("");
+  return (
+    <Navbar
+      sticky={false}                                  // translucent sticky top bar; default true
+      brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+      onBrandClick={() => setLog("brand clicked")}     // brand renders as a button
+      // brandHref="/"                                 // OR make the brand a link (mutually exclusive with onBrandClick)
+      links={[
+        { label: "Home", icon: <HomeIcon />, active: active === "Home", onClick: () => setActive("Home") },
+        { label: "Files", icon: <FolderIcon />, active: active === "Files", onClick: () => setActive("Files") },
+        { label: "Docs", icon: <UsersIcon />, href: "https://example.com/docs", active: active === "Docs" },
+      ]}
+      onMenuClick={() => setLog("menu clicked (small screens)")}  // hamburger shown < 720px
+      actions={
+        <>
+          <IconButton aria-label="Notifications" icon={<BellIcon />} />
+          <Avatar name="Ada Park" size="sm" />
+        </>
+      }
+    />
+  );
+}`;
+
 // Active link state is driven by onClick, so this lives in a small local component.
 function ActiveLinksExample() {
   const [active, setActive] = React.useState("Dashboard");
@@ -151,6 +202,13 @@ const variations = [
         actions={<Button size="sm" variant="outline">GitHub</Button>}
       />
     ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every Navbar-specific prop in one place: brand + onBrandClick (use brandHref instead to make it a link), links with label/icon/href/active/onClick, actions, onMenuClick (the hamburger appears under 720px), and sticky.",
+    code: navbarAllPropsCode,
+    render: () => <NavbarAllProps />,
   },
 ];
 

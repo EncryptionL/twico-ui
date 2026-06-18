@@ -37,6 +37,26 @@ function ToastQueueExample() {
   );
 }
 
+// Every Toast-specific prop in one toast; onClose dismisses it, Restore brings it back.
+function ToastAllProps() {
+  const [open, setOpen] = React.useState(true);
+  return open ? (
+    <Toast
+      tone="info"
+      title="Deploy started"
+      icon={<RocketIcon />}
+      duration={8000}
+      onClose={() => setOpen(false)}
+    >
+      Shipping your build to production.
+    </Toast>
+  ) : (
+    <Button variant="soft" size="sm" onClick={() => setOpen(true)}>
+      Restore toast
+    </Button>
+  );
+}
+
 const variations = [
   {
     title: "Tones",
@@ -112,6 +132,27 @@ const remove = (id) => setToasts((s) => s.filter((t) => t.id !== id));
   </ToastViewport>
 </>`,
     render: () => <ToastQueueExample />,
+  },
+  {
+    title: "All props",
+    description:
+      "Every Toast-specific prop in one place — tone, title, body (children), a custom icon overriding the tone glyph, duration (paused on hover/focus; 0 or Infinity keeps it open), and onClose to render the close button and handle dismissal. Click X to dismiss; press Restore to bring it back.",
+    code: `const [open, setOpen] = React.useState(true);
+
+{open ? (
+  <Toast
+    tone="info"              // default | neutral | success | warning | danger | info
+    title="Deploy started"   // bold heading (ReactNode)
+    icon={<RocketIcon />}    // overrides the built-in tone icon
+    duration={8000}          // auto-dismiss ms, paused on hover/focus; 0/Infinity = stay open
+    onClose={() => setOpen(false)} // shows the close button + handles dismissal
+  >
+    Shipping your build to production.   {/* body = children */}
+  </Toast>
+) : (
+  <Button variant="soft" size="sm" onClick={() => setOpen(true)}>Restore toast</Button>
+)}`,
+    render: () => <ToastAllProps />,
   },
 ];
 

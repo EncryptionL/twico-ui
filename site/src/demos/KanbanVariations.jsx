@@ -130,14 +130,87 @@ const cards = [
       </div>
     ),
   },
+  {
+    title: "All props",
+    description:
+      "Every Kanban-specific prop in one place — columns, the controlled cards + onCardMove pair (state-owned), and renderCard for custom card content. Use defaultCards instead of cards/onCardMove for an uncontrolled board that tracks moves internally.",
+    code: `const columns = [
+  { id: "todo", title: "To do", color: "var(--slate-400)" },
+  { id: "doing", title: "In progress", color: "var(--amber-500)" },
+  { id: "done", title: "Done", color: "var(--emerald-500)" },
 ];
 
-function ControlledBoard() {
+function Board() {
+  // Controlled: own the state via cards + onCardMove.
+  // Use defaultCards={...} instead (and drop cards/onCardMove) for an uncontrolled board.
   const [cards, setCards] = React.useState([
+    { id: "1", column: "todo", title: "Design tokens", description: "Audit color scales", tags: ["Design"], footer: <Avatar name="Ada Lovelace" size="xs" /> },
+    { id: "2", column: "doing", title: "Datatable filters", tags: ["Frontend"], priority: "High", tone: "danger" },
+    { id: "3", column: "done", title: "Ship release", description: "v1.2.0 published", tags: ["Release"] },
+  ]);
+
+  return (
+    <Kanban
+      columns={columns}                                  // KanbanColumn[] — { id, title, color? }
+      cards={cards}                                       // controlled cards (KanbanCard[])
+      onCardMove={(cardId, toColumn, nextCards) => {      // fired on drop in a new column
+        setCards(nextCards);
+        console.log(cardId, "->", toColumn);
+      }}
+      renderCard={(card) => (                             // custom card content
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <strong style={{ fontSize: 14 }}>{card.title}</strong>
+            {card.tone ? <Badge tone={card.tone}>{card.priority}</Badge> : null}
+          </div>
+          {card.description ? <span style={{ fontSize: 12, color: "var(--color-text-muted)" }}>{card.description}</span> : null}
+          {card.footer || null}
+        </div>
+      )}
+    />
+  );
+}`,
+    render: () => <KanbanAllProps />,
+  },
+];
+
+function KanbanAllProps() {
+  const [cards, setCards] = React.useState(/** @type {import("twico-ui").KanbanCard[]} */ ([
+    { id: "1", column: "todo", title: "Design tokens", description: "Audit color scales", tags: ["Design"], footer: <Avatar name="Ada Lovelace" size="xs" /> },
+    { id: "2", column: "doing", title: "Datatable filters", tags: ["Frontend"], priority: "High", tone: "danger" },
+    { id: "3", column: "done", title: "Ship release", description: "v1.2.0 published", tags: ["Release"] },
+  ]));
+
+  return (
+    <div style={{ width: "100%", overflowX: "auto" }}>
+      <Kanban
+        columns={baseColumns}
+        cards={cards}
+        onCardMove={(cardId, toColumn, nextCards) => {
+          setCards(nextCards);
+          console.log(cardId, "->", toColumn);
+        }}
+        renderCard={(card) => (
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <strong style={{ fontSize: 14 }}>{card.title}</strong>
+              {card.tone ? <Badge tone={card.tone}>{card.priority}</Badge> : null}
+            </div>
+            {card.description ? <span style={{ fontSize: 12, color: "var(--color-text-muted)" }}>{card.description}</span> : null}
+            {card.footer || null}
+          </div>
+        )}
+      />
+    </div>
+  );
+}
+
+function ControlledBoard() {
+  const [cards, setCards] = React.useState(/** @type {import("twico-ui").KanbanCard[]} */ ([
     { id: "1", column: "todo", title: "Design tokens", tags: ["Design"] },
     { id: "2", column: "doing", title: "Datatable filters", tags: ["Frontend"] },
     { id: "3", column: "done", title: "Ship release" },
-  ]);
+  ]));
 
   return (
     <div style={{ width: "100%", overflowX: "auto" }}>

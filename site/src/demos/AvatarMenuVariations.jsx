@@ -94,6 +94,45 @@ const variations = [
       />
     ),
   },
+  {
+    title: "All props",
+    description:
+      "Every AvatarMenu prop in one place. subtitle overrides email for the displayed text; items hold their own onClick callbacks. Click the avatar to open the menu.",
+    code: `// items carry their own per-item onClick callbacks
+const items = [
+  { label: "Profile", icon: <UserIcon />, onClick: () => {} },
+  { label: "Settings", icon: <SettingsIcon />, shortcut: "⌘,", onClick: () => {} },
+  { separator: true },
+  { label: "Sign out", icon: <LogOutIcon />, danger: true, onClick: () => {} },
+];
+
+<AvatarMenu
+  name="Ada Park"
+  src="/u/ada.jpg"                          // avatar image; falls back to initials
+  email="ada@twico.dev"                     // shown in header (and trigger when showName)
+  subtitle="Workspace admin"                // overrides email for the displayed text
+  status="online"                           // online | busy | away | offline
+  size="md"                                 // xs | sm | md | lg | xl
+  showName                                  // reveal name + subtitle next to the avatar
+  showChevron                               // defaults to showName; force it on
+  align="end"                               // start | end
+  items={items}
+/>`,
+    render: () => (
+      <AvatarMenu
+        name="Ada Park"
+        src="/u/ada.jpg"
+        email="ada@twico.dev"
+        subtitle="Workspace admin"
+        status="online"
+        size="md"
+        showName
+        showChevron
+        align="end"
+        items={accountItems}
+      />
+    ),
+  },
 ];
 
 export default variations;

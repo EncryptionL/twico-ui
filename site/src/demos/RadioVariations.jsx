@@ -1,6 +1,39 @@
 import React from "react";
 import { Radio } from "twico-ui";
 
+function RadioAllProps() {
+  const [value, setValue] = React.useState("pro");
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      <Radio
+        name="all-props"
+        value="free"
+        label="Free"
+        description="For personal projects"
+        size="md"
+        tone="primary"
+        required
+        disabled={false}
+        checked={value === "free"}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <Radio
+        name="all-props"
+        value="pro"
+        label="Pro"
+        description="$12 / month"
+        size="md"
+        tone="primary"
+        required
+        disabled={false}
+        checked={value === "pro"}
+        onChange={(e) => setValue(e.target.value)}
+        error="Please choose a different plan"
+      />
+    </div>
+  );
+}
+
 const variations = [
   {
     title: "Grouped",
@@ -71,6 +104,39 @@ const variations = [
         <Radio name="tone-info" value="a" label="Info" tone="info" defaultChecked />
       </div>
     ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every Radio-specific prop in one place: label, description, size, tone, required, disabled, the controlled value pair (name/value/checked/onChange) and error. The second radio shows error (which renders below and tints the dot red).",
+    code: `const [value, setValue] = React.useState("pro");
+
+<Radio
+  name="all-props"
+  value="free"
+  label="Free"
+  description="For personal projects"   // optional line under the label
+  size="md"                             // sm | md | lg
+  tone="primary"                        // primary | success | warning | danger | info | neutral
+  required
+  disabled={false}
+  checked={value === "free"}            // or defaultChecked for uncontrolled
+  onChange={(e) => setValue(e.target.value)}
+/>
+<Radio
+  name="all-props"
+  value="pro"
+  label="Pro"
+  description="$12 / month"
+  size="md"
+  tone="primary"
+  required
+  disabled={false}
+  checked={value === "pro"}
+  onChange={(e) => setValue(e.target.value)}
+  error="Please choose a different plan" // replaces the description slot below
+/>`,
+    render: () => <RadioAllProps />,
   },
 ];
 

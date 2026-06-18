@@ -114,6 +114,37 @@ const variations = [
       />
     ),
   },
+  {
+    title: "All props",
+    description: "Every EmptyState prop in one place — the illustrative icon tile, title, description, the actions row, and the dashed border. Use border (the preferred alias); bordered is the deprecated alias for the same dashed outline.",
+    code: `<EmptyState
+  icon={<UploadIcon />}
+  title="No projects yet"
+  description="Create your first project to get started, or import one from a file."
+  actions={
+    <>
+      <Button leftIcon={<PlusIcon />}>New project</Button>
+      <Button variant="outline">Import</Button>
+    </>
+  }
+  border={true}            // preferred alias; adds a dashed border (drop-target look)
+  // bordered={true}       // deprecated alias for border — don't pass both
+/>`,
+    render: () => (
+      <EmptyState
+        icon={<UploadIcon />}
+        title="No projects yet"
+        description="Create your first project to get started, or import one from a file."
+        actions={
+          <>
+            <Button leftIcon={<PlusIcon />}>New project</Button>
+            <Button variant="outline">Import</Button>
+          </>
+        }
+        border={true}
+      />
+    ),
+  },
 ];
 
 export default variations;

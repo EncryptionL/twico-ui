@@ -219,7 +219,7 @@ export default function Hooks() {
       </Stack>
 
       <Stack as="section" gap={3}>
-        <Heading level={2} id="usage">Import</Heading>
+        <Heading level={2} id="import">Import</Heading>
         <Text tone="muted">Import any hook directly from the package:</Text>
         <CodeBlock
           code={'import { useDisclosure, useMediaQuery, useColorScheme } from "twico-ui";'}

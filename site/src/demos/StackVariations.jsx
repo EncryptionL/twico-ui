@@ -90,6 +90,50 @@ const variations = [
       </Stack>
     ),
   },
+  {
+    title: "All props",
+    description: "Every Stack-specific prop in one place — flex direction, gap, align/justify, wrap and inline flags, plus the as=\"a\" link form (href is scheme-sanitized; pair rel=\"noopener noreferrer\" with target=\"_blank\").",
+    code: `<Stack
+  as="div"                  // any intrinsic tag: "div" | "section" | "nav" | "a" | …
+  direction="row"           // row | column | row-reverse | column-reverse
+  gap={3}                   // spacing step (number) or any CSS length, e.g. "1.5rem"
+  align="center"            // alignItems
+  justify="space-between"   // justifyContent
+  wrap={true}
+  inline={false}
+>
+  <Badge tone="success">Active</Badge>
+  <Badge>React</Badge>
+  <Badge>TypeScript</Badge>
+  <Button size="sm" variant="soft">Manage</Button>
+</Stack>
+
+// Render as a link instead of a div (href, target, rel only apply when as="a"):
+<Stack as="a" href="/docs" target="_blank" rel="noopener noreferrer" direction="row" gap={1} align="center" inline>
+  <Badge>Open docs</Badge>
+</Stack>`,
+    render: () => (
+      <div style={{ width: 360, maxWidth: "100%" }}>
+        <Stack
+          as="div"
+          direction="row"
+          gap={3}
+          align="center"
+          justify="space-between"
+          wrap={true}
+          inline={false}
+        >
+          <Badge tone="success">Active</Badge>
+          <Badge>React</Badge>
+          <Badge>TypeScript</Badge>
+          <Button size="sm" variant="soft">Manage</Button>
+        </Stack>
+        <Stack as="a" href="/docs" target="_blank" rel="noopener noreferrer" direction="row" gap={1} align="center" inline>
+          <Badge>Open docs</Badge>
+        </Stack>
+      </div>
+    ),
+  },
 ];
 
 export default variations;

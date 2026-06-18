@@ -58,6 +58,33 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "All props",
+    description:
+      "Every Heading-specific prop in one place. `as` overrides the rendered tag; with as=\"a\" the anchor props (href/target/rel) apply and the href is scheme-sanitized. `level` sets the default tag + size, `size` overrides the font-size token suffix, and `align` controls text alignment.",
+    code: `<Heading
+  as="a"                       // override the rendered tag (here an anchor)
+  href="https://example.com"   // only used with as="a"; scheme-sanitized
+  target="_blank"              // only used with as="a"
+  rel="noopener noreferrer"    // only used with as="a"; pair with target="_blank"
+  level={1}                    // 1–6: sets the tag (when no \`as\`) + default size
+  size="3xl"                   // override the font-size token suffix
+  align="center"               // textAlign value
+>All props heading</Heading>`,
+    render: () => (
+      <Heading
+        as="a"
+        href="https://example.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        level={1}
+        size="3xl"
+        align="center"
+      >
+        All props heading
+      </Heading>
+    ),
+  },
 ];
 
 export default variations;

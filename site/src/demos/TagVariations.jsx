@@ -19,6 +19,27 @@ function RemovableList() {
   );
 }
 
+function TagAllProps() {
+  const [shown, setShown] = React.useState(true);
+  if (!shown) {
+    return (
+      <Tag tone="neutral" variant="outline">
+        removed — re-render to reset
+      </Tag>
+    );
+  }
+  return (
+    <Tag
+      tone="primary"
+      variant="soft"
+      leftIcon={<HashIcon />}
+      onRemove={() => setShown(false)}
+    >
+      design-system
+    </Tag>
+  );
+}
+
 const variations = [
   {
     title: "Basic",
@@ -85,6 +106,22 @@ const remove = (name) => setTags((prev) => prev.filter((t) => t !== name));
         <Tag tone="neutral" variant="outline">neutral</Tag>
       </div>
     ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every Tag-specific prop in one place: children, leftIcon, tone, variant, and onRemove (passing onRemove renders the × button).",
+    code: `const [shown, setShown] = React.useState(true);
+
+<Tag
+  tone="primary"        // neutral | primary | success | warning | danger | info
+  variant="soft"        // soft | solid | outline
+  leftIcon={<HashIcon />}
+  onRemove={() => setShown(false)}  // omit onRemove to hide the × button
+>
+  design-system
+</Tag>`,
+    render: () => <TagAllProps />,
   },
 ];
 

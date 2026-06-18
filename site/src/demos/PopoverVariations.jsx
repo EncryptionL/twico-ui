@@ -5,6 +5,26 @@ const InfoIcon = () => (
   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 16v-4M12 8h.01" /></svg>
 );
 
+// Stateful wrapper: `render` runs inside .map(), so hooks live in a component.
+function PopoverAllProps() {
+  const [open, setOpen] = React.useState(false); // or defaultOpen for uncontrolled
+  return (
+    <Popover
+      trigger={<Button variant="outline" leftIcon={<InfoIcon />}>Account</Button>}
+      title="Workspace settings"
+      placement="bottom"           // top | bottom | left | right
+      align="end"                  // start | center | end
+      width={300}
+      open={open}                  // controlled — pair with onOpenChange
+      onOpenChange={setOpen}       // fires on trigger click, Esc, outside click
+      // defaultOpen={false}       // uncontrolled alternative (omit open/onOpenChange)
+    >
+      <Input defaultValue="acme-team" />
+      <Button fullWidth onClick={() => setOpen(false)}>Done</Button>
+    </Popover>
+  );
+}
+
 const variations = [
   {
     title: "Basic",
@@ -107,6 +127,27 @@ const variations = [
         This popover has no bold title — just body content.
       </Popover>
     ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every Popover-specific prop in one place. Shown controlled (open + onOpenChange with state); use defaultOpen instead for the uncontrolled form.",
+    code: `const [open, setOpen] = React.useState(false); // or defaultOpen for uncontrolled
+
+<Popover
+  trigger={<Button variant="outline" leftIcon={<InfoIcon />}>Account</Button>}
+  title="Workspace settings"
+  placement="bottom"           // top | bottom | left | right
+  align="end"                  // start | center | end
+  width={300}
+  open={open}                  // controlled — pair with onOpenChange
+  onOpenChange={setOpen}       // fires on trigger click, Esc, outside click
+  // defaultOpen={false}       // uncontrolled alternative (omit open/onOpenChange)
+>
+  <Input defaultValue="acme-team" />
+  <Button fullWidth onClick={() => setOpen(false)}>Done</Button>
+</Popover>`,
+    render: () => <PopoverAllProps />,
   },
 ];
 

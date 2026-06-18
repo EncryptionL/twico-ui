@@ -27,6 +27,31 @@ function SelectableTree() {
   );
 }
 
+function TreeViewAllProps() {
+  // Controlled expand state (pair with onExpandedChange). For uncontrolled, use defaultExpanded instead.
+  const [expanded, setExpanded] = React.useState(["src", "comp"]);
+  // Controlled selection (pair with onSelect). For uncontrolled, use defaultSelectedId instead.
+  const [selectedId, setSelectedId] = React.useState("btn");
+  return (
+    <TreeView
+      items={[
+        { id: "src", label: "src", icon: <FolderIcon />, badge: 4, children: [
+          { id: "app", label: "App.tsx", icon: <FileIcon /> },
+          { id: "comp", label: "components", icon: <FolderIcon />, badge: 2, children: [
+            { id: "btn", label: "Button.tsx", icon: <FileIcon /> },
+            { id: "tree", label: "TreeView.tsx", icon: <FileIcon /> },
+          ]},
+        ]},
+        { id: "pkg", label: "package.json", icon: <FileIcon /> },
+      ]}
+      expanded={expanded}                          // or defaultExpanded for uncontrolled
+      onExpandedChange={(ids) => setExpanded(ids)}
+      selectedId={selectedId}                       // or defaultSelectedId for uncontrolled
+      onSelect={(id, node) => setSelectedId(id)}    // node is the full TreeNode (2nd arg)
+    />
+  );
+}
+
 const variations = [
   {
     title: "File explorer",
@@ -145,6 +170,39 @@ const variations = [
     render: () => (
       <div style={{ width: 280, maxWidth: "100%" }}>
         <SelectableTree />
+      </div>
+    ),
+  },
+  {
+    title: "All props",
+    description: "Every TreeView-specific prop in one place: items (with id, label, icon, badge, children), the controlled expanded + onExpandedChange pair, and the controlled selectedId + onSelect pair. Swap to defaultExpanded / defaultSelectedId for the uncontrolled form.",
+    code: `function TreeViewAllProps() {
+  // Controlled expand state (pair with onExpandedChange). For uncontrolled, use defaultExpanded instead.
+  const [expanded, setExpanded] = React.useState(["src", "comp"]);
+  // Controlled selection (pair with onSelect). For uncontrolled, use defaultSelectedId instead.
+  const [selectedId, setSelectedId] = React.useState("btn");
+  return (
+    <TreeView
+      items={[
+        { id: "src", label: "src", icon: <FolderIcon />, badge: 4, children: [
+          { id: "app", label: "App.tsx", icon: <FileIcon /> },
+          { id: "comp", label: "components", icon: <FolderIcon />, badge: 2, children: [
+            { id: "btn", label: "Button.tsx", icon: <FileIcon /> },
+            { id: "tree", label: "TreeView.tsx", icon: <FileIcon /> },
+          ]},
+        ]},
+        { id: "pkg", label: "package.json", icon: <FileIcon /> },
+      ]}
+      expanded={expanded}                          // or defaultExpanded for uncontrolled
+      onExpandedChange={(ids) => setExpanded(ids)}
+      selectedId={selectedId}                       // or defaultSelectedId for uncontrolled
+      onSelect={(id, node) => setSelectedId(id)}    // node is the full TreeNode (2nd arg)
+    />
+  );
+}`,
+    render: () => (
+      <div style={{ width: 280, maxWidth: "100%" }}>
+        <TreeViewAllProps />
       </div>
     ),
   },

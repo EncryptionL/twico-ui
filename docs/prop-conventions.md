@@ -31,6 +31,14 @@ standardized 2026-06-18; this doc is the source of truth.)
 - **Composite controls** (Select, Combobox, MultiSelect, Slider, Rating, pickers) call
   `onChange(value)`. **Native-input wrappers** (Input, Textarea, Currency) call `onChange(event)` to
   preserve the native event, and may add a parsed callback (`Currency.onValueChange(value, formatted)`).
+- **Every stateful control pairs controlled + uncontrolled** — the same `X` / `defaultX` split applies
+  beyond `value`, using each control's domain prop name: Accordion `open`/`defaultOpen`, Tabs
+  `value`/`defaultValue`, Stepper `active`/`defaultActive`, Carousel `index`/`defaultIndex`, Pagination
+  `page`/`defaultPage`, Sidebar `collapsed`/`defaultCollapsed`, TreeView `expanded`/`defaultExpanded`
+  **and** `selectedId`/`defaultSelectedId`, Menu/Popover `open`/`defaultOpen`. Native-input wrappers
+  (Input/Textarea/Checkbox/Radio/Switch/Currency) inherit `value`/`defaultValue` (or
+  `checked`/`defaultChecked`) from the DOM element. **Modal overlays** (Dialog, Drawer, CommandPalette)
+  are controlled-only (`open` + `onClose`) by design; **Tooltip** is hover-driven (no `open` prop).
 
 ## Collections — `items` (and conventional domain names)
 - The generic collection prop is **`items`** (Accordion, Tabs, List, Menu, Timeline, Sidebar, Breadcrumb,

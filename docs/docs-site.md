@@ -46,6 +46,22 @@ site/
   fallback instead of breaking the page), a **code snippet**, a **Variations** section (several live
   examples loaded from `<Name>Variations.jsx`, each with its own preview + copyable code), and a
   **props table**. The "Variations" heading renders synchronously so the on-this-page TOC finds it.
+- **"All props" example.** Every component's `<Name>Variations.jsx` ends with an entry titled
+  **"All props"** that exercises every *component-specific* prop in one live example (preview +
+  copyable JS/TS code) — the generic DOM passthrough (`id`/`style`/`className`/`...rest`) is left out.
+  Stateful/overlay cases use a module-level component (hooks can't run in the `render()` thunk, which
+  is called inside a `.map()`). The whole Variations suite is **type-clean**: each demo file
+  type-checks against the real library types (`tsc --checkJs` with `twico-ui` aliased to `src/`,
+  data consts annotated via `/** @type {import("twico-ui").XColumn[]} */`), so example props can't
+  drift from the contract.
+- **Preview framing.** The demo/variation preview box (`LiveExample.jsx`, also used by the Playground
+  preview) centers small demos (`justify-content: safe center`) but must let a **wide** demo (a
+  many-column Datatable, a Kanban board) shrink to the card and scroll **internally** — never an outer
+  horizontal scrollbar and never clipped. The catch: flex items default to `min-width: auto`
+  (= min-content), so a wide child refuses to shrink and spills out / forces an outer scrollbar.
+  `previewFit.js` injects one scoped rule — `[data-twc-preview] > * { min-width: 0; max-width: 100% }`
+  (a `data-` attribute, no class names) — applied to the preview row so each demo element shrinks to
+  the card width and its own `overflow:auto` region (e.g. the Datatable's table scroller) takes over.
 - The **props table** (`PropsTable.jsx`) renders union types as one wrapping chip per member and
   complex single types as wrapping monospace, so a long `type` can never force horizontal scroll or
   crush the description column. Each prop `description` in `components.js` is written as a single
@@ -57,7 +73,11 @@ site/
 - Each code block has a toolbar: a **JS / TS** toggle (shared, persisted via `useLocalStorage` —
   `CodeLang.jsx`) that switches highlighting (`jsx`↔`tsx`), setup file extensions (`.jsx`↔`.tsx`), the
   `import type { … }` line, and any block's `tsCode`; plus **Expand/Collapse** (collapsed shows the
-  simple JSX, expanded the full form with imports — derived from the twico-ui exports used). A **long**
+  simple JSX, expanded the full form with imports). Expanded imports are built by `buildImports`
+  (`CodeBlock.jsx`): it derives the **React import** when the body uses `React.*` (default import) or
+  bare hooks (named import) and **merges every used Twico export** into the snippet's `twico-ui` import
+  line, so the copied code is actually runnable — not just the components that happened to be listed.
+  A **long**
   snippet (> 16 lines, e.g. the Datatable Usage) is additionally **height-clamped** to ~360px while
   collapsed, with a bottom fade + "Expand code" affordance — otherwise the collapsed view dumped the
   whole body and "Expand" only added the import lines, which read as doing nothing.
@@ -74,6 +94,14 @@ site/
   `behavior: "instant"` so a new page lands at the top without a long animated scroll. Each component
   page ends with a **Prev/Next pager** (`ComponentPage.jsx`), and the right-hand "On this page" TOC is
   spaced off the article so it doesn't crowd the content.
+- **"On this page" TOC** (`TableOfContents.jsx`, ≥1200 px) auto-builds from the `h2[id]`/`h3[id]`
+  headings inside `#doc-article`, so it works uniformly on **every** doc page, not just component
+  pages — Installation, Theming, Colors, Dark mode, Accessibility, Hooks, Theme builder, **Playground**,
+  and the components index all list their sections. Only headings with an `id` are picked up, so
+  example/demo headings (which have none) never leak in. The standard is: give each section heading an
+  `id` via `AnchorHeading` (component pages) or `slugify(text)` (doc pages). `slugify` collapses any
+  non-alphanumeric run to a hyphen so ids are always valid anchors (e.g. group "Buttons & actions" →
+  `#buttons-actions`); component names are single words, so their route slugs are unaffected.
 - Dark mode toggles the `.dark` class on `<html>` and persists to `localStorage`.
 
 ## Regenerating the component reference

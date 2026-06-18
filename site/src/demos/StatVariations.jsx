@@ -68,6 +68,31 @@ const variations = [
       <Stat plain label="Revenue" value="$48,200" delta="+12.5%" helpText="vs last month" />
     ),
   },
+  {
+    title: "All props",
+    description:
+      "Every Stat-specific prop in one place. Stat is presentational, so it has no callbacks: label and value are required; icon, delta, deltaDirection, and helpText are optional; plain (here false) keeps the card chrome.",
+    code: `<Stat
+  label="Revenue"
+  value="$48,200"
+  icon={<DollarIcon />}
+  delta="+12.5%"            // leading "-" infers a "down" direction
+  deltaDirection="up"      // up | down | flat — overrides the inferred direction
+  helpText="vs last month"
+  plain={false}            // true drops border/background/padding
+/>`,
+    render: () => (
+      <Stat
+        label="Revenue"
+        value="$48,200"
+        icon={<DollarIcon />}
+        delta="+12.5%"
+        deltaDirection="up"
+        helpText="vs last month"
+        plain={false}
+      />
+    ),
+  },
 ];
 
 export default variations;

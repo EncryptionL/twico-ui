@@ -106,6 +106,50 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "All props",
+    description:
+      "Every Grid prop in one place — fixed columns (or minChildWidth for auto-fill), gap, align/justify track placement, and the as=\"a\" link form (href is scheme-sanitized; target/rel apply only to anchors).",
+    code: `<Grid
+  as="section"          // any intrinsic tag, default "div"
+  columns={3}           // fixed column count
+  // minChildWidth={160} // or auto-fill instead of columns (px number or CSS length)
+  gap={3}               // spacing-scale step (number) or any CSS length
+  align="center"        // alignItems
+  justify="stretch"     // justifyItems
+>
+  <Card>A</Card>
+  <Card>B</Card>
+  <Card>C</Card>
+</Grid>
+
+// Render the grid as a link (anchor-only props):
+<Grid as="a" href="/docs" target="_blank" rel="noopener noreferrer" columns={2} gap={2}>
+  <Card>Open</Card>
+  <Card>docs</Card>
+</Grid>`,
+    render: () => (
+      <div style={{ width: "100%", display: "grid", gap: 16 }}>
+        <Grid as="section" columns={3} gap={3} align="center" justify="stretch">
+          <Card>A</Card>
+          <Card>B</Card>
+          <Card>C</Card>
+        </Grid>
+        <Grid
+          as="a"
+          href="/docs"
+          target="_blank"
+          rel="noopener noreferrer"
+          columns={2}
+          gap={2}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <Card>Open</Card>
+          <Card>docs</Card>
+        </Grid>
+      </div>
+    ),
+  },
 ];
 
 export default variations;

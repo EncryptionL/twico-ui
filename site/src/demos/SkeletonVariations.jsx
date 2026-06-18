@@ -64,6 +64,22 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "All props",
+    description:
+      "Every Skeleton-specific prop in one place. lines applies only to the text variant (the last line is shortened); width sizes each line and height the group wrapper. For circle/rect, width and height size the shape directly.",
+    code: `<Skeleton
+  variant="text"   // text | circle | rect
+  width="80%"      // any CSS width (string or number)
+  height={96}      // any CSS height (string or number)
+  lines={3}        // text variant only: number of lines
+/>`,
+    render: () => (
+      <div style={{ width: 340, maxWidth: "100%" }}>
+        <Skeleton variant="text" width="80%" height={96} lines={3} />
+      </div>
+    ),
+  },
 ];
 
 export default variations;

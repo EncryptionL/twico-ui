@@ -4,6 +4,32 @@ import { DatePicker } from "twico-ui";
 const today = new Date();
 const inOneMonth = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
 const lastYear = new Date(today.getFullYear() - 1, 0, 1);
+const inSixMonths = new Date(today.getFullYear(), today.getMonth() + 6, today.getDate());
+
+// Stateful demo so the controlled value + onChange round-trips inside a .map()-rendered example.
+function DatePickerAllProps() {
+  const [date, setDate] = React.useState(today);
+  return (
+    <div style={{ width: 340, maxWidth: "100%" }}>
+      <DatePicker
+        label="Departure"
+        required
+        hint="Pick a day within the next six months."
+        value={date}
+        onChange={setDate}
+        placeholder="Select a date"
+        min={today}
+        max={inSixMonths}
+        disabled={false}
+        tone="info"
+        clearable
+        format={(d) => d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" })}
+        locale="en-GB"
+        weekStartsOn={1}
+      />
+    </div>
+  );
+}
 
 const variations = [
   {
@@ -75,6 +101,32 @@ const variations = [
         <DatePicker label="Locked date" defaultValue={lastYear} disabled />
       </div>
     ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every DatePicker-specific prop in one place — label, required, hint, controlled value + onChange, placeholder, min/max bounds, disabled flag, tone accent, clearable button, a custom format, locale, and weekStartsOn. (error would replace hint and turn the field red; defaultValue is the uncontrolled alternative to value.)",
+    code: `const [date, setDate] = React.useState(new Date());
+
+<DatePicker
+  label="Departure"
+  required                       // adds an asterisk to the label
+  hint="Pick a day within the next six months." // error replaces hint when set
+  value={date}                   // or defaultValue for uncontrolled
+  onChange={setDate}
+  placeholder="Select a date"
+  min={today}
+  max={inSixMonths}
+  disabled={false}
+  tone="info"                    // primary | success | warning | danger | info | neutral
+  clearable                      // shows a × button when a date is set
+  format={(d) =>
+    d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" })
+  }
+  locale="en-GB"
+  weekStartsOn={1}               // 0 = Sunday … 6 = Saturday
+/>`,
+    render: () => <DatePickerAllProps />,
   },
 ];
 

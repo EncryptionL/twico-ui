@@ -27,6 +27,24 @@ function ControlledTabsExample() {
   );
 }
 
+function TabsAllProps() {
+  const [value, setValue] = React.useState("activity");
+  return (
+    <Tabs
+      items={[
+        { value: "overview", label: "Overview", icon: <HomeIcon />, content: <p>Project overview and key metrics.</p> },
+        { value: "activity", label: "Activity", icon: <ActivityIcon />, count: 12, content: <p>Recent activity feed.</p> },
+        { value: "settings", label: "Settings", icon: <SettingsIcon />, content: <p>Workspace settings.</p> },
+      ]}
+      value={value}
+      onChange={setValue}
+      variant="pill"
+      tone="info"
+      orientation="vertical"
+    />
+  );
+}
+
 const variations = [
   {
     title: "Line variant",
@@ -180,6 +198,33 @@ const variations = [
         </div>
       );
     },
+  },
+  {
+    title: "All props",
+    description:
+      "Every Tabs prop in one place — the items array (each item's value, label, icon, count, and content panel), controlled value + onChange, variant, tone, and orientation. Swap value/onChange for defaultValue to run uncontrolled.",
+    code: `function TabsAllProps() {
+  const [value, setValue] = React.useState("activity");
+  return (
+    <Tabs
+      items={[
+        { value: "overview", label: "Overview", icon: <HomeIcon />, content: <p>Project overview and key metrics.</p> },
+        { value: "activity", label: "Activity", icon: <ActivityIcon />, count: 12, content: <p>Recent activity feed.</p> },
+        { value: "settings", label: "Settings", icon: <SettingsIcon />, content: <p>Workspace settings.</p> },
+      ]}
+      value={value}          // controlled — or defaultValue for uncontrolled
+      onChange={setValue}
+      variant="pill"         // line | pill
+      tone="info"            // primary | success | warning | danger | info | neutral
+      orientation="vertical" // horizontal | vertical
+    />
+  );
+}`,
+    render: () => (
+      <div style={{ width: 460, maxWidth: "100%" }}>
+        <TabsAllProps />
+      </div>
+    ),
   },
 ];
 

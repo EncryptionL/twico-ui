@@ -37,6 +37,22 @@ function JumperExample() {
   );
 }
 
+function PaginationAllProps() {
+  const [page, setPage] = React.useState(7);
+  return (
+    <Pagination
+      page={page}
+      total={24}
+      onChange={setPage}
+      siblings={1}
+      boundaries={1}
+      size="md"
+      showPageJumper
+      jumperLabel="Jump to"
+    />
+  );
+}
+
 const variations = [
   {
     title: "Basic",
@@ -81,6 +97,24 @@ const variations = [
   jumperLabel="Go to"
 />`,
     render: () => <JumperExample />,
+  },
+  {
+    title: "All props",
+    description:
+      "Every Pagination prop in one place — controlled page + onChange, total, siblings/boundaries window sizing, size, and the page jumper input with a custom label. Use defaultPage instead of page for an uncontrolled control; showJumper is the deprecated alias for showPageJumper.",
+    code: `const [page, setPage] = React.useState(7);
+
+<Pagination
+  page={page}              // controlled current page (or defaultPage for uncontrolled)
+  total={24}               // required: total number of pages
+  onChange={setPage}       // (page: number) => void
+  siblings={1}             // pages shown each side of current
+  boundaries={1}           // pages always shown at each end
+  size="md"                // sm | md | lg
+  showPageJumper           // "Go to" input (showJumper is the deprecated alias)
+  jumperLabel="Jump to"    // label before the jump input
+/>`,
+    render: () => <PaginationAllProps />,
   },
 ];
 

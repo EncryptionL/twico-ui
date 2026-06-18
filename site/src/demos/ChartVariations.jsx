@@ -135,6 +135,44 @@ const variations = [
       </div>
     ),
   },
+  {
+    title: "All props",
+    description:
+      "Every Chart-specific prop in one place: a multi-series bar chart with custom colors, a value formatter, an accessible name, and the grid/axis/legend toggles. Switch type to \"line\" for a line chart over the same data.",
+    code: `<Chart
+  type="bar"                                  // bar | line
+  data={[
+    { label: "Jan", signups: 120, active: 80 },
+    { label: "Feb", signups: 180, active: 140 },
+    { label: "Mar", signups: 150, active: 120 },
+    { label: "Apr", signups: 220, active: 170 },
+  ]}
+  series={["signups", "active"]}              // one field per series
+  height={240}
+  showGrid={true}
+  showAxis={true}
+  showLegend={true}
+  colors={["#6366f1", "#10b981"]}            // cycled when shorter than series
+  valueFormat={(v) => v.toLocaleString()}    // tooltip formatter
+  ariaLabel="Signups vs active users by month"
+/>`,
+    render: () => (
+      <div style={{ width: 460, maxWidth: "100%" }}>
+        <Chart
+          type="bar"
+          data={trafficData}
+          series={["signups", "active"]}
+          height={240}
+          showGrid={true}
+          showAxis={true}
+          showLegend={true}
+          colors={["#6366f1", "#10b981"]}
+          valueFormat={(v) => v.toLocaleString()}
+          ariaLabel="Signups vs active users by month"
+        />
+      </div>
+    ),
+  },
 ];
 
 export default variations;

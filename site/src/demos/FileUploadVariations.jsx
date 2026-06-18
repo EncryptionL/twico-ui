@@ -1,6 +1,24 @@
 import React from "react";
 import { FileUpload } from "twico-ui";
 
+function FileUploadAllProps() {
+  const [files, setFiles] = React.useState([]); // or defaultValue for uncontrolled
+  return (
+    <FileUpload
+      label="Project assets"
+      required
+      tone="info"            // primary | success | warning | danger | info | neutral
+      multiple
+      accept="image/*,.pdf"
+      hint="PNG, JPG or PDF up to 10MB"
+      // error="File too large"  // when set, replaces the hint and turns the border red
+      disabled={false}
+      value={files}          // controlled — or defaultValue={[]} for uncontrolled
+      onChange={setFiles}
+    />
+  );
+}
+
 const variations = [
   {
     title: "Default",
@@ -43,6 +61,30 @@ const variations = [
     render: () => (
       <div style={{ width: 340, maxWidth: "100%" }}>
         <FileUpload disabled hint="Uploads are paused" />
+      </div>
+    ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every FileUpload prop in one place — label/required, tone accent, multiple + accept, the hint line (error replaces it and reddens the border), the disabled flag, and the controlled value + onChange pair (use defaultValue instead for uncontrolled).",
+    code: `const [files, setFiles] = React.useState([]); // or defaultValue for uncontrolled
+
+<FileUpload
+  label="Project assets"
+  required
+  tone="info"            // primary | success | warning | danger | info | neutral
+  multiple
+  accept="image/*,.pdf"
+  hint="PNG, JPG or PDF up to 10MB"
+  // error="File too large"  // when set, replaces the hint and turns the border red
+  disabled={false}
+  value={files}          // controlled — or defaultValue={[]} for uncontrolled
+  onChange={setFiles}
+/>`,
+    render: () => (
+      <div style={{ width: 340, maxWidth: "100%" }}>
+        <FileUploadAllProps />
       </div>
     ),
   },

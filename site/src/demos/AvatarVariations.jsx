@@ -66,6 +66,31 @@ const variations = [
       </>
     ),
   },
+  {
+    title: "All props",
+    description:
+      "Every Avatar-specific prop in one place. The image loads when src is valid and falls back to the initials derived from name; status renders the presence dot, ring adds the brand outline, and square switches the circle to a rounded square.",
+    code: `<Avatar
+  src="/u/jane.jpg"     // image URL; falls back to initials on error/absent
+  name="Jane Doe"       // initials + accessible label
+  size="lg"             // xs | sm | md | lg | xl
+  status="online"       // online | busy | away | offline
+  square                // rounded-square instead of circle
+  ring                  // brand ring around the avatar
+/>`,
+    render: () => (
+      <>
+        <Avatar
+          src={FACE}
+          name="Jane Doe"
+          size="lg"
+          status="online"
+          square
+          ring
+        />
+      </>
+    ),
+  },
 ];
 
 export default variations;

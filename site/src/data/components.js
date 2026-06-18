@@ -222,7 +222,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Alert } from \"twico-ui\";\n\n<Alert tone=\"success\" title=\"Saved\" onClose={dismiss}>\n  Your changes are live.\n</Alert>\n\n<Alert tone=\"warning\">\n  Your trial ends in 3 days.\n</Alert>",
+    "snippet": "import { Alert } from \"twico-ui\";\n\n<Alert tone=\"success\" title=\"Saved\" onClose={() => {}}>\n  Your changes are live.\n</Alert>\n\n<Alert tone=\"warning\">\n  Your trial ends in 3 days.\n</Alert>",
     "tagline": "Inline message banner with semantic tones"
   },
   {
@@ -482,7 +482,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { AvatarMenu } from \"twico-ui\";\n\n<AvatarMenu\n  name=\"Ada Park\"\n  email=\"ada@twico.dev\"\n  status=\"online\"\n  showName\n  items={[\n    { label: \"Profile\", onClick: openProfile },\n    { label: \"Settings\", shortcut: \"⌘,\", onClick: openSettings },\n    { separator: true },\n    { label: \"Sign out\", danger: true, onClick: signOut },\n  ]}\n/>",
+    "snippet": "import { AvatarMenu } from \"twico-ui\";\n\n<AvatarMenu\n  name=\"Ada Park\"\n  email=\"ada@twico.dev\"\n  status=\"online\"\n  showName\n  items={[\n    { label: \"Profile\", onClick: () => {} },\n    { label: \"Settings\", shortcut: \"⌘,\", onClick: () => {} },\n    { separator: true },\n    { label: \"Sign out\", danger: true, onClick: () => {} },\n  ]}\n/>",
     "tagline": "Avatar that opens an account dropdown"
   },
   {
@@ -907,14 +907,14 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Breadcrumb } from \"twico-ui\";\n\n<Breadcrumb\n  items={[\n    { label: \"Home\", href: \"/\" },\n    { label: \"Projects\", href: \"/projects\" },\n    { label: \"Twico UI\" },\n  ]}\n/>\n\n<Breadcrumb maxItems={3} items={longTrail} />",
+    "snippet": "import { Breadcrumb } from \"twico-ui\";\n\n<Breadcrumb\n  items={[\n    { label: \"Home\", href: \"/\" },\n    { label: \"Projects\", href: \"/projects\" },\n    { label: \"Twico UI\" },\n  ]}\n/>\n\n<Breadcrumb\n  maxItems={3}\n  items={[\n    { label: \"Home\", href: \"/\" },\n    { label: \"Workspace\", href: \"/workspace\" },\n    { label: \"Projects\", href: \"/workspace/projects\" },\n    { label: \"Twico UI\", href: \"/workspace/projects/twico\" },\n    { label: \"Settings\" },\n  ]}\n/>",
     "tagline": "Navigation trail to the current page"
   },
   {
     "name": "Button",
     "slug": "button",
     "group": "Buttons & actions",
-    "summary": "Button is a primary action button with solid, soft, outline, ghost, and danger variants, three sizes, loading state, optional left/right icons, and a click ripple effect. Use it for primary and secondary actions throughout the UI.",
+    "summary": "Button is a primary action button with solid, soft, outline, and ghost variants crossed with a primary or danger tone, four sizes (xs/sm/md/lg), loading state, optional left/right icons, and a click ripple effect. Use it for primary and secondary actions throughout the UI.",
     "importName": "Button",
     "propsRows": [
       {
@@ -1065,8 +1065,8 @@ export const components = [
         "description": "Every other standard prop for <button> — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Button } from \"twico-ui\";\n\n<Button variant=\"solid\" size=\"md\" onClick={save}>Save changes</Button>\n<Button variant=\"soft\" leftIcon={<PlusIcon />}>Add item</Button>\n<Button variant=\"outline\">Cancel</Button>\n<Button variant=\"ghost\">Skip</Button>\n<Button tone=\"danger\" loading>Deleting…</Button>",
-    "tagline": "Action button with five variants and loading state"
+    "snippet": "import { Button } from \"twico-ui\";\n\nconst PlusIcon = () => (<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><path d=\"M12 5v14M5 12h14\" /></svg>);\n\n<Button variant=\"solid\" size=\"md\" onClick={() => {}}>Save changes</Button>\n<Button variant=\"soft\" leftIcon={<PlusIcon />}>Add item</Button>\n<Button variant=\"outline\">Cancel</Button>\n<Button variant=\"ghost\">Skip</Button>\n<Button tone=\"danger\" loading>Deleting…</Button>",
+    "tagline": "Action button with variants, tones, and loading state"
   },
   {
     "name": "Card",
@@ -2059,7 +2059,7 @@ export const components = [
         "description": "Every other standard prop for <input> — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Combobox } from \"twico-ui\";\n\n<Combobox\n  label=\"Country\"\n  placeholder=\"Search a country\"\n  clearable\n  value={country}\n  onChange={setCountry}\n  options={[\n    { group: \"Asia\", options: [\n      { value: \"id\", label: \"Indonesia\", description: \"Jakarta\" },\n      { value: \"jp\", label: \"Japan\", description: \"Tokyo\" },\n    ]},\n    { group: \"Europe\", options: [\n      { value: \"de\", label: \"Germany\", description: \"Berlin\" },\n    ]},\n  ]}\n/>",
+    "snippet": "import { Combobox } from \"twico-ui\";\n\nconst [country, setCountry] = useState(null);\n\n<Combobox\n  label=\"Country\"\n  placeholder=\"Search a country\"\n  clearable\n  value={country}\n  onChange={setCountry}\n  options={[\n    { group: \"Asia\", options: [\n      { value: \"id\", label: \"Indonesia\", description: \"Jakarta\" },\n      { value: \"jp\", label: \"Japan\", description: \"Tokyo\" },\n    ]},\n    { group: \"Europe\", options: [\n      { value: \"de\", label: \"Germany\", description: \"Berlin\" },\n    ]},\n  ]}\n/>",
     "tagline": "Searchable single-select with typeahead filtering"
   },
   {
@@ -2168,7 +2168,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { CommandPalette } from \"twico-ui\";\n\nconst [open, setOpen] = React.useState(false);\nReact.useEffect(() => {\n  const h = (e) => {\n    if ((e.metaKey || e.ctrlKey) && e.key === \"k\") { e.preventDefault(); setOpen(true); }\n  };\n  window.addEventListener(\"keydown\", h);\n  return () => window.removeEventListener(\"keydown\", h);\n}, []);\n\n<CommandPalette\n  open={open}\n  onClose={() => setOpen(false)}\n  commands={[\n    { group: \"Navigation\", label: \"Go to Dashboard\", shortcut: \"G D\", onSelect: goDash },\n    { group: \"Actions\", label: \"New project\", keywords: \"create add\", onSelect: create },\n  ]}\n/>",
+    "snippet": "import { CommandPalette } from \"twico-ui\";\n\nconst [open, setOpen] = React.useState(false);\nReact.useEffect(() => {\n  const h = (e) => {\n    if ((e.metaKey || e.ctrlKey) && e.key === \"k\") { e.preventDefault(); setOpen(true); }\n  };\n  window.addEventListener(\"keydown\", h);\n  return () => window.removeEventListener(\"keydown\", h);\n}, []);\n\n<CommandPalette\n  open={open}\n  onClose={() => setOpen(false)}\n  commands={[\n    { group: \"Navigation\", label: \"Go to Dashboard\", shortcut: \"G D\", onSelect: () => {} },\n    { group: \"Actions\", label: \"New project\", keywords: \"create add\", onSelect: () => {} },\n  ]}\n/>",
     "tagline": "Cmd-K command overlay with keyboard navigation"
   },
   {
@@ -2449,7 +2449,7 @@ export const components = [
         "description": "Every other standard prop for <input> — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Currency } from \"twico-ui\";\n\n<Currency label=\"Price\" currency=\"USD\" onValueChange={(n) => setPrice(n)} />\n<Currency label=\"Harga\" currency=\"IDR\" />\n<Currency label=\"Total\" currency=\"JPY\" />\n<Currency label=\"Custom\" symbol=\"₿\" code=\"BTC\" precision={8} />",
+    "snippet": "import { Currency } from \"twico-ui\";\n\nconst [price, setPrice] = useState(0);\n\n<Currency label=\"Price\" currency=\"USD\" value={price} onValueChange={setPrice} />\n<Currency label=\"Harga\" currency=\"IDR\" />\n<Currency label=\"Total\" currency=\"JPY\" />\n<Currency label=\"Custom\" symbol=\"₿\" code=\"BTC\" precision={8} />",
     "tagline": "Money input with a fixed currency and precision"
   },
   {
@@ -2635,7 +2635,7 @@ export const components = [
         "description": "Every other standard prop for <input> — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { CurrencyField } from \"twico-ui\";\n\n<CurrencyField\n  label=\"Amount\"\n  defaultCurrency=\"USD\"\n  onValueChange={(n, str, code) => save(n, code)}\n/>\n\n{/* limit the currency choices */}\n<CurrencyField\n  label=\"Amount\"\n  defaultCurrency=\"EUR\"\n  currencies={[\"USD\", \"EUR\", \"GBP\", \"IDR\"]}\n/>",
+    "snippet": "import { CurrencyField } from \"twico-ui\";\n\n<CurrencyField\n  label=\"Amount\"\n  defaultCurrency=\"USD\"\n  onValueChange={(n, str, code) => {}}\n/>\n\n{/* limit the currency choices */}\n<CurrencyField\n  label=\"Amount\"\n  defaultCurrency=\"EUR\"\n  currencies={[\"USD\", \"EUR\", \"GBP\", \"IDR\"]}\n/>",
     "tagline": "Money input with a selectable currency"
   },
   {
@@ -3477,7 +3477,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Dialog, Button } from \"twico-ui\";\n\n<Dialog\n  open={open}\n  onClose={() => setOpen(false)}\n  title=\"Delete project?\"\n  description=\"This action cannot be undone.\"\n  footer={\n    <>\n      <Button variant=\"ghost\" onClick={() => setOpen(false)}>Cancel</Button>\n      <Button variant=\"danger\" onClick={confirm}>Delete</Button>\n    </>\n  }\n>\n  The project and all its data will be permanently removed.\n</Dialog>",
+    "snippet": "import { Dialog, Button } from \"twico-ui\";\n\nconst [open, setOpen] = useState(false);\n\n<Button tone=\"danger\" onClick={() => setOpen(true)}>Delete project</Button>\n\n<Dialog\n  open={open}\n  onClose={() => setOpen(false)}\n  title=\"Delete project?\"\n  description=\"This action cannot be undone.\"\n  footer={\n    <>\n      <Button variant=\"ghost\" onClick={() => setOpen(false)}>Cancel</Button>\n      <Button tone=\"danger\" onClick={() => setOpen(false)}>Delete</Button>\n    </>\n  }\n>\n  The project and all its data will be permanently removed.\n</Dialog>",
     "tagline": "Modal overlay with focus trap and scrim"
   },
   {
@@ -3839,7 +3839,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { EmptyState, Button } from \"twico-ui\";\n\n<EmptyState\n  icon={<InboxIcon />}\n  title=\"No messages yet\"\n  description=\"When someone sends you a message, it'll show up here.\"\n  actions={<Button>Compose</Button>}\n/>",
+    "snippet": "import { EmptyState, Button } from \"twico-ui\";\n\n<EmptyState\n  icon={<span style={{ fontSize: 28 }}>📭</span>}\n  title=\"No messages yet\"\n  description=\"When someone sends you a message, it'll show up here.\"\n  actions={<Button>Compose</Button>}\n/>",
     "tagline": "Zero-data placeholder with icon and actions"
   },
   {
@@ -4324,7 +4324,7 @@ export const components = [
         "description": "Every other standard prop for <button> — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { IconButton } from \"twico-ui\";\n\n<IconButton aria-label=\"Settings\" icon={<SettingsIcon />} />\n<IconButton aria-label=\"Like\" variant=\"soft\" round icon={<HeartIcon />} />\n<IconButton aria-label=\"Delete\" variant=\"outline\" icon={<TrashIcon />} />",
+    "snippet": "import { IconButton } from \"twico-ui\";\n\nconst SettingsIcon = () => (<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><path d=\"M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6\" /></svg>);\nconst HeartIcon = () => (<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\"><path d=\"M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 1 0-7.8 7.8L12 21l8.9-8.6a5.5 5.5 0 0 0 0-7.8z\" /></svg>);\nconst TrashIcon = () => (<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><path d=\"M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6\" /></svg>);\n\n<IconButton aria-label=\"Settings\" icon={<SettingsIcon />} />\n<IconButton aria-label=\"Like\" variant=\"soft\" round icon={<HeartIcon />} />\n<IconButton aria-label=\"Delete\" variant=\"outline\" icon={<TrashIcon />} />",
     "tagline": "Icon-only button with a required aria-label"
   },
   {
@@ -4475,7 +4475,7 @@ export const components = [
         "description": "Every other standard prop for <input> — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Input } from \"twico-ui\";\n\n<Input label=\"Email\" type=\"email\" placeholder=\"you@twico.dev\" required />\n<Input label=\"Search\" leftIcon={<SearchIcon />} placeholder=\"Search…\" />\n<Input label=\"Amount\" rightIcon={<span>USD</span>} placeholder=\"0.00\" />\n<Input label=\"Password\" type=\"password\" placeholder=\"••••••••\" />\n<Input label=\"Username\" hint=\"Choose a unique handle\" placeholder=\"twico\" />\n<Input label=\"Email\" type=\"email\" error=\"Invalid email address\" defaultValue=\"nope\" />",
+    "snippet": "import { Input } from \"twico-ui\";\n\nconst SearchIcon = () => (<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><circle cx=\"11\" cy=\"11\" r=\"8\" /><path d=\"m21 21-4.3-4.3\" /></svg>);\n\n<Input label=\"Email\" type=\"email\" placeholder=\"you@twico.dev\" required />\n<Input label=\"Search\" leftIcon={<SearchIcon />} placeholder=\"Search…\" />\n<Input label=\"Amount\" rightIcon={<span>USD</span>} placeholder=\"0.00\" />\n<Input label=\"Password\" type=\"password\" placeholder=\"••••••••\" />\n<Input label=\"Username\" hint=\"Choose a unique handle\" placeholder=\"twico\" />\n<Input label=\"Email\" type=\"email\" error=\"Invalid email address\" defaultValue=\"nope\" />",
     "tagline": "Text field with label, icons, and validation"
   },
   {
@@ -4584,7 +4584,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Kanban } from \"twico-ui\";\n\n<Kanban\n  columns={[\n    { id: \"todo\", title: \"To do\", color: \"var(--slate-400)\" },\n    { id: \"doing\", title: \"In progress\", color: \"var(--amber-500)\" },\n    { id: \"done\", title: \"Done\", color: \"var(--emerald-500)\" },\n  ]}\n  cards={[\n    { id: \"1\", column: \"todo\", title: \"Design tokens\", tags: [\"Design\"] },\n    { id: \"2\", column: \"doing\", title: \"Datatable filters\" },\n    { id: \"3\", column: \"done\", title: \"Ship release\" },\n  ]}\n  onCardMove={(id, to) => save(id, to)}\n/>",
+    "snippet": "import { Kanban } from \"twico-ui\";\n\n<Kanban\n  columns={[\n    { id: \"todo\", title: \"To do\", color: \"var(--slate-400)\" },\n    { id: \"doing\", title: \"In progress\", color: \"var(--amber-500)\" },\n    { id: \"done\", title: \"Done\", color: \"var(--emerald-500)\" },\n  ]}\n  cards={[\n    { id: \"1\", column: \"todo\", title: \"Design tokens\", tags: [\"Design\"] },\n    { id: \"2\", column: \"doing\", title: \"Datatable filters\" },\n    { id: \"3\", column: \"done\", title: \"Ship release\" },\n  ]}\n  onCardMove={(id, to) => {}}\n/>",
     "tagline": "Drag-and-drop board of columns and cards"
   },
   {
@@ -4718,6 +4718,13 @@ export const components = [
         "description": "Pins the menu to a fixed pixel width, otherwise it sizes to the larger of 200px and the trigger's width."
       },
       {
+        "prop": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Open on first render in uncontrolled mode; the Menu then tracks its own open state."
+      },
+      {
         "prop": "open",
         "type": "boolean",
         "required": false,
@@ -4795,7 +4802,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Menu, Button } from \"twico-ui\";\n\n<Menu\n  align=\"end\"\n  trigger={<Button>Options</Button>}\n  items={[\n    { label: \"Account\", heading: true },\n    { label: \"Profile\", onClick: openProfile, shortcut: \"⌘P\" },\n    { label: \"Settings\", onClick: openSettings },\n    { separator: true },\n    { label: \"Sign out\", danger: true, onClick: signOut },\n  ]}\n/>",
+    "snippet": "import { Menu, Button } from \"twico-ui\";\n\n<Menu\n  align=\"end\"\n  trigger={<Button>Options</Button>}\n  items={[\n    { label: \"Account\", heading: true },\n    { label: \"Profile\", onClick: () => {}, shortcut: \"⌘P\" },\n    { label: \"Settings\", onClick: () => {} },\n    { separator: true },\n    { label: \"Sign out\", danger: true, onClick: () => {} },\n  ]}\n/>",
     "tagline": "Portaled dropdown menu with icons and shortcuts"
   },
   {
@@ -5285,6 +5292,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "The rich interactive content rendered inside the panel, such as inputs, buttons, or links."
+      },
+      {
+        "prop": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Open on first render in uncontrolled mode; the Popover then tracks its own open state."
       },
       {
         "prop": "open",
@@ -6084,7 +6098,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Sidebar } from \"twico-ui\";\n\n<Sidebar\n  brand={<>twico<span style={{ color: \"var(--color-primary)\" }}>UI</span></>}\n  items={[\n    { section: \"Main\" },\n    { label: \"Dashboard\", icon: <HomeIcon />, active: true },\n    { label: \"Inbox\", icon: <MailIcon />, badge: 4 },\n    { section: \"Account\" },\n    { label: \"Settings\", icon: <CogIcon /> },\n  ]}\n  footer={<UserRow />}\n  defaultCollapsed={false}\n/>",
+    "snippet": "import { Sidebar } from \"twico-ui\";\n\nconst HomeIcon = () => (<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><path d=\"M3 11l9-8 9 8M5 10v10h14V10\" /></svg>);\nconst MailIcon = () => (<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\" /><path d=\"m3 7 9 6 9-6\" /></svg>);\nconst CogIcon = () => (<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><circle cx=\"12\" cy=\"12\" r=\"3\" /><path d=\"M12 3v3M12 18v3M3 12h3M18 12h3\" /></svg>);\n\n<Sidebar\n  brand={<>twico<span style={{ color: \"var(--color-primary)\" }}>UI</span></>}\n  items={[\n    { section: \"Main\" },\n    { label: \"Dashboard\", icon: <HomeIcon />, active: true },\n    { label: \"Inbox\", icon: <MailIcon />, badge: 4 },\n    { section: \"Account\" },\n    { label: \"Settings\", icon: <CogIcon /> },\n  ]}\n  footer={<span style={{ fontSize: \"var(--text-xs)\", color: \"var(--color-text-muted)\" }}>v1.0.0</span>}\n  defaultCollapsed={false}\n/>",
     "tagline": "Collapsible side navigation with grouped items"
   },
   {
@@ -6734,8 +6748,15 @@ export const components = [
         "prop": "active",
         "type": "number",
         "required": false,
+        "default": "—",
+        "description": "Controlled zero-based index of the current step (pair with onStepClick); earlier steps render complete, later steps upcoming."
+      },
+      {
+        "prop": "defaultActive",
+        "type": "number",
+        "required": false,
         "default": "0",
-        "description": "Zero-based index of the current step; earlier steps render as complete and later steps as upcoming."
+        "description": "Uncontrolled initial step index; the Stepper then advances itself when a clickable step is clicked."
       },
       {
         "prop": "orientation",
@@ -6822,7 +6843,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Stepper } from \"twico-ui\";\n\n<Stepper\n  active={1}\n  steps={[\n    { title: \"Account\", description: \"Your details\" },\n    { title: \"Payment\", description: \"Billing info\" },\n    { title: \"Confirm\" },\n  ]}\n/>\n\n<Stepper\n  orientation=\"vertical\"\n  active={2}\n  clickable\n  onStepClick={setActive}\n  steps={steps}\n/>",
+    "snippet": "import { Stepper } from \"twico-ui\";\n\nconst [active, setActive] = useState(2);\n\n<Stepper\n  active={1}\n  steps={[\n    { title: \"Account\", description: \"Your details\" },\n    { title: \"Payment\", description: \"Billing info\" },\n    { title: \"Confirm\" },\n  ]}\n/>\n\n<Stepper\n  orientation=\"vertical\"\n  active={active}\n  clickable\n  onStepClick={setActive}\n  steps={[\n    { title: \"Account\", description: \"Your details\" },\n    { title: \"Payment\", description: \"Billing info\" },\n    { title: \"Confirm\" },\n  ]}\n/>",
     "tagline": "Multi-step progress indicator for wizards"
   },
   {
@@ -7145,7 +7166,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Table } from \"twico-ui\";\n\n<Table\n  sortable\n  striped\n  rowKey={(r) => r.id}\n  columns={[\n    { field: \"name\", headerName: \"Name\" },\n    { field: \"role\", headerName: \"Role\" },\n    { field: \"status\", headerName: \"Status\" },\n    { field: \"mrr\", headerName: \"MRR\", align: \"right\" },\n  ]}\n  rows={users}\n/>",
+    "snippet": "import { Table } from \"twico-ui\";\n\nconst users = [\n  { id: 1, name: \"Ava Stone\", role: \"Admin\", status: \"Active\", mrr: 480 },\n  { id: 2, name: \"Liam Reed\", role: \"Editor\", status: \"Invited\", mrr: 120 },\n  { id: 3, name: \"Noah Park\", role: \"Viewer\", status: \"Active\", mrr: 60 },\n];\n\n<Table\n  sortable\n  striped\n  rowKey={(r) => r.id}\n  columns={[\n    { field: \"name\", headerName: \"Name\" },\n    { field: \"role\", headerName: \"Role\" },\n    { field: \"status\", headerName: \"Status\" },\n    { field: \"mrr\", headerName: \"MRR\", align: \"right\" },\n  ]}\n  rows={users}\n/>",
     "tagline": "Sortable data table with custom cell renderers"
   },
   {
@@ -7377,7 +7398,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Tag } from \"twico-ui\";\n\n<Tag onRemove={() => remove(\"react\")}>React</Tag>\n<Tag leftIcon={<span>#</span>}>design-system</Tag>\n<Tag>read-only</Tag>",
+    "snippet": "import { Tag } from \"twico-ui\";\n\n<Tag onRemove={() => {}}>React</Tag>\n<Tag leftIcon={<span>#</span>}>design-system</Tag>\n<Tag>read-only</Tag>",
     "tagline": "Removable chip for filters and keywords"
   },
   {
@@ -7961,6 +7982,13 @@ export const components = [
         "description": "Node ids that start expanded on first render, letting you reveal specific branches of the tree by default."
       },
       {
+        "prop": "defaultSelectedId",
+        "type": "string | null",
+        "required": false,
+        "default": "null",
+        "description": "Selected node id on first render in uncontrolled mode; the tree then manages selection itself."
+      },
+      {
         "prop": "selectedId",
         "type": "string | null",
         "required": false,
@@ -8183,7 +8211,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Field, Input } from \"twico-ui\";\n\n// Wrap any control to get the shared label/hint/error chrome.\n<Field label=\"Email\" hint=\"We'll never share it.\" required htmlFor=\"email\">\n  <input id=\"email\" type=\"email\" />\n</Field>\n\n<Field label=\"Token\" error=\"That token is invalid.\" htmlFor=\"tok\">\n  <input id=\"tok\" aria-invalid aria-describedby=\"<id>-desc\" />\n</Field>"
+    "snippet": "import { Field } from \"twico-ui\";\n\n// Wrap any control for the shared label/hint/error chrome. Give Field an id and set\n// the control's aria-describedby to that id followed by -desc to announce hint/error.\n<Field label=\"Email\" id=\"email\" hint=\"We'll never share it.\" required htmlFor=\"email\">\n  <input id=\"email\" type=\"email\" aria-describedby=\"email-desc\" />\n</Field>\n\n<Field label=\"Token\" id=\"tok\" error=\"That token is invalid.\" htmlFor=\"tok\">\n  <input id=\"tok\" aria-invalid aria-describedby=\"tok-desc\" />\n</Field>"
   },
   {
     "name": "ToastProvider",

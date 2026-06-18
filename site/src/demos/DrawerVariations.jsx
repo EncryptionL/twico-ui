@@ -103,6 +103,33 @@ function NoBackdropCloseExample() {
   );
 }
 
+function DrawerAllProps() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <>
+      <Button variant="soft" onClick={() => setOpen(true)}>Open (every prop)</Button>
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        side="right"                 // left | right | top | bottom | start | end
+        width="md"                   // sm | md | lg | number(px) | CSS length — applies to left/right
+        // height="md"               // for side="top"/"bottom" instead of width
+        title="Edit profile"
+        description="Update your account details below."
+        footer={
+          <>
+            <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button onClick={() => setOpen(false)}>Save changes</Button>
+          </>
+        }
+        closeOnBackdrop={true}       // click the scrim to dismiss
+      >
+        <Input label="Display name" placeholder="Ada Lovelace" />
+      </Drawer>
+    </>
+  );
+}
+
 const variations = [
   {
     title: "Sides",
@@ -168,6 +195,32 @@ const variations = [
 </Drawer>
 {/* In an RTL document this slides in from the left instead of the right. */}`,
     render: () => <LogicalSidesExample />,
+  },
+  {
+    title: "All props",
+    description: "Every Drawer-specific prop in one place: controlled open/onClose, side, width (height for top/bottom), title, description, footer, closeOnBackdrop, and children.",
+    code: `const [open, setOpen] = React.useState(false);
+
+<Button variant="soft" onClick={() => setOpen(true)}>Open (every prop)</Button>
+<Drawer
+  open={open}
+  onClose={() => setOpen(false)}
+  side="right"                 // left | right | top | bottom | start | end
+  width="md"                   // sm | md | lg | number(px) | CSS length — applies to left/right
+  // height="md"               // for side="top"/"bottom" instead of width
+  title="Edit profile"
+  description="Update your account details below."
+  footer={
+    <>
+      <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+      <Button onClick={() => setOpen(false)}>Save changes</Button>
+    </>
+  }
+  closeOnBackdrop={true}       // click the scrim to dismiss
+>
+  <Input label="Display name" placeholder="Ada Lovelace" />
+</Drawer>`,
+    render: () => <DrawerAllProps />,
   },
 ];
 

@@ -17,6 +17,24 @@ const faq = [
   { value: "c", label: "Can I open multiple panels?", content: "Set the multiple prop to true." },
 ];
 
+function AccordionAllProps() {
+  const [open, setOpen] = React.useState(["help"]);
+  return (
+    <div style={{ width: 480, maxWidth: "100%" }}>
+      <Accordion
+        multiple
+        open={open}
+        onOpenChange={setOpen}
+        items={[
+          { value: "help", label: "Getting started", content: "Install with npm and import the component you need.", icon: <HelpIcon /> },
+          { value: "security", label: "Security", content: "No CDNs, SSR-safe, zero runtime dependencies.", icon: <ShieldIcon /> },
+          { value: "motion", label: "Motion & polish", content: "Smooth height animation with token-driven easing.", icon: <SparkleIcon /> },
+        ]}
+      />
+    </div>
+  );
+}
+
 const variations = [
   {
     title: "Single (default)",
@@ -92,6 +110,24 @@ const variations = [
         />
       </div>
     ),
+  },
+  {
+    title: "All props",
+    description: "Every Accordion-specific prop in one place — items (with value/label/content/icon), multiple, and the controlled open + onOpenChange pair (use defaultOpen instead for uncontrolled open-on-mount).",
+    code: `const [open, setOpen] = React.useState(["help"]);
+
+<Accordion
+  multiple                       // allow several panels open at once
+  open={open}                    // controlled open values...
+  onOpenChange={setOpen}         // ...paired with onOpenChange
+  // defaultOpen={["help"]}      // or defaultOpen for uncontrolled open-on-mount
+  items={[
+    { value: "help", label: "Getting started", content: "Install with npm and import the component you need.", icon: <HelpIcon /> },
+    { value: "security", label: "Security", content: "No CDNs, SSR-safe, zero runtime dependencies.", icon: <ShieldIcon /> },
+    { value: "motion", label: "Motion & polish", content: "Smooth height animation with token-driven easing.", icon: <SparkleIcon /> },
+  ]}
+/>`,
+    render: () => <AccordionAllProps />,
   },
 ];
 

@@ -86,6 +86,35 @@ const variations = [
     code: `<Breadcrumb maxItems={3} items={longTrail} />`,
     render: () => <Breadcrumb maxItems={3} items={longTrail} />,
   },
+  {
+    title: "All props",
+    description:
+      "Every Breadcrumb prop in one place — the items trail (each item carries label, href, optional icon, and its own onClick for SPA navigation), a custom separator node, and maxItems to collapse the middle into a “…” (0 = never collapse). The last item drops href and renders as the current page.",
+    code: `<Breadcrumb
+  separator={<SlashIcon />}     // any node; defaults to a chevron
+  maxItems={3}                  // collapse to first + last past this count; 0 = never
+  items={[
+    { label: "Home", href: "/", icon: <HomeIcon />, onClick: (e) => { e.preventDefault(); navigate("/"); } },
+    { label: "Projects", href: "/projects", onClick: (e) => { e.preventDefault(); navigate("/projects"); } },
+    { label: "Twico UI", href: "/projects/twico-ui" },
+    { label: "Components", href: "/projects/twico-ui/components" },
+    { label: "Breadcrumb" },    // last item: omit href, renders as current page
+  ]}
+/>`,
+    render: () => (
+      <Breadcrumb
+        separator={<SlashIcon />}
+        maxItems={3}
+        items={[
+          { label: "Home", href: "/", icon: <HomeIcon />, onClick: (e) => e.preventDefault() },
+          { label: "Projects", href: "/projects", onClick: (e) => e.preventDefault() },
+          { label: "Twico UI", href: "/projects/twico-ui" },
+          { label: "Components", href: "/projects/twico-ui/components" },
+          { label: "Breadcrumb" },
+        ]}
+      />
+    ),
+  },
 ];
 
 export default variations;

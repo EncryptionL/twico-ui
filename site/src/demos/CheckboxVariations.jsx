@@ -1,6 +1,24 @@
 import React from "react";
 import { Checkbox } from "twico-ui";
 
+function CheckboxAllProps() {
+  const [checked, setChecked] = React.useState(true);
+  return (
+    <Checkbox
+      label="Email notifications"
+      description="Get a summary of new activity every morning"
+      indeterminate={false}
+      size="md"                    // sm | md | lg
+      tone="success"               // primary | success | warning | danger | info | neutral
+      checked={checked}            // or defaultChecked for uncontrolled
+      onChange={(e) => setChecked(e.target.checked)}
+      required={false}
+      disabled={false}
+      error={undefined}            // a string here replaces nothing — it adds a red message below + tints the box
+    />
+  );
+}
+
 const variations = [
   {
     title: "Basic states",
@@ -72,6 +90,26 @@ const variations = [
         <Checkbox tone="info" label="Info" defaultChecked />
       </div>
     ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every Checkbox-specific prop in one place: label, description, indeterminate, size, tone, the controlled checked + onChange pair, required, disabled, and error.",
+    code: `const [checked, setChecked] = React.useState(true);
+
+<Checkbox
+  label="Email notifications"
+  description="Get a summary of new activity every morning"
+  indeterminate={false}
+  size="md"                    // sm | md | lg
+  tone="success"               // primary | success | warning | danger | info | neutral
+  checked={checked}            // or defaultChecked for uncontrolled
+  onChange={(e) => setChecked(e.target.checked)}
+  required={false}
+  disabled={false}
+  error={undefined}            // pass a string to show a red message below + tint the box
+/>`,
+    render: () => <CheckboxAllProps />,
   },
 ];
 

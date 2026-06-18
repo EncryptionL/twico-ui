@@ -1,6 +1,34 @@
 import React from "react";
 import { CurrencyField } from "twico-ui";
 
+// Stateful demo for the "All props" example: render() runs inside a .map(), so it
+// cannot call hooks directly — state lives in this module-level component instead.
+function CurrencyFieldAllProps() {
+  const [amount, setAmount] = React.useState("1499.95"); // or defaultValue for uncontrolled
+  const [code, setCode] = React.useState("EUR"); // or defaultCurrency for uncontrolled
+  return (
+    <div style={{ width: 360, maxWidth: "100%" }}>
+      <CurrencyField
+        label="Invoice total"
+        hint="Pick a currency, then type the amount" // error replaces hint when set
+        required
+        size="md"
+        tone="info"
+        currency={code}
+        onCurrencyChange={(next) => setCode(next)}
+        currencies={["USD", "EUR", "GBP", "JPY", "IDR"]}
+        value={amount}
+        placeholder="0.00"
+        disabled={false}
+        onChange={(e) => setAmount(e.target.value)}
+        onValueChange={(num, formatted, currency) =>
+          console.log(num, formatted, currency)
+        }
+      />
+    </div>
+  );
+}
+
 const variations = [
   {
     title: "Basic",
@@ -93,6 +121,35 @@ const variations = [
         />
       </div>
     ),
+  },
+  {
+    title: "All props",
+    description:
+      "Every CurrencyField-specific prop in one place — label, hint (error replaces it), required, size, tone, the controlled currency + onCurrencyChange pair, a limited currencies list, the controlled value + onChange amount pair, placeholder, disabled, and the onValueChange callback (parsed number, formatted string, active code).",
+    code: `function CurrencyFieldAllProps() {
+  const [amount, setAmount] = React.useState("1499.95"); // or defaultValue for uncontrolled
+  const [code, setCode] = React.useState("EUR");         // or defaultCurrency for uncontrolled
+  return (
+    <CurrencyField
+      label="Invoice total"
+      hint="Pick a currency, then type the amount" // error="..." replaces hint when set
+      required
+      size="md"                                    // sm | md | lg
+      tone="info"                                  // primary | success | warning | danger | info | neutral
+      currency={code}                              // controlled selected currency code
+      onCurrencyChange={(next) => setCode(next)}
+      currencies={["USD", "EUR", "GBP", "JPY", "IDR"]}
+      value={amount}                               // controlled amount string
+      placeholder="0.00"
+      disabled={false}
+      onChange={(e) => setAmount(e.target.value)}  // native change event
+      onValueChange={(num, formatted, currency) =>
+        console.log(num, formatted, currency)      // parsed number, formatted string, active code
+      }
+    />
+  );
+}`,
+    render: () => <CurrencyFieldAllProps />,
   },
 ];
 

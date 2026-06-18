@@ -10,6 +10,9 @@ const SettingsIcon = () => (
 const PlusIcon = () => (
   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
 );
+const TrashIcon = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18" /><path d="M8 6V4h8v2" /><path d="M19 6l-1 14H6L5 6" /></svg>
+);
 
 function GroupedExample() {
   const [open, setOpen] = React.useState(false);
@@ -99,6 +102,61 @@ function EmptyStateExample() {
   );
 }
 
+function CommandPaletteAllProps() {
+  const [open, setOpen] = React.useState(false);
+  const commands = [
+    {
+      id: "go-dashboard",                 // Command.id — stable React key
+      group: "Navigation",                // Command.group — heading this item sits under
+      label: "Go to Dashboard",           // Command.label — visible primary text (required)
+      description: "Overview and stats",  // Command.description — secondary line
+      icon: <HomeIcon />,                 // Command.icon — leading SVG
+      shortcut: "G D",                    // Command.shortcut — right-aligned hint
+      keywords: "home overview metrics",  // Command.keywords — extra search terms
+      onSelect: () => {},                 // Command.onSelect — runs on Enter/click, palette closes
+    },
+    {
+      id: "open-settings",
+      group: "Navigation",
+      label: "Open Settings",
+      icon: <SettingsIcon />,
+      shortcut: "G S",
+      keywords: "preferences config",
+      onClick: () => {},                  // Command.onClick — alias used when onSelect is absent
+    },
+    {
+      id: "new-project",
+      group: "Actions",
+      label: "New project",
+      description: "Create a fresh workspace",
+      icon: <PlusIcon />,
+      shortcut: "N",
+      keywords: "create add",
+      onSelect: () => {},
+    },
+    {
+      id: "delete-project",
+      group: "Actions",
+      label: "Delete project",
+      icon: <TrashIcon />,
+      keywords: "remove trash",
+      onSelect: () => {},
+    },
+  ];
+  return (
+    <>
+      <Button variant="soft" onClick={() => setOpen(true)}>Open (all props)</Button>
+      <CommandPalette
+        open={open}                       // controlled visibility (drive it yourself)
+        onClose={() => setOpen(false)}    // Esc / backdrop / after-select close handler
+        commands={commands}              // the searchable command list
+        placeholder="Type a command or search…"
+        emptyText="No matching commands"
+      />
+    </>
+  );
+}
+
 const variations = [
   {
     title: "Grouped with icons & shortcuts",
@@ -171,6 +229,61 @@ React.useEffect(() => {
   emptyText="No commands available — try syncing your workspace."
 />`,
     render: () => <EmptyStateExample />,
+  },
+  {
+    title: "All props",
+    description:
+      "Every CommandPalette prop and every Command field in one place: controlled open/onClose, commands, placeholder and emptyText — with each command using id, group, label, description, icon, shortcut, keywords and onSelect (plus onClick, the alias used when onSelect is absent).",
+    code: `const [open, setOpen] = React.useState(false);
+
+const commands = [
+  {
+    id: "go-dashboard",                 // Command.id — stable React key
+    group: "Navigation",                // Command.group — heading this item sits under
+    label: "Go to Dashboard",           // Command.label — visible primary text (required)
+    description: "Overview and stats",  // Command.description — secondary line
+    icon: <HomeIcon />,                 // Command.icon — leading SVG
+    shortcut: "G D",                    // Command.shortcut — right-aligned hint
+    keywords: "home overview metrics",  // Command.keywords — extra search terms
+    onSelect: () => {},                 // Command.onSelect — runs on Enter/click, palette closes
+  },
+  {
+    id: "open-settings",
+    group: "Navigation",
+    label: "Open Settings",
+    icon: <SettingsIcon />,
+    shortcut: "G S",
+    keywords: "preferences config",
+    onClick: () => {},                  // Command.onClick — alias used when onSelect is absent
+  },
+  {
+    id: "new-project",
+    group: "Actions",
+    label: "New project",
+    description: "Create a fresh workspace",
+    icon: <PlusIcon />,
+    shortcut: "N",
+    keywords: "create add",
+    onSelect: () => {},
+  },
+  {
+    id: "delete-project",
+    group: "Actions",
+    label: "Delete project",
+    icon: <TrashIcon />,
+    keywords: "remove trash",
+    onSelect: () => {},
+  },
+];
+
+<CommandPalette
+  open={open}                       // controlled visibility (drive it yourself)
+  onClose={() => setOpen(false)}    // Esc / backdrop / after-select close handler
+  commands={commands}              // the searchable command list
+  placeholder="Type a command or search…"
+  emptyText="No matching commands"
+/>`,
+    render: () => <CommandPaletteAllProps />,
   },
 ];
 

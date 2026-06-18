@@ -314,3 +314,29 @@ demo is a kitchen sink — so its `snippet` is hand-maintained to **mirror the d
 otherwise the shown code stops matching the rendered table (a real bug report we got). The
 "Actions column, batch actions & batch edit" variation demonstrates the same selection features in
 isolation with copy-pasteable code.
+
+### "All props" variation
+
+`site/src/demos/DatatableVariations.jsx` ends with an **"All props"** example
+(`function DatatableAllProps()`, the last entry in `variations`) that wires up **every
+Datatable-specific prop in one grid** — the full `DatatableProps` surface plus the complete
+`DatatableColumn`, `DatatableRowAction`, and `DatatableBatchAction` contracts — so a reader can see
+the shape of each in context. Conventions it follows (worth preserving if you regenerate or edit it):
+
+- **Mutually-exclusive / mode props are off, with a comment naming the alternative.** `serverMode`,
+  `pivotMode`, `virtualized`, and `editMode` are all `false` so the grid stays fully interactive in
+  client mode (paging, selection, inline + batch edit, row reorder/pin/resize, grouping, aggregation,
+  CSV/Excel export). The server-only props (`rowCount`, `onServerChange`, `aggregationValues`) and the
+  `pivot` model are still passed for completeness — they're inert until their mode is enabled.
+- **`selectionMode="cell"`** so `onCellClick` + `onActiveCellChange` fire; `onRowClick` is still
+  passed with a comment that it only fires under `selectionMode="row"` (the two are exclusive).
+- **`rowGrouping={[]}`** (the default) keeps reorder/selection live; a comment shows the `["department"]`
+  grouped form.
+- The `note` column relies on a `note` field, so the demo maps the shared `makePeople(24)` rows through
+  `NOTES` (the same const the Virtualized demo defines) to add one.
+- It's a **module-level component** (`render: () => <DatatableAllProps />`) because it uses
+  `React.useState` — `render` is called inside a `.map()` and must not call hooks directly.
+
+The `code` string mirrors the rendered component (including the `useState` line). After editing it,
+re-run `npm run gen:variations` (in `site/`) so `src/data/variations.js` — the search index — picks up
+the title.
