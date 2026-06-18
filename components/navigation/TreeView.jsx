@@ -69,6 +69,7 @@ export function TreeView({
   expanded: expandedProp,
   onExpandedChange,
   selectedId: selectedProp,
+  defaultSelectedId = null,
   onSelect,
   className = "",
   ...rest
@@ -84,7 +85,7 @@ export function TreeView({
 
   const [expInternal, setExpInternal] = React.useState(() => new Set(defaultExpanded));
   const expanded = expandedProp !== undefined ? new Set(expandedProp) : expInternal;
-  const [selInternal, setSelInternal] = React.useState(null);
+  const [selInternal, setSelInternal] = React.useState(defaultSelectedId);
   const selectedId = selectedProp !== undefined ? selectedProp : selInternal;
   const [focusId, setFocusId] = React.useState(null);
   const rowRefs = React.useRef(new Map());

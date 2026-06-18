@@ -18,6 +18,8 @@ export interface PopoverProps extends React.HTMLAttributes<HTMLSpanElement> {
   width?: number;
   /** Panel content. */
   children?: React.ReactNode;
+  /** Open on first render in uncontrolled mode. @default false */
+  defaultOpen?: boolean;
   /** Controlled open state — pair with `onOpenChange`. Omit for internal (uncontrolled) state. */
   open?: boolean;
   /** Called with the requested open state on trigger click, Esc, or outside click. */

@@ -36,6 +36,8 @@ export interface MenuProps extends React.HTMLAttributes<HTMLSpanElement> {
   header?: React.ReactNode;
   /** Fixed menu width in px (defaults to max(200, trigger width)). */
   width?: number;
+  /** Open on first render in uncontrolled mode. @default false */
+  defaultOpen?: boolean;
   /** Controlled open state — pair with `onOpenChange`. Omit for internal (uncontrolled) state. */
   open?: boolean;
   /** Called with the requested open state on trigger click, item select, Esc, or outside click. */

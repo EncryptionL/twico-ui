@@ -19,8 +19,10 @@ export interface Step {
  */
 export interface StepperProps extends React.HTMLAttributes<HTMLDivElement> {
   steps: Step[];
-  /** Index of the current step. @default 0 */
+  /** Controlled index of the current step (pair with `onStepClick`). */
   active?: number;
+  /** Uncontrolled initial step index; the Stepper then tracks clicks itself. @default 0 */
+  defaultActive?: number;
   /** @default "horizontal" */
   orientation?: "horizontal" | "vertical";
   /** Color intent. @default "primary" */

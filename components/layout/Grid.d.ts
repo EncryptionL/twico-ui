@@ -4,6 +4,12 @@ import * as React from "react";
 export interface GridProps extends React.HTMLAttributes<HTMLElement> {
   /** Element/tag to render. @default "div" */
   as?: keyof React.JSX.IntrinsicElements;
+  /** Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href). */
+  href?: string;
+  /** Anchor target — only used with as="a" (e.g. "_blank"). */
+  target?: React.HTMLAttributeAnchorTarget;
+  /** Anchor rel — only used with as="a"; pair "noopener noreferrer" with target="_blank". */
+  rel?: string;
   /** Fixed number of columns (ignored when `minChildWidth` is set). */
   columns?: number;
   /** Responsive auto-fill: minimum child width (number = px, or any CSS length). */

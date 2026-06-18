@@ -8,7 +8,7 @@ const MENU_CSS = `
   padding: var(--space-1-5); background: var(--color-surface-raised);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg); font-family: var(--font-sans);
-  transform-origin: top;
+  transform-origin: top; overflow-y: auto;
 }
 .twc-menu[data-state="open"] { animation: twico-scale-in var(--duration-fast) var(--ease-spring); }
 .twc-menu[data-state="closed"] { animation: twc-menu-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
@@ -45,6 +45,7 @@ export function Menu({
   header,
   width,
   open: openProp,
+  defaultOpen = false,
   onOpenChange,
   className = "",
   ...rest
@@ -57,7 +58,7 @@ export function Menu({
     document.head.appendChild(el);
   }, []);
 
-  const [openState, setOpenState] = React.useState(false);
+  const [openState, setOpenState] = React.useState(defaultOpen);
   const [render, setRender] = React.useState(false);
   const [pos, setPos] = React.useState(null);
   const [active, setActive] = React.useState(-1);
@@ -96,7 +97,9 @@ export function Menu({
     const bottom = flip ? vh - r.top + gap : undefined;
     let left = align === "end" ? r.right - w : r.left;
     left = Math.max(M, Math.min(left, vw - w - M));
-    setPos({ top, bottom, left, width: w, flip });
+    // Vertical room for the chosen placement, so a long menu scrolls instead of overflowing.
+    const avail = (flip ? r.top : vh - r.bottom) - gap - M;
+    setPos({ top, bottom, left, width: w, flip, maxHeight: Math.max(120, avail) });
   }, [align, width]);
 
   React.useEffect(() => {
@@ -156,7 +159,7 @@ export function Menu({
 
   const menu = render && pos ? (
     <div className="twc-menu" id={menuId} ref={menuRef} data-state={open ? "open" : "closed"} data-align={align} data-flip={pos.flip || undefined} role="menu"
-      style={{ top: pos.top, bottom: pos.bottom, left: pos.left, minWidth: pos.width }}>
+      style={{ top: pos.top, bottom: pos.bottom, left: pos.left, minWidth: pos.width, width: pos.width, maxHeight: pos.maxHeight }}>
       {header ? <div className="twc-menu__header">{header}</div> : null}
       {items.map((it, i) => {
         if (it.separator) return <div key={`s${i}`} className="twc-menu__sep" role="separator" />;

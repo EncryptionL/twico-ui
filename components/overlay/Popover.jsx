@@ -31,6 +31,7 @@ export function Popover({
   align = "center",
   width,
   open: openProp,
+  defaultOpen = false,
   onOpenChange,
   className = "",
   ...rest
@@ -43,7 +44,7 @@ export function Popover({
     document.head.appendChild(el);
   }, []);
 
-  const [openState, setOpenState] = React.useState(false);
+  const [openState, setOpenState] = React.useState(defaultOpen);
   const [render, setRender] = React.useState(false);
   const [pos, setPos] = React.useState(null);
   const wrapRef = React.useRef(null);

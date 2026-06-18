@@ -28,7 +28,9 @@ export interface TreeViewProps extends React.HTMLAttributes<HTMLDivElement> {
   expanded?: string[];
   /** Fired with the next expanded ids whenever a row expands or collapses. */
   onExpandedChange?: (ids: string[]) => void;
-  /** Controlled selected node id. */
+  /** Selected node id on first render (uncontrolled). */
+  defaultSelectedId?: string | null;
+  /** Controlled selected node id (pair with `onSelect`). */
   selectedId?: string | null;
   /** Fired when a row is clicked, id first (with the full node as the second argument). */
   onSelect?: (id: string, node: TreeNode) => void;

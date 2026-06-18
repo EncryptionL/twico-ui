@@ -49,7 +49,8 @@ const BangIcon = () => (
 
 export function Stepper({
   steps,
-  active = 0,
+  active: activeProp,
+  defaultActive = 0,
   orientation = "horizontal",
   tone = "primary",
   onStepClick,
@@ -64,6 +65,13 @@ export function Stepper({
     el.textContent = STEPPER_CSS;
     document.head.appendChild(el);
   }, []);
+
+  // Controlled when `active` is passed; uncontrolled (internal state seeded by
+  // `defaultActive`) otherwise. A clicked step advances the internal index in
+  // uncontrolled mode, and onStepClick always fires.
+  const [activeInternal, setActiveInternal] = React.useState(defaultActive);
+  const active = activeProp !== undefined ? activeProp : activeInternal;
+  const handleStep = (i) => { if (activeProp === undefined) setActiveInternal(i); onStepClick?.(i); };
 
   const stateOf = (i, step) => {
     if (step.error) return "error";
@@ -82,9 +90,9 @@ export function Stepper({
           ? {
               role: "button",
               tabIndex: 0,
-              onClick: () => onStepClick?.(i),
+              onClick: () => handleStep(i),
               onKeyDown: (e) => {
-                if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onStepClick?.(i); }
+                if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleStep(i); }
               },
             }
           : null;
