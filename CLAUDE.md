@@ -55,6 +55,7 @@ npm run typecheck      # tsc --noEmit
 npm run check:exports  # are-the-types-wrong: JS + TS resolve across ESM/CJS
 npm test               # vitest (unit tests in tests/); test:run for CI
 npm run build:css      # regenerate styles/twico-ui.css from tokens (build:css:check guards drift)
+npm run verify:palette # assert palette.html's baked hexes match tokens/colors.css (CI guard)
 npm run size           # size-limit budget check
 npm pack --dry-run     # preview the published tarball
 

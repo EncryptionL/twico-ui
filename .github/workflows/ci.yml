@@ -26,10 +26,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
           cache: 'npm'
@@ -51,6 +51,9 @@ jobs:
 
       - name: Guard - shippable stylesheet is in sync with token sources
         run: npm run build:css:check
+
+      - name: Guard - palette.html preview is in sync with color tokens
+        run: npm run verify:palette
 
       - name: Guard - docs hooks list is in sync with hooks/index.js
         run: node site/scripts/gen-exports.mjs --check
