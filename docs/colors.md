@@ -39,13 +39,27 @@ colors.rose[600];   // "#e11d48"
   so legacy **node10** classic resolution can't resolve `twico-ui/colors` (it's EOL, and shipping
   root shim files would break the dist-only tarball). node16 ESM/CJS + bundler all resolve 🟢.
 
-## 3. Drift guard
+## 3. Drift guards
 
+There are **two** hand-maintained copies of the token values, each with its own guard:
+
+### 3a. `src/colors.ts` ↔ `tokens/colors.css` (primitives)
 `src/colors.ts` (JS) and `tokens/colors.css` (CSS) are two hand-maintained copies of the same
 values — same situation as the concatenated stylesheet, which `build:css:check` guards.
 **`tests/colors.test.js`** parses every `--<hue>-<shade>: #hex;` primitive out of `tokens/colors.css`
 and asserts it equals the JS object — in both directions (no JS shade missing from CSS, none extra).
 Edit one, you must edit the other or the test (and CI) fails.
+
+### 3b. `palette.html` ↔ `tokens/colors.css` (resolved primitives + semantic light/dark)
+The standalone `palette.html` preview is **self-contained**: it hard-codes the *resolved* value of
+every primitive step **and** every `--color-*` semantic alias (light *and* dark) so it renders
+without loading the stylesheet — which means it silently drifts whenever a token changes.
+**`scripts/verify-palette.mjs`** (`npm run verify:palette`, guarded in `ci.yml`) re-resolves every
+token in `tokens/colors.css` — following the full `var()` chain for both `:root` and `.dark` — and
+compares it against the values baked into `palette.html` (140 values: 6 primitive scales + the
+semantic aliases × light/dark). It is read-only and fails CI on any mismatch; it mirrors the
+`build:css:check` pattern. (It strips CSS comments before parsing, because the colors.css header
+comment mentions `.dark`, which would otherwise hijack the dark-block match.)
 
 ## 4. The Color docs page (`site/src/pages/Colors.jsx`)
 
@@ -67,6 +81,8 @@ swatches are `<button>`s with `aria-label`s and copy uses the library's `useCopy
 ## 5. When you change a color
 
 1. Edit **both** `tokens/colors.css` and `src/colors.ts` (if it's a primitive).
-2. `npm run build:css` (regenerate the shipped stylesheet) and `npm test` (the drift guard).
+2. `npm run build:css` (regenerate the shipped stylesheet) and `npm test` (the §3a drift guard).
 3. `npm run build && npm run check:exports` — the `colors` entry must stay 🟢.
-4. The Color page and `palette.html` re-render automatically from the tokens/export — no edits needed.
+4. The Color docs page (`site/`) re-renders automatically from the tokens/export — no edits needed.
+   **`palette.html` does NOT** — it hard-codes resolved values, so update its `PRIMITIVES` /
+   `SEMANTIC` data to the new resolved value(s) and run `npm run verify:palette` (the §3b guard).

@@ -66,6 +66,7 @@
     "build": "tsup",
     "build:css": "node scripts/build-css.mjs",
     "build:css:check": "node scripts/build-css.mjs --check",
+    "verify:palette": "node scripts/verify-palette.mjs",
     "typecheck": "tsc --noEmit",
     "check:exports": "attw --pack . --profile node16 --exclude-entrypoints styles.css",
     "test": "vitest",

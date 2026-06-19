@@ -52,6 +52,9 @@ jobs:
       - name: Guard - shippable stylesheet is in sync with token sources
         run: npm run build:css:check
 
+      - name: Guard - palette.html preview is in sync with color tokens
+        run: npm run verify:palette
+
       - name: Guard - docs hooks list is in sync with hooks/index.js
         run: node site/scripts/gen-exports.mjs --check
 
