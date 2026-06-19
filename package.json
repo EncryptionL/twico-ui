@@ -88,7 +88,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "jsdom": "^25.0.1",
+    "jsdom": "^29.1.1",
     "semantic-release": "^24.2.3",
     "size-limit": "^11.1.6",
     "tsup": "^8.3.5",
