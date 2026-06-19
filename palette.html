@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Twico UI — Color Palette</title>
+<!-- Self-contained palette generated from tokens/colors.css. Every hex below is the resolved
+     value of a --color-* / primitive token. Click any swatch to copy. No external assets. -->
+<style>
+  :root {
+    --bg: #f8fafc; --surface: #ffffff; --sunken: #f1f5f9;
+    --text: #0f172a; --muted: #475569; --subtle: #94a3b8;
+    --border: #e2e8f0; --radius: 12px; --radius-sm: 8px;
+    --shadow: 0 1px 2px rgb(15 23 42 / .06), 0 4px 16px rgb(15 23 42 / .06);
+  }
+  html[data-ui="dark"] {
+    --bg: #020617; --surface: #0f172a; --sunken: #0b1222;
+    --text: #f8fafc; --muted: #cbd5e1; --subtle: #64748b;
+    --border: #25324a;
+    --shadow: 0 1px 2px rgb(0 0 0 / .4), 0 4px 18px rgb(0 0 0 / .45);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased; line-height: 1.5;
+    transition: background .25s ease, color .25s ease;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 40px 24px 96px; }
+  header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 8px; }
+  h1 { font-size: 30px; font-weight: 800; letter-spacing: -.02em; margin: 0; }
+  .lede { color: var(--muted); font-size: 15px; margin: 8px 0 0; max-width: 620px; }
+  h2 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--subtle); margin: 48px 0 16px; }
+  h3 { font-size: 14px; font-weight: 700; margin: 0 0 10px; }
+  .toggle {
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    border-radius: 999px; padding: 9px 16px; font: inherit; font-size: 13px; font-weight: 600;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: var(--shadow);
+  }
+  .toggle:hover { border-color: var(--subtle); }
+
+  /* primitive scale row */
+  .scale { display: grid; grid-template-columns: repeat(11, 1fr); gap: 6px; }
+  .scale.short { grid-template-columns: repeat(11, 1fr); }
+  .sw { border: 1px solid rgb(15 23 42 / .08); border-radius: var(--radius-sm); cursor: pointer; overflow: hidden; transition: transform .12s ease; }
+  .sw:hover { transform: translateY(-2px); }
+  .sw .chip { height: 56px; }
+  .sw .meta { padding: 6px 8px; background: var(--surface); }
+  .sw .step { font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .sw .hex { font-size: 10px; color: var(--muted); font-family: ui-monospace, "JetBrains Mono", monospace; text-transform: uppercase; }
+  .scalewrap { margin-bottom: 22px; }
+  .scalewrap > .lbl { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+  .scalewrap .name { font-size: 14px; font-weight: 700; }
+  .scalewrap .note { font-size: 12px; color: var(--subtle); }
+
+  /* semantic token rows */
+  .sem { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .semgroup { margin-bottom: 26px; }
+  .row {
+    display: grid; grid-template-columns: 230px 1fr 1fr; gap: 12px; align-items: center;
+    padding: 8px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+  }
+  .row .tok { font-family: ui-monospace, "JetBrains Mono", monospace; font-size: 12px; font-weight: 600; word-break: break-all; }
+  .cell { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 4px 6px; border-radius: var(--radius-sm); }
+  .cell:hover { background: var(--sunken); }
+  .dot { width: 30px; height: 30px; border-radius: 7px; border: 1px solid rgb(15 23 42 / .15); flex: none; }
+  .cell .v { font-family: ui-monospace, "JetBrains Mono", monospace; font-size: 11px; text-transform: uppercase; color: var(--muted); }
+  .colhead { display: grid; grid-template-columns: 230px 1fr 1fr; gap: 12px; padding: 0 8px 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--subtle); }
+
+  /* tone vocabulary */
+  .tones { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .tones .trow { display: grid; grid-template-columns: 200px 1fr; gap: 12px; padding: 12px 16px; border-top: 1px solid var(--border); align-items: center; }
+  .tones .trow:first-child { border-top: none; }
+  .tones .comp { font-weight: 700; font-size: 14px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 7px; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 4px 10px 4px 8px; border-radius: 999px; border: 1px solid var(--border); background: var(--sunken); }
+  .pill .pd { width: 11px; height: 11px; border-radius: 999px; }
+
+  .legend { font-size: 12px; color: var(--subtle); margin-top: 10px; }
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--subtle); }
+  footer code { font-family: ui-monospace, "JetBrains Mono", monospace; background: var(--sunken); padding: 1px 5px; border-radius: 5px; }
+
+  /* copy toast */
+  #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); opacity: 0;
+    background: #6366f1; color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 13px; font-weight: 600;
+    box-shadow: 0 8px 30px rgb(99 102 241 / .45); pointer-events: none; transition: opacity .2s ease, transform .2s ease; z-index: 99; }
+  #toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Twico&nbsp;UI — Color Palette</h1>
+      <p class="lede">Every color in the design system: six primitive scales, the full set of semantic
+        aliases (light &amp; dark), and which <code style="font-family:ui-monospace,monospace">tone</code>
+        each component exposes. Click any swatch to copy its hex.</p>
+    </div>
+    <button class="toggle" id="modeBtn" aria-label="Toggle dark mode">🌙 Dark</button>
+  </header>
+
+  <!-- ===== PRIMITIVES ===== -->
+  <h2>Primitive scales</h2>
+  <div id="primitives"></div>
+
+  <!-- ===== SEMANTIC ===== -->
+  <h2>Semantic aliases <span style="text-transform:none;font-weight:600;letter-spacing:0;color:var(--subtle)">— the tokens components actually use; dark values differ</span></h2>
+  <div id="semantic"></div>
+
+  <!-- ===== TONES ===== -->
+  <h2>Tone vocabulary <span style="text-transform:none;font-weight:600;letter-spacing:0;color:var(--subtle)">— per-component <code style="font-family:ui-monospace,monospace">tone</code> prop</span></h2>
+  <div class="tones" id="tones"></div>
+  <p class="legend">Button &amp; IconButton intentionally expose only <b>primary</b> and <b>danger</b> — the two
+    meaningful <i>action</i> intents. Status-communicating components carry the wider set. <b>neutral</b>=slate,
+    <b>default/muted/subtle/current/white</b> are text/foreground roles, not hues.</p>
+
+  <footer>
+    Generated from <code>tokens/colors.css</code>. Brand hue is Indigo — remap the <code>--brand-*</code>
+    scale (or any <code>--color-*</code> alias) to reskin the whole library. Dark mode = <code>.dark</code>
+    or <code>[data-theme="dark"]</code> on <code>&lt;html&gt;</code>; only semantic aliases flip, primitives stay static.
+  </footer>
+</div>
+
+<div id="toast">Copied</div>
+
+<script>
+/* ---- data (resolved from tokens/colors.css) ---- */
+const PRIMITIVES = [
+  { name: "Indigo", note: "brand / --brand-* · --indigo-*", star: 500, steps: {
+    50:"#eef2ff",100:"#e0e7ff",200:"#c7d2fe",300:"#a5b4fc",400:"#818cf8",500:"#6366f1",600:"#4f46e5",700:"#4338ca",800:"#3730a3",900:"#312e81",950:"#1e1b4b" } },
+  { name: "Slate", note: "neutral · --slate-*", star: null, steps: {
+    50:"#f8fafc",100:"#f1f5f9",200:"#e2e8f0",300:"#cbd5e1",400:"#94a3b8",500:"#64748b",600:"#475569",700:"#334155",800:"#1e293b",900:"#0f172a",950:"#020617" } },
+  { name: "Emerald", note: "success · --emerald-*", star: 500, steps: {
+    50:"#ecfdf5",100:"#d1fae5",200:"#a7f3d0",300:"#6ee7b7",400:"#34d399",500:"#10b981",600:"#059669",700:"#047857",800:"#065f46",900:"#064e3b",950:"#022c22" } },
+  { name: "Amber", note: "warning · --amber-*", star: 500, steps: {
+    50:"#fffbeb",100:"#fef3c7",200:"#fde68a",300:"#fcd34d",400:"#fbbf24",500:"#f59e0b",600:"#d97706",700:"#b45309",800:"#92400e",900:"#78350f",950:"#451a03" } },
+  { name: "Rose", note: "danger · --rose-*", star: 500, steps: {
+    50:"#fff1f2",100:"#ffe4e6",200:"#fecdd3",300:"#fda4af",400:"#fb7185",500:"#f43f5e",600:"#e11d48",700:"#be123c",800:"#9f1239",900:"#881337",950:"#4c0519" } },
+  { name: "Sky", note: "info · --sky-*", star: 500, steps: {
+    50:"#f0f9ff",100:"#e0f2fe",200:"#bae6fd",300:"#7dd3fc",400:"#38bdf8",500:"#0ea5e9",600:"#0284c7",700:"#0369a1",800:"#075985",900:"#0c4a6e",950:"#082f49" } },
+];
+
+// [token, lightValue, darkValue]
+const SEMANTIC = [
+  ["Surfaces", [
+    ["--color-bg",             "#f8fafc",                "#020617"],
+    ["--color-surface",        "#ffffff",                "#0f172a"],
+    ["--color-surface-raised", "#ffffff",                "#1e293b"],
+    ["--color-surface-sunken", "#f1f5f9",                "#0b1222"],
+    ["--color-overlay",        "rgb(15 23 42 / .45)",    "rgb(2 6 23 / .65)"],
+  ]],
+  ["Borders & dividers", [
+    ["--color-border",         "#e2e8f0",                "#25324a"],
+    ["--color-border-strong",  "#cbd5e1",                "#334155"],
+    ["--color-divider",        "#e2e8f0",                "#1c2840"],
+  ]],
+  ["Text", [
+    ["--color-text",           "#0f172a",                "#f8fafc"],
+    ["--color-text-muted",     "#475569",                "#cbd5e1"],
+    ["--color-text-subtle",    "#94a3b8",                "#64748b"],
+    ["--color-text-inverted",  "#ffffff",                "#0f172a"],
+  ]],
+  ["Primary / brand", [
+    ["--color-primary",        "#6366f1",                "#6366f1"],
+    ["--color-primary-hover",  "#4f46e5",                "#818cf8"],
+    ["--color-primary-active", "#4338ca",                "#a5b4fc"],
+    ["--color-primary-fg",     "#ffffff",                "#ffffff"],
+    ["--color-primary-subtle", "#eef2ff",                "rgb(99 102 241 / .16)"],
+    ["--color-primary-subtle-fg","#4338ca",              "#a5b4fc"],
+    ["--color-primary-border", "#c7d2fe",                "rgb(99 102 241 / .35)"],
+    ["--color-ring",           "rgb(99 102 241 / .45)",  "rgb(129 140 248 / .55)"],
+  ]],
+  ["Success", [
+    ["--color-success",        "#059669",                "#10b981"],
+    ["--color-success-fg",     "#ffffff",                "#052e1d"],
+    ["--color-success-subtle", "#ecfdf5",                "rgb(16 185 129 / .15)"],
+    ["--color-success-subtle-fg","#059669",              "#34d399"],
+  ]],
+  ["Warning", [
+    ["--color-warning",        "#f59e0b",                "#f59e0b"],
+    ["--color-warning-fg",     "#ffffff",                "#2c1701"],
+    ["--color-warning-subtle", "#fffbeb",                "rgb(245 158 11 / .15)"],
+    ["--color-warning-subtle-fg","#d97706",              "#fbbf24"],
+  ]],
+  ["Danger", [
+    ["--color-danger",         "#f43f5e",                "#f43f5e"],
+    ["--color-danger-hover",   "#e11d48",                "#fb7185"],
+    ["--color-danger-fg",      "#ffffff",                "#2c0610"],
+    ["--color-danger-subtle",  "#fff1f2",                "rgb(244 63 94 / .15)"],
+    ["--color-danger-subtle-fg","#e11d48",               "#fb7185"],
+  ]],
+  ["Info", [
+    ["--color-info",           "#0ea5e9",                "#0ea5e9"],
+    ["--color-info-fg",        "#ffffff",                "#04212f"],
+    ["--color-info-subtle",    "#f0f9ff",                "rgb(14 165 233 / .15)"],
+    ["--color-info-subtle-fg", "#0284c7",                "#38bdf8"],
+  ]],
+];
+
+const HUE = { primary:"#6366f1", success:"#059669", warning:"#f59e0b", danger:"#f43f5e", info:"#0ea5e9", neutral:"#64748b" };
+const ROLE = "#94a3b8"; // non-hue roles (default/muted/subtle/current/white/etc.)
+const TONES = [
+  ["Button",  ["primary","danger"]],
+  ["IconButton", ["primary","danger"]],
+  ["Badge",   ["primary","success","warning","danger","info","neutral"]],
+  ["Timeline",["primary","info","success","warning","danger"]],
+  ["Alert",   ["info","success","warning","danger"]],
+  ["Progress",["primary","info","success","warning","danger"]],
+  ["Spinner", ["current","primary","neutral","white"]],
+  ["Toast",   ["default","neutral","success","warning","danger","info"]],
+  ["Text",    ["default","muted","subtle","primary","danger"]],
+];
+
+/* ---- helpers ---- */
+function lum(hex){ if(!/^#/.test(hex)) return 1; let h=hex.slice(1); if(h.length===3)h=h.split('').map(c=>c+c).join('');
+  const r=parseInt(h.slice(0,2),16)/255,g=parseInt(h.slice(2,4),16)/255,b=parseInt(h.slice(4,6),16)/255;
+  return 0.2126*r+0.7152*g+0.0722*b; }
+function copy(v){ navigator.clipboard?.writeText(v); const t=document.getElementById('toast'); t.textContent='Copied  '+v; t.classList.add('on'); clearTimeout(window.__tt); window.__tt=setTimeout(()=>t.classList.remove('on'),1100); }
+
+/* ---- render primitives ---- */
+const pc = document.getElementById('primitives');
+PRIMITIVES.forEach(p => {
+  const wrap = document.createElement('div'); wrap.className='scalewrap';
+  const lbl = document.createElement('div'); lbl.className='lbl';
+  lbl.innerHTML = `<span class="name">${p.name}</span><span class="note">${p.note}</span>`;
+  wrap.appendChild(lbl);
+  const scale = document.createElement('div'); scale.className='scale';
+  const entries = Object.entries(p.steps);
+  // keep short scales left-aligned by spanning
+  scale.style.gridTemplateColumns = `repeat(${entries.length}, minmax(0,1fr))`;
+  entries.forEach(([step,hex]) => {
+    const sw = document.createElement('div'); sw.className='sw'; sw.title=`Copy ${hex}`;
+    const star = String(p.star)===step ? ' ★' : '';
+    sw.innerHTML = `<div class="chip" style="background:${hex}"></div>
+      <div class="meta"><div class="step">${step}${star}</div><div class="hex">${hex}</div></div>`;
+    sw.onclick = () => copy(hex);
+    scale.appendChild(sw);
+  });
+  wrap.appendChild(scale); pc.appendChild(wrap);
+});
+
+/* ---- render semantic ---- */
+const sc = document.getElementById('semantic');
+const head = document.createElement('div'); head.className='colhead';
+head.innerHTML = `<div>Token</div><div>Light</div><div>Dark</div>`;
+sc.appendChild(head);
+SEMANTIC.forEach(([group, rows]) => {
+  const g = document.createElement('div'); g.className='semgroup';
+  const h = document.createElement('h3'); h.textContent = group; g.appendChild(h);
+  rows.forEach(([tok, light, dark]) => {
+    const row = document.createElement('div'); row.className='row';
+    const cell = (val) => `<div class="cell" data-v="${val}" title="Copy ${val}">
+        <span class="dot" style="background:${val}"></span><span class="v">${val}</span></div>`;
+    row.innerHTML = `<div class="tok">${tok}</div>${cell(light)}${cell(dark)}`;
+    row.querySelectorAll('.cell').forEach(c => c.onclick = () => copy(c.dataset.v));
+    g.appendChild(row);
+  });
+  sc.appendChild(g);
+});
+
+/* ---- render tones ---- */
+const tc = document.getElementById('tones');
+TONES.forEach(([comp, tones]) => {
+  const r = document.createElement('div'); r.className='trow';
+  const pills = tones.map(t => {
+    const col = HUE[t] || ROLE;
+    return `<span class="pill"><span class="pd" style="background:${col}"></span>${t}</span>`;
+  }).join('');
+  r.innerHTML = `<div class="comp">${comp}</div><div class="pills">${pills}</div>`;
+  tc.appendChild(r);
+});
+
+/* ---- dark toggle ---- */
+const btn = document.getElementById('modeBtn');
+btn.onclick = () => {
+  const dark = document.documentElement.getAttribute('data-ui') === 'dark';
+  document.documentElement.setAttribute('data-ui', dark ? 'light' : 'dark');
+  btn.textContent = dark ? '🌙 Dark' : '☀ Light';
+};
+</script>
+</body>
+</html>
