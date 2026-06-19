@@ -74,6 +74,9 @@ The docs website links to the changelog from its header ("Changelog").
 
 ## Requirements
 
+- **Node ≥ 22.14** on the runner. semantic-release v25 requires `^22.14.0 || >= 24.10.0`, so every
+  workflow pins `node-version: "22"` (`release.yml` and the rest). Node 20 — used until June 2026 —
+  is EOL and fails the release with `node version ^22.14.0 || >= 24.10.0 is required`.
 - **`NPM_TOKEN`** repository secret (npm automation token with publish rights). Already configured.
 - `GITHUB_TOKEN` (provided automatically) for tags, the release, and the changelog commit.
 - If you enable **branch protection** on `main`, allow the `github-actions` bot to push the changelog
