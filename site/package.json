@@ -16,14 +16,14 @@
     "gen:props": "node scripts/enrich-props.mjs"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.2",
-    "prism-react-renderer": "^2.4.0"
+    "prism-react-renderer": "^2.4.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.18.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.49.1",
-    "@vitejs/plugin-react": "^4.3.4",
-    "vite": "^5.4.11"
+    "@playwright/test": "^1.61.0",
+    "@vitejs/plugin-react": "^6.0.2",
+    "vite": "^8.0.16"
   }
 }
