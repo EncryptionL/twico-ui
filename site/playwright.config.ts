@@ -9,7 +9,10 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 0,
-  reporter: process.env.CI ? "github" : "list",
+  // In CI emit the GitHub annotations AND an HTML report (with actual/expected/diff
+  // images) so the "upload diff report on failure" step in visual.yml has something
+  // to upload — the bare "github" reporter writes no playwright-report/ directory.
+  reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
   snapshotPathTemplate: "{testDir}/__screenshots__/{arg}{ext}",
   expect: {
     // Allow a touch of sub-pixel AA noise; catch real layout/theme breakage.

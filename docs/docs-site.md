@@ -150,6 +150,16 @@ npm run build     # -> site/dist  (must succeed; it also compiles the library so
 - **CI enforcement:** `.github/workflows/interaction.yml` runs **all three** against a `vite preview`
   server on every push/PR to `dev`/`main` that touches the UI (and on manual dispatch), so the §8
   behavioral bar is automated, not just local. (`visual.yml` separately does Playwright pixel diffs.)
+- **Visual regression** (`visual.yml`): Playwright pixel-diffs 7 high-traffic pages × 2 themes
+  (14 snapshots, `tests/visual.spec.ts`) at 1320×900, `maxDiffPixelRatio: 0.02`, animations disabled.
+  Baselines are **OS-sensitive** (font rasterization differs per OS) and the snapshot path has no
+  platform suffix, so the **single committed set must be generated on the Linux runner**, not a dev
+  machine. They live under `site/tests/__screenshots__/` (committed). **Seed or refresh them** via
+  *Actions → Visual regression → Run workflow → mode=update* (or
+  `gh workflow run "Visual regression" --ref dev -f mode=update`), download the `updated-baselines`
+  artifact, and commit the PNGs. Without committed baselines every compare run fails — that is the
+  bootstrap step, do it once. Thereafter every PR touching the UI runs `mode=compare` and uploads a
+  diff-report artifact on mismatch.
 - **Deploy:** `.github/workflows/deploy-docs.yml` builds `site/` and publishes to GitHub Pages on push
   to **`main`** only (the release branch) — or via manual dispatch. `enablement: true` lets the workflow
   turn Pages on; if blocked, enable it once under **Settings → Pages → Source = GitHub Actions**. Vite
