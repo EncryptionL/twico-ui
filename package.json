@@ -59,6 +59,7 @@
   "files": [
     "dist",
     "styles",
+    "llms.txt",
     "README.md",
     "LICENSE"
   ],
@@ -67,13 +68,15 @@
     "build:css": "node scripts/build-css.mjs",
     "build:css:check": "node scripts/build-css.mjs --check",
     "verify:palette": "node scripts/verify-palette.mjs",
+    "gen:llms": "node scripts/gen-llms.mjs",
+    "gen:llms:check": "node scripts/gen-llms.mjs --check",
     "typecheck": "tsc --noEmit",
     "check:exports": "attw --pack . --profile node16 --exclude-entrypoints styles.css",
     "test": "vitest",
     "test:run": "vitest run",
     "size": "size-limit",
     "release": "semantic-release",
-    "prepublishOnly": "npm run build:css && npm run build"
+    "prepublishOnly": "npm run build:css && npm run gen:llms && npm run build"
   },
   "peerDependencies": {
     "react": ">=18",

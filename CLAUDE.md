@@ -56,6 +56,7 @@ npm run check:exports  # are-the-types-wrong: JS + TS resolve across ESM/CJS
 npm test               # vitest (unit tests in tests/); test:run for CI
 npm run build:css      # regenerate styles/twico-ui.css from tokens (build:css:check guards drift)
 npm run verify:palette # assert palette.html's baked hexes match tokens/colors.css (CI guard)
+npm run gen:llms       # regenerate llms.txt AI guide (gen:llms:check guards drift); docs/ai-guide.md
 npm run size           # size-limit budget check
 npm pack --dry-run     # preview the published tarball
 
@@ -156,7 +157,9 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
 5. Update the docs site: a `components.js` entry (props rows: one informative sentence per prop,
    ~12–22 words), a `site/src/demos/<Name>Demo.jsx`, a `<Name>Variations.jsx`, and the manual
    sync points below.
-6. **Update `/docs`** (rule §4.1) and commit with a Conventional Commit.
+6. `npm run gen:llms` — regenerate the AI guide (`llms.txt`) from the refreshed `components.js`
+   (CI's `gen:llms:check` fails on drift). See `docs/ai-guide.md`.
+7. **Update `/docs`** (rule §4.1) and commit with a Conventional Commit.
 
 ## 7. Docs site conventions (`site/`)
 

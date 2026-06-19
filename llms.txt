@@ -1,0 +1,2420 @@
+# Twico UI — LLM usage guide (llms.txt)
+
+Twico UI is a free, MIT-licensed **React component library**: 61 components and 23 standalone
+hooks (plus the `useToast` hook), with dark mode, motion, accessibility, RTL, a density scale, and
+design tokens. **Zero runtime dependencies** (peer: `react`/`react-dom` >= 18).
+
+This file is the authoritative guide for writing application code with the **`twico-ui` npm package**.
+The component and hook reference below is generated from the library's own TypeScript types and
+component data, so every component, prop, and example reflects the shipped API. When you generate
+code that uses Twico UI, follow the setup and conventions here, then use the per-component sections
+for exact props.
+
+> Not to be confused with `SKILL.md` / `DESIGN-SYSTEM.md`, which are for generating static HTML
+> design mockups from the design-system bundle. This guide is for **real React app code**.
+
+## Install & setup (do this once)
+
+```bash
+npm install twico-ui
+```
+
+Import the stylesheet **once** at your app root — this is the only CSS you import:
+
+```jsx
+import "twico-ui/styles.css";
+```
+
+Then import components and hooks by name from the package root:
+
+```jsx
+import { Button, Input, Dialog, useColorScheme } from "twico-ui";
+```
+
+Rules that matter:
+
+- **Do not import any per-component CSS — there is none.** The single `twico-ui/styles.css` carries
+  the design tokens, base reset, and self-hosted fonts; each component injects its own scoped CSS at
+  runtime. Importing `twico-ui/styles.css` more than once is harmless but unnecessary.
+- The package ships a `"use client"` directive, so it works in the **Next.js App Router / React
+  Server Components** out of the box — import it into client trees directly.
+- **SSR-safe**: components never touch `window`/`document` during render.
+- **Peer deps**: `react` and `react-dom` >= 18 (works with React 18 and 19).
+- TypeScript types ship with the package; every component's props type is exported (e.g.
+  `ButtonProps`).
+
+## Dark mode
+
+Dark mode is a class/attribute on the `<html>` element — add `class="dark"` (or `data-theme="dark"`):
+
+```html
+<html class="dark">
+```
+
+Or manage it in React with the built-in hook (persists to `localStorage`, syncs across tabs/instances):
+
+```jsx
+import { useColorScheme, Button } from "twico-ui";
+
+function ThemeToggle() {
+  const { isDark, toggle } = useColorScheme();
+  return <Button variant="ghost" onClick={toggle}>{isDark ? "Light" : "Dark"}</Button>;
+}
+```
+
+Only the semantic color aliases flip in dark mode; the primitive scales stay constant.
+
+## Theming (design tokens)
+
+Everything is styled through CSS custom properties, so you re-skin by overriding tokens at `:root`
+(or any scope) — no component props or config needed:
+
+```css
+:root {
+  --brand-500: #8b5cf6;   /* rebrand: remap the primary scale */
+  --radius-md: 8px;        /* tighter corners everywhere */
+}
+```
+
+Token families: `--color-*` (semantic: `primary`, `success`, `warning`, `danger`, `info`, `bg`,
+`surface`, `text`, `border`, …), `--brand-*` / `--indigo-*` (primary scale, 50–950), `--radius-*`,
+`--shadow-*`, `--space-*`, `--text-*`, `--font-*`, `--duration-*` / `--ease-*`. The primitive color
+scales are also importable as JS objects: `import { indigo, slate } from "twico-ui/colors"`.
+
+- **Density**: set `data-density="compact"` or `"comfortable"` on any ancestor to retune control
+  heights for everything inside — no per-component prop.
+- **RTL**: set `dir="rtl"` on any ancestor; components use logical properties and mirror automatically.
+
+## Controlled vs uncontrolled (read before using inputs)
+
+Every form component supports both modes:
+
+- **Uncontrolled**: pass `defaultValue`, read changes via `onChange`.
+- **Controlled**: pass `value` + `onChange` and own the state.
+
+The `onChange` payload differs by component kind:
+
+- **Composite controls** (Select, MultiSelect, Combobox, Checkbox, Switch, Radio, Slider, Rating,
+  DatePicker, DateRangePicker, ColorPicker, …) call **`onChange(value)`** — you receive the value
+  directly.
+- **Native field wrappers** (Input, Textarea) call **`onChange(event)`** — read `event.target.value`.
+- Currency / CurrencyField are specialized money inputs — see their sections for their exact
+  `value`/`onChange` shape.
+
+```jsx
+// controlled text input (native — event payload)
+const [email, setEmail] = useState("");
+<Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" />
+
+// controlled select (composite — value payload)
+const [role, setRole] = useState("editor");
+<Select
+  value={role}
+  onChange={setRole}
+  options={[{ value: "admin", label: "Admin" }, { value: "editor", label: "Editor" }]}
+/>
+```
+
+The `Field` component is a shared label/hint/error/required wrapper for any control. The
+`useControllableState` hook implements this exact controlled/uncontrolled pattern if you build your own.
+
+## Overlays (Dialog, Drawer, Menu, Popover, CommandPalette, Tooltip)
+
+- **Modal overlays — Dialog and Drawer — are driven by `open` + `onClose`:**
+
+```jsx
+const [open, setOpen] = useState(false);
+<Button onClick={() => setOpen(true)}>Open</Button>
+<Dialog open={open} onClose={() => setOpen(false)} title="Confirm" description="Are you sure?">
+  …body…
+</Dialog>
+```
+
+- **Anchored overlays — Menu and Popover — take a `trigger` node** and use `open` / `defaultOpen` +
+  `onOpenChange` (uncontrolled by default — just pass `trigger` and `items`).
+- All portal to `document.body`, animate in **and** out, and dismiss on backdrop click / Escape;
+  `prefers-reduced-motion` is respected.
+- The `useDisclosure` hook is a convenient open/close state helper for driving these.
+
+## Toasts
+
+Wrap your app **once** in `ToastProvider`, then call the imperative `useToast` hook anywhere beneath
+it. `useToast()` returns an object — **destructure `toast`**:
+
+```jsx
+import { ToastProvider, useToast, Button } from "twico-ui";
+
+function App() {
+  return (
+    <ToastProvider limit={4}>
+      <Page />
+    </ToastProvider>
+  );
+}
+
+function Page() {
+  const { toast } = useToast();
+  // toast.success / .error / .warning / .info / .danger(title, options?)
+  return <Button onClick={() => toast.success("Saved")}>Save</Button>;
+}
+```
+
+## Icons
+
+The library **ships no icon set** — pass your own icons as React nodes (inline SVG recommended) to
+props such as `leftIcon`, `rightIcon`, `icon`, `header`. Icons inherit `currentColor` and the
+control's size:
+
+```jsx
+<Button leftIcon={<svg width="16" height="16" viewBox="0 0 24 24" /* … */ />}>Add item</Button>
+```
+
+## Shared prop vocabulary
+
+- `size`: `"sm" | "md" | "lg"` (default `"md"`); a few components add `"xs"`/`"full"`.
+- `tone`: semantic color. Status components expose `"primary" | "neutral" | "success" | "warning" |
+  "danger" | "info"`; action components (Button, IconButton) expose `"primary" | "danger"`.
+- `variant`: fill style — commonly `"solid" | "soft" | "outline" | "ghost"` (the exact set varies per
+  component; see each section).
+- `value` / `defaultValue` / `onChange`: the controlled/uncontrolled triad.
+- `items` / `options`: array-driven content.
+- `label` / `hint` / `error` / `required`: form labelling (or use the `Field` wrapper).
+
+**Every component also accepts the standard DOM attributes for its root element** (`className`, `id`,
+`style`, `data-*`, `aria-*`) and forwards remaining props and event handlers via `...rest`. To keep
+this guide focused, the per-component "Props" lists below show only the **component-specific** props
+(the generic DOM passthrough is omitted).
+
+## How to read the reference below
+
+For each component: a one-line summary, its import, the component-specific props as
+`` `name` `` — type · *required* or default — what it does, and a copy-paste example. Object-shaped
+types referenced in props (e.g. `SelectOption`, `AccordionItem`, `DatatableColumn`) are illustrated
+in the examples.
+
+---
+
+## Component reference (61 components)
+
+### Buttons & actions
+
+#### Button
+
+Button is a primary action button with solid, soft, outline, and ghost variants crossed with a primary or danger tone, four sizes (xs/sm/md/lg), loading state, optional left/right icons, and a click ripple effect. Use it for primary and secondary actions throughout the UI.
+
+`import { Button } from "twico-ui"`
+
+Props:
+- `variant` — `"solid" | "soft" | "outline" | "ghost"` · default `"solid"` — Fill style: solid (primary CTA), soft (tinted), outline, or ghost. Cross with `tone` for color.
+- `tone` — `"primary" | "danger"` · default `"primary"` — Color/intent, orthogonal to variant — primary by default; tone="danger" makes a destructive button in any variant.
+- `size` — `"xs" | "sm" | "md" | "lg"` · default `"md"` — Adds a new "xs" size (~26px tall, smaller than "sm") to the existing union; sm/md/lg are unchanged. xs height is composed locally from space tokens (no global control-h-xs token).
+- `leftIcon` — `React.ReactNode` — Renders an icon node before the label, commonly used to reinforce the action with a leading visual cue.
+- `rightIcon` — `React.ReactNode` — Renders an icon node after the label, often a chevron or arrow signaling navigation or progression.
+- `loading` — `boolean` · default `false` — When true, swaps in a spinner and disables interaction to signal an in-flight action and prevent duplicate clicks.
+- `fullWidth` — `boolean` · default `false` — Stretches the button to fill its container's width, handy for full-width CTAs and stacked mobile action buttons.
+- `as` — `"button" | "a"` · default `"button"` — Chooses whether to render a native "button" or an "a" anchor, letting the button act as a real link when needed.
+- `children` — `React.ReactNode` — The label content rendered inside the button, typically text but accepting any inline node alongside the icons.
+- `href` — `string` — Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href).
+- `target` — `React.HTMLAttributeAnchorTarget` — Anchor target — only used with as="a" (e.g. "_blank").
+- `rel` — `string` — Anchor rel — only used with as="a"; pair "noopener noreferrer" with target="_blank".
+- `onClick` — `(e: React.MouseEvent) => void` — Click handler — fires on click/tap and on Enter or Space.
+- `type` — `"button" | "submit" | "reset"` · default `"button"` — Native button type — use "submit" to submit a surrounding form.
+- `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
+- `autoFocus` — `boolean` · default `false` — Focus the element automatically when it mounts.
+
+```jsx
+import { Button } from "twico-ui";
+
+const PlusIcon = () => (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>);
+
+<Button variant="solid" size="md" onClick={() => {}}>Save changes</Button>
+<Button variant="soft" leftIcon={<PlusIcon />}>Add item</Button>
+<Button variant="outline">Cancel</Button>
+<Button variant="ghost">Skip</Button>
+<Button tone="danger" loading>Deleting…</Button>
+```
+
+#### IconButton
+
+IconButton is a square or circular button that renders a single icon and always requires an aria-label for accessibility. Use it in toolbars, cards, and dense UI where an icon-only control is clearer than a labeled button.
+
+`import { IconButton } from "twico-ui"`
+
+Props:
+- `icon` — `React.ReactNode` — Supplies the single icon node to render, such as a Lucide SVG, falling back to children when omitted.
+- `variant` — `"solid" | "soft" | "outline" | "ghost"` · default `"ghost"` — Fill style (same axes as Button): solid, soft, outline, or ghost; ghost by default. Cross with `tone` for color.
+- `tone` — `"primary" | "danger"` · default `"primary"` — Color/intent, orthogonal to variant (mirrors Button) — primary by default; tone="danger" makes an icon-only destructive button in any variant.
+- `size` — `"xs" | "sm" | "md" | "lg"` · default `"md"` — Adds a new "xs" size (~26px square, smaller than "sm") to the existing union; sm/md/lg are unchanged.
+- `round` — `boolean` · default `false` — Renders a fully rounded circular button when true instead of the default squared shape with rounded corners.
+- `aria-label` — `string` · **required** — Provides the required accessible name for this icon-only button so screen readers announce its purpose.
+- `onClick` — `(e: React.MouseEvent) => void` — Click handler — fires on click/tap and on Enter or Space.
+- `type` — `"button" | "submit" | "reset"` · default `"button"` — Native button type — use "submit" to submit a surrounding form.
+- `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
+- `autoFocus` — `boolean` · default `false` — Focus the element automatically when it mounts.
+
+```jsx
+import { IconButton } from "twico-ui";
+
+const SettingsIcon = () => (<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6" /></svg>);
+const HeartIcon = () => (<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 1 0-7.8 7.8L12 21l8.9-8.6a5.5 5.5 0 0 0 0-7.8z" /></svg>);
+const TrashIcon = () => (<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" /></svg>);
+
+<IconButton aria-label="Settings" icon={<SettingsIcon />} />
+<IconButton aria-label="Like" variant="soft" round icon={<HeartIcon />} />
+<IconButton aria-label="Delete" variant="outline" icon={<TrashIcon />} />
+```
+
+### Layout
+
+#### Box
+
+Generic, token-styled box — the building block for non-flex layout (padding, margin, background, border, radius, shadow) without writing CSS.
+
+`import { Box } from "twico-ui"`
+
+Props:
+- `p, px, py, pt, pr, pb, pl` — `number | string` — Sets inner padding on the matching side(s), accepting a spacing-scale step (number) or any raw CSS length string.
+- `m, mx, my, mt, mr, mb, ml` — `number | string` — Sets outer margin on the matching side(s), accepting a spacing-scale step (number) or any raw CSS length string.
+- `bg` — `"surface" | "surface-raised" | "surface-sunken" | "bg" | string` — Sets the background to a surface token like "surface" or "surface-raised", or to any custom CSS color value.
+- `border` — `boolean` · default `false` — When true, draws a 1px border using the theme's border token, useful for visually separating the box from its surroundings.
+- `radius` — `string` — Applies a border-radius from the radius token scale by suffix (e.g. "lg") to round the box's corners.
+- `shadow` — `string` — Applies an elevation box-shadow from the shadow token scale by suffix (e.g. "md") to lift the box off the page.
+- `as` — `ElementType` · default `"div"` — Sets which element or tag the box renders as, defaulting to "div" but accepting any semantic HTML element type.
+- `p` — `number | string` — Padding on all sides — a spacing-scale step (number) or any CSS length.
+- `px` — `number | string` — Horizontal padding (inline start + end) — spacing step or CSS length.
+- `py` — `number | string` — Vertical padding (block start + end) — spacing step or CSS length.
+- `pt` — `number | string` — Padding top — spacing step or CSS length.
+- `pr` — `number | string` — Padding right (inline end) — spacing step or CSS length.
+- `pb` — `number | string` — Padding bottom — spacing step or CSS length.
+- `pl` — `number | string` — Padding left (inline start) — spacing step or CSS length.
+- `m` — `number | string` — Margin on all sides — a spacing-scale step (number) or any CSS length.
+- `mx` — `number | string` — Horizontal margin (inline start + end) — spacing step or CSS length.
+- `my` — `number | string` — Vertical margin (block start + end) — spacing step or CSS length.
+- `mt` — `number | string` — Margin top — spacing step or CSS length.
+- `mr` — `number | string` — Margin right (inline end) — spacing step or CSS length.
+- `mb` — `number | string` — Margin bottom — spacing step or CSS length.
+- `ml` — `number | string` — Margin left (inline start) — spacing step or CSS length.
+
+```jsx
+import { Box } from "twico-ui";
+
+<Box p={4} bg="surface" border radius="lg" shadow="sm">
+  Padded, bordered surface.
+</Box>
+```
+
+#### Container
+
+Centers content and caps its width with responsive horizontal padding — the outer wrapper for a page or section.
+
+`import { Container } from "twico-ui"`
+
+Props:
+- `size` — `"sm" | "md" | "lg" | "xl" | "full" | string` · default `"lg"` — Caps the maximum width using a named token (sm through xl, or full) or any CSS length, defaulting to "lg".
+- `padded` — `boolean` · default `true` — Adds responsive horizontal padding so content does not touch the viewport edges; enabled by default, set false to remove it.
+- `as` — `ElementType` · default `"div"` — Chooses the rendered HTML element or component (such as "section" or "main"), defaulting to "div" for semantic flexibility.
+
+```jsx
+import { Container, Heading } from "twico-ui";
+
+<Container size="lg">
+  <Heading level={1}>Page title</Heading>
+</Container>
+```
+
+#### Divider
+
+Divider is a thin separator rule that visually splits content, either horizontally or vertically. Use it to break up sections, lists, or inline items, optionally with a centered or aligned label (e.g. "OR").
+
+`import { Divider } from "twico-ui"`
+
+Props:
+- `orientation` — `"horizontal" | "vertical"` · default `"horizontal"` — Direction of the separator rule, either horizontal (default) to split stacked content or vertical for inline items.
+- `inset` — `boolean` · default `false` — Indents the start of a horizontal rule to align it with inset content like list item text.
+- `align` — `"left" | "center" | "right" | "start" | "end"` · default `"center"` — Label alignment when children are provided; logical start/end now accepted and map to left/right (additive — existing left/center/right unchanged).
+- `children` — `React.ReactNode` — Optional label text rendered within the rule, such as "OR", to break content with a caption.
+
+```jsx
+import { Divider } from "twico-ui";
+
+<Divider />
+
+<Divider>OR</Divider>
+
+<span>A</span>
+<Divider orientation="vertical" />
+<span>B</span>
+```
+
+#### Grid
+
+CSS grid primitive — a responsive auto-fill grid (minChildWidth) or a fixed column count (columns).
+
+`import { Grid } from "twico-ui"`
+
+Props:
+- `minChildWidth` — `number | string` — Enables a responsive auto-fill grid where columns wrap once children fall below this minimum width (number is treated as px).
+- `columns` — `number` — Sets a fixed number of equal columns, used when minChildWidth is unset for predictable non-responsive layouts.
+- `gap` — `number | string` · default `4` — Controls spacing between grid cells as a spacing-step number or any CSS length, defaulting to step 4.
+- `align` — `string` — Maps to the CSS align-items value, controlling how children are aligned along the block (vertical) axis.
+- `justify` — `string` — Maps to the CSS justify-items value, controlling how children are aligned along the inline (horizontal) axis.
+- `as` — `ElementType` · default `"div"` — Renders the grid as a different element or tag instead of the default div, for semantic markup.
+
+```jsx
+import { Grid, Card } from "twico-ui";
+
+<Grid minChildWidth={220} gap={4}>
+  <Card>One</Card>
+  <Card>Two</Card>
+  <Card>Three</Card>
+</Grid>
+```
+
+#### Stack
+
+Flexbox layout primitive — arranges children in a row or column with token-based gaps. Reach for it instead of hand-written flex divs.
+
+`import { Stack } from "twico-ui"`
+
+Props:
+- `direction` — `"row" | "column"` · default `"column"` — Sets the main-axis flow, stacking children vertically with "column" (default) or side by side with "row".
+- `gap` — `number | string` · default `4` — Sets spacing between children, as a numeric spacing step mapped to --space-* or any raw CSS length string.
+- `align` — `string` — Maps to the align-items value, controlling how children line up along the cross axis.
+- `justify` — `string` — Maps to the justify-content value, controlling how children are distributed along the main axis.
+- `wrap` — `boolean` · default `false` — Allows children to wrap onto multiple lines instead of overflowing when they exceed the container width.
+- `inline` — `boolean` · default `false` — Renders the stack as inline-flex rather than block-level flex, so it sits inline with surrounding content.
+- `as` — `ElementType` · default `"div"` — Overrides the rendered element or tag (default "div"), useful for semantic wrappers like nav, ul, or section.
+
+```jsx
+import { Stack } from "twico-ui";
+
+<Stack direction="row" gap={3} align="center" wrap>
+  <Button>Save</Button>
+  <Button variant="ghost">Cancel</Button>
+</Stack>
+```
+
+### Typography
+
+#### Code
+
+Inline code with a mono font and a subtle token-styled surface — use it instead of a bare code tag.
+
+`import { Code } from "twico-ui"`
+
+Props:
+- `as` — `ElementType` · default `"code"` — Overrides the rendered element, defaulting to a code tag but allowing any tag when the semantics differ.
+- `children` — `ReactNode` — Provides the inline code text or nodes shown in the mono font on the subtle token-styled surface.
+
+```jsx
+import { Code, Text } from "twico-ui";
+
+<Text>Install with <Code>npm install twico-ui</Code>.</Text>
+```
+
+#### Heading
+
+Heading (h1–h6) with consistent token typography. Use it instead of bare heading tags.
+
+`import { Heading } from "twico-ui"`
+
+Props:
+- `level` — `1 | 2 | 3 | 4 | 5 | 6` · default `2` — Chooses which h1-h6 tag renders and its default token size, keeping document hierarchy and typography consistent.
+- `size` — `string` — Overrides the font-size token suffix (e.g. "3xl") to decouple visual scale from the semantic heading level.
+- `align` — `string` — Sets the CSS text-align value, letting you left-align, center, or right-align the heading text.
+- `as` — `ElementType` — Renders a different tag while preserving the level's size, useful when semantics and visual weight should differ.
+
+```jsx
+import { Heading } from "twico-ui";
+
+<Heading level={1}>Dashboard</Heading>
+<Heading level={3}>Recent activity</Heading>
+```
+
+#### Text
+
+Body text with token sizes and semantic color tones. Use it instead of bare paragraph/span tags.
+
+`import { Text } from "twico-ui"`
+
+Props:
+- `size` — `"xs" | "sm" | "base" | "lg" | "xl"` · default `"base"` — Picks the font-size token from xs to xl, scaling the body text to fit its context, base by default.
+- `tone` — `"default" | "muted" | "subtle" | "primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"default"` — Sets the text color — neutral roles (default, muted, subtle) plus the six semantic color intents.
+- `weight` — `string` — Sets the font-weight token suffix like semibold to adjust how heavy the text appears.
+- `align` — `string` — Sets the text-align value, controlling whether the text reads left, center, right, or justified.
+- `as` — `ElementType` · default `"p"` — Chooses the element or tag rendered, defaulting to p so you can swap in span or other tags.
+
+```jsx
+import { Text } from "twico-ui";
+
+<Text>Default paragraph text.</Text>
+<Text size="sm" tone="muted">A muted caption.</Text>
+```
+
+### Inputs
+
+#### Checkbox
+
+An accessible checkbox with an animated checkmark, optional label and description, and an indeterminate (mixed) state. Use it for binary on/off choices in forms, or as a "select all" control that can show a partially-selected dash.
+
+`import { Checkbox } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Renders text or a node beside the box, serving as the clickable caption that describes what the checkbox toggles.
+- `description` — `React.ReactNode` — Shows secondary helper text below the label to clarify the option's meaning or consequences without crowding it.
+- `indeterminate` — `boolean` · default `false` — Displays the mixed dash state instead of a check, ideal for a select-all that is only partially selected.
+- `size` — `"sm" | "md"` · default `"md"` — Adjusts the checkbox dimensions between sm and md to match the density of the surrounding form layout.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Sets the accent color of the checked/active state from six semantic intents like success, danger, or info.
+- `checked` — `boolean` — Drives the checked state in controlled mode, requiring an onChange handler to keep the input in sync.
+- `defaultChecked` — `boolean` — Sets the initial checked state for uncontrolled usage, after which the input manages its own value internally.
+- `disabled` — `boolean` · default `false` — Blocks interaction and dims the control when true, signaling the option is currently unavailable to the user.
+- `onChange` — `React.ChangeEventHandler<HTMLInputElement>` — Fires on every toggle with the native change event, letting you read the new checked state and update state.
+- `id` — `string` — Sets the input's id used to associate the label, auto-generated when omitted so the click target stays connected.
+- `className` — `string` · default `""` — Appends extra class names to the wrapping label element for custom spacing, alignment, or layout overrides.
+- `error` — `React.ReactNode` — Error message shown below the control; tints the box red and wires aria-invalid/aria-describedby.
+- `name` — `string` — Form field name submitted with the value.
+- `placeholder` — `string` — Placeholder text shown while the field is empty.
+- `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
+- `required` — `boolean` · default `false` — Marks the field required for native form validation.
+- `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+
+```jsx
+import { Checkbox } from "twico-ui";
+
+<Checkbox label="Subscribe to updates" defaultChecked />
+<Checkbox label="Select all" indeterminate />
+<Checkbox
+  label="Notifications"
+  description="Get email alerts for new activity"
+/>
+<Checkbox label="Disabled option" disabled />
+<Checkbox label="Compact" size="sm" />
+```
+
+#### ColorPicker
+
+ColorPicker is a popover-based color input featuring a saturation/value square, a hue slider, a hex text field, and preset swatches, with the value represented as a hex string. Use it when you need users to choose a color (e.g. a brand or theme color), either controlled via value/onChange or uncontrolled via defaultValue.
+
+`import { ColorPicker } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Renders an optional caption above the trigger to describe which color the picker controls, such as a brand color.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the hex-input focus accent using one of six semantic intents; defaults to primary.
+- `value` — `string` — Sets the selected hex color in controlled mode, pairing with onChange to keep the displayed color in sync.
+- `defaultValue` — `string` · default `"#6366F1"` — Provides the initial hex color for uncontrolled usage, after which the picker tracks selection internally.
+- `presets` — `string[]` · default `8 default swatches (e.g. #6366F1, #0EA5E9, #14B8A6, ...)` — Lists hex swatch colors shown below the picker for quick one-click selection of common or brand-approved colors.
+- `onChange` — `(hex: string) => void` — Fires with the new hex string whenever the user adjusts saturation, hue, the text field, or picks a preset.
+- `disabled` — `boolean` · default `false` — Disable all interaction (the popover cannot be opened).
+- `hint` — `React.ReactNode` — Helper text shown below when there is no error.
+- `error` — `React.ReactNode` — Error message — turns the field red and replaces the hint.
+- `required` — `boolean` · default `false` — Marks the field required (adds an asterisk to the label).
+
+```jsx
+import { ColorPicker } from "twico-ui";
+
+// Controlled
+const [color, setColor] = React.useState("#6366F1");
+<ColorPicker label="Brand color" value={color} onChange={setColor} />
+
+// Uncontrolled with custom presets
+<ColorPicker
+  defaultValue="#14B8A6"
+  presets={["#6366F1", "#14B8A6", "#F43F5E"]}
+/>
+```
+
+#### Combobox
+
+Combobox is a searchable single-select dropdown (MUI-Autocomplete style) where you type directly in the field to filter options, with support for grouped options and two-line (title + subtitle) entries. Use it when a select list is long enough that users benefit from typeahead filtering rather than scrolling.
+
+`import { Combobox } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Renders a caption above the control to identify the field and improve accessibility for the searchable select.
+- `hint` — `React.ReactNode` — Shows helper text below the field to guide input, displayed only while no error message is present.
+- `error` — `React.ReactNode` — Displays an error message, marks the field invalid, and replaces the hint to flag a failed validation.
+- `required` — `boolean` · default `false` — Adds a required asterisk next to the label, signaling that the user must select a value before submitting.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Sets the control height across sm, md, or lg to match the density of the surrounding form.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
+- `placeholder` — `string` · default `"Select…"` — Sets the muted text shown in the empty field before the user types to filter or selects an option.
+- `options` — `Array<string | ComboboxOption | ComboboxGroup>` · **required** — Defines the selectable items as plain strings, value/label/description objects, or grouped option collections.
+- `value` — `string | null` — Sets the selected option's value in controlled mode, pairing with onChange to keep the field in sync.
+- `defaultValue` — `string | null` · default `null` — Provides the initial selection for uncontrolled usage, defaulting to null so the field starts empty.
+- `onChange` — `(value: string | null) => void` — Fires with the newly selected value, or null when the selection is cleared, so you can update state.
+- `clearable` — `boolean` · default `false` — Adds a clear button when a value is selected, letting users reset the field back to an empty selection.
+- `disabled` — `boolean` · default `false` — Blocks typing and selection while dimming the field, indicating the control is currently unavailable.
+- `placement` — `"bottom" | "top"` · default `"bottom"` — Open the menu upward instead of down (e.g. near a viewport bottom).
+- `portal` — `boolean` · default `false` — Render the dropdown in a portal (position:fixed on document.body) so it is never clipped by a scrolling/overflow-hidden ancestor; auto-flips up near the viewport bottom.
+- `minWidth` — `number` · default `0` — Minimum popover width in px when portaled (useful when the control is narrow).
+- `name` — `string` — Form field name submitted with the value.
+- `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
+- `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+
+```jsx
+import { Combobox } from "twico-ui";
+
+const [country, setCountry] = useState(null);
+
+<Combobox
+  label="Country"
+  placeholder="Search a country"
+  clearable
+  value={country}
+  onChange={setCountry}
+  options={[
+    { group: "Asia", options: [
+      { value: "id", label: "Indonesia", description: "Jakarta" },
+      { value: "jp", label: "Japan", description: "Tokyo" },
+    ]},
+    { group: "Europe", options: [
+      { value: "de", label: "Germany", description: "Berlin" },
+    ]},
+  ]}
+/>
+```
+
+#### Currency
+
+Currency is a text input for monetary amounts with a fixed currency defined in code: it renders the currency symbol as a prefix, the currency code as a suffix, and enforces the currency's decimal precision as you type. Use it when the currency is known up front (use CurrencyField when the user should pick one).
+
+`import { Currency } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Renders a label above the input describing the monetary field, accepting any ReactNode for icons or rich text.
+- `hint` — `React.ReactNode` — Shows helper text below the input to guide entry, displayed only when no error is present.
+- `error` — `React.ReactNode` — Displays an error message below the input and marks the field invalid, overriding any hint while set.
+- `required` — `boolean` · default `false` — Marks the field as required and renders an asterisk beside the label; off by default.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Sets the input height and padding (sm, md, or lg) to match the surrounding form's density, defaulting to "md".
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
+- `currency` — `string` · default `"USD"` — Selects the fixed currency by code from the built-in table (e.g. USD, EUR, IDR, JPY), driving symbol and precision.
+- `precision` — `number` — Overrides the number of decimal digits enforced while typing, instead of the currency's default precision.
+- `symbol` — `string` — Overrides the prefix symbol shown before the amount, useful when the built-in symbol for the currency isn't desired.
+- `code` — `string` — Overrides the suffix code displayed after the amount, replacing the default currency code label.
+- `value` — `string | number` — Sets the controlled amount as a string or number, keeping the input value driven entirely by your state.
+- `defaultValue` — `string | number` · default `""` — Sets the initial amount for uncontrolled usage, after which the input manages its own value; defaults to an empty string.
+- `onChange` — `(e: React.ChangeEvent<HTMLInputElement>) => void` — The native change handler receiving the raw input event, useful when you need the underlying DOM event.
+- `onValueChange` — `(value: number | null, formatted: string) => void` — Fires with the parsed numeric value (or null) and the formatted display string whenever the amount changes.
+- `name` — `string` — Form field name submitted with the value.
+- `placeholder` — `string` — Placeholder text shown while the field is empty.
+- `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
+- `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
+- `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+
+```jsx
+import { Currency } from "twico-ui";
+
+const [price, setPrice] = useState(0);
+
+<Currency label="Price" currency="USD" value={price} onValueChange={setPrice} />
+<Currency label="Harga" currency="IDR" />
+<Currency label="Total" currency="JPY" />
+<Currency label="Custom" symbol="₿" code="BTC" precision={8} />
+```
+
+#### CurrencyField
+
+CurrencyField is a currency amount input where the user picks the currency from a searchable dropdown, and that choice drives the prefix symbol, suffix code, and enforced decimal precision. Use it when you need to capture a monetary amount whose currency can be chosen and changed by the user (switching currency re-clamps the amount to the new precision).
+
+`import { CurrencyField } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Renders a label above the field describing the amount, accepting any ReactNode for icons or formatted text.
+- `hint` — `React.ReactNode` — Shows helper text below the field to guide entry, displayed only when no error message is present.
+- `error` — `React.ReactNode` — Displays an error message and marks the field invalid when set, taking visual precedence over the hint.
+- `required` — `boolean` · default `false` — Marks the field as required and renders an asterisk beside the label; off by default.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Sets the input and dropdown height (sm, md, or lg) to match the surrounding form's density, defaulting to "md".
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
+- `currency` — `string` — Controls the selected currency code from your state, keeping the chosen currency driven externally.
+- `defaultCurrency` — `string` · default `"USD"` — Sets the initially selected currency code for uncontrolled usage, defaulting to "USD".
+- `onCurrencyChange` — `(code: string) => void` — Fires with the new code when the user picks a different currency from the searchable dropdown.
+- `currencies` — `Array<string | CurrencyOption>` — Restricts the selectable currencies to the given codes or {value,label} options, instead of the full built-in list.
+- `value` — `string | number` — Sets the controlled amount as a string or number, keeping the entered value driven entirely by your state.
+- `defaultValue` — `string | number` · default `""` — Sets the initial amount for uncontrolled usage, after which the field manages its own value; defaults to an empty string.
+- `onValueChange` — `(value: number | null, formatted: string, currency: string) => void` — Fires with the parsed number (or null), the formatted string, and the active currency code whenever either changes.
+- `onChange` — `(e: React.ChangeEvent<HTMLInputElement>) => void` — Native change handler (receives the event); fires alongside onValueChange, matching Currency. Previously typed-out via Omit and silently dropped at runtime.
+- `name` — `string` — Form field name submitted with the value.
+- `placeholder` — `string` — Placeholder text shown while the field is empty.
+- `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
+- `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
+- `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+
+```jsx
+import { CurrencyField } from "twico-ui";
+
+<CurrencyField
+  label="Amount"
+  defaultCurrency="USD"
+  onValueChange={(n, str, code) => {}}
+/>
+
+{/* limit the currency choices */}
+<CurrencyField
+  label="Amount"
+  defaultCurrency="EUR"
+  currencies={["USD", "EUR", "GBP", "IDR"]}
+/>
+```
+
+#### DatePicker
+
+DatePicker is a calendar-popover date input with month/year navigation, a month grid, today highlight, min/max bounds, and a clearable value. Use it when you need users to select a single date with optional range limits and custom formatting.
+
+`import { DatePicker } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Optional field label rendered above the input to name the control and associate it for accessibility.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
+- `value` — `Date | null` — Controlled selected date, or null when empty; pair it with onChange to own the value in state.
+- `defaultValue` — `Date | null` · default `null` — Initial date for uncontrolled usage when value is omitted, defaulting to null so the field starts empty.
+- `placeholder` — `string` · default `"Select date"` — Text shown in the trigger when no date is selected, defaulting to "Select date" to prompt the user.
+- `min` — `Date` — Earliest selectable date; dates before it are disabled in the calendar grid to enforce a lower bound.
+- `max` — `Date` — Latest selectable date; dates after it are disabled in the calendar grid to enforce an upper bound.
+- `disabled` — `boolean` · default `false` — Disables the control and prevents the calendar popover from opening, useful for read-only or gated form states.
+- `clearable` — `boolean` · default `true` — Shows a clear (×) button when a date is set so users can reset the field, enabled by default.
+- `format` — `(date: Date) => string` — Custom formatter that turns the selected Date into display text, defaulting to a localized medium date string.
+- `weekStartsOn` — `0 | 1 | 2 | 3 | 4 | 5 | 6` · default `0` — Widened from 0|1 to any weekday; controls which day the calendar grid + weekday header start on (0 = Sunday).
+- `onChange` — `(date: Date | null) => void` — Fires with the newly selected Date, or null when the value is cleared, so you can update state.
+- `hint` — `React.ReactNode` — Helper text shown below when there is no error.
+- `error` — `React.ReactNode` — Error message — turns the field red and replaces the hint.
+- `required` — `boolean` · default `false` — Marks the field required (adds an asterisk to the label).
+- `locale` — `string` — BCP-47 locale for Intl-derived month/weekday names and date formatting; omit for the runtime default.
+
+```jsx
+import { DatePicker } from "twico-ui";
+
+const [date, setDate] = useState(null);
+
+<DatePicker
+  label="Start date"
+  value={date}
+  onChange={setDate}
+  min={new Date()}
+  weekStartsOn={1}
+/>
+```
+
+#### DateRangePicker
+
+DateRangePicker is a calendar input for selecting a start and end date with click-start/click-end selection, in-range highlighting, hover preview, and quick presets (Last 7/14/30/90 days). Use it when a form needs a reporting period or any bounded date span.
+
+`import { DateRangePicker } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Optional field label rendered above the control to name the date range input and aid accessibility.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
+- `value` — `DateRange` — Controlled range as a { start, end } object; pair it with onChange to own the selection in state.
+- `defaultValue` — `DateRange` · default `{ start: null, end: null }` — Initial range for uncontrolled usage, defaulting to { start: null, end: null } so the field starts empty.
+- `placeholder` — `string` · default `"Select date range"` — Text shown in the trigger when no range is selected, defaulting to "Select date range" to prompt the user.
+- `presets` — `boolean` · default `true` — Shows the quick-preset column (Last 7/14/30/90 days) for fast range selection, enabled by default.
+- `weekStartsOn` — `0 | 1 | 2 | 3 | 4 | 5 | 6` · default `0` — Widened from 0|1 to any weekday; controls which day the calendar grid + weekday header start on (0 = Sunday).
+- `onChange` — `(range: DateRange) => void` — Fires with the updated { start, end } range whenever the selection changes so you can update state.
+- `disabled` — `boolean` · default `false` — Disable all interaction (the popover cannot be opened).
+- `hint` — `React.ReactNode` — Helper text shown below when there is no error.
+- `error` — `React.ReactNode` — Error message — turns the field red and replaces the hint.
+- `required` — `boolean` · default `false` — Marks the field required (adds an asterisk to the label).
+- `locale` — `string` — BCP-47 locale for Intl-derived month/weekday names and date formatting; omit for the runtime default.
+
+```jsx
+import { DateRangePicker } from "twico-ui";
+
+const [range, setRange] = useState({ start: null, end: null });
+
+<DateRangePicker
+  label="Reporting period"
+  value={range}
+  onChange={setRange}
+  weekStartsOn={1}
+/>
+```
+
+#### Field
+
+Field is the reusable form-field wrapper that supplies the label, required asterisk, helper hint, and error message (with the matching ARIA ids) that Input and Select already use internally. Wrap any control with it to get consistent field spacing, the danger-colored error treatment, and the aria-describedby target without re-implementing the markup.
+
+`import { Field } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Field label rendered above the control.
+- `hint` — `React.ReactNode` — Helper text shown below when there is no error.
+- `error` — `React.ReactNode` — Error message — replaces the hint and renders in the danger color.
+- `required` — `boolean` · default `false` — Marks the field required, adding an asterisk after the label.
+- `htmlFor` — `string` — Id of the control the <label> binds to (sets the label's htmlFor).
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Spacing scale for parity with Input/Select; exposed via data-size on the root.
+- `id` — `string` · default `auto` — Base id; the hint/error element gets `${id}-desc` for your control's aria-describedby.
+- `children` — `React.ReactNode` — The control(s) the field wraps.
+
+```jsx
+import { Field } from "twico-ui";
+
+// Wrap any control for the shared label/hint/error chrome. Give Field an id and set
+// the control's aria-describedby to that id followed by -desc to announce hint/error.
+<Field label="Email" id="email" hint="We'll never share it." required htmlFor="email">
+  <input id="email" type="email" aria-describedby="email-desc" />
+</Field>
+
+<Field label="Token" id="tok" error="That token is invalid." htmlFor="tok">
+  <input id="tok" aria-invalid aria-describedby="tok-desc" />
+</Field>
+```
+
+#### FileUpload
+
+FileUpload is a drag-and-drop dropzone with a click-to-browse fallback and a removable list of selected files. Use it when you need users to attach one or more files, either controlled via value/onChange or uncontrolled.
+
+`import { FileUpload } from "twico-ui"`
+
+Props:
+- `accept` — `string` — Restricts selectable files using a native input accept string such as "image/*,.pdf", filtering the browse dialog and drops.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the dropzone focus ring and drag-active border using one of six semantic intents; defaults to primary.
+- `multiple` — `boolean` · default `false` — Allows selecting and attaching more than one file at a time when true; defaults to single-file selection.
+- `disabled` — `boolean` · default `false` — Disables the dropzone and underlying input when true, blocking clicks, drops, and any further file changes.
+- `hint` — `React.ReactNode` — Renders a hint line under the prompt, defaulting to the accepted types or "Any file" when not provided.
+- `value` — `File[]` — Supplies the controlled array of selected File objects, making the component fully managed by parent state.
+- `onChange` — `(files: File[]) => void` — Fires with the updated File array whenever files are added or removed, letting you sync controlled state.
+- `defaultValue` — `File[]` · default `[]` — Uncontrolled initial file list.
+- `label` — `React.ReactNode` — Field label rendered above the dropzone.
+- `error` — `React.ReactNode` — Error message shown below the dropzone; turns the border red (sets aria-invalid).
+- `required` — `boolean` · default `false` — Marks the field required (adds an asterisk to the label).
+
+```jsx
+import { FileUpload } from "twico-ui";
+
+const [files, setFiles] = React.useState([]);
+
+<FileUpload
+  multiple
+  accept="image/*,.pdf"
+  value={files}
+  onChange={setFiles}
+  hint="PNG, JPG or PDF up to 10MB"
+/>
+```
+
+#### Input
+
+A text input with optional label, hint text, error/validation state, and inline leading/trailing icons. Use it for any single-line form field; with type="password" it gets a built-in reveal/hide eye toggle.
+
+`import { Input } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Renders a label node above the control so the field has an accessible, visible name for the user.
+- `hint` — `React.ReactNode` — Shows helper text below the input to guide entry; it is hidden once an error message is present.
+- `error` — `React.ReactNode` — Displays a validation error below the field, switches the control to its red invalid state, and replaces the hint.
+- `required` — `boolean` · default `false` — Marks the field as required and appends an asterisk to the label to signal mandatory input; defaults to false.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Sets the control height and padding (sm, md, or lg) to match the density of the surrounding form.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
+- `leftIcon` — `React.ReactNode` — Renders an icon node inside the field on the leading edge, useful as a prefix like a search or mail glyph.
+- `rightIcon` — `React.ReactNode` — Renders a trailing icon node inside the field, overriding the built-in password reveal toggle when supplied.
+- `onChange` — `(e: React.ChangeEvent) => void` — Native change handler on the underlying form control.
+- `name` — `string` — Form field name submitted with the value.
+- `placeholder` — `string` — Placeholder text shown while the field is empty.
+- `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
+- `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
+- `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+
+```jsx
+import { Input } from "twico-ui";
+
+const SearchIcon = () => (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>);
+
+<Input label="Email" type="email" placeholder="you@twico.dev" required />
+<Input label="Search" leftIcon={<SearchIcon />} placeholder="Search…" />
+<Input label="Amount" rightIcon={<span>USD</span>} placeholder="0.00" />
+<Input label="Password" type="password" placeholder="••••••••" />
+<Input label="Username" hint="Choose a unique handle" placeholder="twico" />
+<Input label="Email" type="email" error="Invalid email address" defaultValue="nope" />
+```
+
+#### MultiSelect
+
+MultiSelect is a MUI-Autocomplete-style multi-select where chosen values appear as removable chips and you type inline to filter a checkable options overlay. Use it when users need to pick several values from a list that benefits from search, grouped headings, or two-line (label + description) options.
+
+`import { MultiSelect } from "twico-ui"`
+
+Props:
+- `options` — `Array<string | MultiSelectOption | MultiSelectGroup>` · **required** — Supplies the selectable options as plain strings, {value,label,description} objects, or {group,options} grouped sections.
+- `label` — `React.ReactNode` — Renders a label node above the control so the multi-select has an accessible, visible name for the user.
+- `hint` — `React.ReactNode` — Shows helper text below the control to guide selection; it is hidden once an error message is present.
+- `error` — `React.ReactNode` — Displays a validation error below the control and styles it as invalid to flag a selection problem.
+- `required` — `boolean` · default `false` — Marks the field as required and adds an asterisk to the label to signal a mandatory selection; defaults to false.
+- `placeholder` — `string` · default `"Select…"` — Sets the prompt text shown when no chips are selected, defaulting to "Select…" to invite a choice.
+- `value` — `string[]` — Controls the selected values as a string array, making the component fully controlled when paired with onChange.
+- `defaultValue` — `string[]` · default `[]` — Seeds the initially selected values for uncontrolled usage, defaulting to an empty array of no selections.
+- `onChange` — `(values: string[]) => void` — Fires with the new array of selected values whenever a chip is added or removed from the selection.
+- `disabled` — `boolean` · default `false` — Disables the control and blocks all interaction when set to true, greying out the field; defaults to false.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Control height preset, matching Select/Combobox.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
+- `clearable` — `boolean` · default `false` — Show a clear-all (×) affix when at least one value is selected.
+- `placement` — `"bottom" | "top"` · default `"bottom"` — Open the menu upward instead of down (e.g. near a viewport bottom).
+- `portal` — `boolean` · default `false` — Render the dropdown in a portal (position:fixed on document.body) so it is never clipped by a scrolling/overflow-hidden ancestor; auto-flips up near the viewport bottom.
+- `minWidth` — `number` · default `0` — Minimum popover width in px when portaled (useful when the control is narrow).
+- `name` — `string` — Form field name submitted with the value.
+- `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
+- `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+
+```jsx
+import { MultiSelect } from "twico-ui";
+
+const [tags, setTags] = useState(["react", "tailwind"]);
+
+<MultiSelect
+  label="Tech stack"
+  placeholder="Add technologies"
+  value={tags}
+  onChange={setTags}
+  options={[
+    { group: "Frameworks", options: [
+      { value: "react", label: "React", description: "UI library" },
+      { value: "vue", label: "Vue", description: "Progressive framework" },
+    ]},
+    { group: "Tooling", options: ["tailwind", "typescript"] },
+  ]}
+/>
+```
+
+#### Radio
+
+Radio is a single radio button rendered with an optional label and description. Use several Radio inputs sharing the same `name` to let users pick exactly one option from a group.
+
+`import { Radio } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Text or node rendered beside the radio dot, naming the option the user selects when choosing it.
+- `description` — `React.ReactNode` — Secondary helper text shown under the label to add context or clarify what selecting the option means.
+- `size` — `"sm" | "md"` · default `"md"` — Visual size of the radio control, sm or md, to align with the density of nearby form fields.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Sets the accent color of the checked/active state from six semantic intents like success, danger, or info.
+- `error` — `React.ReactNode` — Error message shown below the control; tints the dot red and wires aria-invalid/aria-describedby.
+- `onChange` — `(e: React.ChangeEvent) => void` — Native change handler on the underlying form control.
+- `name` — `string` — Form field name submitted with the value.
+- `placeholder` — `string` — Placeholder text shown while the field is empty.
+- `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
+- `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
+- `required` — `boolean` · default `false` — Marks the field required for native form validation.
+- `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+
+```jsx
+import { Radio } from "twico-ui";
+
+<Radio name="plan" value="free" label="Free" defaultChecked />
+<Radio
+  name="plan"
+  value="pro"
+  label="Pro"
+  description="$12 / month"
+/>
+```
+
+#### Rating
+
+Rating is a star-rating input that works either as an interactive control (click or hover to set a score) or as a read-only display. Use it to capture user feedback like reviews or to show an existing score; clicking the current star again clears the rating to 0.
+
+`import { Rating } from "twico-ui"`
+
+Props:
+- `value` — `number` — Controlled rating from 0 to count, letting the parent own the score and re-render when it changes.
+- `defaultValue` — `number` · default `0` — Initial score for uncontrolled usage, defaulting to 0 so no stars start filled until the user interacts.
+- `count` — `number` · default `5` — Total number of stars rendered, defaulting to 5, which sets the maximum selectable score.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Sets the star size (sm, md, or lg) to match the surrounding text density, defaulting to md.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"warning"` — Sets the filled-star color from six semantic intents; defaults to warning (gold). The explicit color prop overrides it.
+- `color` — `string` — Overrides the filled-star color with any CSS color, falling back to the warning/amber token when omitted.
+- `readOnly` — `boolean` · default `false` — Renders the stars as a non-interactive display only, useful for showing an existing score without accepting input.
+- `showValue` — `boolean` · default `false` — Displays the numeric score beside the stars when enabled, giving an exact figure alongside the visual rating.
+- `onChange` — `(value: number) => void` — Fires with the new rating when the user clicks a star, or 0 when they clear the current selection.
+- `disabled` — `boolean` · default `false` — Disable all interaction and dim the control.
+
+```jsx
+import { Rating } from "twico-ui";
+
+// Interactive
+const [r, setR] = React.useState(0);
+<Rating value={r} onChange={setR} />
+
+// Read-only display with numeric value
+<Rating value={4} readOnly showValue />
+
+// Uncontrolled, larger stars
+<Rating defaultValue={3} size="lg" count={5} />
+```
+
+#### Select
+
+A custom select that replaces the native browser dropdown with a rounded, keyboard-navigable popover, supporting grouped options and two-line (title + subtitle) options. Use it when you need a styled single-select with optional in-popover search, grouping, or descriptions.
+
+`import { Select } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Renders a field label above the trigger to identify what the select controls within a form.
+- `hint` — `React.ReactNode` — Shows helper text below the trigger to guide selection, automatically hidden once an error message is set.
+- `error` — `React.ReactNode` — Displays an error message and marks the field invalid, replacing the hint to flag failed validation.
+- `required` — `boolean` · default `false` — Appends a required asterisk to the label, signaling that a selection must be made before submitting.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Controls the trigger height (sm, md, or lg) to match the density of nearby form controls, defaulting to md.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
+- `placeholder` — `string` · default `"Select…"` — Text shown in the trigger when no value is selected, defaulting to "Select…" as a prompt to choose.
+- `searchPlaceholder` — `string` · default `"Search…"` — Placeholder text for the in-popover search box, defaulting to "Search…" to invite filtering of options.
+- `searchable` — `boolean` — Shows the filter search box inside the popover, auto-enabling when more than five options exist if left unset.
+- `options` — `Array<string | SelectOption | SelectGroup>` · **required** — The selectable items as plain strings, {value,label,description} objects, or {group,options} groups for two-line or grouped lists.
+- `value` — `string | null` — Controlled selected value as a string or null, letting the parent own which option is currently chosen.
+- `defaultValue` — `string | null` · default `null` — Initial selected value for uncontrolled usage, defaulting to null so nothing is selected at first.
+- `onChange` — `(value: string) => void` — Fires with the chosen value string when the user selects an option from the popover.
+- `disabled` — `boolean` · default `false` — Disables the trigger so the popover cannot open and no selection can be made.
+- `placement` — `"bottom" | "top"` · default `"bottom"` — Opens the menu downward or upward from the trigger, defaulting to "bottom" for the typical dropdown direction.
+- `portal` — `boolean` · default `false` — Renders the dropdown in a body portal so it is never clipped, auto-flipping when near the viewport bottom.
+- `minWidth` — `number` · default `0` — Sets the minimum popover width in pixels when portaled, ensuring the menu stays at least this wide.
+- `clearable` — `boolean` · default `false` — Show a clear (×) affix when a value is selected; Delete/Backspace on the closed trigger also clears. Emits onChange(null).
+
+```jsx
+import { Select } from "twico-ui";
+
+const [v, setV] = useState(null);
+
+<Select
+  label="Assignee"
+  placeholder="Pick a teammate"
+  value={v}
+  onChange={setV}
+  options={[
+    { group: "Design", options: [
+      { value: "ada", label: "Ada Park", description: "Product designer" },
+      { value: "sam", label: "Sam Lee", description: "Brand designer" },
+    ]},
+    { group: "Engineering", options: [
+      { value: "jo", label: "Jo Kim", description: "Frontend" },
+    ]},
+  ]}
+/>
+```
+
+#### Slider
+
+Slider is a range input with a filled track, draggable thumb, a value bubble that appears while dragging, optional step ticks, and full keyboard support (arrows, Home, End). Use it when users need to pick a number within a range, such as volume, price, or other continuous settings.
+
+`import { Slider } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Renders a label above the track to describe what the slider adjusts, such as volume or price.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Sets the filled-track and thumb accent color from six semantic intents; defaults to primary.
+- `value` — `number` — Controlled current value, letting the parent own the slider position and re-render as the number changes.
+- `defaultValue` — `number` · default `0` — Initial value for uncontrolled usage, defaulting to 0 so the thumb starts at the low end.
+- `min` — `number` · default `0` — Lowest value the slider can reach, defaulting to 0, defining the start of the selectable range.
+- `max` — `number` · default `100` — Highest value the slider can reach, defaulting to 100, defining the end of the selectable range.
+- `step` — `number` · default `1` — Increment between selectable values, defaulting to 1, which controls how finely the thumb can be positioned.
+- `disabled` — `boolean` · default `false` — Disables dragging and keyboard input while dimming the slider to show it is currently inactive.
+- `showValue` — `boolean` · default `true` — Displays the current value at the top-right above the track when true (the default), for an always-visible readout.
+- `showTicks` — `boolean` · default `false` — Renders step ticks along the rail when enabled, helping users see and snap to discrete increments.
+- `formatValue` — `(value: number) => React.ReactNode` — Formats the displayed value in the label and drag bubble, useful for adding units, currency, or custom text.
+- `onChange` — `(value: number) => void` — Fires with the new number whenever the value changes via drag or keyboard, keeping state in sync.
+- `hint` — `React.ReactNode` — Helper text shown below the track when there is no error.
+- `error` — `React.ReactNode` — Error message shown below the track; turns it red (sets aria-invalid) and replaces the hint.
+
+```jsx
+import { Slider } from "twico-ui";
+
+const [vol, setVol] = React.useState(40);
+
+<Slider label="Volume" value={vol} onChange={setVol} />
+
+<Slider
+  label="Price"
+  min={0}
+  max={1000}
+  step={50}
+  showTicks
+  defaultValue={250}
+  formatValue={(v) => `$${v}`}
+/>
+```
+
+#### Switch
+
+Switch is a toggle control with a springy thumb for instant on/off settings, optionally labeled with a title and supporting description. Use it for binary settings that apply immediately, like enabling dark mode or notifications.
+
+`import { Switch } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Renders the title text shown beside the switch, naming the setting it toggles like "Enable notifications".
+- `description` — `React.ReactNode` — Renders secondary helper text below the label to explain what the setting does or its consequences.
+- `size` — `"sm" | "md"` · default `"md"` — Sets the visual size of the track and thumb (sm or md) to match the density of the surrounding form.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Sets the ON-track accent color from six semantic intents; defaults to primary.
+- `error` — `React.ReactNode` — Error message shown below the control; tints the track red and wires aria-invalid/aria-describedby.
+- `onChange` — `(e: React.ChangeEvent) => void` — Native change handler on the underlying form control.
+- `name` — `string` — Form field name submitted with the value.
+- `placeholder` — `string` — Placeholder text shown while the field is empty.
+- `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
+- `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
+- `required` — `boolean` · default `false` — Marks the field required for native form validation.
+- `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+
+```jsx
+import { Switch } from "twico-ui";
+
+<Switch label="Dark mode" defaultChecked />
+
+<Switch
+  label="Email notifications"
+  description="Send me product updates"
+/>
+
+<Switch label="Compact view" size="sm" />
+```
+
+#### Textarea
+
+Textarea is a multi-line text input with an optional label, hint text, and error state for longer-form content. Use it when collecting paragraph-length input like bios, descriptions, or comments.
+
+`import { Textarea } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Renders a field label above the textarea, identifying what longer-form input the control collects.
+- `hint` — `React.ReactNode` — Shows helper text below the textarea to guide input, hidden whenever an error message is present.
+- `error` — `React.ReactNode` — Displays an error message and marks the field invalid when set, replacing the hint text below.
+- `required` — `boolean` · default `false` — Adds a required asterisk beside the label when true, signaling that the field must be filled in.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Control size — same padding steps as Input.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
+- `onChange` — `(e: React.ChangeEvent) => void` — Native change handler on the underlying form control.
+- `name` — `string` — Form field name submitted with the value.
+- `placeholder` — `string` — Placeholder text shown while the field is empty.
+- `rows` — `number` — Visible number of text rows.
+- `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
+- `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
+
+```jsx
+import { Textarea } from "twico-ui";
+
+<Textarea
+  label="Bio"
+  rows={4}
+  placeholder="Tell us about yourself"
+  hint="Max 280 characters"
+/>
+```
+
+### Data display
+
+#### Avatar
+
+Avatar displays a user's image with a graceful fallback to initials and an optional presence dot. Use it to represent people or entities in lists, headers, comments, and profile menus.
+
+`import { Avatar } from "twico-ui"`
+
+Props:
+- `src` — `string` — The image URL to display, gracefully falling back to derived initials when it is missing or fails to load.
+- `name` — `string` — The person's full name, used to derive the displayed initials and the avatar's accessible label.
+- `size` — `"xs" | "sm" | "md" | "lg" | "xl"` · default `"md"` — Sets the overall avatar dimensions from xs to xl to suit lists, headers, comments, or profile menus.
+- `square` — `boolean` · default `false` — When true, renders the avatar as a rounded square instead of the default circle for a different visual style.
+- `status` — `"online" | "busy" | "away" | "offline"` — Shows a small presence dot indicating online, busy, away, or offline state on the avatar.
+- `ring` — `boolean` · default `false` — When true, adds a brand-colored ring around the avatar to emphasize or highlight the user.
+
+```jsx
+import { Avatar } from "twico-ui";
+
+<Avatar src="/u/jane.jpg" name="Jane Doe" />
+<Avatar name="Sam Lee" status="online" />
+<Avatar name="Twico" size="lg" square ring />
+```
+
+#### AvatarMenu
+
+AvatarMenu is a user avatar that opens a portaled account dropdown with a rich header (avatar, name, email) above the menu items. Use it for the classic account menu — avatar-only in a navbar, or with name/email/chevron in a sidebar.
+
+`import { AvatarMenu } from "twico-ui"`
+
+Props:
+- `name` — `string` — The user's full name, driving the derived initials and the rich header shown atop the dropdown.
+- `src` — `string` — The avatar image URL shown in both the trigger and the dropdown header, falling back to initials when absent.
+- `email` — `string` — The email address shown in the dropdown header, and in the trigger when showName is enabled.
+- `subtitle` — `React.ReactNode` — Overrides the secondary line in the header and trigger, defaulting to the email when not provided.
+- `status` — `"online" | "busy" | "away" | "offline"` — Shows a presence dot indicating online, busy, away, or offline state on the trigger avatar.
+- `size` — `"xs" | "sm" | "md" | "lg" | "xl"` · default `"sm"` — Sets the trigger avatar dimensions from xs to xl to fit a compact navbar or a roomier sidebar.
+- `items` — `MenuItemDef[]` · **required** — The account menu entries to render in the dropdown, using the same MenuItemDef shape as Menu's items.
+- `showName` — `boolean` · default `false` — When true, displays the name and email beside the avatar in the trigger instead of showing the avatar alone.
+- `showChevron` — `boolean` · default `showName` — When true, shows a chevron in the trigger to hint at the dropdown, defaulting to the showName value.
+- `align` — `"start" | "end"` · default `"end"` — Aligns the dropdown's start or end edge to the trigger, defaulting to end for right-anchored account menus.
+
+```jsx
+import { AvatarMenu } from "twico-ui";
+
+<AvatarMenu
+  name="Ada Park"
+  email="ada@twico.dev"
+  status="online"
+  showName
+  items={[
+    { label: "Profile", onClick: () => {} },
+    { label: "Settings", shortcut: "⌘,", onClick: () => {} },
+    { separator: true },
+    { label: "Sign out", danger: true, onClick: () => {} },
+  ]}
+/>
+```
+
+#### Badge
+
+Badge is a compact status label or count chip available in six semantic tones and three fill styles. Use it to flag state (active, pending, draft), categories, or small counts inline next to text, list items, or table rows.
+
+`import { Badge } from "twico-ui"`
+
+Props:
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Sets the semantic color from six options like success or danger to convey the badge's state or category.
+- `variant` — `"soft" | "solid" | "outline"` · default `"soft"` — Chooses the fill style between soft, solid, and outline to control how prominently the badge reads.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Adds a new "sm" option (smaller font padding/height than md) to the existing size scale; md/lg unchanged and md remains the default.
+- `dot` — `boolean` · default `false` — When true, shows a small leading status dot before the label to reinforce the badge's state.
+- `children` — `React.ReactNode` — The badge content, typically a short status label or a small count shown inline next to text.
+
+```jsx
+import { Badge } from "twico-ui";
+
+<Badge tone="success" dot>Active</Badge>
+<Badge tone="warning" variant="solid">Pending</Badge>
+<Badge tone="neutral" variant="outline">Draft</Badge>
+<Badge tone="info" size="lg">12 new</Badge>
+```
+
+#### Card
+
+Card is a surface container for grouping related content, with an optional header (title/subtitle), body, and footer. Use it to present grouped information such as stats, summaries, or actions, optionally making it interactive with a hover-lift effect.
+
+`import { Card } from "twico-ui"`
+
+Props:
+- `title` — `React.ReactNode` — Renders a bold title in the card header, giving the grouped content a clear heading at the top.
+- `subtitle` — `React.ReactNode` — Renders a muted subtitle beneath the title to add supporting context or a brief secondary description.
+- `footer` — `React.ReactNode` — Renders pinned footer content such as action buttons below the card body, separated from the main content.
+- `variant` — `"elevated" | "outline" | "soft"` · default `"elevated"` — Selects the surface treatment from elevated, outline, or soft to control how the card stands out from the page.
+- `padding` — `"none" | "md" | "lg"` · default `"md"` — Sets the card's inner padding to none, md, or lg, with none useful for edge-to-edge media or custom layouts.
+- `interactive` — `boolean` · default `false` — When true, adds a hover-lift effect and pointer cursor to signal the whole card is clickable.
+- `fullHeight` — `boolean` · default `false` — Stretches the card to fill its parent cell (height: 100%) so cards in a grid or flex row align to equal height.
+- `children` — `React.ReactNode` — The main body content of the card, rendered between the optional header and footer regions.
+
+```jsx
+import { Card } from "twico-ui";
+
+<Card
+  title="Monthly revenue"
+  subtitle="June 2026"
+  footer={<Button size="sm">View report</Button>}
+>
+  Revenue grew 18% month over month.
+</Card>
+
+<Card variant="outline" interactive>
+  Hover me — I lift.
+</Card>
+```
+
+#### Carousel
+
+Carousel is a sliding one-slide-per-view component with prev/next arrows, dot indicators, optional looping, and optional autoplay that pauses on hover. Use it to showcase a sequence of images or content panels where each child is a single slide.
+
+`import { Carousel } from "twico-ui"`
+
+Props:
+- `showArrows` — `boolean` · default `true` — When true, displays prev/next arrow controls so users can step manually between slides in either direction.
+- `showDots` — `boolean` · default `true` — When true, displays dot indicators beneath the slides showing position and letting users jump to a specific slide.
+- `loop` — `boolean` · default `true` — When true, wraps navigation around the ends so advancing past the last slide returns to the first and vice versa.
+- `autoPlay` — `boolean` · default `false` — When true, automatically advances slides on a timer, pausing while the pointer hovers over the carousel.
+- `interval` — `number` · default `4000` — Sets the delay in milliseconds between automatic slide advances when autoPlay is enabled, defaulting to 4000.
+- `children` — `React.ReactNode` — The slide elements, where each direct child is rendered as a single full-width slide in the carousel.
+- `index` — `number` — Controlled active slide index — pair with onIndexChange.
+- `defaultIndex` — `number` · default `0` — Initial slide index when uncontrolled.
+- `onIndexChange` — `(index: number) => void` — Fired when the active slide changes (arrows, dots, or autoplay).
+
+```jsx
+import { Carousel } from "twico-ui";
+
+<Carousel autoPlay interval={5000}>
+  <img src="/a.jpg" alt="" />
+  <img src="/b.jpg" alt="" />
+  <div>Any slide content</div>
+</Carousel>
+```
+
+#### Chart
+
+A lightweight, dependency-free SVG chart that renders bar or line graphs (single or multi-series) with grid, axes, animated entrance, tooltips, and an optional legend. Use it to visualize small datasets like daily metrics or trends without pulling in a charting library.
+
+`import { Chart } from "twico-ui"`
+
+Props:
+- `type` — `"bar" | "line"` · default `"bar"` — Selects the rendering style, drawing the data as grouped bars or as connected lines for trends over time.
+- `data` — `ChartDatum[]` · **required** — Supplies the array of data points, each carrying a label plus one numeric field for every named series.
+- `series` — `string[]` · default `["value"]` — Names the numeric fields to plot, where multiple keys yield grouped bars or multiple lines per data point.
+- `height` — `number` · default `220` — Sets the chart's pixel height, controlling its vertical footprint while it scales horizontally to its container.
+- `showGrid` — `boolean` · default `true` — Draws horizontal grid lines behind the data, on by default, to make values easier to read against the scale.
+- `showAxis` — `boolean` · default `true` — Renders axis tick marks and label text, enabled by default, so viewers can map plotted values to categories.
+- `showLegend` — `boolean` · default `false` — Displays a legend keying each series to its color, off by default and most useful when plotting multiple series.
+- `valueFormat` — `(value: number) => string` — Formats raw numeric values into display strings for tooltips, letting you add units, separators, or currency symbols.
+- `colors` — `string[]` · default `built-in token palette` — Per-series colors (any CSS color), cycled when shorter than series.
+- `ariaLabel` — `string` — Accessible name for the chart's <svg role="img">; defaults to a description of the chart type.
+
+```jsx
+import { Chart } from "twico-ui";
+
+<Chart
+  type="bar"
+  data={[
+    { label: "Mon", value: 240 },
+    { label: "Tue", value: 310 },
+    { label: "Wed", value: 280 },
+  ]}
+  valueFormat={(v) => `$${v}`}
+/>
+
+<Chart
+  type="line"
+  series={["signups", "active"]}
+  showLegend
+  data={[
+    { label: "Jan", signups: 120, active: 80 },
+    { label: "Feb", signups: 180, active: 140 },
+  ]}
+/>
+```
+
+#### Datatable
+
+Datatable is an advanced, MUI Data Grid-style data table with sortable, filterable, hideable, pinnable, reorderable, and resizable columns, plus a toolbar, density control, multi-format export, optional checkbox selection with batch actions, an actions column, pagination, and a skeleton loading state. Use it to display large tabular datasets that need interactive sorting, filtering, grouping, aggregation, or a server-side mode where only the current page is loaded.
+
+`import { Datatable } from "twico-ui"`
+
+Props:
+- `columns` — `DatatableColumn array` · **required** — Defines each column's field, header, type, and behavior, controlling sorting, filtering, formatting, and pinning across the grid.
+- `rows` — `any array` · **required** — Supplies the row objects to render, holding only the current page's data when serverMode is enabled.
+- `loading` — `boolean` · default `false` — Replaces the grid body with skeleton rows while data is being fetched; off by default.
+- `rowKey` — `(row,index)=>key` · default `(r,i)=>r.id??i` — Returns a stable unique key per row, defaulting to the row's id or its index, to keep selection and renders consistent.
+- `checkboxSelection` — `boolean` · default `false` — Adds a leading checkbox column for selecting rows, enabling batch actions; off by default.
+- `batchActions` — `DatatableBatchAction array` · default `[]` — Defines actions shown in the selection toolbar that operate on the currently selected rows; empty by default.
+- `density` — `compact|standard|comfortable` · default `standard` — Sets the row height preset (compact, standard, or comfortable) to trade vertical space for readability, defaulting to standard.
+- `pageSize` — `number` · default `10` — Sets the initial number of rows shown per page, defaulting to 10; pass 0 to disable pagination.
+- `pageSizeOptions` — `number array` · default `[5,10,25,50]` — Lists the selectable rows-per-page values offered in the pagination control, defaulting to [5,10,25,50].
+- `height` — `number` · default `440` — Sets the maximum scroll height of the grid body in pixels before rows scroll internally, defaulting to 440.
+- `serverMode` — `boolean` · default `false` — Switches to server-side data handling so sorting, filtering, and paging are delegated to your backend; off by default.
+- `rowCount` — `number` · default `-` — Tells the grid the total number of server-side rows so pagination can render correctly in serverMode.
+- `onServerChange` — `(state)=>void` · default `-` — Fires with the current query state (sort, filter, page) in serverMode so you can fetch the matching rows.
+- `showExport` — `boolean` · default `true` — Shows the toolbar Export button for downloading data in supported formats; enabled by default.
+- `exportFilename` — `string` · default `export` — Sets the base filename used for exported files, defaulting to "export".
+- `aggregationValues` — `object|null` · default `null` — Supplies precomputed footer aggregation values for serverMode, where totals cannot be calculated client-side; null by default.
+- `disableColumnReorder` — `boolean` · default `false` — Prevents users from dragging columns into a new order, locking the column arrangement; off by default.
+- `disableColumnResize` — `boolean` · default `false` — Prevents resizing columns, locking their widths; off by default. When enabled, drag a header's right edge to resize, or double-click it to auto-fit the column to its content (Excel-style).
+- `editMode` — `boolean` · default `false` — Makes all columns editable inline so users can change cell values directly; off by default.
+- `onRowUpdate` — `(updated,original,field)=>void` · default `-` — Fires when an inline cell edit is committed, receiving the updated row, the original row, and the edited field.
+- `onRowsChange` — `(rows)=>void` · default `-` — Fires with the full next array of rows after an edit, letting you persist the new dataset.
+- `onBatchUpdate` — `(rows,patch,keys)=>void` · default `-` — Fires when a batch edit is applied, receiving the affected rows, the patch object, and the selected keys.
+- `showPageJumper` — `boolean` · default `true` — Shows a go-to-page input in the pagination footer for jumping directly to a page number; enabled by default.
+- `selectionMode` — `none|row|cell` · default `none` — Sets click-to-select granularity (none, row, or cell), controlling what gets highlighted on click, defaulting to none.
+- `onRowClick` — `(row,key)=>void` · default `-` — Fires with the clicked row and its key, useful for navigation or opening a detail view.
+- `onCellClick` — `(value,row,field)=>void` · default `-` — Fires with the clicked cell's value, its row, and the field name when a cell is clicked.
+- `onActiveCellChange` — `(cell|null)=>void` · default `-` — Fires when the active cell changes via keyboard or click, receiving the new cell descriptor or null.
+- `showAggregation` — `boolean` · default `false` — Shows a totals row with column aggregations beneath the data on initial render; off by default.
+- `ariaLabel` — `string` · default `Data table` — Sets the grid's accessible aria-label for screen readers, defaulting to "Data table".
+- `rowGrouping` — `string array` · default `[]` — Lists the field names to group rows by on initial render, collapsing rows into expandable groups; empty by default.
+- `rowPinning` — `boolean` · default `false` — Allows users to pin rows to the top or bottom so they stay visible while scrolling; off by default.
+- `rowReorder` — `boolean` · default `false` — Enables drag-and-drop reordering of rows so users can change their sequence; off by default.
+- `rowResize` — `boolean` · default `false` — Allows users to drag row edges to adjust individual row heights; off by default.
+- `onRowOrderChange` — `(keys)=>void` · default `-` — Fires with the new array of row keys after a drag reorder, letting you persist the updated order.
+- `pivot` — `object|null` · default `null` — Supplies the initial pivot model defining row, column, and value fields for cross-tabulated analysis; null by default.
+- `pivotMode` — `boolean` · default `false` — Renders the grid in pivot view from the start instead of the flat table layout; off by default.
+- `align` — `"left" | "right"` · default `"right" for number/actions columns, else "left"` — Cell alignment; currently affects the actions column's button justification. Already supported at runtime — newly exposed in the .d.ts.
+- `virtualized` — `boolean` · default `false` — Opt into row virtualization (windowing). Active only when pagination is off (pageSize={0}) and row grouping is not active; otherwise ignored and the table renders normally. Pair with a fixed height. Selection/inline-edit keep working because they key off the row id, not the rendered index.
+- `overscan` — `number` · default `8` — Extra rows rendered above and below the visible window for smoother fast scrolling when virtualized.
+- `rowHeight` — `number` — Estimated/fixed row height in px used to compute the virtualization window. Set if rows have a custom height so the scrollbar stays accurate.
+
+```jsx
+import { useState } from "react";
+import { Datatable, Avatar, Badge } from "twico-ui";
+
+// Sample data — swap for your own array or API rows. Each row needs a stable `id`.
+const seed = [
+  { id: 1, name: "Ava Stone", email: "ava.stone@twico.io", role: "Admin", department: "Engineering", status: "active", country: "US", seats: 12, mrr: 480, salary: 128000, startDate: "2023-01-14" },
+  { id: 2, name: "Liam Reed", email: "liam.reed@twico.io", role: "Editor", department: "Design", status: "invited", country: "GB", seats: 4, mrr: 120, salary: 92000, startDate: "2023-05-02" },
+  { id: 3, name: "Noah Park", email: "noah.park@twico.io", role: "Viewer", department: "Sales", status: "active", country: "DE", seats: 2, mrr: 60, salary: 74000, startDate: "2024-02-20" },
+  { id: 4, name: "Mia Cruz", email: "mia.cruz@twico.io", role: "Editor", department: "Support", status: "suspended", country: "ID", seats: 7, mrr: 240, salary: 105000, startDate: "2022-11-09" },
+];
+
+const ROLES = ["Admin", "Editor", "Viewer"];
+const DEPARTMENTS = ["Engineering", "Design", "Sales", "Marketing", "Support", "Finance"];
+const STATUSES = ["active", "invited", "suspended"];
+const STATUS_TONE = { active: "success", invited: "info", suspended: "danger" };
+const usd = (n) => "$" + Number(n).toLocaleString("en-US");
+
+// Inline SVG icons (no CDN) for the actions column + batch toolbar.
+const Eye = () => (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>);
+const Pencil = () => (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" /></svg>);
+const Trash = () => (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" /></svg>);
+const Download = () => (<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" /></svg>);
+const Mail = () => (<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18v12H3z" /><path d="M3 7l9 6 9-6" /></svg>);
+
+export default function Example() {
+  const [rows, setRows] = useState(seed);
+
+  const columns = [
+    {
+      field: "name", headerName: "Name", width: 220, pinned: "left",
+      renderCell: (v) => (
+        <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <Avatar name={v} size="sm" /> <strong>{v}</strong>
+        </span>
+      ),
+    },
+    { field: "email", headerName: "Email", width: 220 },
+
+    // Editable columns: double-click a cell to edit it, AND when rows are ticked an
+    // "Edit" button appears in the selection toolbar to set one value across every
+    // selected row at once (fires onBatchUpdate).
+    {
+      field: "role", headerName: "Role", width: 130,
+      editable: true, editType: "select", valueOptions: ROLES,
+      renderCell: (v) => <Badge variant="soft" size="sm" tone="neutral">{v}</Badge>,
+    },
+    { field: "department", headerName: "Department", width: 150, editable: true, editType: "select", valueOptions: DEPARTMENTS },
+    {
+      field: "status", headerName: "Status", width: 130,
+      editable: true, editType: "select", valueOptions: STATUSES,
+      renderCell: (v) => <Badge variant="soft" size="sm" tone={STATUS_TONE[v]}>{v}</Badge>,
+    },
+    { field: "country", headerName: "Country", width: 120, valueOptions: ["US", "GB", "DE", "ID", "JP", "BR", "CA", "AU"] },
+    { field: "seats", headerName: "Seats", type: "number", width: 110, editable: true, aggregation: "sum" },
+    { field: "mrr", headerName: "MRR", type: "number", width: 120, aggregation: "sum", valueFormatter: usd, aggregationFormatter: usd },
+    { field: "salary", headerName: "Salary", type: "number", width: 130, editable: true, aggregation: "avg", valueFormatter: usd },
+    { field: "startDate", headerName: "Start date", width: 130 },
+
+    // Per-row actions: inline icon buttons + an overflow (⋮) menu (showInMenu).
+    {
+      field: "actions", headerName: "Actions", type: "actions", width: 110,
+      getActions: (row) => [
+        { icon: <Eye />, label: "View", onClick: () => console.log("view", row.id) },
+        { icon: <Pencil />, label: "Edit", showInMenu: true, onClick: () => console.log("edit", row.id) },
+        { icon: <Trash />, label: "Delete", showInMenu: true, danger: true, onClick: () => setRows((d) => d.filter((r) => r.id !== row.id)) },
+      ],
+    },
+  ];
+
+  // Actions for the toolbar that replaces the header when one or more rows are ticked.
+  // (A built-in "Edit" button is added automatically because some columns are editable.)
+  const batchActions = [
+    { label: "Export", icon: <Download />, onClick: (keys, selected, clear) => clear() },
+    { label: "Email", icon: <Mail />, onClick: (keys, selected, clear) => { console.log(selected); clear(); } },
+    { label: "Delete", icon: <Trash />, danger: true, onClick: (keys, selected, clear) => { setRows((d) => d.filter((r) => !keys.includes(r.id))); clear(); } },
+  ];
+
+  return (
+    <Datatable
+      columns={columns}
+      rows={rows}
+      checkboxSelection
+      rowNumbers
+      batchActions={batchActions}
+      onRowUpdate={(updated) => setRows((d) => d.map((r) => (r.id === updated.id ? updated : r)))}
+      onBatchUpdate={(changed) => setRows((d) => d.map((r) => changed.find((c) => c.id === r.id) || r))}
+      showAggregation
+      rowPinning
+      pageSize={10}
+    />
+  );
+}
+```
+
+#### Kanban
+
+Kanban is a drag-and-drop board that arranges cards into columns you can drag between. Use it for visualizing and reorganizing work items (tasks, tickets, stages) by status, either controlled via cards + onCardMove or uncontrolled.
+
+`import { Kanban } from "twico-ui"`
+
+Props:
+- `columns` — `KanbanColumn[] ({ id: string; title: React.ReactNode; color?: string })` · **required** — Defines the board columns, each with an id matching cards' column field, a title, and an optional heading dot color.
+- `cards` — `KanbanCard[] ({ id; column; title?; description?; tags?; footer?; ... })` · **required** — Supplies the cards to render, each assigned to a column via its column field and carrying title, description, and tags.
+- `onCardMove` — `(cardId: string, toColumn: string, nextCards: KanbanCard[]) => void` — Fires when a card is dropped into a different column, passing the card id, target column, and updated card list.
+- `renderCard` — `(card: KanbanCard) => React.ReactNode` — Overrides the default card contents with a custom renderer, falling back to title, description, tags, and footer.
+- `defaultCards` — `KanbanCard[]` · default `[]` — Initial cards when uncontrolled (the board applies moves internally).
+
+```jsx
+import { Kanban } from "twico-ui";
+
+<Kanban
+  columns={[
+    { id: "todo", title: "To do", color: "var(--slate-400)" },
+    { id: "doing", title: "In progress", color: "var(--amber-500)" },
+    { id: "done", title: "Done", color: "var(--emerald-500)" },
+  ]}
+  cards={[
+    { id: "1", column: "todo", title: "Design tokens", tags: ["Design"] },
+    { id: "2", column: "doing", title: "Datatable filters" },
+    { id: "3", column: "done", title: "Ship release" },
+  ]}
+  onCardMove={(id, to) => {}}
+/>
+```
+
+#### List
+
+List renders a vertical stack of rows with optional leading/trailing slots, a title, and a description. Use it for compact data displays like people, files, or settings, where rows can be static, links, or buttons.
+
+`import { List } from "twico-ui"`
+
+Props:
+- `items` — `ListItemData[]` · **required** — Provides the rows to render, each with a title plus optional description, leading, trailing, onClick, href, and active fields.
+- `plain` — `boolean` · default `false` — Drops the card chrome to render borderless, transparent rows when set to true; defaults to false for the boxed style.
+
+```jsx
+import { List } from "twico-ui";
+
+<List
+  items={[
+    { title: "Ada Park", description: "ada@twico.dev", trailing: "Active", onClick: () => {} },
+    { title: "report.pdf", description: "2.4 MB", trailing: "Today" },
+  ]}
+/>
+```
+
+#### Pagination
+
+Pagination renders page navigation with prev/next buttons and smart ellipsis truncation, keeping boundary and sibling pages visible. Use it to let users move through paged data (tables, lists, search results), optionally with a "Go to" page jumper.
+
+`import { Pagination } from "twico-ui"`
+
+Props:
+- `page` — `number` · default `1` — The currently active 1-based page number, used to highlight the active button and compute which pages to show.
+- `total` — `number` · **required** — Total number of pages available, determining the range of page buttons and when ellipsis truncation appears.
+- `onChange` — `(page: number) => void` — Fires with the destination page number whenever the user clicks a page, prev, next, or jumper control.
+- `siblings` — `number` · default `1` — Number of adjacent page buttons rendered on each side of the current page before ellipsis truncation kicks in.
+- `boundaries` — `number` · default `1` — Number of page buttons always kept visible at each end so the first and last pages stay reachable.
+- `size` — `"sm" | "md"` · default `"md"` — Sets the control density, sm or md, scaling button height and spacing to match the surrounding layout.
+- `showJumper` — `boolean` · default `false` — Adds a "Go to" number input so users can jump directly to a specific page instead of clicking through.
+- `jumperLabel` — `React.ReactNode` · default `"Go to"` — Text or node rendered before the jumper input, defaulting to "Go to", to clarify what the field does.
+- `defaultPage` — `number` · default `1` — Initial 1-based page when uncontrolled (no `page` prop).
+- `showPageJumper` — `boolean` · default `false` — Show a "Go to" page input for jumping directly to a page; preferred alias for showJumper.
+
+```jsx
+import { Pagination } from "twico-ui";
+
+const [page, setPage] = useState(1);
+
+<Pagination
+  page={page}
+  total={12}
+  onChange={setPage}
+  showJumper
+/>
+```
+
+#### Stat
+
+Stat is a KPI / metric card that displays a label, a large value, and optional icon, trend delta, and help text. Use it on dashboards or summary panels to surface a single key metric with its trend direction.
+
+`import { Stat } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` · **required** — Renders the metric's caption shown above the value, naming what the number represents such as "Revenue".
+- `value` — `React.ReactNode` · **required** — Renders the large primary metric value that anchors the card, like a count, currency amount, or percentage.
+- `icon` — `React.ReactNode` — Renders an optional icon in a tinted tile at the top-right corner to visually reinforce the metric's meaning.
+- `delta` — `React.ReactNode` — Shows the trend change beside the value, such as "+12.5%" or "-3%", to convey movement over a period.
+- `deltaDirection` — `"up" | "down" | "flat"` — Forces the delta's direction and color (up, down, or flat); otherwise it is inferred from a leading minus sign.
+- `helpText` — `React.ReactNode` — Renders muted context after the delta, such as "vs last month", to clarify the comparison period.
+- `plain` — `boolean` · default `false` — Strips the card chrome (border, background, and padding) so the stat blends into an existing surface.
+
+```jsx
+import { Stat } from "twico-ui";
+
+<Stat
+  label="Revenue"
+  value="$48,200"
+  delta="+12.5%"
+  helpText="vs last month"
+/>
+<Stat
+  label="Churn"
+  value="2.1%"
+  delta="-0.4%"
+  deltaDirection="up"
+  helpText="improved"
+/>
+```
+
+#### Table
+
+A data table with a styled header, hover and zebra-striped rows, client-side click-to-sort headers, custom cell renderers, and selected-row highlighting. Use it to display structured rows of data when you need lightweight sorting and per-column rendering or alignment.
+
+`import { Table } from "twico-ui"`
+
+Props:
+- `columns` — `TableColumn<T>[]` · **required** — Defines each column with key, header, optional align, width, sortable flag, and a custom render function for cell content.
+- `hover` — `boolean` · default `true` — Highlights the row under the cursor on mouse-over, on by default to aid scanning and pointing at dense rows.
+- `striped` — `boolean` · default `false` — Applies zebra striping to alternating rows when enabled, improving readability across wide tables of similar-looking data.
+- `size` — `"sm" | "md"` · default `"md"` — Controls cell padding density, choosing sm for compact rows or md for the default roomier spacing.
+- `sortable` — `boolean` · default `false` — Enables client-side click-to-sort headers when true, letting users reorder rows by any column marked sortable.
+- `rowKey` — `(row: T, index: number) => string | number` — Returns a stable unique key for each row from its data and index, defaulting to the row index.
+- `selectedKeys` — `Array<string | number>` — Lists the keys of rows to render with selected-row highlighting, useful for marking chosen or active records.
+- `sort` — `TableSort | null` — Controlled sort state — pair with onSortChange (null = unsorted).
+- `defaultSort` — `TableSort` · default `{ key: null, dir: "asc" }` — Initial sort when uncontrolled.
+- `onSortChange` — `(sort: TableSort) => void` — Fired when a sortable header is clicked with the next sort state.
+- `stickyHeader` — `boolean` · default `false` — Pin the header to the top while the body scrolls (use with maxHeight or an enclosing scroll container).
+- `maxHeight` — `number | string` — Cap the table height and give it its own vertical scroll area (CSS length or number of px); enables stickyHeader to shine.
+- `rows` — `T[]` — Row objects.
+- `field (column)` — `string` — Alias for key (Datatable vocabulary); key wins when both are set.
+- `headerName (column)` — `React.ReactNode` — Alias for header (Datatable vocabulary); header wins when both are set.
+- `renderCell (column)` — `(value: any, row: T, index: number) => React.ReactNode` — Alias for render (Datatable vocabulary); render wins when both are set.
+
+```jsx
+import { Table } from "twico-ui";
+
+const users = [
+  { id: 1, name: "Ava Stone", role: "Admin", status: "Active", mrr: 480 },
+  { id: 2, name: "Liam Reed", role: "Editor", status: "Invited", mrr: 120 },
+  { id: 3, name: "Noah Park", role: "Viewer", status: "Active", mrr: 60 },
+];
+
+<Table
+  sortable
+  striped
+  rowKey={(r) => r.id}
+  columns={[
+    { field: "name", headerName: "Name" },
+    { field: "role", headerName: "Role" },
+    { field: "status", headerName: "Status" },
+    { field: "mrr", headerName: "MRR", align: "right" },
+  ]}
+  rows={users}
+/>
+```
+
+#### Tag
+
+Tag is a removable chip for displaying filters, selected items, or keywords. Use it when you need compact, dismissible labels with an optional leading icon and an optional remove (×) button.
+
+`import { Tag } from "twico-ui"`
+
+Props:
+- `onRemove` — `(e: React.MouseEvent<HTMLButtonElement>) => void` — Renders the remove (×) button and handles its click, letting users dismiss the tag as a filter or selection.
+- `variant` — `"soft" | "solid" | "outline"` · default `"soft"` — Chooses the fill style between soft, solid, and outline to control how prominently the tag reads.
+- `tone` — `"neutral" | "primary" | "success" | "warning" | "danger" | "info"` · default `"neutral"` — Sets the semantic color from six options like success or danger; defaults to neutral (the classic chip).
+- `leftIcon` — `React.ReactNode` — Renders an optional leading icon before the label, useful for signaling the tag's category or status.
+- `children` — `React.ReactNode` — Provides the tag's label content, typically the filter name, selected item, or keyword being displayed.
+
+```jsx
+import { Tag } from "twico-ui";
+
+<Tag onRemove={() => {}}>React</Tag>
+<Tag leftIcon={<span>#</span>}>design-system</Tag>
+<Tag>read-only</Tag>
+```
+
+#### Timeline
+
+Timeline renders a vertical list of events as node dots connected by a rail, each showing a title, optional timestamp, and description. Use it for activity feeds, order tracking, or history views.
+
+`import { Timeline } from "twico-ui"`
+
+Props:
+- `items` — `TimelineItem[] — { title, time?, description?, icon?, tone? }` · **required** — Array of events to render as connected node dots, each with a title, optional time, description, icon, and primary/success/warning/danger tone.
+- `className` — `string` · default `""` — Extra CSS class appended to the root <ul> so you can layer custom spacing or styling onto the timeline.
+- `tone (TimelineItem)` — `"primary" | "info" | "success" | "warning" | "danger"` — Added `info` value to the per-item node tone union; maps the dot to var(--color-info) with var(--color-info-fg) icon color.
+
+```jsx
+import { Timeline } from "twico-ui";
+
+<Timeline
+  items={[
+    { title: "Order placed", time: "9:41 AM", description: "We received your order.", tone: "primary" },
+    { title: "Shipped", time: "2:10 PM", description: "Left the warehouse.", tone: "success" },
+    { title: "Out for delivery", time: "Tomorrow" },
+  ]}
+/>
+```
+
+### Navigation
+
+#### Accordion
+
+Accordion renders vertically stacked, expandable disclosure panels with a smooth open/close height animation. Use it to organize content like FAQs or settings into collapsible sections, optionally allowing several panels open at once.
+
+`import { Accordion } from "twico-ui"`
+
+Props:
+- `items` — `AccordionItem[]` · **required** — The array of disclosure panels to render, each an { value, label, content, icon? } object keyed by its unique value.
+- `multiple` — `boolean` · default `false` — When true, lets several panels stay open simultaneously instead of collapsing others as each new panel expands.
+- `defaultOpen` — `string[]` · default `[]` — The list of item values that should start expanded on first render, useful for surfacing key sections by default.
+- `open` — `string[]` — Controlled open panel values; pair with onOpenChange. When set, internal state is bypassed and defaultOpen is ignored.
+- `onOpenChange` — `(values: string[]) => void` — Called with the next open values whenever a panel trigger is toggled (fires in both controlled and uncontrolled modes).
+
+```jsx
+import { Accordion } from "twico-ui";
+
+<Accordion
+  multiple
+  defaultOpen={["a"]}
+  items={[
+    { value: "a", label: "Is Twico UI free?", content: "Yes — MIT licensed, forever." },
+    { value: "b", label: "Does it support dark mode?", content: "Out of the box." },
+  ]}
+/>
+```
+
+#### Breadcrumb
+
+Breadcrumb renders a navigation trail to the current page, with optional per-item icons and a custom separator. Use it to show hierarchy and let users jump back up the path; it can collapse the middle of long trails into a "…" that expands on click.
+
+`import { Breadcrumb } from "twico-ui"`
+
+Props:
+- `items` — `BreadcrumbItem[]` · **required** — The ordered array of trail entries ({ label, href?, icon?, onClick? }), where the last item renders as the current, non-linked page.
+- `separator` — `React.ReactNode` · default `<ChevronSep />` — The node drawn between adjacent items, defaulting to a chevron but replaceable with any custom divider such as a slash.
+- `maxItems` — `number` · default `0` — Collapses the middle of the trail into an expandable ellipsis once the item count exceeds this number, with 0 disabling collapsing.
+
+```jsx
+import { Breadcrumb } from "twico-ui";
+
+<Breadcrumb
+  items={[
+    { label: "Home", href: "/" },
+    { label: "Projects", href: "/projects" },
+    { label: "Twico UI" },
+  ]}
+/>
+
+<Breadcrumb
+  maxItems={3}
+  items={[
+    { label: "Home", href: "/" },
+    { label: "Workspace", href: "/workspace" },
+    { label: "Projects", href: "/workspace/projects" },
+    { label: "Twico UI", href: "/workspace/projects/twico" },
+    { label: "Settings" },
+  ]}
+/>
+```
+
+#### Navbar
+
+Navbar is a top application bar with a left brand/logo slot, center inline navigation links (hidden on small screens), and a right-aligned actions slot. Use it as the primary site or app header; it is sticky and translucent by default.
+
+`import { Navbar } from "twico-ui"`
+
+Props:
+- `brand` — `React.ReactNode` — Renders the brand or logo node in the navbar's left slot, typically a wordmark or icon linking home.
+- `links` — `NavbarLink[]` · default `[]` — Inline navigation items shown centered, each with a label and optional href, icon, active state, or onClick.
+- `actions` — `React.ReactNode` — Right-aligned content such as buttons, a search field, or an avatar for account and primary actions.
+- `sticky` — `boolean` · default `true` — Pins the navbar to the top of the viewport with a translucent blur as the page scrolls; on by default.
+- `onMenuClick` — `() => void` — Fires when the hamburger button (shown only on small screens) is clicked, typically to open a mobile drawer.
+
+```jsx
+import { Navbar } from "twico-ui";
+
+<Navbar
+  brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+  links={[
+    { label: "Dashboard", active: true },
+    { label: "Projects" },
+    { label: "Team" },
+  ]}
+  actions={<button>Sign in</button>}
+/>
+```
+
+#### Sidebar
+
+Sidebar is a collapsible side-navigation panel with a brand header, grouped nav items (icons, labels, badges, or uppercase section headings), an optional footer, and a collapse toggle that switches to an icon-only rail. Use it as the primary app navigation in a fixed-height layout.
+
+`import { Sidebar } from "twico-ui"`
+
+Props:
+- `items` — `SidebarItem[]` · **required** — The navigation entries, each a link with label, icon, href, active, onClick, and badge, or a { section } heading.
+- `brand` — `React.ReactNode` — Brand or logo content shown in the header, with its text hidden when the sidebar collapses to the icon rail.
+- `footer` — `React.ReactNode` — Content pinned above the collapse toggle, such as a user row, anchored to the bottom of the panel.
+- `collapsed` — `boolean` — Controlled collapsed state, letting the parent toggle the sidebar between full width and the icon-only rail.
+- `defaultCollapsed` — `boolean` · default `false` — Initial collapsed state for uncontrolled usage, defaulting to false so the sidebar starts fully expanded.
+- `collapsible` — `boolean` · default `true` — Shows the collapse toggle button when true (the default), allowing users to switch to the icon-only rail.
+- `onCollapsedChange` — `(collapsed: boolean) => void` — Fires with the new boolean state whenever the collapse toggle is activated, useful for persisting the preference.
+
+```jsx
+import { Sidebar } from "twico-ui";
+
+const HomeIcon = () => (<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 11l9-8 9 8M5 10v10h14V10" /></svg>);
+const MailIcon = () => (<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>);
+const CogIcon = () => (<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="3" /><path d="M12 3v3M12 18v3M3 12h3M18 12h3" /></svg>);
+
+<Sidebar
+  brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+  items={[
+    { section: "Main" },
+    { label: "Dashboard", icon: <HomeIcon />, active: true },
+    { label: "Inbox", icon: <MailIcon />, badge: 4 },
+    { section: "Account" },
+    { label: "Settings", icon: <CogIcon /> },
+  ]}
+  footer={<span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>v1.0.0</span>}
+  defaultCollapsed={false}
+/>
+```
+
+#### Stepper
+
+Stepper is a multi-step progress indicator for wizards and checkout flows: steps before the active index show a check, the active step is ringed, and later steps are muted. Use it to show users where they are in a sequential, multi-step process, either horizontally or vertically.
+
+`import { Stepper } from "twico-ui"`
+
+Props:
+- `steps` — `Step[]  ({ title, description?, icon?, error? })` · **required** — The ordered array of step objects to render, each with a title and optional description, icon, and error flag.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Sets the active/completed step marker and connector accent color from six semantic intents; defaults to primary.
+- `active` — `number` — Controlled zero-based index of the current step (pair with onStepClick); earlier steps render complete, later steps upcoming.
+- `defaultActive` — `number` · default `0` — Uncontrolled initial step index; the Stepper then advances itself when a clickable step is clicked.
+- `orientation` — `"horizontal" | "vertical"` · default `"horizontal"` — Lays the stepper out horizontally (default) or vertically to fit wide toolbars or narrow sidebars.
+- `clickable` — `boolean` · default `false` — Lets users click completed or active steps to navigate back, enabling jump-around movement through the flow.
+- `onStepClick` — `(index: number) => void` — Callback fired with the clicked step's index when steps are clickable, letting you drive navigation.
+
+```jsx
+import { Stepper } from "twico-ui";
+
+const [active, setActive] = useState(2);
+
+<Stepper
+  active={1}
+  steps={[
+    { title: "Account", description: "Your details" },
+    { title: "Payment", description: "Billing info" },
+    { title: "Confirm" },
+  ]}
+/>
+
+<Stepper
+  orientation="vertical"
+  active={active}
+  clickable
+  onStepClick={setActive}
+  steps={[
+    { title: "Account", description: "Your details" },
+    { title: "Payment", description: "Billing info" },
+    { title: "Confirm" },
+  ]}
+/>
+```
+
+#### Tabs
+
+Tabbed navigation with a sliding active indicator, available as a line or pill variant. Use it to switch between related views or sections, either controlled (value + onChange) or uncontrolled (defaultValue).
+
+`import { Tabs } from "twico-ui"`
+
+Props:
+- `items` — `TabItem[]` · **required** — Defines the tabs to render, each carrying a value, label, and optional icon, count badge, and content.
+- `value` — `string` — Sets the active tab value for controlled usage, kept in sync by handling onChange yourself.
+- `defaultValue` — `string` · default `items[0]?.value` — Sets the initially active tab for uncontrolled usage, defaulting to the first item's value when omitted.
+- `onChange` — `(value: string) => void` — Fires with the newly selected tab value whenever the user switches tabs, used to drive controlled state.
+- `variant` — `"line" | "pill"` · default `"line"` — Selects the visual style, rendering either a line underline indicator or a pill-shaped background behind the active tab.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Sets the active-indicator and active-label accent color from six semantic intents; defaults to primary.
+- `orientation` — `"horizontal" | "vertical"` · default `"horizontal"` — Layout axis. Vertical stacks the tablist with the active indicator on its trailing edge and the panel beside it; ArrowUp/ArrowDown navigate between tabs (Home/End still jump to ends).
+
+```jsx
+import { Tabs } from "twico-ui";
+
+<Tabs
+  variant="line"
+  defaultValue="overview"
+  items={[
+    { value: "overview", label: "Overview", content: <p>Overview panel</p> },
+    { value: "activity", label: "Activity", count: 12, content: <p>Activity panel</p> },
+    { value: "settings", label: "Settings", content: <p>Settings panel</p> },
+  ]}
+/>
+```
+
+#### TreeView
+
+TreeView renders a hierarchical, expand/collapse tree with indentation, icons, badges, and a selectable row. Use it for file explorers and nested navigation where items have parent/child relationships.
+
+`import { TreeView } from "twico-ui"`
+
+Props:
+- `defaultExpanded` — `string[]` · default `[]` — Node ids that start expanded on first render, letting you reveal specific branches of the tree by default.
+- `defaultSelectedId` — `string | null` · default `null` — Selected node id on first render in uncontrolled mode; the tree then manages selection itself.
+- `selectedId` — `string | null` — Controlled id of the currently selected node; omit it to let the component manage selection internally on its own.
+- `onSelect` — `(id: string, node: TreeNode) => void` — Fired when a row is clicked, id first (the full node is the second argument).
+- `expanded` — `string[]` — Controlled expanded node ids (pair with `onExpandedChange`).
+- `onExpandedChange` — `(ids: string[]) => void` — Fired with the next expanded ids whenever a row expands or collapses.
+- `items` — `TreeNode[]` · default `[]` — Tree nodes.
+
+```jsx
+import { TreeView } from "twico-ui";
+
+<TreeView
+  defaultExpanded={["src"]}
+  onSelect={(id) => open(id)}
+  items={[
+    { id: "src", label: "src", children: [
+      { id: "app", label: "App.tsx" },
+      { id: "comp", label: "components", children: [
+        { id: "btn", label: "Button.tsx", badge: 3 },
+      ]},
+    ]},
+  ]}
+/>
+```
+
+### Overlay
+
+#### CommandPalette
+
+A ⌘K-style command palette overlay with searchable, grouped commands and full keyboard navigation (↑/↓, Enter, Esc). Use it to give users a fast, central way to run actions or jump around the app, typically opened on Cmd/Ctrl+K.
+
+`import { CommandPalette } from "twico-ui"`
+
+Props:
+- `open` — `boolean` · **required** — Controls whether the palette overlay is visible; you own this state and typically toggle it on Cmd/Ctrl+K.
+- `onClose` — `() => void` — Fires when the palette should dismiss, such as on Esc, an overlay click, or after a command is selected.
+- `commands` — `Command[]` · **required** — The list of Command objects to search, group, and render, each typically defining a label, action, and optional group.
+- `placeholder` — `string` · default `"Type a command or search…"` — Sets the search input's placeholder text, defaulting to "Type a command or search…" to hint at the expected query.
+- `emptyText` — `string` · default `"No results found"` — The message shown when no command matches the current query, defaulting to "No results found".
+- `onClick` — `() => void` — Alias for onSelect, matching the other item-array APIs (Menu, List, Sidebar, ...) — used when onSelect is absent; palette closes after it runs.
+
+```jsx
+import { CommandPalette } from "twico-ui";
+
+const [open, setOpen] = React.useState(false);
+React.useEffect(() => {
+  const h = (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); setOpen(true); }
+  };
+  window.addEventListener("keydown", h);
+  return () => window.removeEventListener("keydown", h);
+}, []);
+
+<CommandPalette
+  open={open}
+  onClose={() => setOpen(false)}
+  commands={[
+    { group: "Navigation", label: "Go to Dashboard", shortcut: "G D", onSelect: () => {} },
+    { group: "Actions", label: "New project", keywords: "create add", onSelect: () => {} },
+  ]}
+/>
+```
+
+#### Dialog
+
+Dialog is a modal overlay with a scrim, pop-in animation, focus trapping, Esc-to-close, and backdrop-close. Use it to interrupt the user for confirmations, forms, or detail views that require attention before continuing.
+
+`import { Dialog } from "twico-ui"`
+
+Props:
+- `open` — `boolean` · **required** — Controls whether the modal is visible; the dialog renders null when false, so drive it from state.
+- `onClose` — `() => void` — Called when the dialog requests to close via Esc, a backdrop click, or the close button.
+- `title` — `React.ReactNode` — Heading content rendered in the dialog header to announce the modal's purpose to the user.
+- `description` — `React.ReactNode` — Secondary supporting text shown beneath the title to give context for the dialog's content or task.
+- `footer` — `React.ReactNode` — Footer region for pinned actions, typically right-aligned confirm and cancel buttons below the body.
+- `size` — `"sm" | "md" | "lg" | "full"` · default `"md"` — Adds a new "full" option: a near-fullscreen panel that fills the viewport minus a small margin (existing sm/md/lg unchanged).
+- `closeOnBackdrop` — `boolean` · default `true` — Closes the dialog when the surrounding scrim is clicked, enabled by default; disable for required interactions.
+- `children` — `React.ReactNode` — Main body content of the dialog, such as forms, messages, or detail views requiring the user's attention.
+- `scrollBody` — `boolean` · default `false` — Keep the header and footer fixed and scroll only the body, so long content does not overflow the viewport.
+
+```jsx
+import { Dialog, Button } from "twico-ui";
+
+const [open, setOpen] = useState(false);
+
+<Button tone="danger" onClick={() => setOpen(true)}>Delete project</Button>
+
+<Dialog
+  open={open}
+  onClose={() => setOpen(false)}
+  title="Delete project?"
+  description="This action cannot be undone."
+  footer={
+    <>
+      <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+      <Button tone="danger" onClick={() => setOpen(false)}>Delete</Button>
+    </>
+  }
+>
+  The project and all its data will be permanently removed.
+</Dialog>
+```
+
+#### Drawer
+
+Drawer is a slide-in overlay panel that anchors to any screen edge with a scrim, Esc-to-close, focus trapping, and a header/body/footer layout. Use it for nav menus, filters, detail views, or carts that should appear over the current page; drive it with the open and onClose props.
+
+`import { Drawer } from "twico-ui"`
+
+Props:
+- `open` — `boolean` · **required** — Controls whether the panel is visible; the drawer renders nothing when false, so drive it from state.
+- `onClose` — `() => void` — Called when the drawer requests to close via Esc, a backdrop click, or the close button.
+- `side` — `"left" | "right" | "top" | "bottom"` · default `"right"` — Screen edge the panel anchors to and slides in from, defaulting to right (left, right, top, or bottom).
+- `title` — `React.ReactNode` — Heading content rendered in the drawer header to announce the panel's purpose to the user.
+- `description` — `React.ReactNode` — Secondary supporting text shown under the title to give context for the drawer's content or task.
+- `footer` — `React.ReactNode` — Footer region for pinned actions, typically right-aligned buttons displayed below the drawer body.
+- `closeOnBackdrop` — `boolean` · default `true` — Closes the drawer when the backdrop scrim is clicked, enabled by default; disable for required interactions.
+- `children` — `React.ReactNode` — Body content of the drawer, such as nav menus, filters, detail views, or a cart over the page.
+- `width` — `"sm" | "md" | "lg" | number | string` · default `"md"` — Panel width for side left/right — preset sm/md/lg, a number (px), or a CSS length.
+- `height` — `"sm" | "md" | "lg" | number | string` · default `"md"` — Panel height for side top/bottom — preset sm/md/lg, a number (px), or a CSS length.
+
+```jsx
+import { Drawer } from "twico-ui";
+
+const [open, setOpen] = useState(false);
+
+<Drawer
+  open={open}
+  onClose={() => setOpen(false)}
+  side="right"
+  title="Filters"
+  description="Narrow down the results"
+  footer={<button onClick={() => setOpen(false)}>Apply</button>}
+>
+  ...filter controls...
+</Drawer>
+```
+
+#### Menu
+
+Menu is a portaled dropdown menu that takes a clickable trigger and an array of items supporting icons, shortcuts, separators, section headings, and danger styling. Use it for contextual action lists (e.g. an account or "more options" menu) that need to stay keyboard-navigable and never get clipped by overflow.
+
+`import { Menu } from "twico-ui"`
+
+Props:
+- `trigger` — `React.ReactNode` · **required** — Defines the clickable element that opens the menu, typically a Button or IconButton the dropdown anchors to.
+- `items` — `MenuItemDef[]` · **required** — Lists the menu entries, where each can be an action item, a separator, or a section heading.
+- `align` — `"start" | "end"` · default `"start"` — Aligns the menu horizontally to the trigger's start or end edge so it sits flush in tight layouts; defaults to start.
+- `header` — `React.ReactNode` — Renders an optional rich node above the items, handy for surfacing user info or context at the top of the menu.
+- `width` — `number` — Pins the menu to a fixed pixel width, otherwise it sizes to the larger of 200px and the trigger's width.
+- `defaultOpen` — `boolean` · default `false` — Open on first render in uncontrolled mode; the Menu then tracks its own open state.
+- `open` — `boolean` — Controlled open state - pair with onOpenChange. Omit for internal (uncontrolled) state.
+- `onOpenChange` — `(open: boolean) => void` — Called with the requested open state on trigger click, item select, Esc, or outside click.
+
+```jsx
+import { Menu, Button } from "twico-ui";
+
+<Menu
+  align="end"
+  trigger={<Button>Options</Button>}
+  items={[
+    { label: "Account", heading: true },
+    { label: "Profile", onClick: () => {}, shortcut: "⌘P" },
+    { label: "Settings", onClick: () => {} },
+    { separator: true },
+    { label: "Sign out", danger: true, onClick: () => {} },
+  ]}
+/>
+```
+
+#### Popover
+
+Popover is a click-triggered floating panel anchored to a trigger element, rendered in a portal so it is never clipped, auto-flipping near viewport edges and closing on outside-click or Esc. Use it for rich interactive content (inputs, buttons, links); for plain text hints use Tooltip instead.
+
+`import { Popover } from "twico-ui"`
+
+Props:
+- `trigger` — `React.ReactNode` · **required** — The clickable element the panel anchors to; clicking it toggles the popover open and closed.
+- `title` — `React.ReactNode` — Optional bold heading rendered at the top of the panel to introduce its interactive content.
+- `placement` — `"top" | "bottom" | "left" | "right"` · default `"bottom"` — Which side of the trigger the panel opens toward (top, bottom, left, or right), auto-flipping near viewport edges.
+- `align` — `"start" | "center" | "end"` · default `"center"` — Cross-axis alignment (start, center, or end) of the panel relative to the trigger for top and bottom placements.
+- `width` — `number` · default `240` — Fixed width of the floating panel in pixels, controlling how much interactive content fits on each line.
+- `children` — `React.ReactNode` — The rich interactive content rendered inside the panel, such as inputs, buttons, or links.
+- `defaultOpen` — `boolean` · default `false` — Open on first render in uncontrolled mode; the Popover then tracks its own open state.
+- `open` — `boolean` — Controlled open state - pair with onOpenChange. Omit for internal (uncontrolled) state.
+- `onOpenChange` — `(open: boolean) => void` — Called with the requested open state on trigger click, Esc, or outside click.
+
+```jsx
+import { Popover, Button, Input } from "twico-ui";
+
+<Popover
+  trigger={<Button variant="outline">Share</Button>}
+  title="Share link"
+  placement="bottom"
+>
+  <Input defaultValue="https://twico.dev/x" />
+  <Button fullWidth>Copy link</Button>
+</Popover>
+```
+
+#### Tooltip
+
+Tooltip is a small hover/focus overlay that wraps a single trigger element and shows a label on interaction. Use it to surface short, supplementary hints (like icon-button descriptions) without cluttering the UI.
+
+`import { Tooltip } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` · **required** — The short hint text or content revealed on hover or focus, ideal for describing icon buttons without cluttering the layout.
+- `placement` — `"top" | "bottom" | "left" | "right"` · default `"top"` — Chooses which side of the trigger the tooltip appears on, one of top, bottom, left, or right (default top).
+- `delay` — `number` · default `120` — Open delay in milliseconds before the tooltip appears (default 120), preventing flicker as the pointer passes over triggers.
+- `children` — `React.ReactNode` · **required** — The single trigger element the tooltip wraps and attaches its hover and focus listeners to.
+
+```jsx
+import { Tooltip } from "twico-ui";
+
+<Tooltip label="Copy to clipboard" placement="top">
+  <button aria-label="Copy">Copy</button>
+</Tooltip>
+```
+
+### Feedback
+
+#### Alert
+
+Alert is an inline message banner with four semantic tones (info, success, warning, danger), an optional bold title, a default or custom icon, and an optional dismiss button. Use it to surface contextual feedback inline within a page, such as success confirmations, warnings, or errors.
+
+`import { Alert } from "twico-ui"`
+
+Props:
+- `tone` — `"info" | "success" | "warning" | "danger" | "primary" | "neutral"` · default `"info"` — Sets the semantic color from six intents (info, success, warning, danger, primary, neutral); defaults to info.
+- `variant` — `"soft" | "solid" | "outline"` · default `"soft"` — Chooses the fill style between soft (tinted), solid (filled), and outline; defaults to soft.
+- `title` — `React.ReactNode` — Renders a bold heading line above the body, useful for summarizing the alert before its supporting detail.
+- `icon` — `React.ReactNode` — Overrides the default tone icon with your own node when you need a more specific or branded visual cue.
+- `onClose` — `() => void` — When provided, shows a dismiss button and runs this callback so the alert can be closed by the user.
+- `children` — `React.ReactNode` — The main body content of the alert, typically the descriptive message shown beneath the optional title.
+
+```jsx
+import { Alert } from "twico-ui";
+
+<Alert tone="success" title="Saved" onClose={() => {}}>
+  Your changes are live.
+</Alert>
+
+<Alert tone="warning">
+  Your trial ends in 3 days.
+</Alert>
+```
+
+#### EmptyState
+
+EmptyState is a zero-data placeholder that centers an optional icon tile, title, description, and an actions row for a call-to-action. Use it when a list, table, inbox, or panel has no content yet, or as a dashed drop-target placeholder.
+
+`import { EmptyState } from "twico-ui"`
+
+Props:
+- `icon` — `React.ReactNode` — Renders an illustrative icon inside a tinted tile above the title, signalling visually why the area has no content yet.
+- `title` — `React.ReactNode` — Sets the centered headline summarising the empty condition, such as "No results" or "Your inbox is empty".
+- `description` — `React.ReactNode` — Provides supporting copy beneath the title that explains the empty state and hints at how to fill it.
+- `actions` — `React.ReactNode` — Renders a row of call-to-action buttons below the text so users can immediately add content or take the next step.
+- `bordered` — `boolean` · default `false` — Adds a dashed border around the placeholder when true, ideal for drop targets or visually distinct empty regions.
+- `border` — `boolean` · default `false` — Add a dashed border (good for drop targets / placeholders); preferred alias for bordered.
+
+```jsx
+import { EmptyState, Button } from "twico-ui";
+
+<EmptyState
+  icon={<span style={{ fontSize: 28 }}>📭</span>}
+  title="No messages yet"
+  description="When someone sends you a message, it'll show up here."
+  actions={<Button>Compose</Button>}
+/>
+```
+
+#### Progress
+
+Progress is a linear progress bar that can be determinate (driven by a value) or indeterminate, with semantic tones. Use it to show task completion, upload/download progress, or ongoing background work.
+
+`import { Progress } from "twico-ui"`
+
+Props:
+- `value` — `number` · default `0` — Current progress amount that drives how much of the bar is filled, interpreted relative to max.
+- `max` — `number` · default `100` — Upper bound the bar represents, so value divided by max determines the filled percentage.
+- `tone` — `"primary" | "info" | "success" | "warning" | "danger"` · default `"primary"` — Added `info` value to the existing tone union; maps the bar fill to var(--color-info).
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Thickness of the bar, sm, md, or lg, to match the visual weight of the surrounding content.
+- `indeterminate` — `boolean` · default `false` — Switches to a continuously animated bar that ignores value, signaling work of unknown duration.
+- `showLabel` — `boolean` · default `false` — Displays a percentage label above the bar so users can read the exact completion at a glance.
+
+```jsx
+import { Progress } from "twico-ui";
+
+<Progress value={64} showLabel />
+<Progress value={90} tone="success" />
+<Progress value={45} tone="warning" size="lg" />
+<Progress indeterminate />
+```
+
+#### Skeleton
+
+Skeleton is a shimmering placeholder shown while content loads. Use it to reserve layout space and signal loading for text, avatars, or image/card blocks before real data arrives.
+
+`import { Skeleton } from "twico-ui"`
+
+Props:
+- `variant` — `"text" | "circle" | "rect"` · default `"text"` — Chooses the placeholder shape: text for lines, circle for avatars, or rect for image and card blocks, defaulting to text.
+- `width` — `string | number` — Sets the placeholder width as a CSS string or number, such as "120px" or 60, to match expected content.
+- `height` — `string | number` — Sets the placeholder height as a CSS string or number to reserve the vertical space the real content will occupy.
+- `lines` — `number` · default `1` — For the text variant, the number of lines to render, defaulting to 1, with the last line shortened for realism.
+
+```jsx
+import { Skeleton } from "twico-ui";
+
+<Skeleton variant="circle" width={40} height={40} />
+<Skeleton variant="text" lines={3} />
+<Skeleton variant="rect" height={120} />
+```
+
+#### Spinner
+
+An indeterminate loading spinner that signals an ongoing background operation. Use it when content or an action is loading and there's no measurable progress to show, such as inside buttons or over panels.
+
+`import { Spinner } from "twico-ui"`
+
+Props:
+- `size` — `"sm" | "md" | "lg" | "xl"` · default `"md"` — Sets the spinner diameter (sm, md, lg, or xl) so it fits its context, from inside a button to over a panel.
+- `tone` — `"current" | "primary" | "success" | "warning" | "danger" | "info" | "neutral" | "white"` · default `"current"` — Deprecated alias for color.
+- `label` — `string` · default `"Loading"` — Accessible name exposed via aria-label so screen readers announce the loading state, defaulting to "Loading".
+- `color` — `"current" | "primary" | "success" | "warning" | "danger" | "info" | "neutral" | "white"` · default `"current"` — Sets the spinner color; defaults to currentColor so it adapts inside buttons and themed contexts.
+
+```jsx
+import { Spinner } from "twico-ui";
+
+<Spinner />
+<Spinner size="lg" />
+<Spinner tone="white" /> {/* on a colored button/background */}
+```
+
+#### Toast
+
+Toast is a transient notification card with a tone accent, optional title/icon, and a dismiss button. Use it to surface brief feedback (success, warning, error, info) by managing a list of toasts in state and rendering them inside a fixed-position ToastViewport.
+
+`import { Toast, ToastViewport } from "twico-ui"`
+
+Props:
+- `tone` — `"default" | "neutral" | "success" | "warning" | "danger" | "info"` · default `"default"` — "neutral" is now accepted as an alias for "default" (aligns with Badge's tone vocabulary). No new standalone props were added.
+- `title` — `React.ReactNode` — Bold heading text shown above the body content to summarize what the toast is reporting at a glance.
+- `icon` — `React.ReactNode` — Custom leading icon that overrides the default tone icon when you want a more specific visual marker.
+- `onClose` — `() => void` — Callback invoked on dismissal; providing it also reveals the close button so users can manually remove the toast.
+- `duration` — `number` · default `4500` — Milliseconds before the toast auto-dismisses and calls onClose (default 4500); the countdown pauses on hover or focus, and 0 or Infinity keeps it open.
+- `children` — `React.ReactNode` — Body or description content rendered beneath the title to give users the detailed message of the notification.
+- `limit (ToastViewport)` — `number` — Caps how many toasts the viewport shows at once, keeping the most recent and dropping older ones so bursts never flood the screen.
+
+```jsx
+import { Toast, ToastViewport } from "twico-ui";
+
+const [toasts, setToasts] = useState([]);
+const push = (t) => setToasts((s) => [...s, { id: Date.now(), ...t }]);
+const remove = (id) => setToasts((s) => s.filter((t) => t.id !== id));
+
+{/* limit caps what's shown; each toast auto-dismisses after ~4.5s */}
+<ToastViewport limit={4}>
+  {toasts.map((t) => (
+    <Toast
+      key={t.id}
+      tone={t.tone}
+      title={t.title}
+      onClose={() => remove(t.id)}
+    >
+      {t.body}
+    </Toast>
+  ))}
+</ToastViewport>
+```
+
+#### ToastProvider
+
+ToastProvider drops a ready-made toast manager into your tree: it owns the toast list and renders a single ToastViewport, so you no longer hand-manage an array in state. Anywhere beneath it, call const { toast } = useToast() and fire toast.success("Saved") or toast.error({ title, description }); each toast auto-dismisses on the shared timer.
+
+`import { ToastProvider, useToast } from "twico-ui"`
+
+Props:
+- `children` — `React.ReactNode` — Your app — anything under the provider can call useToast().
+- `limit` — `number` · default `4` — Maximum toasts shown at once (the most recent are kept).
+- `duration` — `number` · default `4500` — Default auto-dismiss duration (ms) for toasts that don't set their own.
+- `toast() (useToast)` — `(opts) => number` — Push a toast; has tone helpers toast.success/warning/danger/error/info(title, options?).
+- `dismiss / clear (useToast)` — `(id) => void / () => void` — Remove one toast by id, or clear them all.
+
+```jsx
+import { ToastProvider, useToast, Button } from "twico-ui";
+
+function App() {
+  return (
+    <ToastProvider limit={4}>
+      <Page />
+    </ToastProvider>
+  );
+}
+
+function Page() {
+  const { toast } = useToast();
+  return (
+    <Button onClick={() => toast.success("Saved")}>Save</Button>
+  );
+}
+```
+
+## Hooks (23)
+
+### useIsomorphicLayoutEffect
+
+SSR-safe `useLayoutEffect` (falls back to `useEffect` on the server).
+
+```ts
+export const useIsomorphicLayoutEffect: typeof React.useLayoutEffect;
+```
+
+### useMounted
+
+`true` once the component has mounted on the client — for SSR-safe rendering.
+
+```ts
+export function useMounted(): boolean;
+```
+
+### usePrevious
+
+The value from the previous render.
+
+```ts
+export function usePrevious<T>(value: T): T | undefined;
+```
+
+### useToggle
+
+Boolean state with a stable toggle. `toggle()` flips; `toggle(true)` sets.
+
+```ts
+export function useToggle( initial?: boolean ): [boolean, (next?: boolean) => void, React.Dispatch<React.SetStateAction<boolean>>];
+```
+
+### useDisclosure
+
+Open/close state for dialogs, drawers, menus, popovers.
+
+```ts
+export function useDisclosure(initial?: boolean): { open: boolean; onOpen: () => void; onClose: () => void; onToggle: () => void; setOpen: React.Dispatch<React.SetStateAction<boolean>>; };
+```
+
+### useControllableState
+
+Controlled/uncontrolled state — the pattern every form component needs.
+
+```ts
+export function useControllableState<T>(options?: { value?: T; defaultValue?: T; onChange?: (value: T) => void; }): [T, (next: T | ((prev: T) => T)) => void];
+```
+
+### useMediaQuery
+
+Reactively match a media query (SSR-safe).
+
+```ts
+export function useMediaQuery(query: string): boolean;
+```
+
+### usePrefersReducedMotion
+
+`true` when the user requests reduced motion.
+
+```ts
+export function usePrefersReducedMotion(): boolean;
+```
+
+### useColorScheme
+
+Light/dark theme state synced to `<html>` and persisted to localStorage.
+
+```ts
+export function useColorScheme(options?: UseColorSchemeOptions): { theme: "light" | "dark"; setTheme: (theme: "light" | "dark") => void; toggle: () => void; isDark: boolean; };
+```
+
+### useEventListener
+
+Attach an event listener (window by default, or a ref/element) with cleanup.
+
+```ts
+export function useEventListener( eventName: string, handler: (event: any) => void, element?: React.RefObject<any> | EventTarget | null, options?: boolean | AddEventListenerOptions ): void;
+```
+
+### useClickOutside
+
+Call `handler` when a pointer/touch event lands outside `ref`.
+
+```ts
+export function useClickOutside<T extends HTMLElement = HTMLElement>( ref: React.RefObject<T>, handler: (event: Event) => void, events?: string[] ): void;
+```
+
+### useKeyPress
+
+Run `handler` on a keydown matching `key`, with optional modifier requirements.
+
+```ts
+export function useKeyPress( key: string | string[], handler: (event: KeyboardEvent) => void, options?: UseKeyPressOptions ): void;
+```
+
+### useLocalStorage
+
+State persisted to localStorage (JSON-serialized), SSR-safe.
+
+```ts
+export function useLocalStorage<T>( key: string, initialValue: T ): [T, (value: T | ((prev: T) => T)) => void];
+```
+
+### useCopyToClipboard
+
+Copy text to the clipboard with a `copied` flag that auto-resets.
+
+```ts
+export function useCopyToClipboard(timeout?: number): { copied: boolean; copy: (text: string) => Promise<boolean>; };
+```
+
+### useDebouncedValue
+
+Debounce a value — updates only after `delay` ms of no change.
+
+```ts
+export function useDebouncedValue<T>(value: T, delay?: number): T;
+```
+
+### useDebouncedCallback
+
+A debounced version of a callback.
+
+```ts
+export function useDebouncedCallback<A extends any[]>( callback: (...args: A) => void, delay?: number ): (...args: A) => void;
+```
+
+### useInterval
+
+Run `callback` every `delay` ms; pass `delay = null` to pause.
+
+```ts
+export function useInterval(callback: () => void, delay: number | null): void;
+```
+
+### useTimeout
+
+Run `callback` once after `delay` ms; pass `delay = null` to cancel.
+
+```ts
+export function useTimeout(callback: () => void, delay: number | null): void;
+```
+
+### useWindowSize
+
+The current window dimensions (0×0 on the server).
+
+```ts
+export function useWindowSize(): { width: number; height: number };
+```
+
+### useHover
+
+`true` while the pointer is over the element referenced by `ref`.
+
+```ts
+export function useHover<T extends HTMLElement = HTMLElement>(ref: React.RefObject<T>): boolean;
+```
+
+### useIntersectionObserver
+
+The latest IntersectionObserver entry for the element referenced by `ref`.
+
+```ts
+export function useIntersectionObserver<T extends HTMLElement = HTMLElement>( ref: React.RefObject<T>, options?: IntersectionObserverInit ): IntersectionObserverEntry | null;
+```
+
+### useScrollLock
+
+Lock body scroll while `locked` is true — for modals/drawers.
+
+```ts
+export function useScrollLock(locked?: boolean): void;
+```
+
+### useId
+
+A stable, SSR-safe unique id (optionally prefixed).
+
+```ts
+export function useId(prefix?: string): string;
+```
+
+---
+
+_Generated by `scripts/gen-llms.mjs` from twico-ui v0.1.0. Do not edit by hand — run `npm run gen:llms`. Source of truth: the component `.d.ts` files and `hooks/index.d.ts`._
+
