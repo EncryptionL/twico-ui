@@ -11,6 +11,11 @@ const LogOutIcon = () => (
   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="m16 17 5-5-5-5M21 12H9" /></svg>
 );
 
+// Self-contained avatar image (no CDN) so the live "All props" preview's src loads
+// instead of 404-ing; the displayed code shows a friendly "/u/ada.jpg" URL.
+const FACE =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c83ff'/%3E%3Cstop offset='1' stop-color='%23c265f0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='96' height='96' fill='url(%23g)'/%3E%3Ccircle cx='48' cy='38' r='16' fill='%23ffffff' opacity='0.95'/%3E%3Cpath d='M18 90c0-18 13-29 30-29s30 11 30 29z' fill='%23ffffff' opacity='0.95'/%3E%3C/svg%3E";
+
 const accountItems = [
   { label: "Profile", icon: <UserIcon />, onClick: () => {} },
   { label: "Settings", icon: <SettingsIcon />, shortcut: "⌘,", onClick: () => {} },
@@ -121,7 +126,7 @@ const items = [
     render: () => (
       <AvatarMenu
         name="Ada Park"
-        src="/u/ada.jpg"
+        src={FACE}
         email="ada@twico.dev"
         subtitle="Workspace admin"
         status="online"
