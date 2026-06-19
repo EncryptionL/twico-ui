@@ -55,6 +55,9 @@ jobs:
       - name: Guard - palette.html preview is in sync with color tokens
         run: npm run verify:palette
 
+      - name: Guard - llms.txt AI guide is in sync with the component/hook API
+        run: npm run gen:llms:check
+
       - name: Guard - docs hooks list is in sync with hooks/index.js
         run: node site/scripts/gen-exports.mjs --check
 
