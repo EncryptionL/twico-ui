@@ -23,7 +23,12 @@ for (const theme of ["light", "dark"] as const) {
         } catch {}
       }, theme);
       await page.goto("./" + p.hash, { waitUntil: "load" });
-      await page.waitForTimeout(500);
+      // Determinism: wait for the network to settle and the self-hosted webfonts to
+      // finish loading before capturing — otherwise a late font swap re-rasterizes
+      // all text (worst on the text-dense Datatable) and trips the pixel threshold.
+      await page.waitForLoadState("networkidle");
+      await page.evaluate(() => document.fonts.ready);
+      await page.waitForTimeout(400);
       await expect(page).toHaveScreenshot(`${p.name}-${theme}.png`, { fullPage: true });
     });
   }
