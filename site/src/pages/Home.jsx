@@ -4,6 +4,8 @@ import { Button, Badge, Card, Stack, Grid, Heading, Text, Container, Box, Switch
 import CodeBlock from "../components/CodeBlock.jsx";
 import ErrorBoundary from "../components/ErrorBoundary.jsx";
 import Logo from "../components/Logo.jsx";
+import ExternalLink from "../components/ExternalLink.jsx";
+import { ExternalLinkIcon } from "twico-ui/icons";
 import { REPO_URL, NPM_URL, CHANGELOG_URL } from "../data/site.js";
 
 const FEATURES = [
@@ -101,7 +103,7 @@ export default function Home() {
           </Text>
           <Stack direction="row" gap={3} justify="center" wrap>
             <Button onClick={() => navigate("/components")}>Explore the components</Button>
-            <Button variant="outline" onClick={() => window.open(REPO_URL, "_blank", "noopener,noreferrer")}>Star on GitHub</Button>
+            <Button variant="outline" aria-label="Star on GitHub (opens in new tab)" rightIcon={<ExternalLinkIcon size={16} />} onClick={() => window.open(REPO_URL, "_blank", "noopener,noreferrer")}>Star on GitHub</Button>
           </Stack>
         </Stack>
       </Card>
@@ -116,9 +118,9 @@ export default function Home() {
           <Stack direction="row" gap={5} align="center" wrap>
             <Link to="/docs/installation" style={footerLink}>Docs</Link>
             <Link to="/components" style={footerLink}>Components</Link>
-            <a href={CHANGELOG_URL} target="_blank" rel="noopener noreferrer" style={footerLink}>Changelog</a>
-            <a href={REPO_URL} target="_blank" rel="noopener noreferrer" style={footerLink}>GitHub</a>
-            <a href={NPM_URL} target="_blank" rel="noopener noreferrer" style={footerLink}>npm</a>
+            <ExternalLink href={CHANGELOG_URL} style={footerLink}>Changelog</ExternalLink>
+            <ExternalLink href={REPO_URL} style={footerLink}>GitHub</ExternalLink>
+            <ExternalLink href={NPM_URL} style={footerLink}>npm</ExternalLink>
           </Stack>
         </Stack>
       </Box>
