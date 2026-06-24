@@ -4,7 +4,7 @@ Top application bar with brand, inline links, and an actions slot.
 import { Navbar } from "./Navbar";
 
 <Navbar
-  brand={<><LogoTile /> twico<span style={{color:"var(--color-primary)"}}>UI</span></>}
+  brand={<><LogoTile /> Twico <span style={{color:"var(--color-primary)"}}>UI</span></>}
   links={[
     { label: "Dashboard", active: true },
     { label: "Projects" },

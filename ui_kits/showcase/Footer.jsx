@@ -32,7 +32,7 @@ function Footer() {
               <FootIcon name="Blocks" size={18} />
             </span>
             <span style={{ fontSize: 18, fontWeight: 800, letterSpacing: "-0.03em", color: "var(--color-text)" }}>
-              twico<span style={{ color: "var(--color-primary)" }}>UI</span>
+              Twico <span style={{ color: "var(--color-primary)" }}>UI</span>
             </span>
           </a>
           <p style={{ color: "var(--color-text-subtle)", fontSize: 13.5, marginTop: 14, maxWidth: 240, lineHeight: 1.55 }}>

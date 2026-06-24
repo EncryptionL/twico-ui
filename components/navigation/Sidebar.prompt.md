@@ -4,7 +4,7 @@ Collapsible side navigation with grouped items, icons, badges, and a collapse to
 import { Sidebar } from "./Sidebar";
 
 <Sidebar
-  brand={<>twico<span style={{color:"var(--color-primary)"}}>UI</span></>}
+  brand={<>Twico <span style={{color:"var(--color-primary)"}}>UI</span></>}
   items={[
     { section: "Main" },
     { label: "Dashboard", icon: <HomeIcon />, active: true },

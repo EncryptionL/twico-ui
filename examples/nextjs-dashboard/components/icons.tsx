@@ -56,7 +56,7 @@ export function Logo({ showText = true }: { showText?: boolean }) {
       </span>
       {showText && (
         <span>
-          twico<span style={{ color: "var(--color-primary)" }}>UI</span>
+          Twico <span style={{ color: "var(--color-primary)" }}>UI</span>
         </span>
       )}
     </span>

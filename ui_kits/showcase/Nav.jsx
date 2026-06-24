@@ -26,7 +26,7 @@ function Nav({ dark, onToggleDark }) {
             <Icon name="Blocks" size={20} />
           </span>
           <span style={{ fontSize: 20, fontWeight: 800, letterSpacing: "-0.03em", color: "var(--color-text)" }}>
-            twico<span style={{ color: "var(--color-primary)" }}>UI</span>
+            Twico <span style={{ color: "var(--color-primary)" }}>UI</span>
           </span>
         </a>
 
