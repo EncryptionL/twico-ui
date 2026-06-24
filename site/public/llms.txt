@@ -1,6 +1,6 @@
 # Twico UI — LLM usage guide (llms.txt)
 
-Twico UI is a free, MIT-licensed **React component library**: 61 components and 23 standalone
+Twico UI is a free, MIT-licensed **React component library**: 62 components and 23 standalone
 hooks (plus the `useToast` hook), with dark mode, motion, accessibility, RTL, a density scale, and
 design tokens. **Zero runtime dependencies** (peer: `react`/`react-dom` >= 18).
 
@@ -194,7 +194,7 @@ in the examples.
 
 ---
 
-## Component reference (61 components)
+## Component reference (62 components)
 
 ### Buttons & actions
 
@@ -265,6 +265,40 @@ const TrashIcon = () => (<svg width="18" height="18" viewBox="0 0 24 24" fill="n
 ```
 
 ### Layout
+
+#### AppShell
+
+Full-height application shell: a fixed sidebar beside a scrollable content area with an optional fixed topbar. The content fills the remaining width and scrolls independently, so the sidebar and header stay put.
+
+`import { AppShell } from "twico-ui"`
+
+Props:
+- `sidebar` — `React.ReactNode` — The sidebar element (e.g. a Sidebar), rendered full-height on the inline-start side of the shell.
+- `header` — `React.ReactNode` — Topbar content in a fixed header above the content; a flex row with space-between, so pass a left and a right group.
+- `children` — `React.ReactNode` — Main content; fills the remaining space and scrolls independently of the fixed sidebar and header.
+- `height` — `string | number` · default `"100dvh"` — Overall shell height; pass a fixed value to embed the shell inside a smaller region (e.g. a demo).
+- `padded` — `boolean` · default `true` — Pads the scrollable content region with the standard page padding; set false for edge-to-edge content.
+
+```jsx
+import { AppShell, Sidebar, Button } from "twico-ui";
+
+<AppShell
+  sidebar={
+    <Sidebar
+      brand={<b>Acme</b>}
+      items={[{ label: "Home", active: true }, { label: "Settings" }]}
+    />
+  }
+  header={
+    <>
+      <b>Dashboard</b>
+      <Button size="sm">New</Button>
+    </>
+  }
+>
+  <h1>Welcome back</h1>
+</AppShell>
+```
 
 #### Box
 

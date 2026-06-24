@@ -56,6 +56,7 @@ export { Toast, ToastViewport } from "../components/feedback/Toast";
 export { ToastProvider, useToast } from "../components/feedback/ToastProvider";
 export { Tooltip } from "../components/overlay/Tooltip";
 export { TreeView } from "../components/navigation/TreeView";
+export { AppShell } from "../components/layout/AppShell";
 export { Box } from "../components/layout/Box";
 export { Container } from "../components/layout/Container";
 export { Grid } from "../components/layout/Grid";
@@ -121,6 +122,7 @@ export type { ToastProps, ToastViewportProps } from "../components/feedback/Toas
 export type { ToastProviderProps, ToastApi, ToastOptions } from "../components/feedback/ToastProvider";
 export type { TooltipProps } from "../components/overlay/Tooltip";
 export type { TreeNode, TreeViewProps } from "../components/navigation/TreeView";
+export type { AppShellProps } from "../components/layout/AppShell";
 export type { BoxProps } from "../components/layout/Box";
 export type { ContainerProps } from "../components/layout/Container";
 export type { GridProps } from "../components/layout/Grid";

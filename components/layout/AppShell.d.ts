@@ -1,0 +1,19 @@
+import * as React from "react";
+
+export interface AppShellProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "children"> {
+  /** The sidebar element (e.g. a `<Sidebar/>`), rendered full-height on the inline-start side. */
+  sidebar?: React.ReactNode;
+  /**
+   * Topbar content, rendered in a fixed header above the scrollable content. The header is a flex
+   * row with `space-between`, so pass two groups (left/right) and they spread to the edges.
+   */
+  header?: React.ReactNode;
+  /** Main content — fills the remaining space and scrolls independently of the sidebar/header. */
+  children?: React.ReactNode;
+  /** Overall shell height (CSS length). Use a fixed value to embed the shell in a smaller region. @default "100dvh" */
+  height?: string | number;
+  /** Pad the scrollable content region. @default true */
+  padded?: boolean;
+}
+
+export declare function AppShell(props: AppShellProps): React.JSX.Element;

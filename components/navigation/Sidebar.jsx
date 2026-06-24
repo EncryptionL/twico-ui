@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { Tooltip } from "../overlay/Tooltip";
 
 const SIDEBAR_CSS = `
 .twc-sidebar { display: flex; flex-direction: column; height: 100%; font-family: var(--font-sans);
@@ -96,13 +97,22 @@ export function Sidebar({
                 "data-active": it.active || undefined,
                 "aria-current": it.active ? "page" : undefined,
                 onClick: it.onClick,
-                title: collapsed && labelStr != null ? labelStr : undefined,
                 "aria-label": collapsed && labelStr != null ? labelStr : undefined,
               };
-              return href != null ? (
+              const node = href != null ? (
                 <a key={i} href={href} {...common}>{inner}</a>
               ) : (
                 <button key={i} type="button" {...common}>{inner}</button>
+              );
+              // Collapsed: the text label is hidden, so surface it as a Tooltip on the
+              // icon (it portals to <body>, so the rail's overflow can't clip it).
+              // Expanded: the label is visible, no tooltip needed.
+              return collapsed && labelStr != null ? (
+                <Tooltip key={i} label={labelStr} placement="right" style={{ display: "block" }}>
+                  {node}
+                </Tooltip>
+              ) : (
+                node
               );
             })()
           )

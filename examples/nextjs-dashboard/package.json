@@ -15,12 +15,15 @@
     "next": "^16.2.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "twico-ui": "^1.0.1"
+    "twico-ui": "^1.0.2"
   },
   "devDependencies": {
     "@types/node": "^22.10.7",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
     "typescript": "^5.7.3"
+  },
+  "overrides": {
+    "postcss": "^8.5.10"
   }
 }

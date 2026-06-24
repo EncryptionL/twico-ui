@@ -6,7 +6,7 @@ Guidance for any agent or contributor working in this repository. Read this firs
 
 ## 1. What this repository is
 
-**Twico UI** is a **free, MIT-licensed React component library** — **61 components** (63 exported
+**Twico UI** is a **free, MIT-licensed React component library** — **62 components** (64 exported
 component values: `Toast.jsx` also exports `ToastViewport`; `ToastProvider.jsx` also exports the
 `useToast` hook) **+ 23 standalone hooks**, with dark mode, motion, accessibility, RTL support, a
 density scale, and design tokens. Zero runtime dependencies (peer: `react`/`react-dom` ≥18).
@@ -117,7 +117,8 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
 - **Components are self-contained.** Each imports only `react` (and `react-dom` for portals, plus
   the one shared internal helper `components/_styles.js`); the only other exceptions are composite
   components that reuse siblings (`AvatarMenu` → `Menu`, `Datatable` →
-  `Select`/`Input`/`MultiSelect`/`Pagination`, `CurrencyField` → `Select`). Each **renders** its own
+  `Select`/`Input`/`MultiSelect`/`Pagination`, `CurrencyField` → `Select`, `Sidebar` → `Tooltip`
+  for collapsed-item labels). Each **renders** its own
   scoped CSS via `useScopedStyles(id, css)` (`_styles.js`): on **React 19** it returns a hoistable
   `<style href={id} precedence="twc-ui">` that React dedupes by id, hoists to `<head>`, and
   **includes in the SSR stream — no FOUC**; on **React 18** it falls back to the old client-only
@@ -139,8 +140,11 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
   (SSR-safe), animate **out as well as in** via a `data-state="open" | "closed"` attribute —
   the component stays mounted through a `var(--duration-exit)` animation, then unmounts on a
   170 ms timeout kept in lockstep with that token. `prefers-reduced-motion` collapses the
-  animations. Tooltip is the exception: it never portals, stays mounted, and eases both ways with
-  a plain CSS transition. Backdrop dismissal uses `onMouseDown` + an `e.target === e.currentTarget`
+  animations. Tooltip is the exception: it **does** portal to `document.body` with fixed positioning
+  measured from the trigger (so it's never clipped by an overflow ancestor — e.g. a collapsed
+  Sidebar's icon labels), but it stays mounted and eases both ways with a plain CSS transition rather
+  than a `data-state` unmount. It does **not** auto-flip placement, so pick `placement` to suit the
+  trigger's position (a top-edge trigger needs `placement="bottom"`). Backdrop dismissal uses `onMouseDown` + an `e.target === e.currentTarget`
   guard. Portaling matters: any ancestor with `transform`/`filter`/`backdrop-filter` becomes the
   containing block for `position: fixed` (the docs-site navbar's `backdrop-filter` bit us here).
 - **RTL + density.** Component CSS uses **logical properties** (`padding-inline`, `inset-inline-*`,
