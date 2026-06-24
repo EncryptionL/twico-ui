@@ -2,6 +2,14 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.0.2](https://github.com/EncryptionL/twico-ui/compare/v1.0.1...v1.0.2) (2026-06-24)
+
+
+### Bug Fixes
+
+* **examples:** full-height dashboard shell + bottom-placed topbar tooltips ([402703b](https://github.com/EncryptionL/twico-ui/commit/402703b7ea77b0fef90cbaa4f55193703c5cb785))
+* **menu:** stack title and subtitle in the menu/avatar-menu header ([ae49019](https://github.com/EncryptionL/twico-ui/commit/ae49019c3a762108c169f9227d335cc1cfd30770))
+
 ## [1.0.1](https://github.com/EncryptionL/twico-ui/compare/v1.0.0...v1.0.1) (2026-06-24)
 
 
