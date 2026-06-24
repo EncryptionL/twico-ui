@@ -61,7 +61,8 @@ export default function Layout() {
               <Button variant="ghost" size="sm" onClick={() => window.open(NPM_URL, "_blank", "noopener,noreferrer")}>npm</Button>
             </>
           ) : null}
-          <VersionSelector />
+          {/* Version switching is a docs aid — hide it on the marketing landing page. */}
+          {!isHome ? <VersionSelector /> : null}
           <IconButton variant="ghost" aria-label="GitHub repository" icon={GithubIcon} onClick={() => window.open(REPO_URL, "_blank", "noopener,noreferrer")} />
           <ThemeToggle />
         </Stack>
