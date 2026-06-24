@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.2.0](https://github.com/EncryptionL/twico-ui/compare/v1.1.0...v1.2.0) (2026-06-24)
+
+
+### Features
+
+* **icons:** add twico-ui/icons — re-export the full Lucide set (optional peer) ([c76fa22](https://github.com/EncryptionL/twico-ui/commit/c76fa224bd1fe57daec80def3deac01b78f87f3c))
+
 # [1.1.0](https://github.com/EncryptionL/twico-ui/compare/v1.0.2...v1.1.0) (2026-06-24)
 
 
