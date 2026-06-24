@@ -38,6 +38,7 @@ This one repo holds three things:
 | `assets/fonts/` (source), `styles/fonts/` (shipped copy) | Self-hosted OFL fonts (Plus Jakarta Sans, JetBrains Mono variable `.ttf`). Duplicated on purpose — keep both in sync. |
 | `tsup.config.ts`, `tsconfig.json`, `scripts/add-use-client.mjs` | The build. |
 | `site/` | The docs website (own `package.json`, `private: true`). Generators live in `site/scripts/` (`gen-docs.mjs`, …). |
+| `examples/` | Runnable consumer apps that install `twico-ui` **from npm** (each own `package.json`, `private`). Repo-only — excluded from the tarball, the library build, and the root typecheck. See `docs/examples.md`. |
 | `guidelines/` | 13 `*.card.html` foundation previews (colors, type, spacing, motion, iconography). |
 | `ui_kits/` | 5 HTML preview kits (auth, dashboard, pricing, settings, showcase) — design validation only, never shipped. |
 | `docs/` | **Developer/contributor documentation — see rule §4.1.** Index: `docs/README.md`. |

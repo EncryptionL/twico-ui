@@ -94,10 +94,10 @@ Every form component supports both modes:
 
 The `onChange` payload differs by component kind:
 
-- **Composite controls** (Select, MultiSelect, Combobox, Checkbox, Switch, Radio, Slider, Rating,
-  DatePicker, DateRangePicker, ColorPicker, …) call **`onChange(value)`** — you receive the value
-  directly.
-- **Native field wrappers** (Input, Textarea) call **`onChange(event)`** — read `event.target.value`.
+- **Composite controls** (Select, MultiSelect, Combobox, Slider, Rating, Tabs, DatePicker,
+  DateRangePicker, ColorPicker, …) call **`onChange(value)`** — you receive the value directly.
+- **Native input controls** (Input, Textarea, and the toggle family Checkbox / Switch / Radio) call
+  **`onChange(event)`** — read `event.target.value` (or `event.target.checked` for the toggles).
 - Currency / CurrencyField are specialized money inputs — see their sections for their exact
   `value`/`onChange` shape.
 
