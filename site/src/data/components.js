@@ -1,6 +1,115 @@
 // AUTO-GENERATED — gen-docs.mjs (component reference) then enrich-props.mjs (inherited DOM props). Do not edit by hand.
 export const components = [
   {
+    "name": "AppShell",
+    "slug": "app-shell",
+    "group": "Layout",
+    "importName": "AppShell",
+    "summary": "Full-height application shell: a fixed sidebar beside a scrollable content area with an optional fixed topbar. The content fills the remaining width and scrolls independently, so the sidebar and header stay put.",
+    "propsRows": [
+      {
+        "prop": "sidebar",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "The sidebar element (e.g. a Sidebar), rendered full-height on the inline-start side of the shell."
+      },
+      {
+        "prop": "header",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Topbar content in a fixed header above the content; a flex row with space-between, so pass a left and a right group."
+      },
+      {
+        "prop": "children",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Main content; fills the remaining space and scrolls independently of the fixed sidebar and header."
+      },
+      {
+        "prop": "height",
+        "type": "string | number",
+        "required": false,
+        "default": "\"100dvh\"",
+        "description": "Overall shell height; pass a fixed value to embed the shell inside a smaller region (e.g. a demo)."
+      },
+      {
+        "prop": "padded",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Pads the scrollable content region with the standard page padding; set false for edge-to-edge content."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { AppShell, Sidebar, Button } from \"twico-ui\";\n\n<AppShell\n  sidebar={\n    <Sidebar\n      brand={<b>Acme</b>}\n      items={[{ label: \"Home\", active: true }, { label: \"Settings\" }]}\n    />\n  }\n  header={\n    <>\n      <b>Dashboard</b>\n      <Button size=\"sm\">New</Button>\n    </>\n  }\n>\n  <h1>Welcome back</h1>\n</AppShell>",
+    "tagline": "Full-height sidebar + topbar + content frame"
+  },
+  {
     "name": "Accordion",
     "slug": "accordion",
     "group": "Navigation",

@@ -1,6 +1,6 @@
 # Twico UI — LLM usage guide (llms.txt)
 
-Twico UI is a free, MIT-licensed **React component library**: 61 components and 23 standalone
+Twico UI is a free, MIT-licensed **React component library**: 62 components and 23 standalone
 hooks (plus the `useToast` hook), with dark mode, motion, accessibility, RTL, a density scale, and
 design tokens. **Zero runtime dependencies** (peer: `react`/`react-dom` >= 18).
 
