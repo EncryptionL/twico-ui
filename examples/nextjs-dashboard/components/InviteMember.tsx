@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button, Dialog, Input, Select, Stack, Text, useToast } from "twico-ui";
 import { ROLES, ROLE_LABEL, ROLE_DESCRIPTION, type Role } from "@/lib/rbac";
-import { PlusIcon } from "@/components/icons";
+import { PlusIcon } from "twico-ui/icons";
 
 const roleOptions = ROLES.map((r) => ({
   value: r,
@@ -33,7 +33,7 @@ export function InviteMember() {
 
   return (
     <>
-      <Button leftIcon={<PlusIcon />} onClick={() => setOpen(true)}>
+      <Button leftIcon={<PlusIcon size={18} />} onClick={() => setOpen(true)}>
         Invite member
       </Button>
       <Dialog

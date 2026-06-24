@@ -13,7 +13,7 @@ const ReportsIcon = () => ic("M3 3v18h18M7 14l4-4 4 4 5-6");
 const CogIcon = () => ic("M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L14.5 2h-5l-.3 2.6a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L2.6 11a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.3 2.6h5l.3-2.6a7 7 0 0 0 1.7-1l2.4 1 2-3.4-2-1.6a7 7 0 0 0 .1-1z");
 
 const Brand = () => (
-  <>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>
+  <>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>
 );
 
 const fullItems = [
@@ -54,7 +54,7 @@ const variations = [
     title: "Sections, icons and badges",
     description: "Grouped nav items with icons, an active row, a count badge, and a footer.",
     code: `<Sidebar
-  brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+  brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
   items={[
     { section: "Main" },
     { label: "Dashboard", active: true, icon: <HomeIcon /> },
@@ -79,7 +79,7 @@ const variations = [
     title: "Collapsed by default",
     description: "Uncontrolled icon-only mode via defaultCollapsed — labels, badges and sections hide.",
     code: `<Sidebar
-  brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+  brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
   items={items}
   footer={<span>Jane Doe</span>}
   defaultCollapsed
@@ -99,7 +99,7 @@ const variations = [
     title: "Without collapse toggle",
     description: "Set collapsible={false} to pin the sidebar fully expanded with no toggle button.",
     code: `<Sidebar
-  brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+  brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
   items={items}
   collapsible={false}
 />`,
@@ -117,7 +117,7 @@ const variations = [
     title: "Links with href",
     description: "Items can render as anchors — pass href and they become navigable links.",
     code: `<Sidebar
-  brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+  brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
   items={[
     { label: "Home", href: "#home", active: true, icon: <HomeIcon /> },
     { label: "Reports", href: "#reports", icon: <ReportsIcon /> },
@@ -168,7 +168,7 @@ const variations = [
 
   return (
     <Sidebar
-      brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+      brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
       items={[
         // Each SidebarItem supports section | label, icon, href, active, badge, onClick
         { section: "Main" },

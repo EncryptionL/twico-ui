@@ -12,10 +12,11 @@
     "gen:variations": "node scripts/gen-variations-index.mjs",
     "render-check": "node scripts/render-check.mjs",
     "test:visual": "playwright test",
-    "test:visual:update": "playwright test --update-snapshots",
+    "test:visual:update": "playwright test --update-snapshots=all",
     "gen:props": "node scripts/enrich-props.mjs"
   },
   "dependencies": {
+    "lucide-react": "^1.21.0",
     "prism-react-renderer": "^2.4.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",

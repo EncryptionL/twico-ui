@@ -22,7 +22,7 @@ function NavbarAllProps() {
   return (
     <Navbar
       sticky={false}
-      brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+      brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
       onBrandClick={() => setLog("brand clicked")}
       links={[
         { label: "Home", icon: <HomeIcon />, active: active === "Home", onClick: () => setActive("Home") },
@@ -46,7 +46,7 @@ const navbarAllPropsCode = `function NavbarAllProps() {
   return (
     <Navbar
       sticky={false}                                  // translucent sticky top bar; default true
-      brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+      brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
       onBrandClick={() => setLog("brand clicked")}     // brand renders as a button
       // brandHref="/"                                 // OR make the brand a link (mutually exclusive with onBrandClick)
       links={[
@@ -71,7 +71,7 @@ function ActiveLinksExample() {
   const items = ["Dashboard", "Projects", "Team"];
   return (
     <Navbar
-      brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+      brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
       links={items.map((label) => ({
         label,
         active: active === label,
@@ -87,7 +87,7 @@ const variations = [
     title: "Brand, links, and actions",
     description: "The full layout: brand on the left, nav links in the middle, actions on the right.",
     code: `<Navbar
-  brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+  brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
   links={[
     { label: "Dashboard", active: true },
     { label: "Projects" },
@@ -97,7 +97,7 @@ const variations = [
 />`,
     render: () => (
       <Navbar
-        brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+        brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
         links={[
           { label: "Dashboard", active: true },
           { label: "Projects" },
@@ -115,7 +115,7 @@ const variations = [
   const items = ["Dashboard", "Projects", "Team"];
   return (
     <Navbar
-      brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+      brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
       links={items.map((label) => ({
         label,
         active: active === label,
@@ -153,7 +153,7 @@ const variations = [
     title: "Rich actions slot",
     description: "Drop any nodes into actions — here an icon button plus an avatar.",
     code: `<Navbar
-  brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+  brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
   links={[
     { label: "Overview", active: true },
     { label: "Reports" },
@@ -165,7 +165,7 @@ const variations = [
 />`,
     render: () => (
       <Navbar
-        brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+        brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
         links={[
           { label: "Overview", active: true },
           { label: "Reports" },

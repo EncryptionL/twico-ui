@@ -9727,7 +9727,7 @@ function DashboardApp() {
   return /*#__PURE__*/React.createElement("div", {
     className: "dash"
   }, /*#__PURE__*/React.createElement(Sidebar, {
-    brand: /*#__PURE__*/React.createElement(React.Fragment, null, logo, /*#__PURE__*/React.createElement("span", null, "twico", /*#__PURE__*/React.createElement("span", {
+    brand: /*#__PURE__*/React.createElement(React.Fragment, null, logo, /*#__PURE__*/React.createElement("span", null, "Twico ", /*#__PURE__*/React.createElement("span", {
       style: {
         color: "var(--color-primary)"
       }
@@ -10461,7 +10461,7 @@ function Footer() {
       letterSpacing: "-0.03em",
       color: "var(--color-text)"
     }
-  }, "twico", /*#__PURE__*/React.createElement("span", {
+  }, "Twico ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--color-primary)"
     }
@@ -10741,7 +10741,7 @@ function Nav({
       letterSpacing: "-0.03em",
       color: "var(--color-text)"
     }
-  }, "twico", /*#__PURE__*/React.createElement("span", {
+  }, "Twico ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--color-primary)"
     }

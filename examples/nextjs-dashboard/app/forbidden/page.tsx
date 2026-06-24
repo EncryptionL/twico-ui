@@ -1,5 +1,5 @@
 import { EmptyState, Button, Box } from "twico-ui";
-import { ShieldIcon } from "@/components/icons";
+import { ShieldIcon } from "twico-ui/icons";
 
 // Where `requirePermission` sends a signed-in user who lacks a permission.
 export default function ForbiddenPage() {

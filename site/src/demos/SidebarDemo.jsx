@@ -20,7 +20,7 @@ export default function SidebarDemo() {
   return (
     <div style={{ display: "flex", height: 420 }}>
       <Sidebar
-        brand={<>twico<span style={{ color: "var(--color-primary)" }}>UI</span></>}
+        brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
         items={items}
         footer={<span>Jane Doe</span>}
         collapsed={collapsed}

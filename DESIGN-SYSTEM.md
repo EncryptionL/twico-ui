@@ -46,8 +46,10 @@ source project, not a sales page.
 - **Casing:** **Sentence case** everywhere — buttons, headings, labels, menu items
   (*"Get started"*, *"Create account"*, not *"Get Started"*). The only uppercase is the
   small eyebrow/label style (tracked-out, 12px) and table column headers.
-- **Brand name:** Written **"Twico UI"** in prose. The wordmark styles it lowercase as
-  **twico**`UI` with the *UI* in the primary color.
+- **Brand name:** Always written **"Twico UI"** — capital *T*, a single space, *UI* in
+  capitals — in prose, headings, titles, and the wordmark alike. A wordmark may tint part of
+  the name (e.g. *UI*) in the primary color, but the text always reads *Twico UI*; never
+  lowercase *twico* or the concatenated *twicoUI*.
 - **Length:** Short and declarative. Headlines are 3–7 words
   (*"The free React + Tailwind component library"*). Body copy is one or two tight sentences.
 - **Numbers & claims:** Concrete and honest — *"24 components"*, *"MIT licensed"*,

@@ -28,7 +28,7 @@ function DashboardApp() {
   return (
     <div className="dash">
       <Sidebar
-        brand={<>{logo}<span>twico<span style={{ color: "var(--color-primary)" }}>UI</span></span></>}
+        brand={<>{logo}<span>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></span></>}
         items={[
           { section: "Main" },
           { label: "Dashboard", icon: <DIcon name="LayoutDashboard" />, active: true },
