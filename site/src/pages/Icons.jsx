@@ -13,6 +13,7 @@ import {
   brandIcons,
 } from "twico-ui/icons";
 import CodeBlock from "../components/CodeBlock.jsx";
+import ExternalLink from "../components/ExternalLink.jsx";
 
 // A representative slice of the Lucide catalogue, by *Icon-suffixed name.
 const LUCIDE_SAMPLE = [
@@ -164,12 +165,12 @@ export function Toolbar() {
         </Stack>
         <Text size="sm" tone="muted">
           A small slice of the catalogue. Browse and search the full set at{" "}
-          <a href="https://lucide.dev/icons" target="_blank" rel="noopener noreferrer" style={linkStyle}>lucide.dev/icons</a>
+          <ExternalLink href="https://lucide.dev/icons" style={linkStyle}>lucide.dev/icons</ExternalLink>
           {" "}— every icon there is importable from <Code>twico-ui/icons</Code> by its
           {" "}<Code>Icon</Code>-suffixed name.
         </Text>
         {lucideShown.length === 0 ? (
-          <Text tone="muted">No Lucide icons in this sample match “{query}”. Try <a href="https://lucide.dev/icons" target="_blank" rel="noopener noreferrer" style={linkStyle}>lucide.dev</a>.</Text>
+          <Text tone="muted">No Lucide icons in this sample match “{query}”. Try <ExternalLink href="https://lucide.dev/icons" style={linkStyle}>lucide.dev</ExternalLink>.</Text>
         ) : (
           <div style={gridStyle}>
             {lucideShown.map(([name, Icon]) => (
@@ -200,7 +201,7 @@ export function Toolbar() {
           </div>
         )}
         <Text size="sm" tone="muted">
-          Brand path data: the <a href="https://simple-icons.org" target="_blank" rel="noopener noreferrer" style={linkStyle}>Simple Icons</a> project
+          Brand path data: the <ExternalLink href="https://simple-icons.org" style={linkStyle}>Simple Icons</ExternalLink> project
           {" "}(CC0-1.0). Logos are trademarks of their respective owners.
         </Text>
       </Stack>

@@ -9,7 +9,7 @@ import PageTransition from "./PageTransition.jsx";
 import Search from "./Search.jsx";
 import VersionSelector from "./VersionSelector.jsx";
 import { REPO_URL, NPM_URL, CHANGELOG_URL } from "../data/site.js";
-import { MenuIcon } from "twico-ui/icons";
+import { MenuIcon, ExternalLinkIcon } from "twico-ui/icons";
 
 const HEADER_H = 64;
 
@@ -57,8 +57,8 @@ export default function Layout() {
               <Button variant="ghost" size="sm" onClick={() => navigate("/docs/installation")}>Docs</Button>
               <Button variant="ghost" size="sm" onClick={() => navigate("/components")}>Components</Button>
               <Button variant="ghost" size="sm" onClick={() => navigate("/theme-builder")}>Theme builder</Button>
-              <Button variant="ghost" size="sm" onClick={() => window.open(CHANGELOG_URL, "_blank", "noopener,noreferrer")}>Changelog</Button>
-              <Button variant="ghost" size="sm" onClick={() => window.open(NPM_URL, "_blank", "noopener,noreferrer")}>npm</Button>
+              <Button variant="ghost" size="sm" aria-label="Changelog (opens in new tab)" rightIcon={<ExternalLinkIcon size={14} />} onClick={() => window.open(CHANGELOG_URL, "_blank", "noopener,noreferrer")}>Changelog</Button>
+              <Button variant="ghost" size="sm" aria-label="npm (opens in new tab)" rightIcon={<ExternalLinkIcon size={14} />} onClick={() => window.open(NPM_URL, "_blank", "noopener,noreferrer")}>npm</Button>
             </>
           ) : null}
           {/* Version switching is a docs aid — hide it on the marketing landing page. */}
