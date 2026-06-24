@@ -64,7 +64,9 @@ export default function VersionSelector() {
   const menuItems = [
     { label: "Documentation version", heading: true },
     ...items.map((it) => ({
-      label: it.label + (it.latest ? "  ·  latest" : ""),
+      // The "Latest" entry shows the actual version it points at (e.g. "v1.3 · latest")
+      // rather than a redundant "Latest · latest".
+      label: it.latest ? `${it.version || it.label}  ·  latest` : it.label,
       icon: isCurrent(it) ? <CheckIcon size={15} /> : <span style={{ width: 15, display: "inline-block" }} />,
       onClick: () => go(it),
     })),
