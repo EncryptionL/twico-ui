@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const AVATAR_CSS = `
 .twc-avatar {
@@ -55,13 +56,7 @@ export function Avatar({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-avatar-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-avatar-styles";
-    el.textContent = AVATAR_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-avatar-styles", AVATAR_CSS);
 
   const [errored, setErrored] = React.useState(false);
   const cleanSrc = safeSrc(src);
@@ -76,6 +71,7 @@ export function Avatar({
       aria-label={name || "avatar"}
       {...rest}
     >
+      {__twcStyles}
       {showImg
         ? <img key={cleanSrc} className="twc-avatar__img" src={cleanSrc} alt={name || ""} onError={() => setErrored(true)} />
         : initials(name)}

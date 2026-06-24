@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const CARD_CSS = `
 .twc-card {
@@ -40,13 +41,7 @@ export function Card({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-card-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-card-styles";
-    el.textContent = CARD_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-card-styles", CARD_CSS);
 
   return (
     <div
@@ -57,6 +52,7 @@ export function Card({
       data-full={fullHeight || undefined}
       {...rest}
     >
+      {__twcStyles}
       {(title || subtitle) ? (
         <div className="twc-card__header">
           {title ? <div className="twc-card__title">{title}</div> : null}

@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const STEPPER_CSS = `
 .twc-stepper { display: flex; font-family: var(--font-sans); }
@@ -58,13 +59,7 @@ export function Stepper({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-stepper-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-stepper-styles";
-    el.textContent = STEPPER_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-stepper-styles", STEPPER_CSS);
 
   // Controlled when `active` is passed; uncontrolled (internal state seeded by
   // `defaultActive`) otherwise. A clicked step advances the internal index in
@@ -82,6 +77,7 @@ export function Stepper({
 
   return (
     <div className={`twc-stepper ${className}`} data-orientation={orientation} data-tone={tone} {...rest}>
+      {__twcStyles}
       {steps.map((step, i) => {
         const state = stateOf(i, step);
         const last = i === steps.length - 1;

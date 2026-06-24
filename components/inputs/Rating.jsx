@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const RATING_CSS = `
 .twc-rating { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sans); }
@@ -42,13 +43,7 @@ export function Rating({
   style,
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-rating-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-rating-styles";
-    el.textContent = RATING_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-rating-styles", RATING_CSS);
 
   const [internal, setInternal] = React.useState(defaultValue);
   const [hover, setHover] = React.useState(0);
@@ -77,6 +72,7 @@ export function Rating({
   return (
     <div className={`twc-rating ${className}`} data-size={size} data-tone={tone} data-readonly={readOnly || undefined} data-disabled={disabled || undefined}
       style={color ? { "--_c": color, ...style } : style} role="radiogroup" aria-label="Rating" aria-disabled={disabled || undefined} {...rest}>
+      {__twcStyles}
       <span className="twc-rating__stars" onMouseLeave={() => setHover(0)} onKeyDown={onKeyDown}>
         {Array.from({ length: count }).map((_, i) => {
           const n = i + 1;

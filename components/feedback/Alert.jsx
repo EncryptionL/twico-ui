@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const ALERT_CSS = `
 .twc-alert {
@@ -55,16 +56,11 @@ export function Alert({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-alert-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-alert-styles";
-    el.textContent = ALERT_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-alert-styles", ALERT_CSS);
 
   return (
     <div className={`twc-alert ${className}`} data-tone={tone} data-variant={variant} role="alert" {...rest}>
+      {__twcStyles}
       <span className="twc-alert__icon" aria-hidden="true">
         {icon || (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

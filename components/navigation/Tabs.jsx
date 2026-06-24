@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const TABS_CSS = `
 .twc-tabs { font-family: var(--font-sans); }
@@ -75,13 +76,7 @@ export function Tabs({
   ...rest
 }) {
   const vertical = orientation === "vertical";
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-tabs-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-tabs-styles";
-    el.textContent = TABS_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-tabs-styles", TABS_CSS);
 
   const [internal, setInternal] = React.useState(defaultValue ?? items[0]?.value);
   const active = value ?? internal;
@@ -144,6 +139,7 @@ export function Tabs({
 
   return (
     <div className={`twc-tabs ${className}`} data-variant={variant} data-tone={tone} data-orientation={orientation} {...rest}>
+      {__twcStyles}
       <div className="twc-tabs__list" ref={listRef} role="tablist" aria-orientation={orientation} onKeyDown={onListKeyDown}>
         {items.map((it, i) => (
           <button

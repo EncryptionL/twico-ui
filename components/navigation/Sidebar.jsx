@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const SIDEBAR_CSS = `
 .twc-sidebar { display: flex; flex-direction: column; height: 100%; font-family: var(--font-sans);
@@ -54,13 +55,7 @@ export function Sidebar({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-sidebar-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-sidebar-styles";
-    el.textContent = SIDEBAR_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-sidebar-styles", SIDEBAR_CSS);
 
   const [internal, setInternal] = React.useState(defaultCollapsed);
   const collapsed = collapsedProp !== undefined ? collapsedProp : internal;
@@ -75,6 +70,7 @@ export function Sidebar({
 
   return (
     <aside className={`twc-sidebar ${className}`} data-collapsed={collapsed || undefined} {...rest}>
+      {__twcStyles}
       {brand ? <div className="twc-sidebar__head"><span className="twc-sidebar__brand">{brand}</span></div> : null}
       <nav className="twc-sidebar__nav">
         {items.map((it, i) =>

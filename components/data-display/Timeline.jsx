@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const TIMELINE_CSS = `
 .twc-timeline { display: flex; flex-direction: column; font-family: var(--font-sans); margin: 0; padding: 0; list-style: none; }
@@ -25,16 +26,11 @@ const TIMELINE_CSS = `
 `;
 
 export function Timeline({ items, className = "", ...rest }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-timeline-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-timeline-styles";
-    el.textContent = TIMELINE_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-timeline-styles", TIMELINE_CSS);
 
   return (
     <ul className={`twc-timeline ${className}`} {...rest}>
+      {__twcStyles}
       {items.map((it, i) => (
         <li className="twc-timeline__item" key={i} data-tone={it.tone || undefined}>
           <div className="twc-timeline__rail">

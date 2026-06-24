@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const TOAST_CSS = `
 .twc-toast {
@@ -69,13 +70,7 @@ export function Toast({
 }) {
   // "neutral" is accepted as an alias for "default" (matches Badge's tone vocabulary).
   const resolvedTone = tone === "neutral" ? "default" : tone;
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-toast-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-toast-styles";
-    el.textContent = TOAST_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-toast-styles", TOAST_CSS);
 
   // Auto-dismiss after `duration` ms (paused while hovered/focused). 0/Infinity keeps it open.
   // onClose is read through a ref so an inline handler doesn't reset the timer every render.
@@ -107,6 +102,7 @@ export function Toast({
       onFocus={(e) => { onFocus?.(e); stop(); }}
       onBlur={(e) => { onBlur?.(e); start(); }}
     >
+      {__twcStyles}
       <span className="twc-toast__icon" aria-hidden="true">
         {icon || (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -129,13 +125,7 @@ export function Toast({
 
 /** Fixed-position stack container for toasts. Pass `limit` to cap how many show at once. */
 export function ToastViewport({ children, limit, className = "", ...rest }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-toast-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-toast-styles";
-    el.textContent = TOAST_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-toast-styles", TOAST_CSS);
   const shown = limit && limit > 0 ? React.Children.toArray(children).slice(-limit) : children;
-  return <div className={`twc-toast-viewport ${className}`} {...rest}>{shown}</div>;
+  return <div className={`twc-toast-viewport ${className}`} {...rest}>{__twcStyles}{shown}</div>;
 }

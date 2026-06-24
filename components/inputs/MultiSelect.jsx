@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 import { createPortal } from "react-dom";
 
 const MULTI_CSS = `
@@ -109,12 +110,7 @@ export function MultiSelect({
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
   id, className = "", onFocus, onKeyDown, ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-ms-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-ms-styles"; el.textContent = MULTI_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-ms-styles", MULTI_CSS);
 
   const groups = React.useMemo(() => normalizeGroups(options), [options]);
   const flat = React.useMemo(() => groups.flatMap((g) => g.options), [groups]);
@@ -250,6 +246,7 @@ export function MultiSelect({
 
   return (
     <div className={`twc-field ${className}`} ref={wrapRef}>
+      {__twcStyles}
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
       <div className="twc-ms">
         <div className="twc-ms__control" ref={controlRef} data-size={size} data-tone={tone} data-open={open || undefined} data-invalid={Boolean(error) || undefined} data-disabled={disabled || undefined}

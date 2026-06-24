@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 export function Spinner({
   size = "md",
@@ -10,11 +11,7 @@ export function Spinner({
 }) {
   // `color` is the preferred name; `tone` is a deprecated alias. `color` wins when both are set.
   const resolvedColor = color ?? tone;
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-spinner-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-spinner-styles";
-    el.textContent = `
+  const __twcStyles = useScopedStyles("twc-spinner-styles", `
 .twc-spinner {
   --_sz: 24px; --_bw: 2.5px;
   display: inline-block; width: var(--_sz); height: var(--_sz);
@@ -38,9 +35,7 @@ export function Spinner({
 @media (prefers-reduced-motion: reduce) {
   .twc-spinner { animation-duration: 0.65s !important; animation-iteration-count: infinite !important; }
 }
-`;
-    document.head.appendChild(el);
-  }, []);
+`);
 
-  return <span className={`twc-spinner ${className}`} data-size={size} data-tone={resolvedColor} role="status" aria-label={label} {...rest} />;
+  return <span className={`twc-spinner ${className}`} data-size={size} data-tone={resolvedColor} role="status" aria-label={label} {...rest}>{__twcStyles}</span>;
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const CSS = `
 .twc-btn {
@@ -99,16 +100,6 @@ function safeHref(url) {
   return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
 }
 
-function useInjectedStyle(id, css) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById(id)) return;
-    const el = document.createElement("style");
-    el.id = id;
-    el.textContent = css;
-    document.head.appendChild(el);
-  }, [id, css]);
-}
-
 export function Button({
   children,
   variant = "solid",
@@ -125,7 +116,7 @@ export function Button({
   onClick,
   ...rest
 }) {
-  useInjectedStyle("twc-btn-styles", CSS);
+  const __twcStyles = useScopedStyles("twc-btn-styles", CSS);
   const [ripples, setRipples] = React.useState([]);
   const Tag = as;
   const inert = Tag === "a" && (disabled || loading);
@@ -165,6 +156,7 @@ export function Button({
       onClick={handleClick}
       {...rest}
     >
+      {__twcStyles}
       <span className="twc-btn__content">
         {leftIcon ? <span className="twc-btn__icon" aria-hidden="true">{leftIcon}</span> : null}
         {children}

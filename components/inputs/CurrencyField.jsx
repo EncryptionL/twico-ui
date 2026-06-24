@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 import { CURRENCIES, CURRENCY_OPTIONS, clampPrecision } from "./Currency.jsx";
 import { Select } from "./Select.jsx";
 
@@ -48,15 +49,6 @@ const CURF_CSS = `
 .twc-curf__pick .twc-sel__value { font-weight: var(--font-semibold); color: var(--color-text-muted); }
 `;
 
-function useCurfStyles() {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-curf-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-curf-styles"; el.textContent = CURF_CSS;
-    document.head.appendChild(el);
-  }, []);
-}
-
 /**
  * Currency input where the USER picks the currency from a dropdown. The chosen
  * currency drives the prefix symbol, suffix code, and the enforced precision.
@@ -67,7 +59,7 @@ export function CurrencyField({
   value, defaultValue = "", onChange, onValueChange,
   disabled = false, id, placeholder = "0.00", className = "", ...rest
 }) {
-  useCurfStyles();
+  const __twcStyles = useScopedStyles("twc-curf-styles", CURF_CSS);
   const autoId = React.useId();
   const fieldId = id || autoId;
   const invalid = Boolean(error);
@@ -117,6 +109,7 @@ export function CurrencyField({
 
   return (
     <div className={`twc-field ${className}`}>
+      {__twcStyles}
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
       <div className="twc-cur" data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined}>
         <span className="twc-curf__pick">

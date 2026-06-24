@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const FIELD_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
@@ -49,16 +50,6 @@ const FIELD_CSS = `
 .twc-input__reveal svg { width: 17px; height: 17px; }
 `;
 
-function useFieldStyles() {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-field-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-field-styles";
-    el.textContent = FIELD_CSS;
-    document.head.appendChild(el);
-  }, []);
-}
-
 export function Input({
   label,
   hint,
@@ -74,7 +65,7 @@ export function Input({
   className = "",
   ...rest
 }) {
-  useFieldStyles();
+  const __twcStyles = useScopedStyles("twc-field-styles", FIELD_CSS);
   const autoId = React.useId();
   const fieldId = id || autoId;
   const descId = `${fieldId}-desc`;
@@ -102,6 +93,7 @@ export function Input({
 
   return (
     <div className={`twc-field ${className}`}>
+      {__twcStyles}
       {label ? (
         <label className="twc-field__label" htmlFor={fieldId}>
           {label}{required ? <span className="twc-field__req">*</span> : null}

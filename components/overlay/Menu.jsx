@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 import { createPortal } from "react-dom";
 
 const MENU_CSS = `
@@ -50,13 +51,7 @@ export function Menu({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-menu-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-menu-styles";
-    el.textContent = MENU_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-menu-styles", MENU_CSS);
 
   const [openState, setOpenState] = React.useState(defaultOpen);
   const [render, setRender] = React.useState(false);
@@ -160,6 +155,7 @@ export function Menu({
   const menu = render && pos ? (
     <div className="twc-menu" id={menuId} ref={menuRef} data-state={open ? "open" : "closed"} data-align={align} data-flip={pos.flip || undefined} role="menu"
       style={{ top: pos.top, bottom: pos.bottom, left: pos.left, minWidth: pos.width, width: pos.width, maxHeight: pos.maxHeight }}>
+      {__twcStyles}
       {header ? <div className="twc-menu__header">{header}</div> : null}
       {items.map((it, i) => {
         if (it.separator) return <div key={`s${i}`} className="twc-menu__sep" role="separator" />;

@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 import { createPortal } from "react-dom";
 
 const FIELD_CSS = `
@@ -90,19 +91,8 @@ export function ColorPicker({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (!document.getElementById("twc-field-styles")) {
-      const fel = document.createElement("style");
-      fel.id = "twc-field-styles";
-      fel.textContent = FIELD_CSS;
-      document.head.appendChild(fel);
-    }
-    if (document.getElementById("twc-colorpicker-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-colorpicker-styles";
-    el.textContent = COLORPICKER_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles0 = useScopedStyles("twc-field-styles", FIELD_CSS);
+  const __twcStyles1 = useScopedStyles("twc-colorpicker-styles", COLORPICKER_CSS);
 
   const [internal, setInternal] = React.useState(defaultValue);
   const hex = (value !== undefined ? value : internal) || "#000000";
@@ -219,6 +209,8 @@ export function ColorPicker({
 
   return (
     <div className={`twc-cp twc-field ${className}`} ref={wrapRef} {...rest}>
+      {__twcStyles0}
+      {__twcStyles1}
       {label ? (
         <span className="twc-field__label" id={labelId}>
           {label}{required ? <span className="twc-field__req">*</span> : null}

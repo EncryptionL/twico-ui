@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 import { Select } from "../inputs/Select.jsx";
 import { Input } from "../inputs/Input.jsx";
 import { MultiSelect } from "../inputs/MultiSelect.jsx";
@@ -781,11 +782,7 @@ export function Datatable({
   virtualized = false, overscan = 8, rowHeight,
   className = "", ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-dt-styles")) return;
-    const el = document.createElement("style"); el.id = "twc-dt-styles"; el.textContent = DT_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-dt-styles", DT_CSS);
 
   const cols = React.useMemo(() => {
     const out = columns.map((c) => {
@@ -1913,6 +1910,7 @@ export function Datatable({
 
   return (
     <div className={`twc-dt ${className}`} ref={rootRef} data-density={density} data-resizing={resizing || undefined} {...rest}>
+      {__twcStyles}
       {/* PIVOT_RENDER_ANCHOR */}
       {/* Toolbar */}
       <div className="twc-dt__toolbar" data-compact={compact || undefined}>

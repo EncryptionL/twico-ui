@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 import { createPortal } from "react-dom";
 
 const POPOVER_CSS = `
@@ -36,13 +37,7 @@ export function Popover({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-popover-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-popover-styles";
-    el.textContent = POPOVER_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-popover-styles", POPOVER_CSS);
 
   const [openState, setOpenState] = React.useState(defaultOpen);
   const [render, setRender] = React.useState(false);
@@ -164,6 +159,7 @@ export function Popover({
     <div className="twc-popover" id={popId} ref={popRef} tabIndex={-1} data-state={open ? "open" : "closed"} data-flip={pos.flip || undefined} role="dialog"
       aria-labelledby={title ? `${popId}-title` : undefined}
       style={{ top: pos.top, bottom: pos.bottom, left: pos.left, width: pos.width }}>
+      {__twcStyles}
       <span className="twc-popover__arrow" style={pos.arrow} aria-hidden="true" />
       <div className="twc-popover__inner">
         {title ? <div className="twc-popover__title" id={`${popId}-title`}>{title}</div> : null}

@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 // Currency metadata (symbol, code, decimal precision). Inlined so the bundler ships it.
 export const CURRENCIES = {
@@ -80,15 +81,6 @@ const CUR_CSS = `
 .twc-cur__el::-webkit-outer-spin-button, .twc-cur__el::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 `;
 
-function useCurStyles() {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-cur-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-cur-styles"; el.textContent = CUR_CSS;
-    document.head.appendChild(el);
-  }, []);
-}
-
 /**
  * Currency input with a fixed currency (defined in code via `currency`).
  * Shows the symbol as a prefix and the currency code as a suffix, and enforces
@@ -100,7 +92,7 @@ export function Currency({
   value, defaultValue = "", onChange, onValueChange,
   disabled = false, id, placeholder = "0.00", className = "", ...rest
 }) {
-  useCurStyles();
+  const __twcStyles = useScopedStyles("twc-cur-styles", CUR_CSS);
   const meta = CURRENCIES[currency] || CURRENCIES.USD;
   const prec = precision != null ? precision : meta.precision;
   const sym = symbol != null ? symbol : meta.symbol;
@@ -135,6 +127,7 @@ export function Currency({
 
   return (
     <div className={`twc-field ${className}`}>
+      {__twcStyles}
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
       <div className="twc-cur" data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined}>
         <span className="twc-cur__sym" aria-hidden="true">{sym}</span>

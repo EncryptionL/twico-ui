@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const TABLE_CSS = `
 .twc-table-wrap { width: 100%; overflow-x: auto; border-radius: var(--radius-lg); border: var(--border-thin) solid var(--color-border); background: var(--color-surface); }
@@ -48,13 +49,7 @@ export function Table({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-table-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-table-styles";
-    el.textContent = TABLE_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-table-styles", TABLE_CSS);
 
   // Normalize each column to the canonical Datatable vocabulary (field / headerName / renderCell);
   // `header`/`render` are local shorthands for the render below.
@@ -93,6 +88,7 @@ export function Table({
 
   return (
     <div className={`twc-table-wrap ${className}`} {...rest} style={wrapStyle}>
+      {__twcStyles}
       <table className="twc-table" data-hover={hover || undefined} data-striped={striped || undefined} data-size={size} data-sticky={stickyHeader || undefined}>
         <thead>
           <tr>

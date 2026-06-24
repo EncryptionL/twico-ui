@@ -1,0 +1,19 @@
+/* App-specific styles. The design tokens, reset, and fonts all come from
+   "twico-ui/styles.css" (imported once in app/layout.tsx) — this file only
+   adds a couple of app-level layout rules on top of them. */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Thin, token-themed scrollbars for the dashboard scroll areas. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-strong) transparent;
+}

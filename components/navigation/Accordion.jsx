@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const ACCORDION_CSS = `
 .twc-accordion { display: flex; flex-direction: column; font-family: var(--font-sans);
@@ -35,13 +36,7 @@ export function Accordion({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-accordion-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-accordion-styles";
-    el.textContent = ACCORDION_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-accordion-styles", ACCORDION_CSS);
 
   const [internal, setInternal] = React.useState(() => new Set(defaultOpen));
   const open = openProp !== undefined ? new Set(openProp) : internal;
@@ -57,6 +52,7 @@ export function Accordion({
 
   return (
     <div className={`twc-accordion ${className}`} {...rest}>
+      {__twcStyles}
       {items.map((it, i) => {
         const isOpen = open.has(it.value);
         const triggerId = `${baseId}-trigger-${i}`;

@@ -1,0 +1,26 @@
+{
+  "name": "twico-nextjs-dashboard",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Example admin dashboard built with Twico UI — Next.js App Router, auth + RBAC.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "jose": "^5.9.6",
+    "next": "^16.2.9",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "twico-ui": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "typescript": "^5.7.3"
+  }
+}

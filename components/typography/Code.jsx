@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const CODE_CSS = `
 .twc-code {
@@ -20,16 +21,11 @@ function safeHref(url) {
 
 /** Inline code with mono font and a subtle token-styled surface. */
 export function Code({ as: Tag = "code", className = "", children, ...rest }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-code-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-code-styles";
-    el.textContent = CODE_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-code-styles", CODE_CSS);
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   return (
     <Tag className={`twc-code ${className}`.trim()} {...rest}>
+      {__twcStyles}
       {children}
     </Tag>
   );

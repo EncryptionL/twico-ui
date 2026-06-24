@@ -38,6 +38,7 @@ This one repo holds three things:
 | `assets/fonts/` (source), `styles/fonts/` (shipped copy) | Self-hosted OFL fonts (Plus Jakarta Sans, JetBrains Mono variable `.ttf`). Duplicated on purpose — keep both in sync. |
 | `tsup.config.ts`, `tsconfig.json`, `scripts/add-use-client.mjs` | The build. |
 | `site/` | The docs website (own `package.json`, `private: true`). Generators live in `site/scripts/` (`gen-docs.mjs`, …). |
+| `examples/` | Runnable consumer apps that install `twico-ui` **from npm** (each own `package.json`, `private`). Repo-only — excluded from the tarball, the library build, and the root typecheck. See `docs/examples.md`. |
 | `guidelines/` | 13 `*.card.html` foundation previews (colors, type, spacing, motion, iconography). |
 | `ui_kits/` | 5 HTML preview kits (auth, dashboard, pricing, settings, showcase) — design validation only, never shipped. |
 | `docs/` | **Developer/contributor documentation — see rule §4.1.** Index: `docs/README.md`. |
@@ -113,12 +114,16 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
 
 ## 5. Architecture notes
 
-- **Components are self-contained.** Each imports only `react` (and `react-dom` for portals);
-  the only exceptions are composite components that reuse siblings (`AvatarMenu` → `Menu`,
-  `Datatable` → `Select`/`Input`/`MultiSelect`/`Pagination`, `CurrencyField` → `Select`). Each
-  injects its own scoped CSS once via `React.useInsertionEffect` (a `<style>` tag keyed by id —
-  some related components share one id, e.g. the input family shares `twc-field-styles`), and
-  styles everything through CSS custom properties (`--color-*`, `--radius-*`, `--ease-*`, …).
+- **Components are self-contained.** Each imports only `react` (and `react-dom` for portals, plus
+  the one shared internal helper `components/_styles.js`); the only other exceptions are composite
+  components that reuse siblings (`AvatarMenu` → `Menu`, `Datatable` →
+  `Select`/`Input`/`MultiSelect`/`Pagination`, `CurrencyField` → `Select`). Each **renders** its own
+  scoped CSS via `useScopedStyles(id, css)` (`_styles.js`): on **React 19** it returns a hoistable
+  `<style href={id} precedence="twc-ui">` that React dedupes by id, hoists to `<head>`, and
+  **includes in the SSR stream — no FOUC**; on **React 18** it falls back to the old client-only
+  `useInsertionEffect` injection (no regression). The `<style>` is rendered as a child of the
+  component's root; some related components share one id (the input family shares `twc-field-styles`).
+  Everything is styled through CSS custom properties (`--color-*`, `--radius-*`, `--ease-*`, …).
   Class names use a `twc-` BEM-ish prefix; **variants/states are `data-*` attributes**, not
   class toggles. No CSS-in-JS libs, no npm deps.
 - **Theming** is pure token override; **dark mode** is the `.dark` class (or

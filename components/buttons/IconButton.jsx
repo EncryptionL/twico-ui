@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const ICONBTN_CSS = `
 .twc-iconbtn {
@@ -61,13 +62,7 @@ export function IconButton({
   "aria-label": ariaLabel,
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-iconbtn-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-iconbtn-styles";
-    el.textContent = ICONBTN_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-iconbtn-styles", ICONBTN_CSS);
 
   return (
     <button
@@ -81,6 +76,7 @@ export function IconButton({
       aria-label={ariaLabel}
       {...rest}
     >
+      {__twcStyles}
       {icon || children}
     </button>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 // Shared form-field chrome (label + hint/error). Mirrors the exact markup Input.jsx and
 // Select.jsx inline so any control wrapped in <Field> looks and behaves identically.
@@ -9,16 +10,6 @@ const FIELD_CSS = `
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
 `;
-
-function useFieldStyles() {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-field-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-field-styles";
-    el.textContent = FIELD_CSS;
-    document.head.appendChild(el);
-  }, []);
-}
 
 export function Field({
   label,
@@ -32,7 +23,7 @@ export function Field({
   children,
   ...rest
 }) {
-  useFieldStyles();
+  const __twcStyles = useScopedStyles("twc-field-styles", FIELD_CSS);
   const autoId = React.useId();
   const fieldId = id || autoId;
   // Stable id for the hint/error element so the consumer can point their control's
@@ -41,6 +32,7 @@ export function Field({
 
   return (
     <div className={`twc-field ${className}`} data-size={size} {...rest}>
+      {__twcStyles}
       {label ? (
         <label className="twc-field__label" htmlFor={htmlFor}>
           {label}{required ? <span className="twc-field__req">*</span> : null}
