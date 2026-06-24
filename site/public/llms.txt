@@ -165,13 +165,18 @@ Components take icons as **React nodes** via props like `leftIcon`, `rightIcon`,
 bring any icon (inline SVG, or any icon library). Icons inherit `currentColor` and the control's size.
 
 For convenience, **`twico-ui/icons` re-exports the full [Lucide](https://lucide.dev) icon set** (the
-visual language Twico UI is built on). It needs the **optional peer** `lucide-react`
-(`npm install lucide-react`) and is tree-shakeable — the core `twico-ui` package itself stays
-zero-dependency. The icons are plain SVG components (no hooks), so they work in Server Components too.
+visual language Twico UI is built on) **plus 31 curated brand icons** Lucide omits. Lucide icons need
+the **optional peer** `lucide-react` (`npm install lucide-react`) and are tree-shakeable; the brand
+icons (`GithubIcon`, `VercelIcon`, `FigmaIcon`, `XTwitterIcon`, …) are zero-dependency inline SVG
+built in — **no peer needed**. The core `twico-ui` package itself stays zero-dependency. All icons
+are plain SVG components (no hooks), so they work in Server Components too. Names use the `*Icon`
+suffix; icons take `size` (default 24) and `color` (default `currentColor`).
 
 ```jsx
-import { Home, Search } from "twico-ui/icons"; // needs the optional `lucide-react` peer
-<Button leftIcon={<Home size={16} />}>Home</Button>
+import { HomeIcon, SearchIcon } from "twico-ui/icons"; // Lucide — needs the optional `lucide-react` peer
+import { GithubIcon } from "twico-ui/icons";           // brand — no peer needed
+<Button leftIcon={<HomeIcon size={16} />}>Home</Button>
+<Button variant="outline" leftIcon={<GithubIcon size={16} />}>Star</Button>
 
 // …or pass your own inline SVG (no peer needed):
 <Button leftIcon={<svg width="16" height="16" viewBox="0 0 24 24" /* … */ />}>Add item</Button>

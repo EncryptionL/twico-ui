@@ -40,7 +40,13 @@ export default defineConfig({
     // node_modules/react (the library's own React 18), giving the page two React copies
     // and a null hooks dispatcher ("Cannot read properties of null (reading 'useState')").
     // Force every react/react-dom import to the site's single (React 19) copy.
-    dedupe: ["react", "react-dom", "react/jsx-runtime"],
+    // `lucide-react` is deduped for the same reason: the dogfooded `../src/icons.ts`
+    // (aliased from `twico-ui/icons`) lives OUTSIDE the site root and does
+    // `export * from "lucide-react"`. Without dedupe, Vite resolves that bare import
+    // via Node from ../src/, which only finds lucide-react in the repo-root
+    // node_modules — absent in the site-only CI build, so the named re-exports fail
+    // to resolve (MISSING_EXPORT). Dedupe pins it to the site's own copy.
+    dedupe: ["react", "react-dom", "react/jsx-runtime", "lucide-react"],
     // Array form so the more specific subpath alias is matched before the bare
     // package alias (order matters). `twico-ui/colors` dogfoods the real export.
     alias: [

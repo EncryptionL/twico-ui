@@ -11,6 +11,10 @@ component values: `Toast.jsx` also exports `ToastViewport`; `ToastProvider.jsx` 
 `useToast` hook) **+ 23 standalone hooks**, with dark mode, motion, accessibility, RTL support, a
 density scale, and design tokens. Zero runtime dependencies (peers: `react`/`react-dom` ≥18; plus an
 **optional** `lucide-react` peer used *only* by the `twico-ui/icons` re-export — the core pulls nothing).
+`twico-ui/icons` re-exports the full Lucide set **and** adds 31 zero-dependency vendored brand icons
+(`GithubIcon`, `VercelIcon`, …) that need no peer. `src/brand-icons.tsx` is **generated** — edit the
+`LIST` in `scripts/fetch-brand-icons.mjs`, then `node scripts/fetch-brand-icons.mjs && node
+scripts/gen-brand-icons.mjs`; never hand-edit it. See `docs/icons.md`.
 This one repo holds three things:
 
 1. **The npm package** — `src/index.ts` (barrel) → `components/**` + `hooks/` →

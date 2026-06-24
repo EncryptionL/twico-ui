@@ -10,6 +10,7 @@ const DOC_CMDS = [
   { group: "Getting started", label: "Installation", keywords: "install setup npm yarn pnpm vite cra next.js getting started", to: "/docs/installation" },
   { group: "Getting started", label: "Theming", keywords: "tokens css variables colors radius shadow font rebrand theme", to: "/docs/theming" },
   { group: "Getting started", label: "Colors", keywords: "color palette hue shade hex indigo slate emerald amber rose sky primary success warning danger info swatch twico-ui/colors import", to: "/docs/colors" },
+  { group: "Getting started", label: "Icons", keywords: "icons lucide brand logo github vercel figma svg twico-ui/icons lucide-react size strokewidth icon suffix", to: "/docs/icons" },
   { group: "Getting started", label: "Theme builder", keywords: "theme builder brand color radius density rtl live preview export customize", to: "/theme-builder" },
   { group: "Getting started", label: "Playground", keywords: "playground props knobs interactive try live", to: "/playground" },
   { group: "Getting started", label: "Dark mode", keywords: "dark light theme toggle usecolorscheme prefers color scheme", to: "/docs/dark-mode" },

@@ -166,15 +166,16 @@ Each hue is an object keyed by shade — a full `50`–`950` ramp (`50, 100, 200
 
 ### Icons
 
-Components take icons as React nodes (`leftIcon`, `icon`, …) — bring any icon set, or inline SVG. For convenience, **`twico-ui/icons`** re-exports the full [Lucide](https://lucide.dev) set (the icon language Twico UI is designed around):
+Components take icons as React nodes (`leftIcon`, `icon`, …) — bring any icon set, or inline SVG. For convenience, **`twico-ui/icons`** re-exports the full [Lucide](https://lucide.dev) set (the icon language Twico UI is designed around) **plus a curated set of brand icons** Lucide omits:
 
 ```jsx
-import { Home, Search } from "twico-ui/icons";
+import { HomeIcon, SearchIcon, GithubIcon } from "twico-ui/icons";
 
-<Button leftIcon={<Home size={16} />}>Home</Button>
+<Button leftIcon={<HomeIcon size={16} />}>Home</Button>
+<Button variant="outline" leftIcon={<GithubIcon size={16} />}>Star</Button>
 ```
 
-This subpath needs the **optional peer** `lucide-react` (`npm install lucide-react`) and is tree-shakeable; the core `twico-ui` package stays zero-dependency.
+The Lucide icons need the **optional peer** `lucide-react` (`npm install lucide-react`) and are tree-shakeable; the **31 brand icons** (`GithubIcon`, `VercelIcon`, `FigmaIcon`, `XTwitterIcon`, …) are zero-dependency inline SVG built right in — no peer needed. The core `twico-ui` package stays zero-dependency. Browse them on the [Icons docs page](https://encryptionl.github.io/twico-ui/#/docs/icons).
 
 ## Components
 
