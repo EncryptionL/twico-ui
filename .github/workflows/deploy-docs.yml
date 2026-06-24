@@ -4,6 +4,12 @@ name: Deploy docs site
 # Deploys ONLY from main (the release branch); also triggerable manually.
 # `enablement: true` lets the workflow turn Pages on by itself; if that is
 # blocked, enable it once under Settings -> Pages -> Source = GitHub Actions.
+#
+# VERSIONED DOCS: the live site is built at the root base ("/twico-ui/") and carries
+# the React <VersionSelector/> in its navbar. Each released minor is ALSO rebuilt from
+# its git tag into a frozen snapshot under "/twico-ui/v<minor>/", and the standalone
+# version-switcher.js is injected into those snapshots (their tags predate the React
+# selector). Both read /twico-ui/versions.json. See docs/docs-site.md.
 on:
   push:
     branches:
@@ -27,13 +33,25 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+env:
+  # The site build never needs Playwright browsers; skip the heavy download on every
+  # `npm ci` (latest + one per snapshot).
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+  # Frozen documentation snapshots, "<base-version>=<git tag>", newest first. One entry
+  # per released minor; patches share their minor's docs (point at the latest patch tag).
+  # Add a line here AND an entry in site/public/versions.json when you cut a new minor.
+  DOC_SNAPSHOTS: "1.2=v1.2.0 1.1=v1.1.0 1.0=v1.0.2"
+
 jobs:
   build:
-    name: Build site
+    name: Build site (+ version snapshots)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          # Full history + tags so the version snapshots can be built from old tags.
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -42,13 +60,36 @@ jobs:
           cache: "npm"
           cache-dependency-path: site/package-lock.json
 
-      - name: Install
+      - name: Build latest (root base)
         working-directory: site
-        run: npm ci
+        run: |
+          npm ci
+          npm run build
 
-      - name: Build
-        working-directory: site
-        run: npm run build
+      - name: Build version snapshots
+        run: |
+          set -euo pipefail
+          DIST="$GITHUB_WORKSPACE/site/dist"
+          for pair in $DOC_SNAPSHOTS; do
+            ver="${pair%%=*}"
+            tag="${pair##*=}"
+            echo "::group::docs snapshot v$ver (from $tag)"
+            wt="$RUNNER_TEMP/docs-$ver"
+            git worktree add --force "$wt" "$tag"
+            (
+              cd "$wt/site"
+              npm ci
+              # Override the hard-coded base so assets resolve under the versioned path.
+              npm run build -- --base="/twico-ui/v$ver/" --outDir "$DIST/v$ver" --emptyOutDir
+            )
+            # The snapshot's tag predates the React <VersionSelector/>, so inject the
+            # standalone switcher (served from the root; reads /twico-ui/versions.json).
+            sed -i 's#</body>#<script src="/twico-ui/version-switcher.js" defer></script></body>#' "$DIST/v$ver/index.html"
+            git worktree remove --force "$wt"
+            echo "::endgroup::"
+          done
+          echo "Deployed doc tree:"
+          ls -1 "$DIST"
 
       - name: Configure Pages
         uses: actions/configure-pages@v6

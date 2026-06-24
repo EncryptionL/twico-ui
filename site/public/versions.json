@@ -1,0 +1,9 @@
+{
+  "_comment": "Docs version manifest. The selector in the navbar reads this. 'Latest' is the live site at the root base; each other entry is a frozen snapshot built from that release's git tag and deployed under its own base path by .github/workflows/deploy-docs.yml. Add a new entry (newest first, after Latest) when you cut a new minor.",
+  "items": [
+    { "label": "Latest", "base": "/twico-ui/", "latest": true },
+    { "label": "v1.2", "base": "/twico-ui/v1.2/" },
+    { "label": "v1.1", "base": "/twico-ui/v1.1/" },
+    { "label": "v1.0", "base": "/twico-ui/v1.0/" }
+  ]
+}

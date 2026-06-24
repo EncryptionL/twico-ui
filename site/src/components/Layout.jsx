@@ -7,6 +7,7 @@ import ThemeToggle from "./ThemeToggle.jsx";
 import TableOfContents from "./TableOfContents.jsx";
 import PageTransition from "./PageTransition.jsx";
 import Search from "./Search.jsx";
+import VersionSelector from "./VersionSelector.jsx";
 import { REPO_URL, NPM_URL, CHANGELOG_URL } from "../data/site.js";
 import { MenuIcon } from "twico-ui/icons";
 
@@ -60,6 +61,7 @@ export default function Layout() {
               <Button variant="ghost" size="sm" onClick={() => window.open(NPM_URL, "_blank", "noopener,noreferrer")}>npm</Button>
             </>
           ) : null}
+          <VersionSelector />
           <IconButton variant="ghost" aria-label="GitHub repository" icon={GithubIcon} onClick={() => window.open(REPO_URL, "_blank", "noopener,noreferrer")} />
           <ThemeToggle />
         </Stack>

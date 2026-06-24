@@ -192,6 +192,11 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
 - **Manual sync points** (no automation — update these when the public API changes):
   `site/src/data/exports.js` (component + hook names), `Search.jsx` `DOC_CMDS` (doc pages),
   `site/src/data/site.js` `GROUP_ORDER` (nav grouping).
+- **Versioned docs.** A navbar **version selector** lets readers view older releases. The live site
+  is the latest; each released minor is rebuilt from its git tag into a frozen snapshot at
+  `/twico-ui/v<minor>/` by `deploy-docs.yml`. **When cutting a new minor**, add an entry to
+  `site/public/versions.json` (newest first, after `Latest`) **and** a `"<minor>=<tag>"` pair to
+  `DOC_SNAPSHOTS` in `deploy-docs.yml`. See `docs/docs-site.md` → "Versioned docs".
 - Route changes scroll instantly to top; in-page anchors scroll smoothly (reduced-motion-safe).
   The "On this page" TOC only renders ≥1200 px viewports.
 

@@ -18,7 +18,10 @@ bundled by Vite from `styles/fonts/` (**no CDN**).
 site/
 ├─ src/pages/        Home, Installation, Theming, ThemeBuilder, DarkMode, Accessibility, Hooks,
 │                    Playground, ComponentsIndex, ComponentPage
-├─ src/components/   Layout, Sidebar, CodeBlock, LiveExample, PropsTable, Search, ThemeToggle, ErrorBoundary, Logo
+├─ src/components/   Layout, Sidebar, CodeBlock, LiveExample, PropsTable, Search, ThemeToggle, VersionSelector, ErrorBoundary, Logo
+├─ public/
+│   ├─ versions.json        the docs version manifest (read by both selectors)
+│   └─ version-switcher.js  standalone switcher injected into archived snapshots at deploy
 ├─ src/data/
 │   ├─ components.js  AUTO-GENERATED: per-component summary + props table + usage snippet
 │   ├─ exports.js     GENERATED (gen-exports.mjs): every twico-ui export name (for snippet imports)
@@ -104,6 +107,29 @@ site/
   `#buttons-actions`); component names are single words, so their route slugs are unaffected.
 - Dark mode toggles the `.dark` class on `<html>` and persists to `localStorage`.
 
+## Versioned docs (version selector)
+
+Readers on an older release can switch to that version's docs via a **version selector** in the
+navbar. The model is **frozen snapshots**, Docusaurus-style:
+
+- The **live site** is built at the root base `/twico-ui/` and is always the latest. Its navbar
+  carries a React **`VersionSelector`** (`src/components/VersionSelector.jsx`) — a dogfooded `Menu`
+  whose trigger shows the current version. It knows *which* version it is from
+  `import.meta.env.BASE_URL` (the live site is `/twico-ui/`; a snapshot is `/twico-ui/v1.1/`), and
+  lists the options from `public/versions.json`.
+- Each **released minor** is rebuilt from its **git tag** into a frozen snapshot under
+  `/twico-ui/v<minor>/` by `deploy-docs.yml` (`npm run build -- --base=/twico-ui/v<minor>/`). Because
+  each snapshot is built from its tag, its live demos, component data, and prose all reflect *that*
+  version exactly. Patches share their minor's docs (the workflow points at the latest patch tag).
+- Old tags **predate** the React selector, so the workflow injects the standalone, dependency-free
+  **`version-switcher.js`** (a floating control, styled like the rest of the existing
+  vanilla theme-flash script in `index.html`) into each snapshot's `index.html`. It reads the same
+  `/twico-ui/versions.json` and navigates by base URL, preserving the in-page hash route.
+
+**Single source of truth:** `site/public/versions.json` (`{ items: [{ label, base, latest? }] }`).
+**To publish docs for a new minor:** add an entry to `versions.json` (newest first, after `Latest`)
+**and** a `"<minor>=<tag>"` pair to `DOC_SNAPSHOTS` in `deploy-docs.yml`. No code changes needed.
+
 ## Regenerating the component reference
 
 `site/src/data/components.js` and `site/src/demos/*Demo.jsx` are generated from each component's
@@ -163,4 +189,6 @@ npm run build     # -> site/dist  (must succeed; it also compiles the library so
 - **Deploy:** `.github/workflows/deploy-docs.yml` builds `site/` and publishes to GitHub Pages on push
   to **`main`** only (the release branch) — or via manual dispatch. `enablement: true` lets the workflow
   turn Pages on; if blocked, enable it once under **Settings → Pages → Source = GitHub Actions**. Vite
-  `base` is `/twico-ui/` to match the Pages path.
+  `base` is `/twico-ui/` to match the Pages path. The deploy also rebuilds each released minor from its
+  git tag into `site/dist/v<minor>/` (a fresh `git worktree` per snapshot, `fetch-depth: 0` to get the
+  tags) and uploads the whole tree — see **Versioned docs** above.
