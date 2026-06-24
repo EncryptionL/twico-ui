@@ -1,4 +1,4 @@
-import { Card, Grid, Avatar, Badge, Tag, Text, Heading } from "twico-ui";
+import { Card, Grid, Avatar, Badge, Tag, Text, Heading, Box, Stack } from "twico-ui";
 import { requirePermission } from "@/lib/auth";
 import { can, ROLE_LABEL, ROLE_TONE } from "@/lib/rbac";
 import { listUsers } from "@/lib/users";
@@ -22,31 +22,31 @@ export default async function TeamPage() {
   const members = listUsers();
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
-      <header style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "var(--space-4)", flexWrap: "wrap" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-1)" }}>
+    <Stack gap="var(--space-5)">
+      <Box as="header" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "var(--space-4)", flexWrap: "wrap" }}>
+        <Stack gap="var(--space-1)">
           <Heading level={2} size="2xl" style={{ margin: 0 }}>
             Team
           </Heading>
           <Text tone="muted">{members.length} members in your workspace.</Text>
-        </div>
+        </Stack>
         {canManage ? <InviteMember /> : null}
-      </header>
+      </Box>
 
       <Grid minChildWidth={260} gap={4}>
         {members.map((m) => (
           <Card key={m.id} variant="outline">
-            <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
+            <Stack gap="var(--space-3)">
+              <Stack direction="row" align="center" gap="var(--space-3)">
                 <Avatar name={m.name} size="md" status={AVATAR_STATUS[m.status]} />
-                <div style={{ minWidth: 0 }}>
+                <Box style={{ minWidth: 0 }}>
                   <Text style={{ fontWeight: 600 }}>{m.name}</Text>
                   <Text size="sm" tone="muted">
                     {m.title}
                   </Text>
-                </div>
-              </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-2)" }}>
+                </Box>
+              </Stack>
+              <Stack direction="row" wrap gap="var(--space-2)">
                 <Badge tone={ROLE_TONE[m.role]} size="sm">
                   {ROLE_LABEL[m.role]}
                 </Badge>
@@ -54,14 +54,14 @@ export default async function TeamPage() {
                   {m.status}
                 </Badge>
                 <Tag tone="neutral">{m.department}</Tag>
-              </div>
+              </Stack>
               <Text size="xs" tone="subtle">
                 {m.email}
               </Text>
-            </div>
+            </Stack>
           </Card>
         ))}
       </Grid>
-    </div>
+    </Stack>
   );
 }

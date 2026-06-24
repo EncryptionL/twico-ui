@@ -1,4 +1,4 @@
-import { Card, Stat, Chart, Timeline, Grid, Heading, Text, Tag, Badge } from "twico-ui";
+import { Card, Stat, Chart, Timeline, Grid, Heading, Text, Tag, Badge, Stack, Box } from "twico-ui";
 import { requirePermission } from "@/lib/auth";
 import { permissionsFor, ROLE_LABEL, ROLE_DESCRIPTION, ROLE_TONE } from "@/lib/rbac";
 import { ReportsIcon, TeamIcon, PlusIcon, BellIcon } from "@/components/icons";
@@ -25,13 +25,13 @@ export default async function OverviewPage() {
   const permissions = permissionsFor(user.role);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
-      <header style={{ display: "flex", flexDirection: "column", gap: "var(--space-1)" }}>
+    <Stack gap="var(--space-6)">
+      <Box as="header" style={{ display: "flex", flexDirection: "column", gap: "var(--space-1)" }}>
         <Heading level={2} size="2xl" style={{ margin: 0 }}>
           Welcome back, {user.name.split(" ")[0]}
         </Heading>
         <Text tone="muted">Here's what's happening across your workspace today.</Text>
-      </header>
+      </Box>
 
       <Grid minChildWidth={210} gap={4}>
         <Stat label="Revenue" value="$48,250" delta="+12.5%" deltaDirection="up" helpText="vs last month" icon={<ReportsIcon />} />
@@ -40,8 +40,8 @@ export default async function OverviewPage() {
         <Stat label="Churn" value="1.4%" delta="-0.3%" deltaDirection="down" helpText="vs last month" icon={<BellIcon />} />
       </Grid>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "var(--space-5)" }}>
-        <div style={{ gridColumn: "1 / -1" }}>
+      <Grid minChildWidth={320} gap="var(--space-5)">
+        <Box style={{ gridColumn: "1 / -1" }}>
           <Card title="Growth" subtitle="Signups vs activations · last 6 months">
             <Chart
               type="line"
@@ -52,7 +52,7 @@ export default async function OverviewPage() {
               ariaLabel="Signups and activations over the last six months"
             />
           </Card>
-        </div>
+        </Box>
 
         <Card title="Recent activity" subtitle="Across the workspace">
           <Timeline items={ACTIVITY} />
@@ -62,31 +62,31 @@ export default async function OverviewPage() {
           title="Your access"
           subtitle={`Role-based access control · ${ROLE_LABEL[user.role]}`}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
+          <Stack gap="var(--space-3)">
+            <Stack direction="row" align="center" gap="var(--space-2)">
               <Badge tone={ROLE_TONE[user.role]}>{ROLE_LABEL[user.role]}</Badge>
               <Text size="sm" tone="muted">
                 {ROLE_DESCRIPTION[user.role]}
               </Text>
-            </div>
-            <div>
+            </Stack>
+            <Box>
               <Text size="xs" tone="subtle" style={{ display: "block", marginBottom: "var(--space-2)" }}>
                 {permissions.length} permission{permissions.length === 1 ? "" : "s"} granted
               </Text>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-2)" }}>
+              <Stack direction="row" wrap gap="var(--space-2)">
                 {permissions.map((permission) => (
                   <Tag key={permission} tone="neutral">
                     {permission}
                   </Tag>
                 ))}
-              </div>
-            </div>
+              </Stack>
+            </Box>
             <Text size="xs" tone="subtle">
               Try signing in as a different role — the sidebar, pages, and actions all change.
             </Text>
-          </div>
+          </Stack>
         </Card>
-      </div>
-    </div>
+      </Grid>
+    </Stack>
   );
 }

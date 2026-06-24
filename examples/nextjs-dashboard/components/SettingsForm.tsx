@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Tabs, Card, Input, Select, Switch, Button, Text, Divider, useColorScheme, useToast } from "twico-ui";
+import { Tabs, Card, Input, Select, Switch, Button, Text, Divider, useColorScheme, useToast, Stack, Box } from "twico-ui";
 
 const TIMEZONES = [
   { value: "utc", label: "UTC" },
@@ -30,21 +30,21 @@ export function SettingsForm() {
 
   const general = (
     <Card title="Workspace" subtitle="General details">
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <Stack direction="column" gap="var(--space-4)">
         <Input label="Workspace name" value={name} onChange={(e) => setName(e.target.value)} />
         <Input label="Support email" type="email" value={supportEmail} onChange={(e) => setSupportEmail(e.target.value)} />
         <Select label="Timezone" value={timezone} onChange={(value) => setTimezone(value ?? "utc")} options={TIMEZONES} />
-        <div>
+        <Box>
           <Button onClick={() => toast.success("Workspace settings saved")}>Save changes</Button>
-        </div>
-      </div>
+        </Box>
+      </Stack>
     </Card>
   );
 
   const appearance = (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
+    <Stack direction="column" gap="var(--space-5)">
       <Card title="Appearance" subtitle="Theme, density, and direction">
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+        <Stack direction="column" gap="var(--space-4)">
           <Switch
             label="Dark mode"
             description="Toggle the whole app between light and dark."
@@ -58,33 +58,33 @@ export function SettingsForm() {
             checked={rtl}
             onChange={(e) => setRtl(e.target.checked)}
           />
-        </div>
+        </Stack>
       </Card>
 
       <Card title="Live preview" subtitle="Density and direction apply to this panel only">
-        <div data-density={density} dir={rtl ? "rtl" : "ltr"} style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+        <Stack data-density={density} dir={rtl ? "rtl" : "ltr"} direction="column" gap="var(--space-3)">
           <Input label="Sample field" placeholder="Type something" />
           <Select label="Sample select" placeholder="Choose one" options={[{ value: "a", label: "Option A" }, { value: "b", label: "Option B" }]} />
-          <div style={{ display: "flex", gap: "var(--space-2)" }}>
+          <Stack gap="var(--space-2)">
             <Button>Primary</Button>
             <Button variant="outline">Secondary</Button>
-          </div>
-        </div>
+          </Stack>
+        </Stack>
       </Card>
-    </div>
+    </Stack>
   );
 
   const notifications = (
     <Card title="Notifications" subtitle="How we reach you">
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+      <Stack direction="column" gap="var(--space-3)">
         <Switch label="Email notifications" checked={notify.email} onChange={(e) => setNotify((n) => ({ ...n, email: e.target.checked }))} />
         <Switch label="Push notifications" checked={notify.push} onChange={(e) => setNotify((n) => ({ ...n, push: e.target.checked }))} />
         <Switch label="Weekly digest" checked={notify.digest} onChange={(e) => setNotify((n) => ({ ...n, digest: e.target.checked }))} />
         <Divider />
-        <div>
+        <Box>
           <Button onClick={() => toast.success("Notification preferences saved")}>Save preferences</Button>
-        </div>
-      </div>
+        </Box>
+      </Stack>
     </Card>
   );
 

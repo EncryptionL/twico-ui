@@ -1,11 +1,11 @@
-import { EmptyState, Button } from "twico-ui";
+import { EmptyState, Button, Box } from "twico-ui";
 import { ShieldIcon } from "@/components/icons";
 
 // Where `requirePermission` sends a signed-in user who lacks a permission.
 export default function ForbiddenPage() {
   return (
-    <main style={{ minHeight: "100vh", display: "grid", placeItems: "center", padding: "var(--space-6)", background: "var(--color-bg)" }}>
-      <div style={{ maxWidth: 460 }}>
+    <Box as="main" style={{ minHeight: "100vh", display: "grid", placeItems: "center", padding: "var(--space-6)", background: "var(--color-bg)" }}>
+      <Box style={{ maxWidth: 460 }}>
         <EmptyState
           icon={<ShieldIcon size={42} />}
           title="403 — Access denied"
@@ -17,7 +17,7 @@ export default function ForbiddenPage() {
           }
           bordered
         />
-      </div>
-    </main>
+      </Box>
+    </Box>
   );
 }
