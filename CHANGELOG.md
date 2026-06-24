@@ -2,6 +2,14 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.3.0](https://github.com/EncryptionL/twico-ui/compare/v1.2.0...v1.3.0) (2026-06-24)
+
+
+### Features
+
+* **icons:** add 31 brand icons to twico-ui/icons + Icons docs page ([348aff2](https://github.com/EncryptionL/twico-ui/commit/348aff22204188fb1bde06d53eb3913d91998d5d))
+* **site:** add documentation version selector ([8669044](https://github.com/EncryptionL/twico-ui/commit/86690442b564fda427a90c4e7a60e894b64b8319))
+
 # [1.2.0](https://github.com/EncryptionL/twico-ui/compare/v1.1.0...v1.2.0) (2026-06-24)
 
 
