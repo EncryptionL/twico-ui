@@ -1,4 +1,4 @@
-import { Text } from "twico-ui";
+import { Text, Box, Stack } from "twico-ui";
 import { Logo } from "@/components/icons";
 import { LoginForm } from "@/components/LoginForm";
 
@@ -12,7 +12,8 @@ export default async function LoginPage({
   const { next } = await searchParams;
 
   return (
-    <main
+    <Box
+      as="main"
       style={{
         minHeight: "100vh",
         display: "grid",
@@ -22,20 +23,20 @@ export default async function LoginPage({
           "radial-gradient(1200px 600px at 50% -10%, var(--color-primary-subtle), transparent), var(--color-bg)",
       }}
     >
-      <div style={{ width: "100%", maxWidth: 420, display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--space-2)", textAlign: "center" }}>
+      <Stack direction="column" gap="var(--space-5)" style={{ width: "100%", maxWidth: 420 }}>
+        <Stack direction="column" align="center" gap="var(--space-2)" style={{ textAlign: "center" }}>
           <Logo />
           <Text tone="muted" size="sm">
             Sign in to the Twico UI demo dashboard.
           </Text>
-        </div>
+        </Stack>
 
         <LoginForm next={next ?? "/dashboard"} />
 
         <Text tone="subtle" size="xs" align="center">
           Demo only — credentials are mocked and the session is a signed cookie.
         </Text>
-      </div>
-    </main>
+      </Stack>
+    </Box>
   );
 }

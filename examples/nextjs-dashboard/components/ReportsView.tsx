@@ -1,6 +1,6 @@
 "use client";
 
-import { Tabs, Card, Chart, Table, Progress, Text } from "twico-ui";
+import { Tabs, Card, Chart, Table, Progress, Text, Stack } from "twico-ui";
 
 // Client component: holds the Tabs + panels. The data-display components here
 // take function props (Table's rowKey), which a Server Component may not pass
@@ -43,7 +43,7 @@ const FUNNEL: Array<[string, number]> = [
 
 function RevenuePanel() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
+    <Stack gap="var(--space-5)">
       <Card title="Monthly revenue" subtitle="$ thousands · last 6 months">
         <Chart type="bar" series={["revenue"]} data={REVENUE} height={240} ariaLabel="Monthly revenue" />
       </Card>
@@ -61,7 +61,7 @@ function RevenuePanel() {
           rows={CUSTOMERS}
         />
       </Card>
-    </div>
+    </Stack>
   );
 }
 
@@ -76,19 +76,19 @@ function UsagePanel() {
 function FunnelPanel() {
   return (
     <Card title="Activation funnel">
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <Stack gap="var(--space-4)">
         {FUNNEL.map(([label, value]) => (
-          <div key={label} style={{ display: "flex", flexDirection: "column", gap: "var(--space-1)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Stack key={label} gap="var(--space-1)">
+            <Stack direction="row" justify="space-between">
               <Text size="sm">{label}</Text>
               <Text size="sm" tone="muted">
                 {value}%
               </Text>
-            </div>
+            </Stack>
             <Progress value={value} />
-          </div>
+          </Stack>
         ))}
-      </div>
+      </Stack>
     </Card>
   );
 }

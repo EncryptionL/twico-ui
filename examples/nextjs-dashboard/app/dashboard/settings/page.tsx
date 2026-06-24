@@ -1,4 +1,4 @@
-import { Heading, Text } from "twico-ui";
+import { Heading, Text, Stack } from "twico-ui";
 import { requirePermission } from "@/lib/auth";
 import { SettingsForm } from "@/components/SettingsForm";
 
@@ -7,15 +7,15 @@ export default async function SettingsPage() {
   await requirePermission("settings:manage");
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
-      <header style={{ display: "flex", flexDirection: "column", gap: "var(--space-1)" }}>
+    <Stack direction="column" gap="var(--space-5)">
+      <Stack as="header" direction="column" gap="var(--space-1)">
         <Heading level={2} size="2xl" style={{ margin: 0 }}>
           Settings
         </Heading>
         <Text tone="muted">Configure your workspace, appearance, and notifications.</Text>
-      </header>
+      </Stack>
 
       <SettingsForm />
-    </div>
+    </Stack>
   );
 }

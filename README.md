@@ -164,10 +164,22 @@ const brand = indigo[500]; // "#6366f1"
 
 Each hue is an object keyed by shade — a full `50`–`950` ramp (`50, 100, 200, … 900, 950`). These are static values — unlike the `--color-*` aliases, they do not flip in dark mode.
 
+### Icons
+
+Components take icons as React nodes (`leftIcon`, `icon`, …) — bring any icon set, or inline SVG. For convenience, **`twico-ui/icons`** re-exports the full [Lucide](https://lucide.dev) set (the icon language Twico UI is designed around):
+
+```jsx
+import { Home, Search } from "twico-ui/icons";
+
+<Button leftIcon={<Home size={16} />}>Home</Button>
+```
+
+This subpath needs the **optional peer** `lucide-react` (`npm install lucide-react`) and is tree-shakeable; the core `twico-ui` package stays zero-dependency.
+
 ## Components
 
 **Buttons & actions:** Button, IconButton
-**Layout:** Box, Stack, Grid, Container
+**Layout:** AppShell, Box, Stack, Grid, Container, Divider
 **Typography:** Heading, Text, Code
 **Inputs:** Input, Textarea, Currency, CurrencyField, Select, MultiSelect, Combobox, Checkbox, Radio, Switch, Slider, Rating, FileUpload, DatePicker, DateRangePicker, ColorPicker
 **Data display:** Card, Avatar, AvatarMenu, Badge, Tag, Stat, List, Timeline, Chart, Table, Pagination, Datatable, Kanban

@@ -1,4 +1,4 @@
-import { Heading, Text } from "twico-ui";
+import { Heading, Text, Stack, Box } from "twico-ui";
 import { requirePermission } from "@/lib/auth";
 import { can } from "@/lib/rbac";
 import { listUsers } from "@/lib/users";
@@ -13,8 +13,8 @@ export default async function UsersPage() {
   const users = listUsers();
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
-      <header style={{ display: "flex", flexDirection: "column", gap: "var(--space-1)" }}>
+    <Stack direction="column" gap="var(--space-5)">
+      <Box as="header" style={{ display: "flex", flexDirection: "column", gap: "var(--space-1)" }}>
         <Heading level={2} size="2xl" style={{ margin: 0 }}>
           Users
         </Heading>
@@ -22,9 +22,9 @@ export default async function UsersPage() {
           {users.length} accounts.{" "}
           {canManage ? "Click a row to change a role, or invite someone." : "Read-only — you can view but not edit."}
         </Text>
-      </header>
+      </Box>
 
       <UsersTable initialUsers={users} canManage={canManage} />
-    </div>
+    </Stack>
   );
 }

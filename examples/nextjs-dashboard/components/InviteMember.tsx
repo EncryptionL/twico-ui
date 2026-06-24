@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Dialog, Input, Select, Text, useToast } from "twico-ui";
+import { Button, Dialog, Input, Select, Stack, Text, useToast } from "twico-ui";
 import { ROLES, ROLE_LABEL, ROLE_DESCRIPTION, type Role } from "@/lib/rbac";
 import { PlusIcon } from "@/components/icons";
 
@@ -42,22 +42,22 @@ export function InviteMember() {
         title="Invite a member"
         description="Send a workspace invitation."
         footer={
-          <div style={{ display: "flex", gap: "var(--space-2)", justifyContent: "flex-end" }}>
+          <Stack direction="row" gap="var(--space-2)" justify="flex-end">
             <Button variant="ghost" onClick={() => setOpen(false)}>
               Cancel
             </Button>
             <Button onClick={invite}>Send invite</Button>
-          </div>
+          </Stack>
         }
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+        <Stack gap="var(--space-3)">
           <Input label="Full name" placeholder="Jane Doe" value={name} onChange={(e) => setName(e.target.value)} />
           <Input label="Email" type="email" placeholder="jane@twico.dev" value={email} onChange={(e) => setEmail(e.target.value)} />
           <Select label="Role" value={role} onChange={(value) => setRole(value as Role)} options={roleOptions} />
           <Text size="xs" tone="subtle">
             Demo only — no email is actually sent.
           </Text>
-        </div>
+        </Stack>
       </Dialog>
     </>
   );

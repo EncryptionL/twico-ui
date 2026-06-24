@@ -16,7 +16,7 @@
 // build via `onSuccess` -> scripts/add-use-client.mjs. In a plain React app
 // (Vite/CRA) the directive is an inert string literal — harmless.
 export default {
-  entry: { index: "src/index.ts", colors: "src/colors.ts" },
+  entry: { index: "src/index.ts", colors: "src/colors.ts", icons: "src/icons.ts" },
   format: ["esm", "cjs"],
   onSuccess: "node scripts/add-use-client.mjs",
   dts: true,
@@ -24,7 +24,7 @@ export default {
   clean: true,
   treeshake: true,
   minify: false,
-  external: ["react", "react-dom", "react/jsx-runtime"],
+  external: ["react", "react-dom", "react/jsx-runtime", "lucide-react"],
   outExtension({ format }) {
     return { js: format === "esm" ? ".mjs" : ".cjs" };
   },

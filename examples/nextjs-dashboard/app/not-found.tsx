@@ -1,9 +1,9 @@
-import { EmptyState, Button } from "twico-ui";
+import { EmptyState, Button, Box } from "twico-ui";
 
 export default function NotFound() {
   return (
-    <main style={{ minHeight: "100vh", display: "grid", placeItems: "center", padding: "var(--space-6)", background: "var(--color-bg)" }}>
-      <div style={{ maxWidth: 460 }}>
+    <Box as="main" style={{ minHeight: "100vh", display: "grid", placeItems: "center", padding: "var(--space-6)", background: "var(--color-bg)" }}>
+      <Box style={{ maxWidth: 460 }}>
         <EmptyState
           title="404 — Page not found"
           description="The page you're looking for doesn't exist or has moved."
@@ -14,7 +14,7 @@ export default function NotFound() {
           }
           bordered
         />
-      </div>
-    </main>
+      </Box>
+    </Box>
   );
 }

@@ -3,23 +3,18 @@
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import {
+  AppShell,
   Sidebar,
   AvatarMenu,
   IconButton,
   Tooltip,
   Badge,
   Heading,
+  Stack,
   useColorScheme,
   useMounted,
 } from "twico-ui";
-import {
-  Logo,
-  NAV_ICONS,
-  SunIcon,
-  MoonIcon,
-  MenuIcon,
-  BellIcon,
-} from "./icons";
+import { Logo, NAV_ICONS, SunIcon, MoonIcon, MenuIcon, BellIcon } from "./icons";
 import { logout } from "@/lib/auth-actions";
 import { ROLE_LABEL, ROLE_TONE } from "@/lib/rbac";
 import type { IconKey } from "@/lib/nav";
@@ -61,32 +56,22 @@ export function DashboardShell({
 
   const current = items.find((item) => isActive(item.href));
 
+  // The whole frame (full-height, fixed sidebar + topbar, scrollable content) is
+  // the library's <AppShell>; this component only supplies the app wiring.
   return (
-    <div style={{ display: "flex", height: "100dvh", overflow: "hidden", background: "var(--color-bg)" }}>
-      <Sidebar
-        brand={<Logo showText={!collapsed} />}
-        items={sidebarItems}
-        collapsed={collapsed}
-        onCollapsedChange={setCollapsed}
-      />
-
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0, height: "100%" }}>
-        <header
-          style={{
-            position: "sticky",
-            top: 0,
-            zIndex: 20,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "var(--space-4)",
-            height: 64,
-            paddingInline: "var(--space-5)",
-            borderBottom: "1px solid var(--color-border)",
-            background: "var(--color-surface)",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", minWidth: 0 }}>
+    <AppShell
+      sidebar={
+        <Sidebar
+          brand={<Logo showText={!collapsed} />}
+          items={sidebarItems}
+          collapsed={collapsed}
+          onCollapsedChange={setCollapsed}
+          collapsible={false}
+        />
+      }
+      header={
+        <>
+          <Stack direction="row" align="center" gap={3} style={{ minWidth: 0 }}>
             <Tooltip label={collapsed ? "Expand sidebar" : "Collapse sidebar"} placement="bottom">
               <IconButton
                 aria-label="Toggle sidebar"
@@ -98,9 +83,9 @@ export function DashboardShell({
             <Heading level={1} size="lg" style={{ margin: 0, whiteSpace: "nowrap" }}>
               {current?.label ?? "Dashboard"}
             </Heading>
-          </div>
+          </Stack>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
+          <Stack direction="row" align="center" gap={2}>
             <Tooltip label={isDark ? "Light mode" : "Dark mode"} placement="bottom">
               <IconButton
                 aria-label="Toggle theme"
@@ -127,13 +112,11 @@ export function DashboardShell({
                 { label: "Sign out", danger: true, onClick: () => void logout() },
               ]}
             />
-          </div>
-        </header>
-
-        <main style={{ flex: 1, overflow: "auto", padding: "var(--space-6) var(--space-5)" }}>
-          <div style={{ maxWidth: 1200, margin: "0 auto" }}>{children}</div>
-        </main>
-      </div>
-    </div>
+          </Stack>
+        </>
+      }
+    >
+      {children}
+    </AppShell>
   );
 }

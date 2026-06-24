@@ -10,6 +10,8 @@ import {
   Badge,
   Avatar,
   Text,
+  Box,
+  Stack,
   useToast,
 } from "twico-ui";
 import { ROLES, ROLE_LABEL, ROLE_DESCRIPTION, ROLE_TONE, type Role } from "@/lib/rbac";
@@ -54,10 +56,10 @@ export function UsersTable({
       headerName: "Name",
       width: 220,
       renderCell: (value: string) => (
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
+        <Box as="span" style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
           <Avatar name={value} size="sm" />
-          <span style={{ fontWeight: 600 }}>{value}</span>
-        </span>
+          <Text as="span" style={{ fontWeight: 600 }}>{value}</Text>
+        </Box>
       ),
     },
     { field: "email", headerName: "Email", width: 210 },
@@ -121,13 +123,13 @@ export function UsersTable({
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+    <Stack direction="column" gap="var(--space-3)">
       {canManage ? (
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <Stack direction="row" justify="flex-end">
           <Button leftIcon={<PlusIcon />} onClick={() => setInviteOpen(true)}>
             Invite user
           </Button>
-        </div>
+        </Stack>
       ) : null}
 
       <Datatable
@@ -146,12 +148,12 @@ export function UsersTable({
         title={editing ? `Edit ${editing.name}` : "Edit user"}
         description="Change this user's role. The change is local to this demo."
         footer={
-          <div style={{ display: "flex", gap: "var(--space-2)", justifyContent: "flex-end" }}>
+          <Stack direction="row" gap="var(--space-2)" justify="flex-end">
             <Button variant="ghost" onClick={() => setEditing(null)}>
               Cancel
             </Button>
             <Button onClick={saveRole}>Save changes</Button>
-          </div>
+          </Stack>
         }
       >
         <Select
@@ -169,15 +171,15 @@ export function UsersTable({
         title="Invite a user"
         description="They'll appear in the table with an 'invited' status."
         footer={
-          <div style={{ display: "flex", gap: "var(--space-2)", justifyContent: "flex-end" }}>
+          <Stack direction="row" gap="var(--space-2)" justify="flex-end">
             <Button variant="ghost" onClick={() => setInviteOpen(false)}>
               Cancel
             </Button>
             <Button onClick={sendInvite}>Send invite</Button>
-          </div>
+          </Stack>
         }
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+        <Stack direction="column" gap="var(--space-3)">
           <Input
             label="Full name"
             placeholder="Jane Doe"
@@ -200,8 +202,8 @@ export function UsersTable({
           <Text size="xs" tone="subtle">
             Demo only — no email is actually sent.
           </Text>
-        </div>
+        </Stack>
       </Dialog>
-    </div>
+    </Stack>
   );
 }

@@ -161,11 +161,19 @@ function Page() {
 
 ## Icons
 
-The library **ships no icon set** — pass your own icons as React nodes (inline SVG recommended) to
-props such as `leftIcon`, `rightIcon`, `icon`, `header`. Icons inherit `currentColor` and the
-control's size:
+Components take icons as **React nodes** via props like `leftIcon`, `rightIcon`, `icon`, `header` —
+bring any icon (inline SVG, or any icon library). Icons inherit `currentColor` and the control's size.
+
+For convenience, **`twico-ui/icons` re-exports the full [Lucide](https://lucide.dev) icon set** (the
+visual language Twico UI is built on). It needs the **optional peer** `lucide-react`
+(`npm install lucide-react`) and is tree-shakeable — the core `twico-ui` package itself stays
+zero-dependency. The icons are plain SVG components (no hooks), so they work in Server Components too.
 
 ```jsx
+import { Home, Search } from "twico-ui/icons"; // needs the optional `lucide-react` peer
+<Button leftIcon={<Home size={16} />}>Home</Button>
+
+// …or pass your own inline SVG (no peer needed):
 <Button leftIcon={<svg width="16" height="16" viewBox="0 0 24 24" /* … */ />}>Add item</Button>
 ```
 

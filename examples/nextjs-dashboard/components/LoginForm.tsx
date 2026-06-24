@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { Card, Input, Button, Alert, Badge, Text, Divider, List } from "twico-ui";
+import { Card, Input, Button, Alert, Badge, Text, Divider, List, Box, Code } from "twico-ui";
 import { login, type LoginState } from "@/lib/auth-actions";
 import { ROLE_TONE, ROLE_DESCRIPTION } from "@/lib/rbac";
 
@@ -51,13 +51,13 @@ export function LoginForm({ next }: { next: string }) {
         </Button>
       </form>
 
-      <div style={{ marginTop: "var(--space-5)" }}>
+      <Box style={{ marginTop: "var(--space-5)" }}>
         <Divider>
           <Text size="xs" tone="subtle">
             Demo accounts — click one to fill the form
           </Text>
         </Divider>
-        <div style={{ marginTop: "var(--space-3)" }}>
+        <Box style={{ marginTop: "var(--space-3)" }}>
           <List
             items={DEMO_ACCOUNTS.map((a) => ({
               leading: (
@@ -65,7 +65,7 @@ export function LoginForm({ next }: { next: string }) {
                   {a.label}
                 </Badge>
               ),
-              title: <span style={{ fontFamily: "var(--font-mono)" }}>{a.email}</span>,
+              title: <Text as="span" style={{ fontFamily: "var(--font-mono)" }}>{a.email}</Text>,
               description: ROLE_DESCRIPTION[a.role],
               onClick: () => {
                 setEmail(a.email);
@@ -74,10 +74,10 @@ export function LoginForm({ next }: { next: string }) {
             }))}
           />
           <Text size="xs" tone="subtle" align="center" style={{ display: "block", marginTop: "var(--space-3)" }}>
-            Password for all accounts: <code>{DEMO_PASSWORD}</code>
+            Password for all accounts: <Code>{DEMO_PASSWORD}</Code>
           </Text>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </Card>
   );
 }

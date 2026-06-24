@@ -1,4 +1,4 @@
-import { Heading, Text } from "twico-ui";
+import { Heading, Text, Stack, Box } from "twico-ui";
 import { requirePermission } from "@/lib/auth";
 import { findUserById } from "@/lib/users";
 import { ProfileForm } from "@/components/ProfileForm";
@@ -9,13 +9,13 @@ export default async function ProfilePage() {
   const record = findUserById(session.id);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
-      <header style={{ display: "flex", flexDirection: "column", gap: "var(--space-1)" }}>
+    <Stack gap="var(--space-5)">
+      <Box as="header" style={{ display: "flex", flexDirection: "column", gap: "var(--space-1)" }}>
         <Heading level={2} size="2xl" style={{ margin: 0 }}>
           Profile
         </Heading>
         <Text tone="muted">Manage your account details.</Text>
-      </header>
+      </Box>
 
       <ProfileForm
         name={session.name}
@@ -24,6 +24,6 @@ export default async function ProfilePage() {
         title={record?.title ?? ""}
         department={record?.department ?? ""}
       />
-    </div>
+    </Stack>
   );
 }
