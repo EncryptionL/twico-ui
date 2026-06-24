@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.1.0](https://github.com/EncryptionL/twico-ui/compare/v1.0.2...v1.1.0) (2026-06-24)
+
+
+### Features
+
+* **layout:** add AppShell — full-height sidebar + topbar + content frame ([8db4fd9](https://github.com/EncryptionL/twico-ui/commit/8db4fd9df2ec9bafaf3c1b4b54be7e719920d9de))
+
 ## [1.0.2](https://github.com/EncryptionL/twico-ui/compare/v1.0.1...v1.0.2) (2026-06-24)
 
 
