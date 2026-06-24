@@ -17,7 +17,7 @@ const MENU_CSS = `
 @media (prefers-reduced-motion: reduce) { .twc-menu[data-state] { animation-duration: 1ms; } }
 .twc-menu[data-flip="true"] { transform-origin: bottom; }
 .twc-menu__header { display: flex; align-items: center; gap: var(--space-2-5); padding: 8px 10px 10px; margin-bottom: var(--space-1-5); border-bottom: var(--border-thin) solid var(--color-divider); }
-.twc-menu__header-main { min-width: 0; }
+.twc-menu__header-main { min-width: 0; display: flex; flex-direction: column; }
 .twc-menu__header-title { font-size: var(--text-sm); font-weight: var(--font-bold); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .twc-menu__header-sub { font-size: var(--text-xs); color: var(--color-text-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .twc-menu__label { padding: 6px 10px 4px; font-size: var(--text-xs); font-weight: var(--font-semibold); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
