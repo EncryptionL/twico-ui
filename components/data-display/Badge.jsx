@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const BADGE_CSS = `
 .twc-badge {
@@ -47,16 +48,11 @@ export function Badge({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-badge-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-badge-styles";
-    el.textContent = BADGE_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-badge-styles", BADGE_CSS);
 
   return (
     <span className={`twc-badge ${className}`} data-tone={tone} data-variant={variant} data-size={size} {...rest}>
+      {__twcStyles}
       {dot ? <span className="twc-badge__dot" /> : null}
       {children}
     </span>

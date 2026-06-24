@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const BREADCRUMB_CSS = `
 .twc-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 2px; font-family: var(--font-sans); font-size: var(--text-sm); }
@@ -32,13 +33,7 @@ export function Breadcrumb({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-breadcrumb-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-breadcrumb-styles";
-    el.textContent = BREADCRUMB_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-breadcrumb-styles", BREADCRUMB_CSS);
 
   const [expanded, setExpanded] = React.useState(false);
   const sep = separator || <ChevronSep />;
@@ -56,6 +51,7 @@ export function Breadcrumb({
 
   return (
     <nav className={`twc-breadcrumb ${className}`} aria-label="Breadcrumb" {...rest}>
+      {__twcStyles}
       {display.map((it, i) => {
         const last = i === display.length - 1;
         return (

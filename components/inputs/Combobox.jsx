@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 import { createPortal } from "react-dom";
 
 const COMBO_CSS = `
@@ -99,12 +100,7 @@ export function Combobox({
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
   id, className = "", onFocus, onKeyDown, ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-combo-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-combo-styles"; el.textContent = COMBO_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-combo-styles", COMBO_CSS);
 
   const groups = React.useMemo(() => normalizeGroups(options), [options]);
   const flat = React.useMemo(() => groups.flatMap((g) => g.options), [groups]);
@@ -239,6 +235,7 @@ export function Combobox({
 
   return (
     <div className={`twc-field ${className}`} ref={wrapRef}>
+      {__twcStyles}
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
       <div className="twc-cb">
         <div className="twc-cb__control" ref={controlRef} data-size={size} data-tone={tone} data-open={open || undefined} data-invalid={Boolean(error) || undefined} data-disabled={disabled || undefined}

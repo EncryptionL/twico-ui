@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 import { Avatar } from "./Avatar";
 import { Menu } from "../overlay/Menu";
 
@@ -29,13 +30,7 @@ export function AvatarMenu({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-avatar-menu-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-avatar-menu-styles";
-    el.textContent = AVATARMENU_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-avatar-menu-styles", AVATARMENU_CSS);
 
   const sub = subtitle ?? email;
   const showChev = showChevron ?? showName;
@@ -58,6 +53,7 @@ export function AvatarMenu({
       aria-haspopup="menu"
       aria-label={`${name || "Account"} menu`}
     >
+      {__twcStyles}
       <Avatar name={name} src={src} size={size} status={status} />
       {showName ? (
         <span className="twc-avatar-menu__text">

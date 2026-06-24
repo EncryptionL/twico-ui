@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const TAG_CSS = `
 .twc-tag {
@@ -47,16 +48,11 @@ export function Tag({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-tag-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-tag-styles";
-    el.textContent = TAG_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-tag-styles", TAG_CSS);
 
   return (
     <span className={`twc-tag ${className}`} data-tone={tone} data-variant={variant} data-no-remove={!onRemove || undefined} {...rest}>
+      {__twcStyles}
       {leftIcon}
       {children}
       {onRemove ? (

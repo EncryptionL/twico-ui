@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const CAROUSEL_CSS = `
 .twc-carousel { position: relative; font-family: var(--font-sans); }
@@ -36,13 +37,7 @@ export function Carousel({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-carousel-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-carousel-styles";
-    el.textContent = CAROUSEL_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-carousel-styles", CAROUSEL_CSS);
 
   const slides = React.Children.toArray(children);
   const count = slides.length;
@@ -76,6 +71,7 @@ export function Carousel({
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)} onBlurCapture={() => setPaused(false)}
       role="region" aria-roledescription="carousel" {...rest}>
+      {__twcStyles}
       <div className="twc-carousel__viewport">
         <div className="twc-carousel__track" style={{ transform: `translateX(-${index * 100}%)` }}>
           {slides.map((s, i) => (

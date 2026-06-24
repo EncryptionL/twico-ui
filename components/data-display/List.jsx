@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const LIST_CSS = `
 .twc-list { display: flex; flex-direction: column; font-family: var(--font-sans); margin: 0; padding: 0; list-style: none;
@@ -22,13 +23,7 @@ const LIST_CSS = `
 `;
 
 export function List({ items, plain = false, className = "", ...rest }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-list-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-list-styles";
-    el.textContent = LIST_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-list-styles", LIST_CSS);
 
   // Block javascript:/data:/vbscript: URLs from reaching a DOM href (trust boundary).
   const safeHref = (url) => {
@@ -39,6 +34,7 @@ export function List({ items, plain = false, className = "", ...rest }) {
 
   return (
     <ul className={`twc-list ${className}`} data-plain={plain || undefined} {...rest}>
+      {__twcStyles}
       {items.map((it, i) => {
         const href = safeHref(it.href);
         const interactive = Boolean(it.onClick || href);

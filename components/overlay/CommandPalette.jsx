@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 import { createPortal } from "react-dom";
 
 const COMMAND_CSS = `
@@ -46,13 +47,7 @@ export function CommandPalette({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-cmdk-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-cmdk-styles";
-    el.textContent = COMMAND_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-cmdk-styles", COMMAND_CSS);
 
   const [query, setQuery] = React.useState("");
   const [active, setActive] = React.useState(0);
@@ -161,6 +156,7 @@ export function CommandPalette({
 
   const overlay = (
     <div className="twc-cmdk__overlay" data-state={state} onMouseDown={(e) => { if (e.target === e.currentTarget) onClose?.(); }}>
+      {__twcStyles}
       <div ref={paletteRef} className={`twc-cmdk ${className}`} data-state={state} role="dialog" aria-modal="true" aria-label="Command palette" tabIndex={-1} {...rest}>
         <div className="twc-cmdk__search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>

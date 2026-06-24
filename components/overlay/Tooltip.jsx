@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 import { createPortal } from "react-dom";
 
 const TOOLTIP_CSS = `
@@ -33,13 +34,7 @@ export function Tooltip({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-tooltip-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-tooltip-styles";
-    el.textContent = TOOLTIP_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-tooltip-styles", TOOLTIP_CSS);
 
   const id = React.useId();
   const [show, setShow] = React.useState(false);
@@ -116,6 +111,7 @@ export function Tooltip({
       onMouseEnter={open} onMouseLeave={close} onFocus={open} onBlur={close}
       {...rest}
     >
+      {__twcStyles}
       {trigger}
       {coords ? createPortal(
         <span

@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 import { createPortal } from "react-dom";
 
 const SELECT_CSS = `
@@ -101,12 +102,7 @@ export function Select({
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0, id, className = "",
   onClick, onKeyDown, ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-select-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-select-styles"; el.textContent = SELECT_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-select-styles", SELECT_CSS);
 
   const groups = React.useMemo(() => normalizeGroups(options), [options]);
   const flat = React.useMemo(() => groups.flatMap((g) => g.options), [groups]);
@@ -287,6 +283,7 @@ export function Select({
 
   return (
     <div className={`twc-field ${className}`} ref={wrapRef}>
+      {__twcStyles}
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
       <div className="twc-sel">
         <button type="button" id={fieldId} ref={triggerRef} className="twc-sel__trigger" data-size={size} data-tone={tone}

@@ -32,11 +32,15 @@ twico-ui/
 
 Each component is a self-contained React function:
 
-- Imports only `react` (and `react-dom` for portals). **No other runtime dependencies.** The only
-  internal imports are composite components reusing siblings (`AvatarMenu` → `Menu`, `Datatable` →
+- Imports only `react` (and `react-dom` for portals, plus the one shared internal helper
+  `components/_styles.js`). **No other runtime dependencies.** The only other internal imports are
+  composite components reusing siblings (`AvatarMenu` → `Menu`, `Datatable` →
   `Select`/`Input`/`MultiSelect`/`Pagination`, `CurrencyField` → `Select`).
-- Injects its own scoped CSS once, via a `<style>` element keyed by a unique id, inside a
-  `useEffect`. The CSS string is a **constant** — never built from props.
+- **Renders** its own scoped CSS via the shared `useScopedStyles(id, css)` helper
+  (`components/_styles.js`): React 19 returns a hoistable `<style href={id} precedence="twc-ui">`
+  (deduped by id, hoisted to `<head>`, **present in the SSR output — no FOUC**); React 18 falls back
+  to the old client-only `useInsertionEffect` injection. The CSS string is a **constant** — never
+  built from props. See [ssr-styles.md](./ssr-styles.md).
 - Styles everything through **CSS custom properties** (`--color-*`, `--radius-*`, `--space-*`,
   `--shadow-*`, `--ease-*`, `--font-*`). This is what makes the system themeable and dark-mode aware.
 - Icons are **inline SVG**. Fonts are self-hosted. **No CDNs** (see [security.md](./security.md)).

@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 export function Progress({
   value = 0,
@@ -10,11 +11,7 @@ export function Progress({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-progress-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-progress-styles";
-    el.textContent = `
+  const __twcStyles = useScopedStyles("twc-progress-styles", `
 .twc-progress-wrap { display: flex; flex-direction: column; gap: 6px; font-family: var(--font-sans); }
 .twc-progress {
   --_h: 8px;
@@ -46,9 +43,7 @@ export function Progress({
 @media (prefers-reduced-motion: reduce) {
   .twc-progress[data-indeterminate="true"] .twc-progress__bar { animation-duration: 1.3s !important; animation-iteration-count: infinite !important; }
 }
-`;
-    document.head.appendChild(el);
-  }, []);
+`);
 
   const v = Number.isFinite(value) ? value : 0;
   const pct = indeterminate ? 0 : (max > 0 ? Math.min(100, Math.max(0, (v / max) * 100)) : 0);
@@ -57,6 +52,7 @@ export function Progress({
     // Single-root contract: className and ...rest (style, id, handlers, …) share the outer
     // wrapper; role="progressbar" + aria-value* stay on the inner track.
     <div className={`twc-progress-wrap ${className}`} {...rest}>
+      {__twcStyles}
       {showLabel && !indeterminate ? (
         <div className="twc-progress__meta"><span>Progress</span><span>{Math.round(pct)}%</span></div>
       ) : null}

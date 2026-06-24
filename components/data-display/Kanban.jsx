@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const KANBAN_CSS = `
 .twc-kanban { display: flex; gap: var(--space-4); font-family: var(--font-sans); overflow-x: auto; padding-bottom: var(--space-2); align-items: flex-start; }
@@ -34,13 +35,7 @@ export function Kanban({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-kanban-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-kanban-styles";
-    el.textContent = KANBAN_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-kanban-styles", KANBAN_CSS);
 
   const [internal, setInternal] = React.useState(cards ?? defaultCards ?? []);
   const items = cards !== undefined ? cards : internal;
@@ -107,6 +102,7 @@ export function Kanban({
 
   return (
     <div className={`twc-kanban ${className}`} ref={rootRef} {...rest}>
+      {__twcStyles}
       <div className="twc-kanban__sr" role="status" aria-live="polite">{announce}</div>
       {columns.map((col, colIdx) => {
         const colCards = items.filter((c) => c.column === col.id);

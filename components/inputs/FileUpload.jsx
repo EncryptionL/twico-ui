@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const UPLOAD_CSS = `
 .twc-upload { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-3); }
@@ -68,13 +69,7 @@ export function FileUpload({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-upload-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-upload-styles";
-    el.textContent = UPLOAD_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-upload-styles", UPLOAD_CSS);
 
   const [internal, setInternal] = React.useState(defaultValue);
   const files = value !== undefined ? value : internal;
@@ -96,6 +91,7 @@ export function FileUpload({
 
   return (
     <div className={`twc-upload ${className}`} {...rest}>
+      {__twcStyles}
       {label ? (
         <label className="twc-field__label" htmlFor={fieldId}>
           {label}{required ? <span className="twc-field__req">*</span> : null}

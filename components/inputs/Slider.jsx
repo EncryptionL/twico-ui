@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const SLIDER_CSS = `
 .twc-slider { font-family: var(--font-sans); }
@@ -64,13 +65,7 @@ export function Slider({
   const min = Number.isFinite(minProp) ? minProp : 0;
   const max = Number.isFinite(maxProp) && maxProp > min ? maxProp : min + 1;
   const step = Number.isFinite(stepProp) && stepProp > 0 ? stepProp : 1;
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-slider-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-slider-styles";
-    el.textContent = SLIDER_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-slider-styles", SLIDER_CSS);
 
   const autoId = React.useId();
   const fieldId = id || autoId;
@@ -138,6 +133,7 @@ export function Slider({
 
   return (
     <div className={`twc-slider ${className}`} data-tone={tone} data-disabled={disabled || undefined} {...rest}>
+      {__twcStyles}
       {(label || showValue) ? (
         <div className="twc-slider__head">
           {label ? <label className="twc-slider__label" id={labelId}>{label}</label> : <span />}

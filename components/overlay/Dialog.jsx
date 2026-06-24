@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 import { createPortal } from "react-dom";
 
 const DIALOG_CSS = `
@@ -72,13 +73,7 @@ export function Dialog({
   const descId = `${autoId}-desc`;
   const dialogRef = React.useRef(null);
 
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-dialog-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-dialog-styles";
-    el.textContent = DIALOG_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-dialog-styles", DIALOG_CSS);
 
   // Stay mounted through the exit animation so closing is smooth, then unmount.
   const [mounted, setMounted] = React.useState(open);
@@ -149,6 +144,7 @@ export function Dialog({
 
   const overlay = (
     <div className="twc-dialog__overlay" data-state={state} onMouseDown={(e) => { if (closeOnBackdrop && e.target === e.currentTarget) onClose?.(); }}>
+      {__twcStyles}
       <div ref={dialogRef} className={`twc-dialog ${className}`} data-state={state} data-size={size} data-scroll-body={scrollBody ? "true" : undefined} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-label={!title ? "Dialog" : undefined} aria-describedby={description ? descId : undefined} {...rest}>
         {(title || description || onClose) ? (
           <div className="twc-dialog__header">

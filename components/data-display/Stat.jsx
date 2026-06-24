@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const STAT_CSS = `
 .twc-stat { display: flex; flex-direction: column; gap: 6px; font-family: var(--font-sans);
@@ -37,19 +38,14 @@ export function Stat({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-stat-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-stat-styles";
-    el.textContent = STAT_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-stat-styles", STAT_CSS);
 
   const isNeg = delta != null && String(delta).trim().startsWith("-");
   const dir = deltaDirection || (delta != null ? (isNeg ? "down" : "up") : undefined);
 
   return (
     <div className={`twc-stat ${className}`} data-plain={plain || undefined} {...rest}>
+      {__twcStyles}
       <div className="twc-stat__top">
         <span className="twc-stat__label">{label}</span>
         {icon ? <span className="twc-stat__icon" aria-hidden="true">{icon}</span> : null}

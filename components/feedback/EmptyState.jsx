@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const EMPTY_CSS = `
 .twc-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-3);
@@ -24,16 +25,11 @@ export function EmptyState({
 }) {
   // `border` is the preferred alias for `bordered`; either enables the dashed border.
   const hasBorder = border ?? bordered;
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-empty-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-empty-styles";
-    el.textContent = EMPTY_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-empty-styles", EMPTY_CSS);
 
   return (
     <div className={`twc-empty ${className}`} data-bordered={hasBorder || undefined} {...rest}>
+      {__twcStyles}
       {icon ? <span className="twc-empty__icon" aria-hidden="true">{icon}</span> : null}
       {title ? <div className="twc-empty__title">{title}</div> : null}
       {description ? <div className="twc-empty__desc">{description}</div> : null}

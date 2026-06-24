@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 export function Skeleton({
   variant = "text",
@@ -9,11 +10,7 @@ export function Skeleton({
   style,
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-skeleton-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-skeleton-styles";
-    el.textContent = `
+  const __twcStyles = useScopedStyles("twc-skeleton-styles", `
 .twc-skeleton {
   position: relative; overflow: hidden;
   background: var(--color-surface-sunken); border-radius: var(--radius-md);
@@ -32,14 +29,13 @@ export function Skeleton({
 @media (prefers-reduced-motion: reduce) {
   .twc-skeleton::after { animation-duration: 1.4s !important; animation-iteration-count: infinite !important; }
 }
-`;
-    document.head.appendChild(el);
-  }, []);
+`);
 
   if (variant === "text" && lines > 1) {
     // `height` and consumer `style` apply to the group wrapper; `width` applies per line.
     return (
       <div className={`twc-skeleton__group ${className}`} style={{ height, ...style }} {...rest}>
+        {__twcStyles}
         {Array.from({ length: lines }).map((_, i) => (
           <span key={i} className="twc-skeleton" data-variant="text" style={{ width: width || "100%" }} />
         ))}
@@ -53,6 +49,8 @@ export function Skeleton({
       data-variant={variant}
       style={{ width, height, ...style }}
       {...rest}
-    />
+    >
+      {__twcStyles}
+    </span>
   );
 }

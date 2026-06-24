@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const TREE_CSS = `
 .twc-tree { font-family: var(--font-sans); font-size: var(--text-sm); user-select: none; }
@@ -75,13 +76,7 @@ export function TreeView({
   ...rest
 }) {
   const nodes = items;
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-tree-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-tree-styles";
-    el.textContent = TREE_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-tree-styles", TREE_CSS);
 
   const [expInternal, setExpInternal] = React.useState(() => new Set(defaultExpanded));
   const expanded = expandedProp !== undefined ? new Set(expandedProp) : expInternal;
@@ -145,6 +140,7 @@ export function TreeView({
 
   return (
     <div className={`twc-tree ${className}`} role="tree" onKeyDown={onKeyDown} {...rest}>
+      {__twcStyles}
       <ul className="twc-tree__group" role="none">
         {nodes.map((n) => (
           <Node key={n.id} node={n} depth={0} expanded={expanded} selectedId={selectedId} tabbableId={tabbableId}

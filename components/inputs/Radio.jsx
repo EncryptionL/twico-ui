@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 export function Radio({
   label,
@@ -17,11 +18,7 @@ export function Radio({
   onChange,
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-radio-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-radio-styles";
-    el.textContent = `
+  const __twcStyles = useScopedStyles("twc-radio-styles", `
 .twc-radio { display: inline-flex; align-items: flex-start; gap: var(--space-2-5); cursor: pointer; font-family: var(--font-sans); }
 /* tone → accent set (default primary). Mirrors Button's --_accent model; Badge's tone vocabulary. */
 .twc-radio { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); --_accent-border: var(--color-primary-border); }
@@ -58,9 +55,7 @@ export function Radio({
 .twc-radio__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
-`;
-    document.head.appendChild(el);
-  }, []);
+`);
 
   const autoId = React.useId();
   const fieldId = id || autoId;
@@ -71,6 +66,7 @@ export function Radio({
 
   const control = (
     <label className={`twc-radio ${className}`} data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined} htmlFor={fieldId}>
+      {__twcStyles}
       <input
         id={fieldId}
         type="radio"

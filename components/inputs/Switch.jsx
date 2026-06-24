@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 export function Switch({
   label,
@@ -15,11 +16,7 @@ export function Switch({
   onChange,
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-switch-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-switch-styles";
-    el.textContent = `
+  const __twcStyles = useScopedStyles("twc-switch-styles", `
 /* tone → accent set (default primary). Mirrors Button's --_accent model; Badge's tone vocabulary. */
 .twc-switch { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); --_accent-border: var(--color-primary-border); }
 .twc-switch[data-tone="success"] { --_accent: var(--color-success); --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); --_accent-border: var(--color-success); }
@@ -55,9 +52,7 @@ export function Switch({
 .twc-switch__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
-`;
-    document.head.appendChild(el);
-  }, []);
+`);
 
   const autoId = React.useId();
   const fieldId = id || autoId;
@@ -68,6 +63,7 @@ export function Switch({
 
   const control = (
     <label className={`twc-switch ${className}`} data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined} htmlFor={fieldId}>
+      {__twcStyles}
       <input
         id={fieldId}
         type="checkbox"

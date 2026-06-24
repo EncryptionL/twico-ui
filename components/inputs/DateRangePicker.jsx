@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 import { createPortal } from "react-dom";
 
 const FIELD_CSS = `
@@ -92,19 +93,8 @@ export function DateRangePicker({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (!document.getElementById("twc-field-styles")) {
-      const fel = document.createElement("style");
-      fel.id = "twc-field-styles";
-      fel.textContent = FIELD_CSS;
-      document.head.appendChild(fel);
-    }
-    if (document.getElementById("twc-drp-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-drp-styles";
-    el.textContent = RANGE_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles0 = useScopedStyles("twc-field-styles", FIELD_CSS);
+  const __twcStyles1 = useScopedStyles("twc-drp-styles", RANGE_CSS);
 
   const [internal, setInternal] = React.useState(defaultValue);
   const range = value !== undefined ? value : internal;
@@ -202,6 +192,8 @@ export function DateRangePicker({
 
   return (
     <div className={`twc-drp twc-field ${className}`} ref={wrapRef} {...rest}>
+      {__twcStyles0}
+      {__twcStyles1}
       {label ? (
         <span className="twc-field__label" id={labelId}>
           {label}{required ? <span className="twc-field__req">*</span> : null}

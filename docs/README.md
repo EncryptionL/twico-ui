@@ -12,6 +12,7 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 | Doc | What it covers |
 | --- | --- |
 | [architecture.md](./architecture.md) | Repo structure, the three parts (package / design system / docs site), build pipeline, component model. |
+| [ssr-styles.md](./ssr-styles.md) | The `useScopedStyles` helper — how components render scoped CSS into the SSR output (no FOUC) on React 19, with a React 18 fallback. |
 | [development.md](./development.md) | Local setup, commands, adding or changing a component, conventions. |
 | [releases.md](./releases.md) | Automated semantic-versioning, Conventional Commits, `dev → main` flow, version sync, npm publishing. |
 | [security.md](./security.md) | Security standards: URL sanitization, the no-CDN rule, dependency auditing, CodeQL, Dependabot. |

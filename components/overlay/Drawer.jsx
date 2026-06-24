@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 import { createPortal } from "react-dom";
 
 const DRAWER_CSS = `
@@ -76,13 +77,7 @@ export function Drawer({
   const descId = `${autoId}-desc`;
   const panelRef = React.useRef(null);
 
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-drawer-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-drawer-styles";
-    el.textContent = DRAWER_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-drawer-styles", DRAWER_CSS);
 
   // Stay mounted through the slide-out animation so closing is smooth, then unmount.
   const [mounted, setMounted] = React.useState(open);
@@ -158,6 +153,7 @@ export function Drawer({
 
   const overlay = (
     <div className="twc-drawer__overlay" data-state={state} onMouseDown={(e) => { if (closeOnBackdrop && e.target === e.currentTarget) onClose?.(); }}>
+      {__twcStyles}
       <div ref={panelRef} className={`twc-drawer ${className}`} data-side={side} data-state={state} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-label={!title ? "Drawer" : undefined} aria-describedby={description ? descId : undefined} style={{ ...(dim ? sizeVar : null), ...style }} {...rest}>
         {(title || description || onClose) ? (
           <div className="twc-drawer__header">

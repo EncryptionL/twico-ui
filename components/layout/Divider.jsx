@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const DIVIDER_CSS = `
 .twc-divider { border: none; background: var(--color-divider); }
@@ -23,13 +24,7 @@ export function Divider({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-divider-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-divider-styles";
-    el.textContent = DIVIDER_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-divider-styles", DIVIDER_CSS);
 
   // Canonicalize to the logical values the CSS targets (data-align="start"/"end"),
   // accepting physical aliases too: left -> start, right -> end.
@@ -38,18 +33,22 @@ export function Divider({
   if (children) {
     return (
       <div className={`twc-divider-label ${className}`} data-align={resolvedAlign} role="separator" {...rest}>
+        {__twcStyles}
         {children}
       </div>
     );
   }
   return (
-    <hr
-      className={`twc-divider ${className}`}
-      data-orientation={orientation}
-      data-inset={inset || undefined}
-      role="separator"
-      aria-orientation={orientation}
-      {...rest}
-    />
+    <>
+      {__twcStyles}
+      <hr
+        className={`twc-divider ${className}`}
+        data-orientation={orientation}
+        data-inset={inset || undefined}
+        role="separator"
+        aria-orientation={orientation}
+        {...rest}
+      />
+    </>
   );
 }

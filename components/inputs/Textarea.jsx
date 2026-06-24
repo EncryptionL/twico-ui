@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 export function Textarea({
   label,
@@ -13,11 +14,7 @@ export function Textarea({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-textarea-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-textarea-styles";
-    el.textContent = `
+  const __twcStyles = useScopedStyles("twc-textarea-styles", `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
@@ -46,9 +43,7 @@ export function Textarea({
 .twc-textarea__el:focus { border-color: var(--_accent); box-shadow: var(--_ring); }
 .twc-textarea__el[aria-invalid="true"] { border-color: var(--color-danger); }
 .twc-textarea__el:disabled { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
-`;
-    document.head.appendChild(el);
-  }, []);
+`);
 
   const autoId = React.useId();
   const fieldId = id || autoId;
@@ -57,6 +52,7 @@ export function Textarea({
 
   return (
     <div className={`twc-field ${className}`}>
+      {__twcStyles}
       {label ? (
         <label className="twc-field__label" htmlFor={fieldId}>
           {label}{required ? <span className="twc-field__req">*</span> : null}

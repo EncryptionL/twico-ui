@@ -1,4 +1,5 @@
 import React from "react";
+import { useScopedStyles } from "../_styles.js";
 
 const CHART_CSS = `
 .twc-chart { font-family: var(--font-sans); width: 100%; }
@@ -32,13 +33,7 @@ export function Chart({
   className = "",
   ...rest
 }) {
-  React.useInsertionEffect(() => {
-    if (document.getElementById("twc-chart-styles")) return;
-    const el = document.createElement("style");
-    el.id = "twc-chart-styles";
-    el.textContent = CHART_CSS;
-    document.head.appendChild(el);
-  }, []);
+  const __twcStyles = useScopedStyles("twc-chart-styles", CHART_CSS);
 
   const keys = series || ["value"];
   const palette = colors && colors.length ? colors : SERIES_COLORS;
@@ -53,6 +48,7 @@ export function Chart({
 
   return (
     <div className={`twc-chart ${className}`} {...rest}>
+      {__twcStyles}
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} preserveAspectRatio="none">
         {showGrid ? Array.from({ length: ticks + 1 }).map((_, i) => {
           const gy = padT + (innerH / ticks) * i;
