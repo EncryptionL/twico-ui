@@ -117,6 +117,19 @@
     root.appendChild(menu);
     root.appendChild(btn);
     document.body.appendChild(root);
+
+    // Version switching is a docs aid — hide it on the marketing landing route, and
+    // re-evaluate on hash navigation (this is a HashRouter SPA).
+    function isHomeRoute() {
+      var h = location.hash;
+      return h === "" || h === "#" || h === "#/";
+    }
+    function updateVisibility() {
+      root.style.display = isHomeRoute() ? "none" : "";
+      if (isHomeRoute()) close();
+    }
+    updateVisibility();
+    window.addEventListener("hashchange", updateVisibility);
   }
 
   function init() {

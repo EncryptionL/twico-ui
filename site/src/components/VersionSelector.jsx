@@ -4,32 +4,45 @@ import { ChevronDownIcon, CheckIcon } from "twico-ui/icons";
 
 // Docs version switcher (navbar). Lets visitors read the docs for an older release.
 //
-// How it knows "which version am I?": each deploy is built with a distinct Vite `base`
-// — the live site is "/twico-ui/", a frozen snapshot is "/twico-ui/v1.1/", etc. — so
-// import.meta.env.BASE_URL tells us the current version without any server state.
+// The current version is read from the URL PATH (not the build-time base), so the label
+// always matches the version you're viewing and stays consistent with the standalone
+// switcher injected into archived snapshots. Options come from /versions.json. Picking a
+// version is a full navigation to that version's base, preserving the in-page hash route.
 //
-// The option list comes from /versions.json (fetched relative to BASE_URL so it resolves
-// on every snapshot). Picking another version is a full navigation to that version's base,
-// preserving the in-page hash route so e.g. /#/components/button stays put across versions
-// (a route that doesn't exist in the target version just falls back to its home).
-const CURRENT_BASE = import.meta.env.BASE_URL || "/";
+// IMPORTANT: version-specific *content* only exists on the DEPLOYED site, where each
+// version is a separate build served under its own path (/twico-ui/v1.1/, …, built from
+// that release's git tag). A local `npm run dev` / `npm run preview` is a SINGLE (latest)
+// build, so locally every path shows the latest content — the per-version difference
+// (e.g. AppShell missing from v1.0) only appears once deployed by deploy-docs.yml.
+const PATH = typeof window !== "undefined" ? window.location.pathname : import.meta.env.BASE_URL || "/";
+const strip = (s) => String(s).replace(/\/+$/, "");
 
-function labelForBase(base) {
-  const m = String(base).match(/\/v(\d+(?:\.\d+)?)\/?$/);
+function labelForPath(path) {
+  const m = String(path).match(/\/v(\d+(?:\.\d+)?)(?:\/|$)/);
   return m ? `v${m[1]}` : "Latest";
 }
 
-// Used before versions.json loads, and as a fallback if it can't be fetched.
-const FALLBACK_ITEMS = [{ label: labelForBase(CURRENT_BASE), base: CURRENT_BASE, latest: CURRENT_BASE === "/twico-ui/" }];
+// Longest base that prefixes the current path wins (so "/twico-ui/v1.1/" beats "/twico-ui/").
+function findCurrent(items, path) {
+  const p = strip(path);
+  let best = null;
+  for (const it of items) {
+    const b = strip(it.base);
+    if ((p === b || p.startsWith(b + "/")) && (!best || b.length > strip(best.base).length)) best = it;
+  }
+  return best;
+}
 
-const sameBase = (a, b) => a.replace(/\/+$/, "") === b.replace(/\/+$/, "");
+// Before /versions.json loads, show just the current version (derived from the path).
+const FALLBACK_ITEMS = [{ label: labelForPath(PATH), base: strip(PATH) + "/", latest: !/\/v\d/.test(PATH) }];
 
 export default function VersionSelector() {
   const [items, setItems] = React.useState(FALLBACK_ITEMS);
 
   React.useEffect(() => {
     let alive = true;
-    fetch(`${CURRENT_BASE}versions.json`, { cache: "no-cache" })
+    // versions.json is published at the Pages root; fetch it relative to the build base.
+    fetch(`${import.meta.env.BASE_URL || "/"}versions.json`, { cache: "no-cache" })
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (alive && data && Array.isArray(data.items) && data.items.length) setItems(data.items);
@@ -38,11 +51,12 @@ export default function VersionSelector() {
     return () => { alive = false; };
   }, []);
 
-  const current = items.find((it) => sameBase(it.base, CURRENT_BASE)) || items[0];
-  const currentLabel = current ? current.label : labelForBase(CURRENT_BASE);
+  const current = findCurrent(items, PATH);
+  const currentLabel = current ? current.label : labelForPath(PATH);
+  const isCurrent = (it) => current && strip(it.base) === strip(current.base);
 
   const go = (item) => {
-    if (sameBase(item.base, CURRENT_BASE)) return;
+    if (isCurrent(item)) return;
     // Preserve the hash route (HashRouter) so the same page opens in the chosen version.
     window.location.href = item.base + window.location.hash;
   };
@@ -51,7 +65,7 @@ export default function VersionSelector() {
     { label: "Documentation version", heading: true },
     ...items.map((it) => ({
       label: it.label + (it.latest ? "  ·  latest" : ""),
-      icon: sameBase(it.base, CURRENT_BASE) ? <CheckIcon size={15} /> : <span style={{ width: 15, display: "inline-block" }} />,
+      icon: isCurrent(it) ? <CheckIcon size={15} /> : <span style={{ width: 15, display: "inline-block" }} />,
       onClick: () => go(it),
     })),
   ];
