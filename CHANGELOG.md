@@ -2,6 +2,14 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.0.1](https://github.com/EncryptionL/twico-ui/compare/v1.0.0...v1.0.1) (2026-06-24)
+
+
+### Bug Fixes
+
+* **examples:** render reports content in a Client Component ([e0d9c12](https://github.com/EncryptionL/twico-ui/commit/e0d9c12ca7d22efbbfeb58a253daa7dc5884b111))
+* **ssr:** render scoped component styles into the SSR output (no FOUC) ([0fce412](https://github.com/EncryptionL/twico-ui/commit/0fce4125b59590f0570926e77b70dbe0cb69f1bf))
+
 # [1.0.0](https://github.com/EncryptionL/twico-ui/compare/v0.1.0...v1.0.0) (2026-06-19)
 
 
