@@ -1,7 +1,7 @@
 import { Card, Stat, Chart, Timeline, Grid, Heading, Text, Tag, Badge, Stack, Box } from "twico-ui";
 import { requirePermission } from "@/lib/auth";
 import { permissionsFor, ROLE_LABEL, ROLE_DESCRIPTION, ROLE_TONE } from "@/lib/rbac";
-import { ReportsIcon, TeamIcon, PlusIcon, BellIcon } from "@/components/icons";
+import { ChartColumnIcon, UsersIcon, PlusIcon, BellIcon } from "twico-ui/icons";
 
 const GROWTH = [
   { label: "Jan", signups: 120, activations: 80 },
@@ -34,10 +34,10 @@ export default async function OverviewPage() {
       </Box>
 
       <Grid minChildWidth={210} gap={4}>
-        <Stat label="Revenue" value="$48,250" delta="+12.5%" deltaDirection="up" helpText="vs last month" icon={<ReportsIcon />} />
-        <Stat label="Active users" value="2,318" delta="+4.1%" deltaDirection="up" helpText="vs last month" icon={<TeamIcon />} />
-        <Stat label="New signups" value="198" delta="+9.2%" deltaDirection="up" helpText="this month" icon={<PlusIcon />} />
-        <Stat label="Churn" value="1.4%" delta="-0.3%" deltaDirection="down" helpText="vs last month" icon={<BellIcon />} />
+        <Stat label="Revenue" value="$48,250" delta="+12.5%" deltaDirection="up" helpText="vs last month" icon={<ChartColumnIcon size={18} />} />
+        <Stat label="Active users" value="2,318" delta="+4.1%" deltaDirection="up" helpText="vs last month" icon={<UsersIcon size={18} />} />
+        <Stat label="New signups" value="198" delta="+9.2%" deltaDirection="up" helpText="this month" icon={<PlusIcon size={18} />} />
+        <Stat label="Churn" value="1.4%" delta="-0.3%" deltaDirection="down" helpText="vs last month" icon={<BellIcon size={18} />} />
       </Grid>
 
       <Grid minChildWidth={320} gap="var(--space-5)">

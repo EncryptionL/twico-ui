@@ -16,7 +16,7 @@ import {
 } from "twico-ui";
 import { ROLES, ROLE_LABEL, ROLE_DESCRIPTION, ROLE_TONE, type Role } from "@/lib/rbac";
 import type { User } from "@/lib/types";
-import { PlusIcon } from "@/components/icons";
+import { PlusIcon } from "twico-ui/icons";
 
 const STATUS_TONE: Record<User["status"], "success" | "info" | "danger"> = {
   active: "success",
@@ -126,7 +126,7 @@ export function UsersTable({
     <Stack direction="column" gap="var(--space-3)">
       {canManage ? (
         <Stack direction="row" justify="flex-end">
-          <Button leftIcon={<PlusIcon />} onClick={() => setInviteOpen(true)}>
+          <Button leftIcon={<PlusIcon size={18} />} onClick={() => setInviteOpen(true)}>
             Invite user
           </Button>
         </Stack>

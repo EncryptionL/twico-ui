@@ -14,7 +14,8 @@ import {
   useColorScheme,
   useMounted,
 } from "twico-ui";
-import { Logo, NAV_ICONS, SunIcon, MoonIcon, MenuIcon, BellIcon } from "./icons";
+import { Logo, NAV_ICONS } from "./icons";
+import { SunIcon, MoonIcon, MenuIcon, BellIcon } from "twico-ui/icons";
 import { logout } from "@/lib/auth-actions";
 import { ROLE_LABEL, ROLE_TONE } from "@/lib/rbac";
 import type { IconKey } from "@/lib/nav";
@@ -76,7 +77,7 @@ export function DashboardShell({
               <IconButton
                 aria-label="Toggle sidebar"
                 variant="ghost"
-                icon={<MenuIcon />}
+                icon={<MenuIcon size={18} />}
                 onClick={() => setCollapsed((c) => !c)}
               />
             </Tooltip>
@@ -90,12 +91,12 @@ export function DashboardShell({
               <IconButton
                 aria-label="Toggle theme"
                 variant="ghost"
-                icon={mounted && isDark ? <SunIcon /> : <MoonIcon />}
+                icon={mounted && isDark ? <SunIcon size={18} /> : <MoonIcon size={18} />}
                 onClick={toggle}
               />
             </Tooltip>
             <Tooltip label="Notifications" placement="bottom">
-              <IconButton aria-label="Notifications" variant="ghost" icon={<BellIcon />} />
+              <IconButton aria-label="Notifications" variant="ghost" icon={<BellIcon size={18} />} />
             </Tooltip>
             <AvatarMenu
               name={user.name}

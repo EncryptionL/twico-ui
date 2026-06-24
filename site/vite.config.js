@@ -24,7 +24,7 @@ export default defineConfig({
             return "vendor";
           }
           if (n.includes("/site/src/data/components.js")) return "doc-data";
-          if (!n.includes("/site/") && (/\/(components|hooks)\//.test(n) || /\/src\/(index|colors)\.ts/.test(n))) return "twico-ui";
+          if (!n.includes("/site/") && (/\/(components|hooks)\//.test(n) || /\/src\/(index|colors|icons)\.ts/.test(n))) return "twico-ui";
         },
       },
     },
@@ -45,6 +45,7 @@ export default defineConfig({
     // package alias (order matters). `twico-ui/colors` dogfoods the real export.
     alias: [
       { find: "twico-ui/colors", replacement: fileURLToPath(new URL("../src/colors.ts", import.meta.url)) },
+      { find: "twico-ui/icons", replacement: fileURLToPath(new URL("../src/icons.ts", import.meta.url)) },
       { find: "twico-ui", replacement: fileURLToPath(new URL("../src/index.ts", import.meta.url)) },
     ],
   },

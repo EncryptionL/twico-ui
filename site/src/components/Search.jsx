@@ -4,13 +4,7 @@ import { CommandPalette, Button, IconButton, useDisclosure, useEventListener, us
 import { components } from "../data/components.js";
 import { VARIATIONS } from "../data/variations.js";
 import { slugify } from "../data/site.js";
-
-const SearchIcon = (
-  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="11" cy="11" r="7" />
-    <path d="m21 21-4.3-4.3" />
-  </svg>
-);
+import { SearchIcon } from "twico-ui/icons";
 
 const DOC_CMDS = [
   { group: "Getting started", label: "Installation", keywords: "install setup npm yarn pnpm vite cra next.js getting started", to: "/docs/installation" },
@@ -70,12 +64,12 @@ export default function Search() {
   return (
     <>
       {isMobile ? (
-        <IconButton variant="ghost" aria-label="Search" icon={SearchIcon} onClick={onOpen} />
+        <IconButton variant="ghost" aria-label="Search" icon={<SearchIcon size={16} />} onClick={onOpen} />
       ) : (
         <Button
           variant="outline"
           size="sm"
-          leftIcon={SearchIcon}
+          leftIcon={<SearchIcon size={16} />}
           onClick={onOpen}
           aria-label="Search (Ctrl or Cmd + K)"
           style={{ minWidth: 188, justifyContent: "flex-start", color: "var(--color-text-muted)", fontWeight: "var(--font-medium)" }}
