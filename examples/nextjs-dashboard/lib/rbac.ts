@@ -3,7 +3,7 @@
 //
 // Roles map to a fixed set of permissions. Authorization is always a check of
 // "does this role have this permission?" via `can()`. This is the single source
-// of truth used by the middleware, the per-page `requirePermission` guards, and
+// of truth used by the proxy, the per-page `requirePermission` guards, and
 // the UI (to gate nav items and actions).
 // ---------------------------------------------------------------------------
 

@@ -6,7 +6,7 @@ installs `twico-ui` from npm and shows it used in a realistic application — no
 
 | Example | Stack | What it shows |
 | --- | --- | --- |
-| [`nextjs-dashboard/`](./nextjs-dashboard) | Next.js 15 (App Router) · React 19 · TypeScript | A full admin dashboard using Twico UI across every area (layout, data display, inputs, overlays, feedback), with **authentication** (signed-cookie session) and **authorization** (role-based access control) enforced server-side. |
+| [`nextjs-dashboard/`](./nextjs-dashboard) | Next.js 16 (App Router) · React 19 · TypeScript | A full admin dashboard using Twico UI across every area (layout, data display, inputs, overlays, feedback), with **authentication** (signed-cookie session) and **authorization** (role-based access control) enforced server-side. |
 
 _More examples will live here over time (e.g. a marketing site, an e‑commerce storefront, a
 settings/account app)._

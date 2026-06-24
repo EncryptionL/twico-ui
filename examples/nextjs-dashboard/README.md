@@ -1,7 +1,7 @@
 # Twico UI — Next.js dashboard (auth + RBAC)
 
 An admin dashboard built with **[Twico UI](https://www.npmjs.com/package/twico-ui)** on
-**Next.js 15 (App Router)** + **React 19** + **TypeScript**. It shows the library used across a real
+**Next.js 16 (App Router)** + **React 19** + **TypeScript**. It shows the library used across a real
 app — layout, data display, inputs, overlays, and feedback — together with **authentication** and
 **role-based authorization** enforced on the server.
 
@@ -43,15 +43,16 @@ permissions change.
 - Sign-in is a **Server Action** ([`lib/auth-actions.ts`](lib/auth-actions.ts)) that verifies
   credentials and issues a **signed JWT** ([`jose`](https://github.com/panva/jose)) stored in an
   **httpOnly cookie** ([`lib/session.ts`](lib/session.ts)).
-- **Edge middleware** ([`middleware.ts`](middleware.ts)) verifies the session on every
-  `/dashboard/*` request and bounces anonymous users to `/login` (with a `next` return path).
+- **Edge proxy** ([`proxy.ts`](proxy.ts) — Next.js 16's renamed middleware convention) verifies the
+  session on every `/dashboard/*` request and bounces anonymous users to `/login` (with a `next`
+  return path).
 
 **Authorization (authz) — RBAC** — *what you may do*:
 
 - One source of truth ([`lib/rbac.ts`](lib/rbac.ts)): `Role`s map to `Permission`s, checked by
   `can(role, permission)`.
 - Enforced in **three** layers, defense-in-depth:
-  1. **Middleware** — coarse gate (must be signed in).
+  1. **Proxy (Edge)** — coarse gate (must be signed in).
   2. **Per-page guard** — every protected page calls `requirePermission(...)`
      ([`lib/auth.ts`](lib/auth.ts)) and redirects to `/forbidden` if the role lacks it. *This is the
      security boundary.*
@@ -93,7 +94,7 @@ app/
     profile/page.tsx      profile form            (profile:edit)
 components/               DashboardShell, LoginForm, UsersTable, SettingsForm, ProfileForm, icons …
 lib/                      rbac · session · auth · auth-actions · users · nav · types
-middleware.ts            edge session gate
+proxy.ts                 edge session gate (Next 16 middleware)
 ```
 
 ## Notes & going to production

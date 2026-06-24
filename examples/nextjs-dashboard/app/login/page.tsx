@@ -3,7 +3,7 @@ import { Logo } from "@/components/icons";
 import { LoginForm } from "@/components/LoginForm";
 
 // Public route. `next` is the path to return to after a successful sign-in
-// (set by the middleware when it bounces an unauthenticated request).
+// (set by the proxy when it bounces an unauthenticated request).
 export default async function LoginPage({
   searchParams,
 }: {

@@ -5,7 +5,7 @@ import type { SessionUser } from "./types";
 // ---------------------------------------------------------------------------
 // Session token (signed JWT in an httpOnly cookie).
 //
-// `jose` is Edge-runtime compatible, so the same verify runs in middleware
+// `jose` is Edge-runtime compatible, so the same verify runs in the proxy
 // (Edge) and in Server Components (Node). The secret comes from AUTH_SECRET,
 // with a DEV-ONLY fallback so `npm run dev` works with zero setup.
 // ---------------------------------------------------------------------------

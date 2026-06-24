@@ -26,11 +26,11 @@ own `npm run build` / `npm run typecheck`.
 
 ## Current examples
 
-- **[`nextjs-dashboard/`](../examples/nextjs-dashboard)** — Next.js 15 (App Router) + React 19 +
+- **[`nextjs-dashboard/`](../examples/nextjs-dashboard)** — Next.js 16 (App Router) + React 19 +
   TypeScript admin dashboard. Uses Twico UI across every area (layout, data display, inputs,
   overlays, feedback, theming) and implements **authentication** (signed-cookie JWT session via
-  `jose` + Edge middleware) and **authorization** (RBAC: `Role` → `Permission` via `can()`, enforced
-  in middleware + per-page `requirePermission` + UI gating). Three demo roles (admin/manager/member).
+  `jose` + an Edge proxy) and **authorization** (RBAC: `Role` → `Permission` via `can()`, enforced
+  in the Edge proxy + per-page `requirePermission` + UI gating). Three demo roles (admin/manager/member).
   See its [README](../examples/nextjs-dashboard/README.md).
 
 ## Adding an example
