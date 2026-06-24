@@ -62,7 +62,7 @@ export function DashboardShell({
   const current = items.find((item) => isActive(item.href));
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", background: "var(--color-bg)" }}>
+    <div style={{ display: "flex", height: "100dvh", overflow: "hidden", background: "var(--color-bg)" }}>
       <Sidebar
         brand={<Logo showText={!collapsed} />}
         items={sidebarItems}
@@ -70,7 +70,7 @@ export function DashboardShell({
         onCollapsedChange={setCollapsed}
       />
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0, height: "100%" }}>
         <header
           style={{
             position: "sticky",
@@ -87,7 +87,7 @@ export function DashboardShell({
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", minWidth: 0 }}>
-            <Tooltip label={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
+            <Tooltip label={collapsed ? "Expand sidebar" : "Collapse sidebar"} placement="bottom">
               <IconButton
                 aria-label="Toggle sidebar"
                 variant="ghost"
@@ -101,7 +101,7 @@ export function DashboardShell({
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
-            <Tooltip label={isDark ? "Light mode" : "Dark mode"}>
+            <Tooltip label={isDark ? "Light mode" : "Dark mode"} placement="bottom">
               <IconButton
                 aria-label="Toggle theme"
                 variant="ghost"
@@ -109,7 +109,7 @@ export function DashboardShell({
                 onClick={toggle}
               />
             </Tooltip>
-            <Tooltip label="Notifications">
+            <Tooltip label="Notifications" placement="bottom">
               <IconButton aria-label="Notifications" variant="ghost" icon={<BellIcon />} />
             </Tooltip>
             <AvatarMenu
