@@ -39,8 +39,10 @@ const SIDEBAR_CSS = `
 .twc-sidebar__badge { flex: none; font-size: 11px; font-weight: var(--font-bold); padding: 1px 7px; border-radius: var(--radius-full); background: var(--color-primary); color: var(--color-primary-fg); opacity: 1; visibility: visible;
   transition: opacity var(--duration-fast) var(--ease-standard) var(--duration-fast), visibility 0s; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__badge { opacity: 0; visibility: hidden; transition: opacity var(--duration-instant) var(--ease-standard), visibility 0s var(--duration-instant); }
-/* Collapsed: pad the head so the brand mark lines up with the nav icon column (23px). */
-.twc-sidebar[data-collapsed="true"] .twc-sidebar__head { padding: 0 calc(var(--space-3) + 11px); }
+/* Collapsed: centre the brand mark in the 68px rail (≈ the nav icon column) with no
+   right padding, so a mark wider than the icons isn't clipped. flex-start (not
+   justify-content) keeps it from jolting to centre while the rail is still wide. */
+.twc-sidebar[data-collapsed="true"] .twc-sidebar__head { padding-inline: 18px 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__brand, .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot-user { font-size: 0; gap: 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot-user { justify-content: center; }
 .twc-sidebar__brand > :not(:first-child) { visibility: visible; transition: opacity var(--duration-fast) var(--ease-standard) var(--duration-fast), visibility 0s; }
