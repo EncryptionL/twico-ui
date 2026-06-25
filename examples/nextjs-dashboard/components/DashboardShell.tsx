@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   AppShell,
@@ -63,7 +64,15 @@ export function DashboardShell({
     <AppShell
       sidebar={
         <Sidebar
-          brand={<Logo showText={!collapsed} />}
+          brand={
+            <Link
+              href="/dashboard"
+              aria-label="Go to dashboard home"
+              style={{ display: "inline-flex", alignItems: "center", textDecoration: "none", color: "inherit", minWidth: 0 }}
+            >
+              <Logo showText={!collapsed} />
+            </Link>
+          }
           items={sidebarItems}
           collapsed={collapsed}
           onCollapsedChange={setCollapsed}
