@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.3.2](https://github.com/EncryptionL/twico-ui/compare/v1.3.1...v1.3.2) (2026-06-25)
+
+
+### Bug Fixes
+
+* **sidebar:** don't clip a wide brand mark in the collapsed rail ([6c019ac](https://github.com/EncryptionL/twico-ui/commit/6c019aceabba14ee1856ddbb88566096dd7f8d94))
+
 ## [1.3.1](https://github.com/EncryptionL/twico-ui/compare/v1.3.0...v1.3.1) (2026-06-25)
 
 
