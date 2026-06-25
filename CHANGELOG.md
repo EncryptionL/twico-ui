@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.3.1](https://github.com/EncryptionL/twico-ui/compare/v1.3.0...v1.3.1) (2026-06-25)
+
+
+### Bug Fixes
+
+* **sidebar:** smoother collapse/expand animation ([f92bbc8](https://github.com/EncryptionL/twico-ui/commit/f92bbc8ad818fef5e3bec030c26863df49d8bdda))
+
 # [1.3.0](https://github.com/EncryptionL/twico-ui/compare/v1.2.0...v1.3.0) (2026-06-24)
 
 
