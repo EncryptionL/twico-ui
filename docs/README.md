@@ -25,6 +25,7 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 | [datatable.md](./datatable.md) | Datatable advanced features — opt-in row virtualization, keyboard row reorder, and ARIA menu semantics. |
 | [ai-guide.md](./ai-guide.md) | `llms.txt` — the generated AI usage guide for consumers; how it's built from the component/hook API, where it ships, and the drift guard. |
 | [examples.md](./examples.md) | The `examples/` apps (e.g. the Next.js auth + RBAC dashboard) — how they consume the npm package and why they're isolated from the library build/tarball. |
+| [design-sync.md](./design-sync.md) | Publishing the library to claude.ai/design — the `design-sync.config.json` + `.design-sync/` inputs, the converter, the preview verify loop, and how to re-sync. |
 | [documentation.md](./documentation.md) | The "document everything in `/docs`" policy — what, where, when. |
 | [design-suggestions.md](./design-suggestions.md) | Reviewed-but-not-yet-implemented proposals (component API, visual, site, infra) to pick up later. |
 | [qa-notes/](./qa-notes/) | Per-component QA review notes plus the pre-publish audit ([publish-audit.md](./qa-notes/publish-audit.md)) and the copy-paste example-snippet audit ([examples-audit.md](./qa-notes/examples-audit.md)). |
