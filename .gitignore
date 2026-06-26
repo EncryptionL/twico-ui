@@ -13,3 +13,10 @@ site/test-results/
 site/playwright-report/
 site/blob-report/
 coverage/
+
+# claude.ai/design sync (design-sync skill) — generated bundle + staged converter.
+# The committed inputs are design-sync.config.json + .design-sync/. See docs/design-sync.md.
+/ds-bundle/
+/package-build.mjs
+/package-validate.mjs
+/lib/
