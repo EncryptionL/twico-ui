@@ -82,6 +82,7 @@
     "gen:llms:check": "node scripts/gen-llms.mjs --check",
     "typecheck": "tsc --noEmit",
     "check:exports": "attw --pack . --profile node16 --exclude-entrypoints styles.css",
+    "check:ds-bundle": "node scripts/check-ds-bundle.mjs",
     "test": "vitest",
     "test:run": "vitest run",
     "size": "size-limit",

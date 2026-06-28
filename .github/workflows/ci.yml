@@ -86,3 +86,23 @@ jobs:
 
       - name: Verify package contents
         run: npm pack --dry-run
+
+  ds-bundle:
+    name: Design-system bundle drift
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history — drift check compares against the bundle's last commit)
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      # Warn-only for now: the committed _ds_bundle.js is regenerated out-of-band by the
+      # `twico-ui-design` skill, so a stale bundle can't be auto-fixed in CI. Flip this to the
+      # blocking `npm run check:ds-bundle` once the bundle is regenerated (see issue #36).
+      - name: Guard - _ds_bundle.js not stale vs source (warn-only)
+        run: node scripts/check-ds-bundle.mjs --warn

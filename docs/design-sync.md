@@ -15,6 +15,31 @@ twico-ui-specific setup so a re-sync is reproducible.
 
 ---
 
+## The root skill bundle (`_ds_bundle.js`) and its drift guard
+
+The committed root `_ds_bundle.js` (+ `_ds_manifest.json` + `SKILL.md`) is the **`twico-ui-design`
+Claude Code skill** artifact — a `format:3` IIFE that assigns every export to
+`window.TwicoUiDesignSystem_<hash>`. It is **generated out-of-band by that skill's packaging** and
+committed manually; there is **no in-repo generator** for it (unlike `build:css` / `gen:llms`).
+
+Because nothing rebuilds it automatically, it **drifts** whenever `components/**` change without a
+manual skill re-run — e.g. consumers loading the bundle miss new props/behaviour shipped in a release.
+
+**Drift guard.** `npm run check:ds-bundle` (`scripts/check-ds-bundle.mjs`) reads the bundle's own
+`@ds-bundle` header (its declared input files) and fails if any of them changed in git **after** the
+bundle's last commit. It is a *staleness* check, not a content-equivalence check (the skill's
+converter and source-hash algorithm are external/opaque, so we can't reproduce the bundle locally).
+
+- **CI** runs it in a dedicated `Design-system bundle drift` job, currently **warn-only**
+  (`--warn` → a `::warning::` annotation, non-blocking) because a stale bundle can only be fixed by
+  re-running the skill. Once the bundle is regenerated, flip the CI step to the blocking
+  `npm run check:ds-bundle`.
+- **To clear drift:** regenerate the bundle via the `twico-ui-design` skill packaging, then commit the
+  refreshed `_ds_bundle.js` + `_ds_manifest.json` in the same commit as the component change (so the
+  guard sees them move together).
+
+---
+
 ## What gets produced
 
 The converter turns the built `dist/` (run `npm run build` first if stale — `dist/` is gitignored)
