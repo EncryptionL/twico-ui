@@ -63,6 +63,7 @@ npm test               # vitest (unit tests in tests/); test:run for CI
 npm run build:css      # regenerate styles/twico-ui.css from tokens (build:css:check guards drift)
 npm run verify:palette # assert palette.html's baked hexes match tokens/colors.css (CI guard)
 npm run gen:llms       # regenerate llms.txt AI guide (gen:llms:check guards drift); docs/ai-guide.md
+npm run check:ds-bundle # guard: root _ds_bundle.js (twico-ui-design skill artifact) not stale vs source; docs/design-sync.md
 npm run size           # size-limit budget check
 npm pack --dry-run     # preview the published tarball
 
