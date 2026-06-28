@@ -2,6 +2,18 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.4.0](https://github.com/EncryptionL/twico-ui/compare/v1.3.2...v1.4.0) (2026-06-28)
+
+
+### Bug Fixes
+
+* **security:** resolve all CodeQL code-scanning alerts ([1c90991](https://github.com/EncryptionL/twico-ui/commit/1c909910d5bd34d24c715192e95e2b345d0c9feb))
+
+
+### Features
+
+* **datatable:** opt-in toolbar tools, comfortable default density, column count ([d989963](https://github.com/EncryptionL/twico-ui/commit/d989963be436154e599d748203d0484c04619490))
+
 ## [1.3.2](https://github.com/EncryptionL/twico-ui/compare/v1.3.1...v1.3.2) (2026-06-25)
 
 
