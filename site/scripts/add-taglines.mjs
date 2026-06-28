@@ -2,7 +2,7 @@
 // The tagline is the short, scannable label shown on the components index and as
 // the lead on each component page (the full `summary` stays in the data).
 //   node scripts/add-taglines.mjs
-import { readFile, writeFile } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 

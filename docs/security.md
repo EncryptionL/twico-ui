@@ -12,8 +12,11 @@ doc is the engineering detail. `npm audit --omit=dev` must stay at **0**.
 - **URL sanitization.** Components that render consumer-supplied links (`Breadcrumb`, `Navbar`,
   `Sidebar`, `List`) run every `href` through a `safeHref` guard that strips `javascript:`/`data:`/
   `vbscript:` schemes (including whitespace/control-char obfuscation that browsers ignore) before it
-  reaches the DOM. **Any new component that renders a consumer `href`/`src` must do the same.** Still
-  document that callers treat URLs from untrusted data as a trust boundary.
+  reaches the DOM. `Avatar` applies the same idea to its image `src` via a `safeSrc` guard: it blocks
+  `javascript:`/`vbscript:` and any `data:` URL that is **not** `data:image/` (so `data:image/…`
+  previews and `blob:` stay allowed, but `data:text/html` and friends are rejected). **Any new
+  component that renders a consumer `href`/`src` must do the same.** Still document that callers treat
+  URLs from untrusted data as a trust boundary.
 - **No dangerous sinks.** No `dangerouslySetInnerHTML`, `innerHTML`, `eval`, `new Function`, or
   string-argument `setTimeout`/`setInterval` in shipped components.
 - **SSR-safe.** No `window`/`document`/`localStorage` at module or render scope; only in effects and
@@ -44,7 +47,12 @@ hit `403`/blocked-asset failures.
 ## Automated scanning
 
 - **CodeQL** (`.github/workflows/codeql.yml`) — `security-and-quality` queries on push/PR + weekly.
-  Requires code scanning (free for public repos; GitHub Advanced Security for private).
+  Requires code scanning (free for public repos; GitHub Advanced Security for private). Configured via
+  [`.github/codeql/codeql-config.yml`](../.github/codeql/codeql-config.yml), which **excludes generated
+  artifacts** (`_ds_bundle.js`, `src/brand-icons.tsx`) from analysis — those are produced by build
+  scripts and must never be hand-edited, so findings inside them are not actionable. The generators are
+  still scanned, so any real issue is caught at its source. Triage findings on the **Security ›
+  Code scanning** tab; fix at the source file (don't edit generated output).
 - **Dependabot** (`.github/dependabot.yml`) — weekly npm (root + `site/`) and github-actions updates,
   PRs targeting `dev`.
 

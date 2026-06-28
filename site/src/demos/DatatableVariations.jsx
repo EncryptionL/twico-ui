@@ -520,14 +520,16 @@ function DatatableAllProps() {
       disableColumnReorder={false}              // true locks column order
       disableColumnResize={false}               // true locks column widths
       /* ---- density / layout ---- */
-      density="standard"                        // "compact" | "standard" | "comfortable"
+      density="comfortable"                     // "compact" | "standard" | "comfortable" (default "comfortable")
+      showDensity                               // show the density toolbar button (off by default)
       height={420}                              // scroll-area max height in px
       /* ---- pagination ---- */
       pageSize={10}                             // 0 disables pagination
       pageSizeOptions={[5, 10, 25, 50]}
       showPageJumper                            // "Go to" jumper when > 5 pages
-      /* ---- aggregation / pivot ---- */
-      showAggregation                           // totals row on by default
+      /* ---- aggregation / pivot (toolbar buttons off by default) ---- */
+      showAggregation                           // show Aggregation button + start totals row on
+      showPivot                                 // show Pivot button (auto-shown when `pivot`/`pivotMode` set)
       pivot={{                                  // seeds the toolbar "Pivot" panel
         rows: ["department"], columns: ["role"],
         values: [{ field: "mrr", agg: "sum", label: "MRR", valueFormatter: (v) => usd(v) }],
@@ -537,8 +539,8 @@ function DatatableAllProps() {
       virtualized={false}                       // true windows large datasets
       overscan={8}                              // extra rows above/below the window
       rowHeight={44}                            // estimate for not-yet-measured rows
-      /* ---- export ---- */
-      showExport                                // Export split button (CSV + format menu)
+      /* ---- export (off by default) ---- */
+      showExport                                // show Export split button (CSV + format menu)
       exportFilename="members"                  // file name (no extension)
       /* ---- server mode (inert here — shown for completeness) ---- */
       serverMode={false}                        // true => onServerChange drives sort/filter/page
@@ -914,14 +916,16 @@ function ServerSideDemo() {
       disableColumnReorder={false}              // true locks column order
       disableColumnResize={false}               // true locks column widths
       /* ---- density / layout ---- */
-      density="standard"                        // "compact" | "standard" | "comfortable"
+      density="comfortable"                     // "compact" | "standard" | "comfortable" (default "comfortable")
+      showDensity                               // show the density toolbar button (off by default)
       height={420}                              // scroll-area max height in px
       /* ---- pagination ---- */
       pageSize={10}                             // 0 disables pagination
       pageSizeOptions={[5, 10, 25, 50]}
       showPageJumper                            // "Go to" jumper when > 5 pages
-      /* ---- aggregation / pivot ---- */
-      showAggregation                           // totals row on by default
+      /* ---- aggregation / pivot (toolbar buttons off by default) ---- */
+      showAggregation                           // show Aggregation button + start totals row on
+      showPivot                                 // show Pivot button (auto-shown when pivot/pivotMode set)
       pivot={{                                  // seeds the toolbar "Pivot" panel
         rows: ["department"], columns: ["role"],
         values: [{ field: "mrr", agg: "sum", label: "MRR", valueFormatter: usd }],
@@ -931,8 +935,8 @@ function ServerSideDemo() {
       virtualized={false}                       // true windows large datasets
       overscan={8}                              // extra rows above/below the window
       rowHeight={44}                            // estimate for not-yet-measured rows
-      /* ---- export ---- */
-      showExport                                // Export split button (CSV + format menu)
+      /* ---- export (off by default) ---- */
+      showExport                                // show Export split button (CSV + format menu)
       exportFilename="members"                  // file name (no extension)
       /* ---- server mode (inert here — shown for completeness) ---- */
       serverMode={false}                        // true => onServerChange drives sort/filter/page

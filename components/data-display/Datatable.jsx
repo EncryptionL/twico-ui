@@ -379,6 +379,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__sw[data-on="true"]::after { transform: translateX(14px); }
 .twc-dt__panel-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px 8px; }
 .twc-dt__panel-title { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
+.twc-dt__panel-count { font-weight: 600; color: var(--color-text-muted); text-transform: none; letter-spacing: 0; margin-inline-start: 6px; font-variant-numeric: tabular-nums; }
 .twc-dt__link { border: none; background: transparent; color: var(--color-primary); font-family: inherit; font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 4px; border-radius: var(--radius-sm); }
 .twc-dt__link:hover { background: var(--color-primary-subtle); }
 
@@ -768,9 +769,9 @@ function xlsxPackage(sheetXml) {
 
 export function Datatable({
   columns, rows, loading = false, rowKey, checkboxSelection = false,
-  density: densityProp = "standard", pageSize = 10, pageSizeOptions = [5, 10, 25, 50],
+  density: densityProp = "comfortable", pageSize = 10, pageSizeOptions = [5, 10, 25, 50],
   height = 440, serverMode = false, rowCount, onServerChange, batchActions = [],
-  showExport = true, exportFilename = "export", aggregationValues = null,
+  showExport = false, showDensity = false, showPivot = false, exportFilename = "export", aggregationValues = null,
   disableColumnReorder = false, disableColumnResize = false,
   editMode = false, onRowUpdate, onRowsChange, onBatchUpdate,
   showPageJumper = true,
@@ -1206,7 +1207,7 @@ export function Datatable({
     if (rowFocusRef.current == null) return;
     const key = rowFocusRef.current; rowFocusRef.current = null;
     const root = gridRef.current; if (!root) return;
-    const sel = (typeof CSS !== "undefined" && CSS.escape) ? CSS.escape(String(key)) : String(key).replace(/"/g, '\\"');
+    const sel = (typeof CSS !== "undefined" && CSS.escape) ? CSS.escape(String(key)) : String(key).replace(/[\\"]/g, '\\$&');
     const el = root.querySelector(`.twc-dt__row-handle[data-row-key="${sel}"]`);
     if (el) el.focus();
   });
@@ -1685,6 +1686,10 @@ export function Datatable({
     .sort((a, b) => orderIdxOf(a.field) - orderIdxOf(b.field));
   // The row-number gutter gets its own show/hide row in the Columns panel when the feature is enabled.
   const rowNumMatch = rowNumbers && "row number".includes(colQuery.trim().toLowerCase());
+  // Visible / total column counts shown in the Columns panel header (data columns only —
+  // excludes the synthetic pinned-actions gutter).
+  const manageableCols = cols.filter((c) => c.field !== "__pinactions__");
+  const visibleColCount = manageableCols.filter((c) => !hidden.has(c.field)).length;
   const rppOptions = Array.from(new Set([...(pageSizeOptions || []), pageSize].filter((n) => n > 0))).sort((a, b) => a - b).map((n) => ({ value: String(n), label: String(n) }));
 
   const totalCols = ordered.length + (checkboxSelection ? 1 : 0) + (showRowNum ? 1 : 0);
@@ -1941,17 +1946,23 @@ export function Datatable({
           onClick={(e) => { if (panel === "filters") { setPanel(null); closePanel(); } else { setPanel("filters"); setColMenu(null); openPanel(e.currentTarget, "left", 580); } }}>
           <Svg d={I.filter} /><span className="twc-dt__tlabel">Filters</span>{filters.length ? <span className="twc-dt__tbadge">{filters.length}</span> : null}
         </button>
-        <button type="button" className="twc-dt__tbtn" data-tip="Change row density" onClick={() => setDensity((d) => d === "compact" ? "standard" : d === "standard" ? "comfortable" : "compact")}>
-          <Svg d={I.density} /><span className="twc-dt__tlabel">{density[0].toUpperCase() + density.slice(1)}</span>
-        </button>
-        <button type="button" className="twc-dt__tbtn" data-active={panel === "agg" || aggOn || undefined} aria-haspopup="dialog" aria-expanded={panel === "agg"} data-tip="Configure aggregation"
-          onClick={(e) => { if (panel === "agg") { setPanel(null); closePanel(); } else { setPanel("agg"); setColMenu(null); openPanel(e.currentTarget, "left", 300); } }}>
-          <Svg d={I.sigma} /><span className="twc-dt__tlabel">Aggregation</span>{aggOn && hasAggregation ? <span className="twc-dt__tbadge">{ordered.filter((c) => aggOf(c)).length}</span> : null}
-        </button>
-        <button type="button" className="twc-dt__tbtn" data-active={panel === "pivot" || pivotActive || undefined} aria-haspopup="dialog" aria-expanded={panel === "pivot"} data-tip="Configure pivot"
-          onClick={(e) => { if (panel === "pivot") { setPanel(null); closePanel(); } else { setPanel("pivot"); setColMenu(null); openPanel(e.currentTarget, "left", 320); } }}>
-          <Svg d={I.pivot} /><span className="twc-dt__tlabel">Pivot</span>{pivotActive ? <span className="twc-dt__tdot" aria-label="on" role="img" /> : null}
-        </button>
+        {showDensity ? (
+          <button type="button" className="twc-dt__tbtn" data-tip="Change row density" onClick={() => setDensity((d) => d === "compact" ? "standard" : d === "standard" ? "comfortable" : "compact")}>
+            <Svg d={I.density} /><span className="twc-dt__tlabel">{density[0].toUpperCase() + density.slice(1)}</span>
+          </button>
+        ) : null}
+        {showAggregation ? (
+          <button type="button" className="twc-dt__tbtn" data-active={panel === "agg" || aggOn || undefined} aria-haspopup="dialog" aria-expanded={panel === "agg"} data-tip="Configure aggregation"
+            onClick={(e) => { if (panel === "agg") { setPanel(null); closePanel(); } else { setPanel("agg"); setColMenu(null); openPanel(e.currentTarget, "left", 300); } }}>
+            <Svg d={I.sigma} /><span className="twc-dt__tlabel">Aggregation</span>{aggOn && hasAggregation ? <span className="twc-dt__tbadge">{ordered.filter((c) => aggOf(c)).length}</span> : null}
+          </button>
+        ) : null}
+        {showPivot || pivotMode || pivot != null || pivotActive ? (
+          <button type="button" className="twc-dt__tbtn" data-active={panel === "pivot" || pivotActive || undefined} aria-haspopup="dialog" aria-expanded={panel === "pivot"} data-tip="Configure pivot"
+            onClick={(e) => { if (panel === "pivot") { setPanel(null); closePanel(); } else { setPanel("pivot"); setColMenu(null); openPanel(e.currentTarget, "left", 320); } }}>
+            <Svg d={I.pivot} /><span className="twc-dt__tlabel">Pivot</span>{pivotActive ? <span className="twc-dt__tdot" aria-label="on" role="img" /> : null}
+          </button>
+        ) : null}
         {showExport ? (
           <span className="twc-dt__export">
             <button type="button" className="twc-dt__export-main" data-tip="Export to CSV" onClick={() => exportData("csv")} aria-label="Export to CSV">
@@ -2291,7 +2302,7 @@ export function Datatable({
       {panel === "columns" && panelPos ? (
         <div className="twc-dt__pop twc-dt__cols" style={{ top: panelPos.top, left: panelPos.left }} role="dialog" aria-label="Column settings">
           <div className="twc-dt__panel-head">
-            <span className="twc-dt__panel-title">Columns</span>
+            <span className="twc-dt__panel-title">Columns <span className="twc-dt__panel-count" title={`${visibleColCount} of ${manageableCols.length} columns shown`}>{visibleColCount}/{manageableCols.length}</span></span>
             <div>
               <button type="button" className="twc-dt__link" onClick={() => setHidden(new Set())}>Show all</button>
               <button type="button" className="twc-dt__link" onClick={() => setHidden(new Set(cols.filter((c) => c.hideable).map((c) => c.field)))}>Hide all</button>

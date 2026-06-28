@@ -3,6 +3,23 @@
 Developer notes for the larger, opt-in capabilities of `components/data-display/Datatable.jsx`.
 Everything here is **additive**: with the relevant prop off, the table renders exactly as before.
 
+## Toolbar tools are opt-in; default density is comfortable
+
+The top toolbar always shows **Columns**, **Filters**, and the quick **Search**. The four heavier
+tools are **off by default** and each has a `show*` flag (a developer opts in):
+
+| Tool | Prop | Default | Notes |
+| --- | --- | --- | --- |
+| Density button | `showDensity` | `false` | The `density` prop still sets the row height when the button is hidden. |
+| Aggregation button | `showAggregation` | `false` | When on, also starts with the totals row shown. |
+| Pivot button | `showPivot` | `false` | Also appears automatically when a `pivot` model or `pivotMode` is supplied. |
+| Export button | `showExport` | `false` | CSV split button + format menu. |
+
+The default **`density` is `"comfortable"`** (was `"standard"`).
+
+The **Columns** panel header shows a live **`visible/total`** count of the data columns (excludes the
+synthetic pinned-actions gutter) so you can see how many columns the grid has at a glance.
+
 ## Server mode + `runDatatableQuery`
 
 With `serverMode`, the grid does **not** sort/filter/paginate the `rows` you pass (they're the

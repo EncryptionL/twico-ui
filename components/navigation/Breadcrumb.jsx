@@ -39,14 +39,12 @@ export function Breadcrumb({
   const sep = separator || <ChevronSep />;
 
   let display = items;
-  let collapsed = false;
   if (maxItems > 0 && items.length > maxItems && !expanded) {
     // keep first 1 + last (maxItems - 1)
     const head = items.slice(0, 1);
     const keepTail = Math.max(1, maxItems - 1);
     const tail = items.slice(items.length - keepTail);
     display = [...head, { ellipsis: true }, ...tail];
-    collapsed = true;
   }
 
   return (

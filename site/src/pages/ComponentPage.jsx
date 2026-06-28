@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, Link, useSearchParams } from "react-router-dom";
-import { Box, Stack, Heading, Text, Code } from "twico-ui";
+import { Stack, Heading, Text } from "twico-ui";
 import { components } from "../data/components.js";
 import { slugify, groupedComponents } from "../data/site.js";
 import CodeBlock from "../components/CodeBlock.jsx";

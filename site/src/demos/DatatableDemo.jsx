@@ -170,6 +170,8 @@ export default function DatatableDemo() {
         pageSize={8}
         density="standard"
         showAggregation
+        showDensity
+        showExport
         rowPinning
       />
     </div>

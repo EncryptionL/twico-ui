@@ -39,11 +39,14 @@ function initials(name) {
 }
 
 // Block javascript:/vbscript: URLs (incl. whitespace/control-char obfuscation that
-// browsers strip) from reaching the <img> src; data:/blob: stay allowed for previews.
+// browsers strip) from reaching the <img> src; only data:image/ data: URLs are allowed
+// (other data: subtypes like data:text/html are blocked); blob: stays allowed for previews.
 function safeSrc(url) {
   if (url == null) return undefined;
   const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
-  return s.startsWith("javascript:") || s.startsWith("vbscript:") ? undefined : url;
+  if (s.startsWith("javascript:") || s.startsWith("vbscript:")) return undefined;
+  if (s.startsWith("data:") && !s.startsWith("data:image/")) return undefined;
+  return url;
 }
 
 export function Avatar({
