@@ -18,7 +18,7 @@ const BellIcon = () => (
 // handlers need state, so the example lives in a small local component.
 function NavbarAllProps() {
   const [active, setActive] = React.useState("Home");
-  const [log, setLog] = React.useState("");
+  const [, setLog] = React.useState("");
   return (
     <Navbar
       sticky={false}

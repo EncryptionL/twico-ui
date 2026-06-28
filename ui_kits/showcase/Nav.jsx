@@ -4,7 +4,6 @@ const Icon = window.TwicoIcon;
 function Nav({ dark, onToggleDark }) {
   const [scrolled, setScrolled] = React.useState(false);
   React.useEffect(() => {
-    const root = document.querySelector(".twui-app");
     const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);

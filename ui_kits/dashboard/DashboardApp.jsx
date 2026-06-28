@@ -2,7 +2,7 @@ const TW = window.TwicoUiDesignSystem_f2f16a;
 const DIcon = window.TwicoIcon;
 
 function DashboardApp() {
-  const { Navbar, Sidebar, Stat, Datatable, Badge, Avatar, Timeline, IconButton, Button, CommandPalette, Card, Chart } = TW;
+  const { Navbar, Sidebar, Stat, Datatable, Badge, Avatar, Timeline, IconButton, Button, CommandPalette, Chart } = TW;
   const [dark, setDark] = React.useState(false);
   const [cmdOpen, setCmdOpen] = React.useState(false);
 

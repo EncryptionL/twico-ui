@@ -1207,7 +1207,7 @@ export function Datatable({
     if (rowFocusRef.current == null) return;
     const key = rowFocusRef.current; rowFocusRef.current = null;
     const root = gridRef.current; if (!root) return;
-    const sel = (typeof CSS !== "undefined" && CSS.escape) ? CSS.escape(String(key)) : String(key).replace(/"/g, '\\"');
+    const sel = (typeof CSS !== "undefined" && CSS.escape) ? CSS.escape(String(key)) : String(key).replace(/[\\"]/g, '\\$&');
     const el = root.querySelector(`.twc-dt__row-handle[data-row-key="${sel}"]`);
     if (el) el.focus();
   });

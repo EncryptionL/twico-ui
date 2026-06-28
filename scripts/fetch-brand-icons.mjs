@@ -43,6 +43,12 @@ async function get(slug) {
   return null;
 }
 
+// Sanitization barrier for network-derived data before it is written to disk:
+// an SVG path "d" may only contain path-command letters, digits, whitespace and
+// the punctuation . , - + e E; titles are stripped to a safe printable charset.
+const SVG_PATH_RE = /^[MmLlHhVvCcSsQqTtAaZz0-9.,\-+eE\s]+$/;
+const sanitizeTitle = (s) => s.replace(/[^\x20-\x7E]/g, "").trim();
+
 const out = [];
 for (const [slug, name] of LIST) {
   const svg = await get(slug);
@@ -50,10 +56,15 @@ for (const [slug, name] of LIST) {
     console.warn("skip (not found):", slug);
     continue;
   }
-  const title = (svg.match(/<title>([^<]*)<\/title>/) || [])[1] || name;
+  const title = sanitizeTitle((svg.match(/<title>([^<]*)<\/title>/) || [])[1] || name);
   const paths = [...svg.matchAll(/<path\s+d="([^"]+)"/g)].map((m) => m[1]);
   if (paths.length !== 1) console.warn("expected 1 path, got", paths.length, "for", slug);
-  out.push({ name, slug, title, d: paths[0] || "" });
+  const d = paths[0] || "";
+  if (!SVG_PATH_RE.test(d)) {
+    console.warn("skip (invalid path data):", slug);
+    continue;
+  }
+  out.push({ name, slug, title, d });
 }
 
 fs.writeFileSync(path.join(root, "scripts", "brand-icons.json"), JSON.stringify(out, null, 2) + "\n");

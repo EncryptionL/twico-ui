@@ -9,7 +9,6 @@ import {
   Code,
   Divider,
   Button,
-  IconButton,
   Badge,
   Alert,
   Card,
@@ -21,7 +20,6 @@ import {
   ColorPicker,
   Tabs,
   Table,
-  Tooltip,
   useCopyToClipboard,
 } from "twico-ui";
 import { Highlight, themes } from "prism-react-renderer";

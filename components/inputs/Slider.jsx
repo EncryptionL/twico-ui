@@ -113,7 +113,7 @@ export function Slider({
   }
   function onKeyDown(e) {
     if (disabled) return;
-    let next = val;
+    let next;
     if (e.key === "ArrowRight" || e.key === "ArrowUp") next = clampSnap(val + step);
     else if (e.key === "ArrowLeft" || e.key === "ArrowDown") next = clampSnap(val - step);
     else if (e.key === "Home") next = min;

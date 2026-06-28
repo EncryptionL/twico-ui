@@ -11,26 +11,32 @@
 // prefix each map's `mappings` with a single `;` (an empty first line) to keep
 // it aligned.
 import { readFile, writeFile } from "node:fs/promises";
-import { existsSync } from "node:fs";
 
 const DIRECTIVE = '"use client";\n';
 const targets = ["dist/index.mjs", "dist/index.cjs"];
 
 for (const file of targets) {
-  if (!existsSync(file)) continue;
-
-  const code = await readFile(file, "utf8");
+  let code;
+  try {
+    code = await readFile(file, "utf8");
+  } catch {
+    continue;
+  }
   if (code.startsWith('"use client"')) continue; // idempotent
 
   await writeFile(file, DIRECTIVE + code);
 
   const mapFile = `${file}.map`;
-  if (existsSync(mapFile)) {
-    const map = JSON.parse(await readFile(mapFile, "utf8"));
-    if (typeof map.mappings === "string") {
-      map.mappings = ";" + map.mappings; // shift mappings down one line
-      await writeFile(mapFile, JSON.stringify(map));
-    }
+  let mapRaw;
+  try {
+    mapRaw = await readFile(mapFile, "utf8");
+  } catch {
+    continue;
+  }
+  const map = JSON.parse(mapRaw);
+  if (typeof map.mappings === "string") {
+    map.mappings = ";" + map.mappings; // shift mappings down one line
+    await writeFile(mapFile, JSON.stringify(map));
   }
 }
 

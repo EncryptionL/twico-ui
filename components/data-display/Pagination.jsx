@@ -38,12 +38,6 @@ const PAGINATION_CSS = `
 .twc-pagination__jump[data-size="lg"] input { height: 40px; width: 62px; font-size: var(--text-base); }
 `;
 
-function range(start, end) {
-  const r = [];
-  for (let i = start; i <= end; i++) r.push(i);
-  return r;
-}
-
 function buildPages(current, total, siblings = 1, boundaries = 1) {
   // Always show `boundaries` pages at each edge + current ± siblings, ellipsis between.
   const pages = new Set();

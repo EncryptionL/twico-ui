@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Tabs, Card, Input, Select, Switch, Button, Text, Divider, useColorScheme, useToast, Stack, Box } from "twico-ui";
+import { Tabs, Card, Input, Select, Switch, Button, Divider, useColorScheme, useToast, Stack, Box } from "twico-ui";
 
 const TIMEZONES = [
   { value: "utc", label: "UTC" },

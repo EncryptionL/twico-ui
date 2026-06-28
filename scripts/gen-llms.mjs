@@ -34,7 +34,7 @@ const preamble = (await readFile(join(ROOT, "scripts", "llms-preamble.md"), "utf
 const imp = async (rel) =>
   import(pathToFileURL(join(SITE, rel)).href + "?t=" + Date.now());
 const { components } = await imp("src/data/components.js");
-const { GROUP_ORDER, groupedComponents } = await imp("src/data/site.js");
+const { groupedComponents } = await imp("src/data/site.js");
 
 // --- generic inherited DOM props to omit (canonical descriptions from enrich-props.mjs) ---
 const DROP_DESC = new Set([

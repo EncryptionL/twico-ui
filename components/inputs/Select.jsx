@@ -163,7 +163,7 @@ export function Select({
     const idx = flat.findIndex((o) => o.value === current);
     setActive(idx >= 0 ? idx : 0);
     setQuery("");
-    if (showSearch) { const t = setTimeout(() => searchRef.current?.focus(), 20); }
+    if (showSearch) { setTimeout(() => searchRef.current?.focus(), 20); }
     const onDown = (e) => {
       if (wrapRef.current && wrapRef.current.contains(e.target)) return;
       if (popRef.current && popRef.current.contains(e.target)) return;
