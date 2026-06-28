@@ -51,8 +51,12 @@ hit `403`/blocked-asset failures.
   [`.github/codeql/codeql-config.yml`](../.github/codeql/codeql-config.yml), which **excludes generated
   artifacts** (`_ds_bundle.js`, `src/brand-icons.tsx`) from analysis — those are produced by build
   scripts and must never be hand-edited, so findings inside them are not actionable. The generators are
-  still scanned, so any real issue is caught at its source. Triage findings on the **Security ›
-  Code scanning** tab; fix at the source file (don't edit generated output).
+  still scanned, so any real issue is caught at its source. The config also excludes
+  `scripts/fetch-brand-icons.mjs` — a dev-only icon-vendoring script (not shipped, not in CI, not in the
+  docs site) whose sole purpose is "network → file" (an inherent `js/http-to-file-access` finding) and
+  whose committed output (`scripts/brand-icons.json`) is code-reviewed; it is still hardened in code with
+  a strict SVG-path allowlist + printable-ASCII title sanitization. Triage findings on the **Security ›
+  Code scanning** tab; fix at the source file (don't edit generated/excluded output).
 - **Dependabot** (`.github/dependabot.yml`) — weekly npm (root + `site/`) and github-actions updates,
   PRs targeting `dev`.
 
