@@ -4,9 +4,9 @@ import * as React from "react";
  * Advanced data table (Material UI Data Grid Premium style): sortable, filterable
  * (per-column operators + quick search), hideable (with a searchable column list),
  * and pinnable (left/right, sticky) columns, drag-to-reorder and drag-to-resize
- * columns, a column-management + filter toolbar, density control, CSV export,
- * an optional aggregation/summary footer, optional checkbox selection with a
- * batch-action toolbar, an actions column (per-row icon buttons + overflow menu),
+ * columns, a column-management + filter toolbar (with opt-in density / aggregation /
+ * pivot / CSV-export tools), an optional aggregation/summary footer, optional
+ * checkbox selection with a batch-action toolbar, an actions column (per-row icon buttons + overflow menu),
  * page-number pagination with a configurable rows-per-page selector, a skeleton
  * loading state, and an optional server-side mode (sort/filter/paginate on the
  * backend — only the current page is loaded). Filter controls and the pager are
@@ -42,7 +42,7 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
    * full row objects server-side rather than relying on `selectedRows`.
    */
   batchActions?: DatatableBatchAction[];
-  /** Row height preset. The toolbar density button cycles it locally; changing this prop re-applies it. @default "standard" */
+  /** Row height preset. With `showDensity`, the toolbar density button cycles it locally; changing this prop re-applies it. @default "comfortable" */
   density?: "compact" | "standard" | "comfortable";
   /** Initial rows per page. 0 disables pagination. @default 10 */
   pageSize?: number;
@@ -61,8 +61,13 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
   rowCount?: number;
   /** Server-mode callback fired (debounced) whenever the query changes. */
   onServerChange?: (state: DatatableQuery) => void;
-  /** Show the Export toolbar button (split button: click = CSV, chevron = format menu). @default true */
+  /** Show the Export toolbar button (split button: click = CSV, chevron = format menu). @default false */
   showExport?: boolean;
+  /** Show the row-density toolbar button (cycles compact / standard / comfortable). The `density` prop
+   *  still sets the row height even when this button is hidden. @default false */
+  showDensity?: boolean;
+  /** Show the Pivot toolbar button. Also shown automatically when `pivot` or `pivotMode` is set. @default false */
+  showPivot?: boolean;
   /** Filename (without extension) for exports (CSV / Excel). @default "export" */
   exportFilename?: string;
   /** Server-mode precomputed aggregation. Per field, either a scalar/node (used as-is) or a per-function map
@@ -100,7 +105,9 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
   onCellClick?: (value: any, row: any, field: string) => void;
   /** Fired when the active cell changes: ({ key, field } | null). */
   onActiveCellChange?: (cell: { key: string | number; field: string } | null) => void;
-  /** “Show totals row” state (changing the prop re-applies it; the user can also toggle it in the toolbar **Aggregation** panel). Aggregation is configured at runtime from that panel (pick columns + function); a column's `aggregation` prop just seeds the initial choice. @default false */
+  /** Show the **Aggregation** toolbar button and start with the totals row on. From that panel the user
+   *  toggles totals and picks columns + functions (a column's `aggregation` prop seeds the initial choice);
+   *  changing the prop re-applies it. When false (the default) the Aggregation button is hidden. @default false */
   showAggregation?: boolean;
   /** Accessible label for the grid (role="grid"). A standard `aria-label` prop takes precedence. @default "Data table" */
   ariaLabel?: string;

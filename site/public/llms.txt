@@ -1330,14 +1330,16 @@ Props:
 - `rowKey` — `(row,index)=>key` · default `(r,i)=>r.id??i` — Returns a stable unique key per row, defaulting to the row's id or its index, to keep selection and renders consistent.
 - `checkboxSelection` — `boolean` · default `false` — Adds a leading checkbox column for selecting rows, enabling batch actions; off by default.
 - `batchActions` — `DatatableBatchAction array` · default `[]` — Defines actions shown in the selection toolbar that operate on the currently selected rows; empty by default.
-- `density` — `compact|standard|comfortable` · default `standard` — Sets the row height preset (compact, standard, or comfortable) to trade vertical space for readability, defaulting to standard.
+- `density` — `compact|standard|comfortable` · default `comfortable` — Sets the row height preset (compact, standard, or comfortable) to trade vertical space for readability, defaulting to comfortable.
 - `pageSize` — `number` · default `10` — Sets the initial number of rows shown per page, defaulting to 10; pass 0 to disable pagination.
 - `pageSizeOptions` — `number array` · default `[5,10,25,50]` — Lists the selectable rows-per-page values offered in the pagination control, defaulting to [5,10,25,50].
 - `height` — `number` · default `440` — Sets the maximum scroll height of the grid body in pixels before rows scroll internally, defaulting to 440.
 - `serverMode` — `boolean` · default `false` — Switches to server-side data handling so sorting, filtering, and paging are delegated to your backend; off by default.
 - `rowCount` — `number` · default `-` — Tells the grid the total number of server-side rows so pagination can render correctly in serverMode.
 - `onServerChange` — `(state)=>void` · default `-` — Fires with the current query state (sort, filter, page) in serverMode so you can fetch the matching rows.
-- `showExport` — `boolean` · default `true` — Shows the toolbar Export button for downloading data in supported formats; enabled by default.
+- `showExport` — `boolean` · default `false` — Shows the toolbar Export button (CSV split button with a format menu); hidden by default — enable it to expose exporting.
+- `showDensity` — `boolean` · default `false` — Shows the toolbar density button that cycles compact/standard/comfortable; hidden by default (the density prop still sets the row height).
+- `showPivot` — `boolean` · default `false` — Shows the toolbar Pivot button; hidden by default, but appears automatically when a pivot model or pivotMode is provided.
 - `exportFilename` — `string` · default `export` — Sets the base filename used for exported files, defaulting to "export".
 - `aggregationValues` — `object|null` · default `null` — Supplies precomputed footer aggregation values for serverMode, where totals cannot be calculated client-side; null by default.
 - `disableColumnReorder` — `boolean` · default `false` — Prevents users from dragging columns into a new order, locking the column arrangement; off by default.
@@ -1351,7 +1353,7 @@ Props:
 - `onRowClick` — `(row,key)=>void` · default `-` — Fires with the clicked row and its key, useful for navigation or opening a detail view.
 - `onCellClick` — `(value,row,field)=>void` · default `-` — Fires with the clicked cell's value, its row, and the field name when a cell is clicked.
 - `onActiveCellChange` — `(cell|null)=>void` · default `-` — Fires when the active cell changes via keyboard or click, receiving the new cell descriptor or null.
-- `showAggregation` — `boolean` · default `false` — Shows a totals row with column aggregations beneath the data on initial render; off by default.
+- `showAggregation` — `boolean` · default `false` — Shows the toolbar Aggregation button and starts with the totals row on; hidden by default, so enable it to expose column aggregations.
 - `ariaLabel` — `string` · default `Data table` — Sets the grid's accessible aria-label for screen readers, defaulting to "Data table".
 - `rowGrouping` — `string array` · default `[]` — Lists the field names to group rows by on initial render, collapsing rows into expandable groups; empty by default.
 - `rowPinning` — `boolean` · default `false` — Allows users to pin rows to the top or bottom so they stay visible while scrolling; off by default.
@@ -1453,6 +1455,8 @@ export default function Example() {
       onRowUpdate={(updated) => setRows((d) => d.map((r) => (r.id === updated.id ? updated : r)))}
       onBatchUpdate={(changed) => setRows((d) => d.map((r) => changed.find((c) => c.id === r.id) || r))}
       showAggregation
+      showDensity
+      showExport
       rowPinning
       pageSize={10}
     />
