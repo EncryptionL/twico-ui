@@ -63,7 +63,8 @@ npm test               # vitest (unit tests in tests/); test:run for CI
 npm run build:css      # regenerate styles/twico-ui.css from tokens (build:css:check guards drift)
 npm run verify:palette # assert palette.html's baked hexes match tokens/colors.css (CI guard)
 npm run gen:llms       # regenerate llms.txt AI guide (gen:llms:check guards drift); docs/ai-guide.md
-npm run check:ds-bundle # guard: root _ds_bundle.js (twico-ui-design skill artifact) not stale vs source; docs/design-sync.md
+npm run gen:ds-bundle  # regenerate the preview-only root _ds_bundle.js from dist/ (run after component changes); docs/design-sync.md
+npm run check:ds-bundle # guard (CI-blocking): root _ds_bundle.js not stale vs its declared component inputs
 npm run size           # size-limit budget check
 npm pack --dry-run     # preview the published tarball
 
@@ -174,7 +175,9 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
    sync points below.
 6. `npm run gen:llms` — regenerate the AI guide (`llms.txt`) from the refreshed `components.js`
    (CI's `gen:llms:check` fails on drift). See `docs/ai-guide.md`.
-7. **Update `/docs`** (rule §4.1) and commit with a Conventional Commit.
+7. `npm run gen:ds-bundle` — regenerate the preview-only root `_ds_bundle.js` from `dist/` (CI's
+   blocking `check:ds-bundle` fails if a component changed without it). See `docs/design-sync.md`.
+8. **Update `/docs`** (rule §4.1) and commit with a Conventional Commit.
 
 ## 7. Docs site conventions (`site/`)
 

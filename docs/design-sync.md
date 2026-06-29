@@ -17,26 +17,25 @@ twico-ui-specific setup so a re-sync is reproducible.
 
 ## The root skill bundle (`_ds_bundle.js`) and its drift guard
 
-The committed root `_ds_bundle.js` (+ `_ds_manifest.json` + `SKILL.md`) is the **`twico-ui-design`
-Claude Code skill** artifact — a `format:3` IIFE that assigns every export to
-`window.TwicoUiDesignSystem_<hash>`. It is **generated out-of-band by that skill's packaging** and
-committed manually; there is **no in-repo generator** for it (unlike `build:css` / `gen:llms`).
+The committed root `_ds_bundle.js` is the browser-global bundle the **repo-only preview files** read:
+every `*.card.html` and `ui_kits/*/index.html` loads React/ReactDOM (UMD, from a CDN) then this
+bundle, then reads components off `window.TwicoUiDesignSystem_<hash>`. It is **not shipped to npm** and
+**not part of the docs site**. (It originated as the `twico-ui-design` Claude Code skill's `format:3`
+artifact, alongside `_ds_manifest.json` + `SKILL.md`.)
 
-Because nothing rebuilds it automatically, it **drifts** whenever `components/**` change without a
-manual skill re-run — e.g. consumers loading the bundle miss new props/behaviour shipped in a release.
+**Regenerate it in-repo:** `npm run build && npm run gen:ds-bundle` (`scripts/gen-ds-bundle.mjs`)
+bundles the built `dist/` into the IIFE, mapping `react`/`react-dom` to the UMD globals the previews
+provide (and synthesising `react/jsx-runtime` from `React.createElement`). This reproduces the runtime
+**contract** (the `window.<ns>.*` exports) — not the skill's exact internal layout; the
+`twico-ui-design` skill re-emits the canonical `format:3` artifact on its next packaging. **Run it
+whenever `components/**` change and commit the refreshed `_ds_bundle.js` in the same commit.**
 
 **Drift guard.** `npm run check:ds-bundle` (`scripts/check-ds-bundle.mjs`) reads the bundle's own
-`@ds-bundle` header (its declared input files) and fails if any of them changed in git **after** the
-bundle's last commit. It is a *staleness* check, not a content-equivalence check (the skill's
-converter and source-hash algorithm are external/opaque, so we can't reproduce the bundle locally).
-
-- **CI** runs it in a dedicated `Design-system bundle drift` job, currently **warn-only**
-  (`--warn` → a `::warning::` annotation, non-blocking) because a stale bundle can only be fixed by
-  re-running the skill. Once the bundle is regenerated, flip the CI step to the blocking
-  `npm run check:ds-bundle`.
-- **To clear drift:** regenerate the bundle via the `twico-ui-design` skill packaging, then commit the
-  refreshed `_ds_bundle.js` + `_ds_manifest.json` in the same commit as the component change (so the
-  guard sees them move together).
+`@ds-bundle` header (its declared input files) and **fails** if any of them changed in git **after**
+the bundle's last commit. CI runs it **blocking** in a dedicated `Design-system bundle drift` job, so
+a component change without a matching `gen:ds-bundle` fails the build. It's a *staleness* check, not a
+byte-equivalence one (esbuild output and the skill's layout differ across environments), so it doesn't
+recompute hashes — it just tracks whether the declared inputs moved.
 
 ---
 
