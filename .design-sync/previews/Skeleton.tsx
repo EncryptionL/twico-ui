@@ -1,10 +1,36 @@
-// @ds-preview generated db12e7d3b687 — delete this line to keep your edits across re-syncs.
 import { Skeleton } from 'twico-ui';
 
 export const Variants = () => (
-  <>
-    <Skeleton variant={"text"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Skeleton content"}</div></Skeleton>
-    <Skeleton variant={"circle"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Skeleton content"}</div></Skeleton>
-    <Skeleton variant={"rect"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Skeleton content"}</div></Skeleton>
-  </>
+  <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+    <Skeleton variant="text" width={160} />
+    <Skeleton variant="circle" width={48} height={48} />
+    <Skeleton variant="rect" width={120} height={64} />
+  </div>
+);
+
+export const TextLines = () => (
+  <div style={{ width: 320, maxWidth: '100%' }}>
+    <Skeleton variant="text" lines={4} />
+  </div>
+);
+
+export const CustomSizing = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 10, width: 320, maxWidth: '100%' }}>
+    <Skeleton variant="text" width="70%" />
+    <Skeleton variant="text" width="45%" />
+    <Skeleton variant="rect" width="100%" height={140} />
+  </div>
+);
+
+export const CardPlaceholder = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 320, maxWidth: '100%' }}>
+    <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+      <Skeleton variant="circle" width={40} height={40} />
+      <div style={{ flex: 1 }}>
+        <Skeleton variant="text" width="60%" />
+        <Skeleton variant="text" width="40%" />
+      </div>
+    </div>
+    <Skeleton variant="rect" height={120} />
+  </div>
 );

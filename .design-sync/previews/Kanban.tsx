@@ -1,4 +1,57 @@
-// @ds-preview generated 0506505f4e8d — delete this line to keep your edits across re-syncs.
-import { Kanban } from 'twico-ui';
+import { Kanban, Avatar, Badge } from 'twico-ui';
 
-export const Default = () => <Kanban columns={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} cards={[]} defaultCards={[]}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Kanban content"}</div></Kanban>;
+const columns = [
+  { id: 'todo', title: 'To do', color: 'var(--slate-400)' },
+  { id: 'doing', title: 'In progress', color: 'var(--amber-500)' },
+  { id: 'done', title: 'Done', color: 'var(--emerald-500)' },
+];
+
+export const Board = () => (
+  <div style={{ width: '100%', overflowX: 'auto' }}>
+    <Kanban
+      columns={columns}
+      defaultCards={[
+        { id: '1', column: 'todo', title: 'Audit color scales', description: 'Reconcile slate vs neutral ramps', tags: ['Design'] },
+        { id: '2', column: 'todo', title: 'Write migration guide' },
+        { id: '3', column: 'doing', title: 'Datatable column filters', tags: ['Frontend'] },
+        { id: '4', column: 'doing', title: 'Tighten focus rings', tags: ['A11y'] },
+        { id: '5', column: 'done', title: 'Ship release', description: 'v1.3.0 published', tags: ['Release'] },
+      ]}
+    />
+  </div>
+);
+
+export const WithAssignees = () => (
+  <div style={{ width: '100%', overflowX: 'auto' }}>
+    <Kanban
+      columns={columns}
+      defaultCards={[
+        { id: '1', column: 'todo', title: 'Onboarding flow', tags: ['Design'], footer: <Avatar name="Ada Lovelace" size="xs" /> },
+        { id: '2', column: 'doing', title: 'API rate limits', tags: ['Backend'], footer: <Avatar name="Grace Hopper" size="xs" /> },
+        { id: '3', column: 'done', title: 'Auth refactor', tags: ['Backend'], footer: <Avatar name="Alan Turing" size="xs" /> },
+      ]}
+    />
+  </div>
+);
+
+export const PriorityCards = () => (
+  <div style={{ width: '100%', overflowX: 'auto' }}>
+    <Kanban
+      columns={columns}
+      defaultCards={[
+        { id: '1', column: 'todo', title: 'Migrate billing API', priority: 'High', tone: 'danger', assignee: 'Ada Lovelace' },
+        { id: '2', column: 'doing', title: 'Polish empty states', priority: 'Low', tone: 'neutral', assignee: 'Grace Hopper' },
+        { id: '3', column: 'done', title: 'Dark mode pass', priority: 'Med', tone: 'warning', assignee: 'Alan Turing' },
+      ]}
+      renderCard={(card) => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Badge tone={card.tone}>{card.priority}</Badge>
+            <Avatar name={card.assignee} size="xs" />
+          </div>
+          <div style={{ fontWeight: 600, fontSize: 14 }}>{card.title}</div>
+        </div>
+      )}
+    />
+  </div>
+);

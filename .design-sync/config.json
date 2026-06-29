@@ -1,10 +1,23 @@
 {
   "pkg": "twico-ui",
   "globalName": "TwicoUI",
+  "projectId": "19289174-478d-42dc-b671-faf93b70be94",
   "shape": "package",
+  "entry": "./dist/index.mjs",
   "buildCmd": "npm run build",
   "srcDir": "components",
   "cssEntry": "styles/twico-ui.css",
+  "readmeHeader": ".design-sync/conventions.md",
+  "overrides": {
+    "Navbar": { "cardMode": "column" },
+    "Sidebar": { "cardMode": "single", "primaryStory": "Expanded" },
+    "CommandPalette": { "cardMode": "single", "primaryStory": "Open" },
+    "Dialog": { "cardMode": "single", "primaryStory": "Default" },
+    "Drawer": { "cardMode": "single", "primaryStory": "Default" },
+    "Menu": { "cardMode": "single", "primaryStory": "Default" },
+    "Popover": { "cardMode": "single", "primaryStory": "Default" },
+    "Tooltip": { "cardMode": "single", "primaryStory": "Default" }
+  },
   "docsMap": {
     "Button": "components/buttons/Button.prompt.md",
     "IconButton": "components/buttons/IconButton.prompt.md",
@@ -75,6 +88,5 @@
     "docs/tone-variant-system.md",
     "docs/prop-conventions.md",
     "docs/icons.md"
-  ],
-  "notes": "./.design-sync/NOTES.md"
+  ]
 }

@@ -1,9 +1,14 @@
-// @ds-preview generated 02909535e0f0 — delete this line to keep your edits across re-syncs.
-import { Menu } from 'twico-ui';
+import { Menu, Button } from 'twico-ui';
 
-export const Variants = () => (
-  <>
-    <Menu trigger={"Menu"} items={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} defaultOpen open align={"start"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Menu content"}</div></Menu>
-    <Menu trigger={"Menu"} items={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} defaultOpen open align={"end"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Menu content"}</div></Menu>
-  </>
+const items = [
+  { label: 'Account', heading: true },
+  { label: 'Profile', shortcut: '⌘P', onClick: () => {} },
+  { label: 'Settings', shortcut: '⌘,', onClick: () => {} },
+  { label: 'Billing', disabled: true },
+  { separator: true },
+  { label: 'Sign out', danger: true, onClick: () => {} },
+];
+
+export const Default = () => (
+  <Menu defaultOpen align="start" trigger={<Button variant="outline">Options</Button>} items={items} />
 );

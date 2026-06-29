@@ -15,8 +15,10 @@ site/blob-report/
 coverage/
 
 # claude.ai/design sync (design-sync skill) — generated bundle + staged converter.
-# The committed inputs are design-sync.config.json + .design-sync/. See docs/design-sync.md.
+# Committed inputs live under .design-sync/ (config.json, NOTES.md, conventions.md,
+# previews/, overrides/). See docs/design-sync.md.
 /ds-bundle/
-/package-build.mjs
-/package-validate.mjs
-/lib/
+/.ds-sync/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules

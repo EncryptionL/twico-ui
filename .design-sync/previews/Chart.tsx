@@ -1,9 +1,54 @@
-// @ds-preview generated 1f951bdb570c — delete this line to keep your edits across re-syncs.
 import { Chart } from 'twico-ui';
 
-export const Variants = () => (
-  <>
-    <Chart data={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} series={[]} colors={[]} type={"bar"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Chart content"}</div></Chart>
-    <Chart data={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} series={[]} colors={[]} type={"line"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Chart content"}</div></Chart>
-  </>
+const revenue = [
+  { label: 'Jan', value: 18 },
+  { label: 'Feb', value: 22 },
+  { label: 'Mar', value: 20 },
+  { label: 'Apr', value: 28 },
+  { label: 'May', value: 31 },
+  { label: 'Jun', value: 37 },
+];
+
+const traffic = [
+  { label: 'Jan', signups: 120, active: 80 },
+  { label: 'Feb', signups: 180, active: 140 },
+  { label: 'Mar', signups: 150, active: 120 },
+  { label: 'Apr', signups: 220, active: 170 },
+];
+
+export const RevenueBars = () => (
+  <div style={{ width: 460, maxWidth: '100%' }}>
+    <Chart type="bar" data={revenue} valueFormat={(v) => `$${v}k`} ariaLabel="Monthly revenue" />
+  </div>
+);
+
+export const RevenueLine = () => (
+  <div style={{ width: 460, maxWidth: '100%' }}>
+    <Chart type="line" data={revenue} valueFormat={(v) => `$${v}k`} ariaLabel="Monthly revenue trend" />
+  </div>
+);
+
+export const SignupsVsActive = () => (
+  <div style={{ width: 460, maxWidth: '100%' }}>
+    <Chart
+      type="line"
+      data={traffic}
+      series={['signups', 'active']}
+      showLegend
+      colors={['#6366f1', '#10b981']}
+      ariaLabel="Signups vs active users by month"
+    />
+  </div>
+);
+
+export const GroupedBars = () => (
+  <div style={{ width: 460, maxWidth: '100%' }}>
+    <Chart
+      type="bar"
+      data={traffic}
+      series={['signups', 'active']}
+      showLegend
+      ariaLabel="Signups vs active users (grouped bars)"
+    />
+  </div>
 );

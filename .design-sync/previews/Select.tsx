@@ -1,11 +1,67 @@
-// @ds-preview generated 2cdf2ed8054b — delete this line to keep your edits across re-syncs.
 import { Select } from 'twico-ui';
 
-export const Variants = () => (
-  <>
-    <Select options={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} tone={"primary"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Select content"}</div></Select>
-    <Select options={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} tone={"success"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Select content"}</div></Select>
-    <Select options={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} tone={"warning"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Select content"}</div></Select>
-    <Select options={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} tone={"danger"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Select content"}</div></Select>
-  </>
+const PEOPLE = [
+  {
+    group: 'Design',
+    options: [
+      { value: 'ada', label: 'Ada Park', description: 'Product designer' },
+      { value: 'sam', label: 'Sam Lee', description: 'Brand designer' },
+    ],
+  },
+  {
+    group: 'Engineering',
+    options: [
+      { value: 'jo', label: 'Jo Kim', description: 'Frontend' },
+      { value: 'ravi', label: 'Ravi Shah', description: 'Backend' },
+    ],
+  },
+];
+
+const COUNTRIES = ['Australia', 'Brazil', 'Canada', 'Denmark', 'Egypt', 'France', 'Germany', 'India', 'Japan'];
+
+export const Assignee = () => (
+  <div style={{ width: 340, maxWidth: '100%' }}>
+    <Select
+      label="Assignee"
+      placeholder="Pick a teammate"
+      hint="Choose who owns this task"
+      defaultValue="jo"
+      options={PEOPLE}
+      clearable
+    />
+  </div>
+);
+
+export const Searchable = () => (
+  <div style={{ width: 340, maxWidth: '100%' }}>
+    <Select
+      label="Country"
+      required
+      searchable
+      searchPlaceholder="Search countries…"
+      placeholder="Select a country"
+      defaultValue="France"
+      options={COUNTRIES}
+    />
+  </div>
+);
+
+export const Sizes = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 340, maxWidth: '100%' }}>
+    <Select size="sm" defaultValue="Apple" options={['Apple', 'Banana', 'Cherry']} />
+    <Select size="md" defaultValue="Banana" options={['Apple', 'Banana', 'Cherry']} />
+    <Select size="lg" defaultValue="Cherry" options={['Apple', 'Banana', 'Cherry']} />
+  </div>
+);
+
+export const ErrorState = () => (
+  <div style={{ width: 340, maxWidth: '100%' }}>
+    <Select label="Plan" required error="Please choose a plan" placeholder="Select a plan" options={['Free', 'Pro', 'Team', 'Enterprise']} />
+  </div>
+);
+
+export const Disabled = () => (
+  <div style={{ width: 340, maxWidth: '100%' }}>
+    <Select label="Workspace" disabled defaultValue="Apple" options={['Apple', 'Banana', 'Cherry']} />
+  </div>
 );
