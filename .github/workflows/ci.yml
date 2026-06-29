@@ -101,8 +101,8 @@ jobs:
         with:
           node-version: '22'
 
-      # Warn-only for now: the committed _ds_bundle.js is regenerated out-of-band by the
-      # `twico-ui-design` skill, so a stale bundle can't be auto-fixed in CI. Flip this to the
-      # blocking `npm run check:ds-bundle` once the bundle is regenerated (see issue #36).
-      - name: Guard - _ds_bundle.js not stale vs source (warn-only)
-        run: node scripts/check-ds-bundle.mjs --warn
+      # Blocking: the root _ds_bundle.js now has an in-repo regenerator
+      # (`npm run build && npm run gen:ds-bundle`), so a component change without a matching
+      # bundle regen must fail CI rather than silently drift.
+      - name: Guard - _ds_bundle.js not stale vs source
+        run: npm run check:ds-bundle

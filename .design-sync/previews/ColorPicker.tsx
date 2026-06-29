@@ -1,11 +1,36 @@
-// @ds-preview generated 743643627641 — delete this line to keep your edits across re-syncs.
 import { ColorPicker } from 'twico-ui';
 
-export const Variants = () => (
-  <>
-    <ColorPicker presets={[]} tone={"primary"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"ColorPicker content"}</div></ColorPicker>
-    <ColorPicker presets={[]} tone={"success"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"ColorPicker content"}</div></ColorPicker>
-    <ColorPicker presets={[]} tone={"warning"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"ColorPicker content"}</div></ColorPicker>
-    <ColorPicker presets={[]} tone={"danger"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"ColorPicker content"}</div></ColorPicker>
-  </>
+const palette = ['#6366F1', '#14B8A6', '#F43F5E', '#F59E0B', '#0EA5E9', '#8B5CF6', '#22C55E'];
+
+export const BrandColor = () => (
+  <div style={{ width: 320, maxWidth: '100%' }}>
+    <ColorPicker
+      label="Brand color"
+      defaultValue="#6366F1"
+      presets={palette}
+      hint="Pick from the palette or enter a hex."
+    />
+  </div>
+);
+
+export const Accent = () => (
+  <div style={{ width: 320, maxWidth: '100%' }}>
+    <ColorPicker
+      label="Accent"
+      defaultValue="#14B8A6"
+      presets={['#6366F1', '#14B8A6', '#F43F5E', '#F59E0B', '#0EA5E9']}
+    />
+  </div>
+);
+
+export const ThemeColor = () => (
+  <div style={{ width: 320, maxWidth: '100%' }}>
+    <ColorPicker label="Theme color" required tone="info" defaultValue="#8B5CF6" presets={palette} />
+  </div>
+);
+
+export const Disabled = () => (
+  <div style={{ width: 320, maxWidth: '100%' }}>
+    <ColorPicker label="Locked color" defaultValue="#F43F5E" disabled />
+  </div>
 );

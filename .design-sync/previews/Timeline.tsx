@@ -1,4 +1,37 @@
-// @ds-preview generated d683bbae7d31 — delete this line to keep your edits across re-syncs.
 import { Timeline } from 'twico-ui';
 
-export const Default = () => <Timeline items={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Timeline content"}</div></Timeline>;
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
+);
+const DotIcon = () => (
+  <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><circle cx="12" cy="12" r="5" /></svg>
+);
+const TruckIcon = () => (
+  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 17h4V5H2v12h2m12 0h2.5a1.5 1.5 0 0 0 1.5-1.5V11l-3-3h-4v9h1m-9 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0Zm12 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0Z" /></svg>
+);
+
+export const OrderTracking = () => (
+  <div style={{ width: 420, maxWidth: '100%' }}>
+    <Timeline
+      items={[
+        { title: 'Order placed', time: '9:41 AM', description: 'We received your order and sent a confirmation email.', tone: 'primary' },
+        { title: 'Shipped', time: '2:10 PM', description: 'Your package left the warehouse via express.', tone: 'success' },
+        { title: 'Out for delivery', time: 'Today', description: 'Arriving by 5:00 PM.', tone: 'warning' },
+        { title: 'Delivered', time: 'Tomorrow' },
+      ]}
+    />
+  </div>
+);
+
+export const DeployFeed = () => (
+  <div style={{ width: 440, maxWidth: '100%' }}>
+    <Timeline
+      items={[
+        { title: 'Jane merged a pull request', time: '10:02 AM', description: 'feat: add Timeline component', icon: <CheckIcon />, tone: 'success' },
+        { title: 'CI build started', time: '10:03 AM', description: 'Running 248 tests on main.', icon: <DotIcon />, tone: 'primary' },
+        { title: 'Release v1.3.0 published', time: '10:09 AM', description: 'Deployed to production.', icon: <TruckIcon />, tone: 'info' },
+        { title: 'Rollback triggered', time: '10:14 AM', description: 'Error rate spiked — reverting.', icon: <DotIcon />, tone: 'danger' },
+      ]}
+    />
+  </div>
+);

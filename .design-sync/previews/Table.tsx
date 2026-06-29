@@ -1,10 +1,41 @@
-// @ds-preview generated 257cf93f12dd — delete this line to keep your edits across re-syncs.
-import { Table } from 'twico-ui';
+import { Table, Badge } from 'twico-ui';
 
-export const Variants = () => (
-  <>
-    <Table columns={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} rows={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} selectedKeys={[]} size={"sm"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Table content"}</div></Table>
-    <Table columns={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} rows={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} selectedKeys={[]} size={"md"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Table content"}</div></Table>
-    <Table columns={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} rows={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} selectedKeys={[]} size={"lg"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Table content"}</div></Table>
-  </>
+const users = [
+  { id: 1, name: 'Ada Lovelace', role: 'Engineer', status: 'Active', mrr: 120 },
+  { id: 2, name: 'Alan Turing', role: 'Designer', status: 'Invited', mrr: 90 },
+  { id: 3, name: 'Grace Hopper', role: 'Manager', status: 'Active', mrr: 200 },
+  { id: 4, name: 'Katherine Johnson', role: 'Analyst', status: 'Active', mrr: 150 },
+];
+
+const columns = [
+  { field: 'name', headerName: 'Name' },
+  { field: 'role', headerName: 'Role' },
+  { field: 'status', headerName: 'Status' },
+  { field: 'mrr', headerName: 'MRR', align: 'right', renderCell: (v) => `$${v}k` },
+];
+
+export const Basic = () => (
+  <div style={{ width: 520, maxWidth: '100%' }}>
+    <Table columns={columns} rows={users} rowKey={(r) => r.id} />
+  </div>
 );
+
+export const SortableStriped = () => (
+  <div style={{ width: 520, maxWidth: '100%' }}>
+    <Table sortable striped columns={columns} rows={users} rowKey={(r) => r.id} defaultSort={{ field: 'mrr', dir: 'desc' }} />
+  </div>
+);
+
+export const StatusBadges = () => {
+  const richColumns = [
+    { field: 'name', headerName: 'Name' },
+    { field: 'role', headerName: 'Role' },
+    { field: 'status', headerName: 'Status', renderCell: (v) => <Badge tone={v === 'Active' ? 'success' : 'neutral'}>{v}</Badge> },
+    { field: 'mrr', headerName: 'MRR', align: 'right', renderCell: (v) => `$${v}k` },
+  ];
+  return (
+    <div style={{ width: 520, maxWidth: '100%' }}>
+      <Table columns={richColumns} rows={users} rowKey={(r) => r.id} selectedKeys={[3]} />
+    </div>
+  );
+};

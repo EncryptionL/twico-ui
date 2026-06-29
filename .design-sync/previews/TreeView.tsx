@@ -1,4 +1,44 @@
-// @ds-preview generated 343c066c8430 — delete this line to keep your edits across re-syncs.
 import { TreeView } from 'twico-ui';
 
-export const Default = () => <TreeView items={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} defaultExpanded={[]} expanded={[]}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"TreeView content"}</div></TreeView>;
+const FolderIcon = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 5a2 2 0 0 1 2-2h3l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5Z" /></svg>
+);
+const FileIcon = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 3v5h5" /><path d="M6 21V5a2 2 0 0 1 2-2h6l5 5v13H8a2 2 0 0 1-2-2Z" /></svg>
+);
+
+export const FileExplorer = () => (
+  <div style={{ width: 300, maxWidth: '100%' }}>
+    <TreeView
+      defaultExpanded={['src', 'comp']}
+      defaultSelectedId="btn"
+      items={[
+        { id: 'src', label: 'src', icon: <FolderIcon />, badge: 4, children: [
+          { id: 'app', label: 'App.tsx', icon: <FileIcon /> },
+          { id: 'comp', label: 'components', icon: <FolderIcon />, badge: 2, children: [
+            { id: 'btn', label: 'Button.tsx', icon: <FileIcon /> },
+            { id: 'tree', label: 'TreeView.tsx', icon: <FileIcon /> },
+          ] },
+        ] },
+        { id: 'pkg', label: 'package.json', icon: <FileIcon /> },
+        { id: 'readme', label: 'README.md', icon: <FileIcon /> },
+      ]}
+    />
+  </div>
+);
+
+export const Mailboxes = () => (
+  <div style={{ width: 300, maxWidth: '100%' }}>
+    <TreeView
+      defaultExpanded={['inbox']}
+      items={[
+        { id: 'inbox', label: 'Inbox', badge: 12, children: [
+          { id: 'work', label: 'Work', badge: 5 },
+          { id: 'social', label: 'Social', badge: 7 },
+        ] },
+        { id: 'drafts', label: 'Drafts', badge: 2 },
+        { id: 'sent', label: 'Sent' },
+      ]}
+    />
+  </div>
+);
