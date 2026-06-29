@@ -63,3 +63,65 @@ hand-authored — all icon-free (icons aren't bundled). Key gotchas for re-syncs
 - **IconButton** uses text glyphs (`+ ⚙ ✕ 🗑`) for `icon` since lucide isn't in the bundle.
 - **Left as placeholder (acceptable):** AppShell (full-page layout), ToastProvider / ToastViewport
   (infra — need interaction to show a toast).
+
+## 2026-06-29 — full high-fidelity re-author pass
+
+- **Project was ALREADY fully synced** to claude.ai/design project "Twico UI"
+  (id `19289174-478d-42dc-b671-faf93b70be94`) despite the earlier login-failure note above —
+  a later session completed an upload. The local config never recorded `projectId`; now pinned.
+  The remote had **no `_ds_sync.json` anchor** → this run re-verifies everything (atomic path,
+  non-empty target). After this run uploads the anchor, future syncs are incremental.
+- **Only 32 of 63 previews were genuinely authored** (markerless). The other **31 carried the
+  `// @ds-preview generated …` marker** and were stub placeholders: generic `items`
+  (`{id,key,value,label,…}` all = "1", labels "Item 1/2/3") + a dashed `data-ds-placeholder` `<div>`
+  as children. These render "cleanly" (root non-empty) so the mechanical render check passed, but
+  grade `needs-work` on the absolute rubric. Re-authored all 31 this pass.
+- **Porting recipe (validated on Input/Tabs/Menu):** the repo has `site/src/demos/<Name>Demo.jsx`
+  + `<Name>Variations.jsx` for every component (except ToastViewport). Port these — they're the
+  maintainer's canonical compositions. Transform: drop `import React`/default-function wrapper →
+  markerless named-export arrow fns importing from `'twico-ui'`; keep real data; prefer
+  `defaultValue` over controlled `value` (no live onChange in a static card). 2–6 exports each.
+- **Icons:** demos are mostly icon-free; the `*Variations.jsx` files define **inline SVG** icon
+  components (not lucide) — those are safe to reuse. Never import `lucide-react`/`twico-ui/icons`
+  (not in the bundle). Use inline SVG or text glyphs.
+- **Overlays force-open in-card:** Menu/Popover → `defaultOpen` (or `open`); Dialog/Drawer require
+  `open`. They portal → need `cfg.overrides.<Name> = {"cardMode":"single","primaryStory":"<export>"}`.
+  Validate flagged GRID_OVERFLOW for: CommandPalette, Dialog, Drawer, Menu, Popover, Tooltip
+  (→ single), ToastProvider (→ column), ToastViewport (→ single). Batch all into config before the
+  final rebuild.
+- **ToastViewport / ToastProvider → floor cards** (deleted their preview .tsx): pure infra, nothing
+  renders statically. The toast VISUAL is covered by the authored Toast card. AppShell re-authored
+  as a compact static shell.
+
+### Known render warns (triaged — not new on re-sync)
+- `[FONT_MISSING] "Cascadia Code"` — accept. Fallback-only family in the mono stack; the real mono
+  (JetBrains Mono) ships. Recorded as accepted-substitute. Non-blocking.
+- `[GRID_OVERFLOW]` for Navbar/Sidebar/CommandPalette/Dialog/Drawer/Menu/Popover/Tooltip — RESOLVED
+  via `cfg.overrides` (Navbar→column; the rest→single with primaryStory). Single/column cards can't
+  re-flag by construction, so this should not recur.
+
+### States that can't render statically (skipped, by design)
+- **AvatarMenu**: the public API exposes NO `open`/`defaultOpen` (unlike Menu), so the dropdown can't
+  be forced open in a static card. Preview shows the trigger variants (avatar + name + email + chevron,
+  presence, sizes) — the honest ceiling. The menu visual itself is covered by the Menu card.
+- **Tooltip**: no `open` prop (CSS-transition tooltip on hover) → preview shows the trigger only.
+
+## Re-sync risks (watch-list for the next run)
+- **Project is now anchored.** `_ds_sync.json` was uploaded this run, so future syncs are
+  INCREMENTAL — only changed/added components re-verify (run `resync.mjs --remote <fetched sidecar>`).
+- **Owned previews are pinned to twico-ui@1.3.2's API.** All 61 authored `.design-sync/previews/*.tsx`
+  use real props. On a DS version bump, re-grade — if a component's prop/array shape changed
+  (Tabs/Menu/Select items, Datatable/Table columns), re-port from `site/src/demos/<Name>Demo.jsx`
+  (the maintainer keeps those current; they are the canonical repair source).
+- **Avatar / AvatarMenu cells use remote `https://i.pravatar.cc` images.** If the network is blocked
+  at capture time they fall back to initials (still clean) — not a hard dependency, but the image
+  variant won't show. Swap to a self-hosted/data-URI avatar if that matters.
+- **`cfg.overrides` primaryStory names** (Navbar/Sidebar/CommandPalette/Dialog/Drawer/Menu/Popover/
+  Tooltip) reference export names in those previews. If a re-author renames an export, update the
+  matching `primaryStory`.
+- **AvatarMenu/Tooltip** show trigger only (no `open` prop). If the API later adds one, author the
+  open state and drop the skip note above.
+- **Build assumptions:** `dist/` committed & current (v1.3.2, tsup) — re-run `cfg.buildCmd`
+  (`npm run build`) only if the DS source changed. Converter deps live in gitignored `.ds-sync/`
+  (esbuild, ts-morph, @types/react, playwright@1.61.0); chromium **1228** reused from the site's
+  Playwright cache (LOCALAPPDATA/ms-playwright). On a fresh clone, re-stage `.ds-sync/` + reinstall.

@@ -1,11 +1,37 @@
-// @ds-preview generated ffc7ed5aba95 — delete this line to keep your edits across re-syncs.
 import { Spinner } from 'twico-ui';
 
-export const Variants = () => (
-  <>
-    <Spinner tone={"primary"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Spinner content"}</div></Spinner>
-    <Spinner tone={"success"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Spinner content"}</div></Spinner>
-    <Spinner tone={"warning"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Spinner content"}</div></Spinner>
-    <Spinner tone={"danger"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Spinner content"}</div></Spinner>
-  </>
+export const Sizes = () => (
+  <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
+    <Spinner size="sm" />
+    <Spinner size="md" />
+    <Spinner size="lg" />
+    <Spinner size="xl" />
+  </div>
+);
+
+export const Colors = () => (
+  <div style={{ display: 'flex', gap: 20, alignItems: 'center', flexWrap: 'wrap' }}>
+    <Spinner size="lg" color="primary" />
+    <Spinner size="lg" color="success" />
+    <Spinner size="lg" color="warning" />
+    <Spinner size="lg" color="danger" />
+    <Spinner size="lg" color="info" />
+    <Spinner size="lg" color="neutral" />
+  </div>
+);
+
+export const OnColor = () => (
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 88,
+      height: 88,
+      borderRadius: 'var(--radius-lg, 12px)',
+      background: 'var(--color-primary, #6366f1)',
+    }}
+  >
+    <Spinner size="lg" color="white" label="Loading results" />
+  </div>
 );

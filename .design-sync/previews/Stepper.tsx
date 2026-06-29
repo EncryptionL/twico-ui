@@ -1,11 +1,36 @@
-// @ds-preview generated 2824db9f5137 — delete this line to keep your edits across re-syncs.
 import { Stepper } from 'twico-ui';
 
-export const Variants = () => (
-  <>
-    <Stepper steps={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} tone={"primary"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Stepper content"}</div></Stepper>
-    <Stepper steps={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} tone={"success"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Stepper content"}</div></Stepper>
-    <Stepper steps={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} tone={"warning"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Stepper content"}</div></Stepper>
-    <Stepper steps={[{"id":"1","key":"1","value":"1","label":"Item 1","text":"Item 1","name":"Item 1","title":"Item 1"},{"id":"2","key":"2","value":"2","label":"Item 2","text":"Item 2","name":"Item 2","title":"Item 2"},{"id":"3","key":"3","value":"3","label":"Item 3","text":"Item 3","name":"Item 3","title":"Item 3"}]} tone={"danger"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"Stepper content"}</div></Stepper>
-  </>
+const steps = [
+  { title: 'Account', description: 'Your details' },
+  { title: 'Payment', description: 'Billing info' },
+  { title: 'Confirm', description: 'Review order' },
+];
+
+export const Horizontal = () => (
+  <div style={{ width: 480, maxWidth: '100%' }}>
+    <Stepper defaultActive={1} steps={steps} />
+  </div>
+);
+
+export const Vertical = () => (
+  <Stepper orientation="vertical" defaultActive={2} steps={steps} />
+);
+
+export const ErrorStep = () => (
+  <div style={{ width: 480, maxWidth: '100%' }}>
+    <Stepper
+      defaultActive={2}
+      steps={[
+        { title: 'Account', description: 'Your details' },
+        { title: 'Payment', description: 'Card declined', error: true },
+        { title: 'Confirm', description: 'Review order' },
+      ]}
+    />
+  </div>
+);
+
+export const Tone = () => (
+  <div style={{ width: 480, maxWidth: '100%' }}>
+    <Stepper tone="success" defaultActive={2} steps={steps} />
+  </div>
 );

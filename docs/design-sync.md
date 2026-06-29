@@ -59,18 +59,23 @@ Coverage: **63 component values** (62 components + `ToastViewport`) + the hooks,
 
 | Path | What |
 | --- | --- |
-| `design-sync.config.json` | The converter config — see below. |
-| `.design-sync/NOTES.md` | Repo-specific gotchas a re-sync should read first. |
-| `.design-sync/previews/<Name>.tsx` | One preview per component. 32 are **hand-authored** (no `// @ds-preview` marker → kept across re-syncs); 31 are auto-generated (marker present → regenerated each run). |
+| `.design-sync/config.json` | The converter config — see below. (Older runs used `design-sync.config.json` at the repo root; it has been moved here.) |
+| `.design-sync/NOTES.md` | Repo-specific gotchas + a **Re-sync risks** watch-list a re-sync should read first. |
+| `.design-sync/conventions.md` | The README header inlined into the design agent's prompt (wired via `readmeHeader`): no-provider setup, the props+tokens styling idiom, where the truth lives, and one build snippet. |
+| `.design-sync/previews/<Name>.tsx` | One preview per **authored** component (61 files) — all hand-authored, markerless, kept across re-syncs. `ToastProvider`/`ToastViewport` have **no** preview file (deliberate floor cards — pure toast infra). |
 
-### `design-sync.config.json`
+### `.design-sync/config.json`
 
 | Field | Value | Why |
 | --- | --- | --- |
 | `pkg` / `globalName` | `twico-ui` / `TwicoUI` | The package and the `window.*` global the bundle assigns to. |
+| `projectId` | `19289174-…be94` | The claude.ai/design project this repo syncs to ("Twico UI"). Pins the re-sync target + verification anchor. |
 | `shape` | `package` | No Storybook; the component list comes from the PascalCase value exports in `dist/index.d.ts`. |
+| `entry` | `./dist/index.mjs` | The built ESM entry the converter bundles (the repo has no self-installed `node_modules/twico-ui`). |
 | `srcDir` | `components` | **Critical** — the default source-root probe picks `src/` (which holds only `index.ts`/`icons.ts`), so every component would miss group/JSDoc enrichment and collapse into one `general` group. Pointing at `components/` recovers the real groups. |
 | `cssEntry` | `styles/twico-ui.css` | The concatenated shippable stylesheet (tokens + base reset + `@font-face`); fonts resolve from `styles/fonts/`. |
+| `readmeHeader` | `.design-sync/conventions.md` | Prepended to the generated README the design agent reads. |
+| `overrides` | 8 overlay/wide components | `cardMode` for cards that overflow the grid: `Navbar`→`column`; `Sidebar`/`CommandPalette`/`Dialog`/`Drawer`/`Menu`/`Popover`/`Tooltip`→`single` (with `primaryStory`). |
 | `docsMap` | 62 entries → `<Name>.prompt.md` | The curated per-component usage docs use the non-standard `.prompt.md` suffix, which the converter's auto-matcher (`<Name>.md`/`.mdx`) misses — so each is wired explicitly. |
 | `guidelinesGlob` | `DESIGN-SYSTEM.md` + 4 `docs/*.md` | Design guidelines copied into the bundle's `guidelines/`. |
 
@@ -83,41 +88,49 @@ without them — hand-authored previews use text glyphs where an icon would go (
 
 ## Running a re-sync
 
-The converter, its `lib/`, and the `ds-bundle/` output are **gitignored** (staged fresh each run).
+The converter is staged into `.ds-sync/` and the `ds-bundle/` output are **gitignored** (staged fresh
+each run). The skill drives this; the manual equivalent:
 
 ```bash
-# 1. Stage the converter from the design-sync skill dir
-cp -r "<skill-base-dir>"/package-build.mjs "<skill-base-dir>"/package-validate.mjs "<skill-base-dir>"/lib .
+# 1. Stage the converter from the design-sync skill dir into .ds-sync/ (isolated lockfile)
+mkdir -p .ds-sync && cp -r "<skill-base-dir>"/package-*.mjs "<skill-base-dir>"/resync.mjs \
+  "<skill-base-dir>"/lib "<skill-base-dir>"/storybook .ds-sync/
+echo '{"name":"ds-sync-deps","private":true}' > .ds-sync/package.json
 
-# 2. Install converter deps IN ONE COMMAND (they prune each other otherwise — see NOTES.md)
-npm i --no-save ts-morph playwright@1.61.0    # esbuild is already present (tsup transitive)
+# 2. Install converter deps into .ds-sync/ (its own package.json → no pruning)
+(cd .ds-sync && npm i esbuild ts-morph @types/react playwright@1.61.0)  # chromium 1228 reused from the site's cache
 
 # 3. Build the bundle from the repo's built dist/ (run `npm run build` first if dist/ is stale)
-node package-build.mjs --config design-sync.config.json --node-modules ./node_modules \
+node .ds-sync/package-build.mjs --config .design-sync/config.json --node-modules ./node_modules \
   --entry ./dist/index.mjs --out ./ds-bundle
 
-# 4. Validate + headless render-check every preview (chromium 1228 is cached from the site's playwright)
-node package-validate.mjs ./ds-bundle
+# 4. Validate + headless render-check every preview
+node .ds-sync/package-validate.mjs ./ds-bundle
 ```
 
 `package-validate.mjs` exits 0 when all 63 previews render. It writes screenshots to
 `ds-bundle/_screenshots/` and per-component status to `ds-bundle/.render-check.json`; review the
-contact sheets before uploading.
+contact sheets before uploading. On an anchored re-sync, run the one-shot driver instead —
+`node .ds-sync/resync.mjs --config .design-sync/config.json --node-modules ./node_modules --entry ./dist/index.mjs --out ./ds-bundle --remote <fetched _ds_sync.json>` — which chains build → diff → validate → capture and only re-verifies changed/added components.
 
-### The verify loop
+### Authoring previews
 
 The `.d.ts` variant-grid generator injects a placeholder `<div>` as `children` for every component
 that declares `children` — which **crashes void-element inputs** (`<input>` can't take children) and
-shows generic placeholder text elsewhere. The fix is a hand-authored `.design-sync/previews/<Name>.tsx`
-with the first-line marker deleted so the converter keeps it. The 32 committed hand-authored previews
-took the bundle from 55/63 → **63/63** clean. See `.design-sync/NOTES.md` for the per-component
-gotchas (data shapes, `open` props on overlays, etc.).
+shows generic placeholder text elsewhere. The fix is a hand-authored, markerless
+`.design-sync/previews/<Name>.tsx`, ported from the maintainer's own `site/src/demos/<Name>Demo.jsx`.
+All **61** authored previews are now hand-authored (real props, no placeholders); `ToastProvider` and
+`ToastViewport` ship the typographic floor card (no preview file). The render check is **63/63** clean.
+See `.design-sync/NOTES.md` for the per-component gotchas (data shapes, `open` props on overlays, the
+known `FONT_MISSING "Cascadia Code"` accept, and the **Re-sync risks** watch-list).
 
 ---
 
 ## Uploading
 
 Upload is done by the skill via the `DesignSync` tool (`finalize_plan` → `write_files` from
-`./ds-bundle/`). It requires the **design-system scope** on the claude.ai login — `/login` alone does
-not grant it if the account lacks claude.ai/design access. The bundle build/validate is fully local
-and does not need the login; only the final upload does.
+`./ds-bundle/`, ending with `_ds_sync.json`). It requires the **design-system scope** on the claude.ai
+login (granted automatically on the first `DesignSync` call once the account has claude.ai/design
+access). The bundle build/validate is fully local and does not need the login; only the final upload
+does. The repo's project is **"Twico UI"** (`projectId` in the config); it now carries the
+`_ds_sync.json` anchor, so future syncs are **incremental** — only changed components re-verify.

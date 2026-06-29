@@ -1,11 +1,31 @@
-// @ds-preview generated 47b3120539df — delete this line to keep your edits across re-syncs.
 import { FileUpload } from 'twico-ui';
 
-export const Variants = () => (
-  <>
-    <FileUpload value={[]} defaultValue={[]} tone={"primary"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"FileUpload content"}</div></FileUpload>
-    <FileUpload value={[]} defaultValue={[]} tone={"success"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"FileUpload content"}</div></FileUpload>
-    <FileUpload value={[]} defaultValue={[]} tone={"warning"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"FileUpload content"}</div></FileUpload>
-    <FileUpload value={[]} defaultValue={[]} tone={"danger"}><div data-ds-placeholder="" style={{padding:8,minHeight:40,maxWidth:'100%',overflow:'hidden',boxSizing:'border-box',border:'1px dashed #999',color:'#999',fontSize:12}}>{"FileUpload content"}</div></FileUpload>
-  </>
+export const Dropzone = () => (
+  <div style={{ width: 340, maxWidth: '100%' }}>
+    <FileUpload label="Project assets" multiple accept="image/*,.pdf" hint="PNG, JPG or PDF up to 10MB" />
+  </div>
+);
+
+export const SingleFile = () => (
+  <div style={{ width: 340, maxWidth: '100%' }}>
+    <FileUpload label="Import data" accept=".csv" hint="One CSV file" />
+  </div>
+);
+
+export const Required = () => (
+  <div style={{ width: 340, maxWidth: '100%' }}>
+    <FileUpload label="Resume" required accept=".pdf,.doc,.docx" tone="info" hint="Attach your resume (PDF or Word)." />
+  </div>
+);
+
+export const ErrorState = () => (
+  <div style={{ width: 340, maxWidth: '100%' }}>
+    <FileUpload label="Avatar" accept="image/*" error="File must be under 2 MB." />
+  </div>
+);
+
+export const Disabled = () => (
+  <div style={{ width: 340, maxWidth: '100%' }}>
+    <FileUpload label="Attachments" disabled hint="Uploads are paused." />
+  </div>
 );
