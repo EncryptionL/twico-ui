@@ -1624,6 +1624,2162 @@ export const components = [
     "tagline": "Dependency-free SVG bar and line charts"
   },
   {
+    "name": "PieChart",
+    "slug": "pie-chart",
+    "group": "Data display",
+    "importName": "PieChart",
+    "summary": "A dependency-free inline-SVG pie or donut chart that renders proportional slices of a whole from a single value series, with per-slice tooltips, an optional legend, percentage labels, and a donut center label. Reach for it to show part-to-whole composition; use Chart for bar/line/area trends.",
+    "propsRows": [
+      {
+        "prop": "data",
+        "type": "PieChartDatum[]",
+        "required": true,
+        "default": "—",
+        "description": "Slices to plot, each a { label, value, color? }; only positive values contribute a slice and negatives are treated as zero."
+      },
+      {
+        "prop": "donut",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Render as a donut ring instead of a filled pie, using the default innerRadius."
+      },
+      {
+        "prop": "innerRadius",
+        "type": "number",
+        "required": false,
+        "default": "0.6 when donut, else 0",
+        "description": "Inner-hole radius as a fraction (0..1) of the outer radius, letting you tune the ring thickness."
+      },
+      {
+        "prop": "startAngle",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Angle in degrees, clockwise from 12 o'clock, where the first slice begins."
+      },
+      {
+        "prop": "padAngle",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Gap in degrees inserted between adjacent slices to visually separate them."
+      },
+      {
+        "prop": "showLabels",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Draw a percentage label centered on each non-hairline slice."
+      },
+      {
+        "prop": "showLegend",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Show the slice legend below the chart."
+      },
+      {
+        "prop": "centerLabel",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "formatted total when donut",
+        "description": "Content for a donut's center; defaults to the formatted total and is ignored for a solid pie."
+      },
+      {
+        "prop": "valueFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "toLocaleString",
+        "description": "Formatter for the tooltip and hidden data-table values."
+      },
+      {
+        "prop": "height",
+        "type": "number",
+        "required": false,
+        "default": "260",
+        "description": "Pixel height of the chart; the square chart area is sized from this value."
+      },
+      {
+        "prop": "colors",
+        "type": "string[]",
+        "required": false,
+        "default": "built-in token palette",
+        "description": "Per-slice colors (any CSS color), cycled when shorter than data; defaults to the built-in token palette."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"pie chart\" / \"donut chart\"",
+        "description": "Accessible name for the role=\"img\" SVG; per-slice values live in the hidden data table, not this label."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render a visually-hidden data table as an accessible text alternative for the chart (WCAG 1.1.1)."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "chart's accessible label",
+        "description": "Caption for the hidden data table; defaults to the chart's accessible label."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { PieChart } from \"twico-ui\";\n\n<PieChart data={[\n  { label: \"Direct\", value: 340 },\n  { label: \"Referral\", value: 210 },\n  { label: \"Social\", value: 120 },\n]} />\n\n<PieChart donut showLabels centerLabel=\"100%\" data={[\n  { label: \"Done\", value: 62, color: \"var(--emerald-500)\" },\n  { label: \"In progress\", value: 28 },\n  { label: \"Blocked\", value: 10 },\n]} />",
+    "tagline": "Proportional pie / donut slices of a whole"
+  },
+  {
+    "name": "DonutChart",
+    "slug": "donut-chart",
+    "group": "Data display",
+    "importName": "DonutChart",
+    "summary": "A PieChart preset rendered as a ring with a hollow center, showing proportional slices of a single value series with tooltips, an optional legend, and a donut center label. Reach for it to visualize parts-of-a-whole (traffic sources, budget splits, storage breakdowns) when you want a total called out in the middle.",
+    "propsRows": [
+      {
+        "prop": "data",
+        "type": "PieChartDatum[]",
+        "required": true,
+        "default": "—",
+        "description": "Slices to plot; each is a { label, value, color? } where only positive values contribute a slice."
+      },
+      {
+        "prop": "donut",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render as a donut (ring) instead of a filled pie; on by default for this preset, pass false for a solid pie."
+      },
+      {
+        "prop": "innerRadius",
+        "type": "number",
+        "required": false,
+        "default": "0.6",
+        "description": "Inner-hole radius as a fraction (0..1) of the outer radius; 0.6 when donut, else 0."
+      },
+      {
+        "prop": "startAngle",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Angle in degrees, clockwise from 12 o'clock, where the first slice starts."
+      },
+      {
+        "prop": "padAngle",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Gap in degrees inserted between adjacent slices to visually separate them."
+      },
+      {
+        "prop": "showLabels",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Draw a percentage label centered on each non-hairline slice directly on the ring."
+      },
+      {
+        "prop": "showLegend",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Show the slice legend below the chart, mapping each color to its label."
+      },
+      {
+        "prop": "centerLabel",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Content for the donut's center; defaults to the formatted total when donut, and is ignored for a solid pie."
+      },
+      {
+        "prop": "valueFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "toLocaleString",
+        "description": "Formatter applied to tooltip and hidden data-table values, e.g. adding a currency or percent sign."
+      },
+      {
+        "prop": "height",
+        "type": "number",
+        "required": false,
+        "default": "260",
+        "description": "Pixel height of the chart; the square chart area is sized from this value."
+      },
+      {
+        "prop": "colors",
+        "type": "string[]",
+        "required": false,
+        "default": "—",
+        "description": "Per-slice colors (any CSS color), cycled when shorter than data; defaults to the built-in token palette."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"donut chart\"",
+        "description": "Accessible name for the <svg role=\"img\">; per-slice values live in the hidden data table, not this label."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1)."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Caption for the hidden data table; defaults to the chart's accessible label."
+      }
+    ],
+    "snippet": "import { DonutChart } from \"twico-ui\";\n\n<DonutChart\n  data={[\n    { label: \"Direct\", value: 42 },\n    { label: \"Referral\", value: 28 },\n    { label: \"Social\", value: 30 },\n  ]}\n  centerLabel=\"Traffic\"\n  showLegend\n/>\n\n<DonutChart data={data} donut={false} />",
+    "tagline": "Parts-of-a-whole as a ring, no deps"
+  },
+  {
+    "name": "Gauge",
+    "slug": "gauge",
+    "group": "Data display",
+    "importName": "Gauge",
+    "summary": "A dependency-free inline-SVG radial gauge that renders a single value as a thick arc sweeping between two angles, with the value and an optional caption in the center. Reach for it to show a KPI, progress, or capacity reading — or pass `series` to draw several concentric rings as a radial-bar chart.",
+    "propsRows": [
+      {
+        "prop": "value",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "The value to display, mapped from the min..max domain onto the arc sweep."
+      },
+      {
+        "prop": "min",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Lower bound of the value domain, mapped to the startAngle."
+      },
+      {
+        "prop": "max",
+        "type": "number",
+        "required": false,
+        "default": "100",
+        "description": "Upper bound of the value domain, mapped to the endAngle."
+      },
+      {
+        "prop": "startAngle",
+        "type": "number",
+        "required": false,
+        "default": "-110",
+        "description": "Sweep start angle in degrees, where 0 is the top and angles run clockwise."
+      },
+      {
+        "prop": "endAngle",
+        "type": "number",
+        "required": false,
+        "default": "110",
+        "description": "Sweep end angle in degrees, where 0 is the top and angles run clockwise."
+      },
+      {
+        "prop": "thickness",
+        "type": "number",
+        "required": false,
+        "default": "0.16",
+        "description": "Ring stroke width expressed as a fraction of the gauge radius."
+      },
+      {
+        "prop": "showValue",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Show the formatted value in the center; applies to a single gauge only."
+      },
+      {
+        "prop": "label",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Small caption rendered under the center value for a single gauge."
+      },
+      {
+        "prop": "valueFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "—",
+        "description": "Formats the center value and hidden-table cells; defaults to a rounded integer."
+      },
+      {
+        "prop": "color",
+        "type": "string",
+        "required": false,
+        "default": "\"var(--color-primary)\"",
+        "description": "Value-arc color, accepting any CSS color string."
+      },
+      {
+        "prop": "trackColor",
+        "type": "string",
+        "required": false,
+        "default": "\"var(--color-surface-sunken)\"",
+        "description": "Background track color behind the value arc, accepting any CSS color string."
+      },
+      {
+        "prop": "size",
+        "type": "number",
+        "required": false,
+        "default": "200",
+        "description": "SVG width and height in pixels; the gauge is always square."
+      },
+      {
+        "prop": "series",
+        "type": "GaugeSeries[]",
+        "required": false,
+        "default": "—",
+        "description": "Multiple concentric radial bars; when set, the single value and label are ignored."
+      },
+      {
+        "prop": "showLegend",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Show the legend for a multi-ring gauge driven by the series prop."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Accessible name for the SVG role=\"img\"; defaults to a value summary and also accepts aria-label."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render a visually-hidden data table as an accessible text alternative per WCAG 1.1.1."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Caption for the hidden data table; defaults to the gauge's accessible label."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { Gauge } from \"twico-ui\";\n\n<Gauge value={72} label=\"CPU\" valueFormat={(n) => `${Math.round(n)}%`} />\n\n<Gauge size={220} series={[\n  { value: 82, label: \"Complete\", color: \"var(--emerald-500)\" },\n  { value: 54, label: \"In review\" },\n  { value: 23, label: \"Blocked\" },\n]} />",
+    "tagline": "Radial gauge and radial-bar chart, no deps"
+  },
+  {
+    "name": "Sparkline",
+    "slug": "sparkline",
+    "group": "Data display",
+    "importName": "Sparkline",
+    "summary": "A minimal, word-sized trend chart — line, area, or bars — with no axes, grid, ticks, or legend. Reach for it to sit inline beside text or inside a table cell or stat tile; for a full chart with axes, tooltips, and a legend use Chart instead.",
+    "propsRows": [
+      {
+        "prop": "data",
+        "type": "SparklineDatum[]",
+        "required": true,
+        "default": "—",
+        "description": "The points to plot: bare numbers, or `{ value, label }` objects whose label is used for tooltips and the hidden table."
+      },
+      {
+        "prop": "type",
+        "type": "\"line\" | \"area\" | \"bar\"",
+        "required": false,
+        "default": "\"line\"",
+        "description": "Trend style: `area` fills below the line and `bar` draws thin columns instead of a continuous line."
+      },
+      {
+        "prop": "area",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Shorthand for `type=\"area\"`, filling the region below the line without setting the full type prop."
+      },
+      {
+        "prop": "color",
+        "type": "string",
+        "required": false,
+        "default": "\"var(--color-primary)\"",
+        "description": "Stroke and fill color; accepts any CSS color, including a design token like `var(--emerald-500)`."
+      },
+      {
+        "prop": "width",
+        "type": "number",
+        "required": false,
+        "default": "120",
+        "description": "The SVG viewbox width in pixels; the rendered element still scales to fill its container width."
+      },
+      {
+        "prop": "height",
+        "type": "number",
+        "required": false,
+        "default": "40",
+        "description": "Pixel height of the sparkline, controlling how tall the trend renders inline."
+      },
+      {
+        "prop": "strokeWidth",
+        "type": "number",
+        "required": false,
+        "default": "2",
+        "description": "Line stroke width in pixels; ignored for the bar type, which draws columns rather than a stroke."
+      },
+      {
+        "prop": "curve",
+        "type": "\"straight\" | \"smooth\" | \"stepped\"",
+        "required": false,
+        "default": "\"smooth\"",
+        "description": "Line and area interpolation: straight segments, a smooth spline, or stepped right-angle transitions between points."
+      },
+      {
+        "prop": "showDots",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Emphasize the last data point with a filled dot to highlight the most recent value."
+      },
+      {
+        "prop": "min",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Pin the low end of the value scale; when omitted it is derived from the data's minimum."
+      },
+      {
+        "prop": "max",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Pin the high end of the value scale; when omitted it is derived from the data's maximum."
+      },
+      {
+        "prop": "valueFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "toLocaleString",
+        "description": "Formatter for values shown in tooltips and the hidden data table, e.g. adding a currency or percent unit."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Accessible name for the `<svg role=\"img\">`; defaults to a spoken summary of point count and first/last/min/max."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Render a visually-hidden data table as a WCAG 1.1.1 text alternative; off by default since the aria-label usually suffices."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Caption for the hidden data table; defaults to the accessible label when not provided."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { Sparkline } from \"twico-ui\";\n\n<Sparkline data={[3, 5, 4, 8, 6, 9, 7, 12]} showDots />\n<Sparkline area color=\"var(--emerald-500)\" data={[120, 180, 140, 220]} />\n<Sparkline type=\"bar\" height={28} data={[4, 6, 2, 8, 5, 7]} />",
+    "tagline": "Tiny inline trend line, no deps"
+  },
+  {
+    "name": "ScatterChart",
+    "slug": "scatter-chart",
+    "group": "Data display",
+    "importName": "ScatterChart",
+    "summary": "A dependency-free inline-SVG scatter and bubble chart that plots x/y points across two nice-scaled numeric axes, with one or many series, grid, tooltips, an optional legend, and a hidden data table. Reach for it to show correlation or distribution between two numeric variables — add a per-point z value to encode a third dimension as bubble size.",
+    "propsRows": [
+      {
+        "prop": "series",
+        "type": "ScatterSeries[]",
+        "required": true,
+        "default": "—",
+        "description": "The series to plot; each has an optional name/color and a list of { x, y, z?, label? } points."
+      },
+      {
+        "prop": "bubble",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Size the dots by their z value (bubble chart); auto-enabled when any point has a numeric z."
+      },
+      {
+        "prop": "maxBubble",
+        "type": "number",
+        "required": false,
+        "default": "26",
+        "description": "Maximum bubble radius in pixels — the largest z value maps to this size."
+      },
+      {
+        "prop": "dotRadius",
+        "type": "number",
+        "required": false,
+        "default": "4.5",
+        "description": "Fixed dot radius in pixels used when the chart is not in bubble mode."
+      },
+      {
+        "prop": "height",
+        "type": "number",
+        "required": false,
+        "default": "300",
+        "description": "Pixel height of the chart, which also sets the SVG aspect ratio so dots stay round."
+      },
+      {
+        "prop": "xLabel",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Axis title drawn beneath the x axis."
+      },
+      {
+        "prop": "yLabel",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Axis title drawn rotated beside the y axis."
+      },
+      {
+        "prop": "showGrid",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Whether to draw the background grid lines behind the plotted points."
+      },
+      {
+        "prop": "showLegend",
+        "type": "boolean",
+        "required": false,
+        "default": "true when >1 series",
+        "description": "Whether to show the series legend; defaults on when there is more than one series."
+      },
+      {
+        "prop": "xFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "valueFormat",
+        "description": "Formatter for x values in tooltips and the hidden table; defaults to valueFormat."
+      },
+      {
+        "prop": "yFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "valueFormat",
+        "description": "Formatter for y values in tooltips and the hidden table; defaults to valueFormat."
+      },
+      {
+        "prop": "valueFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "locale-grouped numbers",
+        "description": "Fallback value formatter for x, y, and z values; defaults to locale-grouped numbers."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"scatter chart\" / \"bubble chart\"",
+        "description": "Accessible name for the chart's role=\"img\" SVG; also accepts aria-label. Per-point values live in the hidden table."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1)."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "chart's accessible label",
+        "description": "Caption for the hidden data table; defaults to the chart's accessible label."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { ScatterChart } from \"twico-ui\";\n\n<ScatterChart\n  xLabel=\"Weight\"\n  yLabel=\"Score\"\n  series={[\n    { name: \"Group A\", points: [{ x: 12, y: 30 }, { x: 20, y: 45 }] },\n    { name: \"Group B\", points: [{ x: 15, y: 22 }, { x: 28, y: 38 }] },\n  ]}\n/>\n\n// Bubble chart — a numeric z auto-enables sizing\n<ScatterChart\n  maxBubble={32}\n  series={[{ name: \"Markets\", points: [\n    { x: 40, y: 12, z: 900, label: \"US\" },\n    { x: 22, y: 30, z: 400, label: \"EU\" },\n  ] }]}\n/>",
+    "tagline": "Scatter and bubble plots, no deps"
+  },
+  {
+    "name": "BubbleChart",
+    "slug": "bubble-chart",
+    "group": "Data display",
+    "importName": "BubbleChart",
+    "summary": "A dependency-free SVG bubble chart — a ScatterChart preset that sizes each dot by a third value (z) across two nice-scaled numeric axes. Reach for it when you need to show a third dimension (volume, revenue, weight) on top of an x/y relationship.",
+    "propsRows": [
+      {
+        "prop": "series",
+        "type": "ScatterSeries[]",
+        "required": true,
+        "default": "—",
+        "description": "The series to plot; each has an optional name/color and a list of { x, y, z?, label? } points."
+      },
+      {
+        "prop": "bubble",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Size the dots by their z value; on by default for BubbleChart, and also auto-enabled when any point has a numeric z."
+      },
+      {
+        "prop": "maxBubble",
+        "type": "number",
+        "required": false,
+        "default": "26",
+        "description": "Maximum bubble radius in pixels — the largest z value maps to this radius, with area scaling as radius ∝ √z."
+      },
+      {
+        "prop": "dotRadius",
+        "type": "number",
+        "required": false,
+        "default": "4.5",
+        "description": "Fixed dot radius in pixels used when bubble sizing is turned off."
+      },
+      {
+        "prop": "height",
+        "type": "number",
+        "required": false,
+        "default": "300",
+        "description": "Pixel height of the chart, which also sets the SVG aspect ratio so dots stay round."
+      },
+      {
+        "prop": "xLabel",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Axis title drawn beneath the x axis."
+      },
+      {
+        "prop": "yLabel",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Axis title drawn, rotated, beside the y axis."
+      },
+      {
+        "prop": "showGrid",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Whether to render the background grid lines behind the plotted points."
+      },
+      {
+        "prop": "showLegend",
+        "type": "boolean",
+        "required": false,
+        "default": "true when >1 series",
+        "description": "Whether to show the series legend; defaults on when there is more than one series."
+      },
+      {
+        "prop": "xFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "—",
+        "description": "Formatter for x values in tooltips and the hidden table; defaults to valueFormat."
+      },
+      {
+        "prop": "yFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "—",
+        "description": "Formatter for y values in tooltips and the hidden table; defaults to valueFormat."
+      },
+      {
+        "prop": "valueFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "—",
+        "description": "Fallback value formatter for x/y/z, using locale-grouped numbers by default."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"bubble chart\"",
+        "description": "Accessible name for the chart's role=\"img\" SVG; per-point values are exposed via the hidden data table instead."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1)."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Caption for the hidden data table; defaults to the chart's accessible label."
+      }
+    ],
+    "snippet": "import { BubbleChart } from \"twico-ui\";\n\n<BubbleChart\n  series={[\n    { name: \"Plans\", points: [\n      { x: 12, y: 40, z: 800, label: \"Starter\" },\n      { x: 26, y: 65, z: 2400, label: \"Team\" },\n      { x: 48, y: 82, z: 5200, label: \"Business\" },\n    ] },\n  ]}\n  xLabel=\"Seats\"\n  yLabel=\"Satisfaction\"\n/>",
+    "tagline": "x/y points sized by a third value"
+  },
+  {
+    "name": "RadarChart",
+    "slug": "radar-chart",
+    "group": "Data display",
+    "importName": "RadarChart",
+    "summary": "A dependency-free SVG radar (spider) chart that plots one or more series as closed polygons over a shared set of categorical axes radiating from a center. Reach for it to compare multi-dimensional profiles — skill sets, scorecards, feature ratings — where each entity is a shape across the same handful of metrics.",
+    "propsRows": [
+      {
+        "prop": "data",
+        "type": "RadarDatum<K>[]",
+        "required": true,
+        "default": "—",
+        "description": "Data rows, one per axis; each carries a label plus one numeric field for every series key you plot."
+      },
+      {
+        "prop": "series",
+        "type": "K[]",
+        "required": false,
+        "default": "[\"value\"]",
+        "description": "Series field names to draw as polygons; supplying more than one overlays several shapes on the same axes."
+      },
+      {
+        "prop": "max",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Radial value at the outer ring; defaults to a nice ceiling computed from the largest datum."
+      },
+      {
+        "prop": "levels",
+        "type": "number",
+        "required": false,
+        "default": "4",
+        "description": "Number of concentric grid rings drawn between the center and the outer edge of the chart."
+      },
+      {
+        "prop": "fill",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Fills each polygon at low opacity in addition to its stroke; set false for a clean outline."
+      },
+      {
+        "prop": "showLegend",
+        "type": "boolean",
+        "required": false,
+        "default": "series.length > 1",
+        "description": "Shows a series legend; defaults to true when more than one series is plotted, otherwise false."
+      },
+      {
+        "prop": "showDots",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Draws a marker dot at each polygon vertex where an axis meets its series value."
+      },
+      {
+        "prop": "colors",
+        "type": "string[]",
+        "required": false,
+        "default": "—",
+        "description": "Per-series CSS colors, cycled when shorter than series; defaults to the built-in design-token palette."
+      },
+      {
+        "prop": "valueFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "—",
+        "description": "Formats values shown in tooltips and the hidden accessible data-table cells."
+      },
+      {
+        "prop": "height",
+        "type": "number",
+        "required": false,
+        "default": "300",
+        "description": "Pixel height of the chart, which renders on a square canvas of this size."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"radar chart\"",
+        "description": "Accessible name for the chart's role=\"img\" SVG; also accepts the aria-label attribute."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Renders a visually-hidden data table as a text alternative to the SVG for screen readers (WCAG 1.1.1)."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Caption for the hidden data table; defaults to the chart's accessible label."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { RadarChart } from \"twico-ui\";\n\n<RadarChart\n  series={[\"team\", \"rival\"]}\n  showLegend\n  data={[\n    { label: \"Speed\", team: 80, rival: 65 },\n    { label: \"Power\", team: 60, rival: 90 },\n    { label: \"Defense\", team: 85, rival: 60 },\n  ]}\n/>\n\n<RadarChart series={[\"score\"]} max={100} levels={5} data={scoreData} />",
+    "tagline": "Compare multi-dimensional profiles as overlaid polygons"
+  },
+  {
+    "name": "PolarAreaChart",
+    "slug": "polar-area-chart",
+    "group": "Data display",
+    "importName": "PolarAreaChart",
+    "summary": "A dependency-free inline-SVG polar-area (Coxcomb / Nightingale rose) chart of equal-angle slices whose radius encodes each value over concentric value rings. Reach for it to compare a handful of categories where slice area — scaled by the square root so it stays statistically honest — reads more naturally than bars or wedges.",
+    "propsRows": [
+      {
+        "prop": "data",
+        "type": "PolarAreaDatum[]",
+        "required": true,
+        "default": "—",
+        "description": "Data points — one equal-angle slice each, ordered clockwise from startAngle, each with a label, value, and optional color."
+      },
+      {
+        "prop": "max",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Radial maximum (the value at the outer ring); defaults to a nice ceiling of the largest value."
+      },
+      {
+        "prop": "levels",
+        "type": "number",
+        "required": false,
+        "default": "4",
+        "description": "Number of concentric grid rings drawn, which also sets how many value tick labels appear."
+      },
+      {
+        "prop": "startAngle",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Angle in degrees of the first slice's leading edge, measured clockwise from the 12 o'clock position."
+      },
+      {
+        "prop": "showLegend",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Show the per-slice legend listing each category label with its swatch below the chart."
+      },
+      {
+        "prop": "valueFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "fmtNumber",
+        "description": "Formats values shown in the per-slice tooltip and the hidden data-table cells."
+      },
+      {
+        "prop": "height",
+        "type": "number",
+        "required": false,
+        "default": "280",
+        "description": "Pixel height of the chart; the square plotting area is centered within the full-width container."
+      },
+      {
+        "prop": "colors",
+        "type": "string[]",
+        "required": false,
+        "default": "—",
+        "description": "Per-slice colors (any CSS color) cycled across slices; defaults to the built-in token palette."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"polar area chart\"",
+        "description": "Accessible name for the chart's SVG role=\"img\"; aria-label is also accepted as an alternative."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render a visually-hidden data table as an accessible text alternative for screen readers (WCAG 1.1.1)."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { PolarAreaChart } from \"twico-ui\";\n\n<PolarAreaChart\n  data={[\n    { label: \"Mon\", value: 12 },\n    { label: \"Tue\", value: 30 },\n    { label: \"Wed\", value: 22 },\n    { label: \"Thu\", value: 41 },\n    { label: \"Fri\", value: 18, color: \"var(--rose-500)\" },\n  ]}\n  valueFormat={(v) => `${v}h`}\n/>\n\n<PolarAreaChart max={100} levels={5} startAngle={-90} showLegend={false} data={[\n  { label: \"N\", value: 40 }, { label: \"E\", value: 65 }, { label: \"S\", value: 25 }, { label: \"W\", value: 80 },\n]} />",
+    "tagline": "Nightingale rose chart, area-honest and dependency-free"
+  },
+  {
+    "name": "Heatmap",
+    "slug": "heatmap",
+    "group": "Data display",
+    "importName": "Heatmap",
+    "summary": "A dependency-free SVG matrix of colored cells keyed by (x, y), each shaded by a single-hue intensity scale between min and max. Reach for it to reveal density, correlation, or activity patterns across two categorical dimensions — think punch-card activity grids, cohort retention, or correlation matrices.",
+    "propsRows": [
+      {
+        "prop": "data",
+        "type": "HeatmapDatum[]",
+        "required": true,
+        "default": "—",
+        "description": "Cells to plot as { x, y, value } objects; X columns and Y rows are derived from these in first-seen order."
+      },
+      {
+        "prop": "min",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Low end of the color scale; defaults to the minimum value found in data."
+      },
+      {
+        "prop": "max",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "High end of the color scale; defaults to the maximum value found in data."
+      },
+      {
+        "prop": "colorScale",
+        "type": "string",
+        "required": false,
+        "default": "\"var(--brand-500)\"",
+        "description": "Base token color for the high end; cells mix it over transparent by their value intensity."
+      },
+      {
+        "prop": "showValues",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Print each cell's formatted value at its center in addition to the color shading."
+      },
+      {
+        "prop": "cellGap",
+        "type": "number",
+        "required": false,
+        "default": "2",
+        "description": "Gap in pixels between adjacent cells in the grid."
+      },
+      {
+        "prop": "radius",
+        "type": "number",
+        "required": false,
+        "default": "2",
+        "description": "Cell corner radius in pixels."
+      },
+      {
+        "prop": "xLabel",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Optional title rendered beneath the X-axis category labels."
+      },
+      {
+        "prop": "yLabel",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Optional title rendered rotated alongside the Y-axis category labels."
+      },
+      {
+        "prop": "showLegend",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Show the low-to-high gradient scale legend below the grid."
+      },
+      {
+        "prop": "valueFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "fmtNumber",
+        "description": "Formatter for tooltips, printed cell values, and the hidden data table."
+      },
+      {
+        "prop": "height",
+        "type": "number",
+        "required": false,
+        "default": "300",
+        "description": "Pixel height of the chart."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"heatmap\"",
+        "description": "Accessible name for the chart's SVG role=\"img\"; also accepts aria-label, with per-cell values exposed via the hidden table."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render a visually-hidden data table as an accessible text alternative (WCAG 1.1.1)."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Caption for the hidden data table; defaults to the chart's accessible label."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { Heatmap } from \"twico-ui\";\n\n<Heatmap\n  xLabel=\"Hour\"\n  yLabel=\"Day\"\n  data={[\n    { x: \"9a\", y: \"Mon\", value: 12 }, { x: \"12p\", y: \"Mon\", value: 48 },\n    { x: \"9a\", y: \"Tue\", value: 20 }, { x: \"12p\", y: \"Tue\", value: 62 },\n  ]}\n/>\n\n<Heatmap showValues colorScale=\"var(--emerald-500)\" valueFormat={(v) => `${v}%`} data={cells} />",
+    "tagline": "Colored (x, y) matrix on an intensity scale"
+  },
+  {
+    "name": "FunnelChart",
+    "slug": "funnel-chart",
+    "group": "Data display",
+    "importName": "FunnelChart",
+    "summary": "A dependency-free inline-SVG funnel chart that draws descending stages as centered trapezoids tapering from each stage's value to the next. Reach for it to visualize conversion or drop-off flows where each step is a subset of the one above.",
+    "propsRows": [
+      {
+        "prop": "data",
+        "type": "FunnelDatum[]",
+        "required": true,
+        "default": "—",
+        "description": "Funnel stages, each `{ label, value, color? }`, ordered from the widest/top stage down to the narrowest."
+      },
+      {
+        "prop": "showValues",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Print each stage's formatted value in its centered caption."
+      },
+      {
+        "prop": "showPercent",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Print each stage's percentage of the first (top) stage in its caption."
+      },
+      {
+        "prop": "horizontal",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Lay the funnel out left→right (tapering vertically) instead of the default top→bottom flow."
+      },
+      {
+        "prop": "gap",
+        "type": "number",
+        "required": false,
+        "default": "2",
+        "description": "Pixel gap between adjacent stage bands."
+      },
+      {
+        "prop": "height",
+        "type": "number",
+        "required": false,
+        "default": "300",
+        "description": "Pixel height of the chart."
+      },
+      {
+        "prop": "colors",
+        "type": "string[]",
+        "required": false,
+        "default": "—",
+        "description": "Per-stage colors (any CSS color), cycled when shorter than data; defaults to the token palette."
+      },
+      {
+        "prop": "valueFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "toLocaleString",
+        "description": "Formatter for captions, tooltips, and the hidden data-table cells."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"funnel chart\"",
+        "description": "Accessible name for the chart's `<svg role=\"img\">`; also accepts `aria-label`, with per-stage values in the hidden table."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render a visually-hidden data table as an accessible text alternative (WCAG 1.1.1)."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Caption for the hidden data table; defaults to the chart's accessible label."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { FunnelChart } from \"twico-ui\";\n\n<FunnelChart\n  data={[\n    { label: \"Visits\", value: 8200 },\n    { label: \"Signups\", value: 4100 },\n    { label: \"Trials\", value: 1600 },\n    { label: \"Paid\", value: 540 },\n  ]}\n  valueFormat={(v) => v.toLocaleString()}\n/>\n\n<FunnelChart horizontal showPercent={false} height={220} data={[\n  { label: \"Leads\", value: 500, color: \"var(--sky-500)\" },\n  { label: \"Qualified\", value: 320 },\n  { label: \"Won\", value: 90 },\n]} />",
+    "tagline": "Descending funnel stages for conversion flows"
+  },
+  {
+    "name": "Treemap",
+    "slug": "treemap",
+    "group": "Data display",
+    "importName": "Treemap",
+    "summary": "A dependency-free SVG treemap that partitions a rectangle into tiles sized in proportion to a flat list of values, using a squarified layout that keeps tile aspect ratios near 1:1. Reach for it to show the relative weight of parts within a whole — spend by category, storage by bucket — where a pie would crowd or a bar chart would lose the sense of area.",
+    "propsRows": [
+      {
+        "prop": "data",
+        "type": "TreemapDatum[]",
+        "required": true,
+        "default": "—",
+        "description": "Tiles to lay out; each has a label, a non-negative value driving its area, and an optional color override."
+      },
+      {
+        "prop": "showValues",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Draw the formatted value under the label inside tiles tall enough to fit both lines of text."
+      },
+      {
+        "prop": "valueFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "toLocaleString",
+        "description": "Formatter applied to the tooltip, the in-tile value, and the hidden data-table cells."
+      },
+      {
+        "prop": "height",
+        "type": "number",
+        "required": false,
+        "default": "300",
+        "description": "Pixel height, which also sets the SVG's aspect ratio; the width fills the container."
+      },
+      {
+        "prop": "colors",
+        "type": "string[]",
+        "required": false,
+        "default": "—",
+        "description": "Tile colors cycled by index; defaults to the built-in token palette, and a datum's own color wins."
+      },
+      {
+        "prop": "gap",
+        "type": "number",
+        "required": false,
+        "default": "2",
+        "description": "Gap in pixels inset between adjacent tiles so their boundaries read clearly."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"treemap\"",
+        "description": "Accessible name for the chart's role=\"img\" SVG; also accepts aria-label, with values exposed via the data table."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render a visually-hidden data table of value and share as an accessible text alternative (WCAG 1.1.1)."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { Treemap } from \"twico-ui\";\n\n<Treemap\n  ariaLabel=\"Cloud spend by service\"\n  valueFormat={(v) => `$${v.toLocaleString()}`}\n  data={[\n    { label: \"Compute\", value: 4200 },\n    { label: \"Storage\", value: 2600 },\n    { label: \"Network\", value: 1800 },\n    { label: \"Other\", value: 700, color: \"var(--slate-500)\" },\n  ]}\n/>",
+    "tagline": "Squarified area treemap for part-to-whole"
+  },
+  {
+    "name": "Candlestick",
+    "slug": "candlestick",
+    "group": "Data display",
+    "importName": "Candlestick",
+    "summary": "An OHLC candlestick chart that draws one candle per period — a high→low wick and an open→close body colored by direction — as dependency-free inline SVG. Reach for it to visualize price or range data over time; use Chart for bars, lines and areas.",
+    "propsRows": [
+      {
+        "prop": "data",
+        "type": "CandlestickDatum[]",
+        "required": true,
+        "default": "—",
+        "description": "OHLC data points, one candle each ({ label, open, high, low, close }), given in chronological order."
+      },
+      {
+        "prop": "upColor",
+        "type": "string",
+        "required": false,
+        "default": "\"var(--color-success)\"",
+        "description": "Color for up candles where close is greater than or equal to open, accepting any CSS color."
+      },
+      {
+        "prop": "downColor",
+        "type": "string",
+        "required": false,
+        "default": "\"var(--color-danger)\"",
+        "description": "Color for down candles where close is less than open, accepting any CSS color."
+      },
+      {
+        "prop": "height",
+        "type": "number",
+        "required": false,
+        "default": "300",
+        "description": "Pixel height of the chart; the width always fills the container at 100 percent."
+      },
+      {
+        "prop": "showGrid",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Whether to draw the horizontal value grid lines behind the candles."
+      },
+      {
+        "prop": "showAxis",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Whether to render the value axis and the category (x) labels, which thin out automatically when dense."
+      },
+      {
+        "prop": "valueFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "toLocaleString",
+        "description": "Formats values in the per-candle tooltip and the hidden data-table cells."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"candlestick chart\"",
+        "description": "Accessible name for the chart's SVG role=\"img\"; aria-label is also accepted as an alternative."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Renders a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1)."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { Candlestick } from \"twico-ui\";\n\n<Candlestick\n  valueFormat={(v) => `$${v}`}\n  data={[\n    { label: \"Mon\", open: 132, high: 138, low: 130, close: 136 },\n    { label: \"Tue\", open: 136, high: 141, low: 134, close: 135 },\n    { label: \"Wed\", open: 135, high: 137, low: 128, close: 129 },\n  ]}\n/>",
+    "tagline": "Dependency-free OHLC candlestick chart"
+  },
+  {
+    "name": "Boxplot",
+    "slug": "boxplot",
+    "group": "Data display",
+    "importName": "Boxplot",
+    "summary": "A dependency-free inline-SVG box-and-whisker chart that draws one box per category from a five-number summary (min, Q1, median, Q3, max) with whiskers and optional outlier points. Reach for it to compare the spread, skew, and outliers of distributions across groups where a bar or line chart would hide the shape of the data.",
+    "propsRows": [
+      {
+        "prop": "data",
+        "type": "BoxplotDatum[]",
+        "required": true,
+        "default": "—",
+        "description": "The boxes to plot, one per category, each a five-number summary with an optional array of outlier values."
+      },
+      {
+        "prop": "color",
+        "type": "string",
+        "required": false,
+        "default": "\"var(--color-primary)\"",
+        "description": "Box fill and stroke accent, accepting any CSS color including a design token reference."
+      },
+      {
+        "prop": "height",
+        "type": "number",
+        "required": false,
+        "default": "300",
+        "description": "Pixel height of the chart; the width fills its container at 100%."
+      },
+      {
+        "prop": "showGrid",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Whether to draw horizontal grid lines at the value axis ticks behind the boxes."
+      },
+      {
+        "prop": "showAxis",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Whether to render the value axis and the category labels under each box."
+      },
+      {
+        "prop": "valueFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "toLocaleString",
+        "description": "Formatter applied to values in the per-box tooltip and the hidden data table."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"box plot\"",
+        "description": "Accessible name for the chart's role=\"img\" SVG; per-box values are exposed via the hidden data table."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Renders a visually-hidden data table as an accessible text alternative for screen readers (WCAG 1.1.1)."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { Boxplot } from \"twico-ui\";\n\n<Boxplot\n  data={[\n    { label: \"API\", min: 12, q1: 24, median: 33, q3: 42, max: 58, outliers: [72] },\n    { label: \"Web\", min: 18, q1: 30, median: 41, q3: 52, max: 66 },\n    { label: \"Cache\", min: 8, q1: 20, median: 27, q3: 38, max: 49 },\n  ]}\n  valueFormat={(v) => `${v}ms`}\n/>",
+    "tagline": "Box-and-whisker distribution chart"
+  },
+  {
+    "name": "RangeChart",
+    "slug": "range-chart",
+    "group": "Data display",
+    "importName": "RangeChart",
+    "summary": "A dependency-free inline-SVG chart for values that span a min→max range: horizontal range bars for a timeline/Gantt of one band per row, or a range area shading the band between a per-category min line and max line. Reach for it when each data point is an interval (start→end, low→high) rather than a single value.",
+    "propsRows": [
+      {
+        "prop": "type",
+        "type": "\"bar\" | \"area\"",
+        "required": false,
+        "default": "\"bar\"",
+        "description": "Chooses horizontal range bars (a timeline/Gantt) or a range area shading the band between a min and max line."
+      },
+      {
+        "prop": "data",
+        "type": "RangeDatum[]",
+        "required": true,
+        "default": "—",
+        "description": "Range points, each a { label, min, max, color? }; bars run top→bottom while the area runs left→right."
+      },
+      {
+        "prop": "height",
+        "type": "number",
+        "required": false,
+        "default": "300",
+        "description": "Pixel height of the chart; the SVG stretches to fill 100% of its container width."
+      },
+      {
+        "prop": "showGrid",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Toggles the value grid lines — vertical for bars, horizontal for the area band."
+      },
+      {
+        "prop": "showAxis",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Toggles the value axis together with the per-category labels drawn alongside the chart."
+      },
+      {
+        "prop": "colors",
+        "type": "string[]",
+        "required": false,
+        "default": "—",
+        "description": "Palette for bar fills and the area band, cycled by index; defaults to the built-in token palette."
+      },
+      {
+        "prop": "valueFormat",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "toLocaleString",
+        "description": "Formats numbers in tooltips and the hidden data-table cells, e.g. adding units or currency symbols."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"range <type> chart\"",
+        "description": "Accessible name for the chart's role=\"img\" SVG; aria-label is also accepted as an alias."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Renders a visually-hidden min/max data table as an accessible text alternative for screen readers (WCAG 1.1.1)."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { RangeChart } from \"twico-ui\";\n\n<RangeChart type=\"bar\" data={[\n  { label: \"Design\", min: 0, max: 4 },\n  { label: \"Build\", min: 3, max: 9 },\n]} />\n\n<RangeChart type=\"area\" data={[\n  { label: \"Mon\", min: 12, max: 20 },\n  { label: \"Tue\", min: 14, max: 24 },\n]} />",
+    "tagline": "Range bars and min–max area bands"
+  },
+  {
     "name": "Checkbox",
     "slug": "checkbox",
     "group": "Inputs",

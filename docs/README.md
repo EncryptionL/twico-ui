@@ -26,6 +26,7 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 | [polymorphic-types.md](./polymorphic-types.md) | The `as`-driven polymorphic type kit (Box/Stack/Grid/Container/Text/Heading) — props + `ref` inferred from `as`, and why it uses two call signatures. |
 | [sx.md](./sx.md) | The `sx` style-prop escape hatch — flat CSS inline + nested selectors/at-rules compiled to a scoped stylesheet (pseudo-classes, media queries under the no-className policy). |
 | [datatable.md](./datatable.md) | Datatable advanced features — opt-in row virtualization, keyboard row reorder, and ARIA menu semantics. |
+| [charts.md](./charts.md) | The dependency-free SVG chart family — the `_chart.js` foundation, the hybrid `Chart` + dedicated-component model, the shared a11y/token conventions, and how to add a chart type. |
 | [ai-guide.md](./ai-guide.md) | `llms.txt` — the generated AI usage guide for consumers; how it's built from the component/hook API, where it ships, and the drift guard. |
 | [examples.md](./examples.md) | The `examples/` apps (e.g. the Next.js auth + RBAC dashboard) — how they consume the npm package and why they're isolated from the library build/tarball. |
 | [design-sync.md](./design-sync.md) | Publishing the library to claude.ai/design — the `.design-sync/` inputs (config, previews, conventions), the converter, the preview verify loop, and how to re-sync. Also documents the root `_ds_bundle.js` skill artifact + its drift guard. |
