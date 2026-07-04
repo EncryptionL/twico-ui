@@ -13,11 +13,15 @@ export interface TextProps extends React.HTMLAttributes<HTMLElement> {
   rel?: string;
   /** Font-size token suffix. @default "base" */
   size?: "xs" | "sm" | "base" | "lg" | "xl" | string;
-  /** Semantic color tone — text roles (default/muted/subtle) plus the color intents. @default "default" */
+  /** Semantic color tone — text roles (default/muted/subtle), the color intents, or `"inherit"` to adopt the parent color. @default "default" */
   tone?: TextTone;
   /** Font-weight token suffix (e.g. "medium", "semibold", "bold"). */
   weight?: "medium" | "semibold" | "bold" | string;
   align?: React.CSSProperties["textAlign"];
+  /** Single-line ellipsis truncation (adds min-width:0 so it shrinks in a flex parent). @default false */
+  truncate?: boolean;
+  /** Clamp to N lines with an ellipsis (multi-line, -webkit-line-clamp). Overrides `truncate`. */
+  lineClamp?: number;
 }
 
 export function Text(props: TextProps): React.JSX.Element;

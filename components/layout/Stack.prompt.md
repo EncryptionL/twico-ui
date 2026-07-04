@@ -12,3 +12,5 @@ import { Stack } from "twico-ui";
 - `direction` — `"row"` | `"column"` (default).
 - `gap` — spacing step (number → `--space-*`) or any CSS length.
 - `align` / `justify` — flex alignment; `wrap`; `inline`; `as` to change the tag.
+- `p` / `px` / `py` / `pt` / `pr` / `pb` / `pl` — padding (spacing step or CSS length; most-specific wins).
+- `divider` — a node rendered between children (pass an orientation-appropriate `Divider`).

@@ -7,5 +7,6 @@ import { Heading } from "twico-ui";
 <Heading level={3}>Recent activity</Heading>
 ```
 
-- `level` — 1–6, sets both the tag and the default size.
-- `size` — override the size token suffix (e.g. `"3xl"`); `as` to keep semantics while changing looks; `align`.
+- `level` — 1–6, sets both the tag and the default size (semantics).
+- `size` — visual scale token, independent of `level`: `"xs"…"7xl" | "display"`; `display` renders the
+  display size regardless of level; `truncate` / `lineClamp={n}` for ellipsis; `as`, `align`.

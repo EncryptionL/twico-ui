@@ -21,6 +21,22 @@ export interface StackProps extends React.HTMLAttributes<HTMLElement> {
   wrap?: boolean;
   /** Use inline-flex instead of flex. @default false */
   inline?: boolean;
+  /** Padding — all sides. Spacing step (number) or any CSS length. */
+  p?: number | string;
+  /** Horizontal (inline) padding. */
+  px?: number | string;
+  /** Vertical (block) padding. */
+  py?: number | string;
+  /** Top padding (overrides `py`/`p`). */
+  pt?: number | string;
+  /** Right padding (overrides `px`/`p`). */
+  pr?: number | string;
+  /** Bottom padding (overrides `py`/`p`). */
+  pb?: number | string;
+  /** Left padding (overrides `px`/`p`). */
+  pl?: number | string;
+  /** Node rendered between each child (not before the first or after the last). Pass an orientation-appropriate `Divider`. */
+  divider?: React.ReactNode;
 }
 
 export function Stack(props: StackProps): React.JSX.Element;

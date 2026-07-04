@@ -11,5 +11,6 @@ import { Grid } from "twico-ui";
 ```
 
 - `minChildWidth` — responsive: columns auto-fill at this minimum width.
-- `columns` — fixed column count (when `minChildWidth` is not set).
-- `gap` — spacing step or CSS length; `as` to change the tag.
+- `columns` — fixed count, or a responsive object `{ base, sm, md, lg, xl }` (CSS-only, SSR-safe).
+- `gap` / `rowGap` / `columnGap` — spacing step or CSS length; `alignContent` / `justifyContent`;
+  `as` to change the tag.

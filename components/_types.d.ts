@@ -10,8 +10,8 @@ export type Tone = "primary" | "success" | "warning" | "danger" | "info" | "neut
 /** Action controls (Button, IconButton) — brand or destructive only. */
 export type ActionTone = "primary" | "danger";
 
-/** Text roles plus the full color scale (Text). */
-export type TextTone = "default" | "muted" | "subtle" | Tone;
+/** Text roles, the full color scale, and `"inherit"` (adopt the parent color) — Text. */
+export type TextTone = "default" | "muted" | "subtle" | "inherit" | Tone;
 
 /** Toast tone vocabulary — `"neutral"` is an alias of `"default"`. */
 export type ToastTone = "default" | "neutral" | "success" | "warning" | "danger" | "info";
