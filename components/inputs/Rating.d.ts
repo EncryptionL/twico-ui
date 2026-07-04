@@ -31,6 +31,8 @@ export interface RatingProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   clearable?: boolean;
   /** Custom formatter for the `showValue` badge and the read-only accessible label. Defaults to a clean integer, or one decimal for fractional values. */
   format?: (value: number) => React.ReactNode;
+  /** Name for a hidden form field so the value participates in native form submission. */
+  name?: string;
   onChange?: (value: number) => void;
 }
 

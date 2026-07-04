@@ -5884,6 +5884,13 @@ export const components = [
         "description": "Custom formatter for the showValue badge and the read-only accessible label (e.g. custom precision, i18n, a /5 suffix)."
       },
       {
+        "prop": "name",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Name for a hidden form field so the rating value participates in native form submission."
+      },
+      {
         "prop": "onChange",
         "type": "(value: number) => void",
         "required": false,
@@ -6507,6 +6514,41 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Formats the displayed value in the label and drag bubble, useful for adding units, currency, or custom text."
+      },
+      {
+        "prop": "range",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable dual-thumb range mode (also auto-enabled by a [number, number] value/defaultValue); onChange then emits a [min, max] tuple."
+      },
+      {
+        "prop": "pageStep",
+        "type": "number",
+        "required": false,
+        "default": "Math.max(step, (max-min)/10)",
+        "description": "Large-step increment for PageUp/PageDown keys; defaults to ~10% of the range."
+      },
+      {
+        "prop": "precision",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Decimal places for the default display and aria value; derived from step when unset (so a 0.1 step shows one decimal)."
+      },
+      {
+        "prop": "getAriaValueText",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "—",
+        "description": "Human-readable value for aria-valuetext; use when formatValue returns a node so assistive tech still announces a meaningful value."
+      },
+      {
+        "prop": "name",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Name for a hidden form field so the slider value participates in native form submission."
       },
       {
         "prop": "onChange",

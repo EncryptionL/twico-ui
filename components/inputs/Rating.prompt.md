@@ -14,4 +14,5 @@ Props: `value`/`defaultValue`, `count`, `size` (sm/md/lg), `tone` (color intent,
 A fractional `value` renders a **partial star fill** in `readOnly` mode (interactive selection is
 integer-only); read-only ratings expose a single `role="img"` named "N out of M stars". Clear to 0 by
 clicking the selected star or pressing Delete/Backspace (`clearable`, default true). `showValue` prints a
-clean integer (or one decimal); pass `format` to customize the badge + accessible label.
+clean integer (or one decimal); pass `format` to customize the badge + accessible label. Pass `name` to
+submit the value via a hidden form field.

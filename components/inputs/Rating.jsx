@@ -44,6 +44,7 @@ export function Rating({
   showValue = false,
   clearable = true,
   format,
+  name,
   onChange,
   className = "",
   style,
@@ -108,6 +109,7 @@ export function Rating({
         {...rest}
       >
         {__twcStyles}
+        {name ? <input type="hidden" name={name} value={val} disabled={disabled || undefined} /> : null}
         <span className="twc-rating__stars">
           {Array.from({ length: count }).map((_, i) => (
             <span key={i + 1} className="twc-rating__btn">{star(i + 1)}</span>
@@ -123,6 +125,7 @@ export function Rating({
     <div className={`twc-rating ${className}`} data-size={size} data-tone={tone} data-disabled={disabled || undefined}
       style={color ? { "--_c": color, ...style } : style} role="radiogroup" aria-label="Rating" aria-disabled={disabled || undefined} {...rest}>
       {__twcStyles}
+      {name ? <input type="hidden" name={name} value={val} disabled={disabled || undefined} /> : null}
       <span className="twc-rating__stars" onMouseLeave={() => setHover(0)} onKeyDown={onKeyDown}>
         {Array.from({ length: count }).map((_, i) => {
           const n = i + 1;

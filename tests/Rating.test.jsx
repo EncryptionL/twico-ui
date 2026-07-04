@@ -75,6 +75,19 @@ describe("Rating clearable + keyboard clear (#83)", () => {
   });
 });
 
+describe("Rating form submission (#82)", () => {
+  it("renders a hidden input carrying the value in FormData", () => {
+    const { container } = render(
+      <form><Rating name="score" value={4} onChange={() => {}} /></form>
+    );
+    expect(new FormData(container.querySelector("form")).get("score")).toBe("4");
+  });
+  it("no hidden input without a name", () => {
+    const { container } = render(<Rating value={4} onChange={() => {}} />);
+    expect(container.querySelector('input[type="hidden"]')).toBeNull();
+  });
+});
+
 describe("Rating value formatting (#87)", () => {
   it("integers render without a trailing .0", () => {
     const { rerender } = render(<Rating value={4} showValue readOnly />);
