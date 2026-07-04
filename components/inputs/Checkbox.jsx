@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { warnOnce } from "../_warn.js";
 
 export function Checkbox({
   label,
@@ -62,7 +63,15 @@ export function Checkbox({
   const errId = `${fieldId}-error`;
   const invalid = Boolean(error);
   const ref = React.useRef(null);
-  React.useEffect(() => { if (ref.current) ref.current.indeterminate = indeterminate; }, [indeterminate]);
+  // #85: keep the DOM indeterminate property in sync with BOTH props — checked wins, so the
+  // partial→all "select all" flip clears the mixed state (effect re-runs on `checked` too).
+  const mixed = indeterminate && !checked;
+  React.useEffect(() => { if (ref.current) ref.current.indeterminate = mixed; }, [mixed]);
+
+  // #76: a label-less control with no aria-label/labelledby is unnamed (WCAG 4.1.2).
+  if (process.env.NODE_ENV !== "production" && !label && !description && !rest["aria-label"] && !rest["aria-labelledby"]) {
+    warnOnce("Checkbox.no-name", "Checkbox: no accessible name — pass `label`, or `aria-label`/`aria-labelledby` for a label-less control (WCAG 4.1.2).");
+  }
 
   const describedBy = [rest["aria-describedby"], error ? errId : null].filter(Boolean).join(" ") || undefined;
 
@@ -79,13 +88,15 @@ export function Checkbox({
         disabled={disabled}
         onChange={onChange}
         {...rest}
+        required={required || undefined}
         aria-required={required || undefined}
+        aria-checked={mixed ? "mixed" : undefined}
         aria-invalid={invalid || undefined}
         aria-describedby={describedBy}
       />
       <span className="twc-check__box" aria-hidden="true">
         <svg className="twc-check__svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
-          {indeterminate ? <path d="M5 12h14"/> : <path d="M20 6 9 17l-5-5"/>}
+          {mixed ? <path d="M5 12h14"/> : <path d="M20 6 9 17l-5-5"/>}
         </svg>
       </span>
       {(label || description) ? (
