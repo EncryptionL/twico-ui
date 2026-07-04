@@ -1,4 +1,5 @@
 import React from "react";
+import { useSx } from "../_sx.js";
 
 function sp(v) {
   if (v == null) return undefined;
@@ -37,14 +38,17 @@ export const Box = React.forwardRef(function Box({
   border = false,
   radius,
   shadow,
+  sx,
   className = "",
   style,
   children,
   ...rest
 }, ref) {
+  const { flatStyle, styleNode, sxAttr } = useSx(sx);
   // Resolve longhands from most-specific to least (pt > py > p). We never emit
   // the `padding`/`margin` shorthand alongside undefined longhands — React would
   // clear the shorthand and zero the value (e.g. p={4} would apply no padding).
+  // Merge order: base -> user `style` -> `sx` flat declarations (sx wins, per MUI).
   const s = {
     paddingTop: sp(pt ?? py ?? p),
     paddingRight: sp(pr ?? px ?? p),
@@ -59,10 +63,12 @@ export const Box = React.forwardRef(function Box({
     borderRadius: radius ? `var(--radius-${radius})` : undefined,
     boxShadow: shadow ? `var(--shadow-${shadow})` : undefined,
     ...style,
+    ...flatStyle,
   };
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   return (
-    <Tag ref={ref} className={`twc-box ${className}`.trim()} style={s} {...rest}>
+    <Tag ref={ref} className={`twc-box ${className}`.trim()} style={s} data-twc-sx={sxAttr} {...rest}>
+      {styleNode}
       {children}
     </Tag>
   );

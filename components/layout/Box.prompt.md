@@ -10,3 +10,4 @@ import { Box } from "twico-ui";
 
 - Spacing props take a spacing step (number → `--space-*`) or any CSS length: `p`, `px`, `py`, `pt/pr/pb/pl`, and the `m*` equivalents.
 - `bg` (surface token or CSS), `border` (bool), `radius` / `shadow` (token suffix), `as` to change the tag.
+- `sx` — style escape hatch: flat CSS goes inline (wins over the base style); nested keys like `"&:hover"` or `"@media (min-width: 600px)"` compile to a scoped stylesheet.

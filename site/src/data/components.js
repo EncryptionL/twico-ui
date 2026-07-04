@@ -872,6 +872,13 @@ export const components = [
         "description": "Margin left (inline start) — spacing step or CSS length."
       },
       {
+        "prop": "sx",
+        "type": "Sx",
+        "required": false,
+        "default": "—",
+        "description": "Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like \"&:hover\" or \"@media …\" compile to a scoped stylesheet."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -1260,6 +1267,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "The main body content of the card, rendered between the optional header and footer regions."
+      },
+      {
+        "prop": "sx",
+        "type": "Sx",
+        "required": false,
+        "default": "—",
+        "description": "Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like \"&:hover\" or \"@media …\" compile to a scoped stylesheet."
       },
       {
         "prop": "onClick",
@@ -2328,6 +2342,13 @@ export const components = [
         "required": false,
         "default": "\"div\"",
         "description": "Chooses the rendered HTML element or component (such as \"section\" or \"main\"), defaulting to \"div\" for semantic flexibility."
+      },
+      {
+        "prop": "sx",
+        "type": "Sx",
+        "required": false,
+        "default": "—",
+        "description": "Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like \"&:hover\" or \"@media …\" compile to a scoped stylesheet."
       },
       {
         "prop": "onClick",
@@ -4229,6 +4250,13 @@ export const components = [
         "description": "Renders the grid as a different element or tag instead of the default div, for semantic markup."
       },
       {
+        "prop": "sx",
+        "type": "Sx",
+        "required": false,
+        "default": "—",
+        "description": "Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like \"&:hover\" or \"@media …\" compile to a scoped stylesheet."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -4329,6 +4357,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Renders a different tag while preserving the level's size, useful when semantics and visual weight should differ."
+      },
+      {
+        "prop": "sx",
+        "type": "Sx",
+        "required": false,
+        "default": "—",
+        "description": "Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like \"&:hover\" or \"@media …\" compile to a scoped stylesheet."
       },
       {
         "prop": "onClick",
@@ -6846,6 +6881,13 @@ export const components = [
         "description": "Overrides the rendered element or tag (default \"div\"), useful for semantic wrappers like nav, ul, or section."
       },
       {
+        "prop": "sx",
+        "type": "Sx",
+        "required": false,
+        "default": "—",
+        "description": "Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like \"&:hover\" or \"@media …\" compile to a scoped stylesheet."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -7789,6 +7831,13 @@ export const components = [
         "required": false,
         "default": "\"p\"",
         "description": "Chooses the element or tag rendered, defaulting to p so you can swap in span or other tags."
+      },
+      {
+        "prop": "sx",
+        "type": "Sx",
+        "required": false,
+        "default": "—",
+        "description": "Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like \"&:hover\" or \"@media …\" compile to a scoped stylesheet."
       },
       {
         "prop": "onClick",

@@ -84,6 +84,7 @@ export * from "../hooks";
 // and the Select-family option shape, so consumers name them instead of re-deriving.
 export type { Tone, ActionTone, TextTone, ToastTone, BarTone, PolymorphicAs } from "../components/_types";
 export type { PolymorphicComponent, PolymorphicProps, PolymorphicPropsWithRef, PolymorphicRef } from "../components/_types";
+export type { Sx } from "../components/_types";
 export type { TwicoProviderProps } from "../components/TwicoProvider";
 export type { ThemeProviderProps, ThemeTokens, Theme } from "../components/layout/ThemeProvider";
 export type { FormProps } from "../components/inputs/Form";

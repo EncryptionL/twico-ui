@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { PolymorphicComponent, PolymorphicPropsWithRef } from "../_types";
+import type { PolymorphicComponent, PolymorphicPropsWithRef, Sx } from "../_types";
 
 /** Responsive column counts per breakpoint (base + sm/md/lg/xl at 640/768/1024/1280px). */
 export type ResponsiveColumns = { base?: number; sm?: number; md?: number; lg?: number; xl?: number };
@@ -25,6 +25,8 @@ export interface GridOwnProps {
   alignContent?: React.CSSProperties["alignContent"];
   /** Distribute the grid's columns within extra inline space. */
   justifyContent?: React.CSSProperties["justifyContent"];
+  /** Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules (`"&:hover"`, `"@media …"`) compile to a scoped stylesheet. */
+  sx?: Sx;
 }
 
 /** Grid props for a given element `C` (defaults to `"div"`). */

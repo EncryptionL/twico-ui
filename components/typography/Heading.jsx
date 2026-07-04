@@ -1,4 +1,5 @@
 import React from "react";
+import { useSx } from "../_sx.js";
 
 const LEVEL_SIZE = { 1: "4xl", 2: "2xl", 3: "xl", 4: "lg", 5: "base", 6: "sm" };
 
@@ -19,11 +20,13 @@ export const Heading = React.forwardRef(function Heading({
   align,
   truncate,
   lineClamp,
+  sx,
   className = "",
   style,
   children,
   ...rest
 }, ref) {
+  const { flatStyle, styleNode, sxAttr } = useSx(sx);
   const Tag = as || `h${level}`;
   const sz = size || (display ? "display" : LEVEL_SIZE[level]) || "2xl";
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
@@ -31,6 +34,7 @@ export const Heading = React.forwardRef(function Heading({
     <Tag
       ref={ref}
       className={`twc-heading ${className}`.trim()}
+      data-twc-sx={sxAttr}
       style={{
         margin: 0,
         fontFamily: "var(--font-sans)",
@@ -46,9 +50,11 @@ export const Heading = React.forwardRef(function Heading({
             ? { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", minWidth: 0 }
             : null),
         ...style,
+        ...flatStyle,
       }}
       {...rest}
     >
+      {styleNode}
       {children}
     </Tag>
   );

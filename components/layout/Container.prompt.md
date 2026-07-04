@@ -11,3 +11,4 @@ import { Container } from "twico-ui";
 
 - `size` — `"sm" | "md" | "lg" | "xl" | "full"` or any CSS length.
 - `padded` — toggle the horizontal padding; `as` to change the tag.
+- `sx` — style escape hatch: flat CSS inline (wins over base); nested keys like `"&:hover"` / `"@media …"` compile to a scoped stylesheet.

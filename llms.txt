@@ -343,6 +343,7 @@ Props:
 - `mr` — `number | string` — Margin right (inline end) — spacing step or CSS length.
 - `mb` — `number | string` — Margin bottom — spacing step or CSS length.
 - `ml` — `number | string` — Margin left (inline start) — spacing step or CSS length.
+- `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
 ```jsx
 import { Box } from "twico-ui";
@@ -362,6 +363,7 @@ Props:
 - `size` — `"sm" | "md" | "lg" | "xl" | "full" | string` · default `"lg"` — Caps the maximum width using a named token (sm through xl, or full) or any CSS length, defaulting to "lg".
 - `padded` — `boolean` · default `true` — Adds responsive horizontal padding so content does not touch the viewport edges; enabled by default, set false to remove it.
 - `as` — `ElementType` · default `"div"` — Chooses the rendered HTML element or component (such as "section" or "main"), defaulting to "div" for semantic flexibility.
+- `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
 ```jsx
 import { Container, Heading } from "twico-ui";
@@ -408,6 +410,7 @@ Props:
 - `align` — `string` — Maps to the CSS align-items value, controlling how children are aligned along the block (vertical) axis.
 - `justify` — `string` — Maps to the CSS justify-items value, controlling how children are aligned along the inline (horizontal) axis.
 - `as` — `ElementType` · default `"div"` — Renders the grid as a different element or tag instead of the default div, for semantic markup.
+- `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
 ```jsx
 import { Grid, Card } from "twico-ui";
@@ -433,6 +436,7 @@ Props:
 - `wrap` — `boolean` · default `false` — Allows children to wrap onto multiple lines instead of overflowing when they exceed the container width.
 - `inline` — `boolean` · default `false` — Renders the stack as inline-flex rather than block-level flex, so it sits inline with surrounding content.
 - `as` — `ElementType` · default `"div"` — Overrides the rendered element or tag (default "div"), useful for semantic wrappers like nav, ul, or section.
+- `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
 ```jsx
 import { Stack } from "twico-ui";
@@ -472,6 +476,7 @@ Props:
 - `size` — `string` — Overrides the font-size token suffix (e.g. "3xl") to decouple visual scale from the semantic heading level.
 - `align` — `string` — Sets the CSS text-align value, letting you left-align, center, or right-align the heading text.
 - `as` — `ElementType` — Renders a different tag while preserving the level's size, useful when semantics and visual weight should differ.
+- `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
 ```jsx
 import { Heading } from "twico-ui";
@@ -492,6 +497,7 @@ Props:
 - `weight` — `string` — Sets the font-weight token suffix like semibold to adjust how heavy the text appears.
 - `align` — `string` — Sets the text-align value, controlling whether the text reads left, center, right, or justified.
 - `as` — `ElementType` · default `"p"` — Chooses the element or tag rendered, defaulting to p so you can swap in span or other tags.
+- `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
 ```jsx
 import { Text } from "twico-ui";
@@ -1253,6 +1259,7 @@ Props:
 - `interactive` — `boolean` · default `false` — When true, adds a hover-lift effect and pointer cursor to signal the whole card is clickable.
 - `fullHeight` — `boolean` · default `false` — Stretches the card to fill its parent cell (height: 100%) so cards in a grid or flex row align to equal height.
 - `children` — `React.ReactNode` — The main body content of the card, rendered between the optional header and footer regions.
+- `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
 ```jsx
 import { Card } from "twico-ui";

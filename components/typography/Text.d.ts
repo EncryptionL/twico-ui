@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { PolymorphicComponent, PolymorphicPropsWithRef, TextTone } from "../_types";
+import type { PolymorphicComponent, PolymorphicPropsWithRef, Sx, TextTone } from "../_types";
 
 /**
  * Text's own props. Intrinsic attributes of the rendered element (and `ref`) are
@@ -17,6 +17,8 @@ export interface TextOwnProps {
   truncate?: boolean;
   /** Clamp to N lines with an ellipsis (multi-line, -webkit-line-clamp). Overrides `truncate`. */
   lineClamp?: number;
+  /** Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules (`"&:hover"`, `"@media …"`) compile to a scoped stylesheet. */
+  sx?: Sx;
 }
 
 /** Text props for a given element `C` (defaults to `"p"`). */

@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { PolymorphicComponent, PolymorphicPropsWithRef } from "../_types";
+import type { PolymorphicComponent, PolymorphicPropsWithRef, Sx } from "../_types";
 
 /**
  * Box's own (non-polymorphic) props. The rendered element's intrinsic attributes —
@@ -31,6 +31,8 @@ export interface BoxOwnProps {
   radius?: string;
   /** Box-shadow token suffix (e.g. "sm", "lg", "xl"). */
   shadow?: string;
+  /** Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules (`"&:hover"`, `"@media …"`) compile to a scoped stylesheet. */
+  sx?: Sx;
 }
 
 /**

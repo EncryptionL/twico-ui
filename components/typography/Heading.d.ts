@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { PolymorphicComponent, PolymorphicPropsWithRef } from "../_types";
+import type { PolymorphicComponent, PolymorphicPropsWithRef, Sx } from "../_types";
 
 /** Font-size token suffixes available to `Heading` (see tokens/typography.css). */
 export type HeadingSize =
@@ -23,6 +23,8 @@ export interface HeadingOwnProps {
   truncate?: boolean;
   /** Clamp to N lines with an ellipsis (multi-line, -webkit-line-clamp). Overrides `truncate`. */
   lineClamp?: number;
+  /** Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules (`"&:hover"`, `"@media …"`) compile to a scoped stylesheet. */
+  sx?: Sx;
 }
 
 /** Heading props for a given element `C` (defaults to `"h2"`). */

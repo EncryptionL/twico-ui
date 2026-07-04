@@ -25,6 +25,18 @@ export type BarTone = Exclude<Tone, "neutral">;
  */
 export type PolymorphicAs = React.ElementType;
 
+/**
+ * The `sx` style-prop escape hatch (#53). Top-level CSS properties are applied as inline
+ * style (and win over the component's base style, MUI-style); any nested object — a
+ * selector key (`"&:hover"`, `":focus-visible"`, `"& > .child"`) or an at-rule
+ * (`"@media (min-width: 600px)"`, `"@supports …"`, `"@container …"`) — is compiled to a
+ * scoped stylesheet. Use design tokens for values, e.g. `color: "var(--color-primary)"`.
+ * See docs/sx.md.
+ */
+export type Sx = React.CSSProperties & {
+  [selector: string]: React.CSSProperties[keyof React.CSSProperties] | string | number | Sx | undefined;
+};
+
 // ── Polymorphic component type kit ────────────────────────────────────────────
 // Powers the `as`-driven primitives (Box, Stack, Grid, Container, Text, Heading).
 // Passing `as="a"` narrows the accepted props to that element's attributes (href,

@@ -12,3 +12,4 @@ import { Card } from "./Card";
 
 Variants: `elevated` · `outline` · `soft`. Props: `title`, `subtitle`, `actions` (header slot rendered
 top-right, opposite the title — e.g. a button or menu), `footer`, `padding` (none/md/lg), `interactive`.
+`sx` — style escape hatch: flat CSS inline; nested keys like `"&:hover"` / `"@media …"` compile to a scoped stylesheet.

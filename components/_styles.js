@@ -28,15 +28,24 @@ export function useScopedStyles(id, css) {
   React.useInsertionEffect(() => {
     // React 19 renders the <style> below; nothing to inject imperatively.
     if (SUPPORTS_STYLE_HOIST) return;
-    if (typeof document === "undefined" || document.getElementById(id)) return;
-    const el = document.createElement("style");
-    el.id = id;
-    if (nonce) { el.setAttribute("nonce", nonce); el.nonce = nonce; }
-    el.textContent = css;
-    document.head.appendChild(el);
+    if (typeof document === "undefined") return;
+    // Skip empty stylesheets — per-instance callers (e.g. useSx) pass "" when there is
+    // nothing to inject, and we must not litter <head> with empty <style> tags.
+    if (!css) return;
+    let el = document.getElementById(id);
+    if (!el) {
+      el = document.createElement("style");
+      el.id = id;
+      if (nonce) { el.setAttribute("nonce", nonce); el.nonce = nonce; }
+      document.head.appendChild(el);
+    }
+    // Update in place so dynamic per-instance CSS (a changing `sx`) stays current on
+    // React 18 too. Components that share an id always pass identical CSS, so this is
+    // idempotent for them.
+    if (el.textContent !== css) el.textContent = css;
   }, [id, css, nonce]);
 
-  return SUPPORTS_STYLE_HOIST
+  return SUPPORTS_STYLE_HOIST && css
     ? React.createElement("style", { href: id, precedence: "twc-ui", nonce }, css)
     : null;
 }

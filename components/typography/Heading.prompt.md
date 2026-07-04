@@ -10,3 +10,4 @@ import { Heading } from "twico-ui";
 - `level` — 1–6, sets both the tag and the default size (semantics).
 - `size` — visual scale token, independent of `level`: `"xs"…"7xl" | "display"`; `display` renders the
   display size regardless of level; `truncate` / `lineClamp={n}` for ellipsis; `as`, `align`.
+- `sx` — style escape hatch: flat CSS inline (wins over base); nested keys like `"&:hover"` / `"@media …"` compile to a scoped stylesheet.

@@ -14,3 +14,4 @@ import { Stack } from "twico-ui";
 - `align` / `justify` — flex alignment; `wrap`; `inline`; `as` to change the tag.
 - `p` / `px` / `py` / `pt` / `pr` / `pb` / `pl` — padding (spacing step or CSS length; most-specific wins).
 - `divider` — a node rendered between children (pass an orientation-appropriate `Divider`).
+- `sx` — style escape hatch: flat CSS inline (wins over base); nested keys like `"&:hover"` / `"@media …"` compile to a scoped stylesheet.

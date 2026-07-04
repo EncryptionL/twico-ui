@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { PolymorphicComponent, PolymorphicPropsWithRef } from "../_types";
+import type { PolymorphicComponent, PolymorphicPropsWithRef, Sx } from "../_types";
 
 /**
  * Stack's own props. Intrinsic attributes of the rendered element (and `ref`) are
@@ -32,6 +32,8 @@ export interface StackOwnProps {
   pl?: number | string;
   /** Node rendered between each child (not before the first or after the last). Pass an orientation-appropriate `Divider`. */
   divider?: React.ReactNode;
+  /** Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules (`"&:hover"`, `"@media …"`) compile to a scoped stylesheet. */
+  sx?: Sx;
 }
 
 /** Stack props for a given element `C` (defaults to `"div"`). */

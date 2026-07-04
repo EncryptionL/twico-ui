@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useSx } from "../_sx.js";
 
 function space(v) {
   if (v == null) return undefined;
@@ -36,11 +37,13 @@ export const Grid = React.forwardRef(function Grid({
   justify,
   alignContent,
   justifyContent,
+  sx,
   className = "",
   style,
   children,
   ...rest
 }, ref) {
+  const { flatStyle, styleNode, sxAttr } = useSx(sx);
   const responsive = columns != null && typeof columns === "object";
   const uid = React.useId();
   const gridId = responsive ? `g${uid.replace(/[^a-zA-Z0-9]/g, "")}` : null;
@@ -69,6 +72,7 @@ export const Grid = React.forwardRef(function Grid({
       ref={ref}
       className={`twc-grid ${className}`.trim()}
       data-twc-grid-id={gridId || undefined}
+      data-twc-sx={sxAttr}
       style={{
         display: "grid",
         gridTemplateColumns: templateColumns,
@@ -79,10 +83,12 @@ export const Grid = React.forwardRef(function Grid({
         alignContent,
         justifyContent,
         ...style,
+        ...flatStyle,
       }}
       {...rest}
     >
       {responsive ? __twcStyles : null}
+      {styleNode}
       {children}
     </Tag>
   );

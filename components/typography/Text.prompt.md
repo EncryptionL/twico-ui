@@ -13,3 +13,4 @@ import { Text } from "twico-ui";
   or `"inherit"` to adopt the surrounding color (e.g. inside a solid Button/Alert).
 - `truncate` — single-line ellipsis (shrinks in flex); `lineClamp={n}` — multi-line ellipsis.
 - `weight` — token suffix (e.g. `"semibold"`); `align`; `as` (default `"p"`, accepts a component).
+- `sx` — style escape hatch: flat CSS inline (wins over base); nested keys like `"&:hover"` / `"@media …"` compile to a scoped stylesheet.
