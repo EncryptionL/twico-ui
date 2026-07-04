@@ -302,6 +302,46 @@ function VirtualizedDemo() {
   );
 }
 
+/* ===================================================== 5b. CONTROLLED PAGING */
+function ControlledPaginationDemo() {
+  const data = React.useMemo(() => makePeople(48), []);
+  const [page, setPage] = React.useState(0);
+  const [size, setSize] = React.useState(10);
+  const totalPages = Math.max(1, Math.ceil(data.length / size));
+  const btn = { display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 12px", border: "var(--border-thin) solid var(--color-border)", borderRadius: "var(--radius-md)", background: "var(--color-surface)", color: "var(--color-text)", font: "inherit", cursor: "pointer" };
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+      <Text size="sm" tone="muted" style={{ margin: 0 }}>
+        The grid's own pager and this external toolbar both drive the same <code>page</code>/<code>pageSize</code>
+        state — <code>onPageChange</code> and <code>onPageSizeChange</code> keep them in sync.
+      </Text>
+      <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", flexWrap: "wrap" }}>
+        <button type="button" style={{ ...btn, opacity: page === 0 ? 0.5 : 1 }} disabled={page === 0} onClick={() => setPage((p) => Math.max(0, p - 1))}>‹ Prev</button>
+        <Text size="sm" style={{ margin: 0 }}>Page <strong>{page + 1}</strong> / {totalPages}</Text>
+        <button type="button" style={{ ...btn, opacity: page >= totalPages - 1 ? 0.5 : 1 }} disabled={page >= totalPages - 1} onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}>Next ›</button>
+        <span style={{ width: 1, height: 20, background: "var(--color-border)", margin: "0 6px" }} />
+        {[10, 20].map((n) => (
+          <button key={n} type="button" style={{ ...btn, borderColor: size === n ? "var(--color-primary)" : "var(--color-border)", color: size === n ? "var(--color-primary)" : "var(--color-text)" }} onClick={() => { setSize(n); setPage(0); }}>{n} / page</button>
+        ))}
+      </div>
+      <Datatable
+        rows={data}
+        page={page}
+        pageSize={size}
+        onPageChange={setPage}
+        onPageSizeChange={(s) => { setSize(s); setPage(0); }}
+        height={400}
+        columns={[
+          { field: "name", headerName: "Name", width: 220, renderCell: NameCell },
+          { field: "role", headerName: "Role", width: 120 },
+          { field: "status", headerName: "Status", width: 130, renderCell: StatusBadge },
+          { field: "mrr", headerName: "MRR", type: "number", valueFormatter: (v) => usd(v) },
+        ]}
+      />
+    </div>
+  );
+}
+
 /* ======================================================= 6. REORDER + PINNING */
 function ReorderPinningDemo() {
   const [rows, setRows] = React.useState(() => makePeople(12));
@@ -834,6 +874,30 @@ function ServerSideDemo() {
   ]}
 />`,
     render: () => <CustomRenderersDemo />,
+  },
+  {
+    title: "Controlled pagination",
+    description:
+      "Drive page + page size from your own state. Pass page (0-based) with onPageChange, and onPageSizeChange to control pageSize too — an external toolbar and the grid's built-in pager stay in sync.",
+    code: `function ControlledPagination() {
+  const [page, setPage] = React.useState(0);
+  const [size, setSize] = React.useState(10);
+  return (
+    <>
+      <button onClick={() => setPage((p) => p - 1)}>Prev</button>
+      <button onClick={() => setPage((p) => p + 1)}>Next</button>
+      <Datatable
+        rows={rows}
+        columns={columns}
+        page={page}                                 // controlled (0-based)
+        pageSize={size}                             // controlled (onPageSizeChange set)
+        onPageChange={setPage}                      // required to control page
+        onPageSizeChange={(s) => { setSize(s); setPage(0); }}
+      />
+    </>
+  );
+}`,
+    render: () => <ControlledPaginationDemo />,
   },
   {
     title: "All props",

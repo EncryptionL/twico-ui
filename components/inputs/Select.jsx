@@ -108,6 +108,7 @@ export function Select({
   placeholder = "Select…", searchPlaceholder = "Search…", searchable, options, value, defaultValue = null,
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
   matchTriggerWidth = true, loading = false, emptyText = "No results found", name,
+  virtualized = false, overscan = 8,
   id, className = "",
   onClick, onKeyDown, ...rest
 }) {
@@ -126,6 +127,8 @@ export function Select({
   const [active, setActive] = React.useState(0);
   const [coords, setCoords] = React.useState(null);
   const [query, setQuery] = React.useState("");
+  const [scrollTop, setScrollTop] = React.useState(0); // #92: virtualization scroll offset
+  const [listH, setListH] = React.useState(260);
   const wrapRef = React.useRef(null);
   const triggerRef = React.useRef(null);
   const popRef = React.useRef(null);
@@ -143,6 +146,21 @@ export function Select({
       .filter((g) => g.options.length);
   }, [groups, query]);
   const visible = React.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
+
+  // #92: option-list virtualization (opt-in). Build a flat row model (group headers +
+  // options) with estimated heights and cumulative offsets, keyed by the option's index
+  // in `visible` so aria-activedescendant / keyboard indexing stays over the FULL list.
+  const rowH = React.useMemo(() => (visible.some((o) => o.description) ? 48 : 36), [visible]);
+  const GROUP_H = 30;
+  const { rows, totalH } = React.useMemo(() => {
+    if (!virtualized) return { rows: [], totalH: 0 };
+    const rows = []; let off = 0; let optIdx = -1;
+    fGroups.forEach((g, gi) => {
+      if (g.group) { rows.push({ kind: "group", gi, label: g.group, top: off, h: GROUP_H }); off += GROUP_H; }
+      g.options.forEach((o) => { optIdx += 1; rows.push({ kind: "option", o, idx: optIdx, top: off, h: rowH }); off += rowH; });
+    });
+    return { rows, totalH: off };
+  }, [virtualized, fGroups, rowH]);
 
   const selected = flat.find((o) => o.value === current);
 
@@ -198,7 +216,28 @@ export function Select({
 
   React.useEffect(() => { setActive(0); }, [query]);
 
-  React.useEffect(() => { if (open) ensureVisible(listRef.current, activeRef.current); }, [active, open]);
+  // Measure the list viewport height for the virtualization window (falls back to the
+  // 260px max-height when layout is unavailable, e.g. before paint / in jsdom).
+  React.useEffect(() => {
+    if (!open || !virtualized) return;
+    const el = listRef.current; if (el && el.clientHeight) setListH(el.clientHeight);
+  }, [open, virtualized, render]);
+
+  React.useEffect(() => {
+    if (!open) return;
+    if (!virtualized) { ensureVisible(listRef.current, activeRef.current); return; }
+    // Virtualized: the active option may be unrendered, so scroll by its computed offset
+    // (not the DOM node) and sync scrollTop state so the window re-includes it.
+    const el = listRef.current; if (!el) return;
+    const row = rows.find((r) => r.kind === "option" && r.idx === active);
+    if (!row) return;
+    const vh = el.clientHeight || listH;
+    let next = el.scrollTop;
+    if (row.top < el.scrollTop) next = row.top;
+    else if (row.top + row.h > el.scrollTop + vh) next = row.top + row.h - vh;
+    if (next !== el.scrollTop) el.scrollTop = next;
+    setScrollTop(next);
+  }, [active, open, virtualized, rows, listH]);
 
   // Keep the listbox mounted through the close animation, then unmount.
   React.useEffect(() => {
@@ -259,6 +298,34 @@ export function Select({
   const descId = `${fieldId}-desc`;
   const describedBy = error || hint ? descId : undefined;
 
+  const renderOption = (o, idx) => {
+    const isSel = o.value === current;
+    return (
+      <button key={o.value} id={optionId(idx)} type="button" className="twc-opt" role="option" aria-selected={isSel}
+        ref={idx === active ? activeRef : null}
+        disabled={o.disabled || undefined} aria-disabled={o.disabled || undefined} data-disabled={o.disabled || undefined}
+        data-selected={isSel || undefined} data-active={idx === active || undefined}
+        onMouseEnter={() => { if (!o.disabled) setActive(idx); }} onClick={() => commit(o.value)}>
+        <span className="twc-opt__main">
+          <span className="twc-opt__label">{o.label}</span>
+          {o.description ? <span className="twc-opt__desc">{o.description}</span> : null}
+        </span>
+        {isSel ? <span className="twc-opt__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span> : null}
+      </button>
+    );
+  };
+
+  // Virtualized window: only the rows intersecting [scrollTop, scrollTop+listH] padded by
+  // `overscan`, with spacer divs standing in for the rest so scroll height is preserved.
+  let vTop = 0, vBottom = 0, vShown = rows;
+  if (virtualized && rows.length) {
+    const winTop = scrollTop - overscan * rowH;
+    const winBottom = scrollTop + listH + overscan * rowH;
+    vShown = rows.filter((r) => r.top + r.h > winTop && r.top < winBottom);
+    vTop = vShown.length ? vShown[0].top : 0;
+    vBottom = vShown.length ? totalH - (vShown[vShown.length - 1].top + vShown[vShown.length - 1].h) : totalH;
+  }
+
   let counter = -1;
   const popInner = (
     <>
@@ -275,28 +342,25 @@ export function Select({
           ) : null}
         </div>
       ) : null}
-      <div className="twc-pop__list" ref={listRef}>
+      <div className="twc-pop__list" ref={listRef} onScroll={virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined}>
         {loading ? (
           <div className="twc-pop__loading" role="status"><span className="twc-pop__spinner" aria-hidden="true" />Loading…</div>
         ) : visible.length === 0 ? <div className="twc-pop__empty">{emptyText}</div> :
+          virtualized ? (
+            <>
+              {vTop > 0 ? <div aria-hidden="true" style={{ height: vTop }} /> : null}
+              {vShown.map((r) => r.kind === "group"
+                ? <div key={`g${r.gi}`} className="twc-pop__group">{r.label}</div>
+                : renderOption(r.o, r.idx))}
+              {vBottom > 0 ? <div aria-hidden="true" style={{ height: vBottom }} /> : null}
+            </>
+          ) :
           fGroups.map((g, gi) => (
             <React.Fragment key={gi}>
               {g.group ? <div className="twc-pop__group">{g.group}</div> : null}
               {g.options.map((o) => {
-                counter += 1; const idx = counter; const isSel = o.value === current;
-                return (
-                  <button key={o.value} id={optionId(idx)} type="button" className="twc-opt" role="option" aria-selected={isSel}
-                    ref={idx === active ? activeRef : null}
-                    disabled={o.disabled || undefined} aria-disabled={o.disabled || undefined} data-disabled={o.disabled || undefined}
-                    data-selected={isSel || undefined} data-active={idx === active || undefined}
-                    onMouseEnter={() => { if (!o.disabled) setActive(idx); }} onClick={() => commit(o.value)}>
-                    <span className="twc-opt__main">
-                      <span className="twc-opt__label">{o.label}</span>
-                      {o.description ? <span className="twc-opt__desc">{o.description}</span> : null}
-                    </span>
-                    {isSel ? <span className="twc-opt__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span> : null}
-                  </button>
-                );
+                counter += 1; const idx = counter;
+                return renderOption(o, idx);
               })}
             </React.Fragment>
           ))}

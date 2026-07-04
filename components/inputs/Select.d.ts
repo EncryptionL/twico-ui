@@ -52,6 +52,10 @@ export interface SelectProps extends Omit<React.HTMLAttributes<HTMLButtonElement
   emptyText?: string;
   /** Name for a hidden form field so the selected value participates in native form submission. */
   name?: string;
+  /** Virtualize the option list — render only the visible slice (plus `overscan`) for long lists. @default false */
+  virtualized?: boolean;
+  /** Extra option rows rendered above/below the viewport when `virtualized`, to smooth fast scrolling. @default 8 */
+  overscan?: number;
 }
 
 /** Alias of the shared {@link Option} type (kept for backward-compatible imports). */

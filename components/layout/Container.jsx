@@ -1,4 +1,5 @@
 import React from "react";
+import { useSx } from "../_sx.js";
 
 const SIZES = { sm: 640, md: 768, lg: 1024, xl: 1280, full: "100%" };
 
@@ -15,26 +16,31 @@ export const Container = React.forwardRef(function Container({
   as: Tag = "div",
   size = "lg",
   padded = true,
+  sx,
   className = "",
   style,
   children,
   ...rest
 }, ref) {
+  const { flatStyle, styleNode, sxAttr } = useSx(sx);
   const max = SIZES[size] ?? size;
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   return (
     <Tag
       ref={ref}
       className={`twc-container ${className}`.trim()}
+      data-twc-sx={sxAttr}
       style={{
         width: "100%",
         maxWidth: typeof max === "number" ? `${max}px` : max,
         marginInline: "auto",
         paddingInline: padded ? "var(--space-5)" : undefined,
         ...style,
+        ...flatStyle,
       }}
       {...rest}
     >
+      {styleNode}
       {children}
     </Tag>
   );

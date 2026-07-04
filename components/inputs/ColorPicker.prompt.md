@@ -8,4 +8,7 @@ const [color, setColor] = React.useState("#6366F1");
 <ColorPicker defaultValue="#14B8A6" presets={["#6366F1","#14B8A6","#F43F5E"]} />
 ```
 
-Props: `value`/`defaultValue` (hex), `presets` (hex[]), `onChange(hex)`. Opens a popover; closes on outside-click / Esc. Set `tone` (`"primary" | "success" | "warning" | "danger" | "info" | "neutral"`) to recolor the hex input's focus accent.
+Props: `value`/`defaultValue` (hex), `presets` (hex[]), `alpha` (adds an alpha slider and emits 8-digit
+`#RRGGBBAA`), `onChange(hex)`. The hex input accepts `#RGB`/`#RRGGBB` (and `#RRGGBBAA` when `alpha`), flags
+invalid input via `aria-invalid`, and reverts on blur. Opens a popover; closes on outside-click / Esc. Set
+`tone` to recolor the hex input's focus accent. Focus is trapped in the popover (aria-modal).

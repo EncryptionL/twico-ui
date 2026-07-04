@@ -14,3 +14,4 @@ import { Grid } from "twico-ui";
 - `columns` — fixed count, or a responsive object `{ base, sm, md, lg, xl }` (CSS-only, SSR-safe).
 - `gap` / `rowGap` / `columnGap` — spacing step or CSS length; `alignContent` / `justifyContent`;
   `as` to change the tag.
+- `sx` — style escape hatch: flat CSS inline (wins over base); nested keys like `"&:hover"` / `"@media …"` compile to a scoped stylesheet.

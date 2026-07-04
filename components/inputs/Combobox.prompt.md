@@ -28,5 +28,7 @@ Props: `options` (strings / {value,label,description} / {group,options}), `value
 empty input clears the selection. For **async/remote** options pass `onInputChange` (raw query — debounce it),
 `filter={false}` (skip client filtering of server-ranked results), and `loading`. An option may set `disabled`;
 `name` submits the value via a hidden form field; `emptyText` customizes the no-results text.
+For very long client-side lists set `virtualized` (optional `overscan`, default 8) to render only the visible slice;
+prefer the async `onInputChange` + `filter={false}` path for server-backed sets.
 
 `tone` (`primary` | `success` | `warning` | `danger` | `info` | `neutral`, default `primary`) recolors the focus/open border and ring accent.

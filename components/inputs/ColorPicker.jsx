@@ -37,6 +37,10 @@ const COLORPICKER_CSS = `
 .twc-cp__hue { position: relative; height: 12px; margin-top: var(--space-3); border-radius: var(--radius-full); cursor: pointer; touch-action: none;
   background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%); }
 .twc-cp__hue-knob { position: absolute; top: 50%; width: 16px; height: 16px; border-radius: var(--radius-full); background: #fff; box-shadow: var(--shadow-sm), inset 0 0 0 1px rgb(0 0 0 / 0.2); transform: translate(-50%, -50%); pointer-events: none; }
+.twc-cp__alpha { position: relative; height: 12px; margin-top: var(--space-2); border-radius: var(--radius-full); cursor: pointer; touch-action: none;
+  background-image: linear-gradient(to right, transparent, var(--_solid, #000)), conic-gradient(#c8c8c8 0 25%, #fff 0 50%, #c8c8c8 0 75%, #fff 0);
+  background-size: 100% 100%, 10px 10px; }
+.twc-cp__alpha:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-cp__foot { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); }
 .twc-cp__hex { flex: 1; min-width: 0; height: 32px; padding: 0 8px; font-family: var(--font-mono); font-size: var(--text-xs); text-transform: uppercase;
   color: var(--color-text); background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-sm); outline: none; }
@@ -68,13 +72,21 @@ function hsvToRgb(h, s, v) {
 }
 function rgbToHex(r, g, b) { return "#" + [r, g, b].map((n) => n.toString(16).padStart(2, "0")).join(""); }
 function hsvToHex(h, s, v) { return rgbToHex(...hsvToRgb(h, s, v)); }
+// #106: 8-digit #RRGGBBAA from HSV + alpha (0..1).
+function hsvaToHex8(h, s, v, a) {
+  return rgbToHex(...hsvToRgb(h, s, v)) + Math.round(Math.min(1, Math.max(0, a)) * 255).toString(16).padStart(2, "0");
+}
+// #106: accept #RGB (expanded), #RRGGBB, and #RRGGBBAA — returns { h, s, v, a }.
 function hexToHsv(hex) {
-  const m = /^#?([0-9a-f]{6})$/i.exec(hex || ""); if (!m) return null;
+  let str = String(hex || "").replace(/^#/, "");
+  if (/^[0-9a-f]{3}$/i.test(str)) str = str.split("").map((c) => c + c).join(""); // #RGB → #RRGGBB
+  const m = /^([0-9a-f]{6})([0-9a-f]{2})?$/i.exec(str); if (!m) return null;
   const int = parseInt(m[1], 16); const r = (int >> 16) / 255, g = ((int >> 8) & 255) / 255, b = (int & 255) / 255;
+  const a = m[2] != null ? parseInt(m[2], 16) / 255 : 1;
   const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
   let h = 0;
   if (d) { if (max === r) h = ((g - b) / d) % 6; else if (max === g) h = (b - r) / d + 2; else h = (r - g) / d + 4; h *= 60; if (h < 0) h += 360; }
-  return { h, s: max ? (d / max) * 100 : 0, v: max * 100 };
+  return { h, s: max ? (d / max) * 100 : 0, v: max * 100, a };
 }
 
 const DEFAULT_PRESETS = ["#6366F1","#0EA5E9","#14B8A6","#22C55E","#F59E0B","#F43F5E","#8B5CF6","#0F172A"];
@@ -88,6 +100,7 @@ export function ColorPicker({
   defaultValue = "#6366F1",
   presets = DEFAULT_PRESETS,
   disabled = false,
+  alpha = false,
   tone = "primary",
   onChange,
   className = "",
@@ -98,17 +111,20 @@ export function ColorPicker({
 
   const [internal, setInternal] = React.useState(defaultValue);
   const hex = (value !== undefined ? value : internal) || "#000000";
-  // Track the last syntactically valid #rrggbb so an invalid hex entry can be reverted on blur.
+  // #106/#107: accept #RGB and #RRGGBB always, plus #RRGGBBAA when alpha is on.
+  const hexRe = alpha ? /^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i : /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
+  // Track the last syntactically valid hex so an invalid entry can be reverted on blur.
   const lastValidRef = React.useRef(hex);
-  if (/^#[0-9a-f]{6}$/i.test(hex)) lastValidRef.current = hex;
+  if (hexRe.test(hex)) lastValidRef.current = hex;
   const [open, setOpen] = React.useState(false);
-  const [hsv, setHsv] = React.useState(() => hexToHsv(hex) || { h: 239, s: 60, v: 94 });
+  const [hsv, setHsv] = React.useState(() => hexToHsv(hex) || { h: 239, s: 60, v: 94, a: 1 });
   const [coords, setCoords] = React.useState(null);
   const wrapRef = React.useRef(null);
   const triggerRef = React.useRef(null);
   const popRef = React.useRef(null);
   const areaRef = React.useRef(null);
   const hueRef = React.useRef(null);
+  const alphaRef = React.useRef(null);
 
   // Pin the popover with fixed positioning, portaled to <body>, so it escapes any
   // clipping/scrolling ancestor (cards, panels, dialogs). Flips up when low on room.
@@ -157,7 +173,10 @@ export function ColorPicker({
   // restore focus to the trigger on close (it portals to <body>).
   useFocusTrap(popRef, open && !!coords, { initialFocus: areaRef });
 
-  const commit = (next) => { const h = hsvToHex(next.h, next.s, next.v); setHsv(next); if (value === undefined) setInternal(h); onChange?.(h); };
+  const commit = (next) => {
+    const out = alpha ? hsvaToHex8(next.h, next.s, next.v, next.a ?? 1) : hsvToHex(next.h, next.s, next.v);
+    setHsv(next); if (value === undefined) setInternal(out); onChange?.(out);
+  };
 
   const dragArea = (e) => {
     const r = areaRef.current.getBoundingClientRect();
@@ -197,6 +216,22 @@ export function ColorPicker({
     e.preventDefault();
     commit({ ...hsv, h });
   };
+  // #106: alpha slider drag + keyboard (0..1).
+  const dragAlpha = (e) => {
+    const r = alphaRef.current.getBoundingClientRect();
+    const a = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+    commit({ ...hsv, a });
+  };
+  const onAlphaKeyDown = (e) => {
+    let a = hsv.a ?? 1;
+    if (e.key === "ArrowRight" || e.key === "ArrowUp") a = Math.min(1, a + 0.01);
+    else if (e.key === "ArrowLeft" || e.key === "ArrowDown") a = Math.max(0, a - 0.01);
+    else if (e.key === "Home") a = 0;
+    else if (e.key === "End") a = 1;
+    else return;
+    e.preventDefault();
+    commit({ ...hsv, a: Math.round(a * 100) / 100 });
+  };
 
   return (
     <div className={`twc-cp twc-field ${className}`} ref={wrapRef} {...rest}>
@@ -234,12 +269,21 @@ export function ColorPicker({
             onKeyDown={onHueKeyDown}>
             <span className="twc-cp__hue-knob" style={{ left: `${(hsv.h / 360) * 100}%` }} />
           </div>
+          {alpha ? (
+            <div className="twc-cp__alpha" ref={alphaRef} onPointerDown={startDrag(dragAlpha)}
+              role="slider" tabIndex={0} aria-label="Alpha"
+              aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round((hsv.a ?? 1) * 100)}
+              onKeyDown={onAlphaKeyDown}
+              style={{ "--_solid": hsvToHex(hsv.h, hsv.s, hsv.v) }}>
+              <span className="twc-cp__hue-knob" style={{ left: `${(hsv.a ?? 1) * 100}%` }} />
+            </div>
+          ) : null}
           <div className="twc-cp__foot">
             <span className="twc-cp__swatch" style={{ background: hex }} />
-            <input className="twc-cp__hex" data-tone={tone} value={hex} maxLength={7} aria-label="Hex color"
-              aria-invalid={!/^#[0-9a-f]{6}$/i.test(hex) || undefined} data-invalid={!/^#[0-9a-f]{6}$/i.test(hex) || undefined}
+            <input className="twc-cp__hex" data-tone={tone} value={hex} maxLength={alpha ? 9 : 7} aria-label="Hex color"
+              aria-invalid={!hexRe.test(hex) || undefined} data-invalid={!hexRe.test(hex) || undefined}
               onChange={(e) => { let v = e.target.value; if (!v.startsWith("#")) v = "#" + v; if (value === undefined) setInternal(v); onChange?.(v); const p = hexToHsv(v); if (p) setHsv(p); }}
-              onBlur={() => { if (/^#[0-9a-f]{6}$/i.test(hex)) return; const revert = lastValidRef.current; if (revert === hex) return; if (value === undefined) setInternal(revert); onChange?.(revert); const p = hexToHsv(revert); if (p) setHsv(p); }} />
+              onBlur={() => { if (hexRe.test(hex)) return; const revert = lastValidRef.current; if (revert === hex) return; if (value === undefined) setInternal(revert); onChange?.(revert); const p = hexToHsv(revert); if (p) setHsv(p); }} />
           </div>
           {presets && presets.length ? (
             <div className="twc-cp__presets">

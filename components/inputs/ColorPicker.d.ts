@@ -24,6 +24,8 @@ export interface ColorPickerProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   presets?: string[];
   /** Disable all interaction (the popover cannot be opened). @default false */
   disabled?: boolean;
+  /** Show an alpha slider and emit 8-digit `#RRGGBBAA`; the hex input then accepts 3/6/8-digit hex. @default false */
+  alpha?: boolean;
   /** Color intent for the focus/open accent. @default "primary" */
   tone?: Tone;
   onChange?: (hex: string) => void;

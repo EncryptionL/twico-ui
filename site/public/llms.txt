@@ -343,6 +343,7 @@ Props:
 - `mr` — `number | string` — Margin right (inline end) — spacing step or CSS length.
 - `mb` — `number | string` — Margin bottom — spacing step or CSS length.
 - `ml` — `number | string` — Margin left (inline start) — spacing step or CSS length.
+- `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
 ```jsx
 import { Box } from "twico-ui";
@@ -362,6 +363,7 @@ Props:
 - `size` — `"sm" | "md" | "lg" | "xl" | "full" | string` · default `"lg"` — Caps the maximum width using a named token (sm through xl, or full) or any CSS length, defaulting to "lg".
 - `padded` — `boolean` · default `true` — Adds responsive horizontal padding so content does not touch the viewport edges; enabled by default, set false to remove it.
 - `as` — `ElementType` · default `"div"` — Chooses the rendered HTML element or component (such as "section" or "main"), defaulting to "div" for semantic flexibility.
+- `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
 ```jsx
 import { Container, Heading } from "twico-ui";
@@ -408,6 +410,7 @@ Props:
 - `align` — `string` — Maps to the CSS align-items value, controlling how children are aligned along the block (vertical) axis.
 - `justify` — `string` — Maps to the CSS justify-items value, controlling how children are aligned along the inline (horizontal) axis.
 - `as` — `ElementType` · default `"div"` — Renders the grid as a different element or tag instead of the default div, for semantic markup.
+- `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
 ```jsx
 import { Grid, Card } from "twico-ui";
@@ -433,6 +436,7 @@ Props:
 - `wrap` — `boolean` · default `false` — Allows children to wrap onto multiple lines instead of overflowing when they exceed the container width.
 - `inline` — `boolean` · default `false` — Renders the stack as inline-flex rather than block-level flex, so it sits inline with surrounding content.
 - `as` — `ElementType` · default `"div"` — Overrides the rendered element or tag (default "div"), useful for semantic wrappers like nav, ul, or section.
+- `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
 ```jsx
 import { Stack } from "twico-ui";
@@ -472,6 +476,7 @@ Props:
 - `size` — `string` — Overrides the font-size token suffix (e.g. "3xl") to decouple visual scale from the semantic heading level.
 - `align` — `string` — Sets the CSS text-align value, letting you left-align, center, or right-align the heading text.
 - `as` — `ElementType` — Renders a different tag while preserving the level's size, useful when semantics and visual weight should differ.
+- `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
 ```jsx
 import { Heading } from "twico-ui";
@@ -492,6 +497,7 @@ Props:
 - `weight` — `string` — Sets the font-weight token suffix like semibold to adjust how heavy the text appears.
 - `align` — `string` — Sets the text-align value, controlling whether the text reads left, center, right, or justified.
 - `as` — `ElementType` · default `"p"` — Chooses the element or tag rendered, defaulting to p so you can swap in span or other tags.
+- `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
 ```jsx
 import { Text } from "twico-ui";
@@ -582,6 +588,8 @@ Props:
 - `label` — `React.ReactNode` — Renders a caption above the control to identify the field and improve accessibility for the searchable select.
 - `hint` — `React.ReactNode` — Shows helper text below the field to guide input, displayed only while no error message is present.
 - `error` — `React.ReactNode` — Displays an error message, marks the field invalid, and replaces the hint to flag a failed validation.
+- `virtualized` — `boolean` · default `false` — Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast.
+- `overscan` — `number` · default `8` — Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling.
 - `required` — `boolean` · default `false` — Adds a required asterisk next to the label, signaling that the user must select a value before submitting.
 - `size` — `"sm" | "md" | "lg"` · default `"md"` — Sets the control height across sm, md, or lg to match the density of the surrounding form.
 - `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
@@ -721,6 +729,8 @@ Props:
 - `disabled` — `boolean` · default `false` — Disables the control and prevents the calendar popover from opening, useful for read-only or gated form states.
 - `clearable` — `boolean` · default `true` — Shows a clear (×) button when a date is set so users can reset the field, enabled by default.
 - `format` — `(date: Date) => string` — Custom formatter that turns the selected Date into display text, defaulting to a localized medium date string.
+- `editable` — `boolean` · default `false` — Renders the trigger as a typeable text input with a calendar toggle; typed text commits via parse on Enter/blur.
+- `parse` — `(text: string) => Date | null` — Parses typed text into a Date when editable; return null or an invalid Date to reject, defaults to a lenient Date.parse.
 - `weekStartsOn` — `0 | 1 | 2 | 3 | 4 | 5 | 6` · default `0` — Widened from 0|1 to any weekday; controls which day the calendar grid + weekday header start on (0 = Sunday).
 - `onChange` — `(date: Date | null) => void` — Fires with the newly selected Date, or null when the value is cleared, so you can update state.
 - `hint` — `React.ReactNode` — Helper text shown below when there is no error.
@@ -756,6 +766,8 @@ Props:
 - `placeholder` — `string` · default `"Select date range"` — Text shown in the trigger when no range is selected, defaulting to "Select date range" to prompt the user.
 - `presets` — `boolean` · default `true` — Shows the quick-preset column (Last 7/14/30/90 days) for fast range selection, enabled by default.
 - `weekStartsOn` — `0 | 1 | 2 | 3 | 4 | 5 | 6` · default `0` — Widened from 0|1 to any weekday; controls which day the calendar grid + weekday header start on (0 = Sunday).
+- `editable` — `boolean` · default `false` — Renders the trigger as a typeable input accepting "start – end"; each side commits via parse on Enter/blur.
+- `parse` — `(text: string) => Date | null` — Parses one side of the typed range into a Date when editable; return null or invalid to reject, defaults to Date.parse.
 - `onChange` — `(range: DateRange) => void` — Fires with the updated { start, end } range whenever the selection changes so you can update state.
 - `disabled` — `boolean` · default `false` — Disable all interaction (the popover cannot be opened).
 - `hint` — `React.ReactNode` — Helper text shown below when there is no error.
@@ -888,6 +900,8 @@ Props:
 - `label` — `React.ReactNode` — Renders a label node above the control so the multi-select has an accessible, visible name for the user.
 - `hint` — `React.ReactNode` — Shows helper text below the control to guide selection; it is hidden once an error message is present.
 - `error` — `React.ReactNode` — Displays a validation error below the control and styles it as invalid to flag a selection problem.
+- `virtualized` — `boolean` · default `false` — Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast.
+- `overscan` — `number` · default `8` — Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling.
 - `required` — `boolean` · default `false` — Marks the field as required and adds an asterisk to the label to signal a mandatory selection; defaults to false.
 - `placeholder` — `string` · default `"Select…"` — Sets the prompt text shown when no chips are selected, defaulting to "Select…" to invite a choice.
 - `value` — `string[]` — Controls the selected values as a string array, making the component fully controlled when paired with onChange.
@@ -1001,6 +1015,8 @@ Props:
 - `label` — `React.ReactNode` — Renders a field label above the trigger to identify what the select controls within a form.
 - `hint` — `React.ReactNode` — Shows helper text below the trigger to guide selection, automatically hidden once an error message is set.
 - `error` — `React.ReactNode` — Displays an error message and marks the field invalid, replacing the hint to flag failed validation.
+- `virtualized` — `boolean` · default `false` — Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast.
+- `overscan` — `number` · default `8` — Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling.
 - `required` — `boolean` · default `false` — Appends a required asterisk to the label, signaling that a selection must be made before submitting.
 - `size` — `"sm" | "md" | "lg"` · default `"md"` — Controls the trigger height (sm, md, or lg) to match the density of nearby form controls, defaulting to md.
 - `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
@@ -1249,6 +1265,7 @@ Props:
 - `interactive` — `boolean` · default `false` — When true, adds a hover-lift effect and pointer cursor to signal the whole card is clickable.
 - `fullHeight` — `boolean` · default `false` — Stretches the card to fill its parent cell (height: 100%) so cards in a grid or flex row align to equal height.
 - `children` — `React.ReactNode` — The main body content of the card, rendered between the optional header and footer regions.
+- `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
 ```jsx
 import { Card } from "twico-ui";
@@ -1349,7 +1366,10 @@ Props:
 - `checkboxSelection` — `boolean` · default `false` — Adds a leading checkbox column for selecting rows, enabling batch actions; off by default.
 - `batchActions` — `DatatableBatchAction array` · default `[]` — Defines actions shown in the selection toolbar that operate on the currently selected rows; empty by default.
 - `density` — `compact|standard|comfortable` · default `comfortable` — Sets the row height preset (compact, standard, or comfortable) to trade vertical space for readability, defaulting to comfortable.
-- `pageSize` — `number` · default `10` — Sets the initial number of rows shown per page, defaulting to 10; pass 0 to disable pagination.
+- `pageSize` — `number` · default `10` — Rows per page (0 disables pagination). Uncontrolled by default (changing it re-applies + resets to page 0); controlled when onPageSizeChange is set.
+- `page` — `number` — Controlled current page (0-based); when set, the table renders this page and reports changes via onPageChange.
+- `onPageChange` — `(page: number) => void` — Fires with the next 0-based page on user pagination (and when a size/query change resets to page 0). Required to control page.
+- `onPageSizeChange` — `(pageSize: number) => void` — Fires with the next rows-per-page when the user picks one; supplying it makes pageSize controlled.
 - `pageSizeOptions` — `number array` · default `[5,10,25,50]` — Lists the selectable rows-per-page values offered in the pagination control, defaulting to [5,10,25,50].
 - `height` — `number` · default `440` — Sets the maximum scroll height of the grid body in pixels before rows scroll internally, defaulting to 440.
 - `serverMode` — `boolean` · default `false` — Switches to server-side data handling so sorting, filtering, and paging are delegated to your backend; off by default.

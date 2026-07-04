@@ -12,3 +12,6 @@ Props: `value`/`defaultValue` ({start,end}), `presets`, `weekStartsOn` (0/1), `p
 Click a start day, then an end day; presets fill common ranges. Closes on outside-click / Esc; the visible
 month is announced to screen readers via a live region.
 `tone` ("primary" | "success" | "warning" | "danger" | "info" | "neutral") sets the control's focus/open accent color.
+
+Set `editable` to type the range as `"start – end"` (split on `–`/`to`/`..`); each side parses via
+`parse(text) => Date | null` (defaults to `Date.parse`) and commits on Enter/blur, normalized so start ≤ end.

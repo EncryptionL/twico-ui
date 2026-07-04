@@ -1,16 +1,11 @@
 import * as React from "react";
-import type { PolymorphicAs } from "../_types";
+import type { PolymorphicComponent, PolymorphicPropsWithRef, Sx } from "../_types";
 
-/** Flex layout primitive — rows or columns with token-based gaps. */
-export interface StackProps extends React.HTMLAttributes<HTMLElement> {
-  /** Element/tag to render. @default "div" */
-  as?: PolymorphicAs;
-  /** Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href). */
-  href?: string;
-  /** Anchor target — only used with as="a" (e.g. "_blank"). */
-  target?: React.HTMLAttributeAnchorTarget;
-  /** Anchor rel — only used with as="a"; pair "noopener noreferrer" with target="_blank". */
-  rel?: string;
+/**
+ * Stack's own props. Intrinsic attributes of the rendered element (and `ref`) are
+ * added by the polymorphic wrapper based on `as` (e.g. `as="a"` adds `href`).
+ */
+export interface StackOwnProps {
   /** @default "column" */
   direction?: "row" | "column" | "row-reverse" | "column-reverse";
   /** Gap as a spacing-scale step (number) or any CSS length. @default 4 */
@@ -37,6 +32,12 @@ export interface StackProps extends React.HTMLAttributes<HTMLElement> {
   pl?: number | string;
   /** Node rendered between each child (not before the first or after the last). Pass an orientation-appropriate `Divider`. */
   divider?: React.ReactNode;
+  /** Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules (`"&:hover"`, `"@media …"`) compile to a scoped stylesheet. */
+  sx?: Sx;
 }
 
-export declare const Stack: React.ForwardRefExoticComponent<StackProps & React.RefAttributes<HTMLElement>>;
+/** Stack props for a given element `C` (defaults to `"div"`). */
+export type StackProps<C extends React.ElementType = "div"> = PolymorphicPropsWithRef<C, StackOwnProps>;
+
+/** Flex layout primitive — rows or columns with token-based gaps. Polymorphic via `as`. */
+export declare const Stack: PolymorphicComponent<StackOwnProps, "div">;

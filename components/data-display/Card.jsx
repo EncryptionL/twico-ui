@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useSx } from "../_sx.js";
 
 const CARD_CSS = `
 .twc-card {
@@ -41,10 +42,13 @@ export function Card({
   padding = "md",
   interactive = false,
   fullHeight = false,
+  sx,
   className = "",
+  style,
   ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-card-styles", CARD_CSS);
+  const { flatStyle, styleNode, sxAttr } = useSx(sx);
 
   return (
     <div
@@ -53,9 +57,12 @@ export function Card({
       data-pad={padding}
       data-interactive={interactive || undefined}
       data-full={fullHeight || undefined}
+      data-twc-sx={sxAttr}
+      style={(style || flatStyle) ? { ...style, ...flatStyle } : undefined}
       {...rest}
     >
       {__twcStyles}
+      {styleNode}
       {(title || subtitle || actions) ? (
         <div className="twc-card__header">
           <div className="twc-card__heading">

@@ -40,6 +40,18 @@ const DATEPICKER_CSS = `
 .twc-dp__clear { position: absolute; inset-inline-end: 10px; top: 50%; transform: translateY(-50%); display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
 .twc-dp__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dp__clear svg { width: 14px; height: 14px; }
+/* #105: editable (typed entry) variant — the control wraps a real text input + a trailing toggle. */
+.twc-dp__control--editable { cursor: text; gap: 0; padding-inline-end: var(--space-1); }
+.twc-dp__input { flex: 1; min-width: 0; height: 100%; border: none; background: transparent; outline: none; padding: 0;
+  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); }
+.twc-dp__input::placeholder { color: var(--color-text-subtle); }
+.twc-dp__input:disabled { cursor: not-allowed; }
+.twc-dp__clear--inline { position: static; transform: none; flex: none; }
+.twc-dp__toggle { flex: none; display: inline-grid; place-items: center; width: 26px; height: 26px; border: none; background: transparent;
+  color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast), color var(--duration-fast); }
+.twc-dp__toggle:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-dp__toggle:disabled { cursor: not-allowed; }
+.twc-dp__toggle svg { width: 17px; height: 17px; }
 
 .twc-dp__pop {
   position: fixed; z-index: var(--z-popover); width: 280px;
@@ -107,6 +119,8 @@ export function DatePicker({
   disabled = false,
   tone = "primary",
   clearable = true,
+  editable = false,
+  parse,
   format,
   locale,
   weekStartsOn = 0,
@@ -129,6 +143,7 @@ export function DatePicker({
   const [mode, setMode] = React.useState("days");
   const [focusDate, setFocusDate] = React.useState(null);
   const [focusMonth, setFocusMonth] = React.useState(null); // #109: roving month index
+  const [editText, setEditText] = React.useState(null); // #105: raw typed text (null = show formatted value)
   const [coords, setCoords] = React.useState(null);
   const wrapRef = React.useRef(null);
   const triggerRef = React.useRef(null);
@@ -191,7 +206,25 @@ export function DatePicker({
     if (format) return format(d);
     return d.toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric" });
   };
-  const pick = (d) => { if (value === undefined) setInternal(d); onChange?.(d); setOpen(false); };
+  const pick = (d) => { if (value === undefined) setInternal(d); onChange?.(d); setEditText(null); setOpen(false); };
+
+  // #105: typed date entry. `parse` (or a lenient Date.parse fallback) turns the raw
+  // string into a Date; a valid, in-range result commits, anything else reverts to the
+  // formatted selection on blur/Enter. Empty string clears. Off unless `editable`.
+  const parseTyped = (s) => {
+    const str = s.trim();
+    if (str === "") return null;
+    if (parse) { const d = parse(str); return d instanceof Date && !Number.isNaN(d.getTime()) ? d : undefined; }
+    const t = Date.parse(str);
+    return Number.isNaN(t) ? undefined : new Date(t);
+  };
+  const commitText = () => {
+    if (editText == null) return;
+    const parsed = parseTyped(editText);
+    if (parsed === null) { setEditText(null); if (selected) pick(null); return; } // cleared
+    if (parsed === undefined || outOfRange(parsed)) { setEditText(null); return; } // invalid → revert
+    pick(parsed);
+  };
 
   const y = view.getFullYear(), m = view.getMonth();
   const first = new Date(y, m, 1);
@@ -277,25 +310,58 @@ export function DatePicker({
         </label>
       ) : null}
       <div className="twc-dp__field">
-        <div ref={triggerRef} className="twc-dp__control" id={fieldId} data-open={open || undefined} data-disabled={disabled || undefined}
-          data-tone={tone}
-          data-has-clear={clearable && selected && !disabled ? "true" : undefined}
-          data-invalid={invalid || undefined}
-          role="button" tabIndex={disabled ? -1 : 0} aria-haspopup="dialog" aria-expanded={open}
-          aria-labelledby={label ? `${fieldId}-label` : undefined}
-          aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
-          onClick={() => !disabled && setOpen((o) => !o)}
-          onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && !disabled) { e.preventDefault(); setOpen((o) => !o); } }}>
-          <span className="twc-dp__ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          </span>
-          <span className="twc-dp__text" data-placeholder={!selected || undefined}>{selected ? fmt(selected) : placeholder}</span>
-        </div>
-        {clearable && selected && !disabled ? (
-          <button type="button" className="twc-dp__clear" aria-label="Clear" onClick={(e) => { e.stopPropagation(); pick(null); }}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-          </button>
-        ) : null}
+        {editable ? (
+          // #105: typed entry — the trigger is a real text input with a trailing
+          // calendar toggle button; typing commits via `parse` on Enter/blur.
+          <div className="twc-dp__control twc-dp__control--editable" data-open={open || undefined} data-disabled={disabled || undefined}
+            data-tone={tone} data-invalid={invalid || undefined}>
+            <input ref={triggerRef} className="twc-dp__input" id={fieldId} type="text" inputMode="numeric" autoComplete="off"
+              disabled={disabled} placeholder={placeholder}
+              value={editText != null ? editText : (selected ? fmt(selected) : "")}
+              aria-haspopup="dialog" aria-expanded={open}
+              aria-labelledby={label ? `${fieldId}-label` : undefined}
+              aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
+              onChange={(e) => setEditText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") { e.preventDefault(); commitText(); }
+                else if (e.key === "ArrowDown" && (e.altKey || !open)) { e.preventDefault(); setOpen(true); }
+                else if (e.key === "Escape" && open) setOpen(false);
+              }}
+              onBlur={(e) => { if (popRef.current && popRef.current.contains(e.relatedTarget)) return; commitText(); }} />
+            {clearable && selected && !disabled ? (
+              <button type="button" className="twc-dp__clear twc-dp__clear--inline" aria-label="Clear" tabIndex={-1}
+                onMouseDown={(e) => e.preventDefault()} onClick={() => pick(null)}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              </button>
+            ) : null}
+            <button type="button" className="twc-dp__toggle" aria-label="Open calendar" tabIndex={-1} disabled={disabled}
+              onClick={() => !disabled && setOpen((o) => !o)}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </button>
+          </div>
+        ) : (
+          <>
+            <div ref={triggerRef} className="twc-dp__control" id={fieldId} data-open={open || undefined} data-disabled={disabled || undefined}
+              data-tone={tone}
+              data-has-clear={clearable && selected && !disabled ? "true" : undefined}
+              data-invalid={invalid || undefined}
+              role="button" tabIndex={disabled ? -1 : 0} aria-haspopup="dialog" aria-expanded={open}
+              aria-labelledby={label ? `${fieldId}-label` : undefined}
+              aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
+              onClick={() => !disabled && setOpen((o) => !o)}
+              onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && !disabled) { e.preventDefault(); setOpen((o) => !o); } }}>
+              <span className="twc-dp__ic" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              </span>
+              <span className="twc-dp__text" data-placeholder={!selected || undefined}>{selected ? fmt(selected) : placeholder}</span>
+            </div>
+            {clearable && selected && !disabled ? (
+              <button type="button" className="twc-dp__clear" aria-label="Clear" onClick={(e) => { e.stopPropagation(); pick(null); }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              </button>
+            ) : null}
+          </>
+        )}
       </div>
 
       {open && coords ? createPortal(

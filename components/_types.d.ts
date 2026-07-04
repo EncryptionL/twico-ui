@@ -24,3 +24,55 @@ export type BarTone = Exclude<Tone, "neutral">;
  * OR a React component (`as={Link}`), whose props then flow through `{...rest}`.
  */
 export type PolymorphicAs = React.ElementType;
+
+/**
+ * The `sx` style-prop escape hatch (#53). Top-level CSS properties are applied as inline
+ * style (and win over the component's base style, MUI-style); any nested object — a
+ * selector key (`"&:hover"`, `":focus-visible"`, `"& > .child"`) or an at-rule
+ * (`"@media (min-width: 600px)"`, `"@supports …"`, `"@container …"`) — is compiled to a
+ * scoped stylesheet. Use design tokens for values, e.g. `color: "var(--color-primary)"`.
+ * See docs/sx.md.
+ */
+export type Sx = React.CSSProperties & {
+  [selector: string]: React.CSSProperties[keyof React.CSSProperties] | string | number | Sx | undefined;
+};
+
+// ── Polymorphic component type kit ────────────────────────────────────────────
+// Powers the `as`-driven primitives (Box, Stack, Grid, Container, Text, Heading).
+// Passing `as="a"` narrows the accepted props to that element's attributes (href,
+// target, …) and types `ref` as the matching element (HTMLAnchorElement); the
+// component's own style props always merge on top. `as={RouterLink}` accepts that
+// component's props instead. See docs/polymorphic-types.md and docs/prop-conventions.md.
+
+/** The `ref` type for a given `as` element `C` (e.g. `HTMLAnchorElement` for `"a"`). */
+export type PolymorphicRef<C extends React.ElementType> = React.ComponentPropsWithRef<C>["ref"];
+
+/** Own props merged over `E`'s props — the component's own props win on a name clash. */
+type Merge<E, Own> = Own & Omit<E, keyof Own>;
+
+/** Own props + `as={C}`, merged with `C`'s intrinsic props (own props win on a name clash). */
+export type PolymorphicProps<C extends React.ElementType, Own = {}> =
+  Merge<React.ComponentPropsWithoutRef<C>, Own> & { as?: C };
+
+/** {@link PolymorphicProps} plus a correctly-typed `ref` for the resolved element. */
+export type PolymorphicPropsWithRef<C extends React.ElementType, Own = {}> =
+  PolymorphicProps<C, Own> & { ref?: PolymorphicRef<C> };
+
+/**
+ * The callable type of a polymorphic `forwardRef` component whose default element is `D`.
+ *
+ * Two overloads keep prop-checking strict in both directions: when `as` is omitted the
+ * default element `D` is used and its props (plus the own props) are enforced; when
+ * `as={C}` is given, `C`'s props and a matching `ref` are enforced instead. A single
+ * generic signature would let JSX fall back to the `ElementType` constraint and silently
+ * accept anything, so the overloads are deliberate.
+ */
+export interface PolymorphicComponent<Own, D extends React.ElementType> {
+  (
+    props: Merge<React.ComponentPropsWithoutRef<D>, Own> & { as?: never; ref?: PolymorphicRef<D> },
+  ): React.ReactElement | null;
+  <C extends React.ElementType>(
+    props: Merge<React.ComponentPropsWithoutRef<C>, Own> & { as: C; ref?: PolymorphicRef<C> },
+  ): React.ReactElement | null;
+  displayName?: string;
+}

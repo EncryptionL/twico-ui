@@ -44,10 +44,20 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   batchActions?: DatatableBatchAction<T>[];
   /** Row height preset. With `showDensity`, the toolbar density button cycles it locally; changing this prop re-applies it. @default "comfortable" */
   density?: "compact" | "standard" | "comfortable";
-  /** Initial rows per page. 0 disables pagination. @default 10 */
+  /**
+   * Rows per page. 0 disables pagination. Uncontrolled by default (changing the prop
+   * re-applies it and resets to the first page); becomes **controlled** when
+   * `onPageSizeChange` is supplied. @default 10
+   */
   pageSize?: number;
   /** Options shown in the rows-per-page selector. @default [5, 10, 25, 50] */
   pageSizeOptions?: number[];
+  /** Controlled current page (0-based). When set, the table renders this page and reports changes via `onPageChange` instead of managing its own. */
+  page?: number;
+  /** Fires with the next 0-based page on user pagination (and when a page-size/query change resets to page 0). Required to control `page`. */
+  onPageChange?: (page: number) => void;
+  /** Fires with the next rows-per-page when the user picks one; supplying it makes `pageSize` controlled. */
+  onPageSizeChange?: (pageSize: number) => void;
   /** Max height of the scroll area in px (header/footer stay fixed). @default 440 */
   height?: number;
   /**

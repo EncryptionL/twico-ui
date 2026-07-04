@@ -872,6 +872,13 @@ export const components = [
         "description": "Margin left (inline start) — spacing step or CSS length."
       },
       {
+        "prop": "sx",
+        "type": "Sx",
+        "required": false,
+        "default": "—",
+        "description": "Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like \"&:hover\" or \"@media …\" compile to a scoped stylesheet."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -1260,6 +1267,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "The main body content of the card, rendered between the optional header and footer regions."
+      },
+      {
+        "prop": "sx",
+        "type": "Sx",
+        "required": false,
+        "default": "—",
+        "description": "Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like \"&:hover\" or \"@media …\" compile to a scoped stylesheet."
       },
       {
         "prop": "onClick",
@@ -2035,6 +2049,20 @@ export const components = [
         "description": "Displays an error message, marks the field invalid, and replaces the hint to flag a failed validation."
       },
       {
+        "prop": "virtualized",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast."
+      },
+      {
+        "prop": "overscan",
+        "type": "number",
+        "required": false,
+        "default": "8",
+        "description": "Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling."
+      },
+      {
         "prop": "required",
         "type": "boolean",
         "required": false,
@@ -2328,6 +2356,13 @@ export const components = [
         "required": false,
         "default": "\"div\"",
         "description": "Chooses the rendered HTML element or component (such as \"section\" or \"main\"), defaulting to \"div\" for semantic flexibility."
+      },
+      {
+        "prop": "sx",
+        "type": "Sx",
+        "required": false,
+        "default": "—",
+        "description": "Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like \"&:hover\" or \"@media …\" compile to a scoped stylesheet."
       },
       {
         "prop": "onClick",
@@ -2829,7 +2864,28 @@ export const components = [
         "type": "number",
         "required": false,
         "default": "10",
-        "description": "Sets the initial number of rows shown per page, defaulting to 10; pass 0 to disable pagination."
+        "description": "Rows per page (0 disables pagination). Uncontrolled by default (changing it re-applies + resets to page 0); controlled when onPageSizeChange is set."
+      },
+      {
+        "prop": "page",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Controlled current page (0-based); when set, the table renders this page and reports changes via onPageChange."
+      },
+      {
+        "prop": "onPageChange",
+        "type": "(page: number) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the next 0-based page on user pagination (and when a size/query change resets to page 0). Required to control page."
+      },
+      {
+        "prop": "onPageSizeChange",
+        "type": "(pageSize: number) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the next rows-per-page when the user picks one; supplying it makes pageSize controlled."
       },
       {
         "prop": "pageSizeOptions",
@@ -3228,6 +3284,20 @@ export const components = [
         "description": "Custom formatter that turns the selected Date into display text, defaulting to a localized medium date string."
       },
       {
+        "prop": "editable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Renders the trigger as a typeable text input with a calendar toggle; typed text commits via parse on Enter/blur."
+      },
+      {
+        "prop": "parse",
+        "type": "(text: string) => Date | null",
+        "required": false,
+        "default": "—",
+        "description": "Parses typed text into a Date when editable; return null or an invalid Date to reject, defaults to a lenient Date.parse."
+      },
+      {
         "prop": "weekStartsOn",
         "type": "0 | 1 | 2 | 3 | 4 | 5 | 6",
         "required": false,
@@ -3391,6 +3461,20 @@ export const components = [
         "required": false,
         "default": "0",
         "description": "Widened from 0|1 to any weekday; controls which day the calendar grid + weekday header start on (0 = Sunday)."
+      },
+      {
+        "prop": "editable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Renders the trigger as a typeable input accepting \"start – end\"; each side commits via parse on Enter/blur."
+      },
+      {
+        "prop": "parse",
+        "type": "(text: string) => Date | null",
+        "required": false,
+        "default": "—",
+        "description": "Parses one side of the typed range into a Date when editable; return null or invalid to reject, defaults to Date.parse."
       },
       {
         "prop": "onChange",
@@ -4201,6 +4285,13 @@ export const components = [
         "description": "Renders the grid as a different element or tag instead of the default div, for semantic markup."
       },
       {
+        "prop": "sx",
+        "type": "Sx",
+        "required": false,
+        "default": "—",
+        "description": "Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like \"&:hover\" or \"@media …\" compile to a scoped stylesheet."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -4301,6 +4392,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Renders a different tag while preserving the level's size, useful when semantics and visual weight should differ."
+      },
+      {
+        "prop": "sx",
+        "type": "Sx",
+        "required": false,
+        "default": "—",
+        "description": "Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like \"&:hover\" or \"@media …\" compile to a scoped stylesheet."
       },
       {
         "prop": "onClick",
@@ -5025,6 +5123,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Displays a validation error below the control and styles it as invalid to flag a selection problem."
+      },
+      {
+        "prop": "virtualized",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast."
+      },
+      {
+        "prop": "overscan",
+        "type": "number",
+        "required": false,
+        "default": "8",
+        "description": "Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling."
       },
       {
         "prop": "required",
@@ -6021,6 +6133,20 @@ export const components = [
         "description": "Displays an error message and marks the field invalid, replacing the hint to flag failed validation."
       },
       {
+        "prop": "virtualized",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast."
+      },
+      {
+        "prop": "overscan",
+        "type": "number",
+        "required": false,
+        "default": "8",
+        "description": "Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling."
+      },
+      {
         "prop": "required",
         "type": "boolean",
         "required": false,
@@ -6816,6 +6942,13 @@ export const components = [
         "required": false,
         "default": "\"div\"",
         "description": "Overrides the rendered element or tag (default \"div\"), useful for semantic wrappers like nav, ul, or section."
+      },
+      {
+        "prop": "sx",
+        "type": "Sx",
+        "required": false,
+        "default": "—",
+        "description": "Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like \"&:hover\" or \"@media …\" compile to a scoped stylesheet."
       },
       {
         "prop": "onClick",
@@ -7761,6 +7894,13 @@ export const components = [
         "required": false,
         "default": "\"p\"",
         "description": "Chooses the element or tag rendered, defaulting to p so you can swap in span or other tags."
+      },
+      {
+        "prop": "sx",
+        "type": "Sx",
+        "required": false,
+        "default": "—",
+        "description": "Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like \"&:hover\" or \"@media …\" compile to a scoped stylesheet."
       },
       {
         "prop": "onClick",

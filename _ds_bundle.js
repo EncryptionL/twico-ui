@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"3c98a07f7447","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"f35fb2dc0dc4","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"1c03e17c8594","components/inputs/Combobox.jsx":"da89f9c7b152","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"ae454957e1e5","components/inputs/DateRangePicker.jsx":"4afd025227b5","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"856956280c7b","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"cd87f7b56e12","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"5866b30f900a","components/layout/ColorSchemeScript.jsx":"7e73bf919b01","components/layout/Container.jsx":"3af6a1ef1d15","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"6db8d15f4acd","components/layout/Portal.jsx":"c86ad50eb3f6","components/layout/Stack.jsx":"82cf0b7f370d","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"6f40ab3a9d29","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"a666a3e0beeb","src/index.ts":"88773912becf"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"0e20db89335d","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"7e73bf919b01","components/layout/Container.jsx":"65d865e8012e","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"c86ad50eb3f6","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1a5441dddb5b","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"ae1d49e59288","src/index.ts":"5bf37ab8cbee"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -159,7 +159,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useToggle: () => useToggle,
     useWindowSize: () => useWindowSize
   });
-  var React36 = __toESM(require_react(), 1);
+  var React37 = __toESM(require_react(), 1);
   var import_react = __toESM(require_react(), 1);
 
   // rg:react/jsx-runtime
@@ -177,23 +177,27 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 
   // dist/index.mjs
   var import_react_dom = __toESM(require_react_dom(), 1);
-  var SUPPORTS_STYLE_HOIST = parseInt(String(React36.version), 10) >= 19;
-  var NonceContext = React36.createContext(void 0);
+  var SUPPORTS_STYLE_HOIST = parseInt(String(React37.version), 10) >= 19;
+  var NonceContext = React37.createContext(void 0);
   function useScopedStyles(id, css) {
-    const nonce = React36.useContext(NonceContext);
-    React36.useInsertionEffect(() => {
+    const nonce = React37.useContext(NonceContext);
+    React37.useInsertionEffect(() => {
       if (SUPPORTS_STYLE_HOIST) return;
-      if (typeof document === "undefined" || document.getElementById(id)) return;
-      const el = document.createElement("style");
-      el.id = id;
-      if (nonce) {
-        el.setAttribute("nonce", nonce);
-        el.nonce = nonce;
+      if (typeof document === "undefined") return;
+      if (!css) return;
+      let el = document.getElementById(id);
+      if (!el) {
+        el = document.createElement("style");
+        el.id = id;
+        if (nonce) {
+          el.setAttribute("nonce", nonce);
+          el.nonce = nonce;
+        }
+        document.head.appendChild(el);
       }
-      el.textContent = css;
-      document.head.appendChild(el);
+      if (el.textContent !== css) el.textContent = css;
     }, [id, css, nonce]);
-    return SUPPORTS_STYLE_HOIST ? React36.createElement("style", { href: id, precedence: "twc-ui", nonce }, css) : null;
+    return SUPPORTS_STYLE_HOIST && css ? React37.createElement("style", { href: id, precedence: "twc-ui", nonce }, css) : null;
   }
   function TwicoProvider({ nonce, children }) {
     return import_react.default.createElement(NonceContext.Provider, { value: nonce }, children);
@@ -1361,6 +1365,122 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       }
     );
   }
+  var UNITLESS = /* @__PURE__ */ new Set([
+    "animationIterationCount",
+    "aspectRatio",
+    "borderImageOutset",
+    "borderImageSlice",
+    "borderImageWidth",
+    "boxFlex",
+    "boxFlexGroup",
+    "boxOrdinalGroup",
+    "columnCount",
+    "columns",
+    "flex",
+    "flexGrow",
+    "flexShrink",
+    "flexPositive",
+    "flexNegative",
+    "flexOrder",
+    "gridArea",
+    "gridRow",
+    "gridRowEnd",
+    "gridRowSpan",
+    "gridRowStart",
+    "gridColumn",
+    "gridColumnEnd",
+    "gridColumnSpan",
+    "gridColumnStart",
+    "fontWeight",
+    "lineClamp",
+    "lineHeight",
+    "opacity",
+    "order",
+    "orphans",
+    "tabSize",
+    "widows",
+    "zIndex",
+    "zoom",
+    "fillOpacity",
+    "floodOpacity",
+    "stopOpacity",
+    "strokeDasharray",
+    "strokeDashoffset",
+    "strokeMiterlimit",
+    "strokeOpacity",
+    "strokeWidth",
+    "scale"
+  ]);
+  var isObject = (v) => v != null && typeof v === "object" && !Array.isArray(v);
+  var isNestedKey = (k, v) => isObject(v) || k.charCodeAt(0) === 38 || k.charCodeAt(0) === 64 || k.charCodeAt(0) === 58;
+  function kebab(prop) {
+    if (prop.startsWith("--")) return prop;
+    return prop.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
+  }
+  function cssValue(key, value) {
+    if (typeof value !== "number") return String(value);
+    if (value === 0 || key.startsWith("--") || UNITLESS.has(key)) return String(value);
+    return `${value}px`;
+  }
+  function resolveSelector(key, scope) {
+    if (key.includes("&")) return key.replace(/&/g, scope);
+    if (key.charCodeAt(0) === 58) return `${scope}${key}`;
+    return `${scope} ${key}`;
+  }
+  function compileSx(obj, selector) {
+    if (!isObject(obj)) return "";
+    let decls = "";
+    let rules = "";
+    for (const key of Object.keys(obj)) {
+      const value = obj[key];
+      if (isNestedKey(key, value)) {
+        if (!isObject(value)) continue;
+        if (key.charCodeAt(0) === 64) {
+          const inner = compileSx(value, selector);
+          if (inner) rules += `${key} { ${inner.trim()} }
+`;
+        } else {
+          rules += compileSx(value, resolveSelector(key, selector));
+        }
+      } else {
+        decls += `${kebab(key)}: ${cssValue(key, value)}; `;
+      }
+    }
+    let out = "";
+    if (decls) out += `${selector} { ${decls.trimEnd()} }
+`;
+    out += rules;
+    return out;
+  }
+  function buildSx(sx, uid) {
+    if (!isObject(sx)) return { flatStyle: void 0, css: "" };
+    const scope = `[data-twc-sx="${uid}"]`;
+    let flatStyle;
+    let css = "";
+    for (const key of Object.keys(sx)) {
+      const value = sx[key];
+      if (isNestedKey(key, value)) {
+        if (!isObject(value)) continue;
+        if (key.charCodeAt(0) === 64) {
+          const inner = compileSx(value, scope);
+          if (inner) css += `${key} { ${inner.trim()} }
+`;
+        } else {
+          css += compileSx(value, resolveSelector(key, scope));
+        }
+      } else {
+        (flatStyle || (flatStyle = {}))[key] = value;
+      }
+    }
+    return { flatStyle, css };
+  }
+  function useSx(sx) {
+    const rawId = import_react.default.useId();
+    const uid = `sx${rawId.replace(/[^a-zA-Z0-9]/g, "")}`;
+    const { flatStyle, css } = import_react.default.useMemo(() => buildSx(sx, uid), [sx, uid]);
+    const styleNode = useScopedStyles(`twc-sx-${uid}`, css);
+    return { flatStyle, styleNode, sxAttr: css ? uid : void 0 };
+  }
   var CARD_CSS = `
 .twc-card {
   display: flex; flex-direction: column;
@@ -1400,10 +1520,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     padding = "md",
     interactive = false,
     fullHeight = false,
+    sx,
     className = "",
+    style,
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-card-styles", CARD_CSS);
+    const { flatStyle, styleNode, sxAttr } = useSx(sx);
     return /* @__PURE__ */ jsxs(
       "div",
       {
@@ -1412,9 +1535,12 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         "data-pad": padding,
         "data-interactive": interactive || void 0,
         "data-full": fullHeight || void 0,
+        "data-twc-sx": sxAttr,
+        style: style || flatStyle ? { ...style, ...flatStyle } : void 0,
         ...rest,
         children: [
           __twcStyles,
+          styleNode,
           title || subtitle || actions ? /* @__PURE__ */ jsxs("div", { className: "twc-card__header", children: [
             /* @__PURE__ */ jsxs("div", { className: "twc-card__heading", children: [
               title ? /* @__PURE__ */ jsx("div", { className: "twc-card__title", children: title }) : null,
@@ -1831,6 +1957,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-cp__hue { position: relative; height: 12px; margin-top: var(--space-3); border-radius: var(--radius-full); cursor: pointer; touch-action: none;
   background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%); }
 .twc-cp__hue-knob { position: absolute; top: 50%; width: 16px; height: 16px; border-radius: var(--radius-full); background: #fff; box-shadow: var(--shadow-sm), inset 0 0 0 1px rgb(0 0 0 / 0.2); transform: translate(-50%, -50%); pointer-events: none; }
+.twc-cp__alpha { position: relative; height: 12px; margin-top: var(--space-2); border-radius: var(--radius-full); cursor: pointer; touch-action: none;
+  background-image: linear-gradient(to right, transparent, var(--_solid, #000)), conic-gradient(#c8c8c8 0 25%, #fff 0 50%, #c8c8c8 0 75%, #fff 0);
+  background-size: 100% 100%, 10px 10px; }
+.twc-cp__alpha:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-cp__foot { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); }
 .twc-cp__hex { flex: 1; min-width: 0; height: 32px; padding: 0 8px; font-family: var(--font-mono); font-size: var(--text-xs); text-transform: uppercase;
   color: var(--color-text); background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-sm); outline: none; }
@@ -1868,11 +1998,17 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   function hsvToHex(h, s, v) {
     return rgbToHex(...hsvToRgb(h, s, v));
   }
+  function hsvaToHex8(h, s, v, a) {
+    return rgbToHex(...hsvToRgb(h, s, v)) + Math.round(Math.min(1, Math.max(0, a)) * 255).toString(16).padStart(2, "0");
+  }
   function hexToHsv(hex) {
-    const m = /^#?([0-9a-f]{6})$/i.exec(hex || "");
+    let str = String(hex || "").replace(/^#/, "");
+    if (/^[0-9a-f]{3}$/i.test(str)) str = str.split("").map((c) => c + c).join("");
+    const m = /^([0-9a-f]{6})([0-9a-f]{2})?$/i.exec(str);
     if (!m) return null;
     const int = parseInt(m[1], 16);
     const r = (int >> 16) / 255, g = (int >> 8 & 255) / 255, b = (int & 255) / 255;
+    const a = m[2] != null ? parseInt(m[2], 16) / 255 : 1;
     const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
     let h = 0;
     if (d) {
@@ -1882,7 +2018,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       h *= 60;
       if (h < 0) h += 360;
     }
-    return { h, s: max ? d / max * 100 : 0, v: max * 100 };
+    return { h, s: max ? d / max * 100 : 0, v: max * 100, a };
   }
   var DEFAULT_PRESETS = ["#6366F1", "#0EA5E9", "#14B8A6", "#22C55E", "#F59E0B", "#F43F5E", "#8B5CF6", "#0F172A"];
   function ColorPicker({
@@ -1894,6 +2030,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     defaultValue = "#6366F1",
     presets = DEFAULT_PRESETS,
     disabled = false,
+    alpha = false,
     tone = "primary",
     onChange,
     className = "",
@@ -1903,16 +2040,18 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const __twcStyles1 = useScopedStyles("twc-colorpicker-styles", COLORPICKER_CSS);
     const [internal, setInternal] = import_react.default.useState(defaultValue);
     const hex = (value !== void 0 ? value : internal) || "#000000";
+    const hexRe = alpha ? /^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i : /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
     const lastValidRef = import_react.default.useRef(hex);
-    if (/^#[0-9a-f]{6}$/i.test(hex)) lastValidRef.current = hex;
+    if (hexRe.test(hex)) lastValidRef.current = hex;
     const [open, setOpen] = import_react.default.useState(false);
-    const [hsv, setHsv] = import_react.default.useState(() => hexToHsv(hex) || { h: 239, s: 60, v: 94 });
+    const [hsv, setHsv] = import_react.default.useState(() => hexToHsv(hex) || { h: 239, s: 60, v: 94, a: 1 });
     const [coords, setCoords] = import_react.default.useState(null);
     const wrapRef = import_react.default.useRef(null);
     const triggerRef = import_react.default.useRef(null);
     const popRef = import_react.default.useRef(null);
     const areaRef = import_react.default.useRef(null);
     const hueRef = import_react.default.useRef(null);
+    const alphaRef = import_react.default.useRef(null);
     const POP_W = 240;
     const place = import_react.default.useCallback(() => {
       const el = triggerRef.current;
@@ -1965,10 +2104,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     }, [open]);
     useFocusTrap(popRef, open && !!coords, { initialFocus: areaRef });
     const commit = (next) => {
-      const h = hsvToHex(next.h, next.s, next.v);
+      const out = alpha ? hsvaToHex8(next.h, next.s, next.v, next.a ?? 1) : hsvToHex(next.h, next.s, next.v);
       setHsv(next);
-      if (value === void 0) setInternal(h);
-      onChange?.(h);
+      if (value === void 0) setInternal(out);
+      onChange?.(out);
     };
     const dragArea = (e) => {
       const r = areaRef.current.getBoundingClientRect();
@@ -2011,6 +2150,21 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       else return;
       e.preventDefault();
       commit({ ...hsv, h });
+    };
+    const dragAlpha = (e) => {
+      const r = alphaRef.current.getBoundingClientRect();
+      const a = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+      commit({ ...hsv, a });
+    };
+    const onAlphaKeyDown = (e) => {
+      let a = hsv.a ?? 1;
+      if (e.key === "ArrowRight" || e.key === "ArrowUp") a = Math.min(1, a + 0.01);
+      else if (e.key === "ArrowLeft" || e.key === "ArrowDown") a = Math.max(0, a - 0.01);
+      else if (e.key === "Home") a = 0;
+      else if (e.key === "End") a = 1;
+      else return;
+      e.preventDefault();
+      commit({ ...hsv, a: Math.round(a * 100) / 100 });
     };
     return /* @__PURE__ */ jsxs("div", { className: `twc-cp twc-field ${className}`, ref: wrapRef, ...rest, children: [
       __twcStyles0,
@@ -2098,6 +2252,23 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                   children: /* @__PURE__ */ jsx("span", { className: "twc-cp__hue-knob", style: { left: `${hsv.h / 360 * 100}%` } })
                 }
               ),
+              alpha ? /* @__PURE__ */ jsx(
+                "div",
+                {
+                  className: "twc-cp__alpha",
+                  ref: alphaRef,
+                  onPointerDown: startDrag(dragAlpha),
+                  role: "slider",
+                  tabIndex: 0,
+                  "aria-label": "Alpha",
+                  "aria-valuemin": 0,
+                  "aria-valuemax": 100,
+                  "aria-valuenow": Math.round((hsv.a ?? 1) * 100),
+                  onKeyDown: onAlphaKeyDown,
+                  style: { "--_solid": hsvToHex(hsv.h, hsv.s, hsv.v) },
+                  children: /* @__PURE__ */ jsx("span", { className: "twc-cp__hue-knob", style: { left: `${(hsv.a ?? 1) * 100}%` } })
+                }
+              ) : null,
               /* @__PURE__ */ jsxs("div", { className: "twc-cp__foot", children: [
                 /* @__PURE__ */ jsx("span", { className: "twc-cp__swatch", style: { background: hex } }),
                 /* @__PURE__ */ jsx(
@@ -2106,10 +2277,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                     className: "twc-cp__hex",
                     "data-tone": tone,
                     value: hex,
-                    maxLength: 7,
+                    maxLength: alpha ? 9 : 7,
                     "aria-label": "Hex color",
-                    "aria-invalid": !/^#[0-9a-f]{6}$/i.test(hex) || void 0,
-                    "data-invalid": !/^#[0-9a-f]{6}$/i.test(hex) || void 0,
+                    "aria-invalid": !hexRe.test(hex) || void 0,
+                    "data-invalid": !hexRe.test(hex) || void 0,
                     onChange: (e) => {
                       let v = e.target.value;
                       if (!v.startsWith("#")) v = "#" + v;
@@ -2119,7 +2290,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                       if (p) setHsv(p);
                     },
                     onBlur: () => {
-                      if (/^#[0-9a-f]{6}$/i.test(hex)) return;
+                      if (hexRe.test(hex)) return;
                       const revert = lastValidRef.current;
                       if (revert === hex) return;
                       if (value === void 0) setInternal(revert);
@@ -2277,6 +2448,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     loading = false,
     emptyText = "No results found",
     name,
+    virtualized = false,
+    overscan = 8,
     id,
     className = "",
     onFocus,
@@ -2295,6 +2468,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const [query, setQuery] = import_react.default.useState("");
     const [active, setActive] = import_react.default.useState(0);
     const [coords, setCoords] = import_react.default.useState(null);
+    const [scrollTop, setScrollTop] = import_react.default.useState(0);
+    const [listH, setListH] = import_react.default.useState(260);
     const wrapRef = import_react.default.useRef(null);
     const controlRef = import_react.default.useRef(null);
     const inputRef = import_react.default.useRef(null);
@@ -2307,6 +2482,26 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       return groups.map((g) => ({ group: g.group, options: fn ? g.options.filter((o) => fn(o, q)) : g.options })).filter((g) => g.options.length);
     }, [groups, query, filter]);
     const visible = import_react.default.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
+    const rowH = import_react.default.useMemo(() => visible.some((o) => o.description) ? 48 : 36, [visible]);
+    const GROUP_H = 30;
+    const { rows, totalH } = import_react.default.useMemo(() => {
+      if (!virtualized) return { rows: [], totalH: 0 };
+      const rows2 = [];
+      let off = 0;
+      let optIdx = -1;
+      fGroups.forEach((g, gi) => {
+        if (g.group) {
+          rows2.push({ kind: "group", gi, label: g.group, top: off, h: GROUP_H });
+          off += GROUP_H;
+        }
+        g.options.forEach((o) => {
+          optIdx += 1;
+          rows2.push({ kind: "option", o, idx: optIdx, top: off, h: rowH });
+          off += rowH;
+        });
+      });
+      return { rows: rows2, totalH: off };
+    }, [virtualized, fGroups, rowH]);
     const nextEnabled = (from, dir) => {
       let i = from + dir;
       while (i >= 0 && i < visible.length) {
@@ -2360,8 +2555,27 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       setActive(idx >= 0 ? idx : 0);
     }, [open]);
     import_react.default.useEffect(() => {
-      if (open) ensureVisible(listRef.current, activeRef.current);
-    }, [active, open]);
+      if (!open || !virtualized) return;
+      const el = listRef.current;
+      if (el && el.clientHeight) setListH(el.clientHeight);
+    }, [open, virtualized]);
+    import_react.default.useEffect(() => {
+      if (!open) return;
+      if (!virtualized) {
+        ensureVisible(listRef.current, activeRef.current);
+        return;
+      }
+      const el = listRef.current;
+      if (!el) return;
+      const row = rows.find((r) => r.kind === "option" && r.idx === active);
+      if (!row) return;
+      const vh = el.clientHeight || listH;
+      let next = el.scrollTop;
+      if (row.top < el.scrollTop) next = row.top;
+      else if (row.top + row.h > el.scrollTop + vh) next = row.top + row.h - vh;
+      if (next !== el.scrollTop) el.scrollTop = next;
+      setScrollTop(next);
+    }, [active, open, virtualized, rows, listH]);
     function openMenu() {
       if (disabled) return;
       setQuery("");
@@ -2406,45 +2620,60 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const activeId = open && visible[active] ? optionId(active) : void 0;
     const descId = `${fieldId}-desc`;
     const describedBy = error || hint ? descId : void 0;
+    const renderOption = (o, idx) => {
+      const isSel = o.value === current;
+      return /* @__PURE__ */ jsxs(
+        "button",
+        {
+          id: optionId(idx),
+          type: "button",
+          className: "twc-opt",
+          role: "option",
+          "aria-selected": isSel,
+          ref: idx === active ? activeRef : null,
+          disabled: o.disabled || void 0,
+          "aria-disabled": o.disabled || void 0,
+          "data-disabled": o.disabled || void 0,
+          "data-selected": isSel || void 0,
+          "data-active": idx === active || void 0,
+          onMouseEnter: () => {
+            if (!o.disabled) setActive(idx);
+          },
+          onMouseDown: (e) => e.preventDefault(),
+          onClick: () => commit(o.value),
+          children: [
+            /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
+              o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
+            ] }),
+            isSel ? /* @__PURE__ */ jsx("span", { className: "twc-opt__check", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }) : null
+          ]
+        },
+        o.value
+      );
+    };
+    let vTop = 0, vBottom = 0, vShown = rows;
+    if (virtualized && rows.length) {
+      const winTop = scrollTop - overscan * rowH;
+      const winBottom = scrollTop + listH + overscan * rowH;
+      vShown = rows.filter((r) => r.top + r.h > winTop && r.top < winBottom);
+      vTop = vShown.length ? vShown[0].top : 0;
+      vBottom = vShown.length ? totalH - (vShown[vShown.length - 1].top + vShown[vShown.length - 1].h) : totalH;
+    }
     let counter = -1;
-    const popInner = /* @__PURE__ */ jsx("div", { className: "twc-pop__list", ref: listRef, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
+    const popInner = /* @__PURE__ */ jsx("div", { className: "twc-pop__list", ref: listRef, onScroll: virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
       /* @__PURE__ */ jsx("span", { className: "twc-pop__spinner", "aria-hidden": "true" }),
       "Loading\u2026"
-    ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
+    ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
+      vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
+      vShown.map((r) => r.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r.label }, `g${r.gi}`) : renderOption(r.o, r.idx)),
+      vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
+    ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
       g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
       g.options.map((o) => {
         counter += 1;
         const idx = counter;
-        const isSel = o.value === current;
-        return /* @__PURE__ */ jsxs(
-          "button",
-          {
-            id: optionId(idx),
-            type: "button",
-            className: "twc-opt",
-            role: "option",
-            "aria-selected": isSel,
-            ref: idx === active ? activeRef : null,
-            disabled: o.disabled || void 0,
-            "aria-disabled": o.disabled || void 0,
-            "data-disabled": o.disabled || void 0,
-            "data-selected": isSel || void 0,
-            "data-active": idx === active || void 0,
-            onMouseEnter: () => {
-              if (!o.disabled) setActive(idx);
-            },
-            onMouseDown: (e) => e.preventDefault(),
-            onClick: () => commit(o.value),
-            children: [
-              /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
-                /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
-                o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
-              ] }),
-              isSel ? /* @__PURE__ */ jsx("span", { className: "twc-opt__check", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }) : null
-            ]
-          },
-          o.value
-        );
+        return renderOption(o, idx);
       })
     ] }, gi)) });
     const RD = { createPortal: typeof import_react_dom.createPortal === "function" ? import_react_dom.createPortal : typeof window !== "undefined" && window.ReactDOM && window.ReactDOM.createPortal };
@@ -3041,6 +3270,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     loading = false,
     emptyText = "No results found",
     name,
+    virtualized = false,
+    overscan = 8,
     id,
     className = "",
     onClick,
@@ -3061,6 +3292,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const [active, setActive] = import_react.default.useState(0);
     const [coords, setCoords] = import_react.default.useState(null);
     const [query, setQuery] = import_react.default.useState("");
+    const [scrollTop, setScrollTop] = import_react.default.useState(0);
+    const [listH, setListH] = import_react.default.useState(260);
     const wrapRef = import_react.default.useRef(null);
     const triggerRef = import_react.default.useRef(null);
     const popRef = import_react.default.useRef(null);
@@ -3074,6 +3307,26 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       return groups.map((g) => ({ group: g.group, options: g.options.filter((o) => o.label.toLowerCase().includes(q) || o.description && o.description.toLowerCase().includes(q)) })).filter((g) => g.options.length);
     }, [groups, query]);
     const visible = import_react.default.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
+    const rowH = import_react.default.useMemo(() => visible.some((o) => o.description) ? 48 : 36, [visible]);
+    const GROUP_H = 30;
+    const { rows, totalH } = import_react.default.useMemo(() => {
+      if (!virtualized) return { rows: [], totalH: 0 };
+      const rows2 = [];
+      let off = 0;
+      let optIdx = -1;
+      fGroups.forEach((g, gi) => {
+        if (g.group) {
+          rows2.push({ kind: "group", gi, label: g.group, top: off, h: GROUP_H });
+          off += GROUP_H;
+        }
+        g.options.forEach((o) => {
+          optIdx += 1;
+          rows2.push({ kind: "option", o, idx: optIdx, top: off, h: rowH });
+          off += rowH;
+        });
+      });
+      return { rows: rows2, totalH: off };
+    }, [virtualized, fGroups, rowH]);
     const selected = flat.find((o) => o.value === current);
     const nextEnabled = (from, dir) => {
       let i = from + dir;
@@ -3130,8 +3383,27 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       setActive(0);
     }, [query]);
     import_react.default.useEffect(() => {
-      if (open) ensureVisible2(listRef.current, activeRef.current);
-    }, [active, open]);
+      if (!open || !virtualized) return;
+      const el = listRef.current;
+      if (el && el.clientHeight) setListH(el.clientHeight);
+    }, [open, virtualized, render]);
+    import_react.default.useEffect(() => {
+      if (!open) return;
+      if (!virtualized) {
+        ensureVisible2(listRef.current, activeRef.current);
+        return;
+      }
+      const el = listRef.current;
+      if (!el) return;
+      const row = rows.find((r) => r.kind === "option" && r.idx === active);
+      if (!row) return;
+      const vh = el.clientHeight || listH;
+      let next = el.scrollTop;
+      if (row.top < el.scrollTop) next = row.top;
+      else if (row.top + row.h > el.scrollTop + vh) next = row.top + row.h - vh;
+      if (next !== el.scrollTop) el.scrollTop = next;
+      setScrollTop(next);
+    }, [active, open, virtualized, rows, listH]);
     import_react.default.useEffect(() => {
       if (open) {
         setRender(true);
@@ -3205,6 +3477,45 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const activeId = open && visible[active] ? optionId(active) : void 0;
     const descId = `${fieldId}-desc`;
     const describedBy = error || hint ? descId : void 0;
+    const renderOption = (o, idx) => {
+      const isSel = o.value === current;
+      return /* @__PURE__ */ jsxs(
+        "button",
+        {
+          id: optionId(idx),
+          type: "button",
+          className: "twc-opt",
+          role: "option",
+          "aria-selected": isSel,
+          ref: idx === active ? activeRef : null,
+          disabled: o.disabled || void 0,
+          "aria-disabled": o.disabled || void 0,
+          "data-disabled": o.disabled || void 0,
+          "data-selected": isSel || void 0,
+          "data-active": idx === active || void 0,
+          onMouseEnter: () => {
+            if (!o.disabled) setActive(idx);
+          },
+          onClick: () => commit(o.value),
+          children: [
+            /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
+              o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
+            ] }),
+            isSel ? /* @__PURE__ */ jsx("span", { className: "twc-opt__check", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }) : null
+          ]
+        },
+        o.value
+      );
+    };
+    let vTop = 0, vBottom = 0, vShown = rows;
+    if (virtualized && rows.length) {
+      const winTop = scrollTop - overscan * rowH;
+      const winBottom = scrollTop + listH + overscan * rowH;
+      vShown = rows.filter((r) => r.top + r.h > winTop && r.top < winBottom);
+      vTop = vShown.length ? vShown[0].top : 0;
+      vBottom = vShown.length ? totalH - (vShown[vShown.length - 1].top + vShown[vShown.length - 1].h) : totalH;
+    }
     let counter = -1;
     const popInner = /* @__PURE__ */ jsxs(Fragment, { children: [
       showSearch ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__search", children: [
@@ -3232,43 +3543,19 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           searchRef.current?.focus();
         }, children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) }) }) : null
       ] }) : null,
-      /* @__PURE__ */ jsx("div", { className: "twc-pop__list", ref: listRef, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
+      /* @__PURE__ */ jsx("div", { className: "twc-pop__list", ref: listRef, onScroll: virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
         /* @__PURE__ */ jsx("span", { className: "twc-pop__spinner", "aria-hidden": "true" }),
         "Loading\u2026"
-      ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
+      ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
+        vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
+        vShown.map((r) => r.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r.label }, `g${r.gi}`) : renderOption(r.o, r.idx)),
+        vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
+      ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
         g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
         g.options.map((o) => {
           counter += 1;
           const idx = counter;
-          const isSel = o.value === current;
-          return /* @__PURE__ */ jsxs(
-            "button",
-            {
-              id: optionId(idx),
-              type: "button",
-              className: "twc-opt",
-              role: "option",
-              "aria-selected": isSel,
-              ref: idx === active ? activeRef : null,
-              disabled: o.disabled || void 0,
-              "aria-disabled": o.disabled || void 0,
-              "data-disabled": o.disabled || void 0,
-              "data-selected": isSel || void 0,
-              "data-active": idx === active || void 0,
-              onMouseEnter: () => {
-                if (!o.disabled) setActive(idx);
-              },
-              onClick: () => commit(o.value),
-              children: [
-                /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
-                  /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
-                  o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
-                ] }),
-                isSel ? /* @__PURE__ */ jsx("span", { className: "twc-opt__check", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }) : null
-              ]
-            },
-            o.value
-          );
+          return renderOption(o, idx);
         })
       ] }, gi)) }),
       /* @__PURE__ */ jsx("div", { className: "twc-sel__sr", role: "status", "aria-live": "polite", children: loading ? "Loading\u2026" : visible.length === 0 ? emptyText : `${visible.length} result${visible.length === 1 ? "" : "s"}` })
@@ -3814,6 +4101,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     name,
     max,
     maxTagCount,
+    virtualized = false,
+    overscan = 8,
     id,
     className = "",
     onFocus,
@@ -3831,6 +4120,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const [query, setQuery] = import_react.default.useState("");
     const [active, setActive] = import_react.default.useState(0);
     const [coords, setCoords] = import_react.default.useState(null);
+    const [scrollTop, setScrollTop] = import_react.default.useState(0);
+    const [listH, setListH] = import_react.default.useState(260);
     const wrapRef = import_react.default.useRef(null);
     const controlRef = import_react.default.useRef(null);
     const inputRef = import_react.default.useRef(null);
@@ -3842,6 +4133,26 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       [groups, query]
     );
     const visible = import_react.default.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
+    const rowH = import_react.default.useMemo(() => visible.some((o) => o.description) ? 48 : 36, [visible]);
+    const GROUP_H = 30;
+    const { rows, totalH } = import_react.default.useMemo(() => {
+      if (!virtualized) return { rows: [], totalH: 0 };
+      const rows2 = [];
+      let off = 0;
+      let optIdx = -1;
+      fGroups.forEach((g, gi) => {
+        if (g.group) {
+          rows2.push({ kind: "group", gi, label: g.group, top: off, h: GROUP_H });
+          off += GROUP_H;
+        }
+        g.options.forEach((o) => {
+          optIdx += 1;
+          rows2.push({ kind: "option", o, idx: optIdx, top: off, h: rowH });
+          off += rowH;
+        });
+      });
+      return { rows: rows2, totalH: off };
+    }, [virtualized, fGroups, rowH]);
     const capReached = max != null && (value !== void 0 ? value : internal).length >= max;
     const isOptDisabled = (o) => o.disabled || capReached && !(value !== void 0 ? value : internal).includes(o.value);
     const nextEnabled = (from, dir) => {
@@ -3893,8 +4204,27 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       setActive(0);
     }, [query]);
     import_react.default.useEffect(() => {
-      if (open) ensureVisible3(listRef.current, activeRef.current);
-    }, [active, open]);
+      if (!open || !virtualized) return;
+      const el = listRef.current;
+      if (el && el.clientHeight) setListH(el.clientHeight);
+    }, [open, virtualized]);
+    import_react.default.useEffect(() => {
+      if (!open) return;
+      if (!virtualized) {
+        ensureVisible3(listRef.current, activeRef.current);
+        return;
+      }
+      const el = listRef.current;
+      if (!el) return;
+      const row = rows.find((r) => r.kind === "option" && r.idx === active);
+      if (!row) return;
+      const vh = el.clientHeight || listH;
+      let next = el.scrollTop;
+      if (row.top < el.scrollTop) next = row.top;
+      else if (row.top + row.h > el.scrollTop + vh) next = row.top + row.h - vh;
+      if (next !== el.scrollTop) el.scrollTop = next;
+      setScrollTop(next);
+    }, [active, open, virtualized, rows, listH]);
     function commit(next) {
       if (value === void 0) setInternal(next);
       onChange?.(next);
@@ -3931,48 +4261,74 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const activeId = open && visible[active] ? optionId(active) : void 0;
     const descId = `${fieldId}-desc`;
     const describedBy = error || hint ? descId : void 0;
-    let counter = -1;
-    const popInner = /* @__PURE__ */ jsx("div", { className: "twc-pop__list", id: listboxId, ref: listRef, role: "listbox", "aria-multiselectable": "true", children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
-      /* @__PURE__ */ jsx("span", { className: "twc-pop__spinner", "aria-hidden": "true" }),
-      "Loading\u2026"
-    ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
-      g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
-      g.options.map((o) => {
-        counter += 1;
-        const idx = counter;
-        const isSel = selected.includes(o.value);
-        const optDisabled = isOptDisabled(o);
-        return /* @__PURE__ */ jsxs(
-          "button",
-          {
-            id: optionId(idx),
-            type: "button",
-            className: "twc-opt",
-            role: "option",
-            "aria-selected": isSel,
-            ref: idx === active ? activeRef : null,
-            disabled: optDisabled || void 0,
-            "aria-disabled": optDisabled || void 0,
-            "data-disabled": optDisabled || void 0,
-            "data-selected": isSel || void 0,
-            "data-active": idx === active || void 0,
-            onMouseEnter: () => {
-              if (!optDisabled) setActive(idx);
-            },
-            onMouseDown: (e) => e.preventDefault(),
-            onClick: () => toggle(o.value),
-            children: [
-              /* @__PURE__ */ jsx("span", { className: "twc-opt__box", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "3.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }),
-              /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
-                /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
-                o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
-              ] })
-            ]
+    const renderOption = (o, idx) => {
+      const isSel = selected.includes(o.value);
+      const optDisabled = isOptDisabled(o);
+      return /* @__PURE__ */ jsxs(
+        "button",
+        {
+          id: optionId(idx),
+          type: "button",
+          className: "twc-opt",
+          role: "option",
+          "aria-selected": isSel,
+          ref: idx === active ? activeRef : null,
+          disabled: optDisabled || void 0,
+          "aria-disabled": optDisabled || void 0,
+          "data-disabled": optDisabled || void 0,
+          "data-selected": isSel || void 0,
+          "data-active": idx === active || void 0,
+          onMouseEnter: () => {
+            if (!optDisabled) setActive(idx);
           },
-          o.value
-        );
-      })
-    ] }, gi)) });
+          onMouseDown: (e) => e.preventDefault(),
+          onClick: () => toggle(o.value),
+          children: [
+            /* @__PURE__ */ jsx("span", { className: "twc-opt__box", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "3.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }),
+            /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
+              o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
+            ] })
+          ]
+        },
+        o.value
+      );
+    };
+    let vTop = 0, vBottom = 0, vShown = rows;
+    if (virtualized && rows.length) {
+      const winTop = scrollTop - overscan * rowH;
+      const winBottom = scrollTop + listH + overscan * rowH;
+      vShown = rows.filter((r) => r.top + r.h > winTop && r.top < winBottom);
+      vTop = vShown.length ? vShown[0].top : 0;
+      vBottom = vShown.length ? totalH - (vShown[vShown.length - 1].top + vShown[vShown.length - 1].h) : totalH;
+    }
+    let counter = -1;
+    const popInner = /* @__PURE__ */ jsx(
+      "div",
+      {
+        className: "twc-pop__list",
+        id: listboxId,
+        ref: listRef,
+        role: "listbox",
+        "aria-multiselectable": "true",
+        onScroll: virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0,
+        children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
+          /* @__PURE__ */ jsx("span", { className: "twc-pop__spinner", "aria-hidden": "true" }),
+          "Loading\u2026"
+        ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
+          vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
+          vShown.map((r) => r.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r.label }, `g${r.gi}`) : renderOption(r.o, r.idx)),
+          vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
+        ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
+          g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
+          g.options.map((o) => {
+            counter += 1;
+            const idx = counter;
+            return renderOption(o, idx);
+          })
+        ] }, gi))
+      }
+    );
     const RD = { createPortal: typeof import_react_dom.createPortal === "function" ? import_react_dom.createPortal : typeof window !== "undefined" && window.ReactDOM && window.ReactDOM.createPortal };
     const canPortal = portal && RD && RD.createPortal;
     let popEl = null;
@@ -5146,6 +5502,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     density: densityProp = "comfortable",
     pageSize = 10,
     pageSizeOptions = [5, 10, 25, 50],
+    page,
+    onPageChange,
+    onPageSizeChange,
     height = 440,
     serverMode = false,
     rowCount,
@@ -5260,8 +5619,21 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const [selected, setSelected] = import_react.default.useState(() => /* @__PURE__ */ new Set());
     const [activeRow, setActiveRow] = import_react.default.useState(null);
     const [activeCell, setActiveCell] = import_react.default.useState(null);
-    const [page, setPage] = import_react.default.useState(0);
-    const [rowsPerPage, setRowsPerPage] = import_react.default.useState(pageSize > 0 ? pageSize : 10);
+    const [internalPage, setInternalPage] = import_react.default.useState(0);
+    const [internalRpp, setInternalRpp] = import_react.default.useState(pageSize > 0 ? pageSize : 10);
+    const pageControlled = page !== void 0;
+    const pageSizeControlled = onPageSizeChange !== void 0;
+    const pageVal = pageControlled ? page : internalPage;
+    const sizeVal = pageSizeControlled ? pageSize > 0 ? pageSize : 10 : internalRpp;
+    const commitPage = (next) => {
+      onPageChange?.(next);
+      if (!pageControlled) setInternalPage(next);
+    };
+    const commitPageSize = (next) => {
+      onPageSizeChange?.(next);
+      if (!pageSizeControlled) setInternalRpp(next);
+      commitPage(0);
+    };
     const [colQuery, setColQuery] = import_react.default.useState("");
     const [widths, setWidths] = import_react.default.useState({});
     const [order, setOrder] = import_react.default.useState(() => columns.map((c) => c.field));
@@ -5327,6 +5699,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     import_react.default.useEffect(() => {
       setAggOn(showAggregation);
     }, [showAggregation]);
+    import_react.default.useEffect(() => {
+      if (pageSizeControlled) return;
+      setInternalRpp(pageSize > 0 ? pageSize : 10);
+      setInternalPage(0);
+    }, [pageSize]);
     const rowGroupingKey = (rowGrouping || []).join("\0");
     const rowGroupingKeyRef = import_react.default.useRef(rowGroupingKey);
     import_react.default.useEffect(() => {
@@ -5510,10 +5887,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const paginated = pageSize > 0;
     const serverTotal = rowCount == null ? processed.length : rowCount;
     const totalRows = serverMode ? serverTotal : processed.length;
-    const totalPages = paginated ? Math.max(1, Math.ceil(totalRows / rowsPerPage)) : 1;
-    const paged = !paginated || serverMode ? processed : processed.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+    const totalPages = paginated ? Math.max(1, Math.ceil(totalRows / sizeVal)) : 1;
+    const paged = !paginated || serverMode ? processed : processed.slice(pageVal * sizeVal, pageVal * sizeVal + sizeVal);
     import_react.default.useEffect(() => {
-      if (page > totalPages - 1) setPage(0);
+      if (pageVal > totalPages - 1) commitPage(0);
     }, [totalPages]);
     const activeGroupBy = import_react.default.useMemo(() => groupBy.filter((f) => colByField[f]), [groupBy, colByField]);
     function subtotalText(rowsIn) {
@@ -5776,15 +6153,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       if (!serverMode) return;
       const t = setTimeout(() => {
         onServerChangeRef.current?.({
-          page,
-          pageSize: rowsPerPage,
+          page: pageVal,
+          pageSize: sizeVal,
           sort,
           filters: filters.map(({ id, ...f }) => f),
           quickFilter: quick.trim()
         });
       }, 250);
       return () => clearTimeout(t);
-    }, [serverMode, page, rowsPerPage, sort, filters, quick]);
+    }, [serverMode, pageVal, sizeVal, sort, filters, quick]);
     function cycleSort(field) {
       setSort((s) => !s || s.field !== field ? { field, dir: "asc" } : s.dir === "asc" ? { field, dir: "desc" } : null);
     }
@@ -6065,7 +6442,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     }
     import_react.default.useEffect(() => {
       setFocus((f) => ({ r: Math.min(f.r, Math.max(0, leafRows.length - 1)), c: Math.min(f.c, Math.max(0, ordered.length - 1)) }));
-    }, [leafRows.length, ordered.length, page]);
+    }, [leafRows.length, ordered.length, pageVal]);
     const selectedRows = import_react.default.useMemo(() => rows.filter((r, i) => selected.has(keyOf(r, i))), [rows, selected]);
     function clearSelection() {
       setSelected(/* @__PURE__ */ new Set());
@@ -6310,7 +6687,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         {
           className: "twc-dt__row",
           role: "row",
-          "aria-rowindex": (paginated && !serverMode ? page * rowsPerPage : 0) + ri + 2,
+          "aria-rowindex": (paginated && !serverMode ? pageVal * sizeVal : 0) + ri + 2,
           "aria-selected": (checkboxSelection ? sel : rowActive) || void 0,
           "data-selected": sel || void 0,
           "data-active": rowActive || void 0,
@@ -6368,7 +6745,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               ] }),
               rowResize && !pinSide ? /* @__PURE__ */ jsx("span", { className: "twc-dt__row-resizer", title: "Drag to resize row", onPointerDown: (e) => startRowResize(e, k, e.currentTarget.closest("tr")), onClick: (e) => e.stopPropagation() }) : null
             ] }) : null,
-            showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", "data-pin-edge": pins.left.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W }, children: typeof ri === "number" ? (paginated || serverMode ? page * rowsPerPage : 0) + ri + 1 : "" }) : null,
+            showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", "data-pin-edge": pins.left.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W }, children: typeof ri === "number" ? (paginated || serverMode ? pageVal * sizeVal : 0) + ri + 1 : "" }) : null,
             ordered.map((c, ci) => {
               const st = stickyOf(c.field);
               const val = row[c.field];
@@ -6696,7 +7073,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           /* @__PURE__ */ jsx(Svg, { d: I.search }),
           /* @__PURE__ */ jsx("input", { placeholder: "Search\u2026", "aria-label": "Search rows", value: quick, onChange: (e) => {
             setQuick(e.target.value);
-            setPage(0);
+            commitPage(0);
           } })
         ] })
       ] }),
@@ -6898,7 +7275,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                 );
               })
             ] }) }),
-            /* @__PURE__ */ jsx("tbody", { children: loading ? Array.from({ length: paginated ? Math.min(rowsPerPage, 8) : 8 }).map((_, ri) => /* @__PURE__ */ jsxs("tr", { className: "twc-dt__row", role: "row", children: [
+            /* @__PURE__ */ jsx("tbody", { children: loading ? Array.from({ length: paginated ? Math.min(sizeVal, 8) : 8 }).map((_, ri) => /* @__PURE__ */ jsxs("tr", { className: "twc-dt__row", role: "row", children: [
               checkboxSelection ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td", role: "gridcell", "data-pin": "left", style: { insetInlineStart: 0, width: 44 }, children: /* @__PURE__ */ jsx("span", { className: "twc-dt__sk", "aria-hidden": "true", style: { "--_w": "18px", height: 18, borderRadius: 4 } }) }) : null,
               showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", style: { insetInlineStart: numLeft, width: NUM_W }, children: /* @__PURE__ */ jsx("span", { className: "twc-dt__sk", "aria-hidden": "true", style: { "--_w": "16px", height: 14, borderRadius: 4 } }) }) : null,
               ordered.map((c, ci) => {
@@ -6942,7 +7319,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             const nf = (n) => n.toLocaleString();
             if (totalRows === 0) return "No rows";
             const shown = paged.length;
-            const start = paginated ? page * rowsPerPage + 1 : 1;
+            const start = paginated ? pageVal * sizeVal + 1 : 1;
             const end = paginated ? start + shown - 1 : shown;
             return /* @__PURE__ */ jsxs(Fragment, { children: [
               paginated ? /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -6970,13 +7347,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           })() }),
           paginated ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__rpp", children: [
             /* @__PURE__ */ jsx("span", { className: "twc-dt__rpp-label", children: "Rows per page" }),
-            /* @__PURE__ */ jsx("div", { style: { width: 78 }, children: /* @__PURE__ */ jsx(Select, { size: "sm", portal: true, searchable: false, value: String(rowsPerPage), options: rppOptions, placement: "top", onChange: (v) => {
-              setRowsPerPage(Number(v));
-              setPage(0);
-            } }) })
+            /* @__PURE__ */ jsx("div", { style: { width: 78 }, children: /* @__PURE__ */ jsx(Select, { size: "sm", portal: true, searchable: false, value: String(sizeVal), options: rppOptions, placement: "top", onChange: (v) => commitPageSize(Number(v)) }) })
           ] }) : null
         ] }),
-        paginated ? /* @__PURE__ */ jsx("div", { className: "twc-dt__footer-row", "data-pager": "true", children: /* @__PURE__ */ jsx(Pagination, { size: "sm", page: page + 1, total: totalPages, boundaries: 3, showPageJumper: showPageJumper && totalPages > 5, onChange: (p) => setPage(p - 1) }) }) : null
+        paginated ? /* @__PURE__ */ jsx("div", { className: "twc-dt__footer-row", "data-pager": "true", children: /* @__PURE__ */ jsx(Pagination, { size: "sm", page: pageVal + 1, total: totalPages, boundaries: 3, showPageJumper: showPageJumper && totalPages > 5, onChange: (p) => commitPage(p - 1) }) }) : null
       ] }) : null,
       exportOpen && exportPos ? /* @__PURE__ */ jsxs(
         "div",
@@ -7625,6 +7999,18 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dp__clear { position: absolute; inset-inline-end: 10px; top: 50%; transform: translateY(-50%); display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
 .twc-dp__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dp__clear svg { width: 14px; height: 14px; }
+/* #105: editable (typed entry) variant \u2014 the control wraps a real text input + a trailing toggle. */
+.twc-dp__control--editable { cursor: text; gap: 0; padding-inline-end: var(--space-1); }
+.twc-dp__input { flex: 1; min-width: 0; height: 100%; border: none; background: transparent; outline: none; padding: 0;
+  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); }
+.twc-dp__input::placeholder { color: var(--color-text-subtle); }
+.twc-dp__input:disabled { cursor: not-allowed; }
+.twc-dp__clear--inline { position: static; transform: none; flex: none; }
+.twc-dp__toggle { flex: none; display: inline-grid; place-items: center; width: 26px; height: 26px; border: none; background: transparent;
+  color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast), color var(--duration-fast); }
+.twc-dp__toggle:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-dp__toggle:disabled { cursor: not-allowed; }
+.twc-dp__toggle svg { width: 17px; height: 17px; }
 
 .twc-dp__pop {
   position: fixed; z-index: var(--z-popover); width: 280px;
@@ -7684,6 +8070,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     disabled = false,
     tone = "primary",
     clearable = true,
+    editable = false,
+    parse,
     format,
     locale,
     weekStartsOn = 0,
@@ -7705,6 +8093,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const [mode, setMode] = import_react.default.useState("days");
     const [focusDate, setFocusDate] = import_react.default.useState(null);
     const [focusMonth, setFocusMonth] = import_react.default.useState(null);
+    const [editText, setEditText] = import_react.default.useState(null);
     const [coords, setCoords] = import_react.default.useState(null);
     const wrapRef = import_react.default.useRef(null);
     const triggerRef = import_react.default.useRef(null);
@@ -7768,7 +8157,32 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const pick = (d) => {
       if (value === void 0) setInternal(d);
       onChange?.(d);
+      setEditText(null);
       setOpen(false);
+    };
+    const parseTyped = (s) => {
+      const str = s.trim();
+      if (str === "") return null;
+      if (parse) {
+        const d = parse(str);
+        return d instanceof Date && !Number.isNaN(d.getTime()) ? d : void 0;
+      }
+      const t = Date.parse(str);
+      return Number.isNaN(t) ? void 0 : new Date(t);
+    };
+    const commitText = () => {
+      if (editText == null) return;
+      const parsed = parseTyped(editText);
+      if (parsed === null) {
+        setEditText(null);
+        if (selected) pick(null);
+        return;
+      }
+      if (parsed === void 0 || outOfRange(parsed)) {
+        setEditText(null);
+        return;
+      }
+      pick(parsed);
     };
     const y = view.getFullYear(), m = view.getMonth();
     const first = new Date(y, m, 1);
@@ -7845,7 +8259,82 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         label,
         required ? /* @__PURE__ */ jsx("span", { className: "twc-field__req", children: "*" }) : null
       ] }) : null,
-      /* @__PURE__ */ jsxs("div", { className: "twc-dp__field", children: [
+      /* @__PURE__ */ jsx("div", { className: "twc-dp__field", children: editable ? (
+        // #105: typed entry — the trigger is a real text input with a trailing
+        // calendar toggle button; typing commits via `parse` on Enter/blur.
+        /* @__PURE__ */ jsxs(
+          "div",
+          {
+            className: "twc-dp__control twc-dp__control--editable",
+            "data-open": open || void 0,
+            "data-disabled": disabled || void 0,
+            "data-tone": tone,
+            "data-invalid": invalid || void 0,
+            children: [
+              /* @__PURE__ */ jsx(
+                "input",
+                {
+                  ref: triggerRef,
+                  className: "twc-dp__input",
+                  id: fieldId,
+                  type: "text",
+                  inputMode: "numeric",
+                  autoComplete: "off",
+                  disabled,
+                  placeholder,
+                  value: editText != null ? editText : selected ? fmt(selected) : "",
+                  "aria-haspopup": "dialog",
+                  "aria-expanded": open,
+                  "aria-labelledby": label ? `${fieldId}-label` : void 0,
+                  "aria-invalid": invalid || void 0,
+                  "aria-describedby": error || hint ? descId : void 0,
+                  onChange: (e) => setEditText(e.target.value),
+                  onKeyDown: (e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      commitText();
+                    } else if (e.key === "ArrowDown" && (e.altKey || !open)) {
+                      e.preventDefault();
+                      setOpen(true);
+                    } else if (e.key === "Escape" && open) setOpen(false);
+                  },
+                  onBlur: (e) => {
+                    if (popRef.current && popRef.current.contains(e.relatedTarget)) return;
+                    commitText();
+                  }
+                }
+              ),
+              clearable && selected && !disabled ? /* @__PURE__ */ jsx(
+                "button",
+                {
+                  type: "button",
+                  className: "twc-dp__clear twc-dp__clear--inline",
+                  "aria-label": "Clear",
+                  tabIndex: -1,
+                  onMouseDown: (e) => e.preventDefault(),
+                  onClick: () => pick(null),
+                  children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) })
+                }
+              ) : null,
+              /* @__PURE__ */ jsx(
+                "button",
+                {
+                  type: "button",
+                  className: "twc-dp__toggle",
+                  "aria-label": "Open calendar",
+                  tabIndex: -1,
+                  disabled,
+                  onClick: () => !disabled && setOpen((o) => !o),
+                  children: /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+                    /* @__PURE__ */ jsx("rect", { x: "3", y: "4", width: "18", height: "18", rx: "2" }),
+                    /* @__PURE__ */ jsx("path", { d: "M16 2v4M8 2v4M3 10h18" })
+                  ] })
+                }
+              )
+            ]
+          }
+        )
+      ) : /* @__PURE__ */ jsxs(Fragment, { children: [
         /* @__PURE__ */ jsxs(
           "div",
           {
@@ -7884,7 +8373,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           e.stopPropagation();
           pick(null);
         }, children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) }) }) : null
-      ] }),
+      ] }) }),
       open && coords ? (0, import_react_dom.createPortal)(
         /* @__PURE__ */ jsxs(
           "div",
@@ -7983,6 +8472,17 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-drp__ic svg { width: 17px; height: 17px; }
 .twc-drp__text { flex: 1; font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; }
 .twc-drp__text[data-placeholder="true"] { color: var(--color-text-subtle); }
+/* #105: editable (typed entry) variant. */
+.twc-drp__control--editable { cursor: text; gap: 0; padding-inline-end: var(--space-1); }
+.twc-drp__input { flex: 1; min-width: 0; height: 100%; border: none; background: transparent; outline: none; padding: 0;
+  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); }
+.twc-drp__input::placeholder { color: var(--color-text-subtle); }
+.twc-drp__input:disabled { cursor: not-allowed; }
+.twc-drp__toggle { flex: none; display: inline-grid; place-items: center; width: 26px; height: 26px; border: none; background: transparent;
+  color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast), color var(--duration-fast); }
+.twc-drp__toggle:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-drp__toggle:disabled { cursor: not-allowed; }
+.twc-drp__toggle svg { width: 17px; height: 17px; }
 .twc-drp__pop { position: fixed; z-index: var(--z-popover); display: flex;
   background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg); animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top; }
@@ -8037,6 +8537,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     disabledDate,
     disabled = false,
     tone = "primary",
+    editable = false,
+    parse,
     onChange,
     className = "",
     ...rest
@@ -8049,6 +8551,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const [view, setView] = import_react.default.useState(range.start || /* @__PURE__ */ new Date());
     const [hover, setHover] = import_react.default.useState(null);
     const [focusDate, setFocusDate] = import_react.default.useState(null);
+    const [editText, setEditText] = import_react.default.useState(null);
     const [coords, setCoords] = import_react.default.useState(null);
     const wrapRef = import_react.default.useRef(null);
     const triggerRef = import_react.default.useRef(null);
@@ -8103,6 +8606,40 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const set = (r) => {
       if (value === void 0) setInternal(r);
       onChange?.(r);
+    };
+    const parseOne = (s) => {
+      const str = s.trim();
+      if (str === "") return null;
+      if (parse) {
+        const d = parse(str);
+        return d instanceof Date && !Number.isNaN(d.getTime()) ? d : void 0;
+      }
+      const t = Date.parse(str);
+      return Number.isNaN(t) ? void 0 : new Date(t);
+    };
+    const commitText = () => {
+      if (editText == null) return;
+      const raw = editText.trim();
+      if (raw === "") {
+        setEditText(null);
+        if (range.start || range.end) set({ start: null, end: null });
+        return;
+      }
+      const parts = raw.split(/\s*(?:–|—|\bto\b|\.\.+)\s*/i).map((p) => p.trim());
+      let a = parseOne(parts[0] || "");
+      let b = parts.length > 1 ? parseOne(parts[1] || "") : null;
+      if (a === void 0 || b === void 0 || a && outOfRange(a) || b && outOfRange(b)) {
+        setEditText(null);
+        return;
+      }
+      if (a && b && ymd(b) < ymd(a)) {
+        const t = a;
+        a = b;
+        b = t;
+      }
+      set({ start: a || null, end: b || null });
+      setEditText(null);
+      setOpen(false);
     };
     useFocusTrap(popRef, open && !!coords, { initialFocus: () => gridRef.current?.querySelector('[tabindex="0"]') });
     const outOfRange = (d) => min && ymd(d) < ymd(min) || max && ymd(d) > ymd(max) || Boolean(disabledDate && disabledDate(d));
@@ -8199,7 +8736,57 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         label,
         required ? /* @__PURE__ */ jsx("span", { className: "twc-field__req", children: "*" }) : null
       ] }) : null,
-      /* @__PURE__ */ jsxs(
+      editable ? (
+        // #105: typed entry — a text input accepting "start – end"; commits via `parse` on Enter/blur.
+        /* @__PURE__ */ jsxs("div", { className: "twc-drp__control twc-drp__control--editable", "data-open": open || void 0, "data-disabled": disabled || void 0, "data-invalid": invalid || void 0, "data-tone": tone, children: [
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              ref: triggerRef,
+              className: "twc-drp__input",
+              type: "text",
+              autoComplete: "off",
+              disabled,
+              placeholder,
+              value: editText != null ? editText : text,
+              "aria-haspopup": "dialog",
+              "aria-expanded": open,
+              "aria-labelledby": label ? labelId : void 0,
+              "aria-invalid": invalid || void 0,
+              "aria-describedby": error || hint ? descId : void 0,
+              onChange: (e) => setEditText(e.target.value),
+              onKeyDown: (e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  commitText();
+                } else if (e.key === "ArrowDown" && (e.altKey || !open)) {
+                  e.preventDefault();
+                  setOpen(true);
+                } else if (e.key === "Escape" && open) setOpen(false);
+              },
+              onBlur: (e) => {
+                if (popRef.current && popRef.current.contains(e.relatedTarget)) return;
+                commitText();
+              }
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              type: "button",
+              className: "twc-drp__toggle",
+              "aria-label": "Open calendar",
+              tabIndex: -1,
+              disabled,
+              onClick: () => !disabled && setOpen((o) => !o),
+              children: /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+                /* @__PURE__ */ jsx("rect", { x: "3", y: "4", width: "18", height: "18", rx: "2" }),
+                /* @__PURE__ */ jsx("path", { d: "M16 2v4M8 2v4M3 10h18" })
+              ] })
+            }
+          )
+        ] })
+      ) : /* @__PURE__ */ jsxs(
         "div",
         {
           ref: triggerRef,
@@ -11673,11 +12260,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     border = false,
     radius,
     shadow,
+    sx,
     className = "",
     style,
     children,
     ...rest
   }, ref) {
+    const { flatStyle, styleNode, sxAttr } = useSx(sx);
     const s = {
       paddingTop: sp(pt ?? py ?? p),
       paddingRight: sp(pr ?? px ?? p),
@@ -11691,10 +12280,14 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       border: border ? "var(--border-thin, 1px) solid var(--color-border)" : void 0,
       borderRadius: radius ? `var(--radius-${radius})` : void 0,
       boxShadow: shadow ? `var(--shadow-${shadow})` : void 0,
-      ...style
+      ...style,
+      ...flatStyle
     };
     if (Tag2 === "a" && rest.href != null) rest.href = safeHref6(rest.href);
-    return /* @__PURE__ */ jsx(Tag2, { ref, className: `twc-box ${className}`.trim(), style: s, ...rest, children });
+    return /* @__PURE__ */ jsxs(Tag2, { ref, className: `twc-box ${className}`.trim(), style: s, "data-twc-sx": sxAttr, ...rest, children: [
+      styleNode,
+      children
+    ] });
   });
   Box.displayName = "Box";
   var SIZES = { sm: 640, md: 768, lg: 1024, xl: 1280, full: "100%" };
@@ -11707,27 +12300,34 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     as: Tag2 = "div",
     size = "lg",
     padded = true,
+    sx,
     className = "",
     style,
     children,
     ...rest
   }, ref) {
+    const { flatStyle, styleNode, sxAttr } = useSx(sx);
     const max = SIZES[size] ?? size;
     if (Tag2 === "a" && rest.href != null) rest.href = safeHref7(rest.href);
-    return /* @__PURE__ */ jsx(
+    return /* @__PURE__ */ jsxs(
       Tag2,
       {
         ref,
         className: `twc-container ${className}`.trim(),
+        "data-twc-sx": sxAttr,
         style: {
           width: "100%",
           maxWidth: typeof max === "number" ? `${max}px` : max,
           marginInline: "auto",
           paddingInline: padded ? "var(--space-5)" : void 0,
-          ...style
+          ...style,
+          ...flatStyle
         },
         ...rest,
-        children
+        children: [
+          styleNode,
+          children
+        ]
       }
     );
   });
@@ -11757,11 +12357,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     justify,
     alignContent,
     justifyContent,
+    sx,
     className = "",
     style,
     children,
     ...rest
   }, ref) {
+    const { flatStyle, styleNode, sxAttr } = useSx(sx);
     const responsive = columns != null && typeof columns === "object";
     const uid = import_react.default.useId();
     const gridId = responsive ? `g${uid.replace(/[^a-zA-Z0-9]/g, "")}` : null;
@@ -11784,6 +12386,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         ref,
         className: `twc-grid ${className}`.trim(),
         "data-twc-grid-id": gridId || void 0,
+        "data-twc-sx": sxAttr,
         style: {
           display: "grid",
           gridTemplateColumns: templateColumns,
@@ -11793,11 +12396,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
           justifyItems: justify,
           alignContent,
           justifyContent,
-          ...style
+          ...style,
+          ...flatStyle
         },
         ...rest,
         children: [
           responsive ? __twcStyles : null,
+          styleNode,
           children
         ]
       }
@@ -11830,18 +12435,21 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     pb,
     pl,
     divider,
+    sx,
     className = "",
     style,
     children,
     ...rest
   }, ref) {
+    const { flatStyle, styleNode, sxAttr } = useSx(sx);
     if (Tag2 === "a" && rest.href != null) rest.href = safeHref9(rest.href);
     const kids = divider != null ? import_react.default.Children.toArray(children).flatMap((child, i, arr) => i < arr.length - 1 ? [child, /* @__PURE__ */ jsx(import_react.default.Fragment, { children: divider }, `twc-stack-div-${i}`)] : [child]) : children;
-    return /* @__PURE__ */ jsx(
+    return /* @__PURE__ */ jsxs(
       Tag2,
       {
         ref,
         className: `twc-stack ${className}`.trim(),
+        "data-twc-sx": sxAttr,
         style: {
           display: inline ? "inline-flex" : "flex",
           flexDirection: direction,
@@ -11854,10 +12462,14 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
           paddingBottom: space2(pb ?? py ?? p),
           paddingLeft: space2(pl ?? px ?? p),
           minWidth: 0,
-          ...style
+          ...style,
+          ...flatStyle
         },
         ...rest,
-        children: kids
+        children: [
+          styleNode,
+          kids
+        ]
       }
     );
   });
@@ -11940,19 +12552,22 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     align,
     truncate,
     lineClamp,
+    sx,
     className = "",
     style,
     children,
     ...rest
   }, ref) {
+    const { flatStyle, styleNode, sxAttr } = useSx(sx);
     const Tag2 = as || `h${level}`;
     const sz = size || (display ? "display" : LEVEL_SIZE[level]) || "2xl";
     if (Tag2 === "a" && rest.href != null) rest.href = safeHref11(rest.href);
-    return /* @__PURE__ */ jsx(
+    return /* @__PURE__ */ jsxs(
       Tag2,
       {
         ref,
         className: `twc-heading ${className}`.trim(),
+        "data-twc-sx": sxAttr,
         style: {
           margin: 0,
           fontFamily: "var(--font-sans)",
@@ -11963,10 +12578,14 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
           fontSize: `var(--text-${sz})`,
           textAlign: align,
           ...lineClamp != null ? { display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: lineClamp, overflow: "hidden" } : truncate ? { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", minWidth: 0 } : null,
-          ...style
+          ...style,
+          ...flatStyle
         },
         ...rest,
-        children
+        children: [
+          styleNode,
+          children
+        ]
       }
     );
   });
@@ -11999,18 +12618,21 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     align,
     truncate,
     lineClamp,
+    sx,
     className = "",
     style,
     children,
     ...rest
   }, ref) {
+    const { flatStyle, styleNode, sxAttr } = useSx(sx);
     if (Tag2 === "a" && rest.href != null) rest.href = safeHref12(rest.href);
     const toneToken = TONE[tone] || TONE.default;
-    return /* @__PURE__ */ jsx(
+    return /* @__PURE__ */ jsxs(
       Tag2,
       {
         ref,
         className: `twc-text ${className}`.trim(),
+        "data-twc-sx": sxAttr,
         style: {
           margin: 0,
           fontFamily: "var(--font-sans)",
@@ -12020,10 +12642,14 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
           fontWeight: weight ? `var(--font-${weight})` : void 0,
           textAlign: align,
           ...lineClamp != null ? { display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: lineClamp, overflow: "hidden" } : truncate ? { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", minWidth: 0 } : null,
-          ...style
+          ...style,
+          ...flatStyle
         },
         ...rest,
-        children
+        children: [
+          styleNode,
+          children
+        ]
       }
     );
   });

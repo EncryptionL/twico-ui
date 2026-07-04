@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Sx } from "../_types";
 
 /**
  * Surface container for grouped content. Supports header (title/subtitle),
@@ -23,6 +24,8 @@ export interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "t
   interactive?: boolean;
   /** Stretch to fill the parent cell (`height: 100%`) — equal-height cards in a grid/flex row. */
   fullHeight?: boolean;
+  /** Style escape hatch: flat CSS goes inline; nested selectors/at-rules (`"&:hover"`, `"@media …"`) compile to a scoped stylesheet. */
+  sx?: Sx;
   children?: React.ReactNode;
 }
 

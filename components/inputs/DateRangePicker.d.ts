@@ -42,6 +42,10 @@ export interface DateRangePickerProps extends Omit<React.HTMLAttributes<HTMLDivE
   disabled?: boolean;
   /** Color intent for the focus/open accent. @default "primary" */
   tone?: Tone;
+  /** Render the trigger as a typeable input accepting "start – end"; typed text commits via `parse` on Enter/blur. @default false */
+  editable?: boolean;
+  /** Parse one side of the typed range into a Date (used when `editable`). Return a `Date` to accept, `null`/invalid to reject. Defaults to a lenient `Date.parse`. */
+  parse?: (text: string) => Date | null;
   onChange?: (range: DateRange) => void;
 }
 

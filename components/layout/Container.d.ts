@@ -1,20 +1,21 @@
 import * as React from "react";
-import type { PolymorphicAs } from "../_types";
+import type { PolymorphicComponent, PolymorphicPropsWithRef, Sx } from "../_types";
 
-/** Centered, max-width content wrapper with responsive horizontal padding. */
-export interface ContainerProps extends React.HTMLAttributes<HTMLElement> {
-  /** Element/tag to render. @default "div" */
-  as?: PolymorphicAs;
-  /** Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href). */
-  href?: string;
-  /** Anchor target — only used with as="a" (e.g. "_blank"). */
-  target?: React.HTMLAttributeAnchorTarget;
-  /** Anchor rel — only used with as="a"; pair "noopener noreferrer" with target="_blank". */
-  rel?: string;
+/**
+ * Container's own props. Intrinsic attributes of the rendered element (and `ref`)
+ * are added by the polymorphic wrapper based on `as`.
+ */
+export interface ContainerOwnProps {
   /** Max width: a named size (sm 640 / md 768 / lg 1024 / xl 1280 / full) or any CSS length. @default "lg" */
   size?: "sm" | "md" | "lg" | "xl" | "full" | string;
   /** Apply horizontal padding. @default true */
   padded?: boolean;
+  /** Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules (`"&:hover"`, `"@media …"`) compile to a scoped stylesheet. */
+  sx?: Sx;
 }
 
-export declare const Container: React.ForwardRefExoticComponent<ContainerProps & React.RefAttributes<HTMLElement>>;
+/** Container props for a given element `C` (defaults to `"div"`). */
+export type ContainerProps<C extends React.ElementType = "div"> = PolymorphicPropsWithRef<C, ContainerOwnProps>;
+
+/** Centered, max-width content wrapper with responsive horizontal padding. Polymorphic via `as`. */
+export declare const Container: PolymorphicComponent<ContainerOwnProps, "div">;

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSx } from "../_sx.js";
 
 const TONE = {
   default: "--color-text",
@@ -33,17 +34,20 @@ export const Text = React.forwardRef(function Text({
   align,
   truncate,
   lineClamp,
+  sx,
   className = "",
   style,
   children,
   ...rest
 }, ref) {
+  const { flatStyle, styleNode, sxAttr } = useSx(sx);
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   const toneToken = TONE[tone] || TONE.default;
   return (
     <Tag
       ref={ref}
       className={`twc-text ${className}`.trim()}
+      data-twc-sx={sxAttr}
       style={{
         margin: 0,
         fontFamily: "var(--font-sans)",
@@ -58,9 +62,11 @@ export const Text = React.forwardRef(function Text({
             ? { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", minWidth: 0 }
             : null),
         ...style,
+        ...flatStyle,
       }}
       {...rest}
     >
+      {styleNode}
       {children}
     </Tag>
   );

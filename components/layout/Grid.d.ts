@@ -1,19 +1,14 @@
 import * as React from "react";
-import type { PolymorphicAs } from "../_types";
+import type { PolymorphicComponent, PolymorphicPropsWithRef, Sx } from "../_types";
 
 /** Responsive column counts per breakpoint (base + sm/md/lg/xl at 640/768/1024/1280px). */
 export type ResponsiveColumns = { base?: number; sm?: number; md?: number; lg?: number; xl?: number };
 
-/** CSS grid primitive — fixed columns or a responsive auto-fill grid. */
-export interface GridProps extends React.HTMLAttributes<HTMLElement> {
-  /** Element/tag to render. @default "div" */
-  as?: PolymorphicAs;
-  /** Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href). */
-  href?: string;
-  /** Anchor target — only used with as="a" (e.g. "_blank"). */
-  target?: React.HTMLAttributeAnchorTarget;
-  /** Anchor rel — only used with as="a"; pair "noopener noreferrer" with target="_blank". */
-  rel?: string;
+/**
+ * Grid's own props. Intrinsic attributes of the rendered element (and `ref`) are
+ * added by the polymorphic wrapper based on `as`.
+ */
+export interface GridOwnProps {
   /** Fixed column count, or a responsive object `{ base, sm, md, lg, xl }` (ignored when `minChildWidth` is set). */
   columns?: number | ResponsiveColumns;
   /** Responsive auto-fill: minimum child width (number = px, or any CSS length). */
@@ -30,6 +25,12 @@ export interface GridProps extends React.HTMLAttributes<HTMLElement> {
   alignContent?: React.CSSProperties["alignContent"];
   /** Distribute the grid's columns within extra inline space. */
   justifyContent?: React.CSSProperties["justifyContent"];
+  /** Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules (`"&:hover"`, `"@media …"`) compile to a scoped stylesheet. */
+  sx?: Sx;
 }
 
-export declare const Grid: React.ForwardRefExoticComponent<GridProps & React.RefAttributes<HTMLElement>>;
+/** Grid props for a given element `C` (defaults to `"div"`). */
+export type GridProps<C extends React.ElementType = "div"> = PolymorphicPropsWithRef<C, GridOwnProps>;
+
+/** CSS grid primitive — fixed columns or a responsive auto-fill grid. Polymorphic via `as`. */
+export declare const Grid: PolymorphicComponent<GridOwnProps, "div">;

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSx } from "../_sx.js";
 
 // Maps a numeric gap/space step to the spacing token; a string passes through.
 function space(v) {
@@ -26,11 +27,13 @@ export const Stack = React.forwardRef(function Stack({
   inline = false,
   p, px, py, pt, pr, pb, pl,
   divider,
+  sx,
   className = "",
   style,
   children,
   ...rest
 }, ref) {
+  const { flatStyle, styleNode, sxAttr } = useSx(sx);
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   // Interleave `divider` between children (never before the first or after the last).
   const kids = divider != null
@@ -41,6 +44,7 @@ export const Stack = React.forwardRef(function Stack({
     <Tag
       ref={ref}
       className={`twc-stack ${className}`.trim()}
+      data-twc-sx={sxAttr}
       style={{
         display: inline ? "inline-flex" : "flex",
         flexDirection: direction,
@@ -54,9 +58,11 @@ export const Stack = React.forwardRef(function Stack({
         paddingLeft: space(pl ?? px ?? p),
         minWidth: 0,
         ...style,
+        ...flatStyle,
       }}
       {...rest}
     >
+      {styleNode}
       {kids}
     </Tag>
   );

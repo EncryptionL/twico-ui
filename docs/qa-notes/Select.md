@@ -10,6 +10,14 @@
 
 - [ ] **[P2] Popover viewport flip animation mismatch** — When menu flips to top, transform-origin is set to bottom (CSS line 53) but animation timing remains the same (line 52). During the flip-and-open transition, the visual effect might feel jerky. Consider adding a CSS animation-delay or transform-origin class based on data-placement. `Select.jsx:52-53`.
 
+## Enhancements
+
+- **[#92] Opt-in option-list virtualization** — `virtualized` (+ `overscan`, default 8) windows
+  `.twc-pop__list`, rendering only the option rows intersecting the viewport (plus spacer divs) so a
+  250/500/1000-item list opens without mounting every button. aria-activedescendant / keyboard indexing
+  still spans the full list, and keyboard nav scrolls an unrendered active option into view by its
+  computed offset. Off by default (small/grouped lists render byte-identically). — added 2026-07-04
+
 ## Verified OK
 
 - Controlled/uncontrolled mode works (value/defaultValue/onChange)

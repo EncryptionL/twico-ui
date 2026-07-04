@@ -28,4 +28,16 @@ const anyOf = { field: "x", op: "isAnyOf", value: ["a"] } satisfies DatatableFil
 // @ts-expect-error — isAnyOf requires string[], not string
 const badFilter = { field: "x", op: "isAnyOf", value: "a" } satisfies DatatableFilter;
 
-void [col, badCol, onRowClick, op, badOp, anyOf, badFilter];
+// #45 — controlled pagination props + callbacks.
+const paged: DatatableProps<User> = {
+  columns: [col],
+  rows: [{ id: 1, name: "a" }],
+  page: 0,
+  pageSize: 25,
+  onPageChange: (p: number) => void p,
+  onPageSizeChange: (s: number) => void s,
+};
+// @ts-expect-error — page is a 0-based number, not a string
+const badPage: DatatableProps<User> = { columns: [col], rows: [], page: "1" };
+
+void [col, badCol, onRowClick, op, badOp, anyOf, badFilter, paged, badPage];

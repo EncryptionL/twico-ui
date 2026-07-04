@@ -27,3 +27,4 @@ Options: strings, `{value,label,description}`, or `{group,options}` groups. An o
 `loading` (spinner row), `emptyText`, `matchTriggerWidth={false}` (size the popover to the widest option).
 Keyboard: ↑/↓ move, Enter select, Esc close, and printable characters type-ahead-jump on the closed trigger.
 `tone` ("primary" | "success" | "warning" | "danger" | "info" | "neutral", default "primary") sets the focus/open border and ring color.
+For very long lists set `virtualized` (with optional `overscan`, default 8) to render only the visible option slice; keyboard nav still scrolls unrendered options into view.
