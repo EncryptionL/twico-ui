@@ -53,6 +53,17 @@ function fmtSize(bytes) {
   return (bytes / (1024 * 1024)).toFixed(1) + " MB";
 }
 
+// #102: does a file satisfy an `accept` list (extensions, exact MIME, or `type/*`)?
+function matchesAccept(file, accept) {
+  if (!accept) return true;
+  const toks = accept.split(",").map((t) => t.trim().toLowerCase()).filter(Boolean);
+  if (!toks.length) return true;
+  const name = file.name.toLowerCase(), type = (file.type || "").toLowerCase();
+  return toks.some((t) => t.startsWith(".") ? name.endsWith(t) : t.endsWith("/*") ? type.startsWith(t.slice(0, -1)) : type === t);
+}
+// #104: stable identity for a File so re-adds dedupe and rows key by identity.
+const fileKey = (f) => `${f.name}-${f.size}-${f.lastModified}`;
+
 export function FileUpload({
   accept,
   multiple = false,
@@ -64,6 +75,9 @@ export function FileUpload({
   required = false,
   value,
   defaultValue = [],
+  maxSize,
+  maxFiles,
+  onReject,
   onChange,
   id,
   className = "",
@@ -83,9 +97,27 @@ export function FileUpload({
 
   const set = (next) => { if (value === undefined) setInternal(next); onChange?.(next); };
 
+  // #102/#103/#104: validate each incoming file against accept / maxSize / maxFiles, dedupe
+  // re-adds (multiple mode), and report rejections via onReject.
   function addFiles(list) {
-    const arr = Array.from(list);
-    set(multiple ? [...files, ...arr] : arr.slice(0, 1));
+    const incoming = Array.from(list);
+    const retained = multiple ? files.slice() : [];
+    const seen = new Set(retained.map(fileKey));
+    const accepted = [];
+    const rejections = [];
+    for (const f of incoming) {
+      if (multiple && seen.has(fileKey(f))) continue; // dedupe — silent no-op
+      let reason = null;
+      if (accept && !matchesAccept(f, accept)) reason = "type";
+      else if (maxSize && f.size > maxSize) reason = "size";
+      else if (multiple && maxFiles && retained.length + accepted.length >= maxFiles) reason = "count";
+      if (reason) { rejections.push({ file: f, reason }); continue; }
+      accepted.push(f);
+      if (multiple) seen.add(fileKey(f));
+    }
+    if (rejections.length) onReject?.(rejections);
+    if (multiple) { if (accepted.length) set([...retained, ...accepted]); }
+    else if (accepted.length) set(accepted.slice(0, 1));
   }
   function remove(i) { set(files.filter((_, idx) => idx !== i)); }
 
@@ -122,7 +154,7 @@ export function FileUpload({
       {files.length ? (
         <div className="twc-upload__list">
           {files.map((f, i) => (
-            <div className="twc-upload__file" key={i}>
+            <div className="twc-upload__file" key={fileKey(f)}>
               <span className="twc-upload__file-ic" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6"/></svg>
               </span>

@@ -55,6 +55,7 @@ const RANGE_CSS = `
 .twc-drp__day[data-edge="end"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: 0 var(--radius-md) var(--radius-md) 0; font-weight: var(--font-bold); }
 .twc-drp__day[data-edge="both"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: var(--radius-md); font-weight: var(--font-bold); }
 .twc-drp__day:disabled { opacity: 0.3; cursor: not-allowed; }
+.twc-drp__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 [dir="rtl"] .twc-drp__nav svg { transform: scaleX(-1); }
 `;
 
@@ -87,6 +88,9 @@ export function DateRangePicker({
   presets = true,
   locale,
   weekStartsOn = 0,
+  min,
+  max,
+  disabledDate,
   disabled = false,
   tone = "primary",
   onChange,
@@ -148,7 +152,11 @@ export function DateRangePicker({
 
   const set = (r) => { if (value === undefined) setInternal(r); onChange?.(r); };
 
+  // #101: bounds parity with DatePicker.
+  const outOfRange = (d) => (min && ymd(d) < ymd(min)) || (max && ymd(d) > ymd(max)) || Boolean(disabledDate && disabledDate(d));
+
   const clickDay = (d) => {
+    if (outOfRange(d)) return;
     if (!range.start || (range.start && range.end)) { set({ start: d, end: null }); }
     else {
       // second pick: normalize so the committed range always has start <= end (swap if before the first pick).
@@ -221,6 +229,7 @@ export function DateRangePicker({
             <div className="twc-drp__head">
               <button type="button" className="twc-drp__nav" aria-label="Previous month" onClick={() => setView(new Date(y, m - 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
               <span className="twc-drp__title">{months[m]} {y}</span>
+              <span className="twc-drp__sr" aria-live="polite">{months[m]} {y}</span>
               <button type="button" className="twc-drp__nav" aria-label="Next month" onClick={() => setView(new Date(y, m + 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
             </div>
             <div className="twc-drp__grid">
@@ -230,6 +239,7 @@ export function DateRangePicker({
                 const t = ymd(d), outside = d.getMonth() !== m;
                 return (
                   <button key={i} type="button" className="twc-drp__day" data-outside={outside || undefined}
+                    disabled={outOfRange(d) || undefined}
                     data-in={inRange(t) || undefined} data-edge={edgeOf(t) || undefined}
                     aria-pressed={!!edgeOf(t)}
                     aria-label={locale === undefined ? d.toDateString() : d.toLocaleDateString(locale, { weekday: "long", year: "numeric", month: "long", day: "numeric" })}

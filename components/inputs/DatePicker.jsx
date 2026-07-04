@@ -62,6 +62,7 @@ const DATEPICKER_CSS = `
 .twc-dp__day[data-today="true"] { font-weight: var(--font-bold); box-shadow: inset 0 0 0 1px var(--color-primary-border); }
 .twc-dp__day[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
 .twc-dp__day:disabled { color: var(--color-text-subtle); opacity: 0.4; cursor: not-allowed; }
+.twc-dp__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .twc-dp__day:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-dp__months { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
 .twc-dp__mo { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
@@ -293,6 +294,7 @@ export function DatePicker({
             <button type="button" className="twc-dp__title" onClick={() => setMode(mode === "days" ? "months" : "days")}>
               {mode === "days" ? `${months[m]} ${y}` : y}
             </button>
+            <span className="twc-dp__sr" aria-live="polite">{mode === "days" ? `${months[m]} ${y}` : y}</span>
             <button type="button" className="twc-dp__nav" aria-label="Next" onClick={() => setView(mode === "months" ? new Date(y + 1, m, 1) : new Date(y, m + 1, 1))}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </button>
