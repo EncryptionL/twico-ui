@@ -11,9 +11,14 @@
 ## Verified OK
 
 - **Index math (loop vs no-loop):** Loop wraps correctly via (i + count) % count. No-loop clamps to [0, count-1].
-- **Autoplay interval logic:** Respects paused state (on hover). Correctly stops when count <= 1 or autoPlay is false.
+- **Autoplay interval logic:** Suppressed on hover/focus, by the pause button, and under
+  `prefers-reduced-motion` (WCAG 2.2.2, #154); also stops when count <= 1 or autoPlay is false.
 - **Slide visibility (aria-hidden):** Only the active slide has aria-hidden=false; others are hidden from a11y tree.
 - **Arrow button disabled state:** Arrows disable at start/end when loop=false. RTL: SVG scales via [dir="rtl"] scaleX(-1).
 - **Dot nav:** Animated width expansion (8px → 22px on active). All dots keyboard-accessible (aria-label per dot).
-- **Pause on hover:** onMouseEnter/Leave pauses autoplay as UX best practice.
+- **Region keyboard nav (#153):** the focusable region (`tabIndex=0` viewport) handles ArrowLeft/ArrowRight
+  (step) + Home/End (first/last); the consumer `onKeyDown` runs first and typing in a slide's form control is ignored.
+- **Accessible name (#155):** `label` → `aria-label` → `"Carousel"` fallback; `aria-labelledby` suppresses `aria-label`.
+- **Live region (#156):** a visually-hidden `aria-live="polite"` node announces "Slide X of N"; it switches to
+  `off` while auto-rotating so automatic changes aren't announced.
 - **Keyboard accessible:** Dots and arrows are buttons with proper labels.
