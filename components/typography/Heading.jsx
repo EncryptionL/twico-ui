@@ -11,7 +11,7 @@ function safeHref(url) {
 }
 
 /** Heading (h1–h6) with token typography. `level` sets the tag + default size. */
-export function Heading({
+export const Heading = React.forwardRef(function Heading({
   as,
   level = 2,
   size,
@@ -23,12 +23,13 @@ export function Heading({
   style,
   children,
   ...rest
-}) {
+}, ref) {
   const Tag = as || `h${level}`;
   const sz = size || (display ? "display" : LEVEL_SIZE[level]) || "2xl";
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   return (
     <Tag
+      ref={ref}
       className={`twc-heading ${className}`.trim()}
       style={{
         margin: 0,
@@ -51,4 +52,5 @@ export function Heading({
       {children}
     </Tag>
   );
-}
+});
+Heading.displayName = "Heading";

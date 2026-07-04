@@ -19,18 +19,24 @@ import * as React from "react";
 
 const SUPPORTS_STYLE_HOIST = parseInt(String(React.version), 10) >= 19;
 
+// #57: a CSP nonce provided by the app so injected <style> tags are allowed under a
+// strict `style-src 'nonce-…'` policy (no `unsafe-inline`). Undefined by default.
+export const NonceContext = React.createContext(undefined);
+
 export function useScopedStyles(id, css) {
+  const nonce = React.useContext(NonceContext);
   React.useInsertionEffect(() => {
     // React 19 renders the <style> below; nothing to inject imperatively.
     if (SUPPORTS_STYLE_HOIST) return;
     if (typeof document === "undefined" || document.getElementById(id)) return;
     const el = document.createElement("style");
     el.id = id;
+    if (nonce) { el.setAttribute("nonce", nonce); el.nonce = nonce; }
     el.textContent = css;
     document.head.appendChild(el);
-  }, [id, css]);
+  }, [id, css, nonce]);
 
   return SUPPORTS_STYLE_HOIST
-    ? React.createElement("style", { href: id, precedence: "twc-ui" }, css)
+    ? React.createElement("style", { href: id, precedence: "twc-ui", nonce }, css)
     : null;
 }

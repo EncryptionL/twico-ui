@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"3c98a07f7447","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"f35fb2dc0dc4","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"1c03e17c8594","components/inputs/Combobox.jsx":"da89f9c7b152","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"4539dda63318","components/inputs/DateRangePicker.jsx":"d428e7795556","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Input.jsx":"05605520deae","components/inputs/MultiSelect.jsx":"856956280c7b","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"cd87f7b56e12","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"0b3d9cee1567","components/layout/Container.jsx":"387427a04d92","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"4258836f330c","components/layout/Stack.jsx":"3acf19a6760b","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1514eeaceb03","components/typography/Text.jsx":"d266e3a00c44","src/index.ts":"24b66815edd1"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"3c98a07f7447","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"f35fb2dc0dc4","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"1c03e17c8594","components/inputs/Combobox.jsx":"da89f9c7b152","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"4539dda63318","components/inputs/DateRangePicker.jsx":"d428e7795556","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Input.jsx":"05605520deae","components/inputs/MultiSelect.jsx":"856956280c7b","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"cd87f7b56e12","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"5866b30f900a","components/layout/Container.jsx":"3af6a1ef1d15","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"6db8d15f4acd","components/layout/Stack.jsx":"82cf0b7f370d","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"6f40ab3a9d29","components/typography/Text.jsx":"a666a3e0beeb","src/index.ts":"c8c8e5de275f"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -118,6 +118,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     ToastViewport: () => ToastViewport,
     Tooltip: () => Tooltip,
     TreeView: () => TreeView,
+    TwicoProvider: () => TwicoProvider,
     runDatatableQuery: () => runDatatableQuery,
     useClickOutside: () => useClickOutside,
     useColorScheme: () => useColorScheme,
@@ -146,7 +147,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useToggle: () => useToggle,
     useWindowSize: () => useWindowSize
   });
-  var React25 = __toESM(require_react(), 1);
+  var React26 = __toESM(require_react(), 1);
   var import_react = __toESM(require_react(), 1);
 
   // rg:react/jsx-runtime
@@ -164,17 +165,26 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 
   // dist/index.mjs
   var import_react_dom = __toESM(require_react_dom(), 1);
-  var SUPPORTS_STYLE_HOIST = parseInt(String(React25.version), 10) >= 19;
+  var SUPPORTS_STYLE_HOIST = parseInt(String(React26.version), 10) >= 19;
+  var NonceContext = React26.createContext(void 0);
   function useScopedStyles(id, css) {
-    React25.useInsertionEffect(() => {
+    const nonce = React26.useContext(NonceContext);
+    React26.useInsertionEffect(() => {
       if (SUPPORTS_STYLE_HOIST) return;
       if (typeof document === "undefined" || document.getElementById(id)) return;
       const el = document.createElement("style");
       el.id = id;
+      if (nonce) {
+        el.setAttribute("nonce", nonce);
+        el.nonce = nonce;
+      }
       el.textContent = css;
       document.head.appendChild(el);
-    }, [id, css]);
-    return SUPPORTS_STYLE_HOIST ? React25.createElement("style", { href: id, precedence: "twc-ui" }, css) : null;
+    }, [id, css, nonce]);
+    return SUPPORTS_STYLE_HOIST ? React26.createElement("style", { href: id, precedence: "twc-ui", nonce }, css) : null;
+  }
+  function TwicoProvider({ nonce, children }) {
+    return import_react.default.createElement(NonceContext.Provider, { value: nonce }, children);
   }
   var ACCORDION_CSS = `
 .twc-accordion { display: flex; flex-direction: column; font-family: var(--font-sans);
@@ -265,9 +275,9 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         const triggerId = `${baseId}-trigger-${i}`;
         const panelId = `${baseId}-panel-${i}`;
         const lvl = Math.min(6, Math.max(1, it.headingLevel ?? headingLevel));
-        const Heading2 = `h${lvl}`;
+        const Heading3 = `h${lvl}`;
         return /* @__PURE__ */ jsxs("div", { className: "twc-accordion__item", children: [
-          /* @__PURE__ */ jsx(Heading2, { className: "twc-accordion__heading", children: /* @__PURE__ */ jsxs("button", { type: "button", id: triggerId, className: "twc-accordion__trigger", "data-open": isOpen || void 0, disabled: it.disabled || void 0, "aria-disabled": it.disabled || void 0, "data-disabled": it.disabled || void 0, "aria-expanded": isOpen, "aria-controls": panelId, onClick: () => toggle(it.value), children: [
+          /* @__PURE__ */ jsx(Heading3, { className: "twc-accordion__heading", children: /* @__PURE__ */ jsxs("button", { type: "button", id: triggerId, className: "twc-accordion__trigger", "data-open": isOpen || void 0, disabled: it.disabled || void 0, "aria-disabled": it.disabled || void 0, "data-disabled": it.disabled || void 0, "aria-expanded": isOpen, "aria-controls": panelId, onClick: () => toggle(it.value), children: [
             it.icon,
             /* @__PURE__ */ jsx("span", { className: "twc-accordion__label", children: it.label }),
             /* @__PURE__ */ jsx("span", { className: "twc-accordion__chevron", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m6 9 6 6 6-6" }) }) })
@@ -11341,7 +11351,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
   }
-  function Box({
+  var Box = import_react.default.forwardRef(function Box2({
     as: Tag2 = "div",
     p,
     px,
@@ -11365,7 +11375,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     style,
     children,
     ...rest
-  }) {
+  }, ref) {
     const s = {
       paddingTop: sp(pt ?? py ?? p),
       paddingRight: sp(pr ?? px ?? p),
@@ -11382,15 +11392,16 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       ...style
     };
     if (Tag2 === "a" && rest.href != null) rest.href = safeHref5(rest.href);
-    return /* @__PURE__ */ jsx(Tag2, { className: `twc-box ${className}`.trim(), style: s, ...rest, children });
-  }
+    return /* @__PURE__ */ jsx(Tag2, { ref, className: `twc-box ${className}`.trim(), style: s, ...rest, children });
+  });
+  Box.displayName = "Box";
   var SIZES = { sm: 640, md: 768, lg: 1024, xl: 1280, full: "100%" };
   function safeHref6(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
   }
-  function Container({
+  var Container = import_react.default.forwardRef(function Container2({
     as: Tag2 = "div",
     size = "lg",
     padded = true,
@@ -11398,12 +11409,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     style,
     children,
     ...rest
-  }) {
+  }, ref) {
     const max = SIZES[size] ?? size;
     if (Tag2 === "a" && rest.href != null) rest.href = safeHref6(rest.href);
     return /* @__PURE__ */ jsx(
       Tag2,
       {
+        ref,
         className: `twc-container ${className}`.trim(),
         style: {
           width: "100%",
@@ -11416,7 +11428,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         children
       }
     );
-  }
+  });
+  Container.displayName = "Container";
   function space(v) {
     if (v == null) return void 0;
     if (typeof v === "number") return `var(--space-${String(v).replace(".", "-")})`;
@@ -11431,7 +11444,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
   }
-  function Grid({
+  var Grid = import_react.default.forwardRef(function Grid2({
     as: Tag2 = "div",
     columns,
     minChildWidth,
@@ -11446,7 +11459,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     style,
     children,
     ...rest
-  }) {
+  }, ref) {
     const responsive = columns != null && typeof columns === "object";
     const uid = import_react.default.useId();
     const gridId = responsive ? `g${uid.replace(/[^a-zA-Z0-9]/g, "")}` : null;
@@ -11466,6 +11479,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     return /* @__PURE__ */ jsxs(
       Tag2,
       {
+        ref,
         className: `twc-grid ${className}`.trim(),
         "data-twc-grid-id": gridId || void 0,
         style: {
@@ -11486,7 +11500,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         ]
       }
     );
-  }
+  });
+  Grid.displayName = "Grid";
   function space2(v) {
     if (v == null) return void 0;
     if (typeof v === "number") return `var(--space-${String(v).replace(".", "-")})`;
@@ -11497,7 +11512,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
   }
-  function Stack({
+  var Stack = import_react.default.forwardRef(function Stack2({
     as: Tag2 = "div",
     direction = "column",
     gap = 4,
@@ -11517,12 +11532,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     style,
     children,
     ...rest
-  }) {
+  }, ref) {
     if (Tag2 === "a" && rest.href != null) rest.href = safeHref8(rest.href);
     const kids = divider != null ? import_react.default.Children.toArray(children).flatMap((child, i, arr) => i < arr.length - 1 ? [child, /* @__PURE__ */ jsx(import_react.default.Fragment, { children: divider }, `twc-stack-div-${i}`)] : [child]) : children;
     return /* @__PURE__ */ jsx(
       Tag2,
       {
+        ref,
         className: `twc-stack ${className}`.trim(),
         style: {
           display: inline ? "inline-flex" : "flex",
@@ -11542,7 +11558,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         children: kids
       }
     );
-  }
+  });
+  Stack.displayName = "Stack";
   var CODE_CSS = `
 .twc-code {
   font-family: var(--font-mono); font-size: 0.875em;
@@ -11613,7 +11630,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
   }
-  function Heading({
+  var Heading = import_react.default.forwardRef(function Heading2({
     as,
     level = 2,
     size,
@@ -11625,13 +11642,14 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     style,
     children,
     ...rest
-  }) {
+  }, ref) {
     const Tag2 = as || `h${level}`;
     const sz = size || (display ? "display" : LEVEL_SIZE[level]) || "2xl";
     if (Tag2 === "a" && rest.href != null) rest.href = safeHref10(rest.href);
     return /* @__PURE__ */ jsx(
       Tag2,
       {
+        ref,
         className: `twc-heading ${className}`.trim(),
         style: {
           margin: 0,
@@ -11649,7 +11667,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         children
       }
     );
-  }
+  });
+  Heading.displayName = "Heading";
   var TONE = {
     default: "--color-text",
     muted: "--color-text-muted",
@@ -11670,7 +11689,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
   }
-  function Text({
+  var Text = import_react.default.forwardRef(function Text2({
     as: Tag2 = "p",
     size = "base",
     tone = "default",
@@ -11682,12 +11701,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     style,
     children,
     ...rest
-  }) {
+  }, ref) {
     if (Tag2 === "a" && rest.href != null) rest.href = safeHref11(rest.href);
     const toneToken = TONE[tone] || TONE.default;
     return /* @__PURE__ */ jsx(
       Tag2,
       {
+        ref,
         className: `twc-text ${className}`.trim(),
         style: {
           margin: 0,
@@ -11704,7 +11724,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         children
       }
     );
-  }
+  });
+  Text.displayName = "Text";
   var canUseDOM2 = typeof window !== "undefined" && typeof document !== "undefined";
   var useIsomorphicLayoutEffect = canUseDOM2 ? import_react.default.useLayoutEffect : import_react.default.useEffect;
   function useMounted() {

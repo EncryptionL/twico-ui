@@ -39,4 +39,4 @@ export interface StackProps extends React.HTMLAttributes<HTMLElement> {
   divider?: React.ReactNode;
 }
 
-export function Stack(props: StackProps): React.JSX.Element;
+export declare const Stack: React.ForwardRefExoticComponent<StackProps & React.RefAttributes<HTMLElement>>;

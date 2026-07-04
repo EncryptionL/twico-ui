@@ -24,4 +24,4 @@ export interface TextProps extends React.HTMLAttributes<HTMLElement> {
   lineClamp?: number;
 }
 
-export function Text(props: TextProps): React.JSX.Element;
+export declare const Text: React.ForwardRefExoticComponent<TextProps & React.RefAttributes<HTMLElement>>;

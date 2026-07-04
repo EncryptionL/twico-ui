@@ -25,7 +25,7 @@ function safeHref(url) {
 }
 
 /** Body text with token sizes and semantic color tones. Renders <p> by default. */
-export function Text({
+export const Text = React.forwardRef(function Text({
   as: Tag = "p",
   size = "base",
   tone = "default",
@@ -37,11 +37,12 @@ export function Text({
   style,
   children,
   ...rest
-}) {
+}, ref) {
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   const toneToken = TONE[tone] || TONE.default;
   return (
     <Tag
+      ref={ref}
       className={`twc-text ${className}`.trim()}
       style={{
         margin: 0,
@@ -63,4 +64,5 @@ export function Text({
       {children}
     </Tag>
   );
-}
+});
+Text.displayName = "Text";

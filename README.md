@@ -2,11 +2,15 @@
 
 A **free**, modern, themeable **React** component library — 61 components with **dark mode**, motion, and accessibility built in. No runtime CSS framework required: components are styled with CSS custom properties (design tokens), so they theme by overriding variables and work great alongside Tailwind or plain CSS.
 
+📖 **[Documentation, live demos & prop reference → encryptionl.github.io/twico-ui](https://encryptionl.github.io/twico-ui/)** — the docs site supersedes reading `dist/index.d.ts`. · **[Changelog](./CHANGELOG.md)**
+
 ```bash
 npm install twico-ui
 ```
 
 > Requires **React 18+** (`react` and `react-dom` are peer dependencies).
+> **Tree-shaking:** the package is side-effect-free except `*.css`, so `import { Button } from "twico-ui"` pulls only Button (heavy components like Datatable/Chart drop out) — verified by per-component `size-limit` budgets in CI.
+> **SSR:** on **React 19** component CSS is hoisted into the SSR stream (no FOUC); on **React 18** it injects client-side, so for zero-FOUC SSR use React 19 (see [docs/ssr-styles.md](docs/ssr-styles.md)).
 
 📖 **Documentation, live examples & API reference:** **https://encryptionl.github.io/twico-ui/**
 

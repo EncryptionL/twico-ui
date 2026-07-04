@@ -11,7 +11,7 @@ function safeHref(url) {
 }
 
 /** Centered, max-width content wrapper with responsive horizontal padding. */
-export function Container({
+export const Container = React.forwardRef(function Container({
   as: Tag = "div",
   size = "lg",
   padded = true,
@@ -19,11 +19,12 @@ export function Container({
   style,
   children,
   ...rest
-}) {
+}, ref) {
   const max = SIZES[size] ?? size;
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   return (
     <Tag
+      ref={ref}
       className={`twc-container ${className}`.trim()}
       style={{
         width: "100%",
@@ -37,4 +38,5 @@ export function Container({
       {children}
     </Tag>
   );
-}
+});
+Container.displayName = "Container";

@@ -25,7 +25,7 @@ function safeHref(url) {
  * CSS grid primitive. Pass `minChildWidth` for a responsive auto-fill grid, or
  * `columns` for a fixed column count.
  */
-export function Grid({
+export const Grid = React.forwardRef(function Grid({
   as: Tag = "div",
   columns,
   minChildWidth,
@@ -40,7 +40,7 @@ export function Grid({
   style,
   children,
   ...rest
-}) {
+}, ref) {
   const responsive = columns != null && typeof columns === "object";
   const uid = React.useId();
   const gridId = responsive ? `g${uid.replace(/[^a-zA-Z0-9]/g, "")}` : null;
@@ -66,6 +66,7 @@ export function Grid({
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   return (
     <Tag
+      ref={ref}
       className={`twc-grid ${className}`.trim()}
       data-twc-grid-id={gridId || undefined}
       style={{
@@ -85,4 +86,5 @@ export function Grid({
       {children}
     </Tag>
   );
-}
+});
+Grid.displayName = "Grid";

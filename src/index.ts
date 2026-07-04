@@ -2,6 +2,7 @@
 // Re-exports every Twico UI component (values) and its prop types.
 // React 18+; styles ship separately — import "twico-ui/styles.css" once.
 
+export { TwicoProvider } from "../components/TwicoProvider";
 export { Accordion } from "../components/navigation/Accordion";
 export { Alert } from "../components/feedback/Alert";
 export { Avatar } from "../components/data-display/Avatar";
@@ -72,6 +73,7 @@ export * from "../hooks";
 // Shared type vocabulary — the canonical tone scales, the polymorphic `as` type,
 // and the Select-family option shape, so consumers name them instead of re-deriving.
 export type { Tone, ActionTone, TextTone, ToastTone, BarTone, PolymorphicAs } from "../components/_types";
+export type { TwicoProviderProps } from "../components/TwicoProvider";
 export type { Option, OptionGroup } from "../components/inputs/options";
 
 export type { AccordionProps, AccordionItem } from "../components/navigation/Accordion";

@@ -58,3 +58,19 @@ every component, so a broken conversion fails CI.
 > Introduced in **twico-ui 1.0.1** (converted all 54 style-injecting components from client-only
 > `useInsertionEffect` to `useScopedStyles`). The per-component QA notes under `qa-notes/` predate
 > this and still describe the old `useInsertionEffect` pattern.
+
+## React 18 vs 19 (SSR FOUC) — #58
+
+Zero-FOUC SSR requires **React 19**: `useScopedStyles` returns a hoistable `<style href precedence="twc-ui">`
+that React 19 streams into the server HTML. On the supported **React 18** peer there is no `<style>` hoisting
+API, so `useScopedStyles` falls back to a client-only `useInsertionEffect` injection — the SSR markup ships
+without the component CSS and it's applied on hydration (a brief FOUC). React-18 SSR (or strict-CSP) users who
+need zero-FOUC should either run React 19 or preload the shipped `twico-ui/styles.css` (which already contains
+every component's rules concatenated). A per-component static sheet + a `sideEffects`-safe subpath is a
+possible future enhancement.
+
+## CSP nonce — #57
+
+Under a strict `style-src 'nonce-…'` policy (no `unsafe-inline`), wrap your app in `<TwicoProvider nonce={n}>`.
+Every `useScopedStyles` reads that nonce from context and stamps it on the injected `<style>` (both the React 19
+hoisted element and the React 18 imperative one), so the injected styles are allowed by the CSP.

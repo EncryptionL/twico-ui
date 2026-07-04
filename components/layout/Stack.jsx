@@ -16,7 +16,7 @@ function safeHref(url) {
 }
 
 /** Flex layout primitive — rows or columns with token-based gaps. */
-export function Stack({
+export const Stack = React.forwardRef(function Stack({
   as: Tag = "div",
   direction = "column",
   gap = 4,
@@ -30,7 +30,7 @@ export function Stack({
   style,
   children,
   ...rest
-}) {
+}, ref) {
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   // Interleave `divider` between children (never before the first or after the last).
   const kids = divider != null
@@ -39,6 +39,7 @@ export function Stack({
     : children;
   return (
     <Tag
+      ref={ref}
       className={`twc-stack ${className}`.trim()}
       style={{
         display: inline ? "inline-flex" : "flex",
@@ -59,4 +60,5 @@ export function Stack({
       {kids}
     </Tag>
   );
-}
+});
+Stack.displayName = "Stack";

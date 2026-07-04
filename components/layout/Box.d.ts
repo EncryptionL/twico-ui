@@ -37,4 +37,4 @@ export interface BoxProps extends React.HTMLAttributes<HTMLElement> {
   shadow?: string;
 }
 
-export function Box(props: BoxProps): React.JSX.Element;
+export declare const Box: React.ForwardRefExoticComponent<BoxProps & React.RefAttributes<HTMLElement>>;

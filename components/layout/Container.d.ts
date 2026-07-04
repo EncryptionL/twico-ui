@@ -17,4 +17,4 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLElement> {
   padded?: boolean;
 }
 
-export function Container(props: ContainerProps): React.JSX.Element;
+export declare const Container: React.ForwardRefExoticComponent<ContainerProps & React.RefAttributes<HTMLElement>>;
