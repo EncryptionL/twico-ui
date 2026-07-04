@@ -34,6 +34,7 @@ const FIELD_CSS = `
 .twc-input[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-input[data-invalid="true"]:focus-within { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
 .twc-input[data-disabled] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
+.twc-input[data-readonly] { background: var(--color-surface-sunken); }
 .twc-input__el {
   flex: 1; min-width: 0; border: none; outline: none; background: transparent;
   font-family: inherit; font-size: var(--text-sm); color: var(--color-text); height: 100%;
@@ -99,7 +100,7 @@ export function Input({
           {label}{required ? <span className="twc-field__req">*</span> : null}
         </label>
       ) : null}
-      <div className="twc-input" data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined}>
+      <div className="twc-input" data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined} data-readonly={rest.readOnly || undefined}>
         {leftIcon ? <span className="twc-input__affix">{leftIcon}</span> : null}
         <input
           id={fieldId}

@@ -43,6 +43,7 @@ export function Textarea({
 .twc-textarea__el:focus { border-color: var(--_accent); box-shadow: var(--_ring); }
 .twc-textarea__el[aria-invalid="true"] { border-color: var(--color-danger); }
 .twc-textarea__el:disabled { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
+.twc-textarea__el[data-readonly] { background: var(--color-surface-sunken); }
 `);
 
   const autoId = React.useId();
@@ -65,6 +66,7 @@ export function Textarea({
         data-tone={tone}
         rows={rows}
         disabled={disabled}
+        data-readonly={rest.readOnly || undefined}
         required={required || undefined}
         aria-required={required || undefined}
         aria-invalid={invalid || undefined}
