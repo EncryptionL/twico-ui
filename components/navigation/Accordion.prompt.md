@@ -13,4 +13,7 @@ import { Accordion } from "./Accordion";
 />
 ```
 
-Items: `{ value, label, content, icon? }`. `multiple` allows several open at once.
+Items: `{ value, label, content, icon?, disabled?, headingLevel? }`. `multiple` allows several open at
+once. Each trigger is wrapped in a heading (`headingLevel`, default `h3`) for document outline, and the
+headers are arrow-key navigable (ArrowUp/Down wrap, Home/End jump). A `disabled` item can't be opened
+or focused.

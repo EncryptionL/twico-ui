@@ -19,3 +19,6 @@
 - **RTL:** `text-align: start` on the trigger and `gap`-based layout; no physical-side assumptions.
 - **SSR-safe:** style injection in `useInsertionEffect`; no `window`/`document` at module/render scope.
 - **Reduced-motion:** transitions are short and token-driven; the global reduced-motion handling in the design system collapses them. No focus-trap or motion-dependent behavior here.
+- **Headings (#147):** each trigger is wrapped in an `h{headingLevel}` (default 3, per-item override) with `.twc-accordion__heading { margin:0; font:inherit }` for zero visual change — satisfies the APG "each header is a heading" requirement.
+- **Roving focus (#146):** real DOM focus between `.twc-accordion__trigger` buttons — ArrowUp/Down wrap, Home/End jump; the consumer `onKeyDown` runs first and keydowns inside panel controls are ignored.
+- **Per-item disabled (#148):** `disabled` sets native `disabled` + `aria-disabled` + `data-disabled`, removes the header from tab order and the roving list, and makes `toggle()` a no-op so `onOpenChange` never fires for it.
