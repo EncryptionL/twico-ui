@@ -30,6 +30,13 @@ const TABLE_CSS = `
 .twc-table[data-size="lg"] thead th { padding: var(--space-4) var(--space-5); }
 .twc-table[data-size="lg"] tbody td { padding: var(--space-4) var(--space-5); font-size: var(--text-base); }
 .twc-table[data-sticky="true"] thead th { position: sticky; top: 0; z-index: 2; background: var(--color-surface); box-shadow: inset 0 calc(-1 * var(--border-thin)) 0 0 var(--color-border); }
+.twc-table__caption { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.twc-table__empty { padding: 30px 12px; text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
+.twc-table__sk { display: inline-block; height: 12px; border-radius: var(--radius-sm); background: var(--color-surface-sunken);
+  position: relative; overflow: hidden; width: var(--_w, 70%); }
+.twc-table__sk::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-text) 8%, transparent), transparent);
+  animation: twico-shimmer 1.4s infinite; }
 `;
 
 export function Table({
@@ -46,6 +53,14 @@ export function Table({
   selectedKeys,
   stickyHeader = false,
   maxHeight,
+  loading = false,
+  loadingRows = 8,
+  emptyMessage = "No data",
+  ariaLabel,
+  caption,
+  // Pulled out of `rest` so they land on the <table>, not the wrapper <div> (#128).
+  "aria-label": ariaLabelRaw,
+  "aria-labelledby": ariaLabelledby,
   className = "",
   ...rest
 }) {
@@ -89,7 +104,9 @@ export function Table({
   return (
     <div className={`twc-table-wrap ${className}`} {...rest} style={wrapStyle}>
       {__twcStyles}
-      <table className="twc-table" data-hover={hover || undefined} data-striped={striped || undefined} data-size={size} data-sticky={stickyHeader || undefined}>
+      <table className="twc-table" data-hover={hover || undefined} data-striped={striped || undefined} data-size={size} data-sticky={stickyHeader || undefined}
+             aria-label={ariaLabelRaw ?? ariaLabel} aria-labelledby={ariaLabelledby} aria-busy={loading || undefined}>
+        {caption != null ? <caption className="twc-table__caption">{caption}</caption> : null}
         <thead>
           <tr>
             {cols.map((c) => {
@@ -110,18 +127,32 @@ export function Table({
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, i) => {
-            const k = keyFn(row, i);
-            return (
-              <tr key={k} data-selected={selected.has(k) || undefined}>
+          {loading ? (
+            Array.from({ length: loadingRows }).map((_, ri) => (
+              <tr key={`sk${ri}`}>
                 {cols.map((c) => (
-                  <td key={c.field} data-align={c.align}>
-                    {c.render ? c.render(row[c.field], row, i) : row[c.field]}
-                  </td>
+                  <td key={c.field} data-align={c.align}><span className="twc-table__sk" /></td>
                 ))}
               </tr>
-            );
-          })}
+            ))
+          ) : rows.length === 0 ? (
+            <tr>
+              <td colSpan={cols.length || 1} className="twc-table__empty">{emptyMessage}</td>
+            </tr>
+          ) : (
+            rows.map((row, i) => {
+              const k = keyFn(row, i);
+              return (
+                <tr key={k} data-selected={selected.has(k) || undefined}>
+                  {cols.map((c) => (
+                    <td key={c.field} data-align={c.align}>
+                      {c.render ? c.render(row[c.field], row, i) : row[c.field]}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })
+          )}
         </tbody>
       </table>
     </div>

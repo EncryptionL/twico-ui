@@ -74,6 +74,13 @@ const SELECT_CSS = `
 .twc-opt__check { flex: none; color: var(--color-primary); display: inline-flex; }
 .twc-opt__check svg { width: 16px; height: 16px; }
 .twc-pop__empty { padding: 14px 12px; text-align: center; font-size: var(--text-sm); color: var(--color-text-subtle); }
+.twc-opt[data-disabled="true"] { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+.twc-pop__loading { display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: 14px 12px; font-size: var(--text-sm); color: var(--color-text-muted); }
+.twc-pop__spinner { width: 15px; height: 15px; border-radius: var(--radius-full); border: 2px solid var(--color-border); border-top-color: var(--color-primary); animation: twico-spin 0.7s linear infinite; }
+.twc-pop__search-clear { flex: none; display: inline-grid; place-items: center; width: 18px; height: 18px; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
+.twc-pop__search-clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-pop__search-clear svg { width: 13px; height: 13px; }
+.twc-sel__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 `;
 
 function toOpt(o) { return typeof o === "string" ? { value: o, label: o } : o; }
@@ -99,10 +106,14 @@ function ensureVisible(list, el) {
 export function Select({
   label, hint, error, required = false, size = "md", tone = "primary",
   placeholder = "Select…", searchPlaceholder = "Search…", searchable, options, value, defaultValue = null,
-  onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0, id, className = "",
+  onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
+  matchTriggerWidth = true, loading = false, emptyText = "No results found", name,
+  id, className = "",
   onClick, onKeyDown, ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-select-styles", SELECT_CSS);
+  const bufferRef = React.useRef("");
+  const bufferTimerRef = React.useRef(null);
 
   const groups = React.useMemo(() => normalizeGroups(options), [options]);
   const flat = React.useMemo(() => groups.flatMap((g) => g.options), [groups]);
@@ -135,6 +146,13 @@ export function Select({
 
   const selected = flat.find((o) => o.value === current);
 
+  // #90: find the next non-disabled option index in a direction (no wrap), else stay.
+  const nextEnabled = (from, dir) => {
+    let i = from + dir;
+    while (i >= 0 && i < visible.length) { if (!visible[i]?.disabled) return i; i += dir; }
+    return from;
+  };
+
   // Portal mode: measure the trigger and pin the popover with fixed positioning so
   // it escapes any clipping/scrolling ancestor (e.g. a config panel). Auto-flips up
   // when there isn't enough room below.
@@ -144,10 +162,15 @@ export function Select({
     const vh = window.innerHeight;
     const below = vh - r.bottom;
     const flip = placement === "top" || (below < 260 && r.top > below);
-    setCoords({ left: r.left, width: Math.max(r.width, minWidth),
+    // #47: match the trigger width by default; otherwise size to content (min = trigger),
+    // clamped to the viewport so long options are readable instead of truncated.
+    const widthStyle = matchTriggerWidth
+      ? { width: Math.max(r.width, minWidth) }
+      : { width: "auto", minWidth: Math.max(r.width, minWidth), maxWidth: Math.max(160, window.innerWidth - r.left - 8) };
+    setCoords({ left: r.left, ...widthStyle,
       top: flip ? undefined : Math.round(r.bottom + 6),
       bottom: flip ? Math.round(vh - r.top + 6) : undefined, flip });
-  }, [placement, minWidth]);
+  }, [placement, minWidth, matchTriggerWidth]);
 
   React.useEffect(() => {
     if (!open || !portal) return;
@@ -197,6 +220,8 @@ export function Select({
   }, [open]);
 
   function commit(v) {
+    const o = flat.find((x) => x.value === v);
+    if (o && o.disabled) return; // #90: never select a disabled option
     if (value === undefined) setInternal(v);
     onChange?.(v); setOpen(false);
   }
@@ -208,11 +233,23 @@ export function Select({
     if (disabled) return;
     if (!open && clearable && current != null && (e.key === "Delete" || e.key === "Backspace")) { e.preventDefault(); clear(); return; }
     if (!open && (e.key === "Enter" || e.key === " " || e.key === "ArrowDown")) { e.preventDefault(); setOpen(true); return; }
+    // #93: printable-character type-ahead on the closed trigger (native <select> behavior).
+    if (!open && !showSearch && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      bufferRef.current += e.key.toLowerCase();
+      clearTimeout(bufferTimerRef.current);
+      bufferTimerRef.current = setTimeout(() => { bufferRef.current = ""; }, 500);
+      const b = bufferRef.current;
+      const match = flat.find((o) => !o.disabled && o.label.toLowerCase().startsWith(b))
+        || flat.find((o) => !o.disabled && o.label.toLowerCase().includes(b));
+      if (match) commit(match.value);
+      return;
+    }
     if (!open) return;
     if (e.key === "Tab") { setOpen(false); return; }
     if (e.key === "Escape") setOpen(false);
-    else if (e.key === "ArrowDown") { e.preventDefault(); setActive((a) => Math.min(a + 1, visible.length - 1)); }
-    else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => Math.max(a - 1, 0)); }
+    else if (e.key === "ArrowDown") { e.preventDefault(); setActive((a) => nextEnabled(a, 1)); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => nextEnabled(a, -1)); }
     else if (e.key === "Enter") { e.preventDefault(); if (visible[active]) commit(visible[active].value); }
   }
 
@@ -231,10 +268,17 @@ export function Select({
           <input ref={searchRef} value={query} placeholder={searchPlaceholder} onKeyDown={handleKeyDown}
             onChange={(e) => setQuery(e.target.value)} aria-label="Search options"
             role="combobox" aria-expanded={open} aria-controls={listboxId} aria-activedescendant={activeId} />
+          {query ? (
+            <button type="button" className="twc-pop__search-clear" aria-label="Clear search" onClick={() => { setQuery(""); searchRef.current?.focus(); }}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+          ) : null}
         </div>
       ) : null}
       <div className="twc-pop__list" ref={listRef}>
-        {visible.length === 0 ? <div className="twc-pop__empty">No results found</div> :
+        {loading ? (
+          <div className="twc-pop__loading" role="status"><span className="twc-pop__spinner" aria-hidden="true" />Loading…</div>
+        ) : visible.length === 0 ? <div className="twc-pop__empty">{emptyText}</div> :
           fGroups.map((g, gi) => (
             <React.Fragment key={gi}>
               {g.group ? <div className="twc-pop__group">{g.group}</div> : null}
@@ -243,8 +287,9 @@ export function Select({
                 return (
                   <button key={o.value} id={optionId(idx)} type="button" className="twc-opt" role="option" aria-selected={isSel}
                     ref={idx === active ? activeRef : null}
+                    disabled={o.disabled || undefined} aria-disabled={o.disabled || undefined} data-disabled={o.disabled || undefined}
                     data-selected={isSel || undefined} data-active={idx === active || undefined}
-                    onMouseEnter={() => setActive(idx)} onClick={() => commit(o.value)}>
+                    onMouseEnter={() => { if (!o.disabled) setActive(idx); }} onClick={() => commit(o.value)}>
                     <span className="twc-opt__main">
                       <span className="twc-opt__label">{o.label}</span>
                       {o.description ? <span className="twc-opt__desc">{o.description}</span> : null}
@@ -255,6 +300,10 @@ export function Select({
               })}
             </React.Fragment>
           ))}
+      </div>
+      {/* #97: announce the filtered result count to screen readers. */}
+      <div className="twc-sel__sr" role="status" aria-live="polite">
+        {loading ? "Loading…" : visible.length === 0 ? emptyText : `${visible.length} result${visible.length === 1 ? "" : "s"}`}
       </div>
     </>
   );
@@ -268,13 +317,13 @@ export function Select({
     if (canPortal && coords) {
       popEl = RD.createPortal(
         <div className="twc-pop twc-pop--portal" id={listboxId} role="listbox" ref={popRef}
-          data-state={popState} data-placement={coords.flip ? "top" : undefined}
-          style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, right: "auto", zIndex: "var(--z-tooltip)" }}>
+          data-state={popState} data-placement={coords.flip ? "top" : "bottom"}
+          style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, minWidth: coords.minWidth, maxWidth: coords.maxWidth, right: "auto", zIndex: "var(--z-tooltip)" }}>
           {popInner}
         </div>, document.body);
     } else if (!portal) {
       popEl = (
-        <div className="twc-pop" id={listboxId} role="listbox" ref={popRef} data-state={popState} data-placement={placement === "top" ? "top" : undefined}>
+        <div className="twc-pop" id={listboxId} role="listbox" ref={popRef} data-state={popState} data-placement={placement === "top" ? "top" : "bottom"}>
           {popInner}
         </div>
       );
@@ -284,6 +333,7 @@ export function Select({
   return (
     <div className={`twc-field ${className}`} ref={wrapRef}>
       {__twcStyles}
+      {name ? <input type="hidden" name={name} value={current ?? ""} /> : null}
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
       <div className="twc-sel">
         <button type="button" id={fieldId} ref={triggerRef} className="twc-sel__trigger" data-size={size} data-tone={tone}

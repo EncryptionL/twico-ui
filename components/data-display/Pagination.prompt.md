@@ -8,4 +8,5 @@ const [page, setPage] = React.useState(1);
 ```
 
 Props: `page`, `total`, `onChange(page)`, `siblings`, `boundaries`, `size` (sm/md/lg), `showPageJumper`
-(adds a "Go to" page input; `showJumper` is a deprecated alias, removed in 2.0), `jumperLabel`.
+(adds a "Go to" page input; `showJumper` is a deprecated alias, removed in 2.0), `jumperLabel`,
+`getPageLabel` (i18n the numbered buttons' `aria-label`; default `Page N`).

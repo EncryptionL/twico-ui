@@ -47,6 +47,7 @@ const COLORPICKER_CSS = `
 .twc-cp__hex[data-tone="info"]    { --_accent: var(--color-info);    --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-info) 32%, transparent); }
 .twc-cp__hex[data-tone="neutral"] { --_accent: var(--color-border-strong); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-text) 14%, transparent); }
 .twc-cp__hex:focus { border-color: var(--_accent); box-shadow: var(--_ring); }
+.twc-cp__hex[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-cp__presets { display: flex; flex-wrap: wrap; gap: 5px; margin-top: var(--space-3); }
 .twc-cp__preset { width: 22px; height: 22px; border-radius: var(--radius-sm); border: none; cursor: pointer; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12); padding: 0;
   transition: transform var(--duration-fast) var(--ease-spring); }
@@ -246,6 +247,7 @@ export function ColorPicker({
           <div className="twc-cp__foot">
             <span className="twc-cp__swatch" style={{ background: hex }} />
             <input className="twc-cp__hex" data-tone={tone} value={hex} maxLength={7} aria-label="Hex color"
+              aria-invalid={!/^#[0-9a-f]{6}$/i.test(hex) || undefined} data-invalid={!/^#[0-9a-f]{6}$/i.test(hex) || undefined}
               onChange={(e) => { let v = e.target.value; if (!v.startsWith("#")) v = "#" + v; if (value === undefined) setInternal(v); onChange?.(v); const p = hexToHsv(v); if (p) setHsv(p); }}
               onBlur={() => { if (/^#[0-9a-f]{6}$/i.test(hex)) return; const revert = lastValidRef.current; if (revert === hex) return; if (value === undefined) setInternal(revert); onChange?.(revert); const p = hexToHsv(revert); if (p) setHsv(p); }} />
           </div>

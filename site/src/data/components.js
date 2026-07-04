@@ -1213,6 +1213,13 @@ export const components = [
         "description": "Renders a muted subtitle beneath the title to add supporting context or a brief secondary description."
       },
       {
+        "prop": "actions",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Header actions rendered top-right, opposite the title/subtitle (e.g. a button or overflow menu)."
+      },
+      {
         "prop": "footer",
         "type": "React.ReactNode",
         "required": false,
@@ -2902,6 +2909,20 @@ export const components = [
         "description": "Prevents users from dragging columns into a new order, locking the column arrangement; off by default."
       },
       {
+        "prop": "emptyMessage",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Message shown when there are no rows; the default is filter-aware (\"No rows match your filters\" vs \"No rows\")."
+      },
+      {
+        "prop": "renderEmpty",
+        "type": "() => React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Render a custom empty state inside the table body (e.g. the shipped EmptyState); overrides emptyMessage."
+      },
+      {
         "prop": "disableColumnResize",
         "type": "boolean",
         "required": false,
@@ -4528,6 +4549,27 @@ export const components = [
         "description": "Renders a trailing icon node inside the field, overriding the built-in password reveal toggle when supplied."
       },
       {
+        "prop": "leftAddon",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Bordered text addon flush against the leading edge (e.g. https://, @), distinct from the inline leftIcon."
+      },
+      {
+        "prop": "rightAddon",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Bordered text addon flush against the trailing edge (e.g. .00, kg, %)."
+      },
+      {
+        "prop": "showCount",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "With maxLength, renders a live current / max character counter on the hint/error line, danger-toned near the limit."
+      },
+      {
         "prop": "onChange",
         "type": "(e: React.ChangeEvent) => void",
         "required": false,
@@ -4744,6 +4786,13 @@ export const components = [
         "required": false,
         "default": "false",
         "description": "Drops the card chrome to render borderless, transparent rows when set to true; defaults to false for the boxed style."
+      },
+      {
+        "prop": "emptyMessage",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "\"Nothing here yet\"",
+        "description": "Shown as a centered zero-state row when items is empty, so an empty list reads as intentional rather than broken."
       },
       {
         "prop": "onClick",
@@ -5301,6 +5350,13 @@ export const components = [
         "description": "Text or node rendered before the jumper input, defaulting to \"Go to\", to clarify what the field does."
       },
       {
+        "prop": "getPageLabel",
+        "type": "(page: number) => string",
+        "required": false,
+        "default": "(n) => `Page ${n}`",
+        "description": "Accessible label for each numbered page button, so screen readers announce \"Page 3\" rather than a bare number; override for i18n."
+      },
+      {
         "prop": "defaultPage",
         "type": "number",
         "required": false,
@@ -5832,7 +5888,28 @@ export const components = [
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Displays the numeric score beside the stars when enabled, giving an exact figure alongside the visual rating."
+        "description": "Displays the numeric score beside the stars (clean integer, or one decimal for fractional values)."
+      },
+      {
+        "prop": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Allow clearing back to 0 — clicking the selected star, or pressing Delete/Backspace, resets to no rating."
+      },
+      {
+        "prop": "format",
+        "type": "(value: number) => React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Custom formatter for the showValue badge and the read-only accessible label (e.g. custom precision, i18n, a /5 suffix)."
+      },
+      {
+        "prop": "name",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Name for a hidden form field so the rating value participates in native form submission."
       },
       {
         "prop": "onChange",
@@ -6458,6 +6535,41 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Formats the displayed value in the label and drag bubble, useful for adding units, currency, or custom text."
+      },
+      {
+        "prop": "range",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable dual-thumb range mode (also auto-enabled by a [number, number] value/defaultValue); onChange then emits a [min, max] tuple."
+      },
+      {
+        "prop": "pageStep",
+        "type": "number",
+        "required": false,
+        "default": "Math.max(step, (max-min)/10)",
+        "description": "Large-step increment for PageUp/PageDown keys; defaults to ~10% of the range."
+      },
+      {
+        "prop": "precision",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Decimal places for the default display and aria value; derived from step when unset (so a 0.1 step shows one decimal)."
+      },
+      {
+        "prop": "getAriaValueText",
+        "type": "(value: number) => string",
+        "required": false,
+        "default": "—",
+        "description": "Human-readable value for aria-valuetext; use when formatValue returns a node so assistive tech still announces a meaningful value."
+      },
+      {
+        "prop": "name",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Name for a hidden form field so the slider value participates in native form submission."
       },
       {
         "prop": "onChange",
@@ -7247,6 +7359,41 @@ export const components = [
         "description": "Cap the table height and give it its own vertical scroll area (CSS length or number of px); enables stickyHeader to shine."
       },
       {
+        "prop": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Renders shimmering skeleton rows instead of data and sets aria-busy, avoiding a flash-of-empty during fetches."
+      },
+      {
+        "prop": "loadingRows",
+        "type": "number",
+        "required": false,
+        "default": "8",
+        "description": "Number of skeleton rows to show while loading is true."
+      },
+      {
+        "prop": "emptyMessage",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "\"No data\"",
+        "description": "Rendered as a single full-width row when rows is empty instead of a bare header over a blank body."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Accessible name applied to the <table> itself (not the wrapper div); a raw aria-label prop takes precedence over it."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Renders a visually-hidden <caption> naming the table for assistive technology."
+      },
+      {
         "prop": "rows",
         "type": "T[]",
         "required": false,
@@ -7730,6 +7877,34 @@ export const components = [
         "required": false,
         "default": "\"primary\"",
         "description": "Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary."
+      },
+      {
+        "prop": "autosize",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Grows the textarea to fit its content between minRows and maxRows, hiding the manual resize handle."
+      },
+      {
+        "prop": "minRows",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Minimum rows when autosize is on (falls back to rows)."
+      },
+      {
+        "prop": "maxRows",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Maximum rows when autosize is on; taller content scrolls internally."
+      },
+      {
+        "prop": "showCount",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "With maxLength, renders a live current / max character counter, danger-toned near the limit."
       },
       {
         "prop": "onChange",

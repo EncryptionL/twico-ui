@@ -79,6 +79,10 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  rearrange only the movable, unpinned columns and leave pinned/actions columns in place.
    *  @default false */
   disableColumnReorder?: boolean;
+  /** Message rendered when there are no rows (filter-aware default: "No rows match your filters" when a filter/quick-search is active, else "No rows"). */
+  emptyMessage?: React.ReactNode;
+  /** Render a custom empty state inside the table body (e.g. the shipped `<EmptyState/>`). Overrides `emptyMessage`. */
+  renderEmpty?: () => React.ReactNode;
   /** Disable column resizing. When enabled (the default off), drag a header's right edge to resize a
    *  column, or **double-click** that edge to auto-fit the column to its widest visible content
    *  (header + rendered cells), Excel-style. @default false */
@@ -202,6 +206,8 @@ export interface DatatableColumn<T = any> {
   pinned?: "left" | "right";
   /** Allow drag-to-resize of this column. @default true */
   resizable?: boolean;
+  /** Allow drag / menu / keyboard reorder of this column (independent of the table-wide `disableColumnReorder`). @default true */
+  reorderable?: boolean;
   /** Summary-footer aggregation: a preset, or a function over the column's values. */
   aggregation?: "sum" | "avg" | "min" | "max" | "count" | ((values: any[], rows: T[]) => React.ReactNode);
   /** Format an aggregation result for the footer (falls back to valueFormatter). */

@@ -854,6 +854,9 @@ Props:
 - `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
 - `leftIcon` — `React.ReactNode` — Renders an icon node inside the field on the leading edge, useful as a prefix like a search or mail glyph.
 - `rightIcon` — `React.ReactNode` — Renders a trailing icon node inside the field, overriding the built-in password reveal toggle when supplied.
+- `leftAddon` — `React.ReactNode` — Bordered text addon flush against the leading edge (e.g. https://, @), distinct from the inline leftIcon.
+- `rightAddon` — `React.ReactNode` — Bordered text addon flush against the trailing edge (e.g. .00, kg, %).
+- `showCount` — `boolean` · default `false` — With maxLength, renders a live current / max character counter on the hint/error line, danger-toned near the limit.
 - `onChange` — `(e: React.ChangeEvent) => void` — Native change handler on the underlying form control.
 - `name` — `string` — Form field name submitted with the value.
 - `placeholder` — `string` — Placeholder text shown while the field is empty.
@@ -967,7 +970,10 @@ Props:
 - `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"warning"` — Sets the filled-star color from six semantic intents; defaults to warning (gold). The explicit color prop overrides it.
 - `color` — `string` — Overrides the filled-star color with any CSS color, falling back to the warning/amber token when omitted.
 - `readOnly` — `boolean` · default `false` — Renders the stars as a non-interactive display only, useful for showing an existing score without accepting input.
-- `showValue` — `boolean` · default `false` — Displays the numeric score beside the stars when enabled, giving an exact figure alongside the visual rating.
+- `showValue` — `boolean` · default `false` — Displays the numeric score beside the stars (clean integer, or one decimal for fractional values).
+- `clearable` — `boolean` · default `true` — Allow clearing back to 0 — clicking the selected star, or pressing Delete/Backspace, resets to no rating.
+- `format` — `(value: number) => React.ReactNode` — Custom formatter for the showValue badge and the read-only accessible label (e.g. custom precision, i18n, a /5 suffix).
+- `name` — `string` — Name for a hidden form field so the rating value participates in native form submission.
 - `onChange` — `(value: number) => void` — Fires with the new rating when the user clicks a star, or 0 when they clear the current selection.
 - `disabled` — `boolean` · default `false` — Disable all interaction and dim the control.
 
@@ -1051,6 +1057,11 @@ Props:
 - `showValue` — `boolean` · default `true` — Displays the current value at the top-right above the track when true (the default), for an always-visible readout.
 - `showTicks` — `boolean` · default `false` — Renders step ticks along the rail when enabled, helping users see and snap to discrete increments.
 - `formatValue` — `(value: number) => React.ReactNode` — Formats the displayed value in the label and drag bubble, useful for adding units, currency, or custom text.
+- `range` — `boolean` · default `false` — Enable dual-thumb range mode (also auto-enabled by a [number, number] value/defaultValue); onChange then emits a [min, max] tuple.
+- `pageStep` — `number` · default `Math.max(step, (max-min)/10)` — Large-step increment for PageUp/PageDown keys; defaults to ~10% of the range.
+- `precision` — `number` — Decimal places for the default display and aria value; derived from step when unset (so a 0.1 step shows one decimal).
+- `getAriaValueText` — `(value: number) => string` — Human-readable value for aria-valuetext; use when formatValue returns a node so assistive tech still announces a meaningful value.
+- `name` — `string` — Name for a hidden form field so the slider value participates in native form submission.
 - `onChange` — `(value: number) => void` — Fires with the new number whenever the value changes via drag or keyboard, keeping state in sync.
 - `hint` — `React.ReactNode` — Helper text shown below the track when there is no error.
 - `error` — `React.ReactNode` — Error message shown below the track; turns it red (sets aria-invalid) and replaces the hint.
@@ -1119,6 +1130,10 @@ Props:
 - `required` — `boolean` · default `false` — Adds a required asterisk beside the label when true, signaling that the field must be filled in.
 - `size` — `"sm" | "md" | "lg"` · default `"md"` — Control size — same padding steps as Input.
 - `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
+- `autosize` — `boolean` · default `false` — Grows the textarea to fit its content between minRows and maxRows, hiding the manual resize handle.
+- `minRows` — `number` — Minimum rows when autosize is on (falls back to rows).
+- `maxRows` — `number` — Maximum rows when autosize is on; taller content scrolls internally.
+- `showCount` — `boolean` · default `false` — With maxLength, renders a live current / max character counter, danger-toned near the limit.
 - `onChange` — `(e: React.ChangeEvent) => void` — Native change handler on the underlying form control.
 - `name` — `string` — Form field name submitted with the value.
 - `placeholder` — `string` — Placeholder text shown while the field is empty.
@@ -1227,6 +1242,7 @@ Card is a surface container for grouping related content, with an optional heade
 Props:
 - `title` — `React.ReactNode` — Renders a bold title in the card header, giving the grouped content a clear heading at the top.
 - `subtitle` — `React.ReactNode` — Renders a muted subtitle beneath the title to add supporting context or a brief secondary description.
+- `actions` — `React.ReactNode` — Header actions rendered top-right, opposite the title/subtitle (e.g. a button or overflow menu).
 - `footer` — `React.ReactNode` — Renders pinned footer content such as action buttons below the card body, separated from the main content.
 - `variant` — `"elevated" | "outline" | "soft"` · default `"elevated"` — Selects the surface treatment from elevated, outline, or soft to control how the card stands out from the page.
 - `padding` — `"none" | "md" | "lg"` · default `"md"` — Sets the card's inner padding to none, md, or lg, with none useful for edge-to-edge media or custom layouts.
@@ -1345,6 +1361,8 @@ Props:
 - `exportFilename` — `string` · default `export` — Sets the base filename used for exported files, defaulting to "export".
 - `aggregationValues` — `object|null` · default `null` — Supplies precomputed footer aggregation values for serverMode, where totals cannot be calculated client-side; null by default.
 - `disableColumnReorder` — `boolean` · default `false` — Prevents users from dragging columns into a new order, locking the column arrangement; off by default.
+- `emptyMessage` — `React.ReactNode` — Message shown when there are no rows; the default is filter-aware ("No rows match your filters" vs "No rows").
+- `renderEmpty` — `() => React.ReactNode` — Render a custom empty state inside the table body (e.g. the shipped EmptyState); overrides emptyMessage.
 - `disableColumnResize` — `boolean` · default `false` — Prevents resizing columns, locking their widths; off by default. When enabled, drag a header's right edge to resize, or double-click it to auto-fit the column to its content (Excel-style).
 - `editMode` — `boolean` · default `false` — Makes all columns editable inline so users can change cell values directly; off by default.
 - `onRowUpdate` — `(updated,original,field)=>void` · default `-` — Fires when an inline cell edit is committed, receiving the updated row, the original row, and the edited field.
@@ -1506,6 +1524,7 @@ List renders a vertical stack of rows with optional leading/trailing slots, a ti
 Props:
 - `items` — `ListItemData[]` · **required** — Provides the rows to render, each with a title plus optional description, leading, trailing, onClick, href, and active fields.
 - `plain` — `boolean` · default `false` — Drops the card chrome to render borderless, transparent rows when set to true; defaults to false for the boxed style.
+- `emptyMessage` — `React.ReactNode` · default `"Nothing here yet"` — Shown as a centered zero-state row when items is empty, so an empty list reads as intentional rather than broken.
 
 ```jsx
 import { List } from "twico-ui";
@@ -1533,6 +1552,7 @@ Props:
 - `size` — `"sm" | "md"` · default `"md"` — Sets the control density, sm or md, scaling button height and spacing to match the surrounding layout.
 - `showJumper` — `boolean` · default `false` — Adds a "Go to" number input so users can jump directly to a specific page instead of clicking through.
 - `jumperLabel` — `React.ReactNode` · default `"Go to"` — Text or node rendered before the jumper input, defaulting to "Go to", to clarify what the field does.
+- `getPageLabel` — `(page: number) => string` · default `(n) => `Page ${n}`` — Accessible label for each numbered page button, so screen readers announce "Page 3" rather than a bare number; override for i18n.
 - `defaultPage` — `number` · default `1` — Initial 1-based page when uncontrolled (no `page` prop).
 - `showPageJumper` — `boolean` · default `false` — Show a "Go to" page input for jumping directly to a page; preferred alias for showJumper.
 
@@ -1601,6 +1621,11 @@ Props:
 - `onSortChange` — `(sort: TableSort) => void` — Fired when a sortable header is clicked with the next sort state.
 - `stickyHeader` — `boolean` · default `false` — Pin the header to the top while the body scrolls (use with maxHeight or an enclosing scroll container).
 - `maxHeight` — `number | string` — Cap the table height and give it its own vertical scroll area (CSS length or number of px); enables stickyHeader to shine.
+- `loading` — `boolean` · default `false` — Renders shimmering skeleton rows instead of data and sets aria-busy, avoiding a flash-of-empty during fetches.
+- `loadingRows` — `number` · default `8` — Number of skeleton rows to show while loading is true.
+- `emptyMessage` — `React.ReactNode` · default `"No data"` — Rendered as a single full-width row when rows is empty instead of a bare header over a blank body.
+- `ariaLabel` — `string` — Accessible name applied to the <table> itself (not the wrapper div); a raw aria-label prop takes precedence over it.
+- `caption` — `React.ReactNode` — Renders a visually-hidden <caption> naming the table for assistive technology.
 - `rows` — `T[]` — Row objects.
 - `field (column)` — `string` — Alias for key (Datatable vocabulary); key wins when both are set.
 - `headerName (column)` — `React.ReactNode` — Alias for header (Datatable vocabulary); header wins when both are set.

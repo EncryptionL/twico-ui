@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 // so the overlays can import it without depending on the public hooks barrel.
 
 const canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
+const useIsoLayoutEffect = canUseDOM ? React.useLayoutEffect : React.useEffect;
 
 // Strict focusable selector — every clause excludes tabindex="-1" (CommandPalette's
 // stricter form, a no-op for Dialog/Drawer). Single source of truth for all overlays.
@@ -65,4 +66,55 @@ export function usePortal() {
     if (typeof document === "undefined") return null;
     return typeof createPortal === "function" ? createPortal(node, document.body) : node;
   }, []);
+}
+
+// #116: one refcounted body scroll-lock shared by every overlay, with scrollbar-gutter
+// compensation applied only on the 0→1 transition (so nested/out-of-order opens don't
+// double-apply or restore early). Re-exported publicly as useScrollLock from hooks/index.js.
+let __scrollLockCount = 0;
+let __scrollLockSaved = { overflow: "", paddingRight: "" };
+export function useScrollLock(locked = true) {
+  useIsoLayoutEffect(() => {
+    if (!canUseDOM || !locked) return undefined;
+    if (__scrollLockCount === 0) {
+      const b = document.body;
+      __scrollLockSaved = { overflow: b.style.overflow, paddingRight: b.style.paddingRight };
+      const gutter = window.innerWidth - document.documentElement.clientWidth;
+      b.style.overflow = "hidden";
+      if (gutter > 0) b.style.paddingRight = `${(parseFloat(getComputedStyle(b).paddingRight) || 0) + gutter}px`;
+    }
+    __scrollLockCount += 1;
+    return () => {
+      __scrollLockCount -= 1;
+      if (__scrollLockCount === 0) {
+        document.body.style.overflow = __scrollLockSaved.overflow;
+        document.body.style.paddingRight = __scrollLockSaved.paddingRight;
+      }
+    };
+  }, [locked]);
+}
+
+/**
+ * #115: while `active`, mark every sibling of the overlay's portal subtree `inert` +
+ * `aria-hidden` so a screen-reader virtual cursor / mobile swipe can't reach the page
+ * behind the modal. `ref` is any node inside the portal (the panel); its containing
+ * top-level element is excluded. Restores exactly what it changed on cleanup.
+ */
+export function useInertBackground(ref, active) {
+  React.useEffect(() => {
+    if (!active || !canUseDOM) return undefined;
+    const node = ref.current;
+    if (!node) return undefined;
+    const changed = [];
+    Array.from(document.body.children).forEach((el) => {
+      if (el.contains(node) || el.hasAttribute("aria-hidden") || el.inert) return;
+      el.inert = true;
+      el.setAttribute("aria-hidden", "true");
+      changed.push(el);
+    });
+    return () => {
+      changed.forEach((el) => { el.inert = false; el.removeAttribute("aria-hidden"); });
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active]);
 }

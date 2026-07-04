@@ -32,6 +32,12 @@ export interface DateRangePickerProps extends Omit<React.HTMLAttributes<HTMLDivE
   locale?: string;
   /** First day of week: 0 = Sunday … 6 = Saturday. @default 0 */
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  /** Earliest selectable date (inclusive); earlier days are disabled. */
+  min?: Date;
+  /** Latest selectable date (inclusive); later days are disabled. */
+  max?: Date;
+  /** Predicate to disable arbitrary dates (return true to disable). */
+  disabledDate?: (date: Date) => boolean;
   /** Disable all interaction (the popover cannot be opened). @default false */
   disabled?: boolean;
   /** Color intent for the focus/open accent. @default "primary" */

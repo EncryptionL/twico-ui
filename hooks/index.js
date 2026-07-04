@@ -1,6 +1,6 @@
 import React from "react";
 import { warnOnce } from "../components/_warn.js";
-import { useFocusTrap as _useFocusTrap, usePortal as _usePortal } from "../components/_overlay.js";
+import { useFocusTrap as _useFocusTrap, usePortal as _usePortal, useScrollLock as _useScrollLock } from "../components/_overlay.js";
 
 const canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
 
@@ -397,29 +397,6 @@ export function useIntersectionObserver(ref, options = {}) {
   return entry;
 }
 
-// Shared ref-count so nested locks (e.g. a Dialog over a Drawer) don't clobber each
-// other's saved overflow: only the first lock saves+sets, only the last restores.
-let __scrollLockCount = 0;
-let __scrollLockSaved = "";
-
-/** Lock body scroll while `locked` is true — for modals/drawers. */
-export function useScrollLock(locked = true) {
-  useIsomorphicLayoutEffect(() => {
-    if (!canUseDOM || !locked) return undefined;
-    if (__scrollLockCount === 0) {
-      __scrollLockSaved = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-    }
-    __scrollLockCount += 1;
-    return () => {
-      __scrollLockCount -= 1;
-      if (__scrollLockCount === 0) {
-        document.body.style.overflow = __scrollLockSaved;
-      }
-    };
-  }, [locked]);
-}
-
 /** A stable, SSR-safe unique id (optionally prefixed). */
 export function useId(prefix = "twc") {
   const raw = React.useId();
@@ -436,3 +413,7 @@ export const useFocusTrap = _useFocusTrap;
 
 /** A stable `render(node)` that portals to `document.body` (null on the server). */
 export const usePortal = _usePortal;
+
+/** Lock body scroll while `locked` is true — refcounted, with scrollbar-gutter compensation
+ *  (implemented in components/_overlay.js so overlays can share it without the hooks barrel). */
+export const useScrollLock = _useScrollLock;

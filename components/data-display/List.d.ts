@@ -13,7 +13,7 @@ export interface ListItemData {
   onClick?: (e: React.MouseEvent) => void;
   /** Makes the row a link. */
   href?: string;
-  /** Highlight as selected. */
+  /** Highlight as selected — also sets `aria-current="page"` on link/button rows. */
   active?: boolean;
 }
 
@@ -27,6 +27,8 @@ export interface ListProps extends React.HTMLAttributes<HTMLUListElement> {
   items: ListItemData[];
   /** Drop the card chrome (borderless, transparent). @default false */
   plain?: boolean;
+  /** Shown as a centered zero-state row when `items` is empty. @default "Nothing here yet" */
+  emptyMessage?: React.ReactNode;
 }
 
 export function List(props: ListProps): React.JSX.Element;

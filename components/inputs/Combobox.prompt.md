@@ -24,6 +24,9 @@ const [country, setCountry] = React.useState(null);
 ```
 
 Props: `options` (strings / {value,label,description} / {group,options}), `value`/`defaultValue`,
-`onChange`, `placeholder`, `clearable`, `size`, plus field props. Keyboard: ↑/↓, Enter, Esc.
+`onChange`, `placeholder`, `clearable`, `size`, plus field props. Keyboard: ↑/↓, Enter, Esc; Backspace on an
+empty input clears the selection. For **async/remote** options pass `onInputChange` (raw query — debounce it),
+`filter={false}` (skip client filtering of server-ranked results), and `loading`. An option may set `disabled`;
+`name` submits the value via a hidden form field; `emptyText` customizes the no-results text.
 
 `tone` (`primary` | `success` | `warning` | `danger` | `info` | `neutral`, default `primary`) recolors the focus/open border and ring accent.

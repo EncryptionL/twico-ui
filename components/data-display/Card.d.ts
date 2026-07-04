@@ -11,6 +11,8 @@ export interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "t
   title?: React.ReactNode;
   /** Muted subtitle under the title. */
   subtitle?: React.ReactNode;
+  /** Header actions rendered top-right, opposite the title/subtitle (e.g. a button or menu). */
+  actions?: React.ReactNode;
   /** Footer content (e.g. action buttons). */
   footer?: React.ReactNode;
   /** Visual style. @default "elevated" */

@@ -39,6 +39,16 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   portal?: boolean;
   /** Minimum popover width in px when portaled (useful when the control is narrow). @default 0 */
   minWidth?: number;
+  /** Called with the raw query on every keystroke — drive a debounced remote fetch (with `loading` + `filter={false}`). */
+  onInputChange?: (query: string) => void;
+  /** Client-side filtering: `false` shows options as-is (server-ranked); a function replaces the default label/description match. */
+  filter?: boolean | ((option: ComboboxOption, query: string) => boolean);
+  /** Show a loading row instead of the option list / empty state. @default false */
+  loading?: boolean;
+  /** Text shown when no options match. @default "No results found" */
+  emptyText?: string;
+  /** Name for a hidden form field so the selected value participates in native form submission. */
+  name?: string;
   /** Composed with the field's open-on-focus behavior — your handler runs first. */
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   /** Composed with the field's keyboard navigation (Arrows/Enter/Escape) — your handler runs first; call `event.preventDefault()` to suppress it. */

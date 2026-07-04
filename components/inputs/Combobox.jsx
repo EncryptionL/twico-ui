@@ -67,6 +67,9 @@ const COMBO_CSS = `
 .twc-opt__check { flex: none; color: var(--color-primary); display: inline-flex; }
 .twc-opt__check svg { width: 16px; height: 16px; }
 .twc-pop__empty { padding: 14px 12px; text-align: center; font-size: var(--text-sm); color: var(--color-text-subtle); }
+.twc-opt[data-disabled="true"] { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+.twc-pop__loading { display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: 14px 12px; font-size: var(--text-sm); color: var(--color-text-muted); }
+.twc-pop__spinner { width: 15px; height: 15px; border-radius: var(--radius-full); border: 2px solid var(--color-border); border-top-color: var(--color-primary); animation: twico-spin 0.7s linear infinite; }
 `;
 
 function toOpt(o) { return typeof o === "string" ? { value: o, label: o } : o; }
@@ -98,6 +101,7 @@ export function Combobox({
   label, hint, error, required = false, size = "md", tone = "primary",
   placeholder = "Select…", options, value, defaultValue = null,
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
+  onInputChange, filter, loading = false, emptyText = "No results found", name,
   id, className = "", onFocus, onKeyDown, ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-combo-styles", COMBO_CSS);
@@ -121,12 +125,21 @@ export function Combobox({
   const listRef = React.useRef(null);
   const activeRef = React.useRef(null);
 
-  // Filtered groups + flat visible list
-  const fGroups = React.useMemo(
-    () => groups.map((g) => ({ group: g.group, options: g.options.filter((o) => matches(o, query.trim())) })).filter((g) => g.options.length),
-    [groups, query]
-  );
+  // Filtered groups + flat visible list. #88: `filter === false` skips client filtering
+  // (server-ranked); a function replaces the default `matches`.
+  const fGroups = React.useMemo(() => {
+    const q = query.trim();
+    const fn = filter === false ? null : (typeof filter === "function" ? filter : matches);
+    return groups.map((g) => ({ group: g.group, options: fn ? g.options.filter((o) => fn(o, q)) : g.options })).filter((g) => g.options.length);
+  }, [groups, query, filter]);
   const visible = React.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
+
+  // #90: next non-disabled option index (no wrap), else stay.
+  const nextEnabled = (from, dir) => {
+    let i = from + dir;
+    while (i >= 0 && i < visible.length) { if (!visible[i]?.disabled) return i; i += dir; }
+    return from;
+  };
 
   // Portal mode: measure the control and pin the popover with fixed positioning so
   // it escapes any clipping/scrolling ancestor. Auto-flips up when there isn't
@@ -162,20 +175,30 @@ export function Combobox({
     return () => document.removeEventListener("mousedown", onDown);
   }, [open]);
   React.useEffect(() => { setActive(0); }, [query]);
+  // #95: on open, highlight the currently-selected option (runs after the [query] reset so it wins).
+  React.useEffect(() => {
+    if (!open) return;
+    const idx = flat.findIndex((o) => o.value === current);
+    setActive(idx >= 0 ? idx : 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
   React.useEffect(() => { if (open) ensureVisible(listRef.current, activeRef.current); }, [active, open]);
 
   function openMenu() { if (disabled) return; setQuery(""); setOpen(true); }
   function close() { setOpen(false); setQuery(""); }
   function commit(v) {
+    const o = flat.find((x) => x.value === v);
+    if (o && o.disabled) return; // #90
     if (value === undefined) setInternal(v);
     onChange?.(v); close();
   }
   function handleKeyDown(e) {
-    if (e.key === "ArrowDown") { e.preventDefault(); if (!open) { openMenu(); return; } setActive((a) => Math.min(a + 1, visible.length - 1)); }
-    else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => Math.max(a - 1, 0)); }
+    if (e.key === "ArrowDown") { e.preventDefault(); if (!open) { openMenu(); return; } setActive((a) => nextEnabled(a, 1)); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => nextEnabled(a, -1)); }
     else if (e.key === "Enter") { e.preventDefault(); if (open && visible[active]) commit(visible[active].value); }
     else if (e.key === "Escape") { close(); inputRef.current?.blur(); }
-    else if (e.key === "Backspace" && !query && selected) { /* keep selection; user can clear */ }
+    // #94: Backspace on an empty input clears the current selection (parity with MultiSelect).
+    else if (e.key === "Backspace" && !query && selected) { e.preventDefault(); commit(null); }
   }
 
   const displayValue = open ? query : (selected ? selected.label : "");
@@ -188,7 +211,9 @@ export function Combobox({
 
   const popInner = (
     <div className="twc-pop__list" ref={listRef}>
-      {visible.length === 0 ? <div className="twc-pop__empty">No results found</div> :
+      {loading ? (
+        <div className="twc-pop__loading" role="status"><span className="twc-pop__spinner" aria-hidden="true" />Loading…</div>
+      ) : visible.length === 0 ? <div className="twc-pop__empty">{emptyText}</div> :
         fGroups.map((g, gi) => (
           <React.Fragment key={gi}>
             {g.group ? <div className="twc-pop__group">{g.group}</div> : null}
@@ -197,8 +222,9 @@ export function Combobox({
               return (
                 <button key={o.value} id={optionId(idx)} type="button" className="twc-opt" role="option" aria-selected={isSel}
                   ref={idx === active ? activeRef : null}
+                  disabled={o.disabled || undefined} aria-disabled={o.disabled || undefined} data-disabled={o.disabled || undefined}
                   data-selected={isSel || undefined} data-active={idx === active || undefined}
-                  onMouseEnter={() => setActive(idx)} onMouseDown={(e) => e.preventDefault()} onClick={() => commit(o.value)}>
+                  onMouseEnter={() => { if (!o.disabled) setActive(idx); }} onMouseDown={(e) => e.preventDefault()} onClick={() => commit(o.value)}>
                   <span className="twc-opt__main">
                     <span className="twc-opt__label">{o.label}</span>
                     {o.description ? <span className="twc-opt__desc">{o.description}</span> : null}
@@ -220,7 +246,7 @@ export function Combobox({
     if (canPortal && coords) {
       popEl = RD.createPortal(
         <div className="twc-pop twc-pop--portal" id={listboxId} role="listbox" ref={popRef}
-          data-placement={coords.flip ? "top" : undefined}
+          data-placement={coords.flip ? "top" : "bottom"}
           style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, right: "auto", zIndex: "var(--z-tooltip)" }}>
           {popInner}
         </div>, document.body);
@@ -236,6 +262,7 @@ export function Combobox({
   return (
     <div className={`twc-field ${className}`} ref={wrapRef}>
       {__twcStyles}
+      {name ? <input type="hidden" name={name} value={current ?? ""} /> : null}
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
       <div className="twc-cb">
         <div className="twc-cb__control" ref={controlRef} data-size={size} data-tone={tone} data-open={open || undefined} data-invalid={Boolean(error) || undefined} data-disabled={disabled || undefined}
@@ -247,7 +274,7 @@ export function Combobox({
             placeholder={selected && !open ? selected.label : placeholder}
             value={displayValue} disabled={disabled}
             onFocus={(e) => { onFocus?.(e); if (!open) openMenu(); }}
-            onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
+            onChange={(e) => { setQuery(e.target.value); setOpen(true); onInputChange?.(e.target.value); }}
             onKeyDown={(e) => { onKeyDown?.(e); if (!e.defaultPrevented) handleKeyDown(e); }}
             {...rest}
           />

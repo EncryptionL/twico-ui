@@ -22,7 +22,9 @@ const CARD_CSS = `
 .twc-card[data-pad="md"] { padding: var(--space-5); }
 .twc-card[data-pad="lg"] { padding: var(--space-6); }
 .twc-card[data-pad="none"] { padding: 0; }
-.twc-card__header { display: flex; flex-direction: column; gap: 2px; margin-bottom: var(--space-3); }
+.twc-card__header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-3); }
+.twc-card__heading { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.twc-card__actions { flex: none; display: flex; align-items: center; gap: var(--space-2); }
 .twc-card__title { font-size: var(--text-lg); font-weight: var(--font-bold); letter-spacing: -0.01em; }
 .twc-card__subtitle { font-size: var(--text-sm); color: var(--color-text-muted); }
 .twc-card__body { font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-normal); }
@@ -33,6 +35,7 @@ export function Card({
   children,
   title,
   subtitle,
+  actions,
   footer,
   variant = "elevated",
   padding = "md",
@@ -53,10 +56,13 @@ export function Card({
       {...rest}
     >
       {__twcStyles}
-      {(title || subtitle) ? (
+      {(title || subtitle || actions) ? (
         <div className="twc-card__header">
-          {title ? <div className="twc-card__title">{title}</div> : null}
-          {subtitle ? <div className="twc-card__subtitle">{subtitle}</div> : null}
+          <div className="twc-card__heading">
+            {title ? <div className="twc-card__title">{title}</div> : null}
+            {subtitle ? <div className="twc-card__subtitle">{subtitle}</div> : null}
+          </div>
+          {actions ? <div className="twc-card__actions">{actions}</div> : null}
         </div>
       ) : null}
       {children ? <div className="twc-card__body">{children}</div> : null}

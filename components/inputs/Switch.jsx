@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { warnOnce } from "../_warn.js";
 
 export function Switch({
   label,
@@ -59,6 +60,11 @@ export function Switch({
   const errId = `${fieldId}-error`;
   const invalid = Boolean(error);
 
+  // #76: a label-less control with no aria-label/labelledby is unnamed (WCAG 4.1.2).
+  if (process.env.NODE_ENV !== "production" && !label && !description && !rest["aria-label"] && !rest["aria-labelledby"]) {
+    warnOnce("Switch.no-name", "Switch: no accessible name — pass `label`, or `aria-label`/`aria-labelledby` for a label-less control (WCAG 4.1.2).");
+  }
+
   const describedBy = [rest["aria-describedby"], error ? errId : null].filter(Boolean).join(" ") || undefined;
 
   const control = (
@@ -74,6 +80,7 @@ export function Switch({
         disabled={disabled}
         onChange={onChange}
         {...rest}
+        required={required || undefined}
         aria-required={required || undefined}
         aria-invalid={invalid || undefined}
         aria-describedby={describedBy}

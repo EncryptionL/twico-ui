@@ -28,6 +28,12 @@ export interface FileUploadProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   value?: File[];
   /** Uncontrolled initial file list. @default [] */
   defaultValue?: File[];
+  /** Max size per file in bytes; larger files are rejected (drag + browse). */
+  maxSize?: number;
+  /** Max number of files retained (multiple mode); extra files are rejected. */
+  maxFiles?: number;
+  /** Called with the files that failed validation: `{ file, reason }` where reason is "type" | "size" | "count". */
+  onReject?: (rejections: Array<{ file: File; reason: "type" | "size" | "count" }>) => void;
   onChange?: (files: File[]) => void;
 }
 

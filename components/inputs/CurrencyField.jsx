@@ -26,7 +26,9 @@ const CURF_CSS = `
 .twc-cur:focus-within { border-color: var(--_accent); box-shadow: var(--_ring); }
 .twc-cur[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-cur[data-invalid="true"]:focus-within { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
-.twc-cur[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; }
+.twc-cur[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
+.twc-cur[data-readonly="true"] { background: var(--color-surface-sunken); }
+.twc-cur__el:disabled { cursor: not-allowed; }
 .twc-cur__sym, .twc-cur__code {
   display: inline-flex; align-items: center; padding: 0 var(--space-3);
   background: var(--color-surface-sunken); color: var(--color-text-muted);
@@ -74,9 +76,34 @@ export function CurrencyField({
   const [valInternal, setValInternal] = React.useState(() => clampPrecision(String(defaultValue ?? ""), prec));
   const shown = valControlled ? clampPrecision(String(value ?? ""), prec) : valInternal;
 
-  // Link hint/error text to the input for screen readers (merged with any consumer-supplied ids).
-  const describedBy = [error ? `${fieldId}-error` : hint ? `${fieldId}-hint` : null, rest["aria-describedby"]]
+  // #72: single `${id}-desc` id (unified with the input family), merged with any consumer
+  // aria-describedby; aria-invalid forced true on error.
+  const descId = `${fieldId}-desc`;
+  const describedBy = [error || hint ? descId : null, rest["aria-describedby"]]
     .filter(Boolean).join(" ") || undefined;
+  const ariaInvalid = invalid ? true : (rest["aria-invalid"] ?? undefined);
+
+  // #64/#65: reconcile the displayed (clamped) amount with what the parent holds when a
+  // controlled value / precision / currency PROP change makes the render clamp diverge —
+  // setCurrency only covers the user-driven picker path. Uncontrolled: re-clamp the internal
+  // value to the active precision (e.g. when the `currency` prop flips USD→JPY). Converges.
+  React.useEffect(() => {
+    if (!valControlled) {
+      const clamped = clampPrecision(valInternal, prec);
+      if (clamped !== valInternal) {
+        setValInternal(clamped);
+        const n = Number(clamped);
+        onValueChange?.(clamped === "" || Number.isNaN(n) ? null : n, clamped, cur);
+      }
+    } else {
+      const raw = String(value ?? "");
+      if (shown !== raw) {
+        const n = Number(shown);
+        onValueChange?.(shown === "" || Number.isNaN(n) ? null : n, shown, cur);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prec, cur, shown, value, valControlled, valInternal]);
 
   const options = React.useMemo(() => {
     if (!currencies) return CURRENCY_OPTIONS;
@@ -90,13 +117,16 @@ export function CurrencyField({
     // so a controlled value (and any formatted display) stays in sync with what's shown.
     const reclamped = clampPrecision(shown, (CURRENCIES[next] || CURRENCIES.USD).precision);
     if (!valControlled) setValInternal(reclamped);
-    onValueChange?.(reclamped === "" ? null : Number(reclamped), reclamped, next);
+    const rn = Number(reclamped);
+    onValueChange?.(reclamped === "" || Number.isNaN(rn) ? null : rn, reclamped, next);
   }
   function handleChange(e) {
     onChange?.(e); // consumer handler first, then internal clamping/state
     const next = clampPrecision(e.target.value, prec);
     if (!valControlled) setValInternal(next);
-    onValueChange?.(next === "" ? null : Number(next), next, cur);
+    // #63: guard Number() so a transient "-"/"-." never emits NaN (contract is number | null).
+    const n = Number(next);
+    onValueChange?.(next === "" || Number.isNaN(n) ? null : n, next, cur);
   }
   function handleBlur(e) {
     rest.onBlur?.(e); // consumer handler first, so it fires even when the value is empty/NaN
@@ -107,26 +137,30 @@ export function CurrencyField({
     onValueChange?.(Number(fixed), fixed, cur);
   }
 
+  // #73: name the embedded currency picker after the field so multiple currency fields
+  // don't all announce a generic "Currency, combobox". Falls back for non-string labels.
+  const curLabel = typeof label === "string" && label ? `${label} currency` : "Currency";
+
   return (
     <div className={`twc-field ${className}`}>
       {__twcStyles}
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
-      <div className="twc-cur" data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined}>
+      <div className="twc-cur" data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined} data-readonly={rest.readOnly || undefined}>
         <span className="twc-curf__pick">
           <Select size={size} value={cur} options={options} disabled={disabled} searchable portal minWidth={260}
-            aria-label="Currency" onChange={setCurrency} />
+            aria-label={curLabel} onChange={setCurrency} />
         </span>
         <span className="twc-cur__sym" aria-hidden="true">{meta.symbol}</span>
         <input
           id={fieldId} className="twc-cur__el" inputMode="decimal" type="text"
           value={shown} placeholder={placeholder} disabled={disabled} required={required || undefined}
-          aria-invalid={invalid || undefined}
           {...rest}
-          onChange={handleChange} onBlur={handleBlur} aria-describedby={describedBy}
+          onChange={handleChange} onBlur={handleBlur}
+          aria-invalid={ariaInvalid} aria-describedby={describedBy}
         />
         <span className="twc-cur__code">{meta.code}</span>
       </div>
-      {error ? <span id={`${fieldId}-error`} className="twc-field__error">{error}</span> : hint ? <span id={`${fieldId}-hint`} className="twc-field__hint">{hint}</span> : null}
+      {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
 }

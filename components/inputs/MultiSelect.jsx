@@ -77,6 +77,10 @@ const MULTI_CSS = `
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-pop__empty { padding: 14px 12px; text-align: center; font-size: var(--text-sm); color: var(--color-text-subtle); }
+.twc-opt[data-disabled="true"] { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+.twc-pop__loading { display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: 14px 12px; font-size: var(--text-sm); color: var(--color-text-muted); }
+.twc-pop__spinner { width: 15px; height: 15px; border-radius: var(--radius-full); border: 2px solid var(--color-border); border-top-color: var(--color-primary); animation: twico-spin 0.7s linear infinite; }
+.twc-ms__more { flex: none; align-self: center; font-size: var(--text-xs); font-weight: var(--font-semibold); color: var(--color-text-muted); background: var(--color-surface-sunken); border-radius: var(--radius-sm); padding: 2px 7px; }
 `;
 
 function toOpt(o) { return typeof o === "string" ? { value: o, label: o } : o; }
@@ -108,6 +112,7 @@ export function MultiSelect({
   label, hint, error, required = false, size = "md", tone = "primary",
   placeholder = "Select…", options, value, defaultValue = [],
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
+  loading = false, emptyText = "No results found", name, max, maxTagCount,
   id, className = "", onFocus, onKeyDown, ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-ms-styles", MULTI_CSS);
@@ -135,6 +140,16 @@ export function MultiSelect({
     [groups, query]
   );
   const visible = React.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
+
+  // #98: once the max cap is hit, unselected options become non-selectable (discoverable, not silent).
+  const capReached = max != null && (value !== undefined ? value : internal).length >= max;
+  const isOptDisabled = (o) => o.disabled || (capReached && !(value !== undefined ? value : internal).includes(o.value));
+  // #90: next non-(disabled|capped) option index (no wrap), else stay.
+  const nextEnabled = (from, dir) => {
+    let i = from + dir;
+    while (i >= 0 && i < visible.length) { if (!isOptDisabled(visible[i])) return i; i += dir; }
+    return from;
+  };
 
   // Portal mode: measure the control and pin the popover with fixed positioning so
   // it escapes any clipping/scrolling ancestor. Auto-flips up when there isn't
@@ -177,13 +192,16 @@ export function MultiSelect({
     onChange?.(next);
   }
   function toggle(v) {
-    commit(selected.includes(v) ? selected.filter((x) => x !== v) : [...selected, v]);
+    const o = flat.find((x) => x.value === v);
+    const isSel = selected.includes(v);
+    if (!isSel && o && isOptDisabled(o)) return; // #90/#98: can't add a disabled/over-cap option
+    commit(isSel ? selected.filter((x) => x !== v) : [...selected, v]);
     setQuery("");
     inputRef.current?.focus();
   }
   function handleKeyDown(e) {
-    if (e.key === "ArrowDown") { e.preventDefault(); if (!open) setOpen(true); else setActive((a) => Math.min(a + 1, visible.length - 1)); }
-    else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => Math.max(a - 1, 0)); }
+    if (e.key === "ArrowDown") { e.preventDefault(); if (!open) setOpen(true); else setActive((a) => nextEnabled(a, 1)); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => nextEnabled(a, -1)); }
     else if (e.key === "Enter") { e.preventDefault(); if (open && visible[active]) toggle(visible[active].value); }
     else if (e.key === "Escape") { setOpen(false); setQuery(""); }
     else if (e.key === "Backspace" && !query && selected.length) { commit(selected.slice(0, -1)); }
@@ -199,17 +217,21 @@ export function MultiSelect({
 
   const popInner = (
     <div className="twc-pop__list" id={listboxId} ref={listRef} role="listbox" aria-multiselectable="true">
-      {visible.length === 0 ? <div className="twc-pop__empty">No results found</div> :
+      {loading ? (
+        <div className="twc-pop__loading" role="status"><span className="twc-pop__spinner" aria-hidden="true" />Loading…</div>
+      ) : visible.length === 0 ? <div className="twc-pop__empty">{emptyText}</div> :
         fGroups.map((g, gi) => (
           <React.Fragment key={gi}>
             {g.group ? <div className="twc-pop__group">{g.group}</div> : null}
             {g.options.map((o) => {
               counter += 1; const idx = counter; const isSel = selected.includes(o.value);
+              const optDisabled = isOptDisabled(o);
               return (
                 <button key={o.value} id={optionId(idx)} type="button" className="twc-opt" role="option" aria-selected={isSel}
                   ref={idx === active ? activeRef : null}
+                  disabled={optDisabled || undefined} aria-disabled={optDisabled || undefined} data-disabled={optDisabled || undefined}
                   data-selected={isSel || undefined} data-active={idx === active || undefined}
-                  onMouseEnter={() => setActive(idx)} onMouseDown={(e) => e.preventDefault()} onClick={() => toggle(o.value)}>
+                  onMouseEnter={() => { if (!optDisabled) setActive(idx); }} onMouseDown={(e) => e.preventDefault()} onClick={() => toggle(o.value)}>
                   <span className="twc-opt__box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
                   <span className="twc-opt__main">
                     <span className="twc-opt__label">{o.label}</span>
@@ -231,7 +253,7 @@ export function MultiSelect({
     if (canPortal && coords) {
       popEl = RD.createPortal(
         <div className="twc-pop twc-pop--portal" ref={popRef}
-          data-placement={coords.flip ? "top" : undefined}
+          data-placement={coords.flip ? "top" : "bottom"}
           style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, right: "auto", zIndex: "var(--z-tooltip)" }}>
           {popInner}
         </div>, document.body);
@@ -247,18 +269,22 @@ export function MultiSelect({
   return (
     <div className={`twc-field ${className}`} ref={wrapRef}>
       {__twcStyles}
+      {name ? selected.map((v, i) => <input key={i} type="hidden" name={name} value={v} />) : null}
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
       <div className="twc-ms">
         <div className="twc-ms__control" ref={controlRef} data-size={size} data-tone={tone} data-open={open || undefined} data-invalid={Boolean(error) || undefined} data-disabled={disabled || undefined}
              onClick={() => { if (!disabled) { inputRef.current?.focus(); setOpen(true); } }}>
-          {selectedOpts.map((o) => (
+          {(maxTagCount != null ? selectedOpts.slice(0, maxTagCount) : selectedOpts).map((o) => (
             <span className="twc-ms__chip" key={o.value}>
               {o.label}
-              <button type="button" className="twc-ms__chip-x" aria-label={`Remove ${o.label}`} onClick={(e) => { e.stopPropagation(); toggle(o.value); }}>
+              <button type="button" tabIndex={-1} className="twc-ms__chip-x" aria-label={`Remove ${o.label}`} onClick={(e) => { e.stopPropagation(); toggle(o.value); }}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
               </button>
             </span>
           ))}
+          {maxTagCount != null && selectedOpts.length > maxTagCount ? (
+            <span className="twc-ms__more" title={selectedOpts.slice(maxTagCount).map((o) => o.label).join(", ")}>+{selectedOpts.length - maxTagCount} more</span>
+          ) : null}
           <input ref={inputRef} id={fieldId} className="twc-ms__input" role="combobox" aria-expanded={open} aria-autocomplete="list"
                  aria-controls={open ? listboxId : undefined} aria-activedescendant={activeId}
                  aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy}
@@ -267,7 +293,7 @@ export function MultiSelect({
                  onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
                  onKeyDown={(e) => { onKeyDown?.(e); if (!e.defaultPrevented) handleKeyDown(e); }} {...rest} />
           {clearable && selected.length > 0 && !disabled ? (
-            <button type="button" className="twc-ms__clear" aria-label="Clear all" onClick={(e) => { e.stopPropagation(); commit([]); setQuery(""); }}>
+            <button type="button" tabIndex={-1} className="twc-ms__clear" aria-label="Clear all" onClick={(e) => { e.stopPropagation(); commit([]); setQuery(""); }}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
             </button>
           ) : null}

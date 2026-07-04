@@ -17,6 +17,17 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   size?: "sm" | "md" | "lg";
   /** Color intent for the focus/open accent. @default "primary" */
   tone?: Tone;
+  /** Grow to fit content between `minRows` and `maxRows` (resize handle hidden). @default false */
+  autosize?: boolean;
+  /** Minimum rows when `autosize` (falls back to `rows`). */
+  minRows?: number;
+  /** Maximum rows when `autosize`; taller content scrolls. */
+  maxRows?: number;
+  /** With `maxLength`, render a live `current / max` character counter; danger-toned near the limit. @default false */
+  showCount?: boolean;
 }
 
-export function Textarea(props: TextareaProps): React.JSX.Element;
+/** Forwards `ref` to the inner `<textarea>`. */
+export declare const Textarea: React.ForwardRefExoticComponent<
+  TextareaProps & React.RefAttributes<HTMLTextAreaElement>
+>;

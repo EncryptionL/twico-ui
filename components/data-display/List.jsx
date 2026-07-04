@@ -20,9 +20,10 @@ const LIST_CSS = `
 .twc-list__title { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .twc-list__desc { font-size: var(--text-xs); color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .twc-list__trail { flex: none; display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text-subtle); font-size: var(--text-sm); }
+.twc-list__empty { padding: 30px 12px; text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
 `;
 
-export function List({ items, plain = false, className = "", ...rest }) {
+export function List({ items, plain = false, emptyMessage, className = "", ...rest }) {
   const __twcStyles = useScopedStyles("twc-list-styles", LIST_CSS);
 
   // Block javascript:/data:/vbscript: URLs from reaching a DOM href (trust boundary).
@@ -33,9 +34,16 @@ export function List({ items, plain = false, className = "", ...rest }) {
   };
 
   return (
-    <ul className={`twc-list ${className}`} data-plain={plain || undefined} {...rest}>
+    // role="list" before {...rest} so a consumer can still override it (e.g. role="menu");
+    // list-style:none + display:contents on the <li> drop the implicit list/listitem roles
+    // in some engines, so we set them explicitly (#123).
+    <ul className={`twc-list ${className}`} role="list" data-plain={plain || undefined} {...rest}>
       {__twcStyles}
-      {items.map((it, i) => {
+      {items.length === 0 ? (
+        <li role="presentation" style={{ display: "contents" }}>
+          <div className="twc-list__empty">{emptyMessage ?? "Nothing here yet"}</div>
+        </li>
+      ) : items.map((it, i) => {
         const href = safeHref(it.href);
         const interactive = Boolean(it.onClick || href);
         const Tag = href ? "a" : interactive ? "button" : "div";
@@ -50,11 +58,12 @@ export function List({ items, plain = false, className = "", ...rest }) {
           </>
         );
         return (
-          <li key={i} style={{ display: "contents" }}>
+          <li key={i} role="listitem" style={{ display: "contents" }}>
             <Tag
               className="twc-list__item"
               data-interactive={interactive || undefined}
               data-active={it.active || undefined}
+              aria-current={it.active ? "page" : undefined}
               href={href}
               type={Tag === "button" ? "button" : undefined}
               onClick={it.onClick}

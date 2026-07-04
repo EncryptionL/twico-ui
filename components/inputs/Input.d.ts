@@ -19,11 +19,18 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   size?: "sm" | "md" | "lg";
   /** Color intent for the focus/open accent. @default "primary" */
   tone?: Tone;
-  /** Icon node inside the field, leading edge (prefix). */
+  /** Icon-only node inside the field, leading edge — for a bordered text addon use `leftAddon`. */
   leftIcon?: React.ReactNode;
   /** Optional suffix icon/node inside the field, trailing edge. For `type="password"`, omitting this
-   *  shows a built-in reveal/hide eye toggle; providing `rightIcon` replaces it. */
+   *  shows a built-in reveal/hide eye toggle; providing `rightIcon` replaces it. Icon-only — for a
+   *  bordered text addon use `rightAddon`. */
   rightIcon?: React.ReactNode;
+  /** Bordered text addon flush against the leading edge (e.g. `https://`, `@`) — distinct from the inline `leftIcon`. */
+  leftAddon?: React.ReactNode;
+  /** Bordered text addon flush against the trailing edge (e.g. `.00`, `kg`, `%`). */
+  rightAddon?: React.ReactNode;
+  /** With `maxLength`, render a live `current / max` character counter on the hint/error line; danger-toned near the limit. @default false */
+  showCount?: boolean;
 }
 
 export function Input(props: InputProps): React.JSX.Element;

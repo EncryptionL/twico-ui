@@ -30,6 +30,16 @@ export function Field({
   // aria-describedby at it. Same `${id}-desc` convention Input/Select use internally.
   const descId = `${fieldId}-desc`;
 
+  // #71: auto-wire aria-describedby (merged) + aria-invalid onto a single element child, so a
+  // Field error isn't visual-only. Multi-element/fragment/string children keep manual wiring.
+  const hasMsg = Boolean(error || hint);
+  const control = React.isValidElement(children)
+    ? React.cloneElement(children, {
+        "aria-describedby": [children.props["aria-describedby"], hasMsg ? descId : null].filter(Boolean).join(" ") || undefined,
+        "aria-invalid": children.props["aria-invalid"] !== undefined ? children.props["aria-invalid"] : (error ? true : undefined),
+      })
+    : children;
+
   return (
     <div className={`twc-field ${className}`} data-size={size} {...rest}>
       {__twcStyles}
@@ -38,7 +48,7 @@ export function Field({
           {label}{required ? <span className="twc-field__req">*</span> : null}
         </label>
       ) : null}
-      {children}
+      {control}
       {error
         ? <span id={descId} className="twc-field__error">{error}</span>
         : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}

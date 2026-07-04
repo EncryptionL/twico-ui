@@ -51,11 +51,16 @@ export function Slider({
   min: minProp = 0,
   max: maxProp = 100,
   step: stepProp = 1,
+  pageStep: pageStepProp,
+  precision,
   tone = "primary",
   disabled = false,
+  range = false,
   showValue = true,
   showTicks = false,
   formatValue,
+  getAriaValueText,
+  name,
   onChange,
   id,
   className = "",
@@ -65,42 +70,79 @@ export function Slider({
   const min = Number.isFinite(minProp) ? minProp : 0;
   const max = Number.isFinite(maxProp) && maxProp > min ? maxProp : min + 1;
   const step = Number.isFinite(stepProp) && stepProp > 0 ? stepProp : 1;
-  const __twcStyles = useScopedStyles("twc-slider-styles", SLIDER_CSS);
-
-  const autoId = React.useId();
-  const fieldId = id || autoId;
-  const [internal, setInternal] = React.useState(defaultValue);
-  const val = value !== undefined ? value : internal;
-  const trackRef = React.useRef(null);
-  const [dragging, setDragging] = React.useState(false);
-
-  const pct = ((val - min) / (max - min)) * 100;
-  const fmt = (v) => (formatValue ? formatValue(v) : v);
+  const pageStep = Number.isFinite(pageStepProp) && pageStepProp > 0 ? pageStepProp : Math.max(step, (max - min) / 10);
+  // #84: decimals for the default display + aria value, derived from step unless overridden.
+  const stepDecimals = (() => { const s = String(step); const i = s.indexOf("."); return i === -1 ? 0 : s.length - i - 1; })();
+  const decimals = Number.isInteger(precision) && precision >= 0 ? precision : stepDecimals;
   const clampSnap = (raw) => {
     const stepped = Math.round((raw - min) / step) * step + min;
     return Math.min(max, Math.max(min, Math.round(stepped * 1e6) / 1e6));
   };
-  const setVal = (v) => { if (value === undefined) setInternal(v); onChange?.(v); };
+  const __twcStyles = useScopedStyles("twc-slider-styles", SLIDER_CSS);
+
+  const autoId = React.useId();
+  const fieldId = id || autoId;
+  // #86: range mode is opt-in via `range` or a tuple value/defaultValue.
+  const isRange = range || Array.isArray(value) || Array.isArray(defaultValue);
+  const [internal, setInternal] = React.useState(() => {
+    if (isRange) {
+      const dv = Array.isArray(defaultValue) ? defaultValue : [min, max];
+      return [clampSnap(dv[0]), clampSnap(dv[1])];
+    }
+    return clampSnap(Number.isFinite(defaultValue) ? defaultValue : min);
+  });
+  const rawVal = value !== undefined ? value : internal;
+  // #75: clamp the rendered value(s) into [min, max] so the thumb/aria never go off-track.
+  const clampedVals = (isRange ? [Number(rawVal[0]), Number(rawVal[1])] : [Number(rawVal)])
+    .map((v) => Math.min(max, Math.max(min, Number.isFinite(v) ? v : min)));
+  const indices = isRange ? [0, 1] : [0];
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+
+  const fmt = (v) => (formatValue ? formatValue(v) : v.toFixed(decimals));
+  // #81/#84: prefer getAriaValueText; else a string/number formatValue; else the decimal string.
+  const valueTextFor = (v) => {
+    if (getAriaValueText) return getAriaValueText(v);
+    if (formatValue) { const d = formatValue(v); return typeof d === "string" || typeof d === "number" ? String(d) : undefined; }
+    return decimals > 0 ? v.toFixed(decimals) : undefined;
+  };
+
+  const commit = (nextVals) => {
+    const out = isRange ? nextVals : nextVals[0];
+    if (value === undefined) setInternal(out);
+    onChange?.(out);
+  };
+  // Update one thumb, cross-clamping so lo <= hi in range mode.
+  const setThumb = (i, raw) => {
+    const next = clampedVals.slice();
+    next[i] = clampSnap(raw);
+    if (isRange) {
+      if (i === 0) next[0] = Math.min(next[0], next[1]);
+      else next[1] = Math.max(next[1], next[0]);
+    }
+    commit(next);
+  };
 
   const fromClientX = (clientX) => {
     const node = trackRef.current;
-    if (!node) return val; // ref gone (e.g. a stray event after unmount) — never crash
+    if (!node) return clampedVals[0];
     const r = node.getBoundingClientRect();
     const ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
     return clampSnap(min + ratio * (max - min));
   };
 
-  // Detach any in-flight drag listeners if the component unmounts mid-drag, so we
-  // neither leak window listeners nor fire setState/getBoundingClientRect after unmount.
   const dragCleanupRef = React.useRef(null);
   React.useEffect(() => () => dragCleanupRef.current?.(), []);
 
   function onPointerDown(e) {
     if (disabled) return;
     e.preventDefault();
+    const posVal = fromClientX(e.clientX);
+    // In range mode, drag the thumb nearest the press point for its whole lifetime.
+    const idx = isRange ? (Math.abs(posVal - clampedVals[0]) <= Math.abs(posVal - clampedVals[1]) ? 0 : 1) : 0;
     setDragging(true);
-    setVal(fromClientX(e.clientX));
-    const move = (ev) => setVal(fromClientX(ev.clientX));
+    setThumb(idx, posVal);
+    const move = (ev) => setThumb(idx, fromClientX(ev.clientX));
     const detach = () => {
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerup", up);
@@ -111,38 +153,47 @@ export function Slider({
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerup", up);
   }
-  function onKeyDown(e) {
+
+  function onThumbKeyDown(e, i) {
     if (disabled) return;
+    const cur = clampedVals[i];
     let next;
-    if (e.key === "ArrowRight" || e.key === "ArrowUp") next = clampSnap(val + step);
-    else if (e.key === "ArrowLeft" || e.key === "ArrowDown") next = clampSnap(val - step);
+    if (e.key === "ArrowRight" || e.key === "ArrowUp") next = cur + step;
+    else if (e.key === "ArrowLeft" || e.key === "ArrowDown") next = cur - step;
+    else if (e.key === "PageUp") next = cur + pageStep;      // #80
+    else if (e.key === "PageDown") next = cur - pageStep;    // #80
     else if (e.key === "Home") next = min;
     else if (e.key === "End") next = max;
     else return;
     e.preventDefault();
-    setVal(next);
+    setThumb(i, next);
   }
 
   const ticks = showTicks ? Math.floor((max - min) / step) + 1 : 0;
   const labelId = label ? `${fieldId}-label` : undefined;
   const descId = `${fieldId}-desc`;
   const invalid = Boolean(error);
-  const display = fmt(val);
-  // Human-readable value for assistive tech, only when a custom format is in play.
-  const valueText = formatValue && (typeof display === "string" || typeof display === "number") ? String(display) : undefined;
+  const headValue = isRange ? `${fmt(clampedVals[0])} – ${fmt(clampedVals[1])}` : fmt(clampedVals[0]);
+  const fillLo = ((Math.min(...clampedVals) - min) / (max - min)) * 100;
+  const fillHi = ((Math.max(...clampedVals) - min) / (max - min)) * 100;
+  const fillStyle = isRange ? { left: `${fillLo}%`, width: `${fillHi - fillLo}%` } : { width: `${fillHi}%` };
 
   return (
     <div className={`twc-slider ${className}`} data-tone={tone} data-disabled={disabled || undefined} {...rest}>
       {__twcStyles}
+      {/* #82: hidden input(s) so the value participates in native form submission. */}
+      {name ? clampedVals.map((v, i) => (
+        <input key={i} type="hidden" name={name} value={v} disabled={disabled || undefined} />
+      )) : null}
       {(label || showValue) ? (
         <div className="twc-slider__head">
           {label ? <label className="twc-slider__label" id={labelId}>{label}</label> : <span />}
-          {showValue ? <span className="twc-slider__value">{display}</span> : null}
+          {showValue ? <span className="twc-slider__value">{headValue}</span> : null}
         </div>
       ) : null}
       <div className="twc-slider__track" ref={trackRef} data-show-bubble={dragging || undefined} onPointerDown={onPointerDown}>
         <div className="twc-slider__rail" />
-        <div className="twc-slider__fill" style={{ width: `${pct}%` }} />
+        <div className="twc-slider__fill" style={fillStyle} />
         {showTicks ? (
           <div className="twc-slider__ticks">
             {Array.from({ length: ticks }).map((_, i) => (
@@ -150,25 +201,35 @@ export function Slider({
             ))}
           </div>
         ) : null}
-        <div
-          id={fieldId}
-          className="twc-slider__thumb"
-          style={{ left: `${pct}%` }}
-          role="slider"
-          tabIndex={disabled ? -1 : 0}
-          aria-valuemin={min}
-          aria-valuemax={max}
-          aria-valuenow={val}
-          aria-valuetext={valueText}
-          aria-labelledby={labelId}
-          aria-label={labelId ? undefined : "Slider"}
-          aria-describedby={error || hint ? descId : undefined}
-          aria-invalid={invalid || undefined}
-          aria-disabled={disabled || undefined}
-          onKeyDown={onKeyDown}
-        >
-          <span className="twc-slider__bubble">{display}</span>
-        </div>
+        {indices.map((i) => {
+          const tv = clampedVals[i];
+          const p = ((tv - min) / (max - min)) * 100;
+          const tMin = isRange && i === 1 ? clampedVals[0] : min;
+          const tMax = isRange && i === 0 ? clampedVals[1] : max;
+          const thumbLabel = isRange ? (i === 0 ? "Minimum" : "Maximum") : (labelId ? undefined : "Slider");
+          return (
+            <div
+              key={i}
+              id={i === 0 ? fieldId : undefined}
+              className="twc-slider__thumb"
+              style={{ left: `${p}%` }}
+              role="slider"
+              tabIndex={disabled ? -1 : 0}
+              aria-valuemin={tMin}
+              aria-valuemax={tMax}
+              aria-valuenow={tv}
+              aria-valuetext={valueTextFor(tv)}
+              aria-labelledby={isRange ? undefined : labelId}
+              aria-label={thumbLabel}
+              aria-describedby={error || hint ? descId : undefined}
+              aria-invalid={invalid || undefined}
+              aria-disabled={disabled || undefined}
+              onKeyDown={(e) => onThumbKeyDown(e, i)}
+            >
+              <span className="twc-slider__bubble">{fmt(tv)}</span>
+            </div>
+          );
+        })}
       </div>
       {error || hint ? (
         <div className="twc-slider__msgs">

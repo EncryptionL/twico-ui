@@ -68,6 +68,7 @@ export function Pagination({
   showJumper,
   showPageJumper,
   jumperLabel = "Go to",
+  getPageLabel,
   className = "",
   ...rest
 }) {
@@ -104,6 +105,7 @@ export function Pagination({
           <span key={`e${i}`} className="twc-page twc-page__ellipsis" aria-hidden="true">…</span>
         ) : (
           <button key={p} type="button" className="twc-page" data-size={size} data-active={p === page || undefined}
+                  aria-label={getPageLabel ? getPageLabel(p) : `Page ${p}`}
                   aria-current={p === page ? "page" : undefined} onClick={() => go(p)}>
             {p}
           </button>

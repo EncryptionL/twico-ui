@@ -34,6 +34,7 @@ const FIELD_CSS = `
 .twc-input[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-input[data-invalid="true"]:focus-within { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
 .twc-input[data-disabled] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
+.twc-input[data-readonly] { background: var(--color-surface-sunken); }
 .twc-input__el {
   flex: 1; min-width: 0; border: none; outline: none; background: transparent;
   font-family: inherit; font-size: var(--text-sm); color: var(--color-text); height: 100%;
@@ -50,6 +51,20 @@ const FIELD_CSS = `
 .twc-input__reveal svg { width: 17px; height: 17px; }
 `;
 
+// Separate scoped block for the #69 counter + #70 bordered addons. Kept out of the shared
+// `twc-field-styles` id (whose content differs per input-family component and dedupes by id).
+const INPUT_EXTRA_CSS = `
+.twc-input { overflow: hidden; }
+.twc-input__addon { align-self: stretch; display: inline-flex; align-items: center; padding-inline: var(--space-3);
+  background: var(--color-surface-sunken); color: var(--color-text-muted); font-size: var(--text-sm);
+  font-weight: var(--font-semibold); white-space: nowrap; flex: none; }
+.twc-input__addon--start { border-inline-end: var(--border-thin) solid var(--color-border); margin-inline-start: calc(-1 * var(--space-3)); }
+.twc-input__addon--end { border-inline-start: var(--border-thin) solid var(--color-border); margin-inline-end: calc(-1 * var(--space-3)); }
+.twc-field__footer { display: flex; align-items: center; gap: var(--space-2); }
+.twc-field__count { margin-inline-start: auto; font-size: var(--text-xs); color: var(--color-text-muted); font-variant-numeric: tabular-nums; flex: none; }
+.twc-field__count[data-danger="true"] { color: var(--color-danger-subtle-fg); }
+`;
+
 export function Input({
   label,
   hint,
@@ -59,6 +74,9 @@ export function Input({
   tone = "primary",
   leftIcon,
   rightIcon,
+  leftAddon,
+  rightAddon,
+  showCount = false,
   type = "text",
   disabled = false,
   id,
@@ -66,10 +84,27 @@ export function Input({
   ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-field-styles", FIELD_CSS);
+  const __twcExtra = useScopedStyles("twc-input-extra-styles", INPUT_EXTRA_CSS);
   const autoId = React.useId();
   const fieldId = id || autoId;
   const descId = `${fieldId}-desc`;
+  const countId = `${fieldId}-count`;
   const invalid = Boolean(error);
+
+  // #69: character counter. Hand-rolled controlled/uncontrolled length (no hook import).
+  const countControlled = rest.value !== undefined;
+  const [len, setLen] = React.useState(() => String(rest.defaultValue ?? "").length);
+  const count = countControlled ? String(rest.value ?? "").length : len;
+  const max = rest.maxLength;
+  const showCounter = showCount && max != null;
+  const near = showCounter && count >= Math.floor(max * 0.9);
+  const handleChange = (e) => { rest.onChange?.(e); if (showCount && !countControlled) setLen(e.target.value.length); };
+
+  // #72: aria-invalid forced true on error (visual+SR in sync); consumer value wins otherwise.
+  // aria-describedby merges the message id, the counter id, and any consumer-supplied id.
+  const ariaInvalid = invalid ? true : (rest["aria-invalid"] ?? undefined);
+  const describedBy = [error || hint ? descId : null, showCounter ? countId : null, rest["aria-describedby"]]
+    .filter(Boolean).join(" ") || undefined;
   const isPassword = type === "password";
   const [revealed, setRevealed] = React.useState(false);
   const effectiveType = isPassword && revealed ? "text" : type;
@@ -94,12 +129,14 @@ export function Input({
   return (
     <div className={`twc-field ${className}`}>
       {__twcStyles}
+      {__twcExtra}
       {label ? (
         <label className="twc-field__label" htmlFor={fieldId}>
           {label}{required ? <span className="twc-field__req">*</span> : null}
         </label>
       ) : null}
-      <div className="twc-input" data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined}>
+      <div className="twc-input" data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined} data-readonly={rest.readOnly || undefined}>
+        {leftAddon != null ? <span className="twc-input__addon twc-input__addon--start">{leftAddon}</span> : null}
         {leftIcon ? <span className="twc-input__affix">{leftIcon}</span> : null}
         <input
           id={fieldId}
@@ -108,13 +145,20 @@ export function Input({
           disabled={disabled}
           required={required || undefined}
           aria-required={required || undefined}
-          aria-invalid={invalid || undefined}
-          aria-describedby={error || hint ? descId : undefined}
           {...rest}
+          onChange={handleChange}
+          aria-invalid={ariaInvalid}
+          aria-describedby={describedBy}
         />
         {suffix}
+        {rightAddon != null ? <span className="twc-input__addon twc-input__addon--end">{rightAddon}</span> : null}
       </div>
-      {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
+      {(error || hint || showCounter) ? (
+        <div className="twc-field__footer">
+          {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
+          {showCounter ? <span id={countId} className="twc-field__count" data-danger={near || undefined} aria-live="polite">{count} / {max}</span> : null}
+        </div>
+      ) : null}
     </div>
   );
 }

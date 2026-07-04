@@ -24,6 +24,8 @@ export interface PaginationProps extends Omit<React.HTMLAttributes<HTMLElement>,
   showPageJumper?: boolean;
   /** Label before the jump input. @default "Go to" */
   jumperLabel?: React.ReactNode;
+  /** Accessible label for each numbered page button (for i18n). @default (n) => `Page ${n}` */
+  getPageLabel?: (page: number) => string;
 }
 
 export function Pagination(props: PaginationProps): React.JSX.Element;

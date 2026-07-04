@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useFocusTrap } from "../_overlay.js";
 import { createPortal } from "react-dom";
 
 const POPOVER_CSS = `
@@ -74,7 +75,15 @@ export function Popover({
     let top, left, flip = false, arrow = {};
     const vertical = placement === "top" || placement === "bottom";
     if (vertical) {
-      flip = placement === "top" || (placement === "bottom" && vh - r.bottom < 180 && r.top > vh - r.bottom);
+      // #119: resolve up/down symmetrically using the REAL panel height (top no longer
+      // always wins; bottom no longer uses a 180px literal).
+      const ph = popRef.current ? popRef.current.offsetHeight : 120;
+      const spaceAbove = r.top - gap - M;
+      const spaceBelow = vh - r.bottom - gap - M;
+      let openUp = placement === "top";
+      if (openUp && spaceAbove < ph && spaceBelow > spaceAbove) openUp = false;
+      else if (!openUp && spaceBelow < ph && spaceAbove > spaceBelow) openUp = true;
+      flip = openUp;
       top = flip ? undefined : r.bottom + gap;
       const bottom = flip ? vh - r.top + gap : undefined;
       let l = align === "start" ? r.left : align === "end" ? r.right - w : r.left + r.width / 2 - w / 2;
@@ -147,16 +156,12 @@ export function Popover({
     if (prev && typeof prev.focus === "function" && popRef.current?.contains(document.activeElement)) prev.focus();
   }, [open]);
 
-  // Move focus into the panel once it has mounted and been positioned.
-  React.useEffect(() => {
-    if (open && render && pos && needFocusRef.current) {
-      needFocusRef.current = false;
-      popRef.current?.focus({ preventScroll: true });
-    }
-  }, [open, render, pos]);
+  // #113: move focus into the panel and trap Tab/Shift+Tab within it (restoreFocus:false —
+  // the conditional restore effect above owns focus return so an outside click can't steal it).
+  useFocusTrap(popRef, open && render && !!pos, { restoreFocus: false });
 
   const pop = render && pos ? (
-    <div className="twc-popover" id={popId} ref={popRef} tabIndex={-1} data-state={open ? "open" : "closed"} data-flip={pos.flip || undefined} role="dialog"
+    <div className="twc-popover" id={popId} ref={popRef} tabIndex={-1} data-state={open ? "open" : "closed"} data-flip={pos.flip || undefined} role="dialog" aria-modal="true"
       aria-labelledby={title ? `${popId}-title` : undefined}
       style={{ top: pos.top, bottom: pos.bottom, left: pos.left, width: pos.width }}>
       {__twcStyles}

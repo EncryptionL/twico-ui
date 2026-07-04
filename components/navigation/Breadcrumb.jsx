@@ -3,8 +3,9 @@ import { useScopedStyles } from "../_styles.js";
 
 const BREADCRUMB_CSS = `
 .twc-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 2px; font-family: var(--font-sans); font-size: var(--text-sm); }
-.twc-breadcrumb__item { display: inline-flex; align-items: center; gap: 6px; color: var(--color-text-muted); text-decoration: none; padding: 3px 7px; border-radius: var(--radius-sm); transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard); }
-.twc-breadcrumb__item:hover:not([aria-current]) { color: var(--color-text); background: var(--color-surface-sunken); }
+.twc-breadcrumb__item { display: inline-flex; align-items: center; gap: 6px; color: var(--color-text-muted); text-decoration: none; padding: 3px 7px; border: 0; background: transparent; font: inherit; border-radius: var(--radius-sm); transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard); }
+a.twc-breadcrumb__item, button.twc-breadcrumb__item { cursor: pointer; }
+a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--color-text); background: var(--color-surface-sunken); }
 .twc-breadcrumb__item[aria-current="page"] { color: var(--color-text); font-weight: var(--font-semibold); cursor: default; }
 .twc-breadcrumb__item svg { width: 15px; height: 15px; flex: none; }
 .twc-breadcrumb__sep { display: inline-flex; align-items: center; color: var(--color-text-subtle); pointer-events: none; }
@@ -65,15 +66,22 @@ export function Breadcrumb({
                 {it.icon ? <span aria-hidden="true" style={{ display: "inline-flex" }}>{it.icon}</span> : null}
                 {it.label}
               </span>
-            ) : (
-              <a
-                className="twc-breadcrumb__item"
-                href={safeHref(it.href) || "#"}
-                onClick={it.onClick}
-              >
+            ) : safeHref(it.href) ? (
+              <a className="twc-breadcrumb__item" href={safeHref(it.href)} onClick={it.onClick}>
                 {it.icon ? <span aria-hidden="true" style={{ display: "inline-flex" }}>{it.icon}</span> : null}
                 {it.label}
               </a>
+            ) : it.onClick ? (
+              <button type="button" className="twc-breadcrumb__item" onClick={it.onClick}>
+                {it.icon ? <span aria-hidden="true" style={{ display: "inline-flex" }}>{it.icon}</span> : null}
+                {it.label}
+              </button>
+            ) : (
+              // #46: no href and no onClick → inert plain-text crumb (not a fake <a href="#">).
+              <span className="twc-breadcrumb__item">
+                {it.icon ? <span aria-hidden="true" style={{ display: "inline-flex" }}>{it.icon}</span> : null}
+                {it.label}
+              </span>
             )}
             {!last ? <span className="twc-breadcrumb__sep" aria-hidden="true">{sep}</span> : null}
           </React.Fragment>

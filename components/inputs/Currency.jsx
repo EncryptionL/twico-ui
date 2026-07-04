@@ -63,7 +63,9 @@ const CUR_CSS = `
 .twc-cur:focus-within { border-color: var(--_accent); box-shadow: var(--_ring); }
 .twc-cur[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-cur[data-invalid="true"]:focus-within { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
-.twc-cur[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; }
+.twc-cur[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
+.twc-cur[data-readonly="true"] { background: var(--color-surface-sunken); }
+.twc-cur__el:disabled { cursor: not-allowed; }
 .twc-cur__sym, .twc-cur__code {
   display: inline-flex; align-items: center; padding: 0 var(--space-3);
   background: var(--color-surface-sunken); color: var(--color-text-muted);
@@ -105,15 +107,34 @@ export function Currency({
   const [internal, setInternal] = React.useState(() => clampPrecision(String(defaultValue ?? ""), prec));
   const shown = controlled ? clampPrecision(String(value ?? ""), prec) : internal;
 
-  // Link hint/error text to the input for screen readers (merged with any consumer-supplied ids).
-  const describedBy = [error ? `${fieldId}-error` : hint ? `${fieldId}-hint` : null, rest["aria-describedby"]]
+  // #65: when a controlled `value`/`precision` change makes the render-time clamp
+  // diverge from what the parent holds, notify so the parent can reconcile. Converges:
+  // once the parent stores the clamped string back into `value`, shown === raw and it stops.
+  React.useEffect(() => {
+    if (!controlled) return;
+    const raw = String(value ?? "");
+    if (shown !== raw) {
+      const n = Number(shown);
+      onValueChange?.(shown === "" || Number.isNaN(n) ? null : n, shown);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [controlled, shown, value]);
+
+  // #72: single `${id}-desc` id (unified with Input/Textarea/Field), merged with any
+  // consumer-supplied aria-describedby. aria-invalid forced true on error.
+  const descId = `${fieldId}-desc`;
+  const describedBy = [error || hint ? descId : null, rest["aria-describedby"]]
     .filter(Boolean).join(" ") || undefined;
+  const ariaInvalid = invalid ? true : (rest["aria-invalid"] ?? undefined);
 
   function handleChange(e) {
     const next = clampPrecision(e.target.value, prec);
     if (!controlled) setInternal(next);
     onChange?.(e);
-    onValueChange?.(next === "" ? null : Number(next), next);
+    // #63: a transient "-"/"-." clamps to a non-empty, non-numeric string — guard Number()
+    // so onValueChange never emits NaN (its contract is number | null).
+    const n = Number(next);
+    onValueChange?.(next === "" || Number.isNaN(n) ? null : n, next);
   }
   function handleBlur(e) {
     rest.onBlur?.(e); // consumer handler first, so it fires even when the value is empty/NaN
@@ -129,18 +150,18 @@ export function Currency({
     <div className={`twc-field ${className}`}>
       {__twcStyles}
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
-      <div className="twc-cur" data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined}>
+      <div className="twc-cur" data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined} data-readonly={rest.readOnly || undefined}>
         <span className="twc-cur__sym" aria-hidden="true">{sym}</span>
         <input
           id={fieldId} className="twc-cur__el" inputMode="decimal" type="text"
           value={shown} placeholder={placeholder} disabled={disabled} required={required || undefined}
-          aria-invalid={invalid || undefined}
           {...rest}
-          onChange={handleChange} onBlur={handleBlur} aria-describedby={describedBy}
+          onChange={handleChange} onBlur={handleBlur}
+          aria-invalid={ariaInvalid} aria-describedby={describedBy}
         />
         <span className="twc-cur__code">{cur}</span>
       </div>
-      {error ? <span id={`${fieldId}-error`} className="twc-field__error">{error}</span> : hint ? <span id={`${fieldId}-hint`} className="twc-field__hint">{hint}</span> : null}
+      {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
 }
