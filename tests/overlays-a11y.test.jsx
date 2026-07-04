@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
 import { Toast, ToastViewport } from "../components/feedback/Toast.jsx";
 import { CommandPalette } from "../components/overlay/CommandPalette.jsx";
 import { Menu } from "../components/overlay/Menu.jsx";
@@ -32,7 +32,7 @@ describe("CommandPalette input name + honest aria-expanded (#117)", () => {
 
 describe("Menu semantics (#118)", () => {
   it("exposes aria-orientation and a presentation header", () => {
-    const { container } = render(
+    render(
       <Menu open trigger={<button>Open</button>} header={<span>Account</span>}
         items={[{ label: "Profile", onClick: () => {} }]} />
     );
