@@ -17,5 +17,7 @@ import { Sidebar } from "./Sidebar";
 ```
 
 Items: `{ label, icon?, href?, active?, onClick?, badge? }` or `{ section }`.
-Props: `brand`, `footer`, `collapsed`/`defaultCollapsed`, `collapsible`, `onCollapsedChange`.
-Give the sidebar a fixed-height parent; it fills it.
+Props: `brand`, `footer`, `collapsed`/`defaultCollapsed`, `collapsible`, `onCollapsedChange`, `navLabel`.
+The inner `<nav>` is a named landmark (`navLabel`, default "Main"), items are proper list items grouped
+under their section headings, and the collapse toggle exposes `aria-expanded`/`aria-controls`. Give the
+sidebar a fixed-height parent; it fills it.

@@ -30,6 +30,12 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   sticky?: boolean;
   /** Hamburger handler shown on small screens. */
   onMenuClick?: () => void;
+  /** Drives the hamburger's `aria-expanded` and its "Open menu"/"Close menu" accessible name. */
+  menuOpen?: boolean;
+  /** Id of the menu/drawer the hamburger controls (`aria-controls`). */
+  menuControls?: string;
+  /** Accessible name for the links `<nav>` landmark. @default "Primary" */
+  navLabel?: string;
 }
 
 export function Navbar(props: NavbarProps): React.JSX.Element;

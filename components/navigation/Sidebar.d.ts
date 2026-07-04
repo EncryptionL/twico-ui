@@ -32,6 +32,8 @@ export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   /** Show the collapse toggle. @default true */
   collapsible?: boolean;
   onCollapsedChange?: (collapsed: boolean) => void;
+  /** Accessible name for the inner `<nav>` landmark (and the overlay dialog). @default "Main" */
+  navLabel?: string;
 }
 
 export function Sidebar(props: SidebarProps): React.JSX.Element;

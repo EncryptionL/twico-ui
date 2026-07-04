@@ -18,6 +18,7 @@ const SIDEBAR_CSS = `
 .twc-sidebar__brand { display: inline-flex; align-items: center; gap: var(--space-2-5); font-weight: var(--font-extrabold); font-size: var(--text-lg); letter-spacing: -0.02em; color: var(--color-text); white-space: nowrap; overflow: hidden; min-width: 0;
   transition: font-size var(--duration-base) var(--ease-standard), gap var(--duration-base) var(--ease-standard); }
 .twc-sidebar__nav { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: var(--space-3); display: flex; flex-direction: column; gap: 2px; }
+.twc-sidebar__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
 .twc-sidebar__section { font-size: 10px; font-weight: var(--font-bold); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--color-text-subtle); padding: var(--space-3) var(--space-3) var(--space-1); white-space: nowrap; overflow: hidden; max-height: 2.5rem; opacity: 1; visibility: visible;
   transition: max-height var(--duration-base) var(--ease-standard), padding var(--duration-base) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard) var(--duration-fast), visibility 0s; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__section { max-height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; visibility: hidden;
@@ -69,10 +70,12 @@ export function Sidebar({
   defaultCollapsed = false,
   collapsible = true,
   onCollapsedChange,
+  navLabel = "Main",
   className = "",
   ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-sidebar-styles", SIDEBAR_CSS);
+  const navId = React.useId();
 
   const [internal, setInternal] = React.useState(defaultCollapsed);
   const collapsed = collapsedProp !== undefined ? collapsedProp : internal;
@@ -85,60 +88,78 @@ export function Sidebar({
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
   };
 
+  const renderItem = (it, i) => {
+    const href = safeHref(it.href);
+    const labelStr = typeof it.label === "string" ? it.label : undefined;
+    const inner = (
+      <>
+        {it.icon ? (
+          <span className="twc-sidebar__ic" aria-hidden="true">{it.icon}</span>
+        ) : labelStr != null ? (
+          <span className="twc-sidebar__ic twc-sidebar__ic--initial" aria-hidden="true">{labelStr.charAt(0)}</span>
+        ) : null}
+        <span className="twc-sidebar__label">{it.label}</span>
+        {it.badge != null ? <span className="twc-sidebar__badge">{it.badge}</span> : null}
+      </>
+    );
+    const common = {
+      className: "twc-sidebar__item",
+      "data-active": it.active || undefined,
+      "aria-current": it.active ? "page" : undefined,
+      onClick: it.onClick,
+      "aria-label": collapsed && labelStr != null ? labelStr : undefined,
+    };
+    const node = href != null ? (
+      <a href={href} {...common}>{inner}</a>
+    ) : (
+      <button type="button" {...common}>{inner}</button>
+    );
+    // Collapsed: the text label is hidden, so surface it as a Tooltip on the icon
+    // (it portals to <body>, so the rail's overflow can't clip it).
+    return collapsed && labelStr != null ? (
+      <Tooltip label={labelStr} placement="right" style={{ display: "block" }}>{node}</Tooltip>
+    ) : (
+      node
+    );
+  };
+
+  // Group items into lists — a { section } starts a new list labeled by its heading.
+  const groups = [];
+  let group = { sid: null, section: null, entries: [] };
+  let secN = 0;
+  for (let i = 0; i < items.length; i++) {
+    const it = items[i];
+    if (it.section) {
+      if (group.entries.length || group.section != null) groups.push(group);
+      secN += 1;
+      group = { sid: `${navId}-sec-${secN}`, section: it.section, entries: [] };
+    } else {
+      group.entries.push({ it, i });
+    }
+  }
+  if (group.entries.length || group.section != null) groups.push(group);
+
   return (
     <aside className={`twc-sidebar ${className}`} data-collapsed={collapsed || undefined} {...rest}>
       {__twcStyles}
       {brand ? <div className="twc-sidebar__head"><span className="twc-sidebar__brand">{brand}</span></div> : null}
-      <nav className="twc-sidebar__nav">
-        {items.map((it, i) =>
-          it.section ? (
-            <div key={i} className="twc-sidebar__section">{it.section}</div>
-          ) : (
-            (() => {
-              const href = safeHref(it.href);
-              const labelStr = typeof it.label === "string" ? it.label : undefined;
-              const inner = (
-                <>
-                  {it.icon ? (
-                    <span className="twc-sidebar__ic" aria-hidden="true">{it.icon}</span>
-                  ) : labelStr != null ? (
-                    <span className="twc-sidebar__ic twc-sidebar__ic--initial" aria-hidden="true">{labelStr.charAt(0)}</span>
-                  ) : null}
-                  <span className="twc-sidebar__label">{it.label}</span>
-                  {it.badge != null ? <span className="twc-sidebar__badge">{it.badge}</span> : null}
-                </>
-              );
-              const common = {
-                className: "twc-sidebar__item",
-                "data-active": it.active || undefined,
-                "aria-current": it.active ? "page" : undefined,
-                onClick: it.onClick,
-                "aria-label": collapsed && labelStr != null ? labelStr : undefined,
-              };
-              const node = href != null ? (
-                <a key={i} href={href} {...common}>{inner}</a>
-              ) : (
-                <button key={i} type="button" {...common}>{inner}</button>
-              );
-              // Collapsed: the text label is hidden, so surface it as a Tooltip on the
-              // icon (it portals to <body>, so the rail's overflow can't clip it).
-              // Expanded: the label is visible, no tooltip needed.
-              return collapsed && labelStr != null ? (
-                <Tooltip key={i} label={labelStr} placement="right" style={{ display: "block" }}>
-                  {node}
-                </Tooltip>
-              ) : (
-                node
-              );
-            })()
-          )
-        )}
+      <nav id={navId} className="twc-sidebar__nav" aria-label={navLabel}>
+        {groups.map((g, gi) => (
+          <React.Fragment key={gi}>
+            {g.section != null ? <div className="twc-sidebar__section" id={g.sid}>{g.section}</div> : null}
+            <ul className="twc-sidebar__list" {...(g.section != null ? { "aria-labelledby": g.sid } : {})}>
+              {g.entries.map(({ it, i }) => (
+                <li key={i}>{renderItem(it, i)}</li>
+              ))}
+            </ul>
+          </React.Fragment>
+        ))}
       </nav>
       {(footer || collapsible) ? (
         <div className="twc-sidebar__foot">
           {footer ? <div className="twc-sidebar__foot-user">{footer}</div> : null}
           {collapsible ? (
-            <button type="button" className="twc-sidebar__collapse" onClick={toggle} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
+            <button type="button" className="twc-sidebar__collapse" onClick={toggle} aria-expanded={!collapsed} aria-controls={navId} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
               <span>Collapse</span>
             </button>
