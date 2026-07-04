@@ -11,4 +11,4 @@ import { EmptyState } from "./EmptyState";
 />
 ```
 
-Props: `icon`, `title`, `description`, `actions`, `bordered`.
+Props: `icon`, `title`, `description`, `actions`, `border` (`bordered` is a deprecated alias, removed in 2.0).

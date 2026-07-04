@@ -1,16 +1,20 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { warnOnce } from "../_warn.js";
 
 export function Spinner({
   size = "md",
   color,
-  tone = "current",
+  tone,
   label = "Loading",
   className = "",
   ...rest
 }) {
-  // `color` is the preferred name; `tone` is a deprecated alias. `color` wins when both are set.
-  const resolvedColor = color ?? tone;
+  if (process.env.NODE_ENV !== "production" && tone !== undefined && color === undefined) {
+    warnOnce("Spinner.tone", "Spinner: `tone` is deprecated and will be removed in 2.0 — use `color`.");
+  }
+  // `color` is the preferred name; `tone` is a deprecated alias (removed in 2.0). `color` wins.
+  const resolvedColor = color ?? tone ?? "current";
   const __twcStyles = useScopedStyles("twc-spinner-styles", `
 .twc-spinner {
   --_sz: 24px; --_bw: 2.5px;

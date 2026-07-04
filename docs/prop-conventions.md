@@ -76,6 +76,15 @@ standardized 2026-06-18; this doc is the source of truth.)
   (`as="section"`) and a React component (`as={Link}`), whose props flow through `{...rest}`.
   `Button.as` is restricted to `"button" | "a"` because only those two are supported.
 
+## Deprecation policy
+- A superseded prop is marked `@deprecated since <minor>, removed in <major> — use ``X``` in its
+  `.d.ts`, keeps working until that major, and the canonical (non-deprecated) name always wins when
+  both are set.
+- In development the component calls `warnOnce` (the shared `components/_warn.js` helper) the first
+  time **only** the deprecated prop is supplied — a single, deduped `console.warn` that no-ops in
+  production. Current deprecations: `Spinner.tone` → `color`, `EmptyState.bordered` → `border`,
+  `Pagination.showJumper` → `showPageJumper` (all removed in 2.0).
+
 ## Events
 - Handlers are `onX` camelCase. The common ones: `onChange`, `onClick`, `onClose`, `onOpenChange`,
   `onFocus`, `onKeyDown`. Domain callbacks follow the same shape (`onRowClick`, `onCardMove`, `onStepClick`, …).
