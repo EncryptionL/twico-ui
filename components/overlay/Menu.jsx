@@ -39,6 +39,13 @@ const MENU_CSS = `
 .twc-menu__shortcut { margin-inline-start: auto; padding-inline-start: var(--space-3); font-size: var(--text-xs); color: var(--color-text-subtle); font-family: var(--font-mono); }
 `;
 
+// Block javascript:/data:/vbscript: URLs from reaching an anchor href (consumer hrefs are untrusted).
+const safeHref = (url) => {
+  if (url == null) return undefined;
+  const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+  return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
+};
+
 export function Menu({
   trigger,
   items,
@@ -48,6 +55,8 @@ export function Menu({
   open: openProp,
   defaultOpen = false,
   onOpenChange,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledby,
   className = "",
   ...rest
 }) {
@@ -60,6 +69,7 @@ export function Menu({
   const wrapRef = React.useRef(null);
   const menuRef = React.useRef(null);
   const menuId = React.useId();
+  const headerId = `${menuId}-header`;
 
   // Controlled when an `open` prop is passed; uncontrolled (internal state) otherwise.
   // Every internal open/close request goes through setOpen so `onOpenChange` always fires.
@@ -148,36 +158,44 @@ export function Menu({
     } else if ((e.key === "Enter" || e.key === " ") && active >= 0) {
       e.preventDefault();
       const it = items[active];
-      if (it && !it.disabled) { it.onClick?.(); setOpen(false); }
+      if (it && !it.disabled) {
+        // Focus stays on the trigger (roving via aria-activedescendant), so a link item
+        // never gets a native key event — click it so navigation + its onClick both run.
+        const el = typeof document !== "undefined" ? document.getElementById(`${menuId}-item-${active}`) : null;
+        if (el && el.tagName === "A") el.click();
+        else { it.onClick?.(); setOpen(false); }
+      }
     }
   }
 
   const menu = render && pos ? (
     <div className="twc-menu" id={menuId} ref={menuRef} data-state={open ? "open" : "closed"} data-align={align} data-flip={pos.flip || undefined} role="menu"
+      aria-label={ariaLabel} aria-labelledby={ariaLabelledby ?? (ariaLabel ? undefined : (header ? headerId : undefined))}
       style={{ top: pos.top, bottom: pos.bottom, left: pos.left, minWidth: pos.width, width: pos.width, maxHeight: pos.maxHeight }}>
       {__twcStyles}
-      {header ? <div className="twc-menu__header">{header}</div> : null}
+      {header ? <div className="twc-menu__header" id={headerId}>{header}</div> : null}
       {items.map((it, i) => {
         if (it.separator) return <div key={`s${i}`} className="twc-menu__sep" role="separator" />;
         if (it.label && it.heading) return <div key={`h${i}`} className="twc-menu__label">{it.label}</div>;
+        const href = !it.disabled ? safeHref(it.href) : undefined;
+        const Tag = href ? "a" : "button";
         return (
-          <button
+          <Tag
             key={i}
-            type="button"
             id={`${menuId}-item-${i}`}
             className="twc-menu__item"
             role="menuitem"
             tabIndex={-1}
             data-danger={it.danger || undefined}
             data-active={active === i || undefined}
-            disabled={it.disabled}
             onMouseEnter={() => setActive(i)}
             onClick={() => { it.onClick?.(); setOpen(false); }}
+            {...(Tag === "button" ? { type: "button", disabled: it.disabled } : { href, target: it.target, rel: it.rel })}
           >
             {it.icon}
             <span className="twc-menu__item-label">{it.label}</span>
             {it.shortcut ? <span className="twc-menu__shortcut">{it.shortcut}</span> : null}
-          </button>
+          </Tag>
         );
       })}
     </div>

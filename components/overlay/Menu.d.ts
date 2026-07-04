@@ -12,6 +12,12 @@ export interface MenuItemDef {
   /** Render in danger color. */
   danger?: boolean;
   disabled?: boolean;
+  /** Turns the item into a link: renders `<a role="menuitem" href>`. Sanitized against javascript:/data:/vbscript:. `onClick` (if also set) still fires, then the menu closes. */
+  href?: string;
+  /** Anchor target when `href` is set (e.g. "_blank"). */
+  target?: string;
+  /** Anchor rel when `href` is set — pair "_blank" with "noopener noreferrer". */
+  rel?: string;
   /** Render a divider line (ignores other fields). */
   separator?: boolean;
   /** Render as an uppercase section heading. */
@@ -42,6 +48,10 @@ export interface MenuProps extends React.HTMLAttributes<HTMLSpanElement> {
   open?: boolean;
   /** Called with the requested open state on trigger click, item select, Esc, or outside click. */
   onOpenChange?: (open: boolean) => void;
+  /** Accessible name for the `role="menu"` popup. When omitted and a `header` is set, the header labels the popup. */
+  "aria-label"?: string;
+  /** Id(s) of element(s) that label the popup; overrides the header fallback. */
+  "aria-labelledby"?: string;
 }
 
 export function Menu(props: MenuProps): React.JSX.Element;

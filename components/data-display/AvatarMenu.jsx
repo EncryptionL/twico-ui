@@ -69,5 +69,5 @@ export function AvatarMenu({
     </span>
   );
 
-  return <Menu className={className} trigger={trigger} items={items} header={header} align={align} width={240} {...rest} />;
+  return <Menu className={className} trigger={trigger} items={items} header={header} align={align} width={240} aria-label={`${name || "Account"} menu`} {...rest} />;
 }

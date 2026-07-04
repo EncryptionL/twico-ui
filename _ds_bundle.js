@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"0c2a50cc3c0d","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"10ba99b1159a","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"bc9c9e17e770","components/data-display/Datatable.jsx":"5e8329337421","components/data-display/Kanban.jsx":"bd338635ef5d","components/data-display/List.jsx":"5877523aa09b","components/data-display/Pagination.jsx":"b92a0df4c275","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"d41ad1e9dd43","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"207beb76ccb6","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"2f55e9346191","components/inputs/ColorPicker.jsx":"0ac7bbc546fa","components/inputs/Combobox.jsx":"436e6d139b6f","components/inputs/Currency.jsx":"60594dac5624","components/inputs/CurrencyField.jsx":"ecf461d3c1b4","components/inputs/DatePicker.jsx":"a89e65d7e61c","components/inputs/DateRangePicker.jsx":"c53507555c94","components/inputs/Field.jsx":"c7dad39251fb","components/inputs/FileUpload.jsx":"a1558f86aa72","components/inputs/Input.jsx":"0b04ea394ac3","components/inputs/MultiSelect.jsx":"154127e56d7a","components/inputs/Radio.jsx":"9e8b16e7eff1","components/inputs/Rating.jsx":"5b2d5bf61030","components/inputs/Select.jsx":"d81caed79a2c","components/inputs/Slider.jsx":"597b22f1c677","components/inputs/Switch.jsx":"00c69a2e3cc6","components/inputs/Textarea.jsx":"73235e9c955e","components/layout/AppShell.jsx":"a4bbb1856620","components/layout/Box.jsx":"0b3d9cee1567","components/layout/Container.jsx":"387427a04d92","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"b26227795255","components/layout/Stack.jsx":"e2eb6de90d22","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Breadcrumb.jsx":"4d0ec4c3f855","components/navigation/Navbar.jsx":"01db912b36ae","components/navigation/Sidebar.jsx":"475b81b57c2c","components/navigation/Stepper.jsx":"78b38911ce90","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d91bb4be5d44","components/overlay/CommandPalette.jsx":"a720066f61be","components/overlay/Dialog.jsx":"079e0a3b7432","components/overlay/Drawer.jsx":"032f4a1526cb","components/overlay/Menu.jsx":"79450f638870","components/overlay/Popover.jsx":"bc22e921093f","components/overlay/Tooltip.jsx":"501134b648dd","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"4f8d40741a8a","components/typography/Text.jsx":"c72881f6858e","src/index.ts":"a4c2f77eba83"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"10ba99b1159a","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"bc9c9e17e770","components/data-display/Datatable.jsx":"5e8329337421","components/data-display/Kanban.jsx":"bd338635ef5d","components/data-display/List.jsx":"5877523aa09b","components/data-display/Pagination.jsx":"b92a0df4c275","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"d41ad1e9dd43","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"207beb76ccb6","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"2f55e9346191","components/inputs/ColorPicker.jsx":"0ac7bbc546fa","components/inputs/Combobox.jsx":"436e6d139b6f","components/inputs/Currency.jsx":"60594dac5624","components/inputs/CurrencyField.jsx":"ecf461d3c1b4","components/inputs/DatePicker.jsx":"a89e65d7e61c","components/inputs/DateRangePicker.jsx":"c53507555c94","components/inputs/Field.jsx":"c7dad39251fb","components/inputs/FileUpload.jsx":"a1558f86aa72","components/inputs/Input.jsx":"0b04ea394ac3","components/inputs/MultiSelect.jsx":"154127e56d7a","components/inputs/Radio.jsx":"9e8b16e7eff1","components/inputs/Rating.jsx":"5b2d5bf61030","components/inputs/Select.jsx":"d81caed79a2c","components/inputs/Slider.jsx":"597b22f1c677","components/inputs/Switch.jsx":"00c69a2e3cc6","components/inputs/Textarea.jsx":"73235e9c955e","components/layout/AppShell.jsx":"a4bbb1856620","components/layout/Box.jsx":"0b3d9cee1567","components/layout/Container.jsx":"387427a04d92","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"b26227795255","components/layout/Stack.jsx":"e2eb6de90d22","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Breadcrumb.jsx":"4d0ec4c3f855","components/navigation/Navbar.jsx":"01db912b36ae","components/navigation/Sidebar.jsx":"475b81b57c2c","components/navigation/Stepper.jsx":"78b38911ce90","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d91bb4be5d44","components/overlay/CommandPalette.jsx":"a720066f61be","components/overlay/Dialog.jsx":"079e0a3b7432","components/overlay/Drawer.jsx":"032f4a1526cb","components/overlay/Menu.jsx":"0fc7aff0b8b7","components/overlay/Popover.jsx":"bc22e921093f","components/overlay/Tooltip.jsx":"501134b648dd","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"4f8d40741a8a","components/typography/Text.jsx":"c72881f6858e","src/index.ts":"a4c2f77eba83"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -459,6 +459,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-menu__item-label { flex: 1 1 auto; min-width: 0; }
 .twc-menu__shortcut { margin-inline-start: auto; padding-inline-start: var(--space-3); font-size: var(--text-xs); color: var(--color-text-subtle); font-family: var(--font-mono); }
 `;
+  var safeHref = (url) => {
+    if (url == null) return void 0;
+    const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+    return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
+  };
   function Menu({
     trigger,
     items,
@@ -468,6 +473,8 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     open: openProp,
     defaultOpen = false,
     onOpenChange,
+    "aria-label": ariaLabel,
+    "aria-labelledby": ariaLabelledby,
     className = "",
     ...rest
   }) {
@@ -479,6 +486,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     const wrapRef = import_react.default.useRef(null);
     const menuRef = import_react.default.useRef(null);
     const menuId = import_react.default.useId();
+    const headerId = `${menuId}-header`;
     const controlled = openProp !== void 0;
     const open = controlled ? !!openProp : openState;
     const openRef = import_react.default.useRef(open);
@@ -574,8 +582,12 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         e.preventDefault();
         const it = items[active];
         if (it && !it.disabled) {
-          it.onClick?.();
-          setOpen(false);
+          const el = typeof document !== "undefined" ? document.getElementById(`${menuId}-item-${active}`) : null;
+          if (el && el.tagName === "A") el.click();
+          else {
+            it.onClick?.();
+            setOpen(false);
+          }
         }
       }
     }
@@ -589,29 +601,32 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         "data-align": align,
         "data-flip": pos.flip || void 0,
         role: "menu",
+        "aria-label": ariaLabel,
+        "aria-labelledby": ariaLabelledby ?? (ariaLabel ? void 0 : header ? headerId : void 0),
         style: { top: pos.top, bottom: pos.bottom, left: pos.left, minWidth: pos.width, width: pos.width, maxHeight: pos.maxHeight },
         children: [
           __twcStyles,
-          header ? /* @__PURE__ */ jsx("div", { className: "twc-menu__header", children: header }) : null,
+          header ? /* @__PURE__ */ jsx("div", { className: "twc-menu__header", id: headerId, children: header }) : null,
           items.map((it, i) => {
             if (it.separator) return /* @__PURE__ */ jsx("div", { className: "twc-menu__sep", role: "separator" }, `s${i}`);
             if (it.label && it.heading) return /* @__PURE__ */ jsx("div", { className: "twc-menu__label", children: it.label }, `h${i}`);
+            const href = !it.disabled ? safeHref(it.href) : void 0;
+            const Tag2 = href ? "a" : "button";
             return /* @__PURE__ */ jsxs(
-              "button",
+              Tag2,
               {
-                type: "button",
                 id: `${menuId}-item-${i}`,
                 className: "twc-menu__item",
                 role: "menuitem",
                 tabIndex: -1,
                 "data-danger": it.danger || void 0,
                 "data-active": active === i || void 0,
-                disabled: it.disabled,
                 onMouseEnter: () => setActive(i),
                 onClick: () => {
                   it.onClick?.();
                   setOpen(false);
                 },
+                ...Tag2 === "button" ? { type: "button", disabled: it.disabled } : { href, target: it.target, rel: it.rel },
                 children: [
                   it.icon,
                   /* @__PURE__ */ jsx("span", { className: "twc-menu__item-label", children: it.label }),
@@ -708,7 +723,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         ]
       }
     );
-    return /* @__PURE__ */ jsx(Menu, { className, trigger, items, header, align, width: 240, ...rest });
+    return /* @__PURE__ */ jsx(Menu, { className, trigger, items, header, align, width: 240, "aria-label": `${name || "Account"} menu`, ...rest });
   }
   var BADGE_CSS = `
 .twc-badge {
@@ -775,7 +790,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-breadcrumb__ellipsis { border: none; background: transparent; cursor: pointer; color: var(--color-text-subtle); padding: 3px 7px; border-radius: var(--radius-sm); font: inherit; }
 .twc-breadcrumb__ellipsis:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 `;
-  function safeHref(url) {
+  function safeHref2(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -818,7 +833,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
             "a",
             {
               className: "twc-breadcrumb__item",
-              href: safeHref(it.href) || "#",
+              href: safeHref2(it.href) || "#",
               onClick: it.onClick,
               children: [
                 it.icon ? /* @__PURE__ */ jsx("span", { "aria-hidden": "true", style: { display: "inline-flex" }, children: it.icon }) : null,
@@ -921,7 +936,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   animation: twico-ripple var(--duration-slow) var(--ease-out) forwards;
 }
 `;
-  function safeHref2(url) {
+  function safeHref3(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -972,7 +987,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         "data-block": fullWidth || void 0,
         disabled: Tag2 === "button" ? disabled || loading : void 0,
         type: Tag2 === "button" ? "button" : void 0,
-        href: inert ? void 0 : safeHref2(href),
+        href: inert ? void 0 : safeHref3(href),
         "aria-disabled": inert || void 0,
         tabIndex: inert ? -1 : void 0,
         "aria-busy": loading || void 0,
@@ -8371,7 +8386,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 `;
   function List({ items, plain = false, className = "", ...rest }) {
     const __twcStyles = useScopedStyles("twc-list-styles", LIST_CSS);
-    const safeHref11 = (url) => {
+    const safeHref12 = (url) => {
       if (url == null) return void 0;
       const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
       return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -8379,7 +8394,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     return /* @__PURE__ */ jsxs("ul", { className: `twc-list ${className}`, "data-plain": plain || void 0, ...rest, children: [
       __twcStyles,
       items.map((it, i) => {
-        const href = safeHref11(it.href);
+        const href = safeHref12(it.href);
         const interactive = Boolean(it.onClick || href);
         const Tag2 = href ? "a" : interactive ? "button" : "div";
         const content = /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -8433,7 +8448,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   .twc-navbar__menu-btn { display: inline-grid; }
 }
 `;
-  function safeHref3(url) {
+  function safeHref4(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -8453,9 +8468,9 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     return /* @__PURE__ */ jsxs("header", { className: `twc-navbar ${className}`, "data-sticky": sticky || void 0, ...rest, children: [
       __twcStyles,
       onMenuClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__menu-btn", "aria-label": "Open menu", onClick: onMenuClick, children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M4 6h16M4 12h16M4 18h16" }) }) }) : null,
-      brand ? brandHref ? /* @__PURE__ */ jsx("a", { className: "twc-navbar__brand", href: safeHref3(brandHref), children: brand }) : onBrandClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__brand", onClick: onBrandClick, children: brand }) : /* @__PURE__ */ jsx("span", { className: "twc-navbar__brand", children: brand }) : null,
+      brand ? brandHref ? /* @__PURE__ */ jsx("a", { className: "twc-navbar__brand", href: safeHref4(brandHref), children: brand }) : onBrandClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__brand", onClick: onBrandClick, children: brand }) : /* @__PURE__ */ jsx("span", { className: "twc-navbar__brand", children: brand }) : null,
       /* @__PURE__ */ jsx("nav", { className: "twc-navbar__links", children: links.map((l, i) => {
-        const href = safeHref3(l.href);
+        const href = safeHref4(l.href);
         const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
           l.icon,
           l.label
@@ -9168,7 +9183,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       if (collapsedProp === void 0) setInternal(next);
       onCollapsedChange?.(next);
     };
-    const safeHref11 = (url) => {
+    const safeHref12 = (url) => {
       if (url == null) return void 0;
       const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
       return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -9178,7 +9193,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       brand ? /* @__PURE__ */ jsx("div", { className: "twc-sidebar__head", children: /* @__PURE__ */ jsx("span", { className: "twc-sidebar__brand", children: brand }) }) : null,
       /* @__PURE__ */ jsx("nav", { className: "twc-sidebar__nav", children: items.map(
         (it, i) => it.section ? /* @__PURE__ */ jsx("div", { className: "twc-sidebar__section", children: it.section }, i) : (() => {
-          const href = safeHref11(it.href);
+          const href = safeHref12(it.href);
           const labelStr = typeof it.label === "string" ? it.label : void 0;
           const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
             it.icon ? /* @__PURE__ */ jsx("span", { className: "twc-sidebar__ic", "aria-hidden": "true", children: it.icon }) : labelStr != null ? /* @__PURE__ */ jsx("span", { className: "twc-sidebar__ic twc-sidebar__ic--initial", "aria-hidden": "true", children: labelStr.charAt(0) }) : null,
@@ -10595,7 +10610,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     if (BG[bg]) return `var(${BG[bg]})`;
     return String(bg).startsWith("--") ? `var(${bg})` : bg;
   }
-  function safeHref4(url) {
+  function safeHref5(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -10640,11 +10655,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       boxShadow: shadow ? `var(--shadow-${shadow})` : void 0,
       ...style
     };
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref4(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref5(rest.href);
     return /* @__PURE__ */ jsx(Tag2, { className: `twc-box ${className}`.trim(), style: s, ...rest, children });
   }
   var SIZES = { sm: 640, md: 768, lg: 1024, xl: 1280, full: "100%" };
-  function safeHref5(url) {
+  function safeHref6(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -10659,7 +10674,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     ...rest
   }) {
     const max = SIZES[size] ?? size;
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref5(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref6(rest.href);
     return /* @__PURE__ */ jsx(
       Tag2,
       {
@@ -10684,7 +10699,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   function len(v) {
     return typeof v === "number" ? `${v}px` : v;
   }
-  function safeHref6(url) {
+  function safeHref7(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -10702,7 +10717,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     ...rest
   }) {
     const templateColumns = minChildWidth ? `repeat(auto-fill, minmax(min(${len(minChildWidth)}, 100%), 1fr))` : `repeat(${columns || 1}, minmax(0, 1fr))`;
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref6(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref7(rest.href);
     return /* @__PURE__ */ jsx(
       Tag2,
       {
@@ -10725,7 +10740,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     if (typeof v === "number") return `var(--space-${String(v).replace(".", "-")})`;
     return v;
   }
-  function safeHref7(url) {
+  function safeHref8(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -10743,7 +10758,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     children,
     ...rest
   }) {
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref7(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref8(rest.href);
     return /* @__PURE__ */ jsx(
       Tag2,
       {
@@ -10786,7 +10801,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-code__copy:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-code__copy svg { width: 15px; height: 15px; display: block; }
 `;
-  function safeHref8(url) {
+  function safeHref9(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -10803,7 +10818,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }) {
     const __twcStyles = useScopedStyles("twc-code-styles", CODE_CSS);
     const Tag2 = as ?? (block ? "pre" : "code");
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref8(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref9(rest.href);
     const rootRef = import_react.default.useRef(null);
     const [copied, setCopied] = import_react.default.useState(false);
     const timerRef = import_react.default.useRef(null);
@@ -10828,7 +10843,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     ] });
   }
   var LEVEL_SIZE = { 1: "4xl", 2: "2xl", 3: "xl", 4: "lg", 5: "base", 6: "sm" };
-  function safeHref9(url) {
+  function safeHref10(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -10845,7 +10860,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }) {
     const Tag2 = as || `h${level}`;
     const sz = size || LEVEL_SIZE[level] || "2xl";
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref9(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref10(rest.href);
     return /* @__PURE__ */ jsx(
       Tag2,
       {
@@ -10879,7 +10894,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     info: "--color-info-subtle-fg",
     neutral: "--color-text-muted"
   };
-  function safeHref10(url) {
+  function safeHref11(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -10895,7 +10910,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     children,
     ...rest
   }) {
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref10(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref11(rest.href);
     return /* @__PURE__ */ jsx(
       Tag2,
       {

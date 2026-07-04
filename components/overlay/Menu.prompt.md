@@ -16,5 +16,7 @@ import { Menu } from "./Menu";
 />
 ```
 
-Item fields: `label`, `icon`, `onClick`, `shortcut`, `danger`, `disabled`, `separator`, `heading`.
-Extras: `header` (rich node above items), `width`, `align` (start/end). Portaled + keyboard-navigable (↑/↓, Enter, Esc).
+Item fields: `label`, `icon`, `onClick`, `href` (+ `target`/`rel` — renders the item as a real,
+scheme-sanitized `<a role="menuitem">`), `shortcut`, `danger`, `disabled`, `separator`, `heading`.
+Extras: `header` (rich node above items), `width`, `align` (start/end), `aria-label` (names the
+`role="menu"` popup; a `header` labels it by default). Portaled + keyboard-navigable (↑/↓, Enter, Esc).
