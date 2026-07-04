@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useFocusTrap } from "../_overlay.js";
 import { createPortal } from "react-dom";
 
 const FIELD_CSS = `
@@ -152,6 +153,9 @@ export function DateRangePicker({
 
   const set = (r) => { if (value === undefined) setInternal(r); onChange?.(r); };
 
+  // #108: trap Tab within the popover + restore focus to the trigger on close (was missing).
+  useFocusTrap(popRef, open && !!coords);
+
   // #101: bounds parity with DatePicker.
   const outOfRange = (d) => (min && ymd(d) < ymd(min)) || (max && ymd(d) > ymd(max)) || Boolean(disabledDate && disabledDate(d));
 
@@ -216,7 +220,7 @@ export function DateRangePicker({
       </div>
 
       {open && coords ? createPortal(
-        <div className="twc-drp__pop" ref={popRef} role="dialog" aria-label="Choose date range"
+        <div className="twc-drp__pop" ref={popRef} role="dialog" aria-modal="true" aria-label="Choose date range"
           style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" }}>
           {presets ? (
             <div className="twc-drp__presets">

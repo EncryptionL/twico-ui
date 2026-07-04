@@ -20,7 +20,7 @@ const FOCUSABLE =
  * focus to the previously-focused element on deactivate. Escape is intentionally
  * NOT handled here (it's component-specific). SSR-safe.
  */
-export function useFocusTrap(ref, active = true, { restoreFocus = true } = {}) {
+export function useFocusTrap(ref, active = true, { restoreFocus = true, initialFocus } = {}) {
   // Move focus in on activate; restore on deactivate. A PASSIVE effect (not layout):
   // React restores focus to the pre-commit active element during the commit's layout
   // phase, so restoring here in the layout phase gets clobbered — the passive phase wins.
@@ -29,8 +29,10 @@ export function useFocusTrap(ref, active = true, { restoreFocus = true } = {}) {
     const node = ref.current;
     if (!node) return undefined;
     const prevFocused = document.activeElement;
-    const first = node.querySelector(FOCUSABLE);
-    (first || node).focus();
+    // `initialFocus` (a ref or a () => Element) overrides the default "first focusable"
+    // landing — e.g. a calendar day grid or a color area rather than the Prev-month button.
+    const target = (typeof initialFocus === "function" ? initialFocus() : initialFocus && initialFocus.current) || node.querySelector(FOCUSABLE);
+    (target || node).focus();
     return () => {
       if (restoreFocus && prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
     };

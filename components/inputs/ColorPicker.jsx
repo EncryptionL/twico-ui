@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useFocusTrap } from "../_overlay.js";
 import { createPortal } from "react-dom";
 
 const FIELD_CSS = `
@@ -152,20 +153,9 @@ export function ColorPicker({
     return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
   }, [open]);
 
-  // Move focus into the popover when it opens (it's portaled to <body>, so Tab from the
-  // trigger would otherwise skip it entirely), and return focus to the trigger on close.
-  const prevOpen = React.useRef(false);
-  React.useEffect(() => {
-    let id;
-    if (!prevOpen.current && open) {
-      id = setTimeout(() => areaRef.current?.focus({ preventScroll: true }), 20);
-    } else if (prevOpen.current && !open) {
-      const ae = typeof document !== "undefined" ? document.activeElement : null;
-      if (!ae || ae === document.body) triggerRef.current?.focus();
-    }
-    prevOpen.current = open;
-    return () => clearTimeout(id);
-  }, [open]);
+  // #108: trap Tab within the popover, land focus on the saturation/value area, and
+  // restore focus to the trigger on close (it portals to <body>).
+  useFocusTrap(popRef, open && !!coords, { initialFocus: areaRef });
 
   const commit = (next) => { const h = hsvToHex(next.h, next.s, next.v); setHsv(next); if (value === undefined) setInternal(h); onChange?.(h); };
 
@@ -227,7 +217,7 @@ export function ColorPicker({
       </div>
 
       {open && coords ? createPortal(
-        <div className="twc-cp__pop" ref={popRef} role="dialog" aria-label="Color picker"
+        <div className="twc-cp__pop" ref={popRef} role="dialog" aria-modal="true" aria-label="Color picker"
           style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" }}>
           <div className="twc-cp__area" ref={areaRef} style={{ "--_h": hsv.h }} onPointerDown={startDrag(dragArea)}
             role="slider" tabIndex={0} aria-label="Saturation and brightness"

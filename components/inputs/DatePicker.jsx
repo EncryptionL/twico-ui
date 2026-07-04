@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useFocusTrap } from "../_overlay.js";
 import { createPortal } from "react-dom";
 
 const FIELD_CSS = `
@@ -170,20 +171,10 @@ export function DatePicker({
     return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
   }, [open]);
 
-  // Move focus into the calendar when it opens (it's portaled to <body>, so Tab from the
-  // trigger would skip it), and return focus to the trigger on close.
-  const prevOpen = React.useRef(false);
-  React.useEffect(() => {
-    let id;
-    if (!prevOpen.current && open) {
-      id = setTimeout(() => gridRef.current?.querySelector('[tabindex="0"]')?.focus({ preventScroll: true }), 30);
-    } else if (prevOpen.current && !open) {
-      const ae = typeof document !== "undefined" ? document.activeElement : null;
-      if (!ae || ae === document.body) triggerRef.current?.focus();
-    }
-    prevOpen.current = open;
-    return () => clearTimeout(id);
-  }, [open]);
+  // #108: trap Tab within the calendar and restore focus to the trigger on close (the
+  // calendar portals to <body>, so Tab from the trigger would otherwise skip it). Lands
+  // focus on the tabbable day rather than the Prev-month button.
+  useFocusTrap(popRef, open && !!coords, { initialFocus: () => gridRef.current?.querySelector('[tabindex="0"]') });
 
   // Locale-aware month/weekday names — fall back to the shipped English arrays
   // when `locale` is omitted so default output stays byte-identical.
@@ -285,7 +276,7 @@ export function DatePicker({
       </div>
 
       {open && coords ? createPortal(
-        <div className="twc-dp__pop" ref={popRef} role="dialog" aria-label="Choose date"
+        <div className="twc-dp__pop" ref={popRef} role="dialog" aria-modal="true" aria-label="Choose date"
           style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" }}>
           <div className="twc-dp__head">
             <button type="button" className="twc-dp__nav" aria-label="Previous" onClick={() => setView(mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1))}>

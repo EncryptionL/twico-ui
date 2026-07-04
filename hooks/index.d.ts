@@ -149,6 +149,8 @@ export function useId(prefix?: string): string;
 export interface UseFocusTrapOptions {
   /** Restore focus to the previously-focused element when the trap deactivates. @default true */
   restoreFocus?: boolean;
+  /** Element to focus on activate instead of the first focusable — a ref or a `() => Element | null`. */
+  initialFocus?: React.RefObject<HTMLElement | null> | (() => HTMLElement | null | undefined);
 }
 
 /**
