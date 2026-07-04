@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"0e20db89335d","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"65d865e8012e","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1a5441dddb5b","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"ae1d49e59288","src/index.ts":"5bf37ab8cbee"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"c361fce431ea","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"0037d6ffc811","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"36d511522f5b","components/data-display/Datatable.jsx":"0e20db89335d","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"a64d4c7a0242","components/data-display/Gauge.jsx":"b41560bae69d","components/data-display/Heatmap.jsx":"4d47209452ea","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"f52060532797","components/data-display/PolarAreaChart.jsx":"81eeab8682e2","components/data-display/RadarChart.jsx":"4dfeb8ac7b8c","components/data-display/RangeChart.jsx":"54dc6a5e60b0","components/data-display/ScatterChart.jsx":"205ab9448693","components/data-display/Sparkline.jsx":"eec60d43ccee","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"33bf115d17bc","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"65d865e8012e","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1a5441dddb5b","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"ae1d49e59288","src/index.ts":"42079cb33554"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -62,8 +62,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     AvatarMenu: () => AvatarMenu,
     Badge: () => Badge,
     Box: () => Box,
+    Boxplot: () => Boxplot,
     Breadcrumb: () => Breadcrumb,
+    BubbleChart: () => BubbleChart,
     Button: () => Button,
+    Candlestick: () => Candlestick,
     Card: () => Card,
     Carousel: () => Carousel,
     Chart: () => Chart,
@@ -81,13 +84,17 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     DateRangePicker: () => DateRangePicker,
     Dialog: () => Dialog,
     Divider: () => Divider,
+    DonutChart: () => DonutChart,
     Drawer: () => Drawer,
     EmptyState: () => EmptyState,
     Field: () => Field,
     FileUpload: () => FileUpload,
     Form: () => Form,
+    FunnelChart: () => FunnelChart,
+    Gauge: () => Gauge,
     Grid: () => Grid,
     Heading: () => Heading,
+    Heatmap: () => Heatmap,
     IconButton: () => IconButton,
     Image: () => Image,
     Input: () => Input,
@@ -99,17 +106,23 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     MultiSelect: () => MultiSelect,
     Navbar: () => Navbar,
     Pagination: () => Pagination,
+    PieChart: () => PieChart,
+    PolarAreaChart: () => PolarAreaChart,
     Popover: () => Popover,
     Portal: () => Portal,
     Pre: () => Pre,
     Progress: () => Progress,
+    RadarChart: () => RadarChart,
     Radio: () => Radio,
     RadioGroup: () => RadioGroup,
+    RangeChart: () => RangeChart,
     Rating: () => Rating,
+    ScatterChart: () => ScatterChart,
     Select: () => Select,
     Sidebar: () => Sidebar,
     Skeleton: () => Skeleton,
     Slider: () => Slider,
+    Sparkline: () => Sparkline,
     Spinner: () => Spinner,
     Stack: () => Stack,
     Stat: () => Stat,
@@ -127,6 +140,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     ToastViewport: () => ToastViewport,
     Tooltip: () => Tooltip,
     TreeView: () => TreeView,
+    Treemap: () => Treemap,
     TwicoProvider: () => TwicoProvider,
     VisuallyHidden: () => VisuallyHidden,
     createTheme: () => createTheme,
@@ -159,7 +173,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useToggle: () => useToggle,
     useWindowSize: () => useWindowSize
   });
-  var React36 = __toESM(require_react(), 1);
+  var React51 = __toESM(require_react(), 1);
   var import_react = __toESM(require_react(), 1);
 
   // rg:react/jsx-runtime
@@ -177,11 +191,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 
   // dist/index.mjs
   var import_react_dom = __toESM(require_react_dom(), 1);
-  var SUPPORTS_STYLE_HOIST = parseInt(String(React36.version), 10) >= 19;
-  var NonceContext = React36.createContext(void 0);
+  var SUPPORTS_STYLE_HOIST = parseInt(String(React51.version), 10) >= 19;
+  var NonceContext = React51.createContext(void 0);
   function useScopedStyles(id, css) {
-    const nonce = React36.useContext(NonceContext);
-    React36.useInsertionEffect(() => {
+    const nonce = React51.useContext(NonceContext);
+    React51.useInsertionEffect(() => {
       if (SUPPORTS_STYLE_HOIST) return;
       if (typeof document === "undefined") return;
       if (!css) return;
@@ -197,7 +211,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       }
       if (el.textContent !== css) el.textContent = css;
     }, [id, css, nonce]);
-    return SUPPORTS_STYLE_HOIST && css ? React36.createElement("style", { href: id, precedence: "twc-ui", nonce }, css) : null;
+    return SUPPORTS_STYLE_HOIST && css ? React51.createElement("style", { href: id, precedence: "twc-ui", nonce }, css) : null;
   }
   function TwicoProvider({ nonce, children }) {
     return import_react.default.createElement(NonceContext.Provider, { value: nonce }, children);
@@ -840,16 +854,16 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     const place = import_react.default.useCallback(() => {
       const t = wrapRef.current;
       if (!t) return;
-      const r = t.getBoundingClientRect();
-      const w = width || Math.max(200, r.width);
+      const r2 = t.getBoundingClientRect();
+      const w = width || Math.max(200, r2.width);
       const gap = 6, M = 8, vw = window.innerWidth, vh = window.innerHeight;
       const estH = menuRef.current ? menuRef.current.offsetHeight : 220;
-      const flip = vh - r.bottom < estH + gap && r.top > vh - r.bottom;
-      const top = flip ? void 0 : r.bottom + gap;
-      const bottom = flip ? vh - r.top + gap : void 0;
-      let left = align === "end" ? r.right - w : r.left;
+      const flip = vh - r2.bottom < estH + gap && r2.top > vh - r2.bottom;
+      const top = flip ? void 0 : r2.bottom + gap;
+      const bottom = flip ? vh - r2.top + gap : void 0;
+      let left = align === "end" ? r2.right - w : r2.left;
       left = Math.max(M, Math.min(left, vw - w - M));
-      const avail = (flip ? r.top : vh - r.bottom) - gap - M;
+      const avail = (flip ? r2.top : vh - r2.bottom) - gap - M;
       setPos({ top, bottom, left, width: w, flip, maxHeight: Math.max(120, avail) });
     }, [align, width]);
     import_react.default.useEffect(() => {
@@ -1327,8 +1341,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       const x = keyboard ? rect.width / 2 - size2 / 2 : e.clientX - rect.left - size2 / 2;
       const y = keyboard ? rect.height / 2 - size2 / 2 : e.clientY - rect.top - size2 / 2;
       const id = Date.now() + Math.random();
-      setRipples((r) => [...r, { id, size: size2, x, y }]);
-      setTimeout(() => setRipples((r) => r.filter((x2) => x2.id !== id)), 600);
+      setRipples((r2) => [...r2, { id, size: size2, x, y }]);
+      setTimeout(() => setRipples((r2) => r2.filter((x2) => x2.id !== id)), 600);
       onClick?.(e);
     }
     return /* @__PURE__ */ jsxs(
@@ -1356,13 +1370,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             rightIcon ? /* @__PURE__ */ jsx("span", { className: "twc-btn__icon", "aria-hidden": "true", children: rightIcon }) : null
           ] }),
           loading ? /* @__PURE__ */ jsx("span", { className: "twc-btn__spinner", "aria-hidden": "true" }) : null,
-          ripples.map((r) => /* @__PURE__ */ jsx(
+          ripples.map((r2) => /* @__PURE__ */ jsx(
             "span",
             {
               className: "twc-ripple",
-              style: { width: r.size, height: r.size, left: r.x, top: r.y }
+              style: { width: r2.size, height: r2.size, left: r2.x, top: r2.y }
             },
-            r.id
+            r2.id
           ))
         ]
       }
@@ -1693,27 +1707,213 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       }
     );
   }
-  var CHART_CSS = `
-.twc-chart { font-family: var(--font-sans); width: 100%; }
-.twc-chart svg { display: block; width: 100%; overflow: visible; }
-.twc-chart__grid { stroke: var(--color-divider); stroke-width: 1; }
-.twc-chart__axis { fill: var(--color-text-subtle); font-size: 11px; }
-.twc-chart__bar { fill: var(--color-primary); transition: fill var(--duration-fast) var(--ease-standard); }
-.twc-chart__bar:hover { fill: var(--color-primary-hover); }
-.twc-chart__line { fill: none; stroke: var(--color-primary); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.twc-chart__dot { fill: var(--color-surface); stroke: var(--color-primary); stroke-width: 2.5; }
+  var CHART_PALETTE = [
+    "var(--brand-500)",
+    "var(--sky-500)",
+    "var(--emerald-500)",
+    "var(--amber-500)",
+    "var(--rose-500)",
+    "var(--indigo-500)",
+    "var(--slate-500)"
+  ];
+  function paletteAt(colors, i) {
+    const p = colors && colors.length ? colors : CHART_PALETTE;
+    return p[(i % p.length + p.length) % p.length];
+  }
+  function r(n) {
+    return Math.round((Number(n) || 0) * 100) / 100;
+  }
+  function niceCeil(v) {
+    if (!(v > 0)) return 1;
+    const pow = Math.pow(10, Math.floor(Math.log10(v)));
+    const n = v / pow;
+    const step = n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10;
+    return step * pow;
+  }
+  function niceNum(range, round) {
+    const exp = Math.floor(Math.log10(range || 1));
+    const frac = (range || 1) / Math.pow(10, exp);
+    let nf;
+    if (round) nf = frac < 1.5 ? 1 : frac < 3 ? 2 : frac < 7 ? 5 : 10;
+    else nf = frac <= 1 ? 1 : frac <= 2 ? 2 : frac <= 5 ? 5 : 10;
+    return nf * Math.pow(10, exp);
+  }
+  function niceScale(min, max, maxTicks = 5) {
+    if (!isFinite(min) || !isFinite(max)) return { min: 0, max: 1, step: 1, ticks: [0, 1] };
+    if (min === max) {
+      max = min + 1;
+    }
+    const range = niceNum(max - min, false);
+    const step = niceNum(range / Math.max(1, maxTicks - 1), true);
+    const niceMin = Math.floor(min / step) * step;
+    const niceMax = Math.ceil(max / step) * step;
+    const ticks = [];
+    for (let v = niceMin; v <= niceMax + step / 2; v += step) ticks.push(Number(v.toFixed(10)));
+    return { min: niceMin, max: niceMax, step, ticks };
+  }
+  function shortNum(v) {
+    const n = Number(v) || 0;
+    const abs = Math.abs(n), sign = n < 0 ? "-" : "";
+    if (abs >= 1e9) return sign + (abs / 1e9).toFixed(abs % 1e9 ? 1 : 0) + "B";
+    if (abs >= 1e6) return sign + (abs / 1e6).toFixed(abs % 1e6 ? 1 : 0) + "M";
+    if (abs >= 1e3) return sign + (abs / 1e3).toFixed(abs % 1e3 ? 1 : 0) + "k";
+    return String(Math.round(n * 100) / 100);
+  }
+  function fmtNumber(v) {
+    return (Number(v) || 0).toLocaleString();
+  }
+  var sum = (arr) => arr.reduce((a, b) => a + (Number(b) || 0), 0);
+  function polarDeg(cx, cy, radius, deg) {
+    const a = (deg - 90) * Math.PI / 180;
+    return [cx + radius * Math.cos(a), cy + radius * Math.sin(a)];
+  }
+  function arcPath(cx, cy, rOuter, rInner, startDeg, endDeg) {
+    let span = endDeg - startDeg;
+    if (span >= 360) {
+      endDeg = startDeg + 359.999;
+      span = 359.999;
+    }
+    const large = Math.abs(span) > 180 ? 1 : 0;
+    const [ox0, oy0] = polarDeg(cx, cy, rOuter, startDeg);
+    const [ox1, oy1] = polarDeg(cx, cy, rOuter, endDeg);
+    if (!(rInner > 0)) {
+      return `M${r(cx)} ${r(cy)} L${r(ox0)} ${r(oy0)} A${r(rOuter)} ${r(rOuter)} 0 ${large} 1 ${r(ox1)} ${r(oy1)} Z`;
+    }
+    const [ix1, iy1] = polarDeg(cx, cy, rInner, endDeg);
+    const [ix0, iy0] = polarDeg(cx, cy, rInner, startDeg);
+    return `M${r(ox0)} ${r(oy0)} A${r(rOuter)} ${r(rOuter)} 0 ${large} 1 ${r(ox1)} ${r(oy1)} L${r(ix1)} ${r(iy1)} A${r(rInner)} ${r(rInner)} 0 ${large} 0 ${r(ix0)} ${r(iy0)} Z`;
+  }
+  function linePath(points, { smooth = false, step = null } = {}) {
+    const p = points.filter((pt) => pt && isFinite(pt[0]) && isFinite(pt[1]));
+    if (!p.length) return "";
+    if (step) {
+      let d2 = `M${r(p[0][0])} ${r(p[0][1])}`;
+      for (let i = 1; i < p.length; i++) {
+        const [x, y] = p[i], [px, py] = p[i - 1];
+        if (step === "before") d2 += ` L${r(px)} ${r(y)} L${r(x)} ${r(y)}`;
+        else d2 += ` L${r(x)} ${r(py)} L${r(x)} ${r(y)}`;
+      }
+      return d2;
+    }
+    if (!smooth || p.length < 3) {
+      return p.map((pt, i) => `${i ? "L" : "M"}${r(pt[0])} ${r(pt[1])}`).join(" ");
+    }
+    let d = `M${r(p[0][0])} ${r(p[0][1])}`;
+    for (let i = 0; i < p.length - 1; i++) {
+      const p0 = p[i - 1] || p[i];
+      const p1 = p[i];
+      const p2 = p[i + 1];
+      const p3 = p[i + 2] || p2;
+      const c1x = p1[0] + (p2[0] - p0[0]) / 6;
+      const c1y = p1[1] + (p2[1] - p0[1]) / 6;
+      const c2x = p2[0] - (p3[0] - p1[0]) / 6;
+      const c2y = p2[1] - (p3[1] - p1[1]) / 6;
+      d += ` C${r(c1x)} ${r(c1y)} ${r(c2x)} ${r(c2y)} ${r(p2[0])} ${r(p2[1])}`;
+    }
+    return d;
+  }
+  function areaPath(points, baselineY, opts = {}) {
+    const p = points.filter((pt) => pt && isFinite(pt[0]) && isFinite(pt[1]));
+    if (!p.length) return "";
+    const top = linePath(p, opts);
+    const last = p[p.length - 1], first = p[0];
+    return `${top} L${r(last[0])} ${r(baselineY)} L${r(first[0])} ${r(baselineY)} Z`;
+  }
+  function polygonPath(points) {
+    const p = points.filter((pt) => pt && isFinite(pt[0]) && isFinite(pt[1]));
+    if (!p.length) return "";
+    return p.map((pt, i) => `${i ? "L" : "M"}${r(pt[0])} ${r(pt[1])}`).join(" ") + " Z";
+  }
+  var CHART_BASE_CSS = `
+.twc-chart { font-family: var(--font-sans); width: 100%; position: relative; color: var(--color-text); }
+.twc-chart svg { display: block; width: 100%; }
+.twc-chart svg text { fill: var(--color-text-subtle); }
+.twc-chart__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .twc-chart__legend { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-chart__leg { display: inline-flex; align-items: center; gap: 6px; }
-.twc-chart__leg-sw { width: 10px; height: 10px; border-radius: 3px; }
-@keyframes twc-chart-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-.twc-chart__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.twc-chart__leg[data-toggle="true"] { cursor: pointer; user-select: none; }
+.twc-chart__leg[data-off="true"] { opacity: 0.4; }
+.twc-chart__leg-sw { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+@media (prefers-reduced-motion: reduce) { .twc-chart *[style*="animation"], .twc-chart [class*="anim"] { animation: none !important; } }
 `;
-  var SERIES_COLORS = ["var(--brand-500)", "var(--sky-500)", "var(--emerald-500)", "var(--amber-500)", "var(--rose-500)"];
+  function ChartTable({ id, caption, columns, rows }) {
+    const h = import_react.default.createElement;
+    return h(
+      "table",
+      { className: "twc-chart__sr", id },
+      caption != null ? h("caption", null, caption) : null,
+      h(
+        "thead",
+        null,
+        h(
+          "tr",
+          null,
+          h("th", { scope: "col" }),
+          columns.map((c, i) => h("th", { key: i, scope: "col" }, c))
+        )
+      ),
+      h(
+        "tbody",
+        null,
+        rows.map(
+          (row, i) => h(
+            "tr",
+            { key: i },
+            h("th", { scope: "row" }, row.label),
+            row.values.map((v, j) => h("td", { key: j }, v))
+          )
+        )
+      )
+    );
+  }
+  function ChartLegend({ items, onToggle, hidden }) {
+    const h = import_react.default.createElement;
+    return h(
+      "div",
+      { className: "twc-chart__legend" },
+      items.map(
+        (it, i) => h(
+          "span",
+          {
+            key: i,
+            className: "twc-chart__leg",
+            "data-toggle": onToggle ? "true" : void 0,
+            "data-off": hidden && hidden(it, i) ? "true" : void 0,
+            role: onToggle ? "button" : void 0,
+            tabIndex: onToggle ? 0 : void 0,
+            onClick: onToggle ? () => onToggle(it, i) : void 0,
+            onKeyDown: onToggle ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onToggle(it, i);
+              }
+            } : void 0
+          },
+          h("span", { className: "twc-chart__leg-sw", style: { background: it.color } }),
+          it.label
+        )
+      )
+    );
+  }
+  var CHART_CSS = `
+.twc-chart__grid { stroke: var(--color-divider); stroke-width: 1; }
+.twc-chart__axis { fill: var(--color-text-subtle); font-size: 11px; }
+.twc-chart__bar { transition: opacity var(--duration-fast) var(--ease-standard); fill: var(--color-primary); }
+.twc-chart__bar:hover { opacity: 0.82; }
+.twc-chart__line { fill: none; stroke: var(--color-primary); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.twc-chart__area { stroke: none; opacity: 0.16; }
+.twc-chart__dot { fill: var(--color-surface); stroke: var(--color-primary); stroke-width: 2.5; }
+`;
   function Chart({
     type = "bar",
     data,
     series,
     height = 220,
+    stacked = false,
+    horizontal = false,
+    curve = "straight",
+    smooth = false,
+    showDots = true,
     showGrid = true,
     showAxis = true,
     showLegend = false,
@@ -1726,98 +1926,1620 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     className = "",
     ...rest
   }) {
-    const __twcStyles = useScopedStyles("twc-chart-styles", CHART_CSS);
+    const baseStyles = useScopedStyles("twc-chart-base", CHART_BASE_CSS);
+    const styles = useScopedStyles("twc-chart-styles", CHART_CSS);
     const uid = import_react.default.useId();
     const tableId = tableFallback ? `${uid}-table` : void 0;
-    const keys = series || ["value"];
-    const palette = colors && colors.length ? colors : SERIES_COLORS;
-    const W = 600, H = height, padL = showAxis ? 40 : 8, padR = 8, padT = 12, padB = showAxis ? 26 : 8;
+    const isBar = type === "bar" || type === "column";
+    const isArea = type === "area";
+    const crv = smooth ? "smooth" : curve;
+    const pathOpts = { smooth: crv === "smooth", step: crv === "stepped" ? "after" : null };
+    const canStack = stacked && (isBar || isArea);
+    const keys = series && series.length ? series : ["value"];
+    const rows = data || [];
+    const fmt = valueFormat || fmtNumber;
+    const multi = keys.length > 1;
+    const W = 600, H = height;
+    const padL = showAxis ? horizontal ? 84 : 44 : 8;
+    const padR = 10;
+    const padT = 12;
+    const padB = showAxis ? 26 : 8;
     const innerW = W - padL - padR, innerH = H - padT - padB;
-    const max = Math.max(1, ...data.flatMap((d) => keys.map((k) => Number(d[k]) || 0)));
-    const niceMax = niceCeil(max);
-    const y = (v) => padT + innerH - v / niceMax * innerH;
-    const fmt = valueFormat || ((v) => v.toLocaleString());
-    const ticks = 4;
+    const stackSum = (d) => keys.reduce((a, k) => a + (Number(d[k]) || 0), 0);
+    const rawMax = canStack ? Math.max(0, ...rows.map(stackSum)) : Math.max(0, ...rows.flatMap((d) => keys.map((k) => Number(d[k]) || 0)));
+    const scale = niceScale(0, rawMax || 1, 4);
+    const niceMax = scale.max || 1;
+    const ticks = scale.ticks;
+    const vPix = (v) => v / niceMax * (horizontal ? innerW : innerH);
+    const vPos = (v) => horizontal ? padL + vPix(v) : padT + innerH - vPix(v);
+    const catBand = innerW / Math.max(1, rows.length);
+    const catBandH = innerH / Math.max(1, rows.length);
+    const lineX = (i) => padL + innerW / Math.max(1, rows.length - 1) * i;
     const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? `${type} chart`;
-    return /* @__PURE__ */ jsxs("div", { className: `twc-chart ${className}`, ...rest, children: [
-      __twcStyles,
-      /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
-        showGrid ? Array.from({ length: ticks + 1 }).map((_, i) => {
-          const gy = padT + innerH / ticks * i;
-          return /* @__PURE__ */ jsx("line", { className: "twc-chart__grid", x1: padL, y1: gy, x2: W - padR, y2: gy }, i);
-        }) : null,
-        showAxis ? Array.from({ length: ticks + 1 }).map((_, i) => {
-          const val = niceMax - niceMax / ticks * i;
-          const gy = padT + innerH / ticks * i;
-          return /* @__PURE__ */ jsx("text", { className: "twc-chart__axis", x: padL - 8, y: gy + 4, textAnchor: "end", children: shortNum(val) }, i);
-        }) : null,
-        type === "bar" ? (() => {
-          const groups = data.length;
-          const groupW = innerW / groups;
-          const barGap = 0.28;
-          const bw = groupW * (1 - barGap) / keys.length;
-          return data.map((d, gi) => keys.map((k, si) => {
+    const renderBars = () => {
+      const band = horizontal ? catBandH : catBand;
+      const gap = 0.28;
+      const slot = band * (1 - gap);
+      return rows.map((d, gi) => {
+        const gStart = (horizontal ? padT : padL) + band * gi + band * gap / 2;
+        if (canStack) {
+          let acc = 0;
+          return keys.map((k, si) => {
             const v = Number(d[k]) || 0;
-            const x = padL + groupW * gi + groupW * barGap / 2 + si * bw;
-            const by = y(v);
+            const p0 = vPix(acc), p1 = vPix(acc + v);
+            acc += v;
+            const color = paletteAt(colors, si);
+            if (horizontal) {
+              return /* @__PURE__ */ jsx(
+                "rect",
+                {
+                  className: "twc-chart__bar",
+                  style: { fill: color },
+                  x: padL + p0,
+                  y: gStart,
+                  width: Math.max(0, p1 - p0),
+                  height: Math.max(1, slot),
+                  rx: "2",
+                  children: /* @__PURE__ */ jsx("title", { children: `${labelText(d.label)} \xB7 ${k}: ${fmt(v)}` })
+                },
+                `${gi}-${si}`
+              );
+            }
             return /* @__PURE__ */ jsx(
               "rect",
               {
                 className: "twc-chart__bar",
-                x: x + 1,
-                y: by,
-                width: Math.max(1, bw - 2),
-                height: padT + innerH - by,
-                rx: "3",
-                style: { fill: keys.length > 1 || colors && colors.length ? palette[si % palette.length] : void 0 },
-                children: /* @__PURE__ */ jsx("title", { children: `${d.label ?? gi}: ${fmt(v)}` })
+                style: { fill: color },
+                x: gStart,
+                y: padT + innerH - p1,
+                width: Math.max(1, slot),
+                height: Math.max(0, p1 - p0),
+                rx: "2",
+                children: /* @__PURE__ */ jsx("title", { children: `${labelText(d.label)} \xB7 ${k}: ${fmt(v)}` })
               },
               `${gi}-${si}`
             );
-          }));
-        })() : null,
-        type === "line" ? keys.map((k, si) => {
-          const pts = data.map((d, i) => [padL + innerW / Math.max(1, data.length - 1) * i, y(Number(d[k]) || 0)]);
-          const dPath = pts.map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
-          const color = palette[si % palette.length];
-          return /* @__PURE__ */ jsxs("g", { children: [
-            /* @__PURE__ */ jsx("path", { className: "twc-chart__line", d: dPath, style: { stroke: color } }),
-            pts.map((p, i) => /* @__PURE__ */ jsx("circle", { className: "twc-chart__dot", cx: p[0], cy: p[1], r: "3.5", style: { stroke: color }, children: /* @__PURE__ */ jsx("title", { children: `${data[i].label ?? i}: ${fmt(Number(data[i][k]) || 0)}` }) }, i))
-          ] }, k);
+          });
+        }
+        const bw = slot / keys.length;
+        return keys.map((k, si) => {
+          const v = Number(d[k]) || 0;
+          const len2 = vPix(v);
+          const color = multi || colors && colors.length ? paletteAt(colors, si) : "var(--color-primary)";
+          if (horizontal) {
+            return /* @__PURE__ */ jsx(
+              "rect",
+              {
+                className: "twc-chart__bar",
+                style: { fill: color },
+                x: padL,
+                y: gStart + si * bw + 0.5,
+                width: Math.max(0, len2),
+                height: Math.max(1, bw - 1),
+                rx: "2",
+                children: /* @__PURE__ */ jsx("title", { children: `${labelText(d.label)}${multi ? " \xB7 " + k : ""}: ${fmt(v)}` })
+              },
+              `${gi}-${si}`
+            );
+          }
+          return /* @__PURE__ */ jsx(
+            "rect",
+            {
+              className: "twc-chart__bar",
+              style: { fill: color },
+              x: gStart + si * bw + 0.5,
+              y: padT + innerH - len2,
+              width: Math.max(1, bw - 1),
+              height: Math.max(0, len2),
+              rx: "2",
+              children: /* @__PURE__ */ jsx("title", { children: `${labelText(d.label)}${multi ? " \xB7 " + k : ""}: ${fmt(v)}` })
+            },
+            `${gi}-${si}`
+          );
+        });
+      });
+    };
+    const renderLines = () => {
+      const stackAcc = canStack ? rows.map(() => 0) : null;
+      return keys.map((k, si) => {
+        const color = paletteAt(colors, si);
+        const pts = rows.map((d, i) => {
+          const v = Number(d[k]) || 0;
+          const val = canStack ? stackAcc[i] += v : v;
+          return [lineX(i), vPos(val)];
+        });
+        const base = canStack ? rows.map((d, i) => vPos(stackAcc[i] - (Number(d[k]) || 0))) : null;
+        return /* @__PURE__ */ jsxs("g", { children: [
+          isArea ? canStack ? /* @__PURE__ */ jsx(
+            "path",
+            {
+              className: "twc-chart__area",
+              style: { fill: color, opacity: 0.22 },
+              d: `${linePath(pts, pathOpts)} ${pts.map((p, i) => `L${p[0]} ${base[i]}`).reverse().join(" ")} Z`
+            }
+          ) : /* @__PURE__ */ jsx("path", { className: "twc-chart__area", style: { fill: color }, d: areaPath(pts, padT + innerH, pathOpts) }) : null,
+          /* @__PURE__ */ jsx("path", { className: "twc-chart__line", style: { stroke: color }, d: linePath(pts, pathOpts) }),
+          showDots && !isArea ? pts.map((p, i) => /* @__PURE__ */ jsx("circle", { className: "twc-chart__dot", style: { stroke: color }, cx: p[0], cy: p[1], r: "3.5", children: /* @__PURE__ */ jsx("title", { children: `${labelText(rows[i].label)}${multi ? " \xB7 " + k : ""}: ${fmt(Number(rows[i][k]) || 0)}` }) }, i)) : null
+        ] }, k);
+      });
+    };
+    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--${type} ${className}`.trim(), ...rest, children: [
+      baseStyles,
+      styles,
+      /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
+        showGrid ? ticks.map((t, i) => {
+          const p = vPos(t);
+          return horizontal ? /* @__PURE__ */ jsx("line", { className: "twc-chart__grid", x1: p, y1: padT, x2: p, y2: padT + innerH }, i) : /* @__PURE__ */ jsx("line", { className: "twc-chart__grid", x1: padL, y1: p, x2: W - padR, y2: p }, i);
         }) : null,
-        showAxis ? data.map((d, i) => {
-          const groupW = innerW / data.length;
-          const cx = type === "line" ? padL + innerW / Math.max(1, data.length - 1) * i : padL + groupW * i + groupW / 2;
+        showAxis ? ticks.map((t, i) => {
+          const p = vPos(t);
+          return horizontal ? /* @__PURE__ */ jsx("text", { className: "twc-chart__axis", x: p, y: H - 8, textAnchor: "middle", children: shortNum(t) }, i) : /* @__PURE__ */ jsx("text", { className: "twc-chart__axis", x: padL - 8, y: p + 4, textAnchor: "end", children: shortNum(t) }, i);
+        }) : null,
+        isBar ? renderBars() : renderLines(),
+        showAxis ? rows.map((d, i) => {
+          if (horizontal) {
+            const cy = padT + catBandH * i + catBandH / 2;
+            return /* @__PURE__ */ jsx("text", { className: "twc-chart__axis", x: padL - 8, y: cy + 4, textAnchor: "end", children: d.label }, i);
+          }
+          const cx = isBar ? padL + catBand * i + catBand / 2 : lineX(i);
           return /* @__PURE__ */ jsx("text", { className: "twc-chart__axis", x: cx, y: H - 8, textAnchor: "middle", children: d.label }, i);
         }) : null
       ] }),
-      tableFallback ? /* @__PURE__ */ jsxs("table", { className: "twc-chart__sr", id: tableId, children: [
-        /* @__PURE__ */ jsx("caption", { children: caption ?? svgAriaLabel }),
-        /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { children: [
-          /* @__PURE__ */ jsx("th", { scope: "col" }),
-          keys.map((k) => /* @__PURE__ */ jsx("th", { scope: "col", children: k }, k))
-        ] }) }),
-        /* @__PURE__ */ jsx("tbody", { children: data.map((d, i) => /* @__PURE__ */ jsxs("tr", { children: [
-          /* @__PURE__ */ jsx("th", { scope: "row", children: d.label }),
-          keys.map((k) => /* @__PURE__ */ jsx("td", { children: fmt(Number(d[k]) || 0) }, k))
-        ] }, i)) })
-      ] }) : null,
-      showLegend && keys.length > 1 ? /* @__PURE__ */ jsx("div", { className: "twc-chart__legend", children: keys.map((k, si) => /* @__PURE__ */ jsxs("span", { className: "twc-chart__leg", children: [
-        /* @__PURE__ */ jsx("span", { className: "twc-chart__leg-sw", style: { background: palette[si % palette.length] } }),
-        k
-      ] }, k)) }) : null
+      tableFallback ? /* @__PURE__ */ jsx(
+        ChartTable,
+        {
+          id: tableId,
+          caption: caption ?? svgAriaLabel,
+          columns: keys,
+          rows: rows.map((d) => ({ label: d.label, values: keys.map((k) => fmt(Number(d[k]) || 0)) }))
+        }
+      ) : null,
+      showLegend && multi ? /* @__PURE__ */ jsx(ChartLegend, { items: keys.map((k, si) => ({ label: k, color: paletteAt(colors, si) })) }) : null
     ] });
   }
-  function niceCeil(v) {
-    const pow = Math.pow(10, Math.floor(Math.log10(v)));
-    const n = v / pow;
-    const step = n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10;
-    return step * pow;
+  function labelText(label) {
+    return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
-  function shortNum(v) {
-    if (v >= 1e6) return (v / 1e6).toFixed(v % 1e6 ? 1 : 0) + "M";
-    if (v >= 1e3) return (v / 1e3).toFixed(v % 1e3 ? 1 : 0) + "k";
-    return String(Math.round(v));
+  var CHART_CSS2 = `
+.twc-chart--pie svg { overflow: visible; }
+.twc-chart__slice { transition: opacity var(--duration-fast) var(--ease-standard); stroke: var(--color-surface); stroke-width: 1.5; }
+.twc-chart__slice:hover { opacity: 0.85; }
+.twc-chart__slice-label { fill: var(--color-surface); font-size: 11px; font-weight: 600; }
+.twc-chart__center { fill: var(--color-text); font-weight: 700; }
+.twc-chart__center-sub { fill: var(--color-text-subtle); }
+.twc-chart__empty { fill: var(--color-text-subtle); font-size: var(--text-sm); }
+`;
+  function PieChart({
+    data,
+    donut = false,
+    innerRadius,
+    startAngle = 0,
+    padAngle = 0,
+    showLabels = false,
+    showLegend = true,
+    centerLabel,
+    valueFormat,
+    height = 260,
+    colors,
+    ariaLabel,
+    "aria-label": ariaLabelProp,
+    tableFallback = true,
+    caption,
+    className = "",
+    ...rest
+  }) {
+    const baseStyles = useScopedStyles("twc-chart-base", CHART_BASE_CSS);
+    const styles = useScopedStyles("twc-piechart-styles", CHART_CSS2);
+    const uid = import_react.default.useId();
+    const tableId = tableFallback ? `${uid}-table` : void 0;
+    const rows = data || [];
+    const fmt = valueFormat || fmtNumber;
+    const values = rows.map((d) => Math.max(0, Number(d.value) || 0));
+    const total = sum(values);
+    const H = height;
+    const cx = H / 2, cy = H / 2;
+    const rOuter = H / 2 - 8;
+    const innerFrac = donut ? innerRadius != null ? innerRadius : 0.6 : innerRadius != null ? innerRadius : 0;
+    const rInner = Math.max(0, Math.min(0.95, innerFrac)) * rOuter;
+    const isDonut = rInner > 0;
+    const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? (isDonut ? "donut chart" : "pie chart");
+    const center = centerLabel != null ? centerLabel : isDonut ? fmt(total) : null;
+    let acc = startAngle;
+    const slices = rows.map((d, i) => {
+      const v = values[i];
+      const frac = total > 0 ? v / total : 0;
+      const span = frac * 360;
+      const s0 = acc, s1 = acc + span;
+      acc = s1;
+      const pct = total > 0 ? Math.round(frac * 1e3) / 10 : 0;
+      const color = d.color || paletteAt(colors, i);
+      return { d, i, v, frac, s0, s1, span, pct, color };
+    });
+    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--pie ${className}`.trim(), "data-donut": isDonut ? "true" : void 0, ...rest, children: [
+      baseStyles,
+      styles,
+      /* @__PURE__ */ jsx("svg", { viewBox: `0 0 ${H} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, children: total <= 0 ? /* @__PURE__ */ jsx("text", { className: "twc-chart__empty", x: cx, y: cy, textAnchor: "middle", dominantBaseline: "middle", children: "No data" }) : /* @__PURE__ */ jsxs(Fragment, { children: [
+        slices.map(({ d, i, v, s0, s1, span, pct, color }) => {
+          const pad = span > padAngle ? padAngle / 2 : 0;
+          return /* @__PURE__ */ jsx(
+            "path",
+            {
+              className: "twc-chart__slice",
+              style: { fill: color },
+              d: arcPath(cx, cy, rOuter, rInner, s0 + pad, s1 - pad),
+              children: /* @__PURE__ */ jsx("title", { children: `${labelText2(d.label)}: ${fmt(v)} (${pct}%)` })
+            },
+            i
+          );
+        }),
+        showLabels ? slices.map(({ i, span, s0, s1, pct }) => {
+          if (span < 8) return null;
+          const mid = (s0 + s1) / 2;
+          const rLabel = isDonut ? (rOuter + rInner) / 2 : rOuter * 0.62;
+          const [lx, ly] = polarDeg(cx, cy, rLabel, mid);
+          return /* @__PURE__ */ jsx("text", { className: "twc-chart__slice-label", x: lx, y: ly, textAnchor: "middle", dominantBaseline: "middle", children: `${pct}%` }, i);
+        }) : null,
+        isDonut && center != null ? /* @__PURE__ */ jsx(
+          "text",
+          {
+            className: "twc-chart__center",
+            x: cx,
+            y: cy,
+            textAnchor: "middle",
+            dominantBaseline: "middle",
+            style: { fontSize: "var(--text-lg)" },
+            children: center
+          }
+        ) : null
+      ] }) }),
+      tableFallback ? /* @__PURE__ */ jsx(
+        ChartTable,
+        {
+          id: tableId,
+          caption: caption ?? svgAriaLabel,
+          columns: ["value", "share"],
+          rows: slices.map(({ d, v, pct }) => ({ label: d.label, values: [fmt(v), `${pct}%`] }))
+        }
+      ) : null,
+      showLegend && rows.length ? /* @__PURE__ */ jsx(ChartLegend, { items: slices.map(({ d, color }) => ({ label: d.label, color })) }) : null
+    ] });
+  }
+  function labelText2(label) {
+    return typeof label === "string" || typeof label === "number" ? String(label) : "";
+  }
+  function DonutChart(props) {
+    return /* @__PURE__ */ jsx(PieChart, { donut: true, ...props });
+  }
+  var GAUGE_CSS = `
+.twc-gauge svg { overflow: visible; }
+.twc-gauge__track { fill: none; }
+.twc-gauge__arc { fill: none; stroke-linecap: round; transition: stroke-dashoffset var(--duration-slow) var(--ease-standard); }
+.twc-gauge__value { fill: var(--color-text); font-weight: 700; }
+.twc-gauge__label { fill: var(--color-text-subtle); }
+`;
+  function Gauge({
+    value = 0,
+    min = 0,
+    max = 100,
+    startAngle = -110,
+    endAngle = 110,
+    thickness = 0.16,
+    showValue = true,
+    label,
+    valueFormat,
+    color = "var(--color-primary)",
+    trackColor = "var(--color-surface-sunken)",
+    size = 200,
+    series,
+    showLegend = true,
+    ariaLabel,
+    "aria-label": ariaLabelProp,
+    tableFallback = true,
+    caption,
+    className = "",
+    ...rest
+  }) {
+    const baseStyles = useScopedStyles("twc-chart-base", CHART_BASE_CSS);
+    const styles = useScopedStyles("twc-gauge-styles", GAUGE_CSS);
+    const uid = import_react.default.useId();
+    const tableId = tableFallback ? `${uid}-table` : void 0;
+    const fmt = valueFormat || ((n) => String(Math.round(Number(n) || 0)));
+    const cx = size / 2, cy = size / 2;
+    const span = endAngle - startAngle;
+    const frac = (v) => {
+      const range = max - min;
+      if (!range) return 0;
+      return Math.max(0, Math.min(1, ((Number(v) || 0) - min) / range));
+    };
+    const isMulti = Array.isArray(series) && series.length > 0;
+    const items = isMulti ? series : [{ value: Number(value) || 0, label, color }];
+    const rOuter = size / 2 - 2;
+    const strokeW = Math.max(2, thickness * rOuter);
+    const gap = strokeW * 0.5;
+    const band = strokeW + gap;
+    const ringRadius = (i) => Math.max(strokeW, rOuter - strokeW / 2 - i * band);
+    const arc = (radius, a0, a1) => {
+      const [x0, y0] = polarDeg(cx, cy, radius, a0);
+      const [x1, y1] = polarDeg(cx, cy, radius, a1);
+      const sweepSpan = a1 - a0;
+      const large = Math.abs(sweepSpan) > 180 ? 1 : 0;
+      const sweep = sweepSpan >= 0 ? 1 : 0;
+      return `M${r(x0)} ${r(y0)} A${r(radius)} ${r(radius)} 0 ${large} ${sweep} ${r(x1)} ${r(y1)}`;
+    };
+    const single = items[0];
+    const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? (isMulti ? `Gauge with ${items.length} values` : `${labelText3(label) || "Gauge"}: ${fmt(single.value)} of ${fmt(max)}`);
+    const valueFont = Math.round(size * (isMulti ? 0.11 : 0.17));
+    const labelFont = Math.round(size * 0.072);
+    return /* @__PURE__ */ jsxs("div", { className: `twc-gauge twc-chart twc-chart--gauge ${className}`.trim(), "data-multi": isMulti || void 0, ...rest, children: [
+      baseStyles,
+      styles,
+      /* @__PURE__ */ jsxs(
+        "svg",
+        {
+          viewBox: `0 0 ${size} ${size}`,
+          width: size,
+          height: size,
+          role: "img",
+          "aria-label": svgAriaLabel,
+          "aria-describedby": tableId,
+          children: [
+            items.map((it, i) => {
+              const radius = ringRadius(i);
+              const f = frac(it.value);
+              const c = it.color || paletteAt(void 0, i);
+              const valEnd = startAngle + f * span;
+              return /* @__PURE__ */ jsxs("g", { children: [
+                /* @__PURE__ */ jsx(
+                  "path",
+                  {
+                    className: "twc-gauge__track",
+                    d: arc(radius, startAngle, endAngle),
+                    style: { stroke: trackColor, strokeWidth: strokeW }
+                  }
+                ),
+                f > 0 ? /* @__PURE__ */ jsx(
+                  "path",
+                  {
+                    className: "twc-gauge__arc",
+                    d: arc(radius, startAngle, valEnd),
+                    style: { stroke: c, strokeWidth: strokeW },
+                    children: /* @__PURE__ */ jsx("title", { children: `${labelText3(it.label) || "Value"}: ${fmt(it.value)}` })
+                  }
+                ) : null
+              ] }, i);
+            }),
+            !isMulti && showValue ? /* @__PURE__ */ jsx("text", { className: "twc-gauge__value", x: cx, y: cy, textAnchor: "middle", dominantBaseline: "middle", style: { fontSize: valueFont }, children: fmt(single.value) }) : null,
+            !isMulti && label != null ? /* @__PURE__ */ jsx("text", { className: "twc-gauge__label", x: cx, y: cy + valueFont * 0.78, textAnchor: "middle", style: { fontSize: labelFont }, children: labelText3(label) }) : null
+          ]
+        }
+      ),
+      tableFallback ? /* @__PURE__ */ jsx(
+        ChartTable,
+        {
+          id: tableId,
+          caption: caption ?? svgAriaLabel,
+          columns: ["Value"],
+          rows: items.map((it, i) => ({
+            label: labelText3(it.label) || (isMulti ? `Series ${i + 1}` : "Value"),
+            values: [fmt(it.value)]
+          }))
+        }
+      ) : null,
+      isMulti && showLegend ? /* @__PURE__ */ jsx(
+        ChartLegend,
+        {
+          items: items.map((it, i) => ({
+            label: labelText3(it.label) || `Series ${i + 1}`,
+            color: it.color || paletteAt(void 0, i)
+          }))
+        }
+      ) : null
+    ] });
+  }
+  function labelText3(label) {
+    return typeof label === "string" || typeof label === "number" ? String(label) : "";
+  }
+  var SPARK_CSS = `
+.twc-sparkline { width: auto; display: inline-block; line-height: 0; vertical-align: middle; }
+.twc-sparkline svg { width: auto; height: auto; }
+.twc-sparkline__line { fill: none; stroke: var(--color-primary); stroke-linecap: round; stroke-linejoin: round; }
+.twc-sparkline__area { stroke: none; fill: var(--color-primary); opacity: 0.16; }
+.twc-sparkline__bar { fill: var(--color-primary); }
+.twc-sparkline__dot { fill: var(--color-primary); }
+`;
+  function Sparkline({
+    data,
+    type = "line",
+    area = false,
+    color = "var(--color-primary)",
+    width = 120,
+    height = 40,
+    strokeWidth = 2,
+    curve = "smooth",
+    showDots = false,
+    min,
+    max,
+    valueFormat,
+    ariaLabel,
+    "aria-label": ariaLabelProp,
+    tableFallback = false,
+    caption,
+    className = "",
+    ...rest
+  }) {
+    const baseStyles = useScopedStyles("twc-chart-base", CHART_BASE_CSS);
+    const styles = useScopedStyles("twc-sparkline-styles", SPARK_CSS);
+    const uid = import_react.default.useId();
+    const tableId = tableFallback ? `${uid}-table` : void 0;
+    const kind = area ? "area" : type;
+    const isBar = kind === "bar";
+    const isArea = kind === "area";
+    const fmt = valueFormat || fmtNumber;
+    const rowsIn = Array.isArray(data) ? data : [];
+    const values = rowsIn.map((d) => {
+      const v = typeof d === "number" ? d : Number(d && d.value);
+      return Number.isFinite(v) ? v : 0;
+    });
+    const labels = rowsIn.map(
+      (d, i) => typeof d === "number" ? i + 1 : d && d.label != null ? d.label : i + 1
+    );
+    const n = values.length;
+    const W = width, H = height;
+    const dotR = showDots ? Math.max(2, strokeWidth + 1) : 0;
+    const pad = Math.max(strokeWidth / 2, dotR) + 1;
+    const innerW = Math.max(1, W - pad * 2);
+    const innerH = Math.max(1, H - pad * 2);
+    const dMin = min != null ? min : n ? Math.min(...values) : 0;
+    const dMax = max != null ? max : n ? Math.max(...values) : 1;
+    let lo = dMin, hi = dMax;
+    if (!(hi > lo)) {
+      lo = lo - 1;
+      hi = hi + 1;
+    }
+    const span = hi - lo;
+    const x = (i) => n <= 1 ? pad + innerW / 2 : pad + innerW / (n - 1) * i;
+    const y = (v) => pad + innerH - (v - lo) / span * innerH;
+    const baselineY = pad + innerH;
+    const points = values.map((v, i) => [x(i), y(v)]);
+    const crv = isBar ? "straight" : curve;
+    const pathOpts = { smooth: crv === "smooth", step: crv === "stepped" ? "after" : null };
+    const last = n ? values[n - 1] : 0;
+    const summary = !n ? "sparkline, no data" : tableFallback ? `sparkline, ${n} points, latest ${fmt(last)}` : `sparkline, ${n} points, first ${fmt(values[0])}, latest ${fmt(last)}, min ${fmt(Math.min(...values))}, max ${fmt(Math.max(...values))}`;
+    const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? summary;
+    const renderBars = () => {
+      const band = innerW / Math.max(1, n);
+      const slot = band * 0.7;
+      return values.map((v, i) => {
+        const h = (v - lo) / span * innerH;
+        return /* @__PURE__ */ jsx(
+          "rect",
+          {
+            className: "twc-sparkline__bar",
+            style: { fill: color },
+            x: pad + band * i + (band - slot) / 2,
+            y: baselineY - h,
+            width: Math.max(1, slot),
+            height: Math.max(1, h),
+            children: /* @__PURE__ */ jsx("title", { children: `${labelText4(labels[i])}: ${fmt(v)}` })
+          },
+          i
+        );
+      });
+    };
+    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-sparkline twc-chart--${kind} ${className}`.trim(), ...rest, children: [
+      baseStyles,
+      styles,
+      /* @__PURE__ */ jsx(
+        "svg",
+        {
+          viewBox: `0 0 ${W} ${H}`,
+          width: W,
+          height: H,
+          role: "img",
+          "aria-label": svgAriaLabel,
+          "aria-describedby": tableId,
+          children: n === 0 ? null : isBar ? renderBars() : /* @__PURE__ */ jsxs(Fragment, { children: [
+            isArea ? /* @__PURE__ */ jsx("path", { className: "twc-sparkline__area", style: { fill: color }, d: areaPath(points, baselineY, pathOpts) }) : null,
+            /* @__PURE__ */ jsx(
+              "path",
+              {
+                className: "twc-sparkline__line",
+                style: { stroke: color, strokeWidth },
+                d: linePath(points, pathOpts),
+                children: /* @__PURE__ */ jsx("title", { children: summary })
+              }
+            ),
+            showDots && n ? /* @__PURE__ */ jsx(
+              "circle",
+              {
+                className: "twc-sparkline__dot",
+                style: { fill: color },
+                cx: points[n - 1][0],
+                cy: points[n - 1][1],
+                r: dotR,
+                children: /* @__PURE__ */ jsx("title", { children: `${labelText4(labels[n - 1])}: ${fmt(last)}` })
+              }
+            ) : null
+          ] })
+        }
+      ),
+      tableFallback ? /* @__PURE__ */ jsx(
+        ChartTable,
+        {
+          id: tableId,
+          caption: caption ?? svgAriaLabel,
+          columns: ["value"],
+          rows: values.map((v, i) => ({ label: labels[i], values: [fmt(v)] }))
+        }
+      ) : null
+    ] });
+  }
+  function labelText4(label) {
+    return typeof label === "string" || typeof label === "number" ? String(label) : "";
+  }
+  var SCATTER_CSS = `
+.twc-chart--scatter__grid { stroke: var(--color-divider); stroke-width: 1; }
+.twc-chart--scatter__axis { fill: var(--color-text-subtle); font-size: 11px; }
+.twc-chart--scatter__title { fill: var(--color-text-muted); font-size: 11px; font-weight: 500; }
+.twc-chart--scatter__dot { transition: opacity var(--duration-fast) var(--ease-standard); stroke: var(--color-surface); stroke-width: 1; }
+.twc-chart--scatter__dot:hover { opacity: 0.85; }
+.twc-chart--scatter__dot[data-bubble="true"] { fill-opacity: 0.55; }
+`;
+  function ScatterChart({
+    series,
+    bubble = false,
+    maxBubble = 26,
+    dotRadius = 4.5,
+    height = 300,
+    xLabel,
+    yLabel,
+    showGrid = true,
+    showLegend,
+    xFormat,
+    yFormat,
+    valueFormat,
+    ariaLabel,
+    "aria-label": ariaLabelProp,
+    tableFallback = true,
+    caption,
+    className = "",
+    ...rest
+  }) {
+    const baseStyles = useScopedStyles("twc-chart-base", CHART_BASE_CSS);
+    const styles = useScopedStyles("twc-scatter-styles", SCATTER_CSS);
+    const uid = import_react.default.useId();
+    const tableId = tableFallback ? `${uid}-table` : void 0;
+    const list = Array.isArray(series) ? series : [];
+    const vFmt = valueFormat || fmtNumber;
+    const xFmt = xFormat || vFmt;
+    const yFmt = yFormat || vFmt;
+    const all = list.flatMap(
+      (s, si) => (s && Array.isArray(s.points) ? s.points : []).filter((p) => p && Number.isFinite(Number(p.x)) && Number.isFinite(Number(p.y))).map((p) => ({ si, x: Number(p.x), y: Number(p.y), z: p.z, label: p.label }))
+    );
+    const hasZ = all.some((p) => Number.isFinite(Number(p.z)));
+    const useBubble = bubble || hasZ;
+    const zMax = useBubble ? Math.max(0, ...all.map((p) => Number(p.z) || 0)) : 0;
+    const dotR = (z) => {
+      if (!useBubble) return dotRadius;
+      const zv = Number(z);
+      if (!Number.isFinite(zv) || zv <= 0 || !(zMax > 0)) return Math.max(2, dotRadius);
+      return Math.max(2, Math.sqrt(zv / zMax) * maxBubble);
+    };
+    const xs = all.map((p) => p.x), ys = all.map((p) => p.y);
+    const xScale = niceScale(Math.min(...xs), Math.max(...xs), 5);
+    const yScale = niceScale(Math.min(...ys), Math.max(...ys), 5);
+    const xSpan = xScale.max - xScale.min || 1;
+    const ySpan = yScale.max - yScale.min || 1;
+    const W = 600, H = height;
+    const padL = 46 + (yLabel != null ? 16 : 0);
+    const padR = 14;
+    const padT = 14;
+    const padB = 28 + (xLabel != null ? 18 : 0);
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const xPos = (x) => padL + (x - xScale.min) / xSpan * innerW;
+    const yPos = (y) => padT + innerH - (y - yScale.min) / ySpan * innerH;
+    const seriesColor = (s, i) => s && s.color || paletteAt(void 0, i);
+    const seriesName = (s, i) => s && s.name || `Series ${i + 1}`;
+    const legend = showLegend ?? list.length > 1;
+    const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? `${useBubble ? "bubble" : "scatter"} chart`;
+    const dots = all.map((p) => ({ ...p, radius: dotR(p.z), fill: seriesColor(list[p.si], p.si) })).sort((a, b) => b.radius - a.radius);
+    const tipLabel = (p) => labelText5(p.label) || seriesName(list[p.si], p.si);
+    const tableColumns = hasZ ? ["x", "y", "z"] : ["x", "y"];
+    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--scatter ${className}`.trim(), "data-bubble": useBubble || void 0, ...rest, children: [
+      baseStyles,
+      styles,
+      /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, children: [
+        showGrid ? yScale.ticks.map((t, i) => {
+          const p = yPos(t);
+          return /* @__PURE__ */ jsx("line", { className: "twc-chart--scatter__grid", x1: padL, y1: p, x2: W - padR, y2: p }, `y${i}`);
+        }) : null,
+        showGrid ? xScale.ticks.map((t, i) => {
+          const p = xPos(t);
+          return /* @__PURE__ */ jsx("line", { className: "twc-chart--scatter__grid", x1: p, y1: padT, x2: p, y2: padT + innerH }, `x${i}`);
+        }) : null,
+        yScale.ticks.map((t, i) => /* @__PURE__ */ jsx("text", { className: "twc-chart--scatter__axis", x: padL - 8, y: yPos(t) + 4, textAnchor: "end", children: shortNum(t) }, `yt${i}`)),
+        xScale.ticks.map((t, i) => /* @__PURE__ */ jsx("text", { className: "twc-chart--scatter__axis", x: xPos(t), y: padT + innerH + 16, textAnchor: "middle", children: shortNum(t) }, `xt${i}`)),
+        xLabel != null ? /* @__PURE__ */ jsx("text", { className: "twc-chart--scatter__title", x: padL + innerW / 2, y: H - 6, textAnchor: "middle", children: xLabel }) : null,
+        yLabel != null ? /* @__PURE__ */ jsx(
+          "text",
+          {
+            className: "twc-chart--scatter__title",
+            x: 16,
+            y: padT + innerH / 2,
+            textAnchor: "middle",
+            transform: `rotate(-90 16 ${padT + innerH / 2})`,
+            children: yLabel
+          }
+        ) : null,
+        dots.map((p, i) => /* @__PURE__ */ jsx(
+          "circle",
+          {
+            className: "twc-chart--scatter__dot",
+            "data-bubble": useBubble || void 0,
+            style: { fill: p.fill },
+            cx: xPos(p.x),
+            cy: yPos(p.y),
+            r: p.radius,
+            children: /* @__PURE__ */ jsx("title", { children: `${tipLabel(p)}: (${xFmt(p.x)}, ${yFmt(p.y)}${Number.isFinite(Number(p.z)) ? ", " + vFmt(Number(p.z)) : ""})` })
+          },
+          i
+        ))
+      ] }),
+      tableFallback ? /* @__PURE__ */ jsx(
+        ChartTable,
+        {
+          id: tableId,
+          caption: caption ?? svgAriaLabel,
+          columns: tableColumns,
+          rows: all.map((p) => ({
+            label: seriesName(list[p.si], p.si),
+            values: hasZ ? [xFmt(p.x), yFmt(p.y), Number.isFinite(Number(p.z)) ? vFmt(Number(p.z)) : ""] : [xFmt(p.x), yFmt(p.y)]
+          }))
+        }
+      ) : null,
+      legend && list.length ? /* @__PURE__ */ jsx(ChartLegend, { items: list.map((s, i) => ({ label: seriesName(s, i), color: seriesColor(s, i) })) }) : null
+    ] });
+  }
+  function labelText5(label) {
+    return typeof label === "string" || typeof label === "number" ? String(label) : "";
+  }
+  function BubbleChart(props) {
+    return /* @__PURE__ */ jsx(ScatterChart, { bubble: true, ...props });
+  }
+  var CHART_CSS3 = `
+.twc-chart--radar svg { overflow: visible; }
+.twc-chart__ring { fill: none; stroke: var(--color-divider); stroke-width: 1; }
+.twc-chart__spoke { stroke: var(--color-divider); stroke-width: 1; }
+.twc-chart__radar-axis { fill: var(--color-text-subtle); font-size: 11px; }
+.twc-chart__radar-area { transition: opacity var(--duration-fast) var(--ease-standard); }
+.twc-chart__radar-area:hover { opacity: 0.9; }
+.twc-chart__radar-line { fill: none; stroke-width: 2; stroke-linejoin: round; }
+.twc-chart__radar-dot { stroke: var(--color-surface); stroke-width: 1.5; }
+.twc-chart__empty { fill: var(--color-text-subtle); font-size: var(--text-sm); }
+`;
+  function RadarChart({
+    data,
+    series,
+    max,
+    levels = 4,
+    fill = true,
+    showLegend,
+    showDots = true,
+    colors,
+    valueFormat,
+    height = 300,
+    ariaLabel,
+    "aria-label": ariaLabelProp,
+    tableFallback = true,
+    caption,
+    className = "",
+    ...rest
+  }) {
+    const baseStyles = useScopedStyles("twc-chart-base", CHART_BASE_CSS);
+    const styles = useScopedStyles("twc-radarchart-styles", CHART_CSS3);
+    const uid = import_react.default.useId();
+    const tableId = tableFallback ? `${uid}-table` : void 0;
+    const rows = data || [];
+    const keys = series && series.length ? series : ["value"];
+    const fmt = valueFormat || fmtNumber;
+    const multi = keys.length > 1;
+    const legend = showLegend != null ? showLegend : multi;
+    const H = height;
+    const cx = H / 2, cy = H / 2;
+    const R2 = Math.max(0, H / 2 - 40);
+    const n = rows.length;
+    const rawMax = Math.max(0, ...rows.flatMap((d) => keys.map((k) => Number(d[k]) || 0)));
+    const radialMax = (max != null ? max : niceCeil(rawMax)) || 1;
+    const rings = Math.max(1, Math.floor(levels));
+    const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "radar chart";
+    const angleOf = (i) => i / Math.max(1, n) * 360;
+    const vertex = (v, i) => {
+      const frac = Math.max(0, Math.min(1, (Number(v) || 0) / radialMax));
+      return polarDeg(cx, cy, frac * R2, angleOf(i));
+    };
+    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--radar ${className}`.trim(), ...rest, children: [
+      baseStyles,
+      styles,
+      /* @__PURE__ */ jsx(
+        "svg",
+        {
+          viewBox: `0 0 ${H} ${H}`,
+          role: "img",
+          "aria-label": svgAriaLabel,
+          "aria-describedby": tableId,
+          style: { maxWidth: H, margin: "0 auto" },
+          children: n === 0 ? /* @__PURE__ */ jsx("text", { className: "twc-chart__empty", x: cx, y: cy, textAnchor: "middle", dominantBaseline: "middle", children: "No data" }) : /* @__PURE__ */ jsxs(Fragment, { children: [
+            Array.from({ length: rings }, (_, li) => {
+              const rr = R2 * (li + 1) / rings;
+              const pts = rows.map((_2, i) => polarDeg(cx, cy, rr, angleOf(i)));
+              return /* @__PURE__ */ jsx("path", { className: "twc-chart__ring", d: polygonPath(pts) }, li);
+            }),
+            rows.map((d, i) => {
+              const [ex, ey] = polarDeg(cx, cy, R2, angleOf(i));
+              const [lx, ly] = polarDeg(cx, cy, R2 + 16, angleOf(i));
+              const anchor = lx > cx + 1 ? "start" : lx < cx - 1 ? "end" : "middle";
+              return /* @__PURE__ */ jsxs("g", { children: [
+                /* @__PURE__ */ jsx("line", { className: "twc-chart__spoke", x1: cx, y1: cy, x2: ex, y2: ey }),
+                /* @__PURE__ */ jsx("text", { className: "twc-chart__radar-axis", x: lx, y: ly, textAnchor: anchor, dominantBaseline: "middle", children: d.label })
+              ] }, i);
+            }),
+            keys.map((k, si) => {
+              const color = paletteAt(colors, si);
+              const pts = rows.map((d, i) => vertex(d[k], i));
+              return /* @__PURE__ */ jsxs("g", { children: [
+                fill ? /* @__PURE__ */ jsx("path", { className: "twc-chart__radar-area", style: { fill: color, opacity: 0.18 }, d: polygonPath(pts) }) : null,
+                /* @__PURE__ */ jsx("path", { className: "twc-chart__radar-line", style: { stroke: color }, d: polygonPath(pts) }),
+                showDots ? pts.map((p, i) => /* @__PURE__ */ jsx("circle", { className: "twc-chart__radar-dot", style: { fill: color }, cx: p[0], cy: p[1], r: "3", children: /* @__PURE__ */ jsx("title", { children: `${labelText6(rows[i].label)}${multi ? " \xB7 " + k : ""}: ${fmt(Number(rows[i][k]) || 0)}` }) }, i)) : null
+              ] }, k);
+            })
+          ] })
+        }
+      ),
+      tableFallback ? /* @__PURE__ */ jsx(
+        ChartTable,
+        {
+          id: tableId,
+          caption: caption ?? svgAriaLabel,
+          columns: keys,
+          rows: rows.map((d) => ({ label: d.label, values: keys.map((k) => fmt(Number(d[k]) || 0)) }))
+        }
+      ) : null,
+      legend && multi ? /* @__PURE__ */ jsx(ChartLegend, { items: keys.map((k, si) => ({ label: k, color: paletteAt(colors, si) })) }) : null
+    ] });
+  }
+  function labelText6(label) {
+    return typeof label === "string" || typeof label === "number" ? String(label) : "";
+  }
+  var CHART_CSS4 = `
+.twc-chart--polar svg { margin-inline: auto; }
+.twc-chart__ring { fill: none; stroke: var(--color-divider); stroke-width: 1; }
+.twc-chart__spoke { stroke: var(--color-divider); stroke-width: 1; opacity: 0.55; }
+.twc-chart__slice { transition: opacity var(--duration-fast) var(--ease-standard); stroke: var(--color-surface); stroke-width: 1; }
+.twc-chart__slice:hover { opacity: 0.85; }
+.twc-chart__axis { fill: var(--color-text-subtle); font-size: 11px; }
+`;
+  function PolarAreaChart({
+    data,
+    max,
+    levels = 4,
+    startAngle = 0,
+    showLegend = true,
+    valueFormat,
+    height = 280,
+    colors,
+    ariaLabel,
+    "aria-label": ariaLabelProp,
+    tableFallback = true,
+    caption,
+    className = "",
+    ...rest
+  }) {
+    const baseStyles = useScopedStyles("twc-chart-base", CHART_BASE_CSS);
+    const styles = useScopedStyles("twc-polar-styles", CHART_CSS4);
+    const uid = import_react.default.useId();
+    const tableId = tableFallback ? `${uid}-table` : void 0;
+    const rows = data || [];
+    const n = rows.length;
+    const fmt = valueFormat || fmtNumber;
+    const S = Math.max(80, height);
+    const cx = S / 2, cy = S / 2;
+    const Rmax = S / 2 - 18;
+    const dataMax = Math.max(0, ...rows.map((d) => Number(d.value) || 0));
+    const domain = Math.max(1e-9, max != null ? max : niceCeil(dataMax) || 1);
+    const radiusFor = (v) => {
+      const t = Math.min(1, Math.max(0, (Number(v) || 0) / domain));
+      return Math.sqrt(t) * Rmax;
+    };
+    const rings = Math.max(1, Math.floor(levels));
+    const anglePer = 360 / Math.max(1, n);
+    const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "polar area chart";
+    const labelText13 = (label) => typeof label === "string" || typeof label === "number" ? String(label) : "";
+    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--polar ${className}`.trim(), ...rest, children: [
+      baseStyles,
+      styles,
+      /* @__PURE__ */ jsxs(
+        "svg",
+        {
+          viewBox: `0 0 ${S} ${S}`,
+          style: { height },
+          role: "img",
+          "aria-label": svgAriaLabel,
+          "aria-describedby": tableId,
+          preserveAspectRatio: "xMidYMid meet",
+          children: [
+            Array.from({ length: rings }, (_, i) => {
+              const value = domain * (i + 1) / rings;
+              const rr = radiusFor(value);
+              return /* @__PURE__ */ jsx("circle", { className: "twc-chart__ring", cx, cy, r: r(rr) }, `ring-${i}`);
+            }),
+            n > 1 ? rows.map((_, i) => {
+              const [x, y] = polarDeg(cx, cy, Rmax, startAngle + i * anglePer);
+              return /* @__PURE__ */ jsx("line", { className: "twc-chart__spoke", x1: cx, y1: cy, x2: r(x), y2: r(y) }, `spoke-${i}`);
+            }) : null,
+            rows.map((d, i) => {
+              const v = Number(d.value) || 0;
+              const start = startAngle + i * anglePer;
+              const color = d.color || paletteAt(colors, i);
+              return /* @__PURE__ */ jsx(
+                "path",
+                {
+                  className: "twc-chart__slice",
+                  style: { fill: color, fillOpacity: 0.82 },
+                  d: arcPath(cx, cy, radiusFor(v), 0, start, start + anglePer),
+                  children: /* @__PURE__ */ jsx("title", { children: `${labelText13(d.label)}: ${fmt(v)}` })
+                },
+                `slice-${i}`
+              );
+            }),
+            Array.from({ length: rings }, (_, i) => {
+              const value = domain * (i + 1) / rings;
+              const rr = radiusFor(value);
+              return /* @__PURE__ */ jsx("text", { className: "twc-chart__axis", x: cx, y: r(cy - rr - 3), textAnchor: "middle", children: shortNum(value) }, `tick-${i}`);
+            })
+          ]
+        }
+      ),
+      tableFallback ? /* @__PURE__ */ jsx(
+        ChartTable,
+        {
+          id: tableId,
+          caption: caption ?? svgAriaLabel,
+          columns: ["value"],
+          rows: rows.map((d) => ({ label: d.label, values: [fmt(Number(d.value) || 0)] }))
+        }
+      ) : null,
+      showLegend && n ? /* @__PURE__ */ jsx(ChartLegend, { items: rows.map((d, i) => ({ label: d.label, color: d.color || paletteAt(colors, i) })) }) : null
+    ] });
+  }
+  var HEATMAP_CSS = `
+.twc-chart--heatmap svg { overflow: visible; }
+.twc-chart__hm-cell { transition: opacity var(--duration-fast) var(--ease-standard); }
+.twc-chart__hm-cell:hover { opacity: 0.82; }
+.twc-chart__hm-empty { fill: var(--color-surface-sunken); }
+.twc-chart__hm-val { fill: var(--color-text); font-size: 10px; font-weight: 500; pointer-events: none; }
+.twc-chart__hm-tick { fill: var(--color-text-subtle); font-size: 11px; }
+.twc-chart__hm-title { fill: var(--color-text-muted); font-size: 11px; font-weight: 500; }
+.twc-chart__hm-scale { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-chart__hm-bar { flex: none; width: 96px; height: 10px; border-radius: var(--radius-sm); border: 1px solid var(--color-divider); }
+`;
+  var clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
+  function Heatmap({
+    data,
+    min,
+    max,
+    colorScale = "var(--brand-500)",
+    showValues = false,
+    cellGap = 2,
+    radius = 2,
+    xLabel,
+    yLabel,
+    showLegend = true,
+    valueFormat,
+    height = 300,
+    ariaLabel,
+    "aria-label": ariaLabelProp,
+    tableFallback = true,
+    caption,
+    className = "",
+    ...rest
+  }) {
+    const baseStyles = useScopedStyles("twc-chart-base", CHART_BASE_CSS);
+    const styles = useScopedStyles("twc-heatmap-styles", HEATMAP_CSS);
+    const uid = import_react.default.useId();
+    const tableId = tableFallback ? `${uid}-table` : void 0;
+    const rows = Array.isArray(data) ? data : [];
+    const fmt = valueFormat || fmtNumber;
+    const xs = [];
+    const ys = [];
+    const seenX = /* @__PURE__ */ new Set();
+    const seenY = /* @__PURE__ */ new Set();
+    const lookup = /* @__PURE__ */ new Map();
+    for (const d of rows) {
+      const kx = String(d.x);
+      const ky = String(d.y);
+      if (!seenX.has(kx)) {
+        seenX.add(kx);
+        xs.push(d.x);
+      }
+      if (!seenY.has(ky)) {
+        seenY.add(ky);
+        ys.push(d.y);
+      }
+      lookup.set(`${kx}\0${ky}`, Number(d.value) || 0);
+    }
+    const cellOf = (x, y) => lookup.get(`${String(x)}\0${String(y)}`);
+    const values = rows.map((d) => Number(d.value) || 0);
+    const dataMin = values.length ? Math.min(...values) : 0;
+    const dataMax = values.length ? Math.max(...values) : 1;
+    const lo = min != null ? min : dataMin;
+    const hi = max != null ? max : dataMax;
+    const span = hi - lo;
+    const pctOf = (v) => span > 0 ? clamp((v - lo) / span * 100, 0, 100) : 60;
+    const fillOf = (v) => `color-mix(in srgb, ${colorScale} ${pctOf(v)}%, transparent)`;
+    const cols = xs.length;
+    const rowN = ys.length;
+    const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "heatmap";
+    const W = 600;
+    const H = height;
+    const padT = 8;
+    const padR = 8;
+    const yTickW = 64;
+    const xTickH = 22;
+    const yTitleW = yLabel != null ? 16 : 0;
+    const xTitleH = xLabel != null ? 16 : 0;
+    const padL = yTitleW + yTickW;
+    const padB = xTitleH + xTickH;
+    const innerW = W - padL - padR;
+    const innerH = H - padT - padB;
+    const cw = innerW / Math.max(1, cols);
+    const chh = innerH / Math.max(1, rowN);
+    const gap = clamp(cellGap, 0, Math.min(cw, chh) - 1) || 0;
+    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--heatmap ${className}`.trim(), ...rest, children: [
+      baseStyles,
+      styles,
+      /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
+        ys.map(
+          (y, ri) => xs.map((x, ci) => {
+            const v = cellOf(x, y);
+            const has = v !== void 0;
+            const cx = padL + cw * ci + gap / 2;
+            const cy = padT + chh * ri + gap / 2;
+            const cwPx = Math.max(0, cw - gap);
+            const chPx = Math.max(0, chh - gap);
+            return /* @__PURE__ */ jsxs("g", { children: [
+              /* @__PURE__ */ jsx(
+                "rect",
+                {
+                  className: has ? "twc-chart__hm-cell" : "twc-chart__hm-cell twc-chart__hm-empty",
+                  x: cx,
+                  y: cy,
+                  width: cwPx,
+                  height: chPx,
+                  rx: radius,
+                  style: has ? { fill: fillOf(v) } : void 0,
+                  children: /* @__PURE__ */ jsx("title", { children: `${labelText7(y)} / ${labelText7(x)}: ${has ? fmt(v) : "\u2014"}` })
+                }
+              ),
+              showValues && has ? /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-val", x: cx + cwPx / 2, y: cy + chPx / 2 + 3.5, textAnchor: "middle", children: fmt(v) }) : null
+            ] }, `${ci}-${ri}`);
+          })
+        ),
+        ys.map((y, ri) => /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-tick", x: padL - 8, y: padT + chh * ri + chh / 2 + 4, textAnchor: "end", children: labelText7(y) }, ri)),
+        xs.map((x, ci) => /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-tick", x: padL + cw * ci + cw / 2, y: padT + innerH + 15, textAnchor: "middle", children: labelText7(x) }, ci)),
+        yLabel != null ? /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-title", transform: `translate(11 ${padT + innerH / 2}) rotate(-90)`, textAnchor: "middle", children: labelText7(yLabel) }) : null,
+        xLabel != null ? /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-title", x: padL + innerW / 2, y: H - 3, textAnchor: "middle", children: labelText7(xLabel) }) : null
+      ] }),
+      showLegend && span > 0 ? /* @__PURE__ */ jsxs("div", { className: "twc-chart__hm-scale", "aria-hidden": "true", children: [
+        /* @__PURE__ */ jsx("span", { children: fmt(lo) }),
+        /* @__PURE__ */ jsx(
+          "span",
+          {
+            className: "twc-chart__hm-bar",
+            style: { background: `linear-gradient(to right, color-mix(in srgb, ${colorScale} 0%, transparent), ${colorScale})` }
+          }
+        ),
+        /* @__PURE__ */ jsx("span", { children: fmt(hi) })
+      ] }) : null,
+      tableFallback ? /* @__PURE__ */ jsx(
+        ChartTable,
+        {
+          id: tableId,
+          caption: caption ?? svgAriaLabel,
+          columns: xs.map(labelText7),
+          rows: ys.map((y) => ({
+            label: labelText7(y),
+            values: xs.map((x) => {
+              const v = cellOf(x, y);
+              return v === void 0 ? "\u2014" : fmt(v);
+            })
+          }))
+        }
+      ) : null
+    ] });
+  }
+  function labelText7(label) {
+    return typeof label === "string" || typeof label === "number" ? String(label) : "";
+  }
+  var FUNNEL_CSS = `
+.twc-chart--funnel svg { overflow: visible; }
+.twc-funnel__stage { transition: opacity var(--duration-fast) var(--ease-standard); }
+.twc-funnel__stage:hover { opacity: 0.85; }
+.twc-funnel__label { fill: var(--color-text-inverted); font-family: var(--font-sans); pointer-events: none; }
+.twc-funnel__name { font-size: 12px; font-weight: 600; }
+.twc-funnel__value { font-size: 11px; fill-opacity: 0.82; }
+@media (prefers-reduced-motion: no-preference) {
+  .twc-funnel__stage { animation: twc-funnel-in var(--duration-base) var(--ease-standard) both; }
+  @keyframes twc-funnel-in { from { opacity: 0; } to { opacity: 1; } }
+}
+`;
+  function FunnelChart({
+    data,
+    showValues = true,
+    showPercent = true,
+    horizontal = false,
+    gap = 2,
+    height = 300,
+    colors,
+    valueFormat,
+    ariaLabel,
+    "aria-label": ariaLabelProp,
+    tableFallback = true,
+    caption,
+    className = "",
+    ...rest
+  }) {
+    const baseStyles = useScopedStyles("twc-chart-base", CHART_BASE_CSS);
+    const styles = useScopedStyles("twc-funnel-styles", FUNNEL_CSS);
+    const uid = import_react.default.useId();
+    const tableId = tableFallback ? `${uid}-table` : void 0;
+    const rows = data || [];
+    const n = rows.length;
+    const fmt = valueFormat || fmtNumber;
+    const W = 600, H = height;
+    const pad = 8;
+    const innerW = W - pad * 2, innerH = H - pad * 2;
+    const values = rows.map((d) => Number(d.value) || 0);
+    const maxValue = Math.max(0, ...values);
+    const denom = maxValue > 0 ? maxValue : 1;
+    const top = values[0] || 0;
+    const extent = (v) => v / denom * (horizontal ? innerH : innerW);
+    const pct = (v) => top > 0 ? v / top * 100 : 0;
+    const pctText = (v) => {
+      const p = pct(v);
+      return `${p % 1 ? p.toFixed(1) : p}%`;
+    };
+    const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "funnel chart";
+    const renderStages = () => rows.map((d, i) => {
+      const v = values[i];
+      const nextV = i < n - 1 ? values[i + 1] : v;
+      const lead = extent(v) / 2, trail = extent(nextV) / 2;
+      const color = d.color || paletteAt(colors, i);
+      let points, tx, ty;
+      if (horizontal) {
+        const bandW = innerW / Math.max(1, n);
+        const x0 = pad + bandW * i + gap / 2;
+        const x1 = pad + bandW * (i + 1) - gap / 2;
+        const cy = H / 2;
+        points = [[x0, cy - lead], [x1, cy - trail], [x1, cy + trail], [x0, cy + lead]];
+        tx = (x0 + x1) / 2;
+        ty = cy;
+      } else {
+        const bandH = innerH / Math.max(1, n);
+        const y0 = pad + bandH * i + gap / 2;
+        const y1 = pad + bandH * (i + 1) - gap / 2;
+        const cx = W / 2;
+        points = [[cx - lead, y0], [cx + lead, y0], [cx + trail, y1], [cx - trail, y1]];
+        tx = cx;
+        ty = (y0 + y1) / 2;
+      }
+      const valueLine = [showValues ? fmt(v) : null, showPercent ? pctText(v) : null].filter(Boolean).join(" \xB7 ");
+      const lines = [d.label, valueLine].filter((l) => l != null && l !== "");
+      const firstDy = -((lines.length - 1) * 0.6);
+      return /* @__PURE__ */ jsxs("g", { className: "twc-funnel__stage", style: { animationDelay: `${i * 45}ms` }, children: [
+        /* @__PURE__ */ jsx("path", { d: polygonPath(points), fill: color, children: /* @__PURE__ */ jsx("title", { children: `${labelText8(d.label)}: ${fmt(v)} (${pctText(v)})` }) }),
+        lines.length ? /* @__PURE__ */ jsx("text", { className: "twc-funnel__label", x: tx, y: ty, textAnchor: "middle", dominantBaseline: "middle", children: lines.map((line, li) => /* @__PURE__ */ jsx(
+          "tspan",
+          {
+            x: tx,
+            dy: li === 0 ? `${firstDy}em` : "1.25em",
+            className: li === 0 && lines.length > 1 ? "twc-funnel__name" : "twc-funnel__value",
+            children: line
+          },
+          li
+        )) }) : null
+      ] }, i);
+    });
+    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--funnel ${className}`.trim(), "data-orientation": horizontal ? "horizontal" : "vertical", ...rest, children: [
+      baseStyles,
+      styles,
+      /* @__PURE__ */ jsx("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: renderStages() }),
+      tableFallback ? /* @__PURE__ */ jsx(
+        ChartTable,
+        {
+          id: tableId,
+          caption: caption ?? svgAriaLabel,
+          columns: ["value", "% of top"],
+          rows: rows.map((d) => ({ label: d.label, values: [fmt(Number(d.value) || 0), pctText(Number(d.value) || 0)] }))
+        }
+      ) : null
+    ] });
+  }
+  function labelText8(label) {
+    return typeof label === "string" || typeof label === "number" ? String(label) : "";
+  }
+  var TREEMAP_CSS = `
+.twc-chart__tile { transition: opacity var(--duration-fast) var(--ease-standard); }
+.twc-chart__tile:hover { opacity: 0.85; }
+.twc-chart__tile-label { fill: var(--color-text-inverted); font-size: var(--text-xs); font-weight: var(--font-semibold); pointer-events: none; }
+.twc-chart__tile-value { fill: var(--color-text-inverted); font-size: 11px; opacity: 0.82; pointer-events: none; }
+.twc-chart__empty { fill: var(--color-text-subtle); font-size: var(--text-sm); }
+`;
+  function Treemap({
+    data,
+    showValues = true,
+    valueFormat,
+    height = 300,
+    colors,
+    gap = 2,
+    ariaLabel,
+    "aria-label": ariaLabelProp,
+    tableFallback = true,
+    caption,
+    className = "",
+    ...rest
+  }) {
+    const baseStyles = useScopedStyles("twc-chart-base", CHART_BASE_CSS);
+    const styles = useScopedStyles("twc-treemap-styles", TREEMAP_CSS);
+    const uid = import_react.default.useId();
+    const tableId = tableFallback ? `${uid}-table` : void 0;
+    const rows = data || [];
+    const fmt = valueFormat || fmtNumber;
+    const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "treemap";
+    const W = 600, H = height;
+    const weights = rows.map((d) => Math.max(0, Number(d.value) || 0));
+    const total = sum(weights);
+    const items = total > 0 ? rows.map((d, i) => ({ i, w: weights[i] })).sort((a, b) => b.w - a.w).map((it) => ({ ...it, area: it.w / total * (W * H) })) : [];
+    const tiles = squarify(items, { x: 0, y: 0, w: W, h: H });
+    const g = Math.max(0, gap);
+    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--treemap ${className}`.trim(), ...rest, children: [
+      baseStyles,
+      styles,
+      /* @__PURE__ */ jsx("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: tiles.length === 0 ? /* @__PURE__ */ jsx("text", { className: "twc-chart__empty", x: W / 2, y: H / 2, textAnchor: "middle", dominantBaseline: "middle", children: "No data" }) : tiles.map((t) => {
+        const d = rows[t.i];
+        const x = r(t.x + g / 2), y = r(t.y + g / 2);
+        const w = r(Math.max(0, t.w - g)), h = r(Math.max(0, t.h - g));
+        if (w <= 0 || h <= 0) return null;
+        const color = d.color || paletteAt(colors, t.i);
+        const label = labelText9(d.label);
+        const showText = w >= 40 && h >= 24;
+        const showVal = showValues && h >= 42;
+        const clipId = `${uid}-clip-${t.i}`;
+        return /* @__PURE__ */ jsxs("g", { children: [
+          /* @__PURE__ */ jsx("clipPath", { id: clipId, children: /* @__PURE__ */ jsx("rect", { x, y, width: w, height: h, rx: "4" }) }),
+          /* @__PURE__ */ jsx("rect", { className: "twc-chart__tile", x, y, width: w, height: h, rx: "4", style: { fill: color }, children: /* @__PURE__ */ jsx("title", { children: `${label}: ${fmt(t.w)}` }) }),
+          showText ? /* @__PURE__ */ jsxs("g", { clipPath: `url(#${clipId})`, "aria-hidden": "true", children: [
+            /* @__PURE__ */ jsx("text", { className: "twc-chart__tile-label", x: x + 8, y: y + 17, children: label }),
+            showVal ? /* @__PURE__ */ jsx("text", { className: "twc-chart__tile-value", x: x + 8, y: y + 32, children: fmt(t.w) }) : null
+          ] }) : null
+        ] }, t.i);
+      }) }),
+      tableFallback ? /* @__PURE__ */ jsx(
+        ChartTable,
+        {
+          id: tableId,
+          caption: caption ?? svgAriaLabel,
+          columns: ["value", "share"],
+          rows: rows.map((d, i) => ({
+            label: d.label,
+            values: [fmt(weights[i]), total > 0 ? `${r(weights[i] / total * 100)}%` : "0%"]
+          }))
+        }
+      ) : null
+    ] });
+  }
+  function squarify(items, rect) {
+    const out = [];
+    if (rect.w <= 0 || rect.h <= 0) return out;
+    let rem = items;
+    let r0 = { ...rect };
+    let start = 0;
+    while (start < rem.length) {
+      const short = Math.min(r0.w, r0.h);
+      if (short <= 0) break;
+      let rowSum = rem[start].area;
+      let rowMin = rem[start].area, rowMax = rem[start].area;
+      let count = 1;
+      while (start + count < rem.length) {
+        const a = rem[start + count].area;
+        const nMin = Math.min(rowMin, a), nMax = Math.max(rowMax, a);
+        const nSum = rowSum + a;
+        if (worst(nMax, nMin, nSum, short) <= worst(rowMax, rowMin, rowSum, short)) {
+          rowSum = nSum;
+          rowMin = nMin;
+          rowMax = nMax;
+          count++;
+        } else break;
+      }
+      if (r0.w >= r0.h) {
+        const strip = rowSum / r0.h;
+        let oy = r0.y;
+        for (let k = 0; k < count; k++) {
+          const it = rem[start + k];
+          const th = rowSum > 0 ? it.area / rowSum * r0.h : 0;
+          out.push({ ...it, x: r0.x, y: oy, w: strip, h: th });
+          oy += th;
+        }
+        r0 = { x: r0.x + strip, y: r0.y, w: r0.w - strip, h: r0.h };
+      } else {
+        const strip = rowSum / r0.w;
+        let ox = r0.x;
+        for (let k = 0; k < count; k++) {
+          const it = rem[start + k];
+          const tw = rowSum > 0 ? it.area / rowSum * r0.w : 0;
+          out.push({ ...it, x: ox, y: r0.y, w: tw, h: strip });
+          ox += tw;
+        }
+        r0 = { x: r0.x, y: r0.y + strip, w: r0.w, h: r0.h - strip };
+      }
+      start += count;
+    }
+    return out;
+  }
+  function worst(rmax, rmin, s, w) {
+    if (s <= 0 || w <= 0 || rmin <= 0) return Infinity;
+    const w2 = w * w, s2 = s * s;
+    return Math.max(w2 * rmax / s2, s2 / (w2 * rmin));
+  }
+  function labelText9(label) {
+    return typeof label === "string" || typeof label === "number" ? String(label) : "";
+  }
+  var CANDLE_CSS = `
+.twc-candlestick__grid { stroke: var(--color-divider); stroke-width: 1; }
+.twc-candlestick__axis { fill: var(--color-text-subtle); font-size: 11px; }
+.twc-candlestick__wick { stroke-width: 1; }
+.twc-candlestick__body { transition: opacity var(--duration-fast) var(--ease-standard); }
+.twc-candlestick__body:hover { opacity: 0.82; }
+`;
+  function Candlestick({
+    data,
+    upColor = "var(--color-success)",
+    downColor = "var(--color-danger)",
+    height = 300,
+    showGrid = true,
+    showAxis = true,
+    valueFormat,
+    ariaLabel,
+    "aria-label": ariaLabelProp,
+    tableFallback = true,
+    caption,
+    className = "",
+    ...rest
+  }) {
+    const baseStyles = useScopedStyles("twc-chart-base", CHART_BASE_CSS);
+    const styles = useScopedStyles("twc-candlestick-styles", CANDLE_CSS);
+    const uid = import_react.default.useId();
+    const tableId = tableFallback ? `${uid}-table` : void 0;
+    const rows = data || [];
+    const fmt = valueFormat || fmtNumber;
+    const W = 600, H = height;
+    const padL = showAxis ? 44 : 8;
+    const padR = 10;
+    const padT = 12;
+    const padB = showAxis ? 26 : 8;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const lows = rows.map((d) => Number(d.low)).filter(Number.isFinite);
+    const highs = rows.map((d) => Number(d.high)).filter(Number.isFinite);
+    const minLow = lows.length ? Math.min(...lows) : 0;
+    const maxHigh = highs.length ? Math.max(...highs) : 1;
+    const scale = niceScale(minLow, maxHigh, 5);
+    const span = scale.max - scale.min || 1;
+    const vPos = (v) => padT + innerH - (v - scale.min) / span * innerH;
+    const catBand = innerW / Math.max(1, rows.length);
+    const cx = (i) => padL + catBand * i + catBand / 2;
+    const bodyW = Math.max(1, Math.min(catBand * 0.7, 22));
+    const labelStep = Math.max(1, Math.ceil(rows.length / 12));
+    const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "candlestick chart";
+    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--candlestick ${className}`.trim(), ...rest, children: [
+      baseStyles,
+      styles,
+      /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
+        showGrid ? scale.ticks.map((t, i) => {
+          const p = vPos(t);
+          return /* @__PURE__ */ jsx("line", { className: "twc-candlestick__grid", x1: padL, y1: p, x2: W - padR, y2: p }, i);
+        }) : null,
+        showAxis ? scale.ticks.map((t, i) => /* @__PURE__ */ jsx("text", { className: "twc-candlestick__axis", x: padL - 8, y: vPos(t) + 4, textAnchor: "end", children: shortNum(t) }, i)) : null,
+        rows.map((d, i) => {
+          const open = Number(d.open) || 0;
+          const high = Number(d.high) || 0;
+          const low = Number(d.low) || 0;
+          const close = Number(d.close) || 0;
+          const up = close >= open;
+          const color = up ? upColor : downColor;
+          const x = cx(i);
+          const yTop = vPos(Math.max(open, close));
+          const yBot = vPos(Math.min(open, close));
+          const bh = Math.max(1, yBot - yTop);
+          const title = `${labelText10(d.label)}: O ${fmt(open)} H ${fmt(high)} L ${fmt(low)} C ${fmt(close)}`;
+          return /* @__PURE__ */ jsxs("g", { "data-dir": up ? "up" : "down", children: [
+            /* @__PURE__ */ jsx(
+              "line",
+              {
+                className: "twc-candlestick__wick",
+                style: { stroke: color },
+                x1: x,
+                y1: vPos(high),
+                x2: x,
+                y2: vPos(low),
+                children: /* @__PURE__ */ jsx("title", { children: title })
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              "rect",
+              {
+                className: "twc-candlestick__body",
+                style: { fill: color },
+                x: x - bodyW / 2,
+                y: yTop,
+                width: bodyW,
+                height: bh,
+                rx: "1",
+                children: /* @__PURE__ */ jsx("title", { children: title })
+              }
+            )
+          ] }, i);
+        }),
+        showAxis ? rows.map(
+          (d, i) => i % labelStep === 0 ? /* @__PURE__ */ jsx("text", { className: "twc-candlestick__axis", x: cx(i), y: H - 8, textAnchor: "middle", children: d.label }, i) : null
+        ) : null
+      ] }),
+      tableFallback ? /* @__PURE__ */ jsx(
+        ChartTable,
+        {
+          id: tableId,
+          caption: caption ?? svgAriaLabel,
+          columns: ["open", "high", "low", "close"],
+          rows: rows.map((d) => ({
+            label: d.label,
+            values: [Number(d.open) || 0, Number(d.high) || 0, Number(d.low) || 0, Number(d.close) || 0].map(fmt)
+          }))
+        }
+      ) : null
+    ] });
+  }
+  function labelText10(label) {
+    return typeof label === "string" || typeof label === "number" ? String(label) : "";
+  }
+  var CHART_CSS5 = `
+.twc-boxplot__grid { stroke: var(--color-divider); stroke-width: 1; }
+.twc-boxplot__axis { fill: var(--color-text-subtle); font-size: 11px; }
+.twc-boxplot__whisker { stroke: var(--color-primary); stroke-width: 1.5; stroke-linecap: round; }
+.twc-boxplot__box { fill: var(--color-primary); fill-opacity: 0.18; stroke: var(--color-primary); stroke-width: 1.5; transition: fill-opacity var(--duration-fast) var(--ease-standard); }
+.twc-boxplot__box:hover { fill-opacity: 0.3; }
+.twc-boxplot__median { stroke: var(--color-primary); stroke-width: 2.5; stroke-linecap: round; }
+.twc-boxplot__outlier { fill: var(--color-surface); stroke: var(--color-primary); stroke-width: 1.5; }
+`;
+  function Boxplot({
+    data,
+    color = "var(--color-primary)",
+    height = 300,
+    showGrid = true,
+    showAxis = true,
+    valueFormat,
+    ariaLabel,
+    "aria-label": ariaLabelProp,
+    tableFallback = true,
+    caption,
+    className = "",
+    ...rest
+  }) {
+    const baseStyles = useScopedStyles("twc-chart-base", CHART_BASE_CSS);
+    const styles = useScopedStyles("twc-boxplot-styles", CHART_CSS5);
+    const uid = import_react.default.useId();
+    const tableId = tableFallback ? `${uid}-table` : void 0;
+    const rows = data || [];
+    const fmt = valueFormat || fmtNumber;
+    const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "box plot";
+    const W = 600, H = height;
+    const padL = showAxis ? 44 : 8;
+    const padR = 10;
+    const padT = 12;
+    const padB = showAxis ? 26 : 8;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const allValues = rows.flatMap((d) => [
+      Number(d.min),
+      Number(d.q1),
+      Number(d.median),
+      Number(d.q3),
+      Number(d.max),
+      ...Array.isArray(d.outliers) ? d.outliers.map(Number) : []
+    ].filter((v) => isFinite(v)));
+    const dataMin = allValues.length ? Math.min(...allValues) : 0;
+    const dataMax = allValues.length ? Math.max(...allValues) : 1;
+    const scale = niceScale(dataMin, dataMax, 5);
+    const span = scale.max - scale.min || 1;
+    const vPos = (v) => padT + innerH - (Number(v) - scale.min) / span * innerH;
+    const band = innerW / Math.max(1, rows.length);
+    const bandX = (i) => padL + band * i;
+    const boxW = Math.min(band * 0.5, 46);
+    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--boxplot ${className}`.trim(), ...rest, children: [
+      baseStyles,
+      styles,
+      /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
+        showGrid ? scale.ticks.map((t, i) => {
+          const p = vPos(t);
+          return /* @__PURE__ */ jsx("line", { className: "twc-boxplot__grid", x1: padL, y1: p, x2: W - padR, y2: p }, i);
+        }) : null,
+        showAxis ? scale.ticks.map((t, i) => {
+          const p = vPos(t);
+          return /* @__PURE__ */ jsx("text", { className: "twc-boxplot__axis", x: padL - 8, y: p + 4, textAnchor: "end", children: shortNum(t) }, i);
+        }) : null,
+        rows.map((d, i) => {
+          const cx = bandX(i) + band / 2;
+          const x = cx - boxW / 2;
+          const yMin = vPos(d.min), yMax = vPos(d.max);
+          const yQ1 = vPos(d.q1), yQ3 = vPos(d.q3), yMed = vPos(d.median);
+          const boxTop = Math.min(yQ1, yQ3), boxBot = Math.max(yQ1, yQ3);
+          const cap = boxW / 3;
+          const tip = `${labelText11(d.label)}: min ${fmt(Number(d.min))}, Q1 ${fmt(Number(d.q1))}, med ${fmt(Number(d.median))}, Q3 ${fmt(Number(d.q3))}, max ${fmt(Number(d.max))}`;
+          return /* @__PURE__ */ jsxs("g", { style: { color }, children: [
+            /* @__PURE__ */ jsx("title", { children: tip }),
+            /* @__PURE__ */ jsx("line", { className: "twc-boxplot__whisker", style: { stroke: color }, x1: cx, y1: yMax, x2: cx, y2: boxTop }),
+            /* @__PURE__ */ jsx("line", { className: "twc-boxplot__whisker", style: { stroke: color }, x1: cx, y1: boxBot, x2: cx, y2: yMin }),
+            /* @__PURE__ */ jsx("line", { className: "twc-boxplot__whisker", style: { stroke: color }, x1: cx - cap, y1: yMax, x2: cx + cap, y2: yMax }),
+            /* @__PURE__ */ jsx("line", { className: "twc-boxplot__whisker", style: { stroke: color }, x1: cx - cap, y1: yMin, x2: cx + cap, y2: yMin }),
+            /* @__PURE__ */ jsx(
+              "rect",
+              {
+                className: "twc-boxplot__box",
+                style: { fill: color, stroke: color },
+                x,
+                y: boxTop,
+                width: boxW,
+                height: Math.max(1, boxBot - boxTop),
+                rx: "2"
+              }
+            ),
+            /* @__PURE__ */ jsx("line", { className: "twc-boxplot__median", style: { stroke: color }, x1: x, y1: yMed, x2: x + boxW, y2: yMed }),
+            (Array.isArray(d.outliers) ? d.outliers : []).map(
+              (o, oi) => isFinite(Number(o)) ? /* @__PURE__ */ jsx("circle", { className: "twc-boxplot__outlier", style: { stroke: color }, cx, cy: vPos(o), r: "2.5", children: /* @__PURE__ */ jsx("title", { children: `${labelText11(d.label)}: outlier ${fmt(Number(o))}` }) }, oi) : null
+            )
+          ] }, i);
+        }),
+        showAxis ? rows.map((d, i) => /* @__PURE__ */ jsx("text", { className: "twc-boxplot__axis", x: bandX(i) + band / 2, y: H - 8, textAnchor: "middle", children: d.label }, i)) : null
+      ] }),
+      tableFallback ? /* @__PURE__ */ jsx(
+        ChartTable,
+        {
+          id: tableId,
+          caption: caption ?? svgAriaLabel,
+          columns: ["min", "q1", "median", "q3", "max"],
+          rows: rows.map((d) => ({
+            label: d.label,
+            values: [d.min, d.q1, d.median, d.q3, d.max].map((v) => fmt(Number(v)))
+          }))
+        }
+      ) : null
+    ] });
+  }
+  function labelText11(label) {
+    return typeof label === "string" || typeof label === "number" ? String(label) : "";
+  }
+  var RANGE_CSS = `
+.twc-chart--range .twc-rangechart__grid { stroke: var(--color-divider); stroke-width: 1; }
+.twc-chart--range .twc-rangechart__axis { fill: var(--color-text-subtle); font-size: 11px; }
+.twc-chart--range .twc-rangechart__bar { transition: opacity var(--duration-fast) var(--ease-standard); }
+.twc-chart--range .twc-rangechart__bar:hover { opacity: 0.82; }
+.twc-chart--range .twc-rangechart__band { transition: opacity var(--duration-fast) var(--ease-standard); opacity: 0.18; }
+.twc-chart--range .twc-rangechart__band:hover { opacity: 0.26; }
+.twc-chart--range .twc-rangechart__edge { fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+`;
+  function RangeChart({
+    type = "bar",
+    data,
+    height = 300,
+    showGrid = true,
+    showAxis = true,
+    colors,
+    valueFormat,
+    ariaLabel,
+    "aria-label": ariaLabelProp,
+    tableFallback = true,
+    caption,
+    className = "",
+    ...rest
+  }) {
+    const baseStyles = useScopedStyles("twc-chart-base", CHART_BASE_CSS);
+    const styles = useScopedStyles("twc-rangechart-styles", RANGE_CSS);
+    const uid = import_react.default.useId();
+    const tableId = tableFallback ? `${uid}-table` : void 0;
+    const isArea = type === "area";
+    const rows = data || [];
+    const n = rows.length;
+    const fmt = valueFormat || fmtNumber;
+    const W = 600, H = height;
+    const padL = showAxis ? isArea ? 44 : 84 : 8;
+    const padR = 12;
+    const padT = 12;
+    const padB = showAxis ? 26 : 8;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const vals = rows.flatMap((d) => [Number(d.min), Number(d.max)]).filter(Number.isFinite);
+    const lo = vals.length ? Math.min(...vals) : 0;
+    const hi = vals.length ? Math.max(...vals) : 1;
+    const scale = niceScale(lo, hi, 5);
+    const span = scale.max - scale.min || 1;
+    const frac = (v) => (v - scale.min) / span;
+    const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? `range ${type} chart`;
+    const xPos = (v) => padL + frac(v) * innerW;
+    const catBandH = innerH / Math.max(1, n);
+    const renderBars = () => {
+      const gap = 0.34;
+      const slot = catBandH * (1 - gap);
+      return rows.map((d, i) => {
+        const min = Number(d.min) || 0, max = Number(d.max) || 0;
+        const x0 = xPos(Math.min(min, max));
+        const x1 = xPos(Math.max(min, max));
+        const y = padT + catBandH * i + catBandH * gap / 2;
+        const color = d.color || paletteAt(colors, i);
+        return /* @__PURE__ */ jsx(
+          "rect",
+          {
+            className: "twc-rangechart__bar",
+            style: { fill: color },
+            x: x0,
+            y,
+            width: Math.max(1, x1 - x0),
+            height: Math.max(1, slot),
+            rx: "3",
+            children: /* @__PURE__ */ jsx("title", { children: `${labelText12(d.label)}: ${fmt(min)} \u2013 ${fmt(max)}` })
+          },
+          i
+        );
+      });
+    };
+    const lineX = (i) => n > 1 ? padL + innerW / (n - 1) * i : padL + innerW / 2;
+    const yPos = (v) => padT + innerH - frac(v) * innerH;
+    const renderBand = () => {
+      const maxPts = rows.map((d, i) => [lineX(i), yPos(Number(d.max) || 0)]);
+      const minPts = rows.map((d, i) => [lineX(i), yPos(Number(d.min) || 0)]);
+      const rev = [...minPts].reverse().map((p) => `L${r(p[0])} ${r(p[1])}`).join(" ");
+      const bandD = `${linePath(maxPts)} ${rev} Z`;
+      const color = paletteAt(colors, 0);
+      const hitW = n > 1 ? innerW / (n - 1) : innerW;
+      return /* @__PURE__ */ jsxs("g", { children: [
+        /* @__PURE__ */ jsx("path", { className: "twc-rangechart__band", style: { fill: color }, d: bandD }),
+        /* @__PURE__ */ jsx("path", { className: "twc-rangechart__edge", style: { stroke: color }, d: linePath(maxPts) }),
+        /* @__PURE__ */ jsx("path", { className: "twc-rangechart__edge", style: { stroke: color }, d: linePath(minPts) }),
+        rows.map((d, i) => /* @__PURE__ */ jsx("rect", { fill: "transparent", x: lineX(i) - hitW / 2, y: padT, width: hitW, height: innerH, children: /* @__PURE__ */ jsx("title", { children: `${labelText12(d.label)}: ${fmt(Number(d.min) || 0)} \u2013 ${fmt(Number(d.max) || 0)}` }) }, i))
+      ] });
+    };
+    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--range ${className}`.trim(), "data-type": type, ...rest, children: [
+      baseStyles,
+      styles,
+      /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
+        showGrid ? scale.ticks.map(
+          (t, i) => isArea ? /* @__PURE__ */ jsx("line", { className: "twc-rangechart__grid", x1: padL, y1: yPos(t), x2: W - padR, y2: yPos(t) }, i) : /* @__PURE__ */ jsx("line", { className: "twc-rangechart__grid", x1: xPos(t), y1: padT, x2: xPos(t), y2: padT + innerH }, i)
+        ) : null,
+        showAxis ? scale.ticks.map(
+          (t, i) => isArea ? /* @__PURE__ */ jsx("text", { className: "twc-rangechart__axis", x: padL - 8, y: yPos(t) + 4, textAnchor: "end", children: shortNum(t) }, i) : /* @__PURE__ */ jsx("text", { className: "twc-rangechart__axis", x: xPos(t), y: H - 8, textAnchor: "middle", children: shortNum(t) }, i)
+        ) : null,
+        isArea ? renderBand() : renderBars(),
+        showAxis ? rows.map(
+          (d, i) => isArea ? /* @__PURE__ */ jsx("text", { className: "twc-rangechart__axis", x: lineX(i), y: H - 8, textAnchor: "middle", children: d.label }, i) : /* @__PURE__ */ jsx("text", { className: "twc-rangechart__axis", x: padL - 8, y: padT + catBandH * i + catBandH / 2 + 4, textAnchor: "end", children: d.label }, i)
+        ) : null
+      ] }),
+      tableFallback ? /* @__PURE__ */ jsx(
+        ChartTable,
+        {
+          id: tableId,
+          caption: caption ?? svgAriaLabel,
+          columns: ["min", "max"],
+          rows: rows.map((d) => ({ label: d.label, values: [fmt(Number(d.min) || 0), fmt(Number(d.max) || 0)] }))
+        }
+      ) : null
+    ] });
+  }
+  function labelText12(label) {
+    return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
   var seen = /* @__PURE__ */ new Set();
   function warnOnce(key, message) {
@@ -1986,17 +3708,17 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     s /= 100;
     v /= 100;
     const c = v * s, x = c * (1 - Math.abs(h / 60 % 2 - 1)), m = v - c;
-    let r = 0, g = 0, b = 0;
-    if (h < 60) [r, g, b] = [c, x, 0];
-    else if (h < 120) [r, g, b] = [x, c, 0];
-    else if (h < 180) [r, g, b] = [0, c, x];
-    else if (h < 240) [r, g, b] = [0, x, c];
-    else if (h < 300) [r, g, b] = [x, 0, c];
-    else [r, g, b] = [c, 0, x];
-    return [Math.round((r + m) * 255), Math.round((g + m) * 255), Math.round((b + m) * 255)];
+    let r2 = 0, g = 0, b = 0;
+    if (h < 60) [r2, g, b] = [c, x, 0];
+    else if (h < 120) [r2, g, b] = [x, c, 0];
+    else if (h < 180) [r2, g, b] = [0, c, x];
+    else if (h < 240) [r2, g, b] = [0, x, c];
+    else if (h < 300) [r2, g, b] = [x, 0, c];
+    else [r2, g, b] = [c, 0, x];
+    return [Math.round((r2 + m) * 255), Math.round((g + m) * 255), Math.round((b + m) * 255)];
   }
-  function rgbToHex(r, g, b) {
-    return "#" + [r, g, b].map((n) => n.toString(16).padStart(2, "0")).join("");
+  function rgbToHex(r2, g, b) {
+    return "#" + [r2, g, b].map((n) => n.toString(16).padStart(2, "0")).join("");
   }
   function hsvToHex(h, s, v) {
     return rgbToHex(...hsvToRgb(h, s, v));
@@ -2010,14 +3732,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const m = /^([0-9a-f]{6})([0-9a-f]{2})?$/i.exec(str);
     if (!m) return null;
     const int = parseInt(m[1], 16);
-    const r = (int >> 16) / 255, g = (int >> 8 & 255) / 255, b = (int & 255) / 255;
+    const r2 = (int >> 16) / 255, g = (int >> 8 & 255) / 255, b = (int & 255) / 255;
     const a = m[2] != null ? parseInt(m[2], 16) / 255 : 1;
-    const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
+    const max = Math.max(r2, g, b), min = Math.min(r2, g, b), d = max - min;
     let h = 0;
     if (d) {
-      if (max === r) h = (g - b) / d % 6;
-      else if (max === g) h = (b - r) / d + 2;
-      else h = (r - g) / d + 4;
+      if (max === r2) h = (g - b) / d % 6;
+      else if (max === g) h = (b - r2) / d + 2;
+      else h = (r2 - g) / d + 4;
       h *= 60;
       if (h < 0) h += 360;
     }
@@ -2059,13 +3781,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const place = import_react.default.useCallback(() => {
       const el = triggerRef.current;
       if (!el) return;
-      const r = el.getBoundingClientRect();
+      const r2 = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      const below = vh - r.bottom;
-      const flip = below < 340 && r.top > below;
-      let left = Math.min(r.left, window.innerWidth - POP_W - 8);
+      const below = vh - r2.bottom;
+      const flip = below < 340 && r2.top > below;
+      let left = Math.min(r2.left, window.innerWidth - POP_W - 8);
       left = Math.max(8, left);
-      setCoords({ left, top: flip ? void 0 : Math.round(r.bottom + 6), bottom: flip ? Math.round(vh - r.top + 6) : void 0 });
+      setCoords({ left, top: flip ? void 0 : Math.round(r2.bottom + 6), bottom: flip ? Math.round(vh - r2.top + 6) : void 0 });
     }, []);
     import_react.default.useEffect(() => {
       if (!open) return void 0;
@@ -2113,14 +3835,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       onChange?.(out);
     };
     const dragArea = (e) => {
-      const r = areaRef.current.getBoundingClientRect();
-      const s = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * 100;
-      const v = (1 - Math.min(1, Math.max(0, (e.clientY - r.top) / r.height))) * 100;
+      const r2 = areaRef.current.getBoundingClientRect();
+      const s = Math.min(1, Math.max(0, (e.clientX - r2.left) / r2.width)) * 100;
+      const v = (1 - Math.min(1, Math.max(0, (e.clientY - r2.top) / r2.height))) * 100;
       commit({ ...hsv, s, v });
     };
     const dragHue = (e) => {
-      const r = hueRef.current.getBoundingClientRect();
-      const h = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * 360;
+      const r2 = hueRef.current.getBoundingClientRect();
+      const h = Math.min(1, Math.max(0, (e.clientX - r2.left) / r2.width)) * 360;
       commit({ ...hsv, h });
     };
     const startDrag = (handler) => (e) => {
@@ -2155,8 +3877,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       commit({ ...hsv, h });
     };
     const dragAlpha = (e) => {
-      const r = alphaRef.current.getBoundingClientRect();
-      const a = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+      const r2 = alphaRef.current.getBoundingClientRect();
+      const a = Math.min(1, Math.max(0, (e.clientX - r2.left) / r2.width));
       commit({ ...hsv, a });
     };
     const onAlphaKeyDown = (e) => {
@@ -2516,15 +4238,15 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const place = import_react.default.useCallback(() => {
       const el = controlRef.current;
       if (!el) return;
-      const r = el.getBoundingClientRect();
+      const r2 = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      const below = vh - r.bottom;
-      const flip = placement === "top" || below < 260 && r.top > below;
+      const below = vh - r2.bottom;
+      const flip = placement === "top" || below < 260 && r2.top > below;
       setCoords({
-        left: r.left,
-        width: Math.max(r.width, minWidth),
-        top: flip ? void 0 : Math.round(r.bottom + 6),
-        bottom: flip ? Math.round(vh - r.top + 6) : void 0,
+        left: r2.left,
+        width: Math.max(r2.width, minWidth),
+        top: flip ? void 0 : Math.round(r2.bottom + 6),
+        bottom: flip ? Math.round(vh - r2.top + 6) : void 0,
         flip
       });
     }, [placement, minWidth]);
@@ -2570,7 +4292,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       }
       const el = listRef.current;
       if (!el) return;
-      const row = rows.find((r) => r.kind === "option" && r.idx === active);
+      const row = rows.find((r2) => r2.kind === "option" && r2.idx === active);
       if (!row) return;
       const vh = el.clientHeight || listH;
       let next = el.scrollTop;
@@ -2659,7 +4381,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     if (virtualized && rows.length) {
       const winTop = scrollTop - overscan * rowH;
       const winBottom = scrollTop + listH + overscan * rowH;
-      vShown = rows.filter((r) => r.top + r.h > winTop && r.top < winBottom);
+      vShown = rows.filter((r2) => r2.top + r2.h > winTop && r2.top < winBottom);
       vTop = vShown.length ? vShown[0].top : 0;
       vBottom = vShown.length ? totalH - (vShown[vShown.length - 1].top + vShown[vShown.length - 1].h) : totalH;
     }
@@ -2669,7 +4391,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       "Loading\u2026"
     ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
       vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
-      vShown.map((r) => r.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r.label }, `g${r.gi}`) : renderOption(r.o, r.idx)),
+      vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderOption(r2.o, r2.idx)),
       vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
     ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
       g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
@@ -3342,16 +5064,16 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const place = import_react.default.useCallback(() => {
       const el = triggerRef.current;
       if (!el) return;
-      const r = el.getBoundingClientRect();
+      const r2 = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      const below = vh - r.bottom;
-      const flip = placement === "top" || below < 260 && r.top > below;
-      const widthStyle = matchTriggerWidth ? { width: Math.max(r.width, minWidth) } : { width: "auto", minWidth: Math.max(r.width, minWidth), maxWidth: Math.max(160, window.innerWidth - r.left - 8) };
+      const below = vh - r2.bottom;
+      const flip = placement === "top" || below < 260 && r2.top > below;
+      const widthStyle = matchTriggerWidth ? { width: Math.max(r2.width, minWidth) } : { width: "auto", minWidth: Math.max(r2.width, minWidth), maxWidth: Math.max(160, window.innerWidth - r2.left - 8) };
       setCoords({
-        left: r.left,
+        left: r2.left,
         ...widthStyle,
-        top: flip ? void 0 : Math.round(r.bottom + 6),
-        bottom: flip ? Math.round(vh - r.top + 6) : void 0,
+        top: flip ? void 0 : Math.round(r2.bottom + 6),
+        bottom: flip ? Math.round(vh - r2.top + 6) : void 0,
         flip
       });
     }, [placement, minWidth, matchTriggerWidth]);
@@ -3398,7 +5120,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       }
       const el = listRef.current;
       if (!el) return;
-      const row = rows.find((r) => r.kind === "option" && r.idx === active);
+      const row = rows.find((r2) => r2.kind === "option" && r2.idx === active);
       if (!row) return;
       const vh = el.clientHeight || listH;
       let next = el.scrollTop;
@@ -3515,7 +5237,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     if (virtualized && rows.length) {
       const winTop = scrollTop - overscan * rowH;
       const winBottom = scrollTop + listH + overscan * rowH;
-      vShown = rows.filter((r) => r.top + r.h > winTop && r.top < winBottom);
+      vShown = rows.filter((r2) => r2.top + r2.h > winTop && r2.top < winBottom);
       vTop = vShown.length ? vShown[0].top : 0;
       vBottom = vShown.length ? totalH - (vShown[vShown.length - 1].top + vShown[vShown.length - 1].h) : totalH;
     }
@@ -3551,7 +5273,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         "Loading\u2026"
       ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
         vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
-        vShown.map((r) => r.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r.label }, `g${r.gi}`) : renderOption(r.o, r.idx)),
+        vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderOption(r2.o, r2.idx)),
         vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
       ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
         g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
@@ -4169,15 +5891,15 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const place = import_react.default.useCallback(() => {
       const el = controlRef.current;
       if (!el) return;
-      const r = el.getBoundingClientRect();
+      const r2 = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      const below = vh - r.bottom;
-      const flip = placement === "top" || below < 260 && r.top > below;
+      const below = vh - r2.bottom;
+      const flip = placement === "top" || below < 260 && r2.top > below;
       setCoords({
-        left: r.left,
-        width: Math.max(r.width, minWidth),
-        top: flip ? void 0 : Math.round(r.bottom + 6),
-        bottom: flip ? Math.round(vh - r.top + 6) : void 0,
+        left: r2.left,
+        width: Math.max(r2.width, minWidth),
+        top: flip ? void 0 : Math.round(r2.bottom + 6),
+        bottom: flip ? Math.round(vh - r2.top + 6) : void 0,
         flip
       });
     }, [placement, minWidth]);
@@ -4219,7 +5941,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       }
       const el = listRef.current;
       if (!el) return;
-      const row = rows.find((r) => r.kind === "option" && r.idx === active);
+      const row = rows.find((r2) => r2.kind === "option" && r2.idx === active);
       if (!row) return;
       const vh = el.clientHeight || listH;
       let next = el.scrollTop;
@@ -4301,7 +6023,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     if (virtualized && rows.length) {
       const winTop = scrollTop - overscan * rowH;
       const winBottom = scrollTop + listH + overscan * rowH;
-      vShown = rows.filter((r) => r.top + r.h > winTop && r.top < winBottom);
+      vShown = rows.filter((r2) => r2.top + r2.h > winTop && r2.top < winBottom);
       vTop = vShown.length ? vShown[0].top : 0;
       vBottom = vShown.length ? totalH - (vShown[vShown.length - 1].top + vShown[vShown.length - 1].h) : totalH;
     }
@@ -4320,7 +6042,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           "Loading\u2026"
         ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
           vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
-          vShown.map((r) => r.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r.label }, `g${r.gi}`) : renderOption(r.o, r.idx)),
+          vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderOption(r2.o, r2.idx)),
           vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
         ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
           g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
@@ -4642,25 +6364,25 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const place = import_react.default.useCallback(() => {
       const el = wrapRef.current;
       if (!el) return;
-      const r = el.getBoundingClientRect();
-      const cx = Math.round(r.left + r.width / 2), cy = Math.round(r.top + r.height / 2);
+      const r2 = el.getBoundingClientRect();
+      const cx = Math.round(r2.left + r2.width / 2), cy = Math.round(r2.top + r2.height / 2);
       const vw = window.innerWidth, vh = window.innerHeight, gap = 8, margin = 8;
       const tip = tipRef.current;
       const tw = tip ? tip.offsetWidth : 0, th = tip ? tip.offsetHeight : 0;
       const clampX = (c) => tw ? Math.round(Math.min(Math.max(c, margin + tw / 2), vw - margin - tw / 2)) : c;
       const clampY = (c) => th ? Math.round(Math.min(Math.max(c, margin + th / 2), vh - margin - th / 2)) : c;
-      const spaceAbove = r.top - gap - margin, spaceBelow = vh - r.bottom - gap - margin;
-      const spaceLeft = r.left - gap - margin, spaceRight = vw - r.right - gap - margin;
+      const spaceAbove = r2.top - gap - margin, spaceBelow = vh - r2.bottom - gap - margin;
+      const spaceLeft = r2.left - gap - margin, spaceRight = vw - r2.right - gap - margin;
       let side = placement;
       if (placement === "top" && spaceAbove < th && spaceBelow > spaceAbove) side = "bottom";
       else if (placement === "bottom" && spaceBelow < th && spaceAbove > spaceBelow) side = "top";
       else if (placement === "left" && spaceLeft < tw && spaceRight > spaceLeft) side = "right";
       else if (placement === "right" && spaceRight < tw && spaceLeft > spaceRight) side = "left";
       const base = { left: "auto", right: "auto", top: "auto", bottom: "auto", place: side };
-      if (side === "bottom") setCoords({ ...base, left: clampX(cx), top: Math.round(r.bottom + gap) });
-      else if (side === "left") setCoords({ ...base, top: clampY(cy), right: Math.round(vw - r.left + gap) });
-      else if (side === "right") setCoords({ ...base, top: clampY(cy), left: Math.round(r.right + gap) });
-      else setCoords({ ...base, left: clampX(cx), bottom: Math.round(vh - r.top + gap) });
+      if (side === "bottom") setCoords({ ...base, left: clampX(cx), top: Math.round(r2.bottom + gap) });
+      else if (side === "left") setCoords({ ...base, top: clampY(cy), right: Math.round(vw - r2.left + gap) });
+      else if (side === "right") setCoords({ ...base, top: clampY(cy), left: Math.round(r2.right + gap) });
+      else setCoords({ ...base, left: clampX(cx), bottom: Math.round(vh - r2.top + gap) });
     }, [placement]);
     import_react.default.useEffect(() => {
       place();
@@ -5274,16 +6996,16 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const searchFields = options.searchFields || (cols.length ? cols.filter((c) => c.field && c.type !== "actions").map((c) => c.field) : rows && rows[0] ? Object.keys(rows[0]) : []);
     let out = Array.isArray(rows) ? rows : [];
     const quick = String(q.quickFilter || "").trim().toLowerCase();
-    if (quick) out = out.filter((r) => searchFields.some((f) => String(r[f] ?? "").toLowerCase().includes(quick)));
-    for (const f of q.filters || []) out = out.filter((r) => testFilter(r[f.field], f.op, f.value, typeOf(f.field)));
+    if (quick) out = out.filter((r2) => searchFields.some((f) => String(r2[f] ?? "").toLowerCase().includes(quick)));
+    for (const f of q.filters || []) out = out.filter((r2) => testFilter(r2[f.field], f.op, f.value, typeOf(f.field)));
     if (q.sort && q.sort.field) {
       const { field, dir } = q.sort, numeric = typeOf(field) === "number";
       out = [...out].sort((a, b) => {
         const av = a[field], bv = b[field];
         if (av == null) return 1;
         if (bv == null) return -1;
-        const r = numeric ? av - bv : String(av).localeCompare(String(bv));
-        return dir === "desc" ? -r : r;
+        const r2 = numeric ? av - bv : String(av).localeCompare(String(bv));
+        return dir === "desc" ? -r2 : r2;
       });
     }
     const total = out.length;
@@ -5297,13 +7019,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const place = import_react.default.useCallback(() => {
       const c = cfg.current;
       if (!c || !c.el || !c.el.isConnected) return null;
-      const r = c.el.getBoundingClientRect();
+      const r2 = c.el.getBoundingClientRect();
       const vw = window.innerWidth, vh = window.innerHeight, M = 8;
-      if (r.bottom <= 0 || r.top >= vh || r.right <= 0 || r.left >= vw) return false;
-      let left = c.align === "right" ? r.right - c.width : r.left;
+      if (r2.bottom <= 0 || r2.top >= vh || r2.right <= 0 || r2.left >= vw) return false;
+      let left = c.align === "right" ? r2.right - c.width : r2.left;
       left = Math.max(M, Math.min(left, vw - c.width - M));
-      const top = r.bottom + 6;
-      return { top, left, width: c.width, anchorX: r.left + r.width / 2, maxHeight: Math.max(180, vh - top - M) };
+      const top = r2.bottom + 6;
+      return { top, left, width: c.width, anchorX: r2.left + r2.width / 2, maxHeight: Math.max(180, vh - top - M) };
     }, []);
     const open = import_react.default.useCallback((el, align = "left", width = 220) => {
       cfg.current = { el, align, width };
@@ -5586,14 +7308,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     }, [columns, rowPinning]);
     const _autoKey = import_react.default.useRef();
     if (!_autoKey.current) _autoKey.current = { map: /* @__PURE__ */ new WeakMap(), n: 0 };
-    const keyOf = rowKey || ((r, i) => {
-      if (r != null && r.id != null) return r.id;
-      if (r != null && typeof r === "object") {
+    const keyOf = rowKey || ((r2, i) => {
+      if (r2 != null && r2.id != null) return r2.id;
+      if (r2 != null && typeof r2 === "object") {
         const m = _autoKey.current.map;
-        let k = m.get(r);
+        let k = m.get(r2);
         if (k === void 0) {
           k = "\xB7r" + _autoKey.current.n++;
-          m.set(r, k);
+          m.set(r2, k);
         }
         return k;
       }
@@ -5864,12 +7586,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       let out = rows;
       if (quick.trim()) {
         const q = quick.trim().toLowerCase();
-        out = out.filter((r) => visibleCols.some((c) => String(r[c.field] ?? "").toLowerCase().includes(q)));
+        out = out.filter((r2) => visibleCols.some((c) => String(r2[c.field] ?? "").toLowerCase().includes(q)));
       }
       for (const f of filters) {
         const col = colByField[f.field];
         if (!col) continue;
-        out = out.filter((r) => testFilter(r[f.field], f.op, f.value, col.type));
+        out = out.filter((r2) => testFilter(r2[f.field], f.op, f.value, col.type));
       }
       if (sort) {
         const col = colByField[sort.field];
@@ -5877,8 +7599,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           const av = a[sort.field], bv = b[sort.field];
           if (av == null) return 1;
           if (bv == null) return -1;
-          const r = col?.type === "number" ? av - bv : String(av).localeCompare(String(bv));
-          return sort.dir === "desc" ? -r : r;
+          const r2 = col?.type === "number" ? av - bv : String(av).localeCompare(String(bv));
+          return sort.dir === "desc" ? -r2 : r2;
         });
       }
       if (rowOrder && !sort) {
@@ -5911,7 +7633,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     function computeAgg(col, data) {
       const agg = col.aggregation;
       if (!agg) return null;
-      const raw = data.map((r) => r[col.field]).filter((v) => v != null && v !== "");
+      const raw = data.map((r2) => r2[col.field]).filter((v) => v != null && v !== "");
       if (typeof agg === "function") return agg(raw, data);
       if (agg === "count") return raw.length;
       const nums = raw.map(Number).filter((n) => !Number.isNaN(n));
@@ -5928,10 +7650,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         if (depth >= activeGroupBy.length) return rowsIn.map((row) => ({ kind: "leaf", row }));
         const field = activeGroupBy[depth];
         const map = /* @__PURE__ */ new Map();
-        for (const r of rowsIn) {
-          const v = r[field] == null || r[field] === "" ? "\u2014" : r[field];
+        for (const r2 of rowsIn) {
+          const v = r2[field] == null || r2[field] === "" ? "\u2014" : r2[field];
           if (!map.has(v)) map.set(v, []);
-          map.get(v).push(r);
+          map.get(v).push(r2);
         }
         const items = [];
         for (const [value, rs] of map) {
@@ -5975,17 +7697,17 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       return () => ro && ro.disconnect();
     }, [rowPinning, density]);
     const canPinRows = rowPinning && !activeGroupBy.length;
-    const pinnedTopRows = canPinRows ? pinnedRows.top.map((k) => leafRows.find((r, i) => keyOf(r, i) === k)).filter(Boolean) : [];
-    const pinnedBottomRows = canPinRows ? pinnedRows.bottom.map((k) => leafRows.find((r, i) => keyOf(r, i) === k)).filter(Boolean) : [];
-    const middleRows = canPinRows ? leafRows.filter((r, i) => !pinSideOf(keyOf(r, i))) : leafRows;
+    const pinnedTopRows = canPinRows ? pinnedRows.top.map((k) => leafRows.find((r2, i) => keyOf(r2, i) === k)).filter(Boolean) : [];
+    const pinnedBottomRows = canPinRows ? pinnedRows.bottom.map((k) => leafRows.find((r2, i) => keyOf(r2, i) === k)).filter(Boolean) : [];
+    const middleRows = canPinRows ? leafRows.filter((r2, i) => !pinSideOf(keyOf(r2, i))) : leafRows;
     const keyIndex = import_react.default.useMemo(() => {
       const m = /* @__PURE__ */ new Map();
-      leafRows.forEach((r, i) => m.set(keyOf(r, i), i));
+      leafRows.forEach((r2, i) => m.set(keyOf(r2, i), i));
       return m;
     }, [leafRows]);
     const keyIndexMid = import_react.default.useMemo(() => {
       const m = /* @__PURE__ */ new Map();
-      middleRows.forEach((r, i) => m.set(keyOf(r, keyIndex.get(keyOf(r)) ?? i), i));
+      middleRows.forEach((r2, i) => m.set(keyOf(r2, keyIndex.get(keyOf(r2)) ?? i), i));
       return m;
     }, [middleRows, keyIndex]);
     const canReorderRows = rowReorder && !activeGroupBy.length && !sort;
@@ -5993,9 +7715,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       const fromKey = rowDrag.from;
       setRowDrag({ from: null, over: null, after: false });
       if (fromKey == null || fromKey === targetKey) return;
-      const base = rowOrder && rowOrder.length ? rowOrder.slice() : processed.map((r) => keyOf(r));
-      for (const r of processed) {
-        const k = keyOf(r);
+      const base = rowOrder && rowOrder.length ? rowOrder.slice() : processed.map((r2) => keyOf(r2));
+      for (const r2 of processed) {
+        const k = keyOf(r2);
         if (!base.includes(k)) base.push(k);
       }
       const next = base.filter((k) => k !== fromKey);
@@ -6025,9 +7747,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     function commitRowMove(fromKey, targetIndex) {
       const targetRow = middleRows[Math.max(0, Math.min(targetIndex, middleRows.length - 1))];
       const targetKey = targetRow ? keyOf(targetRow, keyIndex.get(keyOf(targetRow)) ?? 0) : null;
-      const base = rowOrder && rowOrder.length ? rowOrder.slice() : processed.map((r) => keyOf(r));
-      for (const r of processed) {
-        const k = keyOf(r);
+      const base = rowOrder && rowOrder.length ? rowOrder.slice() : processed.map((r2) => keyOf(r2));
+      for (const r2 of processed) {
+        const k = keyOf(r2);
         if (!base.includes(k)) base.push(k);
       }
       const fromIdx = base.indexOf(fromKey);
@@ -6211,8 +7933,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       const col = colByField[field];
       if (col?.valueOptions) return col.valueOptions.map((o) => typeof o === "string" ? { value: o, label: o } : o);
       const set = /* @__PURE__ */ new Set();
-      for (const r of rows) {
-        const v = r[field];
+      for (const r2 of rows) {
+        const v = r2[field];
         if (v != null && v !== "") set.add(String(v));
         if (set.size > 80) break;
       }
@@ -6304,7 +8026,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           const s = defang(v, v == null ? "" : String(v));
           return `<c r="${ref}" t="inlineStr"><is><t xml:space="preserve">${xesc(s)}</t></is></c>`;
         };
-        const rowXml = (cells, r) => `<row r="${r}">${cells.map((v, ci) => cell(`${colLetter(ci)}${r}`, v)).join("")}</row>`;
+        const rowXml = (cells, r2) => `<row r="${r2}">${cells.map((v, ci) => cell(`${colLetter(ci)}${r2}`, v)).join("")}</row>`;
         const lastCell = `${expCols.length ? colLetter(expCols.length - 1) : "A"}${source.length + 1}`;
         const sheet = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><dimension ref="A1:${lastCell}"/><sheetViews><sheetView tabSelected="1" workbookViewId="0"/></sheetViews><sheetData>` + rowXml(expCols.map((c) => c.headerName), 1) + source.map((row, ri) => rowXml(expCols.map((c) => cellValue(c, row)), ri + 2)).join("") + "</sheetData></worksheet>";
@@ -6332,7 +8054,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         }
       }
       const data = serverMode ? paged : processed;
-      const raw = data.map((r) => r[col.field]).filter((v) => v != null && v !== "");
+      const raw = data.map((r2) => r2[col.field]).filter((v) => v != null && v !== "");
       if (typeof agg === "function") return agg(raw, data);
       if (agg === "count") return raw.length;
       const nums = raw.map(Number).filter((n) => !Number.isNaN(n));
@@ -6346,13 +8068,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const aggLabels = { sum: "Sum", avg: "Avg", min: "Min", max: "Max", count: "Count" };
     const hasAggregation = ordered.some((c) => aggOf(c));
     const filteredFields = new Set(filters.map((f) => f.field));
-    const allSel = paged.length > 0 && paged.every((r) => selected.has(keyOf(r)));
-    const someSel = paged.some((r) => selected.has(keyOf(r)));
+    const allSel = paged.length > 0 && paged.every((r2) => selected.has(keyOf(r2)));
+    const someSel = paged.some((r2) => selected.has(keyOf(r2)));
     function toggleAll() {
       setSelected((s) => {
         const n = new Set(s);
-        if (allSel) paged.forEach((r) => n.delete(keyOf(r)));
-        else paged.forEach((r) => n.add(keyOf(r)));
+        if (allSel) paged.forEach((r2) => n.delete(keyOf(r2)));
+        else paged.forEach((r2) => n.add(keyOf(r2)));
         return n;
       });
     }
@@ -6381,23 +8103,23 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       onCellClick?.(row[col.field], row, col.field);
       onActiveCellChange?.(next);
     }
-    function focusCell(r, c) {
-      const el = gridRef.current?.querySelector(`.twc-dt__td[data-r="${r}"][data-c="${c}"]`);
+    function focusCell(r2, c) {
+      const el = gridRef.current?.querySelector(`.twc-dt__td[data-r="${r2}"][data-c="${c}"]`);
       if (el) el.focus();
     }
     function onGridKeyDown(e) {
       if (editing) return;
       const td = e.target.closest(".twc-dt__td[data-r]");
       if (!td) return;
-      let r = +td.getAttribute("data-r"), c = +td.getAttribute("data-c");
+      let r2 = +td.getAttribute("data-r"), c = +td.getAttribute("data-c");
       const maxR = leafRows.length - 1, maxC = ordered.length - 1;
       let handled = true;
       switch (e.key) {
         case "ArrowDown":
-          r = Math.min(r + 1, maxR);
+          r2 = Math.min(r2 + 1, maxR);
           break;
         case "ArrowUp":
-          r = Math.max(r - 1, 0);
+          r2 = Math.max(r2 - 1, 0);
           break;
         case "ArrowRight":
           c = Math.min(c + 1, maxC);
@@ -6406,29 +8128,29 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           c = Math.max(c - 1, 0);
           break;
         case "Home":
-          c = e.ctrlKey ? (r = 0, 0) : 0;
+          c = e.ctrlKey ? (r2 = 0, 0) : 0;
           break;
         case "End":
           c = maxC;
-          if (e.ctrlKey) r = maxR;
+          if (e.ctrlKey) r2 = maxR;
           break;
         case "Enter":
         case " ": {
           const col = ordered[c];
           if (col && isColEditable(col)) {
             e.preventDefault();
-            beginEdit(keyOf(leafRows[r], r), col, leafRows[r]);
+            beginEdit(keyOf(leafRows[r2], r2), col, leafRows[r2]);
             return;
           }
           if (selectionMode === "cell") {
             e.preventDefault();
-            handleCellClick({ target: td }, keyOf(leafRows[r], r), leafRows[r], ordered[c]);
+            handleCellClick({ target: td }, keyOf(leafRows[r2], r2), leafRows[r2], ordered[c]);
             return;
           }
           if (selectionMode === "row") {
             e.preventDefault();
-            setActiveRow(keyOf(leafRows[r], r));
-            onRowClick?.(leafRows[r], keyOf(leafRows[r], r));
+            setActiveRow(keyOf(leafRows[r2], r2));
+            onRowClick?.(leafRows[r2], keyOf(leafRows[r2], r2));
             return;
           }
           handled = false;
@@ -6439,14 +8161,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       }
       if (handled) {
         e.preventDefault();
-        setFocus({ r, c });
-        focusCell(r, c);
+        setFocus({ r: r2, c });
+        focusCell(r2, c);
       }
     }
     import_react.default.useEffect(() => {
       setFocus((f) => ({ r: Math.min(f.r, Math.max(0, leafRows.length - 1)), c: Math.min(f.c, Math.max(0, ordered.length - 1)) }));
     }, [leafRows.length, ordered.length, pageVal]);
-    const selectedRows = import_react.default.useMemo(() => rows.filter((r, i) => selected.has(keyOf(r, i))), [rows, selected]);
+    const selectedRows = import_react.default.useMemo(() => rows.filter((r2, i) => selected.has(keyOf(r2, i))), [rows, selected]);
     function clearSelection() {
       setSelected(/* @__PURE__ */ new Set());
     }
@@ -6467,13 +8189,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         next = next === "" ? null : Number(next);
         if (Number.isNaN(next)) next = null;
       }
-      const row = paged.find((r, i) => keyOf(r, i) === editing.key);
+      const row = paged.find((r2, i) => keyOf(r2, i) === editing.key);
       setEditing(null);
       if (!row || row[editing.field] === next) return;
       const updated = { ...row, [editing.field]: next };
       onRowUpdate?.(updated, row, editing.field);
       if (onRowsChange) {
-        onRowsChange(rows.map((r, i) => keyOf(r, i) === editing.key ? updated : r));
+        onRowsChange(rows.map((r2, i) => keyOf(r2, i) === editing.key ? updated : r2));
       }
     }
     function onEditKey(e) {
@@ -6539,10 +8261,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       });
       const selKeys = new Set(selected);
       const changedRows = [];
-      const nextAll = rows.map((r, i) => {
-        const k = keyOf(r, i);
-        if (!selKeys.has(k)) return r;
-        const updated = { ...r, ...patch };
+      const nextAll = rows.map((r2, i) => {
+        const k = keyOf(r2, i);
+        if (!selKeys.has(k)) return r2;
+        const updated = { ...r2, ...patch };
         changedRows.push(updated);
         return updated;
       });
@@ -6712,8 +8434,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           } : void 0,
           onDragOver: reorderable && rowDrag.from != null ? (e) => {
             e.preventDefault();
-            const r = e.currentTarget.getBoundingClientRect();
-            const after = e.clientY > r.top + r.height / 2;
+            const r2 = e.currentTarget.getBoundingClientRect();
+            const after = e.clientY > r2.top + r2.height / 2;
             setRowDrag((d) => d.over === k && d.after === after ? d : { ...d, over: k, after });
           } : void 0,
           onDrop: reorderable && rowDrag.from != null ? (e) => {
@@ -6808,8 +8530,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     }
     function renderPivot() {
       const rFields = pivotConfig.rows, cFields = pivotConfig.columns || [], values = pivotConfig.values;
-      const rowKeyOf = (r) => rFields.map((f) => r[f] ?? "\u2014").join("  \xB7  ");
-      const colPathOf = (r) => cFields.map((f) => String(r[f] ?? "\u2014"));
+      const rowKeyOf = (r2) => rFields.map((f) => r2[f] ?? "\u2014").join("  \xB7  ");
+      const colPathOf = (r2) => cFields.map((f) => String(r2[f] ?? "\u2014"));
       const aggOf2 = (subset, v) => computeAgg({ field: v.field, aggregation: v.agg || "sum" }, subset || []);
       const fmt = (val, v) => {
         if (val == null) return "\u2014";
@@ -6821,8 +8543,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       const rowFieldLabel = rFields.map((f) => colByField[f]?.headerName || f).join(" / ");
       const leafPaths = [];
       const seen2 = /* @__PURE__ */ new Set();
-      for (const r of rows) {
-        const path = colPathOf(r);
+      for (const r2 of rows) {
+        const path = colPathOf(r2);
         const key = path.join("\0");
         if (!seen2.has(key)) {
           seen2.add(key);
@@ -6848,12 +8570,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         return cells;
       });
       const leafKey = (path) => path.join("\0");
-      const rowsForLeaf = (subset, path) => subset.filter((r) => leafKey(colPathOf(r)) === leafKey(path));
+      const rowsForLeaf = (subset, path) => subset.filter((r2) => leafKey(colPathOf(r2)) === leafKey(path));
       const rowMap = /* @__PURE__ */ new Map();
-      for (const r of rows) {
-        const rk = rowKeyOf(r);
+      for (const r2 of rows) {
+        const rk = rowKeyOf(r2);
         if (!rowMap.has(rk)) rowMap.set(rk, []);
-        rowMap.get(rk).push(r);
+        rowMap.get(rk).push(r2);
       }
       const rowKeys = [...rowMap.keys()].sort((a, b) => String(a).localeCompare(String(b)));
       const totalHeaderRows = Math.max(cFields.length, 1) + 1;
@@ -7175,8 +8897,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                     style: { width: w, minWidth: w, ...st.style },
                     onDragOver: reorderable && drag.from ? (e) => {
                       e.preventDefault();
-                      const r = e.currentTarget.getBoundingClientRect();
-                      const after = e.clientX > r.left + r.width / 2;
+                      const r2 = e.currentTarget.getBoundingClientRect();
+                      const after = e.clientX > r2.left + r2.width / 2;
                       setDrag((d) => d.over === c.field && d.after === after ? d : { ...d, over: c.field, after });
                     } : void 0,
                     onDrop: reorderable && drag.from ? (e) => {
@@ -7665,8 +9387,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                 onDragEnd: canDrag ? () => setDrag({ from: null, over: null, after: false }) : void 0,
                 onDragOver: canDrag && drag.from ? (e) => {
                   e.preventDefault();
-                  const r = e.currentTarget.getBoundingClientRect();
-                  const after = e.clientY > r.top + r.height / 2;
+                  const r2 = e.currentTarget.getBoundingClientRect();
+                  const after = e.clientY > r2.top + r2.height / 2;
                   setDrag((d) => d.over === c.field && d.after === after ? d : { ...d, over: c.field, after });
                 } : void 0,
                 onDrop: canDrag && drag.from ? (e) => {
@@ -8106,13 +9828,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const place = import_react.default.useCallback(() => {
       const el = triggerRef.current;
       if (!el) return;
-      const r = el.getBoundingClientRect();
+      const r2 = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      const below = vh - r.bottom;
-      const flip = below < 360 && r.top > below;
-      let left = Math.min(r.left, window.innerWidth - POP_W - 8);
+      const below = vh - r2.bottom;
+      const flip = below < 360 && r2.top > below;
+      let left = Math.min(r2.left, window.innerWidth - POP_W - 8);
       left = Math.max(8, left);
-      setCoords({ left, top: flip ? void 0 : Math.round(r.bottom + 6), bottom: flip ? Math.round(vh - r.top + 6) : void 0 });
+      setCoords({ left, top: flip ? void 0 : Math.round(r2.bottom + 6), bottom: flip ? Math.round(vh - r2.top + 6) : void 0 });
     }, []);
     import_react.default.useEffect(() => {
       if (!open) return void 0;
@@ -8453,7 +10175,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
 `;
-  var RANGE_CSS = `
+  var RANGE_CSS2 = `
 .twc-drp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-drp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
 .twc-drp__control { display: flex; align-items: center; gap: var(--space-2); height: var(--control-h-md); padding: 0 var(--space-3);
@@ -8547,7 +10269,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     ...rest
   }) {
     const __twcStyles0 = useScopedStyles("twc-field-styles", FIELD_CSS4);
-    const __twcStyles1 = useScopedStyles("twc-drp-styles", RANGE_CSS);
+    const __twcStyles1 = useScopedStyles("twc-drp-styles", RANGE_CSS2);
     const [internal, setInternal] = import_react.default.useState(defaultValue);
     const range = value !== void 0 ? value : internal;
     const [open, setOpen] = import_react.default.useState(false);
@@ -8570,13 +10292,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const place = import_react.default.useCallback(() => {
       const el = triggerRef.current;
       if (!el) return;
-      const r = el.getBoundingClientRect();
+      const r2 = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      const below = vh - r.bottom;
-      const flip = below < 380 && r.top > below;
-      let left = Math.min(r.left, window.innerWidth - POP_W - 8);
+      const below = vh - r2.bottom;
+      const flip = below < 380 && r2.top > below;
+      let left = Math.min(r2.left, window.innerWidth - POP_W - 8);
       left = Math.max(8, left);
-      setCoords({ left, top: flip ? void 0 : Math.round(r.bottom + 6), bottom: flip ? Math.round(vh - r.top + 6) : void 0 });
+      setCoords({ left, top: flip ? void 0 : Math.round(r2.bottom + 6), bottom: flip ? Math.round(vh - r2.top + 6) : void 0 });
     }, []);
     import_react.default.useEffect(() => {
       if (!open) return void 0;
@@ -8606,9 +10328,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         document.removeEventListener("keydown", onKey);
       };
     }, [open]);
-    const set = (r) => {
-      if (value === void 0) setInternal(r);
-      onChange?.(r);
+    const set = (r2) => {
+      if (value === void 0) setInternal(r2);
+      onChange?.(r2);
     };
     const parseOne = (s) => {
       const str = s.trim();
@@ -9887,7 +11609,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const place = import_react.default.useCallback(() => {
       const t = wrapRef.current;
       if (!t) return;
-      const r = t.getBoundingClientRect();
+      const r2 = t.getBoundingClientRect();
       const w = width || 240;
       const gap = 10;
       const vw = window.innerWidth, vh = window.innerHeight, M = 8;
@@ -9895,28 +11617,28 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       const vertical = placement === "top" || placement === "bottom";
       if (vertical) {
         const ph2 = popRef.current ? popRef.current.offsetHeight : 120;
-        const spaceAbove = r.top - gap - M;
-        const spaceBelow = vh - r.bottom - gap - M;
+        const spaceAbove = r2.top - gap - M;
+        const spaceBelow = vh - r2.bottom - gap - M;
         let openUp = placement === "top";
         if (openUp && spaceAbove < ph2 && spaceBelow > spaceAbove) openUp = false;
         else if (!openUp && spaceBelow < ph2 && spaceAbove > spaceBelow) openUp = true;
         flip = openUp;
-        top = flip ? void 0 : r.bottom + gap;
-        const bottom = flip ? vh - r.top + gap : void 0;
-        let l = align === "start" ? r.left : align === "end" ? r.right - w : r.left + r.width / 2 - w / 2;
+        top = flip ? void 0 : r2.bottom + gap;
+        const bottom = flip ? vh - r2.top + gap : void 0;
+        let l = align === "start" ? r2.left : align === "end" ? r2.right - w : r2.left + r2.width / 2 - w / 2;
         l = Math.max(M, Math.min(l, vw - w - M));
         left = l;
-        arrow = { left: Math.min(Math.max(r.left + r.width / 2 - l - 5.5, 10), w - 20), [flip ? "bottom" : "top"]: -6 };
+        arrow = { left: Math.min(Math.max(r2.left + r2.width / 2 - l - 5.5, 10), w - 20), [flip ? "bottom" : "top"]: -6 };
         return setPos({ top, bottom, left, width: w, flip, arrow });
       }
       const ph = popRef.current ? popRef.current.offsetHeight : 120;
       let onRight = placement === "right";
-      const spaceRight = vw - r.right - gap, spaceLeft = r.left - gap;
+      const spaceRight = vw - r2.right - gap, spaceLeft = r2.left - gap;
       if (onRight && spaceRight < w + M && spaceLeft > spaceRight) onRight = false;
       else if (!onRight && spaceLeft < w + M && spaceRight > spaceLeft) onRight = true;
-      left = onRight ? r.right + gap : r.left - w - gap;
+      left = onRight ? r2.right + gap : r2.left - w - gap;
       left = Math.max(M, Math.min(left, vw - w - M));
-      const cy = r.top + r.height / 2;
+      const cy = r2.top + r2.height / 2;
       top = Math.max(M, Math.min(cy - ph / 2, vh - ph - M));
       arrow = { top: Math.min(Math.max(cy - top - 5.5, 8), ph - 18), [onRight ? "left" : "right"]: -6 };
       setPos({ top, left, width: w, flip: false, arrow });
@@ -10827,8 +12549,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const fromClientX = (clientX) => {
       const node = trackRef.current;
       if (!node) return clampedVals[0];
-      const r = node.getBoundingClientRect();
-      const ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+      const r2 = node.getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (clientX - r2.left) / r2.width));
       return clampSnap(min + ratio * (max - min));
     };
     const dragCleanupRef = import_react.default.useRef(null);
@@ -11473,13 +13195,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       updateIndicator();
     }, [active, updateIndicator, items, orientation]);
     import_react.default.useEffect(() => {
-      const r = () => updateIndicator();
-      window.addEventListener("resize", r);
+      const r2 = () => updateIndicator();
+      window.addEventListener("resize", r2);
       if (typeof document !== "undefined" && document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(r).catch(() => {
+        document.fonts.ready.then(r2).catch(() => {
         });
       }
-      return () => window.removeEventListener("resize", r);
+      return () => window.removeEventListener("resize", r2);
     }, [updateIndicator]);
     function select(v) {
       if (value === void 0) setInternal(v);
@@ -12090,12 +13812,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const visible = [];
     const parentOf = /* @__PURE__ */ new Map();
     const hasKids = /* @__PURE__ */ new Map();
-    const labelText = /* @__PURE__ */ new Map();
+    const labelText13 = /* @__PURE__ */ new Map();
     const walk = (nodes2, parentId) => {
       for (const n of nodes2) {
         visible.push(n.id);
         parentOf.set(n.id, parentId);
-        if (typeof n.label === "string") labelText.set(n.id, n.label);
+        if (typeof n.label === "string") labelText13.set(n.id, n.label);
         const kids = Array.isArray(n.children) && n.children.length > 0;
         hasKids.set(n.id, kids);
         if (kids && expanded.has(n.id)) walk(n.children, n.id);
@@ -12142,7 +13864,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         const needle = single ? q[0] : q;
         for (let k = 1; k <= visible.length; k++) {
           const cand = visible[(i + k) % visible.length];
-          const lbl = labelText.get(cand);
+          const lbl = labelText13.get(cand);
           if (lbl && lbl.toLowerCase().startsWith(needle)) {
             e.preventDefault();
             focusRow(cand);

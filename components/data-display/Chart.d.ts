@@ -7,23 +7,36 @@ import * as React from "react";
 export type ChartDatum<K extends string = "value"> = { label: React.ReactNode } & { [P in K]: number };
 
 /**
- * Lightweight, dependency-free SVG chart — bar or line, single or multi-series,
- * with grid, axes, animated entrance, tooltips, and optional legend. Generic over
- * the series keys `K` so the data rows are type-checked (e.g.
- * `<Chart series={["sales"]} data={[{ label, sales: 12 }]} />`).
+ * Cartesian chart — vertical/horizontal bars (grouped or stacked), line, and area
+ * (straight / smooth / stepped), single or multi-series, with grid, axes, tooltips,
+ * and an optional legend. Dependency-free inline SVG. Generic over the series keys
+ * `K` so the data rows are type-checked (e.g.
+ * `<Chart series={["sales"]} data={[{ label, sales: 12 }]} />`). For pie/donut,
+ * scatter/bubble, radar, heatmap, gauge, funnel, treemap, candlestick, boxplot and
+ * range charts use the dedicated sibling components.
  *
- * @startingPoint section="Data display" subtitle="Bar / line chart (no deps)" viewport="700x280"
+ * @startingPoint section="Data display" subtitle="Bar / line / area chart (no deps)" viewport="700x280"
  */
 export interface ChartProps<K extends string = "value"> extends React.HTMLAttributes<HTMLDivElement> {
-  /** @default "bar" */
-  type?: "bar" | "line";
+  /** Chart type. `"column"` is an alias of `"bar"` (vertical bars). @default "bar" */
+  type?: "bar" | "column" | "line" | "area";
   /** Data points. Each has a `label` + one numeric field per series key. (`K` is inferred from `series`, not from `data`.) */
   data: ChartDatum<NoInfer<K>>[];
-  /** Series field names (defaults to `["value"]`). Multiple = grouped bars / multi-line. */
+  /** Series field names (defaults to `["value"]`). Multiple = grouped bars / multi-line / stacked. */
   series?: K[];
   /** Pixel height. @default 220 */
   height?: number;
-  /** Horizontal grid lines. @default true */
+  /** Stack multi-series bars/areas instead of grouping them side by side. @default false */
+  stacked?: boolean;
+  /** Render bars horizontally (value axis along the bottom). Ignored for line/area. @default false */
+  horizontal?: boolean;
+  /** Line/area interpolation. @default "straight" */
+  curve?: "straight" | "smooth" | "stepped";
+  /** Shorthand for `curve="smooth"`. @default false */
+  smooth?: boolean;
+  /** Show point markers on line charts. @default true */
+  showDots?: boolean;
+  /** Grid lines. @default true */
   showGrid?: boolean;
   /** Axis labels. @default true */
   showAxis?: boolean;

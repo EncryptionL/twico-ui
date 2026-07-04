@@ -30,3 +30,39 @@ describe("Chart hidden data table (#160)", () => {
     expect(container.querySelector("table").id).toBe(describedby);
   });
 });
+
+describe("Chart cartesian family (bar/column/line/area, stacked, horizontal, curves)", () => {
+  const two = [{ label: "Jan", a: 10, b: 4 }, { label: "Feb", a: 6, b: 8 }];
+
+  it("column is an alias of bar (vertical bars)", () => {
+    const { container } = render(<Chart type="column" data={[{ label: "Mon", value: 5 }, { label: "Tue", value: 9 }]} />);
+    expect(container.querySelectorAll(".twc-chart__bar").length).toBe(2);
+    expect(container.querySelector(".twc-chart--column")).toBeInTheDocument();
+  });
+
+  it("grouped bars render one rect per series per category", () => {
+    const { container } = render(<Chart type="bar" series={["a", "b"]} data={two} />);
+    expect(container.querySelectorAll(".twc-chart__bar").length).toBe(4);
+  });
+
+  it("stacked bars still render one rect per series per category", () => {
+    const { container } = render(<Chart type="bar" stacked series={["a", "b"]} data={two} />);
+    expect(container.querySelectorAll(".twc-chart__bar").length).toBe(4);
+  });
+
+  it("area type renders filled area + line paths", () => {
+    const { container } = render(<Chart type="area" data={[{ label: "Mon", value: 5 }, { label: "Tue", value: 9 }]} />);
+    expect(container.querySelector(".twc-chart__area")).toBeInTheDocument();
+    expect(container.querySelector(".twc-chart__line")).toBeInTheDocument();
+  });
+
+  it("smooth line uses a bezier path (contains C)", () => {
+    const { container } = render(<Chart type="line" smooth data={[{ label: "a", value: 1 }, { label: "b", value: 5 }, { label: "c", value: 3 }]} />);
+    expect(container.querySelector(".twc-chart__line").getAttribute("d")).toContain("C");
+  });
+
+  it("horizontal bars keep the accessible data table", () => {
+    render(<Chart type="bar" horizontal data={[{ label: "Mon", value: 5 }]} />);
+    expect(screen.getByRole("rowheader", { name: "Mon" })).toBeInTheDocument();
+  });
+});
