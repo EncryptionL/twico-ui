@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"3c98a07f7447","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"f35fb2dc0dc4","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"1c03e17c8594","components/inputs/Combobox.jsx":"da89f9c7b152","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"4539dda63318","components/inputs/DateRangePicker.jsx":"d428e7795556","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"856956280c7b","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"cd87f7b56e12","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"5866b30f900a","components/layout/ColorSchemeScript.jsx":"7e73bf919b01","components/layout/Container.jsx":"3af6a1ef1d15","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"6db8d15f4acd","components/layout/Portal.jsx":"c86ad50eb3f6","components/layout/Stack.jsx":"82cf0b7f370d","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"6f40ab3a9d29","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"a666a3e0beeb","src/index.ts":"d49a7a76548c"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"3c98a07f7447","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"f35fb2dc0dc4","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"1c03e17c8594","components/inputs/Combobox.jsx":"da89f9c7b152","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"4539dda63318","components/inputs/DateRangePicker.jsx":"d428e7795556","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"856956280c7b","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"cd87f7b56e12","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"5866b30f900a","components/layout/ColorSchemeScript.jsx":"7e73bf919b01","components/layout/Container.jsx":"3af6a1ef1d15","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"6db8d15f4acd","components/layout/Portal.jsx":"c86ad50eb3f6","components/layout/Stack.jsx":"82cf0b7f370d","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"6f40ab3a9d29","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"a666a3e0beeb","src/index.ts":"88773912becf"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -85,6 +85,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     EmptyState: () => EmptyState,
     Field: () => Field,
     FileUpload: () => FileUpload,
+    Form: () => Form,
     Grid: () => Grid,
     Heading: () => Heading,
     IconButton: () => IconButton,
@@ -119,6 +120,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     Tag: () => Tag,
     Text: () => Text,
     Textarea: () => Textarea,
+    ThemeProvider: () => ThemeProvider,
     Timeline: () => Timeline,
     Toast: () => Toast,
     ToastProvider: () => ToastProvider,
@@ -127,6 +129,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     TreeView: () => TreeView,
     TwicoProvider: () => TwicoProvider,
     VisuallyHidden: () => VisuallyHidden,
+    createTheme: () => createTheme,
     getColorSchemeScript: () => getColorSchemeScript,
     runDatatableQuery: () => runDatatableQuery,
     useClickOutside: () => useClickOutside,
@@ -156,7 +159,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useToggle: () => useToggle,
     useWindowSize: () => useWindowSize
   });
-  var React34 = __toESM(require_react(), 1);
+  var React36 = __toESM(require_react(), 1);
   var import_react = __toESM(require_react(), 1);
 
   // rg:react/jsx-runtime
@@ -174,11 +177,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 
   // dist/index.mjs
   var import_react_dom = __toESM(require_react_dom(), 1);
-  var SUPPORTS_STYLE_HOIST = parseInt(String(React34.version), 10) >= 19;
-  var NonceContext = React34.createContext(void 0);
+  var SUPPORTS_STYLE_HOIST = parseInt(String(React36.version), 10) >= 19;
+  var NonceContext = React36.createContext(void 0);
   function useScopedStyles(id, css) {
-    const nonce = React34.useContext(NonceContext);
-    React34.useInsertionEffect(() => {
+    const nonce = React36.useContext(NonceContext);
+    React36.useInsertionEffect(() => {
       if (SUPPORTS_STYLE_HOIST) return;
       if (typeof document === "undefined" || document.getElementById(id)) return;
       const el = document.createElement("style");
@@ -190,11 +193,84 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       el.textContent = css;
       document.head.appendChild(el);
     }, [id, css, nonce]);
-    return SUPPORTS_STYLE_HOIST ? React34.createElement("style", { href: id, precedence: "twc-ui", nonce }, css) : null;
+    return SUPPORTS_STYLE_HOIST ? React36.createElement("style", { href: id, precedence: "twc-ui", nonce }, css) : null;
   }
   function TwicoProvider({ nonce, children }) {
     return import_react.default.createElement(NonceContext.Provider, { value: nonce }, children);
   }
+  var GROUPS = { colors: "color", space: "space", radius: "radius", font: "font", shadow: "shadow", motion: "" };
+  function createTheme(partial = {}) {
+    const vars = {};
+    for (const [group, prefix] of Object.entries(GROUPS)) {
+      const obj = partial[group];
+      if (!obj || typeof obj !== "object") continue;
+      for (const [key, value] of Object.entries(obj)) {
+        if (value == null) continue;
+        vars[`--${prefix ? `${prefix}-` : ""}${key}`] = String(value);
+      }
+    }
+    return vars;
+  }
+  function toVars(theme) {
+    if (!theme) return {};
+    return Object.keys(theme).some((k) => k.startsWith("--")) ? theme : createTheme(theme);
+  }
+  function ThemeProvider({ theme, mode = "inline", className = "", style, children, ...rest }) {
+    const vars = import_react.default.useMemo(() => toVars(theme), [theme]);
+    const uid = import_react.default.useId();
+    const scopeId = `twc-theme-${uid.replace(/[^a-zA-Z0-9]/g, "")}`;
+    const css = mode === "stylesheet" ? `[data-twc-theme="${scopeId}"] { ${Object.entries(vars).map(([k, v]) => `${k}: ${v};`).join(" ")} }` : "";
+    const __twcStyles = useScopedStyles(mode === "stylesheet" ? scopeId : "twc-theme-noop", css);
+    return /* @__PURE__ */ jsxs(
+      "div",
+      {
+        className: `twc-theme ${className}`.trim(),
+        "data-twc-theme": mode === "stylesheet" ? scopeId : void 0,
+        style: mode === "stylesheet" ? style : { ...vars, ...style },
+        ...rest,
+        children: [
+          mode === "stylesheet" ? __twcStyles : null,
+          children
+        ]
+      }
+    );
+  }
+  var FORM_CSS = `
+.twc-form { display: flex; flex-direction: column; gap: var(--space-4); font-family: var(--font-sans); }
+.twc-form__fieldset { border: 0; margin: 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: inherit; }
+`;
+  var Form = import_react.default.forwardRef(function Form2({
+    onSubmit,
+    preventDefault = true,
+    loading = false,
+    disabled = false,
+    gap,
+    className = "",
+    style,
+    children,
+    ...rest
+  }, ref) {
+    const __twcStyles = useScopedStyles("twc-form-styles", FORM_CSS);
+    const handleSubmit = (e) => {
+      if (preventDefault) e.preventDefault();
+      onSubmit?.(e);
+    };
+    return /* @__PURE__ */ jsxs(
+      "form",
+      {
+        ref,
+        className: `twc-form ${className}`.trim(),
+        onSubmit: handleSubmit,
+        style: gap != null ? { gap: `var(--space-${gap})`, ...style } : style,
+        ...rest,
+        children: [
+          __twcStyles,
+          /* @__PURE__ */ jsx("fieldset", { className: "twc-form__fieldset", disabled: loading || disabled || void 0, "aria-busy": loading || void 0, children })
+        ]
+      }
+    );
+  });
+  Form.displayName = "Form";
   var VH_CSS = `
 .twc-visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
 `;

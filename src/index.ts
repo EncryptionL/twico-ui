@@ -3,6 +3,8 @@
 // React 18+; styles ship separately — import "twico-ui/styles.css" once.
 
 export { TwicoProvider } from "../components/TwicoProvider";
+export { ThemeProvider, createTheme } from "../components/layout/ThemeProvider";
+export { Form } from "../components/inputs/Form";
 export { VisuallyHidden } from "../components/layout/VisuallyHidden";
 export { Portal } from "../components/layout/Portal";
 export { ColorSchemeScript, getColorSchemeScript } from "../components/layout/ColorSchemeScript";
@@ -82,6 +84,8 @@ export * from "../hooks";
 // and the Select-family option shape, so consumers name them instead of re-deriving.
 export type { Tone, ActionTone, TextTone, ToastTone, BarTone, PolymorphicAs } from "../components/_types";
 export type { TwicoProviderProps } from "../components/TwicoProvider";
+export type { ThemeProviderProps, ThemeTokens, Theme } from "../components/layout/ThemeProvider";
+export type { FormProps } from "../components/inputs/Form";
 export type { VisuallyHiddenProps } from "../components/layout/VisuallyHidden";
 export type { PortalProps } from "../components/layout/Portal";
 export type { ColorSchemeScriptProps, ColorSchemeScriptOptions } from "../components/layout/ColorSchemeScript";
