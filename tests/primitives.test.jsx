@@ -66,4 +66,27 @@ describe("ColorSchemeScript (#52)", () => {
     expect(s).toContain('"mytheme"');
     expect(s).toContain('"data-theme"');
   });
+
+  // #: js/bad-code-sanitization — a consumer value must not be able to break out of the
+  // <script> element; < > & (and U+2028/U+2029) are escaped, but the parsed value is unchanged.
+  it("escapes a </script> breakout attempt in a consumer value (no literal <>&)", () => {
+    const evil = "</script><!--";
+    const s = getColorSchemeScript({ storageKey: evil });
+    expect(s).not.toMatch(/[<>&]/); // emitted text carries no literal metacharacters
+    expect(s).not.toContain("</script>");
+    expect(s).toContain("\\u003c"); // escaped instead
+    // round-trips: the escaped JS string literal parses back to the exact original key
+    const lit = s.match(/var k=("(?:[^"\\]|\\.)*")/)[1];
+    const decoded = JSON.parse(lit.replace(/\\u([0-9a-fA-F]{4})/g, (_, h) => String.fromCharCode(parseInt(h, 16))));
+    expect(decoded).toBe(evil);
+  });
+
+  it("escapes raw U+2028/U+2029 line separators in a consumer value", () => {
+    const LS = String.fromCharCode(0x2028), PS = String.fromCharCode(0x2029);
+    const s = getColorSchemeScript({ storageKey: "a" + LS + "b" + PS + "c" });
+    expect(s.includes(LS)).toBe(false);
+    expect(s.includes(PS)).toBe(false);
+    expect(s).toContain("\\u2028");
+    expect(s).toContain("\\u2029");
+  });
 });

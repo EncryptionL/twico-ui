@@ -19,6 +19,16 @@ doc is the engineering detail. `npm audit --omit=dev` must stay at **0**.
   URLs from untrusted data as a trust boundary.
 - **No dangerous sinks.** No `dangerouslySetInnerHTML`, `innerHTML`, `eval`, `new Function`, or
   string-argument `setTimeout`/`setInterval` in shipped components.
+- **Safe inline-script construction.** `getColorSchemeScript`/`ColorSchemeScript` build a small
+  theme-init IIFE **string** from the consumer-supplied `storageKey`/`attribute`/`defaultScheme`. Each
+  value is serialized with `JSON.stringify` and then run through `encodeScriptLiteral`, which
+  re-encodes `<`, `>`, `&` (and the U+2028/U+2029 line separators) to their `\uXXXX` form. `JSON.stringify`
+  escapes for JSON, **not** for an HTML `<script>` context — a raw `<` would let a value like
+  `</script>` / `<!--` break out of the element if the string reached a raw-HTML sink. The escape keeps
+  the *parsed* runtime value byte-identical while guaranteeing the emitted text carries no literal
+  `<`/`>`/`&`. That `.replace()` on the `JSON.stringify` result is also the barrier CodeQL's
+  `js/bad-code-sanitization` (CWE-116, `StringReplaceCallAsSanitizer`) recognizes, so the alert stays
+  clear. Regression tests: `tests/primitives.test.jsx` (breakout + line-separator escaping, round-trip).
 - **SSR-safe.** No `window`/`document`/`localStorage` at module or render scope; only in effects and
   handlers. Overlays portal to `document.body` only while open.
 
