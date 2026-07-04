@@ -1,4 +1,5 @@
 import React from "react";
+import { warnOnce } from "../components/_warn.js";
 
 const canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
 
@@ -41,7 +42,10 @@ export function useDisclosure(initial = false) {
   return { open, onOpen, onClose, onToggle, setOpen };
 }
 
-/** Controlled/uncontrolled state — the pattern every form component needs. */
+/**
+ * Controlled/uncontrolled state — the pattern every form component needs.
+ * Returns `[value, setValue, isControlled]`; the third element is additive.
+ */
 export function useControllableState({ value, defaultValue, onChange } = {}) {
   const isControlled = value !== undefined;
   const [uncontrolled, setUncontrolled] = React.useState(defaultValue);
@@ -50,6 +54,18 @@ export function useControllableState({ value, defaultValue, onChange } = {}) {
   useIsomorphicLayoutEffect(() => {
     ref.current = { current, isControlled, onChange };
   });
+  // Dev-only: warn once if a component flips between controlled and uncontrolled
+  // (the classic React footgun). Hook order stays stable — the ref/effect always run.
+  const wasControlled = React.useRef(isControlled);
+  React.useEffect(() => {
+    if (wasControlled.current !== isControlled) {
+      warnOnce(
+        "useControllableState:switch",
+        `useControllableState: a value is switching from ${wasControlled.current ? "controlled" : "uncontrolled"} to ${isControlled ? "controlled" : "uncontrolled"}. Decide between controlled (\`value\`) and uncontrolled (\`defaultValue\`) for the component's lifetime.`
+      );
+      wasControlled.current = isControlled;
+    }
+  });
   const setValue = React.useCallback((next) => {
     const { current: cur, isControlled: ctrl, onChange: cb } = ref.current;
     const resolved = typeof next === "function" ? next(cur) : next;
@@ -57,14 +73,19 @@ export function useControllableState({ value, defaultValue, onChange } = {}) {
     if (!ctrl) setUncontrolled(resolved);
     if (cb) cb(resolved);
   }, []);
-  return [current, setValue];
+  return [current, setValue, isControlled];
 }
 
-/** Reactively match a media query (SSR-safe). */
-export function useMediaQuery(query) {
-  const get = () => (canUseDOM ? window.matchMedia(query).matches : false);
-  const [matches, setMatches] = React.useState(get);
-  React.useEffect(() => {
+/**
+ * Reactively match a media query. Returns `defaultValue` (default `false`) on the
+ * server AND on the first client render, then syncs the real value in a
+ * layout effect before paint — so hydration never mismatches. Pass
+ * `{ initializeWithValue: true }` in a client-only app to read matchMedia eagerly.
+ */
+export function useMediaQuery(query, { defaultValue = false, initializeWithValue = false } = {}) {
+  const get = () => (canUseDOM ? window.matchMedia(query).matches : defaultValue);
+  const [matches, setMatches] = React.useState(initializeWithValue ? get : defaultValue);
+  useIsomorphicLayoutEffect(() => {
     if (!canUseDOM) return undefined;
     const mql = window.matchMedia(query);
     const onChange = () => setMatches(mql.matches);

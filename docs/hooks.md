@@ -23,8 +23,18 @@ package root (`import { useMediaQuery } from "twico-ui"`).
 
 ## Conventions
 
-- **SSR-safe:** every hook guards `window`/`document` access and returns sensible server defaults
-  (e.g. `useMediaQuery` → `false`, `useWindowSize` → `0×0`). Never touch the DOM at module scope.
+- **SSR-safe, no hydration mismatch:** every hook guards `window`/`document` access and returns
+  sensible server defaults (`useWindowSize` → `0×0`). `useMediaQuery(query, options?)` returns
+  `defaultValue` (default `false`) on the server **and the first client render**, then syncs the real
+  value in a layout effect before paint — so the hydrated markup matches (React 19 no longer warns).
+  A client-only app can opt into an eager read with `{ initializeWithValue: true }`.
+  `usePrefersReducedMotion` inherits this. Never touch the DOM at module scope.
+- **Idiomatic ref params:** the ref-taking hooks (`useHover`, `useClickOutside`,
+  `useIntersectionObserver`, `useEventListener`) type their ref as `RefObject<T | null>`, so the
+  standard `useRef<T>(null)` is assignable with no cast under React 19's `@types/react`.
+- **`useControllableState` returns `[value, setValue, isControlled]`** — the third element reports
+  whether a `value` prop is driving the state, and in development the hook warns once if a component
+  flips between controlled and uncontrolled.
 - **Stable callbacks:** returned functions (`onOpen`, `copy`, `toggle`, …) are memoized so they are
   safe to pass to effects and memoized children.
 - **The docs site dogfoods them:** the layout uses `useMediaQuery` + `useDisclosure`, the theme

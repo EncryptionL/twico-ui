@@ -32,9 +32,10 @@ twico-ui/
 
 Each component is a self-contained React function:
 
-- Imports only `react` (and `react-dom` for portals, plus the one shared internal helper
-  `components/_styles.js`). **No other runtime dependencies.** The only other internal imports are
-  composite components reusing siblings (`AvatarMenu` → `Menu`, `Datatable` →
+- Imports only `react` (and `react-dom` for portals, plus the shared internal helpers
+  `components/_styles.js` for scoped CSS and `components/_warn.js` for dev-only, deduped
+  `warnOnce` notices — no-ops in production). **No other runtime dependencies.** The only other
+  internal imports are composite components reusing siblings (`AvatarMenu` → `Menu`, `Datatable` →
   `Select`/`Input`/`MultiSelect`/`Pagination`, `CurrencyField` → `Select`).
 - **Renders** its own scoped CSS via the shared `useScopedStyles(id, css)` helper
   (`components/_styles.js`): React 19 returns a hoistable `<style href={id} precedence="twc-ui">`
