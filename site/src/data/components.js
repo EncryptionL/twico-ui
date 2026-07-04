@@ -1213,6 +1213,13 @@ export const components = [
         "description": "Renders a muted subtitle beneath the title to add supporting context or a brief secondary description."
       },
       {
+        "prop": "actions",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Header actions rendered top-right, opposite the title/subtitle (e.g. a button or overflow menu)."
+      },
+      {
         "prop": "footer",
         "type": "React.ReactNode",
         "required": false,

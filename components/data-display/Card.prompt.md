@@ -10,4 +10,5 @@ import { Card } from "./Card";
 <Card variant="outline" interactive>Hover me — I lift.</Card>
 ```
 
-Variants: `elevated` · `outline` · `soft`. Props: `title`, `subtitle`, `footer`, `padding` (none/md/lg), `interactive`.
+Variants: `elevated` · `outline` · `soft`. Props: `title`, `subtitle`, `actions` (header slot rendered
+top-right, opposite the title — e.g. a button or menu), `footer`, `padding` (none/md/lg), `interactive`.

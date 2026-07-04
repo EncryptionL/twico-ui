@@ -1242,6 +1242,7 @@ Card is a surface container for grouping related content, with an optional heade
 Props:
 - `title` — `React.ReactNode` — Renders a bold title in the card header, giving the grouped content a clear heading at the top.
 - `subtitle` — `React.ReactNode` — Renders a muted subtitle beneath the title to add supporting context or a brief secondary description.
+- `actions` — `React.ReactNode` — Header actions rendered top-right, opposite the title/subtitle (e.g. a button or overflow menu).
 - `footer` — `React.ReactNode` — Renders pinned footer content such as action buttons below the card body, separated from the main content.
 - `variant` — `"elevated" | "outline" | "soft"` · default `"elevated"` — Selects the surface treatment from elevated, outline, or soft to control how the card stands out from the page.
 - `padding` — `"none" | "md" | "lg"` · default `"md"` — Sets the card's inner padding to none, md, or lg, with none useful for edge-to-edge media or custom layouts.
