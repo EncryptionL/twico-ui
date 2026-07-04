@@ -2,6 +2,18 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.8.0](https://github.com/EncryptionL/twico-ui/compare/v1.7.0...v1.8.0) (2026-07-04)
+
+
+### Features
+
+* **datatable:** controlled pagination and page-size state ([c5553c7](https://github.com/EncryptionL/twico-ui/commit/c5553c75bda88047f85f9f128856161f5ac5e4bb)), closes [#45](https://github.com/EncryptionL/twico-ui/issues/45)
+* **inputs:** ColorPicker alpha channel + 3/8-digit hex support ([1ad249a](https://github.com/EncryptionL/twico-ui/commit/1ad249a106dcbf2c0aa1d13559dc9d5114479357)), closes [#107](https://github.com/EncryptionL/twico-ui/issues/107) [#106](https://github.com/EncryptionL/twico-ui/issues/106)
+* **inputs:** optional typed date entry for DatePicker + DateRangePicker ([3530476](https://github.com/EncryptionL/twico-ui/commit/3530476ec3a1e274fc3d98201fa7f884820b2624)), closes [#105](https://github.com/EncryptionL/twico-ui/issues/105)
+* **primitives:** add `sx` style-prop escape hatch (pseudo-classes, media, tokens) ([7f5e87f](https://github.com/EncryptionL/twico-ui/commit/7f5e87f94d20892ebcd7160924b787ff60ec0035)), closes [#57](https://github.com/EncryptionL/twico-ui/issues/57) [#53](https://github.com/EncryptionL/twico-ui/issues/53)
+* **select:** opt-in option-list virtualization for Select/Combobox/MultiSelect ([2676fab](https://github.com/EncryptionL/twico-ui/commit/2676fab7ba81c76343c8988ce0506b5c6262cafe)), closes [#92](https://github.com/EncryptionL/twico-ui/issues/92)
+* **types:** infer polymorphic props + ref from `as` on the primitives ([4bca600](https://github.com/EncryptionL/twico-ui/commit/4bca600601058517f7e084b836414842e5c77426)), closes [#55](https://github.com/EncryptionL/twico-ui/issues/55)
+
 # [1.7.0](https://github.com/EncryptionL/twico-ui/compare/v1.6.0...v1.7.0) (2026-07-04)
 
 
