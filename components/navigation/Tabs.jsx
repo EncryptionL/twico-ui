@@ -42,6 +42,13 @@ const TABS_CSS = `
 .twc-tabs[data-variant="pill"] .twc-tabs__indicator {
   top: 4px; bottom: 4px; height: auto; background: var(--color-surface); box-shadow: var(--shadow-sm); border-radius: var(--radius-md);
 }
+.twc-tab[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+/* Horizontal tablist scrolls when tabs overflow (vertical orientation untouched). Making
+   overflow-x non-visible makes overflow-y compute to auto, which would clip the bottom:-1px
+   indicator — so pin the horizontal indicator to bottom:0 (the list border-bottom is the baseline). */
+.twc-tabs:not([data-orientation="vertical"]) .twc-tabs__list { overflow-x: auto; scrollbar-width: none; }
+.twc-tabs:not([data-orientation="vertical"]) .twc-tabs__list::-webkit-scrollbar { display: none; }
+.twc-tabs:not([data-orientation="vertical"]) .twc-tabs__indicator { bottom: 0; }
 .twc-tabs__panel { padding-top: var(--space-4); }
 
 /* Vertical orientation */
@@ -91,8 +98,12 @@ export function Tabs({
     const list = listRef.current;
     if (!list) return;
     const el = list.querySelector('[data-active="true"]');
-    if (el) setInd({ left: el.offsetLeft, width: el.offsetWidth, top: el.offsetTop, height: el.offsetHeight });
-  }, []);
+    if (el) {
+      setInd({ left: el.offsetLeft, width: el.offsetWidth, top: el.offsetTop, height: el.offsetHeight });
+      // Keep the active tab visible in the horizontal scroll region.
+      if (!vertical) el.scrollIntoView?.({ inline: "nearest", block: "nearest" });
+    }
+  }, [vertical]);
 
   React.useEffect(() => { updateIndicator(); }, [active, updateIndicator, items, orientation]);
   React.useEffect(() => {
@@ -124,17 +135,21 @@ export function Tabs({
     const keys = [prevKey, nextKey, "Home", "End"];
     if (!keys.includes(e.key)) return;
     const n = items.length;
-    if (!n) return;
+    if (!n || items.every((it) => it.disabled)) return;
     e.preventDefault();
     let i = activeIndex < 0 ? 0 : activeIndex;
-    if (e.key === "Home") i = 0;
-    else if (e.key === "End") i = n - 1;
-    else { const dir = e.key === nextKey ? 1 : -1; i = (i + dir + n) % n; }
+    if (e.key === "Home") i = items.findIndex((it) => !it.disabled);
+    else if (e.key === "End") { for (let k = n - 1; k >= 0; k--) { if (!items[k].disabled) { i = k; break; } } }
+    else {
+      const dir = e.key === nextKey ? 1 : -1;
+      let guard = 0;
+      do { i = (i + dir + n) % n; } while (items[i]?.disabled && ++guard <= n);
+    }
     const it = items[i];
-    if (!it) return;
+    if (!it || it.disabled) return;
     select(it.value);
     const btns = listRef.current?.querySelectorAll('[role="tab"]');
-    if (btns && btns[i]) btns[i].focus();
+    if (btns && btns[i]) { btns[i].focus(); btns[i].scrollIntoView?.({ inline: "nearest", block: "nearest" }); }
   }
 
   return (
@@ -149,10 +164,12 @@ export function Tabs({
             className="twc-tab"
             role="tab"
             aria-selected={it.value === active}
+            aria-disabled={it.disabled || undefined}
+            disabled={it.disabled || undefined}
             aria-controls={it.value === active && panelRendered ? panelId : undefined}
-            tabIndex={it.value === active ? 0 : -1}
+            tabIndex={it.value === active && !it.disabled ? 0 : -1}
             data-active={it.value === active || undefined}
-            onClick={() => select(it.value)}
+            onClick={() => { if (!it.disabled) select(it.value); }}
           >
             {it.icon}
             {it.label}

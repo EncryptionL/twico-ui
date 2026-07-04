@@ -27,8 +27,10 @@ export interface TabItem {
   label: React.ReactNode;
   /** Optional leading icon. */
   icon?: React.ReactNode;
-  /** Optional count pill. */
-  count?: number;
+  /** Optional count pill (e.g. `12`, `"99+"`, `"1.2k"`, or an element). Renders whenever `count != null` — pass `undefined` to hide a `0`. */
+  count?: React.ReactNode;
+  /** Disable the tab: not selectable via click or keyboard; dimmed and `aria-disabled`. */
+  disabled?: boolean;
   /** Panel content rendered when active (omit for nav-only tabs). */
   content?: React.ReactNode;
 }
