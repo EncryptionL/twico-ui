@@ -5867,7 +5867,21 @@ export const components = [
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Displays the numeric score beside the stars when enabled, giving an exact figure alongside the visual rating."
+        "description": "Displays the numeric score beside the stars (clean integer, or one decimal for fractional values)."
+      },
+      {
+        "prop": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Allow clearing back to 0 — clicking the selected star, or pressing Delete/Backspace, resets to no rating."
+      },
+      {
+        "prop": "format",
+        "type": "(value: number) => React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Custom formatter for the showValue badge and the read-only accessible label (e.g. custom precision, i18n, a /5 suffix)."
       },
       {
         "prop": "onChange",

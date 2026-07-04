@@ -970,7 +970,9 @@ Props:
 - `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"warning"` — Sets the filled-star color from six semantic intents; defaults to warning (gold). The explicit color prop overrides it.
 - `color` — `string` — Overrides the filled-star color with any CSS color, falling back to the warning/amber token when omitted.
 - `readOnly` — `boolean` · default `false` — Renders the stars as a non-interactive display only, useful for showing an existing score without accepting input.
-- `showValue` — `boolean` · default `false` — Displays the numeric score beside the stars when enabled, giving an exact figure alongside the visual rating.
+- `showValue` — `boolean` · default `false` — Displays the numeric score beside the stars (clean integer, or one decimal for fractional values).
+- `clearable` — `boolean` · default `true` — Allow clearing back to 0 — clicking the selected star, or pressing Delete/Backspace, resets to no rating.
+- `format` — `(value: number) => React.ReactNode` — Custom formatter for the showValue badge and the read-only accessible label (e.g. custom precision, i18n, a /5 suffix).
 - `onChange` — `(value: number) => void` — Fires with the new rating when the user clicks a star, or 0 when they clear the current selection.
 - `disabled` — `boolean` · default `false` — Disable all interaction and dim the control.
 
