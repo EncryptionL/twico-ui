@@ -854,6 +854,9 @@ Props:
 - `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
 - `leftIcon` — `React.ReactNode` — Renders an icon node inside the field on the leading edge, useful as a prefix like a search or mail glyph.
 - `rightIcon` — `React.ReactNode` — Renders a trailing icon node inside the field, overriding the built-in password reveal toggle when supplied.
+- `leftAddon` — `React.ReactNode` — Bordered text addon flush against the leading edge (e.g. https://, @), distinct from the inline leftIcon.
+- `rightAddon` — `React.ReactNode` — Bordered text addon flush against the trailing edge (e.g. .00, kg, %).
+- `showCount` — `boolean` · default `false` — With maxLength, renders a live current / max character counter on the hint/error line, danger-toned near the limit.
 - `onChange` — `(e: React.ChangeEvent) => void` — Native change handler on the underlying form control.
 - `name` — `string` — Form field name submitted with the value.
 - `placeholder` — `string` — Placeholder text shown while the field is empty.
@@ -1119,6 +1122,10 @@ Props:
 - `required` — `boolean` · default `false` — Adds a required asterisk beside the label when true, signaling that the field must be filled in.
 - `size` — `"sm" | "md" | "lg"` · default `"md"` — Control size — same padding steps as Input.
 - `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
+- `autosize` — `boolean` · default `false` — Grows the textarea to fit its content between minRows and maxRows, hiding the manual resize handle.
+- `minRows` — `number` — Minimum rows when autosize is on (falls back to rows).
+- `maxRows` — `number` — Maximum rows when autosize is on; taller content scrolls internally.
+- `showCount` — `boolean` · default `false` — With maxLength, renders a live current / max character counter, danger-toned near the limit.
 - `onChange` — `(e: React.ChangeEvent) => void` — Native change handler on the underlying form control.
 - `name` — `string` — Form field name submitted with the value.
 - `placeholder` — `string` — Placeholder text shown while the field is empty.

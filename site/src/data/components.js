@@ -4528,6 +4528,27 @@ export const components = [
         "description": "Renders a trailing icon node inside the field, overriding the built-in password reveal toggle when supplied."
       },
       {
+        "prop": "leftAddon",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Bordered text addon flush against the leading edge (e.g. https://, @), distinct from the inline leftIcon."
+      },
+      {
+        "prop": "rightAddon",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Bordered text addon flush against the trailing edge (e.g. .00, kg, %)."
+      },
+      {
+        "prop": "showCount",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "With maxLength, renders a live current / max character counter on the hint/error line, danger-toned near the limit."
+      },
+      {
         "prop": "onChange",
         "type": "(e: React.ChangeEvent) => void",
         "required": false,
@@ -7779,6 +7800,34 @@ export const components = [
         "required": false,
         "default": "\"primary\"",
         "description": "Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary."
+      },
+      {
+        "prop": "autosize",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Grows the textarea to fit its content between minRows and maxRows, hiding the manual resize handle."
+      },
+      {
+        "prop": "minRows",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Minimum rows when autosize is on (falls back to rows)."
+      },
+      {
+        "prop": "maxRows",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Maximum rows when autosize is on; taller content scrolls internally."
+      },
+      {
+        "prop": "showCount",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "With maxLength, renders a live current / max character counter, danger-toned near the limit."
       },
       {
         "prop": "onChange",

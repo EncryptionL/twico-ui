@@ -3,15 +3,16 @@ import * as React from "react";
 /**
  * Shared form-field chrome (label, hint, error, required asterisk) that wraps ANY control.
  *
- * `Field` is layout-only: it renders the label + your `children` + a single hint/error line,
- * reusing the exact `.twc-field` markup Input/Select inline so every field looks identical.
- * Wiring the control to the messages stays the consumer's job — point your control's
- * `aria-describedby` at the exposed hint/error id (`` `${id}-desc` ``) and set `aria-invalid`
- * when `error` is present. `error` replaces `hint` when both are given (error wins).
+ * `Field` renders the label + your `children` + a single hint/error line, reusing the exact
+ * `.twc-field` markup Input/Select inline so every field looks identical. When `children` is a
+ * SINGLE element, Field auto-wires it: it sets `aria-describedby` (merged with any the child
+ * already has) to the hint/error id (`` `${id}-desc` ``) and `aria-invalid` when `error` is
+ * present (never clobbering a child's explicit `aria-invalid`). Multiple/fragment/string children
+ * keep manual wiring. `error` replaces `hint` when both are given (error wins).
  *
  * @example
  * <Field label="Email" hint="We never share it." htmlFor="email" id="email-field">
- *   <input id="email" aria-describedby="email-field-desc" />
+ *   <input id="email" />
  * </Field>
  */
 export interface FieldProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "id"> {

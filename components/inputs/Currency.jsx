@@ -120,9 +120,12 @@ export function Currency({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [controlled, shown, value]);
 
-  // Link hint/error text to the input for screen readers (merged with any consumer-supplied ids).
-  const describedBy = [error ? `${fieldId}-error` : hint ? `${fieldId}-hint` : null, rest["aria-describedby"]]
+  // #72: single `${id}-desc` id (unified with Input/Textarea/Field), merged with any
+  // consumer-supplied aria-describedby. aria-invalid forced true on error.
+  const descId = `${fieldId}-desc`;
+  const describedBy = [error || hint ? descId : null, rest["aria-describedby"]]
     .filter(Boolean).join(" ") || undefined;
+  const ariaInvalid = invalid ? true : (rest["aria-invalid"] ?? undefined);
 
   function handleChange(e) {
     const next = clampPrecision(e.target.value, prec);
@@ -152,13 +155,13 @@ export function Currency({
         <input
           id={fieldId} className="twc-cur__el" inputMode="decimal" type="text"
           value={shown} placeholder={placeholder} disabled={disabled} required={required || undefined}
-          aria-invalid={invalid || undefined}
           {...rest}
-          onChange={handleChange} onBlur={handleBlur} aria-describedby={describedBy}
+          onChange={handleChange} onBlur={handleBlur}
+          aria-invalid={ariaInvalid} aria-describedby={describedBy}
         />
         <span className="twc-cur__code">{cur}</span>
       </div>
-      {error ? <span id={`${fieldId}-error`} className="twc-field__error">{error}</span> : hint ? <span id={`${fieldId}-hint`} className="twc-field__hint">{hint}</span> : null}
+      {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
 }
