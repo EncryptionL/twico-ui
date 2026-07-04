@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useFocusTrap, usePortal } from "../_overlay.js";
 import { Tooltip } from "../overlay/Tooltip";
 
 const SIDEBAR_CSS = `
@@ -60,6 +61,23 @@ const SIDEBAR_CSS = `
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot { display: flex; flex-direction: column; align-items: center; padding: var(--space-2) 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse { width: auto; padding: 11px; gap: 0; margin: 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse span { display: none; }
+
+/* Off-canvas overlay mode (mobile): the rail becomes a slide-over drawer behind a
+   scrim, mirroring Drawer.jsx. Logical inset + a --_off var slide it in from the
+   inline-start edge (mirrored under dir="rtl"). */
+.twc-sidebar__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(2px); }
+.twc-sidebar__overlay[data-state="open"] { animation: twico-fade-in var(--duration-base) var(--ease-out); }
+.twc-sidebar__overlay[data-state="closed"] { animation: twc-sidebar-fade-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
+@keyframes twc-sidebar-fade-out { from { opacity: 1; } to { opacity: 0; } }
+.twc-sidebar--overlay { position: fixed; inset-block: 0; inset-inline-start: 0; height: 100%; max-width: 92vw; z-index: var(--z-modal); box-shadow: var(--shadow-xl); --_off: -100%; }
+[dir="rtl"] .twc-sidebar--overlay { inset-inline-start: auto; inset-inline-end: 0; --_off: 100%; }
+.twc-sidebar--overlay[data-state="open"] { animation: twc-sidebar-in var(--duration-base) var(--ease-out); }
+.twc-sidebar--overlay[data-state="closed"] { animation: twc-sidebar-out var(--duration-exit) var(--ease-in) forwards; }
+@keyframes twc-sidebar-in { from { transform: translateX(var(--_off)); } to { transform: translateX(0); } }
+@keyframes twc-sidebar-out { from { transform: translateX(0); } to { transform: translateX(var(--_off)); } }
+@media (prefers-reduced-motion: reduce) {
+  .twc-sidebar__overlay[data-state], .twc-sidebar--overlay[data-state] { animation-duration: 1ms; }
+}
 `;
 
 export function Sidebar({
@@ -70,16 +88,58 @@ export function Sidebar({
   defaultCollapsed = false,
   collapsible = true,
   onCollapsedChange,
+  overlay = false,
+  open: openProp,
+  defaultOpen = false,
+  onOpenChange,
   navLabel = "Main",
   className = "",
   ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-sidebar-styles", SIDEBAR_CSS);
   const navId = React.useId();
+  const panelRef = React.useRef(null);
+  const renderPortal = usePortal();
 
   const [internal, setInternal] = React.useState(defaultCollapsed);
   const collapsed = collapsedProp !== undefined ? collapsedProp : internal;
   const toggle = () => { const next = !collapsed; if (collapsedProp === undefined) setInternal(next); onCollapsedChange?.(next); };
+
+  // Off-canvas open state — hand-rolled controllable (matching the codebase pattern;
+  // components don't import the hooks barrel). Only meaningful when `overlay` is set.
+  const [openInternal, setOpenInternal] = React.useState(defaultOpen);
+  const open = openProp !== undefined ? openProp : openInternal;
+  const setOpen = (next) => { if (openProp === undefined) setOpenInternal(next); onOpenChange?.(next); };
+
+  // Stay mounted through the slide-out animation so closing is smooth, then unmount.
+  const [mounted, setMounted] = React.useState(open);
+  React.useEffect(() => {
+    if (!overlay) return undefined;
+    if (open) { setMounted(true); return undefined; }
+    const t = setTimeout(() => setMounted(false), 170);
+    return () => clearTimeout(t);
+  }, [overlay, open]);
+
+  // Lock body scroll while the drawer is open; restore the previous value on close.
+  React.useEffect(() => {
+    if (!overlay || !open) return undefined;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
+  }, [overlay, open]);
+
+  // Move focus into the drawer on open, trap Tab/Shift+Tab, restore on close (#177).
+  useFocusTrap(panelRef, overlay && open && mounted);
+
+  // Escape closes the drawer. Inlined (not via setOpen) so a fresh onOpenChange is used.
+  React.useEffect(() => {
+    if (!overlay || !open) return undefined;
+    const onKey = (e) => {
+      if (e.key === "Escape") { e.preventDefault(); if (openProp === undefined) setOpenInternal(false); onOpenChange?.(false); }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [overlay, open, openProp, onOpenChange]);
 
   // Block javascript:/data:/vbscript: URLs from reaching a DOM href (trust boundary).
   const safeHref = (url) => {
@@ -139,8 +199,8 @@ export function Sidebar({
   }
   if (group.entries.length || group.section != null) groups.push(group);
 
-  return (
-    <aside className={`twc-sidebar ${className}`} data-collapsed={collapsed || undefined} {...rest}>
+  const body = (
+    <>
       {__twcStyles}
       {brand ? <div className="twc-sidebar__head"><span className="twc-sidebar__brand">{brand}</span></div> : null}
       <nav id={navId} className="twc-sidebar__nav" aria-label={navLabel}>
@@ -166,6 +226,40 @@ export function Sidebar({
           ) : null}
         </div>
       ) : null}
-    </aside>
+    </>
   );
+
+  // Desktop rail (default): a plain in-flow <aside>, unchanged.
+  if (!overlay) {
+    return (
+      <aside className={`twc-sidebar ${className}`} data-collapsed={collapsed || undefined} {...rest}>
+        {body}
+      </aside>
+    );
+  }
+
+  // Off-canvas drawer: stay mounted through the exit animation, then unmount.
+  if (!mounted) return null;
+  const state = open ? "open" : "closed";
+
+  const drawer = (
+    <div className="twc-sidebar__overlay" data-state={state} onMouseDown={(e) => { if (e.target === e.currentTarget) setOpen(false); }}>
+      <aside
+        ref={panelRef}
+        className={`twc-sidebar twc-sidebar--overlay ${className}`}
+        data-state={state}
+        data-collapsed={collapsed || undefined}
+        role="dialog"
+        aria-modal="true"
+        tabIndex={-1}
+        aria-label={navLabel || "Navigation"}
+        {...rest}
+      >
+        {body}
+      </aside>
+    </div>
+  );
+
+  // Portal to <body> so the drawer escapes any transformed/backdrop-filtered ancestor.
+  return renderPortal(drawer);
 }

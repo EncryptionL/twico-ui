@@ -1,5 +1,5 @@
 import React from "react";
-import { Sidebar } from "twico-ui";
+import { Sidebar, Button } from "twico-ui";
 
 const ic = (d) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -24,6 +24,24 @@ const fullItems = [
   { section: "Account" },
   { label: "Settings", icon: <CogIcon /> },
 ];
+
+function SidebarOverlay() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div>
+      <Button onClick={() => setOpen(true)}>Open navigation</Button>
+      <Sidebar
+        overlay
+        open={open}
+        onOpenChange={setOpen}
+        brand={<Brand />}
+        items={fullItems}
+        footer={<span>Jane Doe</span>}
+        collapsible={false}
+      />
+    </div>
+  );
+}
 
 function SidebarAllProps() {
   const [collapsed, setCollapsed] = React.useState(false); // or defaultCollapsed for uncontrolled
@@ -158,6 +176,31 @@ const variations = [
         />
       </div>
     ),
+  },
+  {
+    title: "Off-canvas overlay (mobile)",
+    description:
+      "Set overlay to render the sidebar as a slide-over drawer behind a backdrop, portaled to <body>, with a focus trap, Escape-to-close and scroll lock. Drive it with open/onOpenChange — typically gate overlay on a useMediaQuery mobile check and open it from a Navbar menu button.",
+    code: `function SidebarOverlay() {
+  const [open, setOpen] = React.useState(false);
+  // Typically: const isMobile = useMediaQuery("(max-width: 720px)");
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open navigation</Button>
+      <Sidebar
+        overlay                 // gate on isMobile for a responsive rail/drawer
+        open={open}
+        onOpenChange={setOpen}
+        brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
+        items={items}
+        footer={<span>Jane Doe</span>}
+        collapsible={false}
+      />
+    </>
+  );
+}`,
+    render: () => <SidebarOverlay />,
   },
   {
     title: "All props",

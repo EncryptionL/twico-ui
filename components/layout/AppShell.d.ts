@@ -18,6 +18,15 @@ export interface AppShellProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   mainId?: string;
   /** Label for the visually-hidden-until-focused skip-to-content link (the shell's first child). Pass `false`/`null` to opt out. @default "Skip to content" */
   skipLinkLabel?: React.ReactNode | false;
+  /**
+   * Open state of the sidebar's off-canvas drawer on mobile. Providing this (or
+   * `onSidebarOpenChange`) makes the shell forward `overlay`/`open`/`onOpenChange`
+   * to the `sidebar` element, so it renders as a drawer. Respects any of those
+   * props the sidebar already sets.
+   */
+  sidebarOpen?: boolean;
+  /** Called when the sidebar drawer requests open/close (backdrop, Escape) — wire a `Navbar`'s `onMenuClick` to `() => onSidebarOpenChange(true)`. */
+  onSidebarOpenChange?: (open: boolean) => void;
 }
 
 export declare function AppShell(props: AppShellProps): React.JSX.Element;

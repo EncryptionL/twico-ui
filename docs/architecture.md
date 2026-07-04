@@ -33,10 +33,13 @@ twico-ui/
 Each component is a self-contained React function:
 
 - Imports only `react` (and `react-dom` for portals, plus the shared internal helpers
-  `components/_styles.js` for scoped CSS and `components/_warn.js` for dev-only, deduped
-  `warnOnce` notices — no-ops in production). **No other runtime dependencies.** The only other
-  internal imports are composite components reusing siblings (`AvatarMenu` → `Menu`, `Datatable` →
-  `Select`/`Input`/`MultiSelect`/`Pagination`, `CurrencyField` → `Select`).
+  `components/_styles.js` for scoped CSS, `components/_warn.js` for dev-only, deduped
+  `warnOnce` notices — no-ops in production — and `components/_overlay.js` for the modal
+  focus-trap/portal primitives). **No other runtime dependencies.** Components never import the
+  public `hooks/` barrel; shared hook logic lives in an internal `_*.js` helper that `hooks/index.js`
+  re-exports (e.g. `useFocusTrap`/`usePortal` from `_overlay.js`). The only other internal imports are
+  composite components reusing siblings (`AvatarMenu` → `Menu`, `Datatable` →
+  `Select`/`Input`/`MultiSelect`/`Pagination`, `CurrencyField` → `Select`, `Sidebar` → `Tooltip`).
 - **Renders** its own scoped CSS via the shared `useScopedStyles(id, css)` helper
   (`components/_styles.js`): React 19 returns a hoistable `<style href={id} precedence="twc-ui">`
   (deduped by id, hoisted to `<head>`, **present in the SSR output — no FOUC**); React 18 falls back
@@ -55,8 +58,10 @@ without hand-rolled CSS. The documentation site is itself built from them (dogfo
 The barrel `src/index.ts` re-exports the value and the types for every component. It must be kept
 in sync when components are added or removed.
 
-**Overlays** (`Dialog`, `Drawer`, `Menu`, `Select`, `Popover`, `CommandPalette`) all follow one
-pattern:
+**Overlays** (`Dialog`, `Drawer`, `Menu`, `Select`, `Popover`, `CommandPalette`, and `Sidebar` in its
+off-canvas `overlay` mode) all follow one pattern (`Dialog`, `Drawer`, `CommandPalette`, and `Sidebar`
+share it verbatim through the extracted `useFocusTrap`/`usePortal` hooks — see
+[overlays.md](./overlays.md)):
 
 - **Portal to `document.body`** via `react-dom`'s `createPortal`, only while rendered. This is not
   optional polish — a `position: fixed` overlay rendered inline is positioned relative to the nearest

@@ -17,6 +17,7 @@ export interface SidebarItem {
 /**
  * Collapsible side navigation — brand header, grouped nav items with icons and
  * badges, an optional footer, and a collapse toggle (icon-only when collapsed).
+ * Set `overlay` for a mobile off-canvas drawer (backdrop, focus trap, Escape-to-close).
  *
  * @startingPoint section="Layout" subtitle="Collapsible side navigation" viewport="280x520"
  */
@@ -32,6 +33,20 @@ export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   /** Show the collapse toggle. @default true */
   collapsible?: boolean;
   onCollapsedChange?: (collapsed: boolean) => void;
+  /**
+   * Render as an off-canvas drawer instead of an in-flow rail: a fixed slide-over
+   * panel behind a dismissable backdrop, portaled to `document.body`, with a focus
+   * trap, Escape-to-close, and body-scroll lock. Drive visibility with
+   * `open`/`defaultOpen`/`onOpenChange`. For a responsive layout, render the rail on
+   * desktop and the overlay on mobile. @default false
+   */
+  overlay?: boolean;
+  /** Controlled open state of the overlay drawer (only when `overlay`). */
+  open?: boolean;
+  /** Uncontrolled initial open state of the overlay drawer. @default false */
+  defaultOpen?: boolean;
+  /** Called when the overlay drawer requests open/close (backdrop, Escape). */
+  onOpenChange?: (open: boolean) => void;
   /** Accessible name for the inner `<nav>` landmark (and the overlay dialog). @default "Main" */
   navLabel?: string;
 }

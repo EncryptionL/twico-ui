@@ -13,6 +13,11 @@ const SHELL_CSS = `
   min-height: 60px; padding-inline: var(--space-5); border-bottom: var(--border-thin) solid var(--color-border); background: var(--color-surface); }
 .twc-shell__content { flex: 1 1 auto; min-height: 0; overflow: auto; }
 .twc-shell__content[data-padded="true"] { padding: var(--space-6) var(--space-5); }
+/* Mobile: stack the shell so the sidebar (rendered as an off-canvas overlay) no
+   longer reserves a column — the main content spans the full width. */
+@media (max-width: 720px) {
+  .twc-shell { flex-direction: column; }
+}
 `;
 
 /**
@@ -21,6 +26,11 @@ const SHELL_CSS = `
  * remaining width (and grows when the sidebar collapses); only the content
  * scrolls — the sidebar and header stay put. RTL-aware (logical properties +
  * flow order put the sidebar on the inline-start side).
+ *
+ * For a responsive layout, pass `onSidebarOpenChange` (usually gated on a
+ * `useMediaQuery` mobile check): the shell then forwards `overlay`/`open`/
+ * `onOpenChange` to the `sidebar` element so it renders as an off-canvas drawer,
+ * and a `Navbar`'s `onMenuClick` can call `onSidebarOpenChange(true)` to open it.
  */
 export function AppShell({
   sidebar,
@@ -30,11 +40,26 @@ export function AppShell({
   padded = true,
   mainId = "twc-main",
   skipLinkLabel = "Skip to content",
+  sidebarOpen,
+  onSidebarOpenChange,
   className = "",
   style,
   ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-shell-styles", SHELL_CSS);
+
+  // Mobile coordination: when the consumer opts in (by wiring onSidebarOpenChange
+  // / sidebarOpen), forward the overlay-drawer props to the sidebar element —
+  // explicitly, and only the three named props, respecting any the sidebar already
+  // sets. Opt-out (the default) leaves `sidebar` untouched.
+  const wiredSidebar =
+    React.isValidElement(sidebar) && (sidebarOpen !== undefined || onSidebarOpenChange !== undefined)
+      ? React.cloneElement(sidebar, {
+          overlay: sidebar.props.overlay !== undefined ? sidebar.props.overlay : true,
+          open: sidebar.props.open !== undefined ? sidebar.props.open : sidebarOpen,
+          onOpenChange: sidebar.props.onOpenChange !== undefined ? sidebar.props.onOpenChange : onSidebarOpenChange,
+        })
+      : sidebar;
 
   return (
     <div className={`twc-shell ${className}`.trim()} style={{ height, ...style }} {...rest}>
@@ -42,7 +67,7 @@ export function AppShell({
       {skipLinkLabel != null && skipLinkLabel !== false ? (
         <a className="twc-shell__skip" href={`#${mainId}`}>{skipLinkLabel}</a>
       ) : null}
-      {sidebar}
+      {wiredSidebar}
       <div className="twc-shell__main">
         {header != null ? <header className="twc-shell__header">{header}</header> : null}
         <main className="twc-shell__content" id={mainId} tabIndex={-1} data-padded={padded ? "true" : undefined}>

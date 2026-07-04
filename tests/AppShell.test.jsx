@@ -1,6 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { AppShell } from "../components/layout/AppShell.jsx";
+import { Sidebar } from "../components/navigation/Sidebar.jsx";
+
+const navItems = [{ label: "Home", href: "/" }];
 
 describe("AppShell skip link (#134)", () => {
   it("renders a skip link that targets #twc-main, before the main region", () => {
@@ -30,5 +33,41 @@ describe("AppShell skip link (#134)", () => {
   it("accepts a custom skipLinkLabel node", () => {
     const { container } = render(<AppShell skipLinkLabel={<span>Zum Inhalt</span>}>x</AppShell>);
     expect(container.querySelector(".twc-shell__skip")).toHaveTextContent("Zum Inhalt");
+  });
+});
+
+describe("AppShell mobile sidebar coordination (#138)", () => {
+  it("leaves the sidebar as an in-flow rail by default", () => {
+    render(<AppShell sidebar={<Sidebar items={navItems} collapsible={false} />}>x</AppShell>);
+    expect(screen.queryByRole("dialog")).toBeNull();
+    expect(screen.getByRole("navigation")).toBeInTheDocument();
+  });
+
+  it("forwards overlay/open/onOpenChange to the sidebar when onSidebarOpenChange is set", () => {
+    render(
+      <AppShell
+        sidebar={<Sidebar items={navItems} navLabel="Menu" collapsible={false} />}
+        sidebarOpen
+        onSidebarOpenChange={() => {}}
+      >
+        x
+      </AppShell>
+    );
+    // The sidebar now renders as an off-canvas dialog driven by the shell's open state.
+    expect(screen.getByRole("dialog", { name: "Menu" })).toHaveAttribute("aria-modal", "true");
+  });
+
+  it("does not force overlay when the sidebar sets its own overlay prop", () => {
+    render(
+      <AppShell
+        sidebar={<Sidebar items={navItems} overlay={false} collapsible={false} />}
+        sidebarOpen
+        onSidebarOpenChange={() => {}}
+      >
+        x
+      </AppShell>
+    );
+    // Sidebar's own overlay={false} wins over the shell's forwarded default.
+    expect(screen.queryByRole("dialog")).toBeNull();
   });
 });

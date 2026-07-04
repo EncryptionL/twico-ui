@@ -1,9 +1,9 @@
 # Overlays — the shared modal pattern
 
-`Dialog`, `Drawer`, and `CommandPalette` are **modal overlays**: they portal to
-`document.body`, animate in *and* out, lock body scroll, trap focus, and close on
-`Escape` / backdrop. This doc records the pattern and the two hooks the three
-components share.
+`Dialog`, `Drawer`, `CommandPalette`, and `Sidebar` (in its off-canvas `overlay`
+mode) are **modal overlays**: they portal to `document.body`, animate in *and* out,
+lock body scroll, trap focus, and close on `Escape` / backdrop. This doc records the
+pattern and the two hooks these components share.
 
 ## The pattern
 
@@ -27,7 +27,8 @@ All three follow the overlay conventions from [CLAUDE.md §5](../CLAUDE.md):
 
 The focus-trap and portal logic was hand-rolled — and drifting — in all three
 components. It now lives in **`components/_overlay.js`** and is exported publicly as
-`useFocusTrap` / `usePortal`.
+`useFocusTrap` / `usePortal`. `Sidebar`'s off-canvas mode (#138) reuses the same two
+hooks rather than re-deriving the pattern.
 
 ### `useFocusTrap(ref, active = true, { restoreFocus = true } = {})`
 
@@ -74,3 +75,6 @@ stay discoverable.
 - `tests/usePortal.test.jsx` — portals to `<body>`, stable callback identity.
 - `tests/overlays.test.jsx` — each overlay still portals, moves focus inside, closes
   on `Escape`/backdrop, and (CommandPalette) keeps Arrow/Enter navigation.
+- `tests/Sidebar.test.jsx` — `overlay` mode renders a labelled `role="dialog"`, moves
+  focus inside, and fires `onOpenChange(false)` on `Escape`/backdrop; `tests/AppShell.test.jsx`
+  covers the shell forwarding overlay props to the sidebar (#138).

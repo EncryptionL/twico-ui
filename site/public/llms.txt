@@ -291,6 +291,8 @@ Props:
 - `children` — `React.ReactNode` — Main content; fills the remaining space and scrolls independently of the fixed sidebar and header.
 - `height` — `string | number` · default `"100dvh"` — Overall shell height; pass a fixed value to embed the shell inside a smaller region (e.g. a demo).
 - `padded` — `boolean` · default `true` — Pads the scrollable content region with the standard page padding; set false for edge-to-edge content.
+- `sidebarOpen` — `boolean` — Open state of the sidebar's off-canvas drawer on mobile; providing this (or onSidebarOpenChange) makes the shell forward overlay/open/onOpenChange to the sidebar element.
+- `onSidebarOpenChange` — `(open: boolean) => void` — Called when the sidebar drawer requests open or close; wire a Navbar's onMenuClick to () => onSidebarOpenChange(true) for the mobile menu button.
 
 ```jsx
 import { AppShell, Sidebar, Button } from "twico-ui";
@@ -1774,6 +1776,11 @@ Props:
 - `defaultCollapsed` — `boolean` · default `false` — Initial collapsed state for uncontrolled usage, defaulting to false so the sidebar starts fully expanded.
 - `collapsible` — `boolean` · default `true` — Shows the collapse toggle button when true (the default), allowing users to switch to the icon-only rail.
 - `onCollapsedChange` — `(collapsed: boolean) => void` — Fires with the new boolean state whenever the collapse toggle is activated, useful for persisting the preference.
+- `overlay` — `boolean` · default `false` — Renders the sidebar as an off-canvas drawer instead of an in-flow rail: a fixed slide-over panel behind a dismissable backdrop, portaled to the body, with a focus trap, Escape-to-close, and scroll lock.
+- `open` — `boolean` — Controlled open state of the overlay drawer (only meaningful when overlay is set); the parent owns visibility.
+- `defaultOpen` — `boolean` · default `false` — Initial open state of the overlay drawer for uncontrolled usage, defaulting to closed.
+- `onOpenChange` — `(open: boolean) => void` — Fires when the overlay drawer requests open or close (backdrop click or Escape); wire it to your open state.
+- `navLabel` — `string` · default `"Main"` — Accessible name for the inner nav landmark and the overlay dialog, so assistive tech can distinguish multiple navigations.
 
 ```jsx
 import { Sidebar } from "twico-ui";
