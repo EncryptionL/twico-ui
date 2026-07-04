@@ -2909,6 +2909,20 @@ export const components = [
         "description": "Prevents users from dragging columns into a new order, locking the column arrangement; off by default."
       },
       {
+        "prop": "emptyMessage",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Message shown when there are no rows; the default is filter-aware (\"No rows match your filters\" vs \"No rows\")."
+      },
+      {
+        "prop": "renderEmpty",
+        "type": "() => React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Render a custom empty state inside the table body (e.g. the shipped EmptyState); overrides emptyMessage."
+      },
+      {
         "prop": "disableColumnResize",
         "type": "boolean",
         "required": false,

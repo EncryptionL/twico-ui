@@ -4,6 +4,7 @@ import { Select } from "../inputs/Select.jsx";
 import { Input } from "../inputs/Input.jsx";
 import { MultiSelect } from "../inputs/MultiSelect.jsx";
 import { Pagination } from "./Pagination.jsx";
+import { Tooltip } from "../overlay/Tooltip.jsx";
 
 const DT_CSS = `
 .twc-dt { display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--color-text);
@@ -773,6 +774,7 @@ export function Datatable({
   height = 440, serverMode = false, rowCount, onServerChange, batchActions = [],
   showExport = false, showDensity = false, showPivot = false, exportFilename = "export", aggregationValues = null,
   disableColumnReorder = false, disableColumnResize = false,
+  emptyMessage, renderEmpty,
   editMode = false, onRowUpdate, onRowsChange, onBatchUpdate,
   showPageJumper = true,
   selectionMode = "none", onRowClick, onCellClick, onActiveCellChange,
@@ -1315,7 +1317,7 @@ export function Datatable({
   // drag-reorder path can rearrange (pinned/left/right + actions stay put). Shared by the
   // keyboard moveCol() below and the column menu's Move left/right enable gate.
   const movableMidFields = React.useMemo(
-    () => ordered.filter((c) => !pins.left.includes(c.field) && !pins.right.includes(c.field)).map((c) => c.field),
+    () => ordered.filter((c) => !pins.left.includes(c.field) && !pins.right.includes(c.field) && c.reorderable !== false).map((c) => c.field),
     [ordered, pins]
   );
   // Keyboard alternative to drag-reorder: move a column one slot among the visible, unpinned
@@ -1664,15 +1666,19 @@ export function Datatable({
     return (
       <div className="twc-dt__actions" style={{ justifyContent: col.align === "right" ? "flex-end" : "flex-start" }}>
         {inline.map((a, i) => (
-          <button type="button" key={i} className="twc-dt__act" data-danger={a.danger || undefined} title={a.label} aria-label={a.label}
-            disabled={a.disabled} onClick={(e) => { e.stopPropagation(); a.onClick?.(row); }}>{a.icon}</button>
+          <Tooltip key={i} label={a.label} placement="top">
+            <button type="button" className="twc-dt__act" data-danger={a.danger || undefined} aria-label={a.label}
+              disabled={a.disabled} onClick={(e) => { e.stopPropagation(); a.onClick?.(row); }}>{a.icon}</button>
+          </Tooltip>
         ))}
         {menu.length ? (
-          <button type="button" className="twc-dt__act" aria-label="More actions" title="More"
-            aria-haspopup="menu" aria-expanded={(rowMenu && rowMenu.row === row) || undefined}
-            onClick={(e) => { e.stopPropagation(); menuTriggerRef.current = e.currentTarget; setColMenu(null); closeMenu(); setPanel(null); closePanel(); setExportOpen(false); closeExport(); setRowMenu({ items: menu, row }); openRowMenu(e.currentTarget, "right", 200); }}>
-            <Svg d={I.more} />
-          </button>
+          <Tooltip label="More actions" placement="top">
+            <button type="button" className="twc-dt__act" aria-label="More actions"
+              aria-haspopup="menu" aria-expanded={(rowMenu && rowMenu.row === row) || undefined}
+              onClick={(e) => { e.stopPropagation(); menuTriggerRef.current = e.currentTarget; setColMenu(null); closeMenu(); setPanel(null); closePanel(); setExportOpen(false); closeExport(); setRowMenu({ items: menu, row }); openRowMenu(e.currentTarget, "right", 200); }}>
+              <Svg d={I.more} />
+            </button>
+          </Tooltip>
         ) : null}
       </div>
     );
@@ -2034,7 +2040,7 @@ export function Datatable({
                 const st = stickyOf(c.field);
                 const sorted = sort && sort.field === c.field ? sort.dir : undefined;
                 const w = widthOf(c);
-                const reorderable = !disableColumnReorder && st.pin == null && c.type !== "actions";
+                const reorderable = !disableColumnReorder && st.pin == null && c.type !== "actions" && c.reorderable !== false;
                 const resizable = !disableColumnResize && c.resizable !== false;
                 const hasMenu = !c.disableColumnMenu && (c.sortable || c.filterable || c.pinnable || c.hideable);
                 return (
@@ -2095,20 +2101,23 @@ export function Datatable({
           <tbody>
             {loading ? (
               Array.from({ length: paginated ? Math.min(rowsPerPage, 8) : 8 }).map((_, ri) => (
-                <tr key={ri} className="twc-dt__row">
-                  {checkboxSelection ? <td className="twc-dt__td" data-pin="left" style={{ insetInlineStart: 0, width: 44 }}><span className="twc-dt__sk" style={{ "--_w": "18px", height: 18, borderRadius: 4 }} /></td> : null}
-                  {showRowNum ? <td className="twc-dt__td twc-dt__rownum" aria-hidden="true" data-pin="left" style={{ insetInlineStart: numLeft, width: NUM_W }}><span className="twc-dt__sk" style={{ "--_w": "16px", height: 14, borderRadius: 4 }} /></td> : null}
+                <tr key={ri} className="twc-dt__row" role="row">
+                  {checkboxSelection ? <td className="twc-dt__td" role="gridcell" data-pin="left" style={{ insetInlineStart: 0, width: 44 }}><span className="twc-dt__sk" aria-hidden="true" style={{ "--_w": "18px", height: 18, borderRadius: 4 }} /></td> : null}
+                  {showRowNum ? <td className="twc-dt__td twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" style={{ insetInlineStart: numLeft, width: NUM_W }}><span className="twc-dt__sk" aria-hidden="true" style={{ "--_w": "16px", height: 14, borderRadius: 4 }} /></td> : null}
                   {ordered.map((c, ci) => {
                     const st = stickyOf(c.field);
-                    return <td key={c.field} className="twc-dt__td" data-num={c.type === "number" || undefined} data-pin={st.pin} data-pin-edge={st.edge} style={{ width: widthOf(c), ...st.style }}>
-                      <span className="twc-dt__sk" style={{ "--_w": `${45 + ((ri * 13 + ci * 29) % 45)}%` }} />
+                    return <td key={c.field} className="twc-dt__td" role="gridcell" data-num={c.type === "number" || undefined} data-pin={st.pin} data-pin-edge={st.edge} style={{ width: widthOf(c), ...st.style }}>
+                      <span className="twc-dt__sk" aria-hidden="true" style={{ "--_w": `${45 + ((ri * 13 + ci * 29) % 45)}%` }} />
                     </td>;
                   })}
                 </tr>
               ))
             ) : (displayItems ? displayItems.length === 0 : paged.length === 0) ? (
-              <tr><td className="twc-dt__td" colSpan={totalCols} style={{ maxWidth: "none" }}>
-                <div className="twc-dt__empty">No rows match your filters</div>
+              // #121: customizable, filter-aware empty state. #122: grid roles on the empty row.
+              <tr role="row" aria-rowindex={2}><td className="twc-dt__td" role="gridcell" colSpan={totalCols} style={{ maxWidth: "none" }}>
+                <div className="twc-dt__empty">
+                  {renderEmpty ? renderEmpty() : (emptyMessage ?? ((filters.length > 0 || quick.trim() !== "") ? "No rows match your filters" : "No rows"))}
+                </div>
               </td></tr>
             ) : displayItems ? (() => {
               let li = -1;
@@ -2128,14 +2137,14 @@ export function Datatable({
           {hasAggregation && aggOn && !loading && paged.length > 0 ? (
             <tfoot>
               <tr role="row">
-                {checkboxSelection ? <td data-pin="left" data-pin-edge={(pins.left.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: 0, width: 44 }} /> : null}
-                {showRowNum ? <td className="twc-dt__rownum" aria-hidden="true" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W }} /> : null}
+                {checkboxSelection ? <td role="gridcell" data-pin="left" data-pin-edge={(pins.left.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: 0, width: 44 }} /> : null}
+                {showRowNum ? <td className="twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W }} /> : null}
                 {ordered.map((c) => {
                   const st = stickyOf(c.field);
                   const v = aggregate(c);
                   const display = v == null ? null : (c.aggregationFormatter ? c.aggregationFormatter(v) : c.valueFormatter ? c.valueFormatter(v, null) : (typeof v === "number" ? v.toLocaleString() : v));
                   return (
-                    <td key={c.field} data-num={c.type === "number" || undefined} data-pin={st.pin} data-pin-edge={st.edge} style={{ width: widthOf(c), ...st.style }}>
+                    <td key={c.field} role="gridcell" data-num={c.type === "number" || undefined} data-pin={st.pin} data-pin-edge={st.edge} style={{ width: widthOf(c), ...st.style }}>
                       {v == null ? null : (<>
                         {typeof aggOf(c) === "string" ? <span className="twc-dt__agg-label">{aggLabels[aggOf(c)]}</span> : null}
                         <span className="twc-dt__agg-val">{display}</span>
@@ -2175,7 +2184,7 @@ export function Datatable({
             <div className="twc-dt__rpp">
               <span className="twc-dt__rpp-label">Rows per page</span>
               <div style={{ width: 78 }}>
-                <Select size="sm" portal value={String(rowsPerPage)} options={rppOptions} placement="top" onChange={(v) => { setRowsPerPage(Number(v)); setPage(0); }} />
+                <Select size="sm" portal searchable={false} value={String(rowsPerPage)} options={rppOptions} placement="top" onChange={(v) => { setRowsPerPage(Number(v)); setPage(0); }} />
               </div>
             </div>
           ) : null}
@@ -2323,7 +2332,7 @@ export function Datatable({
             ) : null}
             {shownColRows.length === 0 ? (rowNumMatch ? null : <div className="twc-dt__empty" style={{ padding: "18px 12px" }}>No columns found</div>) :
               shownColRows.map((c) => {
-                const canDrag = !disableColumnReorder && !colQuery.trim();
+                const canDrag = !disableColumnReorder && c.reorderable !== false && !colQuery.trim();
                 return (
                 <div key={c.field} className="twc-dt__col-row"
                   data-dragging={drag.from === c.field || undefined}

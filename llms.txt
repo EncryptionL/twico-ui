@@ -1361,6 +1361,8 @@ Props:
 - `exportFilename` — `string` · default `export` — Sets the base filename used for exported files, defaulting to "export".
 - `aggregationValues` — `object|null` · default `null` — Supplies precomputed footer aggregation values for serverMode, where totals cannot be calculated client-side; null by default.
 - `disableColumnReorder` — `boolean` · default `false` — Prevents users from dragging columns into a new order, locking the column arrangement; off by default.
+- `emptyMessage` — `React.ReactNode` — Message shown when there are no rows; the default is filter-aware ("No rows match your filters" vs "No rows").
+- `renderEmpty` — `() => React.ReactNode` — Render a custom empty state inside the table body (e.g. the shipped EmptyState); overrides emptyMessage.
 - `disableColumnResize` — `boolean` · default `false` — Prevents resizing columns, locking their widths; off by default. When enabled, drag a header's right edge to resize, or double-click it to auto-fit the column to its content (Excel-style).
 - `editMode` — `boolean` · default `false` — Makes all columns editable inline so users can change cell values directly; off by default.
 - `onRowUpdate` — `(updated,original,field)=>void` · default `-` — Fires when an inline cell edit is committed, receiving the updated row, the original row, and the edited field.
