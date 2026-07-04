@@ -2,6 +2,21 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.7.0](https://github.com/EncryptionL/twico-ui/compare/v1.6.0...v1.7.0) (2026-07-04)
+
+
+### Bug Fixes
+
+* **inputs:** keyboard navigation for the DatePicker month grid + DateRangePicker day grid ([e276b39](https://github.com/EncryptionL/twico-ui/commit/e276b39cfc5d86e9c8ab509b5ca09506879e967d)), closes [#100](https://github.com/EncryptionL/twico-ui/issues/100) [#109](https://github.com/EncryptionL/twico-ui/issues/109)
+* **inputs:** trap focus + aria-modal in Date/Range/Color picker popovers ([#108](https://github.com/EncryptionL/twico-ui/issues/108)) ([feb7470](https://github.com/EncryptionL/twico-ui/commit/feb74705f61f94db3613e1041a4775b281d1d905)), closes [100/#109](https://github.com/EncryptionL/twico-ui/issues/109)
+
+
+### Features
+
+* **foundational:** Form primitive + ThemeProvider/createTheme ([fb48c3f](https://github.com/EncryptionL/twico-ui/commit/fb48c3fece3ad30bfb44a14de4de519054274045)), closes [#60](https://github.com/EncryptionL/twico-ui/issues/60) [#61](https://github.com/EncryptionL/twico-ui/issues/61)
+* **foundational:** forwardRef primitives, CSP nonce, tree-shaking budgets, docs metadata ([09f6b60](https://github.com/EncryptionL/twico-ui/commit/09f6b60a0ffe5bb29faf553a39975ea7dc002b7f)), closes [#55](https://github.com/EncryptionL/twico-ui/issues/55) [#54](https://github.com/EncryptionL/twico-ui/issues/54) [#57](https://github.com/EncryptionL/twico-ui/issues/57) [#58](https://github.com/EncryptionL/twico-ui/issues/58) [#59](https://github.com/EncryptionL/twico-ui/issues/59) [#62](https://github.com/EncryptionL/twico-ui/issues/62)
+* **primitives:** add VisuallyHidden, Image, Label, Anchor, Kbd, Pre, Portal + ColorSchemeScript ([0256651](https://github.com/EncryptionL/twico-ui/commit/02566512779de5520b98b954de15e5ffcb08bb0a)), closes [#52](https://github.com/EncryptionL/twico-ui/issues/52) [#56](https://github.com/EncryptionL/twico-ui/issues/56)
+
 # [1.6.0](https://github.com/EncryptionL/twico-ui/compare/v1.5.0...v1.6.0) (2026-07-04)
 
 
