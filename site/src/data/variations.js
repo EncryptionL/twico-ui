@@ -578,8 +578,13 @@ export const VARIATIONS = [
   },
   {
     "component": "Datatable",
-    "title": "All props",
+    "title": "Controlled pagination",
     "i": 8
+  },
+  {
+    "component": "Datatable",
+    "title": "All props",
+    "i": 9
   },
   {
     "component": "DatePicker",

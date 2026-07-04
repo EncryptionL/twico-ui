@@ -1366,7 +1366,10 @@ Props:
 - `checkboxSelection` — `boolean` · default `false` — Adds a leading checkbox column for selecting rows, enabling batch actions; off by default.
 - `batchActions` — `DatatableBatchAction array` · default `[]` — Defines actions shown in the selection toolbar that operate on the currently selected rows; empty by default.
 - `density` — `compact|standard|comfortable` · default `comfortable` — Sets the row height preset (compact, standard, or comfortable) to trade vertical space for readability, defaulting to comfortable.
-- `pageSize` — `number` · default `10` — Sets the initial number of rows shown per page, defaulting to 10; pass 0 to disable pagination.
+- `pageSize` — `number` · default `10` — Rows per page (0 disables pagination). Uncontrolled by default (changing it re-applies + resets to page 0); controlled when onPageSizeChange is set.
+- `page` — `number` — Controlled current page (0-based); when set, the table renders this page and reports changes via onPageChange.
+- `onPageChange` — `(page: number) => void` — Fires with the next 0-based page on user pagination (and when a size/query change resets to page 0). Required to control page.
+- `onPageSizeChange` — `(pageSize: number) => void` — Fires with the next rows-per-page when the user picks one; supplying it makes pageSize controlled.
 - `pageSizeOptions` — `number array` · default `[5,10,25,50]` — Lists the selectable rows-per-page values offered in the pagination control, defaulting to [5,10,25,50].
 - `height` — `number` · default `440` — Sets the maximum scroll height of the grid body in pixels before rows scroll internally, defaulting to 440.
 - `serverMode` — `boolean` · default `false` — Switches to server-side data handling so sorting, filtering, and paging are delegated to your backend; off by default.

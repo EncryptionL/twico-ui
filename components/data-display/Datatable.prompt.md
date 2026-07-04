@@ -67,6 +67,25 @@ import { Datatable } from "./Datatable";
 In server mode the table never sorts/filters/paginates locally — it just renders the rows you give it and
 calls `onServerChange` (debounced) whenever the query changes, so your backend does the work.
 
+**Controlled pagination** — drive the page (and page size) from your own state / external controls. Pass
+`page` (0-based) with `onPageChange`; supply `onPageSizeChange` to also control `pageSize`. Both follow the
+hand-rolled controlled/uncontrolled rule (the callback always fires; internal state only moves when the prop
+is uncontrolled). Changing an **uncontrolled** `pageSize` prop now re-applies and resets to page 0.
+
+```jsx
+const [page, setPage] = React.useState(0);
+const [size, setSize] = React.useState(25);
+<Datatable
+  columns={columns}
+  rows={rows}
+  page={page}
+  pageSize={size}
+  onPageChange={setPage}          // required to control `page`
+  onPageSizeChange={setSize}      // supplying this makes `pageSize` controlled
+/>
+// pairs naturally with serverMode: fetch on onServerChange, drive page from your URL / store.
+```
+
 **Actions column** — add a `type: "actions"` column with `getActions(row)`:
 
 ```jsx

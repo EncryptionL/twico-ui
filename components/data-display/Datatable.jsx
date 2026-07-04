@@ -771,6 +771,7 @@ function xlsxPackage(sheetXml) {
 export function Datatable({
   columns, rows, loading = false, rowKey, checkboxSelection = false,
   density: densityProp = "comfortable", pageSize = 10, pageSizeOptions = [5, 10, 25, 50],
+  page, onPageChange, onPageSizeChange,
   height = 440, serverMode = false, rowCount, onServerChange, batchActions = [],
   showExport = false, showDensity = false, showPivot = false, exportFilename = "export", aggregationValues = null,
   disableColumnReorder = false, disableColumnResize = false,
@@ -847,8 +848,18 @@ export function Datatable({
   const [selected, setSelected] = React.useState(() => new Set());
   const [activeRow, setActiveRow] = React.useState(null);
   const [activeCell, setActiveCell] = React.useState(null); // { key, field }
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(pageSize > 0 ? pageSize : 10);
+  // #45: controlled/uncontrolled pagination (hand-rolled per project rule — no
+  // useControllableState). `page` controlled when provided; `pageSize` controlled when
+  // `onPageSizeChange` is supplied. `commitPage`/`commitPageSize` always fire the callback
+  // and only touch internal state when uncontrolled.
+  const [internalPage, setInternalPage] = React.useState(0);
+  const [internalRpp, setInternalRpp] = React.useState(pageSize > 0 ? pageSize : 10);
+  const pageControlled = page !== undefined;
+  const pageSizeControlled = onPageSizeChange !== undefined;
+  const pageVal = pageControlled ? page : internalPage;
+  const sizeVal = pageSizeControlled ? (pageSize > 0 ? pageSize : 10) : internalRpp;
+  const commitPage = (next) => { onPageChange?.(next); if (!pageControlled) setInternalPage(next); };
+  const commitPageSize = (next) => { onPageSizeChange?.(next); if (!pageSizeControlled) setInternalRpp(next); commitPage(0); };
   const [colQuery, setColQuery] = React.useState("");
   const [widths, setWidths] = React.useState({});
   const [order, setOrder] = React.useState(() => columns.map((c) => c.field));
@@ -917,6 +928,14 @@ export function Datatable({
   // (the user can still adjust each one from the toolbar between prop changes).
   React.useEffect(() => { setDensity(densityProp); }, [densityProp]);
   React.useEffect(() => { setAggOn(showAggregation); }, [showAggregation]);
+  // #45: re-apply `pageSize` when the prop changes (mirrors density/agg sync) so an
+  // uncontrolled table honors a new page size and resets to the first page. Skipped when
+  // pageSize is controlled (the parent drives it via onPageSizeChange).
+  React.useEffect(() => {
+    if (pageSizeControlled) return;
+    setInternalRpp(pageSize > 0 ? pageSize : 10);
+    setInternalPage(0);
+  }, [pageSize]);
   // Keyed on content (not array identity) so inline `rowGrouping={[…]}` literals don't reset the user's grouping.
   const rowGroupingKey = (rowGrouping || []).join("\u0000");
   const rowGroupingKeyRef = React.useRef(rowGroupingKey);
@@ -1056,9 +1075,9 @@ export function Datatable({
   const paginated = pageSize > 0;
   const serverTotal = rowCount == null ? processed.length : rowCount;
   const totalRows = serverMode ? serverTotal : processed.length;
-  const totalPages = paginated ? Math.max(1, Math.ceil(totalRows / rowsPerPage)) : 1;
-  const paged = !paginated || serverMode ? processed : processed.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-  React.useEffect(() => { if (page > totalPages - 1) setPage(0); }, [totalPages]);
+  const totalPages = paginated ? Math.max(1, Math.ceil(totalRows / sizeVal)) : 1;
+  const paged = !paginated || serverMode ? processed : processed.slice(pageVal * sizeVal, pageVal * sizeVal + sizeVal);
+  React.useEffect(() => { if (pageVal > totalPages - 1) commitPage(0); }, [totalPages]);
 
   // ---- Row grouping ----
   // Groups the rendered page by one or more fields into collapsible group rows.
@@ -1288,13 +1307,13 @@ export function Datatable({
     if (!serverMode) return;
     const t = setTimeout(() => {
       onServerChangeRef.current?.({
-        page, pageSize: rowsPerPage, sort,
+        page: pageVal, pageSize: sizeVal, sort,
         filters: filters.map(({ id, ...f }) => f),
         quickFilter: quick.trim(),
       });
     }, 250);
     return () => clearTimeout(t);
-  }, [serverMode, page, rowsPerPage, sort, filters, quick]);
+  }, [serverMode, pageVal, sizeVal, sort, filters, quick]);
 
   function cycleSort(field) {
     setSort((s) => !s || s.field !== field ? { field, dir: "asc" } : s.dir === "asc" ? { field, dir: "desc" } : null);
@@ -1556,7 +1575,7 @@ export function Datatable({
     }
     if (handled) { e.preventDefault(); setFocus({ r, c }); focusCell(r, c); }
   }
-  React.useEffect(() => { setFocus((f) => ({ r: Math.min(f.r, Math.max(0, leafRows.length - 1)), c: Math.min(f.c, Math.max(0, ordered.length - 1)) })); }, [leafRows.length, ordered.length, page]);
+  React.useEffect(() => { setFocus((f) => ({ r: Math.min(f.r, Math.max(0, leafRows.length - 1)), c: Math.min(f.c, Math.max(0, ordered.length - 1)) })); }, [leafRows.length, ordered.length, pageVal]);
 
   const selectedRows = React.useMemo(() => rows.filter((r, i) => selected.has(keyOf(r, i))), [rows, selected]);
   function clearSelection() { setSelected(new Set()); }
@@ -1743,7 +1762,7 @@ export function Datatable({
     const grabTarget = rowGrab && !grabbed && midIdx != null && rowGrab.index === midIdx
       ? (rowGrab.index >= keyIndexMid.get(rowGrab.key) ? "after" : "before") : undefined;
     return (
-      <tr key={(pinSide ? "p-" : "") + k} className="twc-dt__row" role="row" aria-rowindex={(paginated && !serverMode ? page * rowsPerPage : 0) + ri + 2}
+      <tr key={(pinSide ? "p-" : "") + k} className="twc-dt__row" role="row" aria-rowindex={(paginated && !serverMode ? pageVal * sizeVal : 0) + ri + 2}
         aria-selected={(checkboxSelection ? sel : rowActive) || undefined}
         data-selected={sel || undefined} data-active={rowActive || undefined}
         data-pinned-row={pinSide || undefined}
@@ -1775,7 +1794,7 @@ export function Datatable({
         ) : null}
         {showRowNum ? (
           <td className="twc-dt__td twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W }}>
-            {typeof ri === "number" ? ((paginated || serverMode ? page * rowsPerPage : 0) + ri + 1) : ""}
+            {typeof ri === "number" ? ((paginated || serverMode ? pageVal * sizeVal : 0) + ri + 1) : ""}
           </td>
         ) : null}
         {ordered.map((c, ci) => {
@@ -1982,7 +2001,7 @@ export function Datatable({
         ) : null}
         <div className="twc-dt__search">
           <Svg d={I.search} />
-          <input placeholder="Search…" aria-label="Search rows" value={quick} onChange={(e) => { setQuick(e.target.value); setPage(0); }} />
+          <input placeholder="Search…" aria-label="Search rows" value={quick} onChange={(e) => { setQuick(e.target.value); commitPage(0); }} />
         </div>
       </div>
 
@@ -2100,7 +2119,7 @@ export function Datatable({
           </thead>
           <tbody>
             {loading ? (
-              Array.from({ length: paginated ? Math.min(rowsPerPage, 8) : 8 }).map((_, ri) => (
+              Array.from({ length: paginated ? Math.min(sizeVal, 8) : 8 }).map((_, ri) => (
                 <tr key={ri} className="twc-dt__row" role="row">
                   {checkboxSelection ? <td className="twc-dt__td" role="gridcell" data-pin="left" style={{ insetInlineStart: 0, width: 44 }}><span className="twc-dt__sk" aria-hidden="true" style={{ "--_w": "18px", height: 18, borderRadius: 4 }} /></td> : null}
                   {showRowNum ? <td className="twc-dt__td twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" style={{ insetInlineStart: numLeft, width: NUM_W }}><span className="twc-dt__sk" aria-hidden="true" style={{ "--_w": "16px", height: 14, borderRadius: 4 }} /></td> : null}
@@ -2168,7 +2187,7 @@ export function Datatable({
               const nf = (n) => n.toLocaleString();
               if (totalRows === 0) return "No rows";
               const shown = paged.length;
-              const start = paginated ? page * rowsPerPage + 1 : 1;
+              const start = paginated ? pageVal * sizeVal + 1 : 1;
               const end = paginated ? start + shown - 1 : shown;
               return (
                 <>
@@ -2184,14 +2203,14 @@ export function Datatable({
             <div className="twc-dt__rpp">
               <span className="twc-dt__rpp-label">Rows per page</span>
               <div style={{ width: 78 }}>
-                <Select size="sm" portal searchable={false} value={String(rowsPerPage)} options={rppOptions} placement="top" onChange={(v) => { setRowsPerPage(Number(v)); setPage(0); }} />
+                <Select size="sm" portal searchable={false} value={String(sizeVal)} options={rppOptions} placement="top" onChange={(v) => commitPageSize(Number(v))} />
               </div>
             </div>
           ) : null}
         </div>
         {paginated ? (
           <div className="twc-dt__footer-row" data-pager="true">
-            <Pagination size="sm" page={page + 1} total={totalPages} boundaries={3} showPageJumper={showPageJumper && totalPages > 5} onChange={(p) => setPage(p - 1)} />
+            <Pagination size="sm" page={pageVal + 1} total={totalPages} boundaries={3} showPageJumper={showPageJumper && totalPages > 5} onChange={(p) => commitPage(p - 1)} />
           </div>
         ) : null}
       </div>

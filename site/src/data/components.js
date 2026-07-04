@@ -2864,7 +2864,28 @@ export const components = [
         "type": "number",
         "required": false,
         "default": "10",
-        "description": "Sets the initial number of rows shown per page, defaulting to 10; pass 0 to disable pagination."
+        "description": "Rows per page (0 disables pagination). Uncontrolled by default (changing it re-applies + resets to page 0); controlled when onPageSizeChange is set."
+      },
+      {
+        "prop": "page",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Controlled current page (0-based); when set, the table renders this page and reports changes via onPageChange."
+      },
+      {
+        "prop": "onPageChange",
+        "type": "(page: number) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the next 0-based page on user pagination (and when a size/query change resets to page 0). Required to control page."
+      },
+      {
+        "prop": "onPageSizeChange",
+        "type": "(pageSize: number) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the next rows-per-page when the user picks one; supplying it makes pageSize controlled."
       },
       {
         "prop": "pageSizeOptions",

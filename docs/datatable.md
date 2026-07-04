@@ -47,6 +47,29 @@ the row's ⋮ menu — each mutates `DB` and re-issues the last query. The one c
 affects rows the grid currently has (the loaded page), since `changedRows`/selected rows are resolved
 from the current `rows`; selection does not span pages in server mode.
 
+## Controlled pagination (#45)
+
+Page and page size are **uncontrolled by default** but can be driven externally, following the
+project's hand-rolled controlled/uncontrolled rule — **no `useControllableState` import**:
+
+- `page` (0-based) + `onPageChange` — when `page` is passed the grid renders that page and never
+  advances its own state; every pager interaction just calls `onPageChange(next)`. The parent owns it.
+- `onPageSizeChange` — supplying it makes `pageSize` **controlled** (the rows-per-page Select reports
+  the pick via the callback and holds its displayed value until the prop updates).
+
+Internally: `pageVal = pageControlled ? page : internalPage` (same for `sizeVal`), and a single
+`commitPage(next)` / `commitPageSize(next)` helper always fires the callback and only calls the
+internal setter when uncontrolled. Every read of the page/size (the `paged` slice, the totalPages
+clamp, `aria-rowindex`, the row-number offset, the footer "Showing X–Y", and the `onServerChange`
+payload) reads `pageVal`/`sizeVal`, so controlled and uncontrolled stay in lockstep. The controlled
+`filters` shape stays **id-less** — identical to what `onServerChange` emits — so the two round-trip.
+
+A non-breaking bonus: an **uncontrolled** `pageSize` prop change now re-applies and resets to page 0
+(mirroring the density / aggregation sync effects), fixing the prior one-time-seed inconsistency.
+
+Sort / filter / quick-filter control was scoped as a follow-up (the same `commit`-helper pattern would
+route `cycleSort` / filter mutations / `setQuick` through controlled boundaries).
+
 ## Row virtualization (windowing)
 
 Opt in with `virtualized` to render only the rows near the viewport for large client datasets.

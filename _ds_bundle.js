@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"f35fb2dc0dc4","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"7e73bf919b01","components/layout/Container.jsx":"65d865e8012e","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"c86ad50eb3f6","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1a5441dddb5b","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"ae1d49e59288","src/index.ts":"5bf37ab8cbee"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"0e20db89335d","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"7e73bf919b01","components/layout/Container.jsx":"65d865e8012e","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"c86ad50eb3f6","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1a5441dddb5b","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"ae1d49e59288","src/index.ts":"5bf37ab8cbee"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -5502,6 +5502,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     density: densityProp = "comfortable",
     pageSize = 10,
     pageSizeOptions = [5, 10, 25, 50],
+    page,
+    onPageChange,
+    onPageSizeChange,
     height = 440,
     serverMode = false,
     rowCount,
@@ -5616,8 +5619,21 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const [selected, setSelected] = import_react.default.useState(() => /* @__PURE__ */ new Set());
     const [activeRow, setActiveRow] = import_react.default.useState(null);
     const [activeCell, setActiveCell] = import_react.default.useState(null);
-    const [page, setPage] = import_react.default.useState(0);
-    const [rowsPerPage, setRowsPerPage] = import_react.default.useState(pageSize > 0 ? pageSize : 10);
+    const [internalPage, setInternalPage] = import_react.default.useState(0);
+    const [internalRpp, setInternalRpp] = import_react.default.useState(pageSize > 0 ? pageSize : 10);
+    const pageControlled = page !== void 0;
+    const pageSizeControlled = onPageSizeChange !== void 0;
+    const pageVal = pageControlled ? page : internalPage;
+    const sizeVal = pageSizeControlled ? pageSize > 0 ? pageSize : 10 : internalRpp;
+    const commitPage = (next) => {
+      onPageChange?.(next);
+      if (!pageControlled) setInternalPage(next);
+    };
+    const commitPageSize = (next) => {
+      onPageSizeChange?.(next);
+      if (!pageSizeControlled) setInternalRpp(next);
+      commitPage(0);
+    };
     const [colQuery, setColQuery] = import_react.default.useState("");
     const [widths, setWidths] = import_react.default.useState({});
     const [order, setOrder] = import_react.default.useState(() => columns.map((c) => c.field));
@@ -5683,6 +5699,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     import_react.default.useEffect(() => {
       setAggOn(showAggregation);
     }, [showAggregation]);
+    import_react.default.useEffect(() => {
+      if (pageSizeControlled) return;
+      setInternalRpp(pageSize > 0 ? pageSize : 10);
+      setInternalPage(0);
+    }, [pageSize]);
     const rowGroupingKey = (rowGrouping || []).join("\0");
     const rowGroupingKeyRef = import_react.default.useRef(rowGroupingKey);
     import_react.default.useEffect(() => {
@@ -5866,10 +5887,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const paginated = pageSize > 0;
     const serverTotal = rowCount == null ? processed.length : rowCount;
     const totalRows = serverMode ? serverTotal : processed.length;
-    const totalPages = paginated ? Math.max(1, Math.ceil(totalRows / rowsPerPage)) : 1;
-    const paged = !paginated || serverMode ? processed : processed.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+    const totalPages = paginated ? Math.max(1, Math.ceil(totalRows / sizeVal)) : 1;
+    const paged = !paginated || serverMode ? processed : processed.slice(pageVal * sizeVal, pageVal * sizeVal + sizeVal);
     import_react.default.useEffect(() => {
-      if (page > totalPages - 1) setPage(0);
+      if (pageVal > totalPages - 1) commitPage(0);
     }, [totalPages]);
     const activeGroupBy = import_react.default.useMemo(() => groupBy.filter((f) => colByField[f]), [groupBy, colByField]);
     function subtotalText(rowsIn) {
@@ -6132,15 +6153,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       if (!serverMode) return;
       const t = setTimeout(() => {
         onServerChangeRef.current?.({
-          page,
-          pageSize: rowsPerPage,
+          page: pageVal,
+          pageSize: sizeVal,
           sort,
           filters: filters.map(({ id, ...f }) => f),
           quickFilter: quick.trim()
         });
       }, 250);
       return () => clearTimeout(t);
-    }, [serverMode, page, rowsPerPage, sort, filters, quick]);
+    }, [serverMode, pageVal, sizeVal, sort, filters, quick]);
     function cycleSort(field) {
       setSort((s) => !s || s.field !== field ? { field, dir: "asc" } : s.dir === "asc" ? { field, dir: "desc" } : null);
     }
@@ -6421,7 +6442,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     }
     import_react.default.useEffect(() => {
       setFocus((f) => ({ r: Math.min(f.r, Math.max(0, leafRows.length - 1)), c: Math.min(f.c, Math.max(0, ordered.length - 1)) }));
-    }, [leafRows.length, ordered.length, page]);
+    }, [leafRows.length, ordered.length, pageVal]);
     const selectedRows = import_react.default.useMemo(() => rows.filter((r, i) => selected.has(keyOf(r, i))), [rows, selected]);
     function clearSelection() {
       setSelected(/* @__PURE__ */ new Set());
@@ -6666,7 +6687,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         {
           className: "twc-dt__row",
           role: "row",
-          "aria-rowindex": (paginated && !serverMode ? page * rowsPerPage : 0) + ri + 2,
+          "aria-rowindex": (paginated && !serverMode ? pageVal * sizeVal : 0) + ri + 2,
           "aria-selected": (checkboxSelection ? sel : rowActive) || void 0,
           "data-selected": sel || void 0,
           "data-active": rowActive || void 0,
@@ -6724,7 +6745,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               ] }),
               rowResize && !pinSide ? /* @__PURE__ */ jsx("span", { className: "twc-dt__row-resizer", title: "Drag to resize row", onPointerDown: (e) => startRowResize(e, k, e.currentTarget.closest("tr")), onClick: (e) => e.stopPropagation() }) : null
             ] }) : null,
-            showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", "data-pin-edge": pins.left.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W }, children: typeof ri === "number" ? (paginated || serverMode ? page * rowsPerPage : 0) + ri + 1 : "" }) : null,
+            showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", "data-pin-edge": pins.left.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W }, children: typeof ri === "number" ? (paginated || serverMode ? pageVal * sizeVal : 0) + ri + 1 : "" }) : null,
             ordered.map((c, ci) => {
               const st = stickyOf(c.field);
               const val = row[c.field];
@@ -7052,7 +7073,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           /* @__PURE__ */ jsx(Svg, { d: I.search }),
           /* @__PURE__ */ jsx("input", { placeholder: "Search\u2026", "aria-label": "Search rows", value: quick, onChange: (e) => {
             setQuick(e.target.value);
-            setPage(0);
+            commitPage(0);
           } })
         ] })
       ] }),
@@ -7254,7 +7275,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                 );
               })
             ] }) }),
-            /* @__PURE__ */ jsx("tbody", { children: loading ? Array.from({ length: paginated ? Math.min(rowsPerPage, 8) : 8 }).map((_, ri) => /* @__PURE__ */ jsxs("tr", { className: "twc-dt__row", role: "row", children: [
+            /* @__PURE__ */ jsx("tbody", { children: loading ? Array.from({ length: paginated ? Math.min(sizeVal, 8) : 8 }).map((_, ri) => /* @__PURE__ */ jsxs("tr", { className: "twc-dt__row", role: "row", children: [
               checkboxSelection ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td", role: "gridcell", "data-pin": "left", style: { insetInlineStart: 0, width: 44 }, children: /* @__PURE__ */ jsx("span", { className: "twc-dt__sk", "aria-hidden": "true", style: { "--_w": "18px", height: 18, borderRadius: 4 } }) }) : null,
               showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", style: { insetInlineStart: numLeft, width: NUM_W }, children: /* @__PURE__ */ jsx("span", { className: "twc-dt__sk", "aria-hidden": "true", style: { "--_w": "16px", height: 14, borderRadius: 4 } }) }) : null,
               ordered.map((c, ci) => {
@@ -7298,7 +7319,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             const nf = (n) => n.toLocaleString();
             if (totalRows === 0) return "No rows";
             const shown = paged.length;
-            const start = paginated ? page * rowsPerPage + 1 : 1;
+            const start = paginated ? pageVal * sizeVal + 1 : 1;
             const end = paginated ? start + shown - 1 : shown;
             return /* @__PURE__ */ jsxs(Fragment, { children: [
               paginated ? /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -7326,13 +7347,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           })() }),
           paginated ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__rpp", children: [
             /* @__PURE__ */ jsx("span", { className: "twc-dt__rpp-label", children: "Rows per page" }),
-            /* @__PURE__ */ jsx("div", { style: { width: 78 }, children: /* @__PURE__ */ jsx(Select, { size: "sm", portal: true, searchable: false, value: String(rowsPerPage), options: rppOptions, placement: "top", onChange: (v) => {
-              setRowsPerPage(Number(v));
-              setPage(0);
-            } }) })
+            /* @__PURE__ */ jsx("div", { style: { width: 78 }, children: /* @__PURE__ */ jsx(Select, { size: "sm", portal: true, searchable: false, value: String(sizeVal), options: rppOptions, placement: "top", onChange: (v) => commitPageSize(Number(v)) }) })
           ] }) : null
         ] }),
-        paginated ? /* @__PURE__ */ jsx("div", { className: "twc-dt__footer-row", "data-pager": "true", children: /* @__PURE__ */ jsx(Pagination, { size: "sm", page: page + 1, total: totalPages, boundaries: 3, showPageJumper: showPageJumper && totalPages > 5, onChange: (p) => setPage(p - 1) }) }) : null
+        paginated ? /* @__PURE__ */ jsx("div", { className: "twc-dt__footer-row", "data-pager": "true", children: /* @__PURE__ */ jsx(Pagination, { size: "sm", page: pageVal + 1, total: totalPages, boundaries: 3, showPageJumper: showPageJumper && totalPages > 5, onChange: (p) => commitPage(p - 1) }) }) : null
       ] }) : null,
       exportOpen && exportPos ? /* @__PURE__ */ jsxs(
         "div",
