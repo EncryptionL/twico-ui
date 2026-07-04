@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"3c98a07f7447","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"f35fb2dc0dc4","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"1c03e17c8594","components/inputs/Combobox.jsx":"da89f9c7b152","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"4539dda63318","components/inputs/DateRangePicker.jsx":"d428e7795556","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"856956280c7b","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"cd87f7b56e12","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"5866b30f900a","components/layout/ColorSchemeScript.jsx":"7e73bf919b01","components/layout/Container.jsx":"3af6a1ef1d15","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"6db8d15f4acd","components/layout/Portal.jsx":"c86ad50eb3f6","components/layout/Stack.jsx":"82cf0b7f370d","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"6f40ab3a9d29","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"a666a3e0beeb","src/index.ts":"88773912becf"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"3c98a07f7447","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"f35fb2dc0dc4","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"1c03e17c8594","components/inputs/Combobox.jsx":"da89f9c7b152","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"ae454957e1e5","components/inputs/DateRangePicker.jsx":"4afd025227b5","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"856956280c7b","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"cd87f7b56e12","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"5866b30f900a","components/layout/ColorSchemeScript.jsx":"7e73bf919b01","components/layout/Container.jsx":"3af6a1ef1d15","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"6db8d15f4acd","components/layout/Portal.jsx":"c86ad50eb3f6","components/layout/Stack.jsx":"82cf0b7f370d","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"6f40ab3a9d29","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"a666a3e0beeb","src/index.ts":"88773912becf"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -7704,6 +7704,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const [view, setView] = import_react.default.useState(selected || /* @__PURE__ */ new Date());
     const [mode, setMode] = import_react.default.useState("days");
     const [focusDate, setFocusDate] = import_react.default.useState(null);
+    const [focusMonth, setFocusMonth] = import_react.default.useState(null);
     const [coords, setCoords] = import_react.default.useState(null);
     const wrapRef = import_react.default.useRef(null);
     const triggerRef = import_react.default.useRef(null);
@@ -7787,6 +7788,30 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       if (!open || mode !== "days" || !focusDate) return;
       gridRef.current?.querySelector(`[data-key="${keyOf(focusDate)}"]`)?.focus();
     }, [focusDate, open, mode]);
+    import_react.default.useEffect(() => {
+      if (!open || mode !== "months" || focusMonth == null) return;
+      gridRef.current?.querySelector(`[data-mo="${focusMonth}"]`)?.focus();
+    }, [focusMonth, open, mode]);
+    const onMonthsKeyDown = (e) => {
+      const cur = focusMonth == null ? m : focusMonth;
+      let next;
+      if (e.key === "ArrowRight") next = cur + 1;
+      else if (e.key === "ArrowLeft") next = cur - 1;
+      else if (e.key === "ArrowDown") next = cur + 3;
+      else if (e.key === "ArrowUp") next = cur - 3;
+      else if (e.key === "Home") next = 0;
+      else if (e.key === "End") next = 11;
+      else return;
+      e.preventDefault();
+      if (next < 0) {
+        setView(new Date(y - 1, 0, 1));
+        next += 12;
+      } else if (next > 11) {
+        setView(new Date(y + 1, 0, 1));
+        next -= 12;
+      }
+      setFocusMonth(next);
+    };
     const onGridKeyDown = (e) => {
       const btn = e.target.closest?.("[data-key]");
       if (!btn) return;
@@ -7873,7 +7898,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             children: [
               /* @__PURE__ */ jsxs("div", { className: "twc-dp__head", children: [
                 /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dp__nav", "aria-label": "Previous", onClick: () => setView(mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1)), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m15 18-6-6 6-6" }) }) }),
-                /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dp__title", onClick: () => setMode(mode === "days" ? "months" : "days"), children: mode === "days" ? `${months[m]} ${y}` : y }),
+                /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dp__title", onClick: () => {
+                  if (mode === "days") setFocusMonth(m);
+                  setMode(mode === "days" ? "months" : "days");
+                }, children: mode === "days" ? `${months[m]} ${y}` : y }),
                 /* @__PURE__ */ jsx("span", { className: "twc-dp__sr", "aria-live": "polite", children: mode === "days" ? `${months[m]} ${y}` : y }),
                 /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dp__nav", "aria-label": "Next", onClick: () => setView(mode === "months" ? new Date(y + 1, m, 1) : new Date(y, m + 1, 1)), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m9 18 6-6-6-6" }) }) })
               ] }),
@@ -7901,11 +7929,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                     i
                   );
                 })
-              ] }) : /* @__PURE__ */ jsx("div", { className: "twc-dp__months", children: monthsShort.map((name, i) => /* @__PURE__ */ jsx(
+              ] }) : /* @__PURE__ */ jsx("div", { className: "twc-dp__months", ref: gridRef, onKeyDown: onMonthsKeyDown, role: "grid", children: monthsShort.map((name, i) => /* @__PURE__ */ jsx(
                 "button",
                 {
                   type: "button",
                   className: "twc-dp__mo",
+                  role: "gridcell",
+                  "data-mo": i,
+                  tabIndex: i === (focusMonth ?? m) ? 0 : -1,
                   "data-selected": selected && selected.getFullYear() === y && selected.getMonth() === i || void 0,
                   onClick: () => {
                     setView(new Date(y, i, 1));
@@ -8017,10 +8048,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const [open, setOpen] = import_react.default.useState(false);
     const [view, setView] = import_react.default.useState(range.start || /* @__PURE__ */ new Date());
     const [hover, setHover] = import_react.default.useState(null);
+    const [focusDate, setFocusDate] = import_react.default.useState(null);
     const [coords, setCoords] = import_react.default.useState(null);
     const wrapRef = import_react.default.useRef(null);
     const triggerRef = import_react.default.useRef(null);
     const popRef = import_react.default.useRef(null);
+    const gridRef = import_react.default.useRef(null);
     const labelId = import_react.default.useId();
     const descId = `${labelId}-desc`;
     const invalid = Boolean(error);
@@ -8071,8 +8104,52 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       if (value === void 0) setInternal(r);
       onChange?.(r);
     };
-    useFocusTrap(popRef, open && !!coords);
+    useFocusTrap(popRef, open && !!coords, { initialFocus: () => gridRef.current?.querySelector('[tabindex="0"]') });
     const outOfRange = (d) => min && ymd(d) < ymd(min) || max && ymd(d) > ymd(max) || Boolean(disabledDate && disabledDate(d));
+    const sameDay2 = (a, b) => a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+    const keyOf = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+    const addMonths = (d, n) => {
+      const last = new Date(d.getFullYear(), d.getMonth() + n + 1, 0);
+      return new Date(last.getFullYear(), last.getMonth(), Math.min(d.getDate(), last.getDate()));
+    };
+    import_react.default.useEffect(() => {
+      if (!open) {
+        setFocusDate(null);
+        setHover(null);
+      }
+    }, [open]);
+    import_react.default.useEffect(() => {
+      if (!open || !focusDate) return;
+      gridRef.current?.querySelector(`[data-key="${keyOf(focusDate)}"]`)?.focus();
+    }, [focusDate, open]);
+    const onGridKeyDown = (e) => {
+      const btn = e.target.closest && e.target.closest("[data-key]");
+      if (!btn) return;
+      const [fy, fm, fd] = btn.getAttribute("data-key").split("-").map(Number);
+      const cur = new Date(fy, fm, fd);
+      let step;
+      if (e.key === "ArrowLeft") step = (d) => addDays(d, -1);
+      else if (e.key === "ArrowRight") step = (d) => addDays(d, 1);
+      else if (e.key === "ArrowUp") step = (d) => addDays(d, -7);
+      else if (e.key === "ArrowDown") step = (d) => addDays(d, 7);
+      else if (e.key === "Home") step = (d) => addDays(d, -((d.getDay() - weekStartsOn + 7) % 7));
+      else if (e.key === "End") step = (d) => addDays(d, 6 - (d.getDay() - weekStartsOn + 7) % 7);
+      else if (e.key === "PageUp") step = (d) => addMonths(d, -1);
+      else if (e.key === "PageDown") step = (d) => addMonths(d, 1);
+      else return;
+      e.preventDefault();
+      let next = step(cur), guard = 0;
+      while (outOfRange(next) && guard < 366) {
+        next = step(next);
+        guard += 1;
+      }
+      if (outOfRange(next)) return;
+      setFocusDate(next);
+      setHover(next);
+      if (next.getFullYear() !== view.getFullYear() || next.getMonth() !== view.getMonth()) setView(new Date(next.getFullYear(), next.getMonth(), 1));
+    };
+    const tabbableDate = focusDate || range.start || /* @__PURE__ */ new Date();
     const clickDay = (d) => {
       if (outOfRange(d)) return;
       if (!range.start || range.start && range.end) {
@@ -8182,7 +8259,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   ] }),
                   /* @__PURE__ */ jsx("button", { type: "button", className: "twc-drp__nav", "aria-label": "Next month", onClick: () => setView(new Date(y, m + 1, 1)), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m9 18 6-6-6-6" }) }) })
                 ] }),
-                /* @__PURE__ */ jsxs("div", { className: "twc-drp__grid", children: [
+                /* @__PURE__ */ jsxs("div", { className: "twc-drp__grid", ref: gridRef, onKeyDown: onGridKeyDown, role: "grid", children: [
                   dows.map((d, i) => /* @__PURE__ */ jsx("div", { className: "twc-drp__dow", children: d }, i)),
                   Array.from({ length: 42 }).map((_, i) => {
                     const d = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i);
@@ -8194,6 +8271,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                         className: "twc-drp__day",
                         "data-outside": outside || void 0,
                         disabled: outOfRange(d) || void 0,
+                        "data-key": keyOf(d),
+                        tabIndex: sameDay2(d, tabbableDate) ? 0 : -1,
                         "data-in": inRange(t) || void 0,
                         "data-edge": edgeOf(t) || void 0,
                         "aria-pressed": !!edgeOf(t),

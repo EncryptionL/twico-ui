@@ -128,6 +128,7 @@ export function DatePicker({
   const [view, setView] = React.useState(selected || new Date());
   const [mode, setMode] = React.useState("days");
   const [focusDate, setFocusDate] = React.useState(null);
+  const [focusMonth, setFocusMonth] = React.useState(null); // #109: roving month index
   const [coords, setCoords] = React.useState(null);
   const wrapRef = React.useRef(null);
   const triggerRef = React.useRef(null);
@@ -216,6 +217,28 @@ export function DatePicker({
     gridRef.current?.querySelector(`[data-key="${keyOf(focusDate)}"]`)?.focus();
   }, [focusDate, open, mode]);
 
+  // #109: roving focus for the month grid (3-col layout: ±1 horizontal, ±3 vertical).
+  React.useEffect(() => {
+    if (!open || mode !== "months" || focusMonth == null) return;
+    gridRef.current?.querySelector(`[data-mo="${focusMonth}"]`)?.focus();
+  }, [focusMonth, open, mode]);
+  const onMonthsKeyDown = (e) => {
+    const cur = focusMonth == null ? m : focusMonth;
+    let next;
+    if (e.key === "ArrowRight") next = cur + 1;
+    else if (e.key === "ArrowLeft") next = cur - 1;
+    else if (e.key === "ArrowDown") next = cur + 3;
+    else if (e.key === "ArrowUp") next = cur - 3;
+    else if (e.key === "Home") next = 0;
+    else if (e.key === "End") next = 11;
+    else return;
+    e.preventDefault();
+    // Step the year at the edges so navigation is continuous.
+    if (next < 0) { setView(new Date(y - 1, 0, 1)); next += 12; }
+    else if (next > 11) { setView(new Date(y + 1, 0, 1)); next -= 12; }
+    setFocusMonth(next);
+  };
+
   // Calendar keyboard navigation: arrows move by day/week, Home/End to week edges, PageUp/PageDown by month.
   const onGridKeyDown = (e) => {
     const btn = e.target.closest?.("[data-key]");
@@ -282,7 +305,7 @@ export function DatePicker({
             <button type="button" className="twc-dp__nav" aria-label="Previous" onClick={() => setView(mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1))}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
             </button>
-            <button type="button" className="twc-dp__title" onClick={() => setMode(mode === "days" ? "months" : "days")}>
+            <button type="button" className="twc-dp__title" onClick={() => { if (mode === "days") setFocusMonth(m); setMode(mode === "days" ? "months" : "days"); }}>
               {mode === "days" ? `${months[m]} ${y}` : y}
             </button>
             <span className="twc-dp__sr" aria-live="polite">{mode === "days" ? `${months[m]} ${y}` : y}</span>
@@ -308,9 +331,11 @@ export function DatePicker({
               })}
             </div>
           ) : (
-            <div className="twc-dp__months">
+            <div className="twc-dp__months" ref={gridRef} onKeyDown={onMonthsKeyDown} role="grid">
               {monthsShort.map((name, i) => (
-                <button key={i} type="button" className="twc-dp__mo" data-selected={selected && selected.getFullYear() === y && selected.getMonth() === i || undefined}
+                <button key={i} type="button" className="twc-dp__mo" role="gridcell" data-mo={i}
+                  tabIndex={i === (focusMonth ?? m) ? 0 : -1}
+                  data-selected={selected && selected.getFullYear() === y && selected.getMonth() === i || undefined}
                   onClick={() => { setView(new Date(y, i, 1)); setMode("days"); }}>
                   {name}
                 </button>

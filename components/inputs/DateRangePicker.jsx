@@ -106,10 +106,12 @@ export function DateRangePicker({
   const [open, setOpen] = React.useState(false);
   const [view, setView] = React.useState(range.start || new Date());
   const [hover, setHover] = React.useState(null);
+  const [focusDate, setFocusDate] = React.useState(null); // #100: roving day focus
   const [coords, setCoords] = React.useState(null);
   const wrapRef = React.useRef(null);
   const triggerRef = React.useRef(null);
   const popRef = React.useRef(null);
+  const gridRef = React.useRef(null);
   const labelId = React.useId();
   const descId = `${labelId}-desc`;
   const invalid = Boolean(error);
@@ -154,10 +156,46 @@ export function DateRangePicker({
   const set = (r) => { if (value === undefined) setInternal(r); onChange?.(r); };
 
   // #108: trap Tab within the popover + restore focus to the trigger on close (was missing).
-  useFocusTrap(popRef, open && !!coords);
+  useFocusTrap(popRef, open && !!coords, { initialFocus: () => gridRef.current?.querySelector('[tabindex="0"]') });
 
   // #101: bounds parity with DatePicker.
   const outOfRange = (d) => (min && ymd(d) < ymd(min)) || (max && ymd(d) > ymd(max)) || Boolean(disabledDate && disabledDate(d));
+
+  // #100: day-grid keyboard navigation (mirrors DatePicker). Reset roving focus on open/close.
+  const sameDay = (a, b) => a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  const keyOf = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+  const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+  const addMonths = (d, n) => { const last = new Date(d.getFullYear(), d.getMonth() + n + 1, 0); return new Date(last.getFullYear(), last.getMonth(), Math.min(d.getDate(), last.getDate())); };
+  React.useEffect(() => { if (!open) { setFocusDate(null); setHover(null); } }, [open]);
+  React.useEffect(() => {
+    if (!open || !focusDate) return;
+    gridRef.current?.querySelector(`[data-key="${keyOf(focusDate)}"]`)?.focus();
+  }, [focusDate, open]);
+  const onGridKeyDown = (e) => {
+    const btn = e.target.closest && e.target.closest("[data-key]");
+    if (!btn) return;
+    const [fy, fm, fd] = btn.getAttribute("data-key").split("-").map(Number);
+    const cur = new Date(fy, fm, fd);
+    let step;
+    if (e.key === "ArrowLeft") step = (d) => addDays(d, -1);
+    else if (e.key === "ArrowRight") step = (d) => addDays(d, 1);
+    else if (e.key === "ArrowUp") step = (d) => addDays(d, -7);
+    else if (e.key === "ArrowDown") step = (d) => addDays(d, 7);
+    else if (e.key === "Home") step = (d) => addDays(d, -((d.getDay() - weekStartsOn + 7) % 7));
+    else if (e.key === "End") step = (d) => addDays(d, 6 - ((d.getDay() - weekStartsOn + 7) % 7));
+    else if (e.key === "PageUp") step = (d) => addMonths(d, -1);
+    else if (e.key === "PageDown") step = (d) => addMonths(d, 1);
+    else return;
+    e.preventDefault();
+    let next = step(cur), guard = 0;
+    while (outOfRange(next) && guard < 366) { next = step(next); guard += 1; }
+    if (outOfRange(next)) return;
+    setFocusDate(next);
+    setHover(next); // keep the in-range preview following keyboard focus
+    if (next.getFullYear() !== view.getFullYear() || next.getMonth() !== view.getMonth()) setView(new Date(next.getFullYear(), next.getMonth(), 1));
+  };
+  // The tabbable day: roving focus, else the range start, else today, else the 1st.
+  const tabbableDate = focusDate || range.start || (new Date());
 
   const clickDay = (d) => {
     if (outOfRange(d)) return;
@@ -236,7 +274,7 @@ export function DateRangePicker({
               <span className="twc-drp__sr" aria-live="polite">{months[m]} {y}</span>
               <button type="button" className="twc-drp__nav" aria-label="Next month" onClick={() => setView(new Date(y, m + 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
             </div>
-            <div className="twc-drp__grid">
+            <div className="twc-drp__grid" ref={gridRef} onKeyDown={onGridKeyDown} role="grid">
               {dows.map((d, i) => <div key={i} className="twc-drp__dow">{d}</div>)}
               {Array.from({ length: 42 }).map((_, i) => {
                 const d = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i);
@@ -244,6 +282,7 @@ export function DateRangePicker({
                 return (
                   <button key={i} type="button" className="twc-drp__day" data-outside={outside || undefined}
                     disabled={outOfRange(d) || undefined}
+                    data-key={keyOf(d)} tabIndex={sameDay(d, tabbableDate) ? 0 : -1}
                     data-in={inRange(t) || undefined} data-edge={edgeOf(t) || undefined}
                     aria-pressed={!!edgeOf(t)}
                     aria-label={locale === undefined ? d.toDateString() : d.toLocaleDateString(locale, { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
