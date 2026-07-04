@@ -8,9 +8,13 @@ export function Progress({
   size = "md",
   indeterminate = false,
   showLabel = false,
+  label,
   className = "",
   ...rest
 }) {
+  const labelId = React.useId();
+  // Forward aria-label/aria-labelledby onto the inner role="progressbar" track (not the wrapper).
+  const { "aria-label": ariaLabel, "aria-labelledby": ariaLabelledby, ...restProps } = rest;
   const __twcStyles = useScopedStyles("twc-progress-styles", `
 .twc-progress-wrap { display: flex; flex-direction: column; gap: 6px; font-family: var(--font-sans); }
 .twc-progress {
@@ -51,13 +55,17 @@ export function Progress({
   return (
     // Single-root contract: className and ...rest (style, id, handlers, …) share the outer
     // wrapper; role="progressbar" + aria-value* stay on the inner track.
-    <div className={`twc-progress-wrap ${className}`} {...rest}>
+    <div className={`twc-progress-wrap ${className}`} {...restProps}>
       {__twcStyles}
-      {showLabel && !indeterminate ? (
-        <div className="twc-progress__meta"><span>Progress</span><span>{Math.round(pct)}%</span></div>
+      {(showLabel || label != null) && !indeterminate ? (
+        <div className="twc-progress__meta">
+          <span id={labelId}>{label ?? "Progress"}</span>
+          {showLabel ? <span>{Math.round(pct)}%</span> : null}
+        </div>
       ) : null}
       <div className="twc-progress" data-tone={tone} data-size={size} data-indeterminate={indeterminate || undefined}
-           role="progressbar" aria-valuenow={indeterminate ? undefined : Math.round(pct)} aria-valuemin={0} aria-valuemax={100}>
+           role="progressbar" aria-valuenow={indeterminate ? undefined : Math.round(pct)} aria-valuemin={0} aria-valuemax={100}
+           aria-label={ariaLabel} aria-labelledby={ariaLabelledby ?? (label != null ? labelId : undefined)}>
         <div className="twc-progress__bar" style={indeterminate ? undefined : { width: `${pct}%` }} />
       </div>
     </div>

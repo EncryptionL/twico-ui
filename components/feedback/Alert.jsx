@@ -53,13 +53,24 @@ export function Alert({
   title,
   icon,
   onClose,
+  live,
+  closeLabel = "Dismiss",
   className = "",
   ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-alert-styles", ALERT_CSS);
 
+  // Tone-aware live-region default: danger/warning interrupt (assertive → role="alert"),
+  // success/info announce politely (role="status"), primary/neutral are silent static banners.
+  const resolvedLive = live ?? (tone === "danger" || tone === "warning"
+    ? "assertive"
+    : tone === "success" || tone === "info"
+      ? "polite"
+      : "off");
+  const liveProps = resolvedLive === "assertive" ? { role: "alert" } : resolvedLive === "polite" ? { role: "status" } : {};
+
   return (
-    <div className={`twc-alert ${className}`} data-tone={tone} data-variant={variant} role="alert" {...rest}>
+    <div className={`twc-alert ${className}`} data-tone={tone} data-variant={variant} {...liveProps} {...rest}>
       {__twcStyles}
       <span className="twc-alert__icon" aria-hidden="true">
         {icon || (
@@ -74,7 +85,7 @@ export function Alert({
         {children ? <div className="twc-alert__desc">{children}</div> : null}
       </div>
       {onClose ? (
-        <button className="twc-alert__close" onClick={onClose} aria-label="Dismiss" type="button">
+        <button className="twc-alert__close" onClick={onClose} aria-label={closeLabel} type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
       ) : null}
