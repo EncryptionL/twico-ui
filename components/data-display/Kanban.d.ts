@@ -5,6 +5,8 @@ export interface KanbanColumn {
   id: string;
   /** Column heading. */
   title: React.ReactNode;
+  /** Accessible name for the column group — use when `title` is a non-string node. Falls back to a string title, then the id. */
+  ariaLabel?: string;
   /** Dot color for the heading. */
   color?: string;
 }
@@ -15,6 +17,8 @@ export interface KanbanCard {
   column: string;
   title?: React.ReactNode;
   description?: React.ReactNode;
+  /** Accessible name for the card — use when the card content is graphical/icon-only. Falls back to a string title, then "Card". */
+  ariaLabel?: string;
   /** Small uppercase tag chips. */
   tags?: React.ReactNode[];
   /** Footer node (e.g. an Avatar / due date). */
@@ -41,6 +45,8 @@ export interface KanbanProps extends React.HTMLAttributes<HTMLDivElement> {
   onCardMove?: (cardId: string, toColumn: string, nextCards: KanbanCard[]) => void;
   /** Custom card renderer. */
   renderCard?: (card: KanbanCard) => React.ReactNode;
+  /** Accessible name for each card — supply this when `renderCard` produces graphical/icon-only content; falls back to a string title or "Card". */
+  getCardLabel?: (card: KanbanCard) => string;
 }
 
 export function Kanban(props: KanbanProps): React.JSX.Element;

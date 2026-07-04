@@ -25,7 +25,7 @@ const TREE_CSS = `
 .twc-tree__badge { flex: none; font-size: 11px; color: var(--color-text-subtle); }
 `;
 
-function Node({ node, depth, expanded, selectedId, tabbableId, rowRefs, onToggle, onSelect, onRowFocus }) {
+function Node({ node, depth, posInSet, setSize, expanded, selectedId, tabbableId, rowRefs, onToggle, onSelect, onRowFocus }) {
   const hasChildren = Array.isArray(node.children) && node.children.length > 0;
   const open = expanded.has(node.id);
   return (
@@ -35,6 +35,8 @@ function Node({ node, depth, expanded, selectedId, tabbableId, rowRefs, onToggle
         className="twc-tree__row"
         role="treeitem"
         aria-level={depth + 1}
+        aria-posinset={posInSet}
+        aria-setsize={setSize}
         aria-selected={selectedId === node.id}
         data-selected={selectedId === node.id || undefined}
         data-tree-id={node.id}
@@ -54,8 +56,8 @@ function Node({ node, depth, expanded, selectedId, tabbableId, rowRefs, onToggle
       </button>
       {hasChildren && open ? (
         <ul className="twc-tree__group twc-tree__group--child" role="group">
-          {node.children.map((c) => (
-            <Node key={c.id} node={c} depth={depth + 1} expanded={expanded} selectedId={selectedId} tabbableId={tabbableId}
+          {node.children.map((c, i) => (
+            <Node key={c.id} node={c} depth={depth + 1} posInSet={i + 1} setSize={node.children.length} expanded={expanded} selectedId={selectedId} tabbableId={tabbableId}
                   rowRefs={rowRefs} onToggle={onToggle} onSelect={onSelect} onRowFocus={onRowFocus} />
           ))}
         </ul>
@@ -84,6 +86,7 @@ export function TreeView({
   const selectedId = selectedProp !== undefined ? selectedProp : selInternal;
   const [focusId, setFocusId] = React.useState(null);
   const rowRefs = React.useRef(new Map());
+  const taRef = React.useRef({ str: "", t: 0 });
 
   const toggle = (id) => {
     const n = new Set(expanded);
@@ -98,10 +101,12 @@ export function TreeView({
   const visible = [];
   const parentOf = new Map();
   const hasKids = new Map();
+  const labelText = new Map();
   const walk = (nodes, parentId) => {
     for (const n of nodes) {
       visible.push(n.id);
       parentOf.set(n.id, parentId);
+      if (typeof n.label === "string") labelText.set(n.id, n.label);
       const kids = Array.isArray(n.children) && n.children.length > 0;
       hasKids.set(n.id, kids);
       if (kids && expanded.has(n.id)) walk(n.children, n.id);
@@ -133,6 +138,20 @@ export function TreeView({
     } else if (e.key === "ArrowLeft") {
       if (hasKids.get(id) && open) { e.preventDefault(); toggle(id); return; }
       next = parentOf.get(id);
+    } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey && /\S/.test(e.key)) {
+      // Type-ahead: focus the next visible node whose (string) label starts with the typed prefix.
+      const now = Date.now();
+      taRef.current.str = now - taRef.current.t > 500 ? e.key : taRef.current.str + e.key;
+      taRef.current.t = now;
+      const q = taRef.current.str.toLowerCase();
+      const single = q.length > 1 && [...q].every((c) => c === q[0]);
+      const needle = single ? q[0] : q;
+      for (let k = 1; k <= visible.length; k++) {
+        const cand = visible[(i + k) % visible.length];
+        const lbl = labelText.get(cand);
+        if (lbl && lbl.toLowerCase().startsWith(needle)) { e.preventDefault(); focusRow(cand); break; }
+      }
+      return;
     } else return;
     e.preventDefault();
     if (next != null) focusRow(next);
@@ -142,8 +161,8 @@ export function TreeView({
     <div className={`twc-tree ${className}`} role="tree" onKeyDown={onKeyDown} {...rest}>
       {__twcStyles}
       <ul className="twc-tree__group" role="none">
-        {nodes.map((n) => (
-          <Node key={n.id} node={n} depth={0} expanded={expanded} selectedId={selectedId} tabbableId={tabbableId}
+        {nodes.map((n, i) => (
+          <Node key={n.id} node={n} depth={0} posInSet={i + 1} setSize={nodes.length} expanded={expanded} selectedId={selectedId} tabbableId={tabbableId}
                 rowRefs={rowRefs} onToggle={toggle} onSelect={select} onRowFocus={setFocusId} />
         ))}
       </ul>

@@ -18,4 +18,5 @@ import { TreeView } from "./TreeView";
 ```
 
 Nodes: `{ id, label, icon?, badge?, children? }`. Props: `items`, `defaultExpanded`, `selectedId`,
-`onSelect(id, node)` (id-first).
+`onSelect(id, node)` (id-first). Full APG tree keyboard support: arrows/Home/End move, treeitems expose
+`aria-posinset`/`aria-setsize`, and type-ahead jumps to a node by typing its (string) label.

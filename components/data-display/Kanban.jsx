@@ -32,6 +32,7 @@ export function Kanban({
   defaultCards,
   onCardMove,
   renderCard,
+  getCardLabel,
   className = "",
   ...rest
 }) {
@@ -101,13 +102,13 @@ export function Kanban({
   const keyTargetCol = grab ? columns[grab.targetIdx]?.id : null;
 
   return (
-    <div className={`twc-kanban ${className}`} ref={rootRef} {...rest}>
+    <div className={`twc-kanban ${className}`} ref={rootRef} role="group" aria-label="Board" {...rest}>
       {__twcStyles}
       <div className="twc-kanban__sr" role="status" aria-live="polite">{announce}</div>
       {columns.map((col, colIdx) => {
         const colCards = items.filter((c) => c.column === col.id);
         return (
-          <div key={col.id} className="twc-kanban__col" role="group" aria-label={typeof col.title === "string" ? col.title : undefined}
+          <div key={col.id} className="twc-kanban__col" role="group" aria-label={col.ariaLabel ?? colTitle(col)}
             data-over={overCol === col.id || keyTargetCol === col.id || undefined}
             onDragOver={(e) => { e.preventDefault(); setOverCol(col.id); }}
             onDragLeave={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setOverCol(null); }}
@@ -121,6 +122,8 @@ export function Kanban({
               {colCards.map((card) => (
                 <div key={card.id} className="twc-kanban__card" draggable data-dragging={drag === card.id || undefined}
                   role="button" tabIndex={0} aria-roledescription="draggable card" data-card-id={card.id}
+                  aria-label={getCardLabel?.(card) ?? (typeof card.ariaLabel === "string" ? card.ariaLabel : cardTitle(card))}
+                  aria-pressed={(grab && grab.id === card.id) || undefined}
                   data-grabbed={(grab && grab.id === card.id) || undefined}
                   onKeyDown={(e) => handleCardKey(e, card, colIdx)}
                   onBlur={() => { if (grab && grab.id === card.id) setGrab(null); }}

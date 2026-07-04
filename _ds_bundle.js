@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"10ba99b1159a","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"bc9c9e17e770","components/data-display/Datatable.jsx":"5e8329337421","components/data-display/Kanban.jsx":"bd338635ef5d","components/data-display/List.jsx":"5877523aa09b","components/data-display/Pagination.jsx":"b92a0df4c275","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"d41ad1e9dd43","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"207beb76ccb6","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"2f55e9346191","components/inputs/ColorPicker.jsx":"0ac7bbc546fa","components/inputs/Combobox.jsx":"436e6d139b6f","components/inputs/Currency.jsx":"60594dac5624","components/inputs/CurrencyField.jsx":"ecf461d3c1b4","components/inputs/DatePicker.jsx":"a89e65d7e61c","components/inputs/DateRangePicker.jsx":"c53507555c94","components/inputs/Field.jsx":"c7dad39251fb","components/inputs/FileUpload.jsx":"a1558f86aa72","components/inputs/Input.jsx":"0b04ea394ac3","components/inputs/MultiSelect.jsx":"154127e56d7a","components/inputs/Radio.jsx":"9e8b16e7eff1","components/inputs/Rating.jsx":"5b2d5bf61030","components/inputs/Select.jsx":"d81caed79a2c","components/inputs/Slider.jsx":"597b22f1c677","components/inputs/Switch.jsx":"00c69a2e3cc6","components/inputs/Textarea.jsx":"73235e9c955e","components/layout/AppShell.jsx":"a4bbb1856620","components/layout/Box.jsx":"0b3d9cee1567","components/layout/Container.jsx":"387427a04d92","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"b26227795255","components/layout/Stack.jsx":"e2eb6de90d22","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Breadcrumb.jsx":"4d0ec4c3f855","components/navigation/Navbar.jsx":"01db912b36ae","components/navigation/Sidebar.jsx":"475b81b57c2c","components/navigation/Stepper.jsx":"78b38911ce90","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d91bb4be5d44","components/overlay/CommandPalette.jsx":"a720066f61be","components/overlay/Dialog.jsx":"079e0a3b7432","components/overlay/Drawer.jsx":"032f4a1526cb","components/overlay/Menu.jsx":"0fc7aff0b8b7","components/overlay/Popover.jsx":"bc22e921093f","components/overlay/Tooltip.jsx":"501134b648dd","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"4f8d40741a8a","components/typography/Text.jsx":"c72881f6858e","src/index.ts":"a4c2f77eba83"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"10ba99b1159a","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"bc9c9e17e770","components/data-display/Datatable.jsx":"5e8329337421","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"5877523aa09b","components/data-display/Pagination.jsx":"b92a0df4c275","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"d41ad1e9dd43","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"207beb76ccb6","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"2f55e9346191","components/inputs/ColorPicker.jsx":"0ac7bbc546fa","components/inputs/Combobox.jsx":"436e6d139b6f","components/inputs/Currency.jsx":"60594dac5624","components/inputs/CurrencyField.jsx":"ecf461d3c1b4","components/inputs/DatePicker.jsx":"a89e65d7e61c","components/inputs/DateRangePicker.jsx":"c53507555c94","components/inputs/Field.jsx":"c7dad39251fb","components/inputs/FileUpload.jsx":"a1558f86aa72","components/inputs/Input.jsx":"0b04ea394ac3","components/inputs/MultiSelect.jsx":"154127e56d7a","components/inputs/Radio.jsx":"9e8b16e7eff1","components/inputs/Rating.jsx":"5b2d5bf61030","components/inputs/Select.jsx":"d81caed79a2c","components/inputs/Slider.jsx":"597b22f1c677","components/inputs/Switch.jsx":"00c69a2e3cc6","components/inputs/Textarea.jsx":"73235e9c955e","components/layout/AppShell.jsx":"a4bbb1856620","components/layout/Box.jsx":"0b3d9cee1567","components/layout/Container.jsx":"387427a04d92","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"b26227795255","components/layout/Stack.jsx":"e2eb6de90d22","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Breadcrumb.jsx":"4d0ec4c3f855","components/navigation/Navbar.jsx":"01db912b36ae","components/navigation/Sidebar.jsx":"475b81b57c2c","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"a720066f61be","components/overlay/Dialog.jsx":"079e0a3b7432","components/overlay/Drawer.jsx":"032f4a1526cb","components/overlay/Menu.jsx":"0fc7aff0b8b7","components/overlay/Popover.jsx":"bc22e921093f","components/overlay/Tooltip.jsx":"501134b648dd","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"4f8d40741a8a","components/typography/Text.jsx":"c72881f6858e","src/index.ts":"a4c2f77eba83"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -8228,6 +8228,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     defaultCards,
     onCardMove,
     renderCard,
+    getCardLabel,
     className = "",
     ...rest
   }) {
@@ -8292,7 +8293,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       }
     };
     const keyTargetCol = grab ? columns[grab.targetIdx]?.id : null;
-    return /* @__PURE__ */ jsxs("div", { className: `twc-kanban ${className}`, ref: rootRef, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { className: `twc-kanban ${className}`, ref: rootRef, role: "group", "aria-label": "Board", ...rest, children: [
       __twcStyles,
       /* @__PURE__ */ jsx("div", { className: "twc-kanban__sr", role: "status", "aria-live": "polite", children: announce }),
       columns.map((col, colIdx) => {
@@ -8302,7 +8303,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           {
             className: "twc-kanban__col",
             role: "group",
-            "aria-label": typeof col.title === "string" ? col.title : void 0,
+            "aria-label": col.ariaLabel ?? colTitle(col),
             "data-over": overCol === col.id || keyTargetCol === col.id || void 0,
             onDragOver: (e) => {
               e.preventDefault();
@@ -8333,6 +8334,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   tabIndex: 0,
                   "aria-roledescription": "draggable card",
                   "data-card-id": card.id,
+                  "aria-label": getCardLabel?.(card) ?? (typeof card.ariaLabel === "string" ? card.ariaLabel : cardTitle(card)),
+                  "aria-pressed": grab && grab.id === card.id || void 0,
                   "data-grabbed": grab && grab.id === card.id || void 0,
                   onKeyDown: (e) => handleCardKey(e, card, colIdx),
                   onBlur: () => {
@@ -9560,6 +9563,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-stepper[data-orientation="vertical"] .twc-step__col { display: flex; flex-direction: column; align-items: center; }
 .twc-step[data-state="complete"] .twc-step__connector, .twc-step[data-state="active"] .twc-step__connector { background: var(--_accent); }
 .twc-stepper[data-orientation="vertical"] .twc-step__vbody { padding-bottom: var(--space-2); }
+.twc-step__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 `;
   var CheckIcon = () => /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "3", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) });
   var BangIcon = () => /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "3", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M12 8v5M12 17h.01" }) });
@@ -9587,11 +9591,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       if (i === active) return "active";
       return "upcoming";
     };
-    return /* @__PURE__ */ jsxs("div", { className: `twc-stepper ${className}`, "data-orientation": orientation, "data-tone": tone, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { className: `twc-stepper ${className}`, "data-orientation": orientation, "data-tone": tone, role: "group", "aria-label": "Progress", ...rest, children: [
       __twcStyles,
       steps.map((step, i) => {
         const state = stateOf(i, step);
         const last = i === steps.length - 1;
+        const srText = `Step ${i + 1} of ${steps.length}${state === "complete" ? ", completed" : state === "error" ? ", error" : state === "active" ? ", current" : ", upcoming"}. `;
         const isClickable = clickable && i <= active;
         const interactive = isClickable ? {
           role: "button",
@@ -9613,8 +9618,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
               "data-state": state,
               "data-clickable": isClickable || void 0,
               "aria-current": state === "active" ? "step" : void 0,
+              "aria-invalid": state === "error" ? "true" : void 0,
               ...interactive,
               children: [
+                /* @__PURE__ */ jsx("span", { className: "twc-step__sr", children: srText }),
                 /* @__PURE__ */ jsxs("div", { className: "twc-step__col", children: [
                   indicator,
                   !last ? /* @__PURE__ */ jsx("span", { className: "twc-step__connector" }) : null
@@ -9635,8 +9642,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
             "data-state": state,
             "data-clickable": isClickable || void 0,
             "aria-current": state === "active" ? "step" : void 0,
+            "aria-invalid": state === "error" ? "true" : void 0,
             ...interactive,
             children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-step__sr", children: srText }),
               indicator,
               !last ? /* @__PURE__ */ jsx("span", { className: "twc-step__connector" }) : null,
               /* @__PURE__ */ jsxs("div", { className: "twc-step__body", children: [
@@ -10412,7 +10421,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-tree__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-tree__badge { flex: none; font-size: 11px; color: var(--color-text-subtle); }
 `;
-  function Node({ node, depth, expanded, selectedId, tabbableId, rowRefs, onToggle, onSelect, onRowFocus }) {
+  function Node({ node, depth, posInSet, setSize, expanded, selectedId, tabbableId, rowRefs, onToggle, onSelect, onRowFocus }) {
     const hasChildren = Array.isArray(node.children) && node.children.length > 0;
     const open = expanded.has(node.id);
     return /* @__PURE__ */ jsxs("li", { role: "none", children: [
@@ -10423,6 +10432,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
           className: "twc-tree__row",
           role: "treeitem",
           "aria-level": depth + 1,
+          "aria-posinset": posInSet,
+          "aria-setsize": setSize,
           "aria-selected": selectedId === node.id,
           "data-selected": selectedId === node.id || void 0,
           "data-tree-id": node.id,
@@ -10446,11 +10457,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
           ]
         }
       ),
-      hasChildren && open ? /* @__PURE__ */ jsx("ul", { className: "twc-tree__group twc-tree__group--child", role: "group", children: node.children.map((c) => /* @__PURE__ */ jsx(
+      hasChildren && open ? /* @__PURE__ */ jsx("ul", { className: "twc-tree__group twc-tree__group--child", role: "group", children: node.children.map((c, i) => /* @__PURE__ */ jsx(
         Node,
         {
           node: c,
           depth: depth + 1,
+          posInSet: i + 1,
+          setSize: node.children.length,
           expanded,
           selectedId,
           tabbableId,
@@ -10482,6 +10495,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const selectedId = selectedProp !== void 0 ? selectedProp : selInternal;
     const [focusId, setFocusId] = import_react.default.useState(null);
     const rowRefs = import_react.default.useRef(/* @__PURE__ */ new Map());
+    const taRef = import_react.default.useRef({ str: "", t: 0 });
     const toggle = (id) => {
       const n = new Set(expanded);
       n.has(id) ? n.delete(id) : n.add(id);
@@ -10495,10 +10509,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const visible = [];
     const parentOf = /* @__PURE__ */ new Map();
     const hasKids = /* @__PURE__ */ new Map();
+    const labelText = /* @__PURE__ */ new Map();
     const walk = (nodes2, parentId) => {
       for (const n of nodes2) {
         visible.push(n.id);
         parentOf.set(n.id, parentId);
+        if (typeof n.label === "string") labelText.set(n.id, n.label);
         const kids = Array.isArray(n.children) && n.children.length > 0;
         hasKids.set(n.id, kids);
         if (kids && expanded.has(n.id)) walk(n.children, n.id);
@@ -10536,17 +10552,36 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
           return;
         }
         next = parentOf.get(id);
+      } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey && /\S/.test(e.key)) {
+        const now = Date.now();
+        taRef.current.str = now - taRef.current.t > 500 ? e.key : taRef.current.str + e.key;
+        taRef.current.t = now;
+        const q = taRef.current.str.toLowerCase();
+        const single = q.length > 1 && [...q].every((c) => c === q[0]);
+        const needle = single ? q[0] : q;
+        for (let k = 1; k <= visible.length; k++) {
+          const cand = visible[(i + k) % visible.length];
+          const lbl = labelText.get(cand);
+          if (lbl && lbl.toLowerCase().startsWith(needle)) {
+            e.preventDefault();
+            focusRow(cand);
+            break;
+          }
+        }
+        return;
       } else return;
       e.preventDefault();
       if (next != null) focusRow(next);
     };
     return /* @__PURE__ */ jsxs("div", { className: `twc-tree ${className}`, role: "tree", onKeyDown, ...rest, children: [
       __twcStyles,
-      /* @__PURE__ */ jsx("ul", { className: "twc-tree__group", role: "none", children: nodes.map((n) => /* @__PURE__ */ jsx(
+      /* @__PURE__ */ jsx("ul", { className: "twc-tree__group", role: "none", children: nodes.map((n, i) => /* @__PURE__ */ jsx(
         Node,
         {
           node: n,
           depth: 0,
+          posInSet: i + 1,
+          setSize: nodes.length,
           expanded,
           selectedId,
           tabbableId,
