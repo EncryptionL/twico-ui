@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 /**
  * Checkbox with animated checkmark, label, description, and indeterminate state.
@@ -12,7 +13,7 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   indeterminate?: boolean;
   size?: "sm" | "md" | "lg";
   /** Color intent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
 }
 
 export function Checkbox(props: CheckboxProps): React.JSX.Element;

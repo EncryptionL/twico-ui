@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 export interface Step {
   /** Step title. */
@@ -26,7 +27,7 @@ export interface StepperProps extends React.HTMLAttributes<HTMLDivElement> {
   /** @default "horizontal" */
   orientation?: "horizontal" | "vertical";
   /** Color intent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
   /** Allow clicking completed/active steps. @default false */
   clickable?: boolean;
   /** Fired when a clickable step is clicked. */

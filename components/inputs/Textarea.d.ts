@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 /**
  * Multi-line text input with label, hint, and error state.
@@ -15,7 +16,7 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   /** Control size — same padding steps as Input. @default "md" */
   size?: "sm" | "md" | "lg";
   /** Color intent for the focus/open accent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
 }
 
 export function Textarea(props: TextareaProps): React.JSX.Element;

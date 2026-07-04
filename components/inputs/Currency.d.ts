@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 /** Metadata describing one built-in currency. */
 export interface CurrencyMeta {
@@ -38,7 +39,7 @@ export interface CurrencyProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   required?: boolean;
   size?: "sm" | "md" | "lg";
   /** Color intent for the focus/open accent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
   /** Currency code (key in the built-in table), e.g. "USD", "EUR", "IDR", "JPY". @default "USD" */
   currency?: string;
   /** Override the currency's decimal precision (number of digits after the decimal). */

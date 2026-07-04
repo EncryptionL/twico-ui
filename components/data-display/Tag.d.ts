@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 /**
  * Removable chip for filters, selected items, and keywords.
@@ -11,7 +12,7 @@ export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** Fill style. @default "soft" */
   variant?: "soft" | "solid" | "outline";
   /** Color intent. @default "neutral" */
-  tone?: "neutral" | "primary" | "success" | "warning" | "danger" | "info";
+  tone?: Tone;
   children?: React.ReactNode;
 }
 

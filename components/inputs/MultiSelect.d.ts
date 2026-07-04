@@ -1,4 +1,6 @@
 import * as React from "react";
+import type { Tone } from "../_types";
+import type { Option, OptionGroup } from "./options";
 
 /**
  * Multi-select (MUI-Autocomplete style) — type directly among the chips to
@@ -16,7 +18,7 @@ export interface MultiSelectProps extends Omit<React.InputHTMLAttributes<HTMLInp
   /** Control height preset, matching Select/Combobox. @default "md" */
   size?: "sm" | "md" | "lg";
   /** Color intent for the focus/open accent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
   placeholder?: string;
   /** Options — strings, {value,label,description}, or {group,options} groups. */
   options: Array<string | MultiSelectOption | MultiSelectGroup>;
@@ -24,6 +26,7 @@ export interface MultiSelectProps extends Omit<React.InputHTMLAttributes<HTMLInp
   value?: string[];
   /** Uncontrolled initial values. */
   defaultValue?: string[];
+  /** Called with the full array of selected values (empty array when none/cleared). */
   onChange?: (values: string[]) => void;
   /** Show a clear-all (×) affix when at least one value is selected. @default false */
   clearable?: boolean;
@@ -42,17 +45,10 @@ export interface MultiSelectProps extends Omit<React.InputHTMLAttributes<HTMLInp
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }
 
-export interface MultiSelectOption {
-  value: string;
-  label: string;
-  /** Optional second line shown under the label. */
-  description?: string;
-}
+/** Alias of the shared {@link Option} type (kept for backward-compatible imports). */
+export type MultiSelectOption = Option;
 
-/** A group heading with its own options. */
-export interface MultiSelectGroup {
-  group: string;
-  options: Array<string | MultiSelectOption>;
-}
+/** Alias of the shared {@link OptionGroup} type (kept for backward-compatible imports). */
+export type MultiSelectGroup = OptionGroup;
 
 export function MultiSelect(props: MultiSelectProps): React.JSX.Element;

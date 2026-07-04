@@ -1,9 +1,10 @@
 import * as React from "react";
+import type { PolymorphicAs } from "../_types";
 
 /** Inline code with mono font and a subtle token-styled surface. */
 export interface CodeProps extends React.HTMLAttributes<HTMLElement> {
   /** Element/tag to render. @default "code" */
-  as?: keyof React.JSX.IntrinsicElements;
+  as?: PolymorphicAs;
   /** Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href). */
   href?: string;
   /** Anchor target — only used with as="a" (e.g. "_blank"). */

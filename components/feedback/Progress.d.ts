@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { BarTone } from "../_types";
 
 /**
  * Linear progress bar — determinate or indeterminate, with semantic tones.
@@ -11,7 +12,7 @@ export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Maximum value. @default 100 */
   max?: number;
   /** @default "primary" */
-  tone?: "primary" | "info" | "success" | "warning" | "danger";
+  tone?: BarTone;
   /** @default "md" */
   size?: "sm" | "md" | "lg";
   /** Animate as an indeterminate bar (ignores value). */

@@ -1,4 +1,6 @@
 import * as React from "react";
+import type { Tone } from "../_types";
+import type { Option, OptionGroup } from "./options";
 
 /**
  * Custom select with a rounded popover (no native browser dropdown). Supports
@@ -13,7 +15,7 @@ export interface SelectProps extends Omit<React.HTMLAttributes<HTMLButtonElement
   required?: boolean;
   size?: "sm" | "md" | "lg";
   /** Color intent for the focus/open accent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
   placeholder?: string;
   /** Placeholder for the in-popover search box. @default "Search…" */
   searchPlaceholder?: string;
@@ -44,17 +46,10 @@ export interface SelectProps extends Omit<React.HTMLAttributes<HTMLButtonElement
   minWidth?: number;
 }
 
-export interface SelectOption {
-  value: string;
-  label: string;
-  /** Optional second line shown under the label. */
-  description?: string;
-}
+/** Alias of the shared {@link Option} type (kept for backward-compatible imports). */
+export type SelectOption = Option;
 
-/** A group heading with its own options. */
-export interface SelectGroup {
-  group: string;
-  options: Array<string | SelectOption>;
-}
+/** Alias of the shared {@link OptionGroup} type (kept for backward-compatible imports). */
+export type SelectGroup = OptionGroup;
 
 export function Select(props: SelectProps): React.JSX.Element;

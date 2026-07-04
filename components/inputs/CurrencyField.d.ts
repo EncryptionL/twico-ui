@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 export interface CurrencyOption { value: string; label: string; }
 
@@ -19,7 +20,7 @@ export interface CurrencyFieldProps extends Omit<React.InputHTMLAttributes<HTMLI
   required?: boolean;
   size?: "sm" | "md" | "lg";
   /** Color intent for the focus/open accent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
   /** Controlled selected currency code. */
   currency?: string;
   /** Uncontrolled initial currency code. @default "USD" */

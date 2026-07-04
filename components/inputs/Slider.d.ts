@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 /**
  * Range slider with a filled track, draggable thumb, value bubble, optional
@@ -29,7 +30,7 @@ export interface SliderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   /** Render step ticks along the rail. @default false */
   showTicks?: boolean;
   /** Color intent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
   /** Format the displayed value (label + bubble). */
   formatValue?: (value: number) => React.ReactNode;
   onChange?: (value: number) => void;

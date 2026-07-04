@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 /**
  * Drag-and-drop file upload (dropzone) with a click-to-browse fallback and a
@@ -14,7 +15,7 @@ export interface FileUploadProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   multiple?: boolean;
   disabled?: boolean;
   /** Color intent for the focus/open accent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
   /** Field label rendered above the dropzone. */
   label?: React.ReactNode;
   /** Hint line under the prompt (defaults to the accept types). */

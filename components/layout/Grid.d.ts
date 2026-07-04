@@ -1,9 +1,10 @@
 import * as React from "react";
+import type { PolymorphicAs } from "../_types";
 
 /** CSS grid primitive — fixed columns or a responsive auto-fill grid. */
 export interface GridProps extends React.HTMLAttributes<HTMLElement> {
   /** Element/tag to render. @default "div" */
-  as?: keyof React.JSX.IntrinsicElements;
+  as?: PolymorphicAs;
   /** Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href). */
   href?: string;
   /** Anchor target — only used with as="a" (e.g. "_blank"). */

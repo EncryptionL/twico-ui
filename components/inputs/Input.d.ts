@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 /**
  * Text input with optional label, hint, error state, and inline icons.
@@ -17,7 +18,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   /** Control size. @default "md" */
   size?: "sm" | "md" | "lg";
   /** Color intent for the focus/open accent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
   /** Icon node inside the field, leading edge (prefix). */
   leftIcon?: React.ReactNode;
   /** Optional suffix icon/node inside the field, trailing edge. For `type="password"`, omitting this

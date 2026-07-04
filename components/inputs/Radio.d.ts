@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 /**
  * Radio button with label and description. Group several with the same `name`.
@@ -10,7 +11,7 @@ export interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   error?: React.ReactNode;
   size?: "sm" | "md" | "lg";
   /** Color intent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
 }
 
 export function Radio(props: RadioProps): React.JSX.Element;

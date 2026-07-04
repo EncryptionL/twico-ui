@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 /**
  * Color picker with a saturation/value square, hue slider, hex input, and
@@ -24,7 +25,7 @@ export interface ColorPickerProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   /** Disable all interaction (the popover cannot be opened). @default false */
   disabled?: boolean;
   /** Color intent for the focus/open accent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
   onChange?: (hex: string) => void;
 }
 

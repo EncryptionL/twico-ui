@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { ToastTone } from "../_types";
 
 /**
  * Transient notification card. Render inside a <ToastViewport> and manage a
@@ -6,7 +7,7 @@ import * as React from "react";
  */
 export interface ToastProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   /** Semantic tone. `"neutral"` is an alias for `"default"` (matches Badge's vocabulary). @default "default" */
-  tone?: "default" | "neutral" | "success" | "warning" | "danger" | "info";
+  tone?: ToastTone;
   /** Bold heading. */
   title?: React.ReactNode;
   /** Override the tone icon. */
