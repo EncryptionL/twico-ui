@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"3c98a07f7447","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"f35fb2dc0dc4","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"1c03e17c8594","components/inputs/Combobox.jsx":"da89f9c7b152","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"ae454957e1e5","components/inputs/DateRangePicker.jsx":"4afd025227b5","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"856956280c7b","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"cd87f7b56e12","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"5866b30f900a","components/layout/ColorSchemeScript.jsx":"7e73bf919b01","components/layout/Container.jsx":"3af6a1ef1d15","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"6db8d15f4acd","components/layout/Portal.jsx":"c86ad50eb3f6","components/layout/Stack.jsx":"82cf0b7f370d","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"6f40ab3a9d29","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"a666a3e0beeb","src/index.ts":"88773912becf"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"3c98a07f7447","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"f35fb2dc0dc4","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"da89f9c7b152","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"ae454957e1e5","components/inputs/DateRangePicker.jsx":"4afd025227b5","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"856956280c7b","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"cd87f7b56e12","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"5866b30f900a","components/layout/ColorSchemeScript.jsx":"7e73bf919b01","components/layout/Container.jsx":"3af6a1ef1d15","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"6db8d15f4acd","components/layout/Portal.jsx":"c86ad50eb3f6","components/layout/Stack.jsx":"82cf0b7f370d","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"6f40ab3a9d29","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"a666a3e0beeb","src/index.ts":"88773912becf"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -1831,6 +1831,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-cp__hue { position: relative; height: 12px; margin-top: var(--space-3); border-radius: var(--radius-full); cursor: pointer; touch-action: none;
   background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%); }
 .twc-cp__hue-knob { position: absolute; top: 50%; width: 16px; height: 16px; border-radius: var(--radius-full); background: #fff; box-shadow: var(--shadow-sm), inset 0 0 0 1px rgb(0 0 0 / 0.2); transform: translate(-50%, -50%); pointer-events: none; }
+.twc-cp__alpha { position: relative; height: 12px; margin-top: var(--space-2); border-radius: var(--radius-full); cursor: pointer; touch-action: none;
+  background-image: linear-gradient(to right, transparent, var(--_solid, #000)), conic-gradient(#c8c8c8 0 25%, #fff 0 50%, #c8c8c8 0 75%, #fff 0);
+  background-size: 100% 100%, 10px 10px; }
+.twc-cp__alpha:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-cp__foot { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); }
 .twc-cp__hex { flex: 1; min-width: 0; height: 32px; padding: 0 8px; font-family: var(--font-mono); font-size: var(--text-xs); text-transform: uppercase;
   color: var(--color-text); background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-sm); outline: none; }
@@ -1868,11 +1872,17 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   function hsvToHex(h, s, v) {
     return rgbToHex(...hsvToRgb(h, s, v));
   }
+  function hsvaToHex8(h, s, v, a) {
+    return rgbToHex(...hsvToRgb(h, s, v)) + Math.round(Math.min(1, Math.max(0, a)) * 255).toString(16).padStart(2, "0");
+  }
   function hexToHsv(hex) {
-    const m = /^#?([0-9a-f]{6})$/i.exec(hex || "");
+    let str = String(hex || "").replace(/^#/, "");
+    if (/^[0-9a-f]{3}$/i.test(str)) str = str.split("").map((c) => c + c).join("");
+    const m = /^([0-9a-f]{6})([0-9a-f]{2})?$/i.exec(str);
     if (!m) return null;
     const int = parseInt(m[1], 16);
     const r = (int >> 16) / 255, g = (int >> 8 & 255) / 255, b = (int & 255) / 255;
+    const a = m[2] != null ? parseInt(m[2], 16) / 255 : 1;
     const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
     let h = 0;
     if (d) {
@@ -1882,7 +1892,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       h *= 60;
       if (h < 0) h += 360;
     }
-    return { h, s: max ? d / max * 100 : 0, v: max * 100 };
+    return { h, s: max ? d / max * 100 : 0, v: max * 100, a };
   }
   var DEFAULT_PRESETS = ["#6366F1", "#0EA5E9", "#14B8A6", "#22C55E", "#F59E0B", "#F43F5E", "#8B5CF6", "#0F172A"];
   function ColorPicker({
@@ -1894,6 +1904,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     defaultValue = "#6366F1",
     presets = DEFAULT_PRESETS,
     disabled = false,
+    alpha = false,
     tone = "primary",
     onChange,
     className = "",
@@ -1903,16 +1914,18 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const __twcStyles1 = useScopedStyles("twc-colorpicker-styles", COLORPICKER_CSS);
     const [internal, setInternal] = import_react.default.useState(defaultValue);
     const hex = (value !== void 0 ? value : internal) || "#000000";
+    const hexRe = alpha ? /^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i : /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
     const lastValidRef = import_react.default.useRef(hex);
-    if (/^#[0-9a-f]{6}$/i.test(hex)) lastValidRef.current = hex;
+    if (hexRe.test(hex)) lastValidRef.current = hex;
     const [open, setOpen] = import_react.default.useState(false);
-    const [hsv, setHsv] = import_react.default.useState(() => hexToHsv(hex) || { h: 239, s: 60, v: 94 });
+    const [hsv, setHsv] = import_react.default.useState(() => hexToHsv(hex) || { h: 239, s: 60, v: 94, a: 1 });
     const [coords, setCoords] = import_react.default.useState(null);
     const wrapRef = import_react.default.useRef(null);
     const triggerRef = import_react.default.useRef(null);
     const popRef = import_react.default.useRef(null);
     const areaRef = import_react.default.useRef(null);
     const hueRef = import_react.default.useRef(null);
+    const alphaRef = import_react.default.useRef(null);
     const POP_W = 240;
     const place = import_react.default.useCallback(() => {
       const el = triggerRef.current;
@@ -1965,10 +1978,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     }, [open]);
     useFocusTrap(popRef, open && !!coords, { initialFocus: areaRef });
     const commit = (next) => {
-      const h = hsvToHex(next.h, next.s, next.v);
+      const out = alpha ? hsvaToHex8(next.h, next.s, next.v, next.a ?? 1) : hsvToHex(next.h, next.s, next.v);
       setHsv(next);
-      if (value === void 0) setInternal(h);
-      onChange?.(h);
+      if (value === void 0) setInternal(out);
+      onChange?.(out);
     };
     const dragArea = (e) => {
       const r = areaRef.current.getBoundingClientRect();
@@ -2011,6 +2024,21 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       else return;
       e.preventDefault();
       commit({ ...hsv, h });
+    };
+    const dragAlpha = (e) => {
+      const r = alphaRef.current.getBoundingClientRect();
+      const a = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+      commit({ ...hsv, a });
+    };
+    const onAlphaKeyDown = (e) => {
+      let a = hsv.a ?? 1;
+      if (e.key === "ArrowRight" || e.key === "ArrowUp") a = Math.min(1, a + 0.01);
+      else if (e.key === "ArrowLeft" || e.key === "ArrowDown") a = Math.max(0, a - 0.01);
+      else if (e.key === "Home") a = 0;
+      else if (e.key === "End") a = 1;
+      else return;
+      e.preventDefault();
+      commit({ ...hsv, a: Math.round(a * 100) / 100 });
     };
     return /* @__PURE__ */ jsxs("div", { className: `twc-cp twc-field ${className}`, ref: wrapRef, ...rest, children: [
       __twcStyles0,
@@ -2098,6 +2126,23 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                   children: /* @__PURE__ */ jsx("span", { className: "twc-cp__hue-knob", style: { left: `${hsv.h / 360 * 100}%` } })
                 }
               ),
+              alpha ? /* @__PURE__ */ jsx(
+                "div",
+                {
+                  className: "twc-cp__alpha",
+                  ref: alphaRef,
+                  onPointerDown: startDrag(dragAlpha),
+                  role: "slider",
+                  tabIndex: 0,
+                  "aria-label": "Alpha",
+                  "aria-valuemin": 0,
+                  "aria-valuemax": 100,
+                  "aria-valuenow": Math.round((hsv.a ?? 1) * 100),
+                  onKeyDown: onAlphaKeyDown,
+                  style: { "--_solid": hsvToHex(hsv.h, hsv.s, hsv.v) },
+                  children: /* @__PURE__ */ jsx("span", { className: "twc-cp__hue-knob", style: { left: `${(hsv.a ?? 1) * 100}%` } })
+                }
+              ) : null,
               /* @__PURE__ */ jsxs("div", { className: "twc-cp__foot", children: [
                 /* @__PURE__ */ jsx("span", { className: "twc-cp__swatch", style: { background: hex } }),
                 /* @__PURE__ */ jsx(
@@ -2106,10 +2151,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                     className: "twc-cp__hex",
                     "data-tone": tone,
                     value: hex,
-                    maxLength: 7,
+                    maxLength: alpha ? 9 : 7,
                     "aria-label": "Hex color",
-                    "aria-invalid": !/^#[0-9a-f]{6}$/i.test(hex) || void 0,
-                    "data-invalid": !/^#[0-9a-f]{6}$/i.test(hex) || void 0,
+                    "aria-invalid": !hexRe.test(hex) || void 0,
+                    "data-invalid": !hexRe.test(hex) || void 0,
                     onChange: (e) => {
                       let v = e.target.value;
                       if (!v.startsWith("#")) v = "#" + v;
@@ -2119,7 +2164,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                       if (p) setHsv(p);
                     },
                     onBlur: () => {
-                      if (/^#[0-9a-f]{6}$/i.test(hex)) return;
+                      if (hexRe.test(hex)) return;
                       const revert = lastValidRef.current;
                       if (revert === hex) return;
                       if (value === void 0) setInternal(revert);
