@@ -30,6 +30,10 @@ export interface DatePickerProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   tone?: Tone;
   /** Show a clear (×) button when a date is set. @default true */
   clearable?: boolean;
+  /** Render the trigger as a typeable text input with a trailing calendar toggle; typed text commits via `parse` on Enter/blur. @default false */
+  editable?: boolean;
+  /** Parse typed text into a Date (used when `editable`). Return a `Date` to commit, `null`/invalid to revert. Defaults to a lenient `Date.parse`. */
+  parse?: (text: string) => Date | null;
   /** Custom display formatter (defaults to a localized medium date). */
   format?: (date: Date) => string;
   /** BCP-47 locale for month/weekday names + date formatting (Intl). Omit for the runtime default. @default undefined */

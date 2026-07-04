@@ -8,6 +8,13 @@
 
 - [x] **[P2] Month/year navigation doesn't constrain to current date bounds** — User can navigate calendar forward indefinitely but there's no maxDate prop to prevent selection outside a valid range. Consider adding min/maxDate constraints if the use case requires it. Currently only enforces disabledDates. `DatePicker.jsx`. — ✓ fixed 2026-06-17
 
+## Enhancements
+
+- **[#105] Optional typed date entry** — `editable` renders the trigger as a real text `<input>`
+  with a trailing calendar toggle button. Typed text commits on Enter/blur via `parse(text) => Date | null`
+  (defaults to a lenient `Date.parse`); invalid or out-of-range input reverts to the formatted value,
+  an empty string clears. Off by default (zero change for existing consumers). — added 2026-07-04
+
 ## Verified OK
 
 - Controlled/uncontrolled date (value/defaultValue/onChange)

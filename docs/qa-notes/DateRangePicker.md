@@ -10,6 +10,13 @@
 
 - [x] **[P1] Preset buttons not keyboard accessible** — Not a defect (false positive): the presets are native `<button type="button">` elements (`DateRangePicker.jsx:224`), which are inherently focusable and Enter/Space-activatable; their visible text is their accessible name. No tabIndex/aria-label needed.
 
+## Enhancements
+
+- **[#105] Optional typed range entry** — `editable` renders the trigger as a text `<input>` accepting
+  `"start – end"`. The string is split on `–`/`—`/`to`/`..` (never a bare hyphen, so ISO dates survive);
+  each side parses via `parse(text) => Date | null` (defaults to `Date.parse`) and commits on Enter/blur,
+  normalized so start ≤ end. Off by default. — added 2026-07-04
+
 ## Verified OK
 
 - Controlled/uncontrolled date range (value/defaultValue/onChange)

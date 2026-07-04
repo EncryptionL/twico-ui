@@ -33,6 +33,17 @@ const RANGE_CSS = `
 .twc-drp__ic svg { width: 17px; height: 17px; }
 .twc-drp__text { flex: 1; font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; }
 .twc-drp__text[data-placeholder="true"] { color: var(--color-text-subtle); }
+/* #105: editable (typed entry) variant. */
+.twc-drp__control--editable { cursor: text; gap: 0; padding-inline-end: var(--space-1); }
+.twc-drp__input { flex: 1; min-width: 0; height: 100%; border: none; background: transparent; outline: none; padding: 0;
+  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); }
+.twc-drp__input::placeholder { color: var(--color-text-subtle); }
+.twc-drp__input:disabled { cursor: not-allowed; }
+.twc-drp__toggle { flex: none; display: inline-grid; place-items: center; width: 26px; height: 26px; border: none; background: transparent;
+  color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast), color var(--duration-fast); }
+.twc-drp__toggle:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-drp__toggle:disabled { cursor: not-allowed; }
+.twc-drp__toggle svg { width: 17px; height: 17px; }
 .twc-drp__pop { position: fixed; z-index: var(--z-popover); display: flex;
   background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg); animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top; }
@@ -94,6 +105,8 @@ export function DateRangePicker({
   disabledDate,
   disabled = false,
   tone = "primary",
+  editable = false,
+  parse,
   onChange,
   className = "",
   ...rest
@@ -107,6 +120,7 @@ export function DateRangePicker({
   const [view, setView] = React.useState(range.start || new Date());
   const [hover, setHover] = React.useState(null);
   const [focusDate, setFocusDate] = React.useState(null); // #100: roving day focus
+  const [editText, setEditText] = React.useState(null); // #105: raw typed text (null = show formatted range)
   const [coords, setCoords] = React.useState(null);
   const wrapRef = React.useRef(null);
   const triggerRef = React.useRef(null);
@@ -154,6 +168,31 @@ export function DateRangePicker({
   }, [open]);
 
   const set = (r) => { if (value === undefined) setInternal(r); onChange?.(r); };
+
+  // #105: typed range entry. Split on the `–`/`to`/`..` separator, parse each side with
+  // `parse` (or a lenient Date.parse fallback), normalize start ≤ end, and commit on
+  // Enter/blur. A part left blank clears that side; anything unparseable/out-of-range reverts.
+  const parseOne = (s) => {
+    const str = s.trim();
+    if (str === "") return null;
+    if (parse) { const d = parse(str); return d instanceof Date && !Number.isNaN(d.getTime()) ? d : undefined; }
+    const t = Date.parse(str);
+    return Number.isNaN(t) ? undefined : new Date(t);
+  };
+  const commitText = () => {
+    if (editText == null) return;
+    const raw = editText.trim();
+    if (raw === "") { setEditText(null); if (range.start || range.end) set({ start: null, end: null }); return; }
+    // Split only on en/em dash, "to", or ".." — never a bare hyphen (ISO dates contain it).
+    const parts = raw.split(/\s*(?:–|—|\bto\b|\.\.+)\s*/i).map((p) => p.trim());
+    let a = parseOne(parts[0] || "");
+    let b = parts.length > 1 ? parseOne(parts[1] || "") : null;
+    if (a === undefined || b === undefined || (a && outOfRange(a)) || (b && outOfRange(b))) { setEditText(null); return; }
+    if (a && b && ymd(b) < ymd(a)) { const t = a; a = b; b = t; }
+    set({ start: a || null, end: b || null });
+    setEditText(null);
+    setOpen(false);
+  };
 
   // #108: trap Tab within the popover + restore focus to the trigger on close (was missing).
   useFocusTrap(popRef, open && !!coords, { initialFocus: () => gridRef.current?.querySelector('[tabindex="0"]') });
@@ -249,13 +288,34 @@ export function DateRangePicker({
           {label}{required ? <span className="twc-field__req">*</span> : null}
         </span>
       ) : null}
-      <div ref={triggerRef} className="twc-drp__control" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-tone={tone} role="button" tabIndex={disabled ? -1 : 0}
-        aria-haspopup="dialog" aria-expanded={open} aria-disabled={disabled || undefined} aria-labelledby={label ? labelId : undefined}
-        aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
-        onClick={() => !disabled && setOpen((o) => !o)} onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setOpen((o) => !o); } }}>
-        <span className="twc-drp__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
-        <span className="twc-drp__text" data-placeholder={!range.start || undefined}>{range.start ? text : placeholder}</span>
-      </div>
+      {editable ? (
+        // #105: typed entry — a text input accepting "start – end"; commits via `parse` on Enter/blur.
+        <div className="twc-drp__control twc-drp__control--editable" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-tone={tone}>
+          <input ref={triggerRef} className="twc-drp__input" type="text" autoComplete="off" disabled={disabled} placeholder={placeholder}
+            value={editText != null ? editText : text}
+            aria-haspopup="dialog" aria-expanded={open} aria-labelledby={label ? labelId : undefined}
+            aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
+            onChange={(e) => setEditText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") { e.preventDefault(); commitText(); }
+              else if (e.key === "ArrowDown" && (e.altKey || !open)) { e.preventDefault(); setOpen(true); }
+              else if (e.key === "Escape" && open) setOpen(false);
+            }}
+            onBlur={(e) => { if (popRef.current && popRef.current.contains(e.relatedTarget)) return; commitText(); }} />
+          <button type="button" className="twc-drp__toggle" aria-label="Open calendar" tabIndex={-1} disabled={disabled}
+            onClick={() => !disabled && setOpen((o) => !o)}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </button>
+        </div>
+      ) : (
+        <div ref={triggerRef} className="twc-drp__control" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-tone={tone} role="button" tabIndex={disabled ? -1 : 0}
+          aria-haspopup="dialog" aria-expanded={open} aria-disabled={disabled || undefined} aria-labelledby={label ? labelId : undefined}
+          aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
+          onClick={() => !disabled && setOpen((o) => !o)} onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setOpen((o) => !o); } }}>
+          <span className="twc-drp__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+          <span className="twc-drp__text" data-placeholder={!range.start || undefined}>{range.start ? text : placeholder}</span>
+        </div>
+      )}
 
       {open && coords ? createPortal(
         <div className="twc-drp__pop" ref={popRef} role="dialog" aria-modal="true" aria-label="Choose date range"

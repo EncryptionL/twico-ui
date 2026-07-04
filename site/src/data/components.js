@@ -3228,6 +3228,20 @@ export const components = [
         "description": "Custom formatter that turns the selected Date into display text, defaulting to a localized medium date string."
       },
       {
+        "prop": "editable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Renders the trigger as a typeable text input with a calendar toggle; typed text commits via parse on Enter/blur."
+      },
+      {
+        "prop": "parse",
+        "type": "(text: string) => Date | null",
+        "required": false,
+        "default": "—",
+        "description": "Parses typed text into a Date when editable; return null or an invalid Date to reject, defaults to a lenient Date.parse."
+      },
+      {
         "prop": "weekStartsOn",
         "type": "0 | 1 | 2 | 3 | 4 | 5 | 6",
         "required": false,
@@ -3391,6 +3405,20 @@ export const components = [
         "required": false,
         "default": "0",
         "description": "Widened from 0|1 to any weekday; controls which day the calendar grid + weekday header start on (0 = Sunday)."
+      },
+      {
+        "prop": "editable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Renders the trigger as a typeable input accepting \"start – end\"; each side commits via parse on Enter/blur."
+      },
+      {
+        "prop": "parse",
+        "type": "(text: string) => Date | null",
+        "required": false,
+        "default": "—",
+        "description": "Parses one side of the typed range into a Date when editable; return null or invalid to reject, defaults to Date.parse."
       },
       {
         "prop": "onChange",

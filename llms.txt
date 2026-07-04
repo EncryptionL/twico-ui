@@ -721,6 +721,8 @@ Props:
 - `disabled` — `boolean` · default `false` — Disables the control and prevents the calendar popover from opening, useful for read-only or gated form states.
 - `clearable` — `boolean` · default `true` — Shows a clear (×) button when a date is set so users can reset the field, enabled by default.
 - `format` — `(date: Date) => string` — Custom formatter that turns the selected Date into display text, defaulting to a localized medium date string.
+- `editable` — `boolean` · default `false` — Renders the trigger as a typeable text input with a calendar toggle; typed text commits via parse on Enter/blur.
+- `parse` — `(text: string) => Date | null` — Parses typed text into a Date when editable; return null or an invalid Date to reject, defaults to a lenient Date.parse.
 - `weekStartsOn` — `0 | 1 | 2 | 3 | 4 | 5 | 6` · default `0` — Widened from 0|1 to any weekday; controls which day the calendar grid + weekday header start on (0 = Sunday).
 - `onChange` — `(date: Date | null) => void` — Fires with the newly selected Date, or null when the value is cleared, so you can update state.
 - `hint` — `React.ReactNode` — Helper text shown below when there is no error.
@@ -756,6 +758,8 @@ Props:
 - `placeholder` — `string` · default `"Select date range"` — Text shown in the trigger when no range is selected, defaulting to "Select date range" to prompt the user.
 - `presets` — `boolean` · default `true` — Shows the quick-preset column (Last 7/14/30/90 days) for fast range selection, enabled by default.
 - `weekStartsOn` — `0 | 1 | 2 | 3 | 4 | 5 | 6` · default `0` — Widened from 0|1 to any weekday; controls which day the calendar grid + weekday header start on (0 = Sunday).
+- `editable` — `boolean` · default `false` — Renders the trigger as a typeable input accepting "start – end"; each side commits via parse on Enter/blur.
+- `parse` — `(text: string) => Date | null` — Parses one side of the typed range into a Date when editable; return null or invalid to reject, defaults to Date.parse.
 - `onChange` — `(range: DateRange) => void` — Fires with the updated { start, end } range whenever the selection changes so you can update state.
 - `disabled` — `boolean` · default `false` — Disable all interaction (the popover cannot be opened).
 - `hint` — `React.ReactNode` — Helper text shown below when there is no error.
