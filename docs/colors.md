@@ -86,3 +86,22 @@ swatches are `<button>`s with `aria-label`s and copy uses the library's `useCopy
 4. The Color docs page (`site/`) re-renders automatically from the tokens/export — no edits needed.
    **`palette.html` does NOT** — it hard-codes resolved values, so update its `PRIMITIVES` /
    `SEMANTIC` data to the new resolved value(s) and run `npm run verify:palette` (the §3b guard).
+5. If you touch a **semantic tone foreground** (`--color-*-fg`), the focus ring (`--color-ring`), or a
+   solid fill, re-run `npm test` — `tests/tokens-a11y.test.js` (§6) fails if a solid tone or the ring
+   drops below its contrast floor.
+
+## 6. Accessibility of the tokens
+
+`tests/tokens-a11y.test.js` resolves the tokens and asserts WCAG 2.x contrast, so the palette can't
+silently regress below the a11y floors:
+
+- **Solid tone foregrounds** clear 3:1 (the SC 1.4.11 UI floor), and `warning`/`info` clear 4.5:1.
+  Solid `warning`/`info` use **dark ink** (`--amber-950` / `--sky-950`) on the amber/sky fill rather
+  than white — white on a mid-value fill only reached ~2.15:1 / ~2.77:1. The fills are unchanged, so
+  the chips still read as "warning"/"info".
+- **The focus ring** (`--color-ring`) is a **solid** brand color (`--brand-500` light, `--brand-400`
+  dark) so the 3px `box-shadow` ring clears SC 1.4.11 / 2.4.11 (3:1) against the surface — a
+  translucent indigo alpha-composited to only ~1.8:1 on light.
+- **Forced colors** — because Windows High Contrast strips author box-shadows (and with them the ring),
+  `base.css` adds `@media (forced-colors: active) { :focus-visible { outline: 2px solid CanvasText } }`
+  so a real, system-repainted outline always shows.
