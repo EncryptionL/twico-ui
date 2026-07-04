@@ -1,16 +1,11 @@
 import * as React from "react";
-import type { PolymorphicAs, TextTone } from "../_types";
+import type { PolymorphicComponent, PolymorphicPropsWithRef, TextTone } from "../_types";
 
-/** Body text with token sizes and semantic color tones. Renders <p> by default. */
-export interface TextProps extends React.HTMLAttributes<HTMLElement> {
-  /** Element/tag to render (e.g. "span", "p"). @default "p" */
-  as?: PolymorphicAs;
-  /** Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href). */
-  href?: string;
-  /** Anchor target — only used with as="a" (e.g. "_blank"). */
-  target?: React.HTMLAttributeAnchorTarget;
-  /** Anchor rel — only used with as="a"; pair "noopener noreferrer" with target="_blank". */
-  rel?: string;
+/**
+ * Text's own props. Intrinsic attributes of the rendered element (and `ref`) are
+ * added by the polymorphic wrapper based on `as` (e.g. `as="a"` adds `href`).
+ */
+export interface TextOwnProps {
   /** Font-size token suffix. @default "base" */
   size?: "xs" | "sm" | "base" | "lg" | "xl" | string;
   /** Semantic color tone — text roles (default/muted/subtle), the color intents, or `"inherit"` to adopt the parent color. @default "default" */
@@ -24,4 +19,8 @@ export interface TextProps extends React.HTMLAttributes<HTMLElement> {
   lineClamp?: number;
 }
 
-export declare const Text: React.ForwardRefExoticComponent<TextProps & React.RefAttributes<HTMLElement>>;
+/** Text props for a given element `C` (defaults to `"p"`). */
+export type TextProps<C extends React.ElementType = "p"> = PolymorphicPropsWithRef<C, TextOwnProps>;
+
+/** Body text with token sizes and semantic color tones. Renders `<p>` by default; polymorphic via `as`. */
+export declare const Text: PolymorphicComponent<TextOwnProps, "p">;

@@ -24,3 +24,43 @@ export type BarTone = Exclude<Tone, "neutral">;
  * OR a React component (`as={Link}`), whose props then flow through `{...rest}`.
  */
 export type PolymorphicAs = React.ElementType;
+
+// ── Polymorphic component type kit ────────────────────────────────────────────
+// Powers the `as`-driven primitives (Box, Stack, Grid, Container, Text, Heading).
+// Passing `as="a"` narrows the accepted props to that element's attributes (href,
+// target, …) and types `ref` as the matching element (HTMLAnchorElement); the
+// component's own style props always merge on top. `as={RouterLink}` accepts that
+// component's props instead. See docs/polymorphic-types.md and docs/prop-conventions.md.
+
+/** The `ref` type for a given `as` element `C` (e.g. `HTMLAnchorElement` for `"a"`). */
+export type PolymorphicRef<C extends React.ElementType> = React.ComponentPropsWithRef<C>["ref"];
+
+/** Own props merged over `E`'s props — the component's own props win on a name clash. */
+type Merge<E, Own> = Own & Omit<E, keyof Own>;
+
+/** Own props + `as={C}`, merged with `C`'s intrinsic props (own props win on a name clash). */
+export type PolymorphicProps<C extends React.ElementType, Own = {}> =
+  Merge<React.ComponentPropsWithoutRef<C>, Own> & { as?: C };
+
+/** {@link PolymorphicProps} plus a correctly-typed `ref` for the resolved element. */
+export type PolymorphicPropsWithRef<C extends React.ElementType, Own = {}> =
+  PolymorphicProps<C, Own> & { ref?: PolymorphicRef<C> };
+
+/**
+ * The callable type of a polymorphic `forwardRef` component whose default element is `D`.
+ *
+ * Two overloads keep prop-checking strict in both directions: when `as` is omitted the
+ * default element `D` is used and its props (plus the own props) are enforced; when
+ * `as={C}` is given, `C`'s props and a matching `ref` are enforced instead. A single
+ * generic signature would let JSX fall back to the `ElementType` constraint and silently
+ * accept anything, so the overloads are deliberate.
+ */
+export interface PolymorphicComponent<Own, D extends React.ElementType> {
+  (
+    props: Merge<React.ComponentPropsWithoutRef<D>, Own> & { as?: never; ref?: PolymorphicRef<D> },
+  ): React.ReactElement | null;
+  <C extends React.ElementType>(
+    props: Merge<React.ComponentPropsWithoutRef<C>, Own> & { as: C; ref?: PolymorphicRef<C> },
+  ): React.ReactElement | null;
+  displayName?: string;
+}

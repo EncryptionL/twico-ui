@@ -23,6 +23,7 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 | [icons.md](./icons.md) | The `twico-ui/icons` subpath — re-exporting Lucide via an optional `lucide-react` peer, the build wiring, and why the core stays zero-dependency. |
 | [tone-variant-system.md](./tone-variant-system.md) | The library-wide `tone` × `variant` model: the `--_accent` pattern, which components have which axis, and how to extend it. |
 | [prop-conventions.md](./prop-conventions.md) | The standard prop vocabulary (size/tone/variant/value/onChange/items/overlay/label/…) every component follows. |
+| [polymorphic-types.md](./polymorphic-types.md) | The `as`-driven polymorphic type kit (Box/Stack/Grid/Container/Text/Heading) — props + `ref` inferred from `as`, and why it uses two call signatures. |
 | [datatable.md](./datatable.md) | Datatable advanced features — opt-in row virtualization, keyboard row reorder, and ARIA menu semantics. |
 | [ai-guide.md](./ai-guide.md) | `llms.txt` — the generated AI usage guide for consumers; how it's built from the component/hook API, where it ships, and the drift guard. |
 | [examples.md](./examples.md) | The `examples/` apps (e.g. the Next.js auth + RBAC dashboard) — how they consume the npm package and why they're isolated from the library build/tarball. |

@@ -83,6 +83,7 @@ export * from "../hooks";
 // Shared type vocabulary — the canonical tone scales, the polymorphic `as` type,
 // and the Select-family option shape, so consumers name them instead of re-deriving.
 export type { Tone, ActionTone, TextTone, ToastTone, BarTone, PolymorphicAs } from "../components/_types";
+export type { PolymorphicComponent, PolymorphicProps, PolymorphicPropsWithRef, PolymorphicRef } from "../components/_types";
 export type { TwicoProviderProps } from "../components/TwicoProvider";
 export type { ThemeProviderProps, ThemeTokens, Theme } from "../components/layout/ThemeProvider";
 export type { FormProps } from "../components/inputs/Form";
@@ -152,11 +153,11 @@ export type { ToastProviderProps, ToastApi, ToastOptions } from "../components/f
 export type { TooltipProps } from "../components/overlay/Tooltip";
 export type { TreeNode, TreeViewProps } from "../components/navigation/TreeView";
 export type { AppShellProps } from "../components/layout/AppShell";
-export type { BoxProps } from "../components/layout/Box";
-export type { ContainerProps } from "../components/layout/Container";
-export type { GridProps } from "../components/layout/Grid";
-export type { StackProps } from "../components/layout/Stack";
+export type { BoxProps, BoxOwnProps } from "../components/layout/Box";
+export type { ContainerProps, ContainerOwnProps } from "../components/layout/Container";
+export type { GridProps, GridOwnProps } from "../components/layout/Grid";
+export type { StackProps, StackOwnProps } from "../components/layout/Stack";
 export type { CodeProps } from "../components/typography/Code";
-export type { HeadingProps, HeadingSize } from "../components/typography/Heading";
+export type { HeadingProps, HeadingOwnProps, HeadingSize } from "../components/typography/Heading";
 export type { ResponsiveColumns } from "../components/layout/Grid";
-export type { TextProps } from "../components/typography/Text";
+export type { TextProps, TextOwnProps } from "../components/typography/Text";

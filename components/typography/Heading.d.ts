@@ -1,23 +1,17 @@
 import * as React from "react";
-import type { PolymorphicAs } from "../_types";
+import type { PolymorphicComponent, PolymorphicPropsWithRef } from "../_types";
 
 /** Font-size token suffixes available to `Heading` (see tokens/typography.css). */
 export type HeadingSize =
   | "xs" | "sm" | "base" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "display";
 
 /**
- * Heading (h1–h6) with token typography. `level` sets the tag/semantics; `size` sets the visual
- * scale — the two are intentionally independent (e.g. a semantic `<h1>` at a small size).
+ * Heading's own props. `level` sets the tag/semantics; `size` sets the visual scale —
+ * the two are intentionally independent (e.g. a semantic `<h1>` at a small size). The
+ * rendered element's intrinsic attributes (and `ref`) are added by the polymorphic
+ * wrapper based on `as`, which overrides the tag chosen by `level`.
  */
-export interface HeadingProps extends React.HTMLAttributes<HTMLElement> {
-  /** Override the rendered tag (e.g. render a visual h2 as an h1). */
-  as?: PolymorphicAs;
-  /** Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href). */
-  href?: string;
-  /** Anchor target — only used with as="a" (e.g. "_blank"). */
-  target?: React.HTMLAttributeAnchorTarget;
-  /** Anchor rel — only used with as="a"; pair "noopener noreferrer" with target="_blank". */
-  rel?: string;
+export interface HeadingOwnProps {
   /** Heading level 1–6 — sets the tag and the default size. @default 2 */
   level?: 1 | 2 | 3 | 4 | 5 | 6;
   /** Font-size token (xs…7xl or display), independent of `level`. */
@@ -31,4 +25,8 @@ export interface HeadingProps extends React.HTMLAttributes<HTMLElement> {
   lineClamp?: number;
 }
 
-export declare const Heading: React.ForwardRefExoticComponent<HeadingProps & React.RefAttributes<HTMLElement>>;
+/** Heading props for a given element `C` (defaults to `"h2"`). */
+export type HeadingProps<C extends React.ElementType = "h2"> = PolymorphicPropsWithRef<C, HeadingOwnProps>;
+
+/** Heading (h1–h6) with token typography. Polymorphic via `as` (overrides the `level` tag). */
+export declare const Heading: PolymorphicComponent<HeadingOwnProps, "h2">;

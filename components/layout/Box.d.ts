@@ -1,16 +1,12 @@
 import * as React from "react";
-import type { PolymorphicAs } from "../_types";
+import type { PolymorphicComponent, PolymorphicPropsWithRef } from "../_types";
 
-/** Generic, token-styled element — the building block for non-flex layout. */
-export interface BoxProps extends React.HTMLAttributes<HTMLElement> {
-  /** Element/tag to render. @default "div" */
-  as?: PolymorphicAs;
-  /** Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href). */
-  href?: string;
-  /** Anchor target — only used with as="a" (e.g. "_blank"). */
-  target?: React.HTMLAttributeAnchorTarget;
-  /** Anchor rel — only used with as="a"; pair "noopener noreferrer" with target="_blank". */
-  rel?: string;
+/**
+ * Box's own (non-polymorphic) props. The rendered element's intrinsic attributes —
+ * and `ref` — are added by the polymorphic wrapper based on `as` (e.g. `as="a"`
+ * contributes `href`/`target`/`rel` and a `Ref<HTMLAnchorElement>`).
+ */
+export interface BoxOwnProps {
   /** Padding (all / x / y / individual) — spacing step (number) or CSS length. */
   p?: number | string;
   px?: number | string;
@@ -37,4 +33,12 @@ export interface BoxProps extends React.HTMLAttributes<HTMLElement> {
   shadow?: string;
 }
 
-export declare const Box: React.ForwardRefExoticComponent<BoxProps & React.RefAttributes<HTMLElement>>;
+/**
+ * Box props for a given element `C` (defaults to `"div"`) — Box's own props plus
+ * `C`'s intrinsic attributes and a matching `ref`. Name it directly when wrapping
+ * Box in your own typed component.
+ */
+export type BoxProps<C extends React.ElementType = "div"> = PolymorphicPropsWithRef<C, BoxOwnProps>;
+
+/** Generic, token-styled element — the building block for non-flex layout. Polymorphic via `as`. */
+export declare const Box: PolymorphicComponent<BoxOwnProps, "div">;
