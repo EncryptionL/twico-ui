@@ -44,6 +44,14 @@ export interface SelectProps extends Omit<React.HTMLAttributes<HTMLButtonElement
   portal?: boolean;
   /** Minimum popover width in px when portaled (useful when the trigger is narrow). @default 0 */
   minWidth?: number;
+  /** Pin the popover to the trigger's width. Set false to size it to the widest option (clamped to the viewport). @default true */
+  matchTriggerWidth?: boolean;
+  /** Show a loading row instead of the option list / empty state (e.g. while fetching options). @default false */
+  loading?: boolean;
+  /** Text shown when no options match. @default "No results found" */
+  emptyText?: string;
+  /** Name for a hidden form field so the selected value participates in native form submission. */
+  name?: string;
 }
 
 /** Alias of the shared {@link Option} type (kept for backward-compatible imports). */

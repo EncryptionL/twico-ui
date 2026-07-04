@@ -22,6 +22,8 @@ const [v, setV] = React.useState(null);
 />
 ```
 
-Options: strings, `{value,label,description}`, or `{group,options}` groups.
-Keyboard: ↑/↓ move, Enter select, Esc close.
+Options: strings, `{value,label,description}`, or `{group,options}` groups. An option may set
+`disabled` (skipped by keyboard nav, not selectable). More props: `name` (hidden form field),
+`loading` (spinner row), `emptyText`, `matchTriggerWidth={false}` (size the popover to the widest option).
+Keyboard: ↑/↓ move, Enter select, Esc close, and printable characters type-ahead-jump on the closed trigger.
 `tone` ("primary" | "success" | "warning" | "danger" | "info" | "neutral", default "primary") sets the focus/open border and ring color.

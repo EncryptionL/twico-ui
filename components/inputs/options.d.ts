@@ -10,6 +10,8 @@ export interface Option {
   label: string;
   /** Optional second line shown under the label. */
   description?: string;
+  /** Disable this option — not selectable, skipped by keyboard navigation. */
+  disabled?: boolean;
 }
 
 /** A labeled group of options (or bare string values). */

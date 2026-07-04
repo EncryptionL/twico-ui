@@ -39,6 +39,16 @@ export interface MultiSelectProps extends Omit<React.InputHTMLAttributes<HTMLInp
   portal?: boolean;
   /** Minimum popover width in px when portaled (useful when the control is narrow). @default 0 */
   minWidth?: number;
+  /** Show a loading row instead of the option list / empty state. @default false */
+  loading?: boolean;
+  /** Text shown when no options match. @default "No results found" */
+  emptyText?: string;
+  /** Name for hidden form fields (one per selected value) for native form submission. */
+  name?: string;
+  /** Cap the number of selectable values; once reached, unselected options become disabled. */
+  max?: number;
+  /** Collapse chips after N into a "+K more" pill. */
+  maxTagCount?: number;
   /** Composed with the field's open-on-focus behavior — your handler runs first. */
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   /** Composed with the field's keyboard navigation (Arrows/Enter/Escape/Backspace) — your handler runs first; call `event.preventDefault()` to suppress it. */
