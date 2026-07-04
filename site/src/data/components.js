@@ -4746,6 +4746,13 @@ export const components = [
         "description": "Drops the card chrome to render borderless, transparent rows when set to true; defaults to false for the boxed style."
       },
       {
+        "prop": "emptyMessage",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "\"Nothing here yet\"",
+        "description": "Shown as a centered zero-state row when items is empty, so an empty list reads as intentional rather than broken."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -5299,6 +5306,13 @@ export const components = [
         "required": false,
         "default": "\"Go to\"",
         "description": "Text or node rendered before the jumper input, defaulting to \"Go to\", to clarify what the field does."
+      },
+      {
+        "prop": "getPageLabel",
+        "type": "(page: number) => string",
+        "required": false,
+        "default": "(n) => `Page ${n}`",
+        "description": "Accessible label for each numbered page button, so screen readers announce \"Page 3\" rather than a bare number; override for i18n."
       },
       {
         "prop": "defaultPage",
@@ -7245,6 +7259,41 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Cap the table height and give it its own vertical scroll area (CSS length or number of px); enables stickyHeader to shine."
+      },
+      {
+        "prop": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Renders shimmering skeleton rows instead of data and sets aria-busy, avoiding a flash-of-empty during fetches."
+      },
+      {
+        "prop": "loadingRows",
+        "type": "number",
+        "required": false,
+        "default": "8",
+        "description": "Number of skeleton rows to show while loading is true."
+      },
+      {
+        "prop": "emptyMessage",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "\"No data\"",
+        "description": "Rendered as a single full-width row when rows is empty instead of a bare header over a blank body."
+      },
+      {
+        "prop": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Accessible name applied to the <table> itself (not the wrapper div); a raw aria-label prop takes precedence over it."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Renders a visually-hidden <caption> naming the table for assistive technology."
       },
       {
         "prop": "rows",

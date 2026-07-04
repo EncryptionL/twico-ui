@@ -1506,6 +1506,7 @@ List renders a vertical stack of rows with optional leading/trailing slots, a ti
 Props:
 - `items` — `ListItemData[]` · **required** — Provides the rows to render, each with a title plus optional description, leading, trailing, onClick, href, and active fields.
 - `plain` — `boolean` · default `false` — Drops the card chrome to render borderless, transparent rows when set to true; defaults to false for the boxed style.
+- `emptyMessage` — `React.ReactNode` · default `"Nothing here yet"` — Shown as a centered zero-state row when items is empty, so an empty list reads as intentional rather than broken.
 
 ```jsx
 import { List } from "twico-ui";
@@ -1533,6 +1534,7 @@ Props:
 - `size` — `"sm" | "md"` · default `"md"` — Sets the control density, sm or md, scaling button height and spacing to match the surrounding layout.
 - `showJumper` — `boolean` · default `false` — Adds a "Go to" number input so users can jump directly to a specific page instead of clicking through.
 - `jumperLabel` — `React.ReactNode` · default `"Go to"` — Text or node rendered before the jumper input, defaulting to "Go to", to clarify what the field does.
+- `getPageLabel` — `(page: number) => string` · default `(n) => `Page ${n}`` — Accessible label for each numbered page button, so screen readers announce "Page 3" rather than a bare number; override for i18n.
 - `defaultPage` — `number` · default `1` — Initial 1-based page when uncontrolled (no `page` prop).
 - `showPageJumper` — `boolean` · default `false` — Show a "Go to" page input for jumping directly to a page; preferred alias for showJumper.
 
@@ -1601,6 +1603,11 @@ Props:
 - `onSortChange` — `(sort: TableSort) => void` — Fired when a sortable header is clicked with the next sort state.
 - `stickyHeader` — `boolean` · default `false` — Pin the header to the top while the body scrolls (use with maxHeight or an enclosing scroll container).
 - `maxHeight` — `number | string` — Cap the table height and give it its own vertical scroll area (CSS length or number of px); enables stickyHeader to shine.
+- `loading` — `boolean` · default `false` — Renders shimmering skeleton rows instead of data and sets aria-busy, avoiding a flash-of-empty during fetches.
+- `loadingRows` — `number` · default `8` — Number of skeleton rows to show while loading is true.
+- `emptyMessage` — `React.ReactNode` · default `"No data"` — Rendered as a single full-width row when rows is empty instead of a bare header over a blank body.
+- `ariaLabel` — `string` — Accessible name applied to the <table> itself (not the wrapper div); a raw aria-label prop takes precedence over it.
+- `caption` — `React.ReactNode` — Renders a visually-hidden <caption> naming the table for assistive technology.
 - `rows` — `T[]` — Row objects.
 - `field (column)` — `string` — Alias for key (Datatable vocabulary); key wins when both are set.
 - `headerName (column)` — `React.ReactNode` — Alias for header (Datatable vocabulary); header wins when both are set.

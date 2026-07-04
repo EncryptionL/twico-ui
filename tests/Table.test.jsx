@@ -35,3 +35,50 @@ describe("Table sorting", () => {
     expect(onSortChange).toHaveBeenCalled();
   });
 });
+
+describe("Table empty state (#126)", () => {
+  it("renders the default empty message spanning all columns when rows are empty", () => {
+    const { container } = render(<Table columns={columns} rows={[]} />);
+    const empty = container.querySelector(".twc-table__empty");
+    expect(empty).toHaveTextContent("No data");
+    expect(empty).toHaveAttribute("colspan", String(columns.length));
+  });
+  it("renders a custom emptyMessage", () => {
+    const { container } = render(<Table columns={columns} rows={[]} emptyMessage="No users yet" />);
+    expect(container.querySelector(".twc-table__empty")).toHaveTextContent("No users yet");
+  });
+  it("non-empty table renders no empty cell", () => {
+    const { container } = render(<Table columns={columns} rows={data} />);
+    expect(container.querySelector(".twc-table__empty")).toBeNull();
+  });
+});
+
+describe("Table loading skeletons (#127)", () => {
+  it("renders loadingRows × columns skeleton cells and sets aria-busy", () => {
+    const { container } = render(<Table columns={columns} rows={data} loading loadingRows={5} />);
+    expect(container.querySelectorAll(".twc-table__sk")).toHaveLength(5 * columns.length);
+    expect(container.querySelector("table")).toHaveAttribute("aria-busy", "true");
+  });
+  it("loading overrides provided rows (no data cells shown)", () => {
+    render(<Table columns={columns} rows={data} loading />);
+    expect(screen.queryByText("Cara")).toBeNull();
+  });
+});
+
+describe("Table accessible name (#128)", () => {
+  it("a raw aria-label lands on the <table>, not the wrapper", () => {
+    render(<Table columns={columns} rows={data} aria-label="Invoices" />);
+    expect(screen.getByRole("table", { name: "Invoices" })).toBeInTheDocument();
+  });
+  it("ariaLabel prop names the table; raw aria-label wins over it", () => {
+    const { rerender } = render(<Table columns={columns} rows={data} ariaLabel="Users" />);
+    expect(screen.getByRole("table", { name: "Users" })).toBeInTheDocument();
+    rerender(<Table columns={columns} rows={data} ariaLabel="Users" aria-label="People" />);
+    expect(screen.getByRole("table", { name: "People" })).toBeInTheDocument();
+  });
+  it("caption renders a (hidden) <caption> that names the table", () => {
+    const { container } = render(<Table columns={columns} rows={data} caption="Q3 report" />);
+    expect(container.querySelector("caption.twc-table__caption")).toHaveTextContent("Q3 report");
+    expect(screen.getByRole("table", { name: "Q3 report" })).toBeInTheDocument();
+  });
+});

@@ -9,4 +9,6 @@ import { List } from "./List";
 ]} />
 ```
 
-Items: `{ title, description?, leading?, trailing?, onClick?, href?, active? }`. Prop: `plain`.
+Items: `{ title, description?, leading?, trailing?, onClick?, href?, active? }`. Props: `plain`, `emptyMessage`.
+The `<ul>`/`<li>` carry explicit `list`/`listitem` roles (restored under `list-style:none` + `display:contents`),
+`active` rows get `aria-current="page"`, and an empty `items` array renders `emptyMessage` (default "Nothing here yet").

@@ -45,6 +45,16 @@ export interface TableProps<T = any> extends React.HTMLAttributes<HTMLDivElement
   stickyHeader?: boolean;
   /** Cap the table height and give it its own vertical scroll area (CSS length or number of px). */
   maxHeight?: number | string;
+  /** Show shimmering skeleton rows instead of data (e.g. while fetching); sets `aria-busy`. @default false */
+  loading?: boolean;
+  /** Number of skeleton rows to render while `loading`. @default 8 */
+  loadingRows?: number;
+  /** Rendered as a single full-width row when `rows` is empty. @default "No data" */
+  emptyMessage?: React.ReactNode;
+  /** Accessible name applied to the `<table>` (not the wrapper). A raw `aria-label` prop takes precedence. */
+  ariaLabel?: string;
+  /** Renders a visually-hidden `<caption>` naming the table. */
+  caption?: React.ReactNode;
 }
 
 export interface TableColumn<T = any> {
