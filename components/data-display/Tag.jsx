@@ -45,10 +45,13 @@ export function Tag({
   leftIcon,
   tone = "neutral",
   variant = "soft",
+  removeLabel,
   className = "",
   ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-tag-styles", TAG_CSS);
+  // Tie the remove button's name to the tag content (matches MultiSelect/FileUpload/Datatable).
+  const _removeLabel = removeLabel ?? (typeof children === "string" ? `Remove ${children}` : "Remove");
 
   return (
     <span className={`twc-tag ${className}`} data-tone={tone} data-variant={variant} data-no-remove={!onRemove || undefined} {...rest}>
@@ -56,7 +59,7 @@ export function Tag({
       {leftIcon}
       {children}
       {onRemove ? (
-        <button className="twc-tag__remove" onClick={(e) => { e.stopPropagation(); onRemove(e); }} aria-label="Remove" type="button">
+        <button className="twc-tag__remove" onClick={(e) => { e.stopPropagation(); onRemove(e); }} aria-label={_removeLabel} type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
       ) : null}
