@@ -52,6 +52,18 @@ Returns a stable `render(node)` callback that portals `node` to `document.body`,
 `null` on the server (no `document`). Centralizes the `createPortal` derivation the
 three overlays each repeated.
 
+### `useScrollLock(locked)` and `useInertBackground(ref, active)`
+
+Added to `_overlay.js` in the a11y pass (#115/#116). `useScrollLock` is the one
+**refcounted** body scroll-lock — nested/out-of-order overlay opens don't clobber each
+other's saved `overflow`, and it compensates for the scrollbar gutter on the 0→1
+transition so the page doesn't shift. It's re-exported publicly as `useScrollLock`
+(moved out of `hooks/index.js`; the public API and its `.d.ts` are unchanged).
+`useInertBackground(ref, active)` marks every sibling of the overlay's portal subtree
+`inert` + `aria-hidden` while active, so a screen-reader virtual cursor / mobile swipe
+can't reach the page behind a `Dialog`/`Drawer`. `Popover` also now reuses `useFocusTrap`
+(with `restoreFocus:false`, since it owns a conditional restore) and is `aria-modal`.
+
 ## Why `components/_overlay.js` and not `hooks/index.js`
 
 CLAUDE.md §5 says components import only `react` / `react-dom`, the shared internal

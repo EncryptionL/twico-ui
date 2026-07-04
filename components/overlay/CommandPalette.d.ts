@@ -33,6 +33,8 @@ export interface CommandPaletteProps extends React.HTMLAttributes<HTMLDivElement
   commands: Command[];
   placeholder?: string;
   emptyText?: string;
+  /** Accessible name for the search input. @default "Command palette search" */
+  searchLabel?: string;
 }
 
 export function CommandPalette(props: CommandPaletteProps): React.JSX.Element | null;

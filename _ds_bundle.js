@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"3c98a07f7447","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"5e8329337421","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"207beb76ccb6","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"0ac7bbc546fa","components/inputs/Combobox.jsx":"da89f9c7b152","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"a89e65d7e61c","components/inputs/DateRangePicker.jsx":"c53507555c94","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"a1558f86aa72","components/inputs/Input.jsx":"05605520deae","components/inputs/MultiSelect.jsx":"856956280c7b","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"cd87f7b56e12","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"0b3d9cee1567","components/layout/Container.jsx":"387427a04d92","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"4258836f330c","components/layout/Stack.jsx":"3acf19a6760b","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"a69847910c31","components/overlay/Dialog.jsx":"e7e9d6af5845","components/overlay/Drawer.jsx":"7a24e89c8d93","components/overlay/Menu.jsx":"0fc7aff0b8b7","components/overlay/Popover.jsx":"bc22e921093f","components/overlay/Tooltip.jsx":"501134b648dd","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1514eeaceb03","components/typography/Text.jsx":"d266e3a00c44","src/index.ts":"24b66815edd1"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"3c98a07f7447","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"5e8329337421","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"0ac7bbc546fa","components/inputs/Combobox.jsx":"da89f9c7b152","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"a89e65d7e61c","components/inputs/DateRangePicker.jsx":"c53507555c94","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"a1558f86aa72","components/inputs/Input.jsx":"05605520deae","components/inputs/MultiSelect.jsx":"856956280c7b","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"cd87f7b56e12","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"0b3d9cee1567","components/layout/Container.jsx":"387427a04d92","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"4258836f330c","components/layout/Stack.jsx":"3acf19a6760b","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1514eeaceb03","components/typography/Text.jsx":"d266e3a00c44","src/index.ts":"24b66815edd1"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -140,7 +140,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     usePortal: () => usePortal2,
     usePrefersReducedMotion: () => usePrefersReducedMotion,
     usePrevious: () => usePrevious,
-    useScrollLock: () => useScrollLock,
+    useScrollLock: () => useScrollLock2,
     useTimeout: () => useTimeout,
     useToast: () => useToast,
     useToggle: () => useToggle,
@@ -429,7 +429,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   var MENU_CSS = `
 .twc-menu-wrap { position: relative; display: inline-flex; }
 .twc-menu {
-  position: fixed; z-index: var(--z-dropdown); min-width: 200px;
+  position: fixed; z-index: var(--z-popover); min-width: 200px;
   padding: var(--space-1-5); background: var(--color-surface-raised);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg); font-family: var(--font-sans);
@@ -488,6 +488,8 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     const [active, setActive] = import_react.default.useState(-1);
     const wrapRef = import_react.default.useRef(null);
     const menuRef = import_react.default.useRef(null);
+    const typeBufRef = import_react.default.useRef("");
+    const typeTimerRef = import_react.default.useRef(null);
     const menuId = import_react.default.useId();
     const headerId = `${menuId}-header`;
     const controlled = openProp !== void 0;
@@ -556,7 +558,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") {
           e.preventDefault();
           setOpen(true);
-          setActive(-1);
+          setActive(interactiveIdx[0] ?? -1);
         }
         return;
       }
@@ -577,6 +579,24 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         if (next < 0) next = list.length - 1;
         if (next >= list.length) next = 0;
         setActive(list[next]);
+      } else if (e.key === "PageDown" || e.key === "PageUp") {
+        e.preventDefault();
+        const list = interactiveIdx;
+        if (list.length) {
+          const curPos = Math.max(0, list.indexOf(active));
+          const next = Math.min(list.length - 1, Math.max(0, curPos + (e.key === "PageDown" ? 5 : -5)));
+          setActive(list[next]);
+        }
+      } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        typeBufRef.current += e.key.toLowerCase();
+        clearTimeout(typeTimerRef.current);
+        typeTimerRef.current = setTimeout(() => {
+          typeBufRef.current = "";
+        }, 500);
+        const b = typeBufRef.current;
+        const labelOf = (i) => String(items[i]?.label ?? "").toLowerCase();
+        const hit = interactiveIdx.find((i) => labelOf(i).startsWith(b));
+        if (hit != null) setActive(hit);
       } else if (e.key === "Home" || e.key === "End") {
         e.preventDefault();
         const list = interactiveIdx;
@@ -604,12 +624,13 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         "data-align": align,
         "data-flip": pos.flip || void 0,
         role: "menu",
+        "aria-orientation": "vertical",
         "aria-label": ariaLabel,
         "aria-labelledby": ariaLabelledby ?? (ariaLabel ? void 0 : header ? headerId : void 0),
         style: { top: pos.top, bottom: pos.bottom, left: pos.left, minWidth: pos.width, width: pos.width, maxHeight: pos.maxHeight },
         children: [
           __twcStyles,
-          header ? /* @__PURE__ */ jsx("div", { className: "twc-menu__header", id: headerId, children: header }) : null,
+          header ? /* @__PURE__ */ jsx("div", { className: "twc-menu__header", id: headerId, role: "presentation", children: header }) : null,
           items.map((it, i) => {
             if (it.separator) return /* @__PURE__ */ jsx("div", { className: "twc-menu__sep", role: "separator" }, `s${i}`);
             if (it.label && it.heading) return /* @__PURE__ */ jsx("div", { className: "twc-menu__label", children: it.label }, `h${i}`);
@@ -2220,6 +2241,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     ] });
   }
   var canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
+  var useIsoLayoutEffect = canUseDOM ? import_react.default.useLayoutEffect : import_react.default.useEffect;
   var FOCUSABLE = 'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
   function useFocusTrap(ref, active = true, { restoreFocus = true } = {}) {
     import_react.default.useEffect(() => {
@@ -2265,6 +2287,48 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       return typeof import_react_dom.createPortal === "function" ? (0, import_react_dom.createPortal)(node, document.body) : node;
     }, []);
   }
+  var __scrollLockCount = 0;
+  var __scrollLockSaved = { overflow: "", paddingRight: "" };
+  function useScrollLock(locked = true) {
+    useIsoLayoutEffect(() => {
+      if (!canUseDOM || !locked) return void 0;
+      if (__scrollLockCount === 0) {
+        const b = document.body;
+        __scrollLockSaved = { overflow: b.style.overflow, paddingRight: b.style.paddingRight };
+        const gutter = window.innerWidth - document.documentElement.clientWidth;
+        b.style.overflow = "hidden";
+        if (gutter > 0) b.style.paddingRight = `${(parseFloat(getComputedStyle(b).paddingRight) || 0) + gutter}px`;
+      }
+      __scrollLockCount += 1;
+      return () => {
+        __scrollLockCount -= 1;
+        if (__scrollLockCount === 0) {
+          document.body.style.overflow = __scrollLockSaved.overflow;
+          document.body.style.paddingRight = __scrollLockSaved.paddingRight;
+        }
+      };
+    }, [locked]);
+  }
+  function useInertBackground(ref, active) {
+    import_react.default.useEffect(() => {
+      if (!active || !canUseDOM) return void 0;
+      const node = ref.current;
+      if (!node) return void 0;
+      const changed = [];
+      Array.from(document.body.children).forEach((el) => {
+        if (el.contains(node) || el.hasAttribute("aria-hidden") || el.inert) return;
+        el.inert = true;
+        el.setAttribute("aria-hidden", "true");
+        changed.push(el);
+      });
+      return () => {
+        changed.forEach((el) => {
+          el.inert = false;
+          el.removeAttribute("aria-hidden");
+        });
+      };
+    }, [active]);
+  }
   var COMMAND_CSS = `
 .twc-cmdk__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(3px);
   display: flex; align-items: flex-start; justify-content: center; padding-top: 12vh; }
@@ -2306,6 +2370,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     commands,
     placeholder = "Type a command or search\u2026",
     emptyText = "No results found",
+    searchLabel = "Command palette search",
     className = "",
     ...rest
   }) {
@@ -2326,14 +2391,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       const t = setTimeout(() => setMounted(false), 170);
       return () => clearTimeout(t);
     }, [open]);
-    import_react.default.useEffect(() => {
-      if (!open) return void 0;
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = prev;
-      };
-    }, [open]);
+    useScrollLock(open);
     import_react.default.useEffect(() => {
       if (open) {
         setQuery("");
@@ -2416,7 +2474,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
               value: query,
               placeholder,
               role: "combobox",
-              "aria-expanded": "true",
+              "aria-label": searchLabel,
+              "aria-expanded": flat.length > 0 ? "true" : "false",
               "aria-controls": listId,
               "aria-activedescendant": activeId,
               onChange: (e) => setQuery(e.target.value),
@@ -7854,14 +7913,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       const t = setTimeout(() => setMounted(false), 170);
       return () => clearTimeout(t);
     }, [open]);
-    import_react.default.useEffect(() => {
-      if (!open) return void 0;
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = prev;
-      };
-    }, [open]);
+    useScrollLock(open);
+    useInertBackground(dialogRef, open && mounted);
     useFocusTrap(dialogRef, open && mounted);
     import_react.default.useEffect(() => {
       if (!open) return void 0;
@@ -8025,14 +8078,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       const t = setTimeout(() => setMounted(false), 170);
       return () => clearTimeout(t);
     }, [open]);
-    import_react.default.useEffect(() => {
-      if (!open) return void 0;
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = prev;
-      };
-    }, [open]);
+    useScrollLock(open);
+    useInertBackground(panelRef, open && mounted);
     useFocusTrap(panelRef, open && mounted);
     import_react.default.useEffect(() => {
       if (!open) return void 0;
@@ -8765,7 +8812,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       let top, left, flip = false, arrow = {};
       const vertical = placement === "top" || placement === "bottom";
       if (vertical) {
-        flip = placement === "top" || placement === "bottom" && vh - r.bottom < 180 && r.top > vh - r.bottom;
+        const ph2 = popRef.current ? popRef.current.offsetHeight : 120;
+        const spaceAbove = r.top - gap - M;
+        const spaceBelow = vh - r.bottom - gap - M;
+        let openUp = placement === "top";
+        if (openUp && spaceAbove < ph2 && spaceBelow > spaceAbove) openUp = false;
+        else if (!openUp && spaceBelow < ph2 && spaceAbove > spaceBelow) openUp = true;
+        flip = openUp;
         top = flip ? void 0 : r.bottom + gap;
         const bottom = flip ? vh - r.top + gap : void 0;
         let l = align === "start" ? r.left : align === "end" ? r.right - w : r.left + r.width / 2 - w / 2;
@@ -8833,12 +8886,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       needFocusRef.current = false;
       if (prev && typeof prev.focus === "function" && popRef.current?.contains(document.activeElement)) prev.focus();
     }, [open]);
-    import_react.default.useEffect(() => {
-      if (open && render && pos && needFocusRef.current) {
-        needFocusRef.current = false;
-        popRef.current?.focus({ preventScroll: true });
-      }
-    }, [open, render, pos]);
+    useFocusTrap(popRef, open && render && !!pos, { restoreFocus: false });
     const pop = render && pos ? /* @__PURE__ */ jsxs(
       "div",
       {
@@ -8849,6 +8897,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         "data-state": open ? "open" : "closed",
         "data-flip": pos.flip || void 0,
         role: "dialog",
+        "aria-modal": "true",
         "aria-labelledby": title ? `${popId}-title` : void 0,
         style: { top: pos.top, bottom: pos.bottom, left: pos.left, width: pos.width },
         children: [
@@ -9309,13 +9358,14 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   var TOOLTIP_CSS = `
 .twc-tooltip-wrap { display: inline-flex; }
 .twc-tooltip {
-  position: fixed; z-index: var(--z-tooltip); pointer-events: none;
+  position: fixed; z-index: var(--z-tooltip);
   padding: 6px 10px; border-radius: var(--radius-md);
   background: var(--color-text); color: var(--color-surface);
   font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-medium);
-  line-height: 1.3; white-space: nowrap; box-shadow: var(--shadow-md);
+  line-height: 1.3; white-space: normal; max-width: var(--_tw-maxw, 260px); box-shadow: var(--shadow-md);
   opacity: 0; transform: scale(0.9); transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-spring);
 }
+.twc-tooltip[data-show="true"] { pointer-events: auto; }
 .twc-tooltip[data-show="true"] { opacity: 1; transform: scale(1); }
 .twc-tooltip[data-place="top"]    { transform-origin: bottom center; translate: -50% 0; }
 .twc-tooltip[data-place="bottom"] { transform-origin: top center; translate: -50% 0; }
@@ -9342,17 +9392,26 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const [show, setShow] = import_react.default.useState(false);
     const [coords, setCoords] = import_react.default.useState(null);
     const timer = import_react.default.useRef(null);
+    const closeTimer = import_react.default.useRef(null);
     const wrapRef = import_react.default.useRef(null);
     const tipRef = import_react.default.useRef(null);
     const open = () => {
+      clearTimeout(closeTimer.current);
       clearTimeout(timer.current);
       timer.current = setTimeout(() => setShow(true), delay);
     };
     const close = () => {
       clearTimeout(timer.current);
-      setShow(false);
+      clearTimeout(closeTimer.current);
+      closeTimer.current = setTimeout(() => setShow(false), 120);
     };
-    import_react.default.useEffect(() => () => clearTimeout(timer.current), []);
+    const cancelClose = () => {
+      clearTimeout(closeTimer.current);
+    };
+    import_react.default.useEffect(() => () => {
+      clearTimeout(timer.current);
+      clearTimeout(closeTimer.current);
+    }, []);
     const place = import_react.default.useCallback(() => {
       const el = wrapRef.current;
       if (!el) return;
@@ -9363,10 +9422,17 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       const tw = tip ? tip.offsetWidth : 0, th = tip ? tip.offsetHeight : 0;
       const clampX = (c) => tw ? Math.round(Math.min(Math.max(c, margin + tw / 2), vw - margin - tw / 2)) : c;
       const clampY = (c) => th ? Math.round(Math.min(Math.max(c, margin + th / 2), vh - margin - th / 2)) : c;
-      const base = { left: "auto", right: "auto", top: "auto", bottom: "auto" };
-      if (placement === "bottom") setCoords({ ...base, left: clampX(cx), top: Math.round(r.bottom + gap) });
-      else if (placement === "left") setCoords({ ...base, top: clampY(cy), right: Math.round(vw - r.left + gap) });
-      else if (placement === "right") setCoords({ ...base, top: clampY(cy), left: Math.round(r.right + gap) });
+      const spaceAbove = r.top - gap - margin, spaceBelow = vh - r.bottom - gap - margin;
+      const spaceLeft = r.left - gap - margin, spaceRight = vw - r.right - gap - margin;
+      let side = placement;
+      if (placement === "top" && spaceAbove < th && spaceBelow > spaceAbove) side = "bottom";
+      else if (placement === "bottom" && spaceBelow < th && spaceAbove > spaceBelow) side = "top";
+      else if (placement === "left" && spaceLeft < tw && spaceRight > spaceLeft) side = "right";
+      else if (placement === "right" && spaceRight < tw && spaceLeft > spaceRight) side = "left";
+      const base = { left: "auto", right: "auto", top: "auto", bottom: "auto", place: side };
+      if (side === "bottom") setCoords({ ...base, left: clampX(cx), top: Math.round(r.bottom + gap) });
+      else if (side === "left") setCoords({ ...base, top: clampY(cy), right: Math.round(vw - r.left + gap) });
+      else if (side === "right") setCoords({ ...base, top: clampY(cy), left: Math.round(r.right + gap) });
       else setCoords({ ...base, left: clampX(cx), bottom: Math.round(vh - r.top + gap) });
     }, [placement]);
     import_react.default.useEffect(() => {
@@ -9418,10 +9484,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
                 ref: tipRef,
                 id,
                 className: "twc-tooltip",
-                "data-place": placement,
+                "data-place": coords.place || placement,
                 "data-show": show || void 0,
                 role: "tooltip",
                 "aria-hidden": show ? void 0 : "true",
+                onMouseEnter: cancelClose,
+                onMouseLeave: close,
                 style: { position: "fixed", left: coords.left, right: coords.right, top: coords.top, bottom: coords.bottom },
                 children: [
                   label,
@@ -10875,12 +10943,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       start();
       return stop;
     }, [start, stop]);
+    const role = resolvedTone === "danger" || resolvedTone === "warning" ? "alert" : "status";
     return /* @__PURE__ */ jsxs(
       "div",
       {
         className: `twc-toast ${className}`,
         "data-tone": resolvedTone,
-        role: "status",
+        role,
         ...rest,
         onMouseEnter: (e) => {
           onMouseEnter?.(e);
@@ -10916,7 +10985,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   function ToastViewport({ children, limit, className = "", ...rest }) {
     const __twcStyles = useScopedStyles("twc-toast-styles", TOAST_CSS);
     const shown = limit && limit > 0 ? import_react.default.Children.toArray(children).slice(-limit) : children;
-    return /* @__PURE__ */ jsxs("div", { className: `twc-toast-viewport ${className}`, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { className: `twc-toast-viewport ${className}`, role: "region", "aria-label": "Notifications", ...rest, children: [
       __twcStyles,
       shown
     ] });
@@ -11934,29 +12003,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     }, [ref, root, rootMargin, JSON.stringify(threshold)]);
     return entry;
   }
-  var __scrollLockCount = 0;
-  var __scrollLockSaved = "";
-  function useScrollLock(locked = true) {
-    useIsomorphicLayoutEffect(() => {
-      if (!canUseDOM2 || !locked) return void 0;
-      if (__scrollLockCount === 0) {
-        __scrollLockSaved = document.body.style.overflow;
-        document.body.style.overflow = "hidden";
-      }
-      __scrollLockCount += 1;
-      return () => {
-        __scrollLockCount -= 1;
-        if (__scrollLockCount === 0) {
-          document.body.style.overflow = __scrollLockSaved;
-        }
-      };
-    }, [locked]);
-  }
   function useId(prefix = "twc") {
     const raw = import_react.default.useId();
     return prefix ? `${prefix}-${raw.replace(/:/g, "")}` : raw;
   }
   var useFocusTrap2 = useFocusTrap;
   var usePortal2 = usePortal;
+  var useScrollLock2 = useScrollLock;
   return __toCommonJS(index_exports);
 })();

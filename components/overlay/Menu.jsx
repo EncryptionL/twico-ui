@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 const MENU_CSS = `
 .twc-menu-wrap { position: relative; display: inline-flex; }
 .twc-menu {
-  position: fixed; z-index: var(--z-dropdown); min-width: 200px;
+  position: fixed; z-index: var(--z-popover); min-width: 200px;
   padding: var(--space-1-5); background: var(--color-surface-raised);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg); font-family: var(--font-sans);
@@ -68,6 +68,8 @@ export function Menu({
   const [active, setActive] = React.useState(-1);
   const wrapRef = React.useRef(null);
   const menuRef = React.useRef(null);
+  const typeBufRef = React.useRef("");
+  const typeTimerRef = React.useRef(null);
   const menuId = React.useId();
   const headerId = `${menuId}-header`;
 
@@ -137,7 +139,8 @@ export function Menu({
 
   function onKeyDown(e) {
     if (!open) {
-      if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") { e.preventDefault(); setOpen(true); setActive(-1); }
+      // #118: opening by keyboard highlights the first interactive item (APG); mouse-open stays at -1.
+      if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") { e.preventDefault(); setOpen(true); setActive(interactiveIdx[0] ?? -1); }
       return;
     }
     if (e.key === "Escape") { e.preventDefault(); setOpen(false); return; }
@@ -151,6 +154,24 @@ export function Menu({
       let next = e.key === "ArrowDown" ? curPos + 1 : curPos - 1;
       if (next < 0) next = list.length - 1; if (next >= list.length) next = 0;
       setActive(list[next]);
+    } else if (e.key === "PageDown" || e.key === "PageUp") {
+      // #118: jump ~5 interactive items (WAI-ARIA menu pattern).
+      e.preventDefault();
+      const list = interactiveIdx;
+      if (list.length) {
+        const curPos = Math.max(0, list.indexOf(active));
+        const next = Math.min(list.length - 1, Math.max(0, curPos + (e.key === "PageDown" ? 5 : -5)));
+        setActive(list[next]);
+      }
+    } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      // #118: type-ahead — jump to the next interactive item whose label starts with the buffer.
+      typeBufRef.current += e.key.toLowerCase();
+      clearTimeout(typeTimerRef.current);
+      typeTimerRef.current = setTimeout(() => { typeBufRef.current = ""; }, 500);
+      const b = typeBufRef.current;
+      const labelOf = (i) => String(items[i]?.label ?? "").toLowerCase();
+      const hit = interactiveIdx.find((i) => labelOf(i).startsWith(b));
+      if (hit != null) setActive(hit);
     } else if (e.key === "Home" || e.key === "End") {
       e.preventDefault();
       const list = interactiveIdx;
@@ -169,11 +190,11 @@ export function Menu({
   }
 
   const menu = render && pos ? (
-    <div className="twc-menu" id={menuId} ref={menuRef} data-state={open ? "open" : "closed"} data-align={align} data-flip={pos.flip || undefined} role="menu"
+    <div className="twc-menu" id={menuId} ref={menuRef} data-state={open ? "open" : "closed"} data-align={align} data-flip={pos.flip || undefined} role="menu" aria-orientation="vertical"
       aria-label={ariaLabel} aria-labelledby={ariaLabelledby ?? (ariaLabel ? undefined : (header ? headerId : undefined))}
       style={{ top: pos.top, bottom: pos.bottom, left: pos.left, minWidth: pos.width, width: pos.width, maxHeight: pos.maxHeight }}>
       {__twcStyles}
-      {header ? <div className="twc-menu__header" id={headerId}>{header}</div> : null}
+      {header ? <div className="twc-menu__header" id={headerId} role="presentation">{header}</div> : null}
       {items.map((it, i) => {
         if (it.separator) return <div key={`s${i}`} className="twc-menu__sep" role="separator" />;
         if (it.label && it.heading) return <div key={`h${i}`} className="twc-menu__label">{it.label}</div>;

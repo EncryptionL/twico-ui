@@ -1,6 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
-import { useFocusTrap, usePortal } from "../_overlay.js";
+import { useFocusTrap, usePortal, useScrollLock, useInertBackground } from "../_overlay.js";
 
 const DIALOG_CSS = `
 .twc-dialog__overlay {
@@ -84,14 +84,9 @@ export function Dialog({
     return () => clearTimeout(t);
   }, [open]);
 
-  // Lock body scroll while open so the page behind the scrim can't scroll; restore
-  // the previous overflow value on close/unmount. SSR-safe: effects run client-only.
-  React.useEffect(() => {
-    if (!open) return undefined;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = prev; };
-  }, [open]);
+  // Lock body scroll (shared refcounted lock, #116) and mark the background inert (#115).
+  useScrollLock(open);
+  useInertBackground(dialogRef, open && mounted);
 
   // Modal a11y (1/2): move focus into the dialog on open, trap Tab/Shift+Tab inside
   // it, and restore focus to the trigger on close. Gate on `mounted` too — the panel

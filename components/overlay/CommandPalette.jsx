@@ -1,6 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
-import { useFocusTrap, usePortal } from "../_overlay.js";
+import { useFocusTrap, usePortal, useScrollLock } from "../_overlay.js";
 
 const COMMAND_CSS = `
 .twc-cmdk__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(3px);
@@ -44,6 +44,7 @@ export function CommandPalette({
   commands,
   placeholder = "Type a command or search…",
   emptyText = "No results found",
+  searchLabel = "Command palette search",
   className = "",
   ...rest
 }) {
@@ -65,14 +66,8 @@ export function CommandPalette({
     return () => clearTimeout(t);
   }, [open]);
 
-  // Lock body scroll while open so the page behind the scrim can't scroll; restore
-  // the previous overflow value on close/unmount. SSR-safe: effects run client-only.
-  React.useEffect(() => {
-    if (!open) return undefined;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = prev; };
-  }, [open]);
+  // Lock body scroll while open (shared refcounted lock, #116).
+  useScrollLock(open);
 
   // Reset the query + active row each time the palette opens.
   React.useEffect(() => {
@@ -141,7 +136,7 @@ export function CommandPalette({
         <div className="twc-cmdk__search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           <input ref={inputRef} className="twc-cmdk__input" value={query} placeholder={placeholder}
-            role="combobox" aria-expanded="true" aria-controls={listId} aria-activedescendant={activeId}
+            role="combobox" aria-label={searchLabel} aria-expanded={flat.length > 0 ? "true" : "false"} aria-controls={listId} aria-activedescendant={activeId}
             onChange={(e) => setQuery(e.target.value)} onKeyDown={onKeyDown} />
           <span className="twc-cmdk__kbd">esc</span>
         </div>

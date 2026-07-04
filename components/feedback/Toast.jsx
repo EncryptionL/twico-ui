@@ -91,11 +91,14 @@ export function Toast({
     return stop;
   }, [start, stop]);
 
+  // #111: urgent tones interrupt (assertive alert); the rest are polite status updates.
+  const role = (resolvedTone === "danger" || resolvedTone === "warning") ? "alert" : "status";
+
   return (
     <div
       className={`twc-toast ${className}`}
       data-tone={resolvedTone}
-      role="status"
+      role={role}
       {...rest}
       onMouseEnter={(e) => { onMouseEnter?.(e); stop(); }}
       onMouseLeave={(e) => { onMouseLeave?.(e); start(); }}
@@ -127,5 +130,6 @@ export function Toast({
 export function ToastViewport({ children, limit, className = "", ...rest }) {
   const __twcStyles = useScopedStyles("twc-toast-styles", TOAST_CSS);
   const shown = limit && limit > 0 ? React.Children.toArray(children).slice(-limit) : children;
-  return <div className={`twc-toast-viewport ${className}`} {...rest}>{__twcStyles}{shown}</div>;
+  // #111: a stable "Notifications" landmark that exists before any toast text is inserted.
+  return <div className={`twc-toast-viewport ${className}`} role="region" aria-label="Notifications" {...rest}>{__twcStyles}{shown}</div>;
 }
