@@ -14,15 +14,15 @@ import * as React from "react";
  *
  * @startingPoint section="Data display" subtitle="MUI-style sortable/filterable/pinnable data table" viewport="900x460"
  */
-export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "rows"> {
+export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLDivElement>, "rows"> {
   /** Column definitions. */
-  columns: DatatableColumn[];
+  columns: DatatableColumn<T>[];
   /** Row objects. In server mode, only the current page's rows. */
-  rows: any[];
+  rows: T[];
   /** Show shimmering skeleton rows instead of data. @default false */
   loading?: boolean;
   /** Returns a stable key per row. @default (r,i) => r.id ?? i */
-  rowKey?: (row: any, index: number) => string | number;
+  rowKey?: (row: T, index: number) => string | number;
   /** Render a leading checkbox-selection column. @default false */
   checkboxSelection?: boolean;
   /** Render a leading auto-numbered row column (1, 2, 3…). The number reflects each row's position in
@@ -41,7 +41,7 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
    * cross-page selections, use the complete `selectedKeys` array and re-fetch the
    * full row objects server-side rather than relying on `selectedRows`.
    */
-  batchActions?: DatatableBatchAction[];
+  batchActions?: DatatableBatchAction<T>[];
   /** Row height preset. With `showDensity`, the toolbar density button cycles it locally; changing this prop re-applies it. @default "comfortable" */
   density?: "compact" | "standard" | "comfortable";
   /** Initial rows per page. 0 disables pagination. @default 10 */
@@ -86,23 +86,23 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
   /** Make all columns editable by default (double-click a cell to edit; per-column `editable` overrides). @default false */
   editMode?: boolean;
   /** Called when a cell edit is committed: (updatedRow, originalRow, field). */
-  onRowUpdate?: (updatedRow: any, originalRow: any, field: string) => void;
+  onRowUpdate?: (updatedRow: T, originalRow: T, field: string) => void;
   /** Controlled-rows callback: receives the full next rows array after an edit (client mode). */
-  onRowsChange?: (rows: any[]) => void;
+  onRowsChange?: (rows: T[]) => void;
   /** Fired when the built-in batch editor applies columns across selected rows:
    *  (changedRows, patch, selectedKeys). The selection-toolbar "Edit" button appears
    *  automatically when there are editable columns. Server-mode caveat: `changedRows`
    *  resolves only rows on the currently loaded page; for cross-page selections use the
    *  complete `selectedKeys` array and apply the `patch` server-side. */
-  onBatchUpdate?: (changedRows: any[], patch: Record<string, any>, selectedKeys: Array<string | number>) => void;
+  onBatchUpdate?: (changedRows: T[], patch: Record<string, any>, selectedKeys: Array<string | number>) => void;
   /** Show a "Go to" page jumper in the footer when there are more than 5 pages. @default true */
   showPageJumper?: boolean;
   /** Click-to-select mode: "row" highlights the clicked row, "cell" highlights a single cell. @default "none" */
   selectionMode?: "none" | "row" | "cell";
   /** Fired when a row is clicked in "row" selection mode: (row, key). */
-  onRowClick?: (row: any, key: string | number) => void;
+  onRowClick?: (row: T, key: string | number) => void;
   /** Fired when a cell is clicked in "cell" selection mode: (value, row, field). */
-  onCellClick?: (value: any, row: any, field: string) => void;
+  onCellClick?: (value: any, row: T, field: string) => void;
   /** Fired when the active cell changes: ({ key, field } | null). */
   onActiveCellChange?: (cell: { key: string | number; field: string } | null) => void;
   /** Show the **Aggregation** toolbar button and start with the totals row on. From that panel the user
@@ -148,6 +148,18 @@ export interface DatatableProps extends Omit<React.HTMLAttributes<HTMLDivElement
   rowHeight?: number;
 }
 
+/** String-column filter operators (Datatable server mode). */
+export type DatatableStringOp = "contains" | "equals" | "startsWith" | "endsWith" | "isEmpty" | "isNotEmpty" | "isAnyOf";
+/** Number-column filter operators. */
+export type DatatableNumberOp = "=" | "!=" | ">" | ">=" | "<" | "<=" | "isAnyOf";
+/** Any Datatable filter operator. */
+export type DatatableFilterOp = DatatableStringOp | DatatableNumberOp;
+/** A single active filter — the value shape is discriminated by `op`. */
+export type DatatableFilter =
+  | { field: string; op: "isAnyOf"; value: string[] }
+  | { field: string; op: "isEmpty" | "isNotEmpty"; value?: undefined }
+  | { field: string; op: Exclude<DatatableFilterOp, "isAnyOf" | "isEmpty" | "isNotEmpty">; value: string };
+
 /** Query state reported by a server-mode Datatable. */
 export interface DatatableQuery {
   /** Zero-based page index. */
@@ -156,13 +168,16 @@ export interface DatatableQuery {
   pageSize: number;
   /** Active sort, or null. */
   sort: { field: string; dir: "asc" | "desc" } | null;
-  /** Active column filters. `value` is a `string[]` when `op === "isAnyOf"` (and empty for `isEmpty`/`isNotEmpty`). */
-  filters: Array<{ field: string; op: string; value: string | string[] }>;
+  /**
+   * Active column filters. String columns emit contains/equals/startsWith/endsWith/isAnyOf/isEmpty/isNotEmpty;
+   * number columns emit =, !=, >, >=, <, <=. `value` is a `string[]` for `isAnyOf` and omitted for `isEmpty`/`isNotEmpty`.
+   */
+  filters: DatatableFilter[];
   /** Quick-search text. */
   quickFilter: string;
 }
 
-export interface DatatableColumn {
+export interface DatatableColumn<T = any> {
   /** Row object key (also the sort/filter key). */
   field: string;
   /** Header label. @default field ("Actions" for actions columns) */
@@ -188,11 +203,11 @@ export interface DatatableColumn {
   /** Allow drag-to-resize of this column. @default true */
   resizable?: boolean;
   /** Summary-footer aggregation: a preset, or a function over the column's values. */
-  aggregation?: "sum" | "avg" | "min" | "max" | "count" | ((values: any[], rows: any[]) => React.ReactNode);
+  aggregation?: "sum" | "avg" | "min" | "max" | "count" | ((values: any[], rows: T[]) => React.ReactNode);
   /** Format an aggregation result for the footer (falls back to valueFormatter). */
   aggregationFormatter?: (value: any) => React.ReactNode;
   /** Map a row to its exported CSV value (defaults to the raw field value). */
-  exportValue?: (value: any, row: any) => string | number;
+  exportValue?: (value: any, row: T) => string | number;
   /** Make this column's cells editable (double-click to edit). Overrides the grid `editMode`. */
   editable?: boolean;
   /** Editor type. "select" (or any column with `valueOptions`) renders a dropdown; else a text/number input by column type. */
@@ -205,21 +220,21 @@ export interface DatatableColumn {
   /** Distinct values for the "is any of" multi-value filter (recommended in server mode). */
   valueOptions?: Array<string | { value: string; label: string }>;
   /** Format the raw value to a string/number for display. */
-  valueFormatter?: (value: any, row: any) => React.ReactNode;
+  valueFormatter?: (value: any, row: T) => React.ReactNode;
   /** Fully custom cell renderer (badges, avatars, etc.). */
-  renderCell?: (value: any, row: any) => React.ReactNode;
+  renderCell?: (value: any, row: T) => React.ReactNode;
   /** For type:"actions" — returns the row's action items. */
-  getActions?: (row: any) => DatatableRowAction[];
+  getActions?: (row: T) => DatatableRowAction<T>[];
 }
 
 /** A per-row action in an actions column. */
-export interface DatatableRowAction {
+export interface DatatableRowAction<T = any> {
   /** Icon node (rendered as an icon button, or leading icon in the overflow menu). */
   icon?: React.ReactNode;
   /** Accessible label / tooltip / menu text. */
   label: string;
   /** Click handler, receives the row. */
-  onClick?: (row: any) => void;
+  onClick?: (row: T) => void;
   /** Place in the ⋮ overflow menu instead of inline. @default false */
   showInMenu?: boolean;
   /** Render in danger color. */
@@ -228,19 +243,19 @@ export interface DatatableRowAction {
 }
 
 /** A batch action shown in the selection toolbar. */
-export interface DatatableBatchAction {
+export interface DatatableBatchAction<T = any> {
   /** Button label. */
   label: string;
   /** Leading icon node. */
   icon?: React.ReactNode;
   /** Handler: (selectedKeys, selectedRows, clearSelection). */
-  onClick?: (keys: Array<string | number>, rows: any[], clearSelection: () => void) => void;
+  onClick?: (keys: Array<string | number>, rows: T[], clearSelection: () => void) => void;
   /** Render in danger color. */
   danger?: boolean;
   disabled?: boolean;
 }
 
-export function Datatable(props: DatatableProps): React.JSX.Element;
+export function Datatable<T = any>(props: DatatableProps<T>): React.JSX.Element;
 
 /**
  * Apply a `DatatableQuery` (the object a `serverMode` grid passes to
@@ -257,5 +272,5 @@ export function Datatable(props: DatatableProps): React.JSX.Element;
 export function runDatatableQuery<T = any>(
   rows: T[],
   query: DatatableQuery,
-  options?: { columns?: DatatableColumn[]; searchFields?: string[] }
+  options?: { columns?: DatatableColumn<T>[]; searchFields?: string[] }
 ): { rows: T[]; total: number; filtered: T[] };

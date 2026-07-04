@@ -29,13 +29,13 @@ export interface CurrencyFieldProps extends Omit<React.InputHTMLAttributes<HTMLI
   onCurrencyChange?: (code: string) => void;
   /** Limit the selectable currencies (codes or {value,label}); defaults to the full built-in list. */
   currencies?: Array<string | CurrencyOption>;
-  /** Controlled amount string. */
+  /** Controlled amount (string or number). For numeric state, read the parsed value back from `onValueChange` — NOT from the `onChange` event, whose `e.target.value` is a string. */
   value?: string | number;
   /** Uncontrolled initial amount. */
   defaultValue?: string | number;
-  /** Native change handler (receives the event); fires alongside onValueChange, matching Currency. */
+  /** Escape hatch for the native DOM event. `e.target.value` is a **string** (the raw input), not a number — the field then clamps the displayed value to the currency precision. For controlled numeric state use `onValueChange`. */
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  /** Callback with the parsed number, formatted string, and active currency code. */
+  /** Primary value callback: the parsed number (`number | null`), the clamped formatted string, and the active currency code. Use this — not `onChange` — for controlled numeric state. */
   onValueChange?: (value: number | null, formatted: string, currency: string) => void;
 }
 

@@ -12,6 +12,7 @@ import { Currency } from "./Currency";
 
 Precision is enforced as you type — with `precision={2}`, typing `2.259` yields `2.25`; on blur the
 value is normalized to fixed decimals. Props: `currency` (USD/EUR/GBP/JPY/IDR/…), `precision`, `symbol`,
-`code`, `value`/`defaultValue`, `onValueChange(number, formatted)`, plus field props (`label`, `hint`, `error`).
+`code`, `value`/`defaultValue`, `onValueChange(number, formatted)` — use this for numeric state; `onChange`
+is a native-event escape hatch whose `e.target.value` is a string — plus field props (`label`, `hint`, `error`).
 Set `tone` (`primary`/`success`/`warning`/`danger`/`info`/`neutral`) to recolor the focus accent (default `primary`).
 For a user-selectable currency, use `CurrencyField`.

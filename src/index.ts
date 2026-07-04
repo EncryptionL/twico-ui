@@ -89,7 +89,7 @@ export type { ComboboxProps, ComboboxOption, ComboboxGroup } from "../components
 export type { Command, CommandPaletteProps } from "../components/overlay/CommandPalette";
 export type { CurrencyOption, CurrencyFieldProps } from "../components/inputs/CurrencyField";
 export type { CurrencyProps } from "../components/inputs/Currency";
-export type { DatatableProps, DatatableQuery, DatatableColumn, DatatableRowAction, DatatableBatchAction } from "../components/data-display/Datatable";
+export type { DatatableProps, DatatableQuery, DatatableColumn, DatatableRowAction, DatatableBatchAction, DatatableFilter, DatatableFilterOp, DatatableStringOp, DatatableNumberOp } from "../components/data-display/Datatable";
 export type { DatePickerProps } from "../components/inputs/DatePicker";
 export type { DateRange, DateRangePickerProps } from "../components/inputs/DateRangePicker";
 export type { DialogProps } from "../components/overlay/Dialog";
