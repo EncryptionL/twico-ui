@@ -73,6 +73,23 @@ Sidebar, Breadcrumb, TreeView, Heading, Code, Avatar, Stat, Carousel, Chart, Kan
 Skeleton, EmptyState). The per-item `danger` boolean on Menu items / Datatable actions is a separate
 "this item is destructive" flag, not a component color axis.
 
+## 3a. Exported tone types
+
+The tone unions are exported from the package root so consumers name them instead of re-deriving, and
+every component's `.d.ts` references one (source: `components/_types.d.ts`):
+
+| Type | Members | Used by |
+| --- | --- | --- |
+| `Tone` | `primary · success · warning · danger · info · neutral` | Badge, Tag, Alert + the field/selection/nav controls (Checkbox, Radio, Switch, Slider, Input, Textarea, Select, Combobox, MultiSelect, Currency, CurrencyField, DatePicker, DateRangePicker, FileUpload, ColorPicker, Rating, Tabs, Stepper) |
+| `ActionTone` | `primary · danger` | Button, IconButton |
+| `TextTone` | `default · muted · subtle` + `Tone` | Text |
+| `ToastTone` | `default · neutral · success · warning · danger · info` | Toast, ToastProvider |
+| `BarTone` | `Tone` minus `neutral` | Progress, Timeline |
+
+`Spinner.color` / `.tone` are `"current" | Tone | "white"`. These are a **non-breaking naming pass**:
+each alias resolves to the exact members already accepted, so no consumer breaks. Unifying
+`default`↔`neutral` or adding a neutral bar state is a separate design decision, deliberately not done here.
+
 ## 4. Adding tone to a new component
 
 1. Inject the `--_accent` block (default = the tone you want to reproduce the current look) into the

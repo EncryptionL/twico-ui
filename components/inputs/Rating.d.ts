@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 /**
  * Star rating — interactive (click/hover) or read-only display.
@@ -15,7 +16,7 @@ export interface RatingProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   /** @default "md" */
   size?: "sm" | "md" | "lg";
   /** Color intent for filled stars. @default "warning" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
   /** Explicit filled-star color; overrides `tone` when set. */
   color?: string;
   /** Display only, no interaction. @default false */

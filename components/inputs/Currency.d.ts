@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 /** Metadata describing one built-in currency. */
 export interface CurrencyMeta {
@@ -38,7 +39,7 @@ export interface CurrencyProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   required?: boolean;
   size?: "sm" | "md" | "lg";
   /** Color intent for the focus/open accent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
   /** Currency code (key in the built-in table), e.g. "USD", "EUR", "IDR", "JPY". @default "USD" */
   currency?: string;
   /** Override the currency's decimal precision (number of digits after the decimal). */
@@ -47,13 +48,13 @@ export interface CurrencyProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   symbol?: string;
   /** Override the displayed suffix code. */
   code?: string;
-  /** Controlled string value. */
+  /** Controlled value (string or number). For numeric state, read the parsed value back from `onValueChange` — NOT from the `onChange` event, whose `e.target.value` is a string. */
   value?: string | number;
   /** Uncontrolled initial value. */
   defaultValue?: string | number;
-  /** Native change handler (receives the event); fires alongside onValueChange. */
+  /** Escape hatch for the native DOM event. `e.target.value` is a **string** (the raw input the user typed), not a number — the field then clamps the displayed value to the currency precision. For controlled numeric state use `onValueChange` instead. */
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  /** Convenience callback with the parsed numeric value and the formatted string. */
+  /** Primary value callback: the parsed numeric value (`number | null`) plus the clamped, formatted display string. Use this — not `onChange` — for controlled numeric state. */
   onValueChange?: (value: number | null, formatted: string) => void;
 }
 

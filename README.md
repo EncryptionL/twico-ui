@@ -202,6 +202,7 @@ import { useMediaQuery, useDisclosure, useColorScheme, useCopyToClipboard } from
 **Responsive & theme:** `useMediaQuery`, `usePrefersReducedMotion`, `useColorScheme`, `useWindowSize`
 **Events & DOM:** `useEventListener`, `useClickOutside`, `useKeyPress`, `useHover`, `useIntersectionObserver`, `useScrollLock`
 **Timing:** `useDebouncedValue`, `useDebouncedCallback`, `useInterval`, `useTimeout`
+**Overlay:** `useFocusTrap`, `usePortal`
 **Utilities:** `useCopyToClipboard`, `useId`, `useMounted`, `useIsomorphicLayoutEffect`
 
 ## Building & publishing (maintainers)

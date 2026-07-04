@@ -15,14 +15,17 @@ export function Heading({
   as,
   level = 2,
   size,
+  display = false,
   align,
+  truncate,
+  lineClamp,
   className = "",
   style,
   children,
   ...rest
 }) {
   const Tag = as || `h${level}`;
-  const sz = size || LEVEL_SIZE[level] || "2xl";
+  const sz = size || (display ? "display" : LEVEL_SIZE[level]) || "2xl";
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   return (
     <Tag
@@ -36,6 +39,11 @@ export function Heading({
         letterSpacing: "-0.02em",
         fontSize: `var(--text-${sz})`,
         textAlign: align,
+        ...(lineClamp != null
+          ? { display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: lineClamp, overflow: "hidden" }
+          : truncate
+            ? { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", minWidth: 0 }
+            : null),
         ...style,
       }}
       {...rest}

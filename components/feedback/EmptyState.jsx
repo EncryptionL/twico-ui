@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { warnOnce } from "../_warn.js";
 
 const EMPTY_CSS = `
 .twc-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-3);
@@ -18,12 +19,15 @@ export function EmptyState({
   title,
   description,
   actions,
-  bordered = false,
+  bordered,
   border,
   className = "",
   ...rest
 }) {
-  // `border` is the preferred alias for `bordered`; either enables the dashed border.
+  if (process.env.NODE_ENV !== "production" && bordered !== undefined && border === undefined) {
+    warnOnce("EmptyState.bordered", "EmptyState: `bordered` is deprecated and will be removed in 2.0 — use `border`.");
+  }
+  // `border` is the preferred alias for `bordered` (removed in 2.0); either enables the dashed border.
   const hasBorder = border ?? bordered;
   const __twcStyles = useScopedStyles("twc-empty-styles", EMPTY_CSS);
 

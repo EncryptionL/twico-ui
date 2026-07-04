@@ -17,4 +17,7 @@ import { Kanban } from "./Kanban";
 />
 ```
 
-Columns: `{ id, title, color? }`. Cards: `{ id, column, title?, description?, tags?, footer? }`. Use `renderCard` for custom cards.
+Columns: `{ id, title, color?, ariaLabel? }`. Cards: `{ id, column, title?, description?, tags?, footer?, ariaLabel? }`.
+Use `renderCard` for custom cards. The board is a labeled `role="group"` (name via `aria-label`, default
+"Board"); each card is a named draggable button — supply `getCardLabel`/`ariaLabel` when the card content
+is graphical, and `ariaLabel` on a column whose `title` is a non-string node.

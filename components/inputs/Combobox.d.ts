@@ -1,4 +1,6 @@
 import * as React from "react";
+import type { Tone } from "../_types";
+import type { Option, OptionGroup } from "./options";
 
 /**
  * Searchable single-select (MUI-Autocomplete style) — type directly in the
@@ -15,7 +17,7 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   required?: boolean;
   size?: "sm" | "md" | "lg";
   /** Color intent for the focus/open accent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
   /** Field placeholder. */
   placeholder?: string;
   /** Options — strings, {value,label,description}, or {group,options} groups. */
@@ -24,6 +26,7 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   value?: string | null;
   /** Uncontrolled initial value. */
   defaultValue?: string | null;
+  /** Called with the chosen option's value, or `null` when cleared via `clearable`. */
   onChange?: (value: string | null) => void;
   /** Show a clear (×) affix when a value is selected. */
   clearable?: boolean;
@@ -42,17 +45,10 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }
 
-export interface ComboboxOption {
-  value: string;
-  label: string;
-  /** Optional second line shown under the label. */
-  description?: string;
-}
+/** Alias of the shared {@link Option} type (kept for backward-compatible imports). */
+export type ComboboxOption = Option;
 
-/** A group heading with its own options. */
-export interface ComboboxGroup {
-  group: string;
-  options: Array<string | ComboboxOption>;
-}
+/** Alias of the shared {@link OptionGroup} type (kept for backward-compatible imports). */
+export type ComboboxGroup = OptionGroup;
 
 export function Combobox(props: ComboboxProps): React.JSX.Element;

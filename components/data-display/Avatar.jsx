@@ -49,12 +49,16 @@ function safeSrc(url) {
   return url;
 }
 
+const STATUS_LABELS = { online: "Online", busy: "Busy", away: "Away", offline: "Offline" };
+
 export function Avatar({
   src,
   name,
   size = "md",
   square = false,
   status,
+  statusLabel,
+  statusLabels,
   ring = false,
   className = "",
   ...rest
@@ -65,20 +69,25 @@ export function Avatar({
   const cleanSrc = safeSrc(src);
   const showImg = cleanSrc && !errored;
 
+  // role="img" prunes descendants from the a11y tree, so the presence dot can't be an
+  // sr-only child — fold it into the root's accessible name instead ("Jane Doe, Online").
+  const _statusLabel = status ? (statusLabel ?? statusLabels?.[status] ?? STATUS_LABELS[status]) : undefined;
+  const baseName = name || "avatar";
+
   return (
     <span
       className={`twc-avatar ${ring ? "twc-avatar__ring" : ""} ${className}`}
       data-size={size}
       data-square={square || undefined}
       role="img"
-      aria-label={name || "avatar"}
+      aria-label={_statusLabel ? `${baseName}, ${_statusLabel}` : baseName}
       {...rest}
     >
       {__twcStyles}
       {showImg
         ? <img key={cleanSrc} className="twc-avatar__img" src={cleanSrc} alt={name || ""} onError={() => setErrored(true)} />
         : initials(name)}
-      {status ? <span className="twc-avatar__status" data-status={status} /> : null}
+      {status ? <span className="twc-avatar__status" data-status={status} title={_statusLabel} /> : null}
     </span>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
-import { createPortal } from "react-dom";
+import { useFocusTrap, usePortal } from "../_overlay.js";
 
 const DRAWER_CSS = `
 .twc-drawer__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(2px); }
@@ -78,6 +78,7 @@ export function Drawer({
   const panelRef = React.useRef(null);
 
   const __twcStyles = useScopedStyles("twc-drawer-styles", DRAWER_CSS);
+  const renderPortal = usePortal();
 
   // Stay mounted through the slide-out animation so closing is smooth, then unmount.
   const [mounted, setMounted] = React.useState(open);
@@ -96,47 +97,17 @@ export function Drawer({
     return () => { document.body.style.overflow = prev; };
   }, [open]);
 
-  // Modal a11y (1/2): move focus into the drawer on open and restore it to the
-  // previously-focused element on close. Keyed on `open` only, so an unstable
-  // onClose identity can't clobber the saved trigger element.
-  React.useEffect(() => {
-    // Gate on `mounted` too: the panel renders one render after `open` flips, so keying
-    // only on [open] runs this before panelRef exists and focus never moves inside.
-    if (!open || !mounted) return undefined;
-    const node = panelRef.current;
-    const prevFocused = document.activeElement;
-    // Focus the first focusable element inside the panel (same selector as the
-    // focus trap); fall back to the panel container when there is nothing to land on.
-    const first = node?.querySelector(
-      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    );
-    (first || node)?.focus();
-    return () => {
-      if (prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
-    };
-  }, [open, mounted]);
+  // Modal a11y (1/2): move focus into the drawer on open, trap Tab/Shift+Tab inside
+  // it, and restore focus to the trigger on close. Gate on `mounted` too — the panel
+  // renders one render after `open` flips, so panelRef only exists once mounted.
+  useFocusTrap(panelRef, open && mounted);
 
-  // Modal a11y (2/2): Escape closes; Tab/Shift+Tab are trapped inside the drawer.
+  // Modal a11y (2/2): Escape closes. Kept here (not in useFocusTrap) because closing
+  // is component-specific; the trap owns only Tab/Shift+Tab.
   React.useEffect(() => {
-    if (!open) return;
-    const node = panelRef.current;
-    const focusables = () =>
-      node
-        ? Array.from(
-            node.querySelectorAll(
-              'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-            )
-          ).filter((el) => el.offsetParent !== null)
-        : [];
+    if (!open) return undefined;
     const onKey = (e) => {
-      if (e.key === "Escape") { e.preventDefault(); onClose?.(); return; }
-      if (e.key !== "Tab") return;
-      const f = focusables();
-      if (!f.length) { e.preventDefault(); node?.focus(); return; }
-      const first = f[0], last = f[f.length - 1], ae = document.activeElement;
-      if (e.shiftKey) {
-        if (ae === first || ae === node || !node.contains(ae)) { e.preventDefault(); last.focus(); }
-      } else if (ae === last || !node.contains(ae)) { e.preventDefault(); first.focus(); }
+      if (e.key === "Escape") { e.preventDefault(); onClose?.(); }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
@@ -175,9 +146,7 @@ export function Drawer({
   );
 
   // Portal to <body> so the overlay escapes any transformed / backdrop-filtered
-  // ancestor that would otherwise become its containing block. SSR renders null:
-  // there is no document, and portal output is client-only anyway (no hydration mismatch).
-  if (typeof document === "undefined") return null;
-  const RD = typeof createPortal === "function" ? createPortal : null;
-  return RD ? RD(overlay, document.body) : overlay;
+  // ancestor that would otherwise become its containing block. usePortal renders
+  // null on the server (no document); portal output is client-only (no hydration mismatch).
+  return renderPortal(overlay);
 }

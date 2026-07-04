@@ -5,7 +5,7 @@ import * as React from "react";
  * (or left/right-aligned) label.
  */
 export interface DividerProps extends React.HTMLAttributes<HTMLElement> {
-  /** @default "horizontal" */
+  /** Rule axis — applies to both the plain and the labeled variant (exposed as `aria-orientation`). @default "horizontal" */
   orientation?: "horizontal" | "vertical";
   /** Indent the start of a horizontal rule. */
   inset?: boolean;

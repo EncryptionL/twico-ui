@@ -14,6 +14,7 @@ const CHART_CSS = `
 .twc-chart__leg { display: inline-flex; align-items: center; gap: 6px; }
 .twc-chart__leg-sw { width: 10px; height: 10px; border-radius: 3px; }
 @keyframes twc-chart-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.twc-chart__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 `;
 
 const SERIES_COLORS = ["var(--brand-500)", "var(--sky-500)", "var(--emerald-500)", "var(--amber-500)", "var(--rose-500)"];
@@ -30,10 +31,14 @@ export function Chart({
   valueFormat,
   ariaLabel,
   "aria-label": ariaLabelProp,
+  tableFallback = true,
+  caption,
   className = "",
   ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-chart-styles", CHART_CSS);
+  const uid = React.useId();
+  const tableId = tableFallback ? `${uid}-table` : undefined;
 
   const keys = series || ["value"];
   const palette = colors && colors.length ? colors : SERIES_COLORS;
@@ -49,7 +54,7 @@ export function Chart({
   return (
     <div className={`twc-chart ${className}`} {...rest}>
       {__twcStyles}
-      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} preserveAspectRatio="none">
+      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
         {showGrid ? Array.from({ length: ticks + 1 }).map((_, i) => {
           const gy = padT + (innerH / ticks) * i;
           return <line key={i} className="twc-chart__grid" x1={padL} y1={gy} x2={W - padR} y2={gy} />;
@@ -94,6 +99,25 @@ export function Chart({
           return <text key={i} className="twc-chart__axis" x={cx} y={H - 8} textAnchor="middle">{d.label}</text>;
         }) : null}
       </svg>
+      {tableFallback ? (
+        <table className="twc-chart__sr" id={tableId}>
+          <caption>{caption ?? svgAriaLabel}</caption>
+          <thead>
+            <tr>
+              <th scope="col" />
+              {keys.map((k) => <th key={k} scope="col">{k}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((d, i) => (
+              <tr key={i}>
+                <th scope="row">{d.label}</th>
+                {keys.map((k) => <td key={k}>{fmt(Number(d[k]) || 0)}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : null}
       {showLegend && keys.length > 1 ? (
         <div className="twc-chart__legend">
           {keys.map((k, si) => <span key={k} className="twc-chart__leg"><span className="twc-chart__leg-sw" style={{ background: palette[si % palette.length] }} />{k}</span>)}

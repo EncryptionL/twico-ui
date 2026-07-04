@@ -2182,7 +2182,7 @@ export function Datatable({
         </div>
         {paginated ? (
           <div className="twc-dt__footer-row" data-pager="true">
-            <Pagination size="sm" page={page + 1} total={totalPages} boundaries={3} showJumper={showPageJumper && totalPages > 5} onChange={(p) => setPage(p - 1)} />
+            <Pagination size="sm" page={page + 1} total={totalPages} boundaries={3} showPageJumper={showPageJumper && totalPages > 5} onChange={(p) => setPage(p - 1)} />
           </div>
         ) : null}
       </div>

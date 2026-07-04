@@ -8,7 +8,7 @@ Guidance for any agent or contributor working in this repository. Read this firs
 
 **Twico UI** is a **free, MIT-licensed React component library** — **62 components** (64 exported
 component values: `Toast.jsx` also exports `ToastViewport`; `ToastProvider.jsx` also exports the
-`useToast` hook) **+ 23 standalone hooks**, with dark mode, motion, accessibility, RTL support, a
+`useToast` hook) **+ 25 standalone hooks**, with dark mode, motion, accessibility, RTL support, a
 density scale, and design tokens. Zero runtime dependencies (peers: `react`/`react-dom` ≥18; plus an
 **optional** `lucide-react` peer used *only* by the `twico-ui/icons` re-export — the core pulls nothing).
 `twico-ui/icons` re-exports the full Lucide set **and** adds 31 zero-dependency vendored brand icons
@@ -36,7 +36,7 @@ This one repo holds three things:
 | Path | What |
 | --- | --- |
 | `components/<group>/<Name>.jsx` | A component. 8 group dirs matching the docs-site taxonomy: `buttons`, `layout`, `typography`, `inputs`, `data-display`, `navigation`, `feedback`, `overlay`. Each component has a sibling `<Name>.d.ts` (props contract) and `<Name>.prompt.md` (usage); `*.card.html` previews live alongside (35 files — not 1:1 with components). |
-| `hooks/index.js` + `hooks/index.d.ts` | The 23-hook API, re-exported via `export * from "../hooks"` in `src/index.ts`. See `docs/hooks.md`. |
+| `hooks/index.js` + `hooks/index.d.ts` | The 25-hook API, re-exported via `export * from "../hooks"` in `src/index.ts`. `useFocusTrap`/`usePortal` are re-exported into it from the internal `components/_overlay.js`. See `docs/hooks.md`. |
 | `src/index.ts` | Barrel re-exporting every component (value + types) + hooks. **Update it when you add/remove a component.** |
 | `tokens/*.css`, `base.css`, `styles.css` | Design tokens (colors, fonts, typography, spacing, radius, motion) + reset. `styles.css` is the dev entry (`@import`s the rest). |
 | `styles/twico-ui.css` | The concatenated, **shippable** stylesheet (`twico-ui/styles.css`). **Generated** by `scripts/build-css.mjs` from `tokens/*` + `base.css` — run `npm run build:css` after editing a token; CI's `build:css:check` fails on drift. |
@@ -122,10 +122,13 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
 ## 5. Architecture notes
 
 - **Components are self-contained.** Each imports only `react` (and `react-dom` for portals, plus
-  the one shared internal helper `components/_styles.js`); the only other exceptions are composite
+  the shared internal helpers `components/_styles.js`, `components/_warn.js`, and — for the modal
+  overlays — `components/_overlay.js`); the only other exceptions are composite
   components that reuse siblings (`AvatarMenu` → `Menu`, `Datatable` →
   `Select`/`Input`/`MultiSelect`/`Pagination`, `CurrencyField` → `Select`, `Sidebar` → `Tooltip`
-  for collapsed-item labels). Each **renders** its own
+  for collapsed-item labels). Components never import the public `hooks/` barrel — shared hook logic
+  lives in an internal `_*.js` helper that `hooks/index.js` re-exports (e.g. `useFocusTrap`/`usePortal`
+  from `_overlay.js`; see `docs/overlays.md`). Each **renders** its own
   scoped CSS via `useScopedStyles(id, css)` (`_styles.js`): on **React 19** it returns a hoistable
   `<style href={id} precedence="twc-ui">` that React dedupes by id, hoists to `<head>`, and
   **includes in the SSR stream — no FOUC**; on **React 18** it falls back to the old client-only
@@ -159,7 +162,7 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
   `[dir="rtl"] … { transform: scaleX(-1) }`. `data-density="compact" | "comfortable"` on any
   ancestor retunes every control inside by remapping `--control-h-*` (base.css) — no per-component
   code. Both are demoed live on the docs-site **Theme builder** page.
-- **Hooks** (23 standalone in `hooks/index.js`; plus the component-coupled `useToast`, exported
+- **Hooks** (25 standalone in `hooks/index.js`; plus the component-coupled `useToast`, exported
   from `components/feedback/ToastProvider.jsx`) are all SSR-safe (guarded `window`/`document`,
   sensible server defaults) and memoize returned callbacks. Per-condition `types` in the `exports`
   map gives correct resolution for ESM **and** CJS TypeScript consumers (`npm run check:exports`).

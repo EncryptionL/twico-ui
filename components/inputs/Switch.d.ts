@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 /**
  * Toggle switch with a springy thumb. Use for instant on/off settings.
@@ -12,7 +13,7 @@ export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputEle
   error?: React.ReactNode;
   size?: "sm" | "md" | "lg";
   /** Color intent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
 }
 
 export function Switch(props: SwitchProps): React.JSX.Element;

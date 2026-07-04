@@ -23,15 +23,30 @@ export function useDisclosure(initial?: boolean): {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-/** Controlled/uncontrolled state — the pattern every form component needs. */
+/**
+ * Controlled/uncontrolled state — the pattern every form component needs.
+ * Returns `[value, setValue, isControlled]`; the third element reports whether a
+ * `value` prop is currently driving the state. In development it warns once if a
+ * component switches between controlled and uncontrolled.
+ */
 export function useControllableState<T>(options?: {
   value?: T;
   defaultValue?: T;
   onChange?: (value: T) => void;
-}): [T, (next: T | ((prev: T) => T)) => void];
+}): [T, (next: T | ((prev: T) => T)) => void, boolean];
 
-/** Reactively match a media query (SSR-safe). */
-export function useMediaQuery(query: string): boolean;
+export interface UseMediaQueryOptions {
+  /** Value on the server and first client render (before the after-mount sync). @default false */
+  defaultValue?: boolean;
+  /** Read `matchMedia` eagerly in the initializer — client-only apps with no SSR. @default false */
+  initializeWithValue?: boolean;
+}
+
+/**
+ * Reactively match a media query. Returns `defaultValue` on the server and the
+ * first client render, then syncs after mount — so hydration never mismatches.
+ */
+export function useMediaQuery(query: string, options?: UseMediaQueryOptions): boolean;
 
 /** `true` when the user requests reduced motion. */
 export function usePrefersReducedMotion(): boolean;
@@ -59,13 +74,13 @@ export function useColorScheme(options?: UseColorSchemeOptions): {
 export function useEventListener(
   eventName: string,
   handler: (event: any) => void,
-  element?: React.RefObject<any> | EventTarget | null,
+  element?: React.RefObject<any | null> | EventTarget | null,
   options?: boolean | AddEventListenerOptions
 ): void;
 
 /** Call `handler` when a pointer/touch event lands outside `ref`. */
 export function useClickOutside<T extends HTMLElement = HTMLElement>(
-  ref: React.RefObject<T>,
+  ref: React.RefObject<T | null>,
   handler: (event: Event) => void,
   events?: string[]
 ): void;
@@ -116,11 +131,11 @@ export function useTimeout(callback: () => void, delay: number | null): void;
 export function useWindowSize(): { width: number; height: number };
 
 /** `true` while the pointer is over the element referenced by `ref`. */
-export function useHover<T extends HTMLElement = HTMLElement>(ref: React.RefObject<T>): boolean;
+export function useHover<T extends HTMLElement = HTMLElement>(ref: React.RefObject<T | null>): boolean;
 
 /** The latest IntersectionObserver entry for the element referenced by `ref`. */
 export function useIntersectionObserver<T extends HTMLElement = HTMLElement>(
-  ref: React.RefObject<T>,
+  ref: React.RefObject<T | null>,
   options?: IntersectionObserverInit
 ): IntersectionObserverEntry | null;
 
@@ -129,3 +144,27 @@ export function useScrollLock(locked?: boolean): void;
 
 /** A stable, SSR-safe unique id (optionally prefixed). */
 export function useId(prefix?: string): string;
+
+/** Options for {@link useFocusTrap}. */
+export interface UseFocusTrapOptions {
+  /** Restore focus to the previously-focused element when the trap deactivates. @default true */
+  restoreFocus?: boolean;
+}
+
+/**
+ * Trap focus inside the modal region referenced by `ref`. While `active`, focus
+ * moves inside on activate, Tab/Shift+Tab cycle within it, and (by default) focus
+ * is restored to the previously-focused element on deactivate. Escape is NOT
+ * handled — that stays with the component. SSR-safe.
+ */
+export function useFocusTrap<T extends HTMLElement = HTMLElement>(
+  ref: React.RefObject<T | null>,
+  active?: boolean,
+  options?: UseFocusTrapOptions
+): void;
+
+/**
+ * Returns a stable `render(node)` that portals `node` to `document.body`, or `null`
+ * on the server (no document). Centralizes the overlay portal pattern.
+ */
+export function usePortal(): (node: React.ReactNode) => React.ReactPortal | React.ReactNode | null;

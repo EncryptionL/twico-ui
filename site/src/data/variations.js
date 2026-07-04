@@ -1323,8 +1323,13 @@ export const VARIATIONS = [
   },
   {
     "component": "Sidebar",
-    "title": "All props",
+    "title": "Off-canvas overlay (mobile)",
     "i": 5
+  },
+  {
+    "component": "Sidebar",
+    "title": "All props",
+    "i": 6
   },
   {
     "component": "Skeleton",

@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { warnOnce } from "../_warn.js";
 
 const PAGINATION_CSS = `
 .twc-pagination { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-sans); }
@@ -64,13 +65,16 @@ export function Pagination({
   siblings = 1,
   boundaries = 1,
   size = "md",
-  showJumper = false,
+  showJumper,
   showPageJumper,
   jumperLabel = "Go to",
   className = "",
   ...rest
 }) {
-  // `showPageJumper` is the preferred alias for `showJumper`; either enables the input.
+  if (process.env.NODE_ENV !== "production" && showJumper !== undefined && showPageJumper === undefined) {
+    warnOnce("Pagination.showJumper", "Pagination: `showJumper` is deprecated and will be removed in 2.0 — use `showPageJumper`.");
+  }
+  // `showPageJumper` is the preferred alias for `showJumper` (removed in 2.0); either enables the input.
   const jumperEnabled = showPageJumper ?? showJumper;
   const __twcStyles = useScopedStyles("twc-pagination-styles", PAGINATION_CSS);
 

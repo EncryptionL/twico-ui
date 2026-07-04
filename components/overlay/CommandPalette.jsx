@@ -1,6 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
-import { createPortal } from "react-dom";
+import { useFocusTrap, usePortal } from "../_overlay.js";
 
 const COMMAND_CSS = `
 .twc-cmdk__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(3px);
@@ -48,6 +48,7 @@ export function CommandPalette({
   ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-cmdk-styles", COMMAND_CSS);
+  const renderPortal = usePortal();
 
   const [query, setQuery] = React.useState("");
   const [active, setActive] = React.useState(0);
@@ -73,44 +74,23 @@ export function CommandPalette({
     return () => { document.body.style.overflow = prev; };
   }, [open]);
 
+  // Reset the query + active row each time the palette opens.
   React.useEffect(() => {
-    if (open) { setQuery(""); setActive(0); const t = setTimeout(() => inputRef.current?.focus(), 30); return () => clearTimeout(t); }
+    if (open) { setQuery(""); setActive(0); }
   }, [open]);
 
-  // Modal a11y (1/2): remember the element that opened the palette and restore
-  // focus to it on close. Keyed on `open` only, so an unstable onClose identity
-  // can't clobber the saved trigger element.
-  React.useEffect(() => {
-    if (!open) return;
-    const prevFocused = document.activeElement;
-    return () => {
-      if (prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
-    };
-  }, [open]);
+  // Modal a11y (1/2): move focus into the palette on open — it lands on the search
+  // input, the first focusable — trap Tab/Shift+Tab inside it, and restore focus to
+  // the trigger on close. Gate on `mounted` too — the panel mounts one render after
+  // `open` flips, so paletteRef only exists once mounted.
+  useFocusTrap(paletteRef, open && mounted);
 
-  // Modal a11y (2/2): Escape closes; Tab/Shift+Tab are trapped inside the palette.
-  // The ref is read inside the handler so the trap works even though the panel
-  // mounts one render after `open` flips.
+  // Modal a11y (2/2): Escape closes. Kept here (not in useFocusTrap) because closing
+  // is component-specific; the trap owns only Tab/Shift+Tab.
   React.useEffect(() => {
-    if (!open) return;
-    const focusables = (node) =>
-      node
-        ? Array.from(
-            node.querySelectorAll(
-              'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])'
-            )
-          ).filter((el) => el.offsetParent !== null)
-        : [];
+    if (!open) return undefined;
     const onKey = (e) => {
-      if (e.key === "Escape") { e.preventDefault(); onClose?.(); return; }
-      if (e.key !== "Tab") return;
-      const node = paletteRef.current;
-      const f = focusables(node);
-      if (!f.length) { e.preventDefault(); node?.focus(); return; }
-      const first = f[0], last = f[f.length - 1], ae = document.activeElement;
-      if (e.shiftKey) {
-        if (ae === first || ae === node || !node.contains(ae)) { e.preventDefault(); last.focus(); }
-      } else if (ae === last || !node.contains(ae)) { e.preventDefault(); first.focus(); }
+      if (e.key === "Escape") { e.preventDefault(); onClose?.(); }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
@@ -147,7 +127,7 @@ export function CommandPalette({
     if (node) node.scrollIntoView({ block: "nearest" });
   }, [active]);
 
-  if (!mounted || typeof document === "undefined") return null;
+  if (!mounted) return null;
   const state = open ? "open" : "closed";
   const listId = `${baseId}-list`;
   const optionId = (i) => `${baseId}-opt-${i}`;
@@ -195,6 +175,5 @@ export function CommandPalette({
 
   // Portal to <body> so the overlay escapes any transformed / backdrop-filtered
   // ancestor (e.g. a sticky navbar) that would otherwise become its containing block.
-  const RD = typeof createPortal === "function" ? createPortal : null;
-  return RD ? RD(overlay, document.body) : overlay;
+  return renderPortal(overlay);
 }

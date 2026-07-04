@@ -127,8 +127,9 @@
   --color-primary-subtle-fg:   var(--brand-700);
   --color-primary-border:      var(--brand-200);
 
-  /* Focus ring */
-  --color-ring: rgb(99 102 241 / 0.45);
+  /* Focus ring — solid brand so the 3px ring clears WCAG 2.4.11 / 1.4.11 (3:1)
+     on light surfaces (a translucent indigo alpha-composited to only ~1.8:1). */
+  --color-ring: var(--brand-500);
 
   /* Success */
   --color-success:        var(--emerald-600);
@@ -138,7 +139,7 @@
 
   /* Warning */
   --color-warning:        var(--amber-500);
-  --color-warning-fg:     #ffffff;
+  --color-warning-fg:     var(--amber-950); /* dark ink on amber-500 = 6.97:1 (white was 2.15:1) */
   --color-warning-subtle:    var(--amber-50);
   --color-warning-subtle-fg: var(--amber-600);
 
@@ -151,7 +152,7 @@
 
   /* Info */
   --color-info:           var(--sky-500);
-  --color-info-fg:        #ffffff;
+  --color-info-fg:        var(--sky-950); /* dark ink on sky-500 (white was 2.77:1) */
   --color-info-subtle:       var(--sky-50);
   --color-info-subtle-fg:    var(--sky-600);
 }
@@ -187,7 +188,7 @@
   --color-primary-subtle-fg:   var(--brand-300);
   --color-primary-border:      rgb(99 102 241 / 0.35);
 
-  --color-ring: rgb(129 140 248 / 0.55);
+  --color-ring: var(--brand-400); /* solid brand-400 ≈ 5.7:1 on slate-900 (translucent was ~2.7:1) */
 
   --color-success:        var(--emerald-500);
   --color-success-fg:     #052e1d;

@@ -17,4 +17,6 @@ import { Navbar } from "./Navbar";
 />
 ```
 
-Links: `{ label, href?, icon?, active?, onClick? }`. Props: `brand`, `actions`, `sticky`, `onMenuClick`.
+Links: `{ label, href?, icon?, active?, onClick? }`. Props: `brand`, `actions`, `sticky`, `onMenuClick`,
+`menuOpen` (drives the hamburger's `aria-expanded` + Open/Close label), `menuControls` (its
+`aria-controls` target), `navLabel` (names the links nav, default "Primary").

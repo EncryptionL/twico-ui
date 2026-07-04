@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 export interface DateRange {
   start: Date | null;
@@ -34,7 +35,7 @@ export interface DateRangePickerProps extends Omit<React.HTMLAttributes<HTMLDivE
   /** Disable all interaction (the popover cannot be opened). @default false */
   disabled?: boolean;
   /** Color intent for the focus/open accent. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
   onChange?: (range: DateRange) => void;
 }
 

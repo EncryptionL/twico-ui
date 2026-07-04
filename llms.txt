@@ -291,6 +291,8 @@ Props:
 - `children` — `React.ReactNode` — Main content; fills the remaining space and scrolls independently of the fixed sidebar and header.
 - `height` — `string | number` · default `"100dvh"` — Overall shell height; pass a fixed value to embed the shell inside a smaller region (e.g. a demo).
 - `padded` — `boolean` · default `true` — Pads the scrollable content region with the standard page padding; set false for edge-to-edge content.
+- `sidebarOpen` — `boolean` — Open state of the sidebar's off-canvas drawer on mobile; providing this (or onSidebarOpenChange) makes the shell forward overlay/open/onOpenChange to the sidebar element.
+- `onSidebarOpenChange` — `(open: boolean) => void` — Called when the sidebar drawer requests open or close; wire a Navbar's onMenuClick to () => onSidebarOpenChange(true) for the mobile menu button.
 
 ```jsx
 import { AppShell, Sidebar, Button } from "twico-ui";
@@ -1774,6 +1776,11 @@ Props:
 - `defaultCollapsed` — `boolean` · default `false` — Initial collapsed state for uncontrolled usage, defaulting to false so the sidebar starts fully expanded.
 - `collapsible` — `boolean` · default `true` — Shows the collapse toggle button when true (the default), allowing users to switch to the icon-only rail.
 - `onCollapsedChange` — `(collapsed: boolean) => void` — Fires with the new boolean state whenever the collapse toggle is activated, useful for persisting the preference.
+- `overlay` — `boolean` · default `false` — Renders the sidebar as an off-canvas drawer instead of an in-flow rail: a fixed slide-over panel behind a dismissable backdrop, portaled to the body, with a focus trap, Escape-to-close, and scroll lock.
+- `open` — `boolean` — Controlled open state of the overlay drawer (only meaningful when overlay is set); the parent owns visibility.
+- `defaultOpen` — `boolean` · default `false` — Initial open state of the overlay drawer for uncontrolled usage, defaulting to closed.
+- `onOpenChange` — `(open: boolean) => void` — Fires when the overlay drawer requests open or close (backdrop click or Escape); wire it to your open state.
+- `navLabel` — `string` · default `"Main"` — Accessible name for the inner nav landmark and the overlay dialog, so assistive tech can distinguish multiple navigations.
 
 ```jsx
 import { Sidebar } from "twico-ui";
@@ -2279,7 +2286,7 @@ function Page() {
 }
 ```
 
-## Hooks (23)
+## Hooks (25)
 
 ### useIsomorphicLayoutEffect
 
@@ -2323,18 +2330,18 @@ export function useDisclosure(initial?: boolean): { open: boolean; onOpen: () =>
 
 ### useControllableState
 
-Controlled/uncontrolled state — the pattern every form component needs.
+Controlled/uncontrolled state — the pattern every form component needs. Returns `[value, setValue, isControlled]`; the third element reports whether a `value` prop is currently driving the state. In development it warns once if a component switches between controlled and uncontrolled.
 
 ```ts
-export function useControllableState<T>(options?: { value?: T; defaultValue?: T; onChange?: (value: T) => void; }): [T, (next: T | ((prev: T) => T)) => void];
+export function useControllableState<T>(options?: { value?: T; defaultValue?: T; onChange?: (value: T) => void; }): [T, (next: T | ((prev: T) => T)) => void, boolean];
 ```
 
 ### useMediaQuery
 
-Reactively match a media query (SSR-safe).
+Reactively match a media query. Returns `defaultValue` on the server and the first client render, then syncs after mount — so hydration never mismatches.
 
 ```ts
-export function useMediaQuery(query: string): boolean;
+export function useMediaQuery(query: string, options?: UseMediaQueryOptions): boolean;
 ```
 
 ### usePrefersReducedMotion
@@ -2358,7 +2365,7 @@ export function useColorScheme(options?: UseColorSchemeOptions): { theme: "light
 Attach an event listener (window by default, or a ref/element) with cleanup.
 
 ```ts
-export function useEventListener( eventName: string, handler: (event: any) => void, element?: React.RefObject<any> | EventTarget | null, options?: boolean | AddEventListenerOptions ): void;
+export function useEventListener( eventName: string, handler: (event: any) => void, element?: React.RefObject<any | null> | EventTarget | null, options?: boolean | AddEventListenerOptions ): void;
 ```
 
 ### useClickOutside
@@ -2366,7 +2373,7 @@ export function useEventListener( eventName: string, handler: (event: any) => vo
 Call `handler` when a pointer/touch event lands outside `ref`.
 
 ```ts
-export function useClickOutside<T extends HTMLElement = HTMLElement>( ref: React.RefObject<T>, handler: (event: Event) => void, events?: string[] ): void;
+export function useClickOutside<T extends HTMLElement = HTMLElement>( ref: React.RefObject<T | null>, handler: (event: Event) => void, events?: string[] ): void;
 ```
 
 ### useKeyPress
@@ -2438,7 +2445,7 @@ export function useWindowSize(): { width: number; height: number };
 `true` while the pointer is over the element referenced by `ref`.
 
 ```ts
-export function useHover<T extends HTMLElement = HTMLElement>(ref: React.RefObject<T>): boolean;
+export function useHover<T extends HTMLElement = HTMLElement>(ref: React.RefObject<T | null>): boolean;
 ```
 
 ### useIntersectionObserver
@@ -2446,7 +2453,7 @@ export function useHover<T extends HTMLElement = HTMLElement>(ref: React.RefObje
 The latest IntersectionObserver entry for the element referenced by `ref`.
 
 ```ts
-export function useIntersectionObserver<T extends HTMLElement = HTMLElement>( ref: React.RefObject<T>, options?: IntersectionObserverInit ): IntersectionObserverEntry | null;
+export function useIntersectionObserver<T extends HTMLElement = HTMLElement>( ref: React.RefObject<T | null>, options?: IntersectionObserverInit ): IntersectionObserverEntry | null;
 ```
 
 ### useScrollLock
@@ -2463,6 +2470,22 @@ A stable, SSR-safe unique id (optionally prefixed).
 
 ```ts
 export function useId(prefix?: string): string;
+```
+
+### useFocusTrap
+
+Trap focus inside the modal region referenced by `ref`. While `active`, focus moves inside on activate, Tab/Shift+Tab cycle within it, and (by default) focus is restored to the previously-focused element on deactivate. Escape is NOT handled — that stays with the component. SSR-safe.
+
+```ts
+export function useFocusTrap<T extends HTMLElement = HTMLElement>( ref: React.RefObject<T | null>, active?: boolean, options?: UseFocusTrapOptions ): void;
+```
+
+### usePortal
+
+Returns a stable `render(node)` that portals `node` to `document.body`, or `null` on the server (no document). Centralizes the overlay portal pattern.
+
+```ts
+export function usePortal(): (node: React.ReactNode) => React.ReactPortal | React.ReactNode | null;
 ```
 
 ---

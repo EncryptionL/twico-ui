@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { ActionTone } from "../_types";
 
 /**
  * Square (or circular) button for a single icon. Always provide an aria-label.
@@ -12,7 +13,7 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
   variant?: "solid" | "soft" | "outline" | "ghost";
   /** Color/intent, orthogonal to `variant` (mirrors Button). A destructive icon button is
    *  `tone="danger"` with any variant. @default "primary" */
-  tone?: "primary" | "danger";
+  tone?: ActionTone;
   /** Control size; "xs" (~26px) is smaller than "sm". @default "md" */
   size?: "xs" | "sm" | "md" | "lg";
   /** Fully rounded (circular). @default false */

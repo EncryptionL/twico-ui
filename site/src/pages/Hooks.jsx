@@ -169,6 +169,26 @@ useInterval(() => setN((v) => v + 1), running ? 1000 : null);`,
     ],
   },
   {
+    id: "overlay",
+    title: "Overlay",
+    hooks: [
+      {
+        sig: "useFocusTrap(ref, active?, { restoreFocus? })",
+        desc: "Trap focus inside a modal region: move focus in on activate, cycle Tab/Shift+Tab within it, restore focus to the trigger on deactivate. Powers Dialog/Drawer/CommandPalette. Escape stays with the component.",
+        example: `const ref = useRef(null);
+useFocusTrap(ref, open); // focus is trapped while open
+
+<div ref={ref} role="dialog" aria-modal="true">…</div>`,
+      },
+      {
+        sig: "usePortal()",
+        desc: "Returns a stable render(node) that portals to document.body (null on the server) — the overlay portal pattern in one hook.",
+        example: `const renderPortal = usePortal();
+return renderPortal(<div className="overlay">…</div>);`,
+      },
+    ],
+  },
+  {
     id: "utilities",
     title: "Utilities",
     hooks: [

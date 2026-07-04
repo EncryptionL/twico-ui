@@ -15,5 +15,5 @@
     "types": ["react", "react-dom"]
   },
   "//": "allowJs:false makes tsc resolve each component import to its sibling .d.ts (not the .jsx), so the hand-written prop contracts become the package's public types.",
-  "include": ["src", "components/**/*.d.ts"]
+  "include": ["src", "components/**/*.d.ts", "tests/types"]
 }

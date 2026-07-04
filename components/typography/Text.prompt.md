@@ -9,5 +9,7 @@ import { Text } from "twico-ui";
 ```
 
 - `size` — `"xs" | "sm" | "base" | "lg" | "xl"` (or any token suffix).
-- `tone` — text roles `"default" | "muted" | "subtle"` plus color intents `"primary" | "success" | "warning" | "danger" | "info" | "neutral"`.
-- `weight` — token suffix (e.g. `"semibold"`); `align`; `as` (default `"p"`).
+- `tone` — text roles `"default" | "muted" | "subtle"`, the color intents (`primary`/`success`/…),
+  or `"inherit"` to adopt the surrounding color (e.g. inside a solid Button/Alert).
+- `truncate` — single-line ellipsis (shrinks in flex); `lineClamp={n}` — multi-line ellipsis.
+- `weight` — token suffix (e.g. `"semibold"`); `align`; `as` (default `"p"`, accepts a component).

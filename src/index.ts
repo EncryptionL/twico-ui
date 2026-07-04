@@ -68,6 +68,11 @@ export { Text } from "../components/typography/Text";
 // Hooks — the same primitives the components and docs site are built on.
 export * from "../hooks";
 
+// Shared type vocabulary — the canonical tone scales, the polymorphic `as` type,
+// and the Select-family option shape, so consumers name them instead of re-deriving.
+export type { Tone, ActionTone, TextTone, ToastTone, BarTone, PolymorphicAs } from "../components/_types";
+export type { Option, OptionGroup } from "../components/inputs/options";
+
 export type { AccordionProps, AccordionItem } from "../components/navigation/Accordion";
 export type { AlertProps } from "../components/feedback/Alert";
 export type { AvatarMenuProps } from "../components/data-display/AvatarMenu";
@@ -84,7 +89,7 @@ export type { ComboboxProps, ComboboxOption, ComboboxGroup } from "../components
 export type { Command, CommandPaletteProps } from "../components/overlay/CommandPalette";
 export type { CurrencyOption, CurrencyFieldProps } from "../components/inputs/CurrencyField";
 export type { CurrencyProps } from "../components/inputs/Currency";
-export type { DatatableProps, DatatableQuery, DatatableColumn, DatatableRowAction, DatatableBatchAction } from "../components/data-display/Datatable";
+export type { DatatableProps, DatatableQuery, DatatableColumn, DatatableRowAction, DatatableBatchAction, DatatableFilter, DatatableFilterOp, DatatableStringOp, DatatableNumberOp } from "../components/data-display/Datatable";
 export type { DatePickerProps } from "../components/inputs/DatePicker";
 export type { DateRange, DateRangePickerProps } from "../components/inputs/DateRangePicker";
 export type { DialogProps } from "../components/overlay/Dialog";
@@ -128,5 +133,6 @@ export type { ContainerProps } from "../components/layout/Container";
 export type { GridProps } from "../components/layout/Grid";
 export type { StackProps } from "../components/layout/Stack";
 export type { CodeProps } from "../components/typography/Code";
-export type { HeadingProps } from "../components/typography/Heading";
+export type { HeadingProps, HeadingSize } from "../components/typography/Heading";
+export type { ResponsiveColumns } from "../components/layout/Grid";
 export type { TextProps } from "../components/typography/Text";

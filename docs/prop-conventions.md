@@ -12,9 +12,14 @@ standardized 2026-06-18; this doc is the source of truth.)
   that's a different axis and is named `size` intentionally.
 
 ## Color — `tone` (and rarely `color`)
-- **`tone`** is the color/intent axis: `"primary" | "success" | "warning" | "danger" | "info" | "neutral"`,
-  default `"primary"` (Alert defaults `"info"`, Tag `"neutral"`, Rating `"warning"`). A component
-  documents the subset it supports; it never invents new tone names. See [tone-variant-system.md](./tone-variant-system.md).
+- **`tone`** is the color/intent axis: the canonical exported **`Tone`** union
+  (`"primary" | "success" | "warning" | "danger" | "info" | "neutral"`), default `"primary"` (Alert
+  defaults `"info"`, Tag `"neutral"`, Rating `"warning"`). A component documents the subset it
+  supports; it never invents new tone names. See [tone-variant-system.md](./tone-variant-system.md).
+- **Reuse the exported tone types, don't re-derive them.** The package exports `Tone`, plus the
+  purpose-built subsets `ActionTone` (Button/IconButton — brand/danger), `TextTone` (Text — roles +
+  full scale), `ToastTone` (Toast), and `BarTone` (Progress/Timeline — scale minus `neutral`). Every
+  component's `.d.ts` references one of these rather than inlining a literal union.
 - **`color`** (freeform string) appears only where an *arbitrary* color is the point and overrides the
   tone: `Rating.color`, `Kanban` column color. `Spinner.color` is the enum form of its tone (`tone` is
   the deprecated alias there). Do not add freeform `color` to new components — use `tone`.
@@ -45,6 +50,10 @@ standardized 2026-06-18; this doc is the source of truth.)
   TreeView). Each types its own item shape.
 - Conventional domain names are kept where they read better: `options` (Select/Combobox/MultiSelect),
   `rows` + `columns` (Table/Datatable), `steps` (Stepper), `commands` (CommandPalette), `links` (Navbar).
+- Select, Combobox, and MultiSelect share one exported **`Option`** / **`OptionGroup`** type (from
+  `components/inputs/options.d.ts`); the per-component names (`SelectOption`, `ComboboxOption`, …) stay
+  as structural aliases, so an `Option[]` value type-checks against all three. (CurrencyField's
+  `CurrencyOption` is a deliberately narrower, separate shape.)
 
 ## Overlays — `open` + close handler, `placement`/`side`
 - Disclosure overlays (Menu, Popover) are controllable: **`open` + `onOpenChange`**.
@@ -62,8 +71,19 @@ standardized 2026-06-18; this doc is the source of truth.)
 ## Passthrough & polymorphism
 - All components spread `...rest` to their root and accept `className` + `style`. Inline `style` and
   `className` never override component-controlled `data-*`/`aria-*` (those are placed after the spread).
-- Polymorphic components take **`as`** (`Box`, `Stack`, `Container`, `Grid`, `Text`, `Heading`, `Code`);
+- Polymorphic components take **`as`** (`Box`, `Stack`, `Container`, `Grid`, `Text`, `Heading`, `Code`),
+  typed as the exported **`PolymorphicAs`** (`React.ElementType`) so it accepts both a tag name
+  (`as="section"`) and a React component (`as={Link}`), whose props flow through `{...rest}`.
   `Button.as` is restricted to `"button" | "a"` because only those two are supported.
+
+## Deprecation policy
+- A superseded prop is marked `@deprecated since <minor>, removed in <major> — use ``X``` in its
+  `.d.ts`, keeps working until that major, and the canonical (non-deprecated) name always wins when
+  both are set.
+- In development the component calls `warnOnce` (the shared `components/_warn.js` helper) the first
+  time **only** the deprecated prop is supplied — a single, deduped `console.warn` that no-ops in
+  production. Current deprecations: `Spinner.tone` → `color`, `EmptyState.bordered` → `border`,
+  `Pagination.showJumper` → `showPageJumper` (all removed in 2.0).
 
 ## Events
 - Handlers are `onX` camelCase. The common ones: `onChange`, `onClick`, `onClose`, `onOpenChange`,

@@ -1,11 +1,12 @@
 import * as React from "react";
+import type { Tone } from "../_types";
 
 /**
  * Small status label / count. Six tones × three variants.
  */
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** Semantic color. @default "primary" */
-  tone?: "primary" | "success" | "warning" | "danger" | "info" | "neutral";
+  tone?: Tone;
   /** Fill style. @default "soft" */
   variant?: "soft" | "solid" | "outline";
   /** Size scale. @default "md" */

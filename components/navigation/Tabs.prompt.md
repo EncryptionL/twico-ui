@@ -14,6 +14,8 @@ import { Tabs } from "./Tabs";
 />
 ```
 
-Items: `{ value, label, icon?, count?, content? }`. Controlled via `value` + `onChange`.
+Items: `{ value, label, icon?, count?, disabled?, content? }`. `count` is any node (`12`, `"99+"`,
+`"1.2k"`); a `disabled` item is dimmed and skipped by click + keyboard. Controlled via `value` +
+`onChange`. A horizontal tablist scrolls when the tabs overflow, keeping the active tab in view.
 
 `tone` sets the color intent (primary · success · warning · danger · info · neutral, default primary).

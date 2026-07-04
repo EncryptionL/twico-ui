@@ -22,3 +22,12 @@
 - **RTL:** uses `border-inline-end`, `text-align: start`, `margin-inline-start` and logical layout throughout — mirrors correctly under `dir="rtl"`. `components/navigation/Sidebar.jsx:5,17`.
 - **Density:** padding uses spacing tokens; nothing blocks the `data-density` remap.
 - **SSR-safe:** style injection in `useInsertionEffect`; no module/render-scope DOM access.
+- **Off-canvas overlay mode (added 2026-07-04, #138):** `overlay` renders the rail as a slide-over
+  drawer — a fixed panel behind a dismissable backdrop, portaled to `<body>`, driven by
+  `open`/`defaultOpen`/`onOpenChange`. It reuses the shared `useFocusTrap`/`usePortal` primitives
+  (`components/_overlay.js`) verbatim, so it inherits the same focus trap, Escape-to-close,
+  focus-restore, body-scroll lock, 170 ms exit-mount hold, and `prefers-reduced-motion` collapse as
+  `Drawer`. The panel is `role="dialog" aria-modal="true"` named by `navLabel` (fallback
+  "Navigation"). RTL: an `--_off` var flips the slide direction under `dir="rtl"` (mirrors `Drawer`).
+  `AppShell` opt-in forwards `overlay`/`open`/`onOpenChange` to the sidebar element and stacks below
+  720px. Covered by `tests/Sidebar.test.jsx` + `tests/AppShell.test.jsx`; see `docs/overlays.md`.

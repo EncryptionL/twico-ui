@@ -43,6 +43,20 @@ export const components = [
         "description": "Pads the scrollable content region with the standard page padding; set false for edge-to-edge content."
       },
       {
+        "prop": "sidebarOpen",
+        "type": "boolean",
+        "required": false,
+        "default": "—",
+        "description": "Open state of the sidebar's off-canvas drawer on mobile; providing this (or onSidebarOpenChange) makes the shell forward overlay/open/onOpenChange to the sidebar element."
+      },
+      {
+        "prop": "onSidebarOpenChange",
+        "type": "(open: boolean) => void",
+        "required": false,
+        "default": "—",
+        "description": "Called when the sidebar drawer requests open or close; wire a Navbar's onMenuClick to () => onSidebarOpenChange(true) for the mobile menu button."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -6156,6 +6170,41 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Fires with the new boolean state whenever the collapse toggle is activated, useful for persisting the preference."
+      },
+      {
+        "prop": "overlay",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Renders the sidebar as an off-canvas drawer instead of an in-flow rail: a fixed slide-over panel behind a dismissable backdrop, portaled to the body, with a focus trap, Escape-to-close, and scroll lock."
+      },
+      {
+        "prop": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "—",
+        "description": "Controlled open state of the overlay drawer (only meaningful when overlay is set); the parent owns visibility."
+      },
+      {
+        "prop": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Initial open state of the overlay drawer for uncontrolled usage, defaulting to closed."
+      },
+      {
+        "prop": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the overlay drawer requests open or close (backdrop click or Escape); wire it to your open state."
+      },
+      {
+        "prop": "navLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"Main\"",
+        "description": "Accessible name for the inner nav landmark and the overlay dialog, so assistive tech can distinguish multiple navigations."
       },
       {
         "prop": "onClick",

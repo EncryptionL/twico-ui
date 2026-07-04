@@ -1,9 +1,10 @@
 import * as React from "react";
+import type { ToastTone } from "../_types";
 
 /** A single toast's options when pushed imperatively. */
 export interface ToastOptions {
   /** @default "default" */
-  tone?: "default" | "neutral" | "success" | "warning" | "danger" | "info";
+  tone?: ToastTone;
   /** Bold heading. */
   title?: React.ReactNode;
   /** Body/description content. */

@@ -8,5 +8,6 @@ import { Divider } from "./Divider";
 <span>A</span><Divider orientation="vertical" /><span>B</span>
 ```
 
-Props: `orientation` (horizontal/vertical), `inset`, `align` (`start`/`center`/`end` — logical, mirrors
-under RTL; `left`/`right` accepted as aliases), `children` (label).
+Props: `orientation` (horizontal/vertical — applies to labeled dividers too, and sets `aria-orientation`),
+`inset`, `align` (`start`/`center`/`end` — logical, mirrors under RTL; `left`/`right` accepted as
+aliases), `children` (label).

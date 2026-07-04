@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { ActionTone } from "../_types";
 
 /**
  * Primary action button with a solid / soft / outline / ghost **variant** (fill style) crossed with a
@@ -12,7 +13,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   /** Fill style. @default "solid" */
   variant?: "solid" | "soft" | "outline" | "ghost";
   /** Color/intent, orthogonal to `variant`. @default "primary" */
-  tone?: "primary" | "danger";
+  tone?: ActionTone;
   /** Control size; "xs" (~26px) is smaller than "sm". @default "md" */
   size?: "xs" | "sm" | "md" | "lg";
   /** Icon node rendered before the label. */

@@ -39,6 +39,7 @@ const STEPPER_CSS = `
 .twc-stepper[data-orientation="vertical"] .twc-step__col { display: flex; flex-direction: column; align-items: center; }
 .twc-step[data-state="complete"] .twc-step__connector, .twc-step[data-state="active"] .twc-step__connector { background: var(--_accent); }
 .twc-stepper[data-orientation="vertical"] .twc-step__vbody { padding-bottom: var(--space-2); }
+.twc-step__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 `;
 
 const CheckIcon = () => (
@@ -76,11 +77,12 @@ export function Stepper({
   };
 
   return (
-    <div className={`twc-stepper ${className}`} data-orientation={orientation} data-tone={tone} {...rest}>
+    <div className={`twc-stepper ${className}`} data-orientation={orientation} data-tone={tone} role="group" aria-label="Progress" {...rest}>
       {__twcStyles}
       {steps.map((step, i) => {
         const state = stateOf(i, step);
         const last = i === steps.length - 1;
+        const srText = `Step ${i + 1} of ${steps.length}${state === "complete" ? ", completed" : state === "error" ? ", error" : state === "active" ? ", current" : ", upcoming"}. `;
         const isClickable = clickable && i <= active;
         const interactive = isClickable
           ? {
@@ -100,7 +102,8 @@ export function Stepper({
         if (orientation === "vertical") {
           return (
             <div key={i} className="twc-step" data-state={state} data-clickable={isClickable || undefined}
-                 aria-current={state === "active" ? "step" : undefined} {...interactive}>
+                 aria-current={state === "active" ? "step" : undefined} aria-invalid={state === "error" ? "true" : undefined} {...interactive}>
+              <span className="twc-step__sr">{srText}</span>
               <div className="twc-step__col">
                 {indicator}
                 {!last ? <span className="twc-step__connector" /> : null}
@@ -114,7 +117,8 @@ export function Stepper({
         }
         return (
           <div key={i} className="twc-step" data-state={state} data-clickable={isClickable || undefined}
-               aria-current={state === "active" ? "step" : undefined} {...interactive}>
+               aria-current={state === "active" ? "step" : undefined} aria-invalid={state === "error" ? "true" : undefined} {...interactive}>
+            <span className="twc-step__sr">{srText}</span>
             {indicator}
             {!last ? <span className="twc-step__connector" /> : null}
             <div className="twc-step__body">

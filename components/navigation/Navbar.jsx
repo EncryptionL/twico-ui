@@ -46,6 +46,9 @@ export function Navbar({
   actions,
   sticky = true,
   onMenuClick,
+  menuOpen,
+  menuControls,
+  navLabel = "Primary",
   className = "",
   ...rest
 }) {
@@ -55,7 +58,7 @@ export function Navbar({
     <header className={`twc-navbar ${className}`} data-sticky={sticky || undefined} {...rest}>
       {__twcStyles}
       {onMenuClick ? (
-        <button type="button" className="twc-navbar__menu-btn" aria-label="Open menu" onClick={onMenuClick}>
+        <button type="button" className="twc-navbar__menu-btn" aria-expanded={menuOpen} aria-controls={menuControls} aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={onMenuClick}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
       ) : null}
@@ -64,7 +67,7 @@ export function Navbar({
         : onBrandClick ? <button type="button" className="twc-navbar__brand" onClick={onBrandClick}>{brand}</button>
         : <span className="twc-navbar__brand">{brand}</span>
       ) : null}
-      <nav className="twc-navbar__links">
+      <nav className="twc-navbar__links" aria-label={navLabel}>
         {links.map((l, i) => {
           const href = safeHref(l.href);
           const inner = <>{l.icon}{l.label}</>;

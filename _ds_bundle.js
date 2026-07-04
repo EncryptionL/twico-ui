@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"ec2bf6d15c49","components/data-display/AvatarMenu.jsx":"0c2a50cc3c0d","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"10ba99b1159a","components/data-display/Carousel.jsx":"e282f1ded475","components/data-display/Chart.jsx":"bc9c9e17e770","components/data-display/Datatable.jsx":"2c61e704a628","components/data-display/Kanban.jsx":"bd338635ef5d","components/data-display/List.jsx":"5877523aa09b","components/data-display/Pagination.jsx":"eb73316d0a82","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"d41ad1e9dd43","components/data-display/Tag.jsx":"d9e74b09037a","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"9b9d716aaa22","components/feedback/EmptyState.jsx":"d232e2adef33","components/feedback/Progress.jsx":"a0b2516f4d03","components/feedback/Skeleton.jsx":"00fb7a0a60c1","components/feedback/Spinner.jsx":"a884c7230388","components/feedback/Toast.jsx":"207beb76ccb6","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"2f55e9346191","components/inputs/ColorPicker.jsx":"0ac7bbc546fa","components/inputs/Combobox.jsx":"436e6d139b6f","components/inputs/Currency.jsx":"60594dac5624","components/inputs/CurrencyField.jsx":"ecf461d3c1b4","components/inputs/DatePicker.jsx":"a89e65d7e61c","components/inputs/DateRangePicker.jsx":"c53507555c94","components/inputs/Field.jsx":"c7dad39251fb","components/inputs/FileUpload.jsx":"a1558f86aa72","components/inputs/Input.jsx":"0b04ea394ac3","components/inputs/MultiSelect.jsx":"154127e56d7a","components/inputs/Radio.jsx":"9e8b16e7eff1","components/inputs/Rating.jsx":"5b2d5bf61030","components/inputs/Select.jsx":"d81caed79a2c","components/inputs/Slider.jsx":"597b22f1c677","components/inputs/Switch.jsx":"00c69a2e3cc6","components/inputs/Textarea.jsx":"73235e9c955e","components/layout/AppShell.jsx":"271299bb5782","components/layout/Box.jsx":"0b3d9cee1567","components/layout/Container.jsx":"387427a04d92","components/layout/Divider.jsx":"dc1caac8442b","components/layout/Grid.jsx":"b26227795255","components/layout/Stack.jsx":"e2eb6de90d22","components/navigation/Accordion.jsx":"f4c4facf712d","components/navigation/Breadcrumb.jsx":"4d0ec4c3f855","components/navigation/Navbar.jsx":"01db912b36ae","components/navigation/Sidebar.jsx":"475b81b57c2c","components/navigation/Stepper.jsx":"78b38911ce90","components/navigation/Tabs.jsx":"ba6c38e96a17","components/navigation/TreeView.jsx":"d91bb4be5d44","components/overlay/CommandPalette.jsx":"a720066f61be","components/overlay/Dialog.jsx":"079e0a3b7432","components/overlay/Drawer.jsx":"032f4a1526cb","components/overlay/Menu.jsx":"79450f638870","components/overlay/Popover.jsx":"bc22e921093f","components/overlay/Tooltip.jsx":"501134b648dd","components/typography/Code.jsx":"5f0086e58c83","components/typography/Heading.jsx":"4f8d40741a8a","components/typography/Text.jsx":"c72881f6858e","src/index.ts":"8f13137f1e77"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"10ba99b1159a","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"5e8329337421","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"5877523aa09b","components/data-display/Pagination.jsx":"b92a0df4c275","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"d41ad1e9dd43","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"207beb76ccb6","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"2f55e9346191","components/inputs/ColorPicker.jsx":"0ac7bbc546fa","components/inputs/Combobox.jsx":"436e6d139b6f","components/inputs/Currency.jsx":"60594dac5624","components/inputs/CurrencyField.jsx":"ecf461d3c1b4","components/inputs/DatePicker.jsx":"a89e65d7e61c","components/inputs/DateRangePicker.jsx":"c53507555c94","components/inputs/Field.jsx":"c7dad39251fb","components/inputs/FileUpload.jsx":"a1558f86aa72","components/inputs/Input.jsx":"0b04ea394ac3","components/inputs/MultiSelect.jsx":"154127e56d7a","components/inputs/Radio.jsx":"9e8b16e7eff1","components/inputs/Rating.jsx":"5b2d5bf61030","components/inputs/Select.jsx":"d81caed79a2c","components/inputs/Slider.jsx":"597b22f1c677","components/inputs/Switch.jsx":"00c69a2e3cc6","components/inputs/Textarea.jsx":"73235e9c955e","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"0b3d9cee1567","components/layout/Container.jsx":"387427a04d92","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"4258836f330c","components/layout/Stack.jsx":"3acf19a6760b","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Breadcrumb.jsx":"4d0ec4c3f855","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"a69847910c31","components/overlay/Dialog.jsx":"e7e9d6af5845","components/overlay/Drawer.jsx":"7a24e89c8d93","components/overlay/Menu.jsx":"0fc7aff0b8b7","components/overlay/Popover.jsx":"bc22e921093f","components/overlay/Tooltip.jsx":"501134b648dd","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1514eeaceb03","components/typography/Text.jsx":"d266e3a00c44","src/index.ts":"6cf658254742"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -126,6 +126,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useDebouncedValue: () => useDebouncedValue,
     useDisclosure: () => useDisclosure,
     useEventListener: () => useEventListener,
+    useFocusTrap: () => useFocusTrap2,
     useHover: () => useHover,
     useId: () => useId,
     useIntersectionObserver: () => useIntersectionObserver,
@@ -135,6 +136,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useLocalStorage: () => useLocalStorage,
     useMediaQuery: () => useMediaQuery,
     useMounted: () => useMounted,
+    usePortal: () => usePortal2,
     usePrefersReducedMotion: () => usePrefersReducedMotion,
     usePrevious: () => usePrevious,
     useScrollLock: () => useScrollLock,
@@ -143,7 +145,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useToggle: () => useToggle,
     useWindowSize: () => useWindowSize
   });
-  var React23 = __toESM(require_react(), 1);
+  var React24 = __toESM(require_react(), 1);
   var import_react = __toESM(require_react(), 1);
 
   // rg:react/jsx-runtime
@@ -161,9 +163,9 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 
   // dist/index.mjs
   var import_react_dom = __toESM(require_react_dom(), 1);
-  var SUPPORTS_STYLE_HOIST = parseInt(String(React23.version), 10) >= 19;
+  var SUPPORTS_STYLE_HOIST = parseInt(String(React24.version), 10) >= 19;
   function useScopedStyles(id, css) {
-    React23.useInsertionEffect(() => {
+    React24.useInsertionEffect(() => {
       if (SUPPORTS_STYLE_HOIST) return;
       if (typeof document === "undefined" || document.getElementById(id)) return;
       const el = document.createElement("style");
@@ -171,7 +173,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       el.textContent = css;
       document.head.appendChild(el);
     }, [id, css]);
-    return SUPPORTS_STYLE_HOIST ? React23.createElement("style", { href: id, precedence: "twc-ui" }, css) : null;
+    return SUPPORTS_STYLE_HOIST ? React24.createElement("style", { href: id, precedence: "twc-ui" }, css) : null;
   }
   var ACCORDION_CSS = `
 .twc-accordion { display: flex; flex-direction: column; font-family: var(--font-sans);
@@ -185,7 +187,9 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   color: var(--color-text); text-align: start;
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
-.twc-accordion__trigger:hover { background: var(--color-surface-sunken); }
+.twc-accordion__heading { margin: 0; font: inherit; }
+.twc-accordion__trigger:hover:not(:disabled) { background: var(--color-surface-sunken); }
+.twc-accordion__trigger:disabled { opacity: 0.45; cursor: not-allowed; }
 .twc-accordion__trigger:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-accordion__label { flex: 1; }
 .twc-accordion__chevron { flex: none; color: var(--color-text-subtle); transition: transform var(--duration-base) var(--ease-spring); }
@@ -204,14 +208,19 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     defaultOpen = [],
     open: openProp,
     onOpenChange,
+    headingLevel = 3,
     className = "",
+    onKeyDown: onKeyDownProp,
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-accordion-styles", ACCORDION_CSS);
+    const rootRef = import_react.default.useRef(null);
     const [internal, setInternal] = import_react.default.useState(() => new Set(defaultOpen));
     const open = openProp !== void 0 ? new Set(openProp) : internal;
     const baseId = import_react.default.useId();
     function toggle(val) {
+      const item = items.find((x) => x.value === val);
+      if (item?.disabled) return;
       const next = new Set(open);
       if (next.has(val)) next.delete(val);
       else {
@@ -221,18 +230,47 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       if (openProp === void 0) setInternal(next);
       onOpenChange?.([...next]);
     }
-    return /* @__PURE__ */ jsxs("div", { className: `twc-accordion ${className}`, ...rest, children: [
+    function handleKeyDown(e) {
+      onKeyDownProp?.(e);
+      if (!(e.target instanceof HTMLElement) || !e.target.classList.contains("twc-accordion__trigger")) return;
+      const triggers = Array.from(rootRef.current.querySelectorAll(".twc-accordion__trigger")).filter((b) => !b.disabled);
+      const i = triggers.indexOf(e.target);
+      if (i < 0) return;
+      const len2 = triggers.length;
+      let next;
+      switch (e.key) {
+        case "ArrowDown":
+          next = (i + 1) % len2;
+          break;
+        case "ArrowUp":
+          next = (i - 1 + len2) % len2;
+          break;
+        case "Home":
+          next = 0;
+          break;
+        case "End":
+          next = len2 - 1;
+          break;
+        default:
+          return;
+      }
+      e.preventDefault();
+      triggers[next].focus();
+    }
+    return /* @__PURE__ */ jsxs("div", { ref: rootRef, className: `twc-accordion ${className}`, onKeyDown: handleKeyDown, ...rest, children: [
       __twcStyles,
       items.map((it, i) => {
         const isOpen = open.has(it.value);
         const triggerId = `${baseId}-trigger-${i}`;
         const panelId = `${baseId}-panel-${i}`;
+        const lvl = Math.min(6, Math.max(1, it.headingLevel ?? headingLevel));
+        const Heading2 = `h${lvl}`;
         return /* @__PURE__ */ jsxs("div", { className: "twc-accordion__item", children: [
-          /* @__PURE__ */ jsxs("button", { type: "button", id: triggerId, className: "twc-accordion__trigger", "data-open": isOpen || void 0, "aria-expanded": isOpen, "aria-controls": panelId, onClick: () => toggle(it.value), children: [
+          /* @__PURE__ */ jsx(Heading2, { className: "twc-accordion__heading", children: /* @__PURE__ */ jsxs("button", { type: "button", id: triggerId, className: "twc-accordion__trigger", "data-open": isOpen || void 0, disabled: it.disabled || void 0, "aria-disabled": it.disabled || void 0, "data-disabled": it.disabled || void 0, "aria-expanded": isOpen, "aria-controls": panelId, onClick: () => toggle(it.value), children: [
             it.icon,
             /* @__PURE__ */ jsx("span", { className: "twc-accordion__label", children: it.label }),
             /* @__PURE__ */ jsx("span", { className: "twc-accordion__chevron", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m6 9 6 6 6-6" }) }) })
-          ] }),
+          ] }) }),
           /* @__PURE__ */ jsx("div", { className: "twc-accordion__panel", id: panelId, role: "region", "aria-labelledby": triggerId, "data-open": isOpen || void 0, children: /* @__PURE__ */ jsx("div", { className: "twc-accordion__panel-inner", children: /* @__PURE__ */ jsx("div", { className: "twc-accordion__content", children: it.content }) }) })
         ] }, it.value);
       })
@@ -288,11 +326,15 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     title,
     icon,
     onClose,
+    live,
+    closeLabel = "Dismiss",
     className = "",
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-alert-styles", ALERT_CSS);
-    return /* @__PURE__ */ jsxs("div", { className: `twc-alert ${className}`, "data-tone": tone, "data-variant": variant, role: "alert", ...rest, children: [
+    const resolvedLive = live ?? (tone === "danger" || tone === "warning" ? "assertive" : tone === "success" || tone === "info" ? "polite" : "off");
+    const liveProps = resolvedLive === "assertive" ? { role: "alert" } : resolvedLive === "polite" ? { role: "status" } : {};
+    return /* @__PURE__ */ jsxs("div", { className: `twc-alert ${className}`, "data-tone": tone, "data-variant": variant, ...liveProps, ...rest, children: [
       __twcStyles,
       /* @__PURE__ */ jsx("span", { className: "twc-alert__icon", "aria-hidden": "true", children: icon || /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
         /* @__PURE__ */ jsx("circle", { cx: "12", cy: "12", r: "10" }),
@@ -302,7 +344,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         title ? /* @__PURE__ */ jsx("div", { className: "twc-alert__title", children: title }) : null,
         children ? /* @__PURE__ */ jsx("div", { className: "twc-alert__desc", children }) : null
       ] }),
-      onClose ? /* @__PURE__ */ jsx("button", { className: "twc-alert__close", onClick: onClose, "aria-label": "Dismiss", type: "button", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) }) }) : null
+      onClose ? /* @__PURE__ */ jsx("button", { className: "twc-alert__close", onClick: onClose, "aria-label": closeLabel, type: "button", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) }) }) : null
     ] });
   }
   var AVATAR_CSS = `
@@ -347,12 +389,15 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     if (s.startsWith("data:") && !s.startsWith("data:image/")) return void 0;
     return url;
   }
+  var STATUS_LABELS = { online: "Online", busy: "Busy", away: "Away", offline: "Offline" };
   function Avatar({
     src,
     name,
     size = "md",
     square = false,
     status,
+    statusLabel,
+    statusLabels,
     ring = false,
     className = "",
     ...rest
@@ -361,6 +406,8 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     const [errored, setErrored] = import_react.default.useState(false);
     const cleanSrc = safeSrc(src);
     const showImg = cleanSrc && !errored;
+    const _statusLabel = status ? statusLabel ?? statusLabels?.[status] ?? STATUS_LABELS[status] : void 0;
+    const baseName = name || "avatar";
     return /* @__PURE__ */ jsxs(
       "span",
       {
@@ -368,12 +415,12 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         "data-size": size,
         "data-square": square || void 0,
         role: "img",
-        "aria-label": name || "avatar",
+        "aria-label": _statusLabel ? `${baseName}, ${_statusLabel}` : baseName,
         ...rest,
         children: [
           __twcStyles,
           showImg ? /* @__PURE__ */ jsx("img", { className: "twc-avatar__img", src: cleanSrc, alt: name || "", onError: () => setErrored(true) }, cleanSrc) : initials(name),
-          status ? /* @__PURE__ */ jsx("span", { className: "twc-avatar__status", "data-status": status }) : null
+          status ? /* @__PURE__ */ jsx("span", { className: "twc-avatar__status", "data-status": status, title: _statusLabel }) : null
         ]
       }
     );
@@ -414,6 +461,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-menu__item-label { flex: 1 1 auto; min-width: 0; }
 .twc-menu__shortcut { margin-inline-start: auto; padding-inline-start: var(--space-3); font-size: var(--text-xs); color: var(--color-text-subtle); font-family: var(--font-mono); }
 `;
+  var safeHref = (url) => {
+    if (url == null) return void 0;
+    const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+    return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
+  };
   function Menu({
     trigger,
     items,
@@ -423,6 +475,8 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     open: openProp,
     defaultOpen = false,
     onOpenChange,
+    "aria-label": ariaLabel,
+    "aria-labelledby": ariaLabelledby,
     className = "",
     ...rest
   }) {
@@ -434,6 +488,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     const wrapRef = import_react.default.useRef(null);
     const menuRef = import_react.default.useRef(null);
     const menuId = import_react.default.useId();
+    const headerId = `${menuId}-header`;
     const controlled = openProp !== void 0;
     const open = controlled ? !!openProp : openState;
     const openRef = import_react.default.useRef(open);
@@ -529,8 +584,12 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         e.preventDefault();
         const it = items[active];
         if (it && !it.disabled) {
-          it.onClick?.();
-          setOpen(false);
+          const el = typeof document !== "undefined" ? document.getElementById(`${menuId}-item-${active}`) : null;
+          if (el && el.tagName === "A") el.click();
+          else {
+            it.onClick?.();
+            setOpen(false);
+          }
         }
       }
     }
@@ -544,29 +603,32 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         "data-align": align,
         "data-flip": pos.flip || void 0,
         role: "menu",
+        "aria-label": ariaLabel,
+        "aria-labelledby": ariaLabelledby ?? (ariaLabel ? void 0 : header ? headerId : void 0),
         style: { top: pos.top, bottom: pos.bottom, left: pos.left, minWidth: pos.width, width: pos.width, maxHeight: pos.maxHeight },
         children: [
           __twcStyles,
-          header ? /* @__PURE__ */ jsx("div", { className: "twc-menu__header", children: header }) : null,
+          header ? /* @__PURE__ */ jsx("div", { className: "twc-menu__header", id: headerId, children: header }) : null,
           items.map((it, i) => {
             if (it.separator) return /* @__PURE__ */ jsx("div", { className: "twc-menu__sep", role: "separator" }, `s${i}`);
             if (it.label && it.heading) return /* @__PURE__ */ jsx("div", { className: "twc-menu__label", children: it.label }, `h${i}`);
+            const href = !it.disabled ? safeHref(it.href) : void 0;
+            const Tag2 = href ? "a" : "button";
             return /* @__PURE__ */ jsxs(
-              "button",
+              Tag2,
               {
-                type: "button",
                 id: `${menuId}-item-${i}`,
                 className: "twc-menu__item",
                 role: "menuitem",
                 tabIndex: -1,
                 "data-danger": it.danger || void 0,
                 "data-active": active === i || void 0,
-                disabled: it.disabled,
                 onMouseEnter: () => setActive(i),
                 onClick: () => {
                   it.onClick?.();
                   setOpen(false);
                 },
+                ...Tag2 === "button" ? { type: "button", disabled: it.disabled } : { href, target: it.target, rel: it.rel },
                 children: [
                   it.icon,
                   /* @__PURE__ */ jsx("span", { className: "twc-menu__item-label", children: it.label }),
@@ -663,7 +725,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         ]
       }
     );
-    return /* @__PURE__ */ jsx(Menu, { className, trigger, items, header, align, width: 240, ...rest });
+    return /* @__PURE__ */ jsx(Menu, { className, trigger, items, header, align, width: 240, "aria-label": `${name || "Account"} menu`, ...rest });
   }
   var BADGE_CSS = `
 .twc-badge {
@@ -730,7 +792,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-breadcrumb__ellipsis { border: none; background: transparent; cursor: pointer; color: var(--color-text-subtle); padding: 3px 7px; border-radius: var(--radius-sm); font: inherit; }
 .twc-breadcrumb__ellipsis:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 `;
-  function safeHref(url) {
+  function safeHref2(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -773,7 +835,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
             "a",
             {
               className: "twc-breadcrumb__item",
-              href: safeHref(it.href) || "#",
+              href: safeHref2(it.href) || "#",
               onClick: it.onClick,
               children: [
                 it.icon ? /* @__PURE__ */ jsx("span", { "aria-hidden": "true", style: { display: "inline-flex" }, children: it.icon }) : null,
@@ -876,7 +938,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   animation: twico-ripple var(--duration-slow) var(--ease-out) forwards;
 }
 `;
-  function safeHref2(url) {
+  function safeHref3(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -927,7 +989,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         "data-block": fullWidth || void 0,
         disabled: Tag2 === "button" ? disabled || loading : void 0,
         type: Tag2 === "button" ? "button" : void 0,
-        href: inert ? void 0 : safeHref2(href),
+        href: inert ? void 0 : safeHref3(href),
         "aria-disabled": inert || void 0,
         tabIndex: inert ? -1 : void 0,
         "aria-busy": loading || void 0,
@@ -1035,6 +1097,15 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-carousel__dot { width: 8px; height: 8px; border-radius: var(--radius-full); border: none; padding: 0; cursor: pointer;
   background: var(--color-border-strong); transition: width var(--duration-base) var(--ease-spring), background-color var(--duration-fast); }
 .twc-carousel__dot[data-active="true"] { width: 22px; background: var(--color-primary); }
+.twc-carousel__pause { position: absolute; top: 12px; inset-inline-end: 12px; z-index: 2;
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent); color: var(--color-text);
+  border: var(--border-thin) solid var(--color-border); box-shadow: var(--shadow-sm); cursor: pointer;
+  backdrop-filter: blur(6px); transition: background-color var(--duration-fast) var(--ease-standard); }
+.twc-carousel__pause:hover { background: var(--color-surface); }
+.twc-carousel__pause svg { width: 15px; height: 15px; display: block; }
+.twc-carousel__live { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
 `;
   function Carousel({
     children,
@@ -1043,10 +1114,17 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     onIndexChange,
     showArrows = true,
     showDots = true,
+    showPauseButton = true,
     loop = true,
     autoPlay = false,
     interval = 4e3,
+    label,
+    pauseLabel = "Pause",
+    playLabel = "Play",
     className = "",
+    onKeyDown: onKeyDownProp,
+    "aria-label": ariaLabelProp,
+    "aria-labelledby": ariaLabelledbyProp,
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-carousel-styles", CAROUSEL_CSS);
@@ -1055,6 +1133,16 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     const [internal, setInternal] = import_react.default.useState(defaultIndex);
     const index = indexProp !== void 0 ? indexProp : internal;
     const [paused, setPaused] = import_react.default.useState(false);
+    const [userPaused, setUserPaused] = import_react.default.useState(false);
+    const [prefersReduced, setPrefersReduced] = import_react.default.useState(false);
+    import_react.default.useEffect(() => {
+      if (typeof window === "undefined" || !window.matchMedia) return void 0;
+      const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const on = () => setPrefersReduced(mql.matches);
+      on();
+      mql.addEventListener("change", on);
+      return () => mql.removeEventListener("change", on);
+    }, []);
     const setIndex = import_react.default.useCallback((i) => {
       if (indexProp === void 0) setInternal(i);
       onIndexChange?.(i);
@@ -1062,16 +1150,40 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     const go = import_react.default.useCallback((i) => {
       setIndex(loop ? (i + count) % count : Math.min(Math.max(i, 0), count - 1));
     }, [count, loop, setIndex]);
+    const autoRotating = autoPlay && !paused && !userPaused && !prefersReduced && count > 1;
     import_react.default.useEffect(() => {
-      if (!autoPlay || paused || count <= 1) return;
+      if (!autoRotating) return void 0;
       const t = setInterval(() => {
         const next = loop ? (index + 1) % count : index + 1 >= count ? index : index + 1;
         if (next !== index) setIndex(next);
       }, interval);
       return () => clearInterval(t);
-    }, [autoPlay, paused, count, interval, loop, index, setIndex]);
+    }, [autoRotating, count, interval, loop, index, setIndex]);
     const atStart = !loop && index === 0;
     const atEnd = !loop && index === count - 1;
+    const handleKeyDown = (e) => {
+      onKeyDownProp?.(e);
+      if (e.defaultPrevented) return;
+      if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+      switch (e.key) {
+        case "ArrowLeft":
+          go(index - 1);
+          break;
+        case "ArrowRight":
+          go(index + 1);
+          break;
+        case "Home":
+          go(0);
+          break;
+        case "End":
+          go(count - 1);
+          break;
+        default:
+          return;
+      }
+      e.preventDefault();
+    };
+    const ariaLabel = ariaLabelledbyProp ? void 0 : ariaLabelProp ?? label ?? "Carousel";
     return /* @__PURE__ */ jsxs(
       "div",
       {
@@ -1080,12 +1192,17 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         onMouseLeave: () => setPaused(false),
         onFocusCapture: () => setPaused(true),
         onBlurCapture: () => setPaused(false),
+        onKeyDown: handleKeyDown,
         role: "region",
         "aria-roledescription": "carousel",
+        "aria-label": ariaLabel,
+        "aria-labelledby": ariaLabelledbyProp,
         ...rest,
         children: [
           __twcStyles,
-          /* @__PURE__ */ jsx("div", { className: "twc-carousel__viewport", children: /* @__PURE__ */ jsx("div", { className: "twc-carousel__track", style: { transform: `translateX(-${index * 100}%)` }, children: slides.map((s, i) => /* @__PURE__ */ jsx("div", { className: "twc-carousel__slide", role: "group", "aria-roledescription": "slide", "aria-label": `${i + 1} of ${count}`, "aria-hidden": i !== index || void 0, inert: i !== index || void 0, children: s }, i)) }) }),
+          /* @__PURE__ */ jsx("div", { className: "twc-carousel__viewport", tabIndex: 0, children: /* @__PURE__ */ jsx("div", { className: "twc-carousel__track", style: { transform: `translateX(-${index * 100}%)` }, children: slides.map((s, i) => /* @__PURE__ */ jsx("div", { className: "twc-carousel__slide", role: "group", "aria-roledescription": "slide", "aria-label": `${i + 1} of ${count}`, "aria-hidden": i !== index || void 0, inert: i !== index || void 0, children: s }, i)) }) }),
+          /* @__PURE__ */ jsx("div", { className: "twc-carousel__live", "aria-live": autoRotating ? "off" : "polite", "aria-atomic": "true", children: count > 1 ? `Slide ${index + 1} of ${count}` : null }),
+          autoPlay && showPauseButton && count > 1 ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-carousel__pause", "aria-label": userPaused ? playLabel : pauseLabel, onClick: () => setUserPaused((v) => !v), children: userPaused ? /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "currentColor", "aria-hidden": "true", children: /* @__PURE__ */ jsx("path", { d: "M8 5v14l11-7z" }) }) : /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "currentColor", "aria-hidden": "true", children: /* @__PURE__ */ jsx("path", { d: "M6 5h4v14H6zM14 5h4v14h-4z" }) }) }) : null,
           showArrows && count > 1 ? /* @__PURE__ */ jsxs(Fragment, { children: [
             /* @__PURE__ */ jsx("button", { className: "twc-carousel__arrow", "data-dir": "prev", "aria-label": "Previous", disabled: atStart, onClick: () => go(index - 1), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m15 18-6-6 6-6" }) }) }),
             /* @__PURE__ */ jsx("button", { className: "twc-carousel__arrow", "data-dir": "next", "aria-label": "Next", disabled: atEnd, onClick: () => go(index + 1), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m9 18 6-6-6-6" }) }) })
@@ -1108,6 +1225,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-chart__leg { display: inline-flex; align-items: center; gap: 6px; }
 .twc-chart__leg-sw { width: 10px; height: 10px; border-radius: 3px; }
 @keyframes twc-chart-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.twc-chart__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 `;
   var SERIES_COLORS = ["var(--brand-500)", "var(--sky-500)", "var(--emerald-500)", "var(--amber-500)", "var(--rose-500)"];
   function Chart({
@@ -1122,10 +1240,14 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     valueFormat,
     ariaLabel,
     "aria-label": ariaLabelProp,
+    tableFallback = true,
+    caption,
     className = "",
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-chart-styles", CHART_CSS);
+    const uid = import_react.default.useId();
+    const tableId = tableFallback ? `${uid}-table` : void 0;
     const keys = series || ["value"];
     const palette = colors && colors.length ? colors : SERIES_COLORS;
     const W = 600, H = height, padL = showAxis ? 40 : 8, padR = 8, padT = 12, padB = showAxis ? 26 : 8;
@@ -1138,7 +1260,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? `${type} chart`;
     return /* @__PURE__ */ jsxs("div", { className: `twc-chart ${className}`, ...rest, children: [
       __twcStyles,
-      /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, preserveAspectRatio: "none", children: [
+      /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
         showGrid ? Array.from({ length: ticks + 1 }).map((_, i) => {
           const gy = padT + innerH / ticks * i;
           return /* @__PURE__ */ jsx("line", { className: "twc-chart__grid", x1: padL, y1: gy, x2: W - padR, y2: gy }, i);
@@ -1188,6 +1310,17 @@ var TwicoUiDesignSystem_f2f16a = (() => {
           return /* @__PURE__ */ jsx("text", { className: "twc-chart__axis", x: cx, y: H - 8, textAnchor: "middle", children: d.label }, i);
         }) : null
       ] }),
+      tableFallback ? /* @__PURE__ */ jsxs("table", { className: "twc-chart__sr", id: tableId, children: [
+        /* @__PURE__ */ jsx("caption", { children: caption ?? svgAriaLabel }),
+        /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { children: [
+          /* @__PURE__ */ jsx("th", { scope: "col" }),
+          keys.map((k) => /* @__PURE__ */ jsx("th", { scope: "col", children: k }, k))
+        ] }) }),
+        /* @__PURE__ */ jsx("tbody", { children: data.map((d, i) => /* @__PURE__ */ jsxs("tr", { children: [
+          /* @__PURE__ */ jsx("th", { scope: "row", children: d.label }),
+          keys.map((k) => /* @__PURE__ */ jsx("td", { children: fmt(Number(d[k]) || 0) }, k))
+        ] }, i)) })
+      ] }) : null,
       showLegend && keys.length > 1 ? /* @__PURE__ */ jsx("div", { className: "twc-chart__legend", children: keys.map((k, si) => /* @__PURE__ */ jsxs("span", { className: "twc-chart__leg", children: [
         /* @__PURE__ */ jsx("span", { className: "twc-chart__leg-sw", style: { background: palette[si % palette.length] } }),
         k
@@ -2027,6 +2160,52 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : hint ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__hint", children: hint }) : null
     ] });
   }
+  var canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
+  var FOCUSABLE = 'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
+  function useFocusTrap(ref, active = true, { restoreFocus = true } = {}) {
+    import_react.default.useEffect(() => {
+      if (!active || !canUseDOM) return void 0;
+      const node = ref.current;
+      if (!node) return void 0;
+      const prevFocused = document.activeElement;
+      const first = node.querySelector(FOCUSABLE);
+      (first || node).focus();
+      return () => {
+        if (restoreFocus && prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
+      };
+    }, [active]);
+    import_react.default.useEffect(() => {
+      if (!active || !canUseDOM) return void 0;
+      const node = ref.current;
+      const onKey = (e) => {
+        if (e.key !== "Tab" || !node) return;
+        const f = Array.from(node.querySelectorAll(FOCUSABLE)).filter((el) => el.offsetParent !== null);
+        if (!f.length) {
+          e.preventDefault();
+          node.focus();
+          return;
+        }
+        const first = f[0], last = f[f.length - 1], ae = document.activeElement;
+        if (e.shiftKey) {
+          if (ae === first || ae === node || !node.contains(ae)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else if (ae === last || !node.contains(ae)) {
+          e.preventDefault();
+          first.focus();
+        }
+      };
+      document.addEventListener("keydown", onKey);
+      return () => document.removeEventListener("keydown", onKey);
+    }, [active]);
+  }
+  function usePortal() {
+    return import_react.default.useCallback((node) => {
+      if (typeof document === "undefined") return null;
+      return typeof import_react_dom.createPortal === "function" ? (0, import_react_dom.createPortal)(node, document.body) : node;
+    }, []);
+  }
   var COMMAND_CSS = `
 .twc-cmdk__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(3px);
   display: flex; align-items: flex-start; justify-content: center; padding-top: 12vh; }
@@ -2072,6 +2251,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-cmdk-styles", COMMAND_CSS);
+    const renderPortal = usePortal();
     const [query, setQuery] = import_react.default.useState("");
     const [active, setActive] = import_react.default.useState(0);
     const inputRef = import_react.default.useRef(null);
@@ -2099,47 +2279,15 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       if (open) {
         setQuery("");
         setActive(0);
-        const t = setTimeout(() => inputRef.current?.focus(), 30);
-        return () => clearTimeout(t);
       }
     }, [open]);
+    useFocusTrap(paletteRef, open && mounted);
     import_react.default.useEffect(() => {
-      if (!open) return;
-      const prevFocused = document.activeElement;
-      return () => {
-        if (prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
-      };
-    }, [open]);
-    import_react.default.useEffect(() => {
-      if (!open) return;
-      const focusables = (node) => node ? Array.from(
-        node.querySelectorAll(
-          'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])'
-        )
-      ).filter((el) => el.offsetParent !== null) : [];
+      if (!open) return void 0;
       const onKey = (e) => {
         if (e.key === "Escape") {
           e.preventDefault();
           onClose?.();
-          return;
-        }
-        if (e.key !== "Tab") return;
-        const node = paletteRef.current;
-        const f = focusables(node);
-        if (!f.length) {
-          e.preventDefault();
-          node?.focus();
-          return;
-        }
-        const first = f[0], last = f[f.length - 1], ae = document.activeElement;
-        if (e.shiftKey) {
-          if (ae === first || ae === node || !node.contains(ae)) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else if (ae === last || !node.contains(ae)) {
-          e.preventDefault();
-          first.focus();
         }
       };
       document.addEventListener("keydown", onKey);
@@ -2185,7 +2333,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       const node = listRef.current?.querySelector('[data-active="true"]');
       if (node) node.scrollIntoView({ block: "nearest" });
     }, [active]);
-    if (!mounted || typeof document === "undefined") return null;
+    if (!mounted) return null;
     const state = open ? "open" : "closed";
     const listId = `${baseId}-list`;
     const optionId = (i) => `${baseId}-opt-${i}`;
@@ -2251,8 +2399,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         ] }, g.key || "_")) })
       ] })
     ] });
-    const RD = typeof import_react_dom.createPortal === "function" ? import_react_dom.createPortal : null;
-    return RD ? RD(overlay, document.body) : overlay;
+    return renderPortal(overlay);
   }
   var CURRENCIES = {
     USD: { code: "USD", symbol: "$", precision: 2, label: "US Dollar" },
@@ -3437,6 +3584,13 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : hint ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__hint", children: hint }) : null
     ] });
   }
+  var seen = /* @__PURE__ */ new Set();
+  function warnOnce(key, message) {
+    if (typeof process !== "undefined" && process.env && false) return;
+    if (seen.has(key)) return;
+    seen.add(key);
+    if (typeof console !== "undefined" && console.warn) console.warn(message);
+  }
   var PAGINATION_CSS = `
 .twc-pagination { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-sans); }
 .twc-page {
@@ -3499,12 +3653,15 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     siblings = 1,
     boundaries = 1,
     size = "md",
-    showJumper = false,
+    showJumper,
     showPageJumper,
     jumperLabel = "Go to",
     className = "",
     ...rest
   }) {
+    if (showJumper !== void 0 && showPageJumper === void 0) {
+      warnOnce("Pagination.showJumper", "Pagination: `showJumper` is deprecated and will be removed in 2.0 \u2014 use `showPageJumper`.");
+    }
     const jumperEnabled = showPageJumper ?? showJumper;
     const __twcStyles = useScopedStyles("twc-pagination-styles", PAGINATION_CSS);
     const [internal, setInternal] = import_react.default.useState(defaultPage);
@@ -5634,12 +5791,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       const vlabel = (v) => v.label || (colByField[v.field]?.headerName || v.field);
       const rowFieldLabel = rFields.map((f) => colByField[f]?.headerName || f).join(" / ");
       const leafPaths = [];
-      const seen = /* @__PURE__ */ new Set();
+      const seen2 = /* @__PURE__ */ new Set();
       for (const r of rows) {
         const path = colPathOf(r);
         const key = path.join("\0");
-        if (!seen.has(key)) {
-          seen.add(key);
+        if (!seen2.has(key)) {
+          seen2.add(key);
           leafPaths.push(path);
         }
       }
@@ -6167,7 +6324,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             } }) })
           ] }) : null
         ] }),
-        paginated ? /* @__PURE__ */ jsx("div", { className: "twc-dt__footer-row", "data-pager": "true", children: /* @__PURE__ */ jsx(Pagination, { size: "sm", page: page + 1, total: totalPages, boundaries: 3, showJumper: showPageJumper && totalPages > 5, onChange: (p) => setPage(p - 1) }) }) : null
+        paginated ? /* @__PURE__ */ jsx("div", { className: "twc-dt__footer-row", "data-pager": "true", children: /* @__PURE__ */ jsx(Pagination, { size: "sm", page: page + 1, total: totalPages, boundaries: 3, showPageJumper: showPageJumper && totalPages > 5, onChange: (p) => setPage(p - 1) }) }) : null
       ] }) : null,
       exportOpen && exportPos ? /* @__PURE__ */ jsxs(
         "div",
@@ -7470,6 +7627,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const descId = `${autoId}-desc`;
     const dialogRef = import_react.default.useRef(null);
     const __twcStyles = useScopedStyles("twc-dialog-styles", DIALOG_CSS);
+    const renderPortal = usePortal();
     const [mounted, setMounted] = import_react.default.useState(open);
     import_react.default.useEffect(() => {
       if (open) {
@@ -7487,48 +7645,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         document.body.style.overflow = prev;
       };
     }, [open]);
+    useFocusTrap(dialogRef, open && mounted);
     import_react.default.useEffect(() => {
-      if (!open || !mounted) return void 0;
-      const node = dialogRef.current;
-      const prevFocused = document.activeElement;
-      const first = node?.querySelector(
-        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      );
-      (first || node)?.focus();
-      return () => {
-        if (prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
-      };
-    }, [open, mounted]);
-    import_react.default.useEffect(() => {
-      if (!open) return;
-      const node = dialogRef.current;
-      const focusables = () => node ? Array.from(
-        node.querySelectorAll(
-          'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        )
-      ).filter((el) => el.offsetParent !== null) : [];
+      if (!open) return void 0;
       const onKey = (e) => {
         if (e.key === "Escape") {
           e.preventDefault();
           onClose?.();
-          return;
-        }
-        if (e.key !== "Tab") return;
-        const f = focusables();
-        if (!f.length) {
-          e.preventDefault();
-          node?.focus();
-          return;
-        }
-        const first = f[0], last = f[f.length - 1], ae = document.activeElement;
-        if (e.shiftKey) {
-          if (ae === first || ae === node || !node.contains(ae)) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else if (ae === last || !node.contains(ae)) {
-          e.preventDefault();
-          first.focus();
         }
       };
       document.addEventListener("keydown", onKey);
@@ -7552,9 +7675,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         footer ? /* @__PURE__ */ jsx("div", { className: "twc-dialog__footer", children: footer }) : null
       ] })
     ] });
-    if (typeof document === "undefined") return null;
-    const RD = typeof import_react_dom.createPortal === "function" ? import_react_dom.createPortal : null;
-    return RD ? RD(overlay, document.body) : overlay;
+    return renderPortal(overlay);
   }
   var DIVIDER_CSS = `
 .twc-divider { border: none; background: var(--color-divider); }
@@ -7569,6 +7690,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
    so ::before/::after land on the correct inline edge under RTL \u2014 no physical override needed. */
 .twc-divider-label[data-align="start"]::before { flex: 0 0 var(--space-6); }
 .twc-divider-label[data-align="end"]::after { flex: 0 0 var(--space-6); }
+/* Vertical labeled divider: stack the two segments above/below the label. */
+.twc-divider-label[data-orientation="vertical"] { flex-direction: column; align-self: stretch; min-height: 1em; margin: 0 var(--space-3); }
+.twc-divider-label[data-orientation="vertical"]::before,
+.twc-divider-label[data-orientation="vertical"]::after { width: 1px; height: auto; flex: 1; }
 `;
   function Divider({
     orientation = "horizontal",
@@ -7581,7 +7706,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const __twcStyles = useScopedStyles("twc-divider-styles", DIVIDER_CSS);
     const resolvedAlign = align === "left" ? "start" : align === "right" ? "end" : align;
     if (children) {
-      return /* @__PURE__ */ jsxs("div", { className: `twc-divider-label ${className}`, "data-align": resolvedAlign, role: "separator", ...rest, children: [
+      return /* @__PURE__ */ jsxs("div", { className: `twc-divider-label ${className}`, "data-align": resolvedAlign, "data-orientation": orientation, role: "separator", "aria-orientation": orientation, ...rest, children: [
         __twcStyles,
         children
       ] });
@@ -7673,6 +7798,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const descId = `${autoId}-desc`;
     const panelRef = import_react.default.useRef(null);
     const __twcStyles = useScopedStyles("twc-drawer-styles", DRAWER_CSS);
+    const renderPortal = usePortal();
     const [mounted, setMounted] = import_react.default.useState(open);
     import_react.default.useEffect(() => {
       if (open) {
@@ -7690,48 +7816,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         document.body.style.overflow = prev;
       };
     }, [open]);
+    useFocusTrap(panelRef, open && mounted);
     import_react.default.useEffect(() => {
-      if (!open || !mounted) return void 0;
-      const node = panelRef.current;
-      const prevFocused = document.activeElement;
-      const first = node?.querySelector(
-        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      );
-      (first || node)?.focus();
-      return () => {
-        if (prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
-      };
-    }, [open, mounted]);
-    import_react.default.useEffect(() => {
-      if (!open) return;
-      const node = panelRef.current;
-      const focusables = () => node ? Array.from(
-        node.querySelectorAll(
-          'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        )
-      ).filter((el) => el.offsetParent !== null) : [];
+      if (!open) return void 0;
       const onKey = (e) => {
         if (e.key === "Escape") {
           e.preventDefault();
           onClose?.();
-          return;
-        }
-        if (e.key !== "Tab") return;
-        const f = focusables();
-        if (!f.length) {
-          e.preventDefault();
-          node?.focus();
-          return;
-        }
-        const first = f[0], last = f[f.length - 1], ae = document.activeElement;
-        if (e.shiftKey) {
-          if (ae === first || ae === node || !node.contains(ae)) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else if (ae === last || !node.contains(ae)) {
-          e.preventDefault();
-          first.focus();
         }
       };
       document.addEventListener("keydown", onKey);
@@ -7759,9 +7850,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         footer ? /* @__PURE__ */ jsx("div", { className: "twc-drawer__footer", children: footer }) : null
       ] })
     ] });
-    if (typeof document === "undefined") return null;
-    const RD = typeof import_react_dom.createPortal === "function" ? import_react_dom.createPortal : null;
-    return RD ? RD(overlay, document.body) : overlay;
+    return renderPortal(overlay);
   }
   var EMPTY_CSS = `
 .twc-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-3);
@@ -7779,11 +7868,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     title,
     description,
     actions,
-    bordered = false,
+    bordered,
     border,
     className = "",
     ...rest
   }) {
+    if (bordered !== void 0 && border === void 0) {
+      warnOnce("EmptyState.bordered", "EmptyState: `bordered` is deprecated and will be removed in 2.0 \u2014 use `border`.");
+    }
     const hasBorder = border ?? bordered;
     const __twcStyles = useScopedStyles("twc-empty-styles", EMPTY_CSS);
     return /* @__PURE__ */ jsxs("div", { className: `twc-empty ${className}`, "data-bordered": hasBorder || void 0, ...rest, children: [
@@ -8096,6 +8188,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     defaultCards,
     onCardMove,
     renderCard,
+    getCardLabel,
     className = "",
     ...rest
   }) {
@@ -8160,7 +8253,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       }
     };
     const keyTargetCol = grab ? columns[grab.targetIdx]?.id : null;
-    return /* @__PURE__ */ jsxs("div", { className: `twc-kanban ${className}`, ref: rootRef, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { className: `twc-kanban ${className}`, ref: rootRef, role: "group", "aria-label": "Board", ...rest, children: [
       __twcStyles,
       /* @__PURE__ */ jsx("div", { className: "twc-kanban__sr", role: "status", "aria-live": "polite", children: announce }),
       columns.map((col, colIdx) => {
@@ -8170,7 +8263,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           {
             className: "twc-kanban__col",
             role: "group",
-            "aria-label": typeof col.title === "string" ? col.title : void 0,
+            "aria-label": col.ariaLabel ?? colTitle(col),
             "data-over": overCol === col.id || keyTargetCol === col.id || void 0,
             onDragOver: (e) => {
               e.preventDefault();
@@ -8201,6 +8294,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   tabIndex: 0,
                   "aria-roledescription": "draggable card",
                   "data-card-id": card.id,
+                  "aria-label": getCardLabel?.(card) ?? (typeof card.ariaLabel === "string" ? card.ariaLabel : cardTitle(card)),
+                  "aria-pressed": grab && grab.id === card.id || void 0,
                   "data-grabbed": grab && grab.id === card.id || void 0,
                   onKeyDown: (e) => handleCardKey(e, card, colIdx),
                   onBlur: () => {
@@ -8254,7 +8349,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 `;
   function List({ items, plain = false, className = "", ...rest }) {
     const __twcStyles = useScopedStyles("twc-list-styles", LIST_CSS);
-    const safeHref11 = (url) => {
+    const safeHref12 = (url) => {
       if (url == null) return void 0;
       const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
       return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -8262,7 +8357,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     return /* @__PURE__ */ jsxs("ul", { className: `twc-list ${className}`, "data-plain": plain || void 0, ...rest, children: [
       __twcStyles,
       items.map((it, i) => {
-        const href = safeHref11(it.href);
+        const href = safeHref12(it.href);
         const interactive = Boolean(it.onClick || href);
         const Tag2 = href ? "a" : interactive ? "button" : "div";
         const content = /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -8316,7 +8411,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   .twc-navbar__menu-btn { display: inline-grid; }
 }
 `;
-  function safeHref3(url) {
+  function safeHref4(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -8329,16 +8424,19 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     actions,
     sticky = true,
     onMenuClick,
+    menuOpen,
+    menuControls,
+    navLabel = "Primary",
     className = "",
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-navbar-styles", NAVBAR_CSS);
     return /* @__PURE__ */ jsxs("header", { className: `twc-navbar ${className}`, "data-sticky": sticky || void 0, ...rest, children: [
       __twcStyles,
-      onMenuClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__menu-btn", "aria-label": "Open menu", onClick: onMenuClick, children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M4 6h16M4 12h16M4 18h16" }) }) }) : null,
-      brand ? brandHref ? /* @__PURE__ */ jsx("a", { className: "twc-navbar__brand", href: safeHref3(brandHref), children: brand }) : onBrandClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__brand", onClick: onBrandClick, children: brand }) : /* @__PURE__ */ jsx("span", { className: "twc-navbar__brand", children: brand }) : null,
-      /* @__PURE__ */ jsx("nav", { className: "twc-navbar__links", children: links.map((l, i) => {
-        const href = safeHref3(l.href);
+      onMenuClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__menu-btn", "aria-expanded": menuOpen, "aria-controls": menuControls, "aria-label": menuOpen ? "Close menu" : "Open menu", onClick: onMenuClick, children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M4 6h16M4 12h16M4 18h16" }) }) }) : null,
+      brand ? brandHref ? /* @__PURE__ */ jsx("a", { className: "twc-navbar__brand", href: safeHref4(brandHref), children: brand }) : onBrandClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__brand", onClick: onBrandClick, children: brand }) : /* @__PURE__ */ jsx("span", { className: "twc-navbar__brand", children: brand }) : null,
+      /* @__PURE__ */ jsx("nav", { className: "twc-navbar__links", "aria-label": navLabel, children: links.map((l, i) => {
+        const href = safeHref4(l.href);
         const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
           l.icon,
           l.label
@@ -8573,9 +8671,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     size = "md",
     indeterminate = false,
     showLabel = false,
+    label,
     className = "",
     ...rest
   }) {
+    const labelId = import_react.default.useId();
+    const { "aria-label": ariaLabel, "aria-labelledby": ariaLabelledby, ...restProps } = rest;
     const __twcStyles = useScopedStyles("twc-progress-styles", `
 .twc-progress-wrap { display: flex; flex-direction: column; gap: 6px; font-family: var(--font-sans); }
 .twc-progress {
@@ -8614,14 +8715,14 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     return (
       // Single-root contract: className and ...rest (style, id, handlers, …) share the outer
       // wrapper; role="progressbar" + aria-value* stay on the inner track.
-      /* @__PURE__ */ jsxs("div", { className: `twc-progress-wrap ${className}`, ...rest, children: [
+      /* @__PURE__ */ jsxs("div", { className: `twc-progress-wrap ${className}`, ...restProps, children: [
         __twcStyles,
-        showLabel && !indeterminate ? /* @__PURE__ */ jsxs("div", { className: "twc-progress__meta", children: [
-          /* @__PURE__ */ jsx("span", { children: "Progress" }),
-          /* @__PURE__ */ jsxs("span", { children: [
+        (showLabel || label != null) && !indeterminate ? /* @__PURE__ */ jsxs("div", { className: "twc-progress__meta", children: [
+          /* @__PURE__ */ jsx("span", { id: labelId, children: label ?? "Progress" }),
+          showLabel ? /* @__PURE__ */ jsxs("span", { children: [
             Math.round(pct),
             "%"
-          ] })
+          ] }) : null
         ] }) : null,
         /* @__PURE__ */ jsx(
           "div",
@@ -8634,6 +8735,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
             "aria-valuenow": indeterminate ? void 0 : Math.round(pct),
             "aria-valuemin": 0,
             "aria-valuemax": 100,
+            "aria-label": ariaLabel,
+            "aria-labelledby": ariaLabelledby ?? (label != null ? labelId : void 0),
             children: /* @__PURE__ */ jsx("div", { className: "twc-progress__bar", style: indeterminate ? void 0 : { width: `${pct}%` } })
           }
         )
@@ -8985,6 +9088,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-sidebar__brand { display: inline-flex; align-items: center; gap: var(--space-2-5); font-weight: var(--font-extrabold); font-size: var(--text-lg); letter-spacing: -0.02em; color: var(--color-text); white-space: nowrap; overflow: hidden; min-width: 0;
   transition: font-size var(--duration-base) var(--ease-standard), gap var(--duration-base) var(--ease-standard); }
 .twc-sidebar__nav { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: var(--space-3); display: flex; flex-direction: column; gap: 2px; }
+.twc-sidebar__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
 .twc-sidebar__section { font-size: 10px; font-weight: var(--font-bold); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--color-text-subtle); padding: var(--space-3) var(--space-3) var(--space-1); white-space: nowrap; overflow: hidden; max-height: 2.5rem; opacity: 1; visibility: visible;
   transition: max-height var(--duration-base) var(--ease-standard), padding var(--duration-base) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard) var(--duration-fast), visibility 0s; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__section { max-height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; visibility: hidden;
@@ -9026,6 +9130,23 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot { display: flex; flex-direction: column; align-items: center; padding: var(--space-2) 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse { width: auto; padding: 11px; gap: 0; margin: 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse span { display: none; }
+
+/* Off-canvas overlay mode (mobile): the rail becomes a slide-over drawer behind a
+   scrim, mirroring Drawer.jsx. Logical inset + a --_off var slide it in from the
+   inline-start edge (mirrored under dir="rtl"). */
+.twc-sidebar__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(2px); }
+.twc-sidebar__overlay[data-state="open"] { animation: twico-fade-in var(--duration-base) var(--ease-out); }
+.twc-sidebar__overlay[data-state="closed"] { animation: twc-sidebar-fade-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
+@keyframes twc-sidebar-fade-out { from { opacity: 1; } to { opacity: 0; } }
+.twc-sidebar--overlay { position: fixed; inset-block: 0; inset-inline-start: 0; height: 100%; max-width: 92vw; z-index: var(--z-modal); box-shadow: var(--shadow-xl); --_off: -100%; }
+[dir="rtl"] .twc-sidebar--overlay { inset-inline-start: auto; inset-inline-end: 0; --_off: 100%; }
+.twc-sidebar--overlay[data-state="open"] { animation: twc-sidebar-in var(--duration-base) var(--ease-out); }
+.twc-sidebar--overlay[data-state="closed"] { animation: twc-sidebar-out var(--duration-exit) var(--ease-in) forwards; }
+@keyframes twc-sidebar-in { from { transform: translateX(var(--_off)); } to { transform: translateX(0); } }
+@keyframes twc-sidebar-out { from { transform: translateX(0); } to { transform: translateX(var(--_off)); } }
+@media (prefers-reduced-motion: reduce) {
+  .twc-sidebar__overlay[data-state], .twc-sidebar--overlay[data-state] { animation-duration: 1ms; }
+}
 `;
   function Sidebar({
     brand,
@@ -9035,10 +9156,18 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     defaultCollapsed = false,
     collapsible = true,
     onCollapsedChange,
+    overlay = false,
+    open: openProp,
+    defaultOpen = false,
+    onOpenChange,
+    navLabel = "Main",
     className = "",
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-sidebar-styles", SIDEBAR_CSS);
+    const navId = import_react.default.useId();
+    const panelRef = import_react.default.useRef(null);
+    const renderPortal = usePortal();
     const [internal, setInternal] = import_react.default.useState(defaultCollapsed);
     const collapsed = collapsedProp !== void 0 ? collapsedProp : internal;
     const toggle = () => {
@@ -9046,52 +9175,130 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       if (collapsedProp === void 0) setInternal(next);
       onCollapsedChange?.(next);
     };
-    const safeHref11 = (url) => {
+    const [openInternal, setOpenInternal] = import_react.default.useState(defaultOpen);
+    const open = openProp !== void 0 ? openProp : openInternal;
+    const setOpen = (next) => {
+      if (openProp === void 0) setOpenInternal(next);
+      onOpenChange?.(next);
+    };
+    const [mounted, setMounted] = import_react.default.useState(open);
+    import_react.default.useEffect(() => {
+      if (!overlay) return void 0;
+      if (open) {
+        setMounted(true);
+        return void 0;
+      }
+      const t = setTimeout(() => setMounted(false), 170);
+      return () => clearTimeout(t);
+    }, [overlay, open]);
+    import_react.default.useEffect(() => {
+      if (!overlay || !open) return void 0;
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }, [overlay, open]);
+    useFocusTrap(panelRef, overlay && open && mounted);
+    import_react.default.useEffect(() => {
+      if (!overlay || !open) return void 0;
+      const onKey = (e) => {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          if (openProp === void 0) setOpenInternal(false);
+          onOpenChange?.(false);
+        }
+      };
+      document.addEventListener("keydown", onKey);
+      return () => document.removeEventListener("keydown", onKey);
+    }, [overlay, open, openProp, onOpenChange]);
+    const safeHref12 = (url) => {
       if (url == null) return void 0;
       const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
       return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
     };
-    return /* @__PURE__ */ jsxs("aside", { className: `twc-sidebar ${className}`, "data-collapsed": collapsed || void 0, ...rest, children: [
+    const renderItem = (it, i) => {
+      const href = safeHref12(it.href);
+      const labelStr = typeof it.label === "string" ? it.label : void 0;
+      const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
+        it.icon ? /* @__PURE__ */ jsx("span", { className: "twc-sidebar__ic", "aria-hidden": "true", children: it.icon }) : labelStr != null ? /* @__PURE__ */ jsx("span", { className: "twc-sidebar__ic twc-sidebar__ic--initial", "aria-hidden": "true", children: labelStr.charAt(0) }) : null,
+        /* @__PURE__ */ jsx("span", { className: "twc-sidebar__label", children: it.label }),
+        it.badge != null ? /* @__PURE__ */ jsx("span", { className: "twc-sidebar__badge", children: it.badge }) : null
+      ] });
+      const common = {
+        className: "twc-sidebar__item",
+        "data-active": it.active || void 0,
+        "aria-current": it.active ? "page" : void 0,
+        onClick: it.onClick,
+        "aria-label": collapsed && labelStr != null ? labelStr : void 0
+      };
+      const node = href != null ? /* @__PURE__ */ jsx("a", { href, ...common, children: inner }) : /* @__PURE__ */ jsx("button", { type: "button", ...common, children: inner });
+      return collapsed && labelStr != null ? /* @__PURE__ */ jsx(Tooltip, { label: labelStr, placement: "right", style: { display: "block" }, children: node }) : node;
+    };
+    const groups = [];
+    let group = { sid: null, section: null, entries: [] };
+    let secN = 0;
+    for (let i = 0; i < items.length; i++) {
+      const it = items[i];
+      if (it.section) {
+        if (group.entries.length || group.section != null) groups.push(group);
+        secN += 1;
+        group = { sid: `${navId}-sec-${secN}`, section: it.section, entries: [] };
+      } else {
+        group.entries.push({ it, i });
+      }
+    }
+    if (group.entries.length || group.section != null) groups.push(group);
+    const body = /* @__PURE__ */ jsxs(Fragment, { children: [
       __twcStyles,
       brand ? /* @__PURE__ */ jsx("div", { className: "twc-sidebar__head", children: /* @__PURE__ */ jsx("span", { className: "twc-sidebar__brand", children: brand }) }) : null,
-      /* @__PURE__ */ jsx("nav", { className: "twc-sidebar__nav", children: items.map(
-        (it, i) => it.section ? /* @__PURE__ */ jsx("div", { className: "twc-sidebar__section", children: it.section }, i) : (() => {
-          const href = safeHref11(it.href);
-          const labelStr = typeof it.label === "string" ? it.label : void 0;
-          const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
-            it.icon ? /* @__PURE__ */ jsx("span", { className: "twc-sidebar__ic", "aria-hidden": "true", children: it.icon }) : labelStr != null ? /* @__PURE__ */ jsx("span", { className: "twc-sidebar__ic twc-sidebar__ic--initial", "aria-hidden": "true", children: labelStr.charAt(0) }) : null,
-            /* @__PURE__ */ jsx("span", { className: "twc-sidebar__label", children: it.label }),
-            it.badge != null ? /* @__PURE__ */ jsx("span", { className: "twc-sidebar__badge", children: it.badge }) : null
-          ] });
-          const common = {
-            className: "twc-sidebar__item",
-            "data-active": it.active || void 0,
-            "aria-current": it.active ? "page" : void 0,
-            onClick: it.onClick,
-            "aria-label": collapsed && labelStr != null ? labelStr : void 0
-          };
-          const node = href != null ? /* @__PURE__ */ jsx("a", { href, ...common, children: inner }, i) : /* @__PURE__ */ jsx("button", { type: "button", ...common, children: inner }, i);
-          return collapsed && labelStr != null ? /* @__PURE__ */ jsx(Tooltip, { label: labelStr, placement: "right", style: { display: "block" }, children: node }, i) : node;
-        })()
-      ) }),
+      /* @__PURE__ */ jsx("nav", { id: navId, className: "twc-sidebar__nav", "aria-label": navLabel, children: groups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
+        g.section != null ? /* @__PURE__ */ jsx("div", { className: "twc-sidebar__section", id: g.sid, children: g.section }) : null,
+        /* @__PURE__ */ jsx("ul", { className: "twc-sidebar__list", ...g.section != null ? { "aria-labelledby": g.sid } : {}, children: g.entries.map(({ it, i }) => /* @__PURE__ */ jsx("li", { children: renderItem(it) }, i)) })
+      ] }, gi)) }),
       footer || collapsible ? /* @__PURE__ */ jsxs("div", { className: "twc-sidebar__foot", children: [
         footer ? /* @__PURE__ */ jsx("div", { className: "twc-sidebar__foot-user", children: footer }) : null,
-        collapsible ? /* @__PURE__ */ jsxs("button", { type: "button", className: "twc-sidebar__collapse", onClick: toggle, "aria-label": collapsed ? "Expand sidebar" : "Collapse sidebar", children: [
+        collapsible ? /* @__PURE__ */ jsxs("button", { type: "button", className: "twc-sidebar__collapse", onClick: toggle, "aria-expanded": !collapsed, "aria-controls": navId, "aria-label": collapsed ? "Expand sidebar" : "Collapse sidebar", children: [
           /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m15 18-6-6 6-6" }) }),
           /* @__PURE__ */ jsx("span", { children: "Collapse" })
         ] }) : null
       ] }) : null
     ] });
+    if (!overlay) {
+      return /* @__PURE__ */ jsx("aside", { className: `twc-sidebar ${className}`, "data-collapsed": collapsed || void 0, ...rest, children: body });
+    }
+    if (!mounted) return null;
+    const state = open ? "open" : "closed";
+    const drawer = /* @__PURE__ */ jsx("div", { className: "twc-sidebar__overlay", "data-state": state, onMouseDown: (e) => {
+      if (e.target === e.currentTarget) setOpen(false);
+    }, children: /* @__PURE__ */ jsx(
+      "aside",
+      {
+        ref: panelRef,
+        className: `twc-sidebar twc-sidebar--overlay ${className}`,
+        "data-state": state,
+        "data-collapsed": collapsed || void 0,
+        role: "dialog",
+        "aria-modal": "true",
+        tabIndex: -1,
+        "aria-label": navLabel || "Navigation",
+        ...rest,
+        children: body
+      }
+    ) });
+    return renderPortal(drawer);
   }
   function Skeleton({
     variant = "text",
     width,
     height,
     lines = 1,
+    label,
     className = "",
     style,
     ...rest
   }) {
+    const a11y = label != null ? { role: "status", "aria-live": "polite", "aria-busy": true } : { "aria-hidden": true };
     const __twcStyles = useScopedStyles("twc-skeleton-styles", `
 .twc-skeleton {
   position: relative; overflow: hidden;
@@ -9107,25 +9314,31 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-skeleton[data-variant="rect"] { border-radius: var(--radius-md); }
 .twc-skeleton__group { display: flex; flex-direction: column; gap: 8px; }
 .twc-skeleton__group .twc-skeleton:last-child { width: 70%; }
+.twc-skeleton__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 /* The shimmer signals loading \u2014 keep it animating even under reduced motion. */
 @media (prefers-reduced-motion: reduce) {
   .twc-skeleton::after { animation-duration: 1.4s !important; animation-iteration-count: infinite !important; }
 }
 `);
     if (variant === "text" && lines > 1) {
-      return /* @__PURE__ */ jsxs("div", { className: `twc-skeleton__group ${className}`, style: { height, ...style }, ...rest, children: [
+      return /* @__PURE__ */ jsxs("div", { className: `twc-skeleton__group ${className}`, style: { height, ...style }, ...a11y, ...rest, children: [
         __twcStyles,
+        label != null ? /* @__PURE__ */ jsx("span", { className: "twc-skeleton__sr", children: label }) : null,
         Array.from({ length: lines }).map((_, i) => /* @__PURE__ */ jsx("span", { className: "twc-skeleton", "data-variant": "text", style: { width: width || "100%" } }, i))
       ] });
     }
-    return /* @__PURE__ */ jsx(
+    return /* @__PURE__ */ jsxs(
       "span",
       {
         className: `twc-skeleton ${className}`,
         "data-variant": variant,
         style: { width, height, ...style },
+        ...a11y,
         ...rest,
-        children: __twcStyles
+        children: [
+          __twcStyles,
+          label != null ? /* @__PURE__ */ jsx("span", { className: "twc-skeleton__sr", children: label }) : null
+        ]
       }
     );
   }
@@ -9291,12 +9504,15 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   function Spinner({
     size = "md",
     color,
-    tone = "current",
+    tone,
     label = "Loading",
     className = "",
     ...rest
   }) {
-    const resolvedColor = color ?? tone;
+    if (tone !== void 0 && color === void 0) {
+      warnOnce("Spinner.tone", "Spinner: `tone` is deprecated and will be removed in 2.0 \u2014 use `color`.");
+    }
+    const resolvedColor = color ?? tone ?? "current";
     const __twcStyles = useScopedStyles("twc-spinner-styles", `
 .twc-spinner {
   --_sz: 24px; --_bw: 2.5px;
@@ -9412,6 +9628,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-stepper[data-orientation="vertical"] .twc-step__col { display: flex; flex-direction: column; align-items: center; }
 .twc-step[data-state="complete"] .twc-step__connector, .twc-step[data-state="active"] .twc-step__connector { background: var(--_accent); }
 .twc-stepper[data-orientation="vertical"] .twc-step__vbody { padding-bottom: var(--space-2); }
+.twc-step__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 `;
   var CheckIcon = () => /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "3", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) });
   var BangIcon = () => /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "3", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M12 8v5M12 17h.01" }) });
@@ -9439,11 +9656,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       if (i === active) return "active";
       return "upcoming";
     };
-    return /* @__PURE__ */ jsxs("div", { className: `twc-stepper ${className}`, "data-orientation": orientation, "data-tone": tone, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { className: `twc-stepper ${className}`, "data-orientation": orientation, "data-tone": tone, role: "group", "aria-label": "Progress", ...rest, children: [
       __twcStyles,
       steps.map((step, i) => {
         const state = stateOf(i, step);
         const last = i === steps.length - 1;
+        const srText = `Step ${i + 1} of ${steps.length}${state === "complete" ? ", completed" : state === "error" ? ", error" : state === "active" ? ", current" : ", upcoming"}. `;
         const isClickable = clickable && i <= active;
         const interactive = isClickable ? {
           role: "button",
@@ -9465,8 +9683,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
               "data-state": state,
               "data-clickable": isClickable || void 0,
               "aria-current": state === "active" ? "step" : void 0,
+              "aria-invalid": state === "error" ? "true" : void 0,
               ...interactive,
               children: [
+                /* @__PURE__ */ jsx("span", { className: "twc-step__sr", children: srText }),
                 /* @__PURE__ */ jsxs("div", { className: "twc-step__col", children: [
                   indicator,
                   !last ? /* @__PURE__ */ jsx("span", { className: "twc-step__connector" }) : null
@@ -9487,8 +9707,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
             "data-state": state,
             "data-clickable": isClickable || void 0,
             "aria-current": state === "active" ? "step" : void 0,
+            "aria-invalid": state === "error" ? "true" : void 0,
             ...interactive,
             children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-step__sr", children: srText }),
               indicator,
               !last ? /* @__PURE__ */ jsx("span", { className: "twc-step__connector" }) : null,
               /* @__PURE__ */ jsxs("div", { className: "twc-step__body", children: [
@@ -9737,6 +9959,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-tabs[data-variant="pill"] .twc-tabs__indicator {
   top: 4px; bottom: 4px; height: auto; background: var(--color-surface); box-shadow: var(--shadow-sm); border-radius: var(--radius-md);
 }
+.twc-tab[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+/* Horizontal tablist scrolls when tabs overflow (vertical orientation untouched). Making
+   overflow-x non-visible makes overflow-y compute to auto, which would clip the bottom:-1px
+   indicator \u2014 so pin the horizontal indicator to bottom:0 (the list border-bottom is the baseline). */
+.twc-tabs:not([data-orientation="vertical"]) .twc-tabs__list { overflow-x: auto; scrollbar-width: none; }
+.twc-tabs:not([data-orientation="vertical"]) .twc-tabs__list::-webkit-scrollbar { display: none; }
+.twc-tabs:not([data-orientation="vertical"]) .twc-tabs__indicator { bottom: 0; }
 .twc-tabs__panel { padding-top: var(--space-4); }
 
 /* Vertical orientation */
@@ -9783,8 +10012,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       const list = listRef.current;
       if (!list) return;
       const el = list.querySelector('[data-active="true"]');
-      if (el) setInd({ left: el.offsetLeft, width: el.offsetWidth, top: el.offsetTop, height: el.offsetHeight });
-    }, []);
+      if (el) {
+        setInd({ left: el.offsetLeft, width: el.offsetWidth, top: el.offsetTop, height: el.offsetHeight });
+        if (!vertical) el.scrollIntoView?.({ inline: "nearest", block: "nearest" });
+      }
+    }, [vertical]);
     import_react.default.useEffect(() => {
       updateIndicator();
     }, [active, updateIndicator, items, orientation]);
@@ -9809,20 +10041,32 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       const keys = [prevKey, nextKey, "Home", "End"];
       if (!keys.includes(e.key)) return;
       const n = items.length;
-      if (!n) return;
+      if (!n || items.every((it2) => it2.disabled)) return;
       e.preventDefault();
       let i = activeIndex < 0 ? 0 : activeIndex;
-      if (e.key === "Home") i = 0;
-      else if (e.key === "End") i = n - 1;
-      else {
+      if (e.key === "Home") i = items.findIndex((it2) => !it2.disabled);
+      else if (e.key === "End") {
+        for (let k = n - 1; k >= 0; k--) {
+          if (!items[k].disabled) {
+            i = k;
+            break;
+          }
+        }
+      } else {
         const dir = e.key === nextKey ? 1 : -1;
-        i = (i + dir + n) % n;
+        let guard = 0;
+        do {
+          i = (i + dir + n) % n;
+        } while (items[i]?.disabled && ++guard <= n);
       }
       const it = items[i];
-      if (!it) return;
+      if (!it || it.disabled) return;
       select(it.value);
       const btns = listRef.current?.querySelectorAll('[role="tab"]');
-      if (btns && btns[i]) btns[i].focus();
+      if (btns && btns[i]) {
+        btns[i].focus();
+        btns[i].scrollIntoView?.({ inline: "nearest", block: "nearest" });
+      }
     }
     return /* @__PURE__ */ jsxs("div", { className: `twc-tabs ${className}`, "data-variant": variant, "data-tone": tone, "data-orientation": orientation, ...rest, children: [
       __twcStyles,
@@ -9835,10 +10079,14 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
             className: "twc-tab",
             role: "tab",
             "aria-selected": it.value === active,
+            "aria-disabled": it.disabled || void 0,
+            disabled: it.disabled || void 0,
             "aria-controls": it.value === active && panelRendered ? panelId : void 0,
-            tabIndex: it.value === active ? 0 : -1,
+            tabIndex: it.value === active && !it.disabled ? 0 : -1,
             "data-active": it.value === active || void 0,
-            onClick: () => select(it.value),
+            onClick: () => {
+              if (!it.disabled) select(it.value);
+            },
             children: [
               it.icon,
               it.label,
@@ -9901,10 +10149,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     leftIcon,
     tone = "neutral",
     variant = "soft",
+    removeLabel,
     className = "",
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-tag-styles", TAG_CSS);
+    const _removeLabel = removeLabel ?? (typeof children === "string" ? `Remove ${children}` : "Remove");
     return /* @__PURE__ */ jsxs("span", { className: `twc-tag ${className}`, "data-tone": tone, "data-variant": variant, "data-no-remove": !onRemove || void 0, ...rest, children: [
       __twcStyles,
       leftIcon,
@@ -9912,7 +10162,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       onRemove ? /* @__PURE__ */ jsx("button", { className: "twc-tag__remove", onClick: (e) => {
         e.stopPropagation();
         onRemove(e);
-      }, "aria-label": "Remove", type: "button", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) }) }) : null
+      }, "aria-label": _removeLabel, type: "button", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) }) }) : null
     ] });
   }
   function Textarea({
@@ -10236,7 +10486,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-tree__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-tree__badge { flex: none; font-size: 11px; color: var(--color-text-subtle); }
 `;
-  function Node({ node, depth, expanded, selectedId, tabbableId, rowRefs, onToggle, onSelect, onRowFocus }) {
+  function Node({ node, depth, posInSet, setSize, expanded, selectedId, tabbableId, rowRefs, onToggle, onSelect, onRowFocus }) {
     const hasChildren = Array.isArray(node.children) && node.children.length > 0;
     const open = expanded.has(node.id);
     return /* @__PURE__ */ jsxs("li", { role: "none", children: [
@@ -10247,6 +10497,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
           className: "twc-tree__row",
           role: "treeitem",
           "aria-level": depth + 1,
+          "aria-posinset": posInSet,
+          "aria-setsize": setSize,
           "aria-selected": selectedId === node.id,
           "data-selected": selectedId === node.id || void 0,
           "data-tree-id": node.id,
@@ -10270,11 +10522,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
           ]
         }
       ),
-      hasChildren && open ? /* @__PURE__ */ jsx("ul", { className: "twc-tree__group twc-tree__group--child", role: "group", children: node.children.map((c) => /* @__PURE__ */ jsx(
+      hasChildren && open ? /* @__PURE__ */ jsx("ul", { className: "twc-tree__group twc-tree__group--child", role: "group", children: node.children.map((c, i) => /* @__PURE__ */ jsx(
         Node,
         {
           node: c,
           depth: depth + 1,
+          posInSet: i + 1,
+          setSize: node.children.length,
           expanded,
           selectedId,
           tabbableId,
@@ -10306,6 +10560,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const selectedId = selectedProp !== void 0 ? selectedProp : selInternal;
     const [focusId, setFocusId] = import_react.default.useState(null);
     const rowRefs = import_react.default.useRef(/* @__PURE__ */ new Map());
+    const taRef = import_react.default.useRef({ str: "", t: 0 });
     const toggle = (id) => {
       const n = new Set(expanded);
       n.has(id) ? n.delete(id) : n.add(id);
@@ -10319,10 +10574,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const visible = [];
     const parentOf = /* @__PURE__ */ new Map();
     const hasKids = /* @__PURE__ */ new Map();
+    const labelText = /* @__PURE__ */ new Map();
     const walk = (nodes2, parentId) => {
       for (const n of nodes2) {
         visible.push(n.id);
         parentOf.set(n.id, parentId);
+        if (typeof n.label === "string") labelText.set(n.id, n.label);
         const kids = Array.isArray(n.children) && n.children.length > 0;
         hasKids.set(n.id, kids);
         if (kids && expanded.has(n.id)) walk(n.children, n.id);
@@ -10360,17 +10617,36 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
           return;
         }
         next = parentOf.get(id);
+      } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey && /\S/.test(e.key)) {
+        const now = Date.now();
+        taRef.current.str = now - taRef.current.t > 500 ? e.key : taRef.current.str + e.key;
+        taRef.current.t = now;
+        const q = taRef.current.str.toLowerCase();
+        const single = q.length > 1 && [...q].every((c) => c === q[0]);
+        const needle = single ? q[0] : q;
+        for (let k = 1; k <= visible.length; k++) {
+          const cand = visible[(i + k) % visible.length];
+          const lbl = labelText.get(cand);
+          if (lbl && lbl.toLowerCase().startsWith(needle)) {
+            e.preventDefault();
+            focusRow(cand);
+            break;
+          }
+        }
+        return;
       } else return;
       e.preventDefault();
       if (next != null) focusRow(next);
     };
     return /* @__PURE__ */ jsxs("div", { className: `twc-tree ${className}`, role: "tree", onKeyDown, ...rest, children: [
       __twcStyles,
-      /* @__PURE__ */ jsx("ul", { className: "twc-tree__group", role: "none", children: nodes.map((n) => /* @__PURE__ */ jsx(
+      /* @__PURE__ */ jsx("ul", { className: "twc-tree__group", role: "none", children: nodes.map((n, i) => /* @__PURE__ */ jsx(
         Node,
         {
           node: n,
           depth: 0,
+          posInSet: i + 1,
+          setSize: nodes.length,
           expanded,
           selectedId,
           tabbableId,
@@ -10384,12 +10660,22 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     ] });
   }
   var SHELL_CSS = `
-.twc-shell { display: flex; overflow: hidden; background: var(--color-bg); color: var(--color-text); font-family: var(--font-sans); }
+.twc-shell { position: relative; display: flex; overflow: hidden; background: var(--color-bg); color: var(--color-text); font-family: var(--font-sans); }
+.twc-shell__skip { position: absolute; inset-inline-start: var(--space-3); inset-block-start: var(--space-3); z-index: 100;
+  padding: var(--space-2) var(--space-4); background: var(--color-surface); color: var(--color-text);
+  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-sans);
+  transform: translateY(-200%); transition: transform var(--duration-fast) var(--ease-standard); }
+.twc-shell__skip:focus-visible { transform: translateY(0); outline: none; box-shadow: var(--ring); }
 .twc-shell__main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; height: 100%; }
 .twc-shell__header { flex: none; display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
   min-height: 60px; padding-inline: var(--space-5); border-bottom: var(--border-thin) solid var(--color-border); background: var(--color-surface); }
 .twc-shell__content { flex: 1 1 auto; min-height: 0; overflow: auto; }
 .twc-shell__content[data-padded="true"] { padding: var(--space-6) var(--space-5); }
+/* Mobile: stack the shell so the sidebar (rendered as an off-canvas overlay) no
+   longer reserves a column \u2014 the main content spans the full width. */
+@media (max-width: 720px) {
+  .twc-shell { flex-direction: column; }
+}
 `;
   function AppShell({
     sidebar,
@@ -10397,17 +10683,27 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     children,
     height = "100dvh",
     padded = true,
+    mainId = "twc-main",
+    skipLinkLabel = "Skip to content",
+    sidebarOpen,
+    onSidebarOpenChange,
     className = "",
     style,
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-shell-styles", SHELL_CSS);
+    const wiredSidebar = import_react.default.isValidElement(sidebar) && (sidebarOpen !== void 0 || onSidebarOpenChange !== void 0) ? import_react.default.cloneElement(sidebar, {
+      overlay: sidebar.props.overlay !== void 0 ? sidebar.props.overlay : true,
+      open: sidebar.props.open !== void 0 ? sidebar.props.open : sidebarOpen,
+      onOpenChange: sidebar.props.onOpenChange !== void 0 ? sidebar.props.onOpenChange : onSidebarOpenChange
+    }) : sidebar;
     return /* @__PURE__ */ jsxs("div", { className: `twc-shell ${className}`.trim(), style: { height, ...style }, ...rest, children: [
       __twcStyles,
-      sidebar,
+      skipLinkLabel != null && skipLinkLabel !== false ? /* @__PURE__ */ jsx("a", { className: "twc-shell__skip", href: `#${mainId}`, children: skipLinkLabel }) : null,
+      wiredSidebar,
       /* @__PURE__ */ jsxs("div", { className: "twc-shell__main", children: [
         header != null ? /* @__PURE__ */ jsx("header", { className: "twc-shell__header", children: header }) : null,
-        /* @__PURE__ */ jsx("main", { className: "twc-shell__content", "data-padded": padded ? "true" : void 0, children })
+        /* @__PURE__ */ jsx("main", { className: "twc-shell__content", id: mainId, tabIndex: -1, "data-padded": padded ? "true" : void 0, children })
       ] })
     ] });
   }
@@ -10426,7 +10722,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     if (BG[bg]) return `var(${BG[bg]})`;
     return String(bg).startsWith("--") ? `var(${bg})` : bg;
   }
-  function safeHref4(url) {
+  function safeHref5(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -10471,11 +10767,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       boxShadow: shadow ? `var(--shadow-${shadow})` : void 0,
       ...style
     };
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref4(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref5(rest.href);
     return /* @__PURE__ */ jsx(Tag2, { className: `twc-box ${className}`.trim(), style: s, ...rest, children });
   }
   var SIZES = { sm: 640, md: 768, lg: 1024, xl: 1280, full: "100%" };
-  function safeHref5(url) {
+  function safeHref6(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -10490,7 +10786,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     ...rest
   }) {
     const max = SIZES[size] ?? size;
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref5(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref6(rest.href);
     return /* @__PURE__ */ jsx(
       Tag2,
       {
@@ -10515,7 +10811,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   function len(v) {
     return typeof v === "number" ? `${v}px` : v;
   }
-  function safeHref6(url) {
+  var BP = { sm: 640, md: 768, lg: 1024, xl: 1280 };
+  function safeHref7(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -10525,29 +10822,54 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     columns,
     minChildWidth,
     gap = 4,
+    rowGap,
+    columnGap,
     align,
     justify,
+    alignContent,
+    justifyContent,
     className = "",
     style,
     children,
     ...rest
   }) {
-    const templateColumns = minChildWidth ? `repeat(auto-fill, minmax(min(${len(minChildWidth)}, 100%), 1fr))` : `repeat(${columns || 1}, minmax(0, 1fr))`;
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref6(rest.href);
-    return /* @__PURE__ */ jsx(
+    const responsive = columns != null && typeof columns === "object";
+    const uid = import_react.default.useId();
+    const gridId = responsive ? `g${uid.replace(/[^a-zA-Z0-9]/g, "")}` : null;
+    let css = "";
+    if (responsive) {
+      const base = columns.base ?? 1;
+      const sel = `[data-twc-grid-id="${gridId}"]`;
+      css = `${sel} { --twc-grid-cols: ${base}; }`;
+      for (const bp of ["sm", "md", "lg", "xl"]) {
+        if (columns[bp] != null) css += `
+@media (min-width: ${BP[bp]}px) { ${sel} { --twc-grid-cols: ${columns[bp]}; } }`;
+      }
+    }
+    const __twcStyles = useScopedStyles(gridId ? `twc-grid-${gridId}` : "twc-grid", css);
+    const templateColumns = minChildWidth ? `repeat(auto-fill, minmax(min(${len(minChildWidth)}, 100%), 1fr))` : responsive ? `repeat(var(--twc-grid-cols, ${columns.base ?? 1}), minmax(0, 1fr))` : `repeat(${columns || 1}, minmax(0, 1fr))`;
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref7(rest.href);
+    return /* @__PURE__ */ jsxs(
       Tag2,
       {
         className: `twc-grid ${className}`.trim(),
+        "data-twc-grid-id": gridId || void 0,
         style: {
           display: "grid",
           gridTemplateColumns: templateColumns,
-          gap: space(gap),
+          rowGap: space(rowGap ?? gap),
+          columnGap: space(columnGap ?? gap),
           alignItems: align,
           justifyItems: justify,
+          alignContent,
+          justifyContent,
           ...style
         },
         ...rest,
-        children
+        children: [
+          responsive ? __twcStyles : null,
+          children
+        ]
       }
     );
   }
@@ -10556,7 +10878,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     if (typeof v === "number") return `var(--space-${String(v).replace(".", "-")})`;
     return v;
   }
-  function safeHref7(url) {
+  function safeHref8(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -10569,12 +10891,21 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     justify,
     wrap = false,
     inline = false,
+    p,
+    px,
+    py,
+    pt,
+    pr,
+    pb,
+    pl,
+    divider,
     className = "",
     style,
     children,
     ...rest
   }) {
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref7(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref8(rest.href);
+    const kids = divider != null ? import_react.default.Children.toArray(children).flatMap((child, i, arr) => i < arr.length - 1 ? [child, /* @__PURE__ */ jsx(import_react.default.Fragment, { children: divider }, `twc-stack-div-${i}`)] : [child]) : children;
     return /* @__PURE__ */ jsx(
       Tag2,
       {
@@ -10586,11 +10917,15 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
           alignItems: align,
           justifyContent: justify,
           flexWrap: wrap ? "wrap" : void 0,
+          paddingTop: space2(pt ?? py ?? p),
+          paddingRight: space2(pr ?? px ?? p),
+          paddingBottom: space2(pb ?? py ?? p),
+          paddingLeft: space2(pl ?? px ?? p),
           minWidth: 0,
           ...style
         },
         ...rest,
-        children
+        children: kids
       }
     );
   }
@@ -10602,22 +10937,64 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   border: var(--border-thin) solid var(--color-border);
   white-space: normal; overflow-wrap: anywhere; word-break: break-word;
 }
+.twc-code[data-block="true"] {
+  display: block; position: relative; white-space: pre; overflow-x: auto;
+  padding: 12px 14px; padding-inline-end: 40px; line-height: 1.6; font-size: 0.8125em;
+  overflow-wrap: normal; word-break: normal;
+}
+.twc-code__copy {
+  position: absolute; top: 6px; inset-inline-end: 6px; display: inline-grid; place-items: center;
+  width: 26px; height: 26px; border: none; border-radius: var(--radius-sm);
+  background: var(--color-surface); color: var(--color-text-subtle); cursor: pointer;
+  transition: color var(--duration-fast), background-color var(--duration-fast);
+}
+.twc-code__copy:hover { color: var(--color-text); }
+.twc-code__copy:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-code__copy svg { width: 15px; height: 15px; display: block; }
 `;
-  function safeHref8(url) {
+  function safeHref9(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
   }
-  function Code({ as: Tag2 = "code", className = "", children, ...rest }) {
+  function Code({
+    as,
+    block = false,
+    copyable = false,
+    copyLabel = "Copy code",
+    copiedLabel = "Copied",
+    className = "",
+    children,
+    ...rest
+  }) {
     const __twcStyles = useScopedStyles("twc-code-styles", CODE_CSS);
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref8(rest.href);
-    return /* @__PURE__ */ jsxs(Tag2, { className: `twc-code ${className}`.trim(), ...rest, children: [
+    const Tag2 = as ?? (block ? "pre" : "code");
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref9(rest.href);
+    const rootRef = import_react.default.useRef(null);
+    const [copied, setCopied] = import_react.default.useState(false);
+    const timerRef = import_react.default.useRef(null);
+    import_react.default.useEffect(() => () => clearTimeout(timerRef.current), []);
+    const doCopy = () => {
+      if (typeof navigator === "undefined" || !navigator.clipboard) return;
+      const text = typeof children === "string" ? children : rootRef.current?.textContent ?? "";
+      navigator.clipboard.writeText(text).then(() => {
+        setCopied(true);
+        clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => setCopied(false), 2e3);
+      }).catch(() => {
+      });
+    };
+    return /* @__PURE__ */ jsxs(Tag2, { ref: rootRef, className: `twc-code ${className}`.trim(), "data-block": block || void 0, ...rest, children: [
       __twcStyles,
+      copyable ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-code__copy", "aria-label": copied ? copiedLabel : copyLabel, onClick: doCopy, children: copied ? /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m20 6-11 11-5-5" }) }) : /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+        /* @__PURE__ */ jsx("rect", { x: "9", y: "9", width: "13", height: "13", rx: "2" }),
+        /* @__PURE__ */ jsx("path", { d: "M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" })
+      ] }) }) : null,
       children
     ] });
   }
   var LEVEL_SIZE = { 1: "4xl", 2: "2xl", 3: "xl", 4: "lg", 5: "base", 6: "sm" };
-  function safeHref9(url) {
+  function safeHref10(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -10626,15 +11003,18 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     as,
     level = 2,
     size,
+    display = false,
     align,
+    truncate,
+    lineClamp,
     className = "",
     style,
     children,
     ...rest
   }) {
     const Tag2 = as || `h${level}`;
-    const sz = size || LEVEL_SIZE[level] || "2xl";
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref9(rest.href);
+    const sz = size || (display ? "display" : LEVEL_SIZE[level]) || "2xl";
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref10(rest.href);
     return /* @__PURE__ */ jsx(
       Tag2,
       {
@@ -10648,6 +11028,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
           letterSpacing: "-0.02em",
           fontSize: `var(--text-${sz})`,
           textAlign: align,
+          ...lineClamp != null ? { display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: lineClamp, overflow: "hidden" } : truncate ? { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", minWidth: 0 } : null,
           ...style
         },
         ...rest,
@@ -10666,9 +11047,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     success: "--color-success",
     warning: "--color-warning-subtle-fg",
     info: "--color-info-subtle-fg",
-    neutral: "--color-text-muted"
+    neutral: "--color-text-muted",
+    // Adopt the surrounding color (e.g. inside a solid Button/Badge/Alert or a link).
+    inherit: "inherit"
   };
-  function safeHref10(url) {
+  function safeHref11(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -10679,12 +11062,15 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     tone = "default",
     weight,
     align,
+    truncate,
+    lineClamp,
     className = "",
     style,
     children,
     ...rest
   }) {
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref10(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref11(rest.href);
+    const toneToken = TONE[tone] || TONE.default;
     return /* @__PURE__ */ jsx(
       Tag2,
       {
@@ -10694,9 +11080,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
           fontFamily: "var(--font-sans)",
           lineHeight: 1.6,
           fontSize: `var(--text-${size})`,
-          color: `var(${TONE[tone] || TONE.default})`,
+          color: toneToken.startsWith("--") ? `var(${toneToken})` : toneToken,
           fontWeight: weight ? `var(--font-${weight})` : void 0,
           textAlign: align,
+          ...lineClamp != null ? { display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: lineClamp, overflow: "hidden" } : truncate ? { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", minWidth: 0 } : null,
           ...style
         },
         ...rest,
@@ -10704,8 +11091,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       }
     );
   }
-  var canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
-  var useIsomorphicLayoutEffect = canUseDOM ? import_react.default.useLayoutEffect : import_react.default.useEffect;
+  var canUseDOM2 = typeof window !== "undefined" && typeof document !== "undefined";
+  var useIsomorphicLayoutEffect = canUseDOM2 ? import_react.default.useLayoutEffect : import_react.default.useEffect;
   function useMounted() {
     const [mounted, setMounted] = import_react.default.useState(false);
     import_react.default.useEffect(() => {
@@ -10742,6 +11129,16 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     useIsomorphicLayoutEffect(() => {
       ref.current = { current, isControlled, onChange };
     });
+    const wasControlled = import_react.default.useRef(isControlled);
+    import_react.default.useEffect(() => {
+      if (wasControlled.current !== isControlled) {
+        warnOnce(
+          "useControllableState:switch",
+          `useControllableState: a value is switching from ${wasControlled.current ? "controlled" : "uncontrolled"} to ${isControlled ? "controlled" : "uncontrolled"}. Decide between controlled (\`value\`) and uncontrolled (\`defaultValue\`) for the component's lifetime.`
+        );
+        wasControlled.current = isControlled;
+      }
+    });
     const setValue = import_react.default.useCallback((next) => {
       const { current: cur, isControlled: ctrl, onChange: cb } = ref.current;
       const resolved = typeof next === "function" ? next(cur) : next;
@@ -10749,13 +11146,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       if (!ctrl) setUncontrolled(resolved);
       if (cb) cb(resolved);
     }, []);
-    return [current, setValue];
+    return [current, setValue, isControlled];
   }
-  function useMediaQuery(query) {
-    const get = () => canUseDOM ? window.matchMedia(query).matches : false;
-    const [matches3, setMatches] = import_react.default.useState(get);
-    import_react.default.useEffect(() => {
-      if (!canUseDOM) return void 0;
+  function useMediaQuery(query, { defaultValue = false, initializeWithValue = false } = {}) {
+    const get = () => canUseDOM2 ? window.matchMedia(query).matches : defaultValue;
+    const [matches3, setMatches] = import_react.default.useState(initializeWithValue ? get : defaultValue);
+    useIsomorphicLayoutEffect(() => {
+      if (!canUseDOM2) return void 0;
       const mql = window.matchMedia(query);
       const onChange = () => setMatches(mql.matches);
       onChange();
@@ -10768,10 +11165,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     return useMediaQuery("(prefers-reduced-motion: reduce)");
   }
   function useColorScheme({ storageKey = "twico-theme", attribute = "class", element, disableTransitionsOnChange = true } = {}) {
-    const getTarget = () => element || (canUseDOM ? document.documentElement : null);
+    const getTarget = () => element || (canUseDOM2 ? document.documentElement : null);
     const firstApply = import_react.default.useRef(true);
     const read = () => {
-      if (!canUseDOM) return "light";
+      if (!canUseDOM2) return "light";
       try {
         const stored = window.localStorage.getItem(storageKey);
         if (stored === "light" || stored === "dark") return stored;
@@ -10784,7 +11181,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       (t) => {
         const target = getTarget();
         if (!target) return;
-        const skip = firstApply.current || !disableTransitionsOnChange || !canUseDOM;
+        const skip = firstApply.current || !disableTransitionsOnChange || !canUseDOM2;
         firstApply.current = false;
         let css;
         if (!skip) {
@@ -10814,10 +11211,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       (t) => {
         setThemeState(t);
         try {
-          if (canUseDOM) window.localStorage.setItem(storageKey, t);
+          if (canUseDOM2) window.localStorage.setItem(storageKey, t);
         } catch (e) {
         }
-        if (canUseDOM) window.dispatchEvent(new Event("twico:colorscheme"));
+        if (canUseDOM2) window.dispatchEvent(new Event("twico:colorscheme"));
       },
       [storageKey]
     );
@@ -10825,7 +11222,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       setTheme(themeRef.current === "dark" ? "light" : "dark");
     }, [setTheme]);
     import_react.default.useEffect(() => {
-      if (!canUseDOM) return void 0;
+      if (!canUseDOM2) return void 0;
       const sync = () => setThemeState(read());
       const onStorage = (e) => {
         if (e.key === storageKey) sync();
@@ -10848,7 +11245,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const passive = typeof options === "object" && options ? options.passive : void 0;
     const once = typeof options === "object" && options ? options.once : void 0;
     import_react.default.useEffect(() => {
-      const target = element && element.current || element || (canUseDOM ? window : null);
+      const target = element && element.current || element || (canUseDOM2 ? window : null);
       if (!target || !target.addEventListener) return void 0;
       const opts = typeof options === "boolean" ? options : { capture, passive, once };
       const listener = (e) => saved.current(e);
@@ -10862,7 +11259,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       saved.current = handler;
     }, [handler]);
     import_react.default.useEffect(() => {
-      if (!canUseDOM) return void 0;
+      if (!canUseDOM2) return void 0;
       const listener = (e) => {
         const el = ref && ref.current;
         if (!el || el.contains(e.target)) return;
@@ -10888,7 +11285,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }
   function useLocalStorage(key, initialValue) {
     const read = () => {
-      if (!canUseDOM) return initialValue;
+      if (!canUseDOM2) return initialValue;
       try {
         const item = window.localStorage.getItem(key);
         return item ? JSON.parse(item) : initialValue;
@@ -10902,7 +11299,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         setStored((prev) => {
           const next = typeof value === "function" ? value(prev) : value;
           try {
-            if (canUseDOM) window.localStorage.setItem(key, JSON.stringify(next));
+            if (canUseDOM2) window.localStorage.setItem(key, JSON.stringify(next));
           } catch (e) {
           }
           return next;
@@ -10915,7 +11312,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   function useCopyToClipboard(timeout = 1500) {
     const [copied, setCopied] = import_react.default.useState(false);
     const copy = import_react.default.useCallback(async (text) => {
-      if (!canUseDOM || !navigator.clipboard) {
+      if (!canUseDOM2 || !navigator.clipboard) {
         setCopied(false);
         return false;
       }
@@ -10984,11 +11381,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }
   function useWindowSize() {
     const [size, setSize] = import_react.default.useState(() => ({
-      width: canUseDOM ? window.innerWidth : 0,
-      height: canUseDOM ? window.innerHeight : 0
+      width: canUseDOM2 ? window.innerWidth : 0,
+      height: canUseDOM2 ? window.innerHeight : 0
     }));
     import_react.default.useEffect(() => {
-      if (!canUseDOM) return void 0;
+      if (!canUseDOM2) return void 0;
       const onResize = () => setSize({ width: window.innerWidth, height: window.innerHeight });
       onResize();
       window.addEventListener("resize", onResize);
@@ -11017,7 +11414,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const [entry, setEntry] = import_react.default.useState(null);
     import_react.default.useEffect(() => {
       const el = ref && ref.current;
-      if (!canUseDOM || !el || typeof IntersectionObserver === "undefined") return void 0;
+      if (!canUseDOM2 || !el || typeof IntersectionObserver === "undefined") return void 0;
       const obs = new IntersectionObserver(([e]) => setEntry(e), { root, rootMargin, threshold });
       obs.observe(el);
       return () => obs.disconnect();
@@ -11028,7 +11425,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   var __scrollLockSaved = "";
   function useScrollLock(locked = true) {
     useIsomorphicLayoutEffect(() => {
-      if (!canUseDOM || !locked) return void 0;
+      if (!canUseDOM2 || !locked) return void 0;
       if (__scrollLockCount === 0) {
         __scrollLockSaved = document.body.style.overflow;
         document.body.style.overflow = "hidden";
@@ -11046,5 +11443,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const raw = import_react.default.useId();
     return prefix ? `${prefix}-${raw.replace(/:/g, "")}` : raw;
   }
+  var useFocusTrap2 = useFocusTrap;
+  var usePortal2 = usePortal;
   return __toCommonJS(index_exports);
 })();

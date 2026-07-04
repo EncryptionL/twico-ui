@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { BarTone } from "../_types";
 
 export interface TimelineItem {
   /** Event title. */
@@ -10,7 +11,7 @@ export interface TimelineItem {
   /** Icon inside the node dot. */
   icon?: React.ReactNode;
   /** Node color. */
-  tone?: "primary" | "info" | "success" | "warning" | "danger";
+  tone?: BarTone;
 }
 
 /**

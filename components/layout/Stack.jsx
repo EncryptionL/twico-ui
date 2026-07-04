@@ -24,12 +24,19 @@ export function Stack({
   justify,
   wrap = false,
   inline = false,
+  p, px, py, pt, pr, pb, pl,
+  divider,
   className = "",
   style,
   children,
   ...rest
 }) {
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
+  // Interleave `divider` between children (never before the first or after the last).
+  const kids = divider != null
+    ? React.Children.toArray(children).flatMap((child, i, arr) =>
+        i < arr.length - 1 ? [child, <React.Fragment key={`twc-stack-div-${i}`}>{divider}</React.Fragment>] : [child])
+    : children;
   return (
     <Tag
       className={`twc-stack ${className}`.trim()}
@@ -40,12 +47,16 @@ export function Stack({
         alignItems: align,
         justifyContent: justify,
         flexWrap: wrap ? "wrap" : undefined,
+        paddingTop: space(pt ?? py ?? p),
+        paddingRight: space(pr ?? px ?? p),
+        paddingBottom: space(pb ?? py ?? p),
+        paddingLeft: space(pl ?? px ?? p),
         minWidth: 0,
         ...style,
       }}
       {...rest}
     >
-      {children}
+      {kids}
     </Tag>
   );
 }

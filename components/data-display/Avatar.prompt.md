@@ -8,4 +8,6 @@ import { Avatar } from "./Avatar";
 <Avatar name="Twico" size="lg" square ring />
 ```
 
-Props: `src`, `name`, `size` (xs–xl), `square`, `ring`, `status` (online/busy/away/offline).
+Props: `src`, `name`, `size` (xs–xl), `square`, `ring`, `status` (online/busy/away/offline),
+`statusLabel`/`statusLabels`. The presence dot is folded into the accessible name (e.g.
+"Jane Doe, Online") since `role="img"` hides descendants — so it's not color-only.
