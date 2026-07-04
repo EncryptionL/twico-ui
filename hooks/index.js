@@ -1,5 +1,6 @@
 import React from "react";
 import { warnOnce } from "../components/_warn.js";
+import { useFocusTrap as _useFocusTrap, usePortal as _usePortal } from "../components/_overlay.js";
 
 const canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
 
@@ -424,3 +425,14 @@ export function useId(prefix = "twc") {
   const raw = React.useId();
   return prefix ? `${prefix}-${raw.replace(/:/g, "")}` : raw;
 }
+
+/**
+ * Trap focus inside a modal region: move focus in on activate, cycle Tab/Shift+Tab
+ * within it, and restore focus to the trigger on deactivate. Implemented in
+ * components/_overlay.js so Dialog/Drawer/CommandPalette can share it without
+ * importing this public barrel (CLAUDE.md §5); re-exported here as public API.
+ */
+export const useFocusTrap = _useFocusTrap;
+
+/** A stable `render(node)` that portals to `document.body` (null on the server). */
+export const usePortal = _usePortal;

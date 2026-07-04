@@ -8,7 +8,8 @@ const HOOKS = [
   "useColorScheme", "useEventListener", "useClickOutside", "useKeyPress",
   "useLocalStorage", "useCopyToClipboard", "useDebouncedValue", "useDebouncedCallback",
   "useInterval", "useTimeout", "useWindowSize", "useHover",
-  "useIntersectionObserver", "useScrollLock", "useId",
+  "useIntersectionObserver", "useScrollLock", "useId", "useFocusTrap",
+  "usePortal",
 ];
 
 // Every named export of "twico-ui" — used to derive the import line when a snippet

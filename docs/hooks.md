@@ -19,6 +19,7 @@ package root (`import { useMediaQuery } from "twico-ui"`).
 | Responsive & theme | `useMediaQuery`, `usePrefersReducedMotion`, `useColorScheme`, `useWindowSize` |
 | Events & DOM | `useEventListener`, `useClickOutside`, `useKeyPress`, `useHover`, `useIntersectionObserver`, `useScrollLock` |
 | Timing | `useDebouncedValue`, `useDebouncedCallback`, `useInterval`, `useTimeout` |
+| Overlay | `useFocusTrap`, `usePortal` |
 | Utilities | `useCopyToClipboard`, `useId`, `useMounted`, `useIsomorphicLayoutEffect` |
 
 ## Conventions
@@ -35,6 +36,14 @@ package root (`import { useMediaQuery } from "twico-ui"`).
 - **`useControllableState` returns `[value, setValue, isControlled]`** — the third element reports
   whether a `value` prop is driving the state, and in development the hook warns once if a component
   flips between controlled and uncontrolled.
+- **`useFocusTrap` / `usePortal` are the overlay primitives** shared by `Dialog`, `Drawer`, and
+  `CommandPalette`. `useFocusTrap(ref, active?, { restoreFocus? })` moves focus into the region on
+  activate, cycles `Tab`/`Shift+Tab` within it, and restores focus to the trigger on deactivate — it
+  deliberately does **not** own `Escape` (closing is component-specific). `usePortal()` returns a stable
+  `render(node)` that portals to `document.body` (null on the server). Their implementation lives in the
+  internal helper `components/_overlay.js` — **not** `hooks/index.js` — so the overlay components can
+  share them without importing the public hooks barrel (CLAUDE.md §5); `hooks/index.js` re-exports them
+  as the public API. See [`docs/overlays.md`](./overlays.md).
 - **Stable callbacks:** returned functions (`onOpen`, `copy`, `toggle`, …) are memoized so they are
   safe to pass to effects and memoized children.
 - **The docs site dogfoods them:** the layout uses `useMediaQuery` + `useDisclosure`, the theme
@@ -43,7 +52,8 @@ package root (`import { useMediaQuery } from "twico-ui"`).
 
 ## `useToast` — the one component-coupled hook
 
-`useToast` is **not** in `hooks/index.js` (that file holds the 23 generic, dependency-free hooks).
+`useToast` is **not** in `hooks/index.js` (that file holds the 25 generic, dependency-free hooks —
+`useFocusTrap`/`usePortal` are re-exported into it from `components/_overlay.js`).
 It lives in `components/feedback/ToastProvider.jsx` because it needs the `<ToastProvider>` context +
 the `Toast`/`ToastViewport` components. Drop `<ToastProvider>` in once, then
 `const { toast } = useToast()` anywhere beneath it: `toast.success("Saved")`,

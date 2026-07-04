@@ -144,3 +144,27 @@ export function useScrollLock(locked?: boolean): void;
 
 /** A stable, SSR-safe unique id (optionally prefixed). */
 export function useId(prefix?: string): string;
+
+/** Options for {@link useFocusTrap}. */
+export interface UseFocusTrapOptions {
+  /** Restore focus to the previously-focused element when the trap deactivates. @default true */
+  restoreFocus?: boolean;
+}
+
+/**
+ * Trap focus inside the modal region referenced by `ref`. While `active`, focus
+ * moves inside on activate, Tab/Shift+Tab cycle within it, and (by default) focus
+ * is restored to the previously-focused element on deactivate. Escape is NOT
+ * handled — that stays with the component. SSR-safe.
+ */
+export function useFocusTrap<T extends HTMLElement = HTMLElement>(
+  ref: React.RefObject<T | null>,
+  active?: boolean,
+  options?: UseFocusTrapOptions
+): void;
+
+/**
+ * Returns a stable `render(node)` that portals `node` to `document.body`, or `null`
+ * on the server (no document). Centralizes the overlay portal pattern.
+ */
+export function usePortal(): (node: React.ReactNode) => React.ReactPortal | React.ReactNode | null;

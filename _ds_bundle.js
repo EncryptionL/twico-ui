@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"10ba99b1159a","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"5e8329337421","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"5877523aa09b","components/data-display/Pagination.jsx":"b92a0df4c275","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"d41ad1e9dd43","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"207beb76ccb6","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"2f55e9346191","components/inputs/ColorPicker.jsx":"0ac7bbc546fa","components/inputs/Combobox.jsx":"436e6d139b6f","components/inputs/Currency.jsx":"60594dac5624","components/inputs/CurrencyField.jsx":"ecf461d3c1b4","components/inputs/DatePicker.jsx":"a89e65d7e61c","components/inputs/DateRangePicker.jsx":"c53507555c94","components/inputs/Field.jsx":"c7dad39251fb","components/inputs/FileUpload.jsx":"a1558f86aa72","components/inputs/Input.jsx":"0b04ea394ac3","components/inputs/MultiSelect.jsx":"154127e56d7a","components/inputs/Radio.jsx":"9e8b16e7eff1","components/inputs/Rating.jsx":"5b2d5bf61030","components/inputs/Select.jsx":"d81caed79a2c","components/inputs/Slider.jsx":"597b22f1c677","components/inputs/Switch.jsx":"00c69a2e3cc6","components/inputs/Textarea.jsx":"73235e9c955e","components/layout/AppShell.jsx":"a4bbb1856620","components/layout/Box.jsx":"0b3d9cee1567","components/layout/Container.jsx":"387427a04d92","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"4258836f330c","components/layout/Stack.jsx":"3acf19a6760b","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Breadcrumb.jsx":"4d0ec4c3f855","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"4c29c219e2a3","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"a720066f61be","components/overlay/Dialog.jsx":"079e0a3b7432","components/overlay/Drawer.jsx":"032f4a1526cb","components/overlay/Menu.jsx":"0fc7aff0b8b7","components/overlay/Popover.jsx":"bc22e921093f","components/overlay/Tooltip.jsx":"501134b648dd","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1514eeaceb03","components/typography/Text.jsx":"d266e3a00c44","src/index.ts":"6cf658254742"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"10ba99b1159a","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"5e8329337421","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"5877523aa09b","components/data-display/Pagination.jsx":"b92a0df4c275","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"d41ad1e9dd43","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"207beb76ccb6","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"2f55e9346191","components/inputs/ColorPicker.jsx":"0ac7bbc546fa","components/inputs/Combobox.jsx":"436e6d139b6f","components/inputs/Currency.jsx":"60594dac5624","components/inputs/CurrencyField.jsx":"ecf461d3c1b4","components/inputs/DatePicker.jsx":"a89e65d7e61c","components/inputs/DateRangePicker.jsx":"c53507555c94","components/inputs/Field.jsx":"c7dad39251fb","components/inputs/FileUpload.jsx":"a1558f86aa72","components/inputs/Input.jsx":"0b04ea394ac3","components/inputs/MultiSelect.jsx":"154127e56d7a","components/inputs/Radio.jsx":"9e8b16e7eff1","components/inputs/Rating.jsx":"5b2d5bf61030","components/inputs/Select.jsx":"d81caed79a2c","components/inputs/Slider.jsx":"597b22f1c677","components/inputs/Switch.jsx":"00c69a2e3cc6","components/inputs/Textarea.jsx":"73235e9c955e","components/layout/AppShell.jsx":"a4bbb1856620","components/layout/Box.jsx":"0b3d9cee1567","components/layout/Container.jsx":"387427a04d92","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"4258836f330c","components/layout/Stack.jsx":"3acf19a6760b","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Breadcrumb.jsx":"4d0ec4c3f855","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"4c29c219e2a3","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"a69847910c31","components/overlay/Dialog.jsx":"e7e9d6af5845","components/overlay/Drawer.jsx":"7a24e89c8d93","components/overlay/Menu.jsx":"0fc7aff0b8b7","components/overlay/Popover.jsx":"bc22e921093f","components/overlay/Tooltip.jsx":"501134b648dd","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1514eeaceb03","components/typography/Text.jsx":"d266e3a00c44","src/index.ts":"6cf658254742"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -126,6 +126,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useDebouncedValue: () => useDebouncedValue,
     useDisclosure: () => useDisclosure,
     useEventListener: () => useEventListener,
+    useFocusTrap: () => useFocusTrap2,
     useHover: () => useHover,
     useId: () => useId,
     useIntersectionObserver: () => useIntersectionObserver,
@@ -135,6 +136,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useLocalStorage: () => useLocalStorage,
     useMediaQuery: () => useMediaQuery,
     useMounted: () => useMounted,
+    usePortal: () => usePortal2,
     usePrefersReducedMotion: () => usePrefersReducedMotion,
     usePrevious: () => usePrevious,
     useScrollLock: () => useScrollLock,
@@ -143,7 +145,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useToggle: () => useToggle,
     useWindowSize: () => useWindowSize
   });
-  var React23 = __toESM(require_react(), 1);
+  var React24 = __toESM(require_react(), 1);
   var import_react = __toESM(require_react(), 1);
 
   // rg:react/jsx-runtime
@@ -161,9 +163,9 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 
   // dist/index.mjs
   var import_react_dom = __toESM(require_react_dom(), 1);
-  var SUPPORTS_STYLE_HOIST = parseInt(String(React23.version), 10) >= 19;
+  var SUPPORTS_STYLE_HOIST = parseInt(String(React24.version), 10) >= 19;
   function useScopedStyles(id, css) {
-    React23.useInsertionEffect(() => {
+    React24.useInsertionEffect(() => {
       if (SUPPORTS_STYLE_HOIST) return;
       if (typeof document === "undefined" || document.getElementById(id)) return;
       const el = document.createElement("style");
@@ -171,7 +173,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       el.textContent = css;
       document.head.appendChild(el);
     }, [id, css]);
-    return SUPPORTS_STYLE_HOIST ? React23.createElement("style", { href: id, precedence: "twc-ui" }, css) : null;
+    return SUPPORTS_STYLE_HOIST ? React24.createElement("style", { href: id, precedence: "twc-ui" }, css) : null;
   }
   var ACCORDION_CSS = `
 .twc-accordion { display: flex; flex-direction: column; font-family: var(--font-sans);
@@ -2158,6 +2160,52 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : hint ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__hint", children: hint }) : null
     ] });
   }
+  var canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
+  var FOCUSABLE = 'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
+  function useFocusTrap(ref, active = true, { restoreFocus = true } = {}) {
+    import_react.default.useEffect(() => {
+      if (!active || !canUseDOM) return void 0;
+      const node = ref.current;
+      if (!node) return void 0;
+      const prevFocused = document.activeElement;
+      const first = node.querySelector(FOCUSABLE);
+      (first || node).focus();
+      return () => {
+        if (restoreFocus && prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
+      };
+    }, [active]);
+    import_react.default.useEffect(() => {
+      if (!active || !canUseDOM) return void 0;
+      const node = ref.current;
+      const onKey = (e) => {
+        if (e.key !== "Tab" || !node) return;
+        const f = Array.from(node.querySelectorAll(FOCUSABLE)).filter((el) => el.offsetParent !== null);
+        if (!f.length) {
+          e.preventDefault();
+          node.focus();
+          return;
+        }
+        const first = f[0], last = f[f.length - 1], ae = document.activeElement;
+        if (e.shiftKey) {
+          if (ae === first || ae === node || !node.contains(ae)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else if (ae === last || !node.contains(ae)) {
+          e.preventDefault();
+          first.focus();
+        }
+      };
+      document.addEventListener("keydown", onKey);
+      return () => document.removeEventListener("keydown", onKey);
+    }, [active]);
+  }
+  function usePortal() {
+    return import_react.default.useCallback((node) => {
+      if (typeof document === "undefined") return null;
+      return typeof import_react_dom.createPortal === "function" ? (0, import_react_dom.createPortal)(node, document.body) : node;
+    }, []);
+  }
   var COMMAND_CSS = `
 .twc-cmdk__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(3px);
   display: flex; align-items: flex-start; justify-content: center; padding-top: 12vh; }
@@ -2203,6 +2251,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-cmdk-styles", COMMAND_CSS);
+    const renderPortal = usePortal();
     const [query, setQuery] = import_react.default.useState("");
     const [active, setActive] = import_react.default.useState(0);
     const inputRef = import_react.default.useRef(null);
@@ -2230,47 +2279,15 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       if (open) {
         setQuery("");
         setActive(0);
-        const t = setTimeout(() => inputRef.current?.focus(), 30);
-        return () => clearTimeout(t);
       }
     }, [open]);
+    useFocusTrap(paletteRef, open && mounted);
     import_react.default.useEffect(() => {
-      if (!open) return;
-      const prevFocused = document.activeElement;
-      return () => {
-        if (prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
-      };
-    }, [open]);
-    import_react.default.useEffect(() => {
-      if (!open) return;
-      const focusables = (node) => node ? Array.from(
-        node.querySelectorAll(
-          'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])'
-        )
-      ).filter((el) => el.offsetParent !== null) : [];
+      if (!open) return void 0;
       const onKey = (e) => {
         if (e.key === "Escape") {
           e.preventDefault();
           onClose?.();
-          return;
-        }
-        if (e.key !== "Tab") return;
-        const node = paletteRef.current;
-        const f = focusables(node);
-        if (!f.length) {
-          e.preventDefault();
-          node?.focus();
-          return;
-        }
-        const first = f[0], last = f[f.length - 1], ae = document.activeElement;
-        if (e.shiftKey) {
-          if (ae === first || ae === node || !node.contains(ae)) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else if (ae === last || !node.contains(ae)) {
-          e.preventDefault();
-          first.focus();
         }
       };
       document.addEventListener("keydown", onKey);
@@ -2316,7 +2333,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       const node = listRef.current?.querySelector('[data-active="true"]');
       if (node) node.scrollIntoView({ block: "nearest" });
     }, [active]);
-    if (!mounted || typeof document === "undefined") return null;
+    if (!mounted) return null;
     const state = open ? "open" : "closed";
     const listId = `${baseId}-list`;
     const optionId = (i) => `${baseId}-opt-${i}`;
@@ -2382,8 +2399,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         ] }, g.key || "_")) })
       ] })
     ] });
-    const RD = typeof import_react_dom.createPortal === "function" ? import_react_dom.createPortal : null;
-    return RD ? RD(overlay, document.body) : overlay;
+    return renderPortal(overlay);
   }
   var CURRENCIES = {
     USD: { code: "USD", symbol: "$", precision: 2, label: "US Dollar" },
@@ -7611,6 +7627,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const descId = `${autoId}-desc`;
     const dialogRef = import_react.default.useRef(null);
     const __twcStyles = useScopedStyles("twc-dialog-styles", DIALOG_CSS);
+    const renderPortal = usePortal();
     const [mounted, setMounted] = import_react.default.useState(open);
     import_react.default.useEffect(() => {
       if (open) {
@@ -7628,48 +7645,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         document.body.style.overflow = prev;
       };
     }, [open]);
+    useFocusTrap(dialogRef, open && mounted);
     import_react.default.useEffect(() => {
-      if (!open || !mounted) return void 0;
-      const node = dialogRef.current;
-      const prevFocused = document.activeElement;
-      const first = node?.querySelector(
-        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      );
-      (first || node)?.focus();
-      return () => {
-        if (prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
-      };
-    }, [open, mounted]);
-    import_react.default.useEffect(() => {
-      if (!open) return;
-      const node = dialogRef.current;
-      const focusables = () => node ? Array.from(
-        node.querySelectorAll(
-          'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        )
-      ).filter((el) => el.offsetParent !== null) : [];
+      if (!open) return void 0;
       const onKey = (e) => {
         if (e.key === "Escape") {
           e.preventDefault();
           onClose?.();
-          return;
-        }
-        if (e.key !== "Tab") return;
-        const f = focusables();
-        if (!f.length) {
-          e.preventDefault();
-          node?.focus();
-          return;
-        }
-        const first = f[0], last = f[f.length - 1], ae = document.activeElement;
-        if (e.shiftKey) {
-          if (ae === first || ae === node || !node.contains(ae)) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else if (ae === last || !node.contains(ae)) {
-          e.preventDefault();
-          first.focus();
         }
       };
       document.addEventListener("keydown", onKey);
@@ -7693,9 +7675,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         footer ? /* @__PURE__ */ jsx("div", { className: "twc-dialog__footer", children: footer }) : null
       ] })
     ] });
-    if (typeof document === "undefined") return null;
-    const RD = typeof import_react_dom.createPortal === "function" ? import_react_dom.createPortal : null;
-    return RD ? RD(overlay, document.body) : overlay;
+    return renderPortal(overlay);
   }
   var DIVIDER_CSS = `
 .twc-divider { border: none; background: var(--color-divider); }
@@ -7818,6 +7798,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const descId = `${autoId}-desc`;
     const panelRef = import_react.default.useRef(null);
     const __twcStyles = useScopedStyles("twc-drawer-styles", DRAWER_CSS);
+    const renderPortal = usePortal();
     const [mounted, setMounted] = import_react.default.useState(open);
     import_react.default.useEffect(() => {
       if (open) {
@@ -7835,48 +7816,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         document.body.style.overflow = prev;
       };
     }, [open]);
+    useFocusTrap(panelRef, open && mounted);
     import_react.default.useEffect(() => {
-      if (!open || !mounted) return void 0;
-      const node = panelRef.current;
-      const prevFocused = document.activeElement;
-      const first = node?.querySelector(
-        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      );
-      (first || node)?.focus();
-      return () => {
-        if (prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
-      };
-    }, [open, mounted]);
-    import_react.default.useEffect(() => {
-      if (!open) return;
-      const node = panelRef.current;
-      const focusables = () => node ? Array.from(
-        node.querySelectorAll(
-          'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        )
-      ).filter((el) => el.offsetParent !== null) : [];
+      if (!open) return void 0;
       const onKey = (e) => {
         if (e.key === "Escape") {
           e.preventDefault();
           onClose?.();
-          return;
-        }
-        if (e.key !== "Tab") return;
-        const f = focusables();
-        if (!f.length) {
-          e.preventDefault();
-          node?.focus();
-          return;
-        }
-        const first = f[0], last = f[f.length - 1], ae = document.activeElement;
-        if (e.shiftKey) {
-          if (ae === first || ae === node || !node.contains(ae)) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else if (ae === last || !node.contains(ae)) {
-          e.preventDefault();
-          first.focus();
         }
       };
       document.addEventListener("keydown", onKey);
@@ -7904,9 +7850,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         footer ? /* @__PURE__ */ jsx("div", { className: "twc-drawer__footer", children: footer }) : null
       ] })
     ] });
-    if (typeof document === "undefined") return null;
-    const RD = typeof import_react_dom.createPortal === "function" ? import_react_dom.createPortal : null;
-    return RD ? RD(overlay, document.body) : overlay;
+    return renderPortal(overlay);
   }
   var EMPTY_CSS = `
 .twc-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-3);
@@ -11052,8 +10996,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       }
     );
   }
-  var canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
-  var useIsomorphicLayoutEffect = canUseDOM ? import_react.default.useLayoutEffect : import_react.default.useEffect;
+  var canUseDOM2 = typeof window !== "undefined" && typeof document !== "undefined";
+  var useIsomorphicLayoutEffect = canUseDOM2 ? import_react.default.useLayoutEffect : import_react.default.useEffect;
   function useMounted() {
     const [mounted, setMounted] = import_react.default.useState(false);
     import_react.default.useEffect(() => {
@@ -11110,10 +11054,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     return [current, setValue, isControlled];
   }
   function useMediaQuery(query, { defaultValue = false, initializeWithValue = false } = {}) {
-    const get = () => canUseDOM ? window.matchMedia(query).matches : defaultValue;
+    const get = () => canUseDOM2 ? window.matchMedia(query).matches : defaultValue;
     const [matches3, setMatches] = import_react.default.useState(initializeWithValue ? get : defaultValue);
     useIsomorphicLayoutEffect(() => {
-      if (!canUseDOM) return void 0;
+      if (!canUseDOM2) return void 0;
       const mql = window.matchMedia(query);
       const onChange = () => setMatches(mql.matches);
       onChange();
@@ -11126,10 +11070,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     return useMediaQuery("(prefers-reduced-motion: reduce)");
   }
   function useColorScheme({ storageKey = "twico-theme", attribute = "class", element, disableTransitionsOnChange = true } = {}) {
-    const getTarget = () => element || (canUseDOM ? document.documentElement : null);
+    const getTarget = () => element || (canUseDOM2 ? document.documentElement : null);
     const firstApply = import_react.default.useRef(true);
     const read = () => {
-      if (!canUseDOM) return "light";
+      if (!canUseDOM2) return "light";
       try {
         const stored = window.localStorage.getItem(storageKey);
         if (stored === "light" || stored === "dark") return stored;
@@ -11142,7 +11086,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       (t) => {
         const target = getTarget();
         if (!target) return;
-        const skip = firstApply.current || !disableTransitionsOnChange || !canUseDOM;
+        const skip = firstApply.current || !disableTransitionsOnChange || !canUseDOM2;
         firstApply.current = false;
         let css;
         if (!skip) {
@@ -11172,10 +11116,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       (t) => {
         setThemeState(t);
         try {
-          if (canUseDOM) window.localStorage.setItem(storageKey, t);
+          if (canUseDOM2) window.localStorage.setItem(storageKey, t);
         } catch (e) {
         }
-        if (canUseDOM) window.dispatchEvent(new Event("twico:colorscheme"));
+        if (canUseDOM2) window.dispatchEvent(new Event("twico:colorscheme"));
       },
       [storageKey]
     );
@@ -11183,7 +11127,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       setTheme(themeRef.current === "dark" ? "light" : "dark");
     }, [setTheme]);
     import_react.default.useEffect(() => {
-      if (!canUseDOM) return void 0;
+      if (!canUseDOM2) return void 0;
       const sync = () => setThemeState(read());
       const onStorage = (e) => {
         if (e.key === storageKey) sync();
@@ -11206,7 +11150,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const passive = typeof options === "object" && options ? options.passive : void 0;
     const once = typeof options === "object" && options ? options.once : void 0;
     import_react.default.useEffect(() => {
-      const target = element && element.current || element || (canUseDOM ? window : null);
+      const target = element && element.current || element || (canUseDOM2 ? window : null);
       if (!target || !target.addEventListener) return void 0;
       const opts = typeof options === "boolean" ? options : { capture, passive, once };
       const listener = (e) => saved.current(e);
@@ -11220,7 +11164,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       saved.current = handler;
     }, [handler]);
     import_react.default.useEffect(() => {
-      if (!canUseDOM) return void 0;
+      if (!canUseDOM2) return void 0;
       const listener = (e) => {
         const el = ref && ref.current;
         if (!el || el.contains(e.target)) return;
@@ -11246,7 +11190,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }
   function useLocalStorage(key, initialValue) {
     const read = () => {
-      if (!canUseDOM) return initialValue;
+      if (!canUseDOM2) return initialValue;
       try {
         const item = window.localStorage.getItem(key);
         return item ? JSON.parse(item) : initialValue;
@@ -11260,7 +11204,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         setStored((prev) => {
           const next = typeof value === "function" ? value(prev) : value;
           try {
-            if (canUseDOM) window.localStorage.setItem(key, JSON.stringify(next));
+            if (canUseDOM2) window.localStorage.setItem(key, JSON.stringify(next));
           } catch (e) {
           }
           return next;
@@ -11273,7 +11217,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   function useCopyToClipboard(timeout = 1500) {
     const [copied, setCopied] = import_react.default.useState(false);
     const copy = import_react.default.useCallback(async (text) => {
-      if (!canUseDOM || !navigator.clipboard) {
+      if (!canUseDOM2 || !navigator.clipboard) {
         setCopied(false);
         return false;
       }
@@ -11342,11 +11286,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }
   function useWindowSize() {
     const [size, setSize] = import_react.default.useState(() => ({
-      width: canUseDOM ? window.innerWidth : 0,
-      height: canUseDOM ? window.innerHeight : 0
+      width: canUseDOM2 ? window.innerWidth : 0,
+      height: canUseDOM2 ? window.innerHeight : 0
     }));
     import_react.default.useEffect(() => {
-      if (!canUseDOM) return void 0;
+      if (!canUseDOM2) return void 0;
       const onResize = () => setSize({ width: window.innerWidth, height: window.innerHeight });
       onResize();
       window.addEventListener("resize", onResize);
@@ -11375,7 +11319,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const [entry, setEntry] = import_react.default.useState(null);
     import_react.default.useEffect(() => {
       const el = ref && ref.current;
-      if (!canUseDOM || !el || typeof IntersectionObserver === "undefined") return void 0;
+      if (!canUseDOM2 || !el || typeof IntersectionObserver === "undefined") return void 0;
       const obs = new IntersectionObserver(([e]) => setEntry(e), { root, rootMargin, threshold });
       obs.observe(el);
       return () => obs.disconnect();
@@ -11386,7 +11330,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   var __scrollLockSaved = "";
   function useScrollLock(locked = true) {
     useIsomorphicLayoutEffect(() => {
-      if (!canUseDOM || !locked) return void 0;
+      if (!canUseDOM2 || !locked) return void 0;
       if (__scrollLockCount === 0) {
         __scrollLockSaved = document.body.style.overflow;
         document.body.style.overflow = "hidden";
@@ -11404,5 +11348,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const raw = import_react.default.useId();
     return prefix ? `${prefix}-${raw.replace(/:/g, "")}` : raw;
   }
+  var useFocusTrap2 = useFocusTrap;
+  var usePortal2 = usePortal;
   return __toCommonJS(index_exports);
 })();

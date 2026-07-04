@@ -18,6 +18,7 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 | [security.md](./security.md) | Security standards: URL sanitization, the no-CDN rule, dependency auditing, CodeQL, Dependabot. |
 | [docs-site.md](./docs-site.md) | How the documentation website works, regenerating it, deploying to GitHub Pages, the render-check. |
 | [hooks.md](./hooks.md) | The exported React hooks API — where it lives, the full set, conventions, how to add one. |
+| [overlays.md](./overlays.md) | The shared modal-overlay pattern (Dialog/Drawer/CommandPalette) and the `useFocusTrap` / `usePortal` hooks extracted into `components/_overlay.js` (#177). |
 | [colors.md](./colors.md) | The `twico-ui/colors` JS export, the primitive↔semantic split, the drift guards (`tests/colors.test.js` + `verify:palette`), and the MUI-style Color docs page. |
 | [icons.md](./icons.md) | The `twico-ui/icons` subpath — re-exporting Lucide via an optional `lucide-react` peer, the build wiring, and why the core stays zero-dependency. |
 | [tone-variant-system.md](./tone-variant-system.md) | The library-wide `tone` × `variant` model: the `--_accent` pattern, which components have which axis, and how to extend it. |
@@ -32,7 +33,7 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 
 ## At a glance
 
-- **Package:** `twico-ui` — 61 React components + a 24-hook API (incl. useToast), zero runtime dependencies, MIT.
+- **Package:** `twico-ui` — 61 React components + a 26-hook API (incl. useToast), zero runtime dependencies, MIT.
 - **Build:** `tsup` (`src/index.ts` → `dist/` ESM+CJS+`.d.ts`) + a `"use client"` post-build step.
 - **Releases:** automated by semantic-release on every push to `main`.
 - **Docs site:** Vite + React, dogfoods the library, deployed to GitHub Pages.

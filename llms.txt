@@ -2279,7 +2279,7 @@ function Page() {
 }
 ```
 
-## Hooks (23)
+## Hooks (25)
 
 ### useIsomorphicLayoutEffect
 
@@ -2463,6 +2463,22 @@ A stable, SSR-safe unique id (optionally prefixed).
 
 ```ts
 export function useId(prefix?: string): string;
+```
+
+### useFocusTrap
+
+Trap focus inside the modal region referenced by `ref`. While `active`, focus moves inside on activate, Tab/Shift+Tab cycle within it, and (by default) focus is restored to the previously-focused element on deactivate. Escape is NOT handled — that stays with the component. SSR-safe.
+
+```ts
+export function useFocusTrap<T extends HTMLElement = HTMLElement>( ref: React.RefObject<T | null>, active?: boolean, options?: UseFocusTrapOptions ): void;
+```
+
+### usePortal
+
+Returns a stable `render(node)` that portals `node` to `document.body`, or `null` on the server (no document). Centralizes the overlay portal pattern.
+
+```ts
+export function usePortal(): (node: React.ReactNode) => React.ReactPortal | React.ReactNode | null;
 ```
 
 ---
