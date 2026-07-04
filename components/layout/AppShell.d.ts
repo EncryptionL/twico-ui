@@ -14,6 +14,10 @@ export interface AppShellProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   height?: string | number;
   /** Pad the scrollable content region. @default true */
   padded?: boolean;
+  /** Id for the `<main>` content region and the skip-link target. @default "twc-main" */
+  mainId?: string;
+  /** Label for the visually-hidden-until-focused skip-to-content link (the shell's first child). Pass `false`/`null` to opt out. @default "Skip to content" */
+  skipLinkLabel?: React.ReactNode | false;
 }
 
 export declare function AppShell(props: AppShellProps): React.JSX.Element;

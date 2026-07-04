@@ -14,6 +14,10 @@ const DIVIDER_CSS = `
    so ::before/::after land on the correct inline edge under RTL — no physical override needed. */
 .twc-divider-label[data-align="start"]::before { flex: 0 0 var(--space-6); }
 .twc-divider-label[data-align="end"]::after { flex: 0 0 var(--space-6); }
+/* Vertical labeled divider: stack the two segments above/below the label. */
+.twc-divider-label[data-orientation="vertical"] { flex-direction: column; align-self: stretch; min-height: 1em; margin: 0 var(--space-3); }
+.twc-divider-label[data-orientation="vertical"]::before,
+.twc-divider-label[data-orientation="vertical"]::after { width: 1px; height: auto; flex: 1; }
 `;
 
 export function Divider({
@@ -32,7 +36,7 @@ export function Divider({
 
   if (children) {
     return (
-      <div className={`twc-divider-label ${className}`} data-align={resolvedAlign} role="separator" {...rest}>
+      <div className={`twc-divider-label ${className}`} data-align={resolvedAlign} data-orientation={orientation} role="separator" aria-orientation={orientation} {...rest}>
         {__twcStyles}
         {children}
       </div>

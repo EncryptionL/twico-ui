@@ -26,4 +26,6 @@ full-height layout (`height` defaults to `100dvh`), so the sidebar and topbar st
 content scrolls. The `header` is a flex row with `space-between` — pass a left group and a right
 group. Pair with `Sidebar` and drive its collapse from your own control (`collapsed` +
 `collapsible={false}` to hide the built-in toggle). `padded` (default `true`) toggles content
-padding; pass a fixed `height` to embed the shell in a smaller area.
+padding; pass a fixed `height` to embed the shell in a smaller area. A visually-hidden-until-focused
+skip-to-content link is the shell's first child (WCAG 2.4.1), targeting the `<main>` (`mainId`, default
+`"twc-main"`); customise it with `skipLinkLabel` or pass `skipLinkLabel={false}` to opt out.

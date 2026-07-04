@@ -2,7 +2,12 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 
 const SHELL_CSS = `
-.twc-shell { display: flex; overflow: hidden; background: var(--color-bg); color: var(--color-text); font-family: var(--font-sans); }
+.twc-shell { position: relative; display: flex; overflow: hidden; background: var(--color-bg); color: var(--color-text); font-family: var(--font-sans); }
+.twc-shell__skip { position: absolute; inset-inline-start: var(--space-3); inset-block-start: var(--space-3); z-index: 100;
+  padding: var(--space-2) var(--space-4); background: var(--color-surface); color: var(--color-text);
+  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-sans);
+  transform: translateY(-200%); transition: transform var(--duration-fast) var(--ease-standard); }
+.twc-shell__skip:focus-visible { transform: translateY(0); outline: none; box-shadow: var(--ring); }
 .twc-shell__main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; height: 100%; }
 .twc-shell__header { flex: none; display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
   min-height: 60px; padding-inline: var(--space-5); border-bottom: var(--border-thin) solid var(--color-border); background: var(--color-surface); }
@@ -23,6 +28,8 @@ export function AppShell({
   children,
   height = "100dvh",
   padded = true,
+  mainId = "twc-main",
+  skipLinkLabel = "Skip to content",
   className = "",
   style,
   ...rest
@@ -32,10 +39,13 @@ export function AppShell({
   return (
     <div className={`twc-shell ${className}`.trim()} style={{ height, ...style }} {...rest}>
       {__twcStyles}
+      {skipLinkLabel != null && skipLinkLabel !== false ? (
+        <a className="twc-shell__skip" href={`#${mainId}`}>{skipLinkLabel}</a>
+      ) : null}
       {sidebar}
       <div className="twc-shell__main">
         {header != null ? <header className="twc-shell__header">{header}</header> : null}
-        <main className="twc-shell__content" data-padded={padded ? "true" : undefined}>
+        <main className="twc-shell__content" id={mainId} tabIndex={-1} data-padded={padded ? "true" : undefined}>
           {children}
         </main>
       </div>
