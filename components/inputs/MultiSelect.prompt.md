@@ -24,4 +24,5 @@ Props: `options` (strings / {value,label,description} / {group,options}; an opti
 `value`/`defaultValue` (string[]), `onChange(values)`, `max` (cap selections — over-cap options disable),
 `maxTagCount` (collapse chips to a "+N more" pill), `name` (hidden form fields), `loading`, `emptyText`,
 plus field props. Backspace on empty input removes the last chip; chip remove buttons are out of the tab order.
+For very long lists set `virtualized` (optional `overscan`, default 8) to render only the visible option slice.
 Set `tone` (`primary` default, `success`/`warning`/`danger`/`info`/`neutral`) to recolor the focus/open accent.

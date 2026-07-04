@@ -2049,6 +2049,20 @@ export const components = [
         "description": "Displays an error message, marks the field invalid, and replaces the hint to flag a failed validation."
       },
       {
+        "prop": "virtualized",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast."
+      },
+      {
+        "prop": "overscan",
+        "type": "number",
+        "required": false,
+        "default": "8",
+        "description": "Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling."
+      },
+      {
         "prop": "required",
         "type": "boolean",
         "required": false,
@@ -5090,6 +5104,20 @@ export const components = [
         "description": "Displays a validation error below the control and styles it as invalid to flag a selection problem."
       },
       {
+        "prop": "virtualized",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast."
+      },
+      {
+        "prop": "overscan",
+        "type": "number",
+        "required": false,
+        "default": "8",
+        "description": "Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling."
+      },
+      {
         "prop": "required",
         "type": "boolean",
         "required": false,
@@ -6082,6 +6110,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Displays an error message and marks the field invalid, replacing the hint to flag failed validation."
+      },
+      {
+        "prop": "virtualized",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast."
+      },
+      {
+        "prop": "overscan",
+        "type": "number",
+        "required": false,
+        "default": "8",
+        "description": "Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling."
       },
       {
         "prop": "required",

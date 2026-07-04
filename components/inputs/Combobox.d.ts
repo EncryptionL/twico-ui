@@ -49,6 +49,10 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   emptyText?: string;
   /** Name for a hidden form field so the selected value participates in native form submission. */
   name?: string;
+  /** Virtualize the option list — render only the visible slice (plus `overscan`) for long lists. @default false */
+  virtualized?: boolean;
+  /** Extra option rows rendered above/below the viewport when `virtualized`, to smooth fast scrolling. @default 8 */
+  overscan?: number;
   /** Composed with the field's open-on-focus behavior — your handler runs first. */
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   /** Composed with the field's keyboard navigation (Arrows/Enter/Escape) — your handler runs first; call `event.preventDefault()` to suppress it. */

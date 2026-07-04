@@ -8,6 +8,12 @@
 
 None identified.
 
+## Enhancements
+
+- **[#92] Opt-in option-list virtualization** — `virtualized` (+ `overscan`, default 8) windows the
+  checkable option list to the visible slice for long lists; aria-activedescendant / keyboard indexing
+  spans the full list and nav scrolls unrendered options into view. Off by default. — added 2026-07-04
+
 ## Verified OK
 
 - Controlled/uncontrolled multi-select (value/defaultValue/onChange)

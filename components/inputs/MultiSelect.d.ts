@@ -49,6 +49,10 @@ export interface MultiSelectProps extends Omit<React.InputHTMLAttributes<HTMLInp
   max?: number;
   /** Collapse chips after N into a "+K more" pill. */
   maxTagCount?: number;
+  /** Virtualize the option list — render only the visible slice (plus `overscan`) for long lists. @default false */
+  virtualized?: boolean;
+  /** Extra option rows rendered above/below the viewport when `virtualized`, to smooth fast scrolling. @default 8 */
+  overscan?: number;
   /** Composed with the field's open-on-focus behavior — your handler runs first. */
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   /** Composed with the field's keyboard navigation (Arrows/Enter/Escape/Backspace) — your handler runs first; call `event.preventDefault()` to suppress it. */

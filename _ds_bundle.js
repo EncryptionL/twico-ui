@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"f35fb2dc0dc4","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"da89f9c7b152","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"856956280c7b","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"cd87f7b56e12","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"7e73bf919b01","components/layout/Container.jsx":"65d865e8012e","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"c86ad50eb3f6","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1a5441dddb5b","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"ae1d49e59288","src/index.ts":"5bf37ab8cbee"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"f35fb2dc0dc4","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"7e73bf919b01","components/layout/Container.jsx":"65d865e8012e","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"c86ad50eb3f6","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1a5441dddb5b","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"ae1d49e59288","src/index.ts":"5bf37ab8cbee"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -2448,6 +2448,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     loading = false,
     emptyText = "No results found",
     name,
+    virtualized = false,
+    overscan = 8,
     id,
     className = "",
     onFocus,
@@ -2466,6 +2468,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const [query, setQuery] = import_react.default.useState("");
     const [active, setActive] = import_react.default.useState(0);
     const [coords, setCoords] = import_react.default.useState(null);
+    const [scrollTop, setScrollTop] = import_react.default.useState(0);
+    const [listH, setListH] = import_react.default.useState(260);
     const wrapRef = import_react.default.useRef(null);
     const controlRef = import_react.default.useRef(null);
     const inputRef = import_react.default.useRef(null);
@@ -2478,6 +2482,26 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       return groups.map((g) => ({ group: g.group, options: fn ? g.options.filter((o) => fn(o, q)) : g.options })).filter((g) => g.options.length);
     }, [groups, query, filter]);
     const visible = import_react.default.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
+    const rowH = import_react.default.useMemo(() => visible.some((o) => o.description) ? 48 : 36, [visible]);
+    const GROUP_H = 30;
+    const { rows, totalH } = import_react.default.useMemo(() => {
+      if (!virtualized) return { rows: [], totalH: 0 };
+      const rows2 = [];
+      let off = 0;
+      let optIdx = -1;
+      fGroups.forEach((g, gi) => {
+        if (g.group) {
+          rows2.push({ kind: "group", gi, label: g.group, top: off, h: GROUP_H });
+          off += GROUP_H;
+        }
+        g.options.forEach((o) => {
+          optIdx += 1;
+          rows2.push({ kind: "option", o, idx: optIdx, top: off, h: rowH });
+          off += rowH;
+        });
+      });
+      return { rows: rows2, totalH: off };
+    }, [virtualized, fGroups, rowH]);
     const nextEnabled = (from, dir) => {
       let i = from + dir;
       while (i >= 0 && i < visible.length) {
@@ -2531,8 +2555,27 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       setActive(idx >= 0 ? idx : 0);
     }, [open]);
     import_react.default.useEffect(() => {
-      if (open) ensureVisible(listRef.current, activeRef.current);
-    }, [active, open]);
+      if (!open || !virtualized) return;
+      const el = listRef.current;
+      if (el && el.clientHeight) setListH(el.clientHeight);
+    }, [open, virtualized]);
+    import_react.default.useEffect(() => {
+      if (!open) return;
+      if (!virtualized) {
+        ensureVisible(listRef.current, activeRef.current);
+        return;
+      }
+      const el = listRef.current;
+      if (!el) return;
+      const row = rows.find((r) => r.kind === "option" && r.idx === active);
+      if (!row) return;
+      const vh = el.clientHeight || listH;
+      let next = el.scrollTop;
+      if (row.top < el.scrollTop) next = row.top;
+      else if (row.top + row.h > el.scrollTop + vh) next = row.top + row.h - vh;
+      if (next !== el.scrollTop) el.scrollTop = next;
+      setScrollTop(next);
+    }, [active, open, virtualized, rows, listH]);
     function openMenu() {
       if (disabled) return;
       setQuery("");
@@ -2577,45 +2620,60 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const activeId = open && visible[active] ? optionId(active) : void 0;
     const descId = `${fieldId}-desc`;
     const describedBy = error || hint ? descId : void 0;
+    const renderOption = (o, idx) => {
+      const isSel = o.value === current;
+      return /* @__PURE__ */ jsxs(
+        "button",
+        {
+          id: optionId(idx),
+          type: "button",
+          className: "twc-opt",
+          role: "option",
+          "aria-selected": isSel,
+          ref: idx === active ? activeRef : null,
+          disabled: o.disabled || void 0,
+          "aria-disabled": o.disabled || void 0,
+          "data-disabled": o.disabled || void 0,
+          "data-selected": isSel || void 0,
+          "data-active": idx === active || void 0,
+          onMouseEnter: () => {
+            if (!o.disabled) setActive(idx);
+          },
+          onMouseDown: (e) => e.preventDefault(),
+          onClick: () => commit(o.value),
+          children: [
+            /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
+              o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
+            ] }),
+            isSel ? /* @__PURE__ */ jsx("span", { className: "twc-opt__check", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }) : null
+          ]
+        },
+        o.value
+      );
+    };
+    let vTop = 0, vBottom = 0, vShown = rows;
+    if (virtualized && rows.length) {
+      const winTop = scrollTop - overscan * rowH;
+      const winBottom = scrollTop + listH + overscan * rowH;
+      vShown = rows.filter((r) => r.top + r.h > winTop && r.top < winBottom);
+      vTop = vShown.length ? vShown[0].top : 0;
+      vBottom = vShown.length ? totalH - (vShown[vShown.length - 1].top + vShown[vShown.length - 1].h) : totalH;
+    }
     let counter = -1;
-    const popInner = /* @__PURE__ */ jsx("div", { className: "twc-pop__list", ref: listRef, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
+    const popInner = /* @__PURE__ */ jsx("div", { className: "twc-pop__list", ref: listRef, onScroll: virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
       /* @__PURE__ */ jsx("span", { className: "twc-pop__spinner", "aria-hidden": "true" }),
       "Loading\u2026"
-    ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
+    ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
+      vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
+      vShown.map((r) => r.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r.label }, `g${r.gi}`) : renderOption(r.o, r.idx)),
+      vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
+    ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
       g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
       g.options.map((o) => {
         counter += 1;
         const idx = counter;
-        const isSel = o.value === current;
-        return /* @__PURE__ */ jsxs(
-          "button",
-          {
-            id: optionId(idx),
-            type: "button",
-            className: "twc-opt",
-            role: "option",
-            "aria-selected": isSel,
-            ref: idx === active ? activeRef : null,
-            disabled: o.disabled || void 0,
-            "aria-disabled": o.disabled || void 0,
-            "data-disabled": o.disabled || void 0,
-            "data-selected": isSel || void 0,
-            "data-active": idx === active || void 0,
-            onMouseEnter: () => {
-              if (!o.disabled) setActive(idx);
-            },
-            onMouseDown: (e) => e.preventDefault(),
-            onClick: () => commit(o.value),
-            children: [
-              /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
-                /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
-                o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
-              ] }),
-              isSel ? /* @__PURE__ */ jsx("span", { className: "twc-opt__check", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }) : null
-            ]
-          },
-          o.value
-        );
+        return renderOption(o, idx);
       })
     ] }, gi)) });
     const RD = { createPortal: typeof import_react_dom.createPortal === "function" ? import_react_dom.createPortal : typeof window !== "undefined" && window.ReactDOM && window.ReactDOM.createPortal };
@@ -3212,6 +3270,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     loading = false,
     emptyText = "No results found",
     name,
+    virtualized = false,
+    overscan = 8,
     id,
     className = "",
     onClick,
@@ -3232,6 +3292,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const [active, setActive] = import_react.default.useState(0);
     const [coords, setCoords] = import_react.default.useState(null);
     const [query, setQuery] = import_react.default.useState("");
+    const [scrollTop, setScrollTop] = import_react.default.useState(0);
+    const [listH, setListH] = import_react.default.useState(260);
     const wrapRef = import_react.default.useRef(null);
     const triggerRef = import_react.default.useRef(null);
     const popRef = import_react.default.useRef(null);
@@ -3245,6 +3307,26 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       return groups.map((g) => ({ group: g.group, options: g.options.filter((o) => o.label.toLowerCase().includes(q) || o.description && o.description.toLowerCase().includes(q)) })).filter((g) => g.options.length);
     }, [groups, query]);
     const visible = import_react.default.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
+    const rowH = import_react.default.useMemo(() => visible.some((o) => o.description) ? 48 : 36, [visible]);
+    const GROUP_H = 30;
+    const { rows, totalH } = import_react.default.useMemo(() => {
+      if (!virtualized) return { rows: [], totalH: 0 };
+      const rows2 = [];
+      let off = 0;
+      let optIdx = -1;
+      fGroups.forEach((g, gi) => {
+        if (g.group) {
+          rows2.push({ kind: "group", gi, label: g.group, top: off, h: GROUP_H });
+          off += GROUP_H;
+        }
+        g.options.forEach((o) => {
+          optIdx += 1;
+          rows2.push({ kind: "option", o, idx: optIdx, top: off, h: rowH });
+          off += rowH;
+        });
+      });
+      return { rows: rows2, totalH: off };
+    }, [virtualized, fGroups, rowH]);
     const selected = flat.find((o) => o.value === current);
     const nextEnabled = (from, dir) => {
       let i = from + dir;
@@ -3301,8 +3383,27 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       setActive(0);
     }, [query]);
     import_react.default.useEffect(() => {
-      if (open) ensureVisible2(listRef.current, activeRef.current);
-    }, [active, open]);
+      if (!open || !virtualized) return;
+      const el = listRef.current;
+      if (el && el.clientHeight) setListH(el.clientHeight);
+    }, [open, virtualized, render]);
+    import_react.default.useEffect(() => {
+      if (!open) return;
+      if (!virtualized) {
+        ensureVisible2(listRef.current, activeRef.current);
+        return;
+      }
+      const el = listRef.current;
+      if (!el) return;
+      const row = rows.find((r) => r.kind === "option" && r.idx === active);
+      if (!row) return;
+      const vh = el.clientHeight || listH;
+      let next = el.scrollTop;
+      if (row.top < el.scrollTop) next = row.top;
+      else if (row.top + row.h > el.scrollTop + vh) next = row.top + row.h - vh;
+      if (next !== el.scrollTop) el.scrollTop = next;
+      setScrollTop(next);
+    }, [active, open, virtualized, rows, listH]);
     import_react.default.useEffect(() => {
       if (open) {
         setRender(true);
@@ -3376,6 +3477,45 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const activeId = open && visible[active] ? optionId(active) : void 0;
     const descId = `${fieldId}-desc`;
     const describedBy = error || hint ? descId : void 0;
+    const renderOption = (o, idx) => {
+      const isSel = o.value === current;
+      return /* @__PURE__ */ jsxs(
+        "button",
+        {
+          id: optionId(idx),
+          type: "button",
+          className: "twc-opt",
+          role: "option",
+          "aria-selected": isSel,
+          ref: idx === active ? activeRef : null,
+          disabled: o.disabled || void 0,
+          "aria-disabled": o.disabled || void 0,
+          "data-disabled": o.disabled || void 0,
+          "data-selected": isSel || void 0,
+          "data-active": idx === active || void 0,
+          onMouseEnter: () => {
+            if (!o.disabled) setActive(idx);
+          },
+          onClick: () => commit(o.value),
+          children: [
+            /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
+              o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
+            ] }),
+            isSel ? /* @__PURE__ */ jsx("span", { className: "twc-opt__check", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }) : null
+          ]
+        },
+        o.value
+      );
+    };
+    let vTop = 0, vBottom = 0, vShown = rows;
+    if (virtualized && rows.length) {
+      const winTop = scrollTop - overscan * rowH;
+      const winBottom = scrollTop + listH + overscan * rowH;
+      vShown = rows.filter((r) => r.top + r.h > winTop && r.top < winBottom);
+      vTop = vShown.length ? vShown[0].top : 0;
+      vBottom = vShown.length ? totalH - (vShown[vShown.length - 1].top + vShown[vShown.length - 1].h) : totalH;
+    }
     let counter = -1;
     const popInner = /* @__PURE__ */ jsxs(Fragment, { children: [
       showSearch ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__search", children: [
@@ -3403,43 +3543,19 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           searchRef.current?.focus();
         }, children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) }) }) : null
       ] }) : null,
-      /* @__PURE__ */ jsx("div", { className: "twc-pop__list", ref: listRef, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
+      /* @__PURE__ */ jsx("div", { className: "twc-pop__list", ref: listRef, onScroll: virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
         /* @__PURE__ */ jsx("span", { className: "twc-pop__spinner", "aria-hidden": "true" }),
         "Loading\u2026"
-      ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
+      ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
+        vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
+        vShown.map((r) => r.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r.label }, `g${r.gi}`) : renderOption(r.o, r.idx)),
+        vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
+      ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
         g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
         g.options.map((o) => {
           counter += 1;
           const idx = counter;
-          const isSel = o.value === current;
-          return /* @__PURE__ */ jsxs(
-            "button",
-            {
-              id: optionId(idx),
-              type: "button",
-              className: "twc-opt",
-              role: "option",
-              "aria-selected": isSel,
-              ref: idx === active ? activeRef : null,
-              disabled: o.disabled || void 0,
-              "aria-disabled": o.disabled || void 0,
-              "data-disabled": o.disabled || void 0,
-              "data-selected": isSel || void 0,
-              "data-active": idx === active || void 0,
-              onMouseEnter: () => {
-                if (!o.disabled) setActive(idx);
-              },
-              onClick: () => commit(o.value),
-              children: [
-                /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
-                  /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
-                  o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
-                ] }),
-                isSel ? /* @__PURE__ */ jsx("span", { className: "twc-opt__check", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }) : null
-              ]
-            },
-            o.value
-          );
+          return renderOption(o, idx);
         })
       ] }, gi)) }),
       /* @__PURE__ */ jsx("div", { className: "twc-sel__sr", role: "status", "aria-live": "polite", children: loading ? "Loading\u2026" : visible.length === 0 ? emptyText : `${visible.length} result${visible.length === 1 ? "" : "s"}` })
@@ -3985,6 +4101,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     name,
     max,
     maxTagCount,
+    virtualized = false,
+    overscan = 8,
     id,
     className = "",
     onFocus,
@@ -4002,6 +4120,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const [query, setQuery] = import_react.default.useState("");
     const [active, setActive] = import_react.default.useState(0);
     const [coords, setCoords] = import_react.default.useState(null);
+    const [scrollTop, setScrollTop] = import_react.default.useState(0);
+    const [listH, setListH] = import_react.default.useState(260);
     const wrapRef = import_react.default.useRef(null);
     const controlRef = import_react.default.useRef(null);
     const inputRef = import_react.default.useRef(null);
@@ -4013,6 +4133,26 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       [groups, query]
     );
     const visible = import_react.default.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
+    const rowH = import_react.default.useMemo(() => visible.some((o) => o.description) ? 48 : 36, [visible]);
+    const GROUP_H = 30;
+    const { rows, totalH } = import_react.default.useMemo(() => {
+      if (!virtualized) return { rows: [], totalH: 0 };
+      const rows2 = [];
+      let off = 0;
+      let optIdx = -1;
+      fGroups.forEach((g, gi) => {
+        if (g.group) {
+          rows2.push({ kind: "group", gi, label: g.group, top: off, h: GROUP_H });
+          off += GROUP_H;
+        }
+        g.options.forEach((o) => {
+          optIdx += 1;
+          rows2.push({ kind: "option", o, idx: optIdx, top: off, h: rowH });
+          off += rowH;
+        });
+      });
+      return { rows: rows2, totalH: off };
+    }, [virtualized, fGroups, rowH]);
     const capReached = max != null && (value !== void 0 ? value : internal).length >= max;
     const isOptDisabled = (o) => o.disabled || capReached && !(value !== void 0 ? value : internal).includes(o.value);
     const nextEnabled = (from, dir) => {
@@ -4064,8 +4204,27 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       setActive(0);
     }, [query]);
     import_react.default.useEffect(() => {
-      if (open) ensureVisible3(listRef.current, activeRef.current);
-    }, [active, open]);
+      if (!open || !virtualized) return;
+      const el = listRef.current;
+      if (el && el.clientHeight) setListH(el.clientHeight);
+    }, [open, virtualized]);
+    import_react.default.useEffect(() => {
+      if (!open) return;
+      if (!virtualized) {
+        ensureVisible3(listRef.current, activeRef.current);
+        return;
+      }
+      const el = listRef.current;
+      if (!el) return;
+      const row = rows.find((r) => r.kind === "option" && r.idx === active);
+      if (!row) return;
+      const vh = el.clientHeight || listH;
+      let next = el.scrollTop;
+      if (row.top < el.scrollTop) next = row.top;
+      else if (row.top + row.h > el.scrollTop + vh) next = row.top + row.h - vh;
+      if (next !== el.scrollTop) el.scrollTop = next;
+      setScrollTop(next);
+    }, [active, open, virtualized, rows, listH]);
     function commit(next) {
       if (value === void 0) setInternal(next);
       onChange?.(next);
@@ -4102,48 +4261,74 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const activeId = open && visible[active] ? optionId(active) : void 0;
     const descId = `${fieldId}-desc`;
     const describedBy = error || hint ? descId : void 0;
-    let counter = -1;
-    const popInner = /* @__PURE__ */ jsx("div", { className: "twc-pop__list", id: listboxId, ref: listRef, role: "listbox", "aria-multiselectable": "true", children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
-      /* @__PURE__ */ jsx("span", { className: "twc-pop__spinner", "aria-hidden": "true" }),
-      "Loading\u2026"
-    ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
-      g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
-      g.options.map((o) => {
-        counter += 1;
-        const idx = counter;
-        const isSel = selected.includes(o.value);
-        const optDisabled = isOptDisabled(o);
-        return /* @__PURE__ */ jsxs(
-          "button",
-          {
-            id: optionId(idx),
-            type: "button",
-            className: "twc-opt",
-            role: "option",
-            "aria-selected": isSel,
-            ref: idx === active ? activeRef : null,
-            disabled: optDisabled || void 0,
-            "aria-disabled": optDisabled || void 0,
-            "data-disabled": optDisabled || void 0,
-            "data-selected": isSel || void 0,
-            "data-active": idx === active || void 0,
-            onMouseEnter: () => {
-              if (!optDisabled) setActive(idx);
-            },
-            onMouseDown: (e) => e.preventDefault(),
-            onClick: () => toggle(o.value),
-            children: [
-              /* @__PURE__ */ jsx("span", { className: "twc-opt__box", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "3.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }),
-              /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
-                /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
-                o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
-              ] })
-            ]
+    const renderOption = (o, idx) => {
+      const isSel = selected.includes(o.value);
+      const optDisabled = isOptDisabled(o);
+      return /* @__PURE__ */ jsxs(
+        "button",
+        {
+          id: optionId(idx),
+          type: "button",
+          className: "twc-opt",
+          role: "option",
+          "aria-selected": isSel,
+          ref: idx === active ? activeRef : null,
+          disabled: optDisabled || void 0,
+          "aria-disabled": optDisabled || void 0,
+          "data-disabled": optDisabled || void 0,
+          "data-selected": isSel || void 0,
+          "data-active": idx === active || void 0,
+          onMouseEnter: () => {
+            if (!optDisabled) setActive(idx);
           },
-          o.value
-        );
-      })
-    ] }, gi)) });
+          onMouseDown: (e) => e.preventDefault(),
+          onClick: () => toggle(o.value),
+          children: [
+            /* @__PURE__ */ jsx("span", { className: "twc-opt__box", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "3.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }),
+            /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
+              o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
+            ] })
+          ]
+        },
+        o.value
+      );
+    };
+    let vTop = 0, vBottom = 0, vShown = rows;
+    if (virtualized && rows.length) {
+      const winTop = scrollTop - overscan * rowH;
+      const winBottom = scrollTop + listH + overscan * rowH;
+      vShown = rows.filter((r) => r.top + r.h > winTop && r.top < winBottom);
+      vTop = vShown.length ? vShown[0].top : 0;
+      vBottom = vShown.length ? totalH - (vShown[vShown.length - 1].top + vShown[vShown.length - 1].h) : totalH;
+    }
+    let counter = -1;
+    const popInner = /* @__PURE__ */ jsx(
+      "div",
+      {
+        className: "twc-pop__list",
+        id: listboxId,
+        ref: listRef,
+        role: "listbox",
+        "aria-multiselectable": "true",
+        onScroll: virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0,
+        children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
+          /* @__PURE__ */ jsx("span", { className: "twc-pop__spinner", "aria-hidden": "true" }),
+          "Loading\u2026"
+        ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
+          vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
+          vShown.map((r) => r.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r.label }, `g${r.gi}`) : renderOption(r.o, r.idx)),
+          vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
+        ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
+          g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
+          g.options.map((o) => {
+            counter += 1;
+            const idx = counter;
+            return renderOption(o, idx);
+          })
+        ] }, gi))
+      }
+    );
     const RD = { createPortal: typeof import_react_dom.createPortal === "function" ? import_react_dom.createPortal : typeof window !== "undefined" && window.ReactDOM && window.ReactDOM.createPortal };
     const canPortal = portal && RD && RD.createPortal;
     let popEl = null;

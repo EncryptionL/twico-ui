@@ -588,6 +588,8 @@ Props:
 - `label` — `React.ReactNode` — Renders a caption above the control to identify the field and improve accessibility for the searchable select.
 - `hint` — `React.ReactNode` — Shows helper text below the field to guide input, displayed only while no error message is present.
 - `error` — `React.ReactNode` — Displays an error message, marks the field invalid, and replaces the hint to flag a failed validation.
+- `virtualized` — `boolean` · default `false` — Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast.
+- `overscan` — `number` · default `8` — Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling.
 - `required` — `boolean` · default `false` — Adds a required asterisk next to the label, signaling that the user must select a value before submitting.
 - `size` — `"sm" | "md" | "lg"` · default `"md"` — Sets the control height across sm, md, or lg to match the density of the surrounding form.
 - `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
@@ -898,6 +900,8 @@ Props:
 - `label` — `React.ReactNode` — Renders a label node above the control so the multi-select has an accessible, visible name for the user.
 - `hint` — `React.ReactNode` — Shows helper text below the control to guide selection; it is hidden once an error message is present.
 - `error` — `React.ReactNode` — Displays a validation error below the control and styles it as invalid to flag a selection problem.
+- `virtualized` — `boolean` · default `false` — Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast.
+- `overscan` — `number` · default `8` — Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling.
 - `required` — `boolean` · default `false` — Marks the field as required and adds an asterisk to the label to signal a mandatory selection; defaults to false.
 - `placeholder` — `string` · default `"Select…"` — Sets the prompt text shown when no chips are selected, defaulting to "Select…" to invite a choice.
 - `value` — `string[]` — Controls the selected values as a string array, making the component fully controlled when paired with onChange.
@@ -1011,6 +1015,8 @@ Props:
 - `label` — `React.ReactNode` — Renders a field label above the trigger to identify what the select controls within a form.
 - `hint` — `React.ReactNode` — Shows helper text below the trigger to guide selection, automatically hidden once an error message is set.
 - `error` — `React.ReactNode` — Displays an error message and marks the field invalid, replacing the hint to flag failed validation.
+- `virtualized` — `boolean` · default `false` — Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast.
+- `overscan` — `number` · default `8` — Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling.
 - `required` — `boolean` · default `false` — Appends a required asterisk to the label, signaling that a selection must be made before submitting.
 - `size` — `"sm" | "md" | "lg"` · default `"md"` — Controls the trigger height (sm, md, or lg) to match the density of nearby form controls, defaulting to md.
 - `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.

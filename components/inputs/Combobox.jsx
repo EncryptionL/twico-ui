@@ -102,6 +102,7 @@ export function Combobox({
   placeholder = "Select…", options, value, defaultValue = null,
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
   onInputChange, filter, loading = false, emptyText = "No results found", name,
+  virtualized = false, overscan = 8,
   id, className = "", onFocus, onKeyDown, ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-combo-styles", COMBO_CSS);
@@ -118,6 +119,8 @@ export function Combobox({
   const [query, setQuery] = React.useState("");
   const [active, setActive] = React.useState(0);
   const [coords, setCoords] = React.useState(null);
+  const [scrollTop, setScrollTop] = React.useState(0); // #92: virtualization scroll offset
+  const [listH, setListH] = React.useState(260);
   const wrapRef = React.useRef(null);
   const controlRef = React.useRef(null);
   const inputRef = React.useRef(null);
@@ -133,6 +136,21 @@ export function Combobox({
     return groups.map((g) => ({ group: g.group, options: fn ? g.options.filter((o) => fn(o, q)) : g.options })).filter((g) => g.options.length);
   }, [groups, query, filter]);
   const visible = React.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
+
+  // #92: option-list virtualization (opt-in). Flat row model (group headers + options)
+  // with estimated heights + cumulative offsets, keyed by the option's index in `visible`
+  // so aria-activedescendant / keyboard indexing spans the FULL list.
+  const rowH = React.useMemo(() => (visible.some((o) => o.description) ? 48 : 36), [visible]);
+  const GROUP_H = 30;
+  const { rows, totalH } = React.useMemo(() => {
+    if (!virtualized) return { rows: [], totalH: 0 };
+    const rows = []; let off = 0; let optIdx = -1;
+    fGroups.forEach((g, gi) => {
+      if (g.group) { rows.push({ kind: "group", gi, label: g.group, top: off, h: GROUP_H }); off += GROUP_H; }
+      g.options.forEach((o) => { optIdx += 1; rows.push({ kind: "option", o, idx: optIdx, top: off, h: rowH }); off += rowH; });
+    });
+    return { rows, totalH: off };
+  }, [virtualized, fGroups, rowH]);
 
   // #90: next non-disabled option index (no wrap), else stay.
   const nextEnabled = (from, dir) => {
@@ -182,7 +200,24 @@ export function Combobox({
     setActive(idx >= 0 ? idx : 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
-  React.useEffect(() => { if (open) ensureVisible(listRef.current, activeRef.current); }, [active, open]);
+  React.useEffect(() => {
+    if (!open || !virtualized) return;
+    const el = listRef.current; if (el && el.clientHeight) setListH(el.clientHeight);
+  }, [open, virtualized]);
+
+  React.useEffect(() => {
+    if (!open) return;
+    if (!virtualized) { ensureVisible(listRef.current, activeRef.current); return; }
+    const el = listRef.current; if (!el) return;
+    const row = rows.find((r) => r.kind === "option" && r.idx === active);
+    if (!row) return;
+    const vh = el.clientHeight || listH;
+    let next = el.scrollTop;
+    if (row.top < el.scrollTop) next = row.top;
+    else if (row.top + row.h > el.scrollTop + vh) next = row.top + row.h - vh;
+    if (next !== el.scrollTop) el.scrollTop = next;
+    setScrollTop(next);
+  }, [active, open, virtualized, rows, listH]);
 
   function openMenu() { if (disabled) return; setQuery(""); setOpen(true); }
   function close() { setOpen(false); setQuery(""); }
@@ -207,31 +242,55 @@ export function Combobox({
   const activeId = open && visible[active] ? optionId(active) : undefined;
   const descId = `${fieldId}-desc`;
   const describedBy = error || hint ? descId : undefined;
-  let counter = -1;
 
+  const renderOption = (o, idx) => {
+    const isSel = o.value === current;
+    return (
+      <button key={o.value} id={optionId(idx)} type="button" className="twc-opt" role="option" aria-selected={isSel}
+        ref={idx === active ? activeRef : null}
+        disabled={o.disabled || undefined} aria-disabled={o.disabled || undefined} data-disabled={o.disabled || undefined}
+        data-selected={isSel || undefined} data-active={idx === active || undefined}
+        onMouseEnter={() => { if (!o.disabled) setActive(idx); }} onMouseDown={(e) => e.preventDefault()} onClick={() => commit(o.value)}>
+        <span className="twc-opt__main">
+          <span className="twc-opt__label">{o.label}</span>
+          {o.description ? <span className="twc-opt__desc">{o.description}</span> : null}
+        </span>
+        {isSel ? <span className="twc-opt__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span> : null}
+      </button>
+    );
+  };
+
+  // #92: window the rows intersecting [scrollTop, scrollTop+listH] padded by `overscan`.
+  let vTop = 0, vBottom = 0, vShown = rows;
+  if (virtualized && rows.length) {
+    const winTop = scrollTop - overscan * rowH;
+    const winBottom = scrollTop + listH + overscan * rowH;
+    vShown = rows.filter((r) => r.top + r.h > winTop && r.top < winBottom);
+    vTop = vShown.length ? vShown[0].top : 0;
+    vBottom = vShown.length ? totalH - (vShown[vShown.length - 1].top + vShown[vShown.length - 1].h) : totalH;
+  }
+
+  let counter = -1;
   const popInner = (
-    <div className="twc-pop__list" ref={listRef}>
+    <div className="twc-pop__list" ref={listRef} onScroll={virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined}>
       {loading ? (
         <div className="twc-pop__loading" role="status"><span className="twc-pop__spinner" aria-hidden="true" />Loading…</div>
       ) : visible.length === 0 ? <div className="twc-pop__empty">{emptyText}</div> :
+        virtualized ? (
+          <>
+            {vTop > 0 ? <div aria-hidden="true" style={{ height: vTop }} /> : null}
+            {vShown.map((r) => r.kind === "group"
+              ? <div key={`g${r.gi}`} className="twc-pop__group">{r.label}</div>
+              : renderOption(r.o, r.idx))}
+            {vBottom > 0 ? <div aria-hidden="true" style={{ height: vBottom }} /> : null}
+          </>
+        ) :
         fGroups.map((g, gi) => (
           <React.Fragment key={gi}>
             {g.group ? <div className="twc-pop__group">{g.group}</div> : null}
             {g.options.map((o) => {
-              counter += 1; const idx = counter; const isSel = o.value === current;
-              return (
-                <button key={o.value} id={optionId(idx)} type="button" className="twc-opt" role="option" aria-selected={isSel}
-                  ref={idx === active ? activeRef : null}
-                  disabled={o.disabled || undefined} aria-disabled={o.disabled || undefined} data-disabled={o.disabled || undefined}
-                  data-selected={isSel || undefined} data-active={idx === active || undefined}
-                  onMouseEnter={() => { if (!o.disabled) setActive(idx); }} onMouseDown={(e) => e.preventDefault()} onClick={() => commit(o.value)}>
-                  <span className="twc-opt__main">
-                    <span className="twc-opt__label">{o.label}</span>
-                    {o.description ? <span className="twc-opt__desc">{o.description}</span> : null}
-                  </span>
-                  {isSel ? <span className="twc-opt__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span> : null}
-                </button>
-              );
+              counter += 1; const idx = counter;
+              return renderOption(o, idx);
             })}
           </React.Fragment>
         ))}
