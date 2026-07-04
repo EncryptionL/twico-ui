@@ -4,7 +4,7 @@
   "description": "Twico UI — a free, modern, themeable React + Tailwind-friendly component library. 61 components with dark mode, motion, and accessibility built in.",
   "license": "MIT",
   "author": "Twico UI",
-  "homepage": "https://github.com/EncryptionL/twico-ui#readme",
+  "homepage": "https://encryptionl.github.io/twico-ui/",
   "repository": {
     "type": "git",
     "url": "https://github.com/EncryptionL/twico-ui.git"
@@ -71,6 +71,7 @@
     "styles",
     "llms.txt",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "scripts": {
@@ -132,6 +133,12 @@
       "path": "dist/index.mjs",
       "import": "{ Button }",
       "limit": "12 kB"
+    },
+    {
+      "name": "Card only (tree-shaken)",
+      "path": "dist/index.mjs",
+      "import": "{ Card }",
+      "limit": "10 kB"
     }
   ],
   "engines": {

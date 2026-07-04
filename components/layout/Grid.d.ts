@@ -32,4 +32,4 @@ export interface GridProps extends React.HTMLAttributes<HTMLElement> {
   justifyContent?: React.CSSProperties["justifyContent"];
 }
 
-export function Grid(props: GridProps): React.JSX.Element;
+export declare const Grid: React.ForwardRefExoticComponent<GridProps & React.RefAttributes<HTMLElement>>;

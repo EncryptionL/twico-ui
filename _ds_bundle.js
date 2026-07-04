@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"3c98a07f7447","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"f35fb2dc0dc4","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"69bbe20ca1cc","components/inputs/Combobox.jsx":"da89f9c7b152","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"331b326d47d3","components/inputs/DateRangePicker.jsx":"9a1f3e9e7c58","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Input.jsx":"05605520deae","components/inputs/MultiSelect.jsx":"856956280c7b","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"cd87f7b56e12","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"0b3d9cee1567","components/layout/Container.jsx":"387427a04d92","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"4258836f330c","components/layout/Stack.jsx":"3acf19a6760b","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1514eeaceb03","components/typography/Text.jsx":"d266e3a00c44","src/index.ts":"24b66815edd1"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Card.jsx":"3c98a07f7447","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"645ffc7033ff","components/data-display/Datatable.jsx":"f35fb2dc0dc4","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"1c03e17c8594","components/inputs/Combobox.jsx":"da89f9c7b152","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"ae454957e1e5","components/inputs/DateRangePicker.jsx":"4afd025227b5","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"856956280c7b","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"cd87f7b56e12","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"5866b30f900a","components/layout/ColorSchemeScript.jsx":"7e73bf919b01","components/layout/Container.jsx":"3af6a1ef1d15","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"6db8d15f4acd","components/layout/Portal.jsx":"c86ad50eb3f6","components/layout/Stack.jsx":"82cf0b7f370d","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"6f40ab3a9d29","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"a666a3e0beeb","src/index.ts":"88773912becf"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -56,6 +56,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   __export(index_exports, {
     Accordion: () => Accordion,
     Alert: () => Alert,
+    Anchor: () => Anchor,
     AppShell: () => AppShell,
     Avatar: () => Avatar,
     AvatarMenu: () => AvatarMenu,
@@ -69,6 +70,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     Checkbox: () => Checkbox,
     Code: () => Code,
     ColorPicker: () => ColorPicker,
+    ColorSchemeScript: () => ColorSchemeScript,
     Combobox: () => Combobox,
     CommandPalette: () => CommandPalette,
     Container: () => Container,
@@ -83,17 +85,23 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     EmptyState: () => EmptyState,
     Field: () => Field,
     FileUpload: () => FileUpload,
+    Form: () => Form,
     Grid: () => Grid,
     Heading: () => Heading,
     IconButton: () => IconButton,
+    Image: () => Image,
     Input: () => Input,
     Kanban: () => Kanban,
+    Kbd: () => Kbd,
+    Label: () => Label,
     List: () => List,
     Menu: () => Menu,
     MultiSelect: () => MultiSelect,
     Navbar: () => Navbar,
     Pagination: () => Pagination,
     Popover: () => Popover,
+    Portal: () => Portal,
+    Pre: () => Pre,
     Progress: () => Progress,
     Radio: () => Radio,
     RadioGroup: () => RadioGroup,
@@ -112,12 +120,17 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     Tag: () => Tag,
     Text: () => Text,
     Textarea: () => Textarea,
+    ThemeProvider: () => ThemeProvider,
     Timeline: () => Timeline,
     Toast: () => Toast,
     ToastProvider: () => ToastProvider,
     ToastViewport: () => ToastViewport,
     Tooltip: () => Tooltip,
     TreeView: () => TreeView,
+    TwicoProvider: () => TwicoProvider,
+    VisuallyHidden: () => VisuallyHidden,
+    createTheme: () => createTheme,
+    getColorSchemeScript: () => getColorSchemeScript,
     runDatatableQuery: () => runDatatableQuery,
     useClickOutside: () => useClickOutside,
     useColorScheme: () => useColorScheme,
@@ -146,7 +159,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useToggle: () => useToggle,
     useWindowSize: () => useWindowSize
   });
-  var React25 = __toESM(require_react(), 1);
+  var React36 = __toESM(require_react(), 1);
   var import_react = __toESM(require_react(), 1);
 
   // rg:react/jsx-runtime
@@ -164,18 +177,327 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 
   // dist/index.mjs
   var import_react_dom = __toESM(require_react_dom(), 1);
-  var SUPPORTS_STYLE_HOIST = parseInt(String(React25.version), 10) >= 19;
+  var SUPPORTS_STYLE_HOIST = parseInt(String(React36.version), 10) >= 19;
+  var NonceContext = React36.createContext(void 0);
   function useScopedStyles(id, css) {
-    React25.useInsertionEffect(() => {
+    const nonce = React36.useContext(NonceContext);
+    React36.useInsertionEffect(() => {
       if (SUPPORTS_STYLE_HOIST) return;
       if (typeof document === "undefined" || document.getElementById(id)) return;
       const el = document.createElement("style");
       el.id = id;
+      if (nonce) {
+        el.setAttribute("nonce", nonce);
+        el.nonce = nonce;
+      }
       el.textContent = css;
       document.head.appendChild(el);
-    }, [id, css]);
-    return SUPPORTS_STYLE_HOIST ? React25.createElement("style", { href: id, precedence: "twc-ui" }, css) : null;
+    }, [id, css, nonce]);
+    return SUPPORTS_STYLE_HOIST ? React36.createElement("style", { href: id, precedence: "twc-ui", nonce }, css) : null;
   }
+  function TwicoProvider({ nonce, children }) {
+    return import_react.default.createElement(NonceContext.Provider, { value: nonce }, children);
+  }
+  var GROUPS = { colors: "color", space: "space", radius: "radius", font: "font", shadow: "shadow", motion: "" };
+  function createTheme(partial = {}) {
+    const vars = {};
+    for (const [group, prefix] of Object.entries(GROUPS)) {
+      const obj = partial[group];
+      if (!obj || typeof obj !== "object") continue;
+      for (const [key, value] of Object.entries(obj)) {
+        if (value == null) continue;
+        vars[`--${prefix ? `${prefix}-` : ""}${key}`] = String(value);
+      }
+    }
+    return vars;
+  }
+  function toVars(theme) {
+    if (!theme) return {};
+    return Object.keys(theme).some((k) => k.startsWith("--")) ? theme : createTheme(theme);
+  }
+  function ThemeProvider({ theme, mode = "inline", className = "", style, children, ...rest }) {
+    const vars = import_react.default.useMemo(() => toVars(theme), [theme]);
+    const uid = import_react.default.useId();
+    const scopeId = `twc-theme-${uid.replace(/[^a-zA-Z0-9]/g, "")}`;
+    const css = mode === "stylesheet" ? `[data-twc-theme="${scopeId}"] { ${Object.entries(vars).map(([k, v]) => `${k}: ${v};`).join(" ")} }` : "";
+    const __twcStyles = useScopedStyles(mode === "stylesheet" ? scopeId : "twc-theme-noop", css);
+    return /* @__PURE__ */ jsxs(
+      "div",
+      {
+        className: `twc-theme ${className}`.trim(),
+        "data-twc-theme": mode === "stylesheet" ? scopeId : void 0,
+        style: mode === "stylesheet" ? style : { ...vars, ...style },
+        ...rest,
+        children: [
+          mode === "stylesheet" ? __twcStyles : null,
+          children
+        ]
+      }
+    );
+  }
+  var FORM_CSS = `
+.twc-form { display: flex; flex-direction: column; gap: var(--space-4); font-family: var(--font-sans); }
+.twc-form__fieldset { border: 0; margin: 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: inherit; }
+`;
+  var Form = import_react.default.forwardRef(function Form2({
+    onSubmit,
+    preventDefault = true,
+    loading = false,
+    disabled = false,
+    gap,
+    className = "",
+    style,
+    children,
+    ...rest
+  }, ref) {
+    const __twcStyles = useScopedStyles("twc-form-styles", FORM_CSS);
+    const handleSubmit = (e) => {
+      if (preventDefault) e.preventDefault();
+      onSubmit?.(e);
+    };
+    return /* @__PURE__ */ jsxs(
+      "form",
+      {
+        ref,
+        className: `twc-form ${className}`.trim(),
+        onSubmit: handleSubmit,
+        style: gap != null ? { gap: `var(--space-${gap})`, ...style } : style,
+        ...rest,
+        children: [
+          __twcStyles,
+          /* @__PURE__ */ jsx("fieldset", { className: "twc-form__fieldset", disabled: loading || disabled || void 0, "aria-busy": loading || void 0, children })
+        ]
+      }
+    );
+  });
+  Form.displayName = "Form";
+  var VH_CSS = `
+.twc-visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+`;
+  var VisuallyHidden = import_react.default.forwardRef(function VisuallyHidden2({ as: Tag2 = "span", className = "", children, ...rest }, ref) {
+    const __twcStyles = useScopedStyles("twc-visually-hidden-styles", VH_CSS);
+    return /* @__PURE__ */ jsxs(Tag2, { ref, className: `twc-visually-hidden ${className}`.trim(), ...rest, children: [
+      __twcStyles,
+      children
+    ] });
+  });
+  VisuallyHidden.displayName = "VisuallyHidden";
+  var canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
+  var useIsoLayoutEffect = canUseDOM ? import_react.default.useLayoutEffect : import_react.default.useEffect;
+  var FOCUSABLE = 'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
+  function useFocusTrap(ref, active = true, { restoreFocus = true, initialFocus } = {}) {
+    import_react.default.useEffect(() => {
+      if (!active || !canUseDOM) return void 0;
+      const node = ref.current;
+      if (!node) return void 0;
+      const prevFocused = document.activeElement;
+      const target = (typeof initialFocus === "function" ? initialFocus() : initialFocus && initialFocus.current) || node.querySelector(FOCUSABLE);
+      (target || node).focus();
+      return () => {
+        if (restoreFocus && prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
+      };
+    }, [active]);
+    import_react.default.useEffect(() => {
+      if (!active || !canUseDOM) return void 0;
+      const node = ref.current;
+      const onKey = (e) => {
+        if (e.key !== "Tab" || !node) return;
+        const f = Array.from(node.querySelectorAll(FOCUSABLE)).filter((el) => el.offsetParent !== null);
+        if (!f.length) {
+          e.preventDefault();
+          node.focus();
+          return;
+        }
+        const first = f[0], last = f[f.length - 1], ae = document.activeElement;
+        if (e.shiftKey) {
+          if (ae === first || ae === node || !node.contains(ae)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else if (ae === last || !node.contains(ae)) {
+          e.preventDefault();
+          first.focus();
+        }
+      };
+      document.addEventListener("keydown", onKey);
+      return () => document.removeEventListener("keydown", onKey);
+    }, [active]);
+  }
+  function usePortal() {
+    return import_react.default.useCallback((node) => {
+      if (typeof document === "undefined") return null;
+      return typeof import_react_dom.createPortal === "function" ? (0, import_react_dom.createPortal)(node, document.body) : node;
+    }, []);
+  }
+  var __scrollLockCount = 0;
+  var __scrollLockSaved = { overflow: "", paddingRight: "" };
+  function useScrollLock(locked = true) {
+    useIsoLayoutEffect(() => {
+      if (!canUseDOM || !locked) return void 0;
+      if (__scrollLockCount === 0) {
+        const b = document.body;
+        __scrollLockSaved = { overflow: b.style.overflow, paddingRight: b.style.paddingRight };
+        const gutter = window.innerWidth - document.documentElement.clientWidth;
+        b.style.overflow = "hidden";
+        if (gutter > 0) b.style.paddingRight = `${(parseFloat(getComputedStyle(b).paddingRight) || 0) + gutter}px`;
+      }
+      __scrollLockCount += 1;
+      return () => {
+        __scrollLockCount -= 1;
+        if (__scrollLockCount === 0) {
+          document.body.style.overflow = __scrollLockSaved.overflow;
+          document.body.style.paddingRight = __scrollLockSaved.paddingRight;
+        }
+      };
+    }, [locked]);
+  }
+  function useInertBackground(ref, active) {
+    import_react.default.useEffect(() => {
+      if (!active || !canUseDOM) return void 0;
+      const node = ref.current;
+      if (!node) return void 0;
+      const changed = [];
+      Array.from(document.body.children).forEach((el) => {
+        if (el.contains(node) || el.hasAttribute("aria-hidden") || el.inert) return;
+        el.inert = true;
+        el.setAttribute("aria-hidden", "true");
+        changed.push(el);
+      });
+      return () => {
+        changed.forEach((el) => {
+          el.inert = false;
+          el.removeAttribute("aria-hidden");
+        });
+      };
+    }, [active]);
+  }
+  function Portal({ children }) {
+    const render = usePortal();
+    return render(children);
+  }
+  function getColorSchemeScript({ storageKey = "twico-theme", attribute = "class", defaultScheme } = {}) {
+    const k = JSON.stringify(storageKey);
+    const a = JSON.stringify(attribute);
+    const d = defaultScheme === "dark" || defaultScheme === "light" ? JSON.stringify(defaultScheme) : "null";
+    return `(function(){try{var k=${k},a=${a},d=${d},t=localStorage.getItem(k);if(t!=='light'){if(t!=='dark'){t=d?d:(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');}}if(a==='class'){document.documentElement.classList.toggle('dark',t==='dark');}else{document.documentElement.setAttribute(a,t);}}catch(e){}})();`;
+  }
+  function ColorSchemeScript({ storageKey = "twico-theme", attribute = "class", nonce, defaultScheme }) {
+    return import_react.default.createElement("script", { nonce }, getColorSchemeScript({ storageKey, attribute, defaultScheme }));
+  }
+  var KBD_CSS = `
+.twc-kbd { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; padding: 2px 6px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: var(--font-semibold); line-height: 1; color: var(--color-text-muted);
+  background: var(--color-surface-sunken); border: var(--border-thin) solid var(--color-border);
+  border-bottom-width: 2px; border-radius: var(--radius-sm); }
+`;
+  var Kbd = import_react.default.forwardRef(function Kbd2({ className = "", children, ...rest }, ref) {
+    const __twcStyles = useScopedStyles("twc-kbd-styles", KBD_CSS);
+    return /* @__PURE__ */ jsxs("kbd", { ref, className: `twc-kbd ${className}`.trim(), ...rest, children: [
+      __twcStyles,
+      children
+    ] });
+  });
+  Kbd.displayName = "Kbd";
+  var PRE_CSS = `
+.twc-pre { margin: 0; padding: var(--space-4); overflow-x: auto; max-width: 100%;
+  font-family: var(--font-mono); font-size: var(--text-sm); line-height: var(--leading-normal);
+  color: var(--color-text); background: var(--color-surface-sunken);
+  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
+  white-space: pre; -webkit-overflow-scrolling: touch; }
+`;
+  var Pre = import_react.default.forwardRef(function Pre2({ className = "", children, ...rest }, ref) {
+    const __twcStyles = useScopedStyles("twc-pre-styles", PRE_CSS);
+    return /* @__PURE__ */ jsxs("pre", { ref, className: `twc-pre ${className}`.trim(), ...rest, children: [
+      __twcStyles,
+      children
+    ] });
+  });
+  Pre.displayName = "Pre";
+  var ANCHOR_CSS = `
+.twc-anchor { color: var(--color-primary); text-decoration: none; border-radius: var(--radius-sm);
+  transition: color var(--duration-fast) var(--ease-standard); }
+.twc-anchor:hover { text-decoration: underline; color: var(--color-primary-hover, var(--color-primary)); }
+.twc-anchor:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-anchor__ext { display: inline-block; margin-inline-start: 3px; font-size: 0.85em; vertical-align: baseline; }
+`;
+  function safeHref(url) {
+    if (url == null) return void 0;
+    const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+    return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
+  }
+  var Anchor = import_react.default.forwardRef(function Anchor2({ as: Tag2 = "a", href, external = false, className = "", children, ...rest }, ref) {
+    const __twcStyles = useScopedStyles("twc-anchor-styles", ANCHOR_CSS);
+    const extra = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+    return /* @__PURE__ */ jsxs(Tag2, { ref, className: `twc-anchor ${className}`.trim(), href: Tag2 === "a" ? safeHref(href) : href, ...extra, ...rest, children: [
+      __twcStyles,
+      children,
+      external ? /* @__PURE__ */ jsx("span", { className: "twc-anchor__ext", "aria-hidden": "true", children: "\u2197" }) : null
+    ] });
+  });
+  Anchor.displayName = "Anchor";
+  var LABEL_CSS = `
+.twc-label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: inline-flex; gap: 4px; align-items: center; }
+.twc-label[data-size="sm"] { font-size: var(--text-xs); }
+.twc-label[data-size="lg"] { font-size: var(--text-base); }
+.twc-label__req { color: var(--color-danger); }
+`;
+  var Label = import_react.default.forwardRef(function Label2({ htmlFor, required = false, size = "md", className = "", children, ...rest }, ref) {
+    const __twcStyles = useScopedStyles("twc-label-styles", LABEL_CSS);
+    return /* @__PURE__ */ jsxs("label", { ref, htmlFor, className: `twc-label ${className}`.trim(), "data-size": size, ...rest, children: [
+      __twcStyles,
+      children,
+      required ? /* @__PURE__ */ jsx("span", { className: "twc-label__req", "aria-hidden": "true", children: "*" }) : null
+    ] });
+  });
+  Label.displayName = "Label";
+  var IMAGE_CSS = `
+.twc-image { display: block; max-width: 100%; }
+.twc-image[data-fit] { width: 100%; height: 100%; }
+`;
+  var Image = import_react.default.forwardRef(function Image2({
+    src,
+    alt,
+    fit,
+    radius,
+    aspectRatio,
+    fallback,
+    loading = "lazy",
+    className = "",
+    style,
+    onError,
+    ...rest
+  }, ref) {
+    const __twcStyles = useScopedStyles("twc-image-styles", IMAGE_CSS);
+    const [failed, setFailed] = import_react.default.useState(false);
+    const shownSrc = failed && fallback ? fallback : src;
+    const s = {
+      objectFit: fit,
+      borderRadius: radius ? `var(--radius-${radius})` : void 0,
+      aspectRatio,
+      ...style
+    };
+    return /* @__PURE__ */ jsxs(Fragment, { children: [
+      __twcStyles,
+      /* @__PURE__ */ jsx(
+        "img",
+        {
+          ref,
+          src: shownSrc,
+          alt,
+          loading,
+          className: `twc-image ${className}`.trim(),
+          "data-fit": fit || void 0,
+          style: s,
+          onError: (e) => {
+            onError?.(e);
+            if (fallback && !failed) setFailed(true);
+          },
+          ...rest
+        }
+      )
+    ] });
+  });
+  Image.displayName = "Image";
   var ACCORDION_CSS = `
 .twc-accordion { display: flex; flex-direction: column; font-family: var(--font-sans);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-surface); }
@@ -265,9 +587,9 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         const triggerId = `${baseId}-trigger-${i}`;
         const panelId = `${baseId}-panel-${i}`;
         const lvl = Math.min(6, Math.max(1, it.headingLevel ?? headingLevel));
-        const Heading2 = `h${lvl}`;
+        const Heading3 = `h${lvl}`;
         return /* @__PURE__ */ jsxs("div", { className: "twc-accordion__item", children: [
-          /* @__PURE__ */ jsx(Heading2, { className: "twc-accordion__heading", children: /* @__PURE__ */ jsxs("button", { type: "button", id: triggerId, className: "twc-accordion__trigger", "data-open": isOpen || void 0, disabled: it.disabled || void 0, "aria-disabled": it.disabled || void 0, "data-disabled": it.disabled || void 0, "aria-expanded": isOpen, "aria-controls": panelId, onClick: () => toggle(it.value), children: [
+          /* @__PURE__ */ jsx(Heading3, { className: "twc-accordion__heading", children: /* @__PURE__ */ jsxs("button", { type: "button", id: triggerId, className: "twc-accordion__trigger", "data-open": isOpen || void 0, disabled: it.disabled || void 0, "aria-disabled": it.disabled || void 0, "data-disabled": it.disabled || void 0, "aria-expanded": isOpen, "aria-controls": panelId, onClick: () => toggle(it.value), children: [
             it.icon,
             /* @__PURE__ */ jsx("span", { className: "twc-accordion__label", children: it.label }),
             /* @__PURE__ */ jsx("span", { className: "twc-accordion__chevron", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m6 9 6 6 6-6" }) }) })
@@ -462,7 +784,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-menu__item-label { flex: 1 1 auto; min-width: 0; }
 .twc-menu__shortcut { margin-inline-start: auto; padding-inline-start: var(--space-3); font-size: var(--text-xs); color: var(--color-text-subtle); font-family: var(--font-mono); }
 `;
-  var safeHref = (url) => {
+  var safeHref2 = (url) => {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -634,7 +956,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
           items.map((it, i) => {
             if (it.separator) return /* @__PURE__ */ jsx("div", { className: "twc-menu__sep", role: "separator" }, `s${i}`);
             if (it.label && it.heading) return /* @__PURE__ */ jsx("div", { className: "twc-menu__label", children: it.label }, `h${i}`);
-            const href = !it.disabled ? safeHref(it.href) : void 0;
+            const href = !it.disabled ? safeHref2(it.href) : void 0;
             const Tag2 = href ? "a" : "button";
             return /* @__PURE__ */ jsxs(
               Tag2,
@@ -815,7 +1137,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-breadcrumb__ellipsis { border: none; background: transparent; cursor: pointer; color: var(--color-text-subtle); padding: 3px 7px; border-radius: var(--radius-sm); font: inherit; }
 .twc-breadcrumb__ellipsis:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 `;
-  function safeHref2(url) {
+  function safeHref3(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -854,7 +1176,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                 it.label
               ]
             }
-          ) : safeHref2(it.href) ? /* @__PURE__ */ jsxs("a", { className: "twc-breadcrumb__item", href: safeHref2(it.href), onClick: it.onClick, children: [
+          ) : safeHref3(it.href) ? /* @__PURE__ */ jsxs("a", { className: "twc-breadcrumb__item", href: safeHref3(it.href), onClick: it.onClick, children: [
             it.icon ? /* @__PURE__ */ jsx("span", { "aria-hidden": "true", style: { display: "inline-flex" }, children: it.icon }) : null,
             it.label
           ] }) : it.onClick ? /* @__PURE__ */ jsxs("button", { type: "button", className: "twc-breadcrumb__item", onClick: it.onClick, children: [
@@ -962,7 +1284,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   animation: twico-ripple var(--duration-slow) var(--ease-out) forwards;
 }
 `;
-  function safeHref3(url) {
+  function safeHref4(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -1013,7 +1335,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         "data-block": fullWidth || void 0,
         disabled: Tag2 === "button" ? disabled || loading : void 0,
         type: Tag2 === "button" ? "button" : void 0,
-        href: inert ? void 0 : safeHref3(href),
+        href: inert ? void 0 : safeHref4(href),
         "aria-disabled": inert || void 0,
         tabIndex: inert ? -1 : void 0,
         "aria-busy": loading || void 0,
@@ -1641,18 +1963,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         document.removeEventListener("keydown", onKey);
       };
     }, [open]);
-    const prevOpen = import_react.default.useRef(false);
-    import_react.default.useEffect(() => {
-      let id;
-      if (!prevOpen.current && open) {
-        id = setTimeout(() => areaRef.current?.focus({ preventScroll: true }), 20);
-      } else if (prevOpen.current && !open) {
-        const ae = typeof document !== "undefined" ? document.activeElement : null;
-        if (!ae || ae === document.body) triggerRef.current?.focus();
-      }
-      prevOpen.current = open;
-      return () => clearTimeout(id);
-    }, [open]);
+    useFocusTrap(popRef, open && !!coords, { initialFocus: areaRef });
     const commit = (next) => {
       const h = hsvToHex(next.h, next.s, next.v);
       setHsv(next);
@@ -1745,6 +2056,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             className: "twc-cp__pop",
             ref: popRef,
             role: "dialog",
+            "aria-modal": "true",
             "aria-label": "Color picker",
             style: { position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" },
             children: [
@@ -2242,95 +2554,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       ] }),
       error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : hint ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__hint", children: hint }) : null
     ] });
-  }
-  var canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
-  var useIsoLayoutEffect = canUseDOM ? import_react.default.useLayoutEffect : import_react.default.useEffect;
-  var FOCUSABLE = 'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
-  function useFocusTrap(ref, active = true, { restoreFocus = true } = {}) {
-    import_react.default.useEffect(() => {
-      if (!active || !canUseDOM) return void 0;
-      const node = ref.current;
-      if (!node) return void 0;
-      const prevFocused = document.activeElement;
-      const first = node.querySelector(FOCUSABLE);
-      (first || node).focus();
-      return () => {
-        if (restoreFocus && prevFocused && typeof prevFocused.focus === "function") prevFocused.focus();
-      };
-    }, [active]);
-    import_react.default.useEffect(() => {
-      if (!active || !canUseDOM) return void 0;
-      const node = ref.current;
-      const onKey = (e) => {
-        if (e.key !== "Tab" || !node) return;
-        const f = Array.from(node.querySelectorAll(FOCUSABLE)).filter((el) => el.offsetParent !== null);
-        if (!f.length) {
-          e.preventDefault();
-          node.focus();
-          return;
-        }
-        const first = f[0], last = f[f.length - 1], ae = document.activeElement;
-        if (e.shiftKey) {
-          if (ae === first || ae === node || !node.contains(ae)) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else if (ae === last || !node.contains(ae)) {
-          e.preventDefault();
-          first.focus();
-        }
-      };
-      document.addEventListener("keydown", onKey);
-      return () => document.removeEventListener("keydown", onKey);
-    }, [active]);
-  }
-  function usePortal() {
-    return import_react.default.useCallback((node) => {
-      if (typeof document === "undefined") return null;
-      return typeof import_react_dom.createPortal === "function" ? (0, import_react_dom.createPortal)(node, document.body) : node;
-    }, []);
-  }
-  var __scrollLockCount = 0;
-  var __scrollLockSaved = { overflow: "", paddingRight: "" };
-  function useScrollLock(locked = true) {
-    useIsoLayoutEffect(() => {
-      if (!canUseDOM || !locked) return void 0;
-      if (__scrollLockCount === 0) {
-        const b = document.body;
-        __scrollLockSaved = { overflow: b.style.overflow, paddingRight: b.style.paddingRight };
-        const gutter = window.innerWidth - document.documentElement.clientWidth;
-        b.style.overflow = "hidden";
-        if (gutter > 0) b.style.paddingRight = `${(parseFloat(getComputedStyle(b).paddingRight) || 0) + gutter}px`;
-      }
-      __scrollLockCount += 1;
-      return () => {
-        __scrollLockCount -= 1;
-        if (__scrollLockCount === 0) {
-          document.body.style.overflow = __scrollLockSaved.overflow;
-          document.body.style.paddingRight = __scrollLockSaved.paddingRight;
-        }
-      };
-    }, [locked]);
-  }
-  function useInertBackground(ref, active) {
-    import_react.default.useEffect(() => {
-      if (!active || !canUseDOM) return void 0;
-      const node = ref.current;
-      if (!node) return void 0;
-      const changed = [];
-      Array.from(document.body.children).forEach((el) => {
-        if (el.contains(node) || el.hasAttribute("aria-hidden") || el.inert) return;
-        el.inert = true;
-        el.setAttribute("aria-hidden", "true");
-        changed.push(el);
-      });
-      return () => {
-        changed.forEach((el) => {
-          el.inert = false;
-          el.removeAttribute("aria-hidden");
-        });
-      };
-    }, [active]);
   }
   var COMMAND_CSS = `
 .twc-cmdk__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(3px);
@@ -7481,6 +7704,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const [view, setView] = import_react.default.useState(selected || /* @__PURE__ */ new Date());
     const [mode, setMode] = import_react.default.useState("days");
     const [focusDate, setFocusDate] = import_react.default.useState(null);
+    const [focusMonth, setFocusMonth] = import_react.default.useState(null);
     const [coords, setCoords] = import_react.default.useState(null);
     const wrapRef = import_react.default.useRef(null);
     const triggerRef = import_react.default.useRef(null);
@@ -7529,18 +7753,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         document.removeEventListener("keydown", onKey);
       };
     }, [open]);
-    const prevOpen = import_react.default.useRef(false);
-    import_react.default.useEffect(() => {
-      let id2;
-      if (!prevOpen.current && open) {
-        id2 = setTimeout(() => gridRef.current?.querySelector('[tabindex="0"]')?.focus({ preventScroll: true }), 30);
-      } else if (prevOpen.current && !open) {
-        const ae = typeof document !== "undefined" ? document.activeElement : null;
-        if (!ae || ae === document.body) triggerRef.current?.focus();
-      }
-      prevOpen.current = open;
-      return () => clearTimeout(id2);
-    }, [open]);
+    useFocusTrap(popRef, open && !!coords, { initialFocus: () => gridRef.current?.querySelector('[tabindex="0"]') });
     const months = import_react.default.useMemo(() => locale === void 0 ? MONTHS : monthNames(locale), [locale]);
     const monthsShort = import_react.default.useMemo(() => locale === void 0 ? MONTHS.map((n) => n.slice(0, 3)) : monthShortNames(locale), [locale]);
     const dows = import_react.default.useMemo(
@@ -7575,6 +7788,30 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       if (!open || mode !== "days" || !focusDate) return;
       gridRef.current?.querySelector(`[data-key="${keyOf(focusDate)}"]`)?.focus();
     }, [focusDate, open, mode]);
+    import_react.default.useEffect(() => {
+      if (!open || mode !== "months" || focusMonth == null) return;
+      gridRef.current?.querySelector(`[data-mo="${focusMonth}"]`)?.focus();
+    }, [focusMonth, open, mode]);
+    const onMonthsKeyDown = (e) => {
+      const cur = focusMonth == null ? m : focusMonth;
+      let next;
+      if (e.key === "ArrowRight") next = cur + 1;
+      else if (e.key === "ArrowLeft") next = cur - 1;
+      else if (e.key === "ArrowDown") next = cur + 3;
+      else if (e.key === "ArrowUp") next = cur - 3;
+      else if (e.key === "Home") next = 0;
+      else if (e.key === "End") next = 11;
+      else return;
+      e.preventDefault();
+      if (next < 0) {
+        setView(new Date(y - 1, 0, 1));
+        next += 12;
+      } else if (next > 11) {
+        setView(new Date(y + 1, 0, 1));
+        next -= 12;
+      }
+      setFocusMonth(next);
+    };
     const onGridKeyDown = (e) => {
       const btn = e.target.closest?.("[data-key]");
       if (!btn) return;
@@ -7655,12 +7892,16 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             className: "twc-dp__pop",
             ref: popRef,
             role: "dialog",
+            "aria-modal": "true",
             "aria-label": "Choose date",
             style: { position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" },
             children: [
               /* @__PURE__ */ jsxs("div", { className: "twc-dp__head", children: [
                 /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dp__nav", "aria-label": "Previous", onClick: () => setView(mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1)), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m15 18-6-6 6-6" }) }) }),
-                /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dp__title", onClick: () => setMode(mode === "days" ? "months" : "days"), children: mode === "days" ? `${months[m]} ${y}` : y }),
+                /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dp__title", onClick: () => {
+                  if (mode === "days") setFocusMonth(m);
+                  setMode(mode === "days" ? "months" : "days");
+                }, children: mode === "days" ? `${months[m]} ${y}` : y }),
                 /* @__PURE__ */ jsx("span", { className: "twc-dp__sr", "aria-live": "polite", children: mode === "days" ? `${months[m]} ${y}` : y }),
                 /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dp__nav", "aria-label": "Next", onClick: () => setView(mode === "months" ? new Date(y + 1, m, 1) : new Date(y, m + 1, 1)), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m9 18 6-6-6-6" }) }) })
               ] }),
@@ -7688,11 +7929,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                     i
                   );
                 })
-              ] }) : /* @__PURE__ */ jsx("div", { className: "twc-dp__months", children: monthsShort.map((name, i) => /* @__PURE__ */ jsx(
+              ] }) : /* @__PURE__ */ jsx("div", { className: "twc-dp__months", ref: gridRef, onKeyDown: onMonthsKeyDown, role: "grid", children: monthsShort.map((name, i) => /* @__PURE__ */ jsx(
                 "button",
                 {
                   type: "button",
                   className: "twc-dp__mo",
+                  role: "gridcell",
+                  "data-mo": i,
+                  tabIndex: i === (focusMonth ?? m) ? 0 : -1,
                   "data-selected": selected && selected.getFullYear() === y && selected.getMonth() === i || void 0,
                   onClick: () => {
                     setView(new Date(y, i, 1));
@@ -7804,10 +8048,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const [open, setOpen] = import_react.default.useState(false);
     const [view, setView] = import_react.default.useState(range.start || /* @__PURE__ */ new Date());
     const [hover, setHover] = import_react.default.useState(null);
+    const [focusDate, setFocusDate] = import_react.default.useState(null);
     const [coords, setCoords] = import_react.default.useState(null);
     const wrapRef = import_react.default.useRef(null);
     const triggerRef = import_react.default.useRef(null);
     const popRef = import_react.default.useRef(null);
+    const gridRef = import_react.default.useRef(null);
     const labelId = import_react.default.useId();
     const descId = `${labelId}-desc`;
     const invalid = Boolean(error);
@@ -7858,7 +8104,52 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       if (value === void 0) setInternal(r);
       onChange?.(r);
     };
+    useFocusTrap(popRef, open && !!coords, { initialFocus: () => gridRef.current?.querySelector('[tabindex="0"]') });
     const outOfRange = (d) => min && ymd(d) < ymd(min) || max && ymd(d) > ymd(max) || Boolean(disabledDate && disabledDate(d));
+    const sameDay2 = (a, b) => a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+    const keyOf = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+    const addMonths = (d, n) => {
+      const last = new Date(d.getFullYear(), d.getMonth() + n + 1, 0);
+      return new Date(last.getFullYear(), last.getMonth(), Math.min(d.getDate(), last.getDate()));
+    };
+    import_react.default.useEffect(() => {
+      if (!open) {
+        setFocusDate(null);
+        setHover(null);
+      }
+    }, [open]);
+    import_react.default.useEffect(() => {
+      if (!open || !focusDate) return;
+      gridRef.current?.querySelector(`[data-key="${keyOf(focusDate)}"]`)?.focus();
+    }, [focusDate, open]);
+    const onGridKeyDown = (e) => {
+      const btn = e.target.closest && e.target.closest("[data-key]");
+      if (!btn) return;
+      const [fy, fm, fd] = btn.getAttribute("data-key").split("-").map(Number);
+      const cur = new Date(fy, fm, fd);
+      let step;
+      if (e.key === "ArrowLeft") step = (d) => addDays(d, -1);
+      else if (e.key === "ArrowRight") step = (d) => addDays(d, 1);
+      else if (e.key === "ArrowUp") step = (d) => addDays(d, -7);
+      else if (e.key === "ArrowDown") step = (d) => addDays(d, 7);
+      else if (e.key === "Home") step = (d) => addDays(d, -((d.getDay() - weekStartsOn + 7) % 7));
+      else if (e.key === "End") step = (d) => addDays(d, 6 - (d.getDay() - weekStartsOn + 7) % 7);
+      else if (e.key === "PageUp") step = (d) => addMonths(d, -1);
+      else if (e.key === "PageDown") step = (d) => addMonths(d, 1);
+      else return;
+      e.preventDefault();
+      let next = step(cur), guard = 0;
+      while (outOfRange(next) && guard < 366) {
+        next = step(next);
+        guard += 1;
+      }
+      if (outOfRange(next)) return;
+      setFocusDate(next);
+      setHover(next);
+      if (next.getFullYear() !== view.getFullYear() || next.getMonth() !== view.getMonth()) setView(new Date(next.getFullYear(), next.getMonth(), 1));
+    };
+    const tabbableDate = focusDate || range.start || /* @__PURE__ */ new Date();
     const clickDay = (d) => {
       if (outOfRange(d)) return;
       if (!range.start || range.start && range.end) {
@@ -7948,6 +8239,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             className: "twc-drp__pop",
             ref: popRef,
             role: "dialog",
+            "aria-modal": "true",
             "aria-label": "Choose date range",
             style: { position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" },
             children: [
@@ -7967,7 +8259,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   ] }),
                   /* @__PURE__ */ jsx("button", { type: "button", className: "twc-drp__nav", "aria-label": "Next month", onClick: () => setView(new Date(y, m + 1, 1)), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m9 18 6-6-6-6" }) }) })
                 ] }),
-                /* @__PURE__ */ jsxs("div", { className: "twc-drp__grid", children: [
+                /* @__PURE__ */ jsxs("div", { className: "twc-drp__grid", ref: gridRef, onKeyDown: onGridKeyDown, role: "grid", children: [
                   dows.map((d, i) => /* @__PURE__ */ jsx("div", { className: "twc-drp__dow", children: d }, i)),
                   Array.from({ length: 42 }).map((_, i) => {
                     const d = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i);
@@ -7979,6 +8271,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                         className: "twc-drp__day",
                         "data-outside": outside || void 0,
                         disabled: outOfRange(d) || void 0,
+                        "data-key": keyOf(d),
+                        tabIndex: sameDay2(d, tabbableDate) ? 0 : -1,
                         "data-in": inRange(t) || void 0,
                         "data-edge": edgeOf(t) || void 0,
                         "aria-pressed": !!edgeOf(t),
@@ -8817,7 +9111,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 `;
   function List({ items, plain = false, emptyMessage, className = "", ...rest }) {
     const __twcStyles = useScopedStyles("twc-list-styles", LIST_CSS);
-    const safeHref12 = (url) => {
+    const safeHref13 = (url) => {
       if (url == null) return void 0;
       const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
       return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -8829,7 +9123,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       /* @__PURE__ */ jsxs("ul", { className: `twc-list ${className}`, role: "list", "data-plain": plain || void 0, ...rest, children: [
         __twcStyles,
         items.length === 0 ? /* @__PURE__ */ jsx("li", { role: "presentation", style: { display: "contents" }, children: /* @__PURE__ */ jsx("div", { className: "twc-list__empty", children: emptyMessage ?? "Nothing here yet" }) }) : items.map((it, i) => {
-          const href = safeHref12(it.href);
+          const href = safeHref13(it.href);
           const interactive = Boolean(it.onClick || href);
           const Tag2 = href ? "a" : interactive ? "button" : "div";
           const content = /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -8885,7 +9179,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   .twc-navbar__menu-btn { display: inline-grid; }
 }
 `;
-  function safeHref4(url) {
+  function safeHref5(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -8908,9 +9202,9 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     return /* @__PURE__ */ jsxs("header", { className: `twc-navbar ${className}`, "data-sticky": sticky || void 0, ...rest, children: [
       __twcStyles,
       onMenuClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__menu-btn", "aria-expanded": menuOpen, "aria-controls": menuControls, "aria-label": menuOpen ? "Close menu" : "Open menu", onClick: onMenuClick, children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M4 6h16M4 12h16M4 18h16" }) }) }) : null,
-      brand ? brandHref ? /* @__PURE__ */ jsx("a", { className: "twc-navbar__brand", href: safeHref4(brandHref), children: brand }) : onBrandClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__brand", onClick: onBrandClick, children: brand }) : /* @__PURE__ */ jsx("span", { className: "twc-navbar__brand", children: brand }) : null,
+      brand ? brandHref ? /* @__PURE__ */ jsx("a", { className: "twc-navbar__brand", href: safeHref5(brandHref), children: brand }) : onBrandClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__brand", onClick: onBrandClick, children: brand }) : /* @__PURE__ */ jsx("span", { className: "twc-navbar__brand", children: brand }) : null,
       /* @__PURE__ */ jsx("nav", { className: "twc-navbar__links", "aria-label": navLabel, children: links.map((l, i) => {
-        const href = safeHref4(l.href);
+        const href = safeHref5(l.href);
         const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
           l.icon,
           l.label
@@ -9693,13 +9987,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       document.addEventListener("keydown", onKey);
       return () => document.removeEventListener("keydown", onKey);
     }, [overlay, open, openProp, onOpenChange]);
-    const safeHref12 = (url) => {
+    const safeHref13 = (url) => {
       if (url == null) return void 0;
       const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
       return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
     };
     const renderItem = (it, i) => {
-      const href = safeHref12(it.href);
+      const href = safeHref13(it.href);
       const labelStr = typeof it.label === "string" ? it.label : void 0;
       const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
         it.icon ? /* @__PURE__ */ jsx("span", { className: "twc-sidebar__ic", "aria-hidden": "true", children: it.icon }) : labelStr != null ? /* @__PURE__ */ jsx("span", { className: "twc-sidebar__ic twc-sidebar__ic--initial", "aria-hidden": "true", children: labelStr.charAt(0) }) : null,
@@ -11354,12 +11648,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     if (BG[bg]) return `var(${BG[bg]})`;
     return String(bg).startsWith("--") ? `var(${bg})` : bg;
   }
-  function safeHref5(url) {
+  function safeHref6(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
   }
-  function Box({
+  var Box = import_react.default.forwardRef(function Box2({
     as: Tag2 = "div",
     p,
     px,
@@ -11383,7 +11677,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     style,
     children,
     ...rest
-  }) {
+  }, ref) {
     const s = {
       paddingTop: sp(pt ?? py ?? p),
       paddingRight: sp(pr ?? px ?? p),
@@ -11399,16 +11693,17 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       boxShadow: shadow ? `var(--shadow-${shadow})` : void 0,
       ...style
     };
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref5(rest.href);
-    return /* @__PURE__ */ jsx(Tag2, { className: `twc-box ${className}`.trim(), style: s, ...rest, children });
-  }
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref6(rest.href);
+    return /* @__PURE__ */ jsx(Tag2, { ref, className: `twc-box ${className}`.trim(), style: s, ...rest, children });
+  });
+  Box.displayName = "Box";
   var SIZES = { sm: 640, md: 768, lg: 1024, xl: 1280, full: "100%" };
-  function safeHref6(url) {
+  function safeHref7(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
   }
-  function Container({
+  var Container = import_react.default.forwardRef(function Container2({
     as: Tag2 = "div",
     size = "lg",
     padded = true,
@@ -11416,12 +11711,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     style,
     children,
     ...rest
-  }) {
+  }, ref) {
     const max = SIZES[size] ?? size;
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref6(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref7(rest.href);
     return /* @__PURE__ */ jsx(
       Tag2,
       {
+        ref,
         className: `twc-container ${className}`.trim(),
         style: {
           width: "100%",
@@ -11434,7 +11730,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         children
       }
     );
-  }
+  });
+  Container.displayName = "Container";
   function space(v) {
     if (v == null) return void 0;
     if (typeof v === "number") return `var(--space-${String(v).replace(".", "-")})`;
@@ -11444,12 +11741,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     return typeof v === "number" ? `${v}px` : v;
   }
   var BP = { sm: 640, md: 768, lg: 1024, xl: 1280 };
-  function safeHref7(url) {
+  function safeHref8(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
   }
-  function Grid({
+  var Grid = import_react.default.forwardRef(function Grid2({
     as: Tag2 = "div",
     columns,
     minChildWidth,
@@ -11464,7 +11761,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     style,
     children,
     ...rest
-  }) {
+  }, ref) {
     const responsive = columns != null && typeof columns === "object";
     const uid = import_react.default.useId();
     const gridId = responsive ? `g${uid.replace(/[^a-zA-Z0-9]/g, "")}` : null;
@@ -11480,10 +11777,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     }
     const __twcStyles = useScopedStyles(gridId ? `twc-grid-${gridId}` : "twc-grid", css);
     const templateColumns = minChildWidth ? `repeat(auto-fill, minmax(min(${len(minChildWidth)}, 100%), 1fr))` : responsive ? `repeat(var(--twc-grid-cols, ${columns.base ?? 1}), minmax(0, 1fr))` : `repeat(${columns || 1}, minmax(0, 1fr))`;
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref7(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref8(rest.href);
     return /* @__PURE__ */ jsxs(
       Tag2,
       {
+        ref,
         className: `twc-grid ${className}`.trim(),
         "data-twc-grid-id": gridId || void 0,
         style: {
@@ -11504,18 +11802,19 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         ]
       }
     );
-  }
+  });
+  Grid.displayName = "Grid";
   function space2(v) {
     if (v == null) return void 0;
     if (typeof v === "number") return `var(--space-${String(v).replace(".", "-")})`;
     return v;
   }
-  function safeHref8(url) {
+  function safeHref9(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
   }
-  function Stack({
+  var Stack = import_react.default.forwardRef(function Stack2({
     as: Tag2 = "div",
     direction = "column",
     gap = 4,
@@ -11535,12 +11834,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     style,
     children,
     ...rest
-  }) {
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref8(rest.href);
+  }, ref) {
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref9(rest.href);
     const kids = divider != null ? import_react.default.Children.toArray(children).flatMap((child, i, arr) => i < arr.length - 1 ? [child, /* @__PURE__ */ jsx(import_react.default.Fragment, { children: divider }, `twc-stack-div-${i}`)] : [child]) : children;
     return /* @__PURE__ */ jsx(
       Tag2,
       {
+        ref,
         className: `twc-stack ${className}`.trim(),
         style: {
           display: inline ? "inline-flex" : "flex",
@@ -11560,7 +11860,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         children: kids
       }
     );
-  }
+  });
+  Stack.displayName = "Stack";
   var CODE_CSS = `
 .twc-code {
   font-family: var(--font-mono); font-size: 0.875em;
@@ -11584,7 +11885,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-code__copy:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-code__copy svg { width: 15px; height: 15px; display: block; }
 `;
-  function safeHref9(url) {
+  function safeHref10(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -11601,7 +11902,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }) {
     const __twcStyles = useScopedStyles("twc-code-styles", CODE_CSS);
     const Tag2 = as ?? (block ? "pre" : "code");
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref9(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref10(rest.href);
     const rootRef = import_react.default.useRef(null);
     const [copied, setCopied] = import_react.default.useState(false);
     const timerRef = import_react.default.useRef(null);
@@ -11626,12 +11927,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     ] });
   }
   var LEVEL_SIZE = { 1: "4xl", 2: "2xl", 3: "xl", 4: "lg", 5: "base", 6: "sm" };
-  function safeHref10(url) {
+  function safeHref11(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
   }
-  function Heading({
+  var Heading = import_react.default.forwardRef(function Heading2({
     as,
     level = 2,
     size,
@@ -11643,13 +11944,14 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     style,
     children,
     ...rest
-  }) {
+  }, ref) {
     const Tag2 = as || `h${level}`;
     const sz = size || (display ? "display" : LEVEL_SIZE[level]) || "2xl";
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref10(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref11(rest.href);
     return /* @__PURE__ */ jsx(
       Tag2,
       {
+        ref,
         className: `twc-heading ${className}`.trim(),
         style: {
           margin: 0,
@@ -11667,7 +11969,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         children
       }
     );
-  }
+  });
+  Heading.displayName = "Heading";
   var TONE = {
     default: "--color-text",
     muted: "--color-text-muted",
@@ -11683,12 +11986,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     // Adopt the surrounding color (e.g. inside a solid Button/Badge/Alert or a link).
     inherit: "inherit"
   };
-  function safeHref11(url) {
+  function safeHref12(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
   }
-  function Text({
+  var Text = import_react.default.forwardRef(function Text2({
     as: Tag2 = "p",
     size = "base",
     tone = "default",
@@ -11700,12 +12003,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     style,
     children,
     ...rest
-  }) {
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref11(rest.href);
+  }, ref) {
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref12(rest.href);
     const toneToken = TONE[tone] || TONE.default;
     return /* @__PURE__ */ jsx(
       Tag2,
       {
+        ref,
         className: `twc-text ${className}`.trim(),
         style: {
           margin: 0,
@@ -11722,7 +12026,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         children
       }
     );
-  }
+  });
+  Text.displayName = "Text";
   var canUseDOM2 = typeof window !== "undefined" && typeof document !== "undefined";
   var useIsomorphicLayoutEffect = canUseDOM2 ? import_react.default.useLayoutEffect : import_react.default.useEffect;
   function useMounted() {

@@ -31,4 +31,4 @@ export interface HeadingProps extends React.HTMLAttributes<HTMLElement> {
   lineClamp?: number;
 }
 
-export function Heading(props: HeadingProps): React.JSX.Element;
+export declare const Heading: React.ForwardRefExoticComponent<HeadingProps & React.RefAttributes<HTMLElement>>;

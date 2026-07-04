@@ -29,7 +29,7 @@ function safeHref(url) {
 }
 
 /** Generic, token-styled element — the building block for non-flex layout. */
-export function Box({
+export const Box = React.forwardRef(function Box({
   as: Tag = "div",
   p, px, py, pt, pr, pb, pl,
   m, mx, my, mt, mr, mb, ml,
@@ -41,7 +41,7 @@ export function Box({
   style,
   children,
   ...rest
-}) {
+}, ref) {
   // Resolve longhands from most-specific to least (pt > py > p). We never emit
   // the `padding`/`margin` shorthand alongside undefined longhands — React would
   // clear the shorthand and zero the value (e.g. p={4} would apply no padding).
@@ -62,8 +62,9 @@ export function Box({
   };
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   return (
-    <Tag className={`twc-box ${className}`.trim()} style={s} {...rest}>
+    <Tag ref={ref} className={`twc-box ${className}`.trim()} style={s} {...rest}>
       {children}
     </Tag>
   );
-}
+});
+Box.displayName = "Box";

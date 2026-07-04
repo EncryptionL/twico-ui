@@ -2,6 +2,17 @@
 // Re-exports every Twico UI component (values) and its prop types.
 // React 18+; styles ship separately — import "twico-ui/styles.css" once.
 
+export { TwicoProvider } from "../components/TwicoProvider";
+export { ThemeProvider, createTheme } from "../components/layout/ThemeProvider";
+export { Form } from "../components/inputs/Form";
+export { VisuallyHidden } from "../components/layout/VisuallyHidden";
+export { Portal } from "../components/layout/Portal";
+export { ColorSchemeScript, getColorSchemeScript } from "../components/layout/ColorSchemeScript";
+export { Kbd } from "../components/typography/Kbd";
+export { Pre } from "../components/typography/Pre";
+export { Anchor } from "../components/navigation/Anchor";
+export { Label } from "../components/inputs/Label";
+export { Image } from "../components/data-display/Image";
 export { Accordion } from "../components/navigation/Accordion";
 export { Alert } from "../components/feedback/Alert";
 export { Avatar } from "../components/data-display/Avatar";
@@ -72,6 +83,17 @@ export * from "../hooks";
 // Shared type vocabulary — the canonical tone scales, the polymorphic `as` type,
 // and the Select-family option shape, so consumers name them instead of re-deriving.
 export type { Tone, ActionTone, TextTone, ToastTone, BarTone, PolymorphicAs } from "../components/_types";
+export type { TwicoProviderProps } from "../components/TwicoProvider";
+export type { ThemeProviderProps, ThemeTokens, Theme } from "../components/layout/ThemeProvider";
+export type { FormProps } from "../components/inputs/Form";
+export type { VisuallyHiddenProps } from "../components/layout/VisuallyHidden";
+export type { PortalProps } from "../components/layout/Portal";
+export type { ColorSchemeScriptProps, ColorSchemeScriptOptions } from "../components/layout/ColorSchemeScript";
+export type { KbdProps } from "../components/typography/Kbd";
+export type { PreProps } from "../components/typography/Pre";
+export type { AnchorProps } from "../components/navigation/Anchor";
+export type { LabelProps } from "../components/inputs/Label";
+export type { ImageProps } from "../components/data-display/Image";
 export type { Option, OptionGroup } from "../components/inputs/options";
 
 export type { AccordionProps, AccordionItem } from "../components/navigation/Accordion";
