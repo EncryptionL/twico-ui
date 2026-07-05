@@ -109,6 +109,7 @@ export function Gauge({
       data-multi={isMulti || undefined}
       data-hovering={focus != null || undefined}
       data-clickable={clickable || undefined}
+      data-has-selection={selected != null || undefined}
       {...rest}>
       {baseStyles}
       {styles}

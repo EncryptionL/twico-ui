@@ -59,6 +59,8 @@ export interface BoxplotProps extends React.HTMLAttributes<HTMLDivElement> {
   showGrid?: boolean;
   /** Value axis and category labels. @default true */
   showAxis?: boolean;
+  /** Enable drag-to-zoom over the category axis: drag an x-range to zoom into those boxes (re-fitting the value scale), shift-drag to pan, mouse-wheel to zoom, plus a Reset button. @default false */
+  zoomable?: boolean;
   /** Tooltip/table value formatter. @default toLocaleString */
   valueFormat?: (value: number) => string;
   /** Fires when a box is clicked, with the five-number summary + its index. */

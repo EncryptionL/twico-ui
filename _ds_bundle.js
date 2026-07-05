@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"38369c3db772","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"5901a7f5a8c8","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"188025429343","components/data-display/Datatable.jsx":"0e20db89335d","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"3ecb973b650b","components/data-display/Gauge.jsx":"f90f84c15df3","components/data-display/Heatmap.jsx":"dd09e3febe94","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"d0fc83e5efc6","components/data-display/PolarAreaChart.jsx":"15b8e3a62a8b","components/data-display/RadarChart.jsx":"d70e32ce8a4b","components/data-display/RangeChart.jsx":"3b56e2f946f6","components/data-display/ScatterChart.jsx":"97c513142003","components/data-display/Sparkline.jsx":"a14b19a62b53","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"4d494ff612e1","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"65d865e8012e","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1a5441dddb5b","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"ae1d49e59288","src/index.ts":"42079cb33554"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"0e20db89335d","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"bdce25c30543","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"ace38664979e","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"5aa9df9d4375","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"d0abc0c310d6","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"65d865e8012e","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1a5441dddb5b","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"ae1d49e59288","src/index.ts":"42079cb33554"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -1858,10 +1858,12 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 /* Hover emphasis: when the chart marks itself hovered, fade every mark except the active one. */
 .twc-chart[data-hovering="true"] [data-mark] { opacity: 0.3; transition: opacity var(--duration-base) var(--ease-standard); }
 .twc-chart[data-hovering="true"] [data-mark][data-active="true"] { opacity: 1; }
-[data-mark] { transition: opacity var(--duration-base) var(--ease-standard); cursor: default; }
+[data-mark] { transition: opacity var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-spring); cursor: default; }
 
 /* Click-to-select: a soft accent ring + glow on the chosen mark (not a heavy outline). */
 [data-mark][data-selected="true"] { stroke: var(--color-text); stroke-width: 1.5; stroke-opacity: 0.5; paint-order: stroke; filter: drop-shadow(0 0 3px color-mix(in srgb, var(--color-text) 22%, transparent)); }
+/* Click-to-focus: a persistent selection also dims the other marks (focus mode), on every chart. */
+.twc-chart[data-has-selection="true"] [data-mark]:not([data-selected="true"]) { opacity: 0.4; }
 .twc-chart[data-clickable="true"] [data-mark], .twc-chart__overlay[data-clickable="true"] { cursor: pointer; }
 
 /* Crosshair + full-plot event overlay (cartesian shared-axis interactions). */
@@ -2360,6 +2362,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         ref: containerRef,
         className: `twc-chart twc-chart--${type} ${className}`.trim(),
         "data-hovering": focusSeries != null || void 0,
+        "data-has-selection": selected != null || void 0,
         "data-clickable": clickable || void 0,
         ...rest,
         children: [
@@ -2514,18 +2517,27 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const selectMark = (i) => setSelected((s) => s === i ? null : i);
     const emph = focus != null ? focus : active;
     const multi = rows.length > 1;
-    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--pie ${className}`.trim(), "data-donut": isDonut ? "true" : void 0, "data-hovering": emph != null ? "true" : void 0, "data-clickable": clickable || void 0, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--pie ${className}`.trim(), "data-donut": isDonut ? "true" : void 0, "data-has-selection": selected != null || void 0, "data-hovering": emph != null ? "true" : void 0, "data-clickable": clickable || void 0, ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsx("svg", { viewBox: `0 0 ${H} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, children: total <= 0 ? /* @__PURE__ */ jsx("text", { className: "twc-chart__empty", x: cx, y: cy, textAnchor: "middle", dominantBaseline: "middle", children: "No data" }) : /* @__PURE__ */ jsxs(Fragment, { children: [
         slices.map(({ d, i, v, s0, s1, span, pct, color }) => {
           const pad = span > padAngle ? padAngle / 2 : 0;
           const items = [{ color, label: fmt(v), value: `${pct}%` }];
+          let explode;
+          if (selected === i) {
+            const mid = (s0 + s1) / 2;
+            const a = (mid - 90) * Math.PI / 180;
+            const dx = Math.cos(a) * 8, dy = Math.sin(a) * 8;
+            if (Number.isFinite(dx) && Number.isFinite(dy)) {
+              explode = `translate(${dx}px, ${dy}px)`;
+            }
+          }
           return /* @__PURE__ */ jsx(
             "path",
             {
               className: "twc-chart__slice twc-chart__anim-arc",
-              style: { fill: color },
+              style: { fill: color, transform: explode },
               "data-mark": "",
               "data-active": emph === i ? "true" : void 0,
               "data-selected": selected === i ? "true" : void 0,
@@ -2668,6 +2680,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         "data-multi": isMulti || void 0,
         "data-hovering": focus != null || void 0,
         "data-clickable": clickable || void 0,
+        "data-has-selection": selected != null || void 0,
         ...rest,
         children: [
           baseStyles,
@@ -2870,6 +2883,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         ref: containerRef,
         className: `twc-chart twc-sparkline twc-chart--${kind} ${className}`.trim(),
         "data-clickable": clickable || void 0,
+        "data-has-selection": selected != null || void 0,
         ...rest,
         children: [
           baseStyles,
@@ -3198,6 +3212,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         className: `twc-chart twc-chart--scatter ${className}`.trim(),
         "data-bubble": useBubble || void 0,
         "data-hovering": focus != null || void 0,
+        "data-has-selection": selected != null || void 0,
         "data-clickable": clickable || void 0,
         ...rest,
         children: [
@@ -3390,6 +3405,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         className: `twc-chart twc-chart--radar ${className}`.trim(),
         "data-hovering": focus != null || void 0,
         "data-clickable": clickable || void 0,
+        "data-has-selection": selected != null || void 0,
         ...rest,
         children: [
           baseStyles,
@@ -3530,13 +3546,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     };
     const rings = Math.max(1, Math.floor(levels));
     const anglePer = 360 / Math.max(1, n);
+    const EXPLODE = Math.min(12, Rmax * 0.1);
     const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "polar area chart";
     const clickable = !!onDataClick;
     const emphasis = focus != null ? focus : active;
     const labelText8 = (label) => typeof label === "string" || typeof label === "number" ? String(label) : "";
     const clickSlice = (d, v, i) => {
-      if (!onDataClick) return;
-      onDataClick({ label: d.label, value: v, index: i });
+      if (onDataClick) onDataClick({ label: d.label, value: v, index: i });
       setSelected((s) => s === i ? null : i);
     };
     return /* @__PURE__ */ jsxs(
@@ -3546,6 +3562,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         className: `twc-chart twc-chart--polar ${className}`.trim(),
         "data-hovering": emphasis != null || void 0,
         "data-clickable": clickable || void 0,
+        "data-has-selection": selected != null || void 0,
         ...rest,
         children: [
           baseStyles,
@@ -3574,6 +3591,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                   const start = startAngle + i * anglePer;
                   const color = d.color || paletteAt(colors, i);
                   const tipFor = { title: labelText8(d.label), items: [{ color, label: "", value: fmt(v) }] };
+                  const midRad = (start + anglePer / 2 - 90) * Math.PI / 180;
+                  const explode = selected === i ? `translate(${r(Math.cos(midRad) * EXPLODE)}px, ${r(Math.sin(midRad) * EXPLODE)}px)` : void 0;
                   return /* @__PURE__ */ jsx(
                     "path",
                     {
@@ -3581,7 +3600,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                       "data-mark": true,
                       "data-active": emphasis == null ? void 0 : emphasis === i || void 0,
                       "data-selected": selected === i || void 0,
-                      style: { fill: color, fillOpacity: 0.82 },
+                      style: { fill: color, fillOpacity: 0.82, transform: explode },
                       d: arcPath(cx, cy, radiusFor(v), 0, start, start + anglePer),
                       onMouseMove: (e) => {
                         setActive(i);
@@ -3591,7 +3610,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                         setActive(null);
                         hide();
                       },
-                      onClick: onDataClick ? () => clickSlice(d, v, i) : void 0
+                      onClick: () => clickSlice(d, v, i)
                     },
                     `slice-${i}`
                   );
@@ -3649,6 +3668,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     xLabel,
     yLabel,
     showLegend = true,
+    zoomable = false,
     valueFormat,
     height = 300,
     onDataClick,
@@ -3666,12 +3686,16 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const { containerRef, tip, show, hide } = useChartTooltip();
     const [hovered, setHovered] = import_react.default.useState(null);
     const [selected, setSelected] = import_react.default.useState(null);
+    const [zoom, setZoom] = import_react.default.useState(null);
+    const [drag, setDrag] = import_react.default.useState(null);
+    const svgRef = import_react.default.useRef(null);
+    const movedRef = import_react.default.useRef(false);
     const clickable = !!onDataClick;
     const selectMark = (key) => setSelected((s) => s === key ? null : key);
     const rows = Array.isArray(data) ? data : [];
     const fmt = valueFormat || fmtNumber;
-    const xs = [];
-    const ys = [];
+    const fullXs = [];
+    const fullYs = [];
     const seenX = /* @__PURE__ */ new Set();
     const seenY = /* @__PURE__ */ new Set();
     const lookup = /* @__PURE__ */ new Map();
@@ -3680,11 +3704,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       const ky = String(d.y);
       if (!seenX.has(kx)) {
         seenX.add(kx);
-        xs.push(d.x);
+        fullXs.push(d.x);
       }
       if (!seenY.has(ky)) {
         seenY.add(ky);
-        ys.push(d.y);
+        fullYs.push(d.y);
       }
       lookup.set(`${kx}\0${ky}`, Number(d.value) || 0);
     }
@@ -3697,6 +3721,15 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const span = hi - lo;
     const pctOf = (v) => span > 0 ? clamp((v - lo) / span * 100, 0, 100) : 60;
     const fillOf = (v) => `color-mix(in srgb, ${colorScale} ${pctOf(v)}%, transparent)`;
+    const nX = fullXs.length;
+    const nY = fullYs.length;
+    const canZoom = zoomable && nX > 1 && nY > 1;
+    const vc0 = canZoom && zoom ? clamp(zoom.c0, 0, nX - 1) : 0;
+    const vc1 = canZoom && zoom ? clamp(zoom.c1, 0, nX - 1) : Math.max(0, nX - 1);
+    const vr0 = canZoom && zoom ? clamp(zoom.r0, 0, nY - 1) : 0;
+    const vr1 = canZoom && zoom ? clamp(zoom.r1, 0, nY - 1) : Math.max(0, nY - 1);
+    const xs = fullXs.slice(vc0, vc1 + 1);
+    const ys = fullYs.slice(vr0, vr1 + 1);
     const cols = xs.length;
     const rowN = ys.length;
     const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "heatmap";
@@ -3715,10 +3748,137 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const cw = innerW / Math.max(1, cols);
     const chh = innerH / Math.max(1, rowN);
     const gap = clamp(cellGap, 0, Math.min(cw, chh) - 1) || 0;
-    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--heatmap ${className}`.trim(), "data-hovering": hovered != null || void 0, "data-clickable": clickable || void 0, ...rest, children: [
+    const svgPoint = (e) => {
+      const svg = svgRef.current;
+      if (!svg || typeof svg.getScreenCTM !== "function" || typeof svg.createSVGPoint !== "function") return null;
+      const ctm = svg.getScreenCTM();
+      if (!ctm || !ctm.a || !ctm.d) return null;
+      const pt = svg.createSVGPoint();
+      pt.x = e.clientX;
+      pt.y = e.clientY;
+      const loc = pt.matrixTransform(ctm.inverse());
+      if (!Number.isFinite(loc.x) || !Number.isFinite(loc.y)) return null;
+      return { px: loc.x, py: loc.y };
+    };
+    const colAtPx = (px) => cw > 0 ? clamp(Math.floor((clamp(px, padL, padL + innerW) - padL) / cw), 0, cols - 1) : 0;
+    const rowAtPx = (py) => chh > 0 ? clamp(Math.floor((clamp(py, padT, padT + innerH) - padT) / chh), 0, rowN - 1) : 0;
+    const cellAtPx = (px, py) => {
+      if (!(cols > 0) || !(rowN > 0)) return null;
+      if (px < padL || px > padL + innerW || py < padT || py > padT + innerH) return null;
+      const ci = colAtPx(px);
+      const ri = rowAtPx(py);
+      const x = xs[ci], y = ys[ri];
+      const v = cellOf(x, y);
+      const has = v !== void 0;
+      return { x, y, v, has, key: `${vc0 + ci}-${vr0 + ri}`, fill: has ? fillOf(v) : void 0 };
+    };
+    const applyZoom = (win) => {
+      const c0 = clamp(Math.min(win.c0, win.c1), 0, nX - 1);
+      const c1 = clamp(Math.max(win.c0, win.c1), 0, nX - 1);
+      const r0 = clamp(Math.min(win.r0, win.r1), 0, nY - 1);
+      const r1 = clamp(Math.max(win.r0, win.r1), 0, nY - 1);
+      if (!(c1 >= c0) || !(r1 >= r0)) return;
+      if (c0 === 0 && c1 === nX - 1 && r0 === 0 && r1 === nY - 1) {
+        setZoom(null);
+        return;
+      }
+      setZoom({ c0, c1, r0, r1 });
+    };
+    const panTo = (z0, dCols, dRows) => {
+      const wc = z0.c1 - z0.c0, wr = z0.r1 - z0.r0;
+      const c0 = clamp(z0.c0 + dCols, 0, Math.max(0, nX - 1 - wc));
+      const r0 = clamp(z0.r0 + dRows, 0, Math.max(0, nY - 1 - wr));
+      setZoom({ c0, c1: c0 + wc, r0, r1: r0 + wr });
+    };
+    const onOverlayDown = (e) => {
+      const pt = svgPoint(e);
+      if (!pt) return;
+      movedRef.current = false;
+      setDrag({ x0: pt.px, y0: pt.py, x1: pt.px, y1: pt.py, pan: e.shiftKey, z0: zoom || { c0: 0, c1: nX - 1, r0: 0, r1: nY - 1 } });
+    };
+    const onOverlayMove = (e) => {
+      const pt = svgPoint(e);
+      if (!pt) return;
+      if (drag) {
+        if (Math.abs(pt.px - drag.x0) > 4 || Math.abs(pt.py - drag.y0) > 4) movedRef.current = true;
+        if (drag.pan) {
+          if (zoom) {
+            const dCols = cw > 0 ? -Math.round((pt.px - drag.x0) / cw) : 0;
+            const dRows = chh > 0 ? -Math.round((pt.py - drag.y0) / chh) : 0;
+            panTo(drag.z0, dCols, dRows);
+          }
+        } else {
+          setDrag({ ...drag, x1: pt.px, y1: pt.py });
+        }
+        setHovered(null);
+        hide();
+        return;
+      }
+      const cell = cellAtPx(pt.px, pt.py);
+      if (cell) {
+        setHovered(cell.key);
+        show({ title: `${labelText3(cell.y)} / ${labelText3(cell.x)}`, items: [{ color: cell.fill, label: "", value: cell.has ? fmt(cell.v) : "\u2014" }] }, e);
+      } else {
+        setHovered(null);
+        hide();
+      }
+    };
+    const onOverlayUp = () => {
+      if (drag && !drag.pan && movedRef.current) {
+        applyZoom({
+          c0: vc0 + colAtPx(drag.x0),
+          c1: vc0 + colAtPx(drag.x1),
+          r0: vr0 + rowAtPx(drag.y0),
+          r1: vr0 + rowAtPx(drag.y1)
+        });
+      }
+      setDrag(null);
+    };
+    const onOverlayLeave = () => {
+      setHovered(null);
+      hide();
+      setDrag(null);
+    };
+    const onOverlayClick = (e) => {
+      if (movedRef.current) {
+        movedRef.current = false;
+        return;
+      }
+      const pt = svgPoint(e);
+      if (!pt) return;
+      const cell = cellAtPx(pt.px, pt.py);
+      if (cell && cell.has) {
+        if (onDataClick) onDataClick({ x: cell.x, y: cell.y, value: cell.v });
+        selectMark(cell.key);
+      }
+    };
+    import_react.default.useEffect(() => {
+      if (!canZoom) return void 0;
+      const svg = svgRef.current;
+      if (!svg) return void 0;
+      const onWheel = (e) => {
+        e.preventDefault();
+        const pt = svgPoint(e);
+        const fx = pt && innerW > 0 ? clamp((pt.px - padL) / innerW, 0, 1) : 0.5;
+        const fy = pt && innerH > 0 ? clamp((pt.py - padT) / innerH, 0, 1) : 0.5;
+        const factor = e.deltaY < 0 ? 0.7 : 1.4;
+        const wc = vc1 - vc0 + 1, wr = vr1 - vr0 + 1;
+        const newWc = clamp(Math.round(wc * factor), 1, nX);
+        const newWr = clamp(Math.round(wr * factor), 1, nY);
+        const curCol = vc0 + clamp(Math.floor(fx * cols), 0, cols - 1);
+        const curRow = vr0 + clamp(Math.floor(fy * rowN), 0, rowN - 1);
+        const nc0 = clamp(Math.round(curCol - fx * (newWc - 1)), 0, nX - newWc);
+        const nr0 = clamp(Math.round(curRow - fy * (newWr - 1)), 0, nY - newWr);
+        applyZoom({ c0: nc0, c1: nc0 + newWc - 1, r0: nr0, r1: nr0 + newWr - 1 });
+      };
+      svg.addEventListener("wheel", onWheel, { passive: false });
+      return () => svg.removeEventListener("wheel", onWheel);
+    }, [canZoom, vc0, vc1, vr0, vr1]);
+    const dragBand = canZoom && drag && !drag.pan && Math.abs(drag.x1 - drag.x0) > 2 && Math.abs(drag.y1 - drag.y0) > 2;
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--heatmap ${className}`.trim(), "data-hovering": hovered != null || void 0, "data-has-selection": selected != null || void 0, "data-clickable": clickable || void 0, ...rest, children: [
       baseStyles,
       styles,
-      /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
+      /* @__PURE__ */ jsxs("svg", { ref: svgRef, viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
         ys.map(
           (y, ri) => xs.map((x, ci) => {
             const v = cellOf(x, y);
@@ -3727,7 +3887,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             const cy = padT + chh * ri + gap / 2;
             const cwPx = Math.max(0, cw - gap);
             const chPx = Math.max(0, chh - gap);
-            const cellKey = `${ci}-${ri}`;
+            const cellKey = `${vc0 + ci}-${vr0 + ri}`;
             const fill = has ? fillOf(v) : void 0;
             return /* @__PURE__ */ jsxs("g", { children: [
               /* @__PURE__ */ jsx(
@@ -3764,8 +3924,43 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         ys.map((y, ri) => /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-tick", x: padL - 8, y: padT + chh * ri + chh / 2 + 4, textAnchor: "end", children: labelText3(y) }, ri)),
         xs.map((x, ci) => /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-tick", x: padL + cw * ci + cw / 2, y: padT + innerH + 15, textAnchor: "middle", children: labelText3(x) }, ci)),
         yLabel != null ? /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-title", transform: `translate(11 ${padT + innerH / 2}) rotate(-90)`, textAnchor: "middle", children: labelText3(yLabel) }) : null,
-        xLabel != null ? /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-title", x: padL + innerW / 2, y: H - 3, textAnchor: "middle", children: labelText3(xLabel) }) : null
+        xLabel != null ? /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-title", x: padL + innerW / 2, y: H - 3, textAnchor: "middle", children: labelText3(xLabel) }) : null,
+        dragBand ? /* @__PURE__ */ jsx(
+          "rect",
+          {
+            className: "twc-chart__zoomband",
+            x: Math.min(drag.x0, drag.x1),
+            y: Math.min(drag.y0, drag.y1),
+            width: Math.abs(drag.x1 - drag.x0),
+            height: Math.abs(drag.y1 - drag.y0)
+          }
+        ) : null,
+        canZoom ? /* @__PURE__ */ jsx(
+          "rect",
+          {
+            className: "twc-chart__overlay",
+            "data-zoom": "true",
+            "data-clickable": clickable || void 0,
+            "data-panning": drag && drag.pan || void 0,
+            x: padL,
+            y: padT,
+            width: Math.max(0, innerW),
+            height: Math.max(0, innerH),
+            onMouseDown: onOverlayDown,
+            onMouseMove: onOverlayMove,
+            onMouseUp: onOverlayUp,
+            onMouseLeave: onOverlayLeave,
+            onClick: onOverlayClick
+          }
+        ) : null
       ] }),
+      canZoom && zoom ? /* @__PURE__ */ jsxs("button", { type: "button", className: "twc-chart__zoom-reset", onClick: () => setZoom(null), "aria-label": "Reset zoom", children: [
+        /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+          /* @__PURE__ */ jsx("path", { d: "M3 12a9 9 0 1 0 3-6.7L3 8" }),
+          /* @__PURE__ */ jsx("path", { d: "M3 3v5h5" })
+        ] }),
+        "Reset"
+      ] }) : null,
       /* @__PURE__ */ jsx(ChartTooltip, { tip }),
       showLegend && span > 0 ? /* @__PURE__ */ jsxs("div", { className: "twc-chart__hm-scale", "aria-hidden": "true", children: [
         /* @__PURE__ */ jsx("span", { children: fmt(lo) }),
@@ -3783,10 +3978,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         {
           id: tableId,
           caption: caption ?? svgAriaLabel,
-          columns: xs.map(labelText3),
-          rows: ys.map((y) => ({
+          columns: fullXs.map(labelText3),
+          rows: fullYs.map((y) => ({
             label: labelText3(y),
-            values: xs.map((x) => {
+            values: fullXs.map((x) => {
               const v = cellOf(x, y);
               return v === void 0 ? "\u2014" : fmt(v);
             })
@@ -3803,6 +3998,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-funnel__label { fill: var(--color-text-inverted); font-family: var(--font-sans); pointer-events: none; }
 .twc-funnel__name { font-size: 12px; font-weight: 600; }
 .twc-funnel__value { font-size: 11px; fill-opacity: 0.82; }
+/* Explode: nudge the selected stage shape outward so it separates from the funnel
+   (eases via the shared [data-mark] transform transition in _chart.js). */
+.twc-chart--funnel [data-mark][data-selected="true"] { transform: translateX(14px); }
+.twc-chart--funnel[data-orientation="horizontal"] [data-mark][data-selected="true"] { transform: translateY(-14px); }
 `;
   function FunnelChart({
     data,
@@ -3889,10 +4088,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
               setActive(null);
               hide();
             },
-            onClick: onDataClick ? () => {
-              onDataClick({ label: d.label, value: v, index: i, percent: pct(v) });
+            onClick: () => {
+              if (onDataClick) onDataClick({ label: d.label, value: v, index: i, percent: pct(v) });
               setSelected((s) => s === i ? null : i);
-            } : void 0
+            }
           }
         ),
         lines.length ? /* @__PURE__ */ jsx("text", { className: "twc-funnel__label", x: tx, y: ty, textAnchor: "middle", dominantBaseline: "middle", children: lines.map((line, li) => /* @__PURE__ */ jsx(
@@ -3907,7 +4106,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         )) }) : null
       ] }, i);
     });
-    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--funnel ${className}`.trim(), "data-orientation": horizontal ? "horizontal" : "vertical", "data-hovering": active != null ? "true" : void 0, "data-clickable": clickable || void 0, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--funnel ${className}`.trim(), "data-orientation": horizontal ? "horizontal" : "vertical", "data-hovering": active != null ? "true" : void 0, "data-has-selection": selected != null || void 0, "data-clickable": clickable || void 0, ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsx("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: renderStages() }),
@@ -3960,7 +4159,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const items = total > 0 ? rows.map((d, i) => ({ i, w: weights[i] })).sort((a, b) => b.w - a.w).map((it) => ({ ...it, area: it.w / total * (W * H) })) : [];
     const tiles = squarify(items, { x: 0, y: 0, w: W, h: H });
     const g = Math.max(0, gap);
-    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--treemap ${className}`.trim(), "data-hovering": hovered != null || void 0, "data-clickable": clickable || void 0, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--treemap ${className}`.trim(), "data-hovering": hovered != null || void 0, "data-has-selection": selected != null || void 0, "data-clickable": clickable || void 0, ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsx("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: tiles.length === 0 ? /* @__PURE__ */ jsx("text", { className: "twc-chart__empty", x: W / 2, y: H / 2, textAnchor: "middle", dominantBaseline: "middle", children: "No data" }) : tiles.map((t) => {
@@ -3998,10 +4197,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                 setHovered(null);
                 hide();
               },
-              onClick: onDataClick ? () => {
-                onDataClick({ label: d.label, value: t.w, index: t.i, share: total > 0 ? t.w / total : 0 });
+              onClick: () => {
+                if (onDataClick) onDataClick({ label: d.label, value: t.w, index: t.i, share: total > 0 ? t.w / total : 0 });
                 setSelected((s) => s === t.i ? null : t.i);
-              } : void 0
+              }
             }
           ),
           showText ? /* @__PURE__ */ jsxs("g", { clipPath: `url(#${clipId})`, "aria-hidden": "true", children: [
@@ -4261,6 +4460,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         ref: containerRef,
         className: `twc-chart twc-chart--candlestick ${className}`.trim(),
         "data-clickable": clickable || void 0,
+        "data-has-selection": selected != null || void 0,
         ...rest,
         children: [
           baseStyles,
@@ -4397,6 +4597,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     height = 300,
     showGrid = true,
     showAxis = true,
+    zoomable = false,
     valueFormat,
     onDataClick,
     ariaLabel,
@@ -4412,7 +4613,12 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const tableId = tableFallback ? `${uid}-table` : void 0;
     const { containerRef, tip, show, hide } = useChartTooltip();
     const [selected, setSelected] = import_react.default.useState(null);
-    const rows = data || [];
+    const [zoom, setZoom] = import_react.default.useState(null);
+    const [drag, setDrag] = import_react.default.useState(null);
+    const svgRef = import_react.default.useRef(null);
+    const allRows = data || [];
+    const baseIdx = zoom ? zoom.s : 0;
+    const rows = zoom ? allRows.slice(zoom.s, zoom.e + 1) : allRows;
     const fmt = valueFormat || fmtNumber;
     const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "box plot";
     const clickable = !!onDataClick;
@@ -4424,7 +4630,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         median: Number(d.median),
         q3: Number(d.q3),
         max: Number(d.max),
-        index: i
+        index: baseIdx + i
       });
       setSelected((s) => s === i ? null : i);
     };
@@ -4460,17 +4666,87 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const band = innerW / Math.max(1, rows.length);
     const bandX = (i) => padL + band * i;
     const boxW = Math.min(band * 0.5, 46);
+    const applyZoom = (s, e) => {
+      const n = allRows.length;
+      if (e - s >= n - 1) {
+        setZoom(null);
+        return;
+      }
+      setZoom({ s: Math.max(0, s), e: Math.min(n - 1, e) });
+    };
+    const catFromEvent = (e) => {
+      const svg = svgRef.current;
+      if (!svg) return null;
+      const r2 = svg.getBoundingClientRect();
+      if (!(r2.width > 0)) return null;
+      const frac = Math.min(1, Math.max(0, ((e.clientX - r2.left) / r2.width * W - padL) / innerW));
+      const idx = Math.floor(frac * rows.length);
+      return Math.min(rows.length - 1, Math.max(0, idx));
+    };
+    const onOverlayMove = (e) => {
+      const idx = catFromEvent(e);
+      if (idx == null) return;
+      show(tipFor(rows[idx]), e);
+      if (drag) {
+        if (drag.pan) {
+          const s0 = drag.z0.e - drag.z0.s;
+          const s = Math.min(allRows.length - 1 - s0, Math.max(0, drag.z0.s + (drag.start - idx)));
+          applyZoom(s, s + s0);
+        } else {
+          setDrag({ ...drag, end: idx });
+        }
+      }
+    };
+    const onOverlayDown = (e) => {
+      const idx = catFromEvent(e);
+      if (idx == null) return;
+      setDrag({ start: idx, end: idx, pan: e.shiftKey, z0: zoom || { s: 0, e: allRows.length - 1 } });
+    };
+    const onOverlayUp = () => {
+      if (drag && !drag.pan) {
+        const lo = Math.min(drag.start, drag.end), hi = Math.max(drag.start, drag.end);
+        if (hi - lo >= 1) applyZoom(baseIdx + lo, baseIdx + hi);
+      }
+      setDrag(null);
+    };
+    const onOverlayClick = (e) => {
+      if (drag && drag.end !== drag.start) return;
+      const idx = catFromEvent(e);
+      if (idx == null) return;
+      clickBox(rows[idx], idx);
+    };
+    import_react.default.useEffect(() => {
+      if (!zoomable) return void 0;
+      const svg = svgRef.current;
+      if (!svg) return void 0;
+      const onWheel = (e) => {
+        e.preventDefault();
+        const n = allRows.length;
+        const cur = zoom || { s: 0, e: n - 1 };
+        const wSpan = cur.e - cur.s;
+        const r2 = svg.getBoundingClientRect();
+        const frac = r2.width > 0 ? Math.min(1, Math.max(0, ((e.clientX - r2.left) / r2.width * W - padL) / innerW)) : 0.5;
+        const center = cur.s + Math.round(frac * wSpan);
+        const newSpan = Math.min(n - 1, Math.max(1, Math.round(wSpan * (e.deltaY < 0 ? 0.8 : 1.25))));
+        const s = Math.min(n - 1 - newSpan, Math.max(0, center - Math.round(newSpan * frac)));
+        applyZoom(s, s + newSpan);
+      };
+      svg.addEventListener("wheel", onWheel, { passive: false });
+      return () => svg.removeEventListener("wheel", onWheel);
+    }, [zoomable, zoom, allRows.length]);
+    const dragBand = zoomable && drag && !drag.pan && drag.end !== drag.start;
     return /* @__PURE__ */ jsxs(
       "div",
       {
         ref: containerRef,
         className: `twc-chart twc-chart--boxplot ${className}`.trim(),
+        "data-has-selection": selected != null || void 0,
         "data-clickable": clickable || void 0,
         ...rest,
         children: [
           baseStyles,
           styles,
-          /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
+          /* @__PURE__ */ jsxs("svg", { ref: svgRef, viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
             showGrid ? scale.ticks.map((t, i) => {
               const p = vPos(t);
               return /* @__PURE__ */ jsx("line", { className: "twc-boxplot__grid", x1: padL, y1: p, x2: W - padR, y2: p }, i);
@@ -4517,8 +4793,41 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                 )
               ] }, i);
             }),
-            showAxis ? rows.map((d, i) => /* @__PURE__ */ jsx("text", { className: "twc-boxplot__axis", x: bandX(i) + band / 2, y: H - 8, textAnchor: "middle", children: d.label }, i)) : null
+            showAxis ? rows.map((d, i) => /* @__PURE__ */ jsx("text", { className: "twc-boxplot__axis", x: bandX(i) + band / 2, y: H - 8, textAnchor: "middle", children: d.label }, i)) : null,
+            dragBand ? (() => {
+              const lo = Math.min(drag.start, drag.end), hi = Math.max(drag.start, drag.end);
+              const x0 = bandX(lo), x1 = bandX(hi + 1);
+              return /* @__PURE__ */ jsx("rect", { className: "twc-chart__zoomband", x: x0, y: padT, width: Math.max(0, x1 - x0), height: innerH });
+            })() : null,
+            zoomable ? /* @__PURE__ */ jsx(
+              "rect",
+              {
+                className: "twc-chart__overlay",
+                "data-zoom": "true",
+                "data-clickable": clickable || void 0,
+                "data-panning": drag && drag.pan || void 0,
+                x: padL,
+                y: padT,
+                width: innerW,
+                height: innerH,
+                onMouseMove: onOverlayMove,
+                onMouseLeave: () => {
+                  hide();
+                  setDrag(null);
+                },
+                onMouseDown: onOverlayDown,
+                onMouseUp: onOverlayUp,
+                onClick: onOverlayClick
+              }
+            ) : null
           ] }),
+          zoomable && zoom ? /* @__PURE__ */ jsxs("button", { type: "button", className: "twc-chart__zoom-reset", onClick: () => setZoom(null), "aria-label": "Reset zoom", children: [
+            /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+              /* @__PURE__ */ jsx("path", { d: "M3 12a9 9 0 1 0 3-6.7L3 8" }),
+              /* @__PURE__ */ jsx("path", { d: "M3 3v5h5" })
+            ] }),
+            "Reset"
+          ] }) : null,
           /* @__PURE__ */ jsx(ChartTooltip, { tip }),
           tableFallback ? /* @__PURE__ */ jsx(
             ChartTable,
@@ -4526,7 +4835,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
               id: tableId,
               caption: caption ?? svgAriaLabel,
               columns: ["min", "q1", "median", "q3", "max"],
-              rows: rows.map((d) => ({
+              rows: allRows.map((d) => ({
                 label: d.label,
                 values: [d.min, d.q1, d.median, d.q3, d.max].map((v) => fmt(Number(v)))
               }))
@@ -4786,6 +5095,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         className: `twc-chart twc-chart--range ${className}`.trim(),
         "data-type": type,
         "data-clickable": clickable || void 0,
+        "data-has-selection": selected != null || void 0,
         ...rest,
         children: [
           baseStyles,

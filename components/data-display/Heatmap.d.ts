@@ -54,6 +54,13 @@ export interface HeatmapProps extends React.HTMLAttributes<HTMLDivElement> {
   yLabel?: React.ReactNode;
   /** Show the low→high gradient scale legend below the grid. @default true */
   showLegend?: boolean;
+  /**
+   * Enable a 2-D drag/wheel zoom over the cell grid: drag a rectangle to zoom to
+   * that sub-range of the ordered X columns and Y rows, shift-drag to pan, scroll
+   * to zoom about the cursor, and a Reset button restores the full matrix. Needs
+   * at least two columns and two rows. @default false
+   */
+  zoomable?: boolean;
   /** Value formatter for tooltips, printed cell values, and the hidden table. @default fmtNumber */
   valueFormat?: (value: number) => string;
   /** Fires when a cell is clicked with its `{ x, y, value }`; the clicked cell also toggles a selection outline. */

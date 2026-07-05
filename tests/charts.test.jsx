@@ -198,11 +198,13 @@ describe("chart interactivity — onDataClick + selection", () => {
   });
 });
 
-describe("chart interactivity — zoom (Scatter / Candlestick / Range)", () => {
+describe("chart interactivity — zoom (all axis/grid charts)", () => {
   const zoomCases = [
     ["ScatterChart", <ScatterChart series={scatter} zoomable />],
     ["Candlestick", <Candlestick data={ohlc} zoomable />],
     ["RangeChart", <RangeChart data={range} zoomable />],
+    ["Heatmap", <Heatmap data={heat} zoomable />],
+    ["Boxplot", <Boxplot data={box} zoomable />],
   ];
   it.each(zoomCases)("%s renders a zoom overlay and drag doesn't throw", (_n, el) => {
     const { container } = render(el);
@@ -213,5 +215,41 @@ describe("chart interactivity — zoom (Scatter / Candlestick / Range)", () => {
       fireEvent.mouseMove(overlay, { clientX: 120, clientY: 80 });
       fireEvent.mouseUp(overlay);
     }).not.toThrow();
+  });
+});
+
+describe("chart interactivity — universal focus-dim + explode", () => {
+  // The onClick that toggles selection lives on the mark, its hit target, or the overlay —
+  // click candidates until the root reports a selection.
+  function clickUntilSelected(container) {
+    const cands = container.querySelectorAll('[data-mark], .twc-chart__hit, .twc-chart__overlay, rect, path, circle, g');
+    for (const el of cands) {
+      fireEvent.click(el, { clientX: 5, clientY: 5 });
+      if (container.querySelector('.twc-chart[data-has-selection="true"]')) return true;
+    }
+    return false;
+  }
+  const dimFactories = {
+    PieChart: () => <PieChart data={pie} />,
+    PolarAreaChart: () => <PolarAreaChart data={pie} />,
+    FunnelChart: () => <FunnelChart data={pie} />,
+    Treemap: () => <Treemap data={pie} />,
+    Heatmap: () => <Heatmap data={heat} />,
+    RadarChart: () => <RadarChart data={radar} series={["a", "b"]} />,
+    Boxplot: () => <Boxplot data={box} />,
+    Gauge: () => <Gauge value={72} />,
+    Sparkline: () => <Sparkline data={[3, 6, 4, 8]} />,
+  };
+  it.each(Object.keys(dimFactories))("%s: selecting a mark sets data-has-selection on the root (focus-dim)", (name) => {
+    const { container } = render(dimFactories[name]());
+    expect(clickUntilSelected(container)).toBe(true);
+  });
+
+  it("PieChart explodes the selected slice (a translate transform is applied)", () => {
+    const { container } = render(<PieChart data={pie} />);
+    clickUntilSelected(container);
+    const sel = container.querySelector('path[data-selected="true"]');
+    expect(sel).toBeInTheDocument();
+    expect(sel.getAttribute("style") || "").toMatch(/translate/);
   });
 });

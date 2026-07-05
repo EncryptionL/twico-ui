@@ -68,7 +68,7 @@ export function Treemap({
   const g = Math.max(0, gap);
 
   return (
-    <div ref={containerRef} className={`twc-chart twc-chart--treemap ${className}`.trim()} data-hovering={hovered != null || undefined} data-clickable={clickable || undefined} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--treemap ${className}`.trim()} data-hovering={hovered != null || undefined} data-has-selection={selected != null || undefined} data-clickable={clickable || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
@@ -97,10 +97,10 @@ export function Treemap({
                   x={x} y={y} width={w} height={h} rx="4" style={{ fill: color }}
                   onMouseMove={(e) => { setHovered(t.i); show({ title: label, items: tipItems }, e); }}
                   onMouseLeave={() => { setHovered(null); hide(); }}
-                  onClick={onDataClick ? () => {
-                    onDataClick({ label: d.label, value: t.w, index: t.i, share: total > 0 ? t.w / total : 0 });
+                  onClick={() => {
+                    if (onDataClick) onDataClick({ label: d.label, value: t.w, index: t.i, share: total > 0 ? t.w / total : 0 });
                     setSelected((s) => (s === t.i ? null : t.i));
-                  } : undefined} />
+                  }} />
                 {showText ? (
                   <g clipPath={`url(#${clipId})`} aria-hidden="true">
                     <text className="twc-chart__tile-label" x={x + 8} y={y + 17}>{label}</text>

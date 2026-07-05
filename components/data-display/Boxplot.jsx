@@ -18,8 +18,8 @@ const CHART_CSS = `
 /**
  * Box-and-whisker chart — one box per category summarising a five-number
  * distribution (min, Q1, median, Q3, max) with whiskers and optional outlier
- * points, with click (`onDataClick`) + selection. Dependency-free inline SVG;
- * for bar/line/area use `Chart`.
+ * points, with click (`onDataClick`) + selection and optional drag/wheel zoom.
+ * Dependency-free inline SVG; for bar/line/area use `Chart`.
  */
 export function Boxplot({
   data,
@@ -27,6 +27,7 @@ export function Boxplot({
   height = 300,
   showGrid = true,
   showAxis = true,
+  zoomable = false,
   valueFormat,
   onDataClick,
   ariaLabel,
@@ -42,18 +43,25 @@ export function Boxplot({
   const tableId = tableFallback ? `${uid}-table` : undefined;
   const { containerRef, tip, show, hide } = useChartTooltip();
   const [selected, setSelected] = React.useState(null);
+  const [zoom, setZoom] = React.useState(null); // {s,e} indices into the full data
+  const [drag, setDrag] = React.useState(null); // {start,end,pan,z0}
+  const svgRef = React.useRef(null);
 
-  const rows = data || [];
+  const allRows = data || [];
+  const baseIdx = zoom ? zoom.s : 0;
+  const rows = zoom ? allRows.slice(zoom.s, zoom.e + 1) : allRows;
   const fmt = valueFormat || fmtNumber;
   const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "box plot";
   const clickable = !!onDataClick;
 
-  // Click a box: emit the five-number summary + index, and toggle its selection outline.
+  // Click a box: emit the five-number summary + its absolute index, and toggle
+  // its selection outline. `i` is the local (visible) index; the emitted index
+  // maps back to the full `data` array through the current zoom window.
   const clickBox = (d, i) => {
     if (onDataClick) onDataClick({
       label: d.label,
       min: Number(d.min), q1: Number(d.q1), median: Number(d.median),
-      q3: Number(d.q3), max: Number(d.max), index: i,
+      q3: Number(d.q3), max: Number(d.max), index: baseIdx + i,
     });
     setSelected((s) => (s === i ? null : i));
   };
@@ -77,8 +85,9 @@ export function Boxplot({
   const padB = showAxis ? 26 : 8;
   const innerW = W - padL - padR, innerH = H - padT - padB;
 
-  // Value scale spans every summary stat + outlier across all boxes, so the
-  // whiskers and outlier dots always sit inside the plotted area.
+  // Value scale spans every summary stat + outlier across the *visible* boxes, so
+  // the whiskers and outlier dots always sit inside the plotted area — and the
+  // scale re-fits as you zoom into a categorical window.
   const allValues = rows.flatMap((d) => [
     Number(d.min), Number(d.q1), Number(d.median), Number(d.q3), Number(d.max),
     ...(Array.isArray(d.outliers) ? d.outliers.map(Number) : []),
@@ -96,12 +105,83 @@ export function Boxplot({
   const bandX = (i) => padL + band * i;
   const boxW = Math.min(band * 0.5, 46);
 
+  // ---- zoom + pan (opt-in, categorical windowing) ----------------------
+  const applyZoom = (s, e) => {
+    const n = allRows.length;
+    if (e - s >= n - 1) { setZoom(null); return; }
+    setZoom({ s: Math.max(0, s), e: Math.min(n - 1, e) });
+  };
+  const catFromEvent = (e) => {
+    const svg = svgRef.current; if (!svg) return null;
+    const r = svg.getBoundingClientRect();
+    if (!(r.width > 0)) return null;
+    const frac = Math.min(1, Math.max(0, ((e.clientX - r.left) / r.width * W - padL) / innerW));
+    const idx = Math.floor(frac * rows.length);
+    return Math.min(rows.length - 1, Math.max(0, idx));
+  };
+  const onOverlayMove = (e) => {
+    const idx = catFromEvent(e);
+    if (idx == null) return;
+    show(tipFor(rows[idx]), e);
+    if (drag) {
+      if (drag.pan) {
+        const s0 = drag.z0.e - drag.z0.s;
+        const s = Math.min(allRows.length - 1 - s0, Math.max(0, drag.z0.s + (drag.start - idx)));
+        applyZoom(s, s + s0);
+      } else {
+        setDrag({ ...drag, end: idx });
+      }
+    }
+  };
+  const onOverlayDown = (e) => {
+    const idx = catFromEvent(e);
+    if (idx == null) return;
+    setDrag({ start: idx, end: idx, pan: e.shiftKey, z0: zoom || { s: 0, e: allRows.length - 1 } });
+  };
+  const onOverlayUp = () => {
+    if (drag && !drag.pan) {
+      const lo = Math.min(drag.start, drag.end), hi = Math.max(drag.start, drag.end);
+      if (hi - lo >= 1) applyZoom(baseIdx + lo, baseIdx + hi);
+    }
+    setDrag(null);
+  };
+  // A plain click (no drag) toggles selection / emits onDataClick — the overlay
+  // sits above the boxes when zoomable, so it owns the box click too.
+  const onOverlayClick = (e) => {
+    if (drag && drag.end !== drag.start) return; // was a drag, not a click
+    const idx = catFromEvent(e);
+    if (idx == null) return;
+    clickBox(rows[idx], idx);
+  };
+  // Mouse-wheel zoom via a non-passive native listener (React's onWheel is passive).
+  React.useEffect(() => {
+    if (!zoomable) return undefined;
+    const svg = svgRef.current; if (!svg) return undefined;
+    const onWheel = (e) => {
+      e.preventDefault();
+      const n = allRows.length;
+      const cur = zoom || { s: 0, e: n - 1 };
+      const wSpan = cur.e - cur.s;
+      const r = svg.getBoundingClientRect();
+      const frac = r.width > 0 ? Math.min(1, Math.max(0, ((e.clientX - r.left) / r.width * W - padL) / innerW)) : 0.5;
+      const center = cur.s + Math.round(frac * wSpan);
+      const newSpan = Math.min(n - 1, Math.max(1, Math.round(wSpan * (e.deltaY < 0 ? 0.8 : 1.25))));
+      const s = Math.min(n - 1 - newSpan, Math.max(0, center - Math.round(newSpan * frac)));
+      applyZoom(s, s + newSpan);
+    };
+    svg.addEventListener("wheel", onWheel, { passive: false });
+    return () => svg.removeEventListener("wheel", onWheel);
+  }, [zoomable, zoom, allRows.length]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const dragBand = zoomable && drag && !drag.pan && drag.end !== drag.start;
+
   return (
     <div ref={containerRef} className={`twc-chart twc-chart--boxplot ${className}`.trim()}
+      data-has-selection={selected != null || undefined}
       data-clickable={clickable || undefined} {...rest}>
       {baseStyles}
       {styles}
-      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
+      <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
         {/* value grid + axis */}
         {showGrid ? scale.ticks.map((t, i) => {
           const p = vPos(t);
@@ -154,7 +234,30 @@ export function Boxplot({
         {showAxis ? rows.map((d, i) => (
           <text key={i} className="twc-boxplot__axis" x={bandX(i) + band / 2} y={H - 8} textAnchor="middle">{d.label}</text>
         )) : null}
+
+        {/* drag-to-zoom band preview */}
+        {dragBand ? (() => {
+          const lo = Math.min(drag.start, drag.end), hi = Math.max(drag.start, drag.end);
+          const x0 = bandX(lo), x1 = bandX(hi + 1);
+          return <rect className="twc-chart__zoomband" x={x0} y={padT} width={Math.max(0, x1 - x0)} height={innerH} />;
+        })() : null}
+
+        {/* transparent overlay owns drag/pan/wheel + hover/click when zoomable */}
+        {zoomable ? (
+          <rect className="twc-chart__overlay" data-zoom="true" data-clickable={clickable || undefined}
+            data-panning={(drag && drag.pan) || undefined}
+            x={padL} y={padT} width={innerW} height={innerH}
+            onMouseMove={onOverlayMove} onMouseLeave={() => { hide(); setDrag(null); }}
+            onMouseDown={onOverlayDown} onMouseUp={onOverlayUp} onClick={onOverlayClick} />
+        ) : null}
       </svg>
+
+      {zoomable && zoom ? (
+        <button type="button" className="twc-chart__zoom-reset" onClick={() => setZoom(null)} aria-label="Reset zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8" /><path d="M3 3v5h5" /></svg>
+          Reset
+        </button>
+      ) : null}
 
       <ChartTooltip tip={tip} />
 
@@ -163,7 +266,7 @@ export function Boxplot({
           id={tableId}
           caption={caption ?? svgAriaLabel}
           columns={["min", "q1", "median", "q3", "max"]}
-          rows={rows.map((d) => ({
+          rows={allRows.map((d) => ({
             label: d.label,
             values: [d.min, d.q1, d.median, d.q3, d.max].map((v) => fmt(Number(v))),
           }))}

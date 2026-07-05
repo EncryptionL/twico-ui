@@ -53,7 +53,7 @@ export interface PieChartProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   height?: number;
   /** Per-slice colors (any CSS color), cycled when shorter than `data`. Defaults to the built-in token palette. */
   colors?: string[];
-  /** Fires when a slice is clicked with the slice's label, value, index, and percent share; clicking a slice also toggles a selection outline on it. */
+  /** Fires when a slice is clicked with the slice's label, value, index, and percent share; clicking a slice also toggles a selection that pops the slice outward and dims the rest. */
   onDataClick?: (payload: PieChartClickPayload) => void;
   /** Accessible name for the `<svg role="img">`. Per-slice values live in the hidden data table, not this label. Defaults to `"pie chart"`/`"donut chart"`; also accepts `aria-label`. */
   ariaLabel?: string;

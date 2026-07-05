@@ -3112,6 +3112,13 @@ export const components = [
         "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
       },
       {
+        "prop": "zoomable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -3714,6 +3721,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
+        "prop": "zoomable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart."
       },
       {
         "prop": "onClick",

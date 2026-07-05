@@ -10,6 +10,10 @@ const FUNNEL_CSS = `
 .twc-funnel__label { fill: var(--color-text-inverted); font-family: var(--font-sans); pointer-events: none; }
 .twc-funnel__name { font-size: 12px; font-weight: 600; }
 .twc-funnel__value { font-size: 11px; fill-opacity: 0.82; }
+/* Explode: nudge the selected stage shape outward so it separates from the funnel
+   (eases via the shared [data-mark] transform transition in _chart.js). */
+.twc-chart--funnel [data-mark][data-selected="true"] { transform: translateX(14px); }
+.twc-chart--funnel[data-orientation="horizontal"] [data-mark][data-selected="true"] { transform: translateY(-14px); }
 `;
 
 /**
@@ -113,10 +117,10 @@ export function FunnelChart({
               show({ title: d.label, items: [{ color, label: fmt(v), value: pctText(v) }] }, e);
             }}
             onMouseLeave={() => { setActive(null); hide(); }}
-            onClick={onDataClick ? () => {
-              onDataClick({ label: d.label, value: v, index: i, percent: pct(v) });
+            onClick={() => {
+              if (onDataClick) onDataClick({ label: d.label, value: v, index: i, percent: pct(v) });
               setSelected((s) => (s === i ? null : i));
-            } : undefined}
+            }}
           />
           {lines.length ? (
             <text className="twc-funnel__label" x={tx} y={ty} textAnchor="middle" dominantBaseline="middle">
@@ -137,7 +141,7 @@ export function FunnelChart({
     });
 
   return (
-    <div ref={containerRef} className={`twc-chart twc-chart--funnel ${className}`.trim()} data-orientation={horizontal ? "horizontal" : "vertical"} data-hovering={active != null ? "true" : undefined} data-clickable={clickable || undefined} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--funnel ${className}`.trim()} data-orientation={horizontal ? "horizontal" : "vertical"} data-hovering={active != null ? "true" : undefined} data-has-selection={selected != null || undefined} data-clickable={clickable || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">

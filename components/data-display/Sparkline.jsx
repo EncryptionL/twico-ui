@@ -144,7 +144,7 @@ export function Sparkline({
 
   return (
     <div ref={containerRef} className={`twc-chart twc-sparkline twc-chart--${kind} ${className}`.trim()}
-      data-clickable={clickable || undefined} {...rest}>
+      data-clickable={clickable || undefined} data-has-selection={selected != null || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg

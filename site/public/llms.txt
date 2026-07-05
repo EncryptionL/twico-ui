@@ -1695,6 +1695,7 @@ Props:
 - `tableFallback` — `boolean` · default `true` — Renders a visually-hidden data table as an accessible text alternative for screen readers (WCAG 1.1.1).
 - `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
 - `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
+- `zoomable` — `boolean` · default `false` — Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart.
 
 ```jsx
 import { Boxplot } from "twico-ui";
@@ -1970,6 +1971,7 @@ Props:
 - `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative (WCAG 1.1.1).
 - `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label.
 - `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
+- `zoomable` — `boolean` · default `false` — Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart.
 
 ```jsx
 import { Heatmap } from "twico-ui";

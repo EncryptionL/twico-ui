@@ -212,10 +212,12 @@ export const CHART_BASE_CSS = `
 /* Hover emphasis: when the chart marks itself hovered, fade every mark except the active one. */
 .twc-chart[data-hovering="true"] [data-mark] { opacity: 0.3; transition: opacity var(--duration-base) var(--ease-standard); }
 .twc-chart[data-hovering="true"] [data-mark][data-active="true"] { opacity: 1; }
-[data-mark] { transition: opacity var(--duration-base) var(--ease-standard); cursor: default; }
+[data-mark] { transition: opacity var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-spring); cursor: default; }
 
 /* Click-to-select: a soft accent ring + glow on the chosen mark (not a heavy outline). */
 [data-mark][data-selected="true"] { stroke: var(--color-text); stroke-width: 1.5; stroke-opacity: 0.5; paint-order: stroke; filter: drop-shadow(0 0 3px color-mix(in srgb, var(--color-text) 22%, transparent)); }
+/* Click-to-focus: a persistent selection also dims the other marks (focus mode), on every chart. */
+.twc-chart[data-has-selection="true"] [data-mark]:not([data-selected="true"]) { opacity: 0.4; }
 .twc-chart[data-clickable="true"] [data-mark], .twc-chart__overlay[data-clickable="true"] { cursor: pointer; }
 
 /* Crosshair + full-plot event overlay (cartesian shared-axis interactions). */

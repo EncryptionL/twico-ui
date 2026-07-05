@@ -96,7 +96,7 @@ export function PieChart({
   const multi = rows.length > 1;
 
   return (
-    <div ref={containerRef} className={`twc-chart twc-chart--pie ${className}`.trim()} data-donut={isDonut ? "true" : undefined} data-hovering={emph != null ? "true" : undefined} data-clickable={clickable || undefined} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--pie ${className}`.trim()} data-donut={isDonut ? "true" : undefined} data-has-selection={selected != null || undefined} data-hovering={emph != null ? "true" : undefined} data-clickable={clickable || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${H} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId}>
@@ -108,11 +108,22 @@ export function PieChart({
               // Inset each slice by half the pad gap so equal gaps sit between neighbors.
               const pad = span > padAngle ? padAngle / 2 : 0;
               const items = [{ color, label: fmt(v), value: `${pct}%` }];
+              // Explode: pop the selected slice outward along its mid-angle so it
+              // reads as focused. The shared [data-mark] transform transition eases it.
+              let explode;
+              if (selected === i) {
+                const mid = (s0 + s1) / 2;
+                const a = ((mid - 90) * Math.PI) / 180;
+                const dx = Math.cos(a) * 8, dy = Math.sin(a) * 8;
+                if (Number.isFinite(dx) && Number.isFinite(dy)) {
+                  explode = `translate(${dx}px, ${dy}px)`;
+                }
+              }
               return (
                 <path
                   key={i}
                   className="twc-chart__slice twc-chart__anim-arc"
-                  style={{ fill: color }}
+                  style={{ fill: color, transform: explode }}
                   data-mark=""
                   data-active={emph === i ? "true" : undefined}
                   data-selected={selected === i ? "true" : undefined}

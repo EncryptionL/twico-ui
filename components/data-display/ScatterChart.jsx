@@ -261,6 +261,7 @@ export function ScatterChart({
   return (
     <div ref={containerRef} className={`twc-chart twc-chart--scatter ${className}`.trim()}
       data-bubble={useBubble || undefined} data-hovering={focus != null || undefined}
+      data-has-selection={selected != null || undefined}
       data-clickable={clickable || undefined} {...rest}>
       {baseStyles}
       {styles}

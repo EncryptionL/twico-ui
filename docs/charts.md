@@ -73,16 +73,21 @@ All charts share one interaction layer (in `_chart.js`) so behavior is consisten
   chart fade every mark except the hovered/focused one (used by the slice charts and legend focus).
 - **Legend** — `<ChartLegend>` supports `onToggle`/`hidden` (click a series to hide it) and
   `onFocus`/`onBlur` (hover a legend entry to spotlight that series and dim the rest).
-- **Click + selection** — every chart takes an **`onDataClick`** callback that fires with the clicked
-  datum + metadata (each component documents its payload; `Chart` exports `ChartClickPayload`). The
-  clicked mark also toggles a persistent `data-selected` outline (`[data-mark][data-selected]`).
+- **Click + selection + focus** — every chart takes an **`onDataClick`** callback that fires with the
+  clicked datum + metadata (each component documents its payload; `Chart` exports `ChartClickPayload`).
+  Selection works standalone too (no callback required): the clicked mark toggles a soft
+  `data-selected` ring, and the root's `data-has-selection` **dims the other marks** — a universal
+  focus interaction on every chart. On the radial charts (Pie / Donut / PolarArea / Funnel) the
+  selected slice/stage additionally **explodes** (pops outward), the radial equivalent of zoom.
 - **Crosshair** (`Chart`) — a vertical guide line follows the hovered category on line/area/vertical-bar
   charts (`crosshair`, default on).
-- **Zoom & pan** — opt-in **`zoomable`** on `Chart`, `Candlestick`, and `RangeChart` (categorical
-  x-window) and `ScatterChart` (continuous 2-D region). A transparent full-plot overlay handles
-  drag-to-select-a-range, **shift-drag to pan**, and a non-passive `wheel` listener zooms about the
-  cursor; a **Reset** button appears while zoomed. All layout-derived coordinates are guarded so a
-  zero-size (pre-layout / test) container never throws.
+- **Zoom & pan** — opt-in **`zoomable`** on every chart with an axis or grid: `Chart` / `Candlestick` /
+  `RangeChart` / `Boxplot` (categorical x-window) and `ScatterChart` / `Heatmap` (continuous 2-D
+  region). A transparent full-plot overlay handles drag-to-select-a-range, **shift-drag to pan**, and a
+  non-passive `wheel` listener zooms about the cursor; a **Reset** button appears while zoomed. All
+  layout-derived coordinates are guarded so a zero-size (pre-layout / test) container never throws.
+  (The radial/proportional charts — Pie, Gauge, Radar, Polar, Funnel, Treemap, Sparkline — have no
+  pannable axis, so they get click-to-explode / focus-dim instead.)
 - **Entrance animations** — bars grow, lines draw (`stroke-dashoffset`), arcs/areas/cells fade; all
   disabled under `prefers-reduced-motion`.
 

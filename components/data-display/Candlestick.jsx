@@ -197,7 +197,7 @@ export function Candlestick({
 
   return (
     <div ref={containerRef} className={`twc-chart twc-chart--candlestick ${className}`.trim()}
-      data-clickable={clickable || undefined} {...rest}>
+      data-clickable={clickable || undefined} data-has-selection={selected != null || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">

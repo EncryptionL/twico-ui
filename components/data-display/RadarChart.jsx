@@ -89,7 +89,8 @@ export function RadarChart({
 
   return (
     <div ref={containerRef} className={`twc-chart twc-chart--radar ${className}`.trim()}
-      data-hovering={focus != null || undefined} data-clickable={clickable || undefined} {...rest}>
+      data-hovering={focus != null || undefined} data-clickable={clickable || undefined}
+      data-has-selection={selected != null || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg

@@ -15,6 +15,7 @@ export default function BoxplotDemo() {
       <div style={{ maxWidth: 520 }}>
         <Boxplot
           data={latencyData}
+          zoomable
           valueFormat={(v) => `${v}ms`}
           onDataClick={(p) => setPicked(p)}
           ariaLabel="Interactive box plot of request latency"
@@ -28,7 +29,7 @@ export default function BoxplotDemo() {
             — median {picked.median}ms (Q1 {picked.q1}ms · Q3 {picked.q3}ms)
           </>
         ) : (
-          "Hover a box for details · click to select"
+          "Hover a box for details · click to select · drag to zoom"
         )}
       </div>
     </div>

@@ -17,6 +17,7 @@ export default function HeatmapDemo() {
         xLabel="Hour"
         yLabel="Day"
         showValues
+        zoomable
         colorScale="var(--emerald-500)"
         valueFormat={(v) => `${v}%`}
         data={activity}
@@ -26,7 +27,7 @@ export default function HeatmapDemo() {
       <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text-muted)" }}>
         {picked
           ? <>Clicked <strong style={{ color: "var(--color-text)" }}>{String(picked.x)} · {String(picked.y)}</strong> = {picked.value}%</>
-          : "Hover a cell for details · click to select"}
+          : "Hover a cell for details · click to select · drag to zoom"}
       </div>
     </div>
   );

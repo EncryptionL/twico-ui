@@ -71,6 +71,8 @@ export function PolarAreaChart({
 
   const rings = Math.max(1, Math.floor(levels));
   const anglePer = 360 / Math.max(1, n);
+  // Distance (in SVG user units) a selected slice pops outward along its mid-angle.
+  const EXPLODE = Math.min(12, Rmax * 0.1);
   const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "polar area chart";
   const clickable = !!onDataClick;
   // Legend focus wins over pointer hover; both dim the non-emphasized slices.
@@ -80,9 +82,8 @@ export function PolarAreaChart({
     typeof label === "string" || typeof label === "number" ? String(label) : "";
 
   const clickSlice = (d, v, i) => {
-    if (!onDataClick) return;
-    onDataClick({ label: d.label, value: v, index: i });
-    setSelected((s) => (s === i ? null : i));
+    if (onDataClick) onDataClick({ label: d.label, value: v, index: i });
+    setSelected((s) => (s === i ? null : i)); // selection/explode works standalone too
   };
 
   return (
@@ -91,6 +92,7 @@ export function PolarAreaChart({
       className={`twc-chart twc-chart--polar ${className}`.trim()}
       data-hovering={emphasis != null || undefined}
       data-clickable={clickable || undefined}
+      data-has-selection={selected != null || undefined}
       {...rest}
     >
       {baseStyles}
@@ -122,6 +124,11 @@ export function PolarAreaChart({
           const start = startAngle + i * anglePer;
           const color = d.color || paletteAt(colors, i);
           const tipFor = { title: labelText(d.label), items: [{ color, label: "", value: fmt(v) }] };
+          // Explode: the selected slice translates outward along its mid-angle (0° = top, clockwise).
+          const midRad = ((start + anglePer / 2 - 90) * Math.PI) / 180;
+          const explode = selected === i
+            ? `translate(${r(Math.cos(midRad) * EXPLODE)}px, ${r(Math.sin(midRad) * EXPLODE)}px)`
+            : undefined;
           return (
             <path
               key={`slice-${i}`}
@@ -129,11 +136,11 @@ export function PolarAreaChart({
               data-mark
               data-active={emphasis == null ? undefined : emphasis === i || undefined}
               data-selected={selected === i || undefined}
-              style={{ fill: color, fillOpacity: 0.82 }}
+              style={{ fill: color, fillOpacity: 0.82, transform: explode }}
               d={arcPath(cx, cy, radiusFor(v), 0, start, start + anglePer)}
               onMouseMove={(e) => { setActive(i); show(tipFor, e); }}
               onMouseLeave={() => { setActive(null); hide(); }}
-              onClick={onDataClick ? () => clickSlice(d, v, i) : undefined}
+              onClick={() => clickSlice(d, v, i)}
             />
           );
         })}

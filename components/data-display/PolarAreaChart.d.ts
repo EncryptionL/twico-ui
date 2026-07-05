@@ -49,7 +49,7 @@ export interface PolarAreaChartProps extends React.HTMLAttributes<HTMLDivElement
   height?: number;
   /** Per-slice colors (any CSS color), cycled across slices. Defaults to the built-in token palette. */
   colors?: string[];
-  /** Fires when a slice is clicked with its `label`, `value`, and `index`; the clicked slice also toggles a selected outline. */
+  /** Fires when a slice is clicked with its `label`, `value`, and `index`; the clicked slice also toggles a selected state that pops it outward along its mid-angle and dims the rest. */
   onDataClick?: (payload: PolarAreaClickPayload) => void;
   /** Accessible name for the chart's `<svg role="img">`. Defaults to `"polar area chart"`; also accepts `aria-label`. */
   ariaLabel?: string;

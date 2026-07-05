@@ -255,7 +255,7 @@ export function RangeChart({
 
   return (
     <div ref={containerRef} className={`twc-chart twc-chart--range ${className}`.trim()}
-      data-type={type} data-clickable={clickable || undefined} {...rest}>
+      data-type={type} data-clickable={clickable || undefined} data-has-selection={selected != null || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
