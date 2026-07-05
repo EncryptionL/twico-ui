@@ -37,10 +37,11 @@ env:
   # The site build never needs Playwright browsers; skip the heavy download on every
   # `npm ci` (latest + one per snapshot).
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
-  # Frozen documentation snapshots, "<base-version>=<git tag>", newest first. One entry
-  # per released minor; patches share their minor's docs (point at the latest patch tag).
-  # Add a line here AND an entry in site/public/versions.json when you cut a new minor.
-  DOC_SNAPSHOTS: "1.8=v1.8.1 1.7=v1.7.0 1.6=v1.6.0 1.5=v1.5.0 1.4=v1.4.0 1.3=v1.3.2 1.2=v1.2.0 1.1=v1.1.0 1.0=v1.0.2"
+  # Frozen documentation snapshots, "<base-version>=<git tag>", newest first. Patches
+  # share their minor's docs (point at the latest patch tag). Keep this matched to the
+  # snapshot entries in site/public/versions.json — only the latest ~2 prior minors, so
+  # the version switcher stays short and we don't rebuild ancient docs on every deploy.
+  DOC_SNAPSHOTS: "1.8=v1.8.1 1.7=v1.7.0"
 
 jobs:
   build:
