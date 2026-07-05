@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Chart } from "../components/data-display/Chart.jsx";
 
@@ -104,5 +104,84 @@ describe("Chart interactivity (tooltip + legend toggle)", () => {
   it("showValues renders data labels", () => {
     const { container } = render(<Chart showValues data={[{ label: "Mon", value: 240 }]} />);
     expect(container.querySelector(".twc-chart__label")).toBeInTheDocument();
+  });
+});
+
+describe("Chart interactivity — click, select, legend focus, crosshair, zoom", () => {
+  const two = [{ label: "Jan", a: 10, b: 4 }, { label: "Feb", a: 6, b: 8 }];
+
+  it("onDataClick fires with the clicked datum + metadata", () => {
+    const onDataClick = vi.fn();
+    const { container } = render(<Chart data={[{ label: "Mon", value: 240 }, { label: "Tue", value: 310 }]} onDataClick={onDataClick} />);
+    fireEvent.click(container.querySelector(".twc-chart__bar"));
+    expect(onDataClick).toHaveBeenCalledTimes(1);
+    const p = onDataClick.mock.calls[0][0];
+    expect(p.label).toBe("Mon");
+    expect(p.series).toBe("value");
+    expect(p.value).toBe(240);
+    expect(p.index).toBe(0);
+    expect(p.row).toEqual({ label: "Mon", value: 240 });
+  });
+
+  it("clicking a bar selects it (data-selected outline); clicking again clears", () => {
+    const { container } = render(<Chart data={[{ label: "Mon", value: 5 }, { label: "Tue", value: 9 }]} onDataClick={() => {}} />);
+    const bar = container.querySelector(".twc-chart__bar");
+    fireEvent.click(bar);
+    expect(container.querySelector('.twc-chart__bar[data-selected="true"]')).toBeInTheDocument();
+    fireEvent.click(bar);
+    expect(container.querySelector('.twc-chart__bar[data-selected="true"]')).toBeNull();
+  });
+
+  it("the root is marked clickable when onDataClick is set", () => {
+    const { container } = render(<Chart data={[{ label: "Mon", value: 1 }]} onDataClick={() => {}} />);
+    expect(container.querySelector('.twc-chart[data-clickable="true"]')).toBeInTheDocument();
+  });
+
+  it("hovering a legend item focuses that series (root hovering + that series active)", () => {
+    const { container, getByRole } = render(<Chart series={["a", "b"]} showLegend data={two} />);
+    expect(container.querySelector('.twc-chart[data-hovering="true"]')).toBeNull();
+    fireEvent.mouseEnter(getByRole("button", { name: "b" }));
+    const root = container.querySelector(".twc-chart");
+    expect(root).toHaveAttribute("data-hovering", "true");
+    // bars of series b are active, series a bars are not
+    const active = Array.from(container.querySelectorAll('.twc-chart__bar[data-active="true"]'));
+    expect(active.length).toBe(2); // both categories, series b
+    fireEvent.mouseLeave(getByRole("button", { name: "b" }));
+    expect(container.querySelector('.twc-chart[data-hovering="true"]')).toBeNull();
+  });
+
+  it("a crosshair line appears while hovering (vertical chart)", () => {
+    const { container } = render(<Chart type="line" data={[{ label: "a", value: 1 }, { label: "b", value: 5 }]} />);
+    expect(container.querySelector(".twc-chart__crosshair")).toBeNull();
+    fireEvent.mouseMove(container.querySelector(".twc-chart__hit"), { clientX: 5, clientY: 5 });
+    expect(container.querySelector(".twc-chart__crosshair")).toBeInTheDocument();
+  });
+
+  it("hover-anywhere zones: hovering a plot zone (between points) shows the tooltip + crosshair", () => {
+    const { container } = render(<Chart type="line" data={[{ label: "a", value: 1 }, { label: "b", value: 5 }, { label: "c", value: 3 }]} />);
+    const zones = container.querySelectorAll(".twc-chart__zone");
+    expect(zones.length).toBe(3); // one per category, covering the whole plot
+    fireEvent.mouseMove(zones[1], { clientX: 5, clientY: 5 });
+    expect(container.querySelector(".twc-chart__tip")).toHaveTextContent("b");
+    expect(container.querySelector(".twc-chart__crosshair")).toBeInTheDocument();
+  });
+
+  it("clicking a plot zone fires a category-level onDataClick (series null)", () => {
+    const onDataClick = vi.fn();
+    const { container } = render(<Chart type="line" data={[{ label: "a", value: 1 }, { label: "b", value: 5 }]} onDataClick={onDataClick} />);
+    fireEvent.click(container.querySelector(".twc-chart__zone"));
+    expect(onDataClick).toHaveBeenCalled();
+    expect(onDataClick.mock.calls[0][0].series).toBeNull();
+  });
+
+  it("zoomable renders the event overlay and drag interactions do not throw", () => {
+    const { container } = render(<Chart type="line" zoomable data={[{ label: "a", value: 1 }, { label: "b", value: 5 }, { label: "c", value: 3 }]} />);
+    const overlay = container.querySelector(".twc-chart__overlay");
+    expect(overlay).toBeInTheDocument();
+    expect(() => {
+      fireEvent.mouseDown(overlay, { clientX: 10, clientY: 10 });
+      fireEvent.mouseMove(overlay, { clientX: 200, clientY: 10 });
+      fireEvent.mouseUp(overlay);
+    }).not.toThrow();
   });
 });

@@ -16,6 +16,34 @@ const trafficData = [
   { label: "Apr", signups: 220, active: 170 },
 ];
 
+// A longer series so drag-to-zoom has something to zoom into.
+const seriesData = Array.from({ length: 30 }, (_, i) => ({
+  label: `D${i + 1}`,
+  value: Math.round(120 + 60 * Math.sin(i / 3) + (i % 5) * 12),
+}));
+
+function InteractiveChart() {
+  const [picked, setPicked] = React.useState(null);
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      <Chart
+        type="area"
+        smooth
+        zoomable
+        data={seriesData}
+        height={240}
+        onDataClick={(p) => setPicked(p)}
+        ariaLabel="Interactive area chart with zoom and click"
+      />
+      <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text-muted)" }}>
+        {picked
+          ? <>Clicked <strong style={{ color: "var(--color-text)" }}>{String(picked.label)}</strong> = {picked.value}</>
+          : "Drag across the plot to zoom · shift-drag to pan · wheel to zoom · click a point"}
+      </div>
+    </div>
+  );
+}
+
 const variations = [
   {
     title: "Bar chart",
@@ -170,6 +198,31 @@ const variations = [
           valueFormat={(v) => v.toLocaleString()}
           ariaLabel="Signups vs active users by month"
         />
+      </div>
+    ),
+  },
+  {
+    title: "Interactive: zoom + pan + click",
+    description: "Drag across the plot to zoom the x-axis, shift-drag to pan, mouse-wheel to zoom, and click a point to read it back via onDataClick. A reset button appears while zoomed.",
+    code: `function InteractiveChart() {
+  const [picked, setPicked] = React.useState(null);
+  return (
+    <>
+      <Chart
+        type="area"
+        smooth
+        zoomable                               // drag-zoom + shift-drag pan + wheel + reset
+        data={seriesData}
+        height={240}
+        onDataClick={(p) => setPicked(p)}      // { label, series, value, index, row }
+      />
+      <p>{picked ? \`Clicked \${picked.label} = \${picked.value}\` : "Drag to zoom · click a point"}</p>
+    </>
+  );
+}`,
+    render: () => (
+      <div style={{ maxWidth: 520 }}>
+        <InteractiveChart />
       </div>
     ),
   },

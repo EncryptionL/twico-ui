@@ -19,8 +19,9 @@ const SPARK_CSS = `
 /**
  * Sparkline — a minimal, word-sized trend chart (line, area, or bars) with no
  * axes, grid, ticks, or legend. Dependency-free inline SVG; scales to fill its
- * vertical space (domain derived from the data unless `min`/`max` pin it). For a
- * full chart with axes and a legend use `Chart`.
+ * vertical space (domain derived from the data unless `min`/`max` pin it). Click
+ * (`onDataClick`) selects the clicked point/bar. For a full chart with axes and a
+ * legend use `Chart`.
  */
 export function Sparkline({
   data,
@@ -35,6 +36,7 @@ export function Sparkline({
   min,
   max,
   valueFormat,
+  onDataClick,
   ariaLabel,
   "aria-label": ariaLabelProp,
   tableFallback = false,
@@ -48,6 +50,8 @@ export function Sparkline({
   const tableId = tableFallback ? `${uid}-table` : undefined;
   const { containerRef, tip, show, hide } = useChartTooltip();
   const [hover, setHover] = React.useState(null);
+  const [selected, setSelected] = React.useState(null);
+  const clickable = !!onDataClick;
 
   const kind = area ? "area" : type; // `area` prop is a shorthand for type="area"
   const isBar = kind === "bar";
@@ -95,6 +99,12 @@ export function Sparkline({
   const tipFor = (i) => ({ title: labels[i], items: [{ color, label: "", value: fmt(values[i]) }] });
   const onPointMove = (i) => (e) => { setHover(i); show(tipFor(i), e); };
   const onPointLeave = () => { setHover(null); hide(); };
+  // Click a point/bar: emit the payload (if wired) and toggle its selection
+  // outline; clicking the selected mark again clears it.
+  const clickPoint = (i) => {
+    if (onDataClick) onDataClick({ value: values[i], index: i, label: labels[i] });
+    setSelected((s) => (s === i ? null : i));
+  };
 
   // Summarizing aria-label. With no data table (the default), fold the salient
   // numbers — first/last/min/max — into the label so screen readers still get
@@ -117,6 +127,8 @@ export function Sparkline({
         <rect
           key={i}
           className="twc-sparkline__bar twc-chart__anim-fade"
+          data-mark
+          data-selected={selected === i || undefined}
           style={{ fill: color }}
           x={pad + band * i + (band - slot) / 2}
           y={baselineY - h}
@@ -124,13 +136,15 @@ export function Sparkline({
           height={Math.max(1, h)}
           onMouseMove={(e) => show(tipFor(i), e)}
           onMouseLeave={hide}
+          onClick={() => clickPoint(i)}
         />
       );
     });
   };
 
   return (
-    <div ref={containerRef} className={`twc-chart twc-sparkline twc-chart--${kind} ${className}`.trim()} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-sparkline twc-chart--${kind} ${className}`.trim()}
+      data-clickable={clickable || undefined} data-has-selection={selected != null || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg
@@ -173,6 +187,19 @@ export function Sparkline({
                 r={Math.max(2, strokeWidth + 1)}
               />
             ) : null}
+            {/* Selection dot: the clicked point carries a data-selected outline. Non-interactive
+                (pointer-events off) so the hit target beneath still handles clicks. */}
+            {selected != null && points[selected] ? (
+              <circle
+                className="twc-sparkline__dot"
+                data-mark
+                data-selected="true"
+                style={{ fill: color, pointerEvents: "none" }}
+                cx={points[selected][0]}
+                cy={points[selected][1]}
+                r={Math.max(2, strokeWidth + 1)}
+              />
+            ) : null}
             {/* Invisible, generously sized hit targets so the tooltip is easy to trigger on tiny points. */}
             {points.map((p, i) => (
               <circle
@@ -183,6 +210,7 @@ export function Sparkline({
                 r="14"
                 onMouseMove={onPointMove(i)}
                 onMouseLeave={onPointLeave}
+                onClick={() => clickPoint(i)}
               />
             ))}
           </>

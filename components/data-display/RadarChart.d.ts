@@ -7,6 +7,18 @@ import * as React from "react";
  */
 export type RadarDatum<K extends string = "value"> = { label: React.ReactNode } & { [P in K]: number };
 
+/** Payload passed to `onDataClick` when a series vertex dot is clicked. */
+export interface RadarClickPayload<K extends string = string> {
+  /** The clicked vertex's axis `label`. */
+  label: React.ReactNode;
+  /** The series (polygon) key that was clicked. */
+  series: K;
+  /** The clicked value. */
+  value: number;
+  /** Index of the axis (row) in the `data` array. */
+  index: number;
+}
+
 /**
  * Radar / spider chart — one or more series drawn as closed polygons over a
  * shared set of categorical axes radiating from a center, with concentric grid
@@ -16,7 +28,7 @@ export type RadarDatum<K extends string = "value"> = { label: React.ReactNode } 
  * For cartesian bars/lines/areas use `Chart`; for other shapes use the dedicated
  * sibling components.
  *
- * @startingPoint section="Data display" subtitle="Radar / spider chart (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Radar / spider chart (no deps)" viewport="700x280"
  */
 export interface RadarChartProps<K extends string = "value"> extends React.HTMLAttributes<HTMLDivElement> {
   /** Data rows — one per **axis**. Each has a `label` + one numeric field per series key. (`K` is inferred from `series`, not from `data`.) */
@@ -39,6 +51,8 @@ export interface RadarChartProps<K extends string = "value"> extends React.HTMLA
   valueFormat?: (value: number) => string;
   /** Pixel height; the chart uses a square canvas of this size. @default 300 */
   height?: number;
+  /** Fires when a series vertex dot is clicked, with the axis label, series key, value, and axis index. */
+  onDataClick?: (payload: RadarClickPayload<NoInfer<K>>) => void;
   /** Accessible name for the chart's `<svg role="img">`. Per-point values are exposed via the hidden data table, not this label. Defaults to `"radar chart"`; also accepts `aria-label`. */
   ariaLabel?: string;
   /** Render a visually-hidden data table as an accessible text alternative (WCAG 1.1.1). @default true */

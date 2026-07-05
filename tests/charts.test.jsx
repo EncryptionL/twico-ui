@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, fireEvent } from "@testing-library/react";
 import { PieChart } from "../components/data-display/PieChart.jsx";
 import { DonutChart } from "../components/data-display/DonutChart.jsx";
@@ -151,5 +151,105 @@ describe("chart refinement — floating tooltips + hover emphasis", () => {
   it("no leftover native <title> tooltips on the refined charts", () => {
     const { container } = render(<PieChart data={pie} />);
     expect(container.querySelector("svg title")).toBeNull();
+  });
+});
+
+// Click every candidate interactive element until the spy fires (marks live on
+// different elements per chart — the shape, its hit target, or the zoom overlay).
+function clickAnyMark(container) {
+  const cands = container.querySelectorAll('[data-mark], .twc-chart__hit, .twc-chart__overlay, rect, path, circle, g[role], g');
+  for (const el of cands) fireEvent.click(el, { clientX: 5, clientY: 5 });
+}
+
+describe("chart interactivity — onDataClick + selection", () => {
+  const clickFactories = {
+    PieChart: (cb) => <PieChart data={pie} onDataClick={cb} />,
+    PolarAreaChart: (cb) => <PolarAreaChart data={pie} onDataClick={cb} />,
+    FunnelChart: (cb) => <FunnelChart data={pie} onDataClick={cb} />,
+    Treemap: (cb) => <Treemap data={pie} onDataClick={cb} />,
+    Heatmap: (cb) => <Heatmap data={heat} onDataClick={cb} />,
+    ScatterChart: (cb) => <ScatterChart series={scatter} onDataClick={cb} />,
+    RadarChart: (cb) => <RadarChart data={radar} series={["a", "b"]} onDataClick={cb} />,
+    Candlestick: (cb) => <Candlestick data={ohlc} onDataClick={cb} />,
+    Boxplot: (cb) => <Boxplot data={box} onDataClick={cb} />,
+    RangeChart: (cb) => <RangeChart data={range} onDataClick={cb} />,
+    Sparkline: (cb) => <Sparkline data={[3, 6, 4, 8]} onDataClick={cb} />,
+    Gauge: (cb) => <Gauge value={72} onDataClick={cb} />,
+  };
+
+  it.each(Object.keys(clickFactories))("%s marks the root clickable + fires onDataClick", (name) => {
+    const cb = vi.fn();
+    const { container } = render(clickFactories[name](cb));
+    expect(container.querySelector('.twc-chart[data-clickable="true"]')).toBeInTheDocument();
+    clickAnyMark(container);
+    expect(cb).toHaveBeenCalled();
+    expect(cb.mock.calls[0][0]).toBeTypeOf("object"); // a payload object
+  });
+
+  it("PieChart click payload has label/value/index/percent + sets a selection", () => {
+    const cb = vi.fn();
+    const { container } = render(<PieChart data={pie} onDataClick={cb} />);
+    fireEvent.click(container.querySelector("[data-mark]"));
+    const p = cb.mock.calls[0][0];
+    expect(p).toHaveProperty("label");
+    expect(p).toHaveProperty("value");
+    expect(p).toHaveProperty("index");
+    expect(container.querySelector('[data-selected="true"]')).toBeInTheDocument();
+  });
+});
+
+describe("chart interactivity — zoom (all axis/grid charts)", () => {
+  const zoomCases = [
+    ["ScatterChart", <ScatterChart series={scatter} zoomable />],
+    ["Candlestick", <Candlestick data={ohlc} zoomable />],
+    ["RangeChart", <RangeChart data={range} zoomable />],
+    ["Heatmap", <Heatmap data={heat} zoomable />],
+    ["Boxplot", <Boxplot data={box} zoomable />],
+  ];
+  it.each(zoomCases)("%s renders a zoom overlay and drag doesn't throw", (_n, el) => {
+    const { container } = render(el);
+    const overlay = container.querySelector(".twc-chart__overlay");
+    expect(overlay).toBeInTheDocument();
+    expect(() => {
+      fireEvent.mouseDown(overlay, { clientX: 20, clientY: 20 });
+      fireEvent.mouseMove(overlay, { clientX: 120, clientY: 80 });
+      fireEvent.mouseUp(overlay);
+    }).not.toThrow();
+  });
+});
+
+describe("chart interactivity — universal focus-dim + explode", () => {
+  // The onClick that toggles selection lives on the mark, its hit target, or the overlay —
+  // click candidates until the root reports a selection.
+  function clickUntilSelected(container) {
+    const cands = container.querySelectorAll('[data-mark], .twc-chart__hit, .twc-chart__overlay, rect, path, circle, g');
+    for (const el of cands) {
+      fireEvent.click(el, { clientX: 5, clientY: 5 });
+      if (container.querySelector('.twc-chart[data-has-selection="true"]')) return true;
+    }
+    return false;
+  }
+  const dimFactories = {
+    PieChart: () => <PieChart data={pie} />,
+    PolarAreaChart: () => <PolarAreaChart data={pie} />,
+    FunnelChart: () => <FunnelChart data={pie} />,
+    Treemap: () => <Treemap data={pie} />,
+    Heatmap: () => <Heatmap data={heat} />,
+    RadarChart: () => <RadarChart data={radar} series={["a", "b"]} />,
+    Boxplot: () => <Boxplot data={box} />,
+    Gauge: () => <Gauge value={72} />,
+    Sparkline: () => <Sparkline data={[3, 6, 4, 8]} />,
+  };
+  it.each(Object.keys(dimFactories))("%s: selecting a mark sets data-has-selection on the root (focus-dim)", (name) => {
+    const { container } = render(dimFactories[name]());
+    expect(clickUntilSelected(container)).toBe(true);
+  });
+
+  it("PieChart explodes the selected slice (a translate transform is applied)", () => {
+    const { container } = render(<PieChart data={pie} />);
+    clickUntilSelected(container);
+    const sel = container.querySelector('path[data-selected="true"]');
+    expect(sel).toBeInTheDocument();
+    expect(sel.getAttribute("style") || "").toMatch(/translate/);
   });
 });

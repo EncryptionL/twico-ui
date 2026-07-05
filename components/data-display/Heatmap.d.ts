@@ -14,6 +14,16 @@ export interface HeatmapDatum {
   value: number;
 }
 
+/** Payload passed to `onDataClick` when a heatmap cell is clicked. */
+export interface HeatmapClickPayload {
+  /** The clicked cell's column (`x`) key. */
+  x: string | number;
+  /** The clicked cell's row (`y`) key. */
+  y: string | number;
+  /** The clicked cell's numeric value. */
+  value: number;
+}
+
 /**
  * Heatmap — a matrix of colored cells keyed by (x, y), each shaded by a
  * single-hue intensity scale between `min` and `max`. Ordered X columns and Y
@@ -21,7 +31,7 @@ export interface HeatmapDatum {
  * Dependency-free inline SVG, with per-cell tooltips, a gradient scale legend,
  * and a visually-hidden data table. Dark mode is automatic through tokens.
  *
- * @startingPoint section="Data display" subtitle="Matrix heatmap (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Matrix heatmap (no deps)" viewport="700x280"
  */
 export interface HeatmapProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Cells to plot. X columns and Y rows are derived from these in first-seen order. */
@@ -44,8 +54,17 @@ export interface HeatmapProps extends React.HTMLAttributes<HTMLDivElement> {
   yLabel?: React.ReactNode;
   /** Show the low→high gradient scale legend below the grid. @default true */
   showLegend?: boolean;
+  /**
+   * Enable a 2-D drag/wheel zoom over the cell grid: drag a rectangle to zoom to
+   * that sub-range of the ordered X columns and Y rows, shift-drag to pan, scroll
+   * to zoom about the cursor, and a Reset button restores the full matrix. Needs
+   * at least two columns and two rows. @default false
+   */
+  zoomable?: boolean;
   /** Value formatter for tooltips, printed cell values, and the hidden table. @default fmtNumber */
   valueFormat?: (value: number) => string;
+  /** Fires when a cell is clicked with its `{ x, y, value }`; the clicked cell also toggles a selection outline. */
+  onDataClick?: (payload: HeatmapClickPayload) => void;
   /** Pixel height of the chart. @default 300 */
   height?: number;
   /** Accessible name for the chart's `<svg role="img">`. Per-cell values are exposed via the hidden data table, not this label. Defaults to `"heatmap"`; also accepts `aria-label`. */

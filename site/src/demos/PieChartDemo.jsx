@@ -8,20 +8,30 @@ const trafficData = [
   { label: "Email", value: 75 },
 ];
 
-const statusData = [
-  { label: "Done", value: 62, color: "var(--emerald-500)" },
-  { label: "In progress", value: 28 },
-  { label: "Blocked", value: 10 },
-];
-
 export default function PieChartDemo() {
+  const [picked, setPicked] = React.useState(null);
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
       <div style={{ maxWidth: 520 }}>
-        <PieChart data={trafficData} />
+        <PieChart
+          donut
+          showLabels
+          data={trafficData}
+          centerLabel="745"
+          onDataClick={(p) => setPicked(p)}
+          ariaLabel="Interactive traffic-source donut chart"
+        />
       </div>
-      <div style={{ maxWidth: 520 }}>
-        <PieChart donut showLabels data={statusData} centerLabel="100%" />
+      <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text-muted)" }}>
+        {picked ? (
+          <>
+            Clicked{" "}
+            <strong style={{ color: "var(--color-text)" }}>{String(picked.label)}</strong> ={" "}
+            {picked.value} ({picked.percent}%)
+          </>
+        ) : (
+          "Hover a slice for details · click to select"
+        )}
       </div>
     </div>
   );

@@ -1482,7 +1482,7 @@ export const components = [
   {
     "name": "Chart",
     "slug": "chart",
-    "group": "Data display",
+    "group": "Charts",
     "summary": "A lightweight, dependency-free SVG chart that renders bar or line graphs (single or multi-series) with grid, axes, animated entrance, tooltips, and an optional legend. Use it to visualize small datasets like daily metrics or trends without pulling in a charting library.",
     "importName": "Chart",
     "propsRows": [
@@ -1564,6 +1564,27 @@ export const components = [
         "description": "Play the entrance animation (bars grow, lines draw); respects prefers-reduced-motion."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
+        "prop": "crosshair",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Show a vertical crosshair guide line at the hovered category on line/area/vertical-bar charts."
+      },
+      {
+        "prop": "zoomable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -1640,7 +1661,7 @@ export const components = [
   {
     "name": "PieChart",
     "slug": "pie-chart",
-    "group": "Data display",
+    "group": "Charts",
     "importName": "PieChart",
     "summary": "A dependency-free inline-SVG pie or donut chart that renders proportional slices of a whole from a single value series, with per-slice tooltips, an optional legend, percentage labels, and a donut center label. Reach for it to show part-to-whole composition; use Chart for bar/line/area trends.",
     "propsRows": [
@@ -1743,6 +1764,13 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the chart's accessible label."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -1812,7 +1840,7 @@ export const components = [
   {
     "name": "DonutChart",
     "slug": "donut-chart",
-    "group": "Data display",
+    "group": "Charts",
     "importName": "DonutChart",
     "summary": "A PieChart preset rendered as a ring with a hollow center, showing proportional slices of a single value series with tooltips, an optional legend, and a donut center label. Reach for it to visualize parts-of-a-whole (traffic sources, budget splits, storage breakdowns) when you want a total called out in the middle.",
     "propsRows": [
@@ -1913,6 +1941,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Caption for the hidden data table; defaults to the chart's accessible label."
+      },
+      {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
       }
     ],
     "snippet": "import { DonutChart } from \"twico-ui\";\n\n<DonutChart\n  data={[\n    { label: \"Direct\", value: 42 },\n    { label: \"Referral\", value: 28 },\n    { label: \"Social\", value: 30 },\n  ]}\n  centerLabel=\"Traffic\"\n  showLegend\n/>\n\n<DonutChart data={data} donut={false} />",
@@ -1921,7 +1956,7 @@ export const components = [
   {
     "name": "Gauge",
     "slug": "gauge",
-    "group": "Data display",
+    "group": "Charts",
     "importName": "Gauge",
     "summary": "A dependency-free inline-SVG radial gauge that renders a single value as a thick arc sweeping between two angles, with the value and an optional caption in the center. Reach for it to show a KPI, progress, or capacity reading — or pass `series` to draw several concentric rings as a radial-bar chart.",
     "propsRows": [
@@ -2045,6 +2080,13 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the gauge's accessible label."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -2114,7 +2156,7 @@ export const components = [
   {
     "name": "Sparkline",
     "slug": "sparkline",
-    "group": "Data display",
+    "group": "Charts",
     "importName": "Sparkline",
     "summary": "A minimal, word-sized trend chart — line, area, or bars — with no axes, grid, ticks, or legend. Reach for it to sit inline beside text or inside a table cell or stat tile; for a full chart with axes, tooltips, and a legend use Chart instead.",
     "propsRows": [
@@ -2224,6 +2266,13 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the accessible label when not provided."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -2293,7 +2342,7 @@ export const components = [
   {
     "name": "ScatterChart",
     "slug": "scatter-chart",
-    "group": "Data display",
+    "group": "Charts",
     "importName": "ScatterChart",
     "summary": "A dependency-free inline-SVG scatter and bubble chart that plots x/y points across two nice-scaled numeric axes, with one or many series, grid, tooltips, an optional legend, and a hidden data table. Reach for it to show correlation or distribution between two numeric variables — add a per-point z value to encode a third dimension as bubble size.",
     "propsRows": [
@@ -2403,6 +2452,20 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the chart's accessible label."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
+        "prop": "zoomable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -2472,7 +2535,7 @@ export const components = [
   {
     "name": "BubbleChart",
     "slug": "bubble-chart",
-    "group": "Data display",
+    "group": "Charts",
     "importName": "BubbleChart",
     "summary": "A dependency-free SVG bubble chart — a ScatterChart preset that sizes each dot by a third value (z) across two nice-scaled numeric axes. Reach for it when you need to show a third dimension (volume, revenue, weight) on top of an x/y relationship.",
     "propsRows": [
@@ -2580,6 +2643,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Caption for the hidden data table; defaults to the chart's accessible label."
+      },
+      {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
+        "prop": "zoomable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart."
       }
     ],
     "snippet": "import { BubbleChart } from \"twico-ui\";\n\n<BubbleChart\n  series={[\n    { name: \"Plans\", points: [\n      { x: 12, y: 40, z: 800, label: \"Starter\" },\n      { x: 26, y: 65, z: 2400, label: \"Team\" },\n      { x: 48, y: 82, z: 5200, label: \"Business\" },\n    ] },\n  ]}\n  xLabel=\"Seats\"\n  yLabel=\"Satisfaction\"\n/>",
@@ -2588,7 +2665,7 @@ export const components = [
   {
     "name": "RadarChart",
     "slug": "radar-chart",
-    "group": "Data display",
+    "group": "Charts",
     "importName": "RadarChart",
     "summary": "A dependency-free SVG radar (spider) chart that plots one or more series as closed polygons over a shared set of categorical axes radiating from a center. Reach for it to compare multi-dimensional profiles — skill sets, scorecards, feature ratings — where each entity is a shape across the same handful of metrics.",
     "propsRows": [
@@ -2684,6 +2761,13 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the chart's accessible label."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -2753,7 +2837,7 @@ export const components = [
   {
     "name": "PolarAreaChart",
     "slug": "polar-area-chart",
-    "group": "Data display",
+    "group": "Charts",
     "importName": "PolarAreaChart",
     "summary": "A dependency-free inline-SVG polar-area (Coxcomb / Nightingale rose) chart of equal-angle slices whose radius encodes each value over concentric value rings. Reach for it to compare a handful of categories where slice area — scaled by the square root so it stays statistically honest — reads more naturally than bars or wedges.",
     "propsRows": [
@@ -2835,6 +2919,13 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -2904,7 +2995,7 @@ export const components = [
   {
     "name": "Heatmap",
     "slug": "heatmap",
-    "group": "Data display",
+    "group": "Charts",
     "importName": "Heatmap",
     "summary": "A dependency-free SVG matrix of colored cells keyed by (x, y), each shaded by a single-hue intensity scale between min and max. Reach for it to reveal density, correlation, or activity patterns across two categorical dimensions — think punch-card activity grids, cohort retention, or correlation matrices.",
     "propsRows": [
@@ -3014,6 +3105,20 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the chart's accessible label."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
+        "prop": "zoomable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -3083,7 +3188,7 @@ export const components = [
   {
     "name": "FunnelChart",
     "slug": "funnel-chart",
-    "group": "Data display",
+    "group": "Charts",
     "importName": "FunnelChart",
     "summary": "A dependency-free inline-SVG funnel chart that draws descending stages as centered trapezoids tapering from each stage's value to the next. Reach for it to visualize conversion or drop-off flows where each step is a subset of the one above.",
     "propsRows": [
@@ -3165,6 +3270,13 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the chart's accessible label."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -3234,7 +3346,7 @@ export const components = [
   {
     "name": "Treemap",
     "slug": "treemap",
-    "group": "Data display",
+    "group": "Charts",
     "importName": "Treemap",
     "summary": "A dependency-free SVG treemap that partitions a rectangle into tiles sized in proportion to a flat list of values, using a squarified layout that keeps tile aspect ratios near 1:1. Reach for it to show the relative weight of parts within a whole — spend by category, storage by bucket — where a pie would crowd or a bar chart would lose the sense of area.",
     "propsRows": [
@@ -3300,6 +3412,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
+      },
+      {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
       },
       {
         "prop": "onClick",
@@ -3371,7 +3490,7 @@ export const components = [
   {
     "name": "Candlestick",
     "slug": "candlestick",
-    "group": "Data display",
+    "group": "Charts",
     "importName": "Candlestick",
     "summary": "An OHLC candlestick chart that draws one candle per period — a high→low wick and an open→close body colored by direction — as dependency-free inline SVG. Reach for it to visualize price or range data over time; use Chart for bars, lines and areas.",
     "propsRows": [
@@ -3446,6 +3565,20 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
+        "prop": "zoomable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -3515,7 +3648,7 @@ export const components = [
   {
     "name": "Boxplot",
     "slug": "boxplot",
-    "group": "Data display",
+    "group": "Charts",
     "importName": "Boxplot",
     "summary": "A dependency-free inline-SVG box-and-whisker chart that draws one box per category from a five-number summary (min, Q1, median, Q3, max) with whiskers and optional outlier points. Reach for it to compare the spread, skew, and outliers of distributions across groups where a bar or line chart would hide the shape of the data.",
     "propsRows": [
@@ -3581,6 +3714,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
+      },
+      {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
+        "prop": "zoomable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart."
       },
       {
         "prop": "onClick",
@@ -3652,7 +3799,7 @@ export const components = [
   {
     "name": "RangeChart",
     "slug": "range-chart",
-    "group": "Data display",
+    "group": "Charts",
     "importName": "RangeChart",
     "summary": "A dependency-free inline-SVG chart for values that span a min→max range: horizontal range bars for a timeline/Gantt of one band per row, or a range area shading the band between a per-category min line and max line. Reach for it when each data point is an interval (start→end, low→high) rather than a single value.",
     "propsRows": [
@@ -3725,6 +3872,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
+      },
+      {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
+        "prop": "zoomable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart."
       },
       {
         "prop": "onClick",

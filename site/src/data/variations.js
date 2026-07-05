@@ -372,6 +372,11 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "Chart",
+    "title": "Interactive: zoom + pan + click",
+    "i": 6
+  },
+  {
     "component": "Checkbox",
     "title": "Basic states",
     "i": 0

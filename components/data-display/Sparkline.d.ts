@@ -6,6 +6,16 @@ import * as React from "react";
  */
 export type SparklineDatum = number | { value: number; label?: React.ReactNode };
 
+/** Payload passed to `onDataClick` when a point/bar is clicked. */
+export interface SparklineClickPayload {
+  /** The clicked point's numeric value. */
+  value: number;
+  /** Index of the clicked point in the `data` array. */
+  index: number;
+  /** The point's `label` (falls back to its 1-based index). */
+  label: React.ReactNode;
+}
+
 /**
  * Sparkline — a minimal, word-sized trend chart (line, area, or bars) with no
  * axes, grid, ticks, or legend, meant to sit inline beside text or inside a
@@ -13,7 +23,7 @@ export type SparklineDatum = number | { value: number; label?: React.ReactNode }
  * vertical space, with an optional emphasised trailing dot. For a full chart
  * with axes, tooltips, and a legend use the `Chart` component.
  *
- * @startingPoint section="Data display" subtitle="Tiny inline trend line (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Tiny inline trend line (no deps)" viewport="700x280"
  */
 export interface SparklineProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
   /** Data points: bare numbers, or `{ value, label }` objects. */
@@ -40,6 +50,8 @@ export interface SparklineProps extends Omit<React.HTMLAttributes<HTMLDivElement
   max?: number;
   /** Value formatter for tooltips + the hidden data table. @default toLocaleString */
   valueFormat?: (value: number) => string;
+  /** Fires when a point/bar is clicked with its value, index, and label; the clicked mark also toggles a selection outline. */
+  onDataClick?: (payload: SparklineClickPayload) => void;
   /** Accessible name for the `<svg role="img">`; defaults to a spoken summary (point count + first/last/min/max, or +latest when a table is present). Also accepts `aria-label`. */
   ariaLabel?: string;
   /** Render a visually-hidden data table as a text alternative (WCAG 1.1.1); off by default since the summarizing aria-label usually suffices for a sparkline. @default false */

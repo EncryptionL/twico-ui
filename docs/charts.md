@@ -62,6 +62,59 @@ what keeps the family visually and behaviourally consistent:
 - **Robust** — every chart guards empty / degenerate data (no rows, total 0, `min === max`) instead of
   throwing or dividing by zero.
 
+## Data-label legibility (text on coloured marks)
+
+Some charts print a value/percent **on top of a coloured mark** (pie/donut slice %, treemap
+tile label + value, funnel stage caption, heatmap cell value). The mark fills are fixed `-500`
+palette primitives that **don't flip with the theme**, so a theme-aware text colour
+(`--color-surface` / `--color-text-inverted`) washed out on light slices like `amber-500` and
+inverted the wrong way in dark mode. The fix is a **static light fill + a translucent dark halo**,
+applied with SVG `paint-order: stroke` (the fill paints over the stroke, so the stroke reads as an
+outline) so the label stays legible on **any** slice colour in **either** theme:
+
+- Two static tokens (in `tokens/colors.css`, intentionally **not** re-declared under `.dark`):
+  `--color-chart-on-fill` (white) and `--color-chart-on-fill-halo` (`slate-900 @ 55%`). Mirror
+  them in `palette.html` or `verify:palette` fails.
+- `PieChart`/`DonutChart`, `Treemap`, and `FunnelChart` use those tokens for their on-slice text.
+- `Heatmap` is the exception: its cells are `color-mix(colorScale, transparent)` so they **do**
+  track the page background — its cell values keep the theme-aware `--color-text` fill but gain a
+  `--color-surface` halo (white outline in light mode, dark in dark mode), which reads on both
+  faint and saturated cells.
+- Charts whose `showValues` labels sit in the plot **background** rather than on a mark
+  (`Chart` bar/line value labels, axis ticks, `Gauge`/radar centre text) are unaffected and keep
+  their muted text colour.
+- On the `preserveAspectRatio="none"` charts (Treemap, Funnel, Heatmap) the halo also sets
+  `vector-effect: non-scaling-stroke` so anisotropic scaling can't distort the outline.
+
+## Interactivity
+
+All charts share one interaction layer (in `_chart.js`) so behavior is consistent:
+
+- **Floating tooltip** — `useChartTooltip()` + `<ChartTooltip>` render a cursor-following card
+  (colour swatch + label + value). Positioned from the pointer event, so it works regardless of
+  `preserveAspectRatio`. Replaces native `<title>` tooltips.
+- **Hover emphasis** — a `[data-mark]` + `[data-active]` + root `[data-hovering]` convention lets a
+  chart fade every mark except the hovered/focused one (used by the slice charts and legend focus).
+- **Legend** — `<ChartLegend>` supports `onToggle`/`hidden` (click a series to hide it) and
+  `onFocus`/`onBlur` (hover a legend entry to spotlight that series and dim the rest).
+- **Click + selection + focus** — every chart takes an **`onDataClick`** callback that fires with the
+  clicked datum + metadata (each component documents its payload; `Chart` exports `ChartClickPayload`).
+  Selection works standalone too (no callback required): the clicked mark toggles a soft
+  `data-selected` ring, and the root's `data-has-selection` **dims the other marks** — a universal
+  focus interaction on every chart. On the radial charts (Pie / Donut / PolarArea / Funnel) the
+  selected slice/stage additionally **explodes** (pops outward), the radial equivalent of zoom.
+- **Crosshair** (`Chart`) — a vertical guide line follows the hovered category on line/area/vertical-bar
+  charts (`crosshair`, default on).
+- **Zoom & pan** — opt-in **`zoomable`** on every chart with an axis or grid: `Chart` / `Candlestick` /
+  `RangeChart` / `Boxplot` (categorical x-window) and `ScatterChart` / `Heatmap` (continuous 2-D
+  region). A transparent full-plot overlay handles drag-to-select-a-range, **shift-drag to pan**, and a
+  non-passive `wheel` listener zooms about the cursor; a **Reset** button appears while zoomed. All
+  layout-derived coordinates are guarded so a zero-size (pre-layout / test) container never throws.
+  (The radial/proportional charts — Pie, Gauge, Radar, Polar, Funnel, Treemap, Sparkline — have no
+  pannable axis, so they get click-to-explode / focus-dim instead.)
+- **Entrance animations** — bars grow, lines draw (`stroke-dashoffset`), arcs/areas/cells fade; all
+  disabled under `prefers-reduced-motion`.
+
 ## Accessibility model
 
 A chart is an image with a text alternative. Rather than making the SVG a screen-reader-navigable tree,

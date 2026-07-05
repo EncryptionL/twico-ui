@@ -6,8 +6,8 @@ import {
 } from "./_chart.js";
 
 const TREEMAP_CSS = `
-.twc-chart__tile-label { fill: var(--color-text-inverted); font-size: var(--text-xs); font-weight: var(--font-semibold); pointer-events: none; }
-.twc-chart__tile-value { fill: var(--color-text-inverted); font-size: 11px; opacity: 0.82; pointer-events: none; }
+.twc-chart__tile-label { fill: var(--color-chart-on-fill); paint-order: stroke; stroke: var(--color-chart-on-fill-halo); stroke-width: 3px; stroke-linejoin: round; vector-effect: non-scaling-stroke; font-size: var(--text-xs); font-weight: var(--font-semibold); pointer-events: none; }
+.twc-chart__tile-value { fill: var(--color-chart-on-fill); paint-order: stroke; stroke: var(--color-chart-on-fill-halo); stroke-width: 3px; stroke-linejoin: round; vector-effect: non-scaling-stroke; font-size: 11px; opacity: 0.9; pointer-events: none; }
 .twc-chart__empty { fill: var(--color-text-subtle); font-size: var(--text-sm); }
 `;
 
@@ -16,7 +16,8 @@ const TREEMAP_CSS = `
  * proportion to a flat list of values (Bruls/Huizing/van Wijk, 1999). Tiles are
  * packed to keep their aspect ratios near 1:1. Dependency-free inline SVG; each
  * tile shows its label (and value, when it fits), animates in, and reveals a
- * floating tooltip with hover emphasis that dims the other tiles.
+ * floating tooltip with hover emphasis that dims the other tiles. Clicking a tile
+ * fires `onDataClick` and toggles a selection outline.
  */
 export function Treemap({
   data,
@@ -25,6 +26,7 @@ export function Treemap({
   height = 300,
   colors,
   gap = 2,
+  onDataClick,
   ariaLabel,
   "aria-label": ariaLabelProp,
   tableFallback = true,
@@ -38,10 +40,12 @@ export function Treemap({
   const tableId = tableFallback ? `${uid}-table` : undefined;
   const { containerRef, tip, show, hide } = useChartTooltip();
   const [hovered, setHovered] = React.useState(null);
+  const [selected, setSelected] = React.useState(null);
 
   const rows = data || [];
   const fmt = valueFormat || fmtNumber;
   const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "treemap";
+  const clickable = !!onDataClick;
 
   const W = 600, H = height;
 
@@ -64,7 +68,7 @@ export function Treemap({
   const g = Math.max(0, gap);
 
   return (
-    <div ref={containerRef} className={`twc-chart twc-chart--treemap ${className}`.trim()} data-hovering={hovered != null || undefined} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--treemap ${className}`.trim()} data-hovering={hovered != null || undefined} data-has-selection={selected != null || undefined} data-clickable={clickable || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
@@ -89,9 +93,14 @@ export function Treemap({
               <g key={t.i}>
                 <clipPath id={clipId}><rect x={x} y={y} width={w} height={h} rx="4" /></clipPath>
                 <rect className="twc-chart__tile twc-chart__anim-fade" data-mark data-active={hovered === t.i || undefined}
+                  data-selected={selected === t.i || undefined}
                   x={x} y={y} width={w} height={h} rx="4" style={{ fill: color }}
                   onMouseMove={(e) => { setHovered(t.i); show({ title: label, items: tipItems }, e); }}
-                  onMouseLeave={() => { setHovered(null); hide(); }} />
+                  onMouseLeave={() => { setHovered(null); hide(); }}
+                  onClick={() => {
+                    if (onDataClick) onDataClick({ label: d.label, value: t.w, index: t.i, share: total > 0 ? t.w / total : 0 });
+                    setSelected((s) => (s === t.i ? null : t.i));
+                  }} />
                 {showText ? (
                   <g clipPath={`url(#${clipId})`} aria-hidden="true">
                     <text className="twc-chart__tile-label" x={x + 8} y={y + 17}>{label}</text>

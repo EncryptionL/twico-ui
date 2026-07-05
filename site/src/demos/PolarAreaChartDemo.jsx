@@ -23,10 +23,29 @@ const windData = [
 ];
 
 export default function PolarAreaChartDemo() {
+  const [picked, setPicked] = React.useState(null);
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-      <div style={{ maxWidth: 520 }}>
-        <PolarAreaChart data={hoursData} valueFormat={(v) => `${v}h`} />
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <div style={{ maxWidth: 520 }}>
+          <PolarAreaChart
+            data={hoursData}
+            valueFormat={(v) => `${v}h`}
+            onDataClick={(p) => setPicked(p)}
+            ariaLabel="Focus hours by day of week"
+          />
+        </div>
+        <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text-muted)" }}>
+          {picked ? (
+            <>
+              Clicked{" "}
+              <strong style={{ color: "var(--color-text)" }}>{String(picked.label)}</strong> ={" "}
+              {picked.value}h
+            </>
+          ) : (
+            "Hover a slice for details · click to select"
+          )}
+        </div>
       </div>
       <div style={{ maxWidth: 520 }}>
         <PolarAreaChart

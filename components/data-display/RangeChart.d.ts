@@ -16,14 +16,27 @@ export interface RangeDatum {
   color?: string;
 }
 
+/** Payload passed to `onDataClick` when a range bar/band segment is clicked. */
+export interface RangeChartClickPayload {
+  /** The clicked segment's `label`. */
+  label: React.ReactNode;
+  /** Lower bound of the clicked range. */
+  min: number;
+  /** Upper bound of the clicked range. */
+  max: number;
+  /** Index of the segment in the full (un-zoomed) `data` array. */
+  index: number;
+}
+
 /**
  * Range chart — horizontal range bars (a timeline / Gantt of one min→max band
  * per row) or a range area (a shaded band between a per-category min line and
- * max line), with a shared value axis, grid, tooltips and an accessible data
- * table. Dependency-free inline SVG. For bars/lines/areas use `Chart`; for other
+ * max line), with a shared value axis, grid, tooltips, click (`onDataClick`) +
+ * selection, optional drag/wheel zoom, and an accessible data table.
+ * Dependency-free inline SVG. For bars/lines/areas use `Chart`; for other
  * shapes use the dedicated sibling chart components.
  *
- * @startingPoint section="Data display" subtitle="Range bar / range area chart (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Range bar / range area chart (no deps)" viewport="700x280"
  */
 export interface RangeChartProps extends React.HTMLAttributes<HTMLDivElement> {
   /** `"bar"` = horizontal range bars (timeline/Gantt); `"area"` = a band between a min and max line. @default "bar" */
@@ -36,6 +49,10 @@ export interface RangeChartProps extends React.HTMLAttributes<HTMLDivElement> {
   showGrid?: boolean;
   /** Value axis + category labels. @default true */
   showAxis?: boolean;
+  /** Enable drag-to-zoom over the category axis (+ shift-drag pan, wheel zoom, and a reset button). @default false */
+  zoomable?: boolean;
+  /** Fires when a range bar/band segment is clicked with its label, bounds and full-data index; also toggles a selection outline on that segment. */
+  onDataClick?: (payload: RangeChartClickPayload) => void;
   /** Palette for bar fills / the area band, cycled by index. Defaults to the built-in token palette. */
   colors?: string[];
   /** Tooltip value formatter (also formats the hidden data-table cells). @default toLocaleString */

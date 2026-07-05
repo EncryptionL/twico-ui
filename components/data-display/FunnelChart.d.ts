@@ -10,6 +10,18 @@ export interface FunnelDatum {
   color?: string;
 }
 
+/** Payload passed to `onDataClick` when a funnel stage is clicked. */
+export interface FunnelClickPayload {
+  /** The clicked stage's `label`. */
+  label: React.ReactNode;
+  /** The clicked stage's numeric value. */
+  value: number;
+  /** Index of the stage in the `data` array. */
+  index: number;
+  /** The stage's percentage of the first (top) stage. */
+  percent: number;
+}
+
 /**
  * Funnel chart — descending stages drawn as centered trapezoids that taper from
  * each stage's value to the next, for conversion / drop-off flows. Each band is
@@ -18,7 +30,7 @@ export interface FunnelDatum {
  * and a visually-hidden data table. For bars/lines/areas use `Chart`; for part-of-whole
  * shares use `PieChart`.
  *
- * @startingPoint section="Data display" subtitle="Descending funnel stages (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Descending funnel stages (no deps)" viewport="700x280"
  */
 export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Funnel stages, ordered from the widest/top stage to the narrowest. */
@@ -35,6 +47,8 @@ export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
   height?: number;
   /** Per-stage colors (any CSS color), cycled when shorter than `data`. Defaults to the token palette. */
   colors?: string[];
+  /** Fires when a stage is clicked with its label, value, index, and percent-of-top; also toggles a selection outline on the clicked stage. */
+  onDataClick?: (payload: FunnelClickPayload) => void;
   /** Value formatter for captions, tooltips, and the hidden data-table cells. @default toLocaleString */
   valueFormat?: (value: number) => string;
   /** Accessible name for the chart's `<svg role="img">`; per-stage values live in the hidden table. Defaults to `"funnel chart"`; also accepts `aria-label`. */

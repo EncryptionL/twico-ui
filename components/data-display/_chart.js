@@ -190,14 +190,15 @@ export const CHART_BASE_CSS = `
 .twc-chart__leg[data-off="true"] { opacity: 0.4; }
 .twc-chart__leg-sw { width: 10px; height: 10px; border-radius: 3px; flex: none; }
 
-/* Floating tooltip — a styled card that follows the pointer (ApexCharts / MUI X style). */
+/* Floating tooltip — a styled card that follows the pointer (ApexCharts / MUI X style).
+   Positioned inline by <ChartTooltip> (which flips below / clamps to the container so it
+   never clips); only the opacity fades in here so it can't fight the inline transform. */
 .twc-chart__tip {
-  position: absolute; z-index: 3; top: 0; left: 0; pointer-events: none;
-  transform: translate(-50%, calc(-100% - 12px));
-  min-width: 96px; max-width: 260px; padding: 8px 10px;
+  position: absolute; z-index: 3; top: 0; left: 0; pointer-events: none; will-change: transform;
+  min-width: 88px; max-width: 240px; padding: 7px 9px;
   background: var(--color-surface-raised); color: var(--color-text);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg); font-size: var(--text-xs); line-height: 1.45;
+  box-shadow: var(--shadow-lg); font-size: var(--text-xs); line-height: 1.4;
   opacity: 0; animation: twc-chart-tip-in var(--duration-fast) var(--ease-standard) forwards;
 }
 .twc-chart__tip-title { font-weight: var(--font-bold); color: var(--color-text); margin-bottom: 4px; white-space: nowrap; }
@@ -206,12 +207,36 @@ export const CHART_BASE_CSS = `
 .twc-chart__tip-sw { width: 9px; height: 9px; border-radius: 2px; flex: none; }
 .twc-chart__tip-label { color: var(--color-text-muted); flex: 1; overflow: hidden; text-overflow: ellipsis; }
 .twc-chart__tip-val { font-weight: var(--font-semibold); color: var(--color-text); font-variant-numeric: tabular-nums; }
-@keyframes twc-chart-tip-in { from { opacity: 0; transform: translate(-50%, calc(-100% - 6px)); } to { opacity: 1; transform: translate(-50%, calc(-100% - 12px)); } }
+@keyframes twc-chart-tip-in { from { opacity: 0; } to { opacity: 1; } }
 
 /* Hover emphasis: when the chart marks itself hovered, fade every mark except the active one. */
-.twc-chart[data-hovering="true"] [data-mark] { opacity: 0.28; transition: opacity var(--duration-fast) var(--ease-standard); }
+.twc-chart[data-hovering="true"] [data-mark] { opacity: 0.3; transition: opacity var(--duration-base) var(--ease-standard); }
 .twc-chart[data-hovering="true"] [data-mark][data-active="true"] { opacity: 1; }
-[data-mark] { transition: opacity var(--duration-fast) var(--ease-standard); cursor: default; }
+[data-mark] { transition: opacity var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-spring); cursor: default; }
+
+/* Click-to-select: a soft accent ring + glow on the chosen mark (not a heavy outline). */
+[data-mark][data-selected="true"] { stroke: var(--color-text); stroke-width: 1.5; stroke-opacity: 0.5; paint-order: stroke; filter: drop-shadow(0 0 3px color-mix(in srgb, var(--color-text) 22%, transparent)); }
+/* Click-to-focus: a persistent selection also dims the other marks (focus mode), on every chart. */
+.twc-chart[data-has-selection="true"] [data-mark]:not([data-selected="true"]) { opacity: 0.4; }
+.twc-chart[data-clickable="true"] [data-mark], .twc-chart__overlay[data-clickable="true"] { cursor: pointer; }
+
+/* Crosshair + full-plot event overlay (cartesian shared-axis interactions). */
+.twc-chart__overlay, .twc-chart__zone { fill: transparent; }
+.twc-chart__crosshair { stroke: var(--color-border-strong); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.7; pointer-events: none; }
+
+/* Drag-to-zoom affordances: a crosshair cursor over the zoom overlay + a bordered band. */
+.twc-chart__overlay[data-zoom="true"] { cursor: crosshair; }
+.twc-chart__overlay[data-zoom="true"][data-panning="true"] { cursor: grabbing; }
+.twc-chart__zoomband { fill: var(--color-primary); opacity: 0.14; stroke: var(--color-primary); stroke-opacity: 0.5; stroke-width: 1; pointer-events: none; }
+.twc-chart__zoom-reset {
+  position: absolute; top: 6px; inset-inline-end: 8px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px;
+  font-family: var(--font-sans); font-size: var(--text-xs); color: var(--color-text-muted);
+  background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-sm); cursor: pointer;
+}
+.twc-chart__zoom-reset:hover { color: var(--color-text); border-color: var(--color-border-strong); }
+.twc-chart__zoom-reset svg { width: 12px; height: 12px; }
 
 /* Entrance animations (respect reduced motion, below). */
 @keyframes twc-chart-fade { from { opacity: 0; } to { opacity: 1; } }
@@ -266,8 +291,12 @@ export function ChartTable({ id, caption, columns, rows }) {
   );
 }
 
-/** Series legend. `items` are `{ label, color }`; pass `onToggle`/`hidden` to make it interactive. */
-export function ChartLegend({ items, onToggle, hidden }) {
+/**
+ * Series legend. `items` are `{ label, color }`. `onToggle`/`hidden` make items
+ * click-to-hide; `onFocus(item, i)` / `onBlur()` fire on hover so the chart can
+ * emphasize the hovered series and dim the rest.
+ */
+export function ChartLegend({ items, onToggle, hidden, onFocus, onBlur }) {
   const h = React.createElement;
   return h(
     "div",
@@ -286,6 +315,8 @@ export function ChartLegend({ items, onToggle, hidden }) {
           onKeyDown: onToggle
             ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onToggle(it, i); } }
             : undefined,
+          onMouseEnter: onFocus ? () => onFocus(it, i) : undefined,
+          onMouseLeave: onBlur ? () => onBlur() : undefined,
         },
         h("span", { className: "twc-chart__leg-sw", style: { background: it.color } }),
         it.label,
@@ -318,16 +349,41 @@ export function useChartTooltip() {
   return { containerRef, tip, show, hide };
 }
 
-/** Renders the floating tooltip card. Place inside the `.twc-chart` root; pass `useChartTooltip().tip`. */
+/**
+ * Renders the floating tooltip card. Place inside the `.twc-chart` root; pass
+ * `useChartTooltip().tip`. It measures itself + its container before paint and:
+ *   - flips BELOW the cursor when there isn't room above,
+ *   - shifts horizontally so it never spills past the container edges.
+ * SSR-safe (measurement runs in a layout effect); degrades to the default anchor
+ * when layout is unavailable (offset sizes 0).
+ */
 export function ChartTooltip({ tip }) {
   const h = React.createElement;
+  const ref = React.useRef(null);
+  const [pos, setPos] = React.useState({ dx: 0, below: false });
+  React.useLayoutEffect(() => {
+    const el = ref.current;
+    if (!tip || !el) return;
+    const parent = el.offsetParent;
+    const pw = parent && parent.clientWidth ? parent.clientWidth : 0;
+    const w = el.offsetWidth || 0, ht = el.offsetHeight || 0;
+    let dx = 0;
+    if (pw > 0 && w > 0) {
+      const half = w / 2;
+      if (tip.left - half < 6) dx = 6 - (tip.left - half);
+      else if (tip.left + half > pw - 6) dx = pw - 6 - (tip.left + half);
+    }
+    setPos({ dx, below: ht > 0 && tip.top - ht - 16 < 0 });
+  }, [tip]);
   if (!tip) return null;
-  // The card is translated -50% horizontally; clamp the low edge so it can't spill off the
-  // left. The right edge + vertical are bounded by max-width and the chart's top padding.
-  const left = Math.max(48, tip.left);
+  const style = {
+    left: tip.left + pos.dx,
+    top: tip.top,
+    transform: pos.below ? "translate(-50%, 18px)" : "translate(-50%, calc(-100% - 14px))",
+  };
   return h(
     "div",
-    { className: "twc-chart__tip", role: "tooltip", "aria-hidden": "true", style: { left, top: tip.top } },
+    { ref, className: "twc-chart__tip", role: "tooltip", "aria-hidden": "true", style },
     tip.title != null && tip.title !== "" ? h("div", { className: "twc-chart__tip-title" }, tip.title) : null,
     (tip.items || []).map((it, i) =>
       h(

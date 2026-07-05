@@ -118,6 +118,15 @@
   --color-text-subtle:    var(--slate-400);
   --color-text-inverted:  #ffffff;
 
+  /* Data labels painted ON coloured chart marks (pie/donut slices, treemap tiles,
+     funnel stages). The mark fills are fixed -500 primitives that DON'T flip with
+     theme, so these must stay static too (they are intentionally NOT re-declared in
+     .dark): a light fill + a translucent dark halo — applied via `paint-order:
+     stroke` — keeps the text legible on any slice colour, including light ones like
+     amber-500, in both light and dark mode. */
+  --color-chart-on-fill:      #ffffff;
+  --color-chart-on-fill-halo: rgb(15 23 42 / 0.55); /* slate-900 @ 55% */
+
   /* Primary / brand */
   --color-primary:         var(--brand-500);
   --color-primary-hover:   var(--brand-600);

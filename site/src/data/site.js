@@ -4,6 +4,7 @@ export const GROUP_ORDER = [
   "Typography",
   "Inputs",
   "Data display",
+  "Charts",
   "Navigation",
   "Overlay",
   "Feedback",
