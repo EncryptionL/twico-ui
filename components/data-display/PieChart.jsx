@@ -9,7 +9,7 @@ const CHART_CSS = `
 .twc-chart--pie svg { overflow: visible; }
 .twc-chart__slice { transition: opacity var(--duration-fast) var(--ease-standard); stroke: var(--color-surface); stroke-width: 1.5; }
 .twc-chart__slice:hover { opacity: 0.85; }
-.twc-chart__slice-label { fill: var(--color-surface); font-size: 11px; font-weight: 600; }
+.twc-chart__slice-label { fill: var(--color-chart-on-fill); paint-order: stroke; stroke: var(--color-chart-on-fill-halo); stroke-width: 3px; stroke-linejoin: round; vector-effect: non-scaling-stroke; font-size: 11px; font-weight: 600; }
 .twc-chart__center { fill: var(--color-text); font-weight: 700; }
 .twc-chart__center-sub { fill: var(--color-text-subtle); }
 .twc-chart__empty { fill: var(--color-text-subtle); font-size: var(--text-sm); }

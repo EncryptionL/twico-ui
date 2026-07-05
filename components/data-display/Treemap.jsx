@@ -6,8 +6,8 @@ import {
 } from "./_chart.js";
 
 const TREEMAP_CSS = `
-.twc-chart__tile-label { fill: var(--color-text-inverted); font-size: var(--text-xs); font-weight: var(--font-semibold); pointer-events: none; }
-.twc-chart__tile-value { fill: var(--color-text-inverted); font-size: 11px; opacity: 0.82; pointer-events: none; }
+.twc-chart__tile-label { fill: var(--color-chart-on-fill); paint-order: stroke; stroke: var(--color-chart-on-fill-halo); stroke-width: 3px; stroke-linejoin: round; vector-effect: non-scaling-stroke; font-size: var(--text-xs); font-weight: var(--font-semibold); pointer-events: none; }
+.twc-chart__tile-value { fill: var(--color-chart-on-fill); paint-order: stroke; stroke: var(--color-chart-on-fill-halo); stroke-width: 3px; stroke-linejoin: round; vector-effect: non-scaling-stroke; font-size: 11px; opacity: 0.9; pointer-events: none; }
 .twc-chart__empty { fill: var(--color-text-subtle); font-size: var(--text-sm); }
 `;
 

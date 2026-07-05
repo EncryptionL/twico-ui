@@ -7,7 +7,7 @@ const HEATMAP_CSS = `
 .twc-chart__hm-cell { transition: opacity var(--duration-fast) var(--ease-standard); }
 .twc-chart__hm-cell:hover { opacity: 0.82; }
 .twc-chart__hm-empty { fill: var(--color-surface-sunken); }
-.twc-chart__hm-val { fill: var(--color-text); font-size: 10px; font-weight: 500; pointer-events: none; }
+.twc-chart__hm-val { fill: var(--color-text); paint-order: stroke; stroke: var(--color-surface); stroke-width: 2.5px; stroke-linejoin: round; vector-effect: non-scaling-stroke; font-size: 10px; font-weight: 500; pointer-events: none; }
 .twc-chart__hm-tick { fill: var(--color-text-subtle); font-size: 11px; }
 .twc-chart__hm-title { fill: var(--color-text-muted); font-size: 11px; font-weight: 500; }
 .twc-chart__hm-scale { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); font-size: var(--text-xs); color: var(--color-text-muted); }

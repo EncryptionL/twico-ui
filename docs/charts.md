@@ -62,6 +62,30 @@ what keeps the family visually and behaviourally consistent:
 - **Robust** — every chart guards empty / degenerate data (no rows, total 0, `min === max`) instead of
   throwing or dividing by zero.
 
+## Data-label legibility (text on coloured marks)
+
+Some charts print a value/percent **on top of a coloured mark** (pie/donut slice %, treemap
+tile label + value, funnel stage caption, heatmap cell value). The mark fills are fixed `-500`
+palette primitives that **don't flip with the theme**, so a theme-aware text colour
+(`--color-surface` / `--color-text-inverted`) washed out on light slices like `amber-500` and
+inverted the wrong way in dark mode. The fix is a **static light fill + a translucent dark halo**,
+applied with SVG `paint-order: stroke` (the fill paints over the stroke, so the stroke reads as an
+outline) so the label stays legible on **any** slice colour in **either** theme:
+
+- Two static tokens (in `tokens/colors.css`, intentionally **not** re-declared under `.dark`):
+  `--color-chart-on-fill` (white) and `--color-chart-on-fill-halo` (`slate-900 @ 55%`). Mirror
+  them in `palette.html` or `verify:palette` fails.
+- `PieChart`/`DonutChart`, `Treemap`, and `FunnelChart` use those tokens for their on-slice text.
+- `Heatmap` is the exception: its cells are `color-mix(colorScale, transparent)` so they **do**
+  track the page background — its cell values keep the theme-aware `--color-text` fill but gain a
+  `--color-surface` halo (white outline in light mode, dark in dark mode), which reads on both
+  faint and saturated cells.
+- Charts whose `showValues` labels sit in the plot **background** rather than on a mark
+  (`Chart` bar/line value labels, axis ticks, `Gauge`/radar centre text) are unaffected and keep
+  their muted text colour.
+- On the `preserveAspectRatio="none"` charts (Treemap, Funnel, Heatmap) the halo also sets
+  `vector-effect: non-scaling-stroke` so anisotropic scaling can't distort the outline.
+
 ## Interactivity
 
 All charts share one interaction layer (in `_chart.js`) so behavior is consistent:
