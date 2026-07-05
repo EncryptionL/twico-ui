@@ -262,7 +262,7 @@ export function Chart({
               <circle className="twc-chart__hit" cx={p[0]} cy={p[1]} r="14"
                 onMouseMove={(e) => onMarkMove(rows[i], i, e)} onMouseLeave={onMarkLeave}
                 onClick={() => { clickDatum(rows[i], k, i); selectMark(`${i}:${k}`); }} />
-              <circle className="twc-chart__dot" style={{ stroke: color }} cx={p[0]} cy={p[1]} r="3.5"
+              <circle className="twc-chart__dot" style={{ stroke: color }} cx={p[0]} cy={p[1]} r={hoverIdx === i ? 5 : 3.5}
                 data-selected={selected === `${i}:${k}` || undefined} />
             </g>
           )) : null}
@@ -292,6 +292,28 @@ export function Chart({
       return <text key={`${k}-${i}`} className="twc-chart__label" x={lineX(i)} y={vPos(v) - 9} textAnchor="middle">{shortNum(v)}</text>;
     }));
   };
+
+  // Full-plot hover zones (one per category) so the crosshair + shared tooltip track the
+  // cursor ANYWHERE in the plot — not only when directly over a bar/point. Rendered behind
+  // the marks (marks stay on top for precise per-series hover/click). Off when `zoomable`
+  // (the zoom overlay owns hovering then).
+  const renderZones = () => rows.map((d, i) => {
+    let x, y, w, hgt;
+    if (isBar && horizontal) { x = padL; w = innerW; y = padT + catBandH * i; hgt = catBandH; }
+    else if (isBar) { x = padL + catBand * i; w = catBand; y = padT; hgt = innerH; }
+    else {
+      const x0 = i === 0 ? padL : (lineX(i - 1) + lineX(i)) / 2;
+      const x1 = i === rows.length - 1 ? padL + innerW : (lineX(i) + lineX(i + 1)) / 2;
+      x = x0; w = x1 - x0; y = padT; hgt = innerH;
+    }
+    return (
+      <rect key={i} className="twc-chart__zone" x={x} y={y} width={Math.max(0, w)} height={hgt}
+        data-clickable={clickable || undefined}
+        onMouseMove={(e) => { show(tipFor(d), e); setHoverIdx(i); }}
+        onMouseLeave={onMarkLeave}
+        onClick={() => { if (onDataClick) onDataClick({ label: d.label, series: null, seriesIndex: -1, value: undefined, index: baseIdx + i, row: d }); }} />
+    );
+  });
 
   const toggle = (it) => setHidden((prev) => {
     const next = new Set(prev);
@@ -328,6 +350,7 @@ export function Chart({
 
         {showCrosshair ? <line className="twc-chart__crosshair" x1={catX(hoverIdx)} y1={padT} x2={catX(hoverIdx)} y2={padT + innerH} /> : null}
 
+        {!zoomable ? renderZones() : null}
         {isBar ? renderBars() : renderLines()}
         {renderValues()}
 
@@ -347,7 +370,8 @@ export function Chart({
         })() : null}
 
         {zoomable ? (
-          <rect className="twc-chart__overlay" data-clickable={clickable || undefined}
+          <rect className="twc-chart__overlay" data-zoom="true" data-clickable={clickable || undefined}
+            data-panning={(drag && drag.pan) || undefined}
             x={padL} y={padT} width={innerW} height={innerH}
             onMouseMove={onOverlayMove} onMouseLeave={() => { onMarkLeave(); setDrag(null); }}
             onMouseDown={onOverlayDown} onMouseUp={onOverlayUp} onClick={onOverlayClick} />

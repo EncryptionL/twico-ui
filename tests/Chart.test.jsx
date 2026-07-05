@@ -157,6 +157,23 @@ describe("Chart interactivity — click, select, legend focus, crosshair, zoom",
     expect(container.querySelector(".twc-chart__crosshair")).toBeInTheDocument();
   });
 
+  it("hover-anywhere zones: hovering a plot zone (between points) shows the tooltip + crosshair", () => {
+    const { container } = render(<Chart type="line" data={[{ label: "a", value: 1 }, { label: "b", value: 5 }, { label: "c", value: 3 }]} />);
+    const zones = container.querySelectorAll(".twc-chart__zone");
+    expect(zones.length).toBe(3); // one per category, covering the whole plot
+    fireEvent.mouseMove(zones[1], { clientX: 5, clientY: 5 });
+    expect(container.querySelector(".twc-chart__tip")).toHaveTextContent("b");
+    expect(container.querySelector(".twc-chart__crosshair")).toBeInTheDocument();
+  });
+
+  it("clicking a plot zone fires a category-level onDataClick (series null)", () => {
+    const onDataClick = vi.fn();
+    const { container } = render(<Chart type="line" data={[{ label: "a", value: 1 }, { label: "b", value: 5 }]} onDataClick={onDataClick} />);
+    fireEvent.click(container.querySelector(".twc-chart__zone"));
+    expect(onDataClick).toHaveBeenCalled();
+    expect(onDataClick.mock.calls[0][0].series).toBeNull();
+  });
+
   it("zoomable renders the event overlay and drag interactions do not throw", () => {
     const { container } = render(<Chart type="line" zoomable data={[{ label: "a", value: 1 }, { label: "b", value: 5 }, { label: "c", value: 3 }]} />);
     const overlay = container.querySelector(".twc-chart__overlay");

@@ -177,6 +177,22 @@ export function Candlestick({
     return () => svg.removeEventListener("wheel", onWheel);
   }, [zoomable, zoom, allRows.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Full-plot hover zones (one per candle) so the OHLC tooltip tracks the cursor ANYWHERE in
+  // the plot — not only when directly over a candle. Rendered behind the marks (the wick + body
+  // stay on top for precise per-candle hover/click/selection). Off when `zoomable` (the zoom
+  // overlay owns hovering then).
+  const renderZones = () => rows.map((d, i) => {
+    const gi = baseIdx + i;
+    return (
+      <rect key={i} className="twc-chart__zone" x={padL + catBand * i} y={padT}
+        width={catBand} height={innerH}
+        data-clickable={clickable || undefined}
+        onMouseMove={(e) => show(tipFor(d), e)}
+        onMouseLeave={hide}
+        onClick={() => { if (onDataClick) clickCandle(d, gi); }} />
+    );
+  });
+
   const dragBand = zoomable && drag && !drag.pan && drag.end !== drag.start;
 
   return (
@@ -193,6 +209,9 @@ export function Candlestick({
         {showAxis ? scale.ticks.map((t, i) => (
           <text key={i} className="twc-candlestick__axis" x={padL - 8} y={vPos(t) + 4} textAnchor="end">{shortNum(t)}</text>
         )) : null}
+
+        {/* full-plot hover zones (behind the candles) */}
+        {!zoomable ? renderZones() : null}
 
         {/* candles */}
         {rows.map((d, i) => {
@@ -211,9 +230,6 @@ export function Candlestick({
             <g key={i} className="twc-chart__anim-fade" data-dir={up ? "up" : "down"}
               onMouseMove={(e) => show(tipFor(d), e)} onMouseLeave={hide}
               onClick={() => { clickCandle(d, gi); selectMark(gi); }}>
-              {/* transparent hit target spanning the full band for easy hovering */}
-              <rect x={padL + catBand * i} y={padT} width={catBand} height={innerH} fill="transparent"
-                style={{ cursor: clickable ? "pointer" : "default" }} />
               <line className="twc-candlestick__wick" style={{ stroke: color }}
                 x1={x} y1={vPos(high)} x2={x} y2={vPos(low)} />
               <rect className="twc-candlestick__body" style={{ fill: color }} data-mark

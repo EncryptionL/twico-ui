@@ -227,6 +227,30 @@ export function RangeChart({
     );
   };
 
+  // Full-plot hover zones (one per category) so the shared tooltip tracks the cursor
+  // ANYWHERE in the plot — not only when directly over a bar/band. Rendered behind the
+  // marks (marks stay on top for precise per-row hover/click). Off when `zoomable` (the
+  // zoom overlay owns hovering then). For bars the categories sit on the y-axis, so each
+  // zone spans the full value width across that row's band; for the area they sit on the
+  // x-axis, so each zone is a full-height x-band centred on the category (midpoint splits).
+  const renderZones = () => rows.map((d, i) => {
+    let x, y, w, hgt;
+    if (isArea) {
+      const x0 = i === 0 ? padL : (lineX(i - 1) + lineX(i)) / 2;
+      const x1 = i === rows.length - 1 ? padL + innerW : (lineX(i) + lineX(i + 1)) / 2;
+      x = x0; w = x1 - x0; y = padT; hgt = innerH;
+    } else {
+      x = padL; w = innerW; y = padT + catBandH * i; hgt = catBandH;
+    }
+    return (
+      <rect key={i} className="twc-chart__zone" x={x} y={y} width={Math.max(0, w)} height={Math.max(0, hgt)}
+        data-clickable={onDataClick ? true : undefined}
+        onMouseMove={(e) => show(tipFor(d, i), e)}
+        onMouseLeave={hide}
+        onClick={() => clickDatum(d, i)} />
+    );
+  });
+
   const dragBand = zoomable && drag && !drag.pan && drag.end !== drag.start;
 
   return (
@@ -248,6 +272,7 @@ export function RangeChart({
             : <text key={i} className="twc-rangechart__axis" x={xPos(t)} y={H - 8} textAnchor="middle">{shortNum(t)}</text>,
         ) : null}
 
+        {!zoomable ? renderZones() : null}
         {isArea ? renderBand() : renderBars()}
 
         {/* category labels (left for bars, bottom for the area) */}

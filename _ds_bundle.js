@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"38369c3db772","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"f9ff9818657f","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"9db8740ddc34","components/data-display/Datatable.jsx":"0e20db89335d","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"3ecb973b650b","components/data-display/Gauge.jsx":"f90f84c15df3","components/data-display/Heatmap.jsx":"dd09e3febe94","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"d0fc83e5efc6","components/data-display/PolarAreaChart.jsx":"15b8e3a62a8b","components/data-display/RadarChart.jsx":"d70e32ce8a4b","components/data-display/RangeChart.jsx":"fe47f8b7e8a9","components/data-display/ScatterChart.jsx":"97c513142003","components/data-display/Sparkline.jsx":"a14b19a62b53","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"4d494ff612e1","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"65d865e8012e","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1a5441dddb5b","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"ae1d49e59288","src/index.ts":"42079cb33554"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"38369c3db772","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"5901a7f5a8c8","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"188025429343","components/data-display/Datatable.jsx":"0e20db89335d","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"3ecb973b650b","components/data-display/Gauge.jsx":"f90f84c15df3","components/data-display/Heatmap.jsx":"dd09e3febe94","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"d0fc83e5efc6","components/data-display/PolarAreaChart.jsx":"15b8e3a62a8b","components/data-display/RadarChart.jsx":"d70e32ce8a4b","components/data-display/RangeChart.jsx":"3b56e2f946f6","components/data-display/ScatterChart.jsx":"97c513142003","components/data-display/Sparkline.jsx":"a14b19a62b53","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"4d494ff612e1","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"65d865e8012e","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1a5441dddb5b","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"ae1d49e59288","src/index.ts":"42079cb33554"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -1836,14 +1836,15 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-chart__leg[data-off="true"] { opacity: 0.4; }
 .twc-chart__leg-sw { width: 10px; height: 10px; border-radius: 3px; flex: none; }
 
-/* Floating tooltip \u2014 a styled card that follows the pointer (ApexCharts / MUI X style). */
+/* Floating tooltip \u2014 a styled card that follows the pointer (ApexCharts / MUI X style).
+   Positioned inline by <ChartTooltip> (which flips below / clamps to the container so it
+   never clips); only the opacity fades in here so it can't fight the inline transform. */
 .twc-chart__tip {
-  position: absolute; z-index: 3; top: 0; left: 0; pointer-events: none;
-  transform: translate(-50%, calc(-100% - 12px));
-  min-width: 96px; max-width: 260px; padding: 8px 10px;
+  position: absolute; z-index: 3; top: 0; left: 0; pointer-events: none; will-change: transform;
+  min-width: 88px; max-width: 240px; padding: 7px 9px;
   background: var(--color-surface-raised); color: var(--color-text);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg); font-size: var(--text-xs); line-height: 1.45;
+  box-shadow: var(--shadow-lg); font-size: var(--text-xs); line-height: 1.4;
   opacity: 0; animation: twc-chart-tip-in var(--duration-fast) var(--ease-standard) forwards;
 }
 .twc-chart__tip-title { font-weight: var(--font-bold); color: var(--color-text); margin-bottom: 4px; white-space: nowrap; }
@@ -1852,23 +1853,25 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-chart__tip-sw { width: 9px; height: 9px; border-radius: 2px; flex: none; }
 .twc-chart__tip-label { color: var(--color-text-muted); flex: 1; overflow: hidden; text-overflow: ellipsis; }
 .twc-chart__tip-val { font-weight: var(--font-semibold); color: var(--color-text); font-variant-numeric: tabular-nums; }
-@keyframes twc-chart-tip-in { from { opacity: 0; transform: translate(-50%, calc(-100% - 6px)); } to { opacity: 1; transform: translate(-50%, calc(-100% - 12px)); } }
+@keyframes twc-chart-tip-in { from { opacity: 0; } to { opacity: 1; } }
 
 /* Hover emphasis: when the chart marks itself hovered, fade every mark except the active one. */
-.twc-chart[data-hovering="true"] [data-mark] { opacity: 0.28; transition: opacity var(--duration-fast) var(--ease-standard); }
+.twc-chart[data-hovering="true"] [data-mark] { opacity: 0.3; transition: opacity var(--duration-base) var(--ease-standard); }
 .twc-chart[data-hovering="true"] [data-mark][data-active="true"] { opacity: 1; }
-[data-mark] { transition: opacity var(--duration-fast) var(--ease-standard); cursor: default; }
+[data-mark] { transition: opacity var(--duration-base) var(--ease-standard); cursor: default; }
 
-/* Click-to-select: a persistent outline on the chosen mark. */
-[data-mark][data-selected="true"] { stroke: var(--color-text); stroke-width: 2; paint-order: stroke; }
+/* Click-to-select: a soft accent ring + glow on the chosen mark (not a heavy outline). */
+[data-mark][data-selected="true"] { stroke: var(--color-text); stroke-width: 1.5; stroke-opacity: 0.5; paint-order: stroke; filter: drop-shadow(0 0 3px color-mix(in srgb, var(--color-text) 22%, transparent)); }
 .twc-chart[data-clickable="true"] [data-mark], .twc-chart__overlay[data-clickable="true"] { cursor: pointer; }
 
 /* Crosshair + full-plot event overlay (cartesian shared-axis interactions). */
-.twc-chart__overlay { fill: transparent; }
+.twc-chart__overlay, .twc-chart__zone { fill: transparent; }
 .twc-chart__crosshair { stroke: var(--color-border-strong); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.7; pointer-events: none; }
 
-/* Drag-to-zoom selection band + the reset control. */
-.twc-chart__zoomband { fill: var(--color-primary); opacity: 0.12; pointer-events: none; }
+/* Drag-to-zoom affordances: a crosshair cursor over the zoom overlay + a bordered band. */
+.twc-chart__overlay[data-zoom="true"] { cursor: crosshair; }
+.twc-chart__overlay[data-zoom="true"][data-panning="true"] { cursor: grabbing; }
+.twc-chart__zoomband { fill: var(--color-primary); opacity: 0.14; stroke: var(--color-primary); stroke-opacity: 0.5; stroke-width: 1; pointer-events: none; }
 .twc-chart__zoom-reset {
   position: absolute; top: 6px; inset-inline-end: 8px; z-index: 2;
   display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px;
@@ -1971,11 +1974,31 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   }
   function ChartTooltip({ tip }) {
     const h = import_react.default.createElement;
+    const ref = import_react.default.useRef(null);
+    const [pos, setPos] = import_react.default.useState({ dx: 0, below: false });
+    import_react.default.useLayoutEffect(() => {
+      const el = ref.current;
+      if (!tip || !el) return;
+      const parent = el.offsetParent;
+      const pw = parent && parent.clientWidth ? parent.clientWidth : 0;
+      const w = el.offsetWidth || 0, ht = el.offsetHeight || 0;
+      let dx = 0;
+      if (pw > 0 && w > 0) {
+        const half = w / 2;
+        if (tip.left - half < 6) dx = 6 - (tip.left - half);
+        else if (tip.left + half > pw - 6) dx = pw - 6 - (tip.left + half);
+      }
+      setPos({ dx, below: ht > 0 && tip.top - ht - 16 < 0 });
+    }, [tip]);
     if (!tip) return null;
-    const left = Math.max(48, tip.left);
+    const style = {
+      left: tip.left + pos.dx,
+      top: tip.top,
+      transform: pos.below ? "translate(-50%, 18px)" : "translate(-50%, calc(-100% - 14px))"
+    };
     return h(
       "div",
-      { className: "twc-chart__tip", role: "tooltip", "aria-hidden": "true", style: { left, top: tip.top } },
+      { ref, className: "twc-chart__tip", role: "tooltip", "aria-hidden": "true", style },
       tip.title != null && tip.title !== "" ? h("div", { className: "twc-chart__tip-title" }, tip.title) : null,
       (tip.items || []).map(
         (it, i) => h(
@@ -2253,7 +2276,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                 style: { stroke: color },
                 cx: p[0],
                 cy: p[1],
-                r: "3.5",
+                r: hoverIdx === i ? 5 : 3.5,
                 "data-selected": selected === `${i}:${k}` || void 0
               }
             )
@@ -2282,6 +2305,47 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         return /* @__PURE__ */ jsx("text", { className: "twc-chart__label", x: lineX(i), y: vPos(v) - 9, textAnchor: "middle", children: shortNum(v) }, `${k}-${i}`);
       }));
     };
+    const renderZones = () => rows.map((d, i) => {
+      let x, y, w, hgt;
+      if (isBar && horizontal) {
+        x = padL;
+        w = innerW;
+        y = padT + catBandH * i;
+        hgt = catBandH;
+      } else if (isBar) {
+        x = padL + catBand * i;
+        w = catBand;
+        y = padT;
+        hgt = innerH;
+      } else {
+        const x0 = i === 0 ? padL : (lineX(i - 1) + lineX(i)) / 2;
+        const x1 = i === rows.length - 1 ? padL + innerW : (lineX(i) + lineX(i + 1)) / 2;
+        x = x0;
+        w = x1 - x0;
+        y = padT;
+        hgt = innerH;
+      }
+      return /* @__PURE__ */ jsx(
+        "rect",
+        {
+          className: "twc-chart__zone",
+          x,
+          y,
+          width: Math.max(0, w),
+          height: hgt,
+          "data-clickable": clickable || void 0,
+          onMouseMove: (e) => {
+            show(tipFor(d), e);
+            setHoverIdx(i);
+          },
+          onMouseLeave: onMarkLeave,
+          onClick: () => {
+            if (onDataClick) onDataClick({ label: d.label, series: null, seriesIndex: -1, value: void 0, index: baseIdx + i, row: d });
+          }
+        },
+        i
+      );
+    });
     const toggle = (it) => setHidden((prev) => {
       const next = new Set(prev);
       if (next.has(it.label)) next.delete(it.label);
@@ -2313,6 +2377,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
               return horizontal ? /* @__PURE__ */ jsx("text", { className: "twc-chart__axis", x: p, y: H - 8, textAnchor: "middle", children: shortNum(t) }, i) : /* @__PURE__ */ jsx("text", { className: "twc-chart__axis", x: padL - 8, y: p + 4, textAnchor: "end", children: shortNum(t) }, i);
             }) : null,
             showCrosshair ? /* @__PURE__ */ jsx("line", { className: "twc-chart__crosshair", x1: catX(hoverIdx), y1: padT, x2: catX(hoverIdx), y2: padT + innerH }) : null,
+            !zoomable ? renderZones() : null,
             isBar ? renderBars() : renderLines(),
             renderValues(),
             showAxis ? rows.map((d, i) => {
@@ -2332,7 +2397,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
               "rect",
               {
                 className: "twc-chart__overlay",
+                "data-zoom": "true",
                 "data-clickable": clickable || void 0,
+                "data-panning": drag && drag.pan || void 0,
                 x: padL,
                 y: padT,
                 width: innerW,
@@ -4167,6 +4234,26 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       svg.addEventListener("wheel", onWheel, { passive: false });
       return () => svg.removeEventListener("wheel", onWheel);
     }, [zoomable, zoom, allRows.length]);
+    const renderZones = () => rows.map((d, i) => {
+      const gi = baseIdx + i;
+      return /* @__PURE__ */ jsx(
+        "rect",
+        {
+          className: "twc-chart__zone",
+          x: padL + catBand * i,
+          y: padT,
+          width: catBand,
+          height: innerH,
+          "data-clickable": clickable || void 0,
+          onMouseMove: (e) => show(tipFor(d), e),
+          onMouseLeave: hide,
+          onClick: () => {
+            if (onDataClick) clickCandle(d, gi);
+          }
+        },
+        i
+      );
+    });
     const dragBand = zoomable && drag && !drag.pan && drag.end !== drag.start;
     return /* @__PURE__ */ jsxs(
       "div",
@@ -4184,6 +4271,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
               return /* @__PURE__ */ jsx("line", { className: "twc-candlestick__grid", x1: padL, y1: p, x2: W - padR, y2: p }, i);
             }) : null,
             showAxis ? scale.ticks.map((t, i) => /* @__PURE__ */ jsx("text", { className: "twc-candlestick__axis", x: padL - 8, y: vPos(t) + 4, textAnchor: "end", children: shortNum(t) }, i)) : null,
+            !zoomable ? renderZones() : null,
             rows.map((d, i) => {
               const open = Number(d.open) || 0;
               const high = Number(d.high) || 0;
@@ -4208,17 +4296,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                     selectMark(gi);
                   },
                   children: [
-                    /* @__PURE__ */ jsx(
-                      "rect",
-                      {
-                        x: padL + catBand * i,
-                        y: padT,
-                        width: catBand,
-                        height: innerH,
-                        fill: "transparent",
-                        style: { cursor: clickable ? "pointer" : "default" }
-                      }
-                    ),
                     /* @__PURE__ */ jsx(
                       "line",
                       {
@@ -4670,6 +4747,37 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         ))
       ] });
     };
+    const renderZones = () => rows.map((d, i) => {
+      let x, y, w, hgt;
+      if (isArea) {
+        const x0 = i === 0 ? padL : (lineX(i - 1) + lineX(i)) / 2;
+        const x1 = i === rows.length - 1 ? padL + innerW : (lineX(i) + lineX(i + 1)) / 2;
+        x = x0;
+        w = x1 - x0;
+        y = padT;
+        hgt = innerH;
+      } else {
+        x = padL;
+        w = innerW;
+        y = padT + catBandH * i;
+        hgt = catBandH;
+      }
+      return /* @__PURE__ */ jsx(
+        "rect",
+        {
+          className: "twc-chart__zone",
+          x,
+          y,
+          width: Math.max(0, w),
+          height: Math.max(0, hgt),
+          "data-clickable": onDataClick ? true : void 0,
+          onMouseMove: (e) => show(tipFor(d, i), e),
+          onMouseLeave: hide,
+          onClick: () => clickDatum(d, i)
+        },
+        i
+      );
+    });
     const dragBand = zoomable && drag && !drag.pan && drag.end !== drag.start;
     return /* @__PURE__ */ jsxs(
       "div",
@@ -4689,6 +4797,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             showAxis ? scale.ticks.map(
               (t, i) => isArea ? /* @__PURE__ */ jsx("text", { className: "twc-rangechart__axis", x: padL - 8, y: yPos(t) + 4, textAnchor: "end", children: shortNum(t) }, i) : /* @__PURE__ */ jsx("text", { className: "twc-rangechart__axis", x: xPos(t), y: H - 8, textAnchor: "middle", children: shortNum(t) }, i)
             ) : null,
+            !zoomable ? renderZones() : null,
             isArea ? renderBand() : renderBars(),
             showAxis ? rows.map(
               (d, i) => isArea ? /* @__PURE__ */ jsx("text", { className: "twc-rangechart__axis", x: lineX(i), y: H - 8, textAnchor: "middle", children: d.label }, i) : /* @__PURE__ */ jsx("text", { className: "twc-rangechart__axis", x: padL - 8, y: padT + catBandH * i + catBandH / 2 + 4, textAnchor: "end", children: d.label }, i)
