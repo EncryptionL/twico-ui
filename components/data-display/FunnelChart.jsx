@@ -17,6 +17,7 @@ const FUNNEL_CSS = `
  * each stage's value to the next, ideal for conversion / drop-off flows. Each
  * band's width (vertical) or height (horizontal) is scaled to the largest stage.
  * Dependency-free inline SVG; for bars/lines use `Chart`, for shares use `PieChart`.
+ * Clicking a stage fires `onDataClick` and toggles a selection outline.
  */
 export function FunnelChart({
   data,
@@ -27,6 +28,7 @@ export function FunnelChart({
   height = 300,
   colors,
   valueFormat,
+  onDataClick,
   ariaLabel,
   "aria-label": ariaLabelProp,
   tableFallback = true,
@@ -40,6 +42,8 @@ export function FunnelChart({
   const tableId = tableFallback ? `${uid}-table` : undefined;
   const { containerRef, tip, show, hide } = useChartTooltip();
   const [active, setActive] = React.useState(null);
+  const [selected, setSelected] = React.useState(null);
+  const clickable = !!onDataClick;
 
   const rows = data || [];
   const n = rows.length;
@@ -103,11 +107,16 @@ export function FunnelChart({
             fill={color}
             data-mark
             data-active={active === i ? "true" : undefined}
+            data-selected={selected === i ? "true" : undefined}
             onMouseMove={(e) => {
               setActive(i);
               show({ title: d.label, items: [{ color, label: fmt(v), value: pctText(v) }] }, e);
             }}
             onMouseLeave={() => { setActive(null); hide(); }}
+            onClick={onDataClick ? () => {
+              onDataClick({ label: d.label, value: v, index: i, percent: pct(v) });
+              setSelected((s) => (s === i ? null : i));
+            } : undefined}
           />
           {lines.length ? (
             <text className="twc-funnel__label" x={tx} y={ty} textAnchor="middle" dominantBaseline="middle">
@@ -128,7 +137,7 @@ export function FunnelChart({
     });
 
   return (
-    <div ref={containerRef} className={`twc-chart twc-chart--funnel ${className}`.trim()} data-orientation={horizontal ? "horizontal" : "vertical"} data-hovering={active != null ? "true" : undefined} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--funnel ${className}`.trim()} data-orientation={horizontal ? "horizontal" : "vertical"} data-hovering={active != null ? "true" : undefined} data-clickable={clickable || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">

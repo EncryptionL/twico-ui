@@ -62,6 +62,30 @@ what keeps the family visually and behaviourally consistent:
 - **Robust** — every chart guards empty / degenerate data (no rows, total 0, `min === max`) instead of
   throwing or dividing by zero.
 
+## Interactivity
+
+All charts share one interaction layer (in `_chart.js`) so behavior is consistent:
+
+- **Floating tooltip** — `useChartTooltip()` + `<ChartTooltip>` render a cursor-following card
+  (colour swatch + label + value). Positioned from the pointer event, so it works regardless of
+  `preserveAspectRatio`. Replaces native `<title>` tooltips.
+- **Hover emphasis** — a `[data-mark]` + `[data-active]` + root `[data-hovering]` convention lets a
+  chart fade every mark except the hovered/focused one (used by the slice charts and legend focus).
+- **Legend** — `<ChartLegend>` supports `onToggle`/`hidden` (click a series to hide it) and
+  `onFocus`/`onBlur` (hover a legend entry to spotlight that series and dim the rest).
+- **Click + selection** — every chart takes an **`onDataClick`** callback that fires with the clicked
+  datum + metadata (each component documents its payload; `Chart` exports `ChartClickPayload`). The
+  clicked mark also toggles a persistent `data-selected` outline (`[data-mark][data-selected]`).
+- **Crosshair** (`Chart`) — a vertical guide line follows the hovered category on line/area/vertical-bar
+  charts (`crosshair`, default on).
+- **Zoom & pan** — opt-in **`zoomable`** on `Chart`, `Candlestick`, and `RangeChart` (categorical
+  x-window) and `ScatterChart` (continuous 2-D region). A transparent full-plot overlay handles
+  drag-to-select-a-range, **shift-drag to pan**, and a non-passive `wheel` listener zooms about the
+  cursor; a **Reset** button appears while zoomed. All layout-derived coordinates are guarded so a
+  zero-size (pre-layout / test) container never throws.
+- **Entrance animations** — bars grow, lines draw (`stroke-dashoffset`), arcs/areas/cells fade; all
+  disabled under `prefers-reduced-motion`.
+
 ## Accessibility model
 
 A chart is an image with a text alternative. Rather than making the SVG a screen-reader-navigable tree,

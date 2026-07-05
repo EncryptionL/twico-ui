@@ -21,6 +21,24 @@ export interface BoxplotDatum {
   outliers?: number[];
 }
 
+/** Payload passed to `onDataClick` when a box is clicked. */
+export interface BoxplotClickPayload {
+  /** The clicked box's `label`. */
+  label: React.ReactNode;
+  /** Lower whisker end (distribution minimum). */
+  min: number;
+  /** First quartile — the bottom edge of the box. */
+  q1: number;
+  /** Median — the bold line inside the box. */
+  median: number;
+  /** Third quartile — the top edge of the box. */
+  q3: number;
+  /** Upper whisker end (distribution maximum). */
+  max: number;
+  /** Index of the box in the `data` array. */
+  index: number;
+}
+
 /**
  * Box-and-whisker chart — one box per category summarising a five-number
  * distribution (min, Q1, median, Q3, max) with whiskers, a bold median line,
@@ -43,6 +61,8 @@ export interface BoxplotProps extends React.HTMLAttributes<HTMLDivElement> {
   showAxis?: boolean;
   /** Tooltip/table value formatter. @default toLocaleString */
   valueFormat?: (value: number) => string;
+  /** Fires when a box is clicked, with the five-number summary + its index. */
+  onDataClick?: (payload: BoxplotClickPayload) => void;
   /** Accessible name for the chart's `<svg role="img">`. Per-box values are exposed via the hidden data table, not this label. @default "box plot" */
   ariaLabel?: string;
   /** Render a visually-hidden data table as an accessible text alternative (WCAG 1.1.1). @default true */

@@ -10,12 +10,23 @@ export interface PolarAreaDatum {
   color?: string;
 }
 
+/** Payload passed to `onDataClick` when a slice is clicked. */
+export interface PolarAreaClickPayload {
+  /** The clicked slice's `label`. */
+  label: React.ReactNode;
+  /** The clicked slice's numeric `value`. */
+  value: number;
+  /** Index of the slice in the `data` array. */
+  index: number;
+}
+
 /**
  * Polar-area (Coxcomb / Nightingale rose) chart — equal-angle slices whose
  * *radius* encodes each value, laid over concentric value rings. Radius scales
  * with `√value` so a slice's **area** is proportional to its value (the
  * statistically honest encoding). Dependency-free inline SVG, with per-slice
- * tooltips, an optional legend, and a visually-hidden data table. For plain
+ * tooltips, click + selection (`onDataClick`), a legend whose entries
+ * hover-focus their slice, and a visually-hidden data table. For plain
  * proportional wedges use `PieChart` / `DonutChart`; for a spoked multi-axis
  * shape use `RadarChart`.
  *
@@ -38,6 +49,8 @@ export interface PolarAreaChartProps extends React.HTMLAttributes<HTMLDivElement
   height?: number;
   /** Per-slice colors (any CSS color), cycled across slices. Defaults to the built-in token palette. */
   colors?: string[];
+  /** Fires when a slice is clicked with its `label`, `value`, and `index`; the clicked slice also toggles a selected outline. */
+  onDataClick?: (payload: PolarAreaClickPayload) => void;
   /** Accessible name for the chart's `<svg role="img">`. Defaults to `"polar area chart"`; also accepts `aria-label`. */
   ariaLabel?: string;
   /** Render a visually-hidden data table as an accessible text alternative (WCAG 1.1.1). @default true */

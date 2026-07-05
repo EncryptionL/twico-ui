@@ -21,9 +21,10 @@ const CHART_CSS = `
 
 /**
  * Radar / spider chart — one or more series plotted as closed polygons over a
- * shared set of categorical axes radiating from a center. Dependency-free inline
- * SVG; good for comparing a handful of multi-attribute profiles. For other shapes
- * use the dedicated sibling components.
+ * shared set of categorical axes radiating from a center, with a floating tooltip,
+ * vertex click (`onDataClick`) + selection, and a hoverable legend that focuses its
+ * series and dims the rest. Dependency-free inline SVG; good for comparing a handful
+ * of multi-attribute profiles. For other shapes use the dedicated sibling components.
  */
 export function RadarChart({
   data,
@@ -36,6 +37,7 @@ export function RadarChart({
   colors,
   valueFormat,
   height = 300,
+  onDataClick,
   ariaLabel,
   "aria-label": ariaLabelProp,
   tableFallback = true,
@@ -48,13 +50,19 @@ export function RadarChart({
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
   const { containerRef, tip, show, hide } = useChartTooltip();
+  const [focus, setFocus] = React.useState(null); // hovered legend series key
+  const [selected, setSelected] = React.useState(null); // "<axisIdx>:<seriesKey>"
 
   const rows = data || [];
   const keys = series && series.length ? series : ["value"];
   const fmt = valueFormat || fmtNumber;
   const multi = keys.length > 1;
+  const clickable = !!onDataClick;
   // Legend defaults on for multi-series, off for a single polygon.
   const legend = showLegend != null ? showLegend : multi;
+  // Legend-focus emphasis: active when nothing focused, or this is the hovered series.
+  const focusActive = (k) => (focus == null ? undefined : k === focus || undefined);
+  const selectMark = (key) => setSelected((s) => (s === key ? null : key));
 
   // Square viewBox sized to `height`; the radar sits centered with a margin that
   // leaves room for the axis labels sitting just outside the outermost ring.
@@ -80,7 +88,8 @@ export function RadarChart({
   };
 
   return (
-    <div ref={containerRef} className={`twc-chart twc-chart--radar ${className}`.trim()} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--radar ${className}`.trim()}
+      data-hovering={focus != null || undefined} data-clickable={clickable || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg
@@ -122,19 +131,27 @@ export function RadarChart({
               const color = paletteAt(colors, si);
               const pts = rows.map((d, i) => vertex(d[k], i));
               return (
-                <g key={k}>
+                <g key={k} data-mark data-active={focusActive(k)}>
                   {fill ? (
                     <path className="twc-chart__radar-area twc-chart__anim-fade" style={{ fill: color, opacity: 0.18 }} d={polygonPath(pts)} />
                   ) : null}
                   <path className="twc-chart__radar-line twc-chart__anim-fade" style={{ stroke: color }} d={polygonPath(pts)} />
-                  {showDots ? pts.map((p, i) => (
-                    <g key={i} className="twc-chart__anim-fade">
-                      <circle className="twc-chart__hit" cx={p[0]} cy={p[1]} r="14"
-                        onMouseMove={(e) => show({ title: rows[i].label, items: [{ color, label: k, value: fmt(Number(rows[i][k]) || 0) }] }, e)}
-                        onMouseLeave={hide} />
-                      <circle className="twc-chart__radar-dot" style={{ fill: color }} cx={p[0]} cy={p[1]} r="3" />
-                    </g>
-                  )) : null}
+                  {showDots ? pts.map((p, i) => {
+                    const key = `${i}:${k}`;
+                    return (
+                      <g key={i} className="twc-chart__anim-fade">
+                        <circle className="twc-chart__hit" cx={p[0]} cy={p[1]} r="14"
+                          onMouseMove={(e) => show({ title: rows[i].label, items: [{ color, label: k, value: fmt(Number(rows[i][k]) || 0) }] }, e)}
+                          onMouseLeave={hide}
+                          onClick={() => {
+                            if (onDataClick) onDataClick({ label: rows[i].label, series: k, value: Number(rows[i][k]) || 0, index: i });
+                            selectMark(key);
+                          }} />
+                        <circle className="twc-chart__radar-dot" style={{ fill: color }} cx={p[0]} cy={p[1]} r="3"
+                          data-mark data-active={focusActive(k)} data-selected={selected === key || undefined} />
+                      </g>
+                    );
+                  }) : null}
                 </g>
               );
             })}
@@ -154,7 +171,11 @@ export function RadarChart({
       ) : null}
 
       {legend && multi ? (
-        <ChartLegend items={keys.map((k, si) => ({ label: k, color: paletteAt(colors, si) }))} />
+        <ChartLegend
+          items={keys.map((k, si) => ({ label: k, color: paletteAt(colors, si) }))}
+          onFocus={(it) => setFocus(it.label)}
+          onBlur={() => setFocus(null)}
+        />
       ) : null}
     </div>
   );

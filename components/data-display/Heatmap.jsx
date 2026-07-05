@@ -19,8 +19,9 @@ const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
 /**
  * Heatmap — a matrix of colored cells keyed by (x, y), each shaded by a
  * single-hue intensity scale from `min` to `max`. Ordered X columns / Y rows
- * are derived from the data in first-seen order. Dependency-free inline SVG;
- * dark mode flips automatically through the tokens the color-mix resolves.
+ * are derived from the data in first-seen order. Click (`onDataClick`) +
+ * selection. Dependency-free inline SVG; dark mode flips automatically through
+ * the tokens the color-mix resolves.
  */
 export function Heatmap({
   data,
@@ -35,6 +36,7 @@ export function Heatmap({
   showLegend = true,
   valueFormat,
   height = 300,
+  onDataClick,
   ariaLabel,
   "aria-label": ariaLabelProp,
   tableFallback = true,
@@ -48,6 +50,10 @@ export function Heatmap({
   const tableId = tableFallback ? `${uid}-table` : undefined;
   const { containerRef, tip, show, hide } = useChartTooltip();
   const [hovered, setHovered] = React.useState(null);
+  const [selected, setSelected] = React.useState(null);
+
+  const clickable = !!onDataClick;
+  const selectMark = (key) => setSelected((s) => (s === key ? null : key));
 
   const rows = Array.isArray(data) ? data : [];
   const fmt = valueFormat || fmtNumber;
@@ -101,7 +107,7 @@ export function Heatmap({
   const gap = clamp(cellGap, 0, Math.min(cw, chh) - 1) || 0;
 
   return (
-    <div ref={containerRef} className={`twc-chart twc-chart--heatmap ${className}`.trim()} data-hovering={hovered != null || undefined} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--heatmap ${className}`.trim()} data-hovering={hovered != null || undefined} data-clickable={clickable || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
@@ -124,8 +130,10 @@ export function Heatmap({
                   style={has ? { fill } : undefined}
                   data-mark
                   data-active={hovered === cellKey || undefined}
+                  data-selected={selected === cellKey || undefined}
                   onMouseMove={(e) => { setHovered(cellKey); show({ title: `${labelText(y)} / ${labelText(x)}`, items: [{ color: fill, label: "", value: has ? fmt(v) : "—" }] }, e); }}
                   onMouseLeave={() => { setHovered(null); hide(); }}
+                  onClick={has ? () => { if (onDataClick) onDataClick({ x, y, value: v }); selectMark(cellKey); } : undefined}
                 />
                 {showValues && has ? (
                   <text className="twc-chart__hm-val" x={cx + cwPx / 2} y={cy + chPx / 2 + 3.5} textAnchor="middle">

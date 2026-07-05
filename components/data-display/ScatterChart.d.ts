@@ -22,6 +22,24 @@ export interface ScatterSeries {
   points: ScatterPoint[];
 }
 
+/** Payload passed to `onDataClick` when a point is clicked. */
+export interface ScatterClickPayload {
+  /** The clicked point's x value. */
+  x: number;
+  /** The clicked point's y value. */
+  y: number;
+  /** The clicked point's z (bubble size) value, if any. */
+  z?: number;
+  /** Name of the series the point belongs to (defaults to `"Series N"`). */
+  series: string;
+  /** Index of the point's series in the `series` prop. */
+  seriesIndex: number;
+  /** Index of the point within its series' `points` array. */
+  index: number;
+  /** The original `ScatterPoint` object that was clicked. */
+  point: ScatterPoint;
+}
+
 /**
  * Scatter / bubble chart — plots x/y points across two nice-scaled numeric axes,
  * one or many series, with grid, axis titles, tooltips, an optional legend and a
@@ -51,6 +69,10 @@ export interface ScatterChartProps extends Omit<React.HTMLAttributes<HTMLDivElem
   showGrid?: boolean;
   /** Series legend. Defaults to `true` when there is more than one series. */
   showLegend?: boolean;
+  /** Enable 2-D drag-to-zoom (rectangle-zoom both axes, + shift-drag pan, wheel zoom, and a reset button). @default false */
+  zoomable?: boolean;
+  /** Fires when a point is clicked, with its x/y/z, series metadata, and the original point. */
+  onDataClick?: (payload: ScatterClickPayload) => void;
   /** Formatter for x values in tooltips + the hidden table (defaults to `valueFormat`). */
   xFormat?: (value: number) => string;
   /** Formatter for y values in tooltips + the hidden table (defaults to `valueFormat`). */

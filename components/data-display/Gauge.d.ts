@@ -10,6 +10,16 @@ export interface GaugeSeries {
   color?: string;
 }
 
+/** Payload passed to `onDataClick` when a gauge value arc (ring) is clicked. */
+export interface GaugeClickPayload {
+  /** The clicked ring's value. */
+  value: number;
+  /** The clicked ring's label (the `label` prop for a single gauge, or the `series` entry's label). */
+  label?: React.ReactNode;
+  /** Index of the clicked ring (`0` for a single gauge; the `series` index for a multi-ring gauge). */
+  index: number;
+}
+
 /**
  * Radial gauge / radial-bar chart — renders a single `value` as a thick arc that
  * sweeps between `startAngle` and `endAngle`, with the value + an optional caption
@@ -48,6 +58,8 @@ export interface GaugeProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "
   series?: GaugeSeries[];
   /** Show the legend for a multi-ring (`series`) gauge. @default true */
   showLegend?: boolean;
+  /** Fires when a value arc (ring) is clicked, with the ring's value, label, and index; the clicked ring also gains a selection outline. */
+  onDataClick?: (payload: GaugeClickPayload) => void;
   /** Accessible name for the `<svg role="img">`; defaults to a value summary. Also accepts `aria-label`. */
   ariaLabel?: string;
   /** Render a visually-hidden data table as an accessible text alternative (WCAG 1.1.1). @default true */

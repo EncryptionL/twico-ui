@@ -10,6 +10,18 @@ export interface TreemapDatum {
   color?: string;
 }
 
+/** Payload passed to `onDataClick` when a treemap tile is clicked. */
+export interface TreemapClickPayload {
+  /** The clicked tile's `label`. */
+  label: React.ReactNode;
+  /** The clicked tile's (non-negative) value. */
+  value: number;
+  /** Index of the tile in the original `data` array. */
+  index: number;
+  /** The tile's fraction of the total, `0`–`1` (`0` when the total is `0`). */
+  share: number;
+}
+
 /**
  * Treemap — a squarified partition of a rectangle into tiles sized in proportion
  * to a flat list of values (Bruls/Huizing/van Wijk squarified layout), packed to
@@ -32,6 +44,8 @@ export interface TreemapProps extends React.HTMLAttributes<HTMLDivElement> {
   colors?: string[];
   /** Gap in px inset between adjacent tiles. @default 2 */
   gap?: number;
+  /** Fires when a tile is clicked with the tile's label, value, index, and share; the clicked tile also toggles a selection outline. */
+  onDataClick?: (payload: TreemapClickPayload) => void;
   /** Accessible name for the chart's `<svg role="img">`. Per-tile values are exposed via the hidden data table, not this label. Defaults to `"treemap"`; also accepts `aria-label`. */
   ariaLabel?: string;
   /** Render a visually-hidden data table (value + share) as an accessible text alternative (WCAG 1.1.1). @default true */

@@ -1,14 +1,13 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import {
-  CHART_BASE_CSS, paletteAt, niceScale, shortNum, fmtNumber, r,
+  CHART_BASE_CSS, paletteAt, niceScale, shortNum, fmtNumber,
   linePath, areaPath, ChartTable, ChartLegend, useChartTooltip, ChartTooltip,
 } from "./_chart.js";
 
 const CHART_CSS = `
 .twc-chart__grid { stroke: var(--color-divider); stroke-width: 1; }
 .twc-chart__axisline { stroke: var(--color-border); stroke-width: 1; }
-.twc-chart__tick { stroke: var(--color-border); stroke-width: 1; }
 .twc-chart__axis { fill: var(--color-text-subtle); font-size: 11px; }
 .twc-chart__bar { fill: var(--color-primary); }
 .twc-chart__bar:hover { filter: brightness(1.06); }
@@ -17,15 +16,14 @@ const CHART_CSS = `
 .twc-chart__dot { fill: var(--color-surface); stroke: var(--color-primary); stroke-width: 2.5; transition: r var(--duration-fast) var(--ease-standard); }
 .twc-chart__hit { fill: transparent; }
 .twc-chart__hit:hover + .twc-chart__dot, .twc-chart__dot:hover { r: 5; }
-.twc-chart__vline { stroke: var(--color-border-strong); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.7; }
 .twc-chart__label { fill: var(--color-text-muted); font-size: 10px; font-weight: var(--font-semibold); }
 `;
 
 /**
- * Cartesian chart — vertical/horizontal bars (grouped or stacked), line, and
- * area (straight / smooth / stepped), single or multi-series, with a floating
- * tooltip, hover crosshair, entrance animation, and a toggleable legend.
- * Dependency-free inline SVG.
+ * Cartesian chart — vertical/horizontal bars (grouped or stacked), line, and area,
+ * with a floating tooltip + crosshair, a toggleable/hoverable legend, click
+ * (`onDataClick`) + selection, optional drag/wheel zoom + pan, and entrance
+ * animation. Dependency-free inline SVG.
  */
 export function Chart({
   type = "bar",
@@ -41,9 +39,12 @@ export function Chart({
   showGrid = true,
   showAxis = true,
   showLegend = false,
+  crosshair = true,
+  zoomable = false,
   animate = true,
   colors,
   valueFormat,
+  onDataClick,
   ariaLabel,
   "aria-label": ariaLabelProp,
   tableFallback = true,
@@ -58,17 +59,25 @@ export function Chart({
   const tableId = tableFallback ? `${uid}-table` : undefined;
   const { containerRef, tip, show, hide } = useChartTooltip();
   const [hidden, setHidden] = React.useState(() => new Set());
+  const [focusSeries, setFocusSeries] = React.useState(null);
+  const [selected, setSelected] = React.useState(null);
+  const [hoverIdx, setHoverIdx] = React.useState(null);
+  const [zoom, setZoom] = React.useState(null); // {s,e} indices into the full data
+  const [drag, setDrag] = React.useState(null); // {start,end,pan,z0}
+  const svgRef = React.useRef(null);
 
   const isBar = type === "bar" || type === "column";
   const isArea = type === "area";
   const crv = smooth ? "smooth" : curve;
   const pathOpts = { smooth: crv === "smooth", step: crv === "stepped" ? "after" : null };
   const canStack = stacked && (isBar || isArea);
-  const anim = animate ? "" : null;
+  const clickable = !!onDataClick;
 
   const allKeys = series && series.length ? series : ["value"];
   const keys = allKeys.filter((k) => !hidden.has(k));
-  const rows = data || [];
+  const allRows = data || [];
+  const baseIdx = zoom ? zoom.s : 0;
+  const rows = zoom ? allRows.slice(zoom.s, zoom.e + 1) : allRows;
   const fmt = valueFormat || fmtNumber;
   const multi = allKeys.length > 1;
 
@@ -91,57 +100,135 @@ export function Chart({
   const catBand = innerW / Math.max(1, rows.length);
   const catBandH = innerH / Math.max(1, rows.length);
   const lineX = (i) => padL + (innerW / Math.max(1, rows.length - 1)) * i;
+  const catX = (i) => (isBar ? padL + catBand * i + catBand / 2 : lineX(i));
 
   const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? `${type} chart`;
 
-  // Shared tooltip: a whole-category breakdown across the visible series (ApexCharts style).
-  const tipFor = (d) => ({
-    title: d.label,
-    items: keys.map((k) => ({ color: colorFor(k), label: k, value: fmt(Number(d[k]) || 0) })),
-  });
   function colorFor(k) {
     const idx = allKeys.indexOf(k);
     return multi || (colors && colors.length) ? paletteAt(colors, idx) : "var(--color-primary)";
   }
+  const tipFor = (d) => ({
+    title: d.label,
+    items: keys.map((k) => ({ color: colorFor(k), label: k, value: fmt(Number(d[k]) || 0) })),
+  });
+  const focusActive = (k) => (focusSeries == null ? undefined : k === focusSeries || undefined);
 
-  // ---- bars -------------------------------------------------------------
+  // ---- interaction handlers --------------------------------------------
+  const onMarkMove = (d, localIdx, e) => { show(tipFor(d), e); setHoverIdx(localIdx); };
+  const onMarkLeave = () => { hide(); setHoverIdx(null); };
+  const clickDatum = (d, k, localIdx) => {
+    if (!onDataClick) return;
+    onDataClick({ label: d.label, series: k, seriesIndex: allKeys.indexOf(k), value: Number(d[k]) || 0, index: baseIdx + localIdx, row: d });
+  };
+  const selectMark = (key) => setSelected((s) => (s === key ? null : key));
+
+  // ---- zoom + pan (opt-in, categorical windowing) ----------------------
+  const applyZoom = (s, e) => {
+    const n = allRows.length;
+    if (e - s >= n - 1) { setZoom(null); return; }
+    setZoom({ s: Math.max(0, s), e: Math.min(n - 1, e) });
+  };
+  const catFromEvent = (e) => {
+    const svg = svgRef.current; if (!svg) return null;
+    const r = svg.getBoundingClientRect();
+    if (!(r.width > 0)) return null;
+    const frac = Math.min(1, Math.max(0, ((e.clientX - r.left) / r.width * W - padL) / innerW));
+    const idx = isBar ? Math.floor(frac * rows.length) : Math.round(frac * Math.max(1, rows.length - 1));
+    return Math.min(rows.length - 1, Math.max(0, idx));
+  };
+  const onOverlayMove = (e) => {
+    const idx = catFromEvent(e);
+    if (idx == null) return;
+    setHoverIdx(idx); show(tipFor(rows[idx]), e);
+    if (drag) {
+      if (drag.pan) {
+        const span = drag.z0.e - drag.z0.s;
+        const s = Math.min(allRows.length - 1 - span, Math.max(0, drag.z0.s + (drag.start - idx)));
+        applyZoom(s, s + span);
+      } else {
+        setDrag({ ...drag, end: idx });
+      }
+    }
+  };
+  const onOverlayDown = (e) => {
+    const idx = catFromEvent(e);
+    if (idx == null) return;
+    setDrag({ start: idx, end: idx, pan: e.shiftKey, z0: zoom || { s: 0, e: allRows.length - 1 } });
+  };
+  const onOverlayUp = () => {
+    if (drag && !drag.pan) {
+      const lo = Math.min(drag.start, drag.end), hi = Math.max(drag.start, drag.end);
+      if (hi - lo >= 1) applyZoom(baseIdx + lo, baseIdx + hi);
+    }
+    setDrag(null);
+  };
+  const onOverlayClick = (e) => {
+    if (!onDataClick) return;
+    const idx = catFromEvent(e);
+    if (idx == null) return;
+    const d = rows[idx];
+    onDataClick({ label: d.label, series: null, seriesIndex: -1, value: undefined, index: baseIdx + idx, row: d });
+    selectMark(`${idx}:*`);
+  };
+  // Mouse-wheel zoom via a non-passive native listener (React's onWheel is passive).
+  React.useEffect(() => {
+    if (!zoomable) return undefined;
+    const svg = svgRef.current; if (!svg) return undefined;
+    const onWheel = (e) => {
+      e.preventDefault();
+      const n = allRows.length;
+      const cur = zoom || { s: 0, e: n - 1 };
+      const span = cur.e - cur.s;
+      const r = svg.getBoundingClientRect();
+      const frac = r.width > 0 ? Math.min(1, Math.max(0, ((e.clientX - r.left) / r.width * W - padL) / innerW)) : 0.5;
+      const center = cur.s + Math.round(frac * span);
+      const newSpan = Math.min(n - 1, Math.max(1, Math.round(span * (e.deltaY < 0 ? 0.8 : 1.25))));
+      const s = Math.min(n - 1 - newSpan, Math.max(0, center - Math.round(newSpan * frac)));
+      applyZoom(s, s + newSpan);
+    };
+    svg.addEventListener("wheel", onWheel, { passive: false });
+    return () => svg.removeEventListener("wheel", onWheel);
+  }, [zoomable, zoom, allRows.length]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ---- render bars / lines ---------------------------------------------
   const renderBars = () => {
     const band = horizontal ? catBandH : catBand;
-    const gap = 0.28;
-    const slot = band * (1 - gap);
+    const slot = band * 0.72;
     return rows.map((d, gi) => {
-      const gStart = (horizontal ? padT : padL) + band * gi + (band * gap) / 2;
-      const hoverProps = {
-        onMouseMove: (e) => show(tipFor(d), e),
-        onMouseLeave: hide,
-      };
+      const gStart = (horizontal ? padT : padL) + band * gi + (band * 0.28) / 2;
+      const handlers = { onMouseMove: (e) => onMarkMove(d, gi, e), onMouseLeave: onMarkLeave };
+      const barCommon = (k, key) => ({
+        className: `twc-chart__bar ${animate ? "twc-chart__anim-bar" : ""}`.trim(),
+        "data-mark": true, "data-horizontal": horizontal || undefined,
+        "data-active": focusActive(k), "data-selected": selected === key || undefined,
+        style: { fill: colorFor(k) }, rx: 2, ...handlers,
+        onClick: () => { clickDatum(d, k, gi); selectMark(key); },
+      });
       if (canStack) {
         let acc = 0;
-        return keys.map((k, si) => {
+        return keys.map((k) => {
           const v = Number(d[k]) || 0;
           const p0 = vPix(acc), p1 = vPix(acc + v);
           acc += v;
-          const color = colorFor(k);
-          const common = { className: `twc-chart__bar ${anim === "" ? "twc-chart__anim-bar" : ""}`.trim(), "data-horizontal": horizontal || undefined, style: { fill: color }, rx: 2, ...hoverProps };
+          const key = `${gi}:${k}`;
           return horizontal
-            ? <rect key={`${gi}-${si}`} {...common} x={padL + p0} y={gStart} width={Math.max(0, p1 - p0)} height={Math.max(1, slot)} />
-            : <rect key={`${gi}-${si}`} {...common} x={gStart} y={padT + innerH - p1} width={Math.max(1, slot)} height={Math.max(0, p1 - p0)} />;
+            ? <rect key={key} {...barCommon(k, key)} x={padL + p0} y={gStart} width={Math.max(0, p1 - p0)} height={Math.max(1, slot)} />
+            : <rect key={key} {...barCommon(k, key)} x={gStart} y={padT + innerH - p1} width={Math.max(1, slot)} height={Math.max(0, p1 - p0)} />;
         });
       }
       const bw = slot / Math.max(1, keys.length);
       return keys.map((k, si) => {
         const v = Number(d[k]) || 0;
         const len = vPix(v);
-        const color = colorFor(k);
-        const common = { className: `twc-chart__bar ${anim === "" ? "twc-chart__anim-bar" : ""}`.trim(), "data-horizontal": horizontal || undefined, style: { fill: color }, rx: 2, ...hoverProps };
+        const key = `${gi}:${k}`;
         return horizontal
-          ? <rect key={`${gi}-${si}`} {...common} x={padL} y={gStart + si * bw + 0.5} width={Math.max(0, len)} height={Math.max(1, bw - 1)} />
-          : <rect key={`${gi}-${si}`} {...common} x={gStart + si * bw + 0.5} y={padT + innerH - len} width={Math.max(1, bw - 1)} height={Math.max(0, len)} />;
+          ? <rect key={key} {...barCommon(k, key)} x={padL} y={gStart + si * bw + 0.5} width={Math.max(0, len)} height={Math.max(1, bw - 1)} />
+          : <rect key={key} {...barCommon(k, key)} x={gStart + si * bw + 0.5} y={padT + innerH - len} width={Math.max(1, bw - 1)} height={Math.max(0, len)} />;
       });
     });
   };
 
-  // ---- lines / areas ----------------------------------------------------
   const renderLines = () => {
     const stackAcc = canStack ? rows.map(() => 0) : null;
     return keys.map((k) => {
@@ -154,7 +241,7 @@ export function Chart({
       const base = canStack ? rows.map((d, i) => vPos(stackAcc[i] - (Number(d[k]) || 0))) : null;
       const gradId = `twc-grad-${gid}-${allKeys.indexOf(k)}`;
       return (
-        <g key={k}>
+        <g key={k} data-mark data-active={focusActive(k)}>
           {isArea ? (
             <>
               <defs>
@@ -163,18 +250,20 @@ export function Chart({
                   <stop offset="100%" stopColor={color} stopOpacity="0.02" />
                 </linearGradient>
               </defs>
-              <path className={`twc-chart__area ${anim === "" ? "twc-chart__anim-fade" : ""}`.trim()} style={{ fill: `url(#${gradId})` }}
+              <path className={`twc-chart__area ${animate ? "twc-chart__anim-fade" : ""}`.trim()} style={{ fill: `url(#${gradId})` }}
                 d={canStack
                   ? `${linePath(pts, pathOpts)} ${pts.map((p, i) => `L${p[0]} ${base[i]}`).reverse().join(" ")} Z`
                   : areaPath(pts, padT + innerH, pathOpts)} />
             </>
           ) : null}
-          <path className={`twc-chart__line ${anim === "" ? "twc-chart__anim-line" : ""}`.trim()} style={{ stroke: color }} pathLength="1" d={linePath(pts, pathOpts)} />
+          <path className={`twc-chart__line ${animate ? "twc-chart__anim-line" : ""}`.trim()} style={{ stroke: color }} pathLength="1" d={linePath(pts, pathOpts)} />
           {(showDots || !isArea) ? pts.map((p, i) => (
-            <g key={i} className={anim === "" ? "twc-chart__anim-fade" : undefined}>
+            <g key={i} className={animate ? "twc-chart__anim-fade" : undefined}>
               <circle className="twc-chart__hit" cx={p[0]} cy={p[1]} r="14"
-                onMouseMove={(e) => show(tipFor(rows[i]), e)} onMouseLeave={hide} />
-              <circle className="twc-chart__dot" style={{ stroke: color }} cx={p[0]} cy={p[1]} r="3.5" />
+                onMouseMove={(e) => onMarkMove(rows[i], i, e)} onMouseLeave={onMarkLeave}
+                onClick={() => { clickDatum(rows[i], k, i); selectMark(`${i}:${k}`); }} />
+              <circle className="twc-chart__dot" style={{ stroke: color }} cx={p[0]} cy={p[1]} r="3.5"
+                data-selected={selected === `${i}:${k}` || undefined} />
             </g>
           )) : null}
         </g>
@@ -182,7 +271,6 @@ export function Chart({
     });
   };
 
-  // ---- optional data labels --------------------------------------------
   const renderValues = () => {
     if (!showValues) return null;
     if (isBar) {
@@ -208,15 +296,19 @@ export function Chart({
   const toggle = (it) => setHidden((prev) => {
     const next = new Set(prev);
     if (next.has(it.label)) next.delete(it.label);
-    else if (allKeys.length - next.size > 1) next.add(it.label); // keep at least one series
+    else if (allKeys.length - next.size > 1) next.add(it.label);
     return next;
   });
 
+  const showCrosshair = crosshair && !horizontal && hoverIdx != null && rows[hoverIdx];
+  const dragBand = zoomable && drag && !drag.pan && drag.end !== drag.start;
+
   return (
-    <div ref={containerRef} className={`twc-chart twc-chart--${type} ${className}`.trim()} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--${type} ${className}`.trim()}
+      data-hovering={focusSeries != null || undefined} data-clickable={clickable || undefined} {...rest}>
       {baseStyles}
       {styles}
-      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
+      <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
         {showGrid ? ticks.map((t, i) => {
           const p = vPos(t);
           return horizontal
@@ -224,7 +316,6 @@ export function Chart({
             : <line key={i} className="twc-chart__grid" x1={padL} y1={p} x2={W - padR} y2={p} />;
         }) : null}
 
-        {/* axis lines */}
         {showAxis ? <line className="twc-chart__axisline" x1={padL} y1={padT} x2={padL} y2={padT + innerH} /> : null}
         {showAxis ? <line className="twc-chart__axisline" x1={padL} y1={padT + innerH} x2={W - padR} y2={padT + innerH} /> : null}
 
@@ -235,6 +326,8 @@ export function Chart({
             : <text key={i} className="twc-chart__axis" x={padL - 8} y={p + 4} textAnchor="end">{shortNum(t)}</text>;
         }) : null}
 
+        {showCrosshair ? <line className="twc-chart__crosshair" x1={catX(hoverIdx)} y1={padT} x2={catX(hoverIdx)} y2={padT + innerH} /> : null}
+
         {isBar ? renderBars() : renderLines()}
         {renderValues()}
 
@@ -243,16 +336,36 @@ export function Chart({
             const cy = padT + catBandH * i + catBandH / 2;
             return <text key={i} className="twc-chart__axis" x={padL - 8} y={cy + 4} textAnchor="end">{d.label}</text>;
           }
-          const cx = isBar ? padL + catBand * i + catBand / 2 : lineX(i);
-          return <text key={i} className="twc-chart__axis" x={cx} y={H - 8} textAnchor="middle">{d.label}</text>;
+          return <text key={i} className="twc-chart__axis" x={catX(i)} y={H - 8} textAnchor="middle">{d.label}</text>;
         }) : null}
+
+        {dragBand ? (() => {
+          const lo = Math.min(drag.start, drag.end), hi = Math.max(drag.start, drag.end);
+          const x0 = isBar ? padL + catBand * lo : lineX(lo);
+          const x1 = isBar ? padL + catBand * (hi + 1) : lineX(hi);
+          return <rect className="twc-chart__zoomband" x={x0} y={padT} width={Math.max(0, x1 - x0)} height={innerH} />;
+        })() : null}
+
+        {zoomable ? (
+          <rect className="twc-chart__overlay" data-clickable={clickable || undefined}
+            x={padL} y={padT} width={innerW} height={innerH}
+            onMouseMove={onOverlayMove} onMouseLeave={() => { onMarkLeave(); setDrag(null); }}
+            onMouseDown={onOverlayDown} onMouseUp={onOverlayUp} onClick={onOverlayClick} />
+        ) : null}
       </svg>
+
+      {zoomable && zoom ? (
+        <button type="button" className="twc-chart__zoom-reset" onClick={() => setZoom(null)} aria-label="Reset zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8" /><path d="M3 3v5h5" /></svg>
+          Reset
+        </button>
+      ) : null}
 
       <ChartTooltip tip={tip} />
 
       {tableFallback ? (
         <ChartTable id={tableId} caption={caption ?? svgAriaLabel} columns={allKeys}
-          rows={rows.map((d) => ({ label: d.label, values: allKeys.map((k) => fmt(Number(d[k]) || 0)) }))} />
+          rows={allRows.map((d) => ({ label: d.label, values: allKeys.map((k) => fmt(Number(d[k]) || 0)) }))} />
       ) : null}
 
       {showLegend && multi ? (
@@ -260,6 +373,8 @@ export function Chart({
           items={allKeys.map((k) => ({ label: k, color: colorFor(k) }))}
           onToggle={toggle}
           hidden={(it) => hidden.has(it.label)}
+          onFocus={(it) => setFocusSeries(it.label)}
+          onBlur={() => setFocusSeries(null)}
         />
       ) : null}
     </div>

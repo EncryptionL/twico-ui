@@ -1265,6 +1265,7 @@ Props:
 - `ariaLabel` — `string` · default `"box plot"` — Accessible name for the chart's role="img" SVG; per-box values are exposed via the hidden data table.
 - `tableFallback` — `boolean` · default `true` — Renders a visually-hidden data table as an accessible text alternative for screen readers (WCAG 1.1.1).
 - `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
 
 ```jsx
 import { Boxplot } from "twico-ui";
@@ -1301,6 +1302,8 @@ Props:
 - `ariaLabel` — `string` · default `"bubble chart"` — Accessible name for the chart's role="img" SVG; per-point values are exposed via the hidden data table instead.
 - `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1).
 - `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
+- `zoomable` — `boolean` · default `false` — Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart.
 
 ```jsx
 import { BubbleChart } from "twico-ui";
@@ -1335,6 +1338,8 @@ Props:
 - `ariaLabel` — `string` · default `"candlestick chart"` — Accessible name for the chart's SVG role="img"; aria-label is also accepted as an alternative.
 - `tableFallback` — `boolean` · default `true` — Renders a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1).
 - `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
+- `zoomable` — `boolean` · default `false` — Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart.
 
 ```jsx
 import { Candlestick } from "twico-ui";
@@ -1428,6 +1433,9 @@ Props:
 - `colors` — `string[]` · default `built-in token palette` — Per-series colors (any CSS color), cycled when shorter than series.
 - `showValues` — `boolean` · default `false` — Print each value as a small data label on the bars or points.
 - `animate` — `boolean` · default `true` — Play the entrance animation (bars grow, lines draw); respects prefers-reduced-motion.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
+- `crosshair` — `boolean` · default `true` — Show a vertical crosshair guide line at the hovered category on line/area/vertical-bar charts.
+- `zoomable` — `boolean` · default `false` — Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart.
 - `ariaLabel` — `string` — Accessible name for the chart's <svg role="img">; defaults to a description of the chart type.
 
 ```jsx
@@ -1627,6 +1635,7 @@ Props:
 - `ariaLabel` — `string` · default `"donut chart"` — Accessible name for the <svg role="img">; per-slice values live in the hidden data table, not this label.
 - `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1).
 - `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
 
 ```jsx
 import { DonutChart } from "twico-ui";
@@ -1662,6 +1671,7 @@ Props:
 - `ariaLabel` — `string` · default `"funnel chart"` — Accessible name for the chart's `<svg role="img">`; also accepts `aria-label`, with per-stage values in the hidden table.
 - `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative (WCAG 1.1.1).
 - `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
 
 ```jsx
 import { FunnelChart } from "twico-ui";
@@ -1707,6 +1717,7 @@ Props:
 - `ariaLabel` — `string` — Accessible name for the SVG role="img"; defaults to a value summary and also accepts aria-label.
 - `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative per WCAG 1.1.1.
 - `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the gauge's accessible label.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
 
 ```jsx
 import { Gauge } from "twico-ui";
@@ -1742,6 +1753,7 @@ Props:
 - `ariaLabel` — `string` · default `"heatmap"` — Accessible name for the chart's SVG role="img"; also accepts aria-label, with per-cell values exposed via the hidden table.
 - `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative (WCAG 1.1.1).
 - `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
 
 ```jsx
 import { Heatmap } from "twico-ui";
@@ -1864,6 +1876,7 @@ Props:
 - `ariaLabel` — `string` · default `"pie chart" / "donut chart"` — Accessible name for the role="img" SVG; per-slice values live in the hidden data table, not this label.
 - `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative for the chart (WCAG 1.1.1).
 - `caption` — `React.ReactNode` · default `chart's accessible label` — Caption for the hidden data table; defaults to the chart's accessible label.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
 
 ```jsx
 import { PieChart } from "twico-ui";
@@ -1899,6 +1912,7 @@ Props:
 - `ariaLabel` — `string` · default `"polar area chart"` — Accessible name for the chart's SVG role="img"; aria-label is also accepted as an alternative.
 - `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative for screen readers (WCAG 1.1.1).
 - `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
 
 ```jsx
 import { PolarAreaChart } from "twico-ui";
@@ -1939,6 +1953,7 @@ Props:
 - `ariaLabel` — `string` · default `"radar chart"` — Accessible name for the chart's role="img" SVG; also accepts the aria-label attribute.
 - `tableFallback` — `boolean` · default `true` — Renders a visually-hidden data table as a text alternative to the SVG for screen readers (WCAG 1.1.1).
 - `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
 
 ```jsx
 import { RadarChart } from "twico-ui";
@@ -1973,6 +1988,8 @@ Props:
 - `ariaLabel` — `string` · default `"range <type> chart"` — Accessible name for the chart's role="img" SVG; aria-label is also accepted as an alias.
 - `tableFallback` — `boolean` · default `true` — Renders a visually-hidden min/max data table as an accessible text alternative for screen readers (WCAG 1.1.1).
 - `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
+- `zoomable` — `boolean` · default `false` — Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart.
 
 ```jsx
 import { RangeChart } from "twico-ui";
@@ -2010,6 +2027,8 @@ Props:
 - `ariaLabel` — `string` · default `"scatter chart" / "bubble chart"` — Accessible name for the chart's role="img" SVG; also accepts aria-label. Per-point values live in the hidden table.
 - `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1).
 - `caption` — `React.ReactNode` · default `chart's accessible label` — Caption for the hidden data table; defaults to the chart's accessible label.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
+- `zoomable` — `boolean` · default `false` — Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart.
 
 ```jsx
 import { ScatterChart } from "twico-ui";
@@ -2055,6 +2074,7 @@ Props:
 - `ariaLabel` — `string` — Accessible name for the `<svg role="img">`; defaults to a spoken summary of point count and first/last/min/max.
 - `tableFallback` — `boolean` · default `false` — Render a visually-hidden data table as a WCAG 1.1.1 text alternative; off by default since the aria-label usually suffices.
 - `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the accessible label when not provided.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
 
 ```jsx
 import { Sparkline } from "twico-ui";
@@ -2209,6 +2229,7 @@ Props:
 - `ariaLabel` — `string` · default `"treemap"` — Accessible name for the chart's role="img" SVG; also accepts aria-label, with values exposed via the data table.
 - `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table of value and share as an accessible text alternative (WCAG 1.1.1).
 - `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
 
 ```jsx
 import { Treemap } from "twico-ui";

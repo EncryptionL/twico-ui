@@ -17,6 +17,22 @@ export interface CandlestickDatum {
   close: number;
 }
 
+/** Payload passed to `onDataClick` when a candle is clicked. */
+export interface CandlestickClickPayload {
+  /** The clicked candle's `label`. */
+  label: React.ReactNode;
+  /** Opening price for the clicked period. */
+  open: number;
+  /** Highest price reached in the clicked period. */
+  high: number;
+  /** Lowest price reached in the clicked period. */
+  low: number;
+  /** Closing price for the clicked period. */
+  close: number;
+  /** Index of the candle in the full (un-zoomed) `data` array. */
+  index: number;
+}
+
 /**
  * Candlestick (OHLC) chart — one candle per period with a high→low wick and an
  * open→close body, colored by direction (up vs. down), plus a shared value axis,
@@ -39,6 +55,10 @@ export interface CandlestickProps extends React.HTMLAttributes<HTMLDivElement> {
   showGrid?: boolean;
   /** Value axis + category labels. @default true */
   showAxis?: boolean;
+  /** Enable drag-to-zoom (+ shift-drag pan, wheel zoom, and a reset button) over the candles. @default false */
+  zoomable?: boolean;
+  /** Fires when a candle is clicked with the OHLC values + its index in the full data array. */
+  onDataClick?: (payload: CandlestickClickPayload) => void;
   /** Tooltip value formatter (also formats the hidden data-table cells). @default toLocaleString */
   valueFormat?: (value: number) => string;
   /** Accessible name for the chart's `<svg role="img">`. Defaults to `"candlestick chart"`; also accepts `aria-label`. */

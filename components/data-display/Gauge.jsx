@@ -8,12 +8,14 @@ const GAUGE_CSS = `
 .twc-gauge__arc { fill: none; stroke-linecap: round; transition: stroke-dashoffset var(--duration-slow) var(--ease-standard); }
 .twc-gauge__value { fill: var(--color-text); font-weight: 700; }
 .twc-gauge__label { fill: var(--color-text-subtle); }
+.twc-gauge__arc[data-selected="true"] { filter: drop-shadow(0 0 2px var(--color-text)); }
 `;
 
 /**
  * Radial gauge / radial-bar — a single value as a thick arc sweeping between two
  * angles, with the value + an optional caption in the center. Pass `series` for
- * concentric radial bars (one ring per entry). Dependency-free inline SVG; every
+ * concentric radial bars (one ring per entry). Supports click (`onDataClick`) +
+ * ring selection and legend hover-focus. Dependency-free inline SVG; every
  * color/size is a design token, so dark mode is automatic.
  */
 export function Gauge({
@@ -31,6 +33,7 @@ export function Gauge({
   size = 200,
   series,
   showLegend = true,
+  onDataClick,
   ariaLabel,
   "aria-label": ariaLabelProp,
   tableFallback = true,
@@ -43,6 +46,8 @@ export function Gauge({
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
   const { containerRef, tip, show, hide } = useChartTooltip();
+  const [selected, setSelected] = React.useState(null);
+  const [focus, setFocus] = React.useState(null);
 
   const fmt = valueFormat || ((n) => String(Math.round(Number(n) || 0)));
   const cx = size / 2, cy = size / 2;
@@ -80,6 +85,15 @@ export function Gauge({
   };
 
   const single = items[0];
+
+  // ---- interaction: click-to-select + legend hover-focus ----------------
+  const clickable = !!onDataClick;
+  const activeFor = (i) => (focus == null ? undefined : i === focus || undefined);
+  const clickRing = (it, i) => {
+    if (onDataClick) onDataClick({ value: Number(it.value) || 0, label: it.label, index: i });
+  };
+  const selectRing = (i) => setSelected((s) => (s === i ? null : i));
+
   const svgAriaLabel =
     ariaLabelProp ??
     ariaLabel ??
@@ -91,7 +105,11 @@ export function Gauge({
   const labelFont = Math.round(size * 0.072);
 
   return (
-    <div ref={containerRef} className={`twc-gauge twc-chart twc-chart--gauge ${className}`.trim()} data-multi={isMulti || undefined} {...rest}>
+    <div ref={containerRef} className={`twc-gauge twc-chart twc-chart--gauge ${className}`.trim()}
+      data-multi={isMulti || undefined}
+      data-hovering={focus != null || undefined}
+      data-clickable={clickable || undefined}
+      {...rest}>
       {baseStyles}
       {styles}
       <svg
@@ -119,6 +137,9 @@ export function Gauge({
               {f > 0 ? (
                 <path
                   className="twc-gauge__arc twc-chart__anim-fade"
+                  data-mark
+                  data-active={activeFor(i)}
+                  data-selected={selected === i || undefined}
                   d={arc(radius, startAngle, valEnd)}
                   style={{ stroke: c, strokeWidth: strokeW }}
                   onMouseMove={(e) => show({
@@ -126,6 +147,7 @@ export function Gauge({
                     items: [{ color: c, label: "", value: fmt(it.value) }],
                   }, e)}
                   onMouseLeave={hide}
+                  onClick={() => { clickRing(it, i); selectRing(i); }}
                 />
               ) : null}
             </g>
@@ -165,6 +187,8 @@ export function Gauge({
             label: labelText(it.label) || `Series ${i + 1}`,
             color: it.color || paletteAt(undefined, i),
           }))}
+          onFocus={items.length > 1 ? (it, i) => setFocus(i) : undefined}
+          onBlur={items.length > 1 ? () => setFocus(null) : undefined}
         />
       ) : null}
     </div>

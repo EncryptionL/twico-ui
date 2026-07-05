@@ -6,6 +6,22 @@ import * as React from "react";
  */
 export type ChartDatum<K extends string = "value"> = { label: React.ReactNode } & { [P in K]: number };
 
+/** Payload passed to `onDataClick` when a bar/point (or category, in zoom mode) is clicked. */
+export interface ChartClickPayload<K extends string = string> {
+  /** The clicked datum's `label`. */
+  label: React.ReactNode;
+  /** The series key clicked, or `null` when a whole category was clicked (zoom overlay). */
+  series: K | null;
+  /** Index of `series` in the `series` prop, or `-1` for a category click. */
+  seriesIndex: number;
+  /** The clicked value, or `undefined` for a category click. */
+  value: number | undefined;
+  /** Index of the datum in the full (un-zoomed) `data` array. */
+  index: number;
+  /** The full data row that was clicked. */
+  row: ChartDatum<K>;
+}
+
 /**
  * Cartesian chart — vertical/horizontal bars (grouped or stacked), line, and area
  * (straight / smooth / stepped), single or multi-series, with grid, axes, tooltips,
@@ -40,6 +56,12 @@ export interface ChartProps<K extends string = "value"> extends React.HTMLAttrib
   showValues?: boolean;
   /** Play the entrance animation (bars grow, lines draw); respects `prefers-reduced-motion`. @default true */
   animate?: boolean;
+  /** Show a vertical crosshair line at the hovered category (line/area/vertical bars). @default true */
+  crosshair?: boolean;
+  /** Enable drag-to-zoom (+ shift-drag pan, wheel zoom, and a reset button) over the x-axis. @default false */
+  zoomable?: boolean;
+  /** Fires when a bar/point is clicked (or a category, in zoom mode) with the datum + metadata. */
+  onDataClick?: (payload: ChartClickPayload<NoInfer<K>>) => void;
   /** Grid lines. @default true */
   showGrid?: boolean;
   /** Axis labels. @default true */

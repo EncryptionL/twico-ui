@@ -19,7 +19,8 @@ const CHART_CSS = `
  * *radius* encodes each value, over concentric value rings. Radius scales with
  * the square root of the value so a slice's **area** is proportional to its
  * value (the statistically honest encoding; pass a pre-scaled `max` for a plain
- * radial read). Dependency-free inline SVG.
+ * radial read). Slices are clickable (`onDataClick` + click-to-select) and a
+ * legend entry hover-focuses its slice. Dependency-free inline SVG.
  */
 export function PolarAreaChart({
   data,
@@ -30,6 +31,7 @@ export function PolarAreaChart({
   valueFormat,
   height = 280,
   colors,
+  onDataClick,
   ariaLabel,
   "aria-label": ariaLabelProp,
   tableFallback = true,
@@ -42,7 +44,9 @@ export function PolarAreaChart({
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
   const { containerRef, tip, show, hide } = useChartTooltip();
-  const [active, setActive] = React.useState(null);
+  const [active, setActive] = React.useState(null); // slice index under the pointer
+  const [focus, setFocus] = React.useState(null); // slice index hovered in the legend
+  const [selected, setSelected] = React.useState(null); // clicked/selected slice index
 
   const rows = data || [];
   const n = rows.length;
@@ -68,15 +72,25 @@ export function PolarAreaChart({
   const rings = Math.max(1, Math.floor(levels));
   const anglePer = 360 / Math.max(1, n);
   const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "polar area chart";
+  const clickable = !!onDataClick;
+  // Legend focus wins over pointer hover; both dim the non-emphasized slices.
+  const emphasis = focus != null ? focus : active;
 
   const labelText = (label) =>
     typeof label === "string" || typeof label === "number" ? String(label) : "";
+
+  const clickSlice = (d, v, i) => {
+    if (!onDataClick) return;
+    onDataClick({ label: d.label, value: v, index: i });
+    setSelected((s) => (s === i ? null : i));
+  };
 
   return (
     <div
       ref={containerRef}
       className={`twc-chart twc-chart--polar ${className}`.trim()}
-      data-hovering={active != null || undefined}
+      data-hovering={emphasis != null || undefined}
+      data-clickable={clickable || undefined}
       {...rest}
     >
       {baseStyles}
@@ -113,11 +127,13 @@ export function PolarAreaChart({
               key={`slice-${i}`}
               className="twc-chart__slice twc-chart__anim-arc"
               data-mark
-              data-active={active === i || undefined}
+              data-active={emphasis == null ? undefined : emphasis === i || undefined}
+              data-selected={selected === i || undefined}
               style={{ fill: color, fillOpacity: 0.82 }}
               d={arcPath(cx, cy, radiusFor(v), 0, start, start + anglePer)}
               onMouseMove={(e) => { setActive(i); show(tipFor, e); }}
               onMouseLeave={() => { setActive(null); hide(); }}
+              onClick={onDataClick ? () => clickSlice(d, v, i) : undefined}
             />
           );
         })}
@@ -146,7 +162,11 @@ export function PolarAreaChart({
       ) : null}
 
       {showLegend && n ? (
-        <ChartLegend items={rows.map((d, i) => ({ label: d.label, color: d.color || paletteAt(colors, i) }))} />
+        <ChartLegend
+          items={rows.map((d, i) => ({ label: d.label, color: d.color || paletteAt(colors, i) }))}
+          onFocus={n > 1 ? (_it, i) => setFocus(i) : undefined}
+          onBlur={n > 1 ? () => setFocus(null) : undefined}
+        />
       ) : null}
     </div>
   );

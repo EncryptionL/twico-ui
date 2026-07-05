@@ -1564,6 +1564,27 @@ export const components = [
         "description": "Play the entrance animation (bars grow, lines draw); respects prefers-reduced-motion."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
+        "prop": "crosshair",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Show a vertical crosshair guide line at the hovered category on line/area/vertical-bar charts."
+      },
+      {
+        "prop": "zoomable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -1743,6 +1764,13 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the chart's accessible label."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -1913,6 +1941,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Caption for the hidden data table; defaults to the chart's accessible label."
+      },
+      {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
       }
     ],
     "snippet": "import { DonutChart } from \"twico-ui\";\n\n<DonutChart\n  data={[\n    { label: \"Direct\", value: 42 },\n    { label: \"Referral\", value: 28 },\n    { label: \"Social\", value: 30 },\n  ]}\n  centerLabel=\"Traffic\"\n  showLegend\n/>\n\n<DonutChart data={data} donut={false} />",
@@ -2043,6 +2078,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Caption for the hidden data table; defaults to the gauge's accessible label."
+      },
+      {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
       },
       {
         "prop": "onClick",
@@ -2224,6 +2266,13 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the accessible label when not provided."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -2403,6 +2452,20 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the chart's accessible label."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
+        "prop": "zoomable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -2580,6 +2643,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Caption for the hidden data table; defaults to the chart's accessible label."
+      },
+      {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
+        "prop": "zoomable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart."
       }
     ],
     "snippet": "import { BubbleChart } from \"twico-ui\";\n\n<BubbleChart\n  series={[\n    { name: \"Plans\", points: [\n      { x: 12, y: 40, z: 800, label: \"Starter\" },\n      { x: 26, y: 65, z: 2400, label: \"Team\" },\n      { x: 48, y: 82, z: 5200, label: \"Business\" },\n    ] },\n  ]}\n  xLabel=\"Seats\"\n  yLabel=\"Satisfaction\"\n/>",
@@ -2682,6 +2759,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Caption for the hidden data table; defaults to the chart's accessible label."
+      },
+      {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
       },
       {
         "prop": "onClick",
@@ -2833,6 +2917,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
+      },
+      {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
       },
       {
         "prop": "onClick",
@@ -3014,6 +3105,13 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the chart's accessible label."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -3165,6 +3263,13 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the chart's accessible label."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -3300,6 +3405,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
+      },
+      {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
       },
       {
         "prop": "onClick",
@@ -3446,6 +3558,20 @@ export const components = [
         "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
       },
       {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
+        "prop": "zoomable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -3581,6 +3707,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
+      },
+      {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
       },
       {
         "prop": "onClick",
@@ -3725,6 +3858,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Caption for the hidden data table; defaults to the chart's accessible label when omitted."
+      },
+      {
+        "prop": "onDataClick",
+        "type": "(payload) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline."
+      },
+      {
+        "prop": "zoomable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart."
       },
       {
         "prop": "onClick",

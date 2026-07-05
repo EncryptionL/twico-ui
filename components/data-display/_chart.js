@@ -213,6 +213,26 @@ export const CHART_BASE_CSS = `
 .twc-chart[data-hovering="true"] [data-mark][data-active="true"] { opacity: 1; }
 [data-mark] { transition: opacity var(--duration-fast) var(--ease-standard); cursor: default; }
 
+/* Click-to-select: a persistent outline on the chosen mark. */
+[data-mark][data-selected="true"] { stroke: var(--color-text); stroke-width: 2; paint-order: stroke; }
+.twc-chart[data-clickable="true"] [data-mark], .twc-chart__overlay[data-clickable="true"] { cursor: pointer; }
+
+/* Crosshair + full-plot event overlay (cartesian shared-axis interactions). */
+.twc-chart__overlay { fill: transparent; }
+.twc-chart__crosshair { stroke: var(--color-border-strong); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.7; pointer-events: none; }
+
+/* Drag-to-zoom selection band + the reset control. */
+.twc-chart__zoomband { fill: var(--color-primary); opacity: 0.12; pointer-events: none; }
+.twc-chart__zoom-reset {
+  position: absolute; top: 6px; inset-inline-end: 8px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px;
+  font-family: var(--font-sans); font-size: var(--text-xs); color: var(--color-text-muted);
+  background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-sm); cursor: pointer;
+}
+.twc-chart__zoom-reset:hover { color: var(--color-text); border-color: var(--color-border-strong); }
+.twc-chart__zoom-reset svg { width: 12px; height: 12px; }
+
 /* Entrance animations (respect reduced motion, below). */
 @keyframes twc-chart-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes twc-chart-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
@@ -266,8 +286,12 @@ export function ChartTable({ id, caption, columns, rows }) {
   );
 }
 
-/** Series legend. `items` are `{ label, color }`; pass `onToggle`/`hidden` to make it interactive. */
-export function ChartLegend({ items, onToggle, hidden }) {
+/**
+ * Series legend. `items` are `{ label, color }`. `onToggle`/`hidden` make items
+ * click-to-hide; `onFocus(item, i)` / `onBlur()` fire on hover so the chart can
+ * emphasize the hovered series and dim the rest.
+ */
+export function ChartLegend({ items, onToggle, hidden, onFocus, onBlur }) {
   const h = React.createElement;
   return h(
     "div",
@@ -286,6 +310,8 @@ export function ChartLegend({ items, onToggle, hidden }) {
           onKeyDown: onToggle
             ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onToggle(it, i); } }
             : undefined,
+          onMouseEnter: onFocus ? () => onFocus(it, i) : undefined,
+          onMouseLeave: onBlur ? () => onBlur() : undefined,
         },
         h("span", { className: "twc-chart__leg-sw", style: { background: it.color } }),
         it.label,

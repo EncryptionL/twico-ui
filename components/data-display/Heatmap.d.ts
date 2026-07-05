@@ -14,6 +14,16 @@ export interface HeatmapDatum {
   value: number;
 }
 
+/** Payload passed to `onDataClick` when a heatmap cell is clicked. */
+export interface HeatmapClickPayload {
+  /** The clicked cell's column (`x`) key. */
+  x: string | number;
+  /** The clicked cell's row (`y`) key. */
+  y: string | number;
+  /** The clicked cell's numeric value. */
+  value: number;
+}
+
 /**
  * Heatmap — a matrix of colored cells keyed by (x, y), each shaded by a
  * single-hue intensity scale between `min` and `max`. Ordered X columns and Y
@@ -46,6 +56,8 @@ export interface HeatmapProps extends React.HTMLAttributes<HTMLDivElement> {
   showLegend?: boolean;
   /** Value formatter for tooltips, printed cell values, and the hidden table. @default fmtNumber */
   valueFormat?: (value: number) => string;
+  /** Fires when a cell is clicked with its `{ x, y, value }`; the clicked cell also toggles a selection outline. */
+  onDataClick?: (payload: HeatmapClickPayload) => void;
   /** Pixel height of the chart. @default 300 */
   height?: number;
   /** Accessible name for the chart's `<svg role="img">`. Per-cell values are exposed via the hidden data table, not this label. Defaults to `"heatmap"`; also accepts `aria-label`. */

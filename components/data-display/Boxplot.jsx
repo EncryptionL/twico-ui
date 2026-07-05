@@ -18,7 +18,8 @@ const CHART_CSS = `
 /**
  * Box-and-whisker chart — one box per category summarising a five-number
  * distribution (min, Q1, median, Q3, max) with whiskers and optional outlier
- * points. Dependency-free inline SVG; for bar/line/area use `Chart`.
+ * points, with click (`onDataClick`) + selection. Dependency-free inline SVG;
+ * for bar/line/area use `Chart`.
  */
 export function Boxplot({
   data,
@@ -27,6 +28,7 @@ export function Boxplot({
   showGrid = true,
   showAxis = true,
   valueFormat,
+  onDataClick,
   ariaLabel,
   "aria-label": ariaLabelProp,
   tableFallback = true,
@@ -39,10 +41,22 @@ export function Boxplot({
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
   const { containerRef, tip, show, hide } = useChartTooltip();
+  const [selected, setSelected] = React.useState(null);
 
   const rows = data || [];
   const fmt = valueFormat || fmtNumber;
   const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "box plot";
+  const clickable = !!onDataClick;
+
+  // Click a box: emit the five-number summary + index, and toggle its selection outline.
+  const clickBox = (d, i) => {
+    if (onDataClick) onDataClick({
+      label: d.label,
+      min: Number(d.min), q1: Number(d.q1), median: Number(d.median),
+      q3: Number(d.q3), max: Number(d.max), index: i,
+    });
+    setSelected((s) => (s === i ? null : i));
+  };
 
   // Shared tooltip: the five-number summary for the hovered category (top → bottom).
   const tipFor = (d) => ({
@@ -83,7 +97,8 @@ export function Boxplot({
   const boxW = Math.min(band * 0.5, 46);
 
   return (
-    <div ref={containerRef} className={`twc-chart twc-chart--boxplot ${className}`.trim()} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--boxplot ${className}`.trim()}
+      data-clickable={clickable || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
@@ -116,9 +131,14 @@ export function Boxplot({
               <line className="twc-boxplot__whisker" style={{ stroke: color }} x1={cx} y1={boxBot} x2={cx} y2={yMin} />
               <line className="twc-boxplot__whisker" style={{ stroke: color }} x1={cx - cap} y1={yMax} x2={cx + cap} y2={yMax} />
               <line className="twc-boxplot__whisker" style={{ stroke: color }} x1={cx - cap} y1={yMin} x2={cx + cap} y2={yMin} />
-              {/* interquartile box + median */}
-              <rect className="twc-boxplot__box" style={{ fill: color, stroke: color }}
-                x={x} y={boxTop} width={boxW} height={Math.max(1, boxBot - boxTop)} rx="2" {...hoverProps} />
+              {/* interquartile box + median — the box is the click/selection target.
+                  When selected, drop the inline stroke so the token selection outline
+                  ([data-mark][data-selected] → stroke: var(--color-text)) can win. */}
+              <rect className="twc-boxplot__box"
+                data-mark data-selected={selected === i || undefined}
+                style={selected === i ? { fill: color } : { fill: color, stroke: color }}
+                x={x} y={boxTop} width={boxW} height={Math.max(1, boxBot - boxTop)} rx="2"
+                {...hoverProps} onClick={() => clickBox(d, i)} />
               <line className="twc-boxplot__median" style={{ stroke: color }} x1={x} y1={yMed} x2={x + boxW} y2={yMed} />
               {/* outliers */}
               {(Array.isArray(d.outliers) ? d.outliers : []).map((o, oi) =>

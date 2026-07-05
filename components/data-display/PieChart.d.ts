@@ -10,6 +10,18 @@ export interface PieChartDatum {
   color?: string;
 }
 
+/** Payload passed to `onDataClick` when a pie/donut slice is clicked. */
+export interface PieChartClickPayload {
+  /** The clicked slice's `label`. */
+  label: React.ReactNode;
+  /** The clicked slice's numeric value (negative inputs are clamped to `0`). */
+  value: number;
+  /** Index of the slice in the `data` array. */
+  index: number;
+  /** The slice's share of the total, as a percentage rounded to one decimal. */
+  percent: number;
+}
+
 /**
  * Pie / donut chart — proportional slices of a whole from a single value series,
  * with per-slice tooltips, an optional legend, optional percentage labels, and a
@@ -41,6 +53,8 @@ export interface PieChartProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   height?: number;
   /** Per-slice colors (any CSS color), cycled when shorter than `data`. Defaults to the built-in token palette. */
   colors?: string[];
+  /** Fires when a slice is clicked with the slice's label, value, index, and percent share; clicking a slice also toggles a selection outline on it. */
+  onDataClick?: (payload: PieChartClickPayload) => void;
   /** Accessible name for the `<svg role="img">`. Per-slice values live in the hidden data table, not this label. Defaults to `"pie chart"`/`"donut chart"`; also accepts `aria-label`. */
   ariaLabel?: string;
   /** Render a visually-hidden data table as an accessible text alternative (WCAG 1.1.1). @default true */

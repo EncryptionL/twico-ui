@@ -16,9 +16,11 @@ const CHART_CSS = `
 `;
 
 /**
- * Pie / donut chart — proportional slices of a whole from a single value series.
- * Dependency-free inline SVG; set `donut` (or `innerRadius`) for a ring with an
- * optional center label. For other shapes use the dedicated sibling components.
+ * Pie / donut chart — proportional slices of a whole from a single value series,
+ * with a floating tooltip, click (`onDataClick`) + selection, and a legend whose
+ * entries highlight their slice on hover. Dependency-free inline SVG; set `donut`
+ * (or `innerRadius`) for a ring with an optional center label. For other shapes use
+ * the dedicated sibling components.
  */
 export function PieChart({
   data,
@@ -32,6 +34,7 @@ export function PieChart({
   valueFormat,
   height = 260,
   colors,
+  onDataClick,
   ariaLabel,
   "aria-label": ariaLabelProp,
   tableFallback = true,
@@ -44,7 +47,10 @@ export function PieChart({
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
   const { containerRef, tip, show, hide } = useChartTooltip();
-  const [active, setActive] = React.useState(null);
+  const [active, setActive] = React.useState(null); // slice hovered directly
+  const [focus, setFocus] = React.useState(null); // slice focused via the legend
+  const [selected, setSelected] = React.useState(null); // slice toggled by a click
+  const clickable = !!onDataClick;
 
   const rows = data || [];
   const fmt = valueFormat || fmtNumber;
@@ -79,8 +85,18 @@ export function PieChart({
     return { d, i, v, frac, s0, s1, span, pct, color };
   });
 
+  // ---- interaction handlers --------------------------------------------
+  const clickDatum = (d, i, v, pct) => {
+    if (!onDataClick) return;
+    onDataClick({ label: d.label, value: v, index: i, percent: pct });
+  };
+  const selectMark = (i) => setSelected((s) => (s === i ? null : i));
+  // Legend focus wins over direct hover; either one drives the shared dim.
+  const emph = focus != null ? focus : active;
+  const multi = rows.length > 1;
+
   return (
-    <div ref={containerRef} className={`twc-chart twc-chart--pie ${className}`.trim()} data-donut={isDonut ? "true" : undefined} data-hovering={active != null ? "true" : undefined} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--pie ${className}`.trim()} data-donut={isDonut ? "true" : undefined} data-hovering={emph != null ? "true" : undefined} data-clickable={clickable || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${H} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId}>
@@ -98,10 +114,12 @@ export function PieChart({
                   className="twc-chart__slice twc-chart__anim-arc"
                   style={{ fill: color }}
                   data-mark=""
-                  data-active={active === i ? "true" : undefined}
+                  data-active={emph === i ? "true" : undefined}
+                  data-selected={selected === i ? "true" : undefined}
                   d={arcPath(cx, cy, rOuter, rInner, s0 + pad, s1 - pad)}
                   onMouseMove={(e) => { setActive(i); show({ title: d.label, items }, e); }}
                   onMouseLeave={() => { setActive(null); hide(); }}
+                  onClick={() => { clickDatum(d, i, v, pct); selectMark(i); }}
                 />
               );
             })}
@@ -142,7 +160,11 @@ export function PieChart({
       ) : null}
 
       {showLegend && rows.length ? (
-        <ChartLegend items={slices.map(({ d, color }) => ({ label: d.label, color }))} />
+        <ChartLegend
+          items={slices.map(({ d, color }) => ({ label: d.label, color }))}
+          onFocus={multi ? (it, i) => setFocus(i) : undefined}
+          onBlur={multi ? () => setFocus(null) : undefined}
+        />
       ) : null}
     </div>
   );
