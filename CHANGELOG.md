@@ -2,6 +2,19 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.9.0](https://github.com/EncryptionL/twico-ui/compare/v1.8.1...v1.9.0) (2026-07-05)
+
+
+### Bug Fixes
+
+* **docs:** update the docs version selector (was stuck at v1.3) ([94a19d9](https://github.com/EncryptionL/twico-ui/commit/94a19d9b2f601cc1a811cd791f9b7ba7c930558b))
+
+
+### Features
+
+* **charts:** ApexCharts/MUI-X-style interactivity — tooltips, hover, animation ([57d944d](https://github.com/EncryptionL/twico-ui/commit/57d944d57ba687b1bb179397a01a877c74af661f))
+* **charts:** expand Chart + add 14 dedicated chart components ([18d059d](https://github.com/EncryptionL/twico-ui/commit/18d059df093b7f11cd697a52aeba37c7e03e4fc0))
+
 ## [1.8.1](https://github.com/EncryptionL/twico-ui/compare/v1.8.0...v1.8.1) (2026-07-04)
 
 
