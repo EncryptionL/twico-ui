@@ -40,7 +40,7 @@ env:
   # Frozen documentation snapshots, "<base-version>=<git tag>", newest first. One entry
   # per released minor; patches share their minor's docs (point at the latest patch tag).
   # Add a line here AND an entry in site/public/versions.json when you cut a new minor.
-  DOC_SNAPSHOTS: "1.2=v1.2.0 1.1=v1.1.0 1.0=v1.0.2"
+  DOC_SNAPSHOTS: "1.8=v1.8.1 1.7=v1.7.0 1.6=v1.6.0 1.5=v1.5.0 1.4=v1.4.0 1.3=v1.3.2 1.2=v1.2.0 1.1=v1.1.0 1.0=v1.0.2"
 
 jobs:
   build:
@@ -68,24 +68,30 @@ jobs:
 
       - name: Build version snapshots
         run: |
-          set -euo pipefail
+          set -uo pipefail
           DIST="$GITHUB_WORKSPACE/site/dist"
           for pair in $DOC_SNAPSHOTS; do
             ver="${pair%%=*}"
             tag="${pair##*=}"
             echo "::group::docs snapshot v$ver (from $tag)"
             wt="$RUNNER_TEMP/docs-$ver"
-            git worktree add --force "$wt" "$tag"
-            (
+            # Build the snapshot in an isolated worktree. A single old-tag build failure
+            # must NOT abort the whole deploy — warn and skip that version instead.
+            if git worktree add --force "$wt" "$tag" && (
               cd "$wt/site"
               npm ci
               # Override the hard-coded base so assets resolve under the versioned path.
               npm run build -- --base="/twico-ui/v$ver/" --outDir "$DIST/v$ver" --emptyOutDir
-            )
-            # The snapshot's tag predates the React <VersionSelector/>, so inject the
-            # standalone switcher (served from the root; reads /twico-ui/versions.json).
-            sed -i 's#</body>#<script src="/twico-ui/version-switcher.js" defer></script></body>#' "$DIST/v$ver/index.html"
-            git worktree remove --force "$wt"
+            ); then
+              # Tags before the React <VersionSelector/> (<= v1.2) need the standalone
+              # switcher injected; newer tags already ship it, so skip to avoid a duplicate.
+              if [ ! -f "$wt/site/src/components/VersionSelector.jsx" ]; then
+                sed -i 's#</body>#<script src="/twico-ui/version-switcher.js" defer></script></body>#' "$DIST/v$ver/index.html"
+              fi
+            else
+              echo "::warning title=docs snapshot v$ver::build from $tag failed — skipping this version"
+            fi
+            git worktree remove --force "$wt" 2>/dev/null || true
             echo "::endgroup::"
           done
           echo "Deployed doc tree:"

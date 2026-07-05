@@ -1,7 +1,13 @@
 {
-  "_comment": "Docs version manifest. The selector in the navbar reads this. 'Latest' is the live site at the root base; each other entry is a frozen snapshot built from that release's git tag and deployed under its own base path by .github/workflows/deploy-docs.yml. When you cut a new minor: bump the latest entry's `version`, and add the previous minor as a new snapshot entry (newest first, after Latest).",
+  "_comment": "Docs version manifest. The selector in the navbar reads this. 'Latest' is the live site at the root base; each other entry is a frozen snapshot built from that release's git tag and deployed under its own base path by .github/workflows/deploy-docs.yml. When you cut a new minor: bump the latest entry's `version`, add the previous minor as a new snapshot entry (newest first, after Latest), AND add a matching pair to DOC_SNAPSHOTS in deploy-docs.yml.",
   "items": [
-    { "label": "Latest", "version": "v1.3", "base": "/twico-ui/", "latest": true },
+    { "label": "Latest", "version": "v1.9", "base": "/twico-ui/", "latest": true },
+    { "label": "v1.8", "base": "/twico-ui/v1.8/" },
+    { "label": "v1.7", "base": "/twico-ui/v1.7/" },
+    { "label": "v1.6", "base": "/twico-ui/v1.6/" },
+    { "label": "v1.5", "base": "/twico-ui/v1.5/" },
+    { "label": "v1.4", "base": "/twico-ui/v1.4/" },
+    { "label": "v1.3", "base": "/twico-ui/v1.3/" },
     { "label": "v1.2", "base": "/twico-ui/v1.2/" },
     { "label": "v1.1", "base": "/twico-ui/v1.1/" },
     { "label": "v1.0", "base": "/twico-ui/v1.0/" }
