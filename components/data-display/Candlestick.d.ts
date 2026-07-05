@@ -40,7 +40,7 @@ export interface CandlestickClickPayload {
  * SVG. For bars/lines/areas use `Chart`; for other shapes use the dedicated
  * sibling chart components.
  *
- * @startingPoint section="Data display" subtitle="OHLC candlestick chart (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="OHLC candlestick chart (no deps)" viewport="700x280"
  */
 export interface CandlestickProps extends React.HTMLAttributes<HTMLDivElement> {
   /** OHLC data points, one candle each, in chronological order. */

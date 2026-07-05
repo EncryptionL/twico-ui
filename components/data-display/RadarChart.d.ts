@@ -28,7 +28,7 @@ export interface RadarClickPayload<K extends string = string> {
  * For cartesian bars/lines/areas use `Chart`; for other shapes use the dedicated
  * sibling components.
  *
- * @startingPoint section="Data display" subtitle="Radar / spider chart (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Radar / spider chart (no deps)" viewport="700x280"
  */
 export interface RadarChartProps<K extends string = "value"> extends React.HTMLAttributes<HTMLDivElement> {
   /** Data rows — one per **axis**. Each has a `label` + one numeric field per series key. (`K` is inferred from `series`, not from `data`.) */

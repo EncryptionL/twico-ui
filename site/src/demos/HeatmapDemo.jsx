@@ -10,18 +10,23 @@ const activity = [
 ];
 
 export default function HeatmapDemo() {
+  const [picked, setPicked] = React.useState(null);
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-      <div style={{ maxWidth: 520 }}>
-        <Heatmap xLabel="Hour" yLabel="Day" data={activity} />
-      </div>
-      <div style={{ maxWidth: 520 }}>
-        <Heatmap
-          showValues
-          colorScale="var(--emerald-500)"
-          valueFormat={(v) => `${v}%`}
-          data={activity}
-        />
+    <div style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 520 }}>
+      <Heatmap
+        xLabel="Hour"
+        yLabel="Day"
+        showValues
+        colorScale="var(--emerald-500)"
+        valueFormat={(v) => `${v}%`}
+        data={activity}
+        onDataClick={(p) => setPicked(p)}
+        ariaLabel="Interactive activity heatmap"
+      />
+      <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text-muted)" }}>
+        {picked
+          ? <>Clicked <strong style={{ color: "var(--color-text)" }}>{String(picked.x)} · {String(picked.y)}</strong> = {picked.value}%</>
+          : "Hover a cell for details · click to select"}
       </div>
     </div>
   );

@@ -29,7 +29,7 @@ export interface TreemapClickPayload {
  * labels, hover tooltips, and a visually-hidden data table. Good for showing the
  * relative weight of parts within a whole (spend by category, storage by bucket).
  *
- * @startingPoint section="Data display" subtitle="Squarified treemap (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Squarified treemap (no deps)" viewport="700x280"
  */
 export interface TreemapProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Tiles to lay out. Each has a `label`, a non-negative `value`, and an optional `color`. */

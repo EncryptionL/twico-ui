@@ -30,7 +30,7 @@ export interface FunnelClickPayload {
  * and a visually-hidden data table. For bars/lines/areas use `Chart`; for part-of-whole
  * shares use `PieChart`.
  *
- * @startingPoint section="Data display" subtitle="Descending funnel stages (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Descending funnel stages (no deps)" viewport="700x280"
  */
 export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Funnel stages, ordered from the widest/top stage to the narrowest. */

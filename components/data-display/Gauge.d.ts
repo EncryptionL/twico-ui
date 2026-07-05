@@ -27,7 +27,7 @@ export interface GaugeClickPayload {
  * Dependency-free inline SVG; every color/size is a design token so dark mode is
  * automatic. For bar/line/area use `Chart`; for slices use `PieChart`/`DonutChart`.
  *
- * @startingPoint section="Data display" subtitle="Radial gauge / radial-bar (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Radial gauge / radial-bar (no deps)" viewport="700x280"
  */
 export interface GaugeProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
   /** The value to display, mapped from `min`..`max` onto the arc sweep. @default 0 */

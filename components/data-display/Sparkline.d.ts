@@ -23,7 +23,7 @@ export interface SparklineClickPayload {
  * vertical space, with an optional emphasised trailing dot. For a full chart
  * with axes, tooltips, and a legend use the `Chart` component.
  *
- * @startingPoint section="Data display" subtitle="Tiny inline trend line (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Tiny inline trend line (no deps)" viewport="700x280"
  */
 export interface SparklineProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
   /** Data points: bare numbers, or `{ value, label }` objects. */

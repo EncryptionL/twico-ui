@@ -7,30 +7,31 @@ const skillData = [
   { label: "Range", team: 70, rival: 55 },
   { label: "Defense", team: 85, rival: 60 },
   { label: "Control", team: 50, rival: 75 },
-];
-
-const scoreData = [
-  { label: "Design", score: 92 },
-  { label: "Perf", score: 74 },
-  { label: "A11y", score: 88 },
-  { label: "SEO", score: 81 },
-  { label: "Best practices", score: 95 },
+  { label: "Stamina", team: 78, rival: 68 },
 ];
 
 export default function RadarChartDemo() {
+  const [picked, setPicked] = React.useState(null);
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-      <div style={{ maxWidth: 520 }}>
-        <RadarChart series={["team", "rival"]} showLegend data={skillData} />
-      </div>
-      <div style={{ maxWidth: 520 }}>
-        <RadarChart
-          series={["score"]}
-          max={100}
-          levels={5}
-          valueFormat={(v) => `${v}/100`}
-          data={scoreData}
-        />
+    <div style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 520 }}>
+      <RadarChart
+        series={["team", "rival"]}
+        showLegend
+        data={skillData}
+        onDataClick={(p) => setPicked(p)}
+        ariaLabel="Interactive radar chart comparing two teams"
+      />
+      <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text-muted)" }}>
+        {picked ? (
+          <>
+            Clicked{" "}
+            <strong style={{ color: "var(--color-text)" }}>{String(picked.label)}</strong>{" "}
+            · <strong style={{ color: "var(--color-text)" }}>{picked.series}</strong> ={" "}
+            {picked.value}
+          </>
+        ) : (
+          "Hover a vertex for details · click a dot to select"
+        )}
       </div>
     </div>
   );

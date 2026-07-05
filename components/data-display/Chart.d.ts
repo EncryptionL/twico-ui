@@ -31,7 +31,7 @@ export interface ChartClickPayload<K extends string = string> {
  * scatter/bubble, radar, heatmap, gauge, funnel, treemap, candlestick, boxplot and
  * range charts use the dedicated sibling components.
  *
- * @startingPoint section="Data display" subtitle="Bar / line / area chart (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Bar / line / area chart (no deps)" viewport="700x280"
  */
 export interface ChartProps<K extends string = "value"> extends React.HTMLAttributes<HTMLDivElement> {
   /** Chart type. `"column"` is an alias of `"bar"` (vertical bars). @default "bar" */

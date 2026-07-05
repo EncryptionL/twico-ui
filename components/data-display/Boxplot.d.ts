@@ -46,7 +46,7 @@ export interface BoxplotClickPayload {
  * design tokens. For bar/line/area use `Chart`; for other shapes use the
  * dedicated sibling components.
  *
- * @startingPoint section="Data display" subtitle="Box-and-whisker distribution chart" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Box-and-whisker distribution chart" viewport="700x280"
  */
 export interface BoxplotProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The boxes to plot, one per category, each a five-number summary. */

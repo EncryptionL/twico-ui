@@ -48,7 +48,7 @@ export interface ScatterClickPayload {
  * dots stay round. For bars/line/area use `Chart`; for other shapes use the
  * dedicated sibling components.
  *
- * @startingPoint section="Data display" subtitle="Scatter / bubble plot (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Scatter / bubble plot (no deps)" viewport="700x280"
  */
 export interface ScatterChartProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
   /** The series to plot; each has optional `name`/`color` and a list of `{ x, y, z?, label? }` points. */

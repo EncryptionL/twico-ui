@@ -28,7 +28,7 @@ export interface PieChartClickPayload {
  * donut center label. Dependency-free inline SVG. For bar/line/area use `Chart`;
  * for other shapes use the dedicated sibling components (gauge, radar, funnel, …).
  *
- * @startingPoint section="Data display" subtitle="Pie / donut chart (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Pie / donut chart (no deps)" viewport="700x280"
  */
 export interface PieChartProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
   /** Slices to plot; each is a `{ label, value, color? }`. Only positive values contribute a slice. */

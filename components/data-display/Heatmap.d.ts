@@ -31,7 +31,7 @@ export interface HeatmapClickPayload {
  * Dependency-free inline SVG, with per-cell tooltips, a gradient scale legend,
  * and a visually-hidden data table. Dark mode is automatic through tokens.
  *
- * @startingPoint section="Data display" subtitle="Matrix heatmap (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Matrix heatmap (no deps)" viewport="700x280"
  */
 export interface HeatmapProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Cells to plot. X columns and Y rows are derived from these in first-seen order. */

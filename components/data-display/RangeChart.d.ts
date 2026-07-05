@@ -36,7 +36,7 @@ export interface RangeChartClickPayload {
  * Dependency-free inline SVG. For bars/lines/areas use `Chart`; for other
  * shapes use the dedicated sibling chart components.
  *
- * @startingPoint section="Data display" subtitle="Range bar / range area chart (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Range bar / range area chart (no deps)" viewport="700x280"
  */
 export interface RangeChartProps extends React.HTMLAttributes<HTMLDivElement> {
   /** `"bar"` = horizontal range bars (timeline/Gantt); `"area"` = a band between a min and max line. @default "bar" */

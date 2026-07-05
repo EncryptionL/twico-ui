@@ -1249,111 +1249,6 @@ import { Badge } from "twico-ui";
 <Badge tone="info" size="lg">12 new</Badge>
 ```
 
-#### Boxplot
-
-A dependency-free inline-SVG box-and-whisker chart that draws one box per category from a five-number summary (min, Q1, median, Q3, max) with whiskers and optional outlier points. Reach for it to compare the spread, skew, and outliers of distributions across groups where a bar or line chart would hide the shape of the data.
-
-`import { Boxplot } from "twico-ui"`
-
-Props:
-- `data` — `BoxplotDatum[]` · **required** — The boxes to plot, one per category, each a five-number summary with an optional array of outlier values.
-- `color` — `string` · default `"var(--color-primary)"` — Box fill and stroke accent, accepting any CSS color including a design token reference.
-- `height` — `number` · default `300` — Pixel height of the chart; the width fills its container at 100%.
-- `showGrid` — `boolean` · default `true` — Whether to draw horizontal grid lines at the value axis ticks behind the boxes.
-- `showAxis` — `boolean` · default `true` — Whether to render the value axis and the category labels under each box.
-- `valueFormat` — `(value: number) => string` · default `toLocaleString` — Formatter applied to values in the per-box tooltip and the hidden data table.
-- `ariaLabel` — `string` · default `"box plot"` — Accessible name for the chart's role="img" SVG; per-box values are exposed via the hidden data table.
-- `tableFallback` — `boolean` · default `true` — Renders a visually-hidden data table as an accessible text alternative for screen readers (WCAG 1.1.1).
-- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
-- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
-
-```jsx
-import { Boxplot } from "twico-ui";
-
-<Boxplot
-  data={[
-    { label: "API", min: 12, q1: 24, median: 33, q3: 42, max: 58, outliers: [72] },
-    { label: "Web", min: 18, q1: 30, median: 41, q3: 52, max: 66 },
-    { label: "Cache", min: 8, q1: 20, median: 27, q3: 38, max: 49 },
-  ]}
-  valueFormat={(v) => `${v}ms`}
-/>
-```
-
-#### BubbleChart
-
-A dependency-free SVG bubble chart — a ScatterChart preset that sizes each dot by a third value (z) across two nice-scaled numeric axes. Reach for it when you need to show a third dimension (volume, revenue, weight) on top of an x/y relationship.
-
-`import { BubbleChart } from "twico-ui"`
-
-Props:
-- `series` — `ScatterSeries[]` · **required** — The series to plot; each has an optional name/color and a list of { x, y, z?, label? } points.
-- `bubble` — `boolean` · default `true` — Size the dots by their z value; on by default for BubbleChart, and also auto-enabled when any point has a numeric z.
-- `maxBubble` — `number` · default `26` — Maximum bubble radius in pixels — the largest z value maps to this radius, with area scaling as radius ∝ √z.
-- `dotRadius` — `number` · default `4.5` — Fixed dot radius in pixels used when bubble sizing is turned off.
-- `height` — `number` · default `300` — Pixel height of the chart, which also sets the SVG aspect ratio so dots stay round.
-- `xLabel` — `React.ReactNode` — Axis title drawn beneath the x axis.
-- `yLabel` — `React.ReactNode` — Axis title drawn, rotated, beside the y axis.
-- `showGrid` — `boolean` · default `true` — Whether to render the background grid lines behind the plotted points.
-- `showLegend` — `boolean` · default `true when >1 series` — Whether to show the series legend; defaults on when there is more than one series.
-- `xFormat` — `(value: number) => string` — Formatter for x values in tooltips and the hidden table; defaults to valueFormat.
-- `yFormat` — `(value: number) => string` — Formatter for y values in tooltips and the hidden table; defaults to valueFormat.
-- `valueFormat` — `(value: number) => string` — Fallback value formatter for x/y/z, using locale-grouped numbers by default.
-- `ariaLabel` — `string` · default `"bubble chart"` — Accessible name for the chart's role="img" SVG; per-point values are exposed via the hidden data table instead.
-- `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1).
-- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label.
-- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
-- `zoomable` — `boolean` · default `false` — Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart.
-
-```jsx
-import { BubbleChart } from "twico-ui";
-
-<BubbleChart
-  series={[
-    { name: "Plans", points: [
-      { x: 12, y: 40, z: 800, label: "Starter" },
-      { x: 26, y: 65, z: 2400, label: "Team" },
-      { x: 48, y: 82, z: 5200, label: "Business" },
-    ] },
-  ]}
-  xLabel="Seats"
-  yLabel="Satisfaction"
-/>
-```
-
-#### Candlestick
-
-An OHLC candlestick chart that draws one candle per period — a high→low wick and an open→close body colored by direction — as dependency-free inline SVG. Reach for it to visualize price or range data over time; use Chart for bars, lines and areas.
-
-`import { Candlestick } from "twico-ui"`
-
-Props:
-- `data` — `CandlestickDatum[]` · **required** — OHLC data points, one candle each ({ label, open, high, low, close }), given in chronological order.
-- `upColor` — `string` · default `"var(--color-success)"` — Color for up candles where close is greater than or equal to open, accepting any CSS color.
-- `downColor` — `string` · default `"var(--color-danger)"` — Color for down candles where close is less than open, accepting any CSS color.
-- `height` — `number` · default `300` — Pixel height of the chart; the width always fills the container at 100 percent.
-- `showGrid` — `boolean` · default `true` — Whether to draw the horizontal value grid lines behind the candles.
-- `showAxis` — `boolean` · default `true` — Whether to render the value axis and the category (x) labels, which thin out automatically when dense.
-- `valueFormat` — `(value: number) => string` · default `toLocaleString` — Formats values in the per-candle tooltip and the hidden data-table cells.
-- `ariaLabel` — `string` · default `"candlestick chart"` — Accessible name for the chart's SVG role="img"; aria-label is also accepted as an alternative.
-- `tableFallback` — `boolean` · default `true` — Renders a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1).
-- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
-- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
-- `zoomable` — `boolean` · default `false` — Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart.
-
-```jsx
-import { Candlestick } from "twico-ui";
-
-<Candlestick
-  valueFormat={(v) => `$${v}`}
-  data={[
-    { label: "Mon", open: 132, high: 138, low: 130, close: 136 },
-    { label: "Tue", open: 136, high: 141, low: 134, close: 135 },
-    { label: "Wed", open: 135, high: 137, low: 128, close: 129 },
-  ]}
-/>
-```
-
 #### Card
 
 Card is a surface container for grouping related content, with an optional header (title/subtitle), body, and footer. Use it to present grouped information such as stats, summaries, or actions, optionally making it interactive with a hover-lift effect.
@@ -1413,53 +1308,6 @@ import { Carousel } from "twico-ui";
   <img src="/b.jpg" alt="" />
   <div>Any slide content</div>
 </Carousel>
-```
-
-#### Chart
-
-A lightweight, dependency-free SVG chart that renders bar or line graphs (single or multi-series) with grid, axes, animated entrance, tooltips, and an optional legend. Use it to visualize small datasets like daily metrics or trends without pulling in a charting library.
-
-`import { Chart } from "twico-ui"`
-
-Props:
-- `type` — `"bar" | "line"` · default `"bar"` — Selects the rendering style, drawing the data as grouped bars or as connected lines for trends over time.
-- `data` — `ChartDatum[]` · **required** — Supplies the array of data points, each carrying a label plus one numeric field for every named series.
-- `series` — `string[]` · default `["value"]` — Names the numeric fields to plot, where multiple keys yield grouped bars or multiple lines per data point.
-- `height` — `number` · default `220` — Sets the chart's pixel height, controlling its vertical footprint while it scales horizontally to its container.
-- `showGrid` — `boolean` · default `true` — Draws horizontal grid lines behind the data, on by default, to make values easier to read against the scale.
-- `showAxis` — `boolean` · default `true` — Renders axis tick marks and label text, enabled by default, so viewers can map plotted values to categories.
-- `showLegend` — `boolean` · default `false` — Displays a legend keying each series to its color, off by default and most useful when plotting multiple series.
-- `valueFormat` — `(value: number) => string` — Formats raw numeric values into display strings for tooltips, letting you add units, separators, or currency symbols.
-- `colors` — `string[]` · default `built-in token palette` — Per-series colors (any CSS color), cycled when shorter than series.
-- `showValues` — `boolean` · default `false` — Print each value as a small data label on the bars or points.
-- `animate` — `boolean` · default `true` — Play the entrance animation (bars grow, lines draw); respects prefers-reduced-motion.
-- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
-- `crosshair` — `boolean` · default `true` — Show a vertical crosshair guide line at the hovered category on line/area/vertical-bar charts.
-- `zoomable` — `boolean` · default `false` — Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart.
-- `ariaLabel` — `string` — Accessible name for the chart's <svg role="img">; defaults to a description of the chart type.
-
-```jsx
-import { Chart } from "twico-ui";
-
-<Chart
-  type="bar"
-  data={[
-    { label: "Mon", value: 240 },
-    { label: "Tue", value: 310 },
-    { label: "Wed", value: 280 },
-  ]}
-  valueFormat={(v) => `$${v}`}
-/>
-
-<Chart
-  type="line"
-  series={["signups", "active"]}
-  showLegend
-  data={[
-    { label: "Jan", signups: 120, active: 80 },
-    { label: "Feb", signups: 180, active: 140 },
-  ]}
-/>
 ```
 
 #### Datatable
@@ -1612,6 +1460,374 @@ export default function Example() {
     />
   );
 }
+```
+
+#### Kanban
+
+Kanban is a drag-and-drop board that arranges cards into columns you can drag between. Use it for visualizing and reorganizing work items (tasks, tickets, stages) by status, either controlled via cards + onCardMove or uncontrolled.
+
+`import { Kanban } from "twico-ui"`
+
+Props:
+- `columns` — `KanbanColumn[] ({ id: string; title: React.ReactNode; color?: string })` · **required** — Defines the board columns, each with an id matching cards' column field, a title, and an optional heading dot color.
+- `cards` — `KanbanCard[] ({ id; column; title?; description?; tags?; footer?; ... })` · **required** — Supplies the cards to render, each assigned to a column via its column field and carrying title, description, and tags.
+- `onCardMove` — `(cardId: string, toColumn: string, nextCards: KanbanCard[]) => void` — Fires when a card is dropped into a different column, passing the card id, target column, and updated card list.
+- `renderCard` — `(card: KanbanCard) => React.ReactNode` — Overrides the default card contents with a custom renderer, falling back to title, description, tags, and footer.
+- `defaultCards` — `KanbanCard[]` · default `[]` — Initial cards when uncontrolled (the board applies moves internally).
+
+```jsx
+import { Kanban } from "twico-ui";
+
+<Kanban
+  columns={[
+    { id: "todo", title: "To do", color: "var(--slate-400)" },
+    { id: "doing", title: "In progress", color: "var(--amber-500)" },
+    { id: "done", title: "Done", color: "var(--emerald-500)" },
+  ]}
+  cards={[
+    { id: "1", column: "todo", title: "Design tokens", tags: ["Design"] },
+    { id: "2", column: "doing", title: "Datatable filters" },
+    { id: "3", column: "done", title: "Ship release" },
+  ]}
+  onCardMove={(id, to) => {}}
+/>
+```
+
+#### List
+
+List renders a vertical stack of rows with optional leading/trailing slots, a title, and a description. Use it for compact data displays like people, files, or settings, where rows can be static, links, or buttons.
+
+`import { List } from "twico-ui"`
+
+Props:
+- `items` — `ListItemData[]` · **required** — Provides the rows to render, each with a title plus optional description, leading, trailing, onClick, href, and active fields.
+- `plain` — `boolean` · default `false` — Drops the card chrome to render borderless, transparent rows when set to true; defaults to false for the boxed style.
+- `emptyMessage` — `React.ReactNode` · default `"Nothing here yet"` — Shown as a centered zero-state row when items is empty, so an empty list reads as intentional rather than broken.
+
+```jsx
+import { List } from "twico-ui";
+
+<List
+  items={[
+    { title: "Ada Park", description: "ada@twico.dev", trailing: "Active", onClick: () => {} },
+    { title: "report.pdf", description: "2.4 MB", trailing: "Today" },
+  ]}
+/>
+```
+
+#### Pagination
+
+Pagination renders page navigation with prev/next buttons and smart ellipsis truncation, keeping boundary and sibling pages visible. Use it to let users move through paged data (tables, lists, search results), optionally with a "Go to" page jumper.
+
+`import { Pagination } from "twico-ui"`
+
+Props:
+- `page` — `number` · default `1` — The currently active 1-based page number, used to highlight the active button and compute which pages to show.
+- `total` — `number` · **required** — Total number of pages available, determining the range of page buttons and when ellipsis truncation appears.
+- `onChange` — `(page: number) => void` — Fires with the destination page number whenever the user clicks a page, prev, next, or jumper control.
+- `siblings` — `number` · default `1` — Number of adjacent page buttons rendered on each side of the current page before ellipsis truncation kicks in.
+- `boundaries` — `number` · default `1` — Number of page buttons always kept visible at each end so the first and last pages stay reachable.
+- `size` — `"sm" | "md"` · default `"md"` — Sets the control density, sm or md, scaling button height and spacing to match the surrounding layout.
+- `showJumper` — `boolean` · default `false` — Adds a "Go to" number input so users can jump directly to a specific page instead of clicking through.
+- `jumperLabel` — `React.ReactNode` · default `"Go to"` — Text or node rendered before the jumper input, defaulting to "Go to", to clarify what the field does.
+- `getPageLabel` — `(page: number) => string` · default `(n) => `Page ${n}`` — Accessible label for each numbered page button, so screen readers announce "Page 3" rather than a bare number; override for i18n.
+- `defaultPage` — `number` · default `1` — Initial 1-based page when uncontrolled (no `page` prop).
+- `showPageJumper` — `boolean` · default `false` — Show a "Go to" page input for jumping directly to a page; preferred alias for showJumper.
+
+```jsx
+import { Pagination } from "twico-ui";
+
+const [page, setPage] = useState(1);
+
+<Pagination
+  page={page}
+  total={12}
+  onChange={setPage}
+  showJumper
+/>
+```
+
+#### Stat
+
+Stat is a KPI / metric card that displays a label, a large value, and optional icon, trend delta, and help text. Use it on dashboards or summary panels to surface a single key metric with its trend direction.
+
+`import { Stat } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` · **required** — Renders the metric's caption shown above the value, naming what the number represents such as "Revenue".
+- `value` — `React.ReactNode` · **required** — Renders the large primary metric value that anchors the card, like a count, currency amount, or percentage.
+- `icon` — `React.ReactNode` — Renders an optional icon in a tinted tile at the top-right corner to visually reinforce the metric's meaning.
+- `delta` — `React.ReactNode` — Shows the trend change beside the value, such as "+12.5%" or "-3%", to convey movement over a period.
+- `deltaDirection` — `"up" | "down" | "flat"` — Forces the delta's direction and color (up, down, or flat); otherwise it is inferred from a leading minus sign.
+- `helpText` — `React.ReactNode` — Renders muted context after the delta, such as "vs last month", to clarify the comparison period.
+- `plain` — `boolean` · default `false` — Strips the card chrome (border, background, and padding) so the stat blends into an existing surface.
+
+```jsx
+import { Stat } from "twico-ui";
+
+<Stat
+  label="Revenue"
+  value="$48,200"
+  delta="+12.5%"
+  helpText="vs last month"
+/>
+<Stat
+  label="Churn"
+  value="2.1%"
+  delta="-0.4%"
+  deltaDirection="up"
+  helpText="improved"
+/>
+```
+
+#### Table
+
+A data table with a styled header, hover and zebra-striped rows, client-side click-to-sort headers, custom cell renderers, and selected-row highlighting. Use it to display structured rows of data when you need lightweight sorting and per-column rendering or alignment.
+
+`import { Table } from "twico-ui"`
+
+Props:
+- `columns` — `TableColumn<T>[]` · **required** — Defines each column with key, header, optional align, width, sortable flag, and a custom render function for cell content.
+- `hover` — `boolean` · default `true` — Highlights the row under the cursor on mouse-over, on by default to aid scanning and pointing at dense rows.
+- `striped` — `boolean` · default `false` — Applies zebra striping to alternating rows when enabled, improving readability across wide tables of similar-looking data.
+- `size` — `"sm" | "md"` · default `"md"` — Controls cell padding density, choosing sm for compact rows or md for the default roomier spacing.
+- `sortable` — `boolean` · default `false` — Enables client-side click-to-sort headers when true, letting users reorder rows by any column marked sortable.
+- `rowKey` — `(row: T, index: number) => string | number` — Returns a stable unique key for each row from its data and index, defaulting to the row index.
+- `selectedKeys` — `Array<string | number>` — Lists the keys of rows to render with selected-row highlighting, useful for marking chosen or active records.
+- `sort` — `TableSort | null` — Controlled sort state — pair with onSortChange (null = unsorted).
+- `defaultSort` — `TableSort` · default `{ key: null, dir: "asc" }` — Initial sort when uncontrolled.
+- `onSortChange` — `(sort: TableSort) => void` — Fired when a sortable header is clicked with the next sort state.
+- `stickyHeader` — `boolean` · default `false` — Pin the header to the top while the body scrolls (use with maxHeight or an enclosing scroll container).
+- `maxHeight` — `number | string` — Cap the table height and give it its own vertical scroll area (CSS length or number of px); enables stickyHeader to shine.
+- `loading` — `boolean` · default `false` — Renders shimmering skeleton rows instead of data and sets aria-busy, avoiding a flash-of-empty during fetches.
+- `loadingRows` — `number` · default `8` — Number of skeleton rows to show while loading is true.
+- `emptyMessage` — `React.ReactNode` · default `"No data"` — Rendered as a single full-width row when rows is empty instead of a bare header over a blank body.
+- `ariaLabel` — `string` — Accessible name applied to the <table> itself (not the wrapper div); a raw aria-label prop takes precedence over it.
+- `caption` — `React.ReactNode` — Renders a visually-hidden <caption> naming the table for assistive technology.
+- `rows` — `T[]` — Row objects.
+- `field (column)` — `string` — Alias for key (Datatable vocabulary); key wins when both are set.
+- `headerName (column)` — `React.ReactNode` — Alias for header (Datatable vocabulary); header wins when both are set.
+- `renderCell (column)` — `(value: any, row: T, index: number) => React.ReactNode` — Alias for render (Datatable vocabulary); render wins when both are set.
+
+```jsx
+import { Table } from "twico-ui";
+
+const users = [
+  { id: 1, name: "Ava Stone", role: "Admin", status: "Active", mrr: 480 },
+  { id: 2, name: "Liam Reed", role: "Editor", status: "Invited", mrr: 120 },
+  { id: 3, name: "Noah Park", role: "Viewer", status: "Active", mrr: 60 },
+];
+
+<Table
+  sortable
+  striped
+  rowKey={(r) => r.id}
+  columns={[
+    { field: "name", headerName: "Name" },
+    { field: "role", headerName: "Role" },
+    { field: "status", headerName: "Status" },
+    { field: "mrr", headerName: "MRR", align: "right" },
+  ]}
+  rows={users}
+/>
+```
+
+#### Tag
+
+Tag is a removable chip for displaying filters, selected items, or keywords. Use it when you need compact, dismissible labels with an optional leading icon and an optional remove (×) button.
+
+`import { Tag } from "twico-ui"`
+
+Props:
+- `onRemove` — `(e: React.MouseEvent<HTMLButtonElement>) => void` — Renders the remove (×) button and handles its click, letting users dismiss the tag as a filter or selection.
+- `variant` — `"soft" | "solid" | "outline"` · default `"soft"` — Chooses the fill style between soft, solid, and outline to control how prominently the tag reads.
+- `tone` — `"neutral" | "primary" | "success" | "warning" | "danger" | "info"` · default `"neutral"` — Sets the semantic color from six options like success or danger; defaults to neutral (the classic chip).
+- `leftIcon` — `React.ReactNode` — Renders an optional leading icon before the label, useful for signaling the tag's category or status.
+- `children` — `React.ReactNode` — Provides the tag's label content, typically the filter name, selected item, or keyword being displayed.
+
+```jsx
+import { Tag } from "twico-ui";
+
+<Tag onRemove={() => {}}>React</Tag>
+<Tag leftIcon={<span>#</span>}>design-system</Tag>
+<Tag>read-only</Tag>
+```
+
+#### Timeline
+
+Timeline renders a vertical list of events as node dots connected by a rail, each showing a title, optional timestamp, and description. Use it for activity feeds, order tracking, or history views.
+
+`import { Timeline } from "twico-ui"`
+
+Props:
+- `items` — `TimelineItem[] — { title, time?, description?, icon?, tone? }` · **required** — Array of events to render as connected node dots, each with a title, optional time, description, icon, and primary/success/warning/danger tone.
+- `className` — `string` · default `""` — Extra CSS class appended to the root <ul> so you can layer custom spacing or styling onto the timeline.
+- `tone (TimelineItem)` — `"primary" | "info" | "success" | "warning" | "danger"` — Added `info` value to the per-item node tone union; maps the dot to var(--color-info) with var(--color-info-fg) icon color.
+
+```jsx
+import { Timeline } from "twico-ui";
+
+<Timeline
+  items={[
+    { title: "Order placed", time: "9:41 AM", description: "We received your order.", tone: "primary" },
+    { title: "Shipped", time: "2:10 PM", description: "Left the warehouse.", tone: "success" },
+    { title: "Out for delivery", time: "Tomorrow" },
+  ]}
+/>
+```
+
+### Charts
+
+#### Boxplot
+
+A dependency-free inline-SVG box-and-whisker chart that draws one box per category from a five-number summary (min, Q1, median, Q3, max) with whiskers and optional outlier points. Reach for it to compare the spread, skew, and outliers of distributions across groups where a bar or line chart would hide the shape of the data.
+
+`import { Boxplot } from "twico-ui"`
+
+Props:
+- `data` — `BoxplotDatum[]` · **required** — The boxes to plot, one per category, each a five-number summary with an optional array of outlier values.
+- `color` — `string` · default `"var(--color-primary)"` — Box fill and stroke accent, accepting any CSS color including a design token reference.
+- `height` — `number` · default `300` — Pixel height of the chart; the width fills its container at 100%.
+- `showGrid` — `boolean` · default `true` — Whether to draw horizontal grid lines at the value axis ticks behind the boxes.
+- `showAxis` — `boolean` · default `true` — Whether to render the value axis and the category labels under each box.
+- `valueFormat` — `(value: number) => string` · default `toLocaleString` — Formatter applied to values in the per-box tooltip and the hidden data table.
+- `ariaLabel` — `string` · default `"box plot"` — Accessible name for the chart's role="img" SVG; per-box values are exposed via the hidden data table.
+- `tableFallback` — `boolean` · default `true` — Renders a visually-hidden data table as an accessible text alternative for screen readers (WCAG 1.1.1).
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
+
+```jsx
+import { Boxplot } from "twico-ui";
+
+<Boxplot
+  data={[
+    { label: "API", min: 12, q1: 24, median: 33, q3: 42, max: 58, outliers: [72] },
+    { label: "Web", min: 18, q1: 30, median: 41, q3: 52, max: 66 },
+    { label: "Cache", min: 8, q1: 20, median: 27, q3: 38, max: 49 },
+  ]}
+  valueFormat={(v) => `${v}ms`}
+/>
+```
+
+#### BubbleChart
+
+A dependency-free SVG bubble chart — a ScatterChart preset that sizes each dot by a third value (z) across two nice-scaled numeric axes. Reach for it when you need to show a third dimension (volume, revenue, weight) on top of an x/y relationship.
+
+`import { BubbleChart } from "twico-ui"`
+
+Props:
+- `series` — `ScatterSeries[]` · **required** — The series to plot; each has an optional name/color and a list of { x, y, z?, label? } points.
+- `bubble` — `boolean` · default `true` — Size the dots by their z value; on by default for BubbleChart, and also auto-enabled when any point has a numeric z.
+- `maxBubble` — `number` · default `26` — Maximum bubble radius in pixels — the largest z value maps to this radius, with area scaling as radius ∝ √z.
+- `dotRadius` — `number` · default `4.5` — Fixed dot radius in pixels used when bubble sizing is turned off.
+- `height` — `number` · default `300` — Pixel height of the chart, which also sets the SVG aspect ratio so dots stay round.
+- `xLabel` — `React.ReactNode` — Axis title drawn beneath the x axis.
+- `yLabel` — `React.ReactNode` — Axis title drawn, rotated, beside the y axis.
+- `showGrid` — `boolean` · default `true` — Whether to render the background grid lines behind the plotted points.
+- `showLegend` — `boolean` · default `true when >1 series` — Whether to show the series legend; defaults on when there is more than one series.
+- `xFormat` — `(value: number) => string` — Formatter for x values in tooltips and the hidden table; defaults to valueFormat.
+- `yFormat` — `(value: number) => string` — Formatter for y values in tooltips and the hidden table; defaults to valueFormat.
+- `valueFormat` — `(value: number) => string` — Fallback value formatter for x/y/z, using locale-grouped numbers by default.
+- `ariaLabel` — `string` · default `"bubble chart"` — Accessible name for the chart's role="img" SVG; per-point values are exposed via the hidden data table instead.
+- `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1).
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
+- `zoomable` — `boolean` · default `false` — Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart.
+
+```jsx
+import { BubbleChart } from "twico-ui";
+
+<BubbleChart
+  series={[
+    { name: "Plans", points: [
+      { x: 12, y: 40, z: 800, label: "Starter" },
+      { x: 26, y: 65, z: 2400, label: "Team" },
+      { x: 48, y: 82, z: 5200, label: "Business" },
+    ] },
+  ]}
+  xLabel="Seats"
+  yLabel="Satisfaction"
+/>
+```
+
+#### Candlestick
+
+An OHLC candlestick chart that draws one candle per period — a high→low wick and an open→close body colored by direction — as dependency-free inline SVG. Reach for it to visualize price or range data over time; use Chart for bars, lines and areas.
+
+`import { Candlestick } from "twico-ui"`
+
+Props:
+- `data` — `CandlestickDatum[]` · **required** — OHLC data points, one candle each ({ label, open, high, low, close }), given in chronological order.
+- `upColor` — `string` · default `"var(--color-success)"` — Color for up candles where close is greater than or equal to open, accepting any CSS color.
+- `downColor` — `string` · default `"var(--color-danger)"` — Color for down candles where close is less than open, accepting any CSS color.
+- `height` — `number` · default `300` — Pixel height of the chart; the width always fills the container at 100 percent.
+- `showGrid` — `boolean` · default `true` — Whether to draw the horizontal value grid lines behind the candles.
+- `showAxis` — `boolean` · default `true` — Whether to render the value axis and the category (x) labels, which thin out automatically when dense.
+- `valueFormat` — `(value: number) => string` · default `toLocaleString` — Formats values in the per-candle tooltip and the hidden data-table cells.
+- `ariaLabel` — `string` · default `"candlestick chart"` — Accessible name for the chart's SVG role="img"; aria-label is also accepted as an alternative.
+- `tableFallback` — `boolean` · default `true` — Renders a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1).
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
+- `zoomable` — `boolean` · default `false` — Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart.
+
+```jsx
+import { Candlestick } from "twico-ui";
+
+<Candlestick
+  valueFormat={(v) => `$${v}`}
+  data={[
+    { label: "Mon", open: 132, high: 138, low: 130, close: 136 },
+    { label: "Tue", open: 136, high: 141, low: 134, close: 135 },
+    { label: "Wed", open: 135, high: 137, low: 128, close: 129 },
+  ]}
+/>
+```
+
+#### Chart
+
+A lightweight, dependency-free SVG chart that renders bar or line graphs (single or multi-series) with grid, axes, animated entrance, tooltips, and an optional legend. Use it to visualize small datasets like daily metrics or trends without pulling in a charting library.
+
+`import { Chart } from "twico-ui"`
+
+Props:
+- `type` — `"bar" | "line"` · default `"bar"` — Selects the rendering style, drawing the data as grouped bars or as connected lines for trends over time.
+- `data` — `ChartDatum[]` · **required** — Supplies the array of data points, each carrying a label plus one numeric field for every named series.
+- `series` — `string[]` · default `["value"]` — Names the numeric fields to plot, where multiple keys yield grouped bars or multiple lines per data point.
+- `height` — `number` · default `220` — Sets the chart's pixel height, controlling its vertical footprint while it scales horizontally to its container.
+- `showGrid` — `boolean` · default `true` — Draws horizontal grid lines behind the data, on by default, to make values easier to read against the scale.
+- `showAxis` — `boolean` · default `true` — Renders axis tick marks and label text, enabled by default, so viewers can map plotted values to categories.
+- `showLegend` — `boolean` · default `false` — Displays a legend keying each series to its color, off by default and most useful when plotting multiple series.
+- `valueFormat` — `(value: number) => string` — Formats raw numeric values into display strings for tooltips, letting you add units, separators, or currency symbols.
+- `colors` — `string[]` · default `built-in token palette` — Per-series colors (any CSS color), cycled when shorter than series.
+- `showValues` — `boolean` · default `false` — Print each value as a small data label on the bars or points.
+- `animate` — `boolean` · default `true` — Play the entrance animation (bars grow, lines draw); respects prefers-reduced-motion.
+- `onDataClick` — `(payload) => void` — Fires with the clicked item's data + metadata; the clicked mark also toggles a persistent selected outline.
+- `crosshair` — `boolean` · default `true` — Show a vertical crosshair guide line at the hovered category on line/area/vertical-bar charts.
+- `zoomable` — `boolean` · default `false` — Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart.
+- `ariaLabel` — `string` — Accessible name for the chart's <svg role="img">; defaults to a description of the chart type.
+
+```jsx
+import { Chart } from "twico-ui";
+
+<Chart
+  type="bar"
+  data={[
+    { label: "Mon", value: 240 },
+    { label: "Tue", value: 310 },
+    { label: "Wed", value: 280 },
+  ]}
+  valueFormat={(v) => `$${v}`}
+/>
+
+<Chart
+  type="line"
+  series={["signups", "active"]}
+  showLegend
+  data={[
+    { label: "Jan", signups: 120, active: 80 },
+    { label: "Feb", signups: 180, active: 140 },
+  ]}
+/>
 ```
 
 #### DonutChart
@@ -1768,91 +1984,6 @@ import { Heatmap } from "twico-ui";
 />
 
 <Heatmap showValues colorScale="var(--emerald-500)" valueFormat={(v) => `${v}%`} data={cells} />
-```
-
-#### Kanban
-
-Kanban is a drag-and-drop board that arranges cards into columns you can drag between. Use it for visualizing and reorganizing work items (tasks, tickets, stages) by status, either controlled via cards + onCardMove or uncontrolled.
-
-`import { Kanban } from "twico-ui"`
-
-Props:
-- `columns` — `KanbanColumn[] ({ id: string; title: React.ReactNode; color?: string })` · **required** — Defines the board columns, each with an id matching cards' column field, a title, and an optional heading dot color.
-- `cards` — `KanbanCard[] ({ id; column; title?; description?; tags?; footer?; ... })` · **required** — Supplies the cards to render, each assigned to a column via its column field and carrying title, description, and tags.
-- `onCardMove` — `(cardId: string, toColumn: string, nextCards: KanbanCard[]) => void` — Fires when a card is dropped into a different column, passing the card id, target column, and updated card list.
-- `renderCard` — `(card: KanbanCard) => React.ReactNode` — Overrides the default card contents with a custom renderer, falling back to title, description, tags, and footer.
-- `defaultCards` — `KanbanCard[]` · default `[]` — Initial cards when uncontrolled (the board applies moves internally).
-
-```jsx
-import { Kanban } from "twico-ui";
-
-<Kanban
-  columns={[
-    { id: "todo", title: "To do", color: "var(--slate-400)" },
-    { id: "doing", title: "In progress", color: "var(--amber-500)" },
-    { id: "done", title: "Done", color: "var(--emerald-500)" },
-  ]}
-  cards={[
-    { id: "1", column: "todo", title: "Design tokens", tags: ["Design"] },
-    { id: "2", column: "doing", title: "Datatable filters" },
-    { id: "3", column: "done", title: "Ship release" },
-  ]}
-  onCardMove={(id, to) => {}}
-/>
-```
-
-#### List
-
-List renders a vertical stack of rows with optional leading/trailing slots, a title, and a description. Use it for compact data displays like people, files, or settings, where rows can be static, links, or buttons.
-
-`import { List } from "twico-ui"`
-
-Props:
-- `items` — `ListItemData[]` · **required** — Provides the rows to render, each with a title plus optional description, leading, trailing, onClick, href, and active fields.
-- `plain` — `boolean` · default `false` — Drops the card chrome to render borderless, transparent rows when set to true; defaults to false for the boxed style.
-- `emptyMessage` — `React.ReactNode` · default `"Nothing here yet"` — Shown as a centered zero-state row when items is empty, so an empty list reads as intentional rather than broken.
-
-```jsx
-import { List } from "twico-ui";
-
-<List
-  items={[
-    { title: "Ada Park", description: "ada@twico.dev", trailing: "Active", onClick: () => {} },
-    { title: "report.pdf", description: "2.4 MB", trailing: "Today" },
-  ]}
-/>
-```
-
-#### Pagination
-
-Pagination renders page navigation with prev/next buttons and smart ellipsis truncation, keeping boundary and sibling pages visible. Use it to let users move through paged data (tables, lists, search results), optionally with a "Go to" page jumper.
-
-`import { Pagination } from "twico-ui"`
-
-Props:
-- `page` — `number` · default `1` — The currently active 1-based page number, used to highlight the active button and compute which pages to show.
-- `total` — `number` · **required** — Total number of pages available, determining the range of page buttons and when ellipsis truncation appears.
-- `onChange` — `(page: number) => void` — Fires with the destination page number whenever the user clicks a page, prev, next, or jumper control.
-- `siblings` — `number` · default `1` — Number of adjacent page buttons rendered on each side of the current page before ellipsis truncation kicks in.
-- `boundaries` — `number` · default `1` — Number of page buttons always kept visible at each end so the first and last pages stay reachable.
-- `size` — `"sm" | "md"` · default `"md"` — Sets the control density, sm or md, scaling button height and spacing to match the surrounding layout.
-- `showJumper` — `boolean` · default `false` — Adds a "Go to" number input so users can jump directly to a specific page instead of clicking through.
-- `jumperLabel` — `React.ReactNode` · default `"Go to"` — Text or node rendered before the jumper input, defaulting to "Go to", to clarify what the field does.
-- `getPageLabel` — `(page: number) => string` · default `(n) => `Page ${n}`` — Accessible label for each numbered page button, so screen readers announce "Page 3" rather than a bare number; override for i18n.
-- `defaultPage` — `number` · default `1` — Initial 1-based page when uncontrolled (no `page` prop).
-- `showPageJumper` — `boolean` · default `false` — Show a "Go to" page input for jumping directly to a page; preferred alias for showJumper.
-
-```jsx
-import { Pagination } from "twico-ui";
-
-const [page, setPage] = useState(1);
-
-<Pagination
-  page={page}
-  total={12}
-  onChange={setPage}
-  showJumper
-/>
 ```
 
 #### PieChart
@@ -2082,135 +2213,6 @@ import { Sparkline } from "twico-ui";
 <Sparkline data={[3, 5, 4, 8, 6, 9, 7, 12]} showDots />
 <Sparkline area color="var(--emerald-500)" data={[120, 180, 140, 220]} />
 <Sparkline type="bar" height={28} data={[4, 6, 2, 8, 5, 7]} />
-```
-
-#### Stat
-
-Stat is a KPI / metric card that displays a label, a large value, and optional icon, trend delta, and help text. Use it on dashboards or summary panels to surface a single key metric with its trend direction.
-
-`import { Stat } from "twico-ui"`
-
-Props:
-- `label` — `React.ReactNode` · **required** — Renders the metric's caption shown above the value, naming what the number represents such as "Revenue".
-- `value` — `React.ReactNode` · **required** — Renders the large primary metric value that anchors the card, like a count, currency amount, or percentage.
-- `icon` — `React.ReactNode` — Renders an optional icon in a tinted tile at the top-right corner to visually reinforce the metric's meaning.
-- `delta` — `React.ReactNode` — Shows the trend change beside the value, such as "+12.5%" or "-3%", to convey movement over a period.
-- `deltaDirection` — `"up" | "down" | "flat"` — Forces the delta's direction and color (up, down, or flat); otherwise it is inferred from a leading minus sign.
-- `helpText` — `React.ReactNode` — Renders muted context after the delta, such as "vs last month", to clarify the comparison period.
-- `plain` — `boolean` · default `false` — Strips the card chrome (border, background, and padding) so the stat blends into an existing surface.
-
-```jsx
-import { Stat } from "twico-ui";
-
-<Stat
-  label="Revenue"
-  value="$48,200"
-  delta="+12.5%"
-  helpText="vs last month"
-/>
-<Stat
-  label="Churn"
-  value="2.1%"
-  delta="-0.4%"
-  deltaDirection="up"
-  helpText="improved"
-/>
-```
-
-#### Table
-
-A data table with a styled header, hover and zebra-striped rows, client-side click-to-sort headers, custom cell renderers, and selected-row highlighting. Use it to display structured rows of data when you need lightweight sorting and per-column rendering or alignment.
-
-`import { Table } from "twico-ui"`
-
-Props:
-- `columns` — `TableColumn<T>[]` · **required** — Defines each column with key, header, optional align, width, sortable flag, and a custom render function for cell content.
-- `hover` — `boolean` · default `true` — Highlights the row under the cursor on mouse-over, on by default to aid scanning and pointing at dense rows.
-- `striped` — `boolean` · default `false` — Applies zebra striping to alternating rows when enabled, improving readability across wide tables of similar-looking data.
-- `size` — `"sm" | "md"` · default `"md"` — Controls cell padding density, choosing sm for compact rows or md for the default roomier spacing.
-- `sortable` — `boolean` · default `false` — Enables client-side click-to-sort headers when true, letting users reorder rows by any column marked sortable.
-- `rowKey` — `(row: T, index: number) => string | number` — Returns a stable unique key for each row from its data and index, defaulting to the row index.
-- `selectedKeys` — `Array<string | number>` — Lists the keys of rows to render with selected-row highlighting, useful for marking chosen or active records.
-- `sort` — `TableSort | null` — Controlled sort state — pair with onSortChange (null = unsorted).
-- `defaultSort` — `TableSort` · default `{ key: null, dir: "asc" }` — Initial sort when uncontrolled.
-- `onSortChange` — `(sort: TableSort) => void` — Fired when a sortable header is clicked with the next sort state.
-- `stickyHeader` — `boolean` · default `false` — Pin the header to the top while the body scrolls (use with maxHeight or an enclosing scroll container).
-- `maxHeight` — `number | string` — Cap the table height and give it its own vertical scroll area (CSS length or number of px); enables stickyHeader to shine.
-- `loading` — `boolean` · default `false` — Renders shimmering skeleton rows instead of data and sets aria-busy, avoiding a flash-of-empty during fetches.
-- `loadingRows` — `number` · default `8` — Number of skeleton rows to show while loading is true.
-- `emptyMessage` — `React.ReactNode` · default `"No data"` — Rendered as a single full-width row when rows is empty instead of a bare header over a blank body.
-- `ariaLabel` — `string` — Accessible name applied to the <table> itself (not the wrapper div); a raw aria-label prop takes precedence over it.
-- `caption` — `React.ReactNode` — Renders a visually-hidden <caption> naming the table for assistive technology.
-- `rows` — `T[]` — Row objects.
-- `field (column)` — `string` — Alias for key (Datatable vocabulary); key wins when both are set.
-- `headerName (column)` — `React.ReactNode` — Alias for header (Datatable vocabulary); header wins when both are set.
-- `renderCell (column)` — `(value: any, row: T, index: number) => React.ReactNode` — Alias for render (Datatable vocabulary); render wins when both are set.
-
-```jsx
-import { Table } from "twico-ui";
-
-const users = [
-  { id: 1, name: "Ava Stone", role: "Admin", status: "Active", mrr: 480 },
-  { id: 2, name: "Liam Reed", role: "Editor", status: "Invited", mrr: 120 },
-  { id: 3, name: "Noah Park", role: "Viewer", status: "Active", mrr: 60 },
-];
-
-<Table
-  sortable
-  striped
-  rowKey={(r) => r.id}
-  columns={[
-    { field: "name", headerName: "Name" },
-    { field: "role", headerName: "Role" },
-    { field: "status", headerName: "Status" },
-    { field: "mrr", headerName: "MRR", align: "right" },
-  ]}
-  rows={users}
-/>
-```
-
-#### Tag
-
-Tag is a removable chip for displaying filters, selected items, or keywords. Use it when you need compact, dismissible labels with an optional leading icon and an optional remove (×) button.
-
-`import { Tag } from "twico-ui"`
-
-Props:
-- `onRemove` — `(e: React.MouseEvent<HTMLButtonElement>) => void` — Renders the remove (×) button and handles its click, letting users dismiss the tag as a filter or selection.
-- `variant` — `"soft" | "solid" | "outline"` · default `"soft"` — Chooses the fill style between soft, solid, and outline to control how prominently the tag reads.
-- `tone` — `"neutral" | "primary" | "success" | "warning" | "danger" | "info"` · default `"neutral"` — Sets the semantic color from six options like success or danger; defaults to neutral (the classic chip).
-- `leftIcon` — `React.ReactNode` — Renders an optional leading icon before the label, useful for signaling the tag's category or status.
-- `children` — `React.ReactNode` — Provides the tag's label content, typically the filter name, selected item, or keyword being displayed.
-
-```jsx
-import { Tag } from "twico-ui";
-
-<Tag onRemove={() => {}}>React</Tag>
-<Tag leftIcon={<span>#</span>}>design-system</Tag>
-<Tag>read-only</Tag>
-```
-
-#### Timeline
-
-Timeline renders a vertical list of events as node dots connected by a rail, each showing a title, optional timestamp, and description. Use it for activity feeds, order tracking, or history views.
-
-`import { Timeline } from "twico-ui"`
-
-Props:
-- `items` — `TimelineItem[] — { title, time?, description?, icon?, tone? }` · **required** — Array of events to render as connected node dots, each with a title, optional time, description, icon, and primary/success/warning/danger tone.
-- `className` — `string` · default `""` — Extra CSS class appended to the root <ul> so you can layer custom spacing or styling onto the timeline.
-- `tone (TimelineItem)` — `"primary" | "info" | "success" | "warning" | "danger"` — Added `info` value to the per-item node tone union; maps the dot to var(--color-info) with var(--color-info-fg) icon color.
-
-```jsx
-import { Timeline } from "twico-ui";
-
-<Timeline
-  items={[
-    { title: "Order placed", time: "9:41 AM", description: "We received your order.", tone: "primary" },
-    { title: "Shipped", time: "2:10 PM", description: "Left the warehouse.", tone: "success" },
-    { title: "Out for delivery", time: "Tomorrow" },
-  ]}
-/>
 ```
 
 #### Treemap

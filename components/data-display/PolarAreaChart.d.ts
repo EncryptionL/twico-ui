@@ -30,7 +30,7 @@ export interface PolarAreaClickPayload {
  * proportional wedges use `PieChart` / `DonutChart`; for a spoked multi-axis
  * shape use `RadarChart`.
  *
- * @startingPoint section="Data display" subtitle="Polar-area / rose chart (no deps)" viewport="700x280"
+ * @startingPoint section="Charts" subtitle="Polar-area / rose chart (no deps)" viewport="700x280"
  */
 export interface PolarAreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Data points — one equal-angle slice each, in order clockwise from `startAngle`. */
