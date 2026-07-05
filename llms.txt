@@ -207,7 +207,7 @@ in the examples.
 
 ---
 
-## Component reference (62 components)
+## Component reference (76 components)
 
 ### Buttons & actions
 
@@ -1249,6 +1249,106 @@ import { Badge } from "twico-ui";
 <Badge tone="info" size="lg">12 new</Badge>
 ```
 
+#### Boxplot
+
+A dependency-free inline-SVG box-and-whisker chart that draws one box per category from a five-number summary (min, Q1, median, Q3, max) with whiskers and optional outlier points. Reach for it to compare the spread, skew, and outliers of distributions across groups where a bar or line chart would hide the shape of the data.
+
+`import { Boxplot } from "twico-ui"`
+
+Props:
+- `data` — `BoxplotDatum[]` · **required** — The boxes to plot, one per category, each a five-number summary with an optional array of outlier values.
+- `color` — `string` · default `"var(--color-primary)"` — Box fill and stroke accent, accepting any CSS color including a design token reference.
+- `height` — `number` · default `300` — Pixel height of the chart; the width fills its container at 100%.
+- `showGrid` — `boolean` · default `true` — Whether to draw horizontal grid lines at the value axis ticks behind the boxes.
+- `showAxis` — `boolean` · default `true` — Whether to render the value axis and the category labels under each box.
+- `valueFormat` — `(value: number) => string` · default `toLocaleString` — Formatter applied to values in the per-box tooltip and the hidden data table.
+- `ariaLabel` — `string` · default `"box plot"` — Accessible name for the chart's role="img" SVG; per-box values are exposed via the hidden data table.
+- `tableFallback` — `boolean` · default `true` — Renders a visually-hidden data table as an accessible text alternative for screen readers (WCAG 1.1.1).
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
+
+```jsx
+import { Boxplot } from "twico-ui";
+
+<Boxplot
+  data={[
+    { label: "API", min: 12, q1: 24, median: 33, q3: 42, max: 58, outliers: [72] },
+    { label: "Web", min: 18, q1: 30, median: 41, q3: 52, max: 66 },
+    { label: "Cache", min: 8, q1: 20, median: 27, q3: 38, max: 49 },
+  ]}
+  valueFormat={(v) => `${v}ms`}
+/>
+```
+
+#### BubbleChart
+
+A dependency-free SVG bubble chart — a ScatterChart preset that sizes each dot by a third value (z) across two nice-scaled numeric axes. Reach for it when you need to show a third dimension (volume, revenue, weight) on top of an x/y relationship.
+
+`import { BubbleChart } from "twico-ui"`
+
+Props:
+- `series` — `ScatterSeries[]` · **required** — The series to plot; each has an optional name/color and a list of { x, y, z?, label? } points.
+- `bubble` — `boolean` · default `true` — Size the dots by their z value; on by default for BubbleChart, and also auto-enabled when any point has a numeric z.
+- `maxBubble` — `number` · default `26` — Maximum bubble radius in pixels — the largest z value maps to this radius, with area scaling as radius ∝ √z.
+- `dotRadius` — `number` · default `4.5` — Fixed dot radius in pixels used when bubble sizing is turned off.
+- `height` — `number` · default `300` — Pixel height of the chart, which also sets the SVG aspect ratio so dots stay round.
+- `xLabel` — `React.ReactNode` — Axis title drawn beneath the x axis.
+- `yLabel` — `React.ReactNode` — Axis title drawn, rotated, beside the y axis.
+- `showGrid` — `boolean` · default `true` — Whether to render the background grid lines behind the plotted points.
+- `showLegend` — `boolean` · default `true when >1 series` — Whether to show the series legend; defaults on when there is more than one series.
+- `xFormat` — `(value: number) => string` — Formatter for x values in tooltips and the hidden table; defaults to valueFormat.
+- `yFormat` — `(value: number) => string` — Formatter for y values in tooltips and the hidden table; defaults to valueFormat.
+- `valueFormat` — `(value: number) => string` — Fallback value formatter for x/y/z, using locale-grouped numbers by default.
+- `ariaLabel` — `string` · default `"bubble chart"` — Accessible name for the chart's role="img" SVG; per-point values are exposed via the hidden data table instead.
+- `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1).
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label.
+
+```jsx
+import { BubbleChart } from "twico-ui";
+
+<BubbleChart
+  series={[
+    { name: "Plans", points: [
+      { x: 12, y: 40, z: 800, label: "Starter" },
+      { x: 26, y: 65, z: 2400, label: "Team" },
+      { x: 48, y: 82, z: 5200, label: "Business" },
+    ] },
+  ]}
+  xLabel="Seats"
+  yLabel="Satisfaction"
+/>
+```
+
+#### Candlestick
+
+An OHLC candlestick chart that draws one candle per period — a high→low wick and an open→close body colored by direction — as dependency-free inline SVG. Reach for it to visualize price or range data over time; use Chart for bars, lines and areas.
+
+`import { Candlestick } from "twico-ui"`
+
+Props:
+- `data` — `CandlestickDatum[]` · **required** — OHLC data points, one candle each ({ label, open, high, low, close }), given in chronological order.
+- `upColor` — `string` · default `"var(--color-success)"` — Color for up candles where close is greater than or equal to open, accepting any CSS color.
+- `downColor` — `string` · default `"var(--color-danger)"` — Color for down candles where close is less than open, accepting any CSS color.
+- `height` — `number` · default `300` — Pixel height of the chart; the width always fills the container at 100 percent.
+- `showGrid` — `boolean` · default `true` — Whether to draw the horizontal value grid lines behind the candles.
+- `showAxis` — `boolean` · default `true` — Whether to render the value axis and the category (x) labels, which thin out automatically when dense.
+- `valueFormat` — `(value: number) => string` · default `toLocaleString` — Formats values in the per-candle tooltip and the hidden data-table cells.
+- `ariaLabel` — `string` · default `"candlestick chart"` — Accessible name for the chart's SVG role="img"; aria-label is also accepted as an alternative.
+- `tableFallback` — `boolean` · default `true` — Renders a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1).
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
+
+```jsx
+import { Candlestick } from "twico-ui";
+
+<Candlestick
+  valueFormat={(v) => `$${v}`}
+  data={[
+    { label: "Mon", open: 132, high: 138, low: 130, close: 136 },
+    { label: "Tue", open: 136, high: 141, low: 134, close: 135 },
+    { label: "Wed", open: 135, high: 137, low: 128, close: 129 },
+  ]}
+/>
+```
+
 #### Card
 
 Card is a surface container for grouping related content, with an optional header (title/subtitle), body, and footer. Use it to present grouped information such as stats, summaries, or actions, optionally making it interactive with a hover-lift effect.
@@ -1326,6 +1426,8 @@ Props:
 - `showLegend` — `boolean` · default `false` — Displays a legend keying each series to its color, off by default and most useful when plotting multiple series.
 - `valueFormat` — `(value: number) => string` — Formats raw numeric values into display strings for tooltips, letting you add units, separators, or currency symbols.
 - `colors` — `string[]` · default `built-in token palette` — Per-series colors (any CSS color), cycled when shorter than series.
+- `showValues` — `boolean` · default `false` — Print each value as a small data label on the bars or points.
+- `animate` — `boolean` · default `true` — Play the entrance animation (bars grow, lines draw); respects prefers-reduced-motion.
 - `ariaLabel` — `string` — Accessible name for the chart's <svg role="img">; defaults to a description of the chart type.
 
 ```jsx
@@ -1504,6 +1606,158 @@ export default function Example() {
 }
 ```
 
+#### DonutChart
+
+A PieChart preset rendered as a ring with a hollow center, showing proportional slices of a single value series with tooltips, an optional legend, and a donut center label. Reach for it to visualize parts-of-a-whole (traffic sources, budget splits, storage breakdowns) when you want a total called out in the middle.
+
+`import { DonutChart } from "twico-ui"`
+
+Props:
+- `data` — `PieChartDatum[]` · **required** — Slices to plot; each is a { label, value, color? } where only positive values contribute a slice.
+- `donut` — `boolean` · default `true` — Render as a donut (ring) instead of a filled pie; on by default for this preset, pass false for a solid pie.
+- `innerRadius` — `number` · default `0.6` — Inner-hole radius as a fraction (0..1) of the outer radius; 0.6 when donut, else 0.
+- `startAngle` — `number` · default `0` — Angle in degrees, clockwise from 12 o'clock, where the first slice starts.
+- `padAngle` — `number` · default `0` — Gap in degrees inserted between adjacent slices to visually separate them.
+- `showLabels` — `boolean` · default `false` — Draw a percentage label centered on each non-hairline slice directly on the ring.
+- `showLegend` — `boolean` · default `true` — Show the slice legend below the chart, mapping each color to its label.
+- `centerLabel` — `React.ReactNode` — Content for the donut's center; defaults to the formatted total when donut, and is ignored for a solid pie.
+- `valueFormat` — `(value: number) => string` · default `toLocaleString` — Formatter applied to tooltip and hidden data-table values, e.g. adding a currency or percent sign.
+- `height` — `number` · default `260` — Pixel height of the chart; the square chart area is sized from this value.
+- `colors` — `string[]` — Per-slice colors (any CSS color), cycled when shorter than data; defaults to the built-in token palette.
+- `ariaLabel` — `string` · default `"donut chart"` — Accessible name for the <svg role="img">; per-slice values live in the hidden data table, not this label.
+- `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1).
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label.
+
+```jsx
+import { DonutChart } from "twico-ui";
+
+<DonutChart
+  data={[
+    { label: "Direct", value: 42 },
+    { label: "Referral", value: 28 },
+    { label: "Social", value: 30 },
+  ]}
+  centerLabel="Traffic"
+  showLegend
+/>
+
+<DonutChart data={data} donut={false} />
+```
+
+#### FunnelChart
+
+A dependency-free inline-SVG funnel chart that draws descending stages as centered trapezoids tapering from each stage's value to the next. Reach for it to visualize conversion or drop-off flows where each step is a subset of the one above.
+
+`import { FunnelChart } from "twico-ui"`
+
+Props:
+- `data` — `FunnelDatum[]` · **required** — Funnel stages, each `{ label, value, color? }`, ordered from the widest/top stage down to the narrowest.
+- `showValues` — `boolean` · default `true` — Print each stage's formatted value in its centered caption.
+- `showPercent` — `boolean` · default `true` — Print each stage's percentage of the first (top) stage in its caption.
+- `horizontal` — `boolean` · default `false` — Lay the funnel out left→right (tapering vertically) instead of the default top→bottom flow.
+- `gap` — `number` · default `2` — Pixel gap between adjacent stage bands.
+- `height` — `number` · default `300` — Pixel height of the chart.
+- `colors` — `string[]` — Per-stage colors (any CSS color), cycled when shorter than data; defaults to the token palette.
+- `valueFormat` — `(value: number) => string` · default `toLocaleString` — Formatter for captions, tooltips, and the hidden data-table cells.
+- `ariaLabel` — `string` · default `"funnel chart"` — Accessible name for the chart's `<svg role="img">`; also accepts `aria-label`, with per-stage values in the hidden table.
+- `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative (WCAG 1.1.1).
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label.
+
+```jsx
+import { FunnelChart } from "twico-ui";
+
+<FunnelChart
+  data={[
+    { label: "Visits", value: 8200 },
+    { label: "Signups", value: 4100 },
+    { label: "Trials", value: 1600 },
+    { label: "Paid", value: 540 },
+  ]}
+  valueFormat={(v) => v.toLocaleString()}
+/>
+
+<FunnelChart horizontal showPercent={false} height={220} data={[
+  { label: "Leads", value: 500, color: "var(--sky-500)" },
+  { label: "Qualified", value: 320 },
+  { label: "Won", value: 90 },
+]} />
+```
+
+#### Gauge
+
+A dependency-free inline-SVG radial gauge that renders a single value as a thick arc sweeping between two angles, with the value and an optional caption in the center. Reach for it to show a KPI, progress, or capacity reading — or pass `series` to draw several concentric rings as a radial-bar chart.
+
+`import { Gauge } from "twico-ui"`
+
+Props:
+- `value` — `number` · default `0` — The value to display, mapped from the min..max domain onto the arc sweep.
+- `min` — `number` · default `0` — Lower bound of the value domain, mapped to the startAngle.
+- `max` — `number` · default `100` — Upper bound of the value domain, mapped to the endAngle.
+- `startAngle` — `number` · default `-110` — Sweep start angle in degrees, where 0 is the top and angles run clockwise.
+- `endAngle` — `number` · default `110` — Sweep end angle in degrees, where 0 is the top and angles run clockwise.
+- `thickness` — `number` · default `0.16` — Ring stroke width expressed as a fraction of the gauge radius.
+- `showValue` — `boolean` · default `true` — Show the formatted value in the center; applies to a single gauge only.
+- `label` — `React.ReactNode` — Small caption rendered under the center value for a single gauge.
+- `valueFormat` — `(value: number) => string` — Formats the center value and hidden-table cells; defaults to a rounded integer.
+- `color` — `string` · default `"var(--color-primary)"` — Value-arc color, accepting any CSS color string.
+- `trackColor` — `string` · default `"var(--color-surface-sunken)"` — Background track color behind the value arc, accepting any CSS color string.
+- `size` — `number` · default `200` — SVG width and height in pixels; the gauge is always square.
+- `series` — `GaugeSeries[]` — Multiple concentric radial bars; when set, the single value and label are ignored.
+- `showLegend` — `boolean` · default `true` — Show the legend for a multi-ring gauge driven by the series prop.
+- `ariaLabel` — `string` — Accessible name for the SVG role="img"; defaults to a value summary and also accepts aria-label.
+- `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative per WCAG 1.1.1.
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the gauge's accessible label.
+
+```jsx
+import { Gauge } from "twico-ui";
+
+<Gauge value={72} label="CPU" valueFormat={(n) => `${Math.round(n)}%`} />
+
+<Gauge size={220} series={[
+  { value: 82, label: "Complete", color: "var(--emerald-500)" },
+  { value: 54, label: "In review" },
+  { value: 23, label: "Blocked" },
+]} />
+```
+
+#### Heatmap
+
+A dependency-free SVG matrix of colored cells keyed by (x, y), each shaded by a single-hue intensity scale between min and max. Reach for it to reveal density, correlation, or activity patterns across two categorical dimensions — think punch-card activity grids, cohort retention, or correlation matrices.
+
+`import { Heatmap } from "twico-ui"`
+
+Props:
+- `data` — `HeatmapDatum[]` · **required** — Cells to plot as { x, y, value } objects; X columns and Y rows are derived from these in first-seen order.
+- `min` — `number` — Low end of the color scale; defaults to the minimum value found in data.
+- `max` — `number` — High end of the color scale; defaults to the maximum value found in data.
+- `colorScale` — `string` · default `"var(--brand-500)"` — Base token color for the high end; cells mix it over transparent by their value intensity.
+- `showValues` — `boolean` · default `false` — Print each cell's formatted value at its center in addition to the color shading.
+- `cellGap` — `number` · default `2` — Gap in pixels between adjacent cells in the grid.
+- `radius` — `number` · default `2` — Cell corner radius in pixels.
+- `xLabel` — `React.ReactNode` — Optional title rendered beneath the X-axis category labels.
+- `yLabel` — `React.ReactNode` — Optional title rendered rotated alongside the Y-axis category labels.
+- `showLegend` — `boolean` · default `true` — Show the low-to-high gradient scale legend below the grid.
+- `valueFormat` — `(value: number) => string` · default `fmtNumber` — Formatter for tooltips, printed cell values, and the hidden data table.
+- `height` — `number` · default `300` — Pixel height of the chart.
+- `ariaLabel` — `string` · default `"heatmap"` — Accessible name for the chart's SVG role="img"; also accepts aria-label, with per-cell values exposed via the hidden table.
+- `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative (WCAG 1.1.1).
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label.
+
+```jsx
+import { Heatmap } from "twico-ui";
+
+<Heatmap
+  xLabel="Hour"
+  yLabel="Day"
+  data={[
+    { x: "9a", y: "Mon", value: 12 }, { x: "12p", y: "Mon", value: 48 },
+    { x: "9a", y: "Tue", value: 20 }, { x: "12p", y: "Tue", value: 62 },
+  ]}
+/>
+
+<Heatmap showValues colorScale="var(--emerald-500)" valueFormat={(v) => `${v}%`} data={cells} />
+```
+
 #### Kanban
 
 Kanban is a drag-and-drop board that arranges cards into columns you can drag between. Use it for visualizing and reorganizing work items (tasks, tickets, stages) by status, either controlled via cards + onCardMove or uncontrolled.
@@ -1587,6 +1841,227 @@ const [page, setPage] = useState(1);
   onChange={setPage}
   showJumper
 />
+```
+
+#### PieChart
+
+A dependency-free inline-SVG pie or donut chart that renders proportional slices of a whole from a single value series, with per-slice tooltips, an optional legend, percentage labels, and a donut center label. Reach for it to show part-to-whole composition; use Chart for bar/line/area trends.
+
+`import { PieChart } from "twico-ui"`
+
+Props:
+- `data` — `PieChartDatum[]` · **required** — Slices to plot, each a { label, value, color? }; only positive values contribute a slice and negatives are treated as zero.
+- `donut` — `boolean` · default `false` — Render as a donut ring instead of a filled pie, using the default innerRadius.
+- `innerRadius` — `number` · default `0.6 when donut, else 0` — Inner-hole radius as a fraction (0..1) of the outer radius, letting you tune the ring thickness.
+- `startAngle` — `number` · default `0` — Angle in degrees, clockwise from 12 o'clock, where the first slice begins.
+- `padAngle` — `number` · default `0` — Gap in degrees inserted between adjacent slices to visually separate them.
+- `showLabels` — `boolean` · default `false` — Draw a percentage label centered on each non-hairline slice.
+- `showLegend` — `boolean` · default `true` — Show the slice legend below the chart.
+- `centerLabel` — `React.ReactNode` · default `formatted total when donut` — Content for a donut's center; defaults to the formatted total and is ignored for a solid pie.
+- `valueFormat` — `(value: number) => string` · default `toLocaleString` — Formatter for the tooltip and hidden data-table values.
+- `height` — `number` · default `260` — Pixel height of the chart; the square chart area is sized from this value.
+- `colors` — `string[]` · default `built-in token palette` — Per-slice colors (any CSS color), cycled when shorter than data; defaults to the built-in token palette.
+- `ariaLabel` — `string` · default `"pie chart" / "donut chart"` — Accessible name for the role="img" SVG; per-slice values live in the hidden data table, not this label.
+- `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative for the chart (WCAG 1.1.1).
+- `caption` — `React.ReactNode` · default `chart's accessible label` — Caption for the hidden data table; defaults to the chart's accessible label.
+
+```jsx
+import { PieChart } from "twico-ui";
+
+<PieChart data={[
+  { label: "Direct", value: 340 },
+  { label: "Referral", value: 210 },
+  { label: "Social", value: 120 },
+]} />
+
+<PieChart donut showLabels centerLabel="100%" data={[
+  { label: "Done", value: 62, color: "var(--emerald-500)" },
+  { label: "In progress", value: 28 },
+  { label: "Blocked", value: 10 },
+]} />
+```
+
+#### PolarAreaChart
+
+A dependency-free inline-SVG polar-area (Coxcomb / Nightingale rose) chart of equal-angle slices whose radius encodes each value over concentric value rings. Reach for it to compare a handful of categories where slice area — scaled by the square root so it stays statistically honest — reads more naturally than bars or wedges.
+
+`import { PolarAreaChart } from "twico-ui"`
+
+Props:
+- `data` — `PolarAreaDatum[]` · **required** — Data points — one equal-angle slice each, ordered clockwise from startAngle, each with a label, value, and optional color.
+- `max` — `number` — Radial maximum (the value at the outer ring); defaults to a nice ceiling of the largest value.
+- `levels` — `number` · default `4` — Number of concentric grid rings drawn, which also sets how many value tick labels appear.
+- `startAngle` — `number` · default `0` — Angle in degrees of the first slice's leading edge, measured clockwise from the 12 o'clock position.
+- `showLegend` — `boolean` · default `true` — Show the per-slice legend listing each category label with its swatch below the chart.
+- `valueFormat` — `(value: number) => string` · default `fmtNumber` — Formats values shown in the per-slice tooltip and the hidden data-table cells.
+- `height` — `number` · default `280` — Pixel height of the chart; the square plotting area is centered within the full-width container.
+- `colors` — `string[]` — Per-slice colors (any CSS color) cycled across slices; defaults to the built-in token palette.
+- `ariaLabel` — `string` · default `"polar area chart"` — Accessible name for the chart's SVG role="img"; aria-label is also accepted as an alternative.
+- `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative for screen readers (WCAG 1.1.1).
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
+
+```jsx
+import { PolarAreaChart } from "twico-ui";
+
+<PolarAreaChart
+  data={[
+    { label: "Mon", value: 12 },
+    { label: "Tue", value: 30 },
+    { label: "Wed", value: 22 },
+    { label: "Thu", value: 41 },
+    { label: "Fri", value: 18, color: "var(--rose-500)" },
+  ]}
+  valueFormat={(v) => `${v}h`}
+/>
+
+<PolarAreaChart max={100} levels={5} startAngle={-90} showLegend={false} data={[
+  { label: "N", value: 40 }, { label: "E", value: 65 }, { label: "S", value: 25 }, { label: "W", value: 80 },
+]} />
+```
+
+#### RadarChart
+
+A dependency-free SVG radar (spider) chart that plots one or more series as closed polygons over a shared set of categorical axes radiating from a center. Reach for it to compare multi-dimensional profiles — skill sets, scorecards, feature ratings — where each entity is a shape across the same handful of metrics.
+
+`import { RadarChart } from "twico-ui"`
+
+Props:
+- `data` — `RadarDatum<K>[]` · **required** — Data rows, one per axis; each carries a label plus one numeric field for every series key you plot.
+- `series` — `K[]` · default `["value"]` — Series field names to draw as polygons; supplying more than one overlays several shapes on the same axes.
+- `max` — `number` — Radial value at the outer ring; defaults to a nice ceiling computed from the largest datum.
+- `levels` — `number` · default `4` — Number of concentric grid rings drawn between the center and the outer edge of the chart.
+- `fill` — `boolean` · default `true` — Fills each polygon at low opacity in addition to its stroke; set false for a clean outline.
+- `showLegend` — `boolean` · default `series.length > 1` — Shows a series legend; defaults to true when more than one series is plotted, otherwise false.
+- `showDots` — `boolean` · default `true` — Draws a marker dot at each polygon vertex where an axis meets its series value.
+- `colors` — `string[]` — Per-series CSS colors, cycled when shorter than series; defaults to the built-in design-token palette.
+- `valueFormat` — `(value: number) => string` — Formats values shown in tooltips and the hidden accessible data-table cells.
+- `height` — `number` · default `300` — Pixel height of the chart, which renders on a square canvas of this size.
+- `ariaLabel` — `string` · default `"radar chart"` — Accessible name for the chart's role="img" SVG; also accepts the aria-label attribute.
+- `tableFallback` — `boolean` · default `true` — Renders a visually-hidden data table as a text alternative to the SVG for screen readers (WCAG 1.1.1).
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label.
+
+```jsx
+import { RadarChart } from "twico-ui";
+
+<RadarChart
+  series={["team", "rival"]}
+  showLegend
+  data={[
+    { label: "Speed", team: 80, rival: 65 },
+    { label: "Power", team: 60, rival: 90 },
+    { label: "Defense", team: 85, rival: 60 },
+  ]}
+/>
+
+<RadarChart series={["score"]} max={100} levels={5} data={scoreData} />
+```
+
+#### RangeChart
+
+A dependency-free inline-SVG chart for values that span a min→max range: horizontal range bars for a timeline/Gantt of one band per row, or a range area shading the band between a per-category min line and max line. Reach for it when each data point is an interval (start→end, low→high) rather than a single value.
+
+`import { RangeChart } from "twico-ui"`
+
+Props:
+- `type` — `"bar" | "area"` · default `"bar"` — Chooses horizontal range bars (a timeline/Gantt) or a range area shading the band between a min and max line.
+- `data` — `RangeDatum[]` · **required** — Range points, each a { label, min, max, color? }; bars run top→bottom while the area runs left→right.
+- `height` — `number` · default `300` — Pixel height of the chart; the SVG stretches to fill 100% of its container width.
+- `showGrid` — `boolean` · default `true` — Toggles the value grid lines — vertical for bars, horizontal for the area band.
+- `showAxis` — `boolean` · default `true` — Toggles the value axis together with the per-category labels drawn alongside the chart.
+- `colors` — `string[]` — Palette for bar fills and the area band, cycled by index; defaults to the built-in token palette.
+- `valueFormat` — `(value: number) => string` · default `toLocaleString` — Formats numbers in tooltips and the hidden data-table cells, e.g. adding units or currency symbols.
+- `ariaLabel` — `string` · default `"range <type> chart"` — Accessible name for the chart's role="img" SVG; aria-label is also accepted as an alias.
+- `tableFallback` — `boolean` · default `true` — Renders a visually-hidden min/max data table as an accessible text alternative for screen readers (WCAG 1.1.1).
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
+
+```jsx
+import { RangeChart } from "twico-ui";
+
+<RangeChart type="bar" data={[
+  { label: "Design", min: 0, max: 4 },
+  { label: "Build", min: 3, max: 9 },
+]} />
+
+<RangeChart type="area" data={[
+  { label: "Mon", min: 12, max: 20 },
+  { label: "Tue", min: 14, max: 24 },
+]} />
+```
+
+#### ScatterChart
+
+A dependency-free inline-SVG scatter and bubble chart that plots x/y points across two nice-scaled numeric axes, with one or many series, grid, tooltips, an optional legend, and a hidden data table. Reach for it to show correlation or distribution between two numeric variables — add a per-point z value to encode a third dimension as bubble size.
+
+`import { ScatterChart } from "twico-ui"`
+
+Props:
+- `series` — `ScatterSeries[]` · **required** — The series to plot; each has an optional name/color and a list of { x, y, z?, label? } points.
+- `bubble` — `boolean` · default `false` — Size the dots by their z value (bubble chart); auto-enabled when any point has a numeric z.
+- `maxBubble` — `number` · default `26` — Maximum bubble radius in pixels — the largest z value maps to this size.
+- `dotRadius` — `number` · default `4.5` — Fixed dot radius in pixels used when the chart is not in bubble mode.
+- `height` — `number` · default `300` — Pixel height of the chart, which also sets the SVG aspect ratio so dots stay round.
+- `xLabel` — `React.ReactNode` — Axis title drawn beneath the x axis.
+- `yLabel` — `React.ReactNode` — Axis title drawn rotated beside the y axis.
+- `showGrid` — `boolean` · default `true` — Whether to draw the background grid lines behind the plotted points.
+- `showLegend` — `boolean` · default `true when >1 series` — Whether to show the series legend; defaults on when there is more than one series.
+- `xFormat` — `(value: number) => string` · default `valueFormat` — Formatter for x values in tooltips and the hidden table; defaults to valueFormat.
+- `yFormat` — `(value: number) => string` · default `valueFormat` — Formatter for y values in tooltips and the hidden table; defaults to valueFormat.
+- `valueFormat` — `(value: number) => string` · default `locale-grouped numbers` — Fallback value formatter for x, y, and z values; defaults to locale-grouped numbers.
+- `ariaLabel` — `string` · default `"scatter chart" / "bubble chart"` — Accessible name for the chart's role="img" SVG; also accepts aria-label. Per-point values live in the hidden table.
+- `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative to the SVG (WCAG 1.1.1).
+- `caption` — `React.ReactNode` · default `chart's accessible label` — Caption for the hidden data table; defaults to the chart's accessible label.
+
+```jsx
+import { ScatterChart } from "twico-ui";
+
+<ScatterChart
+  xLabel="Weight"
+  yLabel="Score"
+  series={[
+    { name: "Group A", points: [{ x: 12, y: 30 }, { x: 20, y: 45 }] },
+    { name: "Group B", points: [{ x: 15, y: 22 }, { x: 28, y: 38 }] },
+  ]}
+/>
+
+// Bubble chart — a numeric z auto-enables sizing
+<ScatterChart
+  maxBubble={32}
+  series={[{ name: "Markets", points: [
+    { x: 40, y: 12, z: 900, label: "US" },
+    { x: 22, y: 30, z: 400, label: "EU" },
+  ] }]}
+/>
+```
+
+#### Sparkline
+
+A minimal, word-sized trend chart — line, area, or bars — with no axes, grid, ticks, or legend. Reach for it to sit inline beside text or inside a table cell or stat tile; for a full chart with axes, tooltips, and a legend use Chart instead.
+
+`import { Sparkline } from "twico-ui"`
+
+Props:
+- `data` — `SparklineDatum[]` · **required** — The points to plot: bare numbers, or `{ value, label }` objects whose label is used for tooltips and the hidden table.
+- `type` — `"line" | "area" | "bar"` · default `"line"` — Trend style: `area` fills below the line and `bar` draws thin columns instead of a continuous line.
+- `area` — `boolean` · default `false` — Shorthand for `type="area"`, filling the region below the line without setting the full type prop.
+- `color` — `string` · default `"var(--color-primary)"` — Stroke and fill color; accepts any CSS color, including a design token like `var(--emerald-500)`.
+- `width` — `number` · default `120` — The SVG viewbox width in pixels; the rendered element still scales to fill its container width.
+- `height` — `number` · default `40` — Pixel height of the sparkline, controlling how tall the trend renders inline.
+- `strokeWidth` — `number` · default `2` — Line stroke width in pixels; ignored for the bar type, which draws columns rather than a stroke.
+- `curve` — `"straight" | "smooth" | "stepped"` · default `"smooth"` — Line and area interpolation: straight segments, a smooth spline, or stepped right-angle transitions between points.
+- `showDots` — `boolean` · default `false` — Emphasize the last data point with a filled dot to highlight the most recent value.
+- `min` — `number` — Pin the low end of the value scale; when omitted it is derived from the data's minimum.
+- `max` — `number` — Pin the high end of the value scale; when omitted it is derived from the data's maximum.
+- `valueFormat` — `(value: number) => string` · default `toLocaleString` — Formatter for values shown in tooltips and the hidden data table, e.g. adding a currency or percent unit.
+- `ariaLabel` — `string` — Accessible name for the `<svg role="img">`; defaults to a spoken summary of point count and first/last/min/max.
+- `tableFallback` — `boolean` · default `false` — Render a visually-hidden data table as a WCAG 1.1.1 text alternative; off by default since the aria-label usually suffices.
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the accessible label when not provided.
+
+```jsx
+import { Sparkline } from "twico-ui";
+
+<Sparkline data={[3, 5, 4, 8, 6, 9, 7, 12]} showDots />
+<Sparkline area color="var(--emerald-500)" data={[120, 180, 140, 220]} />
+<Sparkline type="bar" height={28} data={[4, 6, 2, 8, 5, 7]} />
 ```
 
 #### Stat
@@ -1714,6 +2189,38 @@ import { Timeline } from "twico-ui";
     { title: "Order placed", time: "9:41 AM", description: "We received your order.", tone: "primary" },
     { title: "Shipped", time: "2:10 PM", description: "Left the warehouse.", tone: "success" },
     { title: "Out for delivery", time: "Tomorrow" },
+  ]}
+/>
+```
+
+#### Treemap
+
+A dependency-free SVG treemap that partitions a rectangle into tiles sized in proportion to a flat list of values, using a squarified layout that keeps tile aspect ratios near 1:1. Reach for it to show the relative weight of parts within a whole — spend by category, storage by bucket — where a pie would crowd or a bar chart would lose the sense of area.
+
+`import { Treemap } from "twico-ui"`
+
+Props:
+- `data` — `TreemapDatum[]` · **required** — Tiles to lay out; each has a label, a non-negative value driving its area, and an optional color override.
+- `showValues` — `boolean` · default `true` — Draw the formatted value under the label inside tiles tall enough to fit both lines of text.
+- `valueFormat` — `(value: number) => string` · default `toLocaleString` — Formatter applied to the tooltip, the in-tile value, and the hidden data-table cells.
+- `height` — `number` · default `300` — Pixel height, which also sets the SVG's aspect ratio; the width fills the container.
+- `colors` — `string[]` — Tile colors cycled by index; defaults to the built-in token palette, and a datum's own color wins.
+- `gap` — `number` · default `2` — Gap in pixels inset between adjacent tiles so their boundaries read clearly.
+- `ariaLabel` — `string` · default `"treemap"` — Accessible name for the chart's role="img" SVG; also accepts aria-label, with values exposed via the data table.
+- `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table of value and share as an accessible text alternative (WCAG 1.1.1).
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label when omitted.
+
+```jsx
+import { Treemap } from "twico-ui";
+
+<Treemap
+  ariaLabel="Cloud spend by service"
+  valueFormat={(v) => `$${v.toLocaleString()}`}
+  data={[
+    { label: "Compute", value: 4200 },
+    { label: "Storage", value: 2600 },
+    { label: "Network", value: 1800 },
+    { label: "Other", value: 700, color: "var(--slate-500)" },
   ]}
 />
 ```

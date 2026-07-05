@@ -167,6 +167,26 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "Boxplot",
+    "title": "Basic box plot",
+    "i": 0
+  },
+  {
+    "component": "Boxplot",
+    "title": "Custom color",
+    "i": 1
+  },
+  {
+    "component": "Boxplot",
+    "title": "Minimal (no grid or axis)",
+    "i": 2
+  },
+  {
+    "component": "Boxplot",
+    "title": "All props",
+    "i": 3
+  },
+  {
     "component": "Breadcrumb",
     "title": "Basic trail",
     "i": 0
@@ -190,6 +210,26 @@ export const VARIATIONS = [
     "component": "Breadcrumb",
     "title": "All props",
     "i": 4
+  },
+  {
+    "component": "BubbleChart",
+    "title": "Bubble chart",
+    "i": 0
+  },
+  {
+    "component": "BubbleChart",
+    "title": "Multi-series with legend",
+    "i": 1
+  },
+  {
+    "component": "BubbleChart",
+    "title": "Larger bubbles",
+    "i": 2
+  },
+  {
+    "component": "BubbleChart",
+    "title": "All props",
+    "i": 3
   },
   {
     "component": "Button",
@@ -230,6 +270,26 @@ export const VARIATIONS = [
     "component": "Button",
     "title": "All props",
     "i": 7
+  },
+  {
+    "component": "Candlestick",
+    "title": "Daily OHLC",
+    "i": 0
+  },
+  {
+    "component": "Candlestick",
+    "title": "Custom candle colors",
+    "i": 1
+  },
+  {
+    "component": "Candlestick",
+    "title": "Minimal (no grid or axis)",
+    "i": 2
+  },
+  {
+    "component": "Candlestick",
+    "title": "All props",
+    "i": 3
   },
   {
     "component": "Card",
@@ -707,6 +767,26 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "DonutChart",
+    "title": "Default donut",
+    "i": 0
+  },
+  {
+    "component": "DonutChart",
+    "title": "Percentage labels",
+    "i": 1
+  },
+  {
+    "component": "DonutChart",
+    "title": "Custom colors and thinner ring",
+    "i": 2
+  },
+  {
+    "component": "DonutChart",
+    "title": "Solid pie fallback",
+    "i": 3
+  },
+  {
     "component": "Drawer",
     "title": "Sides",
     "i": 0
@@ -817,6 +897,46 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "FunnelChart",
+    "title": "Conversion funnel",
+    "i": 0
+  },
+  {
+    "component": "FunnelChart",
+    "title": "Horizontal layout",
+    "i": 1
+  },
+  {
+    "component": "FunnelChart",
+    "title": "Custom palette",
+    "i": 2
+  },
+  {
+    "component": "FunnelChart",
+    "title": "Values only",
+    "i": 3
+  },
+  {
+    "component": "Gauge",
+    "title": "Default gauge",
+    "i": 0
+  },
+  {
+    "component": "Gauge",
+    "title": "Custom domain and sweep",
+    "i": 1
+  },
+  {
+    "component": "Gauge",
+    "title": "Multi-ring (radial bar)",
+    "i": 2
+  },
+  {
+    "component": "Gauge",
+    "title": "Custom colors and thickness",
+    "i": 3
+  },
+  {
     "component": "Grid",
     "title": "Responsive auto-fill",
     "i": 0
@@ -870,6 +990,26 @@ export const VARIATIONS = [
     "component": "Heading",
     "title": "All props",
     "i": 4
+  },
+  {
+    "component": "Heatmap",
+    "title": "Default",
+    "i": 0
+  },
+  {
+    "component": "Heatmap",
+    "title": "Labeled cells with a custom color scale",
+    "i": 1
+  },
+  {
+    "component": "Heatmap",
+    "title": "Fixed scale bounds",
+    "i": 2
+  },
+  {
+    "component": "Heatmap",
+    "title": "Compact, no legend",
+    "i": 3
   },
   {
     "component": "IconButton",
@@ -1147,6 +1287,41 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "PieChart",
+    "title": "Pie chart",
+    "i": 0
+  },
+  {
+    "component": "PieChart",
+    "title": "Donut with center label",
+    "i": 1
+  },
+  {
+    "component": "PieChart",
+    "title": "Percentage labels + custom colors",
+    "i": 2
+  },
+  {
+    "component": "PieChart",
+    "title": "Gapped slices with a start angle",
+    "i": 3
+  },
+  {
+    "component": "PolarAreaChart",
+    "title": "Default",
+    "i": 0
+  },
+  {
+    "component": "PolarAreaChart",
+    "title": "Fixed max and rings",
+    "i": 1
+  },
+  {
+    "component": "PolarAreaChart",
+    "title": "Custom colors and per-slice override",
+    "i": 2
+  },
+  {
     "component": "Popover",
     "title": "Basic",
     "i": 0
@@ -1207,6 +1382,26 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "RadarChart",
+    "title": "Single series",
+    "i": 0
+  },
+  {
+    "component": "RadarChart",
+    "title": "Multiple series with legend",
+    "i": 1
+  },
+  {
+    "component": "RadarChart",
+    "title": "Fixed scale and rings",
+    "i": 2
+  },
+  {
+    "component": "RadarChart",
+    "title": "Outline only",
+    "i": 3
+  },
+  {
     "component": "Radio",
     "title": "Grouped",
     "i": 0
@@ -1235,6 +1430,26 @@ export const VARIATIONS = [
     "component": "Radio",
     "title": "All props",
     "i": 5
+  },
+  {
+    "component": "RangeChart",
+    "title": "Range bar (timeline / Gantt)",
+    "i": 0
+  },
+  {
+    "component": "RangeChart",
+    "title": "Range area (min–max band)",
+    "i": 1
+  },
+  {
+    "component": "RangeChart",
+    "title": "Negative-safe axis",
+    "i": 2
+  },
+  {
+    "component": "RangeChart",
+    "title": "Minimal (no grid or axis)",
+    "i": 3
   },
   {
     "component": "Rating",
@@ -1270,6 +1485,26 @@ export const VARIATIONS = [
     "component": "Rating",
     "title": "All props",
     "i": 6
+  },
+  {
+    "component": "ScatterChart",
+    "title": "Single series",
+    "i": 0
+  },
+  {
+    "component": "ScatterChart",
+    "title": "Multiple series with legend",
+    "i": 1
+  },
+  {
+    "component": "ScatterChart",
+    "title": "Bubble chart",
+    "i": 2
+  },
+  {
+    "component": "ScatterChart",
+    "title": "Custom colors, no grid",
+    "i": 3
   },
   {
     "component": "Select",
@@ -1395,6 +1630,26 @@ export const VARIATIONS = [
     "component": "Slider",
     "title": "All props",
     "i": 6
+  },
+  {
+    "component": "Sparkline",
+    "title": "Line (default)",
+    "i": 0
+  },
+  {
+    "component": "Sparkline",
+    "title": "Area",
+    "i": 1
+  },
+  {
+    "component": "Sparkline",
+    "title": "Bars",
+    "i": 2
+  },
+  {
+    "component": "Sparkline",
+    "title": "Stepped with pinned scale",
+    "i": 3
   },
   {
     "component": "Spinner",
@@ -1840,5 +2095,25 @@ export const VARIATIONS = [
     "component": "TreeView",
     "title": "All props",
     "i": 4
+  },
+  {
+    "component": "Treemap",
+    "title": "Default",
+    "i": 0
+  },
+  {
+    "component": "Treemap",
+    "title": "Per-tile color",
+    "i": 1
+  },
+  {
+    "component": "Treemap",
+    "title": "Labels only",
+    "i": 2
+  },
+  {
+    "component": "Treemap",
+    "title": "All props",
+    "i": 3
   }
 ];
