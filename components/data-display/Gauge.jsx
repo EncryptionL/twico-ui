@@ -1,6 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
-import { CHART_BASE_CSS, r, polarDeg, paletteAt, ChartTable, ChartLegend } from "./_chart.js";
+import { CHART_BASE_CSS, r, polarDeg, paletteAt, ChartTable, ChartLegend, useChartTooltip, ChartTooltip } from "./_chart.js";
 
 const GAUGE_CSS = `
 .twc-gauge svg { overflow: visible; }
@@ -42,6 +42,7 @@ export function Gauge({
   const styles = useScopedStyles("twc-gauge-styles", GAUGE_CSS);
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
+  const { containerRef, tip, show, hide } = useChartTooltip();
 
   const fmt = valueFormat || ((n) => String(Math.round(Number(n) || 0)));
   const cx = size / 2, cy = size / 2;
@@ -90,7 +91,7 @@ export function Gauge({
   const labelFont = Math.round(size * 0.072);
 
   return (
-    <div className={`twc-gauge twc-chart twc-chart--gauge ${className}`.trim()} data-multi={isMulti || undefined} {...rest}>
+    <div ref={containerRef} className={`twc-gauge twc-chart twc-chart--gauge ${className}`.trim()} data-multi={isMulti || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg
@@ -117,12 +118,15 @@ export function Gauge({
               {/* value arc — only when it has a positive sweep, so a 0 value draws nothing */}
               {f > 0 ? (
                 <path
-                  className="twc-gauge__arc"
+                  className="twc-gauge__arc twc-chart__anim-fade"
                   d={arc(radius, startAngle, valEnd)}
                   style={{ stroke: c, strokeWidth: strokeW }}
-                >
-                  <title>{`${labelText(it.label) || "Value"}: ${fmt(it.value)}`}</title>
-                </path>
+                  onMouseMove={(e) => show({
+                    title: labelText(it.label) || "Value",
+                    items: [{ color: c, label: "", value: fmt(it.value) }],
+                  }, e)}
+                  onMouseLeave={hide}
+                />
               ) : null}
             </g>
           );
@@ -140,6 +144,8 @@ export function Gauge({
           </text>
         ) : null}
       </svg>
+
+      <ChartTooltip tip={tip} />
 
       {tableFallback ? (
         <ChartTable

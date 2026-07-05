@@ -1550,6 +1550,20 @@ export const components = [
         "description": "Per-series colors (any CSS color), cycled when shorter than series."
       },
       {
+        "prop": "showValues",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Print each value as a small data label on the bars or points."
+      },
+      {
+        "prop": "animate",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Play the entrance animation (bars grow, lines draw); respects prefers-reduced-motion."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,

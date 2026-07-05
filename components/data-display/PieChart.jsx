@@ -2,7 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import {
   CHART_BASE_CSS, paletteAt, arcPath, polarDeg, sum, fmtNumber,
-  ChartTable, ChartLegend,
+  ChartTable, ChartLegend, useChartTooltip, ChartTooltip,
 } from "./_chart.js";
 
 const CHART_CSS = `
@@ -43,6 +43,8 @@ export function PieChart({
   const styles = useScopedStyles("twc-piechart-styles", CHART_CSS);
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
+  const { containerRef, tip, show, hide } = useChartTooltip();
+  const [active, setActive] = React.useState(null);
 
   const rows = data || [];
   const fmt = valueFormat || fmtNumber;
@@ -78,7 +80,7 @@ export function PieChart({
   });
 
   return (
-    <div className={`twc-chart twc-chart--pie ${className}`.trim()} data-donut={isDonut ? "true" : undefined} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--pie ${className}`.trim()} data-donut={isDonut ? "true" : undefined} data-hovering={active != null ? "true" : undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${H} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId}>
@@ -89,15 +91,18 @@ export function PieChart({
             {slices.map(({ d, i, v, s0, s1, span, pct, color }) => {
               // Inset each slice by half the pad gap so equal gaps sit between neighbors.
               const pad = span > padAngle ? padAngle / 2 : 0;
+              const items = [{ color, label: fmt(v), value: `${pct}%` }];
               return (
                 <path
                   key={i}
-                  className="twc-chart__slice"
+                  className="twc-chart__slice twc-chart__anim-arc"
                   style={{ fill: color }}
+                  data-mark=""
+                  data-active={active === i ? "true" : undefined}
                   d={arcPath(cx, cy, rOuter, rInner, s0 + pad, s1 - pad)}
-                >
-                  <title>{`${labelText(d.label)}: ${fmt(v)} (${pct}%)`}</title>
-                </path>
+                  onMouseMove={(e) => { setActive(i); show({ title: d.label, items }, e); }}
+                  onMouseLeave={() => { setActive(null); hide(); }}
+                />
               );
             })}
 
@@ -125,6 +130,8 @@ export function PieChart({
         )}
       </svg>
 
+      <ChartTooltip tip={tip} />
+
       {tableFallback ? (
         <ChartTable
           id={tableId}
@@ -139,8 +146,4 @@ export function PieChart({
       ) : null}
     </div>
   );
-}
-
-function labelText(label) {
-  return typeof label === "string" || typeof label === "number" ? String(label) : "";
 }

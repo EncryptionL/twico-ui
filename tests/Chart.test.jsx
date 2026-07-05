@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { Chart } from "../components/data-display/Chart.jsx";
 
 describe("Chart hidden data table (#160)", () => {
@@ -64,5 +64,45 @@ describe("Chart cartesian family (bar/column/line/area, stacked, horizontal, cur
   it("horizontal bars keep the accessible data table", () => {
     render(<Chart type="bar" horizontal data={[{ label: "Mon", value: 5 }]} />);
     expect(screen.getByRole("rowheader", { name: "Mon" })).toBeInTheDocument();
+  });
+});
+
+describe("Chart interactivity (tooltip + legend toggle)", () => {
+  it("hovering a bar shows a floating tooltip with the category + value; leaving hides it", () => {
+    const { container } = render(<Chart data={[{ label: "Mon", value: 240 }, { label: "Tue", value: 310 }]} valueFormat={(v) => `$${v}`} />);
+    expect(container.querySelector(".twc-chart__tip")).toBeNull();
+    const bar = container.querySelector(".twc-chart__bar");
+    fireEvent.mouseMove(bar, { clientX: 10, clientY: 10 });
+    const tip = container.querySelector(".twc-chart__tip");
+    expect(tip).toBeInTheDocument();
+    expect(tip).toHaveTextContent("Mon");
+    expect(tip).toHaveTextContent("$240");
+    fireEvent.mouseLeave(bar);
+    expect(container.querySelector(".twc-chart__tip")).toBeNull();
+  });
+
+  it("clicking a legend item toggles that series off (fewer marks render)", () => {
+    const two = [{ label: "Jan", a: 10, b: 4 }, { label: "Feb", a: 6, b: 8 }];
+    const { container, getByRole } = render(<Chart series={["a", "b"]} showLegend data={two} />);
+    expect(container.querySelectorAll(".twc-chart__bar").length).toBe(4); // 2 cats x 2 series
+    fireEvent.click(getByRole("button", { name: "b" })); // the legend chip (role=button)
+    expect(container.querySelectorAll(".twc-chart__bar").length).toBe(2); // series b hidden
+  });
+
+  it("line charts render an entrance-animated draw path + hit targets for point tooltips", () => {
+    const { container } = render(<Chart type="line" data={[{ label: "a", value: 1 }, { label: "b", value: 5 }]} />);
+    expect(container.querySelector(".twc-chart__anim-line")).toBeInTheDocument();
+    expect(container.querySelectorAll(".twc-chart__hit").length).toBe(2);
+  });
+
+  it("area charts fill with a gradient", () => {
+    const { container } = render(<Chart type="area" data={[{ label: "a", value: 1 }, { label: "b", value: 5 }]} />);
+    expect(container.querySelector("linearGradient")).toBeInTheDocument();
+    expect(container.querySelector(".twc-chart__area").getAttribute("style")).toMatch(/url\(["']?#twc-grad/);
+  });
+
+  it("showValues renders data labels", () => {
+    const { container } = render(<Chart showValues data={[{ label: "Mon", value: 240 }]} />);
+    expect(container.querySelector(".twc-chart__label")).toBeInTheDocument();
   });
 });

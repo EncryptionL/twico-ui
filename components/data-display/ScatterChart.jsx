@@ -2,15 +2,17 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import {
   CHART_BASE_CSS, paletteAt, niceScale, shortNum, fmtNumber, ChartTable, ChartLegend,
+  useChartTooltip, ChartTooltip,
 } from "./_chart.js";
 
 const SCATTER_CSS = `
 .twc-chart--scatter__grid { stroke: var(--color-divider); stroke-width: 1; }
 .twc-chart--scatter__axis { fill: var(--color-text-subtle); font-size: 11px; }
 .twc-chart--scatter__title { fill: var(--color-text-muted); font-size: 11px; font-weight: 500; }
-.twc-chart--scatter__dot { transition: opacity var(--duration-fast) var(--ease-standard); stroke: var(--color-surface); stroke-width: 1; }
-.twc-chart--scatter__dot:hover { opacity: 0.85; }
+.twc-chart--scatter__dot { transform-box: fill-box; transform-origin: center; transition: transform var(--duration-fast) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard); stroke: var(--color-surface); stroke-width: 1; }
 .twc-chart--scatter__dot[data-bubble="true"] { fill-opacity: 0.55; }
+.twc-chart__hit { fill: transparent; }
+.twc-chart__hit:hover + .twc-chart--scatter__dot { transform: scale(1.18); }
 `;
 
 /**
@@ -45,6 +47,7 @@ export function ScatterChart({
   const styles = useScopedStyles("twc-scatter-styles", SCATTER_CSS);
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
+  const { containerRef, tip, show, hide } = useChartTooltip();
 
   const list = Array.isArray(series) ? series : [];
   const vFmt = valueFormat || fmtNumber;
@@ -101,8 +104,18 @@ export function ScatterChart({
   const tipLabel = (p) => labelText(p.label) || seriesName(list[p.si], p.si);
   const tableColumns = hasZ ? ["x", "y", "z"] : ["x", "y"];
 
+  // Per-point tooltip: series/point title + the point's x/y (and z when present).
+  const tipFor = (p) => ({
+    title: tipLabel(p),
+    items: [
+      { color: p.fill, label: "x", value: xFmt(p.x) },
+      { label: "y", value: yFmt(p.y) },
+      ...(Number.isFinite(Number(p.z)) ? [{ label: "z", value: vFmt(Number(p.z)) }] : []),
+    ],
+  });
+
   return (
-    <div className={`twc-chart twc-chart--scatter ${className}`.trim()} data-bubble={useBubble || undefined} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--scatter ${className}`.trim()} data-bubble={useBubble || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId}>
@@ -135,12 +148,16 @@ export function ScatterChart({
 
         {/* points */}
         {dots.map((p, i) => (
-          <circle key={i} className="twc-chart--scatter__dot" data-bubble={useBubble || undefined}
-            style={{ fill: p.fill }} cx={xPos(p.x)} cy={yPos(p.y)} r={p.radius}>
-            <title>{`${tipLabel(p)}: (${xFmt(p.x)}, ${yFmt(p.y)}${Number.isFinite(Number(p.z)) ? ", " + vFmt(Number(p.z)) : ""})`}</title>
-          </circle>
+          <g key={i} className="twc-chart__anim-fade">
+            <circle className="twc-chart__hit" cx={xPos(p.x)} cy={yPos(p.y)} r={Math.max(14, p.radius)}
+              onMouseMove={(e) => show(tipFor(p), e)} onMouseLeave={hide} />
+            <circle className="twc-chart--scatter__dot" data-bubble={useBubble || undefined}
+              style={{ fill: p.fill }} cx={xPos(p.x)} cy={yPos(p.y)} r={p.radius} />
+          </g>
         ))}
       </svg>
+
+      <ChartTooltip tip={tip} />
 
       {tableFallback ? (
         <ChartTable

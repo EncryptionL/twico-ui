@@ -184,11 +184,50 @@ export const CHART_BASE_CSS = `
 .twc-chart svg text { fill: var(--color-text-subtle); }
 .twc-chart__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .twc-chart__legend { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); font-size: var(--text-xs); color: var(--color-text-muted); }
-.twc-chart__leg { display: inline-flex; align-items: center; gap: 6px; }
+.twc-chart__leg { display: inline-flex; align-items: center; gap: 6px; transition: opacity var(--duration-fast) var(--ease-standard); }
 .twc-chart__leg[data-toggle="true"] { cursor: pointer; user-select: none; }
+.twc-chart__leg[data-toggle="true"]:hover { color: var(--color-text); }
 .twc-chart__leg[data-off="true"] { opacity: 0.4; }
 .twc-chart__leg-sw { width: 10px; height: 10px; border-radius: 3px; flex: none; }
-@media (prefers-reduced-motion: reduce) { .twc-chart *[style*="animation"], .twc-chart [class*="anim"] { animation: none !important; } }
+
+/* Floating tooltip — a styled card that follows the pointer (ApexCharts / MUI X style). */
+.twc-chart__tip {
+  position: absolute; z-index: 3; top: 0; left: 0; pointer-events: none;
+  transform: translate(-50%, calc(-100% - 12px));
+  min-width: 96px; max-width: 260px; padding: 8px 10px;
+  background: var(--color-surface-raised); color: var(--color-text);
+  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg); font-size: var(--text-xs); line-height: 1.45;
+  opacity: 0; animation: twc-chart-tip-in var(--duration-fast) var(--ease-standard) forwards;
+}
+.twc-chart__tip-title { font-weight: var(--font-bold); color: var(--color-text); margin-bottom: 4px; white-space: nowrap; }
+.twc-chart__tip-row { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.twc-chart__tip-row + .twc-chart__tip-row { margin-top: 2px; }
+.twc-chart__tip-sw { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+.twc-chart__tip-label { color: var(--color-text-muted); flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.twc-chart__tip-val { font-weight: var(--font-semibold); color: var(--color-text); font-variant-numeric: tabular-nums; }
+@keyframes twc-chart-tip-in { from { opacity: 0; transform: translate(-50%, calc(-100% - 6px)); } to { opacity: 1; transform: translate(-50%, calc(-100% - 12px)); } }
+
+/* Hover emphasis: when the chart marks itself hovered, fade every mark except the active one. */
+.twc-chart[data-hovering="true"] [data-mark] { opacity: 0.28; transition: opacity var(--duration-fast) var(--ease-standard); }
+.twc-chart[data-hovering="true"] [data-mark][data-active="true"] { opacity: 1; }
+[data-mark] { transition: opacity var(--duration-fast) var(--ease-standard); cursor: default; }
+
+/* Entrance animations (respect reduced motion, below). */
+@keyframes twc-chart-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes twc-chart-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes twc-chart-draw { to { stroke-dashoffset: 0; } }
+@keyframes twc-chart-grow-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes twc-chart-grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.twc-chart__anim-bar { transform-box: fill-box; transform-origin: bottom; animation: twc-chart-grow-y var(--duration-slow, 420ms) var(--ease-spring) both; }
+.twc-chart__anim-bar[data-horizontal="true"] { transform-origin: left; animation-name: twc-chart-grow-x; }
+.twc-chart__anim-line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: twc-chart-draw var(--duration-slow, 700ms) var(--ease-standard) forwards; }
+.twc-chart__anim-fade { animation: twc-chart-fade var(--duration-base) var(--ease-standard) both; }
+.twc-chart__anim-arc { transform-box: fill-box; transform-origin: center; animation: twc-chart-fade var(--duration-base) var(--ease-standard) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .twc-chart svg *, .twc-chart__tip, .twc-chart [class*="__anim"] { animation: none !important; stroke-dashoffset: 0 !important; opacity: 1 !important; transform: none !important; }
+}
 `;
 
 /**
@@ -250,6 +289,53 @@ export function ChartLegend({ items, onToggle, hidden }) {
         },
         h("span", { className: "twc-chart__leg-sw", style: { background: it.color } }),
         it.label,
+      ),
+    ),
+  );
+}
+
+/**
+ * Floating-tooltip state for a chart. Returns:
+ *   - `containerRef` — put on the `.twc-chart` root (the tooltip positions within it);
+ *   - `tip` — the current `{ title, items, left, top }` or null;
+ *   - `show(content, event)` — call from a mark's `onMouseMove` with `{ title, items }`
+ *     (items: `{ color, label, value }[]`) and the pointer event;
+ *   - `hide()` — call from `onMouseLeave`.
+ * The tooltip follows the cursor (position derived from the event, no viewBox math), so it
+ * works regardless of `preserveAspectRatio`. SSR-safe: no window/document access.
+ */
+export function useChartTooltip() {
+  const containerRef = React.useRef(null);
+  const [tip, setTip] = React.useState(null);
+  const show = React.useCallback((content, e) => {
+    const el = containerRef.current;
+    const rect = el && el.getBoundingClientRect ? el.getBoundingClientRect() : null;
+    const left = rect ? e.clientX - rect.left : 0;
+    const top = rect ? e.clientY - rect.top : 0;
+    setTip({ title: content.title, items: content.items || [], left, top });
+  }, []);
+  const hide = React.useCallback(() => setTip(null), []);
+  return { containerRef, tip, show, hide };
+}
+
+/** Renders the floating tooltip card. Place inside the `.twc-chart` root; pass `useChartTooltip().tip`. */
+export function ChartTooltip({ tip }) {
+  const h = React.createElement;
+  if (!tip) return null;
+  // The card is translated -50% horizontally; clamp the low edge so it can't spill off the
+  // left. The right edge + vertical are bounded by max-width and the chart's top padding.
+  const left = Math.max(48, tip.left);
+  return h(
+    "div",
+    { className: "twc-chart__tip", role: "tooltip", "aria-hidden": "true", style: { left, top: tip.top } },
+    tip.title != null && tip.title !== "" ? h("div", { className: "twc-chart__tip-title" }, tip.title) : null,
+    (tip.items || []).map((it, i) =>
+      h(
+        "div",
+        { key: i, className: "twc-chart__tip-row" },
+        it.color ? h("span", { className: "twc-chart__tip-sw", style: { background: it.color } }) : null,
+        h("span", { className: "twc-chart__tip-label" }, it.label),
+        it.value != null ? h("span", { className: "twc-chart__tip-val" }, it.value) : null,
       ),
     ),
   );

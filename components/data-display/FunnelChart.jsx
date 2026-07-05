@@ -2,19 +2,14 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import {
   CHART_BASE_CSS, paletteAt, polygonPath, fmtNumber, ChartTable,
+  useChartTooltip, ChartTooltip,
 } from "./_chart.js";
 
 const FUNNEL_CSS = `
 .twc-chart--funnel svg { overflow: visible; }
-.twc-funnel__stage { transition: opacity var(--duration-fast) var(--ease-standard); }
-.twc-funnel__stage:hover { opacity: 0.85; }
 .twc-funnel__label { fill: var(--color-text-inverted); font-family: var(--font-sans); pointer-events: none; }
 .twc-funnel__name { font-size: 12px; font-weight: 600; }
 .twc-funnel__value { font-size: 11px; fill-opacity: 0.82; }
-@media (prefers-reduced-motion: no-preference) {
-  .twc-funnel__stage { animation: twc-funnel-in var(--duration-base) var(--ease-standard) both; }
-  @keyframes twc-funnel-in { from { opacity: 0; } to { opacity: 1; } }
-}
 `;
 
 /**
@@ -43,6 +38,8 @@ export function FunnelChart({
   const styles = useScopedStyles("twc-funnel-styles", FUNNEL_CSS);
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
+  const { containerRef, tip, show, hide } = useChartTooltip();
+  const [active, setActive] = React.useState(null);
 
   const rows = data || [];
   const n = rows.length;
@@ -100,10 +97,18 @@ export function FunnelChart({
       const firstDy = -((lines.length - 1) * 0.6);
 
       return (
-        <g key={i} className="twc-funnel__stage" style={{ animationDelay: `${i * 45}ms` }}>
-          <path d={polygonPath(points)} fill={color}>
-            <title>{`${labelText(d.label)}: ${fmt(v)} (${pctText(v)})`}</title>
-          </path>
+        <g key={i} className="twc-funnel__stage twc-chart__anim-fade" style={{ animationDelay: `${i * 45}ms` }}>
+          <path
+            d={polygonPath(points)}
+            fill={color}
+            data-mark
+            data-active={active === i ? "true" : undefined}
+            onMouseMove={(e) => {
+              setActive(i);
+              show({ title: d.label, items: [{ color, label: fmt(v), value: pctText(v) }] }, e);
+            }}
+            onMouseLeave={() => { setActive(null); hide(); }}
+          />
           {lines.length ? (
             <text className="twc-funnel__label" x={tx} y={ty} textAnchor="middle" dominantBaseline="middle">
               {lines.map((line, li) => (
@@ -123,12 +128,14 @@ export function FunnelChart({
     });
 
   return (
-    <div className={`twc-chart twc-chart--funnel ${className}`.trim()} data-orientation={horizontal ? "horizontal" : "vertical"} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--funnel ${className}`.trim()} data-orientation={horizontal ? "horizontal" : "vertical"} data-hovering={active != null ? "true" : undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
         {renderStages()}
       </svg>
+
+      <ChartTooltip tip={tip} />
 
       {tableFallback ? (
         <ChartTable
@@ -140,8 +147,4 @@ export function FunnelChart({
       ) : null}
     </div>
   );
-}
-
-function labelText(label) {
-  return typeof label === "string" || typeof label === "number" ? String(label) : "";
 }

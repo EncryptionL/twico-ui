@@ -1,6 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
-import { CHART_BASE_CSS, fmtNumber, ChartTable } from "./_chart.js";
+import { CHART_BASE_CSS, fmtNumber, ChartTable, useChartTooltip, ChartTooltip } from "./_chart.js";
 
 const HEATMAP_CSS = `
 .twc-chart--heatmap svg { overflow: visible; }
@@ -46,6 +46,8 @@ export function Heatmap({
   const styles = useScopedStyles("twc-heatmap-styles", HEATMAP_CSS);
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
+  const { containerRef, tip, show, hide } = useChartTooltip();
+  const [hovered, setHovered] = React.useState(null);
 
   const rows = Array.isArray(data) ? data : [];
   const fmt = valueFormat || fmtNumber;
@@ -99,7 +101,7 @@ export function Heatmap({
   const gap = clamp(cellGap, 0, Math.min(cw, chh) - 1) || 0;
 
   return (
-    <div className={`twc-chart twc-chart--heatmap ${className}`.trim()} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--heatmap ${className}`.trim()} data-hovering={hovered != null || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
@@ -112,15 +114,19 @@ export function Heatmap({
             const cy = padT + chh * ri + gap / 2;
             const cwPx = Math.max(0, cw - gap);
             const chPx = Math.max(0, chh - gap);
+            const cellKey = `${ci}-${ri}`;
+            const fill = has ? fillOf(v) : undefined;
             return (
-              <g key={`${ci}-${ri}`}>
+              <g key={cellKey}>
                 <rect
-                  className={has ? "twc-chart__hm-cell" : "twc-chart__hm-cell twc-chart__hm-empty"}
+                  className={`${has ? "twc-chart__hm-cell" : "twc-chart__hm-cell twc-chart__hm-empty"} twc-chart__anim-fade`}
                   x={cx} y={cy} width={cwPx} height={chPx} rx={radius}
-                  style={has ? { fill: fillOf(v) } : undefined}
-                >
-                  <title>{`${labelText(y)} / ${labelText(x)}: ${has ? fmt(v) : "—"}`}</title>
-                </rect>
+                  style={has ? { fill } : undefined}
+                  data-mark
+                  data-active={hovered === cellKey || undefined}
+                  onMouseMove={(e) => { setHovered(cellKey); show({ title: `${labelText(y)} / ${labelText(x)}`, items: [{ color: fill, label: "", value: has ? fmt(v) : "—" }] }, e); }}
+                  onMouseLeave={() => { setHovered(null); hide(); }}
+                />
                 {showValues && has ? (
                   <text className="twc-chart__hm-val" x={cx + cwPx / 2} y={cy + chPx / 2 + 3.5} textAnchor="middle">
                     {fmt(v)}
@@ -157,6 +163,8 @@ export function Heatmap({
           </text>
         ) : null}
       </svg>
+
+      <ChartTooltip tip={tip} />
 
       {showLegend && span > 0 ? (
         <div className="twc-chart__hm-scale" aria-hidden="true">

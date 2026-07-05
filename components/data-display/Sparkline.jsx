@@ -1,6 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
-import { CHART_BASE_CSS, fmtNumber, linePath, areaPath, ChartTable } from "./_chart.js";
+import { CHART_BASE_CSS, fmtNumber, linePath, areaPath, ChartTable, useChartTooltip, ChartTooltip } from "./_chart.js";
 
 // A Sparkline is intentionally tiny and inline, so it overrides the chart
 // family's full-width block layout: it renders at its intrinsic W×H, sits on the
@@ -13,6 +13,7 @@ const SPARK_CSS = `
 .twc-sparkline__area { stroke: none; fill: var(--color-primary); opacity: 0.16; }
 .twc-sparkline__bar { fill: var(--color-primary); }
 .twc-sparkline__dot { fill: var(--color-primary); }
+.twc-sparkline .twc-chart__hit { fill: transparent; }
 `;
 
 /**
@@ -45,6 +46,8 @@ export function Sparkline({
   const styles = useScopedStyles("twc-sparkline-styles", SPARK_CSS);
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
+  const { containerRef, tip, show, hide } = useChartTooltip();
+  const [hover, setHover] = React.useState(null);
 
   const kind = area ? "area" : type; // `area` prop is a shorthand for type="area"
   const isBar = kind === "bar";
@@ -87,6 +90,12 @@ export function Sparkline({
   const crv = isBar ? "straight" : curve; // bars ignore interpolation
   const pathOpts = { smooth: crv === "smooth", step: crv === "stepped" ? "after" : null };
 
+  // Per-point tooltip: the point's label (falls back to its 1-based index) and its
+  // formatted value — a single unlabeled row, matching the sparkline's minimal look.
+  const tipFor = (i) => ({ title: labels[i], items: [{ color, label: "", value: fmt(values[i]) }] });
+  const onPointMove = (i) => (e) => { setHover(i); show(tipFor(i), e); };
+  const onPointLeave = () => { setHover(null); hide(); };
+
   // Summarizing aria-label. With no data table (the default), fold the salient
   // numbers — first/last/min/max — into the label so screen readers still get
   // the shape's gist; with a table present a terse "latest" line is enough.
@@ -107,21 +116,21 @@ export function Sparkline({
       return (
         <rect
           key={i}
-          className="twc-sparkline__bar"
+          className="twc-sparkline__bar twc-chart__anim-fade"
           style={{ fill: color }}
           x={pad + band * i + (band - slot) / 2}
           y={baselineY - h}
           width={Math.max(1, slot)}
           height={Math.max(1, h)}
-        >
-          <title>{`${labelText(labels[i])}: ${fmt(v)}`}</title>
-        </rect>
+          onMouseMove={(e) => show(tipFor(i), e)}
+          onMouseLeave={hide}
+        />
       );
     });
   };
 
   return (
-    <div className={`twc-chart twc-sparkline twc-chart--${kind} ${className}`.trim()} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-sparkline twc-chart--${kind} ${className}`.trim()} {...rest}>
       {baseStyles}
       {styles}
       <svg
@@ -137,29 +146,50 @@ export function Sparkline({
         ) : (
           <>
             {isArea ? (
-              <path className="twc-sparkline__area" style={{ fill: color }} d={areaPath(points, baselineY, pathOpts)} />
+              <path className="twc-sparkline__area twc-chart__anim-fade" style={{ fill: color }} d={areaPath(points, baselineY, pathOpts)} />
             ) : null}
             <path
-              className="twc-sparkline__line"
+              className="twc-sparkline__line twc-chart__anim-line"
               style={{ stroke: color, strokeWidth }}
+              pathLength="1"
               d={linePath(points, pathOpts)}
-            >
-              <title>{summary}</title>
-            </path>
+            />
             {showDots && n ? (
               <circle
-                className="twc-sparkline__dot"
+                className="twc-sparkline__dot twc-chart__anim-fade"
                 style={{ fill: color }}
                 cx={points[n - 1][0]}
                 cy={points[n - 1][1]}
                 r={dotR}
-              >
-                <title>{`${labelText(labels[n - 1])}: ${fmt(last)}`}</title>
-              </circle>
+              />
             ) : null}
+            {/* Hover dot: emphasise the point under the pointer (matches the trailing dot's look). */}
+            {hover != null ? (
+              <circle
+                className="twc-sparkline__dot"
+                style={{ fill: color }}
+                cx={points[hover][0]}
+                cy={points[hover][1]}
+                r={Math.max(2, strokeWidth + 1)}
+              />
+            ) : null}
+            {/* Invisible, generously sized hit targets so the tooltip is easy to trigger on tiny points. */}
+            {points.map((p, i) => (
+              <circle
+                key={i}
+                className="twc-chart__hit"
+                cx={p[0]}
+                cy={p[1]}
+                r="14"
+                onMouseMove={onPointMove(i)}
+                onMouseLeave={onPointLeave}
+              />
+            ))}
           </>
         )}
       </svg>
+
+      <ChartTooltip tip={tip} />
 
       {tableFallback ? (
         <ChartTable
@@ -171,8 +201,4 @@ export function Sparkline({
       ) : null}
     </div>
   );
-}
-
-function labelText(label) {
-  return typeof label === "string" || typeof label === "number" ? String(label) : "";
 }

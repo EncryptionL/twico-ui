@@ -2,7 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import {
   CHART_BASE_CSS, paletteAt, polygonPath, polarDeg, niceCeil, fmtNumber,
-  ChartTable, ChartLegend,
+  ChartTable, ChartLegend, useChartTooltip, ChartTooltip,
 } from "./_chart.js";
 
 const CHART_CSS = `
@@ -13,7 +13,9 @@ const CHART_CSS = `
 .twc-chart__radar-area { transition: opacity var(--duration-fast) var(--ease-standard); }
 .twc-chart__radar-area:hover { opacity: 0.9; }
 .twc-chart__radar-line { fill: none; stroke-width: 2; stroke-linejoin: round; }
-.twc-chart__radar-dot { stroke: var(--color-surface); stroke-width: 1.5; }
+.twc-chart__radar-dot { stroke: var(--color-surface); stroke-width: 1.5; transition: r var(--duration-fast) var(--ease-standard); }
+.twc-chart__hit { fill: transparent; }
+.twc-chart__hit:hover + .twc-chart__radar-dot { r: 5; }
 .twc-chart__empty { fill: var(--color-text-subtle); font-size: var(--text-sm); }
 `;
 
@@ -45,6 +47,7 @@ export function RadarChart({
   const styles = useScopedStyles("twc-radarchart-styles", CHART_CSS);
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
+  const { containerRef, tip, show, hide } = useChartTooltip();
 
   const rows = data || [];
   const keys = series && series.length ? series : ["value"];
@@ -77,7 +80,7 @@ export function RadarChart({
   };
 
   return (
-    <div className={`twc-chart twc-chart--radar ${className}`.trim()} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--radar ${className}`.trim()} {...rest}>
       {baseStyles}
       {styles}
       <svg
@@ -121,13 +124,16 @@ export function RadarChart({
               return (
                 <g key={k}>
                   {fill ? (
-                    <path className="twc-chart__radar-area" style={{ fill: color, opacity: 0.18 }} d={polygonPath(pts)} />
+                    <path className="twc-chart__radar-area twc-chart__anim-fade" style={{ fill: color, opacity: 0.18 }} d={polygonPath(pts)} />
                   ) : null}
-                  <path className="twc-chart__radar-line" style={{ stroke: color }} d={polygonPath(pts)} />
+                  <path className="twc-chart__radar-line twc-chart__anim-fade" style={{ stroke: color }} d={polygonPath(pts)} />
                   {showDots ? pts.map((p, i) => (
-                    <circle key={i} className="twc-chart__radar-dot" style={{ fill: color }} cx={p[0]} cy={p[1]} r="3">
-                      <title>{`${labelText(rows[i].label)}${multi ? " · " + k : ""}: ${fmt(Number(rows[i][k]) || 0)}`}</title>
-                    </circle>
+                    <g key={i} className="twc-chart__anim-fade">
+                      <circle className="twc-chart__hit" cx={p[0]} cy={p[1]} r="14"
+                        onMouseMove={(e) => show({ title: rows[i].label, items: [{ color, label: k, value: fmt(Number(rows[i][k]) || 0) }] }, e)}
+                        onMouseLeave={hide} />
+                      <circle className="twc-chart__radar-dot" style={{ fill: color }} cx={p[0]} cy={p[1]} r="3" />
+                    </g>
                   )) : null}
                 </g>
               );
@@ -135,6 +141,8 @@ export function RadarChart({
           </>
         )}
       </svg>
+
+      <ChartTooltip tip={tip} />
 
       {tableFallback ? (
         <ChartTable
@@ -150,8 +158,4 @@ export function RadarChart({
       ) : null}
     </div>
   );
-}
-
-function labelText(label) {
-  return typeof label === "string" || typeof label === "number" ? String(label) : "";
 }

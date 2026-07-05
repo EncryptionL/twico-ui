@@ -2,6 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import {
   CHART_BASE_CSS, niceScale, shortNum, fmtNumber, ChartTable,
+  useChartTooltip, ChartTooltip,
 } from "./_chart.js";
 
 const CHART_CSS = `
@@ -37,10 +38,23 @@ export function Boxplot({
   const styles = useScopedStyles("twc-boxplot-styles", CHART_CSS);
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
+  const { containerRef, tip, show, hide } = useChartTooltip();
 
   const rows = data || [];
   const fmt = valueFormat || fmtNumber;
   const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "box plot";
+
+  // Shared tooltip: the five-number summary for the hovered category (top → bottom).
+  const tipFor = (d) => ({
+    title: labelText(d.label),
+    items: [
+      { color, label: "Max", value: fmt(Number(d.max)) },
+      { label: "Q3", value: fmt(Number(d.q3)) },
+      { label: "Median", value: fmt(Number(d.median)) },
+      { label: "Q1", value: fmt(Number(d.q1)) },
+      { label: "Min", value: fmt(Number(d.min)) },
+    ],
+  });
 
   const W = 600, H = height;
   const padL = showAxis ? 44 : 8;
@@ -69,7 +83,7 @@ export function Boxplot({
   const boxW = Math.min(band * 0.5, 46);
 
   return (
-    <div className={`twc-chart twc-chart--boxplot ${className}`.trim()} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--boxplot ${className}`.trim()} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
@@ -91,10 +105,12 @@ export function Boxplot({
           const yQ1 = vPos(d.q1), yQ3 = vPos(d.q3), yMed = vPos(d.median);
           const boxTop = Math.min(yQ1, yQ3), boxBot = Math.max(yQ1, yQ3);
           const cap = boxW / 3; // half-width of the min/max whisker caps
-          const tip = `${labelText(d.label)}: min ${fmt(Number(d.min))}, Q1 ${fmt(Number(d.q1))}, med ${fmt(Number(d.median))}, Q3 ${fmt(Number(d.q3))}, max ${fmt(Number(d.max))}`;
+          const hoverProps = {
+            onMouseMove: (e) => show(tipFor(d), e),
+            onMouseLeave: hide,
+          };
           return (
-            <g key={i} style={{ color }}>
-              <title>{tip}</title>
+            <g key={i} className="twc-chart__anim-fade" style={{ color }}>
               {/* whisker: min → max through the box, with end caps */}
               <line className="twc-boxplot__whisker" style={{ stroke: color }} x1={cx} y1={yMax} x2={cx} y2={boxTop} />
               <line className="twc-boxplot__whisker" style={{ stroke: color }} x1={cx} y1={boxBot} x2={cx} y2={yMin} />
@@ -102,14 +118,12 @@ export function Boxplot({
               <line className="twc-boxplot__whisker" style={{ stroke: color }} x1={cx - cap} y1={yMin} x2={cx + cap} y2={yMin} />
               {/* interquartile box + median */}
               <rect className="twc-boxplot__box" style={{ fill: color, stroke: color }}
-                x={x} y={boxTop} width={boxW} height={Math.max(1, boxBot - boxTop)} rx="2" />
+                x={x} y={boxTop} width={boxW} height={Math.max(1, boxBot - boxTop)} rx="2" {...hoverProps} />
               <line className="twc-boxplot__median" style={{ stroke: color }} x1={x} y1={yMed} x2={x + boxW} y2={yMed} />
               {/* outliers */}
               {(Array.isArray(d.outliers) ? d.outliers : []).map((o, oi) =>
                 isFinite(Number(o)) ? (
-                  <circle key={oi} className="twc-boxplot__outlier" style={{ stroke: color }} cx={cx} cy={vPos(o)} r="2.5">
-                    <title>{`${labelText(d.label)}: outlier ${fmt(Number(o))}`}</title>
-                  </circle>
+                  <circle key={oi} className="twc-boxplot__outlier" style={{ stroke: color }} cx={cx} cy={vPos(o)} r="2.5" {...hoverProps} />
                 ) : null,
               )}
             </g>
@@ -121,6 +135,8 @@ export function Boxplot({
           <text key={i} className="twc-boxplot__axis" x={bandX(i) + band / 2} y={H - 8} textAnchor="middle">{d.label}</text>
         )) : null}
       </svg>
+
+      <ChartTooltip tip={tip} />
 
       {tableFallback ? (
         <ChartTable

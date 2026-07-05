@@ -2,11 +2,10 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import {
   CHART_BASE_CSS, paletteAt, fmtNumber, r, sum, ChartTable,
+  useChartTooltip, ChartTooltip,
 } from "./_chart.js";
 
 const TREEMAP_CSS = `
-.twc-chart__tile { transition: opacity var(--duration-fast) var(--ease-standard); }
-.twc-chart__tile:hover { opacity: 0.85; }
 .twc-chart__tile-label { fill: var(--color-text-inverted); font-size: var(--text-xs); font-weight: var(--font-semibold); pointer-events: none; }
 .twc-chart__tile-value { fill: var(--color-text-inverted); font-size: 11px; opacity: 0.82; pointer-events: none; }
 .twc-chart__empty { fill: var(--color-text-subtle); font-size: var(--text-sm); }
@@ -16,7 +15,8 @@ const TREEMAP_CSS = `
  * Treemap — a squarified partition of a rectangle into tiles sized in
  * proportion to a flat list of values (Bruls/Huizing/van Wijk, 1999). Tiles are
  * packed to keep their aspect ratios near 1:1. Dependency-free inline SVG; each
- * tile shows its label (and value, when it fits) and a hover `<title>`.
+ * tile shows its label (and value, when it fits), animates in, and reveals a
+ * floating tooltip with hover emphasis that dims the other tiles.
  */
 export function Treemap({
   data,
@@ -36,6 +36,8 @@ export function Treemap({
   const styles = useScopedStyles("twc-treemap-styles", TREEMAP_CSS);
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
+  const { containerRef, tip, show, hide } = useChartTooltip();
+  const [hovered, setHovered] = React.useState(null);
 
   const rows = data || [];
   const fmt = valueFormat || fmtNumber;
@@ -62,7 +64,7 @@ export function Treemap({
   const g = Math.max(0, gap);
 
   return (
-    <div className={`twc-chart twc-chart--treemap ${className}`.trim()} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--treemap ${className}`.trim()} data-hovering={hovered != null || undefined} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
@@ -81,12 +83,15 @@ export function Treemap({
             const showText = w >= 40 && h >= 24;
             const showVal = showValues && h >= 42;
             const clipId = `${uid}-clip-${t.i}`;
+            const share = total > 0 ? `${r((t.w / total) * 100)}%` : "0%";
+            const tipItems = [{ color, label: fmt(t.w), value: share }];
             return (
               <g key={t.i}>
                 <clipPath id={clipId}><rect x={x} y={y} width={w} height={h} rx="4" /></clipPath>
-                <rect className="twc-chart__tile" x={x} y={y} width={w} height={h} rx="4" style={{ fill: color }}>
-                  <title>{`${label}: ${fmt(t.w)}`}</title>
-                </rect>
+                <rect className="twc-chart__tile twc-chart__anim-fade" data-mark data-active={hovered === t.i || undefined}
+                  x={x} y={y} width={w} height={h} rx="4" style={{ fill: color }}
+                  onMouseMove={(e) => { setHovered(t.i); show({ title: label, items: tipItems }, e); }}
+                  onMouseLeave={() => { setHovered(null); hide(); }} />
                 {showText ? (
                   <g clipPath={`url(#${clipId})`} aria-hidden="true">
                     <text className="twc-chart__tile-label" x={x + 8} y={y + 17}>{label}</text>
@@ -98,6 +103,8 @@ export function Treemap({
           })
         )}
       </svg>
+
+      <ChartTooltip tip={tip} />
 
       {tableFallback ? (
         <ChartTable

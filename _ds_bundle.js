@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"c361fce431ea","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"0037d6ffc811","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"36d511522f5b","components/data-display/Datatable.jsx":"0e20db89335d","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"a64d4c7a0242","components/data-display/Gauge.jsx":"b41560bae69d","components/data-display/Heatmap.jsx":"4d47209452ea","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"f52060532797","components/data-display/PolarAreaChart.jsx":"81eeab8682e2","components/data-display/RadarChart.jsx":"4dfeb8ac7b8c","components/data-display/RangeChart.jsx":"54dc6a5e60b0","components/data-display/ScatterChart.jsx":"205ab9448693","components/data-display/Sparkline.jsx":"eec60d43ccee","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"33bf115d17bc","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"65d865e8012e","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1a5441dddb5b","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"ae1d49e59288","src/index.ts":"42079cb33554"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"e75009f295a0","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"2061e0dbdee5","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"7efe89366bfe","components/data-display/Datatable.jsx":"0e20db89335d","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"839d31b57010","components/data-display/Gauge.jsx":"e76bf60129e6","components/data-display/Heatmap.jsx":"dd74af9c55d7","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"98e3d3a6ffef","components/data-display/PolarAreaChart.jsx":"5f3c899422e7","components/data-display/RadarChart.jsx":"acb1b7086960","components/data-display/RangeChart.jsx":"f625650e66a9","components/data-display/ScatterChart.jsx":"03ccb46c7dc6","components/data-display/Sparkline.jsx":"ad83e7048f09","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"557e79a38e2f","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"e18afd39a05e","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"65d865e8012e","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"30affe9979fe","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"1a5441dddb5b","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"ae1d49e59288","src/index.ts":"42079cb33554"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -1830,11 +1830,50 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-chart svg text { fill: var(--color-text-subtle); }
 .twc-chart__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .twc-chart__legend { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); font-size: var(--text-xs); color: var(--color-text-muted); }
-.twc-chart__leg { display: inline-flex; align-items: center; gap: 6px; }
+.twc-chart__leg { display: inline-flex; align-items: center; gap: 6px; transition: opacity var(--duration-fast) var(--ease-standard); }
 .twc-chart__leg[data-toggle="true"] { cursor: pointer; user-select: none; }
+.twc-chart__leg[data-toggle="true"]:hover { color: var(--color-text); }
 .twc-chart__leg[data-off="true"] { opacity: 0.4; }
 .twc-chart__leg-sw { width: 10px; height: 10px; border-radius: 3px; flex: none; }
-@media (prefers-reduced-motion: reduce) { .twc-chart *[style*="animation"], .twc-chart [class*="anim"] { animation: none !important; } }
+
+/* Floating tooltip \u2014 a styled card that follows the pointer (ApexCharts / MUI X style). */
+.twc-chart__tip {
+  position: absolute; z-index: 3; top: 0; left: 0; pointer-events: none;
+  transform: translate(-50%, calc(-100% - 12px));
+  min-width: 96px; max-width: 260px; padding: 8px 10px;
+  background: var(--color-surface-raised); color: var(--color-text);
+  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg); font-size: var(--text-xs); line-height: 1.45;
+  opacity: 0; animation: twc-chart-tip-in var(--duration-fast) var(--ease-standard) forwards;
+}
+.twc-chart__tip-title { font-weight: var(--font-bold); color: var(--color-text); margin-bottom: 4px; white-space: nowrap; }
+.twc-chart__tip-row { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.twc-chart__tip-row + .twc-chart__tip-row { margin-top: 2px; }
+.twc-chart__tip-sw { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+.twc-chart__tip-label { color: var(--color-text-muted); flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.twc-chart__tip-val { font-weight: var(--font-semibold); color: var(--color-text); font-variant-numeric: tabular-nums; }
+@keyframes twc-chart-tip-in { from { opacity: 0; transform: translate(-50%, calc(-100% - 6px)); } to { opacity: 1; transform: translate(-50%, calc(-100% - 12px)); } }
+
+/* Hover emphasis: when the chart marks itself hovered, fade every mark except the active one. */
+.twc-chart[data-hovering="true"] [data-mark] { opacity: 0.28; transition: opacity var(--duration-fast) var(--ease-standard); }
+.twc-chart[data-hovering="true"] [data-mark][data-active="true"] { opacity: 1; }
+[data-mark] { transition: opacity var(--duration-fast) var(--ease-standard); cursor: default; }
+
+/* Entrance animations (respect reduced motion, below). */
+@keyframes twc-chart-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes twc-chart-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes twc-chart-draw { to { stroke-dashoffset: 0; } }
+@keyframes twc-chart-grow-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes twc-chart-grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.twc-chart__anim-bar { transform-box: fill-box; transform-origin: bottom; animation: twc-chart-grow-y var(--duration-slow, 420ms) var(--ease-spring) both; }
+.twc-chart__anim-bar[data-horizontal="true"] { transform-origin: left; animation-name: twc-chart-grow-x; }
+.twc-chart__anim-line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: twc-chart-draw var(--duration-slow, 700ms) var(--ease-standard) forwards; }
+.twc-chart__anim-fade { animation: twc-chart-fade var(--duration-base) var(--ease-standard) both; }
+.twc-chart__anim-arc { transform-box: fill-box; transform-origin: center; animation: twc-chart-fade var(--duration-base) var(--ease-standard) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .twc-chart svg *, .twc-chart__tip, .twc-chart [class*="__anim"] { animation: none !important; stroke-dashoffset: 0 !important; opacity: 1 !important; transform: none !important; }
+}
 `;
   function ChartTable({ id, caption, columns, rows }) {
     const h = import_react.default.createElement;
@@ -1895,14 +1934,52 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       )
     );
   }
+  function useChartTooltip() {
+    const containerRef = import_react.default.useRef(null);
+    const [tip, setTip] = import_react.default.useState(null);
+    const show = import_react.default.useCallback((content, e) => {
+      const el = containerRef.current;
+      const rect = el && el.getBoundingClientRect ? el.getBoundingClientRect() : null;
+      const left = rect ? e.clientX - rect.left : 0;
+      const top = rect ? e.clientY - rect.top : 0;
+      setTip({ title: content.title, items: content.items || [], left, top });
+    }, []);
+    const hide = import_react.default.useCallback(() => setTip(null), []);
+    return { containerRef, tip, show, hide };
+  }
+  function ChartTooltip({ tip }) {
+    const h = import_react.default.createElement;
+    if (!tip) return null;
+    const left = Math.max(48, tip.left);
+    return h(
+      "div",
+      { className: "twc-chart__tip", role: "tooltip", "aria-hidden": "true", style: { left, top: tip.top } },
+      tip.title != null && tip.title !== "" ? h("div", { className: "twc-chart__tip-title" }, tip.title) : null,
+      (tip.items || []).map(
+        (it, i) => h(
+          "div",
+          { key: i, className: "twc-chart__tip-row" },
+          it.color ? h("span", { className: "twc-chart__tip-sw", style: { background: it.color } }) : null,
+          h("span", { className: "twc-chart__tip-label" }, it.label),
+          it.value != null ? h("span", { className: "twc-chart__tip-val" }, it.value) : null
+        )
+      )
+    );
+  }
   var CHART_CSS = `
 .twc-chart__grid { stroke: var(--color-divider); stroke-width: 1; }
+.twc-chart__axisline { stroke: var(--color-border); stroke-width: 1; }
+.twc-chart__tick { stroke: var(--color-border); stroke-width: 1; }
 .twc-chart__axis { fill: var(--color-text-subtle); font-size: 11px; }
-.twc-chart__bar { transition: opacity var(--duration-fast) var(--ease-standard); fill: var(--color-primary); }
-.twc-chart__bar:hover { opacity: 0.82; }
+.twc-chart__bar { fill: var(--color-primary); }
+.twc-chart__bar:hover { filter: brightness(1.06); }
 .twc-chart__line { fill: none; stroke: var(--color-primary); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.twc-chart__area { stroke: none; opacity: 0.16; }
-.twc-chart__dot { fill: var(--color-surface); stroke: var(--color-primary); stroke-width: 2.5; }
+.twc-chart__area { stroke: none; }
+.twc-chart__dot { fill: var(--color-surface); stroke: var(--color-primary); stroke-width: 2.5; transition: r var(--duration-fast) var(--ease-standard); }
+.twc-chart__hit { fill: transparent; }
+.twc-chart__hit:hover + .twc-chart__dot, .twc-chart__dot:hover { r: 5; }
+.twc-chart__vline { stroke: var(--color-border-strong); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.7; }
+.twc-chart__label { fill: var(--color-text-muted); font-size: 10px; font-weight: var(--font-semibold); }
 `;
   function Chart({
     type = "bar",
@@ -1914,9 +1991,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     curve = "straight",
     smooth = false,
     showDots = true,
+    showValues = false,
     showGrid = true,
     showAxis = true,
     showLegend = false,
+    animate = true,
     colors,
     valueFormat,
     ariaLabel,
@@ -1929,20 +2008,24 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const baseStyles = useScopedStyles("twc-chart-base", CHART_BASE_CSS);
     const styles = useScopedStyles("twc-chart-styles", CHART_CSS);
     const uid = import_react.default.useId();
+    const gid = uid.replace(/[^a-zA-Z0-9]/g, "");
     const tableId = tableFallback ? `${uid}-table` : void 0;
+    const { containerRef, tip, show, hide } = useChartTooltip();
+    const [hidden, setHidden] = import_react.default.useState(() => /* @__PURE__ */ new Set());
     const isBar = type === "bar" || type === "column";
     const isArea = type === "area";
     const crv = smooth ? "smooth" : curve;
     const pathOpts = { smooth: crv === "smooth", step: crv === "stepped" ? "after" : null };
     const canStack = stacked && (isBar || isArea);
-    const keys = series && series.length ? series : ["value"];
+    const anim = animate ? "" : null;
+    const allKeys = series && series.length ? series : ["value"];
+    const keys = allKeys.filter((k) => !hidden.has(k));
     const rows = data || [];
     const fmt = valueFormat || fmtNumber;
-    const multi = keys.length > 1;
+    const multi = allKeys.length > 1;
     const W = 600, H = height;
     const padL = showAxis ? horizontal ? 84 : 44 : 8;
-    const padR = 10;
-    const padT = 12;
+    const padR = 10, padT = 12;
     const padB = showAxis ? 26 : 8;
     const innerW = W - padL - padR, innerH = H - padT - padB;
     const stackSum = (d) => keys.reduce((a, k) => a + (Number(d[k]) || 0), 0);
@@ -1956,114 +2039,117 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const catBandH = innerH / Math.max(1, rows.length);
     const lineX = (i) => padL + innerW / Math.max(1, rows.length - 1) * i;
     const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? `${type} chart`;
+    const tipFor = (d) => ({
+      title: d.label,
+      items: keys.map((k) => ({ color: colorFor(k), label: k, value: fmt(Number(d[k]) || 0) }))
+    });
+    function colorFor(k) {
+      const idx = allKeys.indexOf(k);
+      return multi || colors && colors.length ? paletteAt(colors, idx) : "var(--color-primary)";
+    }
     const renderBars = () => {
       const band = horizontal ? catBandH : catBand;
       const gap = 0.28;
       const slot = band * (1 - gap);
       return rows.map((d, gi) => {
         const gStart = (horizontal ? padT : padL) + band * gi + band * gap / 2;
+        const hoverProps = {
+          onMouseMove: (e) => show(tipFor(d), e),
+          onMouseLeave: hide
+        };
         if (canStack) {
           let acc = 0;
           return keys.map((k, si) => {
             const v = Number(d[k]) || 0;
             const p0 = vPix(acc), p1 = vPix(acc + v);
             acc += v;
-            const color = paletteAt(colors, si);
-            if (horizontal) {
-              return /* @__PURE__ */ jsx(
-                "rect",
-                {
-                  className: "twc-chart__bar",
-                  style: { fill: color },
-                  x: padL + p0,
-                  y: gStart,
-                  width: Math.max(0, p1 - p0),
-                  height: Math.max(1, slot),
-                  rx: "2",
-                  children: /* @__PURE__ */ jsx("title", { children: `${labelText(d.label)} \xB7 ${k}: ${fmt(v)}` })
-                },
-                `${gi}-${si}`
-              );
-            }
-            return /* @__PURE__ */ jsx(
-              "rect",
-              {
-                className: "twc-chart__bar",
-                style: { fill: color },
-                x: gStart,
-                y: padT + innerH - p1,
-                width: Math.max(1, slot),
-                height: Math.max(0, p1 - p0),
-                rx: "2",
-                children: /* @__PURE__ */ jsx("title", { children: `${labelText(d.label)} \xB7 ${k}: ${fmt(v)}` })
-              },
-              `${gi}-${si}`
-            );
+            const color = colorFor(k);
+            const common = { className: `twc-chart__bar ${anim === "" ? "twc-chart__anim-bar" : ""}`.trim(), "data-horizontal": horizontal || void 0, style: { fill: color }, rx: 2, ...hoverProps };
+            return horizontal ? /* @__PURE__ */ jsx("rect", { ...common, x: padL + p0, y: gStart, width: Math.max(0, p1 - p0), height: Math.max(1, slot) }, `${gi}-${si}`) : /* @__PURE__ */ jsx("rect", { ...common, x: gStart, y: padT + innerH - p1, width: Math.max(1, slot), height: Math.max(0, p1 - p0) }, `${gi}-${si}`);
           });
         }
-        const bw = slot / keys.length;
+        const bw = slot / Math.max(1, keys.length);
         return keys.map((k, si) => {
           const v = Number(d[k]) || 0;
           const len2 = vPix(v);
-          const color = multi || colors && colors.length ? paletteAt(colors, si) : "var(--color-primary)";
-          if (horizontal) {
-            return /* @__PURE__ */ jsx(
-              "rect",
-              {
-                className: "twc-chart__bar",
-                style: { fill: color },
-                x: padL,
-                y: gStart + si * bw + 0.5,
-                width: Math.max(0, len2),
-                height: Math.max(1, bw - 1),
-                rx: "2",
-                children: /* @__PURE__ */ jsx("title", { children: `${labelText(d.label)}${multi ? " \xB7 " + k : ""}: ${fmt(v)}` })
-              },
-              `${gi}-${si}`
-            );
-          }
-          return /* @__PURE__ */ jsx(
-            "rect",
-            {
-              className: "twc-chart__bar",
-              style: { fill: color },
-              x: gStart + si * bw + 0.5,
-              y: padT + innerH - len2,
-              width: Math.max(1, bw - 1),
-              height: Math.max(0, len2),
-              rx: "2",
-              children: /* @__PURE__ */ jsx("title", { children: `${labelText(d.label)}${multi ? " \xB7 " + k : ""}: ${fmt(v)}` })
-            },
-            `${gi}-${si}`
-          );
+          const color = colorFor(k);
+          const common = { className: `twc-chart__bar ${anim === "" ? "twc-chart__anim-bar" : ""}`.trim(), "data-horizontal": horizontal || void 0, style: { fill: color }, rx: 2, ...hoverProps };
+          return horizontal ? /* @__PURE__ */ jsx("rect", { ...common, x: padL, y: gStart + si * bw + 0.5, width: Math.max(0, len2), height: Math.max(1, bw - 1) }, `${gi}-${si}`) : /* @__PURE__ */ jsx("rect", { ...common, x: gStart + si * bw + 0.5, y: padT + innerH - len2, width: Math.max(1, bw - 1), height: Math.max(0, len2) }, `${gi}-${si}`);
         });
       });
     };
     const renderLines = () => {
       const stackAcc = canStack ? rows.map(() => 0) : null;
-      return keys.map((k, si) => {
-        const color = paletteAt(colors, si);
+      return keys.map((k) => {
+        const color = colorFor(k);
         const pts = rows.map((d, i) => {
           const v = Number(d[k]) || 0;
           const val = canStack ? stackAcc[i] += v : v;
           return [lineX(i), vPos(val)];
         });
         const base = canStack ? rows.map((d, i) => vPos(stackAcc[i] - (Number(d[k]) || 0))) : null;
+        const gradId = `twc-grad-${gid}-${allKeys.indexOf(k)}`;
         return /* @__PURE__ */ jsxs("g", { children: [
-          isArea ? canStack ? /* @__PURE__ */ jsx(
-            "path",
-            {
-              className: "twc-chart__area",
-              style: { fill: color, opacity: 0.22 },
-              d: `${linePath(pts, pathOpts)} ${pts.map((p, i) => `L${p[0]} ${base[i]}`).reverse().join(" ")} Z`
-            }
-          ) : /* @__PURE__ */ jsx("path", { className: "twc-chart__area", style: { fill: color }, d: areaPath(pts, padT + innerH, pathOpts) }) : null,
-          /* @__PURE__ */ jsx("path", { className: "twc-chart__line", style: { stroke: color }, d: linePath(pts, pathOpts) }),
-          showDots && !isArea ? pts.map((p, i) => /* @__PURE__ */ jsx("circle", { className: "twc-chart__dot", style: { stroke: color }, cx: p[0], cy: p[1], r: "3.5", children: /* @__PURE__ */ jsx("title", { children: `${labelText(rows[i].label)}${multi ? " \xB7 " + k : ""}: ${fmt(Number(rows[i][k]) || 0)}` }) }, i)) : null
+          isArea ? /* @__PURE__ */ jsxs(Fragment, { children: [
+            /* @__PURE__ */ jsx("defs", { children: /* @__PURE__ */ jsxs("linearGradient", { id: gradId, x1: "0", y1: "0", x2: "0", y2: "1", children: [
+              /* @__PURE__ */ jsx("stop", { offset: "0%", stopColor: color, stopOpacity: "0.34" }),
+              /* @__PURE__ */ jsx("stop", { offset: "100%", stopColor: color, stopOpacity: "0.02" })
+            ] }) }),
+            /* @__PURE__ */ jsx(
+              "path",
+              {
+                className: `twc-chart__area ${anim === "" ? "twc-chart__anim-fade" : ""}`.trim(),
+                style: { fill: `url(#${gradId})` },
+                d: canStack ? `${linePath(pts, pathOpts)} ${pts.map((p, i) => `L${p[0]} ${base[i]}`).reverse().join(" ")} Z` : areaPath(pts, padT + innerH, pathOpts)
+              }
+            )
+          ] }) : null,
+          /* @__PURE__ */ jsx("path", { className: `twc-chart__line ${anim === "" ? "twc-chart__anim-line" : ""}`.trim(), style: { stroke: color }, pathLength: "1", d: linePath(pts, pathOpts) }),
+          showDots || !isArea ? pts.map((p, i) => /* @__PURE__ */ jsxs("g", { className: anim === "" ? "twc-chart__anim-fade" : void 0, children: [
+            /* @__PURE__ */ jsx(
+              "circle",
+              {
+                className: "twc-chart__hit",
+                cx: p[0],
+                cy: p[1],
+                r: "14",
+                onMouseMove: (e) => show(tipFor(rows[i]), e),
+                onMouseLeave: hide
+              }
+            ),
+            /* @__PURE__ */ jsx("circle", { className: "twc-chart__dot", style: { stroke: color }, cx: p[0], cy: p[1], r: "3.5" })
+          ] }, i)) : null
         ] }, k);
       });
     };
-    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--${type} ${className}`.trim(), ...rest, children: [
+    const renderValues = () => {
+      if (!showValues) return null;
+      if (isBar) {
+        const band = horizontal ? catBandH : catBand;
+        const slot = band * 0.72;
+        return rows.flatMap((d, gi) => {
+          const gStart = (horizontal ? padT : padL) + band * gi + band * 0.28 / 2;
+          if (canStack) return [];
+          const bw = slot / Math.max(1, keys.length);
+          return keys.map((k, si) => {
+            const v = Number(d[k]) || 0;
+            if (horizontal) return /* @__PURE__ */ jsx("text", { className: "twc-chart__label", x: padL + vPix(v) + 4, y: gStart + si * bw + bw / 2 + 3, children: shortNum(v) }, `${gi}-${si}`);
+            return /* @__PURE__ */ jsx("text", { className: "twc-chart__label", x: gStart + si * bw + bw / 2, y: padT + innerH - vPix(v) - 5, textAnchor: "middle", children: shortNum(v) }, `${gi}-${si}`);
+          });
+        });
+      }
+      return keys.flatMap((k) => rows.map((d, i) => {
+        const v = Number(d[k]) || 0;
+        return /* @__PURE__ */ jsx("text", { className: "twc-chart__label", x: lineX(i), y: vPos(v) - 9, textAnchor: "middle", children: shortNum(v) }, `${k}-${i}`);
+      }));
+    };
+    const toggle = (it) => setHidden((prev) => {
+      const next = new Set(prev);
+      if (next.has(it.label)) next.delete(it.label);
+      else if (allKeys.length - next.size > 1) next.add(it.label);
+      return next;
+    });
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--${type} ${className}`.trim(), ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
@@ -2071,11 +2157,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           const p = vPos(t);
           return horizontal ? /* @__PURE__ */ jsx("line", { className: "twc-chart__grid", x1: p, y1: padT, x2: p, y2: padT + innerH }, i) : /* @__PURE__ */ jsx("line", { className: "twc-chart__grid", x1: padL, y1: p, x2: W - padR, y2: p }, i);
         }) : null,
+        showAxis ? /* @__PURE__ */ jsx("line", { className: "twc-chart__axisline", x1: padL, y1: padT, x2: padL, y2: padT + innerH }) : null,
+        showAxis ? /* @__PURE__ */ jsx("line", { className: "twc-chart__axisline", x1: padL, y1: padT + innerH, x2: W - padR, y2: padT + innerH }) : null,
         showAxis ? ticks.map((t, i) => {
           const p = vPos(t);
           return horizontal ? /* @__PURE__ */ jsx("text", { className: "twc-chart__axis", x: p, y: H - 8, textAnchor: "middle", children: shortNum(t) }, i) : /* @__PURE__ */ jsx("text", { className: "twc-chart__axis", x: padL - 8, y: p + 4, textAnchor: "end", children: shortNum(t) }, i);
         }) : null,
         isBar ? renderBars() : renderLines(),
+        renderValues(),
         showAxis ? rows.map((d, i) => {
           if (horizontal) {
             const cy = padT + catBandH * i + catBandH / 2;
@@ -2085,20 +2174,25 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           return /* @__PURE__ */ jsx("text", { className: "twc-chart__axis", x: cx, y: H - 8, textAnchor: "middle", children: d.label }, i);
         }) : null
       ] }),
+      /* @__PURE__ */ jsx(ChartTooltip, { tip }),
       tableFallback ? /* @__PURE__ */ jsx(
         ChartTable,
         {
           id: tableId,
           caption: caption ?? svgAriaLabel,
-          columns: keys,
-          rows: rows.map((d) => ({ label: d.label, values: keys.map((k) => fmt(Number(d[k]) || 0)) }))
+          columns: allKeys,
+          rows: rows.map((d) => ({ label: d.label, values: allKeys.map((k) => fmt(Number(d[k]) || 0)) }))
         }
       ) : null,
-      showLegend && multi ? /* @__PURE__ */ jsx(ChartLegend, { items: keys.map((k, si) => ({ label: k, color: paletteAt(colors, si) })) }) : null
+      showLegend && multi ? /* @__PURE__ */ jsx(
+        ChartLegend,
+        {
+          items: allKeys.map((k) => ({ label: k, color: colorFor(k) })),
+          onToggle: toggle,
+          hidden: (it) => hidden.has(it.label)
+        }
+      ) : null
     ] });
-  }
-  function labelText(label) {
-    return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
   var CHART_CSS2 = `
 .twc-chart--pie svg { overflow: visible; }
@@ -2132,6 +2226,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const styles = useScopedStyles("twc-piechart-styles", CHART_CSS2);
     const uid = import_react.default.useId();
     const tableId = tableFallback ? `${uid}-table` : void 0;
+    const { containerRef, tip, show, hide } = useChartTooltip();
+    const [active, setActive] = import_react.default.useState(null);
     const rows = data || [];
     const fmt = valueFormat || fmtNumber;
     const values = rows.map((d) => Math.max(0, Number(d.value) || 0));
@@ -2155,19 +2251,29 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       const color = d.color || paletteAt(colors, i);
       return { d, i, v, frac, s0, s1, span, pct, color };
     });
-    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--pie ${className}`.trim(), "data-donut": isDonut ? "true" : void 0, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--pie ${className}`.trim(), "data-donut": isDonut ? "true" : void 0, "data-hovering": active != null ? "true" : void 0, ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsx("svg", { viewBox: `0 0 ${H} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, children: total <= 0 ? /* @__PURE__ */ jsx("text", { className: "twc-chart__empty", x: cx, y: cy, textAnchor: "middle", dominantBaseline: "middle", children: "No data" }) : /* @__PURE__ */ jsxs(Fragment, { children: [
         slices.map(({ d, i, v, s0, s1, span, pct, color }) => {
           const pad = span > padAngle ? padAngle / 2 : 0;
+          const items = [{ color, label: fmt(v), value: `${pct}%` }];
           return /* @__PURE__ */ jsx(
             "path",
             {
-              className: "twc-chart__slice",
+              className: "twc-chart__slice twc-chart__anim-arc",
               style: { fill: color },
+              "data-mark": "",
+              "data-active": active === i ? "true" : void 0,
               d: arcPath(cx, cy, rOuter, rInner, s0 + pad, s1 - pad),
-              children: /* @__PURE__ */ jsx("title", { children: `${labelText2(d.label)}: ${fmt(v)} (${pct}%)` })
+              onMouseMove: (e) => {
+                setActive(i);
+                show({ title: d.label, items }, e);
+              },
+              onMouseLeave: () => {
+                setActive(null);
+                hide();
+              }
             },
             i
           );
@@ -2192,6 +2298,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           }
         ) : null
       ] }) }),
+      /* @__PURE__ */ jsx(ChartTooltip, { tip }),
       tableFallback ? /* @__PURE__ */ jsx(
         ChartTable,
         {
@@ -2203,9 +2310,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       ) : null,
       showLegend && rows.length ? /* @__PURE__ */ jsx(ChartLegend, { items: slices.map(({ d, color }) => ({ label: d.label, color })) }) : null
     ] });
-  }
-  function labelText2(label) {
-    return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
   function DonutChart(props) {
     return /* @__PURE__ */ jsx(PieChart, { donut: true, ...props });
@@ -2243,6 +2347,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const styles = useScopedStyles("twc-gauge-styles", GAUGE_CSS);
     const uid = import_react.default.useId();
     const tableId = tableFallback ? `${uid}-table` : void 0;
+    const { containerRef, tip, show, hide } = useChartTooltip();
     const fmt = valueFormat || ((n) => String(Math.round(Number(n) || 0)));
     const cx = size / 2, cy = size / 2;
     const span = endAngle - startAngle;
@@ -2267,10 +2372,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       return `M${r(x0)} ${r(y0)} A${r(radius)} ${r(radius)} 0 ${large} ${sweep} ${r(x1)} ${r(y1)}`;
     };
     const single = items[0];
-    const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? (isMulti ? `Gauge with ${items.length} values` : `${labelText3(label) || "Gauge"}: ${fmt(single.value)} of ${fmt(max)}`);
+    const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? (isMulti ? `Gauge with ${items.length} values` : `${labelText(label) || "Gauge"}: ${fmt(single.value)} of ${fmt(max)}`);
     const valueFont = Math.round(size * (isMulti ? 0.11 : 0.17));
     const labelFont = Math.round(size * 0.072);
-    return /* @__PURE__ */ jsxs("div", { className: `twc-gauge twc-chart twc-chart--gauge ${className}`.trim(), "data-multi": isMulti || void 0, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-gauge twc-chart twc-chart--gauge ${className}`.trim(), "data-multi": isMulti || void 0, ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsxs(
@@ -2300,19 +2405,24 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                 f > 0 ? /* @__PURE__ */ jsx(
                   "path",
                   {
-                    className: "twc-gauge__arc",
+                    className: "twc-gauge__arc twc-chart__anim-fade",
                     d: arc(radius, startAngle, valEnd),
                     style: { stroke: c, strokeWidth: strokeW },
-                    children: /* @__PURE__ */ jsx("title", { children: `${labelText3(it.label) || "Value"}: ${fmt(it.value)}` })
+                    onMouseMove: (e) => show({
+                      title: labelText(it.label) || "Value",
+                      items: [{ color: c, label: "", value: fmt(it.value) }]
+                    }, e),
+                    onMouseLeave: hide
                   }
                 ) : null
               ] }, i);
             }),
             !isMulti && showValue ? /* @__PURE__ */ jsx("text", { className: "twc-gauge__value", x: cx, y: cy, textAnchor: "middle", dominantBaseline: "middle", style: { fontSize: valueFont }, children: fmt(single.value) }) : null,
-            !isMulti && label != null ? /* @__PURE__ */ jsx("text", { className: "twc-gauge__label", x: cx, y: cy + valueFont * 0.78, textAnchor: "middle", style: { fontSize: labelFont }, children: labelText3(label) }) : null
+            !isMulti && label != null ? /* @__PURE__ */ jsx("text", { className: "twc-gauge__label", x: cx, y: cy + valueFont * 0.78, textAnchor: "middle", style: { fontSize: labelFont }, children: labelText(label) }) : null
           ]
         }
       ),
+      /* @__PURE__ */ jsx(ChartTooltip, { tip }),
       tableFallback ? /* @__PURE__ */ jsx(
         ChartTable,
         {
@@ -2320,7 +2430,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           caption: caption ?? svgAriaLabel,
           columns: ["Value"],
           rows: items.map((it, i) => ({
-            label: labelText3(it.label) || (isMulti ? `Series ${i + 1}` : "Value"),
+            label: labelText(it.label) || (isMulti ? `Series ${i + 1}` : "Value"),
             values: [fmt(it.value)]
           }))
         }
@@ -2329,14 +2439,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         ChartLegend,
         {
           items: items.map((it, i) => ({
-            label: labelText3(it.label) || `Series ${i + 1}`,
+            label: labelText(it.label) || `Series ${i + 1}`,
             color: it.color || paletteAt(void 0, i)
           }))
         }
       ) : null
     ] });
   }
-  function labelText3(label) {
+  function labelText(label) {
     return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
   var SPARK_CSS = `
@@ -2346,6 +2456,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-sparkline__area { stroke: none; fill: var(--color-primary); opacity: 0.16; }
 .twc-sparkline__bar { fill: var(--color-primary); }
 .twc-sparkline__dot { fill: var(--color-primary); }
+.twc-sparkline .twc-chart__hit { fill: transparent; }
 `;
   function Sparkline({
     data,
@@ -2371,6 +2482,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const styles = useScopedStyles("twc-sparkline-styles", SPARK_CSS);
     const uid = import_react.default.useId();
     const tableId = tableFallback ? `${uid}-table` : void 0;
+    const { containerRef, tip, show, hide } = useChartTooltip();
+    const [hover, setHover] = import_react.default.useState(null);
     const kind = area ? "area" : type;
     const isBar = kind === "bar";
     const isArea = kind === "area";
@@ -2403,6 +2516,15 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const points = values.map((v, i) => [x(i), y(v)]);
     const crv = isBar ? "straight" : curve;
     const pathOpts = { smooth: crv === "smooth", step: crv === "stepped" ? "after" : null };
+    const tipFor = (i) => ({ title: labels[i], items: [{ color, label: "", value: fmt(values[i]) }] });
+    const onPointMove = (i) => (e) => {
+      setHover(i);
+      show(tipFor(i), e);
+    };
+    const onPointLeave = () => {
+      setHover(null);
+      hide();
+    };
     const last = n ? values[n - 1] : 0;
     const summary = !n ? "sparkline, no data" : tableFallback ? `sparkline, ${n} points, latest ${fmt(last)}` : `sparkline, ${n} points, first ${fmt(values[0])}, latest ${fmt(last)}, min ${fmt(Math.min(...values))}, max ${fmt(Math.max(...values))}`;
     const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? summary;
@@ -2414,19 +2536,20 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         return /* @__PURE__ */ jsx(
           "rect",
           {
-            className: "twc-sparkline__bar",
+            className: "twc-sparkline__bar twc-chart__anim-fade",
             style: { fill: color },
             x: pad + band * i + (band - slot) / 2,
             y: baselineY - h,
             width: Math.max(1, slot),
             height: Math.max(1, h),
-            children: /* @__PURE__ */ jsx("title", { children: `${labelText4(labels[i])}: ${fmt(v)}` })
+            onMouseMove: (e) => show(tipFor(i), e),
+            onMouseLeave: hide
           },
           i
         );
       });
     };
-    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-sparkline twc-chart--${kind} ${className}`.trim(), ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-sparkline twc-chart--${kind} ${className}`.trim(), ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsx(
@@ -2439,30 +2562,52 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           "aria-label": svgAriaLabel,
           "aria-describedby": tableId,
           children: n === 0 ? null : isBar ? renderBars() : /* @__PURE__ */ jsxs(Fragment, { children: [
-            isArea ? /* @__PURE__ */ jsx("path", { className: "twc-sparkline__area", style: { fill: color }, d: areaPath(points, baselineY, pathOpts) }) : null,
+            isArea ? /* @__PURE__ */ jsx("path", { className: "twc-sparkline__area twc-chart__anim-fade", style: { fill: color }, d: areaPath(points, baselineY, pathOpts) }) : null,
             /* @__PURE__ */ jsx(
               "path",
               {
-                className: "twc-sparkline__line",
+                className: "twc-sparkline__line twc-chart__anim-line",
                 style: { stroke: color, strokeWidth },
-                d: linePath(points, pathOpts),
-                children: /* @__PURE__ */ jsx("title", { children: summary })
+                pathLength: "1",
+                d: linePath(points, pathOpts)
               }
             ),
             showDots && n ? /* @__PURE__ */ jsx(
               "circle",
               {
-                className: "twc-sparkline__dot",
+                className: "twc-sparkline__dot twc-chart__anim-fade",
                 style: { fill: color },
                 cx: points[n - 1][0],
                 cy: points[n - 1][1],
-                r: dotR,
-                children: /* @__PURE__ */ jsx("title", { children: `${labelText4(labels[n - 1])}: ${fmt(last)}` })
+                r: dotR
               }
-            ) : null
+            ) : null,
+            hover != null ? /* @__PURE__ */ jsx(
+              "circle",
+              {
+                className: "twc-sparkline__dot",
+                style: { fill: color },
+                cx: points[hover][0],
+                cy: points[hover][1],
+                r: Math.max(2, strokeWidth + 1)
+              }
+            ) : null,
+            points.map((p, i) => /* @__PURE__ */ jsx(
+              "circle",
+              {
+                className: "twc-chart__hit",
+                cx: p[0],
+                cy: p[1],
+                r: "14",
+                onMouseMove: onPointMove(i),
+                onMouseLeave: onPointLeave
+              },
+              i
+            ))
           ] })
         }
       ),
+      /* @__PURE__ */ jsx(ChartTooltip, { tip }),
       tableFallback ? /* @__PURE__ */ jsx(
         ChartTable,
         {
@@ -2474,16 +2619,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       ) : null
     ] });
   }
-  function labelText4(label) {
-    return typeof label === "string" || typeof label === "number" ? String(label) : "";
-  }
   var SCATTER_CSS = `
 .twc-chart--scatter__grid { stroke: var(--color-divider); stroke-width: 1; }
 .twc-chart--scatter__axis { fill: var(--color-text-subtle); font-size: 11px; }
 .twc-chart--scatter__title { fill: var(--color-text-muted); font-size: 11px; font-weight: 500; }
-.twc-chart--scatter__dot { transition: opacity var(--duration-fast) var(--ease-standard); stroke: var(--color-surface); stroke-width: 1; }
-.twc-chart--scatter__dot:hover { opacity: 0.85; }
+.twc-chart--scatter__dot { transform-box: fill-box; transform-origin: center; transition: transform var(--duration-fast) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard); stroke: var(--color-surface); stroke-width: 1; }
 .twc-chart--scatter__dot[data-bubble="true"] { fill-opacity: 0.55; }
+.twc-chart__hit { fill: transparent; }
+.twc-chart__hit:hover + .twc-chart--scatter__dot { transform: scale(1.18); }
 `;
   function ScatterChart({
     series,
@@ -2509,6 +2652,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const styles = useScopedStyles("twc-scatter-styles", SCATTER_CSS);
     const uid = import_react.default.useId();
     const tableId = tableFallback ? `${uid}-table` : void 0;
+    const { containerRef, tip, show, hide } = useChartTooltip();
     const list = Array.isArray(series) ? series : [];
     const vFmt = valueFormat || fmtNumber;
     const xFmt = xFormat || vFmt;
@@ -2543,9 +2687,17 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const legend = showLegend ?? list.length > 1;
     const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? `${useBubble ? "bubble" : "scatter"} chart`;
     const dots = all.map((p) => ({ ...p, radius: dotR(p.z), fill: seriesColor(list[p.si], p.si) })).sort((a, b) => b.radius - a.radius);
-    const tipLabel = (p) => labelText5(p.label) || seriesName(list[p.si], p.si);
+    const tipLabel = (p) => labelText2(p.label) || seriesName(list[p.si], p.si);
     const tableColumns = hasZ ? ["x", "y", "z"] : ["x", "y"];
-    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--scatter ${className}`.trim(), "data-bubble": useBubble || void 0, ...rest, children: [
+    const tipFor = (p) => ({
+      title: tipLabel(p),
+      items: [
+        { color: p.fill, label: "x", value: xFmt(p.x) },
+        { label: "y", value: yFmt(p.y) },
+        ...Number.isFinite(Number(p.z)) ? [{ label: "z", value: vFmt(Number(p.z)) }] : []
+      ]
+    });
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--scatter ${className}`.trim(), "data-bubble": useBubble || void 0, ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, children: [
@@ -2571,20 +2723,32 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             children: yLabel
           }
         ) : null,
-        dots.map((p, i) => /* @__PURE__ */ jsx(
-          "circle",
-          {
-            className: "twc-chart--scatter__dot",
-            "data-bubble": useBubble || void 0,
-            style: { fill: p.fill },
-            cx: xPos(p.x),
-            cy: yPos(p.y),
-            r: p.radius,
-            children: /* @__PURE__ */ jsx("title", { children: `${tipLabel(p)}: (${xFmt(p.x)}, ${yFmt(p.y)}${Number.isFinite(Number(p.z)) ? ", " + vFmt(Number(p.z)) : ""})` })
-          },
-          i
-        ))
+        dots.map((p, i) => /* @__PURE__ */ jsxs("g", { className: "twc-chart__anim-fade", children: [
+          /* @__PURE__ */ jsx(
+            "circle",
+            {
+              className: "twc-chart__hit",
+              cx: xPos(p.x),
+              cy: yPos(p.y),
+              r: Math.max(14, p.radius),
+              onMouseMove: (e) => show(tipFor(p), e),
+              onMouseLeave: hide
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            "circle",
+            {
+              className: "twc-chart--scatter__dot",
+              "data-bubble": useBubble || void 0,
+              style: { fill: p.fill },
+              cx: xPos(p.x),
+              cy: yPos(p.y),
+              r: p.radius
+            }
+          )
+        ] }, i))
       ] }),
+      /* @__PURE__ */ jsx(ChartTooltip, { tip }),
       tableFallback ? /* @__PURE__ */ jsx(
         ChartTable,
         {
@@ -2600,7 +2764,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       legend && list.length ? /* @__PURE__ */ jsx(ChartLegend, { items: list.map((s, i) => ({ label: seriesName(s, i), color: seriesColor(s, i) })) }) : null
     ] });
   }
-  function labelText5(label) {
+  function labelText2(label) {
     return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
   function BubbleChart(props) {
@@ -2614,7 +2778,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-chart__radar-area { transition: opacity var(--duration-fast) var(--ease-standard); }
 .twc-chart__radar-area:hover { opacity: 0.9; }
 .twc-chart__radar-line { fill: none; stroke-width: 2; stroke-linejoin: round; }
-.twc-chart__radar-dot { stroke: var(--color-surface); stroke-width: 1.5; }
+.twc-chart__radar-dot { stroke: var(--color-surface); stroke-width: 1.5; transition: r var(--duration-fast) var(--ease-standard); }
+.twc-chart__hit { fill: transparent; }
+.twc-chart__hit:hover + .twc-chart__radar-dot { r: 5; }
 .twc-chart__empty { fill: var(--color-text-subtle); font-size: var(--text-sm); }
 `;
   function RadarChart({
@@ -2639,6 +2805,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const styles = useScopedStyles("twc-radarchart-styles", CHART_CSS3);
     const uid = import_react.default.useId();
     const tableId = tableFallback ? `${uid}-table` : void 0;
+    const { containerRef, tip, show, hide } = useChartTooltip();
     const rows = data || [];
     const keys = series && series.length ? series : ["value"];
     const fmt = valueFormat || fmtNumber;
@@ -2657,7 +2824,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       const frac = Math.max(0, Math.min(1, (Number(v) || 0) / radialMax));
       return polarDeg(cx, cy, frac * R2, angleOf(i));
     };
-    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--radar ${className}`.trim(), ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--radar ${className}`.trim(), ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsx(
@@ -2687,14 +2854,28 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
               const color = paletteAt(colors, si);
               const pts = rows.map((d, i) => vertex(d[k], i));
               return /* @__PURE__ */ jsxs("g", { children: [
-                fill ? /* @__PURE__ */ jsx("path", { className: "twc-chart__radar-area", style: { fill: color, opacity: 0.18 }, d: polygonPath(pts) }) : null,
-                /* @__PURE__ */ jsx("path", { className: "twc-chart__radar-line", style: { stroke: color }, d: polygonPath(pts) }),
-                showDots ? pts.map((p, i) => /* @__PURE__ */ jsx("circle", { className: "twc-chart__radar-dot", style: { fill: color }, cx: p[0], cy: p[1], r: "3", children: /* @__PURE__ */ jsx("title", { children: `${labelText6(rows[i].label)}${multi ? " \xB7 " + k : ""}: ${fmt(Number(rows[i][k]) || 0)}` }) }, i)) : null
+                fill ? /* @__PURE__ */ jsx("path", { className: "twc-chart__radar-area twc-chart__anim-fade", style: { fill: color, opacity: 0.18 }, d: polygonPath(pts) }) : null,
+                /* @__PURE__ */ jsx("path", { className: "twc-chart__radar-line twc-chart__anim-fade", style: { stroke: color }, d: polygonPath(pts) }),
+                showDots ? pts.map((p, i) => /* @__PURE__ */ jsxs("g", { className: "twc-chart__anim-fade", children: [
+                  /* @__PURE__ */ jsx(
+                    "circle",
+                    {
+                      className: "twc-chart__hit",
+                      cx: p[0],
+                      cy: p[1],
+                      r: "14",
+                      onMouseMove: (e) => show({ title: rows[i].label, items: [{ color, label: k, value: fmt(Number(rows[i][k]) || 0) }] }, e),
+                      onMouseLeave: hide
+                    }
+                  ),
+                  /* @__PURE__ */ jsx("circle", { className: "twc-chart__radar-dot", style: { fill: color }, cx: p[0], cy: p[1], r: "3" })
+                ] }, i)) : null
               ] }, k);
             })
           ] })
         }
       ),
+      /* @__PURE__ */ jsx(ChartTooltip, { tip }),
       tableFallback ? /* @__PURE__ */ jsx(
         ChartTable,
         {
@@ -2706,9 +2887,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       ) : null,
       legend && multi ? /* @__PURE__ */ jsx(ChartLegend, { items: keys.map((k, si) => ({ label: k, color: paletteAt(colors, si) })) }) : null
     ] });
-  }
-  function labelText6(label) {
-    return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
   var CHART_CSS4 = `
 .twc-chart--polar svg { margin-inline: auto; }
@@ -2738,6 +2916,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const styles = useScopedStyles("twc-polar-styles", CHART_CSS4);
     const uid = import_react.default.useId();
     const tableId = tableFallback ? `${uid}-table` : void 0;
+    const { containerRef, tip, show, hide } = useChartTooltip();
+    const [active, setActive] = import_react.default.useState(null);
     const rows = data || [];
     const n = rows.length;
     const fmt = valueFormat || fmtNumber;
@@ -2753,63 +2933,83 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const rings = Math.max(1, Math.floor(levels));
     const anglePer = 360 / Math.max(1, n);
     const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "polar area chart";
-    const labelText13 = (label) => typeof label === "string" || typeof label === "number" ? String(label) : "";
-    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--polar ${className}`.trim(), ...rest, children: [
-      baseStyles,
-      styles,
-      /* @__PURE__ */ jsxs(
-        "svg",
-        {
-          viewBox: `0 0 ${S} ${S}`,
-          style: { height },
-          role: "img",
-          "aria-label": svgAriaLabel,
-          "aria-describedby": tableId,
-          preserveAspectRatio: "xMidYMid meet",
-          children: [
-            Array.from({ length: rings }, (_, i) => {
-              const value = domain * (i + 1) / rings;
-              const rr = radiusFor(value);
-              return /* @__PURE__ */ jsx("circle", { className: "twc-chart__ring", cx, cy, r: r(rr) }, `ring-${i}`);
-            }),
-            n > 1 ? rows.map((_, i) => {
-              const [x, y] = polarDeg(cx, cy, Rmax, startAngle + i * anglePer);
-              return /* @__PURE__ */ jsx("line", { className: "twc-chart__spoke", x1: cx, y1: cy, x2: r(x), y2: r(y) }, `spoke-${i}`);
-            }) : null,
-            rows.map((d, i) => {
-              const v = Number(d.value) || 0;
-              const start = startAngle + i * anglePer;
-              const color = d.color || paletteAt(colors, i);
-              return /* @__PURE__ */ jsx(
-                "path",
-                {
-                  className: "twc-chart__slice",
-                  style: { fill: color, fillOpacity: 0.82 },
-                  d: arcPath(cx, cy, radiusFor(v), 0, start, start + anglePer),
-                  children: /* @__PURE__ */ jsx("title", { children: `${labelText13(d.label)}: ${fmt(v)}` })
-                },
-                `slice-${i}`
-              );
-            }),
-            Array.from({ length: rings }, (_, i) => {
-              const value = domain * (i + 1) / rings;
-              const rr = radiusFor(value);
-              return /* @__PURE__ */ jsx("text", { className: "twc-chart__axis", x: cx, y: r(cy - rr - 3), textAnchor: "middle", children: shortNum(value) }, `tick-${i}`);
-            })
-          ]
-        }
-      ),
-      tableFallback ? /* @__PURE__ */ jsx(
-        ChartTable,
-        {
-          id: tableId,
-          caption: caption ?? svgAriaLabel,
-          columns: ["value"],
-          rows: rows.map((d) => ({ label: d.label, values: [fmt(Number(d.value) || 0)] }))
-        }
-      ) : null,
-      showLegend && n ? /* @__PURE__ */ jsx(ChartLegend, { items: rows.map((d, i) => ({ label: d.label, color: d.color || paletteAt(colors, i) })) }) : null
-    ] });
+    const labelText8 = (label) => typeof label === "string" || typeof label === "number" ? String(label) : "";
+    return /* @__PURE__ */ jsxs(
+      "div",
+      {
+        ref: containerRef,
+        className: `twc-chart twc-chart--polar ${className}`.trim(),
+        "data-hovering": active != null || void 0,
+        ...rest,
+        children: [
+          baseStyles,
+          styles,
+          /* @__PURE__ */ jsxs(
+            "svg",
+            {
+              viewBox: `0 0 ${S} ${S}`,
+              style: { height },
+              role: "img",
+              "aria-label": svgAriaLabel,
+              "aria-describedby": tableId,
+              preserveAspectRatio: "xMidYMid meet",
+              children: [
+                Array.from({ length: rings }, (_, i) => {
+                  const value = domain * (i + 1) / rings;
+                  const rr = radiusFor(value);
+                  return /* @__PURE__ */ jsx("circle", { className: "twc-chart__ring", cx, cy, r: r(rr) }, `ring-${i}`);
+                }),
+                n > 1 ? rows.map((_, i) => {
+                  const [x, y] = polarDeg(cx, cy, Rmax, startAngle + i * anglePer);
+                  return /* @__PURE__ */ jsx("line", { className: "twc-chart__spoke", x1: cx, y1: cy, x2: r(x), y2: r(y) }, `spoke-${i}`);
+                }) : null,
+                rows.map((d, i) => {
+                  const v = Number(d.value) || 0;
+                  const start = startAngle + i * anglePer;
+                  const color = d.color || paletteAt(colors, i);
+                  const tipFor = { title: labelText8(d.label), items: [{ color, label: "", value: fmt(v) }] };
+                  return /* @__PURE__ */ jsx(
+                    "path",
+                    {
+                      className: "twc-chart__slice twc-chart__anim-arc",
+                      "data-mark": true,
+                      "data-active": active === i || void 0,
+                      style: { fill: color, fillOpacity: 0.82 },
+                      d: arcPath(cx, cy, radiusFor(v), 0, start, start + anglePer),
+                      onMouseMove: (e) => {
+                        setActive(i);
+                        show(tipFor, e);
+                      },
+                      onMouseLeave: () => {
+                        setActive(null);
+                        hide();
+                      }
+                    },
+                    `slice-${i}`
+                  );
+                }),
+                Array.from({ length: rings }, (_, i) => {
+                  const value = domain * (i + 1) / rings;
+                  const rr = radiusFor(value);
+                  return /* @__PURE__ */ jsx("text", { className: "twc-chart__axis", x: cx, y: r(cy - rr - 3), textAnchor: "middle", children: shortNum(value) }, `tick-${i}`);
+                })
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsx(ChartTooltip, { tip }),
+          tableFallback ? /* @__PURE__ */ jsx(
+            ChartTable,
+            {
+              id: tableId,
+              caption: caption ?? svgAriaLabel,
+              columns: ["value"],
+              rows: rows.map((d) => ({ label: d.label, values: [fmt(Number(d.value) || 0)] }))
+            }
+          ) : null,
+          showLegend && n ? /* @__PURE__ */ jsx(ChartLegend, { items: rows.map((d, i) => ({ label: d.label, color: d.color || paletteAt(colors, i) })) }) : null
+        ]
+      }
+    );
   }
   var HEATMAP_CSS = `
 .twc-chart--heatmap svg { overflow: visible; }
@@ -2847,6 +3047,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const styles = useScopedStyles("twc-heatmap-styles", HEATMAP_CSS);
     const uid = import_react.default.useId();
     const tableId = tableFallback ? `${uid}-table` : void 0;
+    const { containerRef, tip, show, hide } = useChartTooltip();
+    const [hovered, setHovered] = import_react.default.useState(null);
     const rows = Array.isArray(data) ? data : [];
     const fmt = valueFormat || fmtNumber;
     const xs = [];
@@ -2894,7 +3096,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const cw = innerW / Math.max(1, cols);
     const chh = innerH / Math.max(1, rowN);
     const gap = clamp(cellGap, 0, Math.min(cw, chh) - 1) || 0;
-    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--heatmap ${className}`.trim(), ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--heatmap ${className}`.trim(), "data-hovering": hovered != null || void 0, ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
@@ -2906,29 +3108,41 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             const cy = padT + chh * ri + gap / 2;
             const cwPx = Math.max(0, cw - gap);
             const chPx = Math.max(0, chh - gap);
+            const cellKey = `${ci}-${ri}`;
+            const fill = has ? fillOf(v) : void 0;
             return /* @__PURE__ */ jsxs("g", { children: [
               /* @__PURE__ */ jsx(
                 "rect",
                 {
-                  className: has ? "twc-chart__hm-cell" : "twc-chart__hm-cell twc-chart__hm-empty",
+                  className: `${has ? "twc-chart__hm-cell" : "twc-chart__hm-cell twc-chart__hm-empty"} twc-chart__anim-fade`,
                   x: cx,
                   y: cy,
                   width: cwPx,
                   height: chPx,
                   rx: radius,
-                  style: has ? { fill: fillOf(v) } : void 0,
-                  children: /* @__PURE__ */ jsx("title", { children: `${labelText7(y)} / ${labelText7(x)}: ${has ? fmt(v) : "\u2014"}` })
+                  style: has ? { fill } : void 0,
+                  "data-mark": true,
+                  "data-active": hovered === cellKey || void 0,
+                  onMouseMove: (e) => {
+                    setHovered(cellKey);
+                    show({ title: `${labelText3(y)} / ${labelText3(x)}`, items: [{ color: fill, label: "", value: has ? fmt(v) : "\u2014" }] }, e);
+                  },
+                  onMouseLeave: () => {
+                    setHovered(null);
+                    hide();
+                  }
                 }
               ),
               showValues && has ? /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-val", x: cx + cwPx / 2, y: cy + chPx / 2 + 3.5, textAnchor: "middle", children: fmt(v) }) : null
-            ] }, `${ci}-${ri}`);
+            ] }, cellKey);
           })
         ),
-        ys.map((y, ri) => /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-tick", x: padL - 8, y: padT + chh * ri + chh / 2 + 4, textAnchor: "end", children: labelText7(y) }, ri)),
-        xs.map((x, ci) => /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-tick", x: padL + cw * ci + cw / 2, y: padT + innerH + 15, textAnchor: "middle", children: labelText7(x) }, ci)),
-        yLabel != null ? /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-title", transform: `translate(11 ${padT + innerH / 2}) rotate(-90)`, textAnchor: "middle", children: labelText7(yLabel) }) : null,
-        xLabel != null ? /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-title", x: padL + innerW / 2, y: H - 3, textAnchor: "middle", children: labelText7(xLabel) }) : null
+        ys.map((y, ri) => /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-tick", x: padL - 8, y: padT + chh * ri + chh / 2 + 4, textAnchor: "end", children: labelText3(y) }, ri)),
+        xs.map((x, ci) => /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-tick", x: padL + cw * ci + cw / 2, y: padT + innerH + 15, textAnchor: "middle", children: labelText3(x) }, ci)),
+        yLabel != null ? /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-title", transform: `translate(11 ${padT + innerH / 2}) rotate(-90)`, textAnchor: "middle", children: labelText3(yLabel) }) : null,
+        xLabel != null ? /* @__PURE__ */ jsx("text", { className: "twc-chart__hm-title", x: padL + innerW / 2, y: H - 3, textAnchor: "middle", children: labelText3(xLabel) }) : null
       ] }),
+      /* @__PURE__ */ jsx(ChartTooltip, { tip }),
       showLegend && span > 0 ? /* @__PURE__ */ jsxs("div", { className: "twc-chart__hm-scale", "aria-hidden": "true", children: [
         /* @__PURE__ */ jsx("span", { children: fmt(lo) }),
         /* @__PURE__ */ jsx(
@@ -2945,9 +3159,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         {
           id: tableId,
           caption: caption ?? svgAriaLabel,
-          columns: xs.map(labelText7),
+          columns: xs.map(labelText3),
           rows: ys.map((y) => ({
-            label: labelText7(y),
+            label: labelText3(y),
             values: xs.map((x) => {
               const v = cellOf(x, y);
               return v === void 0 ? "\u2014" : fmt(v);
@@ -2957,20 +3171,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       ) : null
     ] });
   }
-  function labelText7(label) {
+  function labelText3(label) {
     return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
   var FUNNEL_CSS = `
 .twc-chart--funnel svg { overflow: visible; }
-.twc-funnel__stage { transition: opacity var(--duration-fast) var(--ease-standard); }
-.twc-funnel__stage:hover { opacity: 0.85; }
 .twc-funnel__label { fill: var(--color-text-inverted); font-family: var(--font-sans); pointer-events: none; }
 .twc-funnel__name { font-size: 12px; font-weight: 600; }
 .twc-funnel__value { font-size: 11px; fill-opacity: 0.82; }
-@media (prefers-reduced-motion: no-preference) {
-  .twc-funnel__stage { animation: twc-funnel-in var(--duration-base) var(--ease-standard) both; }
-  @keyframes twc-funnel-in { from { opacity: 0; } to { opacity: 1; } }
-}
 `;
   function FunnelChart({
     data,
@@ -2992,6 +3200,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const styles = useScopedStyles("twc-funnel-styles", FUNNEL_CSS);
     const uid = import_react.default.useId();
     const tableId = tableFallback ? `${uid}-table` : void 0;
+    const { containerRef, tip, show, hide } = useChartTooltip();
+    const [active, setActive] = import_react.default.useState(null);
     const rows = data || [];
     const n = rows.length;
     const fmt = valueFormat || fmtNumber;
@@ -3035,8 +3245,24 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       const valueLine = [showValues ? fmt(v) : null, showPercent ? pctText(v) : null].filter(Boolean).join(" \xB7 ");
       const lines = [d.label, valueLine].filter((l) => l != null && l !== "");
       const firstDy = -((lines.length - 1) * 0.6);
-      return /* @__PURE__ */ jsxs("g", { className: "twc-funnel__stage", style: { animationDelay: `${i * 45}ms` }, children: [
-        /* @__PURE__ */ jsx("path", { d: polygonPath(points), fill: color, children: /* @__PURE__ */ jsx("title", { children: `${labelText8(d.label)}: ${fmt(v)} (${pctText(v)})` }) }),
+      return /* @__PURE__ */ jsxs("g", { className: "twc-funnel__stage twc-chart__anim-fade", style: { animationDelay: `${i * 45}ms` }, children: [
+        /* @__PURE__ */ jsx(
+          "path",
+          {
+            d: polygonPath(points),
+            fill: color,
+            "data-mark": true,
+            "data-active": active === i ? "true" : void 0,
+            onMouseMove: (e) => {
+              setActive(i);
+              show({ title: d.label, items: [{ color, label: fmt(v), value: pctText(v) }] }, e);
+            },
+            onMouseLeave: () => {
+              setActive(null);
+              hide();
+            }
+          }
+        ),
         lines.length ? /* @__PURE__ */ jsx("text", { className: "twc-funnel__label", x: tx, y: ty, textAnchor: "middle", dominantBaseline: "middle", children: lines.map((line, li) => /* @__PURE__ */ jsx(
           "tspan",
           {
@@ -3049,10 +3275,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         )) }) : null
       ] }, i);
     });
-    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--funnel ${className}`.trim(), "data-orientation": horizontal ? "horizontal" : "vertical", ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--funnel ${className}`.trim(), "data-orientation": horizontal ? "horizontal" : "vertical", "data-hovering": active != null ? "true" : void 0, ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsx("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: renderStages() }),
+      /* @__PURE__ */ jsx(ChartTooltip, { tip }),
       tableFallback ? /* @__PURE__ */ jsx(
         ChartTable,
         {
@@ -3064,12 +3291,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       ) : null
     ] });
   }
-  function labelText8(label) {
-    return typeof label === "string" || typeof label === "number" ? String(label) : "";
-  }
   var TREEMAP_CSS = `
-.twc-chart__tile { transition: opacity var(--duration-fast) var(--ease-standard); }
-.twc-chart__tile:hover { opacity: 0.85; }
 .twc-chart__tile-label { fill: var(--color-text-inverted); font-size: var(--text-xs); font-weight: var(--font-semibold); pointer-events: none; }
 .twc-chart__tile-value { fill: var(--color-text-inverted); font-size: 11px; opacity: 0.82; pointer-events: none; }
 .twc-chart__empty { fill: var(--color-text-subtle); font-size: var(--text-sm); }
@@ -3092,6 +3314,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const styles = useScopedStyles("twc-treemap-styles", TREEMAP_CSS);
     const uid = import_react.default.useId();
     const tableId = tableFallback ? `${uid}-table` : void 0;
+    const { containerRef, tip, show, hide } = useChartTooltip();
+    const [hovered, setHovered] = import_react.default.useState(null);
     const rows = data || [];
     const fmt = valueFormat || fmtNumber;
     const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "treemap";
@@ -3101,7 +3325,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const items = total > 0 ? rows.map((d, i) => ({ i, w: weights[i] })).sort((a, b) => b.w - a.w).map((it) => ({ ...it, area: it.w / total * (W * H) })) : [];
     const tiles = squarify(items, { x: 0, y: 0, w: W, h: H });
     const g = Math.max(0, gap);
-    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--treemap ${className}`.trim(), ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--treemap ${className}`.trim(), "data-hovering": hovered != null || void 0, ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsx("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: tiles.length === 0 ? /* @__PURE__ */ jsx("text", { className: "twc-chart__empty", x: W / 2, y: H / 2, textAnchor: "middle", dominantBaseline: "middle", children: "No data" }) : tiles.map((t) => {
@@ -3110,19 +3334,43 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         const w = r(Math.max(0, t.w - g)), h = r(Math.max(0, t.h - g));
         if (w <= 0 || h <= 0) return null;
         const color = d.color || paletteAt(colors, t.i);
-        const label = labelText9(d.label);
+        const label = labelText4(d.label);
         const showText = w >= 40 && h >= 24;
         const showVal = showValues && h >= 42;
         const clipId = `${uid}-clip-${t.i}`;
+        const share = total > 0 ? `${r(t.w / total * 100)}%` : "0%";
+        const tipItems = [{ color, label: fmt(t.w), value: share }];
         return /* @__PURE__ */ jsxs("g", { children: [
           /* @__PURE__ */ jsx("clipPath", { id: clipId, children: /* @__PURE__ */ jsx("rect", { x, y, width: w, height: h, rx: "4" }) }),
-          /* @__PURE__ */ jsx("rect", { className: "twc-chart__tile", x, y, width: w, height: h, rx: "4", style: { fill: color }, children: /* @__PURE__ */ jsx("title", { children: `${label}: ${fmt(t.w)}` }) }),
+          /* @__PURE__ */ jsx(
+            "rect",
+            {
+              className: "twc-chart__tile twc-chart__anim-fade",
+              "data-mark": true,
+              "data-active": hovered === t.i || void 0,
+              x,
+              y,
+              width: w,
+              height: h,
+              rx: "4",
+              style: { fill: color },
+              onMouseMove: (e) => {
+                setHovered(t.i);
+                show({ title: label, items: tipItems }, e);
+              },
+              onMouseLeave: () => {
+                setHovered(null);
+                hide();
+              }
+            }
+          ),
           showText ? /* @__PURE__ */ jsxs("g", { clipPath: `url(#${clipId})`, "aria-hidden": "true", children: [
             /* @__PURE__ */ jsx("text", { className: "twc-chart__tile-label", x: x + 8, y: y + 17, children: label }),
             showVal ? /* @__PURE__ */ jsx("text", { className: "twc-chart__tile-value", x: x + 8, y: y + 32, children: fmt(t.w) }) : null
           ] }) : null
         ] }, t.i);
       }) }),
+      /* @__PURE__ */ jsx(ChartTooltip, { tip }),
       tableFallback ? /* @__PURE__ */ jsx(
         ChartTable,
         {
@@ -3190,7 +3438,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const w2 = w * w, s2 = s * s;
     return Math.max(w2 * rmax / s2, s2 / (w2 * rmin));
   }
-  function labelText9(label) {
+  function labelText4(label) {
     return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
   var CANDLE_CSS = `
@@ -3219,6 +3467,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const styles = useScopedStyles("twc-candlestick-styles", CANDLE_CSS);
     const uid = import_react.default.useId();
     const tableId = tableFallback ? `${uid}-table` : void 0;
+    const { containerRef, tip, show, hide } = useChartTooltip();
     const rows = data || [];
     const fmt = valueFormat || fmtNumber;
     const W = 600, H = height;
@@ -3239,7 +3488,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const bodyW = Math.max(1, Math.min(catBand * 0.7, 22));
     const labelStep = Math.max(1, Math.ceil(rows.length / 12));
     const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "candlestick chart";
-    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--candlestick ${className}`.trim(), ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--candlestick ${className}`.trim(), ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
@@ -3259,39 +3508,57 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           const yTop = vPos(Math.max(open, close));
           const yBot = vPos(Math.min(open, close));
           const bh = Math.max(1, yBot - yTop);
-          const title = `${labelText10(d.label)}: O ${fmt(open)} H ${fmt(high)} L ${fmt(low)} C ${fmt(close)}`;
-          return /* @__PURE__ */ jsxs("g", { "data-dir": up ? "up" : "down", children: [
-            /* @__PURE__ */ jsx(
-              "line",
-              {
-                className: "twc-candlestick__wick",
-                style: { stroke: color },
-                x1: x,
-                y1: vPos(high),
-                x2: x,
-                y2: vPos(low),
-                children: /* @__PURE__ */ jsx("title", { children: title })
-              }
-            ),
-            /* @__PURE__ */ jsx(
-              "rect",
-              {
-                className: "twc-candlestick__body",
-                style: { fill: color },
-                x: x - bodyW / 2,
-                y: yTop,
-                width: bodyW,
-                height: bh,
-                rx: "1",
-                children: /* @__PURE__ */ jsx("title", { children: title })
-              }
-            )
-          ] }, i);
+          const tipFor = {
+            title: labelText5(d.label),
+            items: [
+              { color, label: "Open", value: fmt(open) },
+              { label: "High", value: fmt(high) },
+              { label: "Low", value: fmt(low) },
+              { label: "Close", value: fmt(close) }
+            ]
+          };
+          return /* @__PURE__ */ jsxs(
+            "g",
+            {
+              className: "twc-chart__anim-fade",
+              "data-dir": up ? "up" : "down",
+              onMouseMove: (e) => show(tipFor, e),
+              onMouseLeave: hide,
+              children: [
+                /* @__PURE__ */ jsx("rect", { x: padL + catBand * i, y: padT, width: catBand, height: innerH, fill: "transparent" }),
+                /* @__PURE__ */ jsx(
+                  "line",
+                  {
+                    className: "twc-candlestick__wick",
+                    style: { stroke: color },
+                    x1: x,
+                    y1: vPos(high),
+                    x2: x,
+                    y2: vPos(low)
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  "rect",
+                  {
+                    className: "twc-candlestick__body",
+                    style: { fill: color },
+                    x: x - bodyW / 2,
+                    y: yTop,
+                    width: bodyW,
+                    height: bh,
+                    rx: "1"
+                  }
+                )
+              ]
+            },
+            i
+          );
         }),
         showAxis ? rows.map(
           (d, i) => i % labelStep === 0 ? /* @__PURE__ */ jsx("text", { className: "twc-candlestick__axis", x: cx(i), y: H - 8, textAnchor: "middle", children: d.label }, i) : null
         ) : null
       ] }),
+      /* @__PURE__ */ jsx(ChartTooltip, { tip }),
       tableFallback ? /* @__PURE__ */ jsx(
         ChartTable,
         {
@@ -3306,7 +3573,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       ) : null
     ] });
   }
-  function labelText10(label) {
+  function labelText5(label) {
     return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
   var CHART_CSS5 = `
@@ -3336,9 +3603,20 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const styles = useScopedStyles("twc-boxplot-styles", CHART_CSS5);
     const uid = import_react.default.useId();
     const tableId = tableFallback ? `${uid}-table` : void 0;
+    const { containerRef, tip, show, hide } = useChartTooltip();
     const rows = data || [];
     const fmt = valueFormat || fmtNumber;
     const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "box plot";
+    const tipFor = (d) => ({
+      title: labelText6(d.label),
+      items: [
+        { color, label: "Max", value: fmt(Number(d.max)) },
+        { label: "Q3", value: fmt(Number(d.q3)) },
+        { label: "Median", value: fmt(Number(d.median)) },
+        { label: "Q1", value: fmt(Number(d.q1)) },
+        { label: "Min", value: fmt(Number(d.min)) }
+      ]
+    });
     const W = 600, H = height;
     const padL = showAxis ? 44 : 8;
     const padR = 10;
@@ -3361,7 +3639,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const band = innerW / Math.max(1, rows.length);
     const bandX = (i) => padL + band * i;
     const boxW = Math.min(band * 0.5, 46);
-    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--boxplot ${className}`.trim(), ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--boxplot ${className}`.trim(), ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
@@ -3380,9 +3658,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           const yQ1 = vPos(d.q1), yQ3 = vPos(d.q3), yMed = vPos(d.median);
           const boxTop = Math.min(yQ1, yQ3), boxBot = Math.max(yQ1, yQ3);
           const cap = boxW / 3;
-          const tip = `${labelText11(d.label)}: min ${fmt(Number(d.min))}, Q1 ${fmt(Number(d.q1))}, med ${fmt(Number(d.median))}, Q3 ${fmt(Number(d.q3))}, max ${fmt(Number(d.max))}`;
-          return /* @__PURE__ */ jsxs("g", { style: { color }, children: [
-            /* @__PURE__ */ jsx("title", { children: tip }),
+          const hoverProps = {
+            onMouseMove: (e) => show(tipFor(d), e),
+            onMouseLeave: hide
+          };
+          return /* @__PURE__ */ jsxs("g", { className: "twc-chart__anim-fade", style: { color }, children: [
             /* @__PURE__ */ jsx("line", { className: "twc-boxplot__whisker", style: { stroke: color }, x1: cx, y1: yMax, x2: cx, y2: boxTop }),
             /* @__PURE__ */ jsx("line", { className: "twc-boxplot__whisker", style: { stroke: color }, x1: cx, y1: boxBot, x2: cx, y2: yMin }),
             /* @__PURE__ */ jsx("line", { className: "twc-boxplot__whisker", style: { stroke: color }, x1: cx - cap, y1: yMax, x2: cx + cap, y2: yMax }),
@@ -3396,17 +3676,19 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                 y: boxTop,
                 width: boxW,
                 height: Math.max(1, boxBot - boxTop),
-                rx: "2"
+                rx: "2",
+                ...hoverProps
               }
             ),
             /* @__PURE__ */ jsx("line", { className: "twc-boxplot__median", style: { stroke: color }, x1: x, y1: yMed, x2: x + boxW, y2: yMed }),
             (Array.isArray(d.outliers) ? d.outliers : []).map(
-              (o, oi) => isFinite(Number(o)) ? /* @__PURE__ */ jsx("circle", { className: "twc-boxplot__outlier", style: { stroke: color }, cx, cy: vPos(o), r: "2.5", children: /* @__PURE__ */ jsx("title", { children: `${labelText11(d.label)}: outlier ${fmt(Number(o))}` }) }, oi) : null
+              (o, oi) => isFinite(Number(o)) ? /* @__PURE__ */ jsx("circle", { className: "twc-boxplot__outlier", style: { stroke: color }, cx, cy: vPos(o), r: "2.5", ...hoverProps }, oi) : null
             )
           ] }, i);
         }),
         showAxis ? rows.map((d, i) => /* @__PURE__ */ jsx("text", { className: "twc-boxplot__axis", x: bandX(i) + band / 2, y: H - 8, textAnchor: "middle", children: d.label }, i)) : null
       ] }),
+      /* @__PURE__ */ jsx(ChartTooltip, { tip }),
       tableFallback ? /* @__PURE__ */ jsx(
         ChartTable,
         {
@@ -3421,7 +3703,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       ) : null
     ] });
   }
-  function labelText11(label) {
+  function labelText6(label) {
     return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
   var RANGE_CSS = `
@@ -3452,6 +3734,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const styles = useScopedStyles("twc-rangechart-styles", RANGE_CSS);
     const uid = import_react.default.useId();
     const tableId = tableFallback ? `${uid}-table` : void 0;
+    const { containerRef, tip, show, hide } = useChartTooltip();
     const isArea = type === "area";
     const rows = data || [];
     const n = rows.length;
@@ -3483,14 +3766,16 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         return /* @__PURE__ */ jsx(
           "rect",
           {
-            className: "twc-rangechart__bar",
+            className: "twc-rangechart__bar twc-chart__anim-bar",
+            "data-horizontal": "true",
             style: { fill: color },
             x: x0,
             y,
             width: Math.max(1, x1 - x0),
             height: Math.max(1, slot),
             rx: "3",
-            children: /* @__PURE__ */ jsx("title", { children: `${labelText12(d.label)}: ${fmt(min)} \u2013 ${fmt(max)}` })
+            onMouseMove: (e) => show({ title: labelText7(d.label), items: [{ color, label: "", value: `${fmt(min)} \u2013 ${fmt(max)}` }] }, e),
+            onMouseLeave: hide
           },
           i
         );
@@ -3506,13 +3791,25 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       const color = paletteAt(colors, 0);
       const hitW = n > 1 ? innerW / (n - 1) : innerW;
       return /* @__PURE__ */ jsxs("g", { children: [
-        /* @__PURE__ */ jsx("path", { className: "twc-rangechart__band", style: { fill: color }, d: bandD }),
+        /* @__PURE__ */ jsx("path", { className: "twc-rangechart__band twc-chart__anim-fade", style: { fill: color }, d: bandD }),
         /* @__PURE__ */ jsx("path", { className: "twc-rangechart__edge", style: { stroke: color }, d: linePath(maxPts) }),
         /* @__PURE__ */ jsx("path", { className: "twc-rangechart__edge", style: { stroke: color }, d: linePath(minPts) }),
-        rows.map((d, i) => /* @__PURE__ */ jsx("rect", { fill: "transparent", x: lineX(i) - hitW / 2, y: padT, width: hitW, height: innerH, children: /* @__PURE__ */ jsx("title", { children: `${labelText12(d.label)}: ${fmt(Number(d.min) || 0)} \u2013 ${fmt(Number(d.max) || 0)}` }) }, i))
+        rows.map((d, i) => /* @__PURE__ */ jsx(
+          "rect",
+          {
+            fill: "transparent",
+            x: lineX(i) - hitW / 2,
+            y: padT,
+            width: hitW,
+            height: innerH,
+            onMouseMove: (e) => show({ title: labelText7(d.label), items: [{ color, label: "", value: `${fmt(Number(d.min) || 0)} \u2013 ${fmt(Number(d.max) || 0)}` }] }, e),
+            onMouseLeave: hide
+          },
+          i
+        ))
       ] });
     };
-    return /* @__PURE__ */ jsxs("div", { className: `twc-chart twc-chart--range ${className}`.trim(), "data-type": type, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { ref: containerRef, className: `twc-chart twc-chart--range ${className}`.trim(), "data-type": type, ...rest, children: [
       baseStyles,
       styles,
       /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, preserveAspectRatio: "none", children: [
@@ -3527,6 +3824,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           (d, i) => isArea ? /* @__PURE__ */ jsx("text", { className: "twc-rangechart__axis", x: lineX(i), y: H - 8, textAnchor: "middle", children: d.label }, i) : /* @__PURE__ */ jsx("text", { className: "twc-rangechart__axis", x: padL - 8, y: padT + catBandH * i + catBandH / 2 + 4, textAnchor: "end", children: d.label }, i)
         ) : null
       ] }),
+      /* @__PURE__ */ jsx(ChartTooltip, { tip }),
       tableFallback ? /* @__PURE__ */ jsx(
         ChartTable,
         {
@@ -3538,7 +3836,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       ) : null
     ] });
   }
-  function labelText12(label) {
+  function labelText7(label) {
     return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
   var seen = /* @__PURE__ */ new Set();
@@ -13812,12 +14110,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const visible = [];
     const parentOf = /* @__PURE__ */ new Map();
     const hasKids = /* @__PURE__ */ new Map();
-    const labelText13 = /* @__PURE__ */ new Map();
+    const labelText8 = /* @__PURE__ */ new Map();
     const walk = (nodes2, parentId) => {
       for (const n of nodes2) {
         visible.push(n.id);
         parentOf.set(n.id, parentId);
-        if (typeof n.label === "string") labelText13.set(n.id, n.label);
+        if (typeof n.label === "string") labelText8.set(n.id, n.label);
         const kids = Array.isArray(n.children) && n.children.length > 0;
         hasKids.set(n.id, kids);
         if (kids && expanded.has(n.id)) walk(n.children, n.id);
@@ -13864,7 +14162,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         const needle = single ? q[0] : q;
         for (let k = 1; k <= visible.length; k++) {
           const cand = visible[(i + k) % visible.length];
-          const lbl = labelText13.get(cand);
+          const lbl = labelText8.get(cand);
           if (lbl && lbl.toLowerCase().startsWith(needle)) {
             e.preventDefault();
             focusRow(cand);

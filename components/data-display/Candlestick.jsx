@@ -2,6 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import {
   CHART_BASE_CSS, niceScale, shortNum, fmtNumber, ChartTable,
+  useChartTooltip, ChartTooltip,
 } from "./_chart.js";
 
 const CANDLE_CSS = `
@@ -37,6 +38,7 @@ export function Candlestick({
   const styles = useScopedStyles("twc-candlestick-styles", CANDLE_CSS);
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
+  const { containerRef, tip, show, hide } = useChartTooltip();
 
   const rows = data || [];
   const fmt = valueFormat || fmtNumber;
@@ -68,7 +70,7 @@ export function Candlestick({
   const svgAriaLabel = ariaLabelProp ?? ariaLabel ?? "candlestick chart";
 
   return (
-    <div className={`twc-chart twc-chart--candlestick ${className}`.trim()} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--candlestick ${className}`.trim()} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
@@ -93,17 +95,24 @@ export function Candlestick({
           const yTop = vPos(Math.max(open, close));
           const yBot = vPos(Math.min(open, close));
           const bh = Math.max(1, yBot - yTop); // min 1px so a doji stays visible
-          const title = `${labelText(d.label)}: O ${fmt(open)} H ${fmt(high)} L ${fmt(low)} C ${fmt(close)}`;
+          const tipFor = {
+            title: labelText(d.label),
+            items: [
+              { color, label: "Open", value: fmt(open) },
+              { label: "High", value: fmt(high) },
+              { label: "Low", value: fmt(low) },
+              { label: "Close", value: fmt(close) },
+            ],
+          };
           return (
-            <g key={i} data-dir={up ? "up" : "down"}>
+            <g key={i} className="twc-chart__anim-fade" data-dir={up ? "up" : "down"}
+              onMouseMove={(e) => show(tipFor, e)} onMouseLeave={hide}>
+              {/* transparent hit target spanning the full band for easy hovering */}
+              <rect x={padL + catBand * i} y={padT} width={catBand} height={innerH} fill="transparent" />
               <line className="twc-candlestick__wick" style={{ stroke: color }}
-                x1={x} y1={vPos(high)} x2={x} y2={vPos(low)}>
-                <title>{title}</title>
-              </line>
+                x1={x} y1={vPos(high)} x2={x} y2={vPos(low)} />
               <rect className="twc-candlestick__body" style={{ fill: color }}
-                x={x - bodyW / 2} y={yTop} width={bodyW} height={bh} rx="1">
-                <title>{title}</title>
-              </rect>
+                x={x - bodyW / 2} y={yTop} width={bodyW} height={bh} rx="1" />
             </g>
           );
         })}
@@ -115,6 +124,8 @@ export function Candlestick({
             : null,
         ) : null}
       </svg>
+
+      <ChartTooltip tip={tip} />
 
       {tableFallback ? (
         <ChartTable

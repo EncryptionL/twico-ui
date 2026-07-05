@@ -36,6 +36,10 @@ export interface ChartProps<K extends string = "value"> extends React.HTMLAttrib
   smooth?: boolean;
   /** Show point markers on line charts. @default true */
   showDots?: boolean;
+  /** Print each value as a data label on the bars/points. @default false */
+  showValues?: boolean;
+  /** Play the entrance animation (bars grow, lines draw); respects `prefers-reduced-motion`. @default true */
+  animate?: boolean;
   /** Grid lines. @default true */
   showGrid?: boolean;
   /** Axis labels. @default true */

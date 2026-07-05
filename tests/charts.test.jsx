@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import { PieChart } from "../components/data-display/PieChart.jsx";
 import { DonutChart } from "../components/data-display/DonutChart.jsx";
 import { Gauge } from "../components/data-display/Gauge.jsx";
@@ -103,5 +103,53 @@ describe("chart specifics", () => {
     const { container } = render(<Sparkline data={[1, 2, 3]} />);
     expect(container.querySelector("table")).toBeNull();
     expect(container.querySelector('svg[role="img"]').getAttribute("aria-label")).toBeTruthy();
+  });
+});
+
+describe("chart refinement — floating tooltips + hover emphasis", () => {
+  // discrete-shape charts: hovering a mark shows the tooltip AND dims the rest (data-hovering)
+  const dimCases = [
+    ["PieChart", <PieChart data={pie} />],
+    ["PolarAreaChart", <PolarAreaChart data={pie} />],
+    ["FunnelChart", <FunnelChart data={pie} />],
+    ["Treemap", <Treemap data={pie} />],
+    ["Heatmap", <Heatmap data={heat} />],
+  ];
+  it.each(dimCases)("%s shows a tooltip and marks the root hovering on mark hover", (_n, el) => {
+    const { container } = render(el);
+    const mark = container.querySelector("[data-mark]");
+    expect(mark).toBeTruthy();
+    fireEvent.mouseMove(mark, { clientX: 5, clientY: 5 });
+    expect(container.querySelector(".twc-chart__tip")).toBeInTheDocument();
+    expect(container.querySelector('.twc-chart[data-hovering="true"]')).toBeInTheDocument();
+    fireEvent.mouseLeave(mark);
+    expect(container.querySelector(".twc-chart__tip")).toBeNull();
+  });
+
+  it("ScatterChart shows a tooltip when hovering a point hit-target", () => {
+    const { container } = render(<ScatterChart series={scatter} />);
+    const hit = container.querySelector(".twc-chart__hit");
+    expect(hit).toBeTruthy();
+    fireEvent.mouseMove(hit, { clientX: 5, clientY: 5 });
+    expect(container.querySelector(".twc-chart__tip")).toBeInTheDocument();
+  });
+
+  it("Candlestick tooltip lists the OHLC breakdown", () => {
+    const { container } = render(<Candlestick data={ohlc} />);
+    // hover the first interactive mark (a rect/group carrying the handlers)
+    const svg = container.querySelector("svg");
+    const marks = svg.querySelectorAll("rect, g");
+    let shown = false;
+    for (const m of marks) {
+      fireEvent.mouseMove(m, { clientX: 5, clientY: 5 });
+      if (container.querySelector(".twc-chart__tip")) { shown = true; break; }
+    }
+    expect(shown).toBe(true);
+    expect(container.querySelector(".twc-chart__tip")).toHaveTextContent("Open");
+  });
+
+  it("no leftover native <title> tooltips on the refined charts", () => {
+    const { container } = render(<PieChart data={pie} />);
+    expect(container.querySelector("svg title")).toBeNull();
   });
 });

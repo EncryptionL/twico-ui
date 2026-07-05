@@ -2,6 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import {
   CHART_BASE_CSS, paletteAt, niceScale, shortNum, fmtNumber, r, linePath, ChartTable,
+  useChartTooltip, ChartTooltip,
 } from "./_chart.js";
 
 const RANGE_CSS = `
@@ -39,6 +40,7 @@ export function RangeChart({
   const styles = useScopedStyles("twc-rangechart-styles", RANGE_CSS);
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
+  const { containerRef, tip, show, hide } = useChartTooltip();
 
   const isArea = type === "area";
   const rows = data || [];
@@ -79,10 +81,10 @@ export function RangeChart({
       const y = padT + catBandH * i + (catBandH * gap) / 2;
       const color = d.color || paletteAt(colors, i);
       return (
-        <rect key={i} className="twc-rangechart__bar" style={{ fill: color }}
-          x={x0} y={y} width={Math.max(1, x1 - x0)} height={Math.max(1, slot)} rx="3">
-          <title>{`${labelText(d.label)}: ${fmt(min)} – ${fmt(max)}`}</title>
-        </rect>
+        <rect key={i} className="twc-rangechart__bar twc-chart__anim-bar" data-horizontal="true" style={{ fill: color }}
+          x={x0} y={y} width={Math.max(1, x1 - x0)} height={Math.max(1, slot)} rx="3"
+          onMouseMove={(e) => show({ title: labelText(d.label), items: [{ color, label: "", value: `${fmt(min)} – ${fmt(max)}` }] }, e)}
+          onMouseLeave={hide} />
       );
     });
   };
@@ -100,21 +102,21 @@ export function RangeChart({
     const hitW = n > 1 ? innerW / (n - 1) : innerW;
     return (
       <g>
-        <path className="twc-rangechart__band" style={{ fill: color }} d={bandD} />
+        <path className="twc-rangechart__band twc-chart__anim-fade" style={{ fill: color }} d={bandD} />
         <path className="twc-rangechart__edge" style={{ stroke: color }} d={linePath(maxPts)} />
         <path className="twc-rangechart__edge" style={{ stroke: color }} d={linePath(minPts)} />
         {/* invisible per-category hit columns carry the range tooltips */}
         {rows.map((d, i) => (
-          <rect key={i} fill="transparent" x={lineX(i) - hitW / 2} y={padT} width={hitW} height={innerH}>
-            <title>{`${labelText(d.label)}: ${fmt(Number(d.min) || 0)} – ${fmt(Number(d.max) || 0)}`}</title>
-          </rect>
+          <rect key={i} fill="transparent" x={lineX(i) - hitW / 2} y={padT} width={hitW} height={innerH}
+            onMouseMove={(e) => show({ title: labelText(d.label), items: [{ color, label: "", value: `${fmt(Number(d.min) || 0)} – ${fmt(Number(d.max) || 0)}` }] }, e)}
+            onMouseLeave={hide} />
         ))}
       </g>
     );
   };
 
   return (
-    <div className={`twc-chart twc-chart--range ${className}`.trim()} data-type={type} {...rest}>
+    <div ref={containerRef} className={`twc-chart twc-chart--range ${className}`.trim()} data-type={type} {...rest}>
       {baseStyles}
       {styles}
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={svgAriaLabel} aria-describedby={tableId} preserveAspectRatio="none">
@@ -140,6 +142,8 @@ export function RangeChart({
             : <text key={i} className="twc-rangechart__axis" x={padL - 8} y={padT + catBandH * i + catBandH / 2 + 4} textAnchor="end">{d.label}</text>,
         ) : null}
       </svg>
+
+      <ChartTooltip tip={tip} />
 
       {tableFallback ? (
         <ChartTable

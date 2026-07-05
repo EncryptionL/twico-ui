@@ -2,7 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import {
   CHART_BASE_CSS, paletteAt, niceCeil, shortNum, fmtNumber,
-  polarDeg, arcPath, r, ChartTable, ChartLegend,
+  polarDeg, arcPath, r, ChartTable, ChartLegend, useChartTooltip, ChartTooltip,
 } from "./_chart.js";
 
 const CHART_CSS = `
@@ -41,6 +41,8 @@ export function PolarAreaChart({
   const styles = useScopedStyles("twc-polar-styles", CHART_CSS);
   const uid = React.useId();
   const tableId = tableFallback ? `${uid}-table` : undefined;
+  const { containerRef, tip, show, hide } = useChartTooltip();
+  const [active, setActive] = React.useState(null);
 
   const rows = data || [];
   const n = rows.length;
@@ -71,7 +73,12 @@ export function PolarAreaChart({
     typeof label === "string" || typeof label === "number" ? String(label) : "";
 
   return (
-    <div className={`twc-chart twc-chart--polar ${className}`.trim()} {...rest}>
+    <div
+      ref={containerRef}
+      className={`twc-chart twc-chart--polar ${className}`.trim()}
+      data-hovering={active != null || undefined}
+      {...rest}
+    >
       {baseStyles}
       {styles}
       <svg
@@ -100,15 +107,18 @@ export function PolarAreaChart({
           const v = Number(d.value) || 0;
           const start = startAngle + i * anglePer;
           const color = d.color || paletteAt(colors, i);
+          const tipFor = { title: labelText(d.label), items: [{ color, label: "", value: fmt(v) }] };
           return (
             <path
               key={`slice-${i}`}
-              className="twc-chart__slice"
+              className="twc-chart__slice twc-chart__anim-arc"
+              data-mark
+              data-active={active === i || undefined}
               style={{ fill: color, fillOpacity: 0.82 }}
               d={arcPath(cx, cy, radiusFor(v), 0, start, start + anglePer)}
-            >
-              <title>{`${labelText(d.label)}: ${fmt(v)}`}</title>
-            </path>
+              onMouseMove={(e) => { setActive(i); show(tipFor, e); }}
+              onMouseLeave={() => { setActive(null); hide(); }}
+            />
           );
         })}
 
@@ -123,6 +133,8 @@ export function PolarAreaChart({
           );
         })}
       </svg>
+
+      <ChartTooltip tip={tip} />
 
       {tableFallback ? (
         <ChartTable
