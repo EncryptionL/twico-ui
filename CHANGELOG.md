@@ -2,6 +2,19 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.10.0](https://github.com/EncryptionL/twico-ui/compare/v1.9.0...v1.10.0) (2026-07-05)
+
+
+### Bug Fixes
+
+* **charts:** make on-mark data labels legible on any fill colour ([f75e7e3](https://github.com/EncryptionL/twico-ui/commit/f75e7e3fdbfc69ee91a2366087dfbb3c6b25c841))
+
+
+### Features
+
+* **charts:** click handlers, selection, legend focus, crosshair, zoom & pan ([79e36dc](https://github.com/EncryptionL/twico-ui/commit/79e36dc63eb466c747914864dbff062a75238581))
+* **charts:** equalize interactivity — zoom for all axis/grid charts, explode + focus-dim for the rest ([6b4fcbe](https://github.com/EncryptionL/twico-ui/commit/6b4fcbeb2cf22e80d0e83c01b7e4991a085aa19c))
+
 # [1.9.0](https://github.com/EncryptionL/twico-ui/compare/v1.8.1...v1.9.0) (2026-07-05)
 
 
