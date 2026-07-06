@@ -76,8 +76,7 @@ describe("chart family degenerate data does not throw", () => {
 describe("chart specifics", () => {
   it("PieChart slice count matches data (arcs rendered)", () => {
     const { container } = render(<PieChart data={pie} />);
-    // each slice is a <path> with a <title>
-    const titles = container.querySelectorAll("svg path title, svg path");
+    // each slice is a <path>
     expect(container.querySelectorAll("svg path").length).toBeGreaterThanOrEqual(3);
   });
 
