@@ -69,8 +69,20 @@ need zero-FOUC should either run React 19 or preload the shipped `twico-ui/style
 every component's rules concatenated). A per-component static sheet + a `sideEffects`-safe subpath is a
 possible future enhancement.
 
-## CSP nonce — #57
+## CSP nonce — #57, #189
 
 Under a strict `style-src 'nonce-…'` policy (no `unsafe-inline`), wrap your app in `<TwicoProvider nonce={n}>`.
-Every `useScopedStyles` reads that nonce from context and stamps it on the injected `<style>` (both the React 19
-hoisted element and the React 18 imperative one), so the injected styles are allowed by the CSP.
+`useScopedStyles` reads that nonce from context and stamps it on the **React 18** imperative `<style>`
+injection, where the browser honors it.
+
+**React 19 precedence styles do NOT carry the nonce (#189).** React 19 hoists/dedupes `<style precedence>`
+tags and *strips* any `nonce` unless the identical value is also supplied as a server **render option** —
+which third-party precedence styles cannot arrange in the Next.js App Router. Stamping one there only produced
+a console warning per tag (*"React encountered a style tag with `precedence` … and `nonce` …"*) without ever
+CSP-allowing the style, so `useScopedStyles` no longer sets it on the hoisted element.
+
+Practical guidance for **React 19 + a nonce-based CSP**: a `nonce` on `style-src` makes the browser ignore
+`unsafe-inline`, yet most apps still have inline `style=""` attributes a nonce can't cover — so keep `style-src`
+permissive (`'unsafe-inline'`), which already allows twico's hoisted styles. Passing `nonce` to `TwicoProvider`
+is then unnecessary, and on React 19 it has no effect on the precedence styles regardless. The nonce still
+applies on the React 18 injection path.

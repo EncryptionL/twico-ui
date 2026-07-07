@@ -69,8 +69,13 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   serverMode?: boolean;
   /** Total row count on the server (required for pagination in server mode). */
   rowCount?: number;
-  /** Server-mode callback fired (debounced) whenever the query changes. */
+  /** Server-mode callback fired (debounced) whenever the query changes. The query now
+   *  includes `visibleColumns`/`hiddenColumns` so you can project only the shown columns. */
   onServerChange?: (state: DatatableQuery) => void;
+  /** Fired when the built-in Columns menu shows/hides a column, with the currently visible
+   *  column `field`s (in column order). Lets a server-mode grid drive column projection from
+   *  the built-in menu instead of a duplicate control. Not fired on initial mount. */
+  onColumnVisibilityChange?: (visible: string[]) => void;
   /** Show the Export toolbar button (split button: click = CSV, chevron = format menu). @default false */
   showExport?: boolean;
   /** Show the row-density toolbar button (cycles compact / standard / comfortable). The `density` prop
@@ -189,6 +194,14 @@ export interface DatatableQuery {
   filters: DatatableFilter[];
   /** Quick-search text. */
   quickFilter: string;
+  /** `field`s of the columns currently shown (in column order) — the built-in Columns menu
+   *  is the source of truth. Use it to fetch/project only the visible columns server-side.
+   *  Always populated by the grid in `onServerChange`; optional so a hand-built query passed
+   *  to `runDatatableQuery` (which ignores it) need not supply it. */
+  visibleColumns?: string[];
+  /** `field`s of the columns currently hidden via the Columns menu. Always populated in
+   *  `onServerChange`; optional for the same reason as `visibleColumns`. */
+  hiddenColumns?: string[];
 }
 
 export interface DatatableColumn<T = any> {

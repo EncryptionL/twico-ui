@@ -94,8 +94,68 @@ export function compileSx(obj, selector) {
   return out;
 }
 
+// ---------------------------------------------------------------------------
+// #188: box-model shorthand normalization for the FLAT (inline-style) channel.
+// The primitives (Box/Stack/Grid/…) also emit physical longhands (paddingTop/…), so a
+// flat `sx` box SHORTHAND (padding/margin/inset + logical block/inline) lands on the same
+// node as its longhands and trips React's dev warning ("Removing a style property during
+// rerender (padding) when a conflicting property is set (paddingBottom)"). Expanding the
+// shorthand to leaf longhands here keeps the ergonomic API while emitting only leaves.
+// The nested compileSx channel emits CSS text (never reconciled as inline style), so it
+// is intentionally left untouched.
+// ---------------------------------------------------------------------------
+const BOX_EDGE4 = {
+  padding: ["paddingTop", "paddingRight", "paddingBottom", "paddingLeft"],
+  margin: ["marginTop", "marginRight", "marginBottom", "marginLeft"],
+  inset: ["top", "right", "bottom", "left"],
+};
+const BOX_EDGE2 = {
+  paddingBlock: ["paddingBlockStart", "paddingBlockEnd"],
+  paddingInline: ["paddingInlineStart", "paddingInlineEnd"],
+  marginBlock: ["marginBlockStart", "marginBlockEnd"],
+  marginInline: ["marginInlineStart", "marginInlineEnd"],
+};
+
+// Split a CSS shorthand string on top-level whitespace only — whitespace inside
+// parentheses (calc(), var(), min/max/clamp()) is NOT a separator.
+function splitShorthand(value) {
+  const s = String(value).trim();
+  if (!s) return [];
+  const out = [];
+  let depth = 0, cur = "";
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    if (c === "(") { depth++; cur += c; }
+    else if (c === ")") { depth = Math.max(0, depth - 1); cur += c; }
+    else if (depth === 0 && (c === " " || c === "\t" || c === "\n" || c === "\r")) {
+      if (cur) { out.push(cur); cur = ""; }
+    } else cur += c;
+  }
+  if (cur) out.push(cur);
+  return out;
+}
+
+// Expand a box-model shorthand into ordered [longhand, value] pairs, or null if `key`
+// isn't one. Numeric values stay numeric per edge so React still appends `px`.
+function expandBoxShorthand(key, value) {
+  const four = BOX_EDGE4[key];
+  const two = BOX_EDGE2[key];
+  if ((!four && !two) || value == null) return null;
+  if (typeof value === "number") return (four || two).map((edge) => [edge, value]);
+  const p = splitShorthand(value);
+  if (p.length === 0) return null;
+  if (two) return [[two[0], p[0]], [two[1], p.length > 1 ? p[1] : p[0]]];
+  let top, right, bottom, left; // physical TRBL from 1–4 values (CSS shorthand rules)
+  if (p.length === 1) top = right = bottom = left = p[0];
+  else if (p.length === 2) { top = bottom = p[0]; right = left = p[1]; }
+  else if (p.length === 3) { top = p[0]; right = left = p[1]; bottom = p[2]; }
+  else { [top, right, bottom, left] = p; }
+  return [[four[0], top], [four[1], right], [four[2], bottom], [four[3], left]];
+}
+
 // Split the top level: flat declarations -> inline style object; nested keys -> CSS.
-function buildSx(sx, uid) {
+// Exported for unit tests (internal module — not in the public hooks barrel).
+export function buildSx(sx, uid) {
   if (!isObject(sx)) return { flatStyle: undefined, css: "" };
   const scope = `[data-twc-sx="${uid}"]`;
   let flatStyle;
@@ -111,7 +171,15 @@ function buildSx(sx, uid) {
         css += compileSx(value, resolveSelector(key, scope));
       }
     } else {
-      (flatStyle ||= {})[key] = value;
+      const expanded = expandBoxShorthand(key, value);
+      if (expanded) {
+        flatStyle ||= {};
+        // Insertion order: a longhand written after a shorthand overrides it (matches CSS
+        // source-order); one written before is (correctly) overwritten by the shorthand.
+        for (const [k, v] of expanded) flatStyle[k] = v;
+      } else {
+        (flatStyle ||= {})[key] = value;
+      }
     }
   }
   return { flatStyle, css };

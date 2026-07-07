@@ -1332,7 +1332,8 @@ Props:
 - `height` — `number` · default `440` — Sets the maximum scroll height of the grid body in pixels before rows scroll internally, defaulting to 440.
 - `serverMode` — `boolean` · default `false` — Switches to server-side data handling so sorting, filtering, and paging are delegated to your backend; off by default.
 - `rowCount` — `number` · default `-` — Tells the grid the total number of server-side rows so pagination can render correctly in serverMode.
-- `onServerChange` — `(state)=>void` · default `-` — Fires with the current query state (sort, filter, page) in serverMode so you can fetch the matching rows.
+- `onServerChange` — `(state)=>void` · default `-` — Fires (debounced) with the serverMode query — sort, filters, page, quickFilter, and visibleColumns/hiddenColumns — so you fetch and project the data.
+- `onColumnVisibilityChange` — `(visible)=>void` · default `-` — Fires with the visible column fields whenever the built-in Columns menu shows or hides a column, so a server can project columns.
 - `showExport` — `boolean` · default `false` — Shows the toolbar Export button (CSV split button with a format menu); hidden by default — enable it to expose exporting.
 - `showDensity` — `boolean` · default `false` — Shows the toolbar density button that cycles compact/standard/comfortable; hidden by default (the density prop still sets the row height).
 - `showPivot` — `boolean` · default `false` — Shows the toolbar Pivot button; hidden by default, but appears automatically when a pivot model or pivotMode is provided.

@@ -45,7 +45,15 @@ export function useScopedStyles(id, css) {
     if (el.textContent !== css) el.textContent = css;
   }, [id, css, nonce]);
 
+  // #189: do NOT stamp the nonce on the React 19 precedence-managed <style>. React 19
+  // hoists/dedupes `precedence` styles and strips any `nonce` unless the same value is
+  // passed as a *render option* — which third-party precedence styles can't do in the
+  // Next.js App Router. Stamping it here only logs a console warning per tag ("style tag
+  // with precedence and nonce") without ever CSP-allowing the style, so we omit it. The
+  // nonce is still applied on the React 18 injection path above, where it IS honored.
+  // (Under a strict `style-src 'nonce-…'` + React 19 these hoisted styles can't be
+  // nonced at all; keep `style-src` permissive — see docs/ssr-styles.md.)
   return SUPPORTS_STYLE_HOIST && css
-    ? React.createElement("style", { href: id, precedence: "twc-ui", nonce }, css)
+    ? React.createElement("style", { href: id, precedence: "twc-ui" }, css)
     : null;
 }

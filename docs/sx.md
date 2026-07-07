@@ -35,7 +35,8 @@ are nested rules, and `data-twc-sx` is only set then. Because injection goes thr
 `useScopedStyles`, the scoped stylesheet automatically:
 
 - **is included in the SSR stream on React 19** (hoistable `<style precedence>`) — no FOUC;
-- **inherits the CSP nonce** from `TwicoProvider` (#57);
+- **follows the CSP-nonce behavior** of `useScopedStyles` (#57/#189: the nonce is stamped on the
+  React 18 injection; React 19 precedence styles omit it — see [ssr-styles.md](./ssr-styles.md));
 - **updates in place** when `sx` changes (React 18 fallback path handles dynamic `sx`).
 
 ## Compiler rules (`compileSx`)
@@ -48,6 +49,37 @@ are nested rules, and `data-twc-sx` is only set then. Because injection goes thr
   (`".child"` → `[data-twc-sx="…"] .child`).
 - **`@`-rules** (`@media` / `@supports` / `@container`) wrap the re-scoped inner block.
 - Recurses, so nested rules can themselves contain selectors and declarations.
+
+## Box-model shorthand normalization (#188)
+
+Flat `sx` box-model **shorthands** are expanded to their physical/logical **leaf longhands** before
+they reach the inline `style`. The primitives already emit longhands (`paddingTop`, `marginLeft`, …)
+for their own `p`/`m`/`px`/… props, so a shorthand *and* its longhands on the same node made React
+warn on rerender (*"Removing a style property during rerender (padding) when a conflicting property is
+set (paddingBottom)…"*). Expanding up front keeps the terse API and emits only leaves, so the warning
+can't fire. Nested `sx` (the scoped-`<style>` channel) is emitted as CSS text and is **not** normalized
+— it is never reconciled as inline style, so it can't trip the warning.
+
+| Shorthand | Expands to |
+| --- | --- |
+| `padding` / `margin` / `inset` | `…Top/Right/Bottom/Left` (`inset` → `top/right/bottom/left`), by the CSS 1–4-value rule: `"a"`→all, `"a b"`→[block, inline], `"a b c"`→[top, inline, bottom], `"a b c d"`→[T,R,B,L] |
+| `paddingBlock` / `paddingInline` / `marginBlock` / `marginInline` | logical `…Start/…End` (1 value → both, 2 → `[start, end]`) |
+
+- **Numbers stay numeric** (`padding: 20` → `paddingTop: 20`, …) so React still appends `px`.
+- **`calc()`/`var()`/`clamp()` are safe** — the value splitter ignores whitespace inside parentheses,
+  so `padding: "calc(1rem - 2px) 0"` splits into two tokens, not four.
+- **Source order wins** — a longhand written *after* a shorthand overrides it (`{ padding: 8,
+  paddingTop: 30 }` → top is `30px`); one written *before* is overwritten. Matches CSS cascade.
+- Only the box-model shorthands above are touched; every other property passes through unchanged.
+- **Invariant.** For the fix to hold, no box *shorthand* may survive on the node from the **base**
+  style either — otherwise it would collide with an sx-expanded longhand. Box/Stack/Grid already
+  base-style with longhands; Container's `marginInline`/`paddingInline` and Text/Heading's `margin: 0`
+  were converted to their longhands so the node only ever carries leaf longhands.
+- **Caveat: the raw `style` prop is not normalized.** `sx` only normalizes its own channel. If you
+  *also* pass a box shorthand via the raw `style` prop (`style={{ padding: "1rem" }}`) alongside an
+  `sx` box value for the same box, that shorthand can still collide with the expanded longhands on
+  rerender — normalizing a consumer's explicit `style` would be overreach. Prefer `sx` (or longhands)
+  for box spacing you set via `style`.
 
 ## Precedence
 
@@ -63,6 +95,7 @@ Prefer design tokens for values so `sx` overrides stay theme-aware:
 ## Verification
 
 - Runtime + compiler unit tests: [`tests/sx.test.jsx`](../tests/sx.test.jsx) (flat-overrides-base,
-  scoped `:hover`, `@media` wrapping, `data-twc-sx` gating, SSR markup includes the `<style>`).
+  scoped `:hover`, `@media` wrapping, `data-twc-sx` gating, SSR markup includes the `<style>`,
+  box-model shorthand → longhand normalization).
 - Type fixture: [`tests/types/sx-types.tsx`](../tests/types/sx-types.tsx). The `Sx` type is
   `React.CSSProperties` widened with a string-indexed nested signature; exported from the root.

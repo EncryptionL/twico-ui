@@ -772,7 +772,7 @@ export function Datatable({
   columns, rows, loading = false, rowKey, checkboxSelection = false,
   density: densityProp = "comfortable", pageSize = 10, pageSizeOptions = [5, 10, 25, 50],
   page, onPageChange, onPageSizeChange,
-  height = 440, serverMode = false, rowCount, onServerChange, batchActions = [],
+  height = 440, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [],
   showExport = false, showDensity = false, showPivot = false, exportFilename = "export", aggregationValues = null,
   disableColumnReorder = false, disableColumnResize = false,
   emptyMessage, renderEmpty,
@@ -1011,6 +1011,29 @@ export function Datatable({
 
   const colByField = React.useMemo(() => Object.fromEntries(cols.map((c) => [c.field, c])), [cols]);
   const visibleCols = cols.filter((c) => !hidden.has(c.field));
+  // #191: data-column field ids exposed to server mode for column projection. Exclude
+  // synthetic/actions columns (e.g. the auto-added __pinactions__ gutter — it has a real
+  // string field but no projectable data). Key the memo on CONTENT (a JSON string), not on
+  // `cols` identity: an inline `columns={[...]}` prop gets a fresh identity on every parent
+  // re-render, which would otherwise churn these arrays and spuriously re-fire onServerChange
+  // (a regression) and onColumnVisibilityChange even when visibility never changed.
+  const colFieldsKey = JSON.stringify(
+    cols.filter((c) => typeof c.field === "string" && c.type !== "actions").map((c) => c.field),
+  );
+  const colFields = React.useMemo(() => JSON.parse(colFieldsKey), [colFieldsKey]);
+  // Content key of the hidden set (sorted, strings only) so visibleColumns/hiddenColumns stay
+  // identity-stable across a no-op `setHidden(new Set())` — e.g. clicking "Show all"/"Hide all"
+  // when nothing actually changed — which would otherwise churn a fresh Set identity and
+  // spuriously re-fire onServerChange / onColumnVisibilityChange.
+  const hiddenKey = JSON.stringify([...hidden].filter((f) => typeof f === "string").sort());
+  const visibleColumns = React.useMemo(() => {
+    const h = new Set(JSON.parse(hiddenKey));
+    return colFields.filter((f) => !h.has(f));
+  }, [colFields, hiddenKey]);
+  const hiddenColumns = React.useMemo(() => {
+    const h = new Set(JSON.parse(hiddenKey));
+    return colFields.filter((f) => h.has(f));
+  }, [colFields, hiddenKey]);
   const ordered = React.useMemo(() => {
     const orderIdx = (f) => { const i = order.indexOf(f); return i === -1 ? 9999 : i; };
     const L = pins.left.map((f) => colByField[f]).filter((c) => c && !hidden.has(c.field));
@@ -1310,10 +1333,27 @@ export function Datatable({
         page: pageVal, pageSize: sizeVal, sort,
         filters: filters.map(({ id, ...f }) => f),
         quickFilter: quick.trim(),
+        visibleColumns, hiddenColumns,   // #191: server can project only the visible columns
       });
     }, 250);
     return () => clearTimeout(t);
-  }, [serverMode, pageVal, sizeVal, sort, filters, quick]);
+  }, [serverMode, pageVal, sizeVal, sort, filters, quick, visibleColumns, hiddenColumns]);
+
+  // #191: report column show/hide toggles from the built-in Columns menu so a consumer can
+  // drive server-side column projection off the same control. Fires on change, not on mount.
+  const onColVisRef = React.useRef(onColumnVisibilityChange);
+  onColVisRef.current = onColumnVisibilityChange;
+  // Fire on a real change only — never on mount. A VALUE guard (not a boolean "mounted" flag)
+  // so React 18/19 StrictMode's mount→unmount→remount effect double-invoke can't slip a mount
+  // call through: the second setup sees the same seeded key and skips.
+  const lastVisibleKey = React.useRef(null);
+  React.useEffect(() => {
+    const key = JSON.stringify(visibleColumns);
+    if (lastVisibleKey.current === null) { lastVisibleKey.current = key; return; } // seed on mount
+    if (lastVisibleKey.current === key) return; // unchanged (StrictMode remount / no-op)
+    lastVisibleKey.current = key;
+    onColVisRef.current?.(visibleColumns);
+  }, [visibleColumns]);
 
   function cycleSort(field) {
     setSort((s) => !s || s.field !== field ? { field, dir: "asc" } : s.dir === "asc" ? { field, dir: "desc" } : null);
