@@ -33,8 +33,10 @@ export const Container = React.forwardRef(function Container({
       style={{
         width: "100%",
         maxWidth: typeof max === "number" ? `${max}px` : max,
-        marginInline: "auto",
-        paddingInline: padded ? "var(--space-5)" : undefined,
+        marginInlineStart: "auto",
+        marginInlineEnd: "auto",
+        paddingInlineStart: padded ? "var(--space-5)" : undefined,
+        paddingInlineEnd: padded ? "var(--space-5)" : undefined,
         ...style,
         ...flatStyle,
       }}

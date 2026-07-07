@@ -49,7 +49,10 @@ export const Text = React.forwardRef(function Text({
       className={`twc-text ${className}`.trim()}
       data-twc-sx={sxAttr}
       style={{
-        margin: 0,
+        marginTop: 0,
+        marginRight: 0,
+        marginBottom: 0,
+        marginLeft: 0,
         fontFamily: "var(--font-sans)",
         lineHeight: 1.6,
         fontSize: `var(--text-${size})`,

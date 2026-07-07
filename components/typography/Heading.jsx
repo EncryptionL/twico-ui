@@ -36,7 +36,10 @@ export const Heading = React.forwardRef(function Heading({
       className={`twc-heading ${className}`.trim()}
       data-twc-sx={sxAttr}
       style={{
-        margin: 0,
+        marginTop: 0,
+        marginRight: 0,
+        marginBottom: 0,
+        marginLeft: 0,
         fontFamily: "var(--font-sans)",
         fontWeight: "var(--font-bold)",
         color: "var(--color-text)",
