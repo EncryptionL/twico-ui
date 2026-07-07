@@ -5251,7 +5251,14 @@ export const components = [
         "type": "(state)=>void",
         "required": false,
         "default": "-",
-        "description": "Fires with the current query state (sort, filter, page) in serverMode so you can fetch the matching rows."
+        "description": "Fires (debounced) with the serverMode query — sort, filters, page, quickFilter, and visibleColumns/hiddenColumns — so you fetch and project the data."
+      },
+      {
+        "prop": "onColumnVisibilityChange",
+        "type": "(visible)=>void",
+        "required": false,
+        "default": "-",
+        "description": "Fires with the visible column fields whenever the built-in Columns menu shows or hides a column, so a server can project columns."
       },
       {
         "prop": "showExport",

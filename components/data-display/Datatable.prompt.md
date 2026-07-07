@@ -58,14 +58,20 @@ import { Datatable } from "./Datatable";
   pageSize={25}
   pageSizeOptions={[25, 50, 100]}
   columns={columns}
-  onServerChange={({ page, pageSize, sort, filters, quickFilter }) => {
-    fetchFromApi({ page, pageSize, sort, filters, quickFilter });  // you fetch + setState
+  onServerChange={({ page, pageSize, sort, filters, quickFilter, visibleColumns }) => {
+    fetchFromApi({ page, pageSize, sort, filters, quickFilter, columns: visibleColumns });  // fetch + setState
   }}
 />
 ```
 
 In server mode the table never sorts/filters/paginates locally — it just renders the rows you give it and
 calls `onServerChange` (debounced) whenever the query changes, so your backend does the work.
+
+The query also carries `visibleColumns`/`hiddenColumns` (field ids; the built-in **Columns** menu is the
+source of truth), so a wide table can **project only the shown columns** server-side. For a change-only
+signal use `onColumnVisibilityChange={(visible) => …}` — it fires with the visible column `field`s whenever
+the menu toggles a column (not on mount), so you can drive projection off the built-in menu without adding a
+duplicate column picker.
 
 **Controlled pagination** — drive the page (and page size) from your own state / external controls. Pass
 `page` (0-based) with `onPageChange`; supply `onPageSizeChange` to also control `pageSize`. Both follow the

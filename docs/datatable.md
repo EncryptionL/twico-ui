@@ -24,8 +24,19 @@ synthetic pinned-actions gutter) so you can see how many columns the grid has at
 
 With `serverMode`, the grid does **not** sort/filter/paginate the `rows` you pass (they're the
 already-fetched current page). It calls `onServerChange(query)` — `{ page, pageSize, sort, filters,
-quickFilter }` (the `DatatableQuery` type) — whenever the query changes, debounced; you fetch the
-matching slice and feed back `rows` + `rowCount` (+ optional `aggregationValues`, `loading`).
+quickFilter, visibleColumns, hiddenColumns }` (the `DatatableQuery` type) — whenever the query
+changes, debounced; you fetch the matching slice and feed back `rows` + `rowCount` (+ optional
+`aggregationValues`, `loading`).
+
+**Column visibility for server-side projection (#191).** The query carries `visibleColumns` /
+`hiddenColumns` (column `field`s; the built-in **Columns** menu is the single source of truth), so a
+wide table (e.g. a 90-column JSONB-backed grid) can send a `columns=` param and **project only the
+shown columns** server-side, shrinking the payload — no need for a second, duplicate column picker.
+Toggling a column in the Columns menu re-fires `onServerChange` (its effect deps now include the
+visible/hidden sets). For a change-only signal there is also **`onColumnVisibilityChange(visible)`**,
+fired with the visible `field`s whenever the menu toggles a column (**not** on mount) — a small effect
+keyed on the memoized visible-column list, guarded by a first-render ref so the initial state doesn't
+fire it.
 
 To make a backend (or a fake one, or a test) return **exactly** what client mode would, the package
 exports **`runDatatableQuery(rows, query, { columns })`** — it applies the same quick-search, filter
