@@ -2,6 +2,20 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.11.0](https://github.com/EncryptionL/twico-ui/compare/v1.10.0...v1.11.0) (2026-07-07)
+
+
+### Bug Fixes
+
+* **app-shell:** suppress the focus ring on the tabindex=-1 skip target ([#190](https://github.com/EncryptionL/twico-ui/issues/190)) ([88fd874](https://github.com/EncryptionL/twico-ui/commit/88fd874d659115407492d7ab78997f5b88ee46fa))
+* **styles:** omit CSP nonce from React 19 precedence styles ([#189](https://github.com/EncryptionL/twico-ui/issues/189)) ([c86c7e8](https://github.com/EncryptionL/twico-ui/commit/c86c7e8c09d559f1749431cc8c5075d382f6ca8f))
+* **sx:** normalize box-model shorthands to longhands ([#188](https://github.com/EncryptionL/twico-ui/issues/188)) ([3807718](https://github.com/EncryptionL/twico-ui/commit/38077184aeb58cfe5e4a4989b8cacb10e6068475))
+
+
+### Features
+
+* **datatable:** expose column visibility to server mode ([#191](https://github.com/EncryptionL/twico-ui/issues/191)) ([1412c13](https://github.com/EncryptionL/twico-ui/commit/1412c135095f091557697ea04a9f700ee0b472cc))
+
 # [1.10.0](https://github.com/EncryptionL/twico-ui/compare/v1.9.0...v1.10.0) (2026-07-05)
 
 
