@@ -36,6 +36,17 @@ describe("AppShell skip link (#134)", () => {
   });
 });
 
+describe("AppShell skip-target focus ring (#190)", () => {
+  it("suppresses the focus outline on the tabindex=-1 <main> skip target", () => {
+    render(<AppShell>content</AppShell>);
+    const css = Array.from(document.querySelectorAll("style")).map((s) => s.textContent || "").join("\n");
+    // The <main> (.twc-shell__content) is mouse-focusable via tabindex=-1; suppress its ring.
+    expect(css).toMatch(/\.twc-shell__content:focus[^{]*\{\s*outline:\s*none/);
+    // The skip LINK keeps its own visible focus ring.
+    expect(css).toContain(".twc-shell__skip:focus-visible");
+  });
+});
+
 describe("AppShell mobile sidebar coordination (#138)", () => {
   it("leaves the sidebar as an in-flow rail by default", () => {
     render(<AppShell sidebar={<Sidebar items={navItems} collapsible={false} />}>x</AppShell>);

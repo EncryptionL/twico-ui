@@ -13,6 +13,12 @@ const SHELL_CSS = `
   min-height: 60px; padding-inline: var(--space-5); border-bottom: var(--border-thin) solid var(--color-border); background: var(--color-surface); }
 .twc-shell__content { flex: 1 1 auto; min-height: 0; overflow: auto; }
 .twc-shell__content[data-padded="true"] { padding: var(--space-6) var(--space-5); }
+/* #190: <main> is the skip-link target (tabindex="-1") — a programmatic focus target,
+   not tab-reachable and not an interactive control. Clicking content mouse-focuses it,
+   then the first keypress flips to keyboard modality and :focus-visible would draw a UA
+   outline around the ENTIRE content area. Suppress it — the skip LINK keeps its own
+   visible ring (.twc-shell__skip:focus-visible) and SR focus announcement is unaffected. */
+.twc-shell__content:focus, .twc-shell__content:focus-visible { outline: none; }
 /* Mobile: stack the shell so the sidebar (rendered as an off-canvas overlay) no
    longer reserves a column — the main content spans the full width. */
 @media (max-width: 720px) {
