@@ -2,6 +2,14 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.11.1](https://github.com/EncryptionL/twico-ui/compare/v1.11.0...v1.11.1) (2026-07-09)
+
+
+### Bug Fixes
+
+* **datatable:** pointer cursor on the Columns-panel visibility toggle ([9d30343](https://github.com/EncryptionL/twico-ui/commit/9d303434f51c4a4131cf393e56f8534d53f0a7bb))
+* **tooltip:** grow horizontally + point the arrow at the trigger ([19aa76a](https://github.com/EncryptionL/twico-ui/commit/19aa76a6ffe597d81aff00a4144182661db0971b))
+
 # [1.11.0](https://github.com/EncryptionL/twico-ui/compare/v1.10.0...v1.11.0) (2026-07-07)
 
 
