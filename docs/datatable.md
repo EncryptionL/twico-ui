@@ -250,6 +250,12 @@ buttons (`.twc-dt__col-pin`, `data-on` = active) beside its visibility switch. B
 than toggling the row's visibility, and the wrapper is `draggable={false}` so it doesn't start a column
 drag-reorder.
 
+**Cursor over the interactive controls.** The panel row (`.twc-dt__col-row`) is `draggable` for
+reorder, so its body shows `cursor: grab`. The click-target controls inside opt out of that: the pin
+buttons (`.twc-dt__col-pin`) and the visibility switch (`.twc-dt__sw`) both use `cursor: pointer` (the
+switch previously inherited the row's `grab`, which read as "drag" while hovering a toggle); a disabled
+switch (`aria-disabled`) resets to `default`.
+
 **Pinned + editable cells must stay sticky.** A pinned cell relies on `position: sticky` to line up
 with its (also sticky) header. The editable-cell rule `.twc-dt__td[data-editable="true"]` sets
 `position: relative` at **equal specificity** but **later** in the stylesheet, so for a column that is

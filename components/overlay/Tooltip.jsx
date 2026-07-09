@@ -9,7 +9,12 @@ const TOOLTIP_CSS = `
   padding: 6px 10px; border-radius: var(--radius-md);
   background: var(--color-text); color: var(--color-surface);
   font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-medium);
-  line-height: 1.3; white-space: normal; max-width: var(--_tw-maxw, 260px); box-shadow: var(--shadow-md);
+  line-height: 1.3; white-space: normal;
+  /* Grow horizontally to max-width, then wrap. max-content sizes to the content (capped by
+     max-width) and — unlike shrink-to-fit width:auto — is NOT constrained by the space between
+     the fixed left edge and the viewport edge, so a tooltip near the right edge no longer
+     collapses to ~1 word per line and stretch vertically. */
+  width: max-content; max-width: var(--_tw-maxw, 320px); box-shadow: var(--shadow-md);
   opacity: 0; transform: scale(0.9); transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-spring);
 }
 .twc-tooltip[data-show="true"] { pointer-events: auto; }
@@ -20,10 +25,13 @@ const TOOLTIP_CSS = `
 .twc-tooltip[data-place="right"]  { transform-origin: left center; translate: 0 -50%; }
 .twc-tooltip[data-show="true"][data-place="top"], .twc-tooltip[data-show="true"][data-place="bottom"] { transform: scale(1); }
 .twc-tooltip__arrow { position: absolute; width: 7px; height: 7px; background: var(--color-text); transform: rotate(45deg); }
-.twc-tooltip[data-place="top"] .twc-tooltip__arrow    { bottom: -3px; left: 50%; margin-left: -3.5px; }
-.twc-tooltip[data-place="bottom"] .twc-tooltip__arrow { top: -3px; left: 50%; margin-left: -3.5px; }
-.twc-tooltip[data-place="left"] .twc-tooltip__arrow   { right: -3px; top: 50%; margin-top: -3.5px; }
-.twc-tooltip[data-place="right"] .twc-tooltip__arrow  { left: -3px; top: 50%; margin-top: -3.5px; }
+/* Arrow tracks the trigger via --_tw-arrow-x/y (px from the tooltip edge) instead of being
+   locked to the centre, so it still points at the trigger when the bubble is clamped near a
+   viewport edge. Falls back to 50% before measurement / SSR. */
+.twc-tooltip[data-place="top"] .twc-tooltip__arrow    { bottom: -3px; left: var(--_tw-arrow-x, 50%); margin-left: -3.5px; }
+.twc-tooltip[data-place="bottom"] .twc-tooltip__arrow { top: -3px; left: var(--_tw-arrow-x, 50%); margin-left: -3.5px; }
+.twc-tooltip[data-place="left"] .twc-tooltip__arrow   { right: -3px; top: var(--_tw-arrow-y, 50%); margin-top: -3.5px; }
+.twc-tooltip[data-place="right"] .twc-tooltip__arrow  { left: -3px; top: var(--_tw-arrow-y, 50%); margin-top: -3.5px; }
 @media (prefers-reduced-motion: reduce) { .twc-tooltip { transition: opacity var(--duration-fast) linear; transform: none; } }
 `;
 
@@ -75,10 +83,15 @@ export function Tooltip({
     else if (placement === "left" && spaceLeft < tw && spaceRight > spaceLeft) side = "right";
     else if (placement === "right" && spaceRight < tw && spaceLeft > spaceRight) side = "left";
     const base = { left: "auto", right: "auto", top: "auto", bottom: "auto", place: side };
-    if (side === "bottom") setCoords({ ...base, left: clampX(cx), top: Math.round(r.bottom + gap) });
-    else if (side === "left") setCoords({ ...base, top: clampY(cy), right: Math.round(vw - r.left + gap) });
-    else if (side === "right") setCoords({ ...base, top: clampY(cy), left: Math.round(r.right + gap) });
-    else setCoords({ ...base, left: clampX(cx), bottom: Math.round(vh - r.top + gap) }); // top (default)
+    // Arrow offset from the bubble's leading edge so it points at the trigger centre even
+    // after the bubble is clamped inward near an edge. Kept clear of the rounded corners.
+    const AP = 12;
+    const arrowX = (center) => (tw ? Math.round(Math.min(Math.max(cx - (center - tw / 2), AP), tw - AP)) : undefined);
+    const arrowY = (center) => (th ? Math.round(Math.min(Math.max(cy - (center - th / 2), AP), th - AP)) : undefined);
+    if (side === "bottom") { const c = clampX(cx); setCoords({ ...base, left: c, top: Math.round(r.bottom + gap), arrowX: arrowX(c) }); }
+    else if (side === "left") { const c = clampY(cy); setCoords({ ...base, top: c, right: Math.round(vw - r.left + gap), arrowY: arrowY(c) }); }
+    else if (side === "right") { const c = clampY(cy); setCoords({ ...base, top: c, left: Math.round(r.right + gap), arrowY: arrowY(c) }); }
+    else { const c = clampX(cx); setCoords({ ...base, left: c, bottom: Math.round(vh - r.top + gap), arrowX: arrowX(c) }); } // top (default)
   }, [placement]);
   // Measure once on mount (client-only, so SSR renders no portal — no hydration diff)
   // and keep the closed tooltip positioned so the first open animates in smoothly.
@@ -134,7 +147,11 @@ export function Tooltip({
           aria-hidden={show ? undefined : "true"}
           onMouseEnter={cancelClose}
           onMouseLeave={close}
-          style={{ position: "fixed", left: coords.left, right: coords.right, top: coords.top, bottom: coords.bottom }}
+          style={{
+            position: "fixed", left: coords.left, right: coords.right, top: coords.top, bottom: coords.bottom,
+            "--_tw-arrow-x": coords.arrowX != null ? `${coords.arrowX}px` : undefined,
+            "--_tw-arrow-y": coords.arrowY != null ? `${coords.arrowY}px` : undefined,
+          }}
         >
           {label}
           <span className="twc-tooltip__arrow" aria-hidden="true" />

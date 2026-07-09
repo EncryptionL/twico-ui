@@ -19,6 +19,7 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 | [docs-site.md](./docs-site.md) | How the documentation website works, regenerating it, deploying to GitHub Pages, the render-check. |
 | [hooks.md](./hooks.md) | The exported React hooks API — where it lives, the full set, conventions, how to add one. |
 | [overlays.md](./overlays.md) | The shared modal-overlay pattern (Dialog/Drawer/CommandPalette) and the `useFocusTrap` / `usePortal` hooks extracted into `components/_overlay.js` (#177). |
+| [tooltip.md](./tooltip.md) | Tooltip positioning — portal + fixed positioning, viewport clamp/flip, `width: max-content` (no near-edge collapse), and the trigger-tracking arrow. |
 | [colors.md](./colors.md) | The `twico-ui/colors` JS export, the primitive↔semantic split, the drift guards (`tests/colors.test.js` + `verify:palette`), and the MUI-style Color docs page. |
 | [icons.md](./icons.md) | The `twico-ui/icons` subpath — re-exporting Lucide via an optional `lucide-react` peer, the build wiring, and why the core stays zero-dependency. |
 | [tone-variant-system.md](./tone-variant-system.md) | The library-wide `tone` × `variant` model: the `--_accent` pattern, which components have which axis, and how to extend it. |
