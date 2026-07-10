@@ -61,7 +61,14 @@ const RANGE_CSS = `
 .twc-drp__nav { display: inline-grid; place-items: center; width: 30px; height: 30px; border: none; background: transparent; color: var(--color-text-muted); cursor: pointer; border-radius: var(--radius-md); }
 .twc-drp__nav:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-drp__nav svg { width: 17px; height: 17px; }
-.twc-drp__title { font-size: var(--text-sm); font-weight: var(--font-bold); }
+.twc-drp__title { font-size: var(--text-sm); font-weight: var(--font-bold); color: var(--color-text); border: none; background: transparent; cursor: pointer; padding: 5px 10px; border-radius: var(--radius-md); }
+.twc-drp__title:hover { background: var(--color-surface-sunken); }
+.twc-drp__months, .twc-drp__years { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.twc-drp__mo, .twc-drp__yr { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
+.twc-drp__mo:hover:not(:disabled), .twc-drp__yr:hover:not(:disabled) { background: var(--color-surface-sunken); }
+.twc-drp__yr[data-outside="true"] { color: var(--color-text-subtle); }
+.twc-drp__mo[data-selected="true"], .twc-drp__yr[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
+.twc-drp__mo:disabled, .twc-drp__yr:disabled { opacity: 0.4; cursor: not-allowed; }
 .twc-drp__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; }
 .twc-drp__dow { text-align: center; font-size: 11px; font-weight: var(--font-bold); color: var(--color-text-subtle); padding: 4px 0; }
 .twc-drp__day { aspect-ratio: 1; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); display: grid; place-items: center; position: relative; }
@@ -139,6 +146,9 @@ export function DateRangePicker({
   const [view, setView] = React.useState(range.start || new Date());
   const [hover, setHover] = React.useState(null);
   const [focusDate, setFocusDate] = React.useState(null); // #100: roving day focus
+  const [mode, setMode] = React.useState("days"); // #207/#206: days | months | years
+  const [focusMonth, setFocusMonth] = React.useState(null);
+  const [focusYear, setFocusYear] = React.useState(null);
   const [editText, setEditText] = React.useState(null); // #105: raw typed text (null = show formatted range)
   const [coords, setCoords] = React.useState(null);
   const wrapRef = React.useRef(null);
@@ -224,7 +234,10 @@ export function DateRangePicker({
   const keyOf = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
   const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
   const addMonths = (d, n) => { const last = new Date(d.getFullYear(), d.getMonth() + n + 1, 0); return new Date(last.getFullYear(), last.getMonth(), Math.min(d.getDate(), last.getDate())); };
-  React.useEffect(() => { if (!open) { setFocusDate(null); setHover(null); } }, [open]);
+  React.useEffect(() => { if (!open) { setFocusDate(null); setHover(null); setMode("days"); } }, [open]);
+  // #207/#206: roving focus across the month + year grids.
+  React.useEffect(() => { if (open && mode === "months" && focusMonth != null) gridRef.current?.querySelector(`[data-mo="${focusMonth}"]`)?.focus(); }, [focusMonth, open, mode]);
+  React.useEffect(() => { if (open && mode === "years" && focusYear != null) gridRef.current?.querySelector(`[data-yr="${focusYear}"]`)?.focus(); }, [focusYear, open, mode]);
   React.useEffect(() => {
     if (!open || !focusDate) return;
     gridRef.current?.querySelector(`[data-key="${keyOf(focusDate)}"]`)?.focus();
@@ -252,6 +265,30 @@ export function DateRangePicker({
     setHover(next); // keep the in-range preview following keyboard focus
     if (next.getFullYear() !== view.getFullYear() || next.getMonth() !== view.getMonth()) setView(new Date(next.getFullYear(), next.getMonth(), 1));
   };
+  // #207/#206: month + year grid keyboard nav (±1 horizontal, ±3 vertical, edges step the window).
+  const onMonthsKeyDown = (e) => {
+    const vy = view.getFullYear();
+    const cur = focusMonth == null ? view.getMonth() : focusMonth;
+    let next;
+    if (e.key === "ArrowRight") next = cur + 1; else if (e.key === "ArrowLeft") next = cur - 1;
+    else if (e.key === "ArrowDown") next = cur + 3; else if (e.key === "ArrowUp") next = cur - 3;
+    else if (e.key === "Home") next = 0; else if (e.key === "End") next = 11; else return;
+    e.preventDefault();
+    if (next < 0) { setView(new Date(vy - 1, 0, 1)); next += 12; }
+    else if (next > 11) { setView(new Date(vy + 1, 0, 1)); next -= 12; }
+    setFocusMonth(next);
+  };
+  const onYearsKeyDown = (e) => {
+    const vm = view.getMonth(), ds = Math.floor(view.getFullYear() / 10) * 10;
+    const cur = focusYear == null ? view.getFullYear() : focusYear;
+    let next;
+    if (e.key === "ArrowRight") next = cur + 1; else if (e.key === "ArrowLeft") next = cur - 1;
+    else if (e.key === "ArrowDown") next = cur + 3; else if (e.key === "ArrowUp") next = cur - 3;
+    else if (e.key === "Home") next = ds; else if (e.key === "End") next = ds + 9; else return;
+    e.preventDefault();
+    setView(new Date(next, vm, 1));
+    setFocusYear(next);
+  };
   // The tabbable day: roving focus, else the range start, else today, else the 1st.
   const tabbableDate = focusDate || range.start || (new Date());
 
@@ -278,12 +315,15 @@ export function DateRangePicker({
   // Locale-aware month/weekday names — fall back to the shipped English arrays
   // when `locale` is omitted so default output stays byte-identical.
   const months = React.useMemo(() => (locale === undefined ? MONTHS : monthNames(locale)), [locale]);
+  const monthsShort = React.useMemo(() => months.map((n) => n.slice(0, 3)), [months]);
   const dows = React.useMemo(
     () => (locale === undefined ? Array.from({ length: 7 }, (_, i) => DOW[(i + weekStartsOn) % 7]) : weekdayNames(locale, weekStartsOn)),
     [locale, weekStartsOn],
   );
 
   const y = view.getFullYear(), m = view.getMonth();
+  const decadeStart = Math.floor(y / 10) * 10; // #206
+  const yearCells = Array.from({ length: 12 }, (_, i) => decadeStart - 1 + i);
   const startOffset = (new Date(y, m, 1).getDay() - weekStartsOn + 7) % 7;
   const gridStart = new Date(y, m, 1 - startOffset);
 
@@ -364,11 +404,12 @@ export function DateRangePicker({
           ) : null}
           <div className="twc-drp__cal">
             <div className="twc-drp__head">
-              <button type="button" className="twc-drp__nav" aria-label="Previous month" onClick={() => setView(new Date(y, m - 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-              <span className="twc-drp__title">{months[m]} {y}</span>
-              <span className="twc-drp__sr" aria-live="polite">{months[m]} {y}</span>
-              <button type="button" className="twc-drp__nav" aria-label="Next month" onClick={() => setView(new Date(y, m + 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+              <button type="button" className="twc-drp__nav" aria-label={mode === "years" ? "Previous decade" : mode === "months" ? "Previous year" : "Previous month"} onClick={() => setView(mode === "years" ? new Date(y - 10, m, 1) : mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+              <button type="button" className="twc-drp__title" aria-label="Switch calendar view" onClick={() => { if (mode === "days") { setFocusMonth(m); setMode("months"); } else if (mode === "months") { setFocusYear(y); setMode("years"); } else setMode("days"); }}>{mode === "days" ? `${months[m]} ${y}` : mode === "months" ? y : `${decadeStart}–${decadeStart + 9}`}</button>
+              <span className="twc-drp__sr" aria-live="polite">{mode === "days" ? `${months[m]} ${y}` : mode === "months" ? y : `${decadeStart}–${decadeStart + 9}`}</span>
+              <button type="button" className="twc-drp__nav" aria-label={mode === "years" ? "Next decade" : mode === "months" ? "Next year" : "Next month"} onClick={() => setView(mode === "years" ? new Date(y + 10, m, 1) : mode === "months" ? new Date(y + 1, m, 1) : new Date(y, m + 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
             </div>
+            {mode === "days" ? (
             <div className="twc-drp__grid" ref={gridRef} onKeyDown={onGridKeyDown} role="grid">
               {dows.map((d, i) => <div key={i} className="twc-drp__dow">{d}</div>)}
               {Array.from({ length: 42 }).map((_, i) => {
@@ -387,6 +428,38 @@ export function DateRangePicker({
                 );
               })}
             </div>
+            ) : mode === "months" ? (
+            <div className="twc-drp__months" ref={gridRef} onKeyDown={onMonthsKeyDown} role="grid">
+              {monthsShort.map((mo, i) => {
+                const disabled = (min && ymd(new Date(y, i + 1, 0)) < ymd(min)) || (max && ymd(new Date(y, i, 1)) > ymd(max));
+                const sel = (range.start && range.start.getFullYear() === y && range.start.getMonth() === i) || (range.end && range.end.getFullYear() === y && range.end.getMonth() === i);
+                return (
+                  <button key={i} type="button" className="twc-drp__mo" role="gridcell" data-mo={i}
+                    disabled={disabled || undefined} data-selected={sel || undefined}
+                    tabIndex={i === (focusMonth ?? m) ? 0 : -1}
+                    onClick={() => { setView(new Date(y, i, 1)); setFocusDate(null); setMode("days"); }}>
+                    {mo}
+                  </button>
+                );
+              })}
+            </div>
+            ) : (
+            <div className="twc-drp__years" ref={gridRef} onKeyDown={onYearsKeyDown} role="grid">
+              {yearCells.map((yr) => {
+                const outside = yr < decadeStart || yr > decadeStart + 9;
+                const disabled = (min && ymd(new Date(yr, 11, 31)) < ymd(min)) || (max && ymd(new Date(yr, 0, 1)) > ymd(max));
+                const sel = (range.start && range.start.getFullYear() === yr) || (range.end && range.end.getFullYear() === yr);
+                return (
+                  <button key={yr} type="button" className="twc-drp__yr" role="gridcell" data-yr={yr}
+                    data-outside={outside || undefined} disabled={disabled || undefined} data-selected={sel || undefined}
+                    tabIndex={yr === (focusYear ?? y) ? 0 : -1}
+                    onClick={() => { setView(new Date(yr, m, 1)); setFocusMonth(m); setMode("months"); }}>
+                    {yr}
+                  </button>
+                );
+              })}
+            </div>
+            )}
           </div>
         </div>, document.body
       ) : null}

@@ -9,8 +9,10 @@ const [date, setDate] = React.useState(null);
 ```
 
 Props: `value`/`defaultValue` (Date|null), `min`, `max`, `placeholder`, `clearable`,
-`format(date)`, `weekStartsOn` (0/1), `onChange`. Click the month/year title to jump months;
-closes on outside-click / Esc.
+`format(date)`, `weekStartsOn` (0/1), `onChange`. Click the header title to switch the calendar
+view **days → months → years** (a decade grid); pick a year to drill to its months, a month to
+drill to its days. The prev/next arrows step by month, year, or decade to match the active view,
+and each grid is arrow-key navigable. Closes on outside-click / Esc.
 
 Set `editable` to render the trigger as a typeable text input with a trailing calendar
 button. Typed text commits on Enter/blur via `parse(text) => Date | null` (defaults to a

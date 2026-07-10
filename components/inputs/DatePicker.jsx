@@ -83,6 +83,12 @@ const DATEPICKER_CSS = `
 .twc-dp__mo { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
 .twc-dp__mo:hover { background: var(--color-surface-sunken); }
 .twc-dp__mo[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
+.twc-dp__years { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.twc-dp__yr { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
+.twc-dp__yr:hover:not(:disabled) { background: var(--color-surface-sunken); }
+.twc-dp__yr[data-outside="true"] { color: var(--color-text-subtle); }
+.twc-dp__yr[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
+.twc-dp__yr:disabled { opacity: 0.4; cursor: not-allowed; }
 [dir="rtl"] .twc-dp__nav svg { transform: scaleX(-1); }
 `;
 
@@ -147,6 +153,7 @@ export function DatePicker({
   const [mode, setMode] = React.useState("days");
   const [focusDate, setFocusDate] = React.useState(null);
   const [focusMonth, setFocusMonth] = React.useState(null); // #109: roving month index
+  const [focusYear, setFocusYear] = React.useState(null); // #206: roving year index (decade grid)
   const [editText, setEditText] = React.useState(null); // #105: raw typed text (null = show formatted value)
   const [coords, setCoords] = React.useState(null);
   const wrapRef = React.useRef(null);
@@ -231,6 +238,8 @@ export function DatePicker({
   };
 
   const y = view.getFullYear(), m = view.getMonth();
+  const decadeStart = Math.floor(y / 10) * 10; // #206: decade window for the years grid
+  const yearCells = Array.from({ length: 12 }, (_, i) => decadeStart - 1 + i); // 12 cells, edges dimmed
   const first = new Date(y, m, 1);
   const startOffset = (first.getDay() - weekStartsOn + 7) % 7;
   const gridStart = new Date(y, m, 1 - startOffset);
@@ -274,6 +283,25 @@ export function DatePicker({
     if (next < 0) { setView(new Date(y - 1, 0, 1)); next += 12; }
     else if (next > 11) { setView(new Date(y + 1, 0, 1)); next -= 12; }
     setFocusMonth(next);
+  };
+  // #206: roving focus across the decade grid (±1 horizontal, ±3 vertical, Home/End to decade edges).
+  React.useEffect(() => {
+    if (!open || mode !== "years" || focusYear == null) return;
+    gridRef.current?.querySelector(`[data-yr="${focusYear}"]`)?.focus();
+  }, [focusYear, open, mode]);
+  const onYearsKeyDown = (e) => {
+    const cur = focusYear == null ? y : focusYear;
+    let next;
+    if (e.key === "ArrowRight") next = cur + 1;
+    else if (e.key === "ArrowLeft") next = cur - 1;
+    else if (e.key === "ArrowDown") next = cur + 3;
+    else if (e.key === "ArrowUp") next = cur - 3;
+    else if (e.key === "Home") next = decadeStart;
+    else if (e.key === "End") next = decadeStart + 9;
+    else return;
+    e.preventDefault();
+    setView(new Date(next, m, 1)); // shift the decade window so `next` stays visible
+    setFocusYear(next);
   };
 
   // Calendar keyboard navigation: arrows move by day/week, Home/End to week edges, PageUp/PageDown by month.
@@ -372,14 +400,18 @@ export function DatePicker({
         <div className="twc-dp__pop" ref={popRef} role="dialog" aria-modal="true" aria-label="Choose date"
           style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" }}>
           <div className="twc-dp__head">
-            <button type="button" className="twc-dp__nav" aria-label="Previous" onClick={() => setView(mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1))}>
+            <button type="button" className="twc-dp__nav" aria-label={mode === "years" ? "Previous decade" : mode === "months" ? "Previous year" : "Previous month"} onClick={() => setView(mode === "years" ? new Date(y - 10, m, 1) : mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1))}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
             </button>
-            <button type="button" className="twc-dp__title" onClick={() => { if (mode === "days") setFocusMonth(m); setMode(mode === "days" ? "months" : "days"); }}>
-              {mode === "days" ? `${months[m]} ${y}` : y}
+            <button type="button" className="twc-dp__title" onClick={() => {
+              if (mode === "days") { setFocusMonth(m); setMode("months"); }
+              else if (mode === "months") { setFocusYear(y); setMode("years"); }
+              else setMode("days");
+            }}>
+              {mode === "days" ? `${months[m]} ${y}` : mode === "months" ? y : `${decadeStart}–${decadeStart + 9}`}
             </button>
-            <span className="twc-dp__sr" aria-live="polite">{mode === "days" ? `${months[m]} ${y}` : y}</span>
-            <button type="button" className="twc-dp__nav" aria-label="Next" onClick={() => setView(mode === "months" ? new Date(y + 1, m, 1) : new Date(y, m + 1, 1))}>
+            <span className="twc-dp__sr" aria-live="polite">{mode === "days" ? `${months[m]} ${y}` : mode === "months" ? y : `${decadeStart}–${decadeStart + 9}`}</span>
+            <button type="button" className="twc-dp__nav" aria-label={mode === "years" ? "Next decade" : mode === "months" ? "Next year" : "Next month"} onClick={() => setView(mode === "years" ? new Date(y + 10, m, 1) : mode === "months" ? new Date(y + 1, m, 1) : new Date(y, m + 1, 1))}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </button>
           </div>
@@ -400,7 +432,7 @@ export function DatePicker({
                 );
               })}
             </div>
-          ) : (
+          ) : mode === "months" ? (
             <div className="twc-dp__months" ref={gridRef} onKeyDown={onMonthsKeyDown} role="grid">
               {monthsShort.map((name, i) => (
                 <button key={i} type="button" className="twc-dp__mo" role="gridcell" data-mo={i}
@@ -410,6 +442,22 @@ export function DatePicker({
                   {name}
                 </button>
               ))}
+            </div>
+          ) : (
+            <div className="twc-dp__years" ref={gridRef} onKeyDown={onYearsKeyDown} role="grid">
+              {yearCells.map((yr) => {
+                const outside = yr < decadeStart || yr > decadeStart + 9;
+                const disabled = (min && yr < min.getFullYear()) || (max && yr > max.getFullYear());
+                return (
+                  <button key={yr} type="button" className="twc-dp__yr" role="gridcell" data-yr={yr}
+                    data-outside={outside || undefined} disabled={disabled}
+                    data-selected={(selected && selected.getFullYear() === yr) || undefined}
+                    tabIndex={yr === (focusYear ?? y) ? 0 : -1}
+                    onClick={() => { setView(new Date(yr, m, 1)); setFocusMonth(m); setMode("months"); }}>
+                    {yr}
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>, document.body
