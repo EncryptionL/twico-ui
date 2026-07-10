@@ -207,7 +207,7 @@ in the examples.
 
 ---
 
-## Component reference (80 components)
+## Component reference (81 components)
 
 ### Buttons & actions
 
@@ -892,6 +892,43 @@ const [files, setFiles] = React.useState([]);
   value={files}
   onChange={setFiles}
   hint="PNG, JPG or PDF up to 10MB"
+/>
+```
+
+#### FilterBar
+
+FilterBar is a schema-driven faceted filter bar: it renders a row of controls from a fields schema (multi-select, date-range, search/text, number, boolean, select) and emits a normalized clause list [{ field, op, value }] (isAnyOf, >=/<, contains, =). It adds per-field clear ✕ and a Clear all (N) action, and options can cascade on the current values.
+
+`import { FilterBar } from "twico-ui"`
+
+Props:
+- `fields` — `FilterField[]` · **required** — The filter schema: one entry per facet ({ field, label?, type, options?, placeholder?, op? }).
+- `value` — `FilterClause[]` — Controlled clause list — the same normalized shape emitted by onChange, so it round-trips.
+- `defaultValue` — `FilterClause[]` · default `[]` — Initial clause list for uncontrolled usage when value is omitted.
+- `onChange` — `(clauses: FilterClause[]) => void` — Fires with the normalized clause list [{ field, op, value }] whenever any field changes.
+- `onValuesChange` — `(values: FilterValues) => void` — Also fires with the raw per-field value map, a convenience for rehydrating controls.
+- `showClearAll` — `boolean` · default `false` — Render a 'Clear all (N)' button that resets every field; N is the active-field count.
+- `clearAllLabel` — `React.ReactNode` · default `"Clear all"` — Label text for the clear-all button.
+- `showFieldClear` — `boolean` · default `true` — Show a per-field clear ✕ beside each active field's label.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Control size applied to every field in the bar.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Accent tone forwarded to the date-range control.
+- `disabled` — `boolean` · default `false` — Disable the entire bar and hide the per-field/clear-all actions.
+
+```jsx
+import { FilterBar } from "twico-ui";
+
+const [filters, setFilters] = useState([]);
+
+<FilterBar
+  fields={[
+    { field: "model", label: "Model", type: "multiselect", options: MODELS },
+    { field: "createdAt", label: "Created", type: "daterange" },
+    { field: "status", label: "Status", type: "boolean" },
+    { field: "q", label: "Search", type: "search" },
+  ]}
+  value={filters}
+  onChange={setFilters}
+  showClearAll
 />
 ```
 

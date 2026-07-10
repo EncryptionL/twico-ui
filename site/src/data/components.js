@@ -6836,6 +6836,157 @@ export const components = [
     "tagline": "Combined date and time picker"
   },
   {
+    "name": "FilterBar",
+    "slug": "filterbar",
+    "group": "Inputs",
+    "summary": "FilterBar is a schema-driven faceted filter bar: it renders a row of controls from a fields schema (multi-select, date-range, search/text, number, boolean, select) and emits a normalized clause list [{ field, op, value }] (isAnyOf, >=/<, contains, =). It adds per-field clear ✕ and a Clear all (N) action, and options can cascade on the current values.",
+    "importName": "FilterBar",
+    "propsRows": [
+      {
+        "prop": "fields",
+        "type": "FilterField[]",
+        "required": true,
+        "default": "—",
+        "description": "The filter schema: one entry per facet ({ field, label?, type, options?, placeholder?, op? })."
+      },
+      {
+        "prop": "value",
+        "type": "FilterClause[]",
+        "required": false,
+        "default": "—",
+        "description": "Controlled clause list — the same normalized shape emitted by onChange, so it round-trips."
+      },
+      {
+        "prop": "defaultValue",
+        "type": "FilterClause[]",
+        "required": false,
+        "default": "[]",
+        "description": "Initial clause list for uncontrolled usage when value is omitted."
+      },
+      {
+        "prop": "onChange",
+        "type": "(clauses: FilterClause[]) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the normalized clause list [{ field, op, value }] whenever any field changes."
+      },
+      {
+        "prop": "onValuesChange",
+        "type": "(values: FilterValues) => void",
+        "required": false,
+        "default": "—",
+        "description": "Also fires with the raw per-field value map, a convenience for rehydrating controls."
+      },
+      {
+        "prop": "showClearAll",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Render a 'Clear all (N)' button that resets every field; N is the active-field count."
+      },
+      {
+        "prop": "clearAllLabel",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "\"Clear all\"",
+        "description": "Label text for the clear-all button."
+      },
+      {
+        "prop": "showFieldClear",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Show a per-field clear ✕ beside each active field's label."
+      },
+      {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Control size applied to every field in the bar."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Accent tone forwarded to the date-range control."
+      },
+      {
+        "prop": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Disable the entire bar and hide the per-field/clear-all actions."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { FilterBar } from \"twico-ui\";\n\nconst [filters, setFilters] = useState([]);\n\n<FilterBar\n  fields={[\n    { field: \"model\", label: \"Model\", type: \"multiselect\", options: MODELS },\n    { field: \"createdAt\", label: \"Created\", type: \"daterange\" },\n    { field: \"status\", label: \"Status\", type: \"boolean\" },\n    { field: \"q\", label: \"Search\", type: \"search\" },\n  ]}\n  value={filters}\n  onChange={setFilters}\n  showClearAll\n/>",
+    "tagline": "Schema-driven faceted filter bar"
+  },
+  {
     "name": "Dialog",
     "slug": "dialog",
     "group": "Overlay",

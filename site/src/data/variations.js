@@ -962,6 +962,21 @@ export const VARIATIONS = [
     "i": 4
   },
   {
+    "component": "FilterBar",
+    "title": "Faceted bar + normalized output",
+    "i": 0
+  },
+  {
+    "component": "FilterBar",
+    "title": "Number + select facets",
+    "i": 1
+  },
+  {
+    "component": "FilterBar",
+    "title": "Dependent / cascading options",
+    "i": 2
+  },
+  {
     "component": "FunnelChart",
     "title": "Conversion funnel",
     "i": 0
