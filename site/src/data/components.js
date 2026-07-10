@@ -5924,6 +5924,469 @@ export const components = [
     "tagline": "Calendar input for a start and end date"
   },
   {
+    "name": "TimePicker",
+    "slug": "timepicker",
+    "group": "Inputs",
+    "summary": "TimePicker is a time-of-day input with a column-spinner popover: scrollable hour, minute, and optional second columns, plus an AM/PM column in 12-hour mode. It emits a Date (so it composes with DatePicker) and bounds the selectable time via min/max.",
+    "importName": "TimePicker",
+    "propsRows": [
+      {
+        "prop": "label",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Optional field label rendered above the control to name it and associate it for accessibility."
+      },
+      {
+        "prop": "hint",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Helper text shown below the control when there is no error message set."
+      },
+      {
+        "prop": "error",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Error message that turns the control red and replaces the hint text below it."
+      },
+      {
+        "prop": "required",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Marks the field required, adding an asterisk to the label as a validation cue."
+      },
+      {
+        "prop": "value",
+        "type": "Date | null",
+        "required": false,
+        "default": "—",
+        "description": "Controlled selected time as a Date; pair with onChange to own the value in state."
+      },
+      {
+        "prop": "defaultValue",
+        "type": "Date | null",
+        "required": false,
+        "default": "null",
+        "description": "Initial time for uncontrolled usage when value is omitted, defaulting to null so it starts empty."
+      },
+      {
+        "prop": "placeholder",
+        "type": "string",
+        "required": false,
+        "default": "\"Select time\"",
+        "description": "Text shown in the trigger when no time has been selected yet."
+      },
+      {
+        "prop": "min",
+        "type": "Date",
+        "required": false,
+        "default": "—",
+        "description": "Earliest selectable time-of-day; only the hours, minutes, and seconds are compared."
+      },
+      {
+        "prop": "max",
+        "type": "Date",
+        "required": false,
+        "default": "—",
+        "description": "Latest selectable time-of-day; options past it are disabled in the columns."
+      },
+      {
+        "prop": "minuteStep",
+        "type": "number",
+        "required": false,
+        "default": "5",
+        "description": "Increment in minutes for the minute column, so 15 yields :00/:15/:30/:45 options."
+      },
+      {
+        "prop": "secondStep",
+        "type": "number",
+        "required": false,
+        "default": "5",
+        "description": "Increment in seconds for the second column, used only when granularity is \"second\"."
+      },
+      {
+        "prop": "granularity",
+        "type": "\"hour\" | \"minute\" | \"second\"",
+        "required": false,
+        "default": "\"minute\"",
+        "description": "Which columns render: hour only, hour and minute, or down to seconds."
+      },
+      {
+        "prop": "hourCycle",
+        "type": "12 | 24",
+        "required": false,
+        "default": "24",
+        "description": "Show 24-hour columns, or 12-hour columns with a dedicated AM/PM column."
+      },
+      {
+        "prop": "referenceDate",
+        "type": "Date",
+        "required": false,
+        "default": "today",
+        "description": "Date whose year/month/day is used for the emitted Date when no value is set yet."
+      },
+      {
+        "prop": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Disables the control and prevents the time popover from opening."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the focus/open accent (border and ring) using one of six semantic intents."
+      },
+      {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Control height preset for aligning with other form fields in the same row."
+      },
+      {
+        "prop": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Shows a clear (×) button when a time is set, resetting the value to null."
+      },
+      {
+        "prop": "editable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Renders the trigger as a typeable text input with a trailing toggle for direct entry."
+      },
+      {
+        "prop": "parse",
+        "type": "(text: string) => Date | null",
+        "required": false,
+        "default": "—",
+        "description": "Parses typed text into a Date when editable; defaults to an HH:MM[:SS] am/pm matcher."
+      },
+      {
+        "prop": "format",
+        "type": "(date: Date) => string",
+        "required": false,
+        "default": "—",
+        "description": "Custom display formatter; defaults to a localized time honoring hourCycle and granularity."
+      },
+      {
+        "prop": "locale",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "BCP-47 locale for time formatting via Intl; omit for the runtime default."
+      },
+      {
+        "prop": "onChange",
+        "type": "(date: Date | null) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the newly selected Date (or null when cleared) after each column pick."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { TimePicker } from \"twico-ui\";\n\nconst [time, setTime] = useState(null);\n\n<TimePicker\n  label=\"Start time\"\n  value={time}\n  onChange={setTime}\n  minuteStep={15}\n/>",
+    "tagline": "Column-spinner time-of-day picker"
+  },
+  {
+    "name": "DateTimePicker",
+    "slug": "datetimepicker",
+    "group": "Inputs",
+    "summary": "DateTimePicker combines a calendar and a time-column popover over a single Date value: picking a day keeps the current time and vice-versa. It composes DatePicker and TimePicker side by side, so it inherits both — min/max bound the date while the time stays free.",
+    "importName": "DateTimePicker",
+    "propsRows": [
+      {
+        "prop": "label",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Optional field label rendered above the date/time pair to name and associate it."
+      },
+      {
+        "prop": "hint",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Helper text shown below the controls when there is no error message set."
+      },
+      {
+        "prop": "error",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Error message that recolors both controls red and replaces the hint, shown once on the wrapper."
+      },
+      {
+        "prop": "required",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Marks the field required, adding an asterisk to the label as a validation cue."
+      },
+      {
+        "prop": "value",
+        "type": "Date | null",
+        "required": false,
+        "default": "—",
+        "description": "Controlled selected date-time as a Date; pair with onChange to own the value in state."
+      },
+      {
+        "prop": "defaultValue",
+        "type": "Date | null",
+        "required": false,
+        "default": "null",
+        "description": "Initial date-time for uncontrolled usage when value is omitted, defaulting to null."
+      },
+      {
+        "prop": "min",
+        "type": "Date",
+        "required": false,
+        "default": "—",
+        "description": "Earliest selectable date; dates before it are disabled in the calendar grid."
+      },
+      {
+        "prop": "max",
+        "type": "Date",
+        "required": false,
+        "default": "—",
+        "description": "Latest selectable date; dates after it are disabled in the calendar grid."
+      },
+      {
+        "prop": "disabledDate",
+        "type": "(date: Date) => boolean",
+        "required": false,
+        "default": "—",
+        "description": "Predicate to disable arbitrary dates (return true to disable), composing with min/max."
+      },
+      {
+        "prop": "minuteStep",
+        "type": "number",
+        "required": false,
+        "default": "5",
+        "description": "Increment in minutes for the time control's minute column."
+      },
+      {
+        "prop": "secondStep",
+        "type": "number",
+        "required": false,
+        "default": "5",
+        "description": "Increment in seconds for the second column when granularity is \"second\"."
+      },
+      {
+        "prop": "granularity",
+        "type": "\"hour\" | \"minute\" | \"second\"",
+        "required": false,
+        "default": "\"minute\"",
+        "description": "Time granularity: hour only, hour and minute, or down to seconds."
+      },
+      {
+        "prop": "hourCycle",
+        "type": "12 | 24",
+        "required": false,
+        "default": "24",
+        "description": "24-hour time columns, or 12-hour columns with an AM/PM column."
+      },
+      {
+        "prop": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Disables both controls and prevents either popover from opening."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the focus/open accent on both controls using one of six semantic intents."
+      },
+      {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Control height preset applied to both the date and time controls."
+      },
+      {
+        "prop": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Shows a clear (×) on the date control that resets the entire value to null."
+      },
+      {
+        "prop": "weekStartsOn",
+        "type": "0 | 1 | 2 | 3 | 4 | 5 | 6",
+        "required": false,
+        "default": "0",
+        "description": "First day of the calendar week: 0 = Sunday through 6 = Saturday."
+      },
+      {
+        "prop": "locale",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "BCP-47 locale for names and formatting via Intl; omit for the runtime default."
+      },
+      {
+        "prop": "dateFormat",
+        "type": "(date: Date) => string",
+        "required": false,
+        "default": "—",
+        "description": "Custom formatter for the date control's display text."
+      },
+      {
+        "prop": "timeFormat",
+        "type": "(date: Date) => string",
+        "required": false,
+        "default": "—",
+        "description": "Custom formatter for the time control's display text."
+      },
+      {
+        "prop": "onChange",
+        "type": "(date: Date | null) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the merged Date (or null when cleared) after a date or time change."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { DateTimePicker } from \"twico-ui\";\n\nconst [when, setWhen] = useState(null);\n\n<DateTimePicker\n  label=\"Shift start\"\n  value={when}\n  onChange={setWhen}\n  hourCycle={12}\n  minuteStep={15}\n/>",
+    "tagline": "Combined date and time picker"
+  },
+  {
     "name": "Dialog",
     "slug": "dialog",
     "group": "Overlay",

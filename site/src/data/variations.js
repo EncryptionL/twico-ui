@@ -712,6 +712,26 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "DateTimePicker",
+    "title": "Date + time",
+    "i": 0
+  },
+  {
+    "component": "DateTimePicker",
+    "title": "12-hour, 15-minute slots",
+    "i": 1
+  },
+  {
+    "component": "DateTimePicker",
+    "title": "Seconds precision",
+    "i": 2
+  },
+  {
+    "component": "DateTimePicker",
+    "title": "All props",
+    "i": 3
+  },
+  {
     "component": "Dialog",
     "title": "Basic",
     "i": 0
@@ -1968,6 +1988,36 @@ export const VARIATIONS = [
   },
   {
     "component": "Textarea",
+    "title": "All props",
+    "i": 5
+  },
+  {
+    "component": "TimePicker",
+    "title": "With label",
+    "i": 0
+  },
+  {
+    "component": "TimePicker",
+    "title": "12-hour with AM/PM",
+    "i": 1
+  },
+  {
+    "component": "TimePicker",
+    "title": "Seconds granularity",
+    "i": 2
+  },
+  {
+    "component": "TimePicker",
+    "title": "Bounded time-of-day",
+    "i": 3
+  },
+  {
+    "component": "TimePicker",
+    "title": "Typed entry",
+    "i": 4
+  },
+  {
+    "component": "TimePicker",
     "title": "All props",
     "i": 5
   },

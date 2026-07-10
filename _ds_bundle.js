@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"516f1295214f","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"41b7413594bd","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"691f103de498","components/inputs/DateRangePicker.jsx":"5f46b4adc95e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"b53669534cfc","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"868d4f2590f1","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"949f87e6cc35"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"516f1295214f","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"41b7413594bd","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"691f103de498","components/inputs/DateRangePicker.jsx":"5f46b4adc95e","components/inputs/DateTimePicker.jsx":"ac49b3912312","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"b53669534cfc","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"9fe52df38764","components/inputs/TimePicker.jsx":"b5cedc49f13a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"868d4f2590f1","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"1e066ee8cdb2"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -82,6 +82,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     Datatable: () => Datatable,
     DatePicker: () => DatePicker,
     DateRangePicker: () => DateRangePicker,
+    DateTimePicker: () => DateTimePicker,
     Dialog: () => Dialog,
     Divider: () => Divider,
     DonutChart: () => DonutChart,
@@ -134,6 +135,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     Text: () => Text,
     Textarea: () => Textarea,
     ThemeProvider: () => ThemeProvider,
+    TimePicker: () => TimePicker,
     Timeline: () => Timeline,
     Toast: () => Toast,
     ToastProvider: () => ToastProvider,
@@ -1808,9 +1810,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const step = n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10;
     return step * pow;
   }
-  function niceNum(range, round) {
-    const exp = Math.floor(Math.log10(range || 1));
-    const frac = (range || 1) / Math.pow(10, exp);
+  function niceNum(range2, round) {
+    const exp = Math.floor(Math.log10(range2 || 1));
+    const frac = (range2 || 1) / Math.pow(10, exp);
     let nf;
     if (round) nf = frac < 1.5 ? 1 : frac < 3 ? 2 : frac < 7 ? 5 : 10;
     else nf = frac <= 1 ? 1 : frac <= 2 ? 2 : frac <= 5 ? 5 : 10;
@@ -1821,8 +1823,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     if (min === max) {
       max = min + 1;
     }
-    const range = niceNum(max - min, false);
-    const step = niceNum(range / Math.max(1, maxTicks - 1), true);
+    const range2 = niceNum(max - min, false);
+    const step = niceNum(range2 / Math.max(1, maxTicks - 1), true);
     const niceMin = Math.floor(min / step) * step;
     const niceMax = Math.ceil(max / step) * step;
     const ticks = [];
@@ -2600,7 +2602,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       styles,
       /* @__PURE__ */ jsx("svg", { viewBox: `0 0 ${H} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, children: total <= 0 ? /* @__PURE__ */ jsx("text", { className: "twc-chart__empty", x: cx, y: cy, textAnchor: "middle", dominantBaseline: "middle", children: "No data" }) : /* @__PURE__ */ jsxs(Fragment, { children: [
         slices.map(({ d, i, v, s0, s1, span, pct, color }) => {
-          const pad = span > padAngle ? padAngle / 2 : 0;
+          const pad2 = span > padAngle ? padAngle / 2 : 0;
           const items = [{ color, label: fmt(v), value: `${pct}%` }];
           let explode;
           if (selected === i) {
@@ -2619,7 +2621,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
               "data-mark": "",
               "data-active": emph === i ? "true" : void 0,
               "data-selected": selected === i ? "true" : void 0,
-              d: arcPath(cx, cy, rOuter, rInner, s0 + pad, s1 - pad),
+              d: arcPath(cx, cy, rOuter, rInner, s0 + pad2, s1 - pad2),
               onMouseMove: (e) => {
                 setActive(i);
                 show({ title: d.label, items }, e);
@@ -2721,9 +2723,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const cx = size / 2, cy = size / 2;
     const span = endAngle - startAngle;
     const frac = (v) => {
-      const range = max - min;
-      if (!range) return 0;
-      return Math.max(0, Math.min(1, ((Number(v) || 0) - min) / range));
+      const range2 = max - min;
+      if (!range2) return 0;
+      return Math.max(0, Math.min(1, ((Number(v) || 0) - min) / range2));
     };
     const isMulti = Array.isArray(series) && series.length > 0;
     const items = isMulti ? series : [{ value: Number(value) || 0, label, color }];
@@ -2898,9 +2900,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const n = values.length;
     const W = width, H = height;
     const dotR = showDots ? Math.max(2, strokeWidth + 1) : 0;
-    const pad = Math.max(strokeWidth / 2, dotR) + 1;
-    const innerW = Math.max(1, W - pad * 2);
-    const innerH = Math.max(1, H - pad * 2);
+    const pad2 = Math.max(strokeWidth / 2, dotR) + 1;
+    const innerW = Math.max(1, W - pad2 * 2);
+    const innerH = Math.max(1, H - pad2 * 2);
     const dMin = min != null ? min : n ? Math.min(...values) : 0;
     const dMax = max != null ? max : n ? Math.max(...values) : 1;
     let lo = dMin, hi = dMax;
@@ -2909,9 +2911,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       hi = hi + 1;
     }
     const span = hi - lo;
-    const x = (i) => n <= 1 ? pad + innerW / 2 : pad + innerW / (n - 1) * i;
-    const y = (v) => pad + innerH - (v - lo) / span * innerH;
-    const baselineY = pad + innerH;
+    const x = (i) => n <= 1 ? pad2 + innerW / 2 : pad2 + innerW / (n - 1) * i;
+    const y = (v) => pad2 + innerH - (v - lo) / span * innerH;
+    const baselineY = pad2 + innerH;
     const points = values.map((v, i) => [x(i), y(v)]);
     const crv = isBar ? "straight" : curve;
     const pathOpts = { smooth: crv === "smooth", step: crv === "stepped" ? "after" : null };
@@ -2943,7 +2945,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             "data-mark": true,
             "data-selected": selected === i || void 0,
             style: { fill: color },
-            x: pad + band * i + (band - slot) / 2,
+            x: pad2 + band * i + (band - slot) / 2,
             y: baselineY - h,
             width: Math.max(1, slot),
             height: Math.max(1, h),
@@ -4110,8 +4112,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const n = rows.length;
     const fmt = valueFormat || fmtNumber;
     const W = 600, H = height;
-    const pad = 8;
-    const innerW = W - pad * 2, innerH = H - pad * 2;
+    const pad2 = 8;
+    const innerW = W - pad2 * 2, innerH = H - pad2 * 2;
     const values = rows.map((d) => Number(d.value) || 0);
     const maxValue = Math.max(0, ...values);
     const denom = maxValue > 0 ? maxValue : 1;
@@ -4131,16 +4133,16 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       let points, tx, ty;
       if (horizontal) {
         const bandW = innerW / Math.max(1, n);
-        const x0 = pad + bandW * i + gap / 2;
-        const x1 = pad + bandW * (i + 1) - gap / 2;
+        const x0 = pad2 + bandW * i + gap / 2;
+        const x1 = pad2 + bandW * (i + 1) - gap / 2;
         const cy = H / 2;
         points = [[x0, cy - lead], [x1, cy - trail], [x1, cy + trail], [x0, cy + lead]];
         tx = (x0 + x1) / 2;
         ty = cy;
       } else {
         const bandH = innerH / Math.max(1, n);
-        const y0 = pad + bandH * i + gap / 2;
-        const y1 = pad + bandH * (i + 1) - gap / 2;
+        const y0 = pad2 + bandH * i + gap / 2;
+        const y1 = pad2 + bandH * (i + 1) - gap / 2;
         const cx = W / 2;
         points = [[cx - lead, y0], [cx + lead, y0], [cx + trail, y1], [cx - trail, y1]];
         tx = cx;
@@ -9750,7 +9752,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       meas.setAttribute("aria-hidden", "true");
       meas.style.cssText = "position:fixed;left:-9999px;top:-9999px;visibility:hidden;pointer-events:none;white-space:nowrap;display:inline-block;box-sizing:content-box;padding:0;";
       document.body.appendChild(meas);
-      let content = 0, pad = 0;
+      let content = 0, pad2 = 0;
       try {
         for (const cell of cells) {
           const src = cell.tagName === "TH" ? cell.querySelector(".twc-dt__th-inner") || cell : cell;
@@ -9762,13 +9764,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           meas.style.letterSpacing = cs.letterSpacing;
           meas.innerHTML = src.innerHTML;
           content = Math.max(content, meas.scrollWidth);
-          pad = Math.max(pad, (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0));
+          pad2 = Math.max(pad2, (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0));
         }
       } finally {
         meas.innerHTML = "";
         document.body.removeChild(meas);
       }
-      const w = Math.min(640, Math.max(72, Math.ceil(content) + Math.ceil(pad) + 6));
+      const w = Math.min(640, Math.max(72, Math.ceil(content) + Math.ceil(pad2) + 6));
       setWidths((m) => ({ ...m, [field]: w }));
     }
     function onColDrop(targetField) {
@@ -12141,9 +12143,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const __twcStyles0 = useScopedStyles("twc-field-styles", FIELD_CSS4);
     const __twcStyles1 = useScopedStyles("twc-drp-styles", RANGE_CSS2);
     const [internal, setInternal] = import_react.default.useState(defaultValue);
-    const range = value !== void 0 ? value : internal;
+    const range2 = value !== void 0 ? value : internal;
     const [open, setOpen] = import_react.default.useState(false);
-    const [view, setView] = import_react.default.useState(range.start || /* @__PURE__ */ new Date());
+    const [view, setView] = import_react.default.useState(range2.start || /* @__PURE__ */ new Date());
     const [hover, setHover] = import_react.default.useState(null);
     const [focusDate, setFocusDate] = import_react.default.useState(null);
     const [mode, setMode] = import_react.default.useState("days");
@@ -12220,7 +12222,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       const raw = editText.trim();
       if (raw === "") {
         setEditText(null);
-        if (range.start || range.end) set({ start: null, end: null });
+        if (range2.start || range2.end) set({ start: null, end: null });
         return;
       }
       const parts = raw.split(/\s*(?:–|—|\bto\b|\.\.+)\s*/i).map((p) => p.trim());
@@ -12327,13 +12329,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       setView(new Date(next, vm, 1));
       setFocusYear(next);
     };
-    const tabbableDate = focusDate || range.start || /* @__PURE__ */ new Date();
+    const tabbableDate = focusDate || range2.start || /* @__PURE__ */ new Date();
     const clickDay = (d) => {
       if (outOfRange(d)) return;
-      if (!range.start || range.start && range.end) {
+      if (!range2.start || range2.start && range2.end) {
         set({ start: d, end: null });
       } else {
-        const [start, end] = ymd(d) < ymd(range.start) ? [d, range.start] : [range.start, d];
+        const [start, end] = ymd(d) < ymd(range2.start) ? [d, range2.start] : [range2.start, d];
         set({ start, end });
         setOpen(false);
       }
@@ -12358,7 +12360,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const startOffset = (new Date(y, m, 1).getDay() - weekStartsOn + 7) % 7;
     const gridStart = new Date(y, m, 1 - startOffset);
     const edgeOf = (t) => {
-      const s = ymd(range.start), e = ymd(range.end) || (range.start && hover ? ymd(hover) : null);
+      const s = ymd(range2.start), e = ymd(range2.end) || (range2.start && hover ? ymd(hover) : null);
       const lo = s != null && e != null ? Math.min(s, e) : s, hi = s != null && e != null ? Math.max(s, e) : s;
       if (s != null && hi === lo && t === s) return "both";
       if (t === lo) return "start";
@@ -12366,13 +12368,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       return null;
     };
     const inRange = (t) => {
-      const s = ymd(range.start);
-      let e = ymd(range.end);
+      const s = ymd(range2.start);
+      let e = ymd(range2.end);
       if (s != null && e == null && hover) e = ymd(hover);
       if (s == null || e == null) return false;
       return t > Math.min(s, e) && t < Math.max(s, e);
     };
-    const text = range.start ? format ? format(range) : `${fmtD(range.start, locale)} \u2013 ${range.end ? fmtD(range.end, locale) : "\u2026"}` : "";
+    const text = range2.start ? format ? format(range2) : `${fmtD(range2.start, locale)} \u2013 ${range2.end ? fmtD(range2.end, locale) : "\u2026"}` : "";
     return /* @__PURE__ */ jsxs("div", { className: `twc-drp twc-field ${className}`, ref: wrapRef, ...rest, children: [
       __twcStyles0,
       __twcStyles1,
@@ -12414,7 +12416,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               }
             }
           ),
-          clearable && (range.start || range.end) && !disabled ? /* @__PURE__ */ jsx(
+          clearable && (range2.start || range2.end) && !disabled ? /* @__PURE__ */ jsx(
             "button",
             {
               type: "button",
@@ -12472,8 +12474,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               /* @__PURE__ */ jsx("rect", { x: "3", y: "4", width: "18", height: "18", rx: "2" }),
               /* @__PURE__ */ jsx("path", { d: "M16 2v4M8 2v4M3 10h18" })
             ] }) }),
-            /* @__PURE__ */ jsx("span", { className: "twc-drp__text", "data-placeholder": !range.start || void 0, children: range.start ? text : placeholder }),
-            clearable && (range.start || range.end) && !disabled ? /* @__PURE__ */ jsx(
+            /* @__PURE__ */ jsx("span", { className: "twc-drp__text", "data-placeholder": !range2.start || void 0, children: range2.start ? text : placeholder }),
+            clearable && (range2.start || range2.end) && !disabled ? /* @__PURE__ */ jsx(
               "button",
               {
                 type: "button",
@@ -12545,7 +12547,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   })
                 ] }) : mode === "months" ? /* @__PURE__ */ jsx("div", { className: "twc-drp__months", ref: gridRef, onKeyDown: onMonthsKeyDown, role: "grid", children: monthsShort.map((mo, i) => {
                   const disabled2 = min && ymd(new Date(y, i + 1, 0)) < ymd(min) || max && ymd(new Date(y, i, 1)) > ymd(max);
-                  const sel = range.start && range.start.getFullYear() === y && range.start.getMonth() === i || range.end && range.end.getFullYear() === y && range.end.getMonth() === i;
+                  const sel = range2.start && range2.start.getFullYear() === y && range2.start.getMonth() === i || range2.end && range2.end.getFullYear() === y && range2.end.getMonth() === i;
                   return /* @__PURE__ */ jsx(
                     "button",
                     {
@@ -12568,7 +12570,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                 }) }) : /* @__PURE__ */ jsx("div", { className: "twc-drp__years", ref: gridRef, onKeyDown: onYearsKeyDown, role: "grid", children: yearCells.map((yr) => {
                   const outside = yr < decadeStart || yr > decadeStart + 9;
                   const disabled2 = min && ymd(new Date(yr, 11, 31)) < ymd(min) || max && ymd(new Date(yr, 0, 1)) > ymd(max);
-                  const sel = range.start && range.start.getFullYear() === yr || range.end && range.end.getFullYear() === yr;
+                  const sel = range2.start && range2.start.getFullYear() === yr || range2.end && range2.end.getFullYear() === yr;
                   return /* @__PURE__ */ jsx(
                     "button",
                     {
@@ -12596,6 +12598,582 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         ),
         document.body
       ) : null,
+      error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : hint ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__hint", children: hint }) : null
+    ] });
+  }
+  var FIELD_CSS5 = `
+.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
+.twc-field__req { color: var(--color-danger); }
+.twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
+`;
+  var TIMEPICKER_CSS = `
+.twc-tp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
+.twc-tp__control {
+  display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
+  background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
+  cursor: pointer; transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+.twc-tp__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
+.twc-tp__control { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-tp__control[data-size="sm"] { --_h: var(--control-h-sm); }
+.twc-tp__control[data-size="lg"] { --_h: var(--control-h-lg); }
+.twc-tp__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
+.twc-tp__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
+.twc-tp__control[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
+.twc-tp__control[data-tone="info"]    { --_accent: var(--color-info);    --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-info) 32%, transparent); }
+.twc-tp__control[data-tone="neutral"] { --_accent: var(--color-border-strong); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-text) 14%, transparent); }
+.twc-tp__control[data-open="true"] { border-color: var(--_accent); box-shadow: var(--_ring); }
+.twc-tp__control[data-invalid="true"] { border-color: var(--color-danger); }
+.twc-tp__control[data-invalid="true"][data-open="true"] { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
+.twc-tp__control[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
+.twc-tp__field { position: relative; display: flex; flex-direction: column; }
+.twc-tp__control[data-has-clear="true"] { padding-inline-end: 34px; }
+.twc-tp__ic { flex: none; color: var(--color-text-subtle); display: inline-flex; }
+.twc-tp__ic svg { width: 17px; height: 17px; }
+.twc-tp__text { flex: 1; font-size: var(--text-sm); color: var(--color-text); font-variant-numeric: tabular-nums; }
+.twc-tp__text[data-placeholder="true"] { color: var(--color-text-subtle); font-variant-numeric: normal; }
+.twc-tp__clear { position: absolute; inset-inline-end: 10px; top: 50%; transform: translateY(-50%); display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
+.twc-tp__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-tp__clear svg { width: 14px; height: 14px; }
+.twc-tp__control--editable { cursor: text; gap: 0; padding-inline-end: var(--space-1); }
+.twc-tp__input { flex: 1; min-width: 0; height: 100%; border: none; background: transparent; outline: none; padding: 0; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); font-variant-numeric: tabular-nums; }
+.twc-tp__input::placeholder { color: var(--color-text-subtle); font-variant-numeric: normal; }
+.twc-tp__input:disabled { cursor: not-allowed; }
+.twc-tp__clear--inline { position: static; transform: none; flex: none; }
+.twc-tp__toggle { flex: none; display: inline-grid; place-items: center; width: 26px; height: 26px; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast), color var(--duration-fast); }
+.twc-tp__toggle:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-tp__toggle:disabled { cursor: not-allowed; }
+.twc-tp__toggle svg { width: 17px; height: 17px; }
+
+.twc-tp__pop {
+  position: fixed; z-index: var(--z-popover);
+  background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: var(--space-2);
+  animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top;
+}
+.twc-tp__cols { display: flex; gap: var(--space-1); max-height: 232px; }
+.twc-tp__col { display: flex; flex-direction: column; gap: 2px; overflow-y: auto; scrollbar-width: thin; padding-inline: 2px; scroll-behavior: smooth; }
+.twc-tp__col::-webkit-scrollbar { width: 6px; }
+.twc-tp__col::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: var(--radius-full); }
+.twc-tp__col + .twc-tp__col { border-inline-start: var(--border-thin) solid var(--color-divider); }
+.twc-tp__colhead { text-align: center; font-size: 11px; font-weight: var(--font-bold); color: var(--color-text-subtle); text-transform: uppercase; padding: 2px 0 4px; position: sticky; top: 0; background: var(--color-surface-raised); }
+.twc-tp__opt { min-width: 46px; padding: 6px 10px; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); text-align: center; font-variant-numeric: tabular-nums; transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+.twc-tp__opt:hover:not(:disabled):not([data-selected="true"]) { background: var(--color-surface-sunken); }
+.twc-tp__opt[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
+.twc-tp__opt:disabled { opacity: 0.35; cursor: not-allowed; }
+.twc-tp__opt:focus-visible { outline: none; box-shadow: var(--ring); }
+`;
+  var pad = (n) => String(n).padStart(2, "0");
+  var range = (start, end, step) => {
+    const out = [];
+    for (let i = start; i < end; i += step) out.push(i);
+    return out;
+  };
+  var tod = (h, m, s) => h * 3600 + m * 60 + s;
+  var to24 = (dh, mer) => mer === "PM" ? dh === 12 ? 12 : dh + 12 : dh === 12 ? 0 : dh;
+  function TimePicker({
+    label,
+    hint,
+    error,
+    required = false,
+    value,
+    defaultValue = null,
+    placeholder = "Select time",
+    min,
+    max,
+    minuteStep = 5,
+    secondStep = 5,
+    granularity = "minute",
+    // "hour" | "minute" | "second"
+    hourCycle = 24,
+    // 24 | 12
+    referenceDate,
+    disabled = false,
+    tone = "primary",
+    size = "md",
+    clearable = true,
+    editable = false,
+    parse,
+    format,
+    locale,
+    onChange,
+    id,
+    className = "",
+    ...rest
+  }) {
+    const __twcStyles0 = useScopedStyles("twc-field-styles", FIELD_CSS5);
+    const __twcStyles1 = useScopedStyles("twc-timepicker-styles", TIMEPICKER_CSS);
+    const autoId = import_react.default.useId();
+    const fieldId = id || autoId;
+    const descId = `${fieldId}-desc`;
+    const invalid = Boolean(error);
+    const [internal, setInternal] = import_react.default.useState(defaultValue);
+    const selected = value !== void 0 ? value : internal;
+    const [open, setOpen] = import_react.default.useState(false);
+    const [editText, setEditText] = import_react.default.useState(null);
+    const [coords, setCoords] = import_react.default.useState(null);
+    const wrapRef = import_react.default.useRef(null);
+    const triggerRef = import_react.default.useRef(null);
+    const popRef = import_react.default.useRef(null);
+    const place = import_react.default.useCallback(() => {
+      const el = triggerRef.current;
+      if (!el) return;
+      const r2 = el.getBoundingClientRect();
+      const vh = window.innerHeight, POP_W = 220;
+      const below = vh - r2.bottom;
+      const flip = below < 300 && r2.top > below;
+      let left = Math.min(r2.left, window.innerWidth - POP_W - 8);
+      left = Math.max(8, left);
+      setCoords({ left, top: flip ? void 0 : Math.round(r2.bottom + 6), bottom: flip ? Math.round(vh - r2.top + 6) : void 0 });
+    }, []);
+    import_react.default.useEffect(() => {
+      if (!open) return void 0;
+      place();
+      const onMove = () => place();
+      window.addEventListener("scroll", onMove, true);
+      window.addEventListener("resize", onMove);
+      return () => {
+        window.removeEventListener("scroll", onMove, true);
+        window.removeEventListener("resize", onMove);
+      };
+    }, [open, place]);
+    import_react.default.useEffect(() => {
+      if (!open) return void 0;
+      const onDown = (e) => {
+        if (wrapRef.current && wrapRef.current.contains(e.target)) return;
+        if (popRef.current && popRef.current.contains(e.target)) return;
+        setOpen(false);
+      };
+      const onKey = (e) => {
+        if (e.key === "Escape") setOpen(false);
+      };
+      document.addEventListener("mousedown", onDown);
+      document.addEventListener("keydown", onKey);
+      return () => {
+        document.removeEventListener("mousedown", onDown);
+        document.removeEventListener("keydown", onKey);
+      };
+    }, [open]);
+    useFocusTrap(popRef, open && !!coords, {
+      initialFocus: () => popRef.current?.querySelector('.twc-tp__opt[data-selected="true"]') || popRef.current?.querySelector('.twc-tp__opt[tabindex="0"]')
+    });
+    import_react.default.useEffect(() => {
+      if (!open || !coords) return;
+      popRef.current?.querySelectorAll('.twc-tp__opt[data-selected="true"]').forEach((el) => el.scrollIntoView({ block: "center" }));
+    }, [open, coords]);
+    const refBase = referenceDate || /* @__PURE__ */ new Date();
+    const minTod = min ? tod(min.getHours(), min.getMinutes(), min.getSeconds()) : null;
+    const maxTod = max ? tod(max.getHours(), max.getMinutes(), max.getSeconds()) : null;
+    const outOfRange = (h, m, s) => minTod != null && tod(h, m, s) < minTod || maxTod != null && tod(h, m, s) > maxTod;
+    const curH = selected ? selected.getHours() : null;
+    const curM = selected ? selected.getMinutes() : null;
+    const curS = selected ? selected.getSeconds() : null;
+    const curMer = curH == null ? "AM" : curH < 12 ? "AM" : "PM";
+    const fmt = (d) => {
+      if (!d) return "";
+      if (format) return format(d);
+      const opts = { hour: hourCycle === 12 ? "numeric" : "2-digit", minute: "2-digit", hour12: hourCycle === 12 };
+      if (granularity === "second") opts.second = "2-digit";
+      if (granularity === "hour") delete opts.minute;
+      return d.toLocaleTimeString(locale, opts);
+    };
+    const commit = (h, m, s) => {
+      const b = selected || refBase;
+      const d = new Date(b.getFullYear(), b.getMonth(), b.getDate(), h, m, s, 0);
+      if (value === void 0) setInternal(d);
+      onChange?.(d);
+      setEditText(null);
+    };
+    const pickHour = (h) => commit(h, granularity === "hour" ? 0 : curM ?? 0, granularity === "second" ? curS ?? 0 : 0);
+    const pickMinute = (m) => commit(curH ?? refBase.getHours(), m, granularity === "second" ? curS ?? 0 : 0);
+    const pickSecond = (s) => commit(curH ?? refBase.getHours(), curM ?? 0, s);
+    const pickMeridiem = (mer) => {
+      const dh = curH == null ? 0 : curH % 12 === 0 ? 12 : curH % 12;
+      commit(to24(dh, mer), curM ?? 0, granularity === "second" ? curS ?? 0 : 0);
+    };
+    const clear = () => {
+      if (value === void 0) setInternal(null);
+      onChange?.(null);
+      setEditText(null);
+    };
+    const parseTyped = (str) => {
+      const s = str.trim();
+      if (s === "") return null;
+      if (parse) {
+        const d = parse(s);
+        return d instanceof Date && !Number.isNaN(d.getTime()) ? d : void 0;
+      }
+      const mm = s.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?\s*([ap]m)?$/i);
+      if (!mm) return void 0;
+      let h = +mm[1];
+      const mi = +mm[2];
+      const se = mm[3] ? +mm[3] : 0;
+      const mer = mm[4] && mm[4].toLowerCase();
+      if (mer === "pm" && h < 12) h += 12;
+      else if (mer === "am" && h === 12) h = 0;
+      if (h > 23 || mi > 59 || se > 59) return void 0;
+      const b = selected || refBase;
+      return new Date(b.getFullYear(), b.getMonth(), b.getDate(), h, mi, se, 0);
+    };
+    const commitText = () => {
+      if (editText == null) return;
+      const parsed = parseTyped(editText);
+      if (parsed === null) {
+        setEditText(null);
+        if (selected) clear();
+        return;
+      }
+      if (parsed === void 0 || outOfRange(parsed.getHours(), parsed.getMinutes(), parsed.getSeconds())) {
+        setEditText(null);
+        return;
+      }
+      commit(parsed.getHours(), parsed.getMinutes(), parsed.getSeconds());
+      setOpen(false);
+    };
+    const hourVals = hourCycle === 12 ? [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] : range(0, 24, 1);
+    const columns = [
+      {
+        key: "h",
+        head: "hr",
+        aria: "Hour",
+        items: hourVals.map((hv) => {
+          const h24 = hourCycle === 12 ? to24(hv, curMer) : hv;
+          return {
+            val: hv,
+            text: hourCycle === 12 ? String(hv) : pad(hv),
+            selected: curH != null && h24 === curH,
+            disabled: outOfRange(h24, 0, 0) && outOfRange(h24, 59, 59),
+            onSelect: () => pickHour(h24)
+          };
+        })
+      }
+    ];
+    if (granularity !== "hour") {
+      const h = curH ?? refBase.getHours();
+      columns.push({ key: "m", head: "min", aria: "Minute", items: range(0, 60, minuteStep).map((mv) => ({
+        val: mv,
+        text: pad(mv),
+        selected: curM != null && mv === curM,
+        disabled: outOfRange(h, mv, 0) && outOfRange(h, mv, 59),
+        onSelect: () => pickMinute(mv)
+      })) });
+    }
+    if (granularity === "second") {
+      const h = curH ?? refBase.getHours(), m = curM ?? 0;
+      columns.push({ key: "s", head: "sec", aria: "Second", items: range(0, 60, secondStep).map((sv) => ({
+        val: sv,
+        text: pad(sv),
+        selected: curS != null && sv === curS,
+        disabled: outOfRange(h, m, sv),
+        onSelect: () => pickSecond(sv)
+      })) });
+    }
+    if (hourCycle === 12) {
+      columns.push({ key: "mer", head: "", aria: "AM or PM", items: ["AM", "PM"].map((mer) => ({
+        val: mer,
+        text: mer,
+        selected: curH != null && curMer === mer,
+        disabled: [...Array(12)].every((_, i) => {
+          const hh = mer === "AM" ? i : i + 12;
+          return outOfRange(hh, 0, 0) && outOfRange(hh, 59, 59);
+        }),
+        onSelect: () => pickMeridiem(mer)
+      })) });
+    }
+    const onOptKey = (e) => {
+      const btn = e.target;
+      const col = btn.closest("[data-col]");
+      if (!col) return;
+      const opts = Array.from(col.querySelectorAll(".twc-tp__opt:not(:disabled)"));
+      const i = opts.indexOf(btn);
+      let target;
+      if (e.key === "ArrowDown") target = opts[Math.min(i + 1, opts.length - 1)];
+      else if (e.key === "ArrowUp") target = opts[Math.max(i - 1, 0)];
+      else if (e.key === "Home") target = opts[0];
+      else if (e.key === "End") target = opts[opts.length - 1];
+      else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        const cols = Array.from(popRef.current.querySelectorAll("[data-col]"));
+        const nextCol = cols[cols.indexOf(col) + (e.key === "ArrowRight" ? 1 : -1)];
+        if (nextCol) {
+          const nopts = Array.from(nextCol.querySelectorAll(".twc-tp__opt:not(:disabled)"));
+          target = nextCol.querySelector('.twc-tp__opt[data-selected="true"]') || nopts[Math.min(i, nopts.length - 1)] || nopts[0];
+        }
+      } else return;
+      e.preventDefault();
+      target?.focus();
+    };
+    const clockIcon = /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+      /* @__PURE__ */ jsx("circle", { cx: "12", cy: "12", r: "9" }),
+      /* @__PURE__ */ jsx("path", { d: "M12 7v5l3 2" })
+    ] });
+    return /* @__PURE__ */ jsxs("div", { className: `twc-tp twc-field ${className}`, ref: wrapRef, ...rest, children: [
+      __twcStyles0,
+      __twcStyles1,
+      label ? /* @__PURE__ */ jsxs("label", { className: "twc-field__label", id: `${fieldId}-label`, children: [
+        label,
+        required ? /* @__PURE__ */ jsx("span", { className: "twc-field__req", children: "*" }) : null
+      ] }) : null,
+      /* @__PURE__ */ jsx("div", { className: "twc-tp__field", children: editable ? /* @__PURE__ */ jsxs(
+        "div",
+        {
+          className: "twc-tp__control twc-tp__control--editable",
+          "data-open": open || void 0,
+          "data-disabled": disabled || void 0,
+          "data-tone": tone,
+          "data-invalid": invalid || void 0,
+          "data-size": size,
+          children: [
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                ref: triggerRef,
+                className: "twc-tp__input",
+                id: fieldId,
+                type: "text",
+                inputMode: "numeric",
+                autoComplete: "off",
+                disabled,
+                placeholder,
+                value: editText != null ? editText : selected ? fmt(selected) : "",
+                "aria-haspopup": "dialog",
+                "aria-expanded": open,
+                "aria-labelledby": label ? `${fieldId}-label` : void 0,
+                "aria-invalid": invalid || void 0,
+                "aria-describedby": error || hint ? descId : void 0,
+                onChange: (e) => setEditText(e.target.value),
+                onKeyDown: (e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    commitText();
+                  } else if (e.key === "ArrowDown" && (e.altKey || !open)) {
+                    e.preventDefault();
+                    setOpen(true);
+                  } else if (e.key === "Escape" && open) setOpen(false);
+                },
+                onBlur: (e) => {
+                  if (popRef.current && popRef.current.contains(e.relatedTarget)) return;
+                  commitText();
+                }
+              }
+            ),
+            clearable && selected && !disabled ? /* @__PURE__ */ jsx(
+              "button",
+              {
+                type: "button",
+                className: "twc-tp__clear twc-tp__clear--inline",
+                "aria-label": "Clear",
+                tabIndex: -1,
+                onMouseDown: (e) => e.preventDefault(),
+                onClick: clear,
+                children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) })
+              }
+            ) : null,
+            /* @__PURE__ */ jsx(
+              "button",
+              {
+                type: "button",
+                className: "twc-tp__toggle",
+                "aria-label": "Open time list",
+                tabIndex: -1,
+                disabled,
+                onClick: () => !disabled && setOpen((o) => !o),
+                children: clockIcon
+              }
+            )
+          ]
+        }
+      ) : /* @__PURE__ */ jsxs(Fragment, { children: [
+        /* @__PURE__ */ jsxs(
+          "div",
+          {
+            ref: triggerRef,
+            className: "twc-tp__control",
+            id: fieldId,
+            "data-open": open || void 0,
+            "data-disabled": disabled || void 0,
+            "data-size": size,
+            "data-tone": tone,
+            "data-has-clear": clearable && selected && !disabled ? "true" : void 0,
+            "data-invalid": invalid || void 0,
+            role: "button",
+            tabIndex: disabled ? -1 : 0,
+            "aria-haspopup": "dialog",
+            "aria-expanded": open,
+            "aria-labelledby": label ? `${fieldId}-label` : void 0,
+            "aria-invalid": invalid || void 0,
+            "aria-describedby": error || hint ? descId : void 0,
+            onClick: () => !disabled && setOpen((o) => !o),
+            onKeyDown: (e) => {
+              if ((e.key === "Enter" || e.key === " ") && !disabled) {
+                e.preventDefault();
+                setOpen((o) => !o);
+              }
+            },
+            children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-tp__ic", "aria-hidden": "true", children: clockIcon }),
+              /* @__PURE__ */ jsx("span", { className: "twc-tp__text", "data-placeholder": !selected || void 0, children: selected ? fmt(selected) : placeholder })
+            ]
+          }
+        ),
+        clearable && selected && !disabled ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-tp__clear", "aria-label": "Clear", onClick: (e) => {
+          e.stopPropagation();
+          clear();
+        }, children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) }) }) : null
+      ] }) }),
+      open && coords ? (0, import_react_dom.createPortal)(
+        /* @__PURE__ */ jsx(
+          "div",
+          {
+            className: "twc-tp__pop",
+            ref: popRef,
+            role: "dialog",
+            "aria-modal": "true",
+            "aria-label": "Choose time",
+            style: { position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" },
+            children: /* @__PURE__ */ jsx("div", { className: "twc-tp__cols", children: columns.map((col) => {
+              const firstTab = col.items.find((it) => it.selected) || col.items.find((it) => !it.disabled);
+              return /* @__PURE__ */ jsxs("div", { className: "twc-tp__col", role: "listbox", "aria-label": col.aria, "data-col": col.key, children: [
+                col.head ? /* @__PURE__ */ jsx("div", { className: "twc-tp__colhead", "aria-hidden": "true", children: col.head }) : null,
+                col.items.map((it) => /* @__PURE__ */ jsx(
+                  "button",
+                  {
+                    type: "button",
+                    className: "twc-tp__opt",
+                    role: "option",
+                    "aria-selected": it.selected || false,
+                    "data-selected": it.selected || void 0,
+                    "data-val": it.val,
+                    disabled: it.disabled || void 0,
+                    tabIndex: it === firstTab ? 0 : -1,
+                    onClick: it.onSelect,
+                    onKeyDown: onOptKey,
+                    children: it.text
+                  },
+                  it.val
+                ))
+              ] }, col.key);
+            }) })
+          }
+        ),
+        document.body
+      ) : null,
+      error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : hint ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__hint", children: hint }) : null
+    ] });
+  }
+  var FIELD_CSS6 = `
+.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
+.twc-field__req { color: var(--color-danger); }
+.twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
+`;
+  var DTP_CSS = `
+.twc-dtp { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-dtp__row { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: flex-start; }
+.twc-dtp__date { flex: 1 1 11rem; min-width: 9rem; }
+.twc-dtp__time { flex: 0 1 8rem; min-width: 7rem; }
+`;
+  function DateTimePicker({
+    label,
+    hint,
+    error,
+    required = false,
+    value,
+    defaultValue = null,
+    disabled = false,
+    tone = "primary",
+    size = "md",
+    clearable = true,
+    min,
+    max,
+    disabledDate,
+    minuteStep = 5,
+    secondStep = 5,
+    granularity = "minute",
+    hourCycle = 24,
+    locale,
+    weekStartsOn = 0,
+    dateFormat,
+    timeFormat,
+    datePlaceholder = "Select date",
+    timePlaceholder = "Time",
+    onChange,
+    id,
+    className = "",
+    ...rest
+  }) {
+    const __twcStyles0 = useScopedStyles("twc-field-styles", FIELD_CSS6);
+    const __twcStyles1 = useScopedStyles("twc-datetimepicker-styles", DTP_CSS);
+    const autoId = import_react.default.useId();
+    const fieldId = id || autoId;
+    const descId = `${fieldId}-desc`;
+    const [internal, setInternal] = import_react.default.useState(defaultValue);
+    const selected = value !== void 0 ? value : internal;
+    const commitVal = (d) => {
+      if (value === void 0) setInternal(d);
+      onChange?.(d);
+    };
+    const onDateChange = (d) => {
+      if (!d) return commitVal(null);
+      const b = selected;
+      commitVal(new Date(d.getFullYear(), d.getMonth(), d.getDate(), b ? b.getHours() : 0, b ? b.getMinutes() : 0, b ? b.getSeconds() : 0, 0));
+    };
+    const onTimeChange = (t) => {
+      if (!t) return;
+      const b = selected;
+      commitVal(new Date(b ? b.getFullYear() : t.getFullYear(), b ? b.getMonth() : t.getMonth(), b ? b.getDate() : t.getDate(), t.getHours(), t.getMinutes(), t.getSeconds(), 0));
+    };
+    const childTone = error ? "danger" : tone;
+    return /* @__PURE__ */ jsxs("div", { className: `twc-dtp twc-field ${className}`, id: fieldId, ...rest, children: [
+      __twcStyles0,
+      __twcStyles1,
+      label ? /* @__PURE__ */ jsxs("label", { className: "twc-field__label", id: `${fieldId}-label`, children: [
+        label,
+        required ? /* @__PURE__ */ jsx("span", { className: "twc-field__req", children: "*" }) : null
+      ] }) : null,
+      /* @__PURE__ */ jsxs("div", { className: "twc-dtp__row", role: "group", "aria-labelledby": label ? `${fieldId}-label` : void 0, "aria-describedby": error || hint ? descId : void 0, children: [
+        /* @__PURE__ */ jsx("div", { className: "twc-dtp__date", children: /* @__PURE__ */ jsx(
+          DatePicker,
+          {
+            value: selected,
+            onChange: onDateChange,
+            disabled,
+            tone: childTone,
+            size,
+            clearable,
+            min,
+            max,
+            disabledDate,
+            locale,
+            weekStartsOn,
+            format: dateFormat,
+            placeholder: datePlaceholder,
+            "aria-label": "Date"
+          }
+        ) }),
+        /* @__PURE__ */ jsx("div", { className: "twc-dtp__time", children: /* @__PURE__ */ jsx(
+          TimePicker,
+          {
+            value: selected,
+            onChange: onTimeChange,
+            disabled,
+            tone: childTone,
+            size,
+            clearable: false,
+            minuteStep,
+            secondStep,
+            granularity,
+            hourCycle,
+            locale,
+            referenceDate: selected || void 0,
+            format: timeFormat,
+            placeholder: timePlaceholder,
+            "aria-label": "Time"
+          }
+        ) })
+      ] }),
       error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : hint ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__hint", children: hint }) : null
     ] });
   }
@@ -12916,7 +13494,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       actions ? /* @__PURE__ */ jsx("div", { className: "twc-empty__actions", children: actions }) : null
     ] });
   }
-  var FIELD_CSS5 = `
+  var FIELD_CSS7 = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
@@ -12935,7 +13513,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     children,
     ...rest
   }) {
-    const __twcStyles = useScopedStyles("twc-field-styles", FIELD_CSS5);
+    const __twcStyles = useScopedStyles("twc-field-styles", FIELD_CSS7);
     const autoId = import_react.default.useId();
     const fieldId = id || autoId;
     const descId = `${fieldId}-desc`;
@@ -14486,7 +15064,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     tone = "primary",
     disabled = false,
     size = "md",
-    range = false,
+    range: range2 = false,
     showValue = true,
     showTicks = false,
     formatValue,
@@ -14514,7 +15092,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const __twcStyles = useScopedStyles("twc-slider-styles", SLIDER_CSS);
     const autoId = import_react.default.useId();
     const fieldId = id || autoId;
-    const isRange = range || Array.isArray(value) || Array.isArray(defaultValue);
+    const isRange = range2 || Array.isArray(value) || Array.isArray(defaultValue);
     const [internal, setInternal] = import_react.default.useState(() => {
       if (isRange) {
         const dv = Array.isArray(defaultValue) ? defaultValue : [min, max];

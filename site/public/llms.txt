@@ -207,7 +207,7 @@ in the examples.
 
 ---
 
-## Component reference (76 components)
+## Component reference (78 components)
 
 ### Buttons & actions
 
@@ -788,6 +788,50 @@ const [range, setRange] = useState({ start: null, end: null });
 />
 ```
 
+#### DateTimePicker
+
+DateTimePicker combines a calendar and a time-column popover over a single Date value: picking a day keeps the current time and vice-versa. It composes DatePicker and TimePicker side by side, so it inherits both — min/max bound the date while the time stays free.
+
+`import { DateTimePicker } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Optional field label rendered above the date/time pair to name and associate it.
+- `hint` — `React.ReactNode` — Helper text shown below the controls when there is no error message set.
+- `error` — `React.ReactNode` — Error message that recolors both controls red and replaces the hint, shown once on the wrapper.
+- `required` — `boolean` · default `false` — Marks the field required, adding an asterisk to the label as a validation cue.
+- `value` — `Date | null` — Controlled selected date-time as a Date; pair with onChange to own the value in state.
+- `defaultValue` — `Date | null` · default `null` — Initial date-time for uncontrolled usage when value is omitted, defaulting to null.
+- `min` — `Date` — Earliest selectable date; dates before it are disabled in the calendar grid.
+- `max` — `Date` — Latest selectable date; dates after it are disabled in the calendar grid.
+- `disabledDate` — `(date: Date) => boolean` — Predicate to disable arbitrary dates (return true to disable), composing with min/max.
+- `minuteStep` — `number` · default `5` — Increment in minutes for the time control's minute column.
+- `secondStep` — `number` · default `5` — Increment in seconds for the second column when granularity is "second".
+- `granularity` — `"hour" | "minute" | "second"` · default `"minute"` — Time granularity: hour only, hour and minute, or down to seconds.
+- `hourCycle` — `12 | 24` · default `24` — 24-hour time columns, or 12-hour columns with an AM/PM column.
+- `disabled` — `boolean` · default `false` — Disables both controls and prevents either popover from opening.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent on both controls using one of six semantic intents.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Control height preset applied to both the date and time controls.
+- `clearable` — `boolean` · default `true` — Shows a clear (×) on the date control that resets the entire value to null.
+- `weekStartsOn` — `0 | 1 | 2 | 3 | 4 | 5 | 6` · default `0` — First day of the calendar week: 0 = Sunday through 6 = Saturday.
+- `locale` — `string` — BCP-47 locale for names and formatting via Intl; omit for the runtime default.
+- `dateFormat` — `(date: Date) => string` — Custom formatter for the date control's display text.
+- `timeFormat` — `(date: Date) => string` — Custom formatter for the time control's display text.
+- `onChange` — `(date: Date | null) => void` — Fires with the merged Date (or null when cleared) after a date or time change.
+
+```jsx
+import { DateTimePicker } from "twico-ui";
+
+const [when, setWhen] = useState(null);
+
+<DateTimePicker
+  label="Shift start"
+  value={when}
+  onChange={setWhen}
+  hourCycle={12}
+  minuteStep={15}
+/>
+```
+
 #### Field
 
 Field is the reusable form-field wrapper that supplies the label, required asterisk, helper hint, and error message (with the matching ARIA ids) that Input and Select already use internally. Wrap any control with it to get consistent field spacing, the danger-colored error treatment, and the aria-describedby target without re-implementing the markup.
@@ -1165,6 +1209,50 @@ import { Textarea } from "twico-ui";
   rows={4}
   placeholder="Tell us about yourself"
   hint="Max 280 characters"
+/>
+```
+
+#### TimePicker
+
+TimePicker is a time-of-day input with a column-spinner popover: scrollable hour, minute, and optional second columns, plus an AM/PM column in 12-hour mode. It emits a Date (so it composes with DatePicker) and bounds the selectable time via min/max.
+
+`import { TimePicker } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Optional field label rendered above the control to name it and associate it for accessibility.
+- `hint` — `React.ReactNode` — Helper text shown below the control when there is no error message set.
+- `error` — `React.ReactNode` — Error message that turns the control red and replaces the hint text below it.
+- `required` — `boolean` · default `false` — Marks the field required, adding an asterisk to the label as a validation cue.
+- `value` — `Date | null` — Controlled selected time as a Date; pair with onChange to own the value in state.
+- `defaultValue` — `Date | null` · default `null` — Initial time for uncontrolled usage when value is omitted, defaulting to null so it starts empty.
+- `placeholder` — `string` · default `"Select time"` — Text shown in the trigger when no time has been selected yet.
+- `min` — `Date` — Earliest selectable time-of-day; only the hours, minutes, and seconds are compared.
+- `max` — `Date` — Latest selectable time-of-day; options past it are disabled in the columns.
+- `minuteStep` — `number` · default `5` — Increment in minutes for the minute column, so 15 yields :00/:15/:30/:45 options.
+- `secondStep` — `number` · default `5` — Increment in seconds for the second column, used only when granularity is "second".
+- `granularity` — `"hour" | "minute" | "second"` · default `"minute"` — Which columns render: hour only, hour and minute, or down to seconds.
+- `hourCycle` — `12 | 24` · default `24` — Show 24-hour columns, or 12-hour columns with a dedicated AM/PM column.
+- `referenceDate` — `Date` · default `today` — Date whose year/month/day is used for the emitted Date when no value is set yet.
+- `disabled` — `boolean` · default `false` — Disables the control and prevents the time popover from opening.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border and ring) using one of six semantic intents.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Control height preset for aligning with other form fields in the same row.
+- `clearable` — `boolean` · default `true` — Shows a clear (×) button when a time is set, resetting the value to null.
+- `editable` — `boolean` · default `false` — Renders the trigger as a typeable text input with a trailing toggle for direct entry.
+- `parse` — `(text: string) => Date | null` — Parses typed text into a Date when editable; defaults to an HH:MM[:SS] am/pm matcher.
+- `format` — `(date: Date) => string` — Custom display formatter; defaults to a localized time honoring hourCycle and granularity.
+- `locale` — `string` — BCP-47 locale for time formatting via Intl; omit for the runtime default.
+- `onChange` — `(date: Date | null) => void` — Fires with the newly selected Date (or null when cleared) after each column pick.
+
+```jsx
+import { TimePicker } from "twico-ui";
+
+const [time, setTime] = useState(null);
+
+<TimePicker
+  label="Start time"
+  value={time}
+  onChange={setTime}
+  minuteStep={15}
 />
 ```
 
