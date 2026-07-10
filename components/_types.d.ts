@@ -37,6 +37,18 @@ export type Sx = React.CSSProperties & {
   [selector: string]: React.CSSProperties[keyof React.CSSProperties] | string | number | Sx | undefined;
 };
 
+/**
+ * Props mixin for the components that accept the {@link Sx} escape hatch (#221). The sx-capable
+ * set is exactly the primitives that render a **single styleable root element**: `Box`, `Stack`,
+ * `Grid`, `Container` (layout), `Text`, `Heading` (typography), and `Card`. Multi-element
+ * composites (Input, Select, Combobox, MultiSelect, Dialog, …) intentionally omit `sx` because a
+ * single style target is ambiguous there — they would need an explicit per-slot API. See docs/sx.md.
+ */
+export interface WithSx {
+  /** Style escape hatch: flat CSS goes inline (wins over the base style); nested selectors/at-rules compile to a scoped stylesheet. See {@link Sx}. */
+  sx?: Sx;
+}
+
 // ── Polymorphic component type kit ────────────────────────────────────────────
 // Powers the `as`-driven primitives (Box, Stack, Grid, Container, Text, Heading).
 // Passing `as="a"` narrows the accepted props to that element's attributes (href,

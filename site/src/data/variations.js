@@ -292,6 +292,26 @@ export const VARIATIONS = [
     "i": 3
   },
   {
+    "component": "CardGrid",
+    "title": "Client grid",
+    "i": 0
+  },
+  {
+    "component": "CardGrid",
+    "title": "Search + sort toolbar",
+    "i": 1
+  },
+  {
+    "component": "CardGrid",
+    "title": "Server mode",
+    "i": 2
+  },
+  {
+    "component": "CardGrid",
+    "title": "Empty state",
+    "i": 3
+  },
+  {
     "component": "Card",
     "title": "Variants",
     "i": 0
@@ -712,6 +732,26 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "DateTimePicker",
+    "title": "Date + time",
+    "i": 0
+  },
+  {
+    "component": "DateTimePicker",
+    "title": "12-hour, 15-minute slots",
+    "i": 1
+  },
+  {
+    "component": "DateTimePicker",
+    "title": "Seconds precision",
+    "i": 2
+  },
+  {
+    "component": "DateTimePicker",
+    "title": "All props",
+    "i": 3
+  },
+  {
     "component": "Dialog",
     "title": "Basic",
     "i": 0
@@ -740,6 +780,26 @@ export const VARIATIONS = [
     "component": "Dialog",
     "title": "All props",
     "i": 5
+  },
+  {
+    "component": "DiffTable",
+    "title": "Version compare",
+    "i": 0
+  },
+  {
+    "component": "DiffTable",
+    "title": "Show every row",
+    "i": 1
+  },
+  {
+    "component": "DiffTable",
+    "title": "Reorder → moved",
+    "i": 2
+  },
+  {
+    "component": "DiffTable",
+    "title": "No toggle or summary",
+    "i": 3
   },
   {
     "component": "Divider",
@@ -900,6 +960,21 @@ export const VARIATIONS = [
     "component": "FileUpload",
     "title": "All props",
     "i": 4
+  },
+  {
+    "component": "FilterBar",
+    "title": "Faceted bar + normalized output",
+    "i": 0
+  },
+  {
+    "component": "FilterBar",
+    "title": "Number + select facets",
+    "i": 1
+  },
+  {
+    "component": "FilterBar",
+    "title": "Dependent / cascading options",
+    "i": 2
   },
   {
     "component": "FunnelChart",
@@ -1968,6 +2043,36 @@ export const VARIATIONS = [
   },
   {
     "component": "Textarea",
+    "title": "All props",
+    "i": 5
+  },
+  {
+    "component": "TimePicker",
+    "title": "With label",
+    "i": 0
+  },
+  {
+    "component": "TimePicker",
+    "title": "12-hour with AM/PM",
+    "i": 1
+  },
+  {
+    "component": "TimePicker",
+    "title": "Seconds granularity",
+    "i": 2
+  },
+  {
+    "component": "TimePicker",
+    "title": "Bounded time-of-day",
+    "i": 3
+  },
+  {
+    "component": "TimePicker",
+    "title": "Typed entry",
+    "i": 4
+  },
+  {
+    "component": "TimePicker",
     "title": "All props",
     "i": 5
   },

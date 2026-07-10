@@ -31,6 +31,13 @@ const CAROUSEL_CSS = `
 .twc-carousel__pause svg { width: 15px; height: 15px; display: block; }
 .twc-carousel__live { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+/* WCAG 2.3.3: no slide/dot/arrow motion when the user asks for reduced motion — the index
+   still changes, it just jumps rather than tweening. */
+@media (prefers-reduced-motion: reduce) {
+  .twc-carousel__track { transition: none; }
+  .twc-carousel__dot { transition: none; }
+  .twc-carousel__arrow { transition: none; }
+}
 `;
 
 export function Carousel({
@@ -156,7 +163,7 @@ export function Carousel({
       {showDots && count > 1 ? (
         <div className="twc-carousel__dots">
           {slides.map((_, i) => (
-            <button key={i} className="twc-carousel__dot" data-active={i === index || undefined} aria-label={`Go to slide ${i + 1}`} onClick={() => go(i)} />
+            <button key={i} className="twc-carousel__dot" data-active={i === index || undefined} aria-current={i === index ? "true" : undefined} aria-label={`Go to slide ${i + 1}`} onClick={() => go(i)} />
           ))}
         </div>
       ) : null}

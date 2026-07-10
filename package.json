@@ -92,9 +92,9 @@
     "prepublishOnly": "npm run build:css && npm run gen:llms && npm run build"
   },
   "peerDependencies": {
+    "lucide-react": ">=0.300.0",
     "react": ">=18",
-    "react-dom": ">=18",
-    "lucide-react": ">=0.300.0"
+    "react-dom": ">=18"
   },
   "peerDependenciesMeta": {
     "lucide-react": {
@@ -105,7 +105,7 @@
     "esbuild": "^0.28.1"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.18.3",
+    "@arethetypeswrong/cli": "^0.18.5",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@size-limit/preset-small-lib": "^12.1.0",
@@ -115,12 +115,12 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "jsdom": "^29.1.1",
-    "lucide-react": "^1.21.0",
+    "lucide-react": "^1.24.0",
     "semantic-release": "^25.0.5",
     "size-limit": "^12.1.0",
     "tsup": "^8.3.5",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.9"
+    "vitest": "^4.1.10"
   },
   "size-limit": [
     {

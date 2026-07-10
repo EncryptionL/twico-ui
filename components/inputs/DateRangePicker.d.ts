@@ -26,8 +26,11 @@ export interface DateRangePickerProps extends Omit<React.HTMLAttributes<HTMLDivE
   /** Uncontrolled initial range. @default { start: null, end: null } */
   defaultValue?: DateRange;
   placeholder?: string;
-  /** Show the quick-preset column. @default true */
-  presets?: boolean;
+  /** Quick-preset column: `true` for the built-in rolling-day presets (Last 7/14/30/90), `false` to
+   *  hide it, or a custom array of `{ label, range }` where `range` is a `DateRange` or a
+   *  `() => DateRange` resolved at click time (for calendar-aligned presets like This month / YTD).
+   *  @default true */
+  presets?: boolean | Array<{ label: string; range: DateRange | (() => DateRange) }>;
   /** BCP-47 locale for month/weekday names + date formatting (Intl). Omit for the runtime default. @default undefined */
   locale?: string;
   /** First day of week: 0 = Sunday … 6 = Saturday. @default 0 */
@@ -42,6 +45,12 @@ export interface DateRangePickerProps extends Omit<React.HTMLAttributes<HTMLDivE
   disabled?: boolean;
   /** Color intent for the focus/open accent. @default "primary" */
   tone?: Tone;
+  /** Control size. @default "md" */
+  size?: "sm" | "md" | "lg";
+  /** Show a clear (×) button when a range is set; clicking it resets both endpoints. @default true */
+  clearable?: boolean;
+  /** Custom display formatter for the range (defaults to a localized "start – end"). With `editable`, keep it compatible with `parse` so the text round-trips. */
+  format?: (range: DateRange) => string;
   /** Render the trigger as a typeable input accepting "start – end"; typed text commits via `parse` on Enter/blur. @default false */
   editable?: boolean;
   /** Parse one side of the typed range into a Date (used when `editable`). Return a `Date` to accept, `null`/invalid to reject. Defaults to a lenient `Date.parse`. */

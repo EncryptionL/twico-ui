@@ -7,10 +7,10 @@ import type { Tone } from "../_types";
 export interface SpinnerProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** @default "md" */
   size?: "sm" | "md" | "lg" | "xl";
-  /** Color. Wins over `tone` when both are set. @default "current" — inherits currentColor (visible inside buttons, themed). */
-  color?: "current" | Tone | "white";
-  /** Color. @deprecated since 1.4, removed in 2.0 — use `color`. @default "current" — inherits currentColor (visible inside buttons, themed). */
+  /** Colour intent; wins over `color` when both are set. @default "current" — inherits currentColor (visible inside buttons, themed). */
   tone?: "current" | Tone | "white";
+  /** Colour intent. @deprecated removed in 2.0 — use `tone` (matches every other tone-driven component). @default "current" */
+  color?: "current" | Tone | "white";
   /** Accessible label. @default "Loading" */
   label?: string;
 }

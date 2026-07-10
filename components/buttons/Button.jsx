@@ -90,6 +90,9 @@ const CSS = `
   transform: scale(0); pointer-events: none;
   animation: twico-ripple var(--duration-slow) var(--ease-out) forwards;
 }
+/* WCAG 2.3.3: suppress the click ripple entirely under reduced motion (display:none, not
+   animation:none, so no static scale(0) dot lingers for the 600ms cleanup window). */
+@media (prefers-reduced-motion: reduce) { .twc-ripple { display: none; } }
 `;
 
 // Block javascript:/data:/vbscript: URLs (incl. whitespace/control-char obfuscation

@@ -9,6 +9,13 @@ updates:
     open-pull-requests-limit: 10
     commit-message:
       prefix: "chore(deps)"
+    ignore:
+      # TypeScript 7.x is the native (Go) compiler; its programmatic API is not yet
+      # compatible with tsup's DTS generation (rollup-plugin-dts) — the build crashes with
+      # "Cannot read properties of undefined (reading 'useCaseSensitiveFileNames')" (#199).
+      # Keep on the 5.x line until the native compiler's API stabilizes for build tooling.
+      - dependency-name: "typescript"
+        versions: [">=7.0.0"]
 
   # Documentation site
   - package-ecosystem: "npm"

@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"d625e043f424","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"f6585cad795c","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"257e0b3df46e","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"7fe783e1b4e1","components/feedback/Toast.jsx":"9a90ca491e69","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"927e30be2249","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"e2e33eb534aa","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"7be37f7de0a6","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"09632e4d947c","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"012f17a99b19","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"868d4f2590f1","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"42079cb33554"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"5e2ca4f9bdda","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"516f1295214f","components/data-display/DiffTable.jsx":"5fc034ad8360","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"41b7413594bd","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"691f103de498","components/inputs/DateRangePicker.jsx":"5f46b4adc95e","components/inputs/DateTimePicker.jsx":"ac49b3912312","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"b53669534cfc","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"9fe52df38764","components/inputs/TimePicker.jsx":"b5cedc49f13a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"868d4f2590f1","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"198f6afcd02b"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -68,6 +68,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     Button: () => Button,
     Candlestick: () => Candlestick,
     Card: () => Card,
+    CardGrid: () => CardGrid,
     Carousel: () => Carousel,
     Chart: () => Chart,
     Checkbox: () => Checkbox,
@@ -82,13 +83,16 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     Datatable: () => Datatable,
     DatePicker: () => DatePicker,
     DateRangePicker: () => DateRangePicker,
+    DateTimePicker: () => DateTimePicker,
     Dialog: () => Dialog,
+    DiffTable: () => DiffTable,
     Divider: () => Divider,
     DonutChart: () => DonutChart,
     Drawer: () => Drawer,
     EmptyState: () => EmptyState,
     Field: () => Field,
     FileUpload: () => FileUpload,
+    FilterBar: () => FilterBar,
     Form: () => Form,
     FunnelChart: () => FunnelChart,
     Gauge: () => Gauge,
@@ -134,6 +138,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     Text: () => Text,
     Textarea: () => Textarea,
     ThemeProvider: () => ThemeProvider,
+    TimePicker: () => TimePicker,
     Timeline: () => Timeline,
     Toast: () => Toast,
     ToastProvider: () => ToastProvider,
@@ -545,6 +550,12 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   transition: grid-template-rows var(--duration-base) var(--ease-standard), visibility 0s; }
 .twc-accordion__panel-inner { overflow: hidden; }
 .twc-accordion__content { padding: 0 var(--space-4) var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-normal); }
+/* WCAG 2.3.3: panels expand/collapse (and the chevron rotates) instantly under reduced motion
+   \u2014 visibility still toggles, so open/closed state is unchanged. */
+@media (prefers-reduced-motion: reduce) {
+  .twc-accordion__panel, .twc-accordion__panel[data-open="true"] { transition: none; }
+  .twc-accordion__chevron { transition: none; }
+}
 `;
   function Accordion({
     items,
@@ -1304,6 +1315,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   transform: scale(0); pointer-events: none;
   animation: twico-ripple var(--duration-slow) var(--ease-out) forwards;
 }
+/* WCAG 2.3.3: suppress the click ripple entirely under reduced motion (display:none, not
+   animation:none, so no static scale(0) dot lingers for the 600ms cleanup window). */
+@media (prefers-reduced-motion: reduce) { .twc-ripple { display: none; } }
 `;
   function safeHref4(url) {
     if (url == null) return void 0;
@@ -1663,6 +1677,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-carousel__pause svg { width: 15px; height: 15px; display: block; }
 .twc-carousel__live { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+/* WCAG 2.3.3: no slide/dot/arrow motion when the user asks for reduced motion \u2014 the index
+   still changes, it just jumps rather than tweening. */
+@media (prefers-reduced-motion: reduce) {
+  .twc-carousel__track { transition: none; }
+  .twc-carousel__dot { transition: none; }
+  .twc-carousel__arrow { transition: none; }
+}
 `;
   function Carousel({
     children,
@@ -1764,7 +1785,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             /* @__PURE__ */ jsx("button", { className: "twc-carousel__arrow", "data-dir": "prev", "aria-label": "Previous", disabled: atStart, onClick: () => go(index - 1), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m15 18-6-6 6-6" }) }) }),
             /* @__PURE__ */ jsx("button", { className: "twc-carousel__arrow", "data-dir": "next", "aria-label": "Next", disabled: atEnd, onClick: () => go(index + 1), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m9 18 6-6-6-6" }) }) })
           ] }) : null,
-          showDots && count > 1 ? /* @__PURE__ */ jsx("div", { className: "twc-carousel__dots", children: slides.map((_, i) => /* @__PURE__ */ jsx("button", { className: "twc-carousel__dot", "data-active": i === index || void 0, "aria-label": `Go to slide ${i + 1}`, onClick: () => go(i) }, i)) }) : null
+          showDots && count > 1 ? /* @__PURE__ */ jsx("div", { className: "twc-carousel__dots", children: slides.map((_, i) => /* @__PURE__ */ jsx("button", { className: "twc-carousel__dot", "data-active": i === index || void 0, "aria-current": i === index ? "true" : void 0, "aria-label": `Go to slide ${i + 1}`, onClick: () => go(i) }, i)) }) : null
         ]
       }
     );
@@ -1792,9 +1813,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const step = n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10;
     return step * pow;
   }
-  function niceNum(range, round) {
-    const exp = Math.floor(Math.log10(range || 1));
-    const frac = (range || 1) / Math.pow(10, exp);
+  function niceNum(range2, round) {
+    const exp = Math.floor(Math.log10(range2 || 1));
+    const frac = (range2 || 1) / Math.pow(10, exp);
     let nf;
     if (round) nf = frac < 1.5 ? 1 : frac < 3 ? 2 : frac < 7 ? 5 : 10;
     else nf = frac <= 1 ? 1 : frac <= 2 ? 2 : frac <= 5 ? 5 : 10;
@@ -1805,8 +1826,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     if (min === max) {
       max = min + 1;
     }
-    const range = niceNum(max - min, false);
-    const step = niceNum(range / Math.max(1, maxTicks - 1), true);
+    const range2 = niceNum(max - min, false);
+    const step = niceNum(range2 / Math.max(1, maxTicks - 1), true);
     const niceMin = Math.floor(min / step) * step;
     const niceMax = Math.ceil(max / step) * step;
     const ticks = [];
@@ -2584,7 +2605,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       styles,
       /* @__PURE__ */ jsx("svg", { viewBox: `0 0 ${H} ${H}`, role: "img", "aria-label": svgAriaLabel, "aria-describedby": tableId, children: total <= 0 ? /* @__PURE__ */ jsx("text", { className: "twc-chart__empty", x: cx, y: cy, textAnchor: "middle", dominantBaseline: "middle", children: "No data" }) : /* @__PURE__ */ jsxs(Fragment, { children: [
         slices.map(({ d, i, v, s0, s1, span, pct, color }) => {
-          const pad = span > padAngle ? padAngle / 2 : 0;
+          const pad2 = span > padAngle ? padAngle / 2 : 0;
           const items = [{ color, label: fmt(v), value: `${pct}%` }];
           let explode;
           if (selected === i) {
@@ -2603,7 +2624,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
               "data-mark": "",
               "data-active": emph === i ? "true" : void 0,
               "data-selected": selected === i ? "true" : void 0,
-              d: arcPath(cx, cy, rOuter, rInner, s0 + pad, s1 - pad),
+              d: arcPath(cx, cy, rOuter, rInner, s0 + pad2, s1 - pad2),
               onMouseMove: (e) => {
                 setActive(i);
                 show({ title: d.label, items }, e);
@@ -2705,9 +2726,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const cx = size / 2, cy = size / 2;
     const span = endAngle - startAngle;
     const frac = (v) => {
-      const range = max - min;
-      if (!range) return 0;
-      return Math.max(0, Math.min(1, ((Number(v) || 0) - min) / range));
+      const range2 = max - min;
+      if (!range2) return 0;
+      return Math.max(0, Math.min(1, ((Number(v) || 0) - min) / range2));
     };
     const isMulti = Array.isArray(series) && series.length > 0;
     const items = isMulti ? series : [{ value: Number(value) || 0, label, color }];
@@ -2882,9 +2903,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const n = values.length;
     const W = width, H = height;
     const dotR = showDots ? Math.max(2, strokeWidth + 1) : 0;
-    const pad = Math.max(strokeWidth / 2, dotR) + 1;
-    const innerW = Math.max(1, W - pad * 2);
-    const innerH = Math.max(1, H - pad * 2);
+    const pad2 = Math.max(strokeWidth / 2, dotR) + 1;
+    const innerW = Math.max(1, W - pad2 * 2);
+    const innerH = Math.max(1, H - pad2 * 2);
     const dMin = min != null ? min : n ? Math.min(...values) : 0;
     const dMax = max != null ? max : n ? Math.max(...values) : 1;
     let lo = dMin, hi = dMax;
@@ -2893,9 +2914,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       hi = hi + 1;
     }
     const span = hi - lo;
-    const x = (i) => n <= 1 ? pad + innerW / 2 : pad + innerW / (n - 1) * i;
-    const y = (v) => pad + innerH - (v - lo) / span * innerH;
-    const baselineY = pad + innerH;
+    const x = (i) => n <= 1 ? pad2 + innerW / 2 : pad2 + innerW / (n - 1) * i;
+    const y = (v) => pad2 + innerH - (v - lo) / span * innerH;
+    const baselineY = pad2 + innerH;
     const points = values.map((v, i) => [x(i), y(v)]);
     const crv = isBar ? "straight" : curve;
     const pathOpts = { smooth: crv === "smooth", step: crv === "stepped" ? "after" : null };
@@ -2927,7 +2948,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             "data-mark": true,
             "data-selected": selected === i || void 0,
             style: { fill: color },
-            x: pad + band * i + (band - slot) / 2,
+            x: pad2 + band * i + (band - slot) / 2,
             y: baselineY - h,
             width: Math.max(1, slot),
             height: Math.max(1, h),
@@ -4094,8 +4115,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const n = rows.length;
     const fmt = valueFormat || fmtNumber;
     const W = 600, H = height;
-    const pad = 8;
-    const innerW = W - pad * 2, innerH = H - pad * 2;
+    const pad2 = 8;
+    const innerW = W - pad2 * 2, innerH = H - pad2 * 2;
     const values = rows.map((d) => Number(d.value) || 0);
     const maxValue = Math.max(0, ...values);
     const denom = maxValue > 0 ? maxValue : 1;
@@ -4115,16 +4136,16 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       let points, tx, ty;
       if (horizontal) {
         const bandW = innerW / Math.max(1, n);
-        const x0 = pad + bandW * i + gap / 2;
-        const x1 = pad + bandW * (i + 1) - gap / 2;
+        const x0 = pad2 + bandW * i + gap / 2;
+        const x1 = pad2 + bandW * (i + 1) - gap / 2;
         const cy = H / 2;
         points = [[x0, cy - lead], [x1, cy - trail], [x1, cy + trail], [x0, cy + lead]];
         tx = (x0 + x1) / 2;
         ty = cy;
       } else {
         const bandH = innerH / Math.max(1, n);
-        const y0 = pad + bandH * i + gap / 2;
-        const y1 = pad + bandH * (i + 1) - gap / 2;
+        const y0 = pad2 + bandH * i + gap / 2;
+        const y1 = pad2 + bandH * (i + 1) - gap / 2;
         const cx = W / 2;
         points = [[cx - lead, y0], [cx + lead, y0], [cx + trail, y1], [cx - trail, y1]];
         tx = cx;
@@ -5285,6 +5306,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-check[data-invalid="true"] .twc-check__box { border-color: var(--color-danger); }
 .twc-check__text { display: flex; flex-direction: column; gap: 2px; }
 .twc-check__label { font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); line-height: 1.3; }
+.twc-field__req { color: var(--color-danger); }
 .twc-check__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
@@ -5325,7 +5347,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       ),
       /* @__PURE__ */ jsx("span", { className: "twc-check__box", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { className: "twc-check__svg", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "3.5", strokeLinecap: "round", strokeLinejoin: "round", children: mixed ? /* @__PURE__ */ jsx("path", { d: "M5 12h14" }) : /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }),
       label || description ? /* @__PURE__ */ jsxs("span", { className: "twc-check__text", children: [
-        label ? /* @__PURE__ */ jsx("span", { className: "twc-check__label", children: label }) : null,
+        label ? /* @__PURE__ */ jsxs("span", { className: "twc-check__label", children: [
+          label,
+          required ? /* @__PURE__ */ jsx("span", { className: "twc-field__req", children: "*" }) : null
+        ] }) : null,
         description ? /* @__PURE__ */ jsx("span", { className: "twc-check__desc", children: description }) : null
       ] }) : null
     ] });
@@ -5345,9 +5370,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   var COLORPICKER_CSS = `
 .twc-cp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-cp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
-.twc-cp__trigger { display: flex; align-items: center; gap: var(--space-2-5); height: var(--control-h-md); padding: 0 var(--space-2) 0 var(--space-2);
+.twc-cp__trigger { display: flex; align-items: center; gap: var(--space-2-5); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-2) 0 var(--space-2);
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
+.twc-cp__trigger[data-size="sm"] { --_h: var(--control-h-sm); }
+.twc-cp__trigger[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-cp__trigger:hover:not([data-open="true"]):not([data-disabled="true"]) { border-color: var(--color-border-strong); }
 .twc-cp__trigger[data-open="true"] { border-color: var(--color-primary); box-shadow: var(--ring); }
 .twc-cp__trigger[data-invalid="true"] { border-color: var(--color-danger); }
@@ -5441,6 +5468,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     defaultValue = "#6366F1",
     presets = DEFAULT_PRESETS,
     disabled = false,
+    size = "md",
     alpha = false,
     tone = "primary",
     onChange,
@@ -5592,6 +5620,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           "data-open": open || void 0,
           "data-disabled": disabled || void 0,
           "data-invalid": invalid || void 0,
+          "data-size": size,
           role: "button",
           tabIndex: disabled ? -1 : 0,
           "aria-haspopup": "dialog",
@@ -7512,6 +7541,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     name,
     max,
     maxTagCount,
+    filter,
+    onInputChange,
     virtualized = false,
     overscan = 8,
     id,
@@ -7539,10 +7570,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const popRef = import_react.default.useRef(null);
     const listRef = import_react.default.useRef(null);
     const activeRef = import_react.default.useRef(null);
-    const fGroups = import_react.default.useMemo(
-      () => groups.map((g) => ({ group: g.group, options: g.options.filter((o) => matches2(o, query.trim())) })).filter((g) => g.options.length),
-      [groups, query]
-    );
+    const fGroups = import_react.default.useMemo(() => {
+      const q = query.trim();
+      const fn = filter === false ? null : typeof filter === "function" ? filter : matches2;
+      return groups.map((g) => ({ group: g.group, options: fn ? g.options.filter((o) => fn(o, q)) : g.options })).filter((g) => g.options.length);
+    }, [groups, query, filter]);
     const visible = import_react.default.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
     const rowH = import_react.default.useMemo(() => visible.some((o) => o.description) ? 48 : 36, [visible]);
     const GROUP_H = 30;
@@ -7822,6 +7854,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                   onChange: (e) => {
                     setQuery(e.target.value);
                     setOpen(true);
+                    onInputChange?.(e.target.value);
                   },
                   onKeyDown: (e) => {
                     onKeyDown?.(e);
@@ -8664,6 +8697,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   ];
   var opsFor = (type) => type === "number" ? NUM_OPS : STR_OPS;
   var isMultiOp = (op) => op === "isAnyOf";
+  var getColVal = (col, row) => col && col.valueGetter ? col.valueGetter(row) : row == null ? void 0 : row[col && col.field];
   function testFilter(raw, op, target, type) {
     if (op === "isEmpty") return raw == null || raw === "";
     if (op === "isNotEmpty") return !(raw == null || raw === "");
@@ -8709,14 +8743,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const cols = options.columns || [];
     const typeOf = (field) => cols.find((c) => c.field === field)?.type === "number" ? "number" : "string";
     const searchFields = options.searchFields || (cols.length ? cols.filter((c) => c.field && c.type !== "actions").map((c) => c.field) : rows && rows[0] ? Object.keys(rows[0]) : []);
+    const gv = (field, r2) => getColVal(cols.find((c) => c.field === field) || { field }, r2);
     let out = Array.isArray(rows) ? rows : [];
     const quick = String(q.quickFilter || "").trim().toLowerCase();
-    if (quick) out = out.filter((r2) => searchFields.some((f) => String(r2[f] ?? "").toLowerCase().includes(quick)));
-    for (const f of q.filters || []) out = out.filter((r2) => testFilter(r2[f.field], f.op, f.value, typeOf(f.field)));
+    if (quick) out = out.filter((r2) => searchFields.some((f) => String(gv(f, r2) ?? "").toLowerCase().includes(quick)));
+    for (const f of q.filters || []) out = out.filter((r2) => testFilter(gv(f.field, r2), f.op, f.value, typeOf(f.field)));
     if (q.sort && q.sort.field) {
       const { field, dir } = q.sort, numeric = typeOf(field) === "number";
       out = [...out].sort((a, b) => {
-        const av = a[field], bv = b[field];
+        const av = gv(field, a), bv = gv(field, b);
         if (av == null) return 1;
         if (bv == null) return -1;
         const r2 = numeric ? av - bv : String(av).localeCompare(String(bv));
@@ -8974,6 +9009,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     "aria-label": ariaLabelAttr,
     rowGrouping = [],
     rowNumbers = false,
+    searchFields = null,
     rowPinning = false,
     rowReorder = false,
     rowResize = false,
@@ -9315,17 +9351,18 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       let out = rows;
       if (quick.trim()) {
         const q = quick.trim().toLowerCase();
-        out = out.filter((r2) => visibleCols.some((c) => String(r2[c.field] ?? "").toLowerCase().includes(q)));
+        const searchCols = searchFields && searchFields.length ? searchFields.map((f) => colByField[f] || { field: f }) : visibleCols;
+        out = out.filter((r2) => searchCols.some((c) => String(getColVal(c, r2) ?? "").toLowerCase().includes(q)));
       }
       for (const f of filters) {
         const col = colByField[f.field];
         if (!col) continue;
-        out = out.filter((r2) => testFilter(r2[f.field], f.op, f.value, col.type));
+        out = out.filter((r2) => testFilter(getColVal(col, r2), f.op, f.value, col.type));
       }
       if (sort) {
         const col = colByField[sort.field];
         out = [...out].sort((a, b) => {
-          const av = a[sort.field], bv = b[sort.field];
+          const av = getColVal(col, a), bv = getColVal(col, b);
           if (av == null) return 1;
           if (bv == null) return -1;
           const r2 = col?.type === "number" ? av - bv : String(av).localeCompare(String(bv));
@@ -9337,7 +9374,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         out = [...out].sort((a, b) => (idx.get(keyOf(a)) ?? 1e9) - (idx.get(keyOf(b)) ?? 1e9));
       }
       return out;
-    }, [rows, quick, filters, sort, visibleCols, colByField, serverMode, rowOrder]);
+    }, [rows, quick, filters, sort, visibleCols, colByField, serverMode, rowOrder, searchFields]);
     const paginated = pageSize > 0;
     const serverTotal = rowCount == null ? processed.length : rowCount;
     const totalRows = serverMode ? serverTotal : processed.length;
@@ -9362,7 +9399,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     function computeAgg(col, data) {
       const agg = col.aggregation;
       if (!agg) return null;
-      const raw = data.map((r2) => r2[col.field]).filter((v) => v != null && v !== "");
+      const raw = data.map((r2) => getColVal(col, r2)).filter((v) => v != null && v !== "");
       if (typeof agg === "function") return agg(raw, data);
       if (agg === "count") return raw.length;
       const nums = raw.map(Number).filter((n) => !Number.isNaN(n));
@@ -9380,7 +9417,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         const field = activeGroupBy[depth];
         const map = /* @__PURE__ */ new Map();
         for (const r2 of rowsIn) {
-          const v = r2[field] == null || r2[field] === "" ? "\u2014" : r2[field];
+          const gvv = getColVal(colByField[field], r2);
+          const v = gvv == null || gvv === "" ? "\u2014" : gvv;
           if (!map.has(v)) map.set(v, []);
           map.get(v).push(r2);
         }
@@ -9677,13 +9715,17 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     function optionsForField(field) {
       const col = colByField[field];
       if (col?.valueOptions) return col.valueOptions.map((o) => typeof o === "string" ? { value: o, label: o } : o);
-      const set = /* @__PURE__ */ new Set();
+      const seen2 = /* @__PURE__ */ new Map();
       for (const r2 of rows) {
-        const v = r2[field];
-        if (v != null && v !== "") set.add(String(v));
-        if (set.size > 80) break;
+        const raw = getColVal(col, r2);
+        if (raw == null || raw === "") continue;
+        const key = String(raw);
+        if (seen2.has(key)) continue;
+        const label = col?.valueFormatter ? col.valueFormatter(raw, r2) : key;
+        seen2.set(key, { value: key, label: typeof label === "string" || typeof label === "number" ? String(label) : key });
+        if (seen2.size > 80) break;
       }
-      return [...set].sort((a, b) => a.localeCompare(b)).map((v) => ({ value: v, label: v }));
+      return [...seen2.values()].sort((a, b) => String(a.label).localeCompare(String(b.label)));
     }
     const [resizing, setResizing] = import_react.default.useState(false);
     function startResize(e, field) {
@@ -9713,7 +9755,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       meas.setAttribute("aria-hidden", "true");
       meas.style.cssText = "position:fixed;left:-9999px;top:-9999px;visibility:hidden;pointer-events:none;white-space:nowrap;display:inline-block;box-sizing:content-box;padding:0;";
       document.body.appendChild(meas);
-      let content = 0, pad = 0;
+      let content = 0, pad2 = 0;
       try {
         for (const cell of cells) {
           const src = cell.tagName === "TH" ? cell.querySelector(".twc-dt__th-inner") || cell : cell;
@@ -9725,13 +9767,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           meas.style.letterSpacing = cs.letterSpacing;
           meas.innerHTML = src.innerHTML;
           content = Math.max(content, meas.scrollWidth);
-          pad = Math.max(pad, (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0));
+          pad2 = Math.max(pad2, (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0));
         }
       } finally {
         meas.innerHTML = "";
         document.body.removeChild(meas);
       }
-      const w = Math.min(640, Math.max(72, Math.ceil(content) + Math.ceil(pad) + 6));
+      const w = Math.min(640, Math.max(72, Math.ceil(content) + Math.ceil(pad2) + 6));
       setWidths((m) => ({ ...m, [field]: w }));
     }
     function onColDrop(targetField) {
@@ -9750,7 +9792,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     function exportData(format = "csv") {
       const expCols = ordered.filter((c) => c.type !== "actions");
       const source = serverMode ? paged : processed;
-      const cellValue = (c, row) => c.exportValue ? c.exportValue(row[c.field], row) : row[c.field];
+      const cellValue = (c, row) => c.exportValue ? c.exportValue(row[c.field], row) : getColVal(c, row);
       const fname = (ext) => `${exportFilename}.${ext}`;
       const download = (text2, mime, ext) => {
         const blob = new Blob([text2], { type: mime });
@@ -9799,7 +9841,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         }
       }
       const data = serverMode ? paged : processed;
-      const raw = data.map((r2) => r2[col.field]).filter((v) => v != null && v !== "");
+      const raw = data.map((r2) => getColVal(col, r2)).filter((v) => v != null && v !== "");
       if (typeof agg === "function") return agg(raw, data);
       if (agg === "count") return raw.length;
       const nums = raw.map(Number).filter((n) => !Number.isNaN(n));
@@ -10218,7 +10260,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", "data-pin-edge": pins.left.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W }, children: typeof ri === "number" ? (paginated || serverMode ? pageVal * sizeVal : 0) + ri + 1 : "" }) : null,
             ordered.map((c, ci) => {
               const st = stickyOf(c.field);
-              const val = row[c.field];
+              const val = getColVal(c, row);
               const isActions = c.type === "actions";
               const editable = isColEditable(c);
               const isEditing = editing && editing.key === k && editing.field === c.field;
@@ -10275,9 +10317,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     }
     function renderPivot() {
       const rFields = pivotConfig.rows, cFields = pivotConfig.columns || [], values = pivotConfig.values;
-      const rowKeyOf = (r2) => rFields.map((f) => r2[f] ?? "\u2014").join("  \xB7  ");
-      const colPathOf = (r2) => cFields.map((f) => String(r2[f] ?? "\u2014"));
-      const aggOf2 = (subset, v) => computeAgg({ field: v.field, aggregation: v.agg || "sum" }, subset || []);
+      const rowKeyOf = (r2) => rFields.map((f) => getColVal(colByField[f], r2) ?? "\u2014").join("  \xB7  ");
+      const colPathOf = (r2) => cFields.map((f) => String(getColVal(colByField[f], r2) ?? "\u2014"));
+      const aggOf2 = (subset, v) => computeAgg({ ...colByField[v.field], field: v.field, aggregation: v.agg || "sum" }, subset || []);
       const fmt = (val, v) => {
         if (val == null) return "\u2014";
         const col = colByField[v.field];
@@ -11433,6 +11475,470 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       ] }) : null
     ] });
   }
+  function space(v) {
+    if (v == null) return void 0;
+    if (typeof v === "number") return `var(--space-${String(v).replace(".", "-")})`;
+    return v;
+  }
+  function len(v) {
+    return typeof v === "number" ? `${v}px` : v;
+  }
+  var BP = { sm: 640, md: 768, lg: 1024, xl: 1280 };
+  function safeHref5(url) {
+    if (url == null) return void 0;
+    const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+    return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
+  }
+  var Grid = import_react.default.forwardRef(function Grid2({
+    as: Tag2 = "div",
+    columns,
+    minChildWidth,
+    gap = 4,
+    rowGap,
+    columnGap,
+    align,
+    justify,
+    justifyItems,
+    alignContent,
+    justifyContent,
+    sx,
+    className = "",
+    style,
+    children,
+    ...rest
+  }, ref) {
+    const { flatStyle, styleNode, sxAttr } = useSx(sx);
+    const responsive = columns != null && typeof columns === "object";
+    const uid = import_react.default.useId();
+    const gridId = responsive ? `g${uid.replace(/[^a-zA-Z0-9]/g, "")}` : null;
+    let css = "";
+    if (responsive) {
+      const base = columns.base ?? 1;
+      const sel = `[data-twc-grid-id="${gridId}"]`;
+      css = `${sel} { --twc-grid-cols: ${base}; }`;
+      for (const bp of ["sm", "md", "lg", "xl"]) {
+        if (columns[bp] != null) css += `
+@media (min-width: ${BP[bp]}px) { ${sel} { --twc-grid-cols: ${columns[bp]}; } }`;
+      }
+    }
+    const __twcStyles = useScopedStyles(gridId ? `twc-grid-${gridId}` : "twc-grid", css);
+    const templateColumns = minChildWidth ? `repeat(auto-fill, minmax(min(${len(minChildWidth)}, 100%), 1fr))` : responsive ? `repeat(var(--twc-grid-cols, ${columns.base ?? 1}), minmax(0, 1fr))` : `repeat(${columns || 1}, minmax(0, 1fr))`;
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref5(rest.href);
+    return /* @__PURE__ */ jsxs(
+      Tag2,
+      {
+        ref,
+        className: `twc-grid ${className}`.trim(),
+        "data-twc-grid-id": gridId || void 0,
+        "data-twc-sx": sxAttr,
+        style: {
+          display: "grid",
+          gridTemplateColumns: templateColumns,
+          rowGap: space(rowGap ?? gap),
+          columnGap: space(columnGap ?? gap),
+          alignItems: align,
+          // #216: `justifyItems` is the explicit, correctly-named prop; `justify` remains a
+          // backward-compatible alias for it (note: on Grid `justify` = justify-**items**, unlike
+          // Stack.justify = justify-**content**). The explicit prop wins when both are set.
+          justifyItems: justifyItems ?? justify,
+          alignContent,
+          justifyContent,
+          ...style,
+          ...flatStyle
+        },
+        ...rest,
+        children: [
+          responsive ? __twcStyles : null,
+          styleNode,
+          children
+        ]
+      }
+    );
+  });
+  Grid.displayName = "Grid";
+  var CARDGRID_CSS = `
+.twc-cardgrid { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-3); }
+.twc-cardgrid__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
+.twc-cardgrid__toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.twc-cardgrid__search { flex: 1 1 200px; min-width: 160px; }
+.twc-cardgrid__spacer { flex: 1 1 auto; }
+.twc-cardgrid__sort { display: inline-flex; align-items: center; gap: var(--space-1); }
+.twc-cardgrid__dir { display: inline-grid; place-items: center; width: 32px; height: 32px; border: var(--border-thin) solid var(--color-border); background: var(--color-surface); color: var(--color-text-muted); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast), color var(--duration-fast); }
+.twc-cardgrid__dir:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-cardgrid__dir svg { width: 16px; height: 16px; transition: transform var(--duration-fast) var(--ease-standard); }
+.twc-cardgrid__dir[data-dir="desc"] svg { transform: scaleY(-1); }
+.twc-cardgrid__body { position: relative; min-height: 60px; }
+.twc-cardgrid__body[data-loading="true"] .twc-cardgrid__grid { opacity: 0.55; pointer-events: none; }
+.twc-cardgrid__overlay { position: absolute; inset: 0; display: grid; place-items: center; z-index: 1; }
+.twc-cardgrid__spinner { width: 26px; height: 26px; border: 3px solid var(--color-border); border-top-color: var(--color-primary); border-radius: var(--radius-full); animation: twc-cardgrid-spin 0.7s linear infinite; }
+@keyframes twc-cardgrid-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .twc-cardgrid__spinner { animation-duration: 1.6s; } }
+.twc-cardgrid__empty { padding: var(--space-8) var(--space-4); text-align: center; color: var(--color-text-muted); font-size: var(--text-sm); }
+.twc-cardgrid__footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2); }
+.twc-cardgrid__count { font-size: var(--text-sm); color: var(--color-text-muted); }
+.twc-cardgrid__perpage { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--color-text-muted); }
+`;
+  function CardGrid({
+    rows = [],
+    renderCard,
+    rowKey = "id",
+    minChildWidth = "18rem",
+    gap = 4,
+    columns,
+    // pagination
+    pageSize = 12,
+    pageSizeOptions = [12, 24, 48, 96],
+    page,
+    defaultPage = 0,
+    onPageChange,
+    onPageSizeChange,
+    showPageSize = true,
+    // query / server contract (mirrors Datatable serverMode)
+    serverMode = false,
+    rowCount,
+    loading = false,
+    onServerChange,
+    // filtering & sorting
+    filters = [],
+    quickFilter,
+    defaultQuickFilter = "",
+    onQuickFilterChange,
+    searchable = false,
+    searchFields,
+    searchPlaceholder = "Search\u2026",
+    sort,
+    defaultSort = null,
+    onSortChange,
+    sortOptions,
+    // slots / states
+    toolbar,
+    emptyState = "No results.",
+    label,
+    id,
+    className = "",
+    ...rest
+  }) {
+    const styles = useScopedStyles("twc-cardgrid-styles", CARDGRID_CSS);
+    const autoId = import_react.default.useId();
+    const fieldId = id || autoId;
+    const [internalPage, setInternalPage] = import_react.default.useState(defaultPage);
+    const pageVal = page !== void 0 ? page : internalPage;
+    const commitPage = (p) => {
+      onPageChange?.(p);
+      if (page === void 0) setInternalPage(p);
+    };
+    const [internalSize, setInternalSize] = import_react.default.useState(pageSize > 0 ? pageSize : 12);
+    const sizeControlled = onPageSizeChange !== void 0;
+    const sizeVal = sizeControlled ? pageSize > 0 ? pageSize : 12 : internalSize;
+    const commitSize = (n) => {
+      onPageSizeChange?.(n);
+      if (!sizeControlled) setInternalSize(n);
+      commitPage(0);
+    };
+    import_react.default.useEffect(() => {
+      if (!sizeControlled) setInternalSize(pageSize > 0 ? pageSize : 12);
+    }, [pageSize]);
+    const [internalQuick, setInternalQuick] = import_react.default.useState(defaultQuickFilter);
+    const quickVal = quickFilter !== void 0 ? quickFilter : internalQuick;
+    const commitQuick = (q) => {
+      onQuickFilterChange?.(q);
+      if (quickFilter === void 0) setInternalQuick(q);
+      commitPage(0);
+    };
+    const [internalSort, setInternalSort] = import_react.default.useState(defaultSort);
+    const sortVal = sort !== void 0 ? sort : internalSort;
+    const commitSort = (s) => {
+      onSortChange?.(s);
+      if (sort === void 0) setInternalSort(s);
+      commitPage(0);
+    };
+    const filtersKey = JSON.stringify(filters);
+    const mounted = import_react.default.useRef(false);
+    import_react.default.useEffect(() => {
+      if (!mounted.current) {
+        mounted.current = true;
+        return;
+      }
+      commitPage(0);
+    }, [filtersKey]);
+    const paginated = sizeVal > 0;
+    const query = { page: pageVal, pageSize: paginated ? sizeVal : 0, sort: sortVal, filters, quickFilter: String(quickVal || "").trim() };
+    const queryCols = sortOptions ? sortOptions.map((o) => ({ field: o.field, type: o.type })) : columns;
+    const client = serverMode ? null : runDatatableQuery(rows, query, { columns: queryCols, searchFields });
+    const pageRows = serverMode ? rows : client.rows;
+    const total = serverMode ? rowCount == null ? rows.length : rowCount : client.total;
+    const totalPages = Math.max(1, paginated ? Math.ceil(total / sizeVal) : 1);
+    const onServerChangeRef = import_react.default.useRef(onServerChange);
+    onServerChangeRef.current = onServerChange;
+    const queryKey = JSON.stringify(query);
+    import_react.default.useEffect(() => {
+      if (!serverMode) return void 0;
+      const t = setTimeout(() => onServerChangeRef.current?.(JSON.parse(queryKey)), 250);
+      return () => clearTimeout(t);
+    }, [serverMode, queryKey]);
+    const keyOf = typeof rowKey === "function" ? rowKey : (r2) => r2 && r2[rowKey];
+    const from = total === 0 ? 0 : pageVal * sizeVal + 1;
+    const to = paginated ? Math.min((pageVal + 1) * sizeVal, total) : total;
+    const rppOptions = Array.from(new Set([...pageSizeOptions || [], pageSize].filter((n) => n > 0))).sort((a, b) => a - b).map((n) => ({ value: String(n), label: String(n) }));
+    const sortSelectOptions = sortOptions ? [{ value: "", label: "Sort by\u2026" }, ...sortOptions.map((o) => ({ value: o.field, label: o.label || o.field }))] : null;
+    const hasToolbar = searchable || sortSelectOptions || toolbar;
+    return /* @__PURE__ */ jsxs("div", { className: `twc-cardgrid ${className}`, id: fieldId, ...rest, children: [
+      styles,
+      label ? /* @__PURE__ */ jsx("div", { className: "twc-cardgrid__label", id: `${fieldId}-label`, children: label }) : null,
+      hasToolbar ? /* @__PURE__ */ jsxs("div", { className: "twc-cardgrid__toolbar", children: [
+        searchable ? /* @__PURE__ */ jsx("div", { className: "twc-cardgrid__search", children: /* @__PURE__ */ jsx(
+          Input,
+          {
+            size: "sm",
+            type: "search",
+            value: quickVal,
+            placeholder: searchPlaceholder,
+            "aria-label": searchPlaceholder,
+            onChange: (e) => commitQuick(e.target.value)
+          }
+        ) }) : null,
+        toolbar,
+        /* @__PURE__ */ jsx("div", { className: "twc-cardgrid__spacer" }),
+        sortSelectOptions ? /* @__PURE__ */ jsxs("div", { className: "twc-cardgrid__sort", children: [
+          /* @__PURE__ */ jsx(
+            Select,
+            {
+              size: "sm",
+              searchable: false,
+              value: sortVal?.field || "",
+              options: sortSelectOptions,
+              placeholder: "Sort by\u2026",
+              "aria-label": "Sort by",
+              onChange: (field) => commitSort(field ? { field, dir: sortVal?.dir || "asc" } : null)
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              type: "button",
+              className: "twc-cardgrid__dir",
+              "data-dir": sortVal?.dir || "asc",
+              disabled: !sortVal?.field,
+              "aria-label": sortVal?.dir === "desc" ? "Descending \u2014 click to sort ascending" : "Ascending \u2014 click to sort descending",
+              onClick: () => sortVal?.field && commitSort({ field: sortVal.field, dir: sortVal.dir === "desc" ? "asc" : "desc" }),
+              children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M12 5v14M6 11l6-6 6 6" }) })
+            }
+          )
+        ] }) : null
+      ] }) : null,
+      /* @__PURE__ */ jsxs("div", { className: "twc-cardgrid__body", "data-loading": loading || void 0, "aria-busy": loading || void 0, children: [
+        loading ? /* @__PURE__ */ jsx("div", { className: "twc-cardgrid__overlay", children: /* @__PURE__ */ jsx("div", { className: "twc-cardgrid__spinner", role: "status", "aria-label": "Loading" }) }) : null,
+        pageRows.length === 0 && !loading ? /* @__PURE__ */ jsx("div", { className: "twc-cardgrid__empty", children: emptyState }) : /* @__PURE__ */ jsx(
+          Grid,
+          {
+            className: "twc-cardgrid__grid",
+            minChildWidth,
+            columns,
+            gap,
+            role: "list",
+            "aria-labelledby": label ? `${fieldId}-label` : void 0,
+            children: pageRows.map((row, i) => /* @__PURE__ */ jsx("div", { role: "listitem", children: renderCard(row, i) }, keyOf(row, i) ?? i))
+          }
+        )
+      ] }),
+      paginated && totalPages > 0 ? /* @__PURE__ */ jsxs("div", { className: "twc-cardgrid__footer", children: [
+        /* @__PURE__ */ jsx("span", { className: "twc-cardgrid__count", children: total === 0 ? "No results" : `${from}\u2013${to} of ${total}` }),
+        /* @__PURE__ */ jsx(
+          Pagination,
+          {
+            size: "sm",
+            page: pageVal + 1,
+            total: totalPages,
+            boundaries: 1,
+            siblings: 1,
+            showPageJumper: totalPages > 7,
+            onChange: (p) => commitPage(p - 1)
+          }
+        ),
+        showPageSize ? /* @__PURE__ */ jsxs("label", { className: "twc-cardgrid__perpage", children: [
+          "Per page",
+          /* @__PURE__ */ jsx(
+            Select,
+            {
+              size: "sm",
+              searchable: false,
+              value: String(sizeVal),
+              options: rppOptions,
+              placement: "top",
+              "aria-label": "Cards per page",
+              onChange: (v) => commitSize(Number(v))
+            }
+          )
+        ] }) : /* @__PURE__ */ jsx("span", {})
+      ] }) : null
+    ] });
+  }
+  var DIFFTABLE_CSS = `
+.twc-difft { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-3); color: var(--color-text); }
+.twc-difft__head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.twc-difft__label { font-size: var(--text-sm); font-weight: var(--font-semibold); }
+.twc-difft__summary { display: inline-flex; flex-wrap: wrap; gap: var(--space-1-5); }
+.twc-difft__toggle { margin-inline-start: auto; }
+.twc-difft__scroll { overflow-x: auto; border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); }
+.twc-difft__table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.twc-difft__table th, .twc-difft__table td { text-align: start; padding: var(--space-2) var(--space-3); border-bottom: var(--border-thin) solid var(--color-divider); vertical-align: top; }
+.twc-difft__table thead th { position: sticky; top: 0; background: var(--color-surface-sunken); font-weight: var(--font-semibold); color: var(--color-text-muted); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.02em; white-space: nowrap; z-index: 1; }
+.twc-difft__table tbody tr:last-child td { border-bottom: none; }
+.twc-difft__table tbody tr[data-op="added"] { background: color-mix(in srgb, var(--color-success) 8%, transparent); }
+.twc-difft__table tbody tr[data-op="removed"] { background: color-mix(in srgb, var(--color-danger) 8%, transparent); }
+.twc-difft__table tbody tr[data-op="modified"] { background: color-mix(in srgb, var(--color-warning) 8%, transparent); }
+.twc-difft__op { white-space: nowrap; }
+.twc-difft__change { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 2px; }
+.twc-difft__old { text-decoration: line-through; color: var(--color-text-subtle); }
+.twc-difft__new { color: var(--color-success-subtle-fg); font-weight: var(--font-medium); }
+.twc-difft__arrow { margin-inline: 6px; color: var(--color-text-subtle); }
+.twc-difft__empty { padding: var(--space-8) var(--space-4); text-align: center; color: var(--color-text-muted); }
+[dir="rtl"] .twc-difft__arrow { transform: scaleX(-1); display: inline-block; }
+`;
+  var OPS = {
+    added: { label: "Added", tone: "success" },
+    removed: { label: "Removed", tone: "danger" },
+    modified: { label: "Modified", tone: "warning" },
+    moved: { label: "Moved", tone: "info" },
+    unchanged: { label: "Unchanged", tone: "neutral" }
+  };
+  function lisIndexSet(seq) {
+    const n = seq.length;
+    if (n === 0) return /* @__PURE__ */ new Set();
+    const dp = new Array(n).fill(1), prev = new Array(n).fill(-1);
+    let best = 0;
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < i; j++) {
+        if (seq[j] < seq[i] && dp[j] + 1 > dp[i]) {
+          dp[i] = dp[j] + 1;
+          prev[i] = j;
+        }
+      }
+      if (dp[i] > dp[best]) best = i;
+    }
+    const set = /* @__PURE__ */ new Set();
+    for (let i = best; i !== -1; i = prev[i]) set.add(i);
+    return set;
+  }
+  var getVal = (col, row) => col.valueGetter ? col.valueGetter(row) : row == null ? void 0 : row[col.field];
+  var fmtVal = (col, v) => col.valueFormatter ? col.valueFormatter(v) : v == null ? "" : String(v);
+  function DiffTable({
+    from = [],
+    to = [],
+    rowKey,
+    columns = [],
+    onlyChanged = true,
+    showToggle = true,
+    showSummary = true,
+    moveDetection = true,
+    compare,
+    emptyState = "No differences.",
+    toggleLabel = "Only changed",
+    label,
+    id,
+    className = "",
+    ...rest
+  }) {
+    const styles = useScopedStyles("twc-difftable-styles", DIFFTABLE_CSS);
+    const autoId = import_react.default.useId();
+    const fieldId = id || autoId;
+    const [only, setOnly] = import_react.default.useState(onlyChanged);
+    const valEq = import_react.default.useCallback((a, b, col) => {
+      if (col.compare) return col.compare(a, b);
+      if (compare) return compare(a, b, col.field);
+      if (a === b) return true;
+      if (a == null || b == null) return a === b;
+      return JSON.stringify(a) === JSON.stringify(b);
+    }, [compare]);
+    const diff = import_react.default.useMemo(() => {
+      const k = rowKey || ((r2) => r2 == null ? r2 : r2.id);
+      const fromMap = /* @__PURE__ */ new Map(), toMap = /* @__PURE__ */ new Map();
+      from.forEach((r2, i) => fromMap.set(k(r2), { row: r2, i }));
+      to.forEach((r2, i) => toMap.set(k(r2), { row: r2, i }));
+      const movedKeys = /* @__PURE__ */ new Set();
+      if (moveDetection) {
+        const commonFrom = from.filter((r2) => toMap.has(k(r2)));
+        const seq = commonFrom.map((r2) => toMap.get(k(r2)).i);
+        const stable = lisIndexSet(seq);
+        commonFrom.forEach((r2, idx) => {
+          if (!stable.has(idx)) movedKeys.add(k(r2));
+        });
+      }
+      const classify = (key) => {
+        const a = fromMap.get(key), b = toMap.get(key);
+        if (a && !b) return { op: "removed", from: a.row, to: null, changed: /* @__PURE__ */ new Set() };
+        if (!a && b) return { op: "added", from: null, to: b.row, changed: /* @__PURE__ */ new Set() };
+        const changed = /* @__PURE__ */ new Set();
+        for (const col of columns) if (!valEq(getVal(col, a.row), getVal(col, b.row), col)) changed.add(col.field);
+        if (changed.size) return { op: "modified", from: a.row, to: b.row, changed };
+        if (movedKeys.has(key)) return { op: "moved", from: a.row, to: b.row, changed };
+        return { op: "unchanged", from: a.row, to: b.row, changed };
+      };
+      const rows = [];
+      to.forEach((r2) => rows.push({ key: k(r2), ...classify(k(r2)) }));
+      from.forEach((r2) => {
+        const key = k(r2);
+        if (!toMap.has(key)) rows.push({ key, ...classify(key) });
+      });
+      const counts = { added: 0, removed: 0, modified: 0, moved: 0, unchanged: 0 };
+      rows.forEach((r2) => {
+        counts[r2.op] += 1;
+      });
+      return { rows, counts };
+    }, [from, to, columns, rowKey, moveDetection, valEq]);
+    const visible = only ? diff.rows.filter((r2) => r2.op !== "unchanged") : diff.rows;
+    const renderCell = (r2, col) => {
+      if (r2.op === "removed") return /* @__PURE__ */ jsx("span", { className: "twc-difft__old", children: fmtVal(col, getVal(col, r2.from)) });
+      if (r2.op === "added") return /* @__PURE__ */ jsx("span", { className: "twc-difft__new", children: fmtVal(col, getVal(col, r2.to)) });
+      if (r2.op === "modified" && r2.changed.has(col.field)) {
+        return /* @__PURE__ */ jsxs("span", { className: "twc-difft__change", children: [
+          /* @__PURE__ */ jsx("span", { className: "twc-difft__old", children: fmtVal(col, getVal(col, r2.from)) }),
+          /* @__PURE__ */ jsx("span", { className: "twc-difft__arrow", "aria-hidden": "true", children: "\u2192" }),
+          /* @__PURE__ */ jsx("span", { className: "twc-difft__new", children: fmtVal(col, getVal(col, r2.to)) })
+        ] });
+      }
+      return /* @__PURE__ */ jsx("span", { children: fmtVal(col, getVal(col, r2.to ?? r2.from)) });
+    };
+    return /* @__PURE__ */ jsxs("div", { className: `twc-difft ${className}`, id: fieldId, ...rest, children: [
+      styles,
+      label || showSummary || showToggle ? /* @__PURE__ */ jsxs("div", { className: "twc-difft__head", children: [
+        label ? /* @__PURE__ */ jsx("div", { className: "twc-difft__label", children: label }) : null,
+        showSummary ? /* @__PURE__ */ jsxs("div", { className: "twc-difft__summary", children: [
+          /* @__PURE__ */ jsxs(Badge, { size: "sm", variant: "soft", tone: "success", children: [
+            "+",
+            diff.counts.added,
+            " added"
+          ] }),
+          /* @__PURE__ */ jsxs(Badge, { size: "sm", variant: "soft", tone: "warning", children: [
+            "~",
+            diff.counts.modified,
+            " modified"
+          ] }),
+          /* @__PURE__ */ jsxs(Badge, { size: "sm", variant: "soft", tone: "danger", children: [
+            "-",
+            diff.counts.removed,
+            " removed"
+          ] }),
+          diff.counts.moved ? /* @__PURE__ */ jsxs(Badge, { size: "sm", variant: "soft", tone: "info", children: [
+            "\u21C5 ",
+            diff.counts.moved,
+            " moved"
+          ] }) : null
+        ] }) : null,
+        showToggle ? /* @__PURE__ */ jsx("div", { className: "twc-difft__toggle", children: /* @__PURE__ */ jsx(Checkbox, { label: toggleLabel, checked: only, onChange: (e) => setOnly(e.target.checked) }) }) : null
+      ] }) : null,
+      /* @__PURE__ */ jsx("div", { className: "twc-difft__scroll", children: /* @__PURE__ */ jsxs("table", { className: "twc-difft__table", children: [
+        /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { children: [
+          /* @__PURE__ */ jsx("th", { scope: "col", children: "Change" }),
+          columns.map((c) => /* @__PURE__ */ jsx("th", { scope: "col", children: c.headerName || c.field }, c.field))
+        ] }) }),
+        /* @__PURE__ */ jsx("tbody", { children: visible.length === 0 ? /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx("td", { className: "twc-difft__empty", colSpan: columns.length + 1, children: emptyState }) }) : visible.map((r2) => /* @__PURE__ */ jsxs("tr", { "data-op": r2.op, children: [
+          /* @__PURE__ */ jsx("td", { className: "twc-difft__op", children: /* @__PURE__ */ jsx(Badge, { size: "sm", variant: "soft", tone: OPS[r2.op].tone, children: OPS[r2.op].label }) }),
+          columns.map((c) => /* @__PURE__ */ jsx("td", { children: renderCell(r2, c) }, c.field))
+        ] }, r2.key)) })
+      ] }) })
+    ] });
+  }
   var FIELD_CSS3 = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
@@ -11444,13 +11950,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-dp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
 .twc-dp__control {
-  display: flex; align-items: center; gap: var(--space-2); height: var(--control-h-md); padding: 0 var(--space-3);
+  display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
   cursor: pointer; transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .twc-dp__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
 /* tone \u2192 focus/open accent (default primary; reproduces current look). */
 .twc-dp__control { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-dp__control[data-size="sm"] { --_h: var(--control-h-sm); }
+.twc-dp__control[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-dp__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-dp__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
 .twc-dp__control[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
@@ -11510,6 +12018,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dp__mo { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
 .twc-dp__mo:hover { background: var(--color-surface-sunken); }
 .twc-dp__mo[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
+.twc-dp__years { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.twc-dp__yr { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
+.twc-dp__yr:hover:not(:disabled) { background: var(--color-surface-sunken); }
+.twc-dp__yr[data-outside="true"] { color: var(--color-text-subtle); }
+.twc-dp__yr[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
+.twc-dp__yr:disabled { opacity: 0.4; cursor: not-allowed; }
 [dir="rtl"] .twc-dp__nav svg { transform: scaleX(-1); }
 `;
   var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -11537,8 +12051,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     placeholder = "Select date",
     min,
     max,
+    disabledDate,
     disabled = false,
     tone = "primary",
+    size = "md",
     clearable = true,
     editable = false,
     parse,
@@ -11563,6 +12079,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const [mode, setMode] = import_react.default.useState("days");
     const [focusDate, setFocusDate] = import_react.default.useState(null);
     const [focusMonth, setFocusMonth] = import_react.default.useState(null);
+    const [focusYear, setFocusYear] = import_react.default.useState(null);
     const [editText, setEditText] = import_react.default.useState(null);
     const [coords, setCoords] = import_react.default.useState(null);
     const wrapRef = import_react.default.useRef(null);
@@ -11655,11 +12172,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       pick(parsed);
     };
     const y = view.getFullYear(), m = view.getMonth();
+    const decadeStart = Math.floor(y / 10) * 10;
+    const yearCells = Array.from({ length: 12 }, (_, i) => decadeStart - 1 + i);
     const first = new Date(y, m, 1);
     const startOffset = (first.getDay() - weekStartsOn + 7) % 7;
     const gridStart = new Date(y, m, 1 - startOffset);
     const today = /* @__PURE__ */ new Date();
-    const outOfRange = (d) => min && d < new Date(min.getFullYear(), min.getMonth(), min.getDate()) || max && d > new Date(max.getFullYear(), max.getMonth(), max.getDate());
+    const outOfRange = (d) => min && d < new Date(min.getFullYear(), min.getMonth(), min.getDate()) || max && d > new Date(max.getFullYear(), max.getMonth(), max.getDate()) || Boolean(disabledDate && disabledDate(d));
     const keyOf = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
     const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
     const addMonths = (d, n) => {
@@ -11695,6 +12214,24 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         next -= 12;
       }
       setFocusMonth(next);
+    };
+    import_react.default.useEffect(() => {
+      if (!open || mode !== "years" || focusYear == null) return;
+      gridRef.current?.querySelector(`[data-yr="${focusYear}"]`)?.focus();
+    }, [focusYear, open, mode]);
+    const onYearsKeyDown = (e) => {
+      const cur = focusYear == null ? y : focusYear;
+      let next;
+      if (e.key === "ArrowRight") next = cur + 1;
+      else if (e.key === "ArrowLeft") next = cur - 1;
+      else if (e.key === "ArrowDown") next = cur + 3;
+      else if (e.key === "ArrowUp") next = cur - 3;
+      else if (e.key === "Home") next = decadeStart;
+      else if (e.key === "End") next = decadeStart + 9;
+      else return;
+      e.preventDefault();
+      setView(new Date(next, m, 1));
+      setFocusYear(next);
     };
     const onGridKeyDown = (e) => {
       const btn = e.target.closest?.("[data-key]");
@@ -11740,6 +12277,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             "data-disabled": disabled || void 0,
             "data-tone": tone,
             "data-invalid": invalid || void 0,
+            "data-size": size,
             children: [
               /* @__PURE__ */ jsx(
                 "input",
@@ -11813,6 +12351,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             id: fieldId,
             "data-open": open || void 0,
             "data-disabled": disabled || void 0,
+            "data-size": size,
             "data-tone": tone,
             "data-has-clear": clearable && selected && !disabled ? "true" : void 0,
             "data-invalid": invalid || void 0,
@@ -11856,13 +12395,18 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             style: { position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" },
             children: [
               /* @__PURE__ */ jsxs("div", { className: "twc-dp__head", children: [
-                /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dp__nav", "aria-label": "Previous", onClick: () => setView(mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1)), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m15 18-6-6 6-6" }) }) }),
+                /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dp__nav", "aria-label": mode === "years" ? "Previous decade" : mode === "months" ? "Previous year" : "Previous month", onClick: () => setView(mode === "years" ? new Date(y - 10, m, 1) : mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1)), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m15 18-6-6 6-6" }) }) }),
                 /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dp__title", onClick: () => {
-                  if (mode === "days") setFocusMonth(m);
-                  setMode(mode === "days" ? "months" : "days");
-                }, children: mode === "days" ? `${months[m]} ${y}` : y }),
-                /* @__PURE__ */ jsx("span", { className: "twc-dp__sr", "aria-live": "polite", children: mode === "days" ? `${months[m]} ${y}` : y }),
-                /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dp__nav", "aria-label": "Next", onClick: () => setView(mode === "months" ? new Date(y + 1, m, 1) : new Date(y, m + 1, 1)), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m9 18 6-6-6-6" }) }) })
+                  if (mode === "days") {
+                    setFocusMonth(m);
+                    setMode("months");
+                  } else if (mode === "months") {
+                    setFocusYear(y);
+                    setMode("years");
+                  } else setMode("days");
+                }, children: mode === "days" ? `${months[m]} ${y}` : mode === "months" ? y : `${decadeStart}\u2013${decadeStart + 9}` }),
+                /* @__PURE__ */ jsx("span", { className: "twc-dp__sr", "aria-live": "polite", children: mode === "days" ? `${months[m]} ${y}` : mode === "months" ? y : `${decadeStart}\u2013${decadeStart + 9}` }),
+                /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dp__nav", "aria-label": mode === "years" ? "Next decade" : mode === "months" ? "Next year" : "Next month", onClick: () => setView(mode === "years" ? new Date(y + 10, m, 1) : mode === "months" ? new Date(y + 1, m, 1) : new Date(y, m + 1, 1)), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m9 18 6-6-6-6" }) }) })
               ] }),
               mode === "days" ? /* @__PURE__ */ jsxs("div", { className: "twc-dp__grid", ref: gridRef, onKeyDown: onGridKeyDown, children: [
                 dows.map((d, i) => /* @__PURE__ */ jsx("div", { className: "twc-dp__dow", children: d }, i)),
@@ -11888,7 +12432,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                     i
                   );
                 })
-              ] }) : /* @__PURE__ */ jsx("div", { className: "twc-dp__months", ref: gridRef, onKeyDown: onMonthsKeyDown, role: "grid", children: monthsShort.map((name, i) => /* @__PURE__ */ jsx(
+              ] }) : mode === "months" ? /* @__PURE__ */ jsx("div", { className: "twc-dp__months", ref: gridRef, onKeyDown: onMonthsKeyDown, role: "grid", children: monthsShort.map((name, i) => /* @__PURE__ */ jsx(
                 "button",
                 {
                   type: "button",
@@ -11904,7 +12448,30 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   children: name
                 },
                 i
-              )) })
+              )) }) : /* @__PURE__ */ jsx("div", { className: "twc-dp__years", ref: gridRef, onKeyDown: onYearsKeyDown, role: "grid", children: yearCells.map((yr) => {
+                const outside = yr < decadeStart || yr > decadeStart + 9;
+                const disabled2 = min && yr < min.getFullYear() || max && yr > max.getFullYear();
+                return /* @__PURE__ */ jsx(
+                  "button",
+                  {
+                    type: "button",
+                    className: "twc-dp__yr",
+                    role: "gridcell",
+                    "data-yr": yr,
+                    "data-outside": outside || void 0,
+                    disabled: disabled2,
+                    "data-selected": selected && selected.getFullYear() === yr || void 0,
+                    tabIndex: yr === (focusYear ?? y) ? 0 : -1,
+                    onClick: () => {
+                      setView(new Date(yr, m, 1));
+                      setFocusMonth(m);
+                      setMode("months");
+                    },
+                    children: yr
+                  },
+                  yr
+                );
+              }) })
             ]
           }
         ),
@@ -11923,12 +12490,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   var RANGE_CSS2 = `
 .twc-drp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-drp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
-.twc-drp__control { display: flex; align-items: center; gap: var(--space-2); height: var(--control-h-md); padding: 0 var(--space-3);
+.twc-drp__control { display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
 .twc-drp__control:hover:not([data-open="true"]):not([data-disabled="true"]) { border-color: var(--color-border-strong); }
 /* tone \u2192 focus/open accent (default primary; reproduces current look). */
 .twc-drp__control { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-drp__control[data-size="sm"] { --_h: var(--control-h-sm); }
+.twc-drp__control[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-drp__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-drp__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
 .twc-drp__control[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
@@ -11942,6 +12511,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-drp__ic svg { width: 17px; height: 17px; }
 .twc-drp__text { flex: 1; font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; }
 .twc-drp__text[data-placeholder="true"] { color: var(--color-text-subtle); }
+.twc-drp__clear { flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; padding: 0; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
+.twc-drp__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-drp__clear svg { width: 14px; height: 14px; }
 /* #105: editable (typed entry) variant. */
 .twc-drp__control--editable { cursor: text; gap: 0; padding-inline-end: var(--space-1); }
 .twc-drp__input { flex: 1; min-width: 0; height: 100%; border: none; background: transparent; outline: none; padding: 0;
@@ -11965,7 +12537,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-drp__nav { display: inline-grid; place-items: center; width: 30px; height: 30px; border: none; background: transparent; color: var(--color-text-muted); cursor: pointer; border-radius: var(--radius-md); }
 .twc-drp__nav:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-drp__nav svg { width: 17px; height: 17px; }
-.twc-drp__title { font-size: var(--text-sm); font-weight: var(--font-bold); }
+.twc-drp__title { font-size: var(--text-sm); font-weight: var(--font-bold); color: var(--color-text); border: none; background: transparent; cursor: pointer; padding: 5px 10px; border-radius: var(--radius-md); }
+.twc-drp__title:hover { background: var(--color-surface-sunken); }
+.twc-drp__months, .twc-drp__years { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.twc-drp__mo, .twc-drp__yr { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
+.twc-drp__mo:hover:not(:disabled), .twc-drp__yr:hover:not(:disabled) { background: var(--color-surface-sunken); }
+.twc-drp__yr[data-outside="true"] { color: var(--color-text-subtle); }
+.twc-drp__mo[data-selected="true"], .twc-drp__yr[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
+.twc-drp__mo:disabled, .twc-drp__yr:disabled { opacity: 0.4; cursor: not-allowed; }
 .twc-drp__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; }
 .twc-drp__dow { text-align: center; font-size: 11px; font-weight: var(--font-bold); color: var(--color-text-subtle); padding: 4px 0; }
 .twc-drp__day { aspect-ratio: 1; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); display: grid; place-items: center; position: relative; }
@@ -11991,6 +12570,18 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   };
   var ymd = (d) => d ? new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime() : null;
   var fmtD = (d, locale) => d ? d.toLocaleDateString(locale, { month: "short", day: "numeric", year: "numeric" }) : "";
+  var rollingDays = (days) => {
+    const end = /* @__PURE__ */ new Date();
+    const start = /* @__PURE__ */ new Date();
+    start.setDate(end.getDate() - days + 1);
+    return { start, end };
+  };
+  var DEFAULT_PRESETS2 = [
+    { label: "Last 7 days", range: () => rollingDays(7) },
+    { label: "Last 14 days", range: () => rollingDays(14) },
+    { label: "Last 30 days", range: () => rollingDays(30) },
+    { label: "Last 90 days", range: () => rollingDays(90) }
+  ];
   function DateRangePicker({
     label,
     hint,
@@ -12007,6 +12598,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     disabledDate,
     disabled = false,
     tone = "primary",
+    size = "md",
+    clearable = true,
+    format,
     editable = false,
     parse,
     onChange,
@@ -12016,11 +12610,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const __twcStyles0 = useScopedStyles("twc-field-styles", FIELD_CSS4);
     const __twcStyles1 = useScopedStyles("twc-drp-styles", RANGE_CSS2);
     const [internal, setInternal] = import_react.default.useState(defaultValue);
-    const range = value !== void 0 ? value : internal;
+    const range2 = value !== void 0 ? value : internal;
     const [open, setOpen] = import_react.default.useState(false);
-    const [view, setView] = import_react.default.useState(range.start || /* @__PURE__ */ new Date());
+    const [view, setView] = import_react.default.useState(range2.start || /* @__PURE__ */ new Date());
     const [hover, setHover] = import_react.default.useState(null);
     const [focusDate, setFocusDate] = import_react.default.useState(null);
+    const [mode, setMode] = import_react.default.useState("days");
+    const [focusMonth, setFocusMonth] = import_react.default.useState(null);
+    const [focusYear, setFocusYear] = import_react.default.useState(null);
     const [editText, setEditText] = import_react.default.useState(null);
     const [coords, setCoords] = import_react.default.useState(null);
     const wrapRef = import_react.default.useRef(null);
@@ -12092,7 +12689,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       const raw = editText.trim();
       if (raw === "") {
         setEditText(null);
-        if (range.start || range.end) set({ start: null, end: null });
+        if (range2.start || range2.end) set({ start: null, end: null });
         return;
       }
       const parts = raw.split(/\s*(?:–|—|\bto\b|\.\.+)\s*/i).map((p) => p.trim());
@@ -12124,8 +12721,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       if (!open) {
         setFocusDate(null);
         setHover(null);
+        setMode("days");
       }
     }, [open]);
+    import_react.default.useEffect(() => {
+      if (open && mode === "months" && focusMonth != null) gridRef.current?.querySelector(`[data-mo="${focusMonth}"]`)?.focus();
+    }, [focusMonth, open, mode]);
+    import_react.default.useEffect(() => {
+      if (open && mode === "years" && focusYear != null) gridRef.current?.querySelector(`[data-yr="${focusYear}"]`)?.focus();
+    }, [focusYear, open, mode]);
     import_react.default.useEffect(() => {
       if (!open || !focusDate) return;
       gridRef.current?.querySelector(`[data-key="${keyOf(focusDate)}"]`)?.focus();
@@ -12156,35 +12760,74 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       setHover(next);
       if (next.getFullYear() !== view.getFullYear() || next.getMonth() !== view.getMonth()) setView(new Date(next.getFullYear(), next.getMonth(), 1));
     };
-    const tabbableDate = focusDate || range.start || /* @__PURE__ */ new Date();
+    const onMonthsKeyDown = (e) => {
+      const vy = view.getFullYear();
+      const cur = focusMonth == null ? view.getMonth() : focusMonth;
+      let next;
+      if (e.key === "ArrowRight") next = cur + 1;
+      else if (e.key === "ArrowLeft") next = cur - 1;
+      else if (e.key === "ArrowDown") next = cur + 3;
+      else if (e.key === "ArrowUp") next = cur - 3;
+      else if (e.key === "Home") next = 0;
+      else if (e.key === "End") next = 11;
+      else return;
+      e.preventDefault();
+      if (next < 0) {
+        setView(new Date(vy - 1, 0, 1));
+        next += 12;
+      } else if (next > 11) {
+        setView(new Date(vy + 1, 0, 1));
+        next -= 12;
+      }
+      setFocusMonth(next);
+    };
+    const onYearsKeyDown = (e) => {
+      const vm = view.getMonth(), ds = Math.floor(view.getFullYear() / 10) * 10;
+      const cur = focusYear == null ? view.getFullYear() : focusYear;
+      let next;
+      if (e.key === "ArrowRight") next = cur + 1;
+      else if (e.key === "ArrowLeft") next = cur - 1;
+      else if (e.key === "ArrowDown") next = cur + 3;
+      else if (e.key === "ArrowUp") next = cur - 3;
+      else if (e.key === "Home") next = ds;
+      else if (e.key === "End") next = ds + 9;
+      else return;
+      e.preventDefault();
+      setView(new Date(next, vm, 1));
+      setFocusYear(next);
+    };
+    const tabbableDate = focusDate || range2.start || /* @__PURE__ */ new Date();
     const clickDay = (d) => {
       if (outOfRange(d)) return;
-      if (!range.start || range.start && range.end) {
+      if (!range2.start || range2.start && range2.end) {
         set({ start: d, end: null });
       } else {
-        const [start, end] = ymd(d) < ymd(range.start) ? [d, range.start] : [range.start, d];
+        const [start, end] = ymd(d) < ymd(range2.start) ? [d, range2.start] : [range2.start, d];
         set({ start, end });
         setOpen(false);
       }
     };
-    const applyPreset = (days) => {
-      const end = /* @__PURE__ */ new Date();
-      const start = /* @__PURE__ */ new Date();
-      start.setDate(end.getDate() - days + 1);
-      set({ start, end });
-      setView(start);
+    const presetItems = presets === true ? DEFAULT_PRESETS2 : Array.isArray(presets) ? presets : [];
+    const applyPreset = (preset) => {
+      const r2 = typeof preset.range === "function" ? preset.range() : preset.range;
+      if (!r2) return;
+      set(r2);
+      if (r2.start) setView(r2.start);
       setOpen(false);
     };
     const months = import_react.default.useMemo(() => locale === void 0 ? MONTHS2 : monthNames2(locale), [locale]);
+    const monthsShort = import_react.default.useMemo(() => months.map((n) => n.slice(0, 3)), [months]);
     const dows = import_react.default.useMemo(
       () => locale === void 0 ? Array.from({ length: 7 }, (_, i) => DOW2[(i + weekStartsOn) % 7]) : weekdayNames2(locale, weekStartsOn),
       [locale, weekStartsOn]
     );
     const y = view.getFullYear(), m = view.getMonth();
+    const decadeStart = Math.floor(y / 10) * 10;
+    const yearCells = Array.from({ length: 12 }, (_, i) => decadeStart - 1 + i);
     const startOffset = (new Date(y, m, 1).getDay() - weekStartsOn + 7) % 7;
     const gridStart = new Date(y, m, 1 - startOffset);
     const edgeOf = (t) => {
-      const s = ymd(range.start), e = ymd(range.end) || (range.start && hover ? ymd(hover) : null);
+      const s = ymd(range2.start), e = ymd(range2.end) || (range2.start && hover ? ymd(hover) : null);
       const lo = s != null && e != null ? Math.min(s, e) : s, hi = s != null && e != null ? Math.max(s, e) : s;
       if (s != null && hi === lo && t === s) return "both";
       if (t === lo) return "start";
@@ -12192,13 +12835,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       return null;
     };
     const inRange = (t) => {
-      const s = ymd(range.start);
-      let e = ymd(range.end);
+      const s = ymd(range2.start);
+      let e = ymd(range2.end);
       if (s != null && e == null && hover) e = ymd(hover);
       if (s == null || e == null) return false;
       return t > Math.min(s, e) && t < Math.max(s, e);
     };
-    const text = range.start ? `${fmtD(range.start, locale)} \u2013 ${range.end ? fmtD(range.end, locale) : "\u2026"}` : "";
+    const text = range2.start ? format ? format(range2) : `${fmtD(range2.start, locale)} \u2013 ${range2.end ? fmtD(range2.end, locale) : "\u2026"}` : "";
     return /* @__PURE__ */ jsxs("div", { className: `twc-drp twc-field ${className}`, ref: wrapRef, ...rest, children: [
       __twcStyles0,
       __twcStyles1,
@@ -12208,7 +12851,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       ] }) : null,
       editable ? (
         // #105: typed entry — a text input accepting "start – end"; commits via `parse` on Enter/blur.
-        /* @__PURE__ */ jsxs("div", { className: "twc-drp__control twc-drp__control--editable", "data-open": open || void 0, "data-disabled": disabled || void 0, "data-invalid": invalid || void 0, "data-tone": tone, children: [
+        /* @__PURE__ */ jsxs("div", { className: "twc-drp__control twc-drp__control--editable", "data-open": open || void 0, "data-disabled": disabled || void 0, "data-invalid": invalid || void 0, "data-tone": tone, "data-size": size, children: [
           /* @__PURE__ */ jsx(
             "input",
             {
@@ -12240,6 +12883,18 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               }
             }
           ),
+          clearable && (range2.start || range2.end) && !disabled ? /* @__PURE__ */ jsx(
+            "button",
+            {
+              type: "button",
+              className: "twc-drp__clear",
+              "aria-label": "Clear",
+              tabIndex: -1,
+              onMouseDown: (e) => e.preventDefault(),
+              onClick: () => set({ start: null, end: null }),
+              children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) })
+            }
+          ) : null,
           /* @__PURE__ */ jsx(
             "button",
             {
@@ -12265,6 +12920,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           "data-disabled": disabled || void 0,
           "data-invalid": invalid || void 0,
           "data-tone": tone,
+          "data-size": size,
           role: "button",
           tabIndex: disabled ? -1 : 0,
           "aria-haspopup": "dialog",
@@ -12285,7 +12941,22 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               /* @__PURE__ */ jsx("rect", { x: "3", y: "4", width: "18", height: "18", rx: "2" }),
               /* @__PURE__ */ jsx("path", { d: "M16 2v4M8 2v4M3 10h18" })
             ] }) }),
-            /* @__PURE__ */ jsx("span", { className: "twc-drp__text", "data-placeholder": !range.start || void 0, children: range.start ? text : placeholder })
+            /* @__PURE__ */ jsx("span", { className: "twc-drp__text", "data-placeholder": !range2.start || void 0, children: range2.start ? text : placeholder }),
+            clearable && (range2.start || range2.end) && !disabled ? /* @__PURE__ */ jsx(
+              "button",
+              {
+                type: "button",
+                className: "twc-drp__clear",
+                "aria-label": "Clear",
+                tabIndex: -1,
+                onMouseDown: (e) => e.preventDefault(),
+                onClick: (e) => {
+                  e.stopPropagation();
+                  set({ start: null, end: null });
+                },
+                children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) })
+              }
+            ) : null
           ]
         }
       ),
@@ -12300,23 +12971,23 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             "aria-label": "Choose date range",
             style: { position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" },
             children: [
-              presets ? /* @__PURE__ */ jsx("div", { className: "twc-drp__presets", children: [["Last 7 days", 7], ["Last 14 days", 14], ["Last 30 days", 30], ["Last 90 days", 90]].map(([lbl, n]) => /* @__PURE__ */ jsx("button", { type: "button", className: "twc-drp__preset", onClick: () => applyPreset(n), children: lbl }, n)) }) : null,
+              presetItems.length ? /* @__PURE__ */ jsx("div", { className: "twc-drp__presets", children: presetItems.map((p, i) => /* @__PURE__ */ jsx("button", { type: "button", className: "twc-drp__preset", onClick: () => applyPreset(p), children: p.label }, i)) }) : null,
               /* @__PURE__ */ jsxs("div", { className: "twc-drp__cal", children: [
                 /* @__PURE__ */ jsxs("div", { className: "twc-drp__head", children: [
-                  /* @__PURE__ */ jsx("button", { type: "button", className: "twc-drp__nav", "aria-label": "Previous month", onClick: () => setView(new Date(y, m - 1, 1)), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m15 18-6-6 6-6" }) }) }),
-                  /* @__PURE__ */ jsxs("span", { className: "twc-drp__title", children: [
-                    months[m],
-                    " ",
-                    y
-                  ] }),
-                  /* @__PURE__ */ jsxs("span", { className: "twc-drp__sr", "aria-live": "polite", children: [
-                    months[m],
-                    " ",
-                    y
-                  ] }),
-                  /* @__PURE__ */ jsx("button", { type: "button", className: "twc-drp__nav", "aria-label": "Next month", onClick: () => setView(new Date(y, m + 1, 1)), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m9 18 6-6-6-6" }) }) })
+                  /* @__PURE__ */ jsx("button", { type: "button", className: "twc-drp__nav", "aria-label": mode === "years" ? "Previous decade" : mode === "months" ? "Previous year" : "Previous month", onClick: () => setView(mode === "years" ? new Date(y - 10, m, 1) : mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1)), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m15 18-6-6 6-6" }) }) }),
+                  /* @__PURE__ */ jsx("button", { type: "button", className: "twc-drp__title", "aria-label": "Switch calendar view", onClick: () => {
+                    if (mode === "days") {
+                      setFocusMonth(m);
+                      setMode("months");
+                    } else if (mode === "months") {
+                      setFocusYear(y);
+                      setMode("years");
+                    } else setMode("days");
+                  }, children: mode === "days" ? `${months[m]} ${y}` : mode === "months" ? y : `${decadeStart}\u2013${decadeStart + 9}` }),
+                  /* @__PURE__ */ jsx("span", { className: "twc-drp__sr", "aria-live": "polite", children: mode === "days" ? `${months[m]} ${y}` : mode === "months" ? y : `${decadeStart}\u2013${decadeStart + 9}` }),
+                  /* @__PURE__ */ jsx("button", { type: "button", className: "twc-drp__nav", "aria-label": mode === "years" ? "Next decade" : mode === "months" ? "Next year" : "Next month", onClick: () => setView(mode === "years" ? new Date(y + 10, m, 1) : mode === "months" ? new Date(y + 1, m, 1) : new Date(y, m + 1, 1)), children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m9 18 6-6-6-6" }) }) })
                 ] }),
-                /* @__PURE__ */ jsxs("div", { className: "twc-drp__grid", ref: gridRef, onKeyDown: onGridKeyDown, role: "grid", children: [
+                mode === "days" ? /* @__PURE__ */ jsxs("div", { className: "twc-drp__grid", ref: gridRef, onKeyDown: onGridKeyDown, role: "grid", children: [
                   dows.map((d, i) => /* @__PURE__ */ jsx("div", { className: "twc-drp__dow", children: d }, i)),
                   Array.from({ length: 42 }).map((_, i) => {
                     const d = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i);
@@ -12341,7 +13012,53 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                       i
                     );
                   })
-                ] })
+                ] }) : mode === "months" ? /* @__PURE__ */ jsx("div", { className: "twc-drp__months", ref: gridRef, onKeyDown: onMonthsKeyDown, role: "grid", children: monthsShort.map((mo, i) => {
+                  const disabled2 = min && ymd(new Date(y, i + 1, 0)) < ymd(min) || max && ymd(new Date(y, i, 1)) > ymd(max);
+                  const sel = range2.start && range2.start.getFullYear() === y && range2.start.getMonth() === i || range2.end && range2.end.getFullYear() === y && range2.end.getMonth() === i;
+                  return /* @__PURE__ */ jsx(
+                    "button",
+                    {
+                      type: "button",
+                      className: "twc-drp__mo",
+                      role: "gridcell",
+                      "data-mo": i,
+                      disabled: disabled2 || void 0,
+                      "data-selected": sel || void 0,
+                      tabIndex: i === (focusMonth ?? m) ? 0 : -1,
+                      onClick: () => {
+                        setView(new Date(y, i, 1));
+                        setFocusDate(null);
+                        setMode("days");
+                      },
+                      children: mo
+                    },
+                    i
+                  );
+                }) }) : /* @__PURE__ */ jsx("div", { className: "twc-drp__years", ref: gridRef, onKeyDown: onYearsKeyDown, role: "grid", children: yearCells.map((yr) => {
+                  const outside = yr < decadeStart || yr > decadeStart + 9;
+                  const disabled2 = min && ymd(new Date(yr, 11, 31)) < ymd(min) || max && ymd(new Date(yr, 0, 1)) > ymd(max);
+                  const sel = range2.start && range2.start.getFullYear() === yr || range2.end && range2.end.getFullYear() === yr;
+                  return /* @__PURE__ */ jsx(
+                    "button",
+                    {
+                      type: "button",
+                      className: "twc-drp__yr",
+                      role: "gridcell",
+                      "data-yr": yr,
+                      "data-outside": outside || void 0,
+                      disabled: disabled2 || void 0,
+                      "data-selected": sel || void 0,
+                      tabIndex: yr === (focusYear ?? y) ? 0 : -1,
+                      onClick: () => {
+                        setView(new Date(yr, m, 1));
+                        setFocusMonth(m);
+                        setMode("months");
+                      },
+                      children: yr
+                    },
+                    yr
+                  );
+                }) })
               ] })
             ]
           }
@@ -12349,6 +13066,776 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         document.body
       ) : null,
       error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : hint ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__hint", children: hint }) : null
+    ] });
+  }
+  var FIELD_CSS5 = `
+.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
+.twc-field__req { color: var(--color-danger); }
+.twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
+`;
+  var TIMEPICKER_CSS = `
+.twc-tp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
+.twc-tp__control {
+  display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
+  background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
+  cursor: pointer; transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+.twc-tp__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
+.twc-tp__control { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-tp__control[data-size="sm"] { --_h: var(--control-h-sm); }
+.twc-tp__control[data-size="lg"] { --_h: var(--control-h-lg); }
+.twc-tp__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
+.twc-tp__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
+.twc-tp__control[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
+.twc-tp__control[data-tone="info"]    { --_accent: var(--color-info);    --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-info) 32%, transparent); }
+.twc-tp__control[data-tone="neutral"] { --_accent: var(--color-border-strong); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-text) 14%, transparent); }
+.twc-tp__control[data-open="true"] { border-color: var(--_accent); box-shadow: var(--_ring); }
+.twc-tp__control[data-invalid="true"] { border-color: var(--color-danger); }
+.twc-tp__control[data-invalid="true"][data-open="true"] { box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 28%, transparent); }
+.twc-tp__control[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
+.twc-tp__field { position: relative; display: flex; flex-direction: column; }
+.twc-tp__control[data-has-clear="true"] { padding-inline-end: 34px; }
+.twc-tp__ic { flex: none; color: var(--color-text-subtle); display: inline-flex; }
+.twc-tp__ic svg { width: 17px; height: 17px; }
+.twc-tp__text { flex: 1; font-size: var(--text-sm); color: var(--color-text); font-variant-numeric: tabular-nums; }
+.twc-tp__text[data-placeholder="true"] { color: var(--color-text-subtle); font-variant-numeric: normal; }
+.twc-tp__clear { position: absolute; inset-inline-end: 10px; top: 50%; transform: translateY(-50%); display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
+.twc-tp__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-tp__clear svg { width: 14px; height: 14px; }
+.twc-tp__control--editable { cursor: text; gap: 0; padding-inline-end: var(--space-1); }
+.twc-tp__input { flex: 1; min-width: 0; height: 100%; border: none; background: transparent; outline: none; padding: 0; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); font-variant-numeric: tabular-nums; }
+.twc-tp__input::placeholder { color: var(--color-text-subtle); font-variant-numeric: normal; }
+.twc-tp__input:disabled { cursor: not-allowed; }
+.twc-tp__clear--inline { position: static; transform: none; flex: none; }
+.twc-tp__toggle { flex: none; display: inline-grid; place-items: center; width: 26px; height: 26px; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast), color var(--duration-fast); }
+.twc-tp__toggle:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-tp__toggle:disabled { cursor: not-allowed; }
+.twc-tp__toggle svg { width: 17px; height: 17px; }
+
+.twc-tp__pop {
+  position: fixed; z-index: var(--z-popover);
+  background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: var(--space-2);
+  animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top;
+}
+.twc-tp__cols { display: flex; gap: var(--space-1); max-height: 232px; }
+.twc-tp__col { display: flex; flex-direction: column; gap: 2px; overflow-y: auto; scrollbar-width: thin; padding-inline: 2px; scroll-behavior: smooth; }
+.twc-tp__col::-webkit-scrollbar { width: 6px; }
+.twc-tp__col::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: var(--radius-full); }
+.twc-tp__col + .twc-tp__col { border-inline-start: var(--border-thin) solid var(--color-divider); }
+.twc-tp__colhead { text-align: center; font-size: 11px; font-weight: var(--font-bold); color: var(--color-text-subtle); text-transform: uppercase; padding: 2px 0 4px; position: sticky; top: 0; background: var(--color-surface-raised); }
+.twc-tp__opt { min-width: 46px; padding: 6px 10px; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); text-align: center; font-variant-numeric: tabular-nums; transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+.twc-tp__opt:hover:not(:disabled):not([data-selected="true"]) { background: var(--color-surface-sunken); }
+.twc-tp__opt[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
+.twc-tp__opt:disabled { opacity: 0.35; cursor: not-allowed; }
+.twc-tp__opt:focus-visible { outline: none; box-shadow: var(--ring); }
+`;
+  var pad = (n) => String(n).padStart(2, "0");
+  var range = (start, end, step) => {
+    const out = [];
+    for (let i = start; i < end; i += step) out.push(i);
+    return out;
+  };
+  var tod = (h, m, s) => h * 3600 + m * 60 + s;
+  var to24 = (dh, mer) => mer === "PM" ? dh === 12 ? 12 : dh + 12 : dh === 12 ? 0 : dh;
+  function TimePicker({
+    label,
+    hint,
+    error,
+    required = false,
+    value,
+    defaultValue = null,
+    placeholder = "Select time",
+    min,
+    max,
+    minuteStep = 5,
+    secondStep = 5,
+    granularity = "minute",
+    // "hour" | "minute" | "second"
+    hourCycle = 24,
+    // 24 | 12
+    referenceDate,
+    disabled = false,
+    tone = "primary",
+    size = "md",
+    clearable = true,
+    editable = false,
+    parse,
+    format,
+    locale,
+    onChange,
+    id,
+    className = "",
+    ...rest
+  }) {
+    const __twcStyles0 = useScopedStyles("twc-field-styles", FIELD_CSS5);
+    const __twcStyles1 = useScopedStyles("twc-timepicker-styles", TIMEPICKER_CSS);
+    const autoId = import_react.default.useId();
+    const fieldId = id || autoId;
+    const descId = `${fieldId}-desc`;
+    const invalid = Boolean(error);
+    const [internal, setInternal] = import_react.default.useState(defaultValue);
+    const selected = value !== void 0 ? value : internal;
+    const [open, setOpen] = import_react.default.useState(false);
+    const [editText, setEditText] = import_react.default.useState(null);
+    const [coords, setCoords] = import_react.default.useState(null);
+    const wrapRef = import_react.default.useRef(null);
+    const triggerRef = import_react.default.useRef(null);
+    const popRef = import_react.default.useRef(null);
+    const place = import_react.default.useCallback(() => {
+      const el = triggerRef.current;
+      if (!el) return;
+      const r2 = el.getBoundingClientRect();
+      const vh = window.innerHeight, POP_W = 220;
+      const below = vh - r2.bottom;
+      const flip = below < 300 && r2.top > below;
+      let left = Math.min(r2.left, window.innerWidth - POP_W - 8);
+      left = Math.max(8, left);
+      setCoords({ left, top: flip ? void 0 : Math.round(r2.bottom + 6), bottom: flip ? Math.round(vh - r2.top + 6) : void 0 });
+    }, []);
+    import_react.default.useEffect(() => {
+      if (!open) return void 0;
+      place();
+      const onMove = () => place();
+      window.addEventListener("scroll", onMove, true);
+      window.addEventListener("resize", onMove);
+      return () => {
+        window.removeEventListener("scroll", onMove, true);
+        window.removeEventListener("resize", onMove);
+      };
+    }, [open, place]);
+    import_react.default.useEffect(() => {
+      if (!open) return void 0;
+      const onDown = (e) => {
+        if (wrapRef.current && wrapRef.current.contains(e.target)) return;
+        if (popRef.current && popRef.current.contains(e.target)) return;
+        setOpen(false);
+      };
+      const onKey = (e) => {
+        if (e.key === "Escape") setOpen(false);
+      };
+      document.addEventListener("mousedown", onDown);
+      document.addEventListener("keydown", onKey);
+      return () => {
+        document.removeEventListener("mousedown", onDown);
+        document.removeEventListener("keydown", onKey);
+      };
+    }, [open]);
+    useFocusTrap(popRef, open && !!coords, {
+      initialFocus: () => popRef.current?.querySelector('.twc-tp__opt[data-selected="true"]') || popRef.current?.querySelector('.twc-tp__opt[tabindex="0"]')
+    });
+    import_react.default.useEffect(() => {
+      if (!open || !coords) return;
+      popRef.current?.querySelectorAll('.twc-tp__opt[data-selected="true"]').forEach((el) => el.scrollIntoView({ block: "center" }));
+    }, [open, coords]);
+    const refBase = referenceDate || /* @__PURE__ */ new Date();
+    const minTod = min ? tod(min.getHours(), min.getMinutes(), min.getSeconds()) : null;
+    const maxTod = max ? tod(max.getHours(), max.getMinutes(), max.getSeconds()) : null;
+    const outOfRange = (h, m, s) => minTod != null && tod(h, m, s) < minTod || maxTod != null && tod(h, m, s) > maxTod;
+    const curH = selected ? selected.getHours() : null;
+    const curM = selected ? selected.getMinutes() : null;
+    const curS = selected ? selected.getSeconds() : null;
+    const curMer = curH == null ? "AM" : curH < 12 ? "AM" : "PM";
+    const fmt = (d) => {
+      if (!d) return "";
+      if (format) return format(d);
+      const opts = { hour: hourCycle === 12 ? "numeric" : "2-digit", minute: "2-digit", hour12: hourCycle === 12 };
+      if (granularity === "second") opts.second = "2-digit";
+      if (granularity === "hour") delete opts.minute;
+      return d.toLocaleTimeString(locale, opts);
+    };
+    const commit = (h, m, s) => {
+      const b = selected || refBase;
+      const d = new Date(b.getFullYear(), b.getMonth(), b.getDate(), h, m, s, 0);
+      if (value === void 0) setInternal(d);
+      onChange?.(d);
+      setEditText(null);
+    };
+    const pickHour = (h) => commit(h, granularity === "hour" ? 0 : curM ?? 0, granularity === "second" ? curS ?? 0 : 0);
+    const pickMinute = (m) => commit(curH ?? refBase.getHours(), m, granularity === "second" ? curS ?? 0 : 0);
+    const pickSecond = (s) => commit(curH ?? refBase.getHours(), curM ?? 0, s);
+    const pickMeridiem = (mer) => {
+      const dh = curH == null ? 0 : curH % 12 === 0 ? 12 : curH % 12;
+      commit(to24(dh, mer), curM ?? 0, granularity === "second" ? curS ?? 0 : 0);
+    };
+    const clear = () => {
+      if (value === void 0) setInternal(null);
+      onChange?.(null);
+      setEditText(null);
+    };
+    const parseTyped = (str) => {
+      const s = str.trim();
+      if (s === "") return null;
+      if (parse) {
+        const d = parse(s);
+        return d instanceof Date && !Number.isNaN(d.getTime()) ? d : void 0;
+      }
+      const mm = s.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?\s*([ap]m)?$/i);
+      if (!mm) return void 0;
+      let h = +mm[1];
+      const mi = +mm[2];
+      const se = mm[3] ? +mm[3] : 0;
+      const mer = mm[4] && mm[4].toLowerCase();
+      if (mer === "pm" && h < 12) h += 12;
+      else if (mer === "am" && h === 12) h = 0;
+      if (h > 23 || mi > 59 || se > 59) return void 0;
+      const b = selected || refBase;
+      return new Date(b.getFullYear(), b.getMonth(), b.getDate(), h, mi, se, 0);
+    };
+    const commitText = () => {
+      if (editText == null) return;
+      const parsed = parseTyped(editText);
+      if (parsed === null) {
+        setEditText(null);
+        if (selected) clear();
+        return;
+      }
+      if (parsed === void 0 || outOfRange(parsed.getHours(), parsed.getMinutes(), parsed.getSeconds())) {
+        setEditText(null);
+        return;
+      }
+      commit(parsed.getHours(), parsed.getMinutes(), parsed.getSeconds());
+      setOpen(false);
+    };
+    const hourVals = hourCycle === 12 ? [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] : range(0, 24, 1);
+    const columns = [
+      {
+        key: "h",
+        head: "hr",
+        aria: "Hour",
+        items: hourVals.map((hv) => {
+          const h24 = hourCycle === 12 ? to24(hv, curMer) : hv;
+          return {
+            val: hv,
+            text: hourCycle === 12 ? String(hv) : pad(hv),
+            selected: curH != null && h24 === curH,
+            disabled: outOfRange(h24, 0, 0) && outOfRange(h24, 59, 59),
+            onSelect: () => pickHour(h24)
+          };
+        })
+      }
+    ];
+    if (granularity !== "hour") {
+      const h = curH ?? refBase.getHours();
+      columns.push({ key: "m", head: "min", aria: "Minute", items: range(0, 60, minuteStep).map((mv) => ({
+        val: mv,
+        text: pad(mv),
+        selected: curM != null && mv === curM,
+        disabled: outOfRange(h, mv, 0) && outOfRange(h, mv, 59),
+        onSelect: () => pickMinute(mv)
+      })) });
+    }
+    if (granularity === "second") {
+      const h = curH ?? refBase.getHours(), m = curM ?? 0;
+      columns.push({ key: "s", head: "sec", aria: "Second", items: range(0, 60, secondStep).map((sv) => ({
+        val: sv,
+        text: pad(sv),
+        selected: curS != null && sv === curS,
+        disabled: outOfRange(h, m, sv),
+        onSelect: () => pickSecond(sv)
+      })) });
+    }
+    if (hourCycle === 12) {
+      columns.push({ key: "mer", head: "", aria: "AM or PM", items: ["AM", "PM"].map((mer) => ({
+        val: mer,
+        text: mer,
+        selected: curH != null && curMer === mer,
+        disabled: [...Array(12)].every((_, i) => {
+          const hh = mer === "AM" ? i : i + 12;
+          return outOfRange(hh, 0, 0) && outOfRange(hh, 59, 59);
+        }),
+        onSelect: () => pickMeridiem(mer)
+      })) });
+    }
+    const onOptKey = (e) => {
+      const btn = e.target;
+      const col = btn.closest("[data-col]");
+      if (!col) return;
+      const opts = Array.from(col.querySelectorAll(".twc-tp__opt:not(:disabled)"));
+      const i = opts.indexOf(btn);
+      let target;
+      if (e.key === "ArrowDown") target = opts[Math.min(i + 1, opts.length - 1)];
+      else if (e.key === "ArrowUp") target = opts[Math.max(i - 1, 0)];
+      else if (e.key === "Home") target = opts[0];
+      else if (e.key === "End") target = opts[opts.length - 1];
+      else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        const cols = Array.from(popRef.current.querySelectorAll("[data-col]"));
+        const nextCol = cols[cols.indexOf(col) + (e.key === "ArrowRight" ? 1 : -1)];
+        if (nextCol) {
+          const nopts = Array.from(nextCol.querySelectorAll(".twc-tp__opt:not(:disabled)"));
+          target = nextCol.querySelector('.twc-tp__opt[data-selected="true"]') || nopts[Math.min(i, nopts.length - 1)] || nopts[0];
+        }
+      } else return;
+      e.preventDefault();
+      target?.focus();
+    };
+    const clockIcon = /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+      /* @__PURE__ */ jsx("circle", { cx: "12", cy: "12", r: "9" }),
+      /* @__PURE__ */ jsx("path", { d: "M12 7v5l3 2" })
+    ] });
+    return /* @__PURE__ */ jsxs("div", { className: `twc-tp twc-field ${className}`, ref: wrapRef, ...rest, children: [
+      __twcStyles0,
+      __twcStyles1,
+      label ? /* @__PURE__ */ jsxs("label", { className: "twc-field__label", id: `${fieldId}-label`, children: [
+        label,
+        required ? /* @__PURE__ */ jsx("span", { className: "twc-field__req", children: "*" }) : null
+      ] }) : null,
+      /* @__PURE__ */ jsx("div", { className: "twc-tp__field", children: editable ? /* @__PURE__ */ jsxs(
+        "div",
+        {
+          className: "twc-tp__control twc-tp__control--editable",
+          "data-open": open || void 0,
+          "data-disabled": disabled || void 0,
+          "data-tone": tone,
+          "data-invalid": invalid || void 0,
+          "data-size": size,
+          children: [
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                ref: triggerRef,
+                className: "twc-tp__input",
+                id: fieldId,
+                type: "text",
+                inputMode: "numeric",
+                autoComplete: "off",
+                disabled,
+                placeholder,
+                value: editText != null ? editText : selected ? fmt(selected) : "",
+                "aria-haspopup": "dialog",
+                "aria-expanded": open,
+                "aria-labelledby": label ? `${fieldId}-label` : void 0,
+                "aria-invalid": invalid || void 0,
+                "aria-describedby": error || hint ? descId : void 0,
+                onChange: (e) => setEditText(e.target.value),
+                onKeyDown: (e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    commitText();
+                  } else if (e.key === "ArrowDown" && (e.altKey || !open)) {
+                    e.preventDefault();
+                    setOpen(true);
+                  } else if (e.key === "Escape" && open) setOpen(false);
+                },
+                onBlur: (e) => {
+                  if (popRef.current && popRef.current.contains(e.relatedTarget)) return;
+                  commitText();
+                }
+              }
+            ),
+            clearable && selected && !disabled ? /* @__PURE__ */ jsx(
+              "button",
+              {
+                type: "button",
+                className: "twc-tp__clear twc-tp__clear--inline",
+                "aria-label": "Clear",
+                tabIndex: -1,
+                onMouseDown: (e) => e.preventDefault(),
+                onClick: clear,
+                children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) })
+              }
+            ) : null,
+            /* @__PURE__ */ jsx(
+              "button",
+              {
+                type: "button",
+                className: "twc-tp__toggle",
+                "aria-label": "Open time list",
+                tabIndex: -1,
+                disabled,
+                onClick: () => !disabled && setOpen((o) => !o),
+                children: clockIcon
+              }
+            )
+          ]
+        }
+      ) : /* @__PURE__ */ jsxs(Fragment, { children: [
+        /* @__PURE__ */ jsxs(
+          "div",
+          {
+            ref: triggerRef,
+            className: "twc-tp__control",
+            id: fieldId,
+            "data-open": open || void 0,
+            "data-disabled": disabled || void 0,
+            "data-size": size,
+            "data-tone": tone,
+            "data-has-clear": clearable && selected && !disabled ? "true" : void 0,
+            "data-invalid": invalid || void 0,
+            role: "button",
+            tabIndex: disabled ? -1 : 0,
+            "aria-haspopup": "dialog",
+            "aria-expanded": open,
+            "aria-labelledby": label ? `${fieldId}-label` : void 0,
+            "aria-invalid": invalid || void 0,
+            "aria-describedby": error || hint ? descId : void 0,
+            onClick: () => !disabled && setOpen((o) => !o),
+            onKeyDown: (e) => {
+              if ((e.key === "Enter" || e.key === " ") && !disabled) {
+                e.preventDefault();
+                setOpen((o) => !o);
+              }
+            },
+            children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-tp__ic", "aria-hidden": "true", children: clockIcon }),
+              /* @__PURE__ */ jsx("span", { className: "twc-tp__text", "data-placeholder": !selected || void 0, children: selected ? fmt(selected) : placeholder })
+            ]
+          }
+        ),
+        clearable && selected && !disabled ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-tp__clear", "aria-label": "Clear", onClick: (e) => {
+          e.stopPropagation();
+          clear();
+        }, children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) }) }) : null
+      ] }) }),
+      open && coords ? (0, import_react_dom.createPortal)(
+        /* @__PURE__ */ jsx(
+          "div",
+          {
+            className: "twc-tp__pop",
+            ref: popRef,
+            role: "dialog",
+            "aria-modal": "true",
+            "aria-label": "Choose time",
+            style: { position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" },
+            children: /* @__PURE__ */ jsx("div", { className: "twc-tp__cols", children: columns.map((col) => {
+              const firstTab = col.items.find((it) => it.selected) || col.items.find((it) => !it.disabled);
+              return /* @__PURE__ */ jsxs("div", { className: "twc-tp__col", role: "listbox", "aria-label": col.aria, "data-col": col.key, children: [
+                col.head ? /* @__PURE__ */ jsx("div", { className: "twc-tp__colhead", "aria-hidden": "true", children: col.head }) : null,
+                col.items.map((it) => /* @__PURE__ */ jsx(
+                  "button",
+                  {
+                    type: "button",
+                    className: "twc-tp__opt",
+                    role: "option",
+                    "aria-selected": it.selected || false,
+                    "data-selected": it.selected || void 0,
+                    "data-val": it.val,
+                    disabled: it.disabled || void 0,
+                    tabIndex: it === firstTab ? 0 : -1,
+                    onClick: it.onSelect,
+                    onKeyDown: onOptKey,
+                    children: it.text
+                  },
+                  it.val
+                ))
+              ] }, col.key);
+            }) })
+          }
+        ),
+        document.body
+      ) : null,
+      error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : hint ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__hint", children: hint }) : null
+    ] });
+  }
+  var FIELD_CSS6 = `
+.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
+.twc-field__req { color: var(--color-danger); }
+.twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
+`;
+  var DTP_CSS = `
+.twc-dtp { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-dtp__row { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: flex-start; }
+.twc-dtp__date { flex: 1 1 11rem; min-width: 9rem; }
+.twc-dtp__time { flex: 0 1 8rem; min-width: 7rem; }
+`;
+  function DateTimePicker({
+    label,
+    hint,
+    error,
+    required = false,
+    value,
+    defaultValue = null,
+    disabled = false,
+    tone = "primary",
+    size = "md",
+    clearable = true,
+    min,
+    max,
+    disabledDate,
+    minuteStep = 5,
+    secondStep = 5,
+    granularity = "minute",
+    hourCycle = 24,
+    locale,
+    weekStartsOn = 0,
+    dateFormat,
+    timeFormat,
+    datePlaceholder = "Select date",
+    timePlaceholder = "Time",
+    onChange,
+    id,
+    className = "",
+    ...rest
+  }) {
+    const __twcStyles0 = useScopedStyles("twc-field-styles", FIELD_CSS6);
+    const __twcStyles1 = useScopedStyles("twc-datetimepicker-styles", DTP_CSS);
+    const autoId = import_react.default.useId();
+    const fieldId = id || autoId;
+    const descId = `${fieldId}-desc`;
+    const [internal, setInternal] = import_react.default.useState(defaultValue);
+    const selected = value !== void 0 ? value : internal;
+    const commitVal = (d) => {
+      if (value === void 0) setInternal(d);
+      onChange?.(d);
+    };
+    const onDateChange = (d) => {
+      if (!d) return commitVal(null);
+      const b = selected;
+      commitVal(new Date(d.getFullYear(), d.getMonth(), d.getDate(), b ? b.getHours() : 0, b ? b.getMinutes() : 0, b ? b.getSeconds() : 0, 0));
+    };
+    const onTimeChange = (t) => {
+      if (!t) return;
+      const b = selected;
+      commitVal(new Date(b ? b.getFullYear() : t.getFullYear(), b ? b.getMonth() : t.getMonth(), b ? b.getDate() : t.getDate(), t.getHours(), t.getMinutes(), t.getSeconds(), 0));
+    };
+    const childTone = error ? "danger" : tone;
+    return /* @__PURE__ */ jsxs("div", { className: `twc-dtp twc-field ${className}`, id: fieldId, ...rest, children: [
+      __twcStyles0,
+      __twcStyles1,
+      label ? /* @__PURE__ */ jsxs("label", { className: "twc-field__label", id: `${fieldId}-label`, children: [
+        label,
+        required ? /* @__PURE__ */ jsx("span", { className: "twc-field__req", children: "*" }) : null
+      ] }) : null,
+      /* @__PURE__ */ jsxs("div", { className: "twc-dtp__row", role: "group", "aria-labelledby": label ? `${fieldId}-label` : void 0, "aria-describedby": error || hint ? descId : void 0, children: [
+        /* @__PURE__ */ jsx("div", { className: "twc-dtp__date", children: /* @__PURE__ */ jsx(
+          DatePicker,
+          {
+            value: selected,
+            onChange: onDateChange,
+            disabled,
+            tone: childTone,
+            size,
+            clearable,
+            min,
+            max,
+            disabledDate,
+            locale,
+            weekStartsOn,
+            format: dateFormat,
+            placeholder: datePlaceholder,
+            "aria-label": "Date"
+          }
+        ) }),
+        /* @__PURE__ */ jsx("div", { className: "twc-dtp__time", children: /* @__PURE__ */ jsx(
+          TimePicker,
+          {
+            value: selected,
+            onChange: onTimeChange,
+            disabled,
+            tone: childTone,
+            size,
+            clearable: false,
+            minuteStep,
+            secondStep,
+            granularity,
+            hourCycle,
+            locale,
+            referenceDate: selected || void 0,
+            format: timeFormat,
+            placeholder: timePlaceholder,
+            "aria-label": "Time"
+          }
+        ) })
+      ] }),
+      error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : hint ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__hint", children: hint }) : null
+    ] });
+  }
+  var FILTERBAR_CSS = `
+.twc-fbar { font-family: var(--font-sans); display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-3); }
+.twc-fbar__field { display: flex; flex-direction: column; min-width: 170px; }
+.twc-fbar__field[data-type="search"], .twc-fbar__field[data-type="text"] { flex: 1 1 200px; }
+.twc-fbar__field[data-type="daterange"] { min-width: 220px; }
+.twc-fbar__field[data-type="boolean"], .twc-fbar__field[data-type="number"] { min-width: 130px; }
+.twc-fbar__labelrow { display: flex; align-items: center; gap: 6px; min-height: 18px; margin-bottom: var(--space-1); }
+.twc-fbar__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
+.twc-fbar__clearone { display: inline-grid; place-items: center; width: 16px; height: 16px; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); padding: 0; }
+.twc-fbar__clearone:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-fbar__clearone svg { width: 11px; height: 11px; }
+.twc-fbar__actions { display: flex; align-items: center; gap: var(--space-2); }
+.twc-fbar__clearall { display: inline-flex; align-items: center; gap: 6px; height: var(--control-h-md); padding: 0 var(--space-3); border: var(--border-thin) solid var(--color-border); background: var(--color-surface); color: var(--color-text-muted); border-radius: var(--radius-md); cursor: pointer; font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-medium); transition: background-color var(--duration-fast), color var(--duration-fast), border-color var(--duration-fast); }
+.twc-fbar__clearall:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--color-text); border-color: var(--color-border-strong); }
+.twc-fbar__clearall:disabled { opacity: 0.5; cursor: not-allowed; }
+.twc-fbar__clearall svg { width: 15px; height: 15px; }
+`;
+  var isEmpty = (f, v) => {
+    if (v == null) return true;
+    if (f.type === "multiselect" || f.type === "select-multiple") return !Array.isArray(v) || v.length === 0;
+    if (f.type === "daterange") return v.start == null && v.end == null;
+    return v === "";
+  };
+  var emptyFor = (f) => f.type === "multiselect" ? [] : f.type === "daterange" ? { start: null, end: null } : void 0;
+  function valuesToClauses(fields, values) {
+    const out = [];
+    for (const f of fields) {
+      const v = values[f.field];
+      if (isEmpty(f, v)) continue;
+      if (f.type === "multiselect") out.push({ field: f.field, op: "isAnyOf", value: v });
+      else if (f.type === "daterange") {
+        if (v.start != null) out.push({ field: f.field, op: ">=", value: v.start });
+        if (v.end != null) out.push({ field: f.field, op: "<", value: v.end });
+      } else if (f.type === "search" || f.type === "text") out.push({ field: f.field, op: f.op || "contains", value: v });
+      else if (f.type === "number") out.push({ field: f.field, op: f.op || "=", value: v });
+      else if (f.type === "boolean") out.push({ field: f.field, op: "=", value: v });
+      else out.push({ field: f.field, op: f.op || "=", value: v });
+    }
+    return out;
+  }
+  function clausesToValues(fields, clauses) {
+    const v = {};
+    for (const f of fields) v[f.field] = emptyFor(f);
+    for (const c of clauses || []) {
+      const f = fields.find((x) => x.field === c.field);
+      if (!f) continue;
+      if (f.type === "daterange") {
+        v[f.field] = { ...v[f.field] || { start: null, end: null } };
+        if (c.op === ">=" || c.op === ">") v[f.field].start = c.value;
+        else if (c.op === "<" || c.op === "<=") v[f.field].end = c.value;
+      } else if (f.type === "multiselect") {
+        v[f.field] = Array.isArray(c.value) ? c.value : [];
+      } else {
+        v[f.field] = c.value;
+      }
+    }
+    return v;
+  }
+  var xIcon = /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) });
+  function FilterBar({
+    fields = [],
+    value,
+    defaultValue = [],
+    onChange,
+    onValuesChange,
+    showClearAll = false,
+    clearAllLabel = "Clear all",
+    showFieldClear = true,
+    size = "md",
+    tone = "primary",
+    disabled = false,
+    id,
+    className = "",
+    ...rest
+  }) {
+    const styles = useScopedStyles("twc-filterbar-styles", FILTERBAR_CSS);
+    const autoId = import_react.default.useId();
+    const fieldId = id || autoId;
+    const [internal, setInternal] = import_react.default.useState(defaultValue);
+    const clauses = value !== void 0 ? value : internal;
+    const values = import_react.default.useMemo(() => clausesToValues(fields, clauses), [fields, clauses]);
+    const emit = (nextValues) => {
+      const next = valuesToClauses(fields, nextValues);
+      if (value === void 0) setInternal(next);
+      onChange?.(next);
+      onValuesChange?.(nextValues);
+    };
+    const setField = (f, v) => emit({ ...values, [f.field]: v });
+    const clearField = (f) => setField(f, emptyFor(f));
+    const clearAll = () => {
+      const cleared = {};
+      for (const f of fields) cleared[f.field] = emptyFor(f);
+      emit(cleared);
+    };
+    const activeCount = fields.reduce((n, f) => n + (isEmpty(f, values[f.field]) ? 0 : 1), 0);
+    const control = (f) => {
+      const v = values[f.field];
+      const name = f.label || f.field;
+      const opts = typeof f.options === "function" ? f.options(values) : f.options;
+      const common = { size, disabled: disabled || f.disabled, "aria-label": name };
+      if (f.type === "multiselect") {
+        return /* @__PURE__ */ jsx(
+          MultiSelect,
+          {
+            ...common,
+            options: opts || [],
+            value: v || [],
+            placeholder: f.placeholder || "Any",
+            clearable: true,
+            onChange: (next) => setField(f, next)
+          }
+        );
+      }
+      if (f.type === "daterange") {
+        return /* @__PURE__ */ jsx(
+          DateRangePicker,
+          {
+            ...common,
+            tone,
+            value: v || { start: null, end: null },
+            clearable: true,
+            onChange: (range2) => setField(f, range2)
+          }
+        );
+      }
+      if (f.type === "boolean") {
+        const boolOpts = [{ value: "", label: f.anyLabel || "Any" }, { value: "true", label: f.trueLabel || "Yes" }, { value: "false", label: f.falseLabel || "No" }];
+        return /* @__PURE__ */ jsx(
+          Select,
+          {
+            ...common,
+            searchable: false,
+            options: boolOpts,
+            value: v == null ? "" : String(v),
+            onChange: (next) => setField(f, next === "" ? void 0 : next === "true")
+          }
+        );
+      }
+      if (f.type === "select") {
+        return /* @__PURE__ */ jsx(
+          Select,
+          {
+            ...common,
+            searchable: f.searchable,
+            options: opts || [],
+            value: v ?? "",
+            placeholder: f.placeholder || "Any",
+            portal: f.portal,
+            onChange: (next) => setField(f, next === "" ? void 0 : next)
+          }
+        );
+      }
+      if (f.type === "number") {
+        return /* @__PURE__ */ jsx(
+          Input,
+          {
+            ...common,
+            type: "number",
+            value: v ?? "",
+            placeholder: f.placeholder,
+            onChange: (e) => setField(f, e.target.value === "" ? void 0 : Number(e.target.value))
+          }
+        );
+      }
+      return /* @__PURE__ */ jsx(
+        Input,
+        {
+          ...common,
+          type: f.type === "search" ? "search" : "text",
+          value: v ?? "",
+          placeholder: f.placeholder || (f.type === "search" ? "Search\u2026" : ""),
+          onChange: (e) => setField(f, e.target.value)
+        }
+      );
+    };
+    return /* @__PURE__ */ jsxs("div", { className: `twc-fbar ${className}`, id: fieldId, role: "group", "aria-label": "Filters", ...rest, children: [
+      styles,
+      fields.map((f) => {
+        const active = !isEmpty(f, values[f.field]);
+        return /* @__PURE__ */ jsxs("div", { className: "twc-fbar__field", "data-type": f.type, children: [
+          /* @__PURE__ */ jsxs("div", { className: "twc-fbar__labelrow", children: [
+            /* @__PURE__ */ jsx("span", { className: "twc-fbar__label", children: f.label || f.field }),
+            showFieldClear && active && !disabled ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-fbar__clearone", "aria-label": `Clear ${f.label || f.field}`, onClick: () => clearField(f), children: xIcon }) : null
+          ] }),
+          control(f)
+        ] }, f.field);
+      }),
+      showClearAll ? /* @__PURE__ */ jsx("div", { className: "twc-fbar__actions", children: /* @__PURE__ */ jsxs("button", { type: "button", className: "twc-fbar__clearall", onClick: clearAll, disabled: disabled || activeCount === 0, children: [
+        xIcon,
+        clearAllLabel,
+        activeCount > 0 ? ` (${activeCount})` : ""
+      ] }) }) : null
     ] });
   }
   var DIALOG_CSS = `
@@ -12668,7 +14155,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       actions ? /* @__PURE__ */ jsx("div", { className: "twc-empty__actions", children: actions }) : null
     ] });
   }
-  var FIELD_CSS5 = `
+  var FIELD_CSS7 = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
@@ -12687,7 +14174,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     children,
     ...rest
   }) {
-    const __twcStyles = useScopedStyles("twc-field-styles", FIELD_CSS5);
+    const __twcStyles = useScopedStyles("twc-field-styles", FIELD_CSS7);
     const autoId = import_react.default.useId();
     const fieldId = id || autoId;
     const descId = `${fieldId}-desc`;
@@ -12708,6 +14195,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   }
   var UPLOAD_CSS = `
 .twc-upload { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-3); }
+.twc-upload[data-size="sm"] { --_pad-y: var(--space-5); --_pad-x: var(--space-4); }
+.twc-upload[data-size="lg"] { --_pad-y: var(--space-10); --_pad-x: var(--space-8); }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
@@ -12715,7 +14204,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-upload__zone[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-upload__zone {
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-  gap: 6px; padding: var(--space-8) var(--space-6); cursor: pointer;
+  gap: 6px; padding: var(--_pad-y, var(--space-8)) var(--_pad-x, var(--space-6)); cursor: pointer;
   border: var(--border-medium) dashed var(--color-border-strong); border-radius: var(--radius-xl);
   background: var(--color-surface); color: var(--color-text-muted);
   transition: border-color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard);
@@ -12768,6 +14257,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     accept,
     multiple = false,
     disabled = false,
+    size = "md",
     tone = "primary",
     label,
     hint,
@@ -12823,7 +14313,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     function remove(i) {
       set(files.filter((_, idx) => idx !== i));
     }
-    return /* @__PURE__ */ jsxs("div", { className: `twc-upload ${className}`, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { className: `twc-upload ${className}`, "data-size": size, ...rest, children: [
       __twcStyles,
       label ? /* @__PURE__ */ jsxs("label", { className: "twc-field__label", htmlFor: fieldId, children: [
         label,
@@ -13236,7 +14726,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   .twc-navbar__menu-btn { display: inline-grid; }
 }
 `;
-  function safeHref5(url) {
+  function safeHref6(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -13259,9 +14749,9 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     return /* @__PURE__ */ jsxs("header", { className: `twc-navbar ${className}`, "data-sticky": sticky || void 0, ...rest, children: [
       __twcStyles,
       onMenuClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__menu-btn", "aria-expanded": menuOpen, "aria-controls": menuControls, "aria-label": menuOpen ? "Close menu" : "Open menu", onClick: onMenuClick, children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M4 6h16M4 12h16M4 18h16" }) }) }) : null,
-      brand ? brandHref ? /* @__PURE__ */ jsx("a", { className: "twc-navbar__brand", href: safeHref5(brandHref), children: brand }) : onBrandClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__brand", onClick: onBrandClick, children: brand }) : /* @__PURE__ */ jsx("span", { className: "twc-navbar__brand", children: brand }) : null,
+      brand ? brandHref ? /* @__PURE__ */ jsx("a", { className: "twc-navbar__brand", href: safeHref6(brandHref), children: brand }) : onBrandClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__brand", onClick: onBrandClick, children: brand }) : /* @__PURE__ */ jsx("span", { className: "twc-navbar__brand", children: brand }) : null,
       /* @__PURE__ */ jsx("nav", { className: "twc-navbar__links", "aria-label": navLabel, children: links.map((l, i) => {
-        const href = safeHref5(l.href);
+        const href = safeHref6(l.href);
         const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
           l.icon,
           l.label
@@ -13621,6 +15111,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-radio[data-invalid="true"] .twc-radio__dot { border-color: var(--color-danger); }
 .twc-radio__text { display: flex; flex-direction: column; gap: 2px; }
 .twc-radio__label { font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); line-height: 1.3; }
+.twc-field__req { color: var(--color-danger); }
 .twc-radio__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
@@ -13656,7 +15147,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       ),
       /* @__PURE__ */ jsx("span", { className: "twc-radio__dot", "aria-hidden": "true" }),
       label || description ? /* @__PURE__ */ jsxs("span", { className: "twc-radio__text", children: [
-        label ? /* @__PURE__ */ jsx("span", { className: "twc-radio__label", children: label }) : null,
+        label ? /* @__PURE__ */ jsxs("span", { className: "twc-radio__label", children: [
+          label,
+          required ? /* @__PURE__ */ jsx("span", { className: "twc-field__req", children: "*" }) : null
+        ] }) : null,
         description ? /* @__PURE__ */ jsx("span", { className: "twc-radio__desc", children: description }) : null
       ] }) : null
     ] });
@@ -14186,20 +15680,23 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-slider__msgs { display: flex; flex-direction: column; gap: var(--space-1-5); margin-top: var(--space-2); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
+.twc-slider { --_track-h: 22px; --_thumb: 18px; --_rail: 6px; }
+.twc-slider[data-size="sm"] { --_track-h: 18px; --_thumb: 14px; --_rail: 4px; }
+.twc-slider[data-size="lg"] { --_track-h: 28px; --_thumb: 22px; --_rail: 8px; }
 .twc-slider__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--space-2); }
 .twc-slider__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
 .twc-slider__value { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--_accent); font-variant-numeric: tabular-nums; }
 .twc-slider__track {
-  position: relative; height: 22px; display: flex; align-items: center; cursor: pointer; touch-action: none;
+  position: relative; height: var(--_track-h); display: flex; align-items: center; cursor: pointer; touch-action: none;
 }
 .twc-slider[data-disabled="true"] { opacity: 0.55; }
 .twc-slider[data-disabled="true"] .twc-slider__track { cursor: not-allowed; }
-.twc-slider__rail { position: absolute; left: 0; right: 0; height: 6px; border-radius: var(--radius-full); background: var(--color-surface-sunken); box-shadow: inset 0 0 0 1px var(--color-border); }
-.twc-slider__fill { position: absolute; height: 6px; border-radius: var(--radius-full); background: var(--_accent); }
+.twc-slider__rail { position: absolute; left: 0; right: 0; height: var(--_rail); border-radius: var(--radius-full); background: var(--color-surface-sunken); box-shadow: inset 0 0 0 1px var(--color-border); }
+.twc-slider__fill { position: absolute; height: var(--_rail); border-radius: var(--radius-full); background: var(--_accent); }
 .twc-slider__thumb {
-  position: absolute; width: 18px; height: 18px; border-radius: var(--radius-full);
+  position: absolute; width: var(--_thumb); height: var(--_thumb); border-radius: var(--radius-full);
   background: var(--color-surface); border: var(--border-thick) solid var(--_accent);
-  box-shadow: var(--shadow-sm); transform: translateX(-50%); top: 50%; margin-top: -9px;
+  box-shadow: var(--shadow-sm); transform: translateX(-50%); top: 50%; margin-top: calc(var(--_thumb) / -2);
   transition: box-shadow var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
 }
 .twc-slider__thumb:focus-visible { outline: none; box-shadow: var(--ring); }
@@ -14227,7 +15724,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     precision,
     tone = "primary",
     disabled = false,
-    range = false,
+    size = "md",
+    range: range2 = false,
     showValue = true,
     showTicks = false,
     formatValue,
@@ -14255,7 +15753,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const __twcStyles = useScopedStyles("twc-slider-styles", SLIDER_CSS);
     const autoId = import_react.default.useId();
     const fieldId = id || autoId;
-    const isRange = range || Array.isArray(value) || Array.isArray(defaultValue);
+    const isRange = range2 || Array.isArray(value) || Array.isArray(defaultValue);
     const [internal, setInternal] = import_react.default.useState(() => {
       if (isRange) {
         const dv = Array.isArray(defaultValue) ? defaultValue : [min, max];
@@ -14343,7 +15841,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const fillLo = (Math.min(...clampedVals) - min) / (max - min) * 100;
     const fillHi = (Math.max(...clampedVals) - min) / (max - min) * 100;
     const fillStyle = isRange ? { left: `${fillLo}%`, width: `${fillHi - fillLo}%` } : { width: `${fillHi}%` };
-    return /* @__PURE__ */ jsxs("div", { className: `twc-slider ${className}`, "data-tone": tone, "data-disabled": disabled || void 0, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { className: `twc-slider ${className}`, "data-tone": tone, "data-size": size, "data-disabled": disabled || void 0, ...rest, children: [
       __twcStyles,
       name ? clampedVals.map((v, i) => /* @__PURE__ */ jsx("input", { type: "hidden", name, value: v, disabled: disabled || void 0 }, i)) : null,
       label || showValue ? /* @__PURE__ */ jsxs("div", { className: "twc-slider__head", children: [
@@ -14395,10 +15893,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     className = "",
     ...rest
   }) {
-    if (tone !== void 0 && color === void 0) {
-      warnOnce("Spinner.tone", "Spinner: `tone` is deprecated and will be removed in 2.0 \u2014 use `color`.");
+    if (color !== void 0 && tone === void 0) {
+      warnOnce("Spinner.color", "Spinner: `color` is deprecated and will be removed in 2.0 \u2014 use `tone` (matches every other tone-driven component).");
     }
-    const resolvedColor = color ?? tone ?? "current";
+    const resolvedTone = tone ?? color ?? "current";
     const __twcStyles = useScopedStyles("twc-spinner-styles", `
 .twc-spinner {
   --_sz: 24px; --_bw: 2.5px;
@@ -14424,7 +15922,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   .twc-spinner { animation-duration: 0.65s !important; animation-iteration-count: infinite !important; }
 }
 `);
-    return /* @__PURE__ */ jsx("span", { className: `twc-spinner ${className}`, "data-size": size, "data-tone": resolvedColor, role: "status", "aria-label": label, ...rest, children: __twcStyles });
+    return /* @__PURE__ */ jsx("span", { className: `twc-spinner ${className}`, "data-size": size, "data-tone": resolvedTone, role: "status", "aria-label": label, ...rest, children: __twcStyles });
   }
   var STAT_CSS = `
 .twc-stat { display: flex; flex-direction: column; gap: 6px; font-family: var(--font-sans);
@@ -14658,6 +16156,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-switch[data-invalid="true"] .twc-switch__track { box-shadow: inset 0 0 0 var(--border-medium) var(--color-danger); }
 .twc-switch__text { display: flex; flex-direction: column; gap: 2px; }
 .twc-switch__label { font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); line-height: 1.3; }
+.twc-field__req { color: var(--color-danger); }
 .twc-switch__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
@@ -14692,7 +16191,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       ),
       /* @__PURE__ */ jsx("span", { className: "twc-switch__track", "aria-hidden": "true", children: /* @__PURE__ */ jsx("span", { className: "twc-switch__thumb" }) }),
       label || description ? /* @__PURE__ */ jsxs("span", { className: "twc-switch__text", children: [
-        label ? /* @__PURE__ */ jsx("span", { className: "twc-switch__label", children: label }) : null,
+        label ? /* @__PURE__ */ jsxs("span", { className: "twc-switch__label", children: [
+          label,
+          required ? /* @__PURE__ */ jsx("span", { className: "twc-field__req", children: "*" }) : null
+        ] }) : null,
         description ? /* @__PURE__ */ jsx("span", { className: "twc-switch__desc", children: description }) : null
       ] }) : null
     ] });
@@ -14905,6 +16407,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   top: auto; inset-inline-end: 4px; inset-inline-start: 4px; width: auto;
 }
 .twc-tabs[data-orientation="vertical"] .twc-tabs__panel { padding-top: 0; flex: 1; min-width: 0; }
+/* WCAG 2.3.3: the active-tab indicator jumps instead of sliding under reduced motion (both
+   the horizontal left/width and vertical top/height variants). */
+@media (prefers-reduced-motion: reduce) {
+  .twc-tabs__indicator, .twc-tabs[data-orientation="vertical"] .twc-tabs__indicator { transition: none; }
+}
 `;
   function Tabs({
     items,
@@ -15283,6 +16790,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   from { opacity: 0; transform: translateX(-24px); }
   to   { opacity: 1; transform: translateX(0); }
 }
+/* WCAG 2.3.3: appear without the slide under reduced motion (covers the RTL variant too). */
+@media (prefers-reduced-motion: reduce) {
+  .twc-toast, [dir="rtl"] .twc-toast { animation: none; }
+}
+/* #209: visually-hidden persistent live-region announcers (rendered by ToastProvider). */
+.twc-toast-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
 .twc-toast::before { content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 4px; background: var(--_accent, var(--color-primary)); }
 .twc-toast[data-tone="success"] { --_accent: var(--color-success); }
 .twc-toast[data-tone="warning"] { --_accent: var(--color-warning); }
@@ -15399,6 +16912,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }
   function ToastProvider({ children, limit = 4, duration = 4500, ...viewportProps }) {
     const [toasts, setToasts] = import_react.default.useState([]);
+    const [politeMsg, setPoliteMsg] = import_react.default.useState("");
+    const [assertiveMsg, setAssertiveMsg] = import_react.default.useState("");
     const idRef = import_react.default.useRef(0);
     const limitRef = import_react.default.useRef(limit);
     import_react.default.useEffect(() => {
@@ -15417,6 +16932,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
           const n = limitRef.current;
           return n && n > 0 ? arr.slice(-n) : arr;
         });
+        const parts = [next.title, next.description != null ? next.description : next.children].filter((p) => typeof p === "string" || typeof p === "number").map(String);
+        const msg = parts.join(". ").trim();
+        if (msg) {
+          const setter = next.tone === "danger" || next.tone === "warning" ? setAssertiveMsg : setPoliteMsg;
+          setter((prev) => prev === msg ? msg + "\u200B" : msg);
+        }
         return id;
       };
       const withTone = (tone) => (title, options) => push(typeof title === "object" && title !== null ? { tone, ...title } : { tone, title, ...options });
@@ -15432,12 +16953,15 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const value = import_react.default.useMemo(() => ({ ...api, toasts }), [api, toasts]);
     return /* @__PURE__ */ jsxs(ToastContext.Provider, { value, children: [
       children,
+      /* @__PURE__ */ jsx("div", { className: "twc-toast-sr", "aria-live": "polite", "aria-atomic": "true", children: politeMsg }),
+      /* @__PURE__ */ jsx("div", { className: "twc-toast-sr", "aria-live": "assertive", "aria-atomic": "true", children: assertiveMsg }),
       /* @__PURE__ */ jsx(ToastViewport, { limit, ...viewportProps, children: toasts.map((t) => /* @__PURE__ */ jsx(
         Toast,
         {
           tone: t.tone,
           title: t.title,
           icon: t.icon,
+          role: "group",
           duration: t.duration != null ? t.duration : duration,
           onClose: () => dismiss(t.id),
           children: t.description != null ? t.description : t.children
@@ -15711,7 +17235,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     if (BG[bg]) return `var(${BG[bg]})`;
     return String(bg).startsWith("--") ? `var(${bg})` : bg;
   }
-  function safeHref6(url) {
+  function safeHref7(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -15759,7 +17283,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       ...style,
       ...flatStyle
     };
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref6(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref7(rest.href);
     return /* @__PURE__ */ jsxs(Tag2, { ref, className: `twc-box ${className}`.trim(), style: s, "data-twc-sx": sxAttr, ...rest, children: [
       styleNode,
       children
@@ -15767,7 +17291,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   });
   Box.displayName = "Box";
   var SIZES = { sm: 640, md: 768, lg: 1024, xl: 1280, full: "100%" };
-  function safeHref7(url) {
+  function safeHref8(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -15784,7 +17308,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }, ref) {
     const { flatStyle, styleNode, sxAttr } = useSx(sx);
     const max = SIZES[size] ?? size;
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref7(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref8(rest.href);
     return /* @__PURE__ */ jsxs(
       Tag2,
       {
@@ -15810,83 +17334,6 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     );
   });
   Container.displayName = "Container";
-  function space(v) {
-    if (v == null) return void 0;
-    if (typeof v === "number") return `var(--space-${String(v).replace(".", "-")})`;
-    return v;
-  }
-  function len(v) {
-    return typeof v === "number" ? `${v}px` : v;
-  }
-  var BP = { sm: 640, md: 768, lg: 1024, xl: 1280 };
-  function safeHref8(url) {
-    if (url == null) return void 0;
-    const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
-    return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
-  }
-  var Grid = import_react.default.forwardRef(function Grid2({
-    as: Tag2 = "div",
-    columns,
-    minChildWidth,
-    gap = 4,
-    rowGap,
-    columnGap,
-    align,
-    justify,
-    alignContent,
-    justifyContent,
-    sx,
-    className = "",
-    style,
-    children,
-    ...rest
-  }, ref) {
-    const { flatStyle, styleNode, sxAttr } = useSx(sx);
-    const responsive = columns != null && typeof columns === "object";
-    const uid = import_react.default.useId();
-    const gridId = responsive ? `g${uid.replace(/[^a-zA-Z0-9]/g, "")}` : null;
-    let css = "";
-    if (responsive) {
-      const base = columns.base ?? 1;
-      const sel = `[data-twc-grid-id="${gridId}"]`;
-      css = `${sel} { --twc-grid-cols: ${base}; }`;
-      for (const bp of ["sm", "md", "lg", "xl"]) {
-        if (columns[bp] != null) css += `
-@media (min-width: ${BP[bp]}px) { ${sel} { --twc-grid-cols: ${columns[bp]}; } }`;
-      }
-    }
-    const __twcStyles = useScopedStyles(gridId ? `twc-grid-${gridId}` : "twc-grid", css);
-    const templateColumns = minChildWidth ? `repeat(auto-fill, minmax(min(${len(minChildWidth)}, 100%), 1fr))` : responsive ? `repeat(var(--twc-grid-cols, ${columns.base ?? 1}), minmax(0, 1fr))` : `repeat(${columns || 1}, minmax(0, 1fr))`;
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref8(rest.href);
-    return /* @__PURE__ */ jsxs(
-      Tag2,
-      {
-        ref,
-        className: `twc-grid ${className}`.trim(),
-        "data-twc-grid-id": gridId || void 0,
-        "data-twc-sx": sxAttr,
-        style: {
-          display: "grid",
-          gridTemplateColumns: templateColumns,
-          rowGap: space(rowGap ?? gap),
-          columnGap: space(columnGap ?? gap),
-          alignItems: align,
-          justifyItems: justify,
-          alignContent,
-          justifyContent,
-          ...style,
-          ...flatStyle
-        },
-        ...rest,
-        children: [
-          responsive ? __twcStyles : null,
-          styleNode,
-          children
-        ]
-      }
-    );
-  });
-  Grid.displayName = "Grid";
   function space2(v) {
     if (v == null) return void 0;
     if (typeof v === "number") return `var(--space-${String(v).replace(".", "-")})`;

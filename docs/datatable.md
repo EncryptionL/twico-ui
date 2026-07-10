@@ -3,6 +3,11 @@
 Developer notes for the larger, opt-in capabilities of `components/data-display/Datatable.jsx`.
 Everything here is **additive**: with the relevant prop off, the table renders exactly as before.
 
+> **Card layouts:** [`CardGrid`](../components/data-display/CardGrid.jsx) (#204, see
+> [qa-notes/CardGrid.md](./qa-notes/CardGrid.md)) is the **card analogue** of Datatable's `serverMode`.
+> It reuses `runDatatableQuery` and emits the **same** query shape (`{ page, pageSize, sort, filters,
+> quickFilter }`), so a page can toggle table ⇄ card views on one query model.
+
 ## Toolbar tools are opt-in; default density is comfortable
 
 The top toolbar always shows **Columns**, **Filters**, and the quick **Search**. The four heavier
@@ -57,6 +62,22 @@ batch-update a column across the selection, batch-delete the selection, **and** 
 the row's ⋮ menu — each mutates `DB` and re-issues the last query. The one caveat: a batch op only
 affects rows the grid currently has (the loaded page), since `changedRows`/selected rows are resolved
 from the current `rows`; selection does not span pages in server mode.
+
+## Value derivation, search scope & filter labels
+
+- **`column.valueGetter(row)` (#213)** derives a column's value from the whole row (nested or
+  computed) and drives **everything** — sort, per-column filter, quick-search, grouping, aggregation,
+  the default cell render, and export — through one internal `getColVal(col, row)` helper (which falls
+  back to `row[field]`, so a plain column is byte-identical). Inline **edits still write the raw
+  `field`** (the getter is derivation-only). `runDatatableQuery` honours it too when you pass
+  `{ columns }`.
+- **`searchFields` (#215)** restricts the toolbar quick-search to specific column `field`s in **client**
+  mode (default: every visible column), mirroring `runDatatableQuery`'s `options.searchFields`. A listed
+  **hidden** column is still searched (resolved by field, not visibility).
+- **Filter-option labels (#214)** — the auto-built **"is any of"** dropdown now labels each option via
+  the column's `valueFormatter` (a boolean column reads `Yes`/`No`, an enum reads its label) while still
+  **filtering on the raw value**. A `renderCell`-only column (no `valueFormatter`) shows the raw value —
+  supply `valueOptions` for a custom list.
 
 ## Controlled pagination (#45)
 

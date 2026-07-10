@@ -14,9 +14,11 @@ const FIELD_CSS = `
 const COLORPICKER_CSS = `
 .twc-cp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-cp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
-.twc-cp__trigger { display: flex; align-items: center; gap: var(--space-2-5); height: var(--control-h-md); padding: 0 var(--space-2) 0 var(--space-2);
+.twc-cp__trigger { display: flex; align-items: center; gap: var(--space-2-5); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-2) 0 var(--space-2);
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
+.twc-cp__trigger[data-size="sm"] { --_h: var(--control-h-sm); }
+.twc-cp__trigger[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-cp__trigger:hover:not([data-open="true"]):not([data-disabled="true"]) { border-color: var(--color-border-strong); }
 .twc-cp__trigger[data-open="true"] { border-color: var(--color-primary); box-shadow: var(--ring); }
 .twc-cp__trigger[data-invalid="true"] { border-color: var(--color-danger); }
@@ -100,6 +102,7 @@ export function ColorPicker({
   defaultValue = "#6366F1",
   presets = DEFAULT_PRESETS,
   disabled = false,
+  size = "md",
   alpha = false,
   tone = "primary",
   onChange,
@@ -242,7 +245,7 @@ export function ColorPicker({
           {label}{required ? <span className="twc-field__req">*</span> : null}
         </span>
       ) : null}
-      <div ref={triggerRef} className="twc-cp__trigger" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} role="button" tabIndex={disabled ? -1 : 0}
+      <div ref={triggerRef} className="twc-cp__trigger" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-size={size} role="button" tabIndex={disabled ? -1 : 0}
         aria-haspopup="dialog" aria-expanded={open} aria-disabled={disabled || undefined} aria-labelledby={label ? labelId : undefined}
         aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
         onClick={() => !disabled && setOpen((o) => !o)} onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setOpen((o) => !o); } }}>

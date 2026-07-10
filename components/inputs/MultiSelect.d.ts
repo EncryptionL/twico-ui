@@ -43,6 +43,12 @@ export interface MultiSelectProps extends Omit<React.InputHTMLAttributes<HTMLInp
   loading?: boolean;
   /** Text shown when no options match. @default "No results found" */
   emptyText?: string;
+  /** Fires with the raw typed query — drive a debounced remote fetch (pair with `loading` and
+   *  `filter={false}` so server-ranked results aren't re-filtered locally). */
+  onInputChange?: (query: string) => void;
+  /** `false` shows `options` as-is (server-ranked passthrough); a function replaces the default
+   *  label/description matcher. Omit for the built-in local filter. */
+  filter?: boolean | ((option: MultiSelectOption, query: string) => boolean);
   /** Name for hidden form fields (one per selected value) for native form submission. */
   name?: string;
   /** Cap the number of selectable values; once reached, unselected options become disabled. */

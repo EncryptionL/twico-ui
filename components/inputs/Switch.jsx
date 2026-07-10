@@ -50,6 +50,7 @@ export function Switch({
 .twc-switch[data-invalid="true"] .twc-switch__track { box-shadow: inset 0 0 0 var(--border-medium) var(--color-danger); }
 .twc-switch__text { display: flex; flex-direction: column; gap: 2px; }
 .twc-switch__label { font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); line-height: 1.3; }
+.twc-field__req { color: var(--color-danger); }
 .twc-switch__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
@@ -90,7 +91,7 @@ export function Switch({
       </span>
       {(label || description) ? (
         <span className="twc-switch__text">
-          {label ? <span className="twc-switch__label">{label}</span> : null}
+          {label ? <span className="twc-switch__label">{label}{required ? <span className="twc-field__req">*</span> : null}</span> : null}
           {description ? <span className="twc-switch__desc">{description}</span> : null}
         </span>
       ) : null}

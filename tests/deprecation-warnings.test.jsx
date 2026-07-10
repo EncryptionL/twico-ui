@@ -8,13 +8,13 @@ import { Pagination } from "../components/data-display/Pagination.jsx";
 // name the canonical replacement + the 2.0 removal, and dedupe. Each uses a distinct
 // warnOnce key, so the three warn independently.
 describe("deprecation warnings (#170)", () => {
-  it("Spinner.tone warns once (mentions color + 2.0) and dedupes", () => {
+  it("Spinner.color warns once (mentions tone + 2.0) and dedupes (#222)", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-    const { rerender } = render(<Spinner tone="danger" />);
+    const { rerender } = render(<Spinner color="danger" />);
     expect(warn).toHaveBeenCalledTimes(1);
-    expect(String(warn.mock.calls[0][0])).toMatch(/color/);
+    expect(String(warn.mock.calls[0][0])).toMatch(/tone/);
     expect(String(warn.mock.calls[0][0])).toMatch(/2\.0/);
-    rerender(<Spinner tone="danger" />);
+    rerender(<Spinner color="danger" />);
     expect(warn).toHaveBeenCalledTimes(1);
     warn.mockRestore();
   });
@@ -37,7 +37,7 @@ describe("deprecation warnings (#170)", () => {
 
   it("the canonical props never warn", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-    render(<Spinner color="danger" />);
+    render(<Spinner tone="danger" />);
     render(<EmptyState border />);
     render(<Pagination total={10} showPageJumper />);
     expect(warn).not.toHaveBeenCalled();

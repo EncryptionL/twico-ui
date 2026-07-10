@@ -14,12 +14,14 @@ const FIELD_CSS = `
 const RANGE_CSS = `
 .twc-drp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-drp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
-.twc-drp__control { display: flex; align-items: center; gap: var(--space-2); height: var(--control-h-md); padding: 0 var(--space-3);
+.twc-drp__control { display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
 .twc-drp__control:hover:not([data-open="true"]):not([data-disabled="true"]) { border-color: var(--color-border-strong); }
 /* tone → focus/open accent (default primary; reproduces current look). */
 .twc-drp__control { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-drp__control[data-size="sm"] { --_h: var(--control-h-sm); }
+.twc-drp__control[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-drp__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-drp__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
 .twc-drp__control[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
@@ -33,6 +35,9 @@ const RANGE_CSS = `
 .twc-drp__ic svg { width: 17px; height: 17px; }
 .twc-drp__text { flex: 1; font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; }
 .twc-drp__text[data-placeholder="true"] { color: var(--color-text-subtle); }
+.twc-drp__clear { flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; padding: 0; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
+.twc-drp__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-drp__clear svg { width: 14px; height: 14px; }
 /* #105: editable (typed entry) variant. */
 .twc-drp__control--editable { cursor: text; gap: 0; padding-inline-end: var(--space-1); }
 .twc-drp__input { flex: 1; min-width: 0; height: 100%; border: none; background: transparent; outline: none; padding: 0;
@@ -56,7 +61,14 @@ const RANGE_CSS = `
 .twc-drp__nav { display: inline-grid; place-items: center; width: 30px; height: 30px; border: none; background: transparent; color: var(--color-text-muted); cursor: pointer; border-radius: var(--radius-md); }
 .twc-drp__nav:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-drp__nav svg { width: 17px; height: 17px; }
-.twc-drp__title { font-size: var(--text-sm); font-weight: var(--font-bold); }
+.twc-drp__title { font-size: var(--text-sm); font-weight: var(--font-bold); color: var(--color-text); border: none; background: transparent; cursor: pointer; padding: 5px 10px; border-radius: var(--radius-md); }
+.twc-drp__title:hover { background: var(--color-surface-sunken); }
+.twc-drp__months, .twc-drp__years { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.twc-drp__mo, .twc-drp__yr { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
+.twc-drp__mo:hover:not(:disabled), .twc-drp__yr:hover:not(:disabled) { background: var(--color-surface-sunken); }
+.twc-drp__yr[data-outside="true"] { color: var(--color-text-subtle); }
+.twc-drp__mo[data-selected="true"], .twc-drp__yr[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
+.twc-drp__mo:disabled, .twc-drp__yr:disabled { opacity: 0.4; cursor: not-allowed; }
 .twc-drp__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; }
 .twc-drp__dow { text-align: center; font-size: 11px; font-weight: var(--font-bold); color: var(--color-text-subtle); padding: 4px 0; }
 .twc-drp__day { aspect-ratio: 1; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); display: grid; place-items: center; position: relative; }
@@ -89,6 +101,17 @@ const weekdayNames = (locale, weekStartsOn) => {
 const ymd = (d) => d ? new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime() : null;
 const fmtD = (d, locale) => d ? d.toLocaleDateString(locale, { month: "short", day: "numeric", year: "numeric" }) : "";
 
+// #212: default rolling-day presets, factored out so `presets={true}` stays byte-identical and a
+// custom `presets` array can reuse the helper. Ranges are functions resolved at click time so a
+// relative range (e.g. "today") stays current across a long-open popover.
+const rollingDays = (days) => { const end = new Date(); const start = new Date(); start.setDate(end.getDate() - days + 1); return { start, end }; };
+const DEFAULT_PRESETS = [
+  { label: "Last 7 days", range: () => rollingDays(7) },
+  { label: "Last 14 days", range: () => rollingDays(14) },
+  { label: "Last 30 days", range: () => rollingDays(30) },
+  { label: "Last 90 days", range: () => rollingDays(90) },
+];
+
 export function DateRangePicker({
   label,
   hint,
@@ -105,6 +128,9 @@ export function DateRangePicker({
   disabledDate,
   disabled = false,
   tone = "primary",
+  size = "md",
+  clearable = true,
+  format,
   editable = false,
   parse,
   onChange,
@@ -120,6 +146,9 @@ export function DateRangePicker({
   const [view, setView] = React.useState(range.start || new Date());
   const [hover, setHover] = React.useState(null);
   const [focusDate, setFocusDate] = React.useState(null); // #100: roving day focus
+  const [mode, setMode] = React.useState("days"); // #207/#206: days | months | years
+  const [focusMonth, setFocusMonth] = React.useState(null);
+  const [focusYear, setFocusYear] = React.useState(null);
   const [editText, setEditText] = React.useState(null); // #105: raw typed text (null = show formatted range)
   const [coords, setCoords] = React.useState(null);
   const wrapRef = React.useRef(null);
@@ -205,7 +234,10 @@ export function DateRangePicker({
   const keyOf = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
   const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
   const addMonths = (d, n) => { const last = new Date(d.getFullYear(), d.getMonth() + n + 1, 0); return new Date(last.getFullYear(), last.getMonth(), Math.min(d.getDate(), last.getDate())); };
-  React.useEffect(() => { if (!open) { setFocusDate(null); setHover(null); } }, [open]);
+  React.useEffect(() => { if (!open) { setFocusDate(null); setHover(null); setMode("days"); } }, [open]);
+  // #207/#206: roving focus across the month + year grids.
+  React.useEffect(() => { if (open && mode === "months" && focusMonth != null) gridRef.current?.querySelector(`[data-mo="${focusMonth}"]`)?.focus(); }, [focusMonth, open, mode]);
+  React.useEffect(() => { if (open && mode === "years" && focusYear != null) gridRef.current?.querySelector(`[data-yr="${focusYear}"]`)?.focus(); }, [focusYear, open, mode]);
   React.useEffect(() => {
     if (!open || !focusDate) return;
     gridRef.current?.querySelector(`[data-key="${keyOf(focusDate)}"]`)?.focus();
@@ -233,6 +265,30 @@ export function DateRangePicker({
     setHover(next); // keep the in-range preview following keyboard focus
     if (next.getFullYear() !== view.getFullYear() || next.getMonth() !== view.getMonth()) setView(new Date(next.getFullYear(), next.getMonth(), 1));
   };
+  // #207/#206: month + year grid keyboard nav (±1 horizontal, ±3 vertical, edges step the window).
+  const onMonthsKeyDown = (e) => {
+    const vy = view.getFullYear();
+    const cur = focusMonth == null ? view.getMonth() : focusMonth;
+    let next;
+    if (e.key === "ArrowRight") next = cur + 1; else if (e.key === "ArrowLeft") next = cur - 1;
+    else if (e.key === "ArrowDown") next = cur + 3; else if (e.key === "ArrowUp") next = cur - 3;
+    else if (e.key === "Home") next = 0; else if (e.key === "End") next = 11; else return;
+    e.preventDefault();
+    if (next < 0) { setView(new Date(vy - 1, 0, 1)); next += 12; }
+    else if (next > 11) { setView(new Date(vy + 1, 0, 1)); next -= 12; }
+    setFocusMonth(next);
+  };
+  const onYearsKeyDown = (e) => {
+    const vm = view.getMonth(), ds = Math.floor(view.getFullYear() / 10) * 10;
+    const cur = focusYear == null ? view.getFullYear() : focusYear;
+    let next;
+    if (e.key === "ArrowRight") next = cur + 1; else if (e.key === "ArrowLeft") next = cur - 1;
+    else if (e.key === "ArrowDown") next = cur + 3; else if (e.key === "ArrowUp") next = cur - 3;
+    else if (e.key === "Home") next = ds; else if (e.key === "End") next = ds + 9; else return;
+    e.preventDefault();
+    setView(new Date(next, vm, 1));
+    setFocusYear(next);
+  };
   // The tabbable day: roving focus, else the range start, else today, else the 1st.
   const tabbableDate = focusDate || range.start || (new Date());
 
@@ -247,20 +303,27 @@ export function DateRangePicker({
     }
   };
 
-  const applyPreset = (days) => {
-    const end = new Date(); const start = new Date(); start.setDate(end.getDate() - days + 1);
-    set({ start, end }); setView(start); setOpen(false);
+  // #212: presets can be `true` (the defaults), `false` (hidden), or a custom array of
+  // { label, range: DateRange | () => DateRange }.
+  const presetItems = presets === true ? DEFAULT_PRESETS : Array.isArray(presets) ? presets : [];
+  const applyPreset = (preset) => {
+    const r = typeof preset.range === "function" ? preset.range() : preset.range;
+    if (!r) return;
+    set(r); if (r.start) setView(r.start); setOpen(false);
   };
 
   // Locale-aware month/weekday names — fall back to the shipped English arrays
   // when `locale` is omitted so default output stays byte-identical.
   const months = React.useMemo(() => (locale === undefined ? MONTHS : monthNames(locale)), [locale]);
+  const monthsShort = React.useMemo(() => months.map((n) => n.slice(0, 3)), [months]);
   const dows = React.useMemo(
     () => (locale === undefined ? Array.from({ length: 7 }, (_, i) => DOW[(i + weekStartsOn) % 7]) : weekdayNames(locale, weekStartsOn)),
     [locale, weekStartsOn],
   );
 
   const y = view.getFullYear(), m = view.getMonth();
+  const decadeStart = Math.floor(y / 10) * 10; // #206
+  const yearCells = Array.from({ length: 12 }, (_, i) => decadeStart - 1 + i);
   const startOffset = (new Date(y, m, 1).getDay() - weekStartsOn + 7) % 7;
   const gridStart = new Date(y, m, 1 - startOffset);
 
@@ -277,7 +340,7 @@ export function DateRangePicker({
     return t > Math.min(s, e) && t < Math.max(s, e);
   };
 
-  const text = range.start ? `${fmtD(range.start, locale)} – ${range.end ? fmtD(range.end, locale) : "…"}` : "";
+  const text = range.start ? (format ? format(range) : `${fmtD(range.start, locale)} – ${range.end ? fmtD(range.end, locale) : "…"}`) : "";
 
   return (
     <div className={`twc-drp twc-field ${className}`} ref={wrapRef} {...rest}>
@@ -290,7 +353,7 @@ export function DateRangePicker({
       ) : null}
       {editable ? (
         // #105: typed entry — a text input accepting "start – end"; commits via `parse` on Enter/blur.
-        <div className="twc-drp__control twc-drp__control--editable" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-tone={tone}>
+        <div className="twc-drp__control twc-drp__control--editable" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-tone={tone} data-size={size}>
           <input ref={triggerRef} className="twc-drp__input" type="text" autoComplete="off" disabled={disabled} placeholder={placeholder}
             value={editText != null ? editText : text}
             aria-haspopup="dialog" aria-expanded={open} aria-labelledby={label ? labelId : undefined}
@@ -302,38 +365,51 @@ export function DateRangePicker({
               else if (e.key === "Escape" && open) setOpen(false);
             }}
             onBlur={(e) => { if (popRef.current && popRef.current.contains(e.relatedTarget)) return; commitText(); }} />
+          {clearable && (range.start || range.end) && !disabled ? (
+            <button type="button" className="twc-drp__clear" aria-label="Clear" tabIndex={-1}
+              onMouseDown={(e) => e.preventDefault()} onClick={() => set({ start: null, end: null })}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+          ) : null}
           <button type="button" className="twc-drp__toggle" aria-label="Open calendar" tabIndex={-1} disabled={disabled}
             onClick={() => !disabled && setOpen((o) => !o)}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           </button>
         </div>
       ) : (
-        <div ref={triggerRef} className="twc-drp__control" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-tone={tone} role="button" tabIndex={disabled ? -1 : 0}
+        <div ref={triggerRef} className="twc-drp__control" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-tone={tone} data-size={size} role="button" tabIndex={disabled ? -1 : 0}
           aria-haspopup="dialog" aria-expanded={open} aria-disabled={disabled || undefined} aria-labelledby={label ? labelId : undefined}
           aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
           onClick={() => !disabled && setOpen((o) => !o)} onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setOpen((o) => !o); } }}>
           <span className="twc-drp__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
           <span className="twc-drp__text" data-placeholder={!range.start || undefined}>{range.start ? text : placeholder}</span>
+          {clearable && (range.start || range.end) && !disabled ? (
+            <button type="button" className="twc-drp__clear" aria-label="Clear" tabIndex={-1}
+              onMouseDown={(e) => e.preventDefault()} onClick={(e) => { e.stopPropagation(); set({ start: null, end: null }); }}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+          ) : null}
         </div>
       )}
 
       {open && coords ? createPortal(
         <div className="twc-drp__pop" ref={popRef} role="dialog" aria-modal="true" aria-label="Choose date range"
           style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" }}>
-          {presets ? (
+          {presetItems.length ? (
             <div className="twc-drp__presets">
-              {[["Last 7 days", 7], ["Last 14 days", 14], ["Last 30 days", 30], ["Last 90 days", 90]].map(([lbl, n]) => (
-                <button key={n} type="button" className="twc-drp__preset" onClick={() => applyPreset(n)}>{lbl}</button>
+              {presetItems.map((p, i) => (
+                <button key={i} type="button" className="twc-drp__preset" onClick={() => applyPreset(p)}>{p.label}</button>
               ))}
             </div>
           ) : null}
           <div className="twc-drp__cal">
             <div className="twc-drp__head">
-              <button type="button" className="twc-drp__nav" aria-label="Previous month" onClick={() => setView(new Date(y, m - 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-              <span className="twc-drp__title">{months[m]} {y}</span>
-              <span className="twc-drp__sr" aria-live="polite">{months[m]} {y}</span>
-              <button type="button" className="twc-drp__nav" aria-label="Next month" onClick={() => setView(new Date(y, m + 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+              <button type="button" className="twc-drp__nav" aria-label={mode === "years" ? "Previous decade" : mode === "months" ? "Previous year" : "Previous month"} onClick={() => setView(mode === "years" ? new Date(y - 10, m, 1) : mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+              <button type="button" className="twc-drp__title" aria-label="Switch calendar view" onClick={() => { if (mode === "days") { setFocusMonth(m); setMode("months"); } else if (mode === "months") { setFocusYear(y); setMode("years"); } else setMode("days"); }}>{mode === "days" ? `${months[m]} ${y}` : mode === "months" ? y : `${decadeStart}–${decadeStart + 9}`}</button>
+              <span className="twc-drp__sr" aria-live="polite">{mode === "days" ? `${months[m]} ${y}` : mode === "months" ? y : `${decadeStart}–${decadeStart + 9}`}</span>
+              <button type="button" className="twc-drp__nav" aria-label={mode === "years" ? "Next decade" : mode === "months" ? "Next year" : "Next month"} onClick={() => setView(mode === "years" ? new Date(y + 10, m, 1) : mode === "months" ? new Date(y + 1, m, 1) : new Date(y, m + 1, 1))}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
             </div>
+            {mode === "days" ? (
             <div className="twc-drp__grid" ref={gridRef} onKeyDown={onGridKeyDown} role="grid">
               {dows.map((d, i) => <div key={i} className="twc-drp__dow">{d}</div>)}
               {Array.from({ length: 42 }).map((_, i) => {
@@ -352,6 +428,38 @@ export function DateRangePicker({
                 );
               })}
             </div>
+            ) : mode === "months" ? (
+            <div className="twc-drp__months" ref={gridRef} onKeyDown={onMonthsKeyDown} role="grid">
+              {monthsShort.map((mo, i) => {
+                const disabled = (min && ymd(new Date(y, i + 1, 0)) < ymd(min)) || (max && ymd(new Date(y, i, 1)) > ymd(max));
+                const sel = (range.start && range.start.getFullYear() === y && range.start.getMonth() === i) || (range.end && range.end.getFullYear() === y && range.end.getMonth() === i);
+                return (
+                  <button key={i} type="button" className="twc-drp__mo" role="gridcell" data-mo={i}
+                    disabled={disabled || undefined} data-selected={sel || undefined}
+                    tabIndex={i === (focusMonth ?? m) ? 0 : -1}
+                    onClick={() => { setView(new Date(y, i, 1)); setFocusDate(null); setMode("days"); }}>
+                    {mo}
+                  </button>
+                );
+              })}
+            </div>
+            ) : (
+            <div className="twc-drp__years" ref={gridRef} onKeyDown={onYearsKeyDown} role="grid">
+              {yearCells.map((yr) => {
+                const outside = yr < decadeStart || yr > decadeStart + 9;
+                const disabled = (min && ymd(new Date(yr, 11, 31)) < ymd(min)) || (max && ymd(new Date(yr, 0, 1)) > ymd(max));
+                const sel = (range.start && range.start.getFullYear() === yr) || (range.end && range.end.getFullYear() === yr);
+                return (
+                  <button key={yr} type="button" className="twc-drp__yr" role="gridcell" data-yr={yr}
+                    data-outside={outside || undefined} disabled={disabled || undefined} data-selected={sel || undefined}
+                    tabIndex={yr === (focusYear ?? y) ? 0 : -1}
+                    onClick={() => { setView(new Date(yr, m, 1)); setFocusMonth(m); setMode("months"); }}>
+                    {yr}
+                  </button>
+                );
+              })}
+            </div>
+            )}
           </div>
         </div>, document.body
       ) : null}

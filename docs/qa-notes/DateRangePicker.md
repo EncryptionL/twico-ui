@@ -17,6 +17,14 @@
   each side parses via `parse(text) => Date | null` (defaults to `Date.parse`) and commits on Enter/blur,
   normalized so start ≤ end. Off by default. — added 2026-07-04
 
+- **[#207/#206] Interactive header with month + year tiers** — the previously static
+  `.twc-drp__title` is now a button that cycles a **3-tier** view machine (`mode`: `days → months →
+  years`), mirroring DatePicker. Months view is a 12-cell short-name grid; years view is a 12-cell
+  decade grid (padded ±1). A month/year is highlighted `data-selected` when either range endpoint
+  falls in it. Prev/next arrows step by month/year/decade to match the view (labels update too), and
+  both grids are arrow-key navigable via roving tabindex (`onMonthsKeyDown`/`onYearsKeyDown`). Min/max
+  bounds gray out fully out-of-range months/years. — added 2026-07-10
+
 ## Verified OK
 
 - Controlled/uncontrolled date range (value/defaultValue/onChange)

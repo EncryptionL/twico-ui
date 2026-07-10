@@ -15,6 +15,13 @@
   (defaults to a lenient `Date.parse`); invalid or out-of-range input reverts to the formatted value,
   an empty string clears. Off by default (zero change for existing consumers). — added 2026-07-04
 
+- **[#206] Year/decade view tier** — the header title now cycles a **3-tier** view machine
+  (`mode`: `days → months → years`). The years tier is a 12-cell decade grid (`Math.floor(y/10)*10`,
+  padded ±1); picking a year drills to that year's months, picking a month drills to its days. Prev/next
+  arrows step by decade in years view (±10y), and their `aria-label` reflects the active view
+  ("Previous/Next decade|year|month"). Each grid has roving-tabindex arrow-key nav (`onYearsKeyDown`,
+  ±1 horizontal / ±3 vertical / Home–End to the decade edges). — added 2026-07-10
+
 ## Verified OK
 
 - Controlled/uncontrolled date (value/defaultValue/onChange)

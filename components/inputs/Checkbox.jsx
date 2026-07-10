@@ -53,6 +53,7 @@ export function Checkbox({
 .twc-check[data-invalid="true"] .twc-check__box { border-color: var(--color-danger); }
 .twc-check__text { display: flex; flex-direction: column; gap: 2px; }
 .twc-check__label { font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); line-height: 1.3; }
+.twc-field__req { color: var(--color-danger); }
 .twc-check__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
@@ -101,7 +102,7 @@ export function Checkbox({
       </span>
       {(label || description) ? (
         <span className="twc-check__text">
-          {label ? <span className="twc-check__label">{label}</span> : null}
+          {label ? <span className="twc-check__label">{label}{required ? <span className="twc-field__req">*</span> : null}</span> : null}
           {description ? <span className="twc-check__desc">{description}</span> : null}
         </span>
       ) : null}

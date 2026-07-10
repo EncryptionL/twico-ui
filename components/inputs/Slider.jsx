@@ -13,20 +13,23 @@ const SLIDER_CSS = `
 .twc-slider__msgs { display: flex; flex-direction: column; gap: var(--space-1-5); margin-top: var(--space-2); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
+.twc-slider { --_track-h: 22px; --_thumb: 18px; --_rail: 6px; }
+.twc-slider[data-size="sm"] { --_track-h: 18px; --_thumb: 14px; --_rail: 4px; }
+.twc-slider[data-size="lg"] { --_track-h: 28px; --_thumb: 22px; --_rail: 8px; }
 .twc-slider__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--space-2); }
 .twc-slider__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
 .twc-slider__value { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--_accent); font-variant-numeric: tabular-nums; }
 .twc-slider__track {
-  position: relative; height: 22px; display: flex; align-items: center; cursor: pointer; touch-action: none;
+  position: relative; height: var(--_track-h); display: flex; align-items: center; cursor: pointer; touch-action: none;
 }
 .twc-slider[data-disabled="true"] { opacity: 0.55; }
 .twc-slider[data-disabled="true"] .twc-slider__track { cursor: not-allowed; }
-.twc-slider__rail { position: absolute; left: 0; right: 0; height: 6px; border-radius: var(--radius-full); background: var(--color-surface-sunken); box-shadow: inset 0 0 0 1px var(--color-border); }
-.twc-slider__fill { position: absolute; height: 6px; border-radius: var(--radius-full); background: var(--_accent); }
+.twc-slider__rail { position: absolute; left: 0; right: 0; height: var(--_rail); border-radius: var(--radius-full); background: var(--color-surface-sunken); box-shadow: inset 0 0 0 1px var(--color-border); }
+.twc-slider__fill { position: absolute; height: var(--_rail); border-radius: var(--radius-full); background: var(--_accent); }
 .twc-slider__thumb {
-  position: absolute; width: 18px; height: 18px; border-radius: var(--radius-full);
+  position: absolute; width: var(--_thumb); height: var(--_thumb); border-radius: var(--radius-full);
   background: var(--color-surface); border: var(--border-thick) solid var(--_accent);
-  box-shadow: var(--shadow-sm); transform: translateX(-50%); top: 50%; margin-top: -9px;
+  box-shadow: var(--shadow-sm); transform: translateX(-50%); top: 50%; margin-top: calc(var(--_thumb) / -2);
   transition: box-shadow var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
 }
 .twc-slider__thumb:focus-visible { outline: none; box-shadow: var(--ring); }
@@ -55,6 +58,7 @@ export function Slider({
   precision,
   tone = "primary",
   disabled = false,
+  size = "md",
   range = false,
   showValue = true,
   showTicks = false,
@@ -179,7 +183,7 @@ export function Slider({
   const fillStyle = isRange ? { left: `${fillLo}%`, width: `${fillHi - fillLo}%` } : { width: `${fillHi}%` };
 
   return (
-    <div className={`twc-slider ${className}`} data-tone={tone} data-disabled={disabled || undefined} {...rest}>
+    <div className={`twc-slider ${className}`} data-tone={tone} data-size={size} data-disabled={disabled || undefined} {...rest}>
       {__twcStyles}
       {/* #82: hidden input(s) so the value participates in native form submission. */}
       {name ? clampedVals.map((v, i) => (

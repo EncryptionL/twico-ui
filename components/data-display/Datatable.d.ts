@@ -31,6 +31,9 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  This prop is the initial state — when enabled, users can hide/show the column from the toolbar's
    *  **Columns** panel ("Row number"). @default false */
   rowNumbers?: boolean;
+  /** Restrict the toolbar quick-search to these column `field`s (client mode); defaults to every
+   *  visible column. Mirrors `runDatatableQuery`'s `options.searchFields`. */
+  searchFields?: string[];
   /**
    * Actions shown in the toolbar when one or more rows are selected (requires
    * `checkboxSelection`). Each handler receives the selected keys, the resolved
@@ -205,8 +208,12 @@ export interface DatatableQuery {
 }
 
 export interface DatatableColumn<T = any> {
-  /** Row object key (also the sort/filter key). */
+  /** Row object key (also the default sort/filter/search/group/export key). */
   field: string;
+  /** Derive the column's value from the whole row (nested/computed) — drives sort, filter,
+   *  quick-search, grouping, aggregation, the default cell render, and export. Falls back to
+   *  `row[field]` when omitted. Inline edits still write to the raw `field`. */
+  valueGetter?: (row: T) => unknown;
   /** Header label. @default field ("Actions" for actions columns) */
   headerName?: string;
   /** Data type. "actions" renders per-row action buttons via getActions. @default "string" */

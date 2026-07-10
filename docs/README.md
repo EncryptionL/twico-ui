@@ -38,7 +38,7 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 
 ## At a glance
 
-- **Package:** `twico-ui` — 61 React components + a 26-hook API (incl. useToast), zero runtime dependencies, MIT.
+- **Package:** `twico-ui` — 66 React components + a 26-hook API (incl. useToast), zero runtime dependencies, MIT.
 - **Build:** `tsup` (`src/index.ts` → `dist/` ESM+CJS+`.d.ts`) + a `"use client"` post-build step.
 - **Releases:** automated by semantic-release on every push to `main`.
 - **Docs site:** Vite + React, dogfoods the library, deployed to GitHub Pages.

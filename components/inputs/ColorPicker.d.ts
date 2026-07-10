@@ -28,6 +28,8 @@ export interface ColorPickerProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   alpha?: boolean;
   /** Color intent for the focus/open accent. @default "primary" */
   tone?: Tone;
+  /** Control size. @default "md" */
+  size?: "sm" | "md" | "lg";
   onChange?: (hex: string) => void;
 }
 

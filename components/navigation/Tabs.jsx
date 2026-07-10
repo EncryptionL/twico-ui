@@ -69,6 +69,11 @@ const TABS_CSS = `
   top: auto; inset-inline-end: 4px; inset-inline-start: 4px; width: auto;
 }
 .twc-tabs[data-orientation="vertical"] .twc-tabs__panel { padding-top: 0; flex: 1; min-width: 0; }
+/* WCAG 2.3.3: the active-tab indicator jumps instead of sliding under reduced motion (both
+   the horizontal left/width and vertical top/height variants). */
+@media (prefers-reduced-motion: reduce) {
+  .twc-tabs__indicator, .twc-tabs[data-orientation="vertical"] .twc-tabs__indicator { transition: none; }
+}
 `;
 
 export function Tabs({

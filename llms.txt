@@ -207,7 +207,7 @@ in the examples.
 
 ---
 
-## Component reference (76 components)
+## Component reference (81 components)
 
 ### Buttons & actions
 
@@ -293,6 +293,8 @@ Props:
 - `padded` — `boolean` · default `true` — Pads the scrollable content region with the standard page padding; set false for edge-to-edge content.
 - `sidebarOpen` — `boolean` — Open state of the sidebar's off-canvas drawer on mobile; providing this (or onSidebarOpenChange) makes the shell forward overlay/open/onOpenChange to the sidebar element.
 - `onSidebarOpenChange` — `(open: boolean) => void` — Called when the sidebar drawer requests open or close; wire a Navbar's onMenuClick to () => onSidebarOpenChange(true) for the mobile menu button.
+- `mainId` — `string` · default `"twc-main"` — Id for the `<main>` content region and the skip-link target.
+- `skipLinkLabel` — `React.ReactNode | false` · default `"Skip to content"` — Label for the visually-hidden-until-focused skip-to-content link (the shell's first child). Pass `false`/`null` to opt out.
 
 ```jsx
 import { AppShell, Sidebar, Button } from "twico-ui";
@@ -458,6 +460,13 @@ Inline code with a mono font and a subtle token-styled surface — use it instea
 Props:
 - `as` — `ElementType` · default `"code"` — Overrides the rendered element, defaulting to a code tag but allowing any tag when the semantics differ.
 - `children` — `ReactNode` — Provides the inline code text or nodes shown in the mono font on the subtle token-styled surface.
+- `block` — `boolean` · default `false` — Render a scrollable multi-line `<pre>` block instead of the inline pill; defaults `as` to "pre".
+- `copyable` — `boolean` · default `false` — Show a copy-to-clipboard button (typically with `block`).
+- `copyLabel` — `string` · default `"Copy code"` — Accessible label for the copy button.
+- `copiedLabel` — `string` · default `"Copied"` — Accessible label announced after a successful copy.
+- `href` — `string` — Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href).
+- `target` — `React.HTMLAttributeAnchorTarget` — Anchor target — only used with as="a" (e.g. "_blank").
+- `rel` — `string` — Anchor rel — only used with as="a"; pair "noopener noreferrer" with target="_blank".
 
 ```jsx
 import { Code, Text } from "twico-ui";
@@ -562,6 +571,8 @@ Props:
 - `disabled` — `boolean` · default `false` — Disable all interaction (the popover cannot be opened).
 - `hint` — `React.ReactNode` — Helper text shown below when there is no error.
 - `error` — `React.ReactNode` — Error message — turns the field red and replaces the hint.
+- `alpha` — `boolean` · default `false` — Show an alpha slider and emit 8-digit `#RRGGBBAA`; the hex input then accepts 3/6/8-digit hex.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Control size.
 - `required` — `boolean` · default `false` — Marks the field required (adds an asterisk to the label).
 
 ```jsx
@@ -603,6 +614,10 @@ Props:
 - `placement` — `"bottom" | "top"` · default `"bottom"` — Open the menu upward instead of down (e.g. near a viewport bottom).
 - `portal` — `boolean` · default `false` — Render the dropdown in a portal (position:fixed on document.body) so it is never clipped by a scrolling/overflow-hidden ancestor; auto-flips up near the viewport bottom.
 - `minWidth` — `number` · default `0` — Minimum popover width in px when portaled (useful when the control is narrow).
+- `onInputChange` — `(query: string) => void` — Called with the raw query on every keystroke — drive a debounced remote fetch (with `loading` + `filter={false}`).
+- `filter` — `boolean | ((option: ComboboxOption, query: string) => boolean)` — Client-side filtering: `false` shows options as-is (server-ranked); a function replaces the default label/description match.
+- `loading` — `boolean` · default `false` — Show a loading row instead of the option list / empty state.
+- `emptyText` — `string` · default `"No results found"` — Text shown when no options match.
 - `name` — `string` — Form field name submitted with the value.
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
@@ -737,6 +752,8 @@ Props:
 - `error` — `React.ReactNode` — Error message — turns the field red and replaces the hint.
 - `required` — `boolean` · default `false` — Marks the field required (adds an asterisk to the label).
 - `locale` — `string` — BCP-47 locale for Intl-derived month/weekday names and date formatting; omit for the runtime default.
+- `disabledDate` — `(date: Date) => boolean` — Predicate to disable arbitrary dates (return true to disable). Composes with `min`/`max`.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Control size.
 
 ```jsx
 import { DatePicker } from "twico-ui";
@@ -774,6 +791,12 @@ Props:
 - `error` — `React.ReactNode` — Error message — turns the field red and replaces the hint.
 - `required` — `boolean` · default `false` — Marks the field required (adds an asterisk to the label).
 - `locale` — `string` — BCP-47 locale for Intl-derived month/weekday names and date formatting; omit for the runtime default.
+- `min` — `Date` — Earliest selectable date (inclusive); earlier days are disabled.
+- `max` — `Date` — Latest selectable date (inclusive); later days are disabled.
+- `disabledDate` — `(date: Date) => boolean` — Predicate to disable arbitrary dates (return true to disable).
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Control size.
+- `clearable` — `boolean` · default `true` — Show a clear (×) button when a range is set; clicking it resets both endpoints.
+- `format` — `(range: DateRange) => string` — Custom display formatter for the range (defaults to a localized "start – end"). With `editable`, keep it compatible with `parse` so the text round-trips.
 
 ```jsx
 import { DateRangePicker } from "twico-ui";
@@ -785,6 +808,52 @@ const [range, setRange] = useState({ start: null, end: null });
   value={range}
   onChange={setRange}
   weekStartsOn={1}
+/>
+```
+
+#### DateTimePicker
+
+DateTimePicker combines a calendar and a time-column popover over a single Date value: picking a day keeps the current time and vice-versa. It composes DatePicker and TimePicker side by side, so it inherits both — min/max bound the date while the time stays free.
+
+`import { DateTimePicker } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Optional field label rendered above the date/time pair to name and associate it.
+- `hint` — `React.ReactNode` — Helper text shown below the controls when there is no error message set.
+- `error` — `React.ReactNode` — Error message that recolors both controls red and replaces the hint, shown once on the wrapper.
+- `required` — `boolean` · default `false` — Marks the field required, adding an asterisk to the label as a validation cue.
+- `value` — `Date | null` — Controlled selected date-time as a Date; pair with onChange to own the value in state.
+- `defaultValue` — `Date | null` · default `null` — Initial date-time for uncontrolled usage when value is omitted, defaulting to null.
+- `min` — `Date` — Earliest selectable date; dates before it are disabled in the calendar grid.
+- `max` — `Date` — Latest selectable date; dates after it are disabled in the calendar grid.
+- `disabledDate` — `(date: Date) => boolean` — Predicate to disable arbitrary dates (return true to disable), composing with min/max.
+- `minuteStep` — `number` · default `5` — Increment in minutes for the time control's minute column.
+- `secondStep` — `number` · default `5` — Increment in seconds for the second column when granularity is "second".
+- `granularity` — `"hour" | "minute" | "second"` · default `"minute"` — Time granularity: hour only, hour and minute, or down to seconds.
+- `hourCycle` — `12 | 24` · default `24` — 24-hour time columns, or 12-hour columns with an AM/PM column.
+- `disabled` — `boolean` · default `false` — Disables both controls and prevents either popover from opening.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent on both controls using one of six semantic intents.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Control height preset applied to both the date and time controls.
+- `clearable` — `boolean` · default `true` — Shows a clear (×) on the date control that resets the entire value to null.
+- `weekStartsOn` — `0 | 1 | 2 | 3 | 4 | 5 | 6` · default `0` — First day of the calendar week: 0 = Sunday through 6 = Saturday.
+- `locale` — `string` — BCP-47 locale for names and formatting via Intl; omit for the runtime default.
+- `dateFormat` — `(date: Date) => string` — Custom formatter for the date control's display text.
+- `timeFormat` — `(date: Date) => string` — Custom formatter for the time control's display text.
+- `datePlaceholder` — `string` · default `"Select date"` — Placeholder for the date control.
+- `timePlaceholder` — `string` · default `"Time"` — Placeholder for the time control.
+- `onChange` — `(date: Date | null) => void` — Fires with the merged Date (or null when cleared) after a date or time change.
+
+```jsx
+import { DateTimePicker } from "twico-ui";
+
+const [when, setWhen] = useState(null);
+
+<DateTimePicker
+  label="Shift start"
+  value={when}
+  onChange={setWhen}
+  hourCycle={12}
+  minuteStep={15}
 />
 ```
 
@@ -835,6 +904,10 @@ Props:
 - `defaultValue` — `File[]` · default `[]` — Uncontrolled initial file list.
 - `label` — `React.ReactNode` — Field label rendered above the dropzone.
 - `error` — `React.ReactNode` — Error message shown below the dropzone; turns the border red (sets aria-invalid).
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Control size — scales the dropzone padding.
+- `maxSize` — `number` — Max size per file in bytes; larger files are rejected (drag + browse).
+- `maxFiles` — `number` — Max number of files retained (multiple mode); extra files are rejected.
+- `onReject` — `(rejections: Array<{ file: File; reason: "type" | "size" | "count" }>) => void` — Called with the files that failed validation: `{ file, reason }` where reason is "type" | "size" | "count".
 - `required` — `boolean` · default `false` — Marks the field required (adds an asterisk to the label).
 
 ```jsx
@@ -848,6 +921,43 @@ const [files, setFiles] = React.useState([]);
   value={files}
   onChange={setFiles}
   hint="PNG, JPG or PDF up to 10MB"
+/>
+```
+
+#### FilterBar
+
+FilterBar is a schema-driven faceted filter bar: it renders a row of controls from a fields schema (multi-select, date-range, search/text, number, boolean, select) and emits a normalized clause list [{ field, op, value }] (isAnyOf, >=/<, contains, =). It adds per-field clear ✕ and a Clear all (N) action, and options can cascade on the current values.
+
+`import { FilterBar } from "twico-ui"`
+
+Props:
+- `fields` — `FilterField[]` · **required** — The filter schema: one entry per facet ({ field, label?, type, options?, placeholder?, op? }).
+- `value` — `FilterClause[]` — Controlled clause list — the same normalized shape emitted by onChange, so it round-trips.
+- `defaultValue` — `FilterClause[]` · default `[]` — Initial clause list for uncontrolled usage when value is omitted.
+- `onChange` — `(clauses: FilterClause[]) => void` — Fires with the normalized clause list [{ field, op, value }] whenever any field changes.
+- `onValuesChange` — `(values: FilterValues) => void` — Also fires with the raw per-field value map, a convenience for rehydrating controls.
+- `showClearAll` — `boolean` · default `false` — Render a 'Clear all (N)' button that resets every field; N is the active-field count.
+- `clearAllLabel` — `React.ReactNode` · default `"Clear all"` — Label text for the clear-all button.
+- `showFieldClear` — `boolean` · default `true` — Show a per-field clear ✕ beside each active field's label.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Control size applied to every field in the bar.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Accent tone forwarded to the date-range control.
+- `disabled` — `boolean` · default `false` — Disable the entire bar and hide the per-field/clear-all actions.
+
+```jsx
+import { FilterBar } from "twico-ui";
+
+const [filters, setFilters] = useState([]);
+
+<FilterBar
+  fields={[
+    { field: "model", label: "Model", type: "multiselect", options: MODELS },
+    { field: "createdAt", label: "Created", type: "daterange" },
+    { field: "status", label: "Status", type: "boolean" },
+    { field: "q", label: "Search", type: "search" },
+  ]}
+  value={filters}
+  onChange={setFilters}
+  showClearAll
 />
 ```
 
@@ -914,6 +1024,12 @@ Props:
 - `placement` — `"bottom" | "top"` · default `"bottom"` — Open the menu upward instead of down (e.g. near a viewport bottom).
 - `portal` — `boolean` · default `false` — Render the dropdown in a portal (position:fixed on document.body) so it is never clipped by a scrolling/overflow-hidden ancestor; auto-flips up near the viewport bottom.
 - `minWidth` — `number` · default `0` — Minimum popover width in px when portaled (useful when the control is narrow).
+- `loading` — `boolean` · default `false` — Show a loading row instead of the option list / empty state.
+- `emptyText` — `string` · default `"No results found"` — Text shown when no options match.
+- `onInputChange` — `(query: string) => void` — Fires with the raw typed query — drive a debounced remote fetch (pair with `loading` and `filter={false}` so server-ranked results aren't re-filtered locally).
+- `filter` — `boolean | ((option: MultiSelectOption, query: string) => boolean)` — `false` shows `options` as-is (server-ranked passthrough); a function replaces the default label/description matcher. Omit for the built-in local filter.
+- `max` — `number` — Cap the number of selectable values; once reached, unselected options become disabled.
+- `maxTagCount` — `number` — Collapse chips after N into a "+K more" pill.
 - `name` — `string` — Form field name submitted with the value.
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
@@ -1032,6 +1148,10 @@ Props:
 - `portal` — `boolean` · default `false` — Renders the dropdown in a body portal so it is never clipped, auto-flipping when near the viewport bottom.
 - `minWidth` — `number` · default `0` — Sets the minimum popover width in pixels when portaled, ensuring the menu stays at least this wide.
 - `clearable` — `boolean` · default `false` — Show a clear (×) affix when a value is selected; Delete/Backspace on the closed trigger also clears. Emits onChange(null).
+- `matchTriggerWidth` — `boolean` · default `true` — Pin the popover to the trigger's width. Set false to size it to the widest option (clamped to the viewport).
+- `loading` — `boolean` · default `false` — Show a loading row instead of the option list / empty state (e.g. while fetching options).
+- `emptyText` — `string` · default `"No results found"` — Text shown when no options match.
+- `name` — `string` — Name for a hidden form field so the selected value participates in native form submission.
 
 ```jsx
 import { Select } from "twico-ui";
@@ -1081,6 +1201,7 @@ Props:
 - `onChange` — `(value: number) => void` — Fires with the new number whenever the value changes via drag or keyboard, keeping state in sync.
 - `hint` — `React.ReactNode` — Helper text shown below the track when there is no error.
 - `error` — `React.ReactNode` — Error message shown below the track; turns it red (sets aria-invalid) and replaces the hint.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Control size — scales the track, rail, and thumb.
 
 ```jsx
 import { Slider } from "twico-ui";
@@ -1168,6 +1289,50 @@ import { Textarea } from "twico-ui";
 />
 ```
 
+#### TimePicker
+
+TimePicker is a time-of-day input with a column-spinner popover: scrollable hour, minute, and optional second columns, plus an AM/PM column in 12-hour mode. It emits a Date (so it composes with DatePicker) and bounds the selectable time via min/max.
+
+`import { TimePicker } from "twico-ui"`
+
+Props:
+- `label` — `React.ReactNode` — Optional field label rendered above the control to name it and associate it for accessibility.
+- `hint` — `React.ReactNode` — Helper text shown below the control when there is no error message set.
+- `error` — `React.ReactNode` — Error message that turns the control red and replaces the hint text below it.
+- `required` — `boolean` · default `false` — Marks the field required, adding an asterisk to the label as a validation cue.
+- `value` — `Date | null` — Controlled selected time as a Date; pair with onChange to own the value in state.
+- `defaultValue` — `Date | null` · default `null` — Initial time for uncontrolled usage when value is omitted, defaulting to null so it starts empty.
+- `placeholder` — `string` · default `"Select time"` — Text shown in the trigger when no time has been selected yet.
+- `min` — `Date` — Earliest selectable time-of-day; only the hours, minutes, and seconds are compared.
+- `max` — `Date` — Latest selectable time-of-day; options past it are disabled in the columns.
+- `minuteStep` — `number` · default `5` — Increment in minutes for the minute column, so 15 yields :00/:15/:30/:45 options.
+- `secondStep` — `number` · default `5` — Increment in seconds for the second column, used only when granularity is "second".
+- `granularity` — `"hour" | "minute" | "second"` · default `"minute"` — Which columns render: hour only, hour and minute, or down to seconds.
+- `hourCycle` — `12 | 24` · default `24` — Show 24-hour columns, or 12-hour columns with a dedicated AM/PM column.
+- `referenceDate` — `Date` · default `today` — Date whose year/month/day is used for the emitted Date when no value is set yet.
+- `disabled` — `boolean` · default `false` — Disables the control and prevents the time popover from opening.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border and ring) using one of six semantic intents.
+- `size` — `"sm" | "md" | "lg"` · default `"md"` — Control height preset for aligning with other form fields in the same row.
+- `clearable` — `boolean` · default `true` — Shows a clear (×) button when a time is set, resetting the value to null.
+- `editable` — `boolean` · default `false` — Renders the trigger as a typeable text input with a trailing toggle for direct entry.
+- `parse` — `(text: string) => Date | null` — Parses typed text into a Date when editable; defaults to an HH:MM[:SS] am/pm matcher.
+- `format` — `(date: Date) => string` — Custom display formatter; defaults to a localized time honoring hourCycle and granularity.
+- `locale` — `string` — BCP-47 locale for time formatting via Intl; omit for the runtime default.
+- `onChange` — `(date: Date | null) => void` — Fires with the newly selected Date (or null when cleared) after each column pick.
+
+```jsx
+import { TimePicker } from "twico-ui";
+
+const [time, setTime] = useState(null);
+
+<TimePicker
+  label="Start time"
+  value={time}
+  onChange={setTime}
+  minuteStep={15}
+/>
+```
+
 ### Data display
 
 #### Avatar
@@ -1183,6 +1348,8 @@ Props:
 - `square` — `boolean` · default `false` — When true, renders the avatar as a rounded square instead of the default circle for a different visual style.
 - `status` — `"online" | "busy" | "away" | "offline"` — Shows a small presence dot indicating online, busy, away, or offline state on the avatar.
 - `ring` — `boolean` · default `false` — When true, adds a brand-colored ring around the avatar to emphasize or highlight the user.
+- `statusLabel` — `string` — Accessible text for the presence dot, folded into the avatar's spoken name (e.g. "Jane Doe, Online"). Defaults to a capitalized `status`.
+- `statusLabels` — `Partial<Record<"online" | "busy" | "away" | "offline", string>>` — Localized presence labels keyed by status value.
 
 ```jsx
 import { Avatar } from "twico-ui";
@@ -1283,6 +1450,73 @@ import { Card } from "twico-ui";
 </Card>
 ```
 
+#### CardGrid
+
+CardGrid is the card analogue of Datatable's serverMode: it turns page, sort, filter, and search into a query and renders one card per row via a render prop, with built-in pagination, loading, and empty states. Client mode filters locally with Datatable's exact semantics; serverMode emits the query and consumes { rows, rowCount }.
+
+`import { CardGrid } from "twico-ui"`
+
+Props:
+- `rows` — `Row[]` · default `[]` — The rows: the full set in client mode, or the current page's rows in serverMode.
+- `renderCard` — `(row: Row, index: number) => React.ReactNode` · **required** — Render prop returning one card element per row; this is the only required prop.
+- `rowKey` — `string | ((row: Row) => React.Key)` · default `"id"` — Stable React key per row: a field name or an accessor function, defaulting to id.
+- `minChildWidth` — `string | number` · default `"18rem"` — Minimum card width for the responsive auto-fill grid (forwarded to Grid's minChildWidth).
+- `columns` — `number | Record<string, number>` — Fixed column count (a responsive object is allowed); overrides minChildWidth when set.
+- `gap` — `number | string` · default `4` — Gap between cards on the spacing token scale, forwarded to the underlying Grid.
+- `pageSize` — `number` · default `12` — Cards shown per page; set 0 to disable pagination and render every row.
+- `pageSizeOptions` — `number[]` · default `[12, 24, 48, 96]` — Choices offered by the footer's per-page selector.
+- `page` — `number` — Controlled 0-based page index; omit to let the grid manage its own page.
+- `defaultPage` — `number` · default `0` — Initial 0-based page when uncontrolled (no page prop).
+- `onPageChange` — `(page: number) => void` — Fires with the new 0-based page when the user navigates the pagination.
+- `onPageSizeChange` — `(pageSize: number) => void` — Fires with the new page size when the per-page selector changes (makes pageSize controlled).
+- `showPageSize` — `boolean` · default `true` — Render the per-page selector in the footer next to the pagination.
+- `serverMode` — `boolean` · default `false` — Emit a query and consume rows/rowCount/loading instead of filtering, sorting, and paging locally.
+- `rowCount` — `number` — Total number of rows, used to compute the page count in serverMode.
+- `loading` — `boolean` · default `false` — Show the loading overlay and dim the grid, typically while a serverMode fetch is in flight.
+- `onServerChange` — `(query: CardGridQuery) => void` — Called (debounced) with { page, pageSize, sort, filters, quickFilter } whenever the query changes.
+- `filters` — `CardGridFilter[]` · default `[]` — External filter clauses (e.g. from a FilterBar) applied in client mode or passed through in serverMode.
+- `quickFilter` — `string` — Controlled quick-search string; pair with onQuickFilterChange to own it in state.
+- `defaultQuickFilter` — `string` · default `""` — Initial quick-search string when uncontrolled.
+- `onQuickFilterChange` — `(value: string) => void` — Fires with the search text as the user types in the built-in search box.
+- `searchable` — `boolean` · default `false` — Render a built-in quick-search box in the toolbar row above the grid.
+- `searchFields` — `string[]` — Fields scanned by quick search in client mode; defaults to the first row's keys.
+- `searchPlaceholder` — `string` · default `"Search…"` — Placeholder text for the built-in search box.
+- `sort` — `CardGridSort | null` — Controlled sort clause { field, dir }; omit to let the grid manage its own sort.
+- `defaultSort` — `CardGridSort | null` · default `null` — Initial sort clause when uncontrolled.
+- `onSortChange` — `(sort: CardGridSort | null) => void` — Fires when the sort field or direction changes via the built-in sort control.
+- `sortOptions` — `CardGridSortOption[]` — Fields offered by the built-in sort control; providing it renders the control (declare type:"number" to sort numerically).
+- `toolbar` — `React.ReactNode` — Extra node rendered in the toolbar row, before the sort control.
+- `emptyState` — `React.ReactNode` · default `"No results."` — Content shown when there are no rows and the grid is not loading.
+- `label` — `React.ReactNode` — Optional heading rendered above the grid and associated with it for accessibility.
+
+```jsx
+import { CardGrid, Card, Heading, Text } from "twico-ui";
+
+const products = [
+  { id: 1, name: "Aurora Lamp", price: 89, category: "Lighting" },
+  { id: 2, name: "Nimbus Chair", price: 240, category: "Seating" },
+  { id: 3, name: "Vega Desk", price: 420, category: "Desks" },
+];
+
+<CardGrid
+  rows={products}
+  rowKey="id"
+  minChildWidth="16rem"
+  pageSize={12}
+  searchable
+  sortOptions={[
+    { field: "name", label: "Name" },
+    { field: "price", label: "Price", type: "number" },
+  ]}
+  renderCard={(p) => (
+    <Card>
+      <Heading level={4}>{p.name}</Heading>
+      <Text tone="muted">{p.category} · ${p.price}</Text>
+    </Card>
+  )}
+/>
+```
+
 #### Carousel
 
 Carousel is a sliding one-slide-per-view component with prev/next arrows, dot indicators, optional looping, and optional autoplay that pauses on hover. Use it to showcase a sequence of images or content panels where each child is a single slide.
@@ -1299,6 +1533,10 @@ Props:
 - `index` — `number` — Controlled active slide index — pair with onIndexChange.
 - `defaultIndex` — `number` · default `0` — Initial slide index when uncontrolled.
 - `onIndexChange` — `(index: number) => void` — Fired when the active slide changes (arrows, dots, or autoplay).
+- `showPauseButton` — `boolean` · default `true` — Show the pause/play toggle when `autoPlay` is on.
+- `label` — `string` — Accessible name for the carousel region. Falls back to `aria-label`, then `"Carousel"`.
+- `pauseLabel` — `string` · default `"Pause"` — Accessible label for the pause button (paused → shows the play label).
+- `playLabel` — `string` · default `"Play"` — Accessible label for the play button.
 
 ```jsx
 import { Carousel } from "twico-ui";
@@ -1365,6 +1603,8 @@ Props:
 - `virtualized` — `boolean` · default `false` — Opt into row virtualization (windowing). Active only when pagination is off (pageSize={0}) and row grouping is not active; otherwise ignored and the table renders normally. Pair with a fixed height. Selection/inline-edit keep working because they key off the row id, not the rendered index.
 - `overscan` — `number` · default `8` — Extra rows rendered above and below the visible window for smoother fast scrolling when virtualized.
 - `rowHeight` — `number` — Estimated/fixed row height in px used to compute the virtualization window. Set if rows have a custom height so the scrollbar stays accurate.
+- `rowNumbers` — `boolean` · default `false` — Render a leading auto-numbered row column (1, 2, 3…). The number reflects each row's position in the current sorted/filtered order and continues across pages (page 2 starts where page 1 ended; in server mode it uses the current page × pageSize). Sits after the checkbox column, sticky-left. This prop is the initial state — when enabled, users can hide/show the column from the toolbar's **Columns** panel ("Row number").
+- `searchFields` — `string[]` — Restrict the toolbar quick-search to these column `field`s (client mode); defaults to every visible column. Mirrors `runDatatableQuery`'s `options.searchFields`.
 
 ```jsx
 import { useState } from "react";
@@ -1463,6 +1703,51 @@ export default function Example() {
 }
 ```
 
+#### DiffTable
+
+DiffTable compares two versions of a dataset: it pairs rows on a business key, classifies each added / removed / modified / moved, and renders modified rows as per-cell before → after (strikethrough old, accented new). It shows an op badge per row, a +N ~M -K summary, and an 'only changed' toggle.
+
+`import { DiffTable } from "twico-ui"`
+
+Props:
+- `from` — `Row[]` · default `[]` — The 'before' rows (version A) that the comparison pairs against `to`.
+- `to` — `Row[]` · default `[]` — The 'after' rows (version B) compared against `from`.
+- `rowKey` — `(row: Row) => React.Key` · default `row.id` — Stable business key used to pair a row in A with its counterpart in B; defaults to row.id.
+- `columns` — `DiffTableColumn[]` · default `[]` — Columns to compare and render: { field, headerName?, valueGetter?, valueFormatter?, compare? }.
+- `onlyChanged` — `boolean` · default `true` — Hide unchanged rows; this is the initial state of the 'only changed' toggle.
+- `showToggle` — `boolean` · default `true` — Render the 'only changed' checkbox that shows or hides unchanged rows.
+- `showSummary` — `boolean` · default `true` — Render the +added ~modified -removed summary badges above the table.
+- `moveDetection` — `boolean` · default `true` — Classify same-value rows whose position changed as 'moved', using a minimal LIS so only genuinely-reordered rows are flagged.
+- `compare` — `(a, b, field: string) => boolean` — Global equality override for all fields; falls back to === then a JSON comparison.
+- `emptyState` — `React.ReactNode` · default `"No differences."` — Content shown when there are no rows to display (e.g. identical inputs with onlyChanged).
+- `toggleLabel` — `React.ReactNode` · default `"Only changed"` — Label for the 'only changed' toggle.
+- `label` — `React.ReactNode` — Optional heading rendered above the table.
+
+```jsx
+import { DiffTable } from "twico-ui";
+
+const before = [
+  { sku: "A1", name: "Alpha", color: "red", price: 10 },
+  { sku: "B2", name: "Beta", color: "blue", price: 20 },
+];
+const after = [
+  { sku: "A1", name: "Alpha", color: "crimson", price: 12 },
+  { sku: "C3", name: "Gamma", color: "green", price: 30 },
+];
+
+<DiffTable
+  from={before}
+  to={after}
+  rowKey={(r) => r.sku}
+  columns={[
+    { field: "name", headerName: "Name" },
+    { field: "color", headerName: "Color" },
+    { field: "price", headerName: "Price", valueFormatter: (v) => `$${v}` },
+  ]}
+  onlyChanged
+/>
+```
+
 #### Kanban
 
 Kanban is a drag-and-drop board that arranges cards into columns you can drag between. Use it for visualizing and reorganizing work items (tasks, tickets, stages) by status, either controlled via cards + onCardMove or uncontrolled.
@@ -1475,6 +1760,7 @@ Props:
 - `onCardMove` — `(cardId: string, toColumn: string, nextCards: KanbanCard[]) => void` — Fires when a card is dropped into a different column, passing the card id, target column, and updated card list.
 - `renderCard` — `(card: KanbanCard) => React.ReactNode` — Overrides the default card contents with a custom renderer, falling back to title, description, tags, and footer.
 - `defaultCards` — `KanbanCard[]` · default `[]` — Initial cards when uncontrolled (the board applies moves internally).
+- `getCardLabel` — `(card: KanbanCard) => string` — Accessible name for each card — supply this when `renderCard` produces graphical/icon-only content; falls back to a string title or "Card".
 
 ```jsx
 import { Kanban } from "twico-ui";
@@ -1645,6 +1931,7 @@ Props:
 - `tone` — `"neutral" | "primary" | "success" | "warning" | "danger" | "info"` · default `"neutral"` — Sets the semantic color from six options like success or danger; defaults to neutral (the classic chip).
 - `leftIcon` — `React.ReactNode` — Renders an optional leading icon before the label, useful for signaling the tag's category or status.
 - `children` — `React.ReactNode` — Provides the tag's label content, typically the filter name, selected item, or keyword being displayed.
+- `removeLabel` — `string` — Accessible label for the remove (×) button. Defaults to `Remove {children}` when children is a string, else "Remove".
 
 ```jsx
 import { Tag } from "twico-ui";
@@ -1807,6 +2094,13 @@ Props:
 - `crosshair` — `boolean` · default `true` — Show a vertical crosshair guide line at the hovered category on line/area/vertical-bar charts.
 - `zoomable` — `boolean` · default `false` — Enable drag-to-zoom plus shift-drag pan, mouse-wheel zoom, and a reset button over the chart.
 - `ariaLabel` — `string` — Accessible name for the chart's <svg role="img">; defaults to a description of the chart type.
+- `stacked` — `boolean` · default `false` — Stack multi-series bars/areas instead of grouping them side by side.
+- `horizontal` — `boolean` · default `false` — Render bars horizontally (value axis along the bottom). Ignored for line/area.
+- `curve` — `"straight" | "smooth" | "stepped"` · default `"straight"` — Line/area interpolation.
+- `smooth` — `boolean` · default `false` — Shorthand for `curve="smooth"`.
+- `showDots` — `boolean` · default `true` — Show point markers on line charts.
+- `tableFallback` — `boolean` · default `true` — Render a visually-hidden data table as an accessible text alternative (WCAG 1.1.1).
+- `caption` — `React.ReactNode` — Caption for the hidden data table; defaults to the chart's accessible label.
 
 ```jsx
 import { Chart } from "twico-ui";
@@ -2265,6 +2559,7 @@ Props:
 - `defaultOpen` — `string[]` · default `[]` — The list of item values that should start expanded on first render, useful for surfacing key sections by default.
 - `open` — `string[]` — Controlled open panel values; pair with onOpenChange. When set, internal state is bypassed and defaultOpen is ignored.
 - `onOpenChange` — `(values: string[]) => void` — Called with the next open values whenever a panel trigger is toggled (fires in both controlled and uncontrolled modes).
+- `headingLevel` — `1 | 2 | 3 | 4 | 5 | 6` · default `3` — Heading level wrapping each trigger button (document-outline semantics).
 
 ```jsx
 import { Accordion } from "twico-ui";
@@ -2325,6 +2620,11 @@ Props:
 - `actions` — `React.ReactNode` — Right-aligned content such as buttons, a search field, or an avatar for account and primary actions.
 - `sticky` — `boolean` · default `true` — Pins the navbar to the top of the viewport with a translucent blur as the page scrolls; on by default.
 - `onMenuClick` — `() => void` — Fires when the hamburger button (shown only on small screens) is clicked, typically to open a mobile drawer.
+- `brandHref` — `string` — If set, the brand becomes a link to this URL (sanitized). Otherwise the brand is a plain, non-navigating element unless `onBrandClick` is given.
+- `onBrandClick` — `(e: React.MouseEvent<HTMLButtonElement>) => void` — Click handler for the brand; renders it as a button when `brandHref` is not set.
+- `menuOpen` — `boolean` — Drives the hamburger's `aria-expanded` and its "Open menu"/"Close menu" accessible name.
+- `menuControls` — `string` — Id of the menu/drawer the hamburger controls (`aria-controls`).
+- `navLabel` — `string` · default `"Primary"` — Accessible name for the links `<nav>` landmark.
 
 ```jsx
 import { Navbar } from "twico-ui";
@@ -2498,6 +2798,7 @@ Props:
 - `commands` — `Command[]` · **required** — The list of Command objects to search, group, and render, each typically defining a label, action, and optional group.
 - `placeholder` — `string` · default `"Type a command or search…"` — Sets the search input's placeholder text, defaulting to "Type a command or search…" to hint at the expected query.
 - `emptyText` — `string` · default `"No results found"` — The message shown when no command matches the current query, defaulting to "No results found".
+- `searchLabel` — `string` · default `"Command palette search"` — Accessible name for the search input.
 - `onClick` — `() => void` — Alias for onSelect, matching the other item-array APIs (Menu, List, Sidebar, ...) — used when onSelect is absent; palette closes after it runs.
 
 ```jsx
@@ -2694,6 +2995,8 @@ Props:
 - `icon` — `React.ReactNode` — Overrides the default tone icon with your own node when you need a more specific or branded visual cue.
 - `onClose` — `() => void` — When provided, shows a dismiss button and runs this callback so the alert can be closed by the user.
 - `children` — `React.ReactNode` — The main body content of the alert, typically the descriptive message shown beneath the optional title.
+- `live` — `"assertive" | "polite" | "off"` · default `tone-aware` — Live-region politeness. Tone-aware default: danger/warning → `"assertive"` (role="alert"), success/info → `"polite"` (role="status"), primary/neutral → `"off"` (no live region, for static banners). Set explicitly to override.
+- `closeLabel` — `string` · default `"Dismiss"` — Accessible label for the dismiss button (shown only when `onClose` is set).
 
 ```jsx
 import { Alert } from "twico-ui";
@@ -2745,6 +3048,7 @@ Props:
 - `size` — `"sm" | "md" | "lg"` · default `"md"` — Thickness of the bar, sm, md, or lg, to match the visual weight of the surrounding content.
 - `indeterminate` — `boolean` · default `false` — Switches to a continuously animated bar that ignores value, signaling work of unknown duration.
 - `showLabel` — `boolean` · default `false` — Displays a percentage label above the bar so users can read the exact completion at a glance.
+- `label` — `React.ReactNode` · default `"Progress"` — Visible label in the meta row that also names the progressbar (via `aria-labelledby`).
 
 ```jsx
 import { Progress } from "twico-ui";
@@ -2766,6 +3070,7 @@ Props:
 - `width` — `string | number` — Sets the placeholder width as a CSS string or number, such as "120px" or 60, to match expected content.
 - `height` — `string | number` — Sets the placeholder height as a CSS string or number to reserve the vertical space the real content will occupy.
 - `lines` — `number` · default `1` — For the text variant, the number of lines to render, defaulting to 1, with the last line shortened for realism.
+- `label` — `string` — When set, announces loading via `role="status"` + `aria-live="polite"` + `aria-busy="true"` plus visually-hidden text (e.g. "Loading…"); otherwise the placeholder is `aria-hidden="true"`.
 
 ```jsx
 import { Skeleton } from "twico-ui";
@@ -2783,9 +3088,9 @@ An indeterminate loading spinner that signals an ongoing background operation. U
 
 Props:
 - `size` — `"sm" | "md" | "lg" | "xl"` · default `"md"` — Sets the spinner diameter (sm, md, lg, or xl) so it fits its context, from inside a button to over a panel.
-- `tone` — `"current" | "primary" | "success" | "warning" | "danger" | "info" | "neutral" | "white"` · default `"current"` — Deprecated alias for color.
+- `tone` — `"current" | "primary" | "success" | "warning" | "danger" | "info" | "neutral" | "white"` · default `"current"` — Colour intent; defaults to currentColor so it adapts inside buttons and themed contexts. Wins over the deprecated color.
 - `label` — `string` · default `"Loading"` — Accessible name exposed via aria-label so screen readers announce the loading state, defaulting to "Loading".
-- `color` — `"current" | "primary" | "success" | "warning" | "danger" | "info" | "neutral" | "white"` · default `"current"` — Sets the spinner color; defaults to currentColor so it adapts inside buttons and themed contexts.
+- `color` — `"current" | "primary" | "success" | "warning" | "danger" | "info" | "neutral" | "white"` · default `"current"` — Deprecated alias for tone (removed in 2.0) — use tone, which matches every other tone-driven component.
 
 ```jsx
 import { Spinner } from "twico-ui";

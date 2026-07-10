@@ -57,6 +57,20 @@ export const components = [
         "description": "Called when the sidebar drawer requests open or close; wire a Navbar's onMenuClick to () => onSidebarOpenChange(true) for the mobile menu button."
       },
       {
+        "prop": "mainId",
+        "type": "string",
+        "required": false,
+        "default": "\"twc-main\"",
+        "description": "Id for the `<main>` content region and the skip-link target."
+      },
+      {
+        "prop": "skipLinkLabel",
+        "type": "React.ReactNode | false",
+        "required": false,
+        "default": "\"Skip to content\"",
+        "description": "Label for the visually-hidden-until-focused skip-to-content link (the shell's first child). Pass `false`/`null` to opt out."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -164,6 +178,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Called with the next open values whenever a panel trigger is toggled (fires in both controlled and uncontrolled modes)."
+      },
+      {
+        "prop": "headingLevel",
+        "type": "1 | 2 | 3 | 4 | 5 | 6",
+        "required": false,
+        "default": "3",
+        "description": "Heading level wrapping each trigger button (document-outline semantics)."
       },
       {
         "prop": "onClick",
@@ -282,6 +303,20 @@ export const components = [
         "description": "The main body content of the alert, typically the descriptive message shown beneath the optional title."
       },
       {
+        "prop": "live",
+        "type": "\"assertive\" | \"polite\" | \"off\"",
+        "required": false,
+        "default": "tone-aware",
+        "description": "Live-region politeness. Tone-aware default: danger/warning → `\"assertive\"` (role=\"alert\"), success/info → `\"polite\"` (role=\"status\"), primary/neutral → `\"off\"` (no live region, for static banners). Set explicitly to override."
+      },
+      {
+        "prop": "closeLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"Dismiss\"",
+        "description": "Accessible label for the dismiss button (shown only when `onClose` is set)."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -396,6 +431,20 @@ export const components = [
         "required": false,
         "default": "false",
         "description": "When true, adds a brand-colored ring around the avatar to emphasize or highlight the user."
+      },
+      {
+        "prop": "statusLabel",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Accessible text for the presence dot, folded into the avatar's spoken name (e.g. \"Jane Doe, Online\"). Defaults to a capitalized `status`."
+      },
+      {
+        "prop": "statusLabels",
+        "type": "Partial<Record<\"online\" | \"busy\" | \"away\" | \"offline\", string>>",
+        "required": false,
+        "default": "—",
+        "description": "Localized presence labels keyed by status value."
       },
       {
         "prop": "onClick",
@@ -1413,6 +1462,34 @@ export const components = [
         "description": "Fired when the active slide changes (arrows, dots, or autoplay)."
       },
       {
+        "prop": "showPauseButton",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Show the pause/play toggle when `autoPlay` is on."
+      },
+      {
+        "prop": "label",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Accessible name for the carousel region. Falls back to `aria-label`, then `\"Carousel\"`."
+      },
+      {
+        "prop": "pauseLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"Pause\"",
+        "description": "Accessible label for the pause button (paused → shows the play label)."
+      },
+      {
+        "prop": "playLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"Play\"",
+        "description": "Accessible label for the play button."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -1646,6 +1723,55 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Accessible name for the chart's <svg role=\"img\">; defaults to a description of the chart type."
+      },
+      {
+        "prop": "stacked",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Stack multi-series bars/areas instead of grouping them side by side."
+      },
+      {
+        "prop": "horizontal",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Render bars horizontally (value axis along the bottom). Ignored for line/area."
+      },
+      {
+        "prop": "curve",
+        "type": "\"straight\" | \"smooth\" | \"stepped\"",
+        "required": false,
+        "default": "\"straight\"",
+        "description": "Line/area interpolation."
+      },
+      {
+        "prop": "smooth",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Shorthand for `curve=\"smooth\"`."
+      },
+      {
+        "prop": "showDots",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Show point markers on line charts."
+      },
+      {
+        "prop": "tableFallback",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render a visually-hidden data table as an accessible text alternative (WCAG 1.1.1)."
+      },
+      {
+        "prop": "caption",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Caption for the hidden data table; defaults to the chart's accessible label."
       },
       {
         "prop": "...rest",
@@ -4141,6 +4267,55 @@ export const components = [
         "description": "Provides the inline code text or nodes shown in the mono font on the subtle token-styled surface."
       },
       {
+        "prop": "block",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Render a scrollable multi-line `<pre>` block instead of the inline pill; defaults `as` to \"pre\"."
+      },
+      {
+        "prop": "copyable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Show a copy-to-clipboard button (typically with `block`)."
+      },
+      {
+        "prop": "copyLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"Copy code\"",
+        "description": "Accessible label for the copy button."
+      },
+      {
+        "prop": "copiedLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"Copied\"",
+        "description": "Accessible label announced after a successful copy."
+      },
+      {
+        "prop": "href",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Link destination — only used with as=\"a\"; scheme-sanitized (javascript:/data:/vbscript: render without href)."
+      },
+      {
+        "prop": "target",
+        "type": "React.HTMLAttributeAnchorTarget",
+        "required": false,
+        "default": "—",
+        "description": "Anchor target — only used with as=\"a\" (e.g. \"_blank\")."
+      },
+      {
+        "prop": "rel",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Anchor rel — only used with as=\"a\"; pair \"noopener noreferrer\" with target=\"_blank\"."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -4276,6 +4451,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Error message — turns the field red and replaces the hint."
+      },
+      {
+        "prop": "alpha",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Show an alpha slider and emit 8-digit `#RRGGBBAA`; the hex input then accepts 3/6/8-digit hex."
+      },
+      {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Control size."
       },
       {
         "prop": "required",
@@ -4485,6 +4674,34 @@ export const components = [
         "description": "Minimum popover width in px when portaled (useful when the control is narrow)."
       },
       {
+        "prop": "onInputChange",
+        "type": "(query: string) => void",
+        "required": false,
+        "default": "—",
+        "description": "Called with the raw query on every keystroke — drive a debounced remote fetch (with `loading` + `filter={false}`)."
+      },
+      {
+        "prop": "filter",
+        "type": "boolean | ((option: ComboboxOption, query: string) => boolean)",
+        "required": false,
+        "default": "—",
+        "description": "Client-side filtering: `false` shows options as-is (server-ranked); a function replaces the default label/description match."
+      },
+      {
+        "prop": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Show a loading row instead of the option list / empty state."
+      },
+      {
+        "prop": "emptyText",
+        "type": "string",
+        "required": false,
+        "default": "\"No results found\"",
+        "description": "Text shown when no options match."
+      },
+      {
         "prop": "onFocus",
         "type": "(e: React.FocusEvent) => void",
         "required": false,
@@ -4592,6 +4809,13 @@ export const components = [
         "required": false,
         "default": "\"No results found\"",
         "description": "The message shown when no command matches the current query, defaulting to \"No results found\"."
+      },
+      {
+        "prop": "searchLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"Command palette search\"",
+        "description": "Accessible name for the search input."
       },
       {
         "prop": "onClick",
@@ -5478,6 +5702,20 @@ export const components = [
         "description": "Estimated/fixed row height in px used to compute the virtualization window. Set if rows have a custom height so the scrollbar stays accurate."
       },
       {
+        "prop": "rowNumbers",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Render a leading auto-numbered row column (1, 2, 3…). The number reflects each row's position in the current sorted/filtered order and continues across pages (page 2 starts where page 1 ended; in server mode it uses the current page × pageSize). Sits after the checkbox column, sticky-left. This prop is the initial state — when enabled, users can hide/show the column from the toolbar's **Columns** panel (\"Row number\")."
+      },
+      {
+        "prop": "searchFields",
+        "type": "string[]",
+        "required": false,
+        "default": "—",
+        "description": "Restrict the toolbar quick-search to these column `field`s (client mode); defaults to every visible column. Mirrors `runDatatableQuery`'s `options.searchFields`."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -5543,6 +5781,455 @@ export const components = [
     ],
     "snippet": "import { useState } from \"react\";\nimport { Datatable, Avatar, Badge } from \"twico-ui\";\n\n// Sample data — swap for your own array or API rows. Each row needs a stable `id`.\nconst seed = [\n  { id: 1, name: \"Ava Stone\", email: \"ava.stone@twico.io\", role: \"Admin\", department: \"Engineering\", status: \"active\", country: \"US\", seats: 12, mrr: 480, salary: 128000, startDate: \"2023-01-14\" },\n  { id: 2, name: \"Liam Reed\", email: \"liam.reed@twico.io\", role: \"Editor\", department: \"Design\", status: \"invited\", country: \"GB\", seats: 4, mrr: 120, salary: 92000, startDate: \"2023-05-02\" },\n  { id: 3, name: \"Noah Park\", email: \"noah.park@twico.io\", role: \"Viewer\", department: \"Sales\", status: \"active\", country: \"DE\", seats: 2, mrr: 60, salary: 74000, startDate: \"2024-02-20\" },\n  { id: 4, name: \"Mia Cruz\", email: \"mia.cruz@twico.io\", role: \"Editor\", department: \"Support\", status: \"suspended\", country: \"ID\", seats: 7, mrr: 240, salary: 105000, startDate: \"2022-11-09\" },\n];\n\nconst ROLES = [\"Admin\", \"Editor\", \"Viewer\"];\nconst DEPARTMENTS = [\"Engineering\", \"Design\", \"Sales\", \"Marketing\", \"Support\", \"Finance\"];\nconst STATUSES = [\"active\", \"invited\", \"suspended\"];\nconst STATUS_TONE = { active: \"success\", invited: \"info\", suspended: \"danger\" };\nconst usd = (n) => \"$\" + Number(n).toLocaleString(\"en-US\");\n\n// Inline SVG icons (no CDN) for the actions column + batch toolbar.\nconst Eye = () => (<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\"><path d=\"M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z\" /><circle cx=\"12\" cy=\"12\" r=\"3\" /></svg>);\nconst Pencil = () => (<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\"><path d=\"M12 20h9\" /><path d=\"M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z\" /></svg>);\nconst Trash = () => (<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\"><path d=\"M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6\" /></svg>);\nconst Download = () => (<svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\"><path d=\"M12 3v12M7 10l5 5 5-5M5 21h14\" /></svg>);\nconst Mail = () => (<svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\"><path d=\"M3 6h18v12H3z\" /><path d=\"M3 7l9 6 9-6\" /></svg>);\n\nexport default function Example() {\n  const [rows, setRows] = useState(seed);\n\n  const columns = [\n    {\n      field: \"name\", headerName: \"Name\", width: 220, pinned: \"left\",\n      renderCell: (v) => (\n        <span style={{ display: \"flex\", alignItems: \"center\", gap: 10 }}>\n          <Avatar name={v} size=\"sm\" /> <strong>{v}</strong>\n        </span>\n      ),\n    },\n    { field: \"email\", headerName: \"Email\", width: 220 },\n\n    // Editable columns: double-click a cell to edit it, AND when rows are ticked an\n    // \"Edit\" button appears in the selection toolbar to set one value across every\n    // selected row at once (fires onBatchUpdate).\n    {\n      field: \"role\", headerName: \"Role\", width: 130,\n      editable: true, editType: \"select\", valueOptions: ROLES,\n      renderCell: (v) => <Badge variant=\"soft\" size=\"sm\" tone=\"neutral\">{v}</Badge>,\n    },\n    { field: \"department\", headerName: \"Department\", width: 150, editable: true, editType: \"select\", valueOptions: DEPARTMENTS },\n    {\n      field: \"status\", headerName: \"Status\", width: 130,\n      editable: true, editType: \"select\", valueOptions: STATUSES,\n      renderCell: (v) => <Badge variant=\"soft\" size=\"sm\" tone={STATUS_TONE[v]}>{v}</Badge>,\n    },\n    { field: \"country\", headerName: \"Country\", width: 120, valueOptions: [\"US\", \"GB\", \"DE\", \"ID\", \"JP\", \"BR\", \"CA\", \"AU\"] },\n    { field: \"seats\", headerName: \"Seats\", type: \"number\", width: 110, editable: true, aggregation: \"sum\" },\n    { field: \"mrr\", headerName: \"MRR\", type: \"number\", width: 120, aggregation: \"sum\", valueFormatter: usd, aggregationFormatter: usd },\n    { field: \"salary\", headerName: \"Salary\", type: \"number\", width: 130, editable: true, aggregation: \"avg\", valueFormatter: usd },\n    { field: \"startDate\", headerName: \"Start date\", width: 130 },\n\n    // Per-row actions: inline icon buttons + an overflow (⋮) menu (showInMenu).\n    {\n      field: \"actions\", headerName: \"Actions\", type: \"actions\", width: 110,\n      getActions: (row) => [\n        { icon: <Eye />, label: \"View\", onClick: () => console.log(\"view\", row.id) },\n        { icon: <Pencil />, label: \"Edit\", showInMenu: true, onClick: () => console.log(\"edit\", row.id) },\n        { icon: <Trash />, label: \"Delete\", showInMenu: true, danger: true, onClick: () => setRows((d) => d.filter((r) => r.id !== row.id)) },\n      ],\n    },\n  ];\n\n  // Actions for the toolbar that replaces the header when one or more rows are ticked.\n  // (A built-in \"Edit\" button is added automatically because some columns are editable.)\n  const batchActions = [\n    { label: \"Export\", icon: <Download />, onClick: (keys, selected, clear) => clear() },\n    { label: \"Email\", icon: <Mail />, onClick: (keys, selected, clear) => { console.log(selected); clear(); } },\n    { label: \"Delete\", icon: <Trash />, danger: true, onClick: (keys, selected, clear) => { setRows((d) => d.filter((r) => !keys.includes(r.id))); clear(); } },\n  ];\n\n  return (\n    <Datatable\n      columns={columns}\n      rows={rows}\n      checkboxSelection\n      rowNumbers\n      batchActions={batchActions}\n      onRowUpdate={(updated) => setRows((d) => d.map((r) => (r.id === updated.id ? updated : r)))}\n      onBatchUpdate={(changed) => setRows((d) => d.map((r) => changed.find((c) => c.id === r.id) || r))}\n      showAggregation\n      showDensity\n      showExport\n      rowPinning\n      pageSize={10}\n    />\n  );\n}",
     "tagline": "Advanced data grid with sorting, filtering, and export"
+  },
+  {
+    "name": "CardGrid",
+    "slug": "cardgrid",
+    "group": "Data display",
+    "summary": "CardGrid is the card analogue of Datatable's serverMode: it turns page, sort, filter, and search into a query and renders one card per row via a render prop, with built-in pagination, loading, and empty states. Client mode filters locally with Datatable's exact semantics; serverMode emits the query and consumes { rows, rowCount }.",
+    "importName": "CardGrid",
+    "propsRows": [
+      {
+        "prop": "rows",
+        "type": "Row[]",
+        "required": false,
+        "default": "[]",
+        "description": "The rows: the full set in client mode, or the current page's rows in serverMode."
+      },
+      {
+        "prop": "renderCard",
+        "type": "(row: Row, index: number) => React.ReactNode",
+        "required": true,
+        "default": "—",
+        "description": "Render prop returning one card element per row; this is the only required prop."
+      },
+      {
+        "prop": "rowKey",
+        "type": "string | ((row: Row) => React.Key)",
+        "required": false,
+        "default": "\"id\"",
+        "description": "Stable React key per row: a field name or an accessor function, defaulting to id."
+      },
+      {
+        "prop": "minChildWidth",
+        "type": "string | number",
+        "required": false,
+        "default": "\"18rem\"",
+        "description": "Minimum card width for the responsive auto-fill grid (forwarded to Grid's minChildWidth)."
+      },
+      {
+        "prop": "columns",
+        "type": "number | Record<string, number>",
+        "required": false,
+        "default": "—",
+        "description": "Fixed column count (a responsive object is allowed); overrides minChildWidth when set."
+      },
+      {
+        "prop": "gap",
+        "type": "number | string",
+        "required": false,
+        "default": "4",
+        "description": "Gap between cards on the spacing token scale, forwarded to the underlying Grid."
+      },
+      {
+        "prop": "pageSize",
+        "type": "number",
+        "required": false,
+        "default": "12",
+        "description": "Cards shown per page; set 0 to disable pagination and render every row."
+      },
+      {
+        "prop": "pageSizeOptions",
+        "type": "number[]",
+        "required": false,
+        "default": "[12, 24, 48, 96]",
+        "description": "Choices offered by the footer's per-page selector."
+      },
+      {
+        "prop": "page",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Controlled 0-based page index; omit to let the grid manage its own page."
+      },
+      {
+        "prop": "defaultPage",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Initial 0-based page when uncontrolled (no page prop)."
+      },
+      {
+        "prop": "onPageChange",
+        "type": "(page: number) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the new 0-based page when the user navigates the pagination."
+      },
+      {
+        "prop": "onPageSizeChange",
+        "type": "(pageSize: number) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the new page size when the per-page selector changes (makes pageSize controlled)."
+      },
+      {
+        "prop": "showPageSize",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render the per-page selector in the footer next to the pagination."
+      },
+      {
+        "prop": "serverMode",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Emit a query and consume rows/rowCount/loading instead of filtering, sorting, and paging locally."
+      },
+      {
+        "prop": "rowCount",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Total number of rows, used to compute the page count in serverMode."
+      },
+      {
+        "prop": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Show the loading overlay and dim the grid, typically while a serverMode fetch is in flight."
+      },
+      {
+        "prop": "onServerChange",
+        "type": "(query: CardGridQuery) => void",
+        "required": false,
+        "default": "—",
+        "description": "Called (debounced) with { page, pageSize, sort, filters, quickFilter } whenever the query changes."
+      },
+      {
+        "prop": "filters",
+        "type": "CardGridFilter[]",
+        "required": false,
+        "default": "[]",
+        "description": "External filter clauses (e.g. from a FilterBar) applied in client mode or passed through in serverMode."
+      },
+      {
+        "prop": "quickFilter",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Controlled quick-search string; pair with onQuickFilterChange to own it in state."
+      },
+      {
+        "prop": "defaultQuickFilter",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Initial quick-search string when uncontrolled."
+      },
+      {
+        "prop": "onQuickFilterChange",
+        "type": "(value: string) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the search text as the user types in the built-in search box."
+      },
+      {
+        "prop": "searchable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Render a built-in quick-search box in the toolbar row above the grid."
+      },
+      {
+        "prop": "searchFields",
+        "type": "string[]",
+        "required": false,
+        "default": "—",
+        "description": "Fields scanned by quick search in client mode; defaults to the first row's keys."
+      },
+      {
+        "prop": "searchPlaceholder",
+        "type": "string",
+        "required": false,
+        "default": "\"Search…\"",
+        "description": "Placeholder text for the built-in search box."
+      },
+      {
+        "prop": "sort",
+        "type": "CardGridSort | null",
+        "required": false,
+        "default": "—",
+        "description": "Controlled sort clause { field, dir }; omit to let the grid manage its own sort."
+      },
+      {
+        "prop": "defaultSort",
+        "type": "CardGridSort | null",
+        "required": false,
+        "default": "null",
+        "description": "Initial sort clause when uncontrolled."
+      },
+      {
+        "prop": "onSortChange",
+        "type": "(sort: CardGridSort | null) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the sort field or direction changes via the built-in sort control."
+      },
+      {
+        "prop": "sortOptions",
+        "type": "CardGridSortOption[]",
+        "required": false,
+        "default": "—",
+        "description": "Fields offered by the built-in sort control; providing it renders the control (declare type:\"number\" to sort numerically)."
+      },
+      {
+        "prop": "toolbar",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Extra node rendered in the toolbar row, before the sort control."
+      },
+      {
+        "prop": "emptyState",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "\"No results.\"",
+        "description": "Content shown when there are no rows and the grid is not loading."
+      },
+      {
+        "prop": "label",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Optional heading rendered above the grid and associated with it for accessibility."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { CardGrid, Card, Heading, Text } from \"twico-ui\";\n\nconst products = [\n  { id: 1, name: \"Aurora Lamp\", price: 89, category: \"Lighting\" },\n  { id: 2, name: \"Nimbus Chair\", price: 240, category: \"Seating\" },\n  { id: 3, name: \"Vega Desk\", price: 420, category: \"Desks\" },\n];\n\n<CardGrid\n  rows={products}\n  rowKey=\"id\"\n  minChildWidth=\"16rem\"\n  pageSize={12}\n  searchable\n  sortOptions={[\n    { field: \"name\", label: \"Name\" },\n    { field: \"price\", label: \"Price\", type: \"number\" },\n  ]}\n  renderCard={(p) => (\n    <Card>\n      <Heading level={4}>{p.name}</Heading>\n      <Text tone=\"muted\">{p.category} · ${p.price}</Text>\n    </Card>\n  )}\n/>",
+    "tagline": "Server-mode paginated card grid"
+  },
+  {
+    "name": "DiffTable",
+    "slug": "difftable",
+    "group": "Data display",
+    "summary": "DiffTable compares two versions of a dataset: it pairs rows on a business key, classifies each added / removed / modified / moved, and renders modified rows as per-cell before → after (strikethrough old, accented new). It shows an op badge per row, a +N ~M -K summary, and an 'only changed' toggle.",
+    "importName": "DiffTable",
+    "propsRows": [
+      {
+        "prop": "from",
+        "type": "Row[]",
+        "required": false,
+        "default": "[]",
+        "description": "The 'before' rows (version A) that the comparison pairs against `to`."
+      },
+      {
+        "prop": "to",
+        "type": "Row[]",
+        "required": false,
+        "default": "[]",
+        "description": "The 'after' rows (version B) compared against `from`."
+      },
+      {
+        "prop": "rowKey",
+        "type": "(row: Row) => React.Key",
+        "required": false,
+        "default": "row.id",
+        "description": "Stable business key used to pair a row in A with its counterpart in B; defaults to row.id."
+      },
+      {
+        "prop": "columns",
+        "type": "DiffTableColumn[]",
+        "required": false,
+        "default": "[]",
+        "description": "Columns to compare and render: { field, headerName?, valueGetter?, valueFormatter?, compare? }."
+      },
+      {
+        "prop": "onlyChanged",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Hide unchanged rows; this is the initial state of the 'only changed' toggle."
+      },
+      {
+        "prop": "showToggle",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render the 'only changed' checkbox that shows or hides unchanged rows."
+      },
+      {
+        "prop": "showSummary",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render the +added ~modified -removed summary badges above the table."
+      },
+      {
+        "prop": "moveDetection",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Classify same-value rows whose position changed as 'moved', using a minimal LIS so only genuinely-reordered rows are flagged."
+      },
+      {
+        "prop": "compare",
+        "type": "(a, b, field: string) => boolean",
+        "required": false,
+        "default": "—",
+        "description": "Global equality override for all fields; falls back to === then a JSON comparison."
+      },
+      {
+        "prop": "emptyState",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "\"No differences.\"",
+        "description": "Content shown when there are no rows to display (e.g. identical inputs with onlyChanged)."
+      },
+      {
+        "prop": "toggleLabel",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "\"Only changed\"",
+        "description": "Label for the 'only changed' toggle."
+      },
+      {
+        "prop": "label",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Optional heading rendered above the table."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { DiffTable } from \"twico-ui\";\n\nconst before = [\n  { sku: \"A1\", name: \"Alpha\", color: \"red\", price: 10 },\n  { sku: \"B2\", name: \"Beta\", color: \"blue\", price: 20 },\n];\nconst after = [\n  { sku: \"A1\", name: \"Alpha\", color: \"crimson\", price: 12 },\n  { sku: \"C3\", name: \"Gamma\", color: \"green\", price: 30 },\n];\n\n<DiffTable\n  from={before}\n  to={after}\n  rowKey={(r) => r.sku}\n  columns={[\n    { field: \"name\", headerName: \"Name\" },\n    { field: \"color\", headerName: \"Color\" },\n    { field: \"price\", headerName: \"Price\", valueFormatter: (v) => `$${v}` },\n  ]}\n  onlyChanged\n/>",
+    "tagline": "Compare two datasets, field by field"
   },
   {
     "name": "DatePicker",
@@ -5676,6 +6363,20 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "BCP-47 locale for Intl-derived month/weekday names and date formatting; omit for the runtime default."
+      },
+      {
+        "prop": "disabledDate",
+        "type": "(date: Date) => boolean",
+        "required": false,
+        "default": "—",
+        "description": "Predicate to disable arbitrary dates (return true to disable). Composes with `min`/`max`."
+      },
+      {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Control size."
       },
       {
         "prop": "onClick",
@@ -5857,6 +6558,48 @@ export const components = [
         "description": "BCP-47 locale for Intl-derived month/weekday names and date formatting; omit for the runtime default."
       },
       {
+        "prop": "min",
+        "type": "Date",
+        "required": false,
+        "default": "—",
+        "description": "Earliest selectable date (inclusive); earlier days are disabled."
+      },
+      {
+        "prop": "max",
+        "type": "Date",
+        "required": false,
+        "default": "—",
+        "description": "Latest selectable date (inclusive); later days are disabled."
+      },
+      {
+        "prop": "disabledDate",
+        "type": "(date: Date) => boolean",
+        "required": false,
+        "default": "—",
+        "description": "Predicate to disable arbitrary dates (return true to disable)."
+      },
+      {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Control size."
+      },
+      {
+        "prop": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Show a clear (×) button when a range is set; clicking it resets both endpoints."
+      },
+      {
+        "prop": "format",
+        "type": "(range: DateRange) => string",
+        "required": false,
+        "default": "—",
+        "description": "Custom display formatter for the range (defaults to a localized \"start – end\"). With `editable`, keep it compatible with `parse` so the text round-trips."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -5922,6 +6665,634 @@ export const components = [
     ],
     "snippet": "import { DateRangePicker } from \"twico-ui\";\n\nconst [range, setRange] = useState({ start: null, end: null });\n\n<DateRangePicker\n  label=\"Reporting period\"\n  value={range}\n  onChange={setRange}\n  weekStartsOn={1}\n/>",
     "tagline": "Calendar input for a start and end date"
+  },
+  {
+    "name": "TimePicker",
+    "slug": "timepicker",
+    "group": "Inputs",
+    "summary": "TimePicker is a time-of-day input with a column-spinner popover: scrollable hour, minute, and optional second columns, plus an AM/PM column in 12-hour mode. It emits a Date (so it composes with DatePicker) and bounds the selectable time via min/max.",
+    "importName": "TimePicker",
+    "propsRows": [
+      {
+        "prop": "label",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Optional field label rendered above the control to name it and associate it for accessibility."
+      },
+      {
+        "prop": "hint",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Helper text shown below the control when there is no error message set."
+      },
+      {
+        "prop": "error",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Error message that turns the control red and replaces the hint text below it."
+      },
+      {
+        "prop": "required",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Marks the field required, adding an asterisk to the label as a validation cue."
+      },
+      {
+        "prop": "value",
+        "type": "Date | null",
+        "required": false,
+        "default": "—",
+        "description": "Controlled selected time as a Date; pair with onChange to own the value in state."
+      },
+      {
+        "prop": "defaultValue",
+        "type": "Date | null",
+        "required": false,
+        "default": "null",
+        "description": "Initial time for uncontrolled usage when value is omitted, defaulting to null so it starts empty."
+      },
+      {
+        "prop": "placeholder",
+        "type": "string",
+        "required": false,
+        "default": "\"Select time\"",
+        "description": "Text shown in the trigger when no time has been selected yet."
+      },
+      {
+        "prop": "min",
+        "type": "Date",
+        "required": false,
+        "default": "—",
+        "description": "Earliest selectable time-of-day; only the hours, minutes, and seconds are compared."
+      },
+      {
+        "prop": "max",
+        "type": "Date",
+        "required": false,
+        "default": "—",
+        "description": "Latest selectable time-of-day; options past it are disabled in the columns."
+      },
+      {
+        "prop": "minuteStep",
+        "type": "number",
+        "required": false,
+        "default": "5",
+        "description": "Increment in minutes for the minute column, so 15 yields :00/:15/:30/:45 options."
+      },
+      {
+        "prop": "secondStep",
+        "type": "number",
+        "required": false,
+        "default": "5",
+        "description": "Increment in seconds for the second column, used only when granularity is \"second\"."
+      },
+      {
+        "prop": "granularity",
+        "type": "\"hour\" | \"minute\" | \"second\"",
+        "required": false,
+        "default": "\"minute\"",
+        "description": "Which columns render: hour only, hour and minute, or down to seconds."
+      },
+      {
+        "prop": "hourCycle",
+        "type": "12 | 24",
+        "required": false,
+        "default": "24",
+        "description": "Show 24-hour columns, or 12-hour columns with a dedicated AM/PM column."
+      },
+      {
+        "prop": "referenceDate",
+        "type": "Date",
+        "required": false,
+        "default": "today",
+        "description": "Date whose year/month/day is used for the emitted Date when no value is set yet."
+      },
+      {
+        "prop": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Disables the control and prevents the time popover from opening."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the focus/open accent (border and ring) using one of six semantic intents."
+      },
+      {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Control height preset for aligning with other form fields in the same row."
+      },
+      {
+        "prop": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Shows a clear (×) button when a time is set, resetting the value to null."
+      },
+      {
+        "prop": "editable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Renders the trigger as a typeable text input with a trailing toggle for direct entry."
+      },
+      {
+        "prop": "parse",
+        "type": "(text: string) => Date | null",
+        "required": false,
+        "default": "—",
+        "description": "Parses typed text into a Date when editable; defaults to an HH:MM[:SS] am/pm matcher."
+      },
+      {
+        "prop": "format",
+        "type": "(date: Date) => string",
+        "required": false,
+        "default": "—",
+        "description": "Custom display formatter; defaults to a localized time honoring hourCycle and granularity."
+      },
+      {
+        "prop": "locale",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "BCP-47 locale for time formatting via Intl; omit for the runtime default."
+      },
+      {
+        "prop": "onChange",
+        "type": "(date: Date | null) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the newly selected Date (or null when cleared) after each column pick."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { TimePicker } from \"twico-ui\";\n\nconst [time, setTime] = useState(null);\n\n<TimePicker\n  label=\"Start time\"\n  value={time}\n  onChange={setTime}\n  minuteStep={15}\n/>",
+    "tagline": "Column-spinner time-of-day picker"
+  },
+  {
+    "name": "DateTimePicker",
+    "slug": "datetimepicker",
+    "group": "Inputs",
+    "summary": "DateTimePicker combines a calendar and a time-column popover over a single Date value: picking a day keeps the current time and vice-versa. It composes DatePicker and TimePicker side by side, so it inherits both — min/max bound the date while the time stays free.",
+    "importName": "DateTimePicker",
+    "propsRows": [
+      {
+        "prop": "label",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Optional field label rendered above the date/time pair to name and associate it."
+      },
+      {
+        "prop": "hint",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Helper text shown below the controls when there is no error message set."
+      },
+      {
+        "prop": "error",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Error message that recolors both controls red and replaces the hint, shown once on the wrapper."
+      },
+      {
+        "prop": "required",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Marks the field required, adding an asterisk to the label as a validation cue."
+      },
+      {
+        "prop": "value",
+        "type": "Date | null",
+        "required": false,
+        "default": "—",
+        "description": "Controlled selected date-time as a Date; pair with onChange to own the value in state."
+      },
+      {
+        "prop": "defaultValue",
+        "type": "Date | null",
+        "required": false,
+        "default": "null",
+        "description": "Initial date-time for uncontrolled usage when value is omitted, defaulting to null."
+      },
+      {
+        "prop": "min",
+        "type": "Date",
+        "required": false,
+        "default": "—",
+        "description": "Earliest selectable date; dates before it are disabled in the calendar grid."
+      },
+      {
+        "prop": "max",
+        "type": "Date",
+        "required": false,
+        "default": "—",
+        "description": "Latest selectable date; dates after it are disabled in the calendar grid."
+      },
+      {
+        "prop": "disabledDate",
+        "type": "(date: Date) => boolean",
+        "required": false,
+        "default": "—",
+        "description": "Predicate to disable arbitrary dates (return true to disable), composing with min/max."
+      },
+      {
+        "prop": "minuteStep",
+        "type": "number",
+        "required": false,
+        "default": "5",
+        "description": "Increment in minutes for the time control's minute column."
+      },
+      {
+        "prop": "secondStep",
+        "type": "number",
+        "required": false,
+        "default": "5",
+        "description": "Increment in seconds for the second column when granularity is \"second\"."
+      },
+      {
+        "prop": "granularity",
+        "type": "\"hour\" | \"minute\" | \"second\"",
+        "required": false,
+        "default": "\"minute\"",
+        "description": "Time granularity: hour only, hour and minute, or down to seconds."
+      },
+      {
+        "prop": "hourCycle",
+        "type": "12 | 24",
+        "required": false,
+        "default": "24",
+        "description": "24-hour time columns, or 12-hour columns with an AM/PM column."
+      },
+      {
+        "prop": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Disables both controls and prevents either popover from opening."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Recolors the focus/open accent on both controls using one of six semantic intents."
+      },
+      {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Control height preset applied to both the date and time controls."
+      },
+      {
+        "prop": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Shows a clear (×) on the date control that resets the entire value to null."
+      },
+      {
+        "prop": "weekStartsOn",
+        "type": "0 | 1 | 2 | 3 | 4 | 5 | 6",
+        "required": false,
+        "default": "0",
+        "description": "First day of the calendar week: 0 = Sunday through 6 = Saturday."
+      },
+      {
+        "prop": "locale",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "BCP-47 locale for names and formatting via Intl; omit for the runtime default."
+      },
+      {
+        "prop": "dateFormat",
+        "type": "(date: Date) => string",
+        "required": false,
+        "default": "—",
+        "description": "Custom formatter for the date control's display text."
+      },
+      {
+        "prop": "timeFormat",
+        "type": "(date: Date) => string",
+        "required": false,
+        "default": "—",
+        "description": "Custom formatter for the time control's display text."
+      },
+      {
+        "prop": "datePlaceholder",
+        "type": "string",
+        "required": false,
+        "default": "\"Select date\"",
+        "description": "Placeholder for the date control."
+      },
+      {
+        "prop": "timePlaceholder",
+        "type": "string",
+        "required": false,
+        "default": "\"Time\"",
+        "description": "Placeholder for the time control."
+      },
+      {
+        "prop": "onChange",
+        "type": "(date: Date | null) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the merged Date (or null when cleared) after a date or time change."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { DateTimePicker } from \"twico-ui\";\n\nconst [when, setWhen] = useState(null);\n\n<DateTimePicker\n  label=\"Shift start\"\n  value={when}\n  onChange={setWhen}\n  hourCycle={12}\n  minuteStep={15}\n/>",
+    "tagline": "Combined date and time picker"
+  },
+  {
+    "name": "FilterBar",
+    "slug": "filterbar",
+    "group": "Inputs",
+    "summary": "FilterBar is a schema-driven faceted filter bar: it renders a row of controls from a fields schema (multi-select, date-range, search/text, number, boolean, select) and emits a normalized clause list [{ field, op, value }] (isAnyOf, >=/<, contains, =). It adds per-field clear ✕ and a Clear all (N) action, and options can cascade on the current values.",
+    "importName": "FilterBar",
+    "propsRows": [
+      {
+        "prop": "fields",
+        "type": "FilterField[]",
+        "required": true,
+        "default": "—",
+        "description": "The filter schema: one entry per facet ({ field, label?, type, options?, placeholder?, op? })."
+      },
+      {
+        "prop": "value",
+        "type": "FilterClause[]",
+        "required": false,
+        "default": "—",
+        "description": "Controlled clause list — the same normalized shape emitted by onChange, so it round-trips."
+      },
+      {
+        "prop": "defaultValue",
+        "type": "FilterClause[]",
+        "required": false,
+        "default": "[]",
+        "description": "Initial clause list for uncontrolled usage when value is omitted."
+      },
+      {
+        "prop": "onChange",
+        "type": "(clauses: FilterClause[]) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the normalized clause list [{ field, op, value }] whenever any field changes."
+      },
+      {
+        "prop": "onValuesChange",
+        "type": "(values: FilterValues) => void",
+        "required": false,
+        "default": "—",
+        "description": "Also fires with the raw per-field value map, a convenience for rehydrating controls."
+      },
+      {
+        "prop": "showClearAll",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Render a 'Clear all (N)' button that resets every field; N is the active-field count."
+      },
+      {
+        "prop": "clearAllLabel",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "\"Clear all\"",
+        "description": "Label text for the clear-all button."
+      },
+      {
+        "prop": "showFieldClear",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Show a per-field clear ✕ beside each active field's label."
+      },
+      {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Control size applied to every field in the bar."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Accent tone forwarded to the date-range control."
+      },
+      {
+        "prop": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Disable the entire bar and hide the per-field/clear-all actions."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { FilterBar } from \"twico-ui\";\n\nconst [filters, setFilters] = useState([]);\n\n<FilterBar\n  fields={[\n    { field: \"model\", label: \"Model\", type: \"multiselect\", options: MODELS },\n    { field: \"createdAt\", label: \"Created\", type: \"daterange\" },\n    { field: \"status\", label: \"Status\", type: \"boolean\" },\n    { field: \"q\", label: \"Search\", type: \"search\" },\n  ]}\n  value={filters}\n  onChange={setFilters}\n  showClearAll\n/>",
+    "tagline": "Schema-driven faceted filter bar"
   },
   {
     "name": "Dialog",
@@ -6498,6 +7869,34 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Error message shown below the dropzone; turns the border red (sets aria-invalid)."
+      },
+      {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Control size — scales the dropzone padding."
+      },
+      {
+        "prop": "maxSize",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Max size per file in bytes; larger files are rejected (drag + browse)."
+      },
+      {
+        "prop": "maxFiles",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Max number of files retained (multiple mode); extra files are rejected."
+      },
+      {
+        "prop": "onReject",
+        "type": "(rejections: Array<{ file: File; reason: \"type\" | \"size\" | \"count\" }>) => void",
+        "required": false,
+        "default": "—",
+        "description": "Called with the files that failed validation: `{ file, reason }` where reason is \"type\" | \"size\" | \"count\"."
       },
       {
         "prop": "required",
@@ -7136,6 +8535,13 @@ export const components = [
         "description": "Initial cards when uncontrolled (the board applies moves internally)."
       },
       {
+        "prop": "getCardLabel",
+        "type": "(card: KanbanCard) => string",
+        "required": false,
+        "default": "—",
+        "description": "Accessible name for each card — supply this when `renderCard` produces graphical/icon-only content; falls back to a string title or \"Card\"."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -7561,6 +8967,48 @@ export const components = [
         "description": "Minimum popover width in px when portaled (useful when the control is narrow)."
       },
       {
+        "prop": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Show a loading row instead of the option list / empty state."
+      },
+      {
+        "prop": "emptyText",
+        "type": "string",
+        "required": false,
+        "default": "\"No results found\"",
+        "description": "Text shown when no options match."
+      },
+      {
+        "prop": "onInputChange",
+        "type": "(query: string) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the raw typed query — drive a debounced remote fetch (pair with `loading` and `filter={false}` so server-ranked results aren't re-filtered locally)."
+      },
+      {
+        "prop": "filter",
+        "type": "boolean | ((option: MultiSelectOption, query: string) => boolean)",
+        "required": false,
+        "default": "—",
+        "description": "`false` shows `options` as-is (server-ranked passthrough); a function replaces the default label/description matcher. Omit for the built-in local filter."
+      },
+      {
+        "prop": "max",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Cap the number of selectable values; once reached, unselected options become disabled."
+      },
+      {
+        "prop": "maxTagCount",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Collapse chips after N into a \"+K more\" pill."
+      },
+      {
         "prop": "onFocus",
         "type": "(e: React.FocusEvent) => void",
         "required": false,
@@ -7668,6 +9116,41 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Fires when the hamburger button (shown only on small screens) is clicked, typically to open a mobile drawer."
+      },
+      {
+        "prop": "brandHref",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "If set, the brand becomes a link to this URL (sanitized). Otherwise the brand is a plain, non-navigating element unless `onBrandClick` is given."
+      },
+      {
+        "prop": "onBrandClick",
+        "type": "(e: React.MouseEvent<HTMLButtonElement>) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler for the brand; renders it as a button when `brandHref` is not set."
+      },
+      {
+        "prop": "menuOpen",
+        "type": "boolean",
+        "required": false,
+        "default": "—",
+        "description": "Drives the hamburger's `aria-expanded` and its \"Open menu\"/\"Close menu\" accessible name."
+      },
+      {
+        "prop": "menuControls",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id of the menu/drawer the hamburger controls (`aria-controls`)."
+      },
+      {
+        "prop": "navLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"Primary\"",
+        "description": "Accessible name for the links `<nav>` landmark."
       },
       {
         "prop": "onClick",
@@ -8072,6 +9555,13 @@ export const components = [
         "required": false,
         "default": "false",
         "description": "Displays a percentage label above the bar so users can read the exact completion at a glance."
+      },
+      {
+        "prop": "label",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "\"Progress\"",
+        "description": "Visible label in the meta row that also names the progressbar (via `aria-labelledby`)."
       },
       {
         "prop": "onClick",
@@ -8590,6 +10080,34 @@ export const components = [
         "description": "Show a clear (×) affix when a value is selected; Delete/Backspace on the closed trigger also clears. Emits onChange(null)."
       },
       {
+        "prop": "matchTriggerWidth",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Pin the popover to the trigger's width. Set false to size it to the widest option (clamped to the viewport)."
+      },
+      {
+        "prop": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Show a loading row instead of the option list / empty state (e.g. while fetching options)."
+      },
+      {
+        "prop": "emptyText",
+        "type": "string",
+        "required": false,
+        "default": "\"No results found\"",
+        "description": "Text shown when no options match."
+      },
+      {
+        "prop": "name",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Name for a hidden form field so the selected value participates in native form submission."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -8850,6 +10368,13 @@ export const components = [
         "description": "For the text variant, the number of lines to render, defaulting to 1, with the last line shortened for realism."
       },
       {
+        "prop": "label",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "When set, announces loading via `role=\"status\"` + `aria-live=\"polite\"` + `aria-busy=\"true\"` plus visually-hidden text (e.g. \"Loading…\"); otherwise the placeholder is `aria-hidden=\"true\"`."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -9057,6 +10582,13 @@ export const components = [
         "description": "Error message shown below the track; turns it red (sets aria-invalid) and replaces the hint."
       },
       {
+        "prop": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Control size — scales the track, rail, and thumb."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -9142,7 +10674,7 @@ export const components = [
         "type": "\"current\" | \"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | \"white\"",
         "required": false,
         "default": "\"current\"",
-        "description": "Deprecated alias for color."
+        "description": "Colour intent; defaults to currentColor so it adapts inside buttons and themed contexts. Wins over the deprecated color."
       },
       {
         "prop": "label",
@@ -9156,7 +10688,7 @@ export const components = [
         "type": "\"current\" | \"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | \"white\"",
         "required": false,
         "default": "\"current\"",
-        "description": "Sets the spinner color; defaults to currentColor so it adapts inside buttons and themed contexts."
+        "description": "Deprecated alias for tone (removed in 2.0) — use tone, which matches every other tone-driven component."
       },
       {
         "prop": "onClick",
@@ -10123,6 +11655,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Provides the tag's label content, typically the filter name, selected item, or keyword being displayed."
+      },
+      {
+        "prop": "removeLabel",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Accessible label for the remove (×) button. Defaults to `Remove {children}` when children is a string, else \"Remove\"."
       },
       {
         "prop": "onClick",
