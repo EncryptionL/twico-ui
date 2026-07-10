@@ -113,6 +113,7 @@ export function MultiSelect({
   placeholder = "Select…", options, value, defaultValue = [],
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
   loading = false, emptyText = "No results found", name, max, maxTagCount,
+  filter, onInputChange,
   virtualized = false, overscan = 8,
   id, className = "", onFocus, onKeyDown, ...rest
 }) {
@@ -138,10 +139,15 @@ export function MultiSelect({
   const listRef = React.useRef(null);
   const activeRef = React.useRef(null);
 
-  const fGroups = React.useMemo(
-    () => groups.map((g) => ({ group: g.group, options: g.options.filter((o) => matches(o, query.trim())) })).filter((g) => g.options.length),
-    [groups, query]
-  );
+  // #208: `filter={false}` shows options as-is (server-ranked async results); a function replaces
+  // the default label/description matcher; otherwise the built-in local `matches` filter runs.
+  const fGroups = React.useMemo(() => {
+    const q = query.trim();
+    const fn = filter === false ? null : typeof filter === "function" ? filter : matches;
+    return groups
+      .map((g) => ({ group: g.group, options: fn ? g.options.filter((o) => fn(o, q)) : g.options }))
+      .filter((g) => g.options.length);
+  }, [groups, query, filter]);
   const visible = React.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
 
   // #92: option-list virtualization (opt-in). Flat row model (group headers + options)
@@ -350,7 +356,7 @@ export function MultiSelect({
                  aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy}
                  placeholder={selectedOpts.length ? "" : placeholder} value={query} disabled={disabled}
                  onFocus={(e) => { onFocus?.(e); setOpen(true); }}
-                 onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
+                 onChange={(e) => { setQuery(e.target.value); setOpen(true); onInputChange?.(e.target.value); }}
                  onKeyDown={(e) => { onKeyDown?.(e); if (!e.defaultPrevented) handleKeyDown(e); }} {...rest} />
           {clearable && selected.length > 0 && !disabled ? (
             <button type="button" tabIndex={-1} className="twc-ms__clear" aria-label="Clear all" onClick={(e) => { e.stopPropagation(); commit([]); setQuery(""); }}>

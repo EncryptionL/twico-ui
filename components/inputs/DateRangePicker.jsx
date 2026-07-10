@@ -94,6 +94,17 @@ const weekdayNames = (locale, weekStartsOn) => {
 const ymd = (d) => d ? new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime() : null;
 const fmtD = (d, locale) => d ? d.toLocaleDateString(locale, { month: "short", day: "numeric", year: "numeric" }) : "";
 
+// #212: default rolling-day presets, factored out so `presets={true}` stays byte-identical and a
+// custom `presets` array can reuse the helper. Ranges are functions resolved at click time so a
+// relative range (e.g. "today") stays current across a long-open popover.
+const rollingDays = (days) => { const end = new Date(); const start = new Date(); start.setDate(end.getDate() - days + 1); return { start, end }; };
+const DEFAULT_PRESETS = [
+  { label: "Last 7 days", range: () => rollingDays(7) },
+  { label: "Last 14 days", range: () => rollingDays(14) },
+  { label: "Last 30 days", range: () => rollingDays(30) },
+  { label: "Last 90 days", range: () => rollingDays(90) },
+];
+
 export function DateRangePicker({
   label,
   hint,
@@ -255,9 +266,13 @@ export function DateRangePicker({
     }
   };
 
-  const applyPreset = (days) => {
-    const end = new Date(); const start = new Date(); start.setDate(end.getDate() - days + 1);
-    set({ start, end }); setView(start); setOpen(false);
+  // #212: presets can be `true` (the defaults), `false` (hidden), or a custom array of
+  // { label, range: DateRange | () => DateRange }.
+  const presetItems = presets === true ? DEFAULT_PRESETS : Array.isArray(presets) ? presets : [];
+  const applyPreset = (preset) => {
+    const r = typeof preset.range === "function" ? preset.range() : preset.range;
+    if (!r) return;
+    set(r); if (r.start) setView(r.start); setOpen(false);
   };
 
   // Locale-aware month/weekday names — fall back to the shipped English arrays
@@ -340,10 +355,10 @@ export function DateRangePicker({
       {open && coords ? createPortal(
         <div className="twc-drp__pop" ref={popRef} role="dialog" aria-modal="true" aria-label="Choose date range"
           style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" }}>
-          {presets ? (
+          {presetItems.length ? (
             <div className="twc-drp__presets">
-              {[["Last 7 days", 7], ["Last 14 days", 14], ["Last 30 days", 30], ["Last 90 days", 90]].map(([lbl, n]) => (
-                <button key={n} type="button" className="twc-drp__preset" onClick={() => applyPreset(n)}>{lbl}</button>
+              {presetItems.map((p, i) => (
+                <button key={i} type="button" className="twc-drp__preset" onClick={() => applyPreset(p)}>{p.label}</button>
               ))}
             </div>
           ) : null}

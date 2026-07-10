@@ -26,8 +26,11 @@ export interface DateRangePickerProps extends Omit<React.HTMLAttributes<HTMLDivE
   /** Uncontrolled initial range. @default { start: null, end: null } */
   defaultValue?: DateRange;
   placeholder?: string;
-  /** Show the quick-preset column. @default true */
-  presets?: boolean;
+  /** Quick-preset column: `true` for the built-in rolling-day presets (Last 7/14/30/90), `false` to
+   *  hide it, or a custom array of `{ label, range }` where `range` is a `DateRange` or a
+   *  `() => DateRange` resolved at click time (for calendar-aligned presets like This month / YTD).
+   *  @default true */
+  presets?: boolean | Array<{ label: string; range: DateRange | (() => DateRange) }>;
   /** BCP-47 locale for month/weekday names + date formatting (Intl). Omit for the runtime default. @default undefined */
   locale?: string;
   /** First day of week: 0 = Sunday … 6 = Saturday. @default 0 */

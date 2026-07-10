@@ -16,9 +16,14 @@ supports queries. The `sx` prop (#53) fills that gap on the layout & typography 
 />
 ```
 
-**Phase 1 coverage:** `Box`, `Stack`, `Grid`, `Container` (layout), `Text`, `Heading` (typography),
-and `Card`. `components/_sx.js` is the reusable substrate for threading `sx` through the rest of the
-components in a later pass.
+**Which components accept `sx`** (#221): the primitives that render a **single styleable root
+element** — `Box`, `Stack`, `Grid`, `Container` (layout), `Text`, `Heading` (typography), and `Card`.
+That set is the exported **`WithSx`** type (`{ sx?: Sx }`), so the boundary is discoverable in
+TypeScript, not just prose. Multi-element composites (Input, Select, Combobox, MultiSelect, Dialog, …)
+intentionally **omit** `sx`: they render wrapper + label + control + hint (or backdrop + panel), so a
+single `sx` target would be ambiguous — styling them cleanly needs an explicit per-slot API (out of
+scope). `components/_sx.js` (`useSx`) is the element-agnostic substrate, so extending the set to
+another **single-root** component is mechanical (thread `useSx` like `Text` does, and `extends WithSx`).
 
 ## How it works
 

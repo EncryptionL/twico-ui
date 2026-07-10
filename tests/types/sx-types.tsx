@@ -1,7 +1,13 @@
 // Compile-only fixture for #53 — the `sx` prop on the primitives + Card.
 import * as React from "react";
 import { Box, Stack, Text, Card } from "../../src/index";
-import type { Sx } from "../../src/index";
+import type { Sx, WithSx } from "../../src/index";
+
+// #221 — WithSx is the exported boundary type for the sx-capable set. `sx` is optional.
+const withSx: WithSx = { sx: { padding: 8, "&:hover": { color: "red" } } };
+const noSx: WithSx = {};
+void withSx;
+void noSx;
 
 const styles: Sx = {
   padding: 16,
