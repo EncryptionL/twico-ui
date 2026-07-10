@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"257e0b3df46e","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"41b7413594bd","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"8a62c24cb1f5","components/inputs/DateRangePicker.jsx":"289e6482e025","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"868d4f2590f1","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"42079cb33554"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"516f1295214f","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"41b7413594bd","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"8a62c24cb1f5","components/inputs/DateRangePicker.jsx":"289e6482e025","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"868d4f2590f1","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"42079cb33554"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -8688,6 +8688,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   ];
   var opsFor = (type) => type === "number" ? NUM_OPS : STR_OPS;
   var isMultiOp = (op) => op === "isAnyOf";
+  var getColVal = (col, row) => col && col.valueGetter ? col.valueGetter(row) : row == null ? void 0 : row[col && col.field];
   function testFilter(raw, op, target, type) {
     if (op === "isEmpty") return raw == null || raw === "";
     if (op === "isNotEmpty") return !(raw == null || raw === "");
@@ -8733,14 +8734,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const cols = options.columns || [];
     const typeOf = (field) => cols.find((c) => c.field === field)?.type === "number" ? "number" : "string";
     const searchFields = options.searchFields || (cols.length ? cols.filter((c) => c.field && c.type !== "actions").map((c) => c.field) : rows && rows[0] ? Object.keys(rows[0]) : []);
+    const gv = (field, r2) => getColVal(cols.find((c) => c.field === field) || { field }, r2);
     let out = Array.isArray(rows) ? rows : [];
     const quick = String(q.quickFilter || "").trim().toLowerCase();
-    if (quick) out = out.filter((r2) => searchFields.some((f) => String(r2[f] ?? "").toLowerCase().includes(quick)));
-    for (const f of q.filters || []) out = out.filter((r2) => testFilter(r2[f.field], f.op, f.value, typeOf(f.field)));
+    if (quick) out = out.filter((r2) => searchFields.some((f) => String(gv(f, r2) ?? "").toLowerCase().includes(quick)));
+    for (const f of q.filters || []) out = out.filter((r2) => testFilter(gv(f.field, r2), f.op, f.value, typeOf(f.field)));
     if (q.sort && q.sort.field) {
       const { field, dir } = q.sort, numeric = typeOf(field) === "number";
       out = [...out].sort((a, b) => {
-        const av = a[field], bv = b[field];
+        const av = gv(field, a), bv = gv(field, b);
         if (av == null) return 1;
         if (bv == null) return -1;
         const r2 = numeric ? av - bv : String(av).localeCompare(String(bv));
@@ -8998,6 +9000,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     "aria-label": ariaLabelAttr,
     rowGrouping = [],
     rowNumbers = false,
+    searchFields = null,
     rowPinning = false,
     rowReorder = false,
     rowResize = false,
@@ -9339,17 +9342,18 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       let out = rows;
       if (quick.trim()) {
         const q = quick.trim().toLowerCase();
-        out = out.filter((r2) => visibleCols.some((c) => String(r2[c.field] ?? "").toLowerCase().includes(q)));
+        const searchCols = searchFields && searchFields.length ? searchFields.map((f) => colByField[f] || { field: f }) : visibleCols;
+        out = out.filter((r2) => searchCols.some((c) => String(getColVal(c, r2) ?? "").toLowerCase().includes(q)));
       }
       for (const f of filters) {
         const col = colByField[f.field];
         if (!col) continue;
-        out = out.filter((r2) => testFilter(r2[f.field], f.op, f.value, col.type));
+        out = out.filter((r2) => testFilter(getColVal(col, r2), f.op, f.value, col.type));
       }
       if (sort) {
         const col = colByField[sort.field];
         out = [...out].sort((a, b) => {
-          const av = a[sort.field], bv = b[sort.field];
+          const av = getColVal(col, a), bv = getColVal(col, b);
           if (av == null) return 1;
           if (bv == null) return -1;
           const r2 = col?.type === "number" ? av - bv : String(av).localeCompare(String(bv));
@@ -9361,7 +9365,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         out = [...out].sort((a, b) => (idx.get(keyOf(a)) ?? 1e9) - (idx.get(keyOf(b)) ?? 1e9));
       }
       return out;
-    }, [rows, quick, filters, sort, visibleCols, colByField, serverMode, rowOrder]);
+    }, [rows, quick, filters, sort, visibleCols, colByField, serverMode, rowOrder, searchFields]);
     const paginated = pageSize > 0;
     const serverTotal = rowCount == null ? processed.length : rowCount;
     const totalRows = serverMode ? serverTotal : processed.length;
@@ -9386,7 +9390,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     function computeAgg(col, data) {
       const agg = col.aggregation;
       if (!agg) return null;
-      const raw = data.map((r2) => r2[col.field]).filter((v) => v != null && v !== "");
+      const raw = data.map((r2) => getColVal(col, r2)).filter((v) => v != null && v !== "");
       if (typeof agg === "function") return agg(raw, data);
       if (agg === "count") return raw.length;
       const nums = raw.map(Number).filter((n) => !Number.isNaN(n));
@@ -9404,7 +9408,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         const field = activeGroupBy[depth];
         const map = /* @__PURE__ */ new Map();
         for (const r2 of rowsIn) {
-          const v = r2[field] == null || r2[field] === "" ? "\u2014" : r2[field];
+          const gvv = getColVal(colByField[field], r2);
+          const v = gvv == null || gvv === "" ? "\u2014" : gvv;
           if (!map.has(v)) map.set(v, []);
           map.get(v).push(r2);
         }
@@ -9701,13 +9706,17 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     function optionsForField(field) {
       const col = colByField[field];
       if (col?.valueOptions) return col.valueOptions.map((o) => typeof o === "string" ? { value: o, label: o } : o);
-      const set = /* @__PURE__ */ new Set();
+      const seen2 = /* @__PURE__ */ new Map();
       for (const r2 of rows) {
-        const v = r2[field];
-        if (v != null && v !== "") set.add(String(v));
-        if (set.size > 80) break;
+        const raw = getColVal(col, r2);
+        if (raw == null || raw === "") continue;
+        const key = String(raw);
+        if (seen2.has(key)) continue;
+        const label = col?.valueFormatter ? col.valueFormatter(raw, r2) : key;
+        seen2.set(key, { value: key, label: typeof label === "string" || typeof label === "number" ? String(label) : key });
+        if (seen2.size > 80) break;
       }
-      return [...set].sort((a, b) => a.localeCompare(b)).map((v) => ({ value: v, label: v }));
+      return [...seen2.values()].sort((a, b) => String(a.label).localeCompare(String(b.label)));
     }
     const [resizing, setResizing] = import_react.default.useState(false);
     function startResize(e, field) {
@@ -9774,7 +9783,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     function exportData(format = "csv") {
       const expCols = ordered.filter((c) => c.type !== "actions");
       const source = serverMode ? paged : processed;
-      const cellValue = (c, row) => c.exportValue ? c.exportValue(row[c.field], row) : row[c.field];
+      const cellValue = (c, row) => c.exportValue ? c.exportValue(row[c.field], row) : getColVal(c, row);
       const fname = (ext) => `${exportFilename}.${ext}`;
       const download = (text2, mime, ext) => {
         const blob = new Blob([text2], { type: mime });
@@ -9823,7 +9832,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         }
       }
       const data = serverMode ? paged : processed;
-      const raw = data.map((r2) => r2[col.field]).filter((v) => v != null && v !== "");
+      const raw = data.map((r2) => getColVal(col, r2)).filter((v) => v != null && v !== "");
       if (typeof agg === "function") return agg(raw, data);
       if (agg === "count") return raw.length;
       const nums = raw.map(Number).filter((n) => !Number.isNaN(n));
@@ -10242,7 +10251,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", "data-pin-edge": pins.left.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W }, children: typeof ri === "number" ? (paginated || serverMode ? pageVal * sizeVal : 0) + ri + 1 : "" }) : null,
             ordered.map((c, ci) => {
               const st = stickyOf(c.field);
-              const val = row[c.field];
+              const val = getColVal(c, row);
               const isActions = c.type === "actions";
               const editable = isColEditable(c);
               const isEditing = editing && editing.key === k && editing.field === c.field;
@@ -10299,9 +10308,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     }
     function renderPivot() {
       const rFields = pivotConfig.rows, cFields = pivotConfig.columns || [], values = pivotConfig.values;
-      const rowKeyOf = (r2) => rFields.map((f) => r2[f] ?? "\u2014").join("  \xB7  ");
-      const colPathOf = (r2) => cFields.map((f) => String(r2[f] ?? "\u2014"));
-      const aggOf2 = (subset, v) => computeAgg({ field: v.field, aggregation: v.agg || "sum" }, subset || []);
+      const rowKeyOf = (r2) => rFields.map((f) => getColVal(colByField[f], r2) ?? "\u2014").join("  \xB7  ");
+      const colPathOf = (r2) => cFields.map((f) => String(getColVal(colByField[f], r2) ?? "\u2014"));
+      const aggOf2 = (subset, v) => computeAgg({ ...colByField[v.field], field: v.field, aggregation: v.agg || "sum" }, subset || []);
       const fmt = (val, v) => {
         if (val == null) return "\u2014";
         const col = colByField[v.field];

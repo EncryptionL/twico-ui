@@ -507,6 +507,13 @@ const NUM_OPS = [
 const opsFor = (type) => (type === "number" ? NUM_OPS : STR_OPS);
 const isMultiOp = (op) => op === "isAnyOf";
 
+// #213: resolve a column's value for a row — a `valueGetter(row)` (nested/computed) or the raw
+// `row[field]`. Everything that derives a value (sort/filter/search/group/aggregate/render/pivot/
+// export) routes through this, so all honour valueGetter; inline edits keep writing the raw key.
+// Crash-safe when `col` is missing (row[undefined] → undefined), so callers can pass `{ field }`.
+const getColVal = (col, row) =>
+  col && col.valueGetter ? col.valueGetter(row) : row == null ? undefined : row[col && col.field];
+
 function testFilter(raw, op, target, type) {
   if (op === "isEmpty") return raw == null || raw === "";
   if (op === "isNotEmpty") return !(raw == null || raw === "");
@@ -549,14 +556,17 @@ export function runDatatableQuery(rows, query, options = {}) {
     || (cols.length ? cols.filter((c) => c.field && c.type !== "actions").map((c) => c.field)
                     : (rows && rows[0] ? Object.keys(rows[0]) : []));
 
+  // #213: resolve each field's value via its column's valueGetter (falling back to the raw key).
+  const gv = (field, r) => getColVal(cols.find((c) => c.field === field) || { field }, r);
+
   let out = Array.isArray(rows) ? rows : [];
   const quick = String(q.quickFilter || "").trim().toLowerCase();
-  if (quick) out = out.filter((r) => searchFields.some((f) => String(r[f] ?? "").toLowerCase().includes(quick)));
-  for (const f of q.filters || []) out = out.filter((r) => testFilter(r[f.field], f.op, f.value, typeOf(f.field)));
+  if (quick) out = out.filter((r) => searchFields.some((f) => String(gv(f, r) ?? "").toLowerCase().includes(quick)));
+  for (const f of q.filters || []) out = out.filter((r) => testFilter(gv(f.field, r), f.op, f.value, typeOf(f.field)));
   if (q.sort && q.sort.field) {
     const { field, dir } = q.sort, numeric = typeOf(field) === "number";
     out = [...out].sort((a, b) => {
-      const av = a[field], bv = b[field];
+      const av = gv(field, a), bv = gv(field, b);
       if (av == null) return 1; if (bv == null) return -1;
       const r = numeric ? av - bv : String(av).localeCompare(String(bv));
       return dir === "desc" ? -r : r;
@@ -782,6 +792,7 @@ export function Datatable({
   selectionMode = "none", onRowClick, onCellClick, onActiveCellChange,
   showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [],
   rowNumbers = false,
+  searchFields = null,
   rowPinning = false, rowReorder = false, rowResize = false, onRowOrderChange,
   pivot = null, pivotMode = false,
   virtualized = false, overscan = 8, rowHeight,
@@ -1074,16 +1085,21 @@ export function Datatable({
     let out = rows;
     if (quick.trim()) {
       const q = quick.trim().toLowerCase();
-      out = out.filter((r) => visibleCols.some((c) => String(r[c.field] ?? "").toLowerCase().includes(q)));
+      // #215: restrict quick-search to `searchFields` (resolved via colByField so a hidden column
+      // can still be searched explicitly); default to every visible column. #213: honour valueGetter.
+      const searchCols = searchFields && searchFields.length
+        ? searchFields.map((f) => colByField[f] || { field: f })
+        : visibleCols;
+      out = out.filter((r) => searchCols.some((c) => String(getColVal(c, r) ?? "").toLowerCase().includes(q)));
     }
     for (const f of filters) {
       const col = colByField[f.field]; if (!col) continue;
-      out = out.filter((r) => testFilter(r[f.field], f.op, f.value, col.type));
+      out = out.filter((r) => testFilter(getColVal(col, r), f.op, f.value, col.type));
     }
     if (sort) {
       const col = colByField[sort.field];
       out = [...out].sort((a, b) => {
-        const av = a[sort.field], bv = b[sort.field];
+        const av = getColVal(col, a), bv = getColVal(col, b);
         if (av == null) return 1; if (bv == null) return -1;
         const r = col?.type === "number" ? av - bv : String(av).localeCompare(String(bv));
         return sort.dir === "desc" ? -r : r;
@@ -1094,7 +1110,7 @@ export function Datatable({
       out = [...out].sort((a, b) => (idx.get(keyOf(a)) ?? 1e9) - (idx.get(keyOf(b)) ?? 1e9));
     }
     return out;
-  }, [rows, quick, filters, sort, visibleCols, colByField, serverMode, rowOrder]);
+  }, [rows, quick, filters, sort, visibleCols, colByField, serverMode, rowOrder, searchFields]);
 
   const paginated = pageSize > 0;
   const serverTotal = rowCount == null ? processed.length : rowCount;
@@ -1121,7 +1137,7 @@ export function Datatable({
   }
   function computeAgg(col, data) {
     const agg = col.aggregation; if (!agg) return null;
-    const raw = data.map((r) => r[col.field]).filter((v) => v != null && v !== "");
+    const raw = data.map((r) => getColVal(col, r)).filter((v) => v != null && v !== "");
     if (typeof agg === "function") return agg(raw, data);
     if (agg === "count") return raw.length;
     const nums = raw.map(Number).filter((n) => !Number.isNaN(n));
@@ -1138,7 +1154,7 @@ export function Datatable({
       if (depth >= activeGroupBy.length) return rowsIn.map((row) => ({ kind: "leaf", row }));
       const field = activeGroupBy[depth];
       const map = new Map();
-      for (const r of rowsIn) { const v = r[field] == null || r[field] === "" ? "—" : r[field]; if (!map.has(v)) map.set(v, []); map.get(v).push(r); }
+      for (const r of rowsIn) { const gvv = getColVal(colByField[field], r); const v = gvv == null || gvv === "" ? "—" : gvv; if (!map.has(v)) map.set(v, []); map.get(v).push(r); }
       const items = [];
       for (const [value, rs] of map) {
         const key = `${prefix}/${field}:${value}`;
@@ -1403,9 +1419,19 @@ export function Datatable({
   function optionsForField(field) {
     const col = colByField[field];
     if (col?.valueOptions) return col.valueOptions.map((o) => (typeof o === "string" ? { value: o, label: o } : o));
-    const set = new Set();
-    for (const r of rows) { const v = r[field]; if (v != null && v !== "") set.add(String(v)); if (set.size > 80) break; }
-    return [...set].sort((a, b) => a.localeCompare(b)).map((v) => ({ value: v, label: v }));
+    // #214: keep the filter VALUE raw (so testFilter still matches) but label it via valueFormatter
+    // when present, so the isAnyOf dropdown reads like the cell. #213: derive via valueGetter.
+    const seen = new Map();
+    for (const r of rows) {
+      const raw = getColVal(col, r);
+      if (raw == null || raw === "") continue;
+      const key = String(raw);
+      if (seen.has(key)) continue;
+      const label = col?.valueFormatter ? col.valueFormatter(raw, r) : key;
+      seen.set(key, { value: key, label: typeof label === "string" || typeof label === "number" ? String(label) : key });
+      if (seen.size > 80) break;
+    }
+    return [...seen.values()].sort((a, b) => String(a.label).localeCompare(String(b.label)));
   }
 
   // ---- Column resize (pointer drag on the right edge) ----
@@ -1478,7 +1504,7 @@ export function Datatable({
   function exportData(format = "csv") {
     const expCols = ordered.filter((c) => c.type !== "actions");
     const source = serverMode ? paged : processed;
-    const cellValue = (c, row) => c.exportValue ? c.exportValue(row[c.field], row) : row[c.field];
+    const cellValue = (c, row) => c.exportValue ? c.exportValue(row[c.field], row) : getColVal(c, row);
     const fname = (ext) => `${exportFilename}.${ext}`;
     const download = (text, mime, ext) => {
       const blob = new Blob([text], { type: mime });
@@ -1544,7 +1570,7 @@ export function Datatable({
       }
     }
     const data = serverMode ? paged : processed;
-    const raw = data.map((r) => r[col.field]).filter((v) => v != null && v !== "");
+    const raw = data.map((r) => getColVal(col, r)).filter((v) => v != null && v !== "");
     if (typeof agg === "function") return agg(raw, data);
     if (agg === "count") return raw.length;
     const nums = raw.map(Number).filter((n) => !Number.isNaN(n));
@@ -1839,7 +1865,7 @@ export function Datatable({
           </td>
         ) : null}
         {ordered.map((c, ci) => {
-          const st = stickyOf(c.field); const val = row[c.field];
+          const st = stickyOf(c.field); const val = getColVal(c, row);
           const isActions = c.type === "actions";
           const editable = isColEditable(c);
           const isEditing = editing && editing.key === k && editing.field === c.field;
@@ -1877,9 +1903,9 @@ export function Datatable({
 
   function renderPivot() {
     const rFields = pivotConfig.rows, cFields = pivotConfig.columns || [], values = pivotConfig.values;
-    const rowKeyOf = (r) => rFields.map((f) => r[f] ?? "—").join("  ·  ");
-    const colPathOf = (r) => cFields.map((f) => String(r[f] ?? "—"));
-    const aggOf = (subset, v) => computeAgg({ field: v.field, aggregation: v.agg || "sum" }, subset || []);
+    const rowKeyOf = (r) => rFields.map((f) => getColVal(colByField[f], r) ?? "—").join("  ·  ");
+    const colPathOf = (r) => cFields.map((f) => String(getColVal(colByField[f], r) ?? "—"));
+    const aggOf = (subset, v) => computeAgg({ ...colByField[v.field], field: v.field, aggregation: v.agg || "sum" }, subset || []);
     const fmt = (val, v) => { if (val == null) return "—"; const col = colByField[v.field]; const f = v.valueFormatter || col?.valueFormatter; return f ? f(val, null) : (typeof val === "number" ? val.toLocaleString() : val); };
     const vlabel = (v) => v.label || (colByField[v.field]?.headerName || v.field);
     const rowFieldLabel = rFields.map((f) => colByField[f]?.headerName || f).join(" / ");
