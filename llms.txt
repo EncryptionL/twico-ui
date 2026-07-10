@@ -207,7 +207,7 @@ in the examples.
 
 ---
 
-## Component reference (79 components)
+## Component reference (80 components)
 
 ### Buttons & actions
 
@@ -1616,6 +1616,51 @@ export default function Example() {
     />
   );
 }
+```
+
+#### DiffTable
+
+DiffTable compares two versions of a dataset: it pairs rows on a business key, classifies each added / removed / modified / moved, and renders modified rows as per-cell before → after (strikethrough old, accented new). It shows an op badge per row, a +N ~M -K summary, and an 'only changed' toggle.
+
+`import { DiffTable } from "twico-ui"`
+
+Props:
+- `from` — `Row[]` · default `[]` — The 'before' rows (version A) that the comparison pairs against `to`.
+- `to` — `Row[]` · default `[]` — The 'after' rows (version B) compared against `from`.
+- `rowKey` — `(row: Row) => React.Key` · default `row.id` — Stable business key used to pair a row in A with its counterpart in B; defaults to row.id.
+- `columns` — `DiffTableColumn[]` · default `[]` — Columns to compare and render: { field, headerName?, valueGetter?, valueFormatter?, compare? }.
+- `onlyChanged` — `boolean` · default `true` — Hide unchanged rows; this is the initial state of the 'only changed' toggle.
+- `showToggle` — `boolean` · default `true` — Render the 'only changed' checkbox that shows or hides unchanged rows.
+- `showSummary` — `boolean` · default `true` — Render the +added ~modified -removed summary badges above the table.
+- `moveDetection` — `boolean` · default `true` — Classify same-value rows whose position changed as 'moved', using a minimal LIS so only genuinely-reordered rows are flagged.
+- `compare` — `(a, b, field: string) => boolean` — Global equality override for all fields; falls back to === then a JSON comparison.
+- `emptyState` — `React.ReactNode` · default `"No differences."` — Content shown when there are no rows to display (e.g. identical inputs with onlyChanged).
+- `toggleLabel` — `React.ReactNode` · default `"Only changed"` — Label for the 'only changed' toggle.
+- `label` — `React.ReactNode` — Optional heading rendered above the table.
+
+```jsx
+import { DiffTable } from "twico-ui";
+
+const before = [
+  { sku: "A1", name: "Alpha", color: "red", price: 10 },
+  { sku: "B2", name: "Beta", color: "blue", price: 20 },
+];
+const after = [
+  { sku: "A1", name: "Alpha", color: "crimson", price: 12 },
+  { sku: "C3", name: "Gamma", color: "green", price: 30 },
+];
+
+<DiffTable
+  from={before}
+  to={after}
+  rowKey={(r) => r.sku}
+  columns={[
+    { field: "name", headerName: "Name" },
+    { field: "color", headerName: "Color" },
+    { field: "price", headerName: "Price", valueFormatter: (v) => `$${v}` },
+  ]}
+  onlyChanged
+/>
 ```
 
 #### Kanban

@@ -6,7 +6,7 @@ Guidance for any agent or contributor working in this repository. Read this firs
 
 ## 1. What this repository is
 
-**Twico UI** is a **free, MIT-licensed React component library** — **65 components** (67 exported
+**Twico UI** is a **free, MIT-licensed React component library** — **66 components** (68 exported
 component values: `Toast.jsx` also exports `ToastViewport`; `ToastProvider.jsx` also exports the
 `useToast` hook) **+ 25 standalone hooks**, with dark mode, motion, accessibility, RTL support, a
 density scale, and design tokens. Zero runtime dependencies (peers: `react`/`react-dom` ≥18; plus an

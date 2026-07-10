@@ -782,6 +782,26 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "DiffTable",
+    "title": "Version compare",
+    "i": 0
+  },
+  {
+    "component": "DiffTable",
+    "title": "Show every row",
+    "i": 1
+  },
+  {
+    "component": "DiffTable",
+    "title": "Reorder → moved",
+    "i": 2
+  },
+  {
+    "component": "DiffTable",
+    "title": "No toggle or summary",
+    "i": 3
+  },
+  {
     "component": "Divider",
     "title": "Plain rule",
     "i": 0

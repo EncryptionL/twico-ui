@@ -5836,6 +5836,164 @@ export const components = [
     "tagline": "Server-mode paginated card grid"
   },
   {
+    "name": "DiffTable",
+    "slug": "difftable",
+    "group": "Data display",
+    "summary": "DiffTable compares two versions of a dataset: it pairs rows on a business key, classifies each added / removed / modified / moved, and renders modified rows as per-cell before → after (strikethrough old, accented new). It shows an op badge per row, a +N ~M -K summary, and an 'only changed' toggle.",
+    "importName": "DiffTable",
+    "propsRows": [
+      {
+        "prop": "from",
+        "type": "Row[]",
+        "required": false,
+        "default": "[]",
+        "description": "The 'before' rows (version A) that the comparison pairs against `to`."
+      },
+      {
+        "prop": "to",
+        "type": "Row[]",
+        "required": false,
+        "default": "[]",
+        "description": "The 'after' rows (version B) compared against `from`."
+      },
+      {
+        "prop": "rowKey",
+        "type": "(row: Row) => React.Key",
+        "required": false,
+        "default": "row.id",
+        "description": "Stable business key used to pair a row in A with its counterpart in B; defaults to row.id."
+      },
+      {
+        "prop": "columns",
+        "type": "DiffTableColumn[]",
+        "required": false,
+        "default": "[]",
+        "description": "Columns to compare and render: { field, headerName?, valueGetter?, valueFormatter?, compare? }."
+      },
+      {
+        "prop": "onlyChanged",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Hide unchanged rows; this is the initial state of the 'only changed' toggle."
+      },
+      {
+        "prop": "showToggle",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render the 'only changed' checkbox that shows or hides unchanged rows."
+      },
+      {
+        "prop": "showSummary",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render the +added ~modified -removed summary badges above the table."
+      },
+      {
+        "prop": "moveDetection",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Classify same-value rows whose position changed as 'moved', using a minimal LIS so only genuinely-reordered rows are flagged."
+      },
+      {
+        "prop": "compare",
+        "type": "(a, b, field: string) => boolean",
+        "required": false,
+        "default": "—",
+        "description": "Global equality override for all fields; falls back to === then a JSON comparison."
+      },
+      {
+        "prop": "emptyState",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "\"No differences.\"",
+        "description": "Content shown when there are no rows to display (e.g. identical inputs with onlyChanged)."
+      },
+      {
+        "prop": "toggleLabel",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "\"Only changed\"",
+        "description": "Label for the 'only changed' toggle."
+      },
+      {
+        "prop": "label",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Optional heading rendered above the table."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { DiffTable } from \"twico-ui\";\n\nconst before = [\n  { sku: \"A1\", name: \"Alpha\", color: \"red\", price: 10 },\n  { sku: \"B2\", name: \"Beta\", color: \"blue\", price: 20 },\n];\nconst after = [\n  { sku: \"A1\", name: \"Alpha\", color: \"crimson\", price: 12 },\n  { sku: \"C3\", name: \"Gamma\", color: \"green\", price: 30 },\n];\n\n<DiffTable\n  from={before}\n  to={after}\n  rowKey={(r) => r.sku}\n  columns={[\n    { field: \"name\", headerName: \"Name\" },\n    { field: \"color\", headerName: \"Color\" },\n    { field: \"price\", headerName: \"Price\", valueFormatter: (v) => `$${v}` },\n  ]}\n  onlyChanged\n/>",
+    "tagline": "Compare two datasets, field by field"
+  },
+  {
     "name": "DatePicker",
     "slug": "datepicker",
     "group": "Inputs",
