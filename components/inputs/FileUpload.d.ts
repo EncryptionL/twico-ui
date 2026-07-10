@@ -14,6 +14,8 @@ export interface FileUploadProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   /** Allow selecting multiple files. @default false */
   multiple?: boolean;
   disabled?: boolean;
+  /** Control size — scales the dropzone padding. @default "md" */
+  size?: "sm" | "md" | "lg";
   /** Color intent for the focus/open accent. @default "primary" */
   tone?: Tone;
   /** Field label rendered above the dropzone. */

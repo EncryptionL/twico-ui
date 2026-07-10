@@ -14,12 +14,14 @@ const FIELD_CSS = `
 const RANGE_CSS = `
 .twc-drp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-drp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
-.twc-drp__control { display: flex; align-items: center; gap: var(--space-2); height: var(--control-h-md); padding: 0 var(--space-3);
+.twc-drp__control { display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
 .twc-drp__control:hover:not([data-open="true"]):not([data-disabled="true"]) { border-color: var(--color-border-strong); }
 /* tone → focus/open accent (default primary; reproduces current look). */
 .twc-drp__control { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-drp__control[data-size="sm"] { --_h: var(--control-h-sm); }
+.twc-drp__control[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-drp__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-drp__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
 .twc-drp__control[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
@@ -33,6 +35,9 @@ const RANGE_CSS = `
 .twc-drp__ic svg { width: 17px; height: 17px; }
 .twc-drp__text { flex: 1; font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; }
 .twc-drp__text[data-placeholder="true"] { color: var(--color-text-subtle); }
+.twc-drp__clear { flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; padding: 0; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
+.twc-drp__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-drp__clear svg { width: 14px; height: 14px; }
 /* #105: editable (typed entry) variant. */
 .twc-drp__control--editable { cursor: text; gap: 0; padding-inline-end: var(--space-1); }
 .twc-drp__input { flex: 1; min-width: 0; height: 100%; border: none; background: transparent; outline: none; padding: 0;
@@ -105,6 +110,9 @@ export function DateRangePicker({
   disabledDate,
   disabled = false,
   tone = "primary",
+  size = "md",
+  clearable = true,
+  format,
   editable = false,
   parse,
   onChange,
@@ -277,7 +285,7 @@ export function DateRangePicker({
     return t > Math.min(s, e) && t < Math.max(s, e);
   };
 
-  const text = range.start ? `${fmtD(range.start, locale)} – ${range.end ? fmtD(range.end, locale) : "…"}` : "";
+  const text = range.start ? (format ? format(range) : `${fmtD(range.start, locale)} – ${range.end ? fmtD(range.end, locale) : "…"}`) : "";
 
   return (
     <div className={`twc-drp twc-field ${className}`} ref={wrapRef} {...rest}>
@@ -290,7 +298,7 @@ export function DateRangePicker({
       ) : null}
       {editable ? (
         // #105: typed entry — a text input accepting "start – end"; commits via `parse` on Enter/blur.
-        <div className="twc-drp__control twc-drp__control--editable" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-tone={tone}>
+        <div className="twc-drp__control twc-drp__control--editable" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-tone={tone} data-size={size}>
           <input ref={triggerRef} className="twc-drp__input" type="text" autoComplete="off" disabled={disabled} placeholder={placeholder}
             value={editText != null ? editText : text}
             aria-haspopup="dialog" aria-expanded={open} aria-labelledby={label ? labelId : undefined}
@@ -302,18 +310,30 @@ export function DateRangePicker({
               else if (e.key === "Escape" && open) setOpen(false);
             }}
             onBlur={(e) => { if (popRef.current && popRef.current.contains(e.relatedTarget)) return; commitText(); }} />
+          {clearable && (range.start || range.end) && !disabled ? (
+            <button type="button" className="twc-drp__clear" aria-label="Clear" tabIndex={-1}
+              onMouseDown={(e) => e.preventDefault()} onClick={() => set({ start: null, end: null })}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+          ) : null}
           <button type="button" className="twc-drp__toggle" aria-label="Open calendar" tabIndex={-1} disabled={disabled}
             onClick={() => !disabled && setOpen((o) => !o)}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           </button>
         </div>
       ) : (
-        <div ref={triggerRef} className="twc-drp__control" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-tone={tone} role="button" tabIndex={disabled ? -1 : 0}
+        <div ref={triggerRef} className="twc-drp__control" data-open={open || undefined} data-disabled={disabled || undefined} data-invalid={invalid || undefined} data-tone={tone} data-size={size} role="button" tabIndex={disabled ? -1 : 0}
           aria-haspopup="dialog" aria-expanded={open} aria-disabled={disabled || undefined} aria-labelledby={label ? labelId : undefined}
           aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
           onClick={() => !disabled && setOpen((o) => !o)} onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setOpen((o) => !o); } }}>
           <span className="twc-drp__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
           <span className="twc-drp__text" data-placeholder={!range.start || undefined}>{range.start ? text : placeholder}</span>
+          {clearable && (range.start || range.end) && !disabled ? (
+            <button type="button" className="twc-drp__clear" aria-label="Clear" tabIndex={-1}
+              onMouseDown={(e) => e.preventDefault()} onClick={(e) => { e.stopPropagation(); set({ start: null, end: null }); }}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+          ) : null}
         </div>
       )}
 

@@ -3,6 +3,8 @@ import { useScopedStyles } from "../_styles.js";
 
 const UPLOAD_CSS = `
 .twc-upload { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-3); }
+.twc-upload[data-size="sm"] { --_pad-y: var(--space-5); --_pad-x: var(--space-4); }
+.twc-upload[data-size="lg"] { --_pad-y: var(--space-10); --_pad-x: var(--space-8); }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
@@ -10,7 +12,7 @@ const UPLOAD_CSS = `
 .twc-upload__zone[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-upload__zone {
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-  gap: 6px; padding: var(--space-8) var(--space-6); cursor: pointer;
+  gap: 6px; padding: var(--_pad-y, var(--space-8)) var(--_pad-x, var(--space-6)); cursor: pointer;
   border: var(--border-medium) dashed var(--color-border-strong); border-radius: var(--radius-xl);
   background: var(--color-surface); color: var(--color-text-muted);
   transition: border-color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard);
@@ -68,6 +70,7 @@ export function FileUpload({
   accept,
   multiple = false,
   disabled = false,
+  size = "md",
   tone = "primary",
   label,
   hint,
@@ -122,7 +125,7 @@ export function FileUpload({
   function remove(i) { set(files.filter((_, idx) => idx !== i)); }
 
   return (
-    <div className={`twc-upload ${className}`} {...rest}>
+    <div className={`twc-upload ${className}`} data-size={size} {...rest}>
       {__twcStyles}
       {label ? (
         <label className="twc-field__label" htmlFor={fieldId}>

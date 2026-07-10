@@ -15,13 +15,15 @@ const DATEPICKER_CSS = `
 .twc-dp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-dp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
 .twc-dp__control {
-  display: flex; align-items: center; gap: var(--space-2); height: var(--control-h-md); padding: 0 var(--space-3);
+  display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
   cursor: pointer; transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .twc-dp__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
 /* tone → focus/open accent (default primary; reproduces current look). */
 .twc-dp__control { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-dp__control[data-size="sm"] { --_h: var(--control-h-sm); }
+.twc-dp__control[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-dp__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-dp__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
 .twc-dp__control[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
@@ -116,8 +118,10 @@ export function DatePicker({
   placeholder = "Select date",
   min,
   max,
+  disabledDate,
   disabled = false,
   tone = "primary",
+  size = "md",
   clearable = true,
   editable = false,
   parse,
@@ -231,7 +235,7 @@ export function DatePicker({
   const startOffset = (first.getDay() - weekStartsOn + 7) % 7;
   const gridStart = new Date(y, m, 1 - startOffset);
   const today = new Date();
-  const outOfRange = (d) => (min && d < new Date(min.getFullYear(), min.getMonth(), min.getDate())) || (max && d > new Date(max.getFullYear(), max.getMonth(), max.getDate()));
+  const outOfRange = (d) => (min && d < new Date(min.getFullYear(), min.getMonth(), min.getDate())) || (max && d > new Date(max.getFullYear(), max.getMonth(), max.getDate())) || Boolean(disabledDate && disabledDate(d));
 
   const keyOf = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
   const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
@@ -314,7 +318,7 @@ export function DatePicker({
           // #105: typed entry — the trigger is a real text input with a trailing
           // calendar toggle button; typing commits via `parse` on Enter/blur.
           <div className="twc-dp__control twc-dp__control--editable" data-open={open || undefined} data-disabled={disabled || undefined}
-            data-tone={tone} data-invalid={invalid || undefined}>
+            data-tone={tone} data-invalid={invalid || undefined} data-size={size}>
             <input ref={triggerRef} className="twc-dp__input" id={fieldId} type="text" inputMode="numeric" autoComplete="off"
               disabled={disabled} placeholder={placeholder}
               value={editText != null ? editText : (selected ? fmt(selected) : "")}
@@ -341,7 +345,7 @@ export function DatePicker({
           </div>
         ) : (
           <>
-            <div ref={triggerRef} className="twc-dp__control" id={fieldId} data-open={open || undefined} data-disabled={disabled || undefined}
+            <div ref={triggerRef} className="twc-dp__control" id={fieldId} data-open={open || undefined} data-disabled={disabled || undefined} data-size={size}
               data-tone={tone}
               data-has-clear={clearable && selected && !disabled ? "true" : undefined}
               data-invalid={invalid || undefined}

@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"257e0b3df46e","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"88871291cb18","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"c9d060642e69","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"72c17d8bb927","components/inputs/DateRangePicker.jsx":"4612a8df150e","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"f591d71b036d","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"06d84a9ff070","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"868d4f2590f1","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"42079cb33554"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"257e0b3df46e","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"88871291cb18","components/feedback/ToastProvider.jsx":"7c4dbae8e21f","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"41b7413594bd","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"8a62c24cb1f5","components/inputs/DateRangePicker.jsx":"289e6482e025","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"05605520deae","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c34d0cbd3679","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"9fe52df38764","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"eba75246523a","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"868d4f2590f1","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"42079cb33554"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -5365,9 +5365,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   var COLORPICKER_CSS = `
 .twc-cp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-cp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
-.twc-cp__trigger { display: flex; align-items: center; gap: var(--space-2-5); height: var(--control-h-md); padding: 0 var(--space-2) 0 var(--space-2);
+.twc-cp__trigger { display: flex; align-items: center; gap: var(--space-2-5); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-2) 0 var(--space-2);
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
+.twc-cp__trigger[data-size="sm"] { --_h: var(--control-h-sm); }
+.twc-cp__trigger[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-cp__trigger:hover:not([data-open="true"]):not([data-disabled="true"]) { border-color: var(--color-border-strong); }
 .twc-cp__trigger[data-open="true"] { border-color: var(--color-primary); box-shadow: var(--ring); }
 .twc-cp__trigger[data-invalid="true"] { border-color: var(--color-danger); }
@@ -5461,6 +5463,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     defaultValue = "#6366F1",
     presets = DEFAULT_PRESETS,
     disabled = false,
+    size = "md",
     alpha = false,
     tone = "primary",
     onChange,
@@ -5612,6 +5615,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           "data-open": open || void 0,
           "data-disabled": disabled || void 0,
           "data-invalid": invalid || void 0,
+          "data-size": size,
           role: "button",
           tabIndex: disabled ? -1 : 0,
           "aria-haspopup": "dialog",
@@ -11464,13 +11468,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-dp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
 .twc-dp__control {
-  display: flex; align-items: center; gap: var(--space-2); height: var(--control-h-md); padding: 0 var(--space-3);
+  display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
   cursor: pointer; transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .twc-dp__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
 /* tone \u2192 focus/open accent (default primary; reproduces current look). */
 .twc-dp__control { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-dp__control[data-size="sm"] { --_h: var(--control-h-sm); }
+.twc-dp__control[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-dp__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-dp__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
 .twc-dp__control[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
@@ -11557,8 +11563,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     placeholder = "Select date",
     min,
     max,
+    disabledDate,
     disabled = false,
     tone = "primary",
+    size = "md",
     clearable = true,
     editable = false,
     parse,
@@ -11679,7 +11687,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const startOffset = (first.getDay() - weekStartsOn + 7) % 7;
     const gridStart = new Date(y, m, 1 - startOffset);
     const today = /* @__PURE__ */ new Date();
-    const outOfRange = (d) => min && d < new Date(min.getFullYear(), min.getMonth(), min.getDate()) || max && d > new Date(max.getFullYear(), max.getMonth(), max.getDate());
+    const outOfRange = (d) => min && d < new Date(min.getFullYear(), min.getMonth(), min.getDate()) || max && d > new Date(max.getFullYear(), max.getMonth(), max.getDate()) || Boolean(disabledDate && disabledDate(d));
     const keyOf = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
     const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
     const addMonths = (d, n) => {
@@ -11760,6 +11768,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             "data-disabled": disabled || void 0,
             "data-tone": tone,
             "data-invalid": invalid || void 0,
+            "data-size": size,
             children: [
               /* @__PURE__ */ jsx(
                 "input",
@@ -11833,6 +11842,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             id: fieldId,
             "data-open": open || void 0,
             "data-disabled": disabled || void 0,
+            "data-size": size,
             "data-tone": tone,
             "data-has-clear": clearable && selected && !disabled ? "true" : void 0,
             "data-invalid": invalid || void 0,
@@ -11943,12 +11953,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   var RANGE_CSS2 = `
 .twc-drp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-drp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
-.twc-drp__control { display: flex; align-items: center; gap: var(--space-2); height: var(--control-h-md); padding: 0 var(--space-3);
+.twc-drp__control { display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
 .twc-drp__control:hover:not([data-open="true"]):not([data-disabled="true"]) { border-color: var(--color-border-strong); }
 /* tone \u2192 focus/open accent (default primary; reproduces current look). */
 .twc-drp__control { --_accent: var(--color-primary); --_ring: var(--ring); }
+.twc-drp__control[data-size="sm"] { --_h: var(--control-h-sm); }
+.twc-drp__control[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-drp__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-drp__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
 .twc-drp__control[data-tone="danger"]  { --_accent: var(--color-danger);  --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 32%, transparent); }
@@ -11962,6 +11974,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-drp__ic svg { width: 17px; height: 17px; }
 .twc-drp__text { flex: 1; font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; }
 .twc-drp__text[data-placeholder="true"] { color: var(--color-text-subtle); }
+.twc-drp__clear { flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; padding: 0; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
+.twc-drp__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-drp__clear svg { width: 14px; height: 14px; }
 /* #105: editable (typed entry) variant. */
 .twc-drp__control--editable { cursor: text; gap: 0; padding-inline-end: var(--space-1); }
 .twc-drp__input { flex: 1; min-width: 0; height: 100%; border: none; background: transparent; outline: none; padding: 0;
@@ -12027,6 +12042,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     disabledDate,
     disabled = false,
     tone = "primary",
+    size = "md",
+    clearable = true,
+    format,
     editable = false,
     parse,
     onChange,
@@ -12218,7 +12236,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       if (s == null || e == null) return false;
       return t > Math.min(s, e) && t < Math.max(s, e);
     };
-    const text = range.start ? `${fmtD(range.start, locale)} \u2013 ${range.end ? fmtD(range.end, locale) : "\u2026"}` : "";
+    const text = range.start ? format ? format(range) : `${fmtD(range.start, locale)} \u2013 ${range.end ? fmtD(range.end, locale) : "\u2026"}` : "";
     return /* @__PURE__ */ jsxs("div", { className: `twc-drp twc-field ${className}`, ref: wrapRef, ...rest, children: [
       __twcStyles0,
       __twcStyles1,
@@ -12228,7 +12246,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       ] }) : null,
       editable ? (
         // #105: typed entry — a text input accepting "start – end"; commits via `parse` on Enter/blur.
-        /* @__PURE__ */ jsxs("div", { className: "twc-drp__control twc-drp__control--editable", "data-open": open || void 0, "data-disabled": disabled || void 0, "data-invalid": invalid || void 0, "data-tone": tone, children: [
+        /* @__PURE__ */ jsxs("div", { className: "twc-drp__control twc-drp__control--editable", "data-open": open || void 0, "data-disabled": disabled || void 0, "data-invalid": invalid || void 0, "data-tone": tone, "data-size": size, children: [
           /* @__PURE__ */ jsx(
             "input",
             {
@@ -12260,6 +12278,18 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               }
             }
           ),
+          clearable && (range.start || range.end) && !disabled ? /* @__PURE__ */ jsx(
+            "button",
+            {
+              type: "button",
+              className: "twc-drp__clear",
+              "aria-label": "Clear",
+              tabIndex: -1,
+              onMouseDown: (e) => e.preventDefault(),
+              onClick: () => set({ start: null, end: null }),
+              children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) })
+            }
+          ) : null,
           /* @__PURE__ */ jsx(
             "button",
             {
@@ -12285,6 +12315,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           "data-disabled": disabled || void 0,
           "data-invalid": invalid || void 0,
           "data-tone": tone,
+          "data-size": size,
           role: "button",
           tabIndex: disabled ? -1 : 0,
           "aria-haspopup": "dialog",
@@ -12305,7 +12336,22 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               /* @__PURE__ */ jsx("rect", { x: "3", y: "4", width: "18", height: "18", rx: "2" }),
               /* @__PURE__ */ jsx("path", { d: "M16 2v4M8 2v4M3 10h18" })
             ] }) }),
-            /* @__PURE__ */ jsx("span", { className: "twc-drp__text", "data-placeholder": !range.start || void 0, children: range.start ? text : placeholder })
+            /* @__PURE__ */ jsx("span", { className: "twc-drp__text", "data-placeholder": !range.start || void 0, children: range.start ? text : placeholder }),
+            clearable && (range.start || range.end) && !disabled ? /* @__PURE__ */ jsx(
+              "button",
+              {
+                type: "button",
+                className: "twc-drp__clear",
+                "aria-label": "Clear",
+                tabIndex: -1,
+                onMouseDown: (e) => e.preventDefault(),
+                onClick: (e) => {
+                  e.stopPropagation();
+                  set({ start: null, end: null });
+                },
+                children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) })
+              }
+            ) : null
           ]
         }
       ),
@@ -12728,6 +12774,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   }
   var UPLOAD_CSS = `
 .twc-upload { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-3); }
+.twc-upload[data-size="sm"] { --_pad-y: var(--space-5); --_pad-x: var(--space-4); }
+.twc-upload[data-size="lg"] { --_pad-y: var(--space-10); --_pad-x: var(--space-8); }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
@@ -12735,7 +12783,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-upload__zone[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-upload__zone {
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-  gap: 6px; padding: var(--space-8) var(--space-6); cursor: pointer;
+  gap: 6px; padding: var(--_pad-y, var(--space-8)) var(--_pad-x, var(--space-6)); cursor: pointer;
   border: var(--border-medium) dashed var(--color-border-strong); border-radius: var(--radius-xl);
   background: var(--color-surface); color: var(--color-text-muted);
   transition: border-color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard);
@@ -12788,6 +12836,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     accept,
     multiple = false,
     disabled = false,
+    size = "md",
     tone = "primary",
     label,
     hint,
@@ -12843,7 +12892,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     function remove(i) {
       set(files.filter((_, idx) => idx !== i));
     }
-    return /* @__PURE__ */ jsxs("div", { className: `twc-upload ${className}`, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { className: `twc-upload ${className}`, "data-size": size, ...rest, children: [
       __twcStyles,
       label ? /* @__PURE__ */ jsxs("label", { className: "twc-field__label", htmlFor: fieldId, children: [
         label,
@@ -14210,20 +14259,23 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-slider__msgs { display: flex; flex-direction: column; gap: var(--space-1-5); margin-top: var(--space-2); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
+.twc-slider { --_track-h: 22px; --_thumb: 18px; --_rail: 6px; }
+.twc-slider[data-size="sm"] { --_track-h: 18px; --_thumb: 14px; --_rail: 4px; }
+.twc-slider[data-size="lg"] { --_track-h: 28px; --_thumb: 22px; --_rail: 8px; }
 .twc-slider__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--space-2); }
 .twc-slider__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
 .twc-slider__value { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--_accent); font-variant-numeric: tabular-nums; }
 .twc-slider__track {
-  position: relative; height: 22px; display: flex; align-items: center; cursor: pointer; touch-action: none;
+  position: relative; height: var(--_track-h); display: flex; align-items: center; cursor: pointer; touch-action: none;
 }
 .twc-slider[data-disabled="true"] { opacity: 0.55; }
 .twc-slider[data-disabled="true"] .twc-slider__track { cursor: not-allowed; }
-.twc-slider__rail { position: absolute; left: 0; right: 0; height: 6px; border-radius: var(--radius-full); background: var(--color-surface-sunken); box-shadow: inset 0 0 0 1px var(--color-border); }
-.twc-slider__fill { position: absolute; height: 6px; border-radius: var(--radius-full); background: var(--_accent); }
+.twc-slider__rail { position: absolute; left: 0; right: 0; height: var(--_rail); border-radius: var(--radius-full); background: var(--color-surface-sunken); box-shadow: inset 0 0 0 1px var(--color-border); }
+.twc-slider__fill { position: absolute; height: var(--_rail); border-radius: var(--radius-full); background: var(--_accent); }
 .twc-slider__thumb {
-  position: absolute; width: 18px; height: 18px; border-radius: var(--radius-full);
+  position: absolute; width: var(--_thumb); height: var(--_thumb); border-radius: var(--radius-full);
   background: var(--color-surface); border: var(--border-thick) solid var(--_accent);
-  box-shadow: var(--shadow-sm); transform: translateX(-50%); top: 50%; margin-top: -9px;
+  box-shadow: var(--shadow-sm); transform: translateX(-50%); top: 50%; margin-top: calc(var(--_thumb) / -2);
   transition: box-shadow var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
 }
 .twc-slider__thumb:focus-visible { outline: none; box-shadow: var(--ring); }
@@ -14251,6 +14303,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     precision,
     tone = "primary",
     disabled = false,
+    size = "md",
     range = false,
     showValue = true,
     showTicks = false,
@@ -14367,7 +14420,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const fillLo = (Math.min(...clampedVals) - min) / (max - min) * 100;
     const fillHi = (Math.max(...clampedVals) - min) / (max - min) * 100;
     const fillStyle = isRange ? { left: `${fillLo}%`, width: `${fillHi - fillLo}%` } : { width: `${fillHi}%` };
-    return /* @__PURE__ */ jsxs("div", { className: `twc-slider ${className}`, "data-tone": tone, "data-disabled": disabled || void 0, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { className: `twc-slider ${className}`, "data-tone": tone, "data-size": size, "data-disabled": disabled || void 0, ...rest, children: [
       __twcStyles,
       name ? clampedVals.map((v, i) => /* @__PURE__ */ jsx("input", { type: "hidden", name, value: v, disabled: disabled || void 0 }, i)) : null,
       label || showValue ? /* @__PURE__ */ jsxs("div", { className: "twc-slider__head", children: [

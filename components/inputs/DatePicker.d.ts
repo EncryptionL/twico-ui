@@ -25,9 +25,13 @@ export interface DatePickerProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   min?: Date;
   /** Latest selectable date. */
   max?: Date;
+  /** Predicate to disable arbitrary dates (return true to disable). Composes with `min`/`max`. */
+  disabledDate?: (date: Date) => boolean;
   disabled?: boolean;
   /** Color intent for the focus/open accent. @default "primary" */
   tone?: Tone;
+  /** Control size. @default "md" */
+  size?: "sm" | "md" | "lg";
   /** Show a clear (×) button when a date is set. @default true */
   clearable?: boolean;
   /** Render the trigger as a typeable text input with a trailing calendar toggle; typed text commits via `parse` on Enter/blur. @default false */

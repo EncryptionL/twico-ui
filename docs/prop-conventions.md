@@ -5,7 +5,10 @@ API is predictable — same concept, same prop name, same value set, everywhere.
 standardized 2026-06-18; this doc is the source of truth.)
 
 ## Sizing — `size`
-- Canonical scale: **`"sm" | "md" | "lg"`**, default **`"md"`**. Every sized control supports all three.
+- Canonical scale: **`"sm" | "md" | "lg"`**, default **`"md"`**. Every sized control supports all three
+  — the former gaps `Slider`/`ColorPicker`/`FileUpload` (#220) and `DatePicker`/`DateRangePicker` (#201)
+  now map `size` to their control height (`--control-h-*`; Slider scales track/rail/thumb, FileUpload the
+  dropzone padding). `md` reproduces the previous fixed rendering exactly.
 - Extra steps are allowed **only where domain-justified**, and only as a superset of the canonical
   three: Avatar/IconButton add `"xs"`; Avatar/Spinner add `"xl"`; Dialog/Container add `"full"`.
 - Typography (`Heading`/`Text`) uses a font-size scale (`xs|sm|base|lg|xl|…`), not the control scale —

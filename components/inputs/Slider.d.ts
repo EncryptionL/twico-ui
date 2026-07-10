@@ -20,6 +20,8 @@ export interface SliderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   defaultValue?: number | [number, number];
   /** Force dual-thumb range mode even without a tuple value (defaults the range to [min, max]). @default false */
   range?: boolean;
+  /** Control size — scales the track, rail, and thumb. @default "md" */
+  size?: "sm" | "md" | "lg";
   /** @default 0 */
   min?: number;
   /** @default 100 */
