@@ -35,6 +35,7 @@ export const Grid = React.forwardRef(function Grid({
   columnGap,
   align,
   justify,
+  justifyItems,
   alignContent,
   justifyContent,
   sx,
@@ -79,7 +80,10 @@ export const Grid = React.forwardRef(function Grid({
         rowGap: space(rowGap ?? gap),
         columnGap: space(columnGap ?? gap),
         alignItems: align,
-        justifyItems: justify,
+        // #216: `justifyItems` is the explicit, correctly-named prop; `justify` remains a
+        // backward-compatible alias for it (note: on Grid `justify` = justify-**items**, unlike
+        // Stack.justify = justify-**content**). The explicit prop wins when both are set.
+        justifyItems: justifyItems ?? justify,
         alignContent,
         justifyContent,
         ...style,

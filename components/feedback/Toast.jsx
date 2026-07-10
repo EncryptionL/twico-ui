@@ -27,6 +27,8 @@ const TOAST_CSS = `
 @media (prefers-reduced-motion: reduce) {
   .twc-toast, [dir="rtl"] .twc-toast { animation: none; }
 }
+/* #209: visually-hidden persistent live-region announcers (rendered by ToastProvider). */
+.twc-toast-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
 .twc-toast::before { content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 4px; background: var(--_accent, var(--color-primary)); }
 .twc-toast[data-tone="success"] { --_accent: var(--color-success); }
 .twc-toast[data-tone="warning"] { --_accent: var(--color-warning); }

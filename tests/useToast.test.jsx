@@ -23,9 +23,10 @@ describe("useToast / ToastProvider", () => {
       </ToastProvider>
     );
     act(() => screen.getByText("ok").click());
-    expect(screen.getByText("Saved")).toBeInTheDocument();
+    // Scope to the toast card: #209's persistent live-region mirror also holds the text.
+    expect(screen.getByText("Saved", { selector: ".twc-toast__title" })).toBeInTheDocument();
     act(() => vi.advanceTimersByTime(1200));
-    expect(screen.queryByText("Saved")).toBeNull();
+    expect(screen.queryByText("Saved", { selector: ".twc-toast__title" })).toBeNull();
   });
 
   it("supports an options object (title + description + tone)", () => {

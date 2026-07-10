@@ -19,8 +19,18 @@ export interface GridOwnProps {
   rowGap?: number | string;
   /** Column gap — falls back to `gap`. */
   columnGap?: number | string;
+  /** Aligns each cell's content on the block (row) axis → `align-items`. */
   align?: React.CSSProperties["alignItems"];
+  /**
+   * Aligns each cell's content on the inline (column) axis → `justify-items`. Prefer the
+   * explicit `justifyItems`; this stays as its backward-compatible alias.
+   *
+   * ⚠️ On **Grid** `justify` = `justify-items` (per-cell), but on **Stack** `justify` =
+   * `justify-content` (distribution). For content distribution on a Grid, use `justifyContent`.
+   */
   justify?: React.CSSProperties["justifyItems"];
+  /** Aligns each cell's content on the inline axis → `justify-items` (the explicit name for `justify`; wins over it). */
+  justifyItems?: React.CSSProperties["justifyItems"];
   /** Distribute the grid's rows within extra block space. */
   alignContent?: React.CSSProperties["alignContent"];
   /** Distribute the grid's columns within extra inline space. */

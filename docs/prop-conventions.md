@@ -67,6 +67,16 @@ standardized 2026-06-18; this doc is the source of truth.)
   (`left`/`right`/`top`/`bottom`) are used only where the prop *deliberately* names a physical edge
   (Drawer `side`), with logical `start`/`end` offered alongside.
 
+## Alignment — `align` / `justify`
+- **`align`** → `align-items` on both `Stack` and `Grid` (consistent).
+- **`justify`** diverges by necessity (#216): on **`Stack`** it's `justify-content` (main-axis
+  distribution, e.g. `"space-between"`); on **`Grid`** it's `justify-items` (per-cell alignment) —
+  flex has no `justify-items`, so Stack's had to be content. `Grid` also exposes `justifyContent`
+  (track distribution) and `alignContent`. To make the per-cell axis explicit, **`Grid` now takes a
+  `justifyItems` prop** (the canonical name; `justify` stays a backward-compatible alias, and the
+  explicit prop wins when both are set). Both `.d.ts` carry a ⚠️ note about the divergence. A future
+  major could repoint `Grid.justify` → `justify-content` to fully unify the name (breaking).
+
 ## Field props
 - **`label`** is a visible field label → `React.ReactNode`. An **accessible name** (rendered into
   `aria-label`) is a `string` (`Spinner.label`, `Datatable.label`) — different concept, different type.
@@ -81,6 +91,11 @@ standardized 2026-06-18; this doc is the source of truth.)
   slide-in (#218). A loading Spinner is the deliberate exception (its spin conveys state).
 - Nav-style active indicators expose state to AT, not just visually: the Carousel's active dot now sets
   `aria-current="true"` (#217), matching Pagination/Breadcrumb/Stepper.
+- Toasts announce via **persistent live regions** on `ToastProvider` — a polite + an assertive
+  `aria-live` region that exist *before* any toast is pushed, into which each toast's text is mirrored
+  (danger/warning → assertive, else polite) — rather than relying on the dynamically-inserted card (WCAG
+  4.1.3, #209). Provider-rendered cards therefore carry `role="group"`; a standalone `<Toast>` (no
+  provider) keeps its own tone-derived `alert`/`status` role.
 
 ## Passthrough & polymorphism
 - All components spread `...rest` to their root and accept `className` + `style`. Inline `style` and

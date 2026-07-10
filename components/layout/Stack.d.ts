@@ -10,7 +10,14 @@ export interface StackOwnProps {
   direction?: "row" | "column" | "row-reverse" | "column-reverse";
   /** Gap as a spacing-scale step (number) or any CSS length. @default 4 */
   gap?: number | string;
+  /** Aligns children on the cross axis → `align-items`. */
   align?: React.CSSProperties["alignItems"];
+  /**
+   * Distributes children on the main axis → `justify-content` (e.g. `"space-between"`).
+   *
+   * ⚠️ Note the divergence: on **Grid** `justify` = `justify-items` (per-cell), not
+   * `justify-content` — flex has no `justify-items`, so Stack's `justify` had to be content.
+   */
   justify?: React.CSSProperties["justifyContent"];
   /** Wrap children. @default false */
   wrap?: boolean;
