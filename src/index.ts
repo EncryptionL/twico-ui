@@ -44,6 +44,7 @@ export { CommandPalette } from "../components/overlay/CommandPalette";
 export { Currency } from "../components/inputs/Currency";
 export { CurrencyField } from "../components/inputs/CurrencyField";
 export { Datatable, runDatatableQuery } from "../components/data-display/Datatable";
+export { CardGrid } from "../components/data-display/CardGrid";
 export { DatePicker } from "../components/inputs/DatePicker";
 export { DateRangePicker } from "../components/inputs/DateRangePicker";
 export { TimePicker } from "../components/inputs/TimePicker";
@@ -145,6 +146,7 @@ export type { Command, CommandPaletteProps } from "../components/overlay/Command
 export type { CurrencyOption, CurrencyFieldProps } from "../components/inputs/CurrencyField";
 export type { CurrencyProps } from "../components/inputs/Currency";
 export type { DatatableProps, DatatableQuery, DatatableColumn, DatatableRowAction, DatatableBatchAction, DatatableFilter, DatatableFilterOp, DatatableStringOp, DatatableNumberOp } from "../components/data-display/Datatable";
+export type { CardGridProps, CardGridQuery, CardGridSort, CardGridFilter, CardGridSortOption } from "../components/data-display/CardGrid";
 export type { DatePickerProps } from "../components/inputs/DatePicker";
 export type { DateRange, DateRangePickerProps } from "../components/inputs/DateRangePicker";
 export type { TimePickerProps } from "../components/inputs/TimePicker";

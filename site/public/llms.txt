@@ -207,7 +207,7 @@ in the examples.
 
 ---
 
-## Component reference (78 components)
+## Component reference (79 components)
 
 ### Buttons & actions
 
@@ -1369,6 +1369,73 @@ import { Card } from "twico-ui";
 <Card variant="outline" interactive>
   Hover me — I lift.
 </Card>
+```
+
+#### CardGrid
+
+CardGrid is the card analogue of Datatable's serverMode: it turns page, sort, filter, and search into a query and renders one card per row via a render prop, with built-in pagination, loading, and empty states. Client mode filters locally with Datatable's exact semantics; serverMode emits the query and consumes { rows, rowCount }.
+
+`import { CardGrid } from "twico-ui"`
+
+Props:
+- `rows` — `Row[]` · default `[]` — The rows: the full set in client mode, or the current page's rows in serverMode.
+- `renderCard` — `(row: Row, index: number) => React.ReactNode` · **required** — Render prop returning one card element per row; this is the only required prop.
+- `rowKey` — `string | ((row: Row) => React.Key)` · default `"id"` — Stable React key per row: a field name or an accessor function, defaulting to id.
+- `minChildWidth` — `string | number` · default `"18rem"` — Minimum card width for the responsive auto-fill grid (forwarded to Grid's minChildWidth).
+- `columns` — `number | Record<string, number>` — Fixed column count (a responsive object is allowed); overrides minChildWidth when set.
+- `gap` — `number | string` · default `4` — Gap between cards on the spacing token scale, forwarded to the underlying Grid.
+- `pageSize` — `number` · default `12` — Cards shown per page; set 0 to disable pagination and render every row.
+- `pageSizeOptions` — `number[]` · default `[12, 24, 48, 96]` — Choices offered by the footer's per-page selector.
+- `page` — `number` — Controlled 0-based page index; omit to let the grid manage its own page.
+- `defaultPage` — `number` · default `0` — Initial 0-based page when uncontrolled (no page prop).
+- `onPageChange` — `(page: number) => void` — Fires with the new 0-based page when the user navigates the pagination.
+- `onPageSizeChange` — `(pageSize: number) => void` — Fires with the new page size when the per-page selector changes (makes pageSize controlled).
+- `showPageSize` — `boolean` · default `true` — Render the per-page selector in the footer next to the pagination.
+- `serverMode` — `boolean` · default `false` — Emit a query and consume rows/rowCount/loading instead of filtering, sorting, and paging locally.
+- `rowCount` — `number` — Total number of rows, used to compute the page count in serverMode.
+- `loading` — `boolean` · default `false` — Show the loading overlay and dim the grid, typically while a serverMode fetch is in flight.
+- `onServerChange` — `(query: CardGridQuery) => void` — Called (debounced) with { page, pageSize, sort, filters, quickFilter } whenever the query changes.
+- `filters` — `CardGridFilter[]` · default `[]` — External filter clauses (e.g. from a FilterBar) applied in client mode or passed through in serverMode.
+- `quickFilter` — `string` — Controlled quick-search string; pair with onQuickFilterChange to own it in state.
+- `defaultQuickFilter` — `string` · default `""` — Initial quick-search string when uncontrolled.
+- `onQuickFilterChange` — `(value: string) => void` — Fires with the search text as the user types in the built-in search box.
+- `searchable` — `boolean` · default `false` — Render a built-in quick-search box in the toolbar row above the grid.
+- `searchFields` — `string[]` — Fields scanned by quick search in client mode; defaults to the first row's keys.
+- `searchPlaceholder` — `string` · default `"Search…"` — Placeholder text for the built-in search box.
+- `sort` — `CardGridSort | null` — Controlled sort clause { field, dir }; omit to let the grid manage its own sort.
+- `defaultSort` — `CardGridSort | null` · default `null` — Initial sort clause when uncontrolled.
+- `onSortChange` — `(sort: CardGridSort | null) => void` — Fires when the sort field or direction changes via the built-in sort control.
+- `sortOptions` — `CardGridSortOption[]` — Fields offered by the built-in sort control; providing it renders the control (declare type:"number" to sort numerically).
+- `toolbar` — `React.ReactNode` — Extra node rendered in the toolbar row, before the sort control.
+- `emptyState` — `React.ReactNode` · default `"No results."` — Content shown when there are no rows and the grid is not loading.
+- `label` — `React.ReactNode` — Optional heading rendered above the grid and associated with it for accessibility.
+
+```jsx
+import { CardGrid, Card, Heading, Text } from "twico-ui";
+
+const products = [
+  { id: 1, name: "Aurora Lamp", price: 89, category: "Lighting" },
+  { id: 2, name: "Nimbus Chair", price: 240, category: "Seating" },
+  { id: 3, name: "Vega Desk", price: 420, category: "Desks" },
+];
+
+<CardGrid
+  rows={products}
+  rowKey="id"
+  minChildWidth="16rem"
+  pageSize={12}
+  searchable
+  sortOptions={[
+    { field: "name", label: "Name" },
+    { field: "price", label: "Price", type: "number" },
+  ]}
+  renderCard={(p) => (
+    <Card>
+      <Heading level={4}>{p.name}</Heading>
+      <Text tone="muted">{p.category} · ${p.price}</Text>
+    </Card>
+  )}
+/>
 ```
 
 #### Carousel

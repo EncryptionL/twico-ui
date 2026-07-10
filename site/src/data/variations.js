@@ -292,6 +292,26 @@ export const VARIATIONS = [
     "i": 3
   },
   {
+    "component": "CardGrid",
+    "title": "Client grid",
+    "i": 0
+  },
+  {
+    "component": "CardGrid",
+    "title": "Search + sort toolbar",
+    "i": 1
+  },
+  {
+    "component": "CardGrid",
+    "title": "Server mode",
+    "i": 2
+  },
+  {
+    "component": "CardGrid",
+    "title": "Empty state",
+    "i": 3
+  },
+  {
     "component": "Card",
     "title": "Variants",
     "i": 0

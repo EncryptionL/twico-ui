@@ -5545,6 +5545,297 @@ export const components = [
     "tagline": "Advanced data grid with sorting, filtering, and export"
   },
   {
+    "name": "CardGrid",
+    "slug": "cardgrid",
+    "group": "Data display",
+    "summary": "CardGrid is the card analogue of Datatable's serverMode: it turns page, sort, filter, and search into a query and renders one card per row via a render prop, with built-in pagination, loading, and empty states. Client mode filters locally with Datatable's exact semantics; serverMode emits the query and consumes { rows, rowCount }.",
+    "importName": "CardGrid",
+    "propsRows": [
+      {
+        "prop": "rows",
+        "type": "Row[]",
+        "required": false,
+        "default": "[]",
+        "description": "The rows: the full set in client mode, or the current page's rows in serverMode."
+      },
+      {
+        "prop": "renderCard",
+        "type": "(row: Row, index: number) => React.ReactNode",
+        "required": true,
+        "default": "—",
+        "description": "Render prop returning one card element per row; this is the only required prop."
+      },
+      {
+        "prop": "rowKey",
+        "type": "string | ((row: Row) => React.Key)",
+        "required": false,
+        "default": "\"id\"",
+        "description": "Stable React key per row: a field name or an accessor function, defaulting to id."
+      },
+      {
+        "prop": "minChildWidth",
+        "type": "string | number",
+        "required": false,
+        "default": "\"18rem\"",
+        "description": "Minimum card width for the responsive auto-fill grid (forwarded to Grid's minChildWidth)."
+      },
+      {
+        "prop": "columns",
+        "type": "number | Record<string, number>",
+        "required": false,
+        "default": "—",
+        "description": "Fixed column count (a responsive object is allowed); overrides minChildWidth when set."
+      },
+      {
+        "prop": "gap",
+        "type": "number | string",
+        "required": false,
+        "default": "4",
+        "description": "Gap between cards on the spacing token scale, forwarded to the underlying Grid."
+      },
+      {
+        "prop": "pageSize",
+        "type": "number",
+        "required": false,
+        "default": "12",
+        "description": "Cards shown per page; set 0 to disable pagination and render every row."
+      },
+      {
+        "prop": "pageSizeOptions",
+        "type": "number[]",
+        "required": false,
+        "default": "[12, 24, 48, 96]",
+        "description": "Choices offered by the footer's per-page selector."
+      },
+      {
+        "prop": "page",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Controlled 0-based page index; omit to let the grid manage its own page."
+      },
+      {
+        "prop": "defaultPage",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Initial 0-based page when uncontrolled (no page prop)."
+      },
+      {
+        "prop": "onPageChange",
+        "type": "(page: number) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the new 0-based page when the user navigates the pagination."
+      },
+      {
+        "prop": "onPageSizeChange",
+        "type": "(pageSize: number) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the new page size when the per-page selector changes (makes pageSize controlled)."
+      },
+      {
+        "prop": "showPageSize",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render the per-page selector in the footer next to the pagination."
+      },
+      {
+        "prop": "serverMode",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Emit a query and consume rows/rowCount/loading instead of filtering, sorting, and paging locally."
+      },
+      {
+        "prop": "rowCount",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Total number of rows, used to compute the page count in serverMode."
+      },
+      {
+        "prop": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Show the loading overlay and dim the grid, typically while a serverMode fetch is in flight."
+      },
+      {
+        "prop": "onServerChange",
+        "type": "(query: CardGridQuery) => void",
+        "required": false,
+        "default": "—",
+        "description": "Called (debounced) with { page, pageSize, sort, filters, quickFilter } whenever the query changes."
+      },
+      {
+        "prop": "filters",
+        "type": "CardGridFilter[]",
+        "required": false,
+        "default": "[]",
+        "description": "External filter clauses (e.g. from a FilterBar) applied in client mode or passed through in serverMode."
+      },
+      {
+        "prop": "quickFilter",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Controlled quick-search string; pair with onQuickFilterChange to own it in state."
+      },
+      {
+        "prop": "defaultQuickFilter",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Initial quick-search string when uncontrolled."
+      },
+      {
+        "prop": "onQuickFilterChange",
+        "type": "(value: string) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the search text as the user types in the built-in search box."
+      },
+      {
+        "prop": "searchable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Render a built-in quick-search box in the toolbar row above the grid."
+      },
+      {
+        "prop": "searchFields",
+        "type": "string[]",
+        "required": false,
+        "default": "—",
+        "description": "Fields scanned by quick search in client mode; defaults to the first row's keys."
+      },
+      {
+        "prop": "searchPlaceholder",
+        "type": "string",
+        "required": false,
+        "default": "\"Search…\"",
+        "description": "Placeholder text for the built-in search box."
+      },
+      {
+        "prop": "sort",
+        "type": "CardGridSort | null",
+        "required": false,
+        "default": "—",
+        "description": "Controlled sort clause { field, dir }; omit to let the grid manage its own sort."
+      },
+      {
+        "prop": "defaultSort",
+        "type": "CardGridSort | null",
+        "required": false,
+        "default": "null",
+        "description": "Initial sort clause when uncontrolled."
+      },
+      {
+        "prop": "onSortChange",
+        "type": "(sort: CardGridSort | null) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the sort field or direction changes via the built-in sort control."
+      },
+      {
+        "prop": "sortOptions",
+        "type": "CardGridSortOption[]",
+        "required": false,
+        "default": "—",
+        "description": "Fields offered by the built-in sort control; providing it renders the control (declare type:\"number\" to sort numerically)."
+      },
+      {
+        "prop": "toolbar",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Extra node rendered in the toolbar row, before the sort control."
+      },
+      {
+        "prop": "emptyState",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "\"No results.\"",
+        "description": "Content shown when there are no rows and the grid is not loading."
+      },
+      {
+        "prop": "label",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Optional heading rendered above the grid and associated with it for accessibility."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { CardGrid, Card, Heading, Text } from \"twico-ui\";\n\nconst products = [\n  { id: 1, name: \"Aurora Lamp\", price: 89, category: \"Lighting\" },\n  { id: 2, name: \"Nimbus Chair\", price: 240, category: \"Seating\" },\n  { id: 3, name: \"Vega Desk\", price: 420, category: \"Desks\" },\n];\n\n<CardGrid\n  rows={products}\n  rowKey=\"id\"\n  minChildWidth=\"16rem\"\n  pageSize={12}\n  searchable\n  sortOptions={[\n    { field: \"name\", label: \"Name\" },\n    { field: \"price\", label: \"Price\", type: \"number\" },\n  ]}\n  renderCard={(p) => (\n    <Card>\n      <Heading level={4}>{p.name}</Heading>\n      <Text tone=\"muted\">{p.category} · ${p.price}</Text>\n    </Card>\n  )}\n/>",
+    "tagline": "Server-mode paginated card grid"
+  },
+  {
     "name": "DatePicker",
     "slug": "datepicker",
     "group": "Inputs",

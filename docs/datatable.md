@@ -3,6 +3,11 @@
 Developer notes for the larger, opt-in capabilities of `components/data-display/Datatable.jsx`.
 Everything here is **additive**: with the relevant prop off, the table renders exactly as before.
 
+> **Card layouts:** [`CardGrid`](../components/data-display/CardGrid.jsx) (#204, see
+> [qa-notes/CardGrid.md](./qa-notes/CardGrid.md)) is the **card analogue** of Datatable's `serverMode`.
+> It reuses `runDatatableQuery` and emits the **same** query shape (`{ page, pageSize, sort, filters,
+> quickFilter }`), so a page can toggle table ⇄ card views on one query model.
+
 ## Toolbar tools are opt-in; default density is comfortable
 
 The top toolbar always shows **Columns**, **Filters**, and the quick **Search**. The four heavier
