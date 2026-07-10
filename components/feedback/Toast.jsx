@@ -23,6 +23,10 @@ const TOAST_CSS = `
   from { opacity: 0; transform: translateX(-24px); }
   to   { opacity: 1; transform: translateX(0); }
 }
+/* WCAG 2.3.3: appear without the slide under reduced motion (covers the RTL variant too). */
+@media (prefers-reduced-motion: reduce) {
+  .twc-toast, [dir="rtl"] .twc-toast { animation: none; }
+}
 .twc-toast::before { content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 4px; background: var(--_accent, var(--color-primary)); }
 .twc-toast[data-tone="success"] { --_accent: var(--color-success); }
 .twc-toast[data-tone="warning"] { --_accent: var(--color-warning); }

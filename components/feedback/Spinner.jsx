@@ -10,11 +10,12 @@ export function Spinner({
   className = "",
   ...rest
 }) {
-  if (process.env.NODE_ENV !== "production" && tone !== undefined && color === undefined) {
-    warnOnce("Spinner.tone", "Spinner: `tone` is deprecated and will be removed in 2.0 — use `color`.");
+  if (process.env.NODE_ENV !== "production" && color !== undefined && tone === undefined) {
+    warnOnce("Spinner.color", "Spinner: `color` is deprecated and will be removed in 2.0 — use `tone` (matches every other tone-driven component).");
   }
-  // `color` is the preferred name; `tone` is a deprecated alias (removed in 2.0). `color` wins.
-  const resolvedColor = color ?? tone ?? "current";
+  // `tone` is the canonical name (matches Progress/Badge/Alert/…); `color` is a deprecated alias
+  // kept until 2.0 for the components that adopted it. `tone` wins.
+  const resolvedTone = tone ?? color ?? "current";
   const __twcStyles = useScopedStyles("twc-spinner-styles", `
 .twc-spinner {
   --_sz: 24px; --_bw: 2.5px;
@@ -41,5 +42,5 @@ export function Spinner({
 }
 `);
 
-  return <span className={`twc-spinner ${className}`} data-size={size} data-tone={resolvedColor} role="status" aria-label={label} {...rest}>{__twcStyles}</span>;
+  return <span className={`twc-spinner ${className}`} data-size={size} data-tone={resolvedTone} role="status" aria-label={label} {...rest}>{__twcStyles}</span>;
 }

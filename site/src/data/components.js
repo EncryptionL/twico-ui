@@ -9142,7 +9142,7 @@ export const components = [
         "type": "\"current\" | \"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | \"white\"",
         "required": false,
         "default": "\"current\"",
-        "description": "Deprecated alias for color."
+        "description": "Colour intent; defaults to currentColor so it adapts inside buttons and themed contexts. Wins over the deprecated color."
       },
       {
         "prop": "label",
@@ -9156,7 +9156,7 @@ export const components = [
         "type": "\"current\" | \"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | \"white\"",
         "required": false,
         "default": "\"current\"",
-        "description": "Sets the spinner color; defaults to currentColor so it adapts inside buttons and themed contexts."
+        "description": "Deprecated alias for tone (removed in 2.0) — use tone, which matches every other tone-driven component."
       },
       {
         "prop": "onClick",

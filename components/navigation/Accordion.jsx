@@ -27,6 +27,12 @@ const ACCORDION_CSS = `
   transition: grid-template-rows var(--duration-base) var(--ease-standard), visibility 0s; }
 .twc-accordion__panel-inner { overflow: hidden; }
 .twc-accordion__content { padding: 0 var(--space-4) var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-normal); }
+/* WCAG 2.3.3: panels expand/collapse (and the chevron rotates) instantly under reduced motion
+   — visibility still toggles, so open/closed state is unchanged. */
+@media (prefers-reduced-motion: reduce) {
+  .twc-accordion__panel, .twc-accordion__panel[data-open="true"] { transition: none; }
+  .twc-accordion__chevron { transition: none; }
+}
 `;
 
 export function Accordion({

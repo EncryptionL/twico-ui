@@ -2783,9 +2783,9 @@ An indeterminate loading spinner that signals an ongoing background operation. U
 
 Props:
 - `size` — `"sm" | "md" | "lg" | "xl"` · default `"md"` — Sets the spinner diameter (sm, md, lg, or xl) so it fits its context, from inside a button to over a panel.
-- `tone` — `"current" | "primary" | "success" | "warning" | "danger" | "info" | "neutral" | "white"` · default `"current"` — Deprecated alias for color.
+- `tone` — `"current" | "primary" | "success" | "warning" | "danger" | "info" | "neutral" | "white"` · default `"current"` — Colour intent; defaults to currentColor so it adapts inside buttons and themed contexts. Wins over the deprecated color.
 - `label` — `string` · default `"Loading"` — Accessible name exposed via aria-label so screen readers announce the loading state, defaulting to "Loading".
-- `color` — `"current" | "primary" | "success" | "warning" | "danger" | "info" | "neutral" | "white"` · default `"current"` — Sets the spinner color; defaults to currentColor so it adapts inside buttons and themed contexts.
+- `color` — `"current" | "primary" | "success" | "warning" | "danger" | "info" | "neutral" | "white"` · default `"current"` — Deprecated alias for tone (removed in 2.0) — use tone, which matches every other tone-driven component.
 
 ```jsx
 import { Spinner } from "twico-ui";

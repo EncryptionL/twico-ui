@@ -21,8 +21,9 @@ standardized 2026-06-18; this doc is the source of truth.)
   full scale), `ToastTone` (Toast), and `BarTone` (Progress/Timeline — scale minus `neutral`). Every
   component's `.d.ts` references one of these rather than inlining a literal union.
 - **`color`** (freeform string) appears only where an *arbitrary* color is the point and overrides the
-  tone: `Rating.color`, `Kanban` column color. `Spinner.color` is the enum form of its tone (`tone` is
-  the deprecated alias there). Do not add freeform `color` to new components — use `tone`.
+  tone: `Rating.color`, `Kanban` column color. `Spinner` uses `tone` like every other tone-driven
+  control (`Spinner.color` is a **deprecated alias**, removed in 2.0). Do not add freeform `color` to
+  new components — use `tone`.
 
 ## Fill — `variant`
 - The visual-fill axis, orthogonal to `tone`. Vocabulary by component family: buttons
@@ -67,6 +68,16 @@ standardized 2026-06-18; this doc is the source of truth.)
 - **`label`** is a visible field label → `React.ReactNode`. An **accessible name** (rendered into
   `aria-label`) is a `string` (`Spinner.label`, `Datatable.label`) — different concept, different type.
 - `hint` and `error` are `React.ReactNode`; `required`, `disabled` are `boolean`; `placeholder` is a string.
+- **`required` renders a `.twc-field__req` asterisk** on the visible label (and sets `aria-required` on
+  the control) across *every* labeled control — including the toggles Checkbox/Radio/Switch (#219), which
+  previously only set `aria-required`. No asterisk is drawn when there is no visible `label`.
+
+## Reduced motion & AT state
+- Every animated component collapses its motion under `@media (prefers-reduced-motion: reduce)` (WCAG
+  2.3.3) — including Button's ripple, the Tabs indicator, Accordion panels, the Carousel track, and Toast
+  slide-in (#218). A loading Spinner is the deliberate exception (its spin conveys state).
+- Nav-style active indicators expose state to AT, not just visually: the Carousel's active dot now sets
+  `aria-current="true"` (#217), matching Pagination/Breadcrumb/Stepper.
 
 ## Passthrough & polymorphism
 - All components spread `...rest` to their root and accept `className` + `style`. Inline `style` and
@@ -82,8 +93,9 @@ standardized 2026-06-18; this doc is the source of truth.)
   both are set.
 - In development the component calls `warnOnce` (the shared `components/_warn.js` helper) the first
   time **only** the deprecated prop is supplied — a single, deduped `console.warn` that no-ops in
-  production. Current deprecations: `Spinner.tone` → `color`, `EmptyState.bordered` → `border`,
-  `Pagination.showJumper` → `showPageJumper` (all removed in 2.0).
+  production. Current deprecations: `Spinner.color` → `tone` (#222 — realigned to the shared `tone`
+  vocabulary), `EmptyState.bordered` → `border`, `Pagination.showJumper` → `showPageJumper` (all
+  removed in 2.0).
 
 ## Events
 - Handlers are `onX` camelCase. The common ones: `onChange`, `onClick`, `onClose`, `onOpenChange`,
