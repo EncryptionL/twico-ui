@@ -56,7 +56,6 @@ export function DateTimePicker({
   const autoId = React.useId();
   const fieldId = id || autoId;
   const descId = `${fieldId}-desc`;
-  const invalid = Boolean(error);
   const [internal, setInternal] = React.useState(defaultValue);
   const selected = value !== undefined ? value : internal;
 
