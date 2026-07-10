@@ -2,6 +2,26 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.12.0](https://github.com/EncryptionL/twico-ui/compare/v1.11.1...v1.12.0) (2026-07-10)
+
+
+### Bug Fixes
+
+* a11y + consistency batch — reduced-motion, aria-current, required asterisk, Spinner tone ([#217](https://github.com/EncryptionL/twico-ui/issues/217),[#218](https://github.com/EncryptionL/twico-ui/issues/218),[#219](https://github.com/EncryptionL/twico-ui/issues/219),[#222](https://github.com/EncryptionL/twico-ui/issues/222)) ([8a4262c](https://github.com/EncryptionL/twico-ui/commit/8a4262cba3f9a40f97bc4e1b709cdedefbb72c9a)), closes [#51](https://github.com/EncryptionL/twico-ui/issues/51)
+
+
+### Features
+
+* **data-display:** add CardGrid — server-mode paginated card grid ([#204](https://github.com/EncryptionL/twico-ui/issues/204)) ([c58ba0a](https://github.com/EncryptionL/twico-ui/commit/c58ba0a11d87d6c746adb60cd950d2ece857e6b5))
+* **data-display:** add DiffTable — row + field-level dataset comparison ([#205](https://github.com/EncryptionL/twico-ui/issues/205)) ([6d7f30e](https://github.com/EncryptionL/twico-ui/commit/6d7f30ef8e203b0d4e5d6da6cb5f9a613c1be66b))
+* **datatable:** valueGetter, searchFields, formatted filter options ([#213](https://github.com/EncryptionL/twico-ui/issues/213),[#214](https://github.com/EncryptionL/twico-ui/issues/214),[#215](https://github.com/EncryptionL/twico-ui/issues/215)) ([ec05b74](https://github.com/EncryptionL/twico-ui/commit/ec05b745501fdd035214f34e222dbac6f2d8600f))
+* **inputs:** add FilterBar — schema-driven faceted filter bar ([#203](https://github.com/EncryptionL/twico-ui/issues/203)) ([ab60176](https://github.com/EncryptionL/twico-ui/commit/ab60176087d2ae5a4ff69d1fad14b49a1d923fc6))
+* **inputs:** add TimePicker + DateTimePicker for time-of-day selection ([#223](https://github.com/EncryptionL/twico-ui/issues/223)) ([e862359](https://github.com/EncryptionL/twico-ui/commit/e862359e520f77a546fbefc94a7b38cafc18f0b1))
+* **inputs:** date-picker parity + size on Slider/ColorPicker/FileUpload ([#200](https://github.com/EncryptionL/twico-ui/issues/200),[#201](https://github.com/EncryptionL/twico-ui/issues/201),[#210](https://github.com/EncryptionL/twico-ui/issues/210),[#211](https://github.com/EncryptionL/twico-ui/issues/211),[#220](https://github.com/EncryptionL/twico-ui/issues/220)) ([eb59d15](https://github.com/EncryptionL/twico-ui/commit/eb59d15f4241054686348b7e0de7fe5d2bc9eb5e))
+* MultiSelect async options, DateRangePicker custom presets, WithSx type ([#208](https://github.com/EncryptionL/twico-ui/issues/208),[#212](https://github.com/EncryptionL/twico-ui/issues/212),[#221](https://github.com/EncryptionL/twico-ui/issues/221)) ([8aaff89](https://github.com/EncryptionL/twico-ui/commit/8aaff89df612dbc3dcaf0cfa1f3641596de734b3))
+* **pickers:** add month + year/decade view tiers to the calendar header ([#206](https://github.com/EncryptionL/twico-ui/issues/206), [#207](https://github.com/EncryptionL/twico-ui/issues/207)) ([8cf681c](https://github.com/EncryptionL/twico-ui/commit/8cf681c74da676718b97cb41486797f6387e79a0))
+* Toast live-region announcements + Grid justifyItems ([#209](https://github.com/EncryptionL/twico-ui/issues/209), [#216](https://github.com/EncryptionL/twico-ui/issues/216)) ([5de96d9](https://github.com/EncryptionL/twico-ui/commit/5de96d96450d84712b0a7b9c2bfeb22f98761fa7))
+
 ## [1.11.1](https://github.com/EncryptionL/twico-ui/compare/v1.11.0...v1.11.1) (2026-07-09)
 
 
