@@ -78,6 +78,16 @@ from the current `rows`; selection does not span pages in server mode.
   the column's `valueFormatter` (a boolean column reads `Yes`/`No`, an enum reads its label) while still
   **filtering on the raw value**. A `renderCell`-only column (no `valueFormatter`) shows the raw value —
   supply `valueOptions` for a custom list.
+- **Async filter options (#232)** — for a column backed by a large **reference/master** list (suppliers,
+  colors, materials…), static `valueOptions` means loading every value upfront, and in `serverMode` the
+  page-derived fallback is incomplete. Instead give the column a **`loadValueOptions(query) => Promise<…>`**
+  server loader: the **"is any of"** picker becomes a searchable/lazy `MultiSelect` — it reuses the
+  MultiSelect async surface (`onInputChange` + `filter={false}` + `loading`) added in #208. The internal
+  `AsyncFilterValue` primes the list with `loadValueOptions("")` on mount, **debounces** type-ahead by
+  250 ms, drops stale responses (a request-id guard), and keeps already-selected values labelled even when
+  they fall outside the current result page. It takes precedence over `valueOptions` for the filter picker;
+  results are used as-is (no local re-filtering). Values are still stored raw, so `runDatatableQuery`
+  / a backend filter on `{ field, op: "isAnyOf", value }` is unchanged.
 
 ## Controlled pagination (#45)
 

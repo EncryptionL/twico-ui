@@ -632,6 +632,37 @@ function Caret({ pos }) {
   return <span className="twc-dt__caret" style={{ left }} />;
 }
 
+// #232: async "is any of" filter value picker — a MultiSelect driven by the column's
+// `loadValueOptions(query)` server loader (searchable, lazy) instead of a static list.
+// Reuses the MultiSelect async surface (onInputChange + filter={false} + loading) added in #208.
+function AsyncFilterValue({ col, value, onChange }) {
+  const [opts, setOpts] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const reqRef = React.useRef(0);
+  const debRef = React.useRef();
+  const load = React.useCallback((query) => {
+    const id = ++reqRef.current;
+    setLoading(true);
+    Promise.resolve(col.loadValueOptions(query)).then(
+      (res) => { if (reqRef.current === id) { setOpts((Array.isArray(res) ? res : []).map((o) => (typeof o === "string" ? { value: o, label: o } : o))); setLoading(false); } },
+      () => { if (reqRef.current === id) setLoading(false); },
+    );
+  }, [col]);
+  // Prime with the canonical head of the list; debounce type-ahead so we don't hammer the server.
+  React.useEffect(() => { load(""); return () => clearTimeout(debRef.current); }, [load]);
+  const onInput = React.useCallback((q) => { clearTimeout(debRef.current); debRef.current = setTimeout(() => load(q), 250); }, [load]);
+  const selected = Array.isArray(value) ? value : [];
+  // Keep already-selected values labelled even when they're outside the current result page.
+  const merged = React.useMemo(() => {
+    const seen = new Set(opts.map((o) => o.value));
+    return [...selected.filter((v) => !seen.has(v)).map((v) => ({ value: v, label: String(v) })), ...opts];
+  }, [opts, selected]);
+  return (
+    <MultiSelect portal placeholder="Any of…" value={selected} options={merged}
+      filter={false} loading={loading} onInputChange={onInput} onChange={onChange} />
+  );
+}
+
 function EditCell({ col, value, options, onChange, onCommit, onCommitValue, onCancel, onKeyDown }) {
   const ref = React.useRef(null);
   const isSelect = col.editType === "select" || (options && col.editType !== "text");
@@ -2587,9 +2618,14 @@ export function Datatable({
                   </div>
                   <div className="twc-dt__f-val">
                     {op.noInput ? null : op.multi ? (
-                      <MultiSelect portal placeholder="Any of…" value={Array.isArray(f.value) ? f.value : []}
-                        options={optionsForField(f.field)}
-                        onChange={(vals) => setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, value: vals } : x))} />
+                      col.loadValueOptions ? (
+                        <AsyncFilterValue col={col} value={f.value}
+                          onChange={(vals) => setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, value: vals } : x))} />
+                      ) : (
+                        <MultiSelect portal placeholder="Any of…" value={Array.isArray(f.value) ? f.value : []}
+                          options={optionsForField(f.field)}
+                          onChange={(vals) => setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, value: vals } : x))} />
+                      )
                     ) : (
                       <Input size="sm" type={col.type === "number" ? "number" : "text"} placeholder="Value" value={f.value}
                         onChange={(e) => setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, value: e.target.value } : x))} />
