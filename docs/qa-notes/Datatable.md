@@ -23,6 +23,12 @@
 - **[#228] Move-menu bug** — `reorderable: false` (or any non-movable column) previously rendered the
   "Move left/right" items **disabled**; the guard now also requires `c.reorderable !== false` and
   `movableMidFields.length > 1`, so they're **omitted** entirely, consistent with Group/Pin/Hide. — fixed 2026-07-13
+- **[#232] Async filter value options** — a column can supply `loadValueOptions(query) => Promise<…>` so
+  the "is any of" filter picker loads a searchable, server-backed reference/master list instead of a static
+  `valueOptions` (heavy) or the incomplete page-derived fallback. The module-level `AsyncFilterValue`
+  drives a `MultiSelect` via the #208 async surface (`onInputChange` + `filter={false}` + `loading`),
+  primes with `loadValueOptions("")`, debounces 250 ms, guards stale responses by request id, and merges
+  in selected-but-unlisted values. Precedence over `valueOptions` for the filter picker; values stay raw. — added 2026-07-13
 
 ## Verified OK
 

@@ -261,6 +261,11 @@ export interface DatatableColumn<T = any> {
   wrapText?: boolean;
   /** Distinct values for the "is any of" multi-value filter (recommended in server mode). */
   valueOptions?: Array<string | { value: string; label: string }>;
+  /** Async loader for the "is any of" filter's options — searchable/lazy server-backed values (for a
+   *  large reference/master list). Called with the type-ahead query (debounced; `""` primes the list)
+   *  and takes precedence over `valueOptions` for the filter picker, which then loads server-side
+   *  (no local filtering) with a loading state. */
+  loadValueOptions?: (query: string) => Promise<Array<string | { value: string; label: string }>>;
   /** Format the raw value to a string/number for display. */
   valueFormatter?: (value: any, row: T) => React.ReactNode;
   /** Fully custom cell renderer (badges, avatars, etc.). */
