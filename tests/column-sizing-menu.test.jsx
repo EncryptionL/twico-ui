@@ -1,5 +1,5 @@
 import React from "react";
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { render, fireEvent } from "@testing-library/react";
 import { Datatable } from "../components/data-display/Datatable.jsx";
 import { CardGrid } from "../components/data-display/CardGrid.jsx";
