@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.13.0](https://github.com/EncryptionL/twico-ui/compare/v1.12.0...v1.13.0) (2026-07-13)
+
+
+### Features
+
+* **data-display:** narrow-column sizing + menu gating; fix Move-menu & CardGrid sort clipping ([a4f4937](https://github.com/EncryptionL/twico-ui/commit/a4f4937d00c4c3c9be0b199c8eac98d0d60f5572)), closes [#228](https://github.com/EncryptionL/twico-ui/issues/228) [#226](https://github.com/EncryptionL/twico-ui/issues/226) [#227](https://github.com/EncryptionL/twico-ui/issues/227) [#228](https://github.com/EncryptionL/twico-ui/issues/228)
+
 # [1.12.0](https://github.com/EncryptionL/twico-ui/compare/v1.11.1...v1.12.0) (2026-07-10)
 
 
