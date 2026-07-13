@@ -191,6 +191,33 @@ items:
 
 No new public prop: this reuses `disableColumnReorder` and the existing reorder state.
 
+## Column sizing & narrow columns (#227 / #228 / #229)
+
+A small, fixed column — a row-number/ordinal, a status dot, a tiny badge — was awkward: the only
+widths were hard-coded px (truncates the header if too small) or the wasteful 160px default, and its
+header ⋮ menu always offered **Wrap text** plus two dead **Move** entries. Three column-level knobs fix this:
+
+- **`width: "auto"`** (`DatatableColumn.width` is now `number | "auto"`). "auto" resolves to the header's
+  **intrinsic** width — `AUTO_CHROME` (74px: th padding + the sort icon + the menu button, reserved even
+  when hidden) plus `≈8px × label length` — so a 2-char "No" header lands at ~90px and never ellipsizes.
+  It's a deterministic, SSR-safe estimate (no layout measurement); **double-click the resize grip** still
+  does a pixel-exact content fit (`autoFitColumn`, which measures the real cells).
+- **`minWidth` / `maxWidth`** (px) clamp the resolved width — the auto estimate, an explicit px `width`,
+  **and** a user drag/keyboard resize all pass through `clampWidth` (min wins over max, floor 40px). This
+  is centralized in `widthOf` / `intrinsicWidth`; the resize handlers base off `intrinsicWidth(c)` so an
+  `"auto"` column resizes from its computed width (previously `"auto" + delta` → `NaN`).
+- **`wrappable: false`** (#227) removes just the **Wrap text / Unwrap text** item from the ⋮ menu, matching
+  the existing `groupable` / `pinnable` / `reorderable` per-column gates. Combined with those, a column can
+  expose **only Sort + Hide**.
+- **#228 (bug):** the **Move left / Move right** items now also check `c.reorderable !== false` **and**
+  `movableMidFields.length > 1`, so a non-reorderable (or otherwise non-movable) column **omits** them
+  entirely instead of rendering them greyed/disabled — consistent with how Group/Pin/Hide behave.
+
+```tsx
+{ field: "seq", headerName: "No", width: "auto", minWidth: 88,
+  groupable: false, pinnable: false, reorderable: false, wrappable: false } // menu: only Sort + Hide
+```
+
 ## ARIA menu semantics for the floating menus
 
 The three `.twc-dt__pop` menus — **column-header menu**, **row-actions overflow menu**, and the

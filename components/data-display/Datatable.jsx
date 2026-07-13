@@ -957,7 +957,24 @@ export function Datatable({
     setGroupBy(rowGrouping || []);
   }, [rowGroupingKey]);
 
-  const widthOf = (c) => widths[c.field] ?? c.width ?? 160;
+  // #229: column sizing. `width` is a px number (default 160 / 120 actions) or "auto".
+  // "auto" estimates the header's intrinsic width (chrome + label) so a short column
+  // (e.g. an ordinal) fits its header without truncating and without the wasteful 160px
+  // default; `minWidth`/`maxWidth` clamp the result (and a user resize). Double-click the
+  // resize grip for a pixel-exact content fit (autoFitColumn).
+  const AUTO_CHROME = 74; // th padding (24) + sort icon (14) + menu btn (24) + gaps, reserved even when hidden
+  const autoWidth = (c) => {
+    const label = typeof c.headerName === "string" ? c.headerName : String(c.field ?? "");
+    return AUTO_CHROME + Math.ceil(label.length * 8); // ~8px/char (semibold text-sm), slight over-estimate so labels never clip
+  };
+  const clampWidth = (w, c) => {
+    let x = w;
+    if (typeof c.maxWidth === "number") x = Math.min(x, c.maxWidth);
+    if (typeof c.minWidth === "number") x = Math.max(x, c.minWidth); // min wins over max, matching CSS
+    return Math.max(40, x);
+  };
+  const intrinsicWidth = (c) => (c.width === "auto" ? autoWidth(c) : (typeof c.width === "number" ? c.width : 160));
+  const widthOf = (c) => clampWidth(widths[c.field] ?? intrinsicWidth(c), c);
 
   const [colMenu, setColMenu] = React.useState(null);
   const [menuPos, openMenu, closeMenu] = useFloating();
@@ -2176,7 +2193,7 @@ export function Datatable({
                         if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
                         e.preventDefault(); e.stopPropagation();
                         const delta = e.key === "ArrowRight" ? 10 : -10;
-                        setWidths((m) => ({ ...m, [c.field]: Math.max(72, (m[c.field] ?? c.width ?? 160) + delta) }));
+                        setWidths((m) => ({ ...m, [c.field]: Math.max(72, (m[c.field] ?? intrinsicWidth(c)) + delta) }));
                       }}
                       title="Drag to resize · double-click to fit content" /> : null}
                   </th>
@@ -2356,11 +2373,13 @@ export function Datatable({
               {c.filterable ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); restoreTriggerFocus(); setPanel("filters"); openPanel(document.querySelector(".twc-dt__toolbar .twc-dt__tbtn:nth-child(2)"), "left", 580); }}><Svg d={I.filter} /> Filter</button> : null}
               {hasTop && hasBottom ? <div className="twc-dt__sep" /> : null}
               {c.groupable ? <button type="button" role="menuitem" className="twc-dt__mi" data-active={groupBy.includes(c.field) || undefined} onClick={() => { toggleGroupField(c.field); close(); }}><Svg d={I.group} /> {groupBy.includes(c.field) ? "Stop grouping" : "Group by this column"}</button> : null}
-              {!disableColumnReorder && c.type !== "actions" && !pins.left.includes(c.field) && !pins.right.includes(c.field) ? (() => {
+              {/* #228: only when the column is actually movable — omit (not disable) for
+                  reorderable:false, pinned, actions, or when there's nothing to reorder. */}
+              {!disableColumnReorder && c.reorderable !== false && c.type !== "actions" && !pins.left.includes(c.field) && !pins.right.includes(c.field) && movableMidFields.length > 1 ? (() => {
                 // Position within the movable middle band — same set the drag path can rearrange.
                 const midIdx = movableMidFields.indexOf(c.field);
-                const atFirst = midIdx <= 0;
-                const atLast = midIdx === -1 || midIdx >= movableMidFields.length - 1;
+                const atFirst = midIdx === 0;
+                const atLast = midIdx === movableMidFields.length - 1;
                 return (<>
                   <button type="button" role="menuitem" className="twc-dt__mi" disabled={atFirst} aria-disabled={atFirst || undefined} onClick={() => { moveCol(c.field, -1); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(-90deg)" }} /> Move left</button>
                   <button type="button" role="menuitem" className="twc-dt__mi" disabled={atLast} aria-disabled={atLast || undefined} onClick={() => { moveCol(c.field, 1); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(90deg)" }} /> Move right</button>
@@ -2370,7 +2389,8 @@ export function Datatable({
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={pins.left.includes(c.field) || undefined} onClick={() => { setPin(c.field, pins.left.includes(c.field) ? null : "left"); close(); }}><Svg d={I.pinL} /> {pins.left.includes(c.field) ? "Unpin" : "Pin to left"}</button>
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={pins.right.includes(c.field) || undefined} onClick={() => { setPin(c.field, pins.right.includes(c.field) ? null : "right"); close(); }}><Svg d={I.pin} /> {pins.right.includes(c.field) ? "Unpin" : "Pin to right"}</button>
               </>) : null}
-              {c.type !== "actions" ? <button type="button" role="menuitem" className="twc-dt__mi" data-active={wrapped.has(c.field) || undefined} onClick={() => { toggleWrap(c.field); close(); }}><Svg d={I.wrap} /> {wrapped.has(c.field) ? "Unwrap text" : "Wrap text"}</button> : null}
+              {/* #227: `wrappable: false` removes just this item (e.g. a fixed single-token column). */}
+              {c.type !== "actions" && c.wrappable !== false ? <button type="button" role="menuitem" className="twc-dt__mi" data-active={wrapped.has(c.field) || undefined} onClick={() => { toggleWrap(c.field); close(); }}><Svg d={I.wrap} /> {wrapped.has(c.field) ? "Unwrap text" : "Wrap text"}</button> : null}
               {c.hideable ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={() => { setHidden((h) => new Set(h).add(c.field)); close(); }}><Svg d={I.eyeOff} /> Hide column</button> : null}
             </>);
           })()}

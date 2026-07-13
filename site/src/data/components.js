@@ -5986,6 +5986,13 @@ export const components = [
         "description": "Fields offered by the built-in sort control; providing it renders the control (declare type:\"number\" to sort numerically)."
       },
       {
+        "prop": "sortMinWidth",
+        "type": "string | number",
+        "required": false,
+        "default": "—",
+        "description": "Min width for the built-in sort control's trigger so long option labels aren't clipped; defaults to an estimate from the longest label."
+      },
+      {
         "prop": "toolbar",
         "type": "React.ReactNode",
         "required": false,

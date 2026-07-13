@@ -12,7 +12,7 @@ const CARDGRID_CSS = `
 .twc-cardgrid__toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
 .twc-cardgrid__search { flex: 1 1 200px; min-width: 160px; }
 .twc-cardgrid__spacer { flex: 1 1 auto; }
-.twc-cardgrid__sort { display: inline-flex; align-items: center; gap: var(--space-1); }
+.twc-cardgrid__sort { display: inline-flex; align-items: center; gap: var(--space-1); flex: none; }
 .twc-cardgrid__dir { display: inline-grid; place-items: center; width: 32px; height: 32px; border: var(--border-thin) solid var(--color-border); background: var(--color-surface); color: var(--color-text-muted); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast), color var(--duration-fast); }
 .twc-cardgrid__dir:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-cardgrid__dir svg { width: 16px; height: 16px; transition: transform var(--duration-fast) var(--ease-standard); }
@@ -61,6 +61,7 @@ export function CardGrid({
   defaultSort = null,
   onSortChange,
   sortOptions,
+  sortMinWidth,
   // slots / states
   toolbar,
   emptyState = "No results.",
@@ -123,6 +124,12 @@ export function CardGrid({
   const to = paginated ? Math.min((pageVal + 1) * sizeVal, total) : total;
   const rppOptions = Array.from(new Set([...(pageSizeOptions || []), pageSize].filter((n) => n > 0))).sort((a, b) => a - b).map((n) => ({ value: String(n), label: String(n) }));
   const sortSelectOptions = sortOptions ? [{ value: "", label: "Sort by…" }, ...sortOptions.map((o) => ({ value: o.field, label: o.label || o.field }))] : null;
+  // #226: size the sort trigger to its widest label so long option labels aren't clipped
+  // (the Select value box ellipsizes). `sortMinWidth` overrides the estimate.
+  const sortAutoWidth = sortSelectOptions
+    ? Math.min(300, Math.max(120, Math.ceil(Math.max(...sortSelectOptions.map((o) => String(o.label).length)) * 7.2) + 46))
+    : undefined;
+  const sortWidth = sortMinWidth != null ? sortMinWidth : sortAutoWidth;
 
   const hasToolbar = searchable || sortSelectOptions || toolbar;
 
@@ -144,6 +151,7 @@ export function CardGrid({
           {sortSelectOptions ? (
             <div className="twc-cardgrid__sort">
               <Select size="sm" searchable={false} value={sortVal?.field || ""} options={sortSelectOptions} placeholder="Sort by…"
+                style={{ minWidth: sortWidth }}
                 aria-label="Sort by" onChange={(field) => commitSort(field ? { field, dir: sortVal?.dir || "asc" } : null)} />
               <button type="button" className="twc-cardgrid__dir" data-dir={sortVal?.dir || "asc"} disabled={!sortVal?.field}
                 aria-label={sortVal?.dir === "desc" ? "Descending — click to sort ascending" : "Ascending — click to sort descending"}

@@ -10,6 +10,20 @@
 
 - [x] **[P2] Column resize handle position in RTL** — The resizer is positioned `right: 0`, which is correct for LTR but becomes `left: 0` in RTL, placing the handle on the wrong (leading) edge of the column. _Fix:_ Change `right: 0` to `inset-inline-end: 0` so it positions logically. `Datatable.jsx:107` — ✓ fixed 2026-06-17
 
+## Enhancements
+
+- **[#229] Column `width: "auto"` + `minWidth`/`maxWidth`** — `DatatableColumn.width` is now `number | "auto"`.
+  "auto" resolves to the header's intrinsic width (`AUTO_CHROME` 74px + ~8px/char label) so a short column
+  fits without truncating or wasting the 160px default; `minWidth`/`maxWidth` clamp the result (incl. user
+  resizes) via a centralized `widthOf`/`intrinsicWidth`/`clampWidth`. Resize handlers rebased off
+  `intrinsicWidth(c)` so an `"auto"` column no longer computes `"auto" + delta` → `NaN`. Double-click still
+  content-fits exactly (`autoFitColumn`). — added 2026-07-13
+- **[#227] `wrappable` column flag** — gates the "Wrap text" ⋮-menu item (default true), matching the
+  `groupable`/`pinnable`/`reorderable` per-column pattern; a column can now show only Sort + Hide. — added 2026-07-13
+- **[#228] Move-menu bug** — `reorderable: false` (or any non-movable column) previously rendered the
+  "Move left/right" items **disabled**; the guard now also requires `c.reorderable !== false` and
+  `movableMidFields.length > 1`, so they're **omitted** entirely, consistent with Group/Pin/Hide. — fixed 2026-07-13
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.

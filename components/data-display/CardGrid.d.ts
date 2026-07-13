@@ -91,6 +91,8 @@ export interface CardGridProps<Row = any> extends Omit<React.HTMLAttributes<HTML
   onSortChange?: (sort: CardGridSort | null) => void;
   /** Fields offered by the built-in sort control (renders it when provided). */
   sortOptions?: CardGridSortOption[];
+  /** Min width (px or CSS length) for the built-in sort control's trigger, so long option labels aren't clipped. Defaults to an estimate from the longest label. */
+  sortMinWidth?: string | number;
   /** Extra node rendered in the toolbar row (before the sort control). */
   toolbar?: React.ReactNode;
   /** Shown when there are no rows and not loading. @default "No results." */

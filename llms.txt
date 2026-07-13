@@ -1485,6 +1485,7 @@ Props:
 - `defaultSort` — `CardGridSort | null` · default `null` — Initial sort clause when uncontrolled.
 - `onSortChange` — `(sort: CardGridSort | null) => void` — Fires when the sort field or direction changes via the built-in sort control.
 - `sortOptions` — `CardGridSortOption[]` — Fields offered by the built-in sort control; providing it renders the control (declare type:"number" to sort numerically).
+- `sortMinWidth` — `string | number` — Min width for the built-in sort control's trigger so long option labels aren't clipped; defaults to an estimate from the longest label.
 - `toolbar` — `React.ReactNode` — Extra node rendered in the toolbar row, before the sort control.
 - `emptyState` — `React.ReactNode` · default `"No results."` — Content shown when there are no rows and the grid is not loading.
 - `label` — `React.ReactNode` — Optional heading rendered above the grid and associated with it for accessibility.
