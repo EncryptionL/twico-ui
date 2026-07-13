@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.14.0](https://github.com/EncryptionL/twico-ui/compare/v1.13.0...v1.14.0) (2026-07-13)
+
+
+### Features
+
+* **datatable:** async/searchable "is any of" filter options via loadValueOptions ([#232](https://github.com/EncryptionL/twico-ui/issues/232)) ([2db2b32](https://github.com/EncryptionL/twico-ui/commit/2db2b3212bcda8cdea9430b6766f02a2b3dd0048)), closes [#208](https://github.com/EncryptionL/twico-ui/issues/208)
+
 # [1.13.0](https://github.com/EncryptionL/twico-ui/compare/v1.12.0...v1.13.0) (2026-07-13)
 
 
