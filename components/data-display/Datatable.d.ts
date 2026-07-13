@@ -218,8 +218,12 @@ export interface DatatableColumn<T = any> {
   headerName?: string;
   /** Data type. "actions" renders per-row action buttons via getActions. @default "string" */
   type?: "string" | "number" | "actions";
-  /** Column width in px. @default 160 (120 for actions) */
-  width?: number;
+  /** Column width: a px number, or `"auto"` to size to the header's intrinsic width (chrome + label) so a short column fits without truncating or wasting the 160px default. @default 160 (120 for actions) */
+  width?: number | "auto";
+  /** Lower bound (px) for the resolved width, incl. `"auto"` and user resizes. */
+  minWidth?: number;
+  /** Upper bound (px) for the resolved width; `minWidth` wins if they conflict. */
+  maxWidth?: number;
   /** Cell alignment; currently affects the actions column's button justification. @default "right" for number/actions columns, else "left" */
   align?: "left" | "right";
   /** Allow sorting this column. @default true */
@@ -238,6 +242,8 @@ export interface DatatableColumn<T = any> {
   resizable?: boolean;
   /** Allow drag / menu / keyboard reorder of this column (independent of the table-wide `disableColumnReorder`). @default true */
   reorderable?: boolean;
+  /** Offer the "Wrap text" / "Unwrap text" item in the ⋮ menu. Set `false` for a fixed single-token column (e.g. an ordinal) whose menu should show only Sort + Hide. @default true */
+  wrappable?: boolean;
   /** Summary-footer aggregation: a preset, or a function over the column's values. */
   aggregation?: "sum" | "avg" | "min" | "max" | "count" | ((values: any[], rows: T[]) => React.ReactNode);
   /** Format an aggregation result for the footer (falls back to valueFormatter). */

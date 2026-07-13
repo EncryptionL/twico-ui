@@ -37,4 +37,10 @@ hand-roll the fetch/paginate/sort/loading/empty loop. `CardGrid` is that missing
   `rowCount` drives the page count; loading overlay + `aria-busy`.
 - Controlled/uncontrolled `page`/`pageSize`/`quickFilter`/`sort`; per-page selector; empty state.
 - SSR-safe (`useScopedStyles`, no module-scope DOM); className-free consumer API.
-- Tests: [`tests/cardgrid.test.jsx`](../../tests/cardgrid.test.jsx).
+- **[#226]** the built-in sort control no longer clips long option labels: `.twc-cardgrid__sort` is
+  `flex: none` (doesn't shrink in the toolbar) and the sort `Select` gets an intrinsic `min-width`
+  estimated from the longest label (`~7.2px/char + 46` chrome, clamped 120–300px); the new
+  `sortMinWidth` prop overrides it. Applied as `style` on the Select (forwarded to the trigger button,
+  which is `width: 100%`). — added 2026-07-13
+- Tests: [`tests/cardgrid.test.jsx`](../../tests/cardgrid.test.jsx),
+  [`tests/column-sizing-menu.test.jsx`](../../tests/column-sizing-menu.test.jsx).
