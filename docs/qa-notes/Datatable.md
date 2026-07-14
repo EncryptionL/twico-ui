@@ -29,6 +29,16 @@
   drives a `MultiSelect` via the #208 async surface (`onInputChange` + `filter={false}` + `loading`),
   primes with `loadValueOptions("")`, debounces 250 ms, guards stale responses by request id, and merges
   in selected-but-unlisted values. Precedence over `valueOptions` for the filter picker; values stay raw. — added 2026-07-13
+- **[#235] Externalized quick-search** — `searchable` (default true) gates the built-in toolbar search box;
+  `quickFilter` + `onQuickFilterChange` make the quick-filter controlled (mirrors CardGrid). The value flows
+  into client filtering and the `onServerChange` query, so a host can render its own search input.
+  Uncontrolled unless `quickFilter` is set (internal `internalQuick` + `commitQuick`). — added 2026-07-14
+- **[#236] `renderEditCell` escape hatch** — a column can render its own inline editor (searchable/creatable/
+  async `Combobox`, `MasterCombobox`, …) via `renderEditCell({ value, row, field, commit, cancel })`.
+  It makes the column editable (double-click) unless `editable:false`, takes precedence over the built-in
+  select/text editor, and is wrapped in `.twc-dt__editor-wrap`; twico overlay dropdowns portal as `.twc-pop`,
+  both exempt from the outside-click auto-cancel so a Combobox popover works inside the cell. Pairs with
+  `loadValueOptions` (#232) to back both filter + editor from one master vocabulary. — added 2026-07-14
 
 ## Verified OK
 

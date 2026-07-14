@@ -88,6 +88,40 @@ from the current `rows`; selection does not span pages in server mode.
   they fall outside the current result page. It takes precedence over `valueOptions` for the filter picker;
   results are used as-is (no local re-filtering). Values are still stored raw, so `runDatatableQuery`
   / a backend filter on `{ field, op: "isAnyOf", value }` is unchanged.
+- **Externalized quick-search (#235)** — the toolbar quick-search is now optional and controllable, mirroring
+  `CardGrid`. `searchable={false}` drops the built-in box; `quickFilter` + `onQuickFilterChange` make the
+  value controlled, so a host can render its own `<Input type="search">` and still drive client filtering
+  **and** the `onServerChange` query (`quickFilter` in the emitted query). Useful when the built-in box
+  doesn't fit a host's layout (or to work around a host-CSS clash). Uncontrolled unless `quickFilter` is set.
+
+## Custom inline cell editor — `renderEditCell` (#236)
+
+The built-in editor covers a text/number input and a static-`valueOptions` `<select>`. For a cell backed by a
+large, **extensible vocabulary** (master data — supplier, color, material…) you need search / create-in-place /
+async loading. `DatatableColumn.renderEditCell` is a full escape hatch:
+
+```tsx
+{
+  field: "supplier", headerName: "Supplier",
+  renderEditCell: ({ value, row, field, commit, cancel }) => (
+    <MasterCombobox                    // your own searchable + creatable + debounced control
+      autoFocus defaultValue={value}
+      onSelect={commit}                // commit(nextValue) → fires onRowUpdate / onRowsChange
+      onCreate={(text) => commit(text)}
+      onCancel={cancel}
+    />
+  ),
+}
+```
+
+- Providing `renderEditCell` **makes the column editable** (double-click to edit) unless `editable: false`;
+  it takes precedence over the built-in `editType`/`valueOptions` editor.
+- `commit(nextValue)` saves through the normal path (`onRowUpdate(updated, prev, field)` /
+  `onRowsChange`); `cancel()` discards. The editor is wrapped in `.twc-dt__editor-wrap`, and twico overlay
+  dropdowns portal as **`.twc-pop`** — both are exempt from the cell's outside-click auto-cancel, so a
+  `Combobox`/`Select`/`MultiSelect` popover works **inside** the cell without dismissing the editor.
+- Pairs with the filter-side `loadValueOptions` (#232): the same master vocabulary can back both the
+  column **filter** and the cell **editor**.
 
 ## Controlled pagination (#45)
 

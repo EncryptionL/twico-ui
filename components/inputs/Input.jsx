@@ -7,7 +7,17 @@ const FIELD_CSS = `
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
+`;
 
+// The Input's OWN styles live under this unique id — NOT the shared `twc-field-styles`.
+// #234: the core `.twc-input` box (border/background/focus/tone) was moved here out of FIELD_CSS.
+// `twc-field-styles` is shared across the field family (Input, DatePicker, TimePicker, …) and, under
+// React 19 style hoisting, dedupes by `href`/id keeping the FIRST content seen — so when a sibling
+// field component (whose FIELD_CSS is the shorter `.twc-field*`-only set) mounted first, Input's
+// `.twc-input` border/background rules were silently dropped and the input rendered invisibly.
+// Keeping them here (id used only by Input) guarantees they always land. Also carries the #69
+// counter + #70 bordered addons.
+const INPUT_EXTRA_CSS = `
 .twc-input {
   --_h: var(--control-h-md);
   display: flex; align-items: center; gap: var(--space-2);
@@ -16,6 +26,7 @@ const FIELD_CSS = `
   background: var(--color-surface);
   border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-md);
+  overflow: hidden;
   transition: border-color var(--duration-fast) var(--ease-standard),
               box-shadow var(--duration-fast) var(--ease-standard),
               background-color var(--duration-fast) var(--ease-standard);
@@ -49,12 +60,6 @@ const FIELD_CSS = `
 .twc-input__reveal:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-input__reveal:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-input__reveal svg { width: 17px; height: 17px; }
-`;
-
-// Separate scoped block for the #69 counter + #70 bordered addons. Kept out of the shared
-// `twc-field-styles` id (whose content differs per input-family component and dedupes by id).
-const INPUT_EXTRA_CSS = `
-.twc-input { overflow: hidden; }
 .twc-input__addon { align-self: stretch; display: inline-flex; align-items: center; padding-inline: var(--space-3);
   background: var(--color-surface-sunken); color: var(--color-text-muted); font-size: var(--text-sm);
   font-weight: var(--font-semibold); white-space: nowrap; flex: none; }

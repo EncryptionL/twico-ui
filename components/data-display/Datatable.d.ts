@@ -34,6 +34,14 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   /** Restrict the toolbar quick-search to these column `field`s (client mode); defaults to every
    *  visible column. Mirrors `runDatatableQuery`'s `options.searchFields`. */
   searchFields?: string[];
+  /** Render the built-in toolbar quick-search box. Set `false` to externalize search — supply your
+   *  own input wired to `quickFilter`/`onQuickFilterChange` (mirrors CardGrid). @default true */
+  searchable?: boolean;
+  /** Controlled quick-search string; pair with `onQuickFilterChange` to drive search from outside
+   *  (the value still flows into client filtering and the `onServerChange` query). */
+  quickFilter?: string;
+  /** Fires with the new quick-search string as the user types (and when a host sets it). */
+  onQuickFilterChange?: (value: string) => void;
   /**
    * Actions shown in the toolbar when one or more rows are selected (requires
    * `checkboxSelection`). Each handler receives the selected keys, the resolved
@@ -254,6 +262,13 @@ export interface DatatableColumn<T = any> {
   editable?: boolean;
   /** Editor type. "select" (or any column with `valueOptions`) renders a dropdown; else a text/number input by column type. */
   editType?: "text" | "number" | "select";
+  /** Full escape hatch for the inline cell editor — render your own control (a searchable / creatable /
+   *  async `Combobox`, a `MasterCombobox`, …) for a value backed by a large, extensible vocabulary.
+   *  Providing it makes the column editable (unless `editable: false`) and takes precedence over the
+   *  built-in select/text editor. Call `commit(nextValue)` to save (fires `onRowUpdate`/`onRowsChange`)
+   *  or `cancel()` to discard. Twico overlay dropdowns (portaled as `.twc-pop`) are exempt from the
+   *  cell's outside-click auto-cancel, so a Combobox popover works inside the cell. */
+  renderEditCell?: (args: { value: any; row: T; field: string; commit: (nextValue: any) => void; cancel: () => void }) => React.ReactNode;
   /** Hide the column header ⋮ menu. @default false */
   disableColumnMenu?: boolean;
   /** Start with this column's cell text wrapped onto multiple lines (the row grows down) instead of
