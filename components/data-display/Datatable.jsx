@@ -250,6 +250,12 @@ const DT_CSS = `
 .twc-dt__row[data-op="added"] > .twc-dt__td { background: color-mix(in srgb, var(--color-success) 7%, transparent); }
 .twc-dt__row[data-op="removed"] > .twc-dt__td { background: color-mix(in srgb, var(--color-danger) 7%, transparent); }
 .twc-dt__row[data-op="modified"] > .twc-dt__td { background: color-mix(in srgb, var(--color-warning) 6%, transparent); }
+/* #242: pinned cells in a diff row must stay OPAQUE (composite the tint over the surface, not over
+   transparent) or the cells scrolling under a sticky column bleed through. Specificity (0,4,0) wins
+   over the (0,3,0) tint above and matches the non-pinned cells' effective color (tint over surface). */
+.twc-dt__row[data-op="added"] > .twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-success) 7%, var(--color-surface)); }
+.twc-dt__row[data-op="removed"] > .twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-danger) 7%, var(--color-surface)); }
+.twc-dt__row[data-op="modified"] > .twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-warning) 6%, var(--color-surface)); }
 .twc-dt__diff-change { display: inline-flex; align-items: center; gap: 4px; min-width: 0; max-width: 100%; }
 .twc-dt__diff-old { text-decoration: line-through; color: var(--color-text-subtle); }
 .twc-dt__diff-new { color: var(--color-success-subtle-fg); font-weight: var(--font-medium); }

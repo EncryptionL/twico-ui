@@ -1,7 +1,12 @@
 import React from "react";
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 import { describe, it, expect, vi } from "vitest";
 import { render, within } from "@testing-library/react";
 import { Datatable } from "../components/data-display/Datatable.jsx";
+
+const DT_SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "components", "data-display", "Datatable.jsx");
 
 const cols = [
   { field: "name", headerName: "Name" },
@@ -62,5 +67,18 @@ describe("Datatable diff mode (#239)", () => {
     expect(within(container).getByText("Export")).toBeTruthy(); // export button
     // only-changed toggle present by default
     expect(container.querySelector(".twc-dt__diff-toggle input")).toBeTruthy();
+  });
+
+  // #242: jsdom can't compute the injected-<style> cascade, so guard the CSS at the source —
+  // every semi-transparent diff-tint rule needs an opaque [data-pin] counterpart (composited over
+  // the surface) or sticky columns bleed through the cells scrolling under them.
+  it("#242: pinned cells in a diff row have an opaque background", () => {
+    const src = readFileSync(DT_SRC, "utf8");
+    // Each op has an opaque [data-pin] rule that composites the tint over --color-surface (not transparent).
+    expect(src).toContain(".twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-success) 7%, var(--color-surface))");
+    expect(src).toContain(".twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-danger) 7%, var(--color-surface))");
+    expect(src).toContain(".twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-warning) 6%, var(--color-surface))");
+    // The base (non-pinned) tint stays transparent so it composites over the table surface.
+    expect(src).toContain('.twc-dt__row[data-op="modified"] > .twc-dt__td { background: color-mix(in srgb, var(--color-warning) 6%, transparent)');
   });
 });

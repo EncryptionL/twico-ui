@@ -49,6 +49,14 @@
   toggle injected; rows tinted via `data-op`. Modified cells are single-line/clipped (no `flex-wrap`
   blowup). `DatatableColumn.compare` added; `rows` made optional. `DiffTable` kept as a thin wrapper
   (API unchanged) delegating to `<Datatable diff={…} />`. — added 2026-07-14
+- **[#242] Diff pinned cells went transparent** — the #239 op-tint rule
+  `.twc-dt__row[data-op] > .twc-dt__td` (specificity 0,3,0) composited over `transparent` and
+  out-specified the base `.twc-dt__td { background: --color-surface }`, so **pinned** (sticky) cells in a
+  diff row lost their opaque fill and the cells scrolling under them bled through. Fix: added
+  `[data-op] > .twc-dt__td[data-pin]` rules (0,4,0) that composite the same tint over `--color-surface`
+  (opaque, and visually identical to the non-pinned cells' effective color). Guarded by a source check in
+  `tests/datatable-diff.test.jsx` (jsdom can't compute the injected-`<style>` cascade). Active/selected and
+  pinned-row cells were already opaque (`--color-primary-subtle`), so unaffected. — fixed 2026-07-14
 
 ## Verified OK
 
