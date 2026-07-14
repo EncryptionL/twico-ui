@@ -5737,6 +5737,13 @@ export const components = [
         "description": "Fires with the new quick-search string as the user types in the built-in box (and when a host sets it)."
       },
       {
+        "prop": "diff",
+        "type": "DatatableDiff<T>",
+        "required": false,
+        "default": "—",
+        "description": "Turn the grid into a two-dataset diff: pairs diff.from↔diff.to on a key, classifies each row added/removed/modified/moved, and renders modified cells as before→after — through this same engine, so density/resize/pin/sort/filter/group/export/virtualization apply. Adds a leading op-badge column + a toolbar summary and only-changed toggle; rows/serverMode/editMode are ignored."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,

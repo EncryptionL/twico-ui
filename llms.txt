@@ -1609,6 +1609,7 @@ Props:
 - `searchable` — `boolean` · default `true` — Render the built-in toolbar quick-search box; set false to externalize search with your own input wired to quickFilter (CardGrid parity).
 - `quickFilter` — `string` — Controlled quick-search string; pair with onQuickFilterChange to drive search from outside (the value flows into client filtering and the onServerChange query).
 - `onQuickFilterChange` — `(value: string) => void` — Fires with the new quick-search string as the user types in the built-in box (and when a host sets it).
+- `diff` — `DatatableDiff<T>` — Turn the grid into a two-dataset diff: pairs diff.from↔diff.to on a key, classifies each row added/removed/modified/moved, and renders modified cells as before→after — through this same engine, so density/resize/pin/sort/filter/group/export/virtualization apply. Adds a leading op-badge column + a toolbar summary and only-changed toggle; rows/serverMode/editMode are ignored.
 
 ```jsx
 import { useState } from "react";

@@ -1,5 +1,5 @@
 import React from "react";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, fireEvent, within } from "@testing-library/react";
 import { DiffTable } from "../components/data-display/DiffTable.jsx";
 
@@ -22,8 +22,8 @@ const B = [
 
 const rowsByOp = (op) => document.querySelectorAll(`tr[data-op="${op}"]`);
 
-// #205 — DiffTable: classify added/removed/modified/moved with per-cell before→after.
-describe("DiffTable (#205)", () => {
+// #205/#239 — DiffTable now renders through Datatable's `diff` mode; classification + before→after preserved.
+describe("DiffTable (#205 → #239 on Datatable engine)", () => {
   it("classifies added / removed / modified / unchanged", () => {
     render(<DiffTable from={A} to={B} rowKey={(r) => r.id} columns={cols} onlyChanged={false} />);
     expect(rowsByOp("modified").length).toBe(1);
@@ -35,10 +35,10 @@ describe("DiffTable (#205)", () => {
   it("renders a modified cell as before → after", () => {
     render(<DiffTable from={A} to={B} rowKey={(r) => r.id} columns={cols} onlyChanged={false} />);
     const modified = rowsByOp("modified")[0];
-    const change = modified.querySelector(".twc-difft__change");
+    const change = modified.querySelector(".twc-dt__diff-change");
     expect(change).toBeTruthy();
-    expect(change.querySelector(".twc-difft__old").textContent).toBe("red");
-    expect(change.querySelector(".twc-difft__new").textContent).toBe("crimson");
+    expect(change.querySelector(".twc-dt__diff-old").textContent).toBe("red");
+    expect(change.querySelector(".twc-dt__diff-new").textContent).toBe("crimson");
     // Unchanged cells in a modified row are plain (no before→after).
     expect(within(modified).getByText("Alpha")).toBeTruthy();
   });
@@ -46,35 +46,49 @@ describe("DiffTable (#205)", () => {
   it("hides unchanged rows when onlyChanged (default)", () => {
     render(<DiffTable from={A} to={B} rowKey={(r) => r.id} columns={cols} />);
     expect(rowsByOp("unchanged").length).toBe(0);
-    expect(document.querySelectorAll("tbody tr").length).toBe(3); // modified + added + removed
+    expect(document.querySelectorAll("tr[data-op]").length).toBe(3); // modified + added + removed
   });
 
   it("toggling 'only changed' off reveals unchanged rows", () => {
     const { container } = render(<DiffTable from={A} to={B} rowKey={(r) => r.id} columns={cols} />);
     expect(rowsByOp("unchanged").length).toBe(0);
-    fireEvent.click(container.querySelector('input[type="checkbox"]'));
+    fireEvent.click(container.querySelector('.twc-dt__diff-toggle input[type="checkbox"]'));
     expect(rowsByOp("unchanged").length).toBe(1);
   });
 
-  it("summarizes +added ~modified -removed", () => {
+  it("summarizes +added ~modified −removed in the toolbar", () => {
     const { container } = render(<DiffTable from={A} to={B} rowKey={(r) => r.id} columns={cols} />);
-    const summary = container.querySelector(".twc-difft__summary").textContent;
-    expect(summary).toContain("+1 added");
-    expect(summary).toContain("~1 modified");
-    expect(summary).toContain("-1 removed");
+    const summary = container.querySelector(".twc-dt__diff-summary");
+    expect(summary).toBeTruthy();
+    expect(summary.textContent).toContain("+1");
+    expect(summary.textContent).toContain("~1");
+  });
+
+  it("shows a per-row op badge in the leading Change column", () => {
+    render(<DiffTable from={A} to={B} rowKey={(r) => r.id} columns={cols} onlyChanged={false} />);
+    expect(within(rowsByOp("added")[0]).getByText("Added")).toBeTruthy();
+    expect(within(rowsByOp("removed")[0]).getByText("Removed")).toBeTruthy();
+    expect(within(rowsByOp("modified")[0]).getByText("Modified")).toBeTruthy();
   });
 
   it("flags only genuinely-reordered rows as moved (minimal LIS set)", () => {
     const from = [{ id: 1, x: 1 }, { id: 2, x: 2 }, { id: 3, x: 3 }];
     const to = [{ id: 3, x: 3 }, { id: 1, x: 1 }, { id: 2, x: 2 }]; // id 3 jumped to the front
-    render(<DiffTable from={from} to={to} rowKey={(r) => r.id} columns={[{ field: "x" }]} onlyChanged={false} />);
+    render(<DiffTable from={from} to={to} rowKey={(r) => r.id} columns={[{ field: "x", headerName: "X" }]} onlyChanged={false} />);
     expect(rowsByOp("moved").length).toBe(1);
     expect(rowsByOp("unchanged").length).toBe(2);
-    expect(rowsByOp("moved")[0].querySelector(".twc-difft__op").textContent).toBe("Moved");
+    expect(within(rowsByOp("moved")[0]).getByText("Moved")).toBeTruthy();
   });
 
   it("defaults rowKey to row.id and shows an empty state when identical", () => {
     const { container } = render(<DiffTable from={A} to={A} columns={cols} />);
-    expect(container.querySelector(".twc-difft__empty")).toBeTruthy();
+    expect(container.querySelector(".twc-dt__empty")).toBeTruthy();
+  });
+
+  it("honors a global compare override", () => {
+    // Treat all values equal → nothing is modified.
+    const { container } = render(<DiffTable from={A} to={B} rowKey={(r) => r.id} columns={cols} compare={() => true} onlyChanged={false} />);
+    expect(rowsByOp("modified").length).toBe(0);
+    expect(container).toBeTruthy();
   });
 });

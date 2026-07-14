@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"7d86a9831c4f","components/data-display/DiffTable.jsx":"5fc034ad8360","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"41b7413594bd","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"691f103de498","components/inputs/DateRangePicker.jsx":"5f46b4adc95e","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"273cec084ae7","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"b53669534cfc","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"9fe52df38764","components/inputs/TimePicker.jsx":"b5cedc49f13a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"868d4f2590f1","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"198f6afcd02b"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"faa18089d70a","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"41b7413594bd","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"691f103de498","components/inputs/DateRangePicker.jsx":"5f46b4adc95e","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"273cec084ae7","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"b53669534cfc","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"9fe52df38764","components/inputs/TimePicker.jsx":"b5cedc49f13a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"868d4f2590f1","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"198f6afcd02b"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -8198,6 +8198,76 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       }
     );
   }
+  var DIFF_OPS = {
+    added: { label: "Added", tone: "success" },
+    removed: { label: "Removed", tone: "danger" },
+    modified: { label: "Modified", tone: "warning" },
+    moved: { label: "Moved", tone: "info" },
+    unchanged: { label: "Unchanged", tone: "neutral" }
+  };
+  function lisIndexSet(seq) {
+    const n = seq.length;
+    if (n === 0) return /* @__PURE__ */ new Set();
+    const dp = new Array(n).fill(1), prev = new Array(n).fill(-1);
+    let best = 0;
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < i; j++) {
+        if (seq[j] < seq[i] && dp[j] + 1 > dp[i]) {
+          dp[i] = dp[j] + 1;
+          prev[i] = j;
+        }
+      }
+      if (dp[i] > dp[best]) best = i;
+    }
+    const set = /* @__PURE__ */ new Set();
+    for (let i = best; i !== -1; i = prev[i]) set.add(i);
+    return set;
+  }
+  var cellVal = (col, row) => col.valueGetter ? col.valueGetter(row) : row == null ? void 0 : row[col.field];
+  function classifyDiff(from = [], to = [], columns = [], rowKey, opts = {}) {
+    const { moveDetection = true, compare } = opts;
+    const k = rowKey || ((r2) => r2 == null ? r2 : r2.id);
+    const valEq = (a, b, col) => {
+      if (col.compare) return col.compare(a, b);
+      if (compare) return compare(a, b, col.field);
+      if (a === b) return true;
+      if (a == null || b == null) return a === b;
+      return JSON.stringify(a) === JSON.stringify(b);
+    };
+    const fromMap = /* @__PURE__ */ new Map(), toMap = /* @__PURE__ */ new Map();
+    from.forEach((r2, i) => fromMap.set(k(r2), { row: r2, i }));
+    to.forEach((r2, i) => toMap.set(k(r2), { row: r2, i }));
+    const movedKeys = /* @__PURE__ */ new Set();
+    if (moveDetection) {
+      const commonFrom = from.filter((r2) => toMap.has(k(r2)));
+      const seq = commonFrom.map((r2) => toMap.get(k(r2)).i);
+      const stable = lisIndexSet(seq);
+      commonFrom.forEach((r2, idx) => {
+        if (!stable.has(idx)) movedKeys.add(k(r2));
+      });
+    }
+    const classify = (key) => {
+      const a = fromMap.get(key), b = toMap.get(key);
+      if (a && !b) return { op: "removed", from: a.row, to: null, changed: /* @__PURE__ */ new Set() };
+      if (!a && b) return { op: "added", from: null, to: b.row, changed: /* @__PURE__ */ new Set() };
+      const changed = /* @__PURE__ */ new Set();
+      for (const col of columns) if (col.field && !valEq(cellVal(col, a.row), cellVal(col, b.row), col)) changed.add(col.field);
+      if (changed.size) return { op: "modified", from: a.row, to: b.row, changed };
+      if (movedKeys.has(key)) return { op: "moved", from: a.row, to: b.row, changed };
+      return { op: "unchanged", from: a.row, to: b.row, changed };
+    };
+    const rows = [];
+    to.forEach((r2) => rows.push({ key: k(r2), ...classify(k(r2)) }));
+    from.forEach((r2) => {
+      const key = k(r2);
+      if (!toMap.has(key)) rows.push({ key, ...classify(key) });
+    });
+    const counts = { added: 0, removed: 0, modified: 0, moved: 0, unchanged: 0 };
+    rows.forEach((r2) => {
+      counts[r2.op] += 1;
+    });
+    return { rows, counts };
+  }
   var DT_CSS = `
 .twc-dt { display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--color-text);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
@@ -8436,6 +8506,18 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 /* Row reordering */
 .twc-dt__row[data-reorderable] { cursor: grab; }
 .twc-dt__row[data-row-dragging] { opacity: 0.4; }
+/* #239 diff mode: row op tint + before\u2192after cells (single-line, clipped by the td's own overflow). */
+.twc-dt__row[data-op="added"] > .twc-dt__td { background: color-mix(in srgb, var(--color-success) 7%, transparent); }
+.twc-dt__row[data-op="removed"] > .twc-dt__td { background: color-mix(in srgb, var(--color-danger) 7%, transparent); }
+.twc-dt__row[data-op="modified"] > .twc-dt__td { background: color-mix(in srgb, var(--color-warning) 6%, transparent); }
+.twc-dt__diff-change { display: inline-flex; align-items: center; gap: 4px; min-width: 0; max-width: 100%; }
+.twc-dt__diff-old { text-decoration: line-through; color: var(--color-text-subtle); }
+.twc-dt__diff-new { color: var(--color-success-subtle-fg); font-weight: var(--font-medium); }
+.twc-dt__diff-arrow { color: var(--color-text-subtle); flex: none; }
+[dir="rtl"] .twc-dt__diff-arrow { transform: scaleX(-1); display: inline-block; }
+.twc-dt__diff-summary { display: inline-flex; align-items: center; gap: 4px; flex: none; }
+.twc-dt__diff-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-sm); color: var(--color-text-muted); cursor: pointer; white-space: nowrap; flex: none; }
+.twc-dt__diff-toggle input { width: 15px; height: 15px; accent-color: var(--color-primary); cursor: pointer; margin: 0; }
 .twc-dt__row[data-row-dropbefore] > .twc-dt__td { box-shadow: inset 0 3px 0 var(--color-primary); }
 .twc-dt__row[data-row-dropafter] > .twc-dt__td { box-shadow: inset 0 -3px 0 var(--color-primary); }
 /* Keyboard row reorder (grabbed) */
@@ -8697,6 +8779,38 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   var opsFor = (type) => type === "number" ? NUM_OPS : STR_OPS;
   var isMultiOp = (op) => op === "isAnyOf";
   var getColVal = (col, row) => col && col.valueGetter ? col.valueGetter(row) : row == null ? void 0 : row[col && col.field];
+  var diffValueNode = (col, v, row) => col.renderCell ? col.renderCell(v, row) : col.valueFormatter ? col.valueFormatter(v, row) : v == null ? "" : v;
+  function renderDiffCell(col, val, row) {
+    const meta = row && row.__diffMeta;
+    if (!meta) return diffValueNode(col, val, row);
+    if (meta.op === "removed") return import_react.default.createElement("span", { className: "twc-dt__diff-old" }, diffValueNode(col, getColVal(col, meta.from), meta.from));
+    if (meta.op === "added") return import_react.default.createElement("span", { className: "twc-dt__diff-new" }, diffValueNode(col, getColVal(col, meta.to), meta.to));
+    if (meta.op === "modified" && meta.changed.has(col.field)) {
+      return import_react.default.createElement(
+        "span",
+        { className: "twc-dt__diff-change" },
+        import_react.default.createElement("span", { className: "twc-dt__diff-old" }, diffValueNode(col, getColVal(col, meta.from), meta.from)),
+        import_react.default.createElement("span", { className: "twc-dt__diff-arrow", "aria-hidden": "true" }, "\u2192"),
+        import_react.default.createElement("span", { className: "twc-dt__diff-new" }, diffValueNode(col, getColVal(col, meta.to), meta.to))
+      );
+    }
+    return diffValueNode(col, val, row);
+  }
+  var DIFF_OP_COLUMN = {
+    field: "__diffop",
+    headerName: "Change",
+    width: 122,
+    pinned: "left",
+    sortable: true,
+    filterable: false,
+    groupable: true,
+    reorderable: false,
+    resizable: true,
+    wrappable: false,
+    hideable: false,
+    renderCell: (v) => v && DIFF_OPS[v] ? import_react.default.createElement(Badge, { size: "sm", variant: "soft", tone: DIFF_OPS[v].tone }, DIFF_OPS[v].label) : null,
+    exportValue: (v) => v && DIFF_OPS[v] ? DIFF_OPS[v].label : ""
+  };
   function testFilter(raw, op, target, type) {
     if (op === "isEmpty") return raw == null || raw === "";
     if (op === "isNotEmpty") return !(raw == null || raw === "");
@@ -9015,11 +9129,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     ]);
   }
   function Datatable({
-    columns,
-    rows,
+    columns: columnsProp,
+    rows: rowsProp = [],
     loading = false,
-    rowKey,
+    rowKey: rowKeyProp,
     checkboxSelection = false,
+    diff,
     density: densityProp = "comfortable",
     pageSize = 10,
     pageSizeOptions = [5, 10, 25, 50],
@@ -9072,6 +9187,29 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-dt-styles", DT_CSS);
+    const isDiff = !!diff;
+    const [diffOnly, setDiffOnly] = import_react.default.useState(diff && diff.onlyChanged !== void 0 ? diff.onlyChanged : true);
+    const diffRowKey = diff && diff.rowKey || rowKeyProp || ((r2) => r2 == null ? r2 : r2.id);
+    const diffData = import_react.default.useMemo(
+      () => isDiff ? classifyDiff(diff.from || [], diff.to || [], columnsProp, diffRowKey, { moveDetection: diff.moveDetection, compare: diff.compare }) : null,
+      [isDiff, diff, columnsProp]
+      // eslint-disable-line react-hooks/exhaustive-deps
+    );
+    const onClassifiedRef = import_react.default.useRef(diff && diff.onClassified);
+    onClassifiedRef.current = diff && diff.onClassified;
+    import_react.default.useEffect(() => {
+      if (diffData && onClassifiedRef.current) onClassifiedRef.current(diffData.counts);
+    }, [diffData]);
+    const diffRowKeyFn = import_react.default.useCallback((r2) => r2.__diffKey, []);
+    const columns = import_react.default.useMemo(
+      () => isDiff ? [DIFF_OP_COLUMN, ...columnsProp.map((c) => ({ ...c, renderCell: (val, row) => renderDiffCell(c, val, row) }))] : columnsProp,
+      [isDiff, columnsProp]
+    );
+    const rows = import_react.default.useMemo(
+      () => isDiff ? diffData.rows.filter((r2) => !diffOnly || r2.op !== "unchanged").map((r2) => ({ ...r2.to || r2.from, __diffop: r2.op, __diffMeta: r2, __diffKey: r2.key })) : rowsProp,
+      [isDiff, diffData, diffOnly, rowsProp]
+    );
+    const rowKey = isDiff ? diffRowKeyFn : rowKeyProp;
     const cols = import_react.default.useMemo(() => {
       const out = columns.map((c) => {
         const isActions = c.type === "actions";
@@ -10268,6 +10406,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           role: "row",
           "aria-rowindex": (paginated && !serverMode ? pageVal * sizeVal : 0) + ri + 2,
           "aria-selected": (checkboxSelection ? sel : rowActive) || void 0,
+          "data-op": row.__diffop || void 0,
           "data-selected": sel || void 0,
           "data-active": rowActive || void 0,
           "data-pinned-row": pinSide || void 0,
@@ -10517,6 +10656,28 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               i
             ))
           ] })
+        ] }) : null,
+        isDiff && diff.showSummary !== false ? /* @__PURE__ */ jsxs("span", { className: "twc-dt__diff-summary", "aria-label": "Diff summary", children: [
+          /* @__PURE__ */ jsxs(Badge, { size: "sm", variant: "soft", tone: "success", children: [
+            "+",
+            diffData.counts.added
+          ] }),
+          /* @__PURE__ */ jsxs(Badge, { size: "sm", variant: "soft", tone: "warning", children: [
+            "~",
+            diffData.counts.modified
+          ] }),
+          /* @__PURE__ */ jsxs(Badge, { size: "sm", variant: "soft", tone: "danger", children: [
+            "\u2212",
+            diffData.counts.removed
+          ] }),
+          diffData.counts.moved ? /* @__PURE__ */ jsxs(Badge, { size: "sm", variant: "soft", tone: "info", children: [
+            "\u21C5",
+            diffData.counts.moved
+          ] }) : null
+        ] }) : null,
+        isDiff && diff.showToggle !== false ? /* @__PURE__ */ jsxs("label", { className: "twc-dt__diff-toggle", children: [
+          /* @__PURE__ */ jsx("input", { type: "checkbox", checked: diffOnly, onChange: (e) => setDiffOnly(e.target.checked) }),
+          diff.toggleLabel != null ? diff.toggleLabel : "Only changed"
         ] }) : null,
         /* @__PURE__ */ jsxs(
           "button",
@@ -11854,55 +12015,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       ] }) : null
     ] });
   }
-  var DIFFTABLE_CSS = `
-.twc-difft { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-3); color: var(--color-text); }
-.twc-difft__head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
-.twc-difft__label { font-size: var(--text-sm); font-weight: var(--font-semibold); }
-.twc-difft__summary { display: inline-flex; flex-wrap: wrap; gap: var(--space-1-5); }
-.twc-difft__toggle { margin-inline-start: auto; }
-.twc-difft__scroll { overflow-x: auto; border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); }
-.twc-difft__table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
-.twc-difft__table th, .twc-difft__table td { text-align: start; padding: var(--space-2) var(--space-3); border-bottom: var(--border-thin) solid var(--color-divider); vertical-align: top; }
-.twc-difft__table thead th { position: sticky; top: 0; background: var(--color-surface-sunken); font-weight: var(--font-semibold); color: var(--color-text-muted); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.02em; white-space: nowrap; z-index: 1; }
-.twc-difft__table tbody tr:last-child td { border-bottom: none; }
-.twc-difft__table tbody tr[data-op="added"] { background: color-mix(in srgb, var(--color-success) 8%, transparent); }
-.twc-difft__table tbody tr[data-op="removed"] { background: color-mix(in srgb, var(--color-danger) 8%, transparent); }
-.twc-difft__table tbody tr[data-op="modified"] { background: color-mix(in srgb, var(--color-warning) 8%, transparent); }
-.twc-difft__op { white-space: nowrap; }
-.twc-difft__change { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 2px; }
-.twc-difft__old { text-decoration: line-through; color: var(--color-text-subtle); }
-.twc-difft__new { color: var(--color-success-subtle-fg); font-weight: var(--font-medium); }
-.twc-difft__arrow { margin-inline: 6px; color: var(--color-text-subtle); }
-.twc-difft__empty { padding: var(--space-8) var(--space-4); text-align: center; color: var(--color-text-muted); }
-[dir="rtl"] .twc-difft__arrow { transform: scaleX(-1); display: inline-block; }
-`;
-  var OPS = {
-    added: { label: "Added", tone: "success" },
-    removed: { label: "Removed", tone: "danger" },
-    modified: { label: "Modified", tone: "warning" },
-    moved: { label: "Moved", tone: "info" },
-    unchanged: { label: "Unchanged", tone: "neutral" }
-  };
-  function lisIndexSet(seq) {
-    const n = seq.length;
-    if (n === 0) return /* @__PURE__ */ new Set();
-    const dp = new Array(n).fill(1), prev = new Array(n).fill(-1);
-    let best = 0;
-    for (let i = 0; i < n; i++) {
-      for (let j = 0; j < i; j++) {
-        if (seq[j] < seq[i] && dp[j] + 1 > dp[i]) {
-          dp[i] = dp[j] + 1;
-          prev[i] = j;
-        }
-      }
-      if (dp[i] > dp[best]) best = i;
-    }
-    const set = /* @__PURE__ */ new Set();
-    for (let i = best; i !== -1; i = prev[i]) set.add(i);
-    return set;
-  }
-  var getVal = (col, row) => col.valueGetter ? col.valueGetter(row) : row == null ? void 0 : row[col.field];
-  var fmtVal = (col, v) => col.valueFormatter ? col.valueFormatter(v) : v == null ? "" : String(v);
+  var toDatatableColumn = (c) => ({
+    field: c.field,
+    headerName: typeof c.headerName === "string" ? c.headerName : c.field,
+    valueGetter: c.valueGetter,
+    valueFormatter: c.valueFormatter,
+    compare: c.compare
+  });
   function DiffTable({
     from = [],
     to = [],
@@ -11920,104 +12039,24 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     className = "",
     ...rest
   }) {
-    const styles = useScopedStyles("twc-difftable-styles", DIFFTABLE_CSS);
-    const autoId = import_react.default.useId();
-    const fieldId = id || autoId;
-    const [only, setOnly] = import_react.default.useState(onlyChanged);
-    const valEq = import_react.default.useCallback((a, b, col) => {
-      if (col.compare) return col.compare(a, b);
-      if (compare) return compare(a, b, col.field);
-      if (a === b) return true;
-      if (a == null || b == null) return a === b;
-      return JSON.stringify(a) === JSON.stringify(b);
-    }, [compare]);
-    const diff = import_react.default.useMemo(() => {
-      const k = rowKey || ((r2) => r2 == null ? r2 : r2.id);
-      const fromMap = /* @__PURE__ */ new Map(), toMap = /* @__PURE__ */ new Map();
-      from.forEach((r2, i) => fromMap.set(k(r2), { row: r2, i }));
-      to.forEach((r2, i) => toMap.set(k(r2), { row: r2, i }));
-      const movedKeys = /* @__PURE__ */ new Set();
-      if (moveDetection) {
-        const commonFrom = from.filter((r2) => toMap.has(k(r2)));
-        const seq = commonFrom.map((r2) => toMap.get(k(r2)).i);
-        const stable = lisIndexSet(seq);
-        commonFrom.forEach((r2, idx) => {
-          if (!stable.has(idx)) movedKeys.add(k(r2));
-        });
+    const dtColumns = import_react.default.useMemo(() => columns.map(toDatatableColumn), [columns]);
+    const diff = import_react.default.useMemo(
+      () => ({ from, to, rowKey, onlyChanged, showToggle, showSummary, moveDetection, compare, toggleLabel }),
+      [from, to, rowKey, onlyChanged, showToggle, showSummary, moveDetection, compare, toggleLabel]
+    );
+    const table = /* @__PURE__ */ jsx(
+      Datatable,
+      {
+        columns: dtColumns,
+        diff,
+        emptyMessage: emptyState,
+        ...label ? {} : { id, className, ...rest }
       }
-      const classify = (key) => {
-        const a = fromMap.get(key), b = toMap.get(key);
-        if (a && !b) return { op: "removed", from: a.row, to: null, changed: /* @__PURE__ */ new Set() };
-        if (!a && b) return { op: "added", from: null, to: b.row, changed: /* @__PURE__ */ new Set() };
-        const changed = /* @__PURE__ */ new Set();
-        for (const col of columns) if (!valEq(getVal(col, a.row), getVal(col, b.row), col)) changed.add(col.field);
-        if (changed.size) return { op: "modified", from: a.row, to: b.row, changed };
-        if (movedKeys.has(key)) return { op: "moved", from: a.row, to: b.row, changed };
-        return { op: "unchanged", from: a.row, to: b.row, changed };
-      };
-      const rows = [];
-      to.forEach((r2) => rows.push({ key: k(r2), ...classify(k(r2)) }));
-      from.forEach((r2) => {
-        const key = k(r2);
-        if (!toMap.has(key)) rows.push({ key, ...classify(key) });
-      });
-      const counts = { added: 0, removed: 0, modified: 0, moved: 0, unchanged: 0 };
-      rows.forEach((r2) => {
-        counts[r2.op] += 1;
-      });
-      return { rows, counts };
-    }, [from, to, columns, rowKey, moveDetection, valEq]);
-    const visible = only ? diff.rows.filter((r2) => r2.op !== "unchanged") : diff.rows;
-    const renderCell = (r2, col) => {
-      if (r2.op === "removed") return /* @__PURE__ */ jsx("span", { className: "twc-difft__old", children: fmtVal(col, getVal(col, r2.from)) });
-      if (r2.op === "added") return /* @__PURE__ */ jsx("span", { className: "twc-difft__new", children: fmtVal(col, getVal(col, r2.to)) });
-      if (r2.op === "modified" && r2.changed.has(col.field)) {
-        return /* @__PURE__ */ jsxs("span", { className: "twc-difft__change", children: [
-          /* @__PURE__ */ jsx("span", { className: "twc-difft__old", children: fmtVal(col, getVal(col, r2.from)) }),
-          /* @__PURE__ */ jsx("span", { className: "twc-difft__arrow", "aria-hidden": "true", children: "\u2192" }),
-          /* @__PURE__ */ jsx("span", { className: "twc-difft__new", children: fmtVal(col, getVal(col, r2.to)) })
-        ] });
-      }
-      return /* @__PURE__ */ jsx("span", { children: fmtVal(col, getVal(col, r2.to ?? r2.from)) });
-    };
-    return /* @__PURE__ */ jsxs("div", { className: `twc-difft ${className}`, id: fieldId, ...rest, children: [
-      styles,
-      label || showSummary || showToggle ? /* @__PURE__ */ jsxs("div", { className: "twc-difft__head", children: [
-        label ? /* @__PURE__ */ jsx("div", { className: "twc-difft__label", children: label }) : null,
-        showSummary ? /* @__PURE__ */ jsxs("div", { className: "twc-difft__summary", children: [
-          /* @__PURE__ */ jsxs(Badge, { size: "sm", variant: "soft", tone: "success", children: [
-            "+",
-            diff.counts.added,
-            " added"
-          ] }),
-          /* @__PURE__ */ jsxs(Badge, { size: "sm", variant: "soft", tone: "warning", children: [
-            "~",
-            diff.counts.modified,
-            " modified"
-          ] }),
-          /* @__PURE__ */ jsxs(Badge, { size: "sm", variant: "soft", tone: "danger", children: [
-            "-",
-            diff.counts.removed,
-            " removed"
-          ] }),
-          diff.counts.moved ? /* @__PURE__ */ jsxs(Badge, { size: "sm", variant: "soft", tone: "info", children: [
-            "\u21C5 ",
-            diff.counts.moved,
-            " moved"
-          ] }) : null
-        ] }) : null,
-        showToggle ? /* @__PURE__ */ jsx("div", { className: "twc-difft__toggle", children: /* @__PURE__ */ jsx(Checkbox, { label: toggleLabel, checked: only, onChange: (e) => setOnly(e.target.checked) }) }) : null
-      ] }) : null,
-      /* @__PURE__ */ jsx("div", { className: "twc-difft__scroll", children: /* @__PURE__ */ jsxs("table", { className: "twc-difft__table", children: [
-        /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { children: [
-          /* @__PURE__ */ jsx("th", { scope: "col", children: "Change" }),
-          columns.map((c) => /* @__PURE__ */ jsx("th", { scope: "col", children: c.headerName || c.field }, c.field))
-        ] }) }),
-        /* @__PURE__ */ jsx("tbody", { children: visible.length === 0 ? /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx("td", { className: "twc-difft__empty", colSpan: columns.length + 1, children: emptyState }) }) : visible.map((r2) => /* @__PURE__ */ jsxs("tr", { "data-op": r2.op, children: [
-          /* @__PURE__ */ jsx("td", { className: "twc-difft__op", children: /* @__PURE__ */ jsx(Badge, { size: "sm", variant: "soft", tone: OPS[r2.op].tone, children: OPS[r2.op].label }) }),
-          columns.map((c) => /* @__PURE__ */ jsx("td", { children: renderCell(r2, c) }, c.field))
-        ] }, r2.key)) })
-      ] }) })
+    );
+    if (!label) return table;
+    return /* @__PURE__ */ jsxs("div", { id, className, ...rest, style: { display: "flex", flexDirection: "column", gap: "var(--space-2)", fontFamily: "var(--font-sans)" }, children: [
+      /* @__PURE__ */ jsx("div", { style: { fontSize: "var(--text-sm)", fontWeight: "var(--font-semibold)", color: "var(--color-text)" }, children: label }),
+      table
     ] });
   }
   var FIELD_CSS3 = `
