@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.15.0](https://github.com/EncryptionL/twico-ui/compare/v1.14.1...v1.15.0) (2026-07-14)
+
+
+### Features
+
+* **datatable:** add `diff` mode — re-home DiffTable on the Datatable engine ([#239](https://github.com/EncryptionL/twico-ui/issues/239)) ([d7cf524](https://github.com/EncryptionL/twico-ui/commit/d7cf524e44e579318b36ead62aa13b832142cd89)), closes [#205](https://github.com/EncryptionL/twico-ui/issues/205)
+
 ## [1.14.1](https://github.com/EncryptionL/twico-ui/compare/v1.14.0...v1.14.1) (2026-07-14)
 
 
