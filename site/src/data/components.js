@@ -5716,6 +5716,27 @@ export const components = [
         "description": "Restrict the toolbar quick-search to these column `field`s (client mode); defaults to every visible column. Mirrors `runDatatableQuery`'s `options.searchFields`."
       },
       {
+        "prop": "searchable",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render the built-in toolbar quick-search box; set false to externalize search with your own input wired to quickFilter (CardGrid parity)."
+      },
+      {
+        "prop": "quickFilter",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Controlled quick-search string; pair with onQuickFilterChange to drive search from outside (the value flows into client filtering and the onServerChange query)."
+      },
+      {
+        "prop": "onQuickFilterChange",
+        "type": "(value: string) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the new quick-search string as the user types in the built-in box (and when a host sets it)."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,

@@ -824,6 +824,9 @@ export function Datatable({
   showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [],
   rowNumbers = false,
   searchFields = null,
+  searchable = true,
+  quickFilter,
+  onQuickFilterChange,
   rowPinning = false, rowReorder = false, rowResize = false, onRowOrderChange,
   pivot = null, pivotMode = false,
   virtualized = false, overscan = 8, rowHeight,
@@ -887,7 +890,11 @@ export function Datatable({
     return { left, right };
   });
   const [density, setDensity] = React.useState(densityProp);
-  const [quick, setQuick] = React.useState("");
+  // #235: quick-search is controllable — a host can externalize it (searchable={false} + its own
+  // Input wired to quickFilter), mirroring CardGrid. Uncontrolled unless `quickFilter` is provided.
+  const [internalQuick, setInternalQuick] = React.useState("");
+  const quick = quickFilter !== undefined ? quickFilter : internalQuick;
+  const commitQuick = (v) => { onQuickFilterChange?.(v); if (quickFilter === undefined) setInternalQuick(v); commitPage(0); };
   const [selected, setSelected] = React.useState(() => new Set());
   const [activeRow, setActiveRow] = React.useState(null);
   const [activeCell, setActiveCell] = React.useState(null); // { key, field }
@@ -1697,7 +1704,8 @@ export function Datatable({
 
   // ---- Inline editing ----
   const [editing, setEditing] = React.useState(null); // { key, field, value }
-  const isColEditable = (c) => c.type !== "actions" && (c.editable ?? (editMode && c.editable !== false));
+  // #236: a `renderEditCell` column is editable too (unless `editable: false`).
+  const isColEditable = (c) => c.type !== "actions" && c.editable !== false && (c.editable === true || c.renderEditCell != null || editMode);
 
   function beginEdit(rowK, col, row) {
     if (!isColEditable(col)) return;
@@ -1937,9 +1945,19 @@ export function Datatable({
                   </span>
                 </span>
               ) : isEditing ? (
-                <EditCell col={c} value={editing.value} options={c.valueOptions ? optionsForField(c.field) : null}
-                  onChange={(v) => setEditing((e) => ({ ...e, value: v }))}
-                  onCommit={() => commitEdit()} onCommitValue={(v) => commitEdit(v)} onCancel={cancelEdit} onKeyDown={onEditKey} />
+                c.renderEditCell ? (
+                  // #236: full escape hatch — the host drops in its own editor (searchable/creatable/
+                  // async Combobox, …) and drives the lifecycle via commit/cancel. Wrapped in
+                  // .twc-dt__editor-wrap so inline clicks (and any .twc-pop portal dropdown) don't
+                  // trip the outside-click auto-cancel.
+                  <div className="twc-dt__editor-wrap">
+                    {c.renderEditCell({ value: editing.value, row, field: c.field, commit: (v) => commitEdit(v), cancel: cancelEdit })}
+                  </div>
+                ) : (
+                  <EditCell col={c} value={editing.value} options={c.valueOptions ? optionsForField(c.field) : null}
+                    onChange={(v) => setEditing((e) => ({ ...e, value: v }))}
+                    onCommit={() => commitEdit()} onCommitValue={(v) => commitEdit(v)} onCancel={cancelEdit} onKeyDown={onEditKey} />
+                )
               ) : isActions ? renderActions(c, row) : c.renderCell ? c.renderCell(val, row) : c.valueFormatter ? c.valueFormatter(val, row) : val}
               {editable && !isEditing ? <span className="twc-dt__edit-hint" aria-hidden="true"><Svg d={I.pencil} /></span> : null}
             </td>
@@ -2114,10 +2132,12 @@ export function Datatable({
             </button>
           </span>
         ) : null}
-        <div className="twc-dt__search">
-          <Svg d={I.search} />
-          <input placeholder="Search…" aria-label="Search rows" value={quick} onChange={(e) => { setQuick(e.target.value); commitPage(0); }} />
-        </div>
+        {searchable ? (
+          <div className="twc-dt__search">
+            <Svg d={I.search} />
+            <input placeholder="Search…" aria-label="Search rows" value={quick} onChange={(e) => commitQuick(e.target.value)} />
+          </div>
+        ) : null}
       </div>
 
       {/* Active row-grouping chips */}

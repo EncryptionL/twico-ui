@@ -1606,6 +1606,9 @@ Props:
 - `rowHeight` — `number` — Estimated/fixed row height in px used to compute the virtualization window. Set if rows have a custom height so the scrollbar stays accurate.
 - `rowNumbers` — `boolean` · default `false` — Render a leading auto-numbered row column (1, 2, 3…). The number reflects each row's position in the current sorted/filtered order and continues across pages (page 2 starts where page 1 ended; in server mode it uses the current page × pageSize). Sits after the checkbox column, sticky-left. This prop is the initial state — when enabled, users can hide/show the column from the toolbar's **Columns** panel ("Row number").
 - `searchFields` — `string[]` — Restrict the toolbar quick-search to these column `field`s (client mode); defaults to every visible column. Mirrors `runDatatableQuery`'s `options.searchFields`.
+- `searchable` — `boolean` · default `true` — Render the built-in toolbar quick-search box; set false to externalize search with your own input wired to quickFilter (CardGrid parity).
+- `quickFilter` — `string` — Controlled quick-search string; pair with onQuickFilterChange to drive search from outside (the value flows into client filtering and the onServerChange query).
+- `onQuickFilterChange` — `(value: string) => void` — Fires with the new quick-search string as the user types in the built-in box (and when a host sets it).
 
 ```jsx
 import { useState } from "react";

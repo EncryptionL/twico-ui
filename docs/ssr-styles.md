@@ -40,6 +40,16 @@ export function Card({ children }) {
   return when open — they aren't SSR-visible when closed, so that's fine.
 - The CSS string stays a **constant** (never built from props). Shared ids (the input family's
   `twc-field-styles`) dedupe naturally via React 19's `href` dedup.
+- **Critical invariant — a shared id must carry byte-identical CSS everywhere it's used.** React 19
+  dedupes hoisted `<style>` by `href` and keeps the **first** content it sees; later renders of the
+  same id with **different** content are silently ignored. So if two components share an id but pass
+  different CSS, whichever mounts first wins and the other's rules vanish. **#234:** `Input` had stuffed
+  its whole `.twc-input` box (border/background/focus) into the shared `twc-field-styles`, whose sibling
+  content (DatePicker, …) is the shorter `.twc-field*`-only set — so when a sibling mounted first, the
+  input rendered borderless/invisible. Fix: component-specific rules live under a **component-unique** id
+  (Input's box moved to `twc-input-extra-styles`); the shared id carries only the identical `.twc-field*`
+  rules. Guarded by [`tests/scoped-style-id-dedup.test.js`](../tests/scoped-style-id-dedup.test.js), which
+  fails if any id maps to more than one CSS body.
 - It is the **one** shared internal import a component may have beyond `react`/`react-dom`.
 
 ## Verifying
