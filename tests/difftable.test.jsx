@@ -1,5 +1,5 @@
 import React from "react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { render, fireEvent, within } from "@testing-library/react";
 import { DiffTable } from "../components/data-display/DiffTable.jsx";
 
