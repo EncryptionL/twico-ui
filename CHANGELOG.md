@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.15.1](https://github.com/EncryptionL/twico-ui/compare/v1.15.0...v1.15.1) (2026-07-14)
+
+
+### Bug Fixes
+
+* **datatable:** keep pinned cells opaque in diff mode ([#242](https://github.com/EncryptionL/twico-ui/issues/242)) ([072b15e](https://github.com/EncryptionL/twico-ui/commit/072b15ea73443ad535b3f149d8b620618702b389)), closes [#239](https://github.com/EncryptionL/twico-ui/issues/239)
+
 # [1.15.0](https://github.com/EncryptionL/twico-ui/compare/v1.14.1...v1.15.0) (2026-07-14)
 
 
