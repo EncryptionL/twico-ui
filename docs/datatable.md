@@ -123,6 +123,49 @@ async loading. `DatatableColumn.renderEditCell` is a full escape hatch:
 - Pairs with the filter-side `loadValueOptions` (#232): the same master vocabulary can back both the
   column **filter** and the cell **editor**.
 
+## Diff mode — `diff` (#239)
+
+`DiffTable` (#205) was functionally right but rendered its own bare `<table>`, so it had none of
+Datatable's polish — modified rows ballooned (`before → after` cells `flex-wrap`ped, top-aligned), with
+no density, resize, pin, sort, filter, virtualization, or grouping. **#239 re-homes the diff feature on
+the Datatable engine.** Set the additive `diff` prop and the grid pairs `diff.from`↔`diff.to`, classifies
+each row, and renders modified cells as `before → after` — **through the same render path**, so density,
+resize, pin, reorder, sort, filter, quick-search, grouping, export, virtualization, and pagination all
+apply for free.
+
+```tsx
+<Datatable
+  columns={columns}
+  density="compact" showDensity showExport virtualized height={560}
+  diff={{ from, to, rowKey: (r) => r.sku, onlyChanged: true }}
+/>
+```
+
+**How it works.** `diff` is implemented as a **transform at the top of the component**: `columns`/`rows`
+are shadowed by effective versions — `classifyDiff` (the shared `components/_diff.js`) pairs and
+classifies, then the effective `rows` are the classified rows (base = `to ?? from`, filtered by the
+only-changed toggle, carrying `__diffMeta`) keyed by the business key, and the effective `columns` are the
+user columns wrapped with a diff-aware `renderCell` plus a **prepended, left-pinned "Change" op-badge
+column**. Everything downstream (the entire existing engine) then operates on the transformed data, which
+is why every feature is inherited without touching those code paths. A **toolbar summary** (`+N ~M −K` and
+`⇅ moved`) and an **only-changed toggle** are injected; rows are tinted by op (`data-op` on the `<tr>`).
+
+- **Modified cells are single-line/clipped by default** (the `.twc-dt__diff-change` span is
+  `inline-flex` with no wrap, clipped by the cell's own overflow) — no more tall ragged rows. Turn on a
+  column's **wrap-text** (menu or `wrapText`) to wrap; widen with resize; freeze with pin.
+- **Per-field modified detection:** a row is `modified` only if ≥1 column's value differs; only those
+  cells show `before → after`. Equality precedence: `column.compare` → `diff.compare` → `valueGetter`/`===`
+  → JSON compare. **`moveDetection`** (LIS-minimal, default on) flags same-value repositioned rows as `moved`.
+- **`DatatableDiff`** props: `from`, `to`, `rowKey` (falls back to the table `rowKey`, then `row.id`),
+  `onlyChanged` (default true), `showToggle`, `showSummary`, `moveDetection`, `compare`, `toggleLabel`,
+  `onClassified(summary)`. `DatatableColumn` gains an optional `compare?: (a, b) => boolean`.
+- **Ignored in diff mode:** `rows`, `serverMode`, `editMode`, `onRowUpdate`, `onRowsChange` (`rows` is now
+  optional on `DatatableProps` — required only when `diff` is unset).
+- **`DiffTable` is kept, API unchanged** (#205 signature), now a thin wrapper that delegates to
+  `<Datatable diff={…} />` (mapping `DiffTableColumn` → `DatatableColumn`; a non-string `headerName`
+  falls back to `field`, and its single-arg `rowKey` is forwarded as `diff.rowKey`). Existing `DiffTable`
+  callers change nothing and get the better layout automatically.
+
 ## Controlled pagination (#45)
 
 Page and page size are **uncontrolled by default** but can be driven externally, following the

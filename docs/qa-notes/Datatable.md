@@ -39,6 +39,16 @@
   select/text editor, and is wrapped in `.twc-dt__editor-wrap`; twico overlay dropdowns portal as `.twc-pop`,
   both exempt from the outside-click auto-cancel so a Combobox popover works inside the cell. Pairs with
   `loadValueOptions` (#232) to back both filter + editor from one master vocabulary. — added 2026-07-14
+- **[#239] `diff` mode** — re-homes the diff feature (was standalone `DiffTable`) onto the Datatable engine.
+  Implemented as a top-of-component transform: `columns`/`rows` are shadowed — `classifyDiff` (shared
+  `components/_diff.js`) pairs `diff.from`↔`diff.to` + classifies; effective rows = classified rows (base
+  `to ?? from`, only-changed filtered, carrying `__diffMeta`, keyed by business key); effective columns =
+  user columns wrapped with a diff-aware `renderCell` + a prepended left-pinned "Change" op-badge column.
+  The whole existing engine then renders it, so density/resize/pin/reorder/sort/filter/quick-search/
+  grouping/export/virtualization/pagination are all inherited. Toolbar summary (`+N ~M −K ⇅`) + only-changed
+  toggle injected; rows tinted via `data-op`. Modified cells are single-line/clipped (no `flex-wrap`
+  blowup). `DatatableColumn.compare` added; `rows` made optional. `DiffTable` kept as a thin wrapper
+  (API unchanged) delegating to `<Datatable diff={…} />`. — added 2026-07-14
 
 ## Verified OK
 

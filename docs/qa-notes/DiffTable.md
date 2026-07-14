@@ -1,8 +1,15 @@
 # QA notes — DiffTable
 
 - **Group:** data-display
-- **Status:** clean (new)
+- **Status:** clean
 - **Added:** 2026-07-10 (#205)
+- **Re-homed:** 2026-07-14 (#239) — DiffTable is now a **thin wrapper** over `Datatable`'s `diff` mode
+  (public API unchanged). Its own bare-`<table>` renderer was removed; it maps `DiffTableColumn` →
+  `DatatableColumn` and delegates to `<Datatable diff={{ from, to, rowKey, onlyChanged, showToggle,
+  showSummary, moveDetection, compare, toggleLabel }} emptyMessage={emptyState} />`. So a diff now inherits
+  density, resize, pin, sort, filter, grouping, export, virtualization, and single-line before→after cells.
+  The diff engine (`classifyDiff`/LIS) moved to `components/_diff.js`, shared by both. See
+  [Datatable.md](./Datatable.md) → #239 and [../datatable.md](../datatable.md) → "Diff mode".
 
 ## Why it exists
 

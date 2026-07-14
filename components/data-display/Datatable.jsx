@@ -5,6 +5,8 @@ import { Input } from "../inputs/Input.jsx";
 import { MultiSelect } from "../inputs/MultiSelect.jsx";
 import { Pagination } from "./Pagination.jsx";
 import { Tooltip } from "../overlay/Tooltip.jsx";
+import { Badge } from "./Badge.jsx";
+import { classifyDiff, DIFF_OPS } from "../_diff.js";
 
 const DT_CSS = `
 .twc-dt { display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--color-text);
@@ -244,6 +246,18 @@ const DT_CSS = `
 /* Row reordering */
 .twc-dt__row[data-reorderable] { cursor: grab; }
 .twc-dt__row[data-row-dragging] { opacity: 0.4; }
+/* #239 diff mode: row op tint + before→after cells (single-line, clipped by the td's own overflow). */
+.twc-dt__row[data-op="added"] > .twc-dt__td { background: color-mix(in srgb, var(--color-success) 7%, transparent); }
+.twc-dt__row[data-op="removed"] > .twc-dt__td { background: color-mix(in srgb, var(--color-danger) 7%, transparent); }
+.twc-dt__row[data-op="modified"] > .twc-dt__td { background: color-mix(in srgb, var(--color-warning) 6%, transparent); }
+.twc-dt__diff-change { display: inline-flex; align-items: center; gap: 4px; min-width: 0; max-width: 100%; }
+.twc-dt__diff-old { text-decoration: line-through; color: var(--color-text-subtle); }
+.twc-dt__diff-new { color: var(--color-success-subtle-fg); font-weight: var(--font-medium); }
+.twc-dt__diff-arrow { color: var(--color-text-subtle); flex: none; }
+[dir="rtl"] .twc-dt__diff-arrow { transform: scaleX(-1); display: inline-block; }
+.twc-dt__diff-summary { display: inline-flex; align-items: center; gap: 4px; flex: none; }
+.twc-dt__diff-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-sm); color: var(--color-text-muted); cursor: pointer; white-space: nowrap; flex: none; }
+.twc-dt__diff-toggle input { width: 15px; height: 15px; accent-color: var(--color-primary); cursor: pointer; margin: 0; }
 .twc-dt__row[data-row-dropbefore] > .twc-dt__td { box-shadow: inset 0 3px 0 var(--color-primary); }
 .twc-dt__row[data-row-dropafter] > .twc-dt__td { box-shadow: inset 0 -3px 0 var(--color-primary); }
 /* Keyboard row reorder (grabbed) */
@@ -513,6 +527,32 @@ const isMultiOp = (op) => op === "isAnyOf";
 // Crash-safe when `col` is missing (row[undefined] → undefined), so callers can pass `{ field }`.
 const getColVal = (col, row) =>
   col && col.valueGetter ? col.valueGetter(row) : row == null ? undefined : row[col && col.field];
+
+// #239 diff mode: render one value through the ORIGINAL column's renderer.
+const diffValueNode = (col, v, row) =>
+  (col.renderCell ? col.renderCell(v, row) : col.valueFormatter ? col.valueFormatter(v, row) : v == null ? "" : v);
+// The diff-aware cell for a wrapped column: before→after for a changed cell, old for removed,
+// new for added, else the plain (current) value. Single-line/clipped by CSS (no flex-wrap blowup).
+function renderDiffCell(col, val, row) {
+  const meta = row && row.__diffMeta;
+  if (!meta) return diffValueNode(col, val, row);
+  if (meta.op === "removed") return React.createElement("span", { className: "twc-dt__diff-old" }, diffValueNode(col, getColVal(col, meta.from), meta.from));
+  if (meta.op === "added") return React.createElement("span", { className: "twc-dt__diff-new" }, diffValueNode(col, getColVal(col, meta.to), meta.to));
+  if (meta.op === "modified" && meta.changed.has(col.field)) {
+    return React.createElement("span", { className: "twc-dt__diff-change" },
+      React.createElement("span", { className: "twc-dt__diff-old" }, diffValueNode(col, getColVal(col, meta.from), meta.from)),
+      React.createElement("span", { className: "twc-dt__diff-arrow", "aria-hidden": "true" }, "→"),
+      React.createElement("span", { className: "twc-dt__diff-new" }, diffValueNode(col, getColVal(col, meta.to), meta.to)));
+  }
+  return diffValueNode(col, val, row);
+}
+// The synthetic leading "Change" column carrying the per-row op badge.
+const DIFF_OP_COLUMN = {
+  field: "__diffop", headerName: "Change", width: 122, pinned: "left",
+  sortable: true, filterable: false, groupable: true, reorderable: false, resizable: true, wrappable: false, hideable: false,
+  renderCell: (v) => (v && DIFF_OPS[v] ? React.createElement(Badge, { size: "sm", variant: "soft", tone: DIFF_OPS[v].tone }, DIFF_OPS[v].label) : null),
+  exportValue: (v) => (v && DIFF_OPS[v] ? DIFF_OPS[v].label : ""),
+};
 
 function testFilter(raw, op, target, type) {
   if (op === "isEmpty") return raw == null || raw === "";
@@ -811,7 +851,8 @@ function xlsxPackage(sheetXml) {
 }
 
 export function Datatable({
-  columns, rows, loading = false, rowKey, checkboxSelection = false,
+  columns: columnsProp, rows: rowsProp = [], loading = false, rowKey: rowKeyProp, checkboxSelection = false,
+  diff,
   density: densityProp = "comfortable", pageSize = 10, pageSizeOptions = [5, 10, 25, 50],
   page, onPageChange, onPageSizeChange,
   height = 440, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [],
@@ -833,6 +874,31 @@ export function Datatable({
   className = "", ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-dt-styles", DT_CSS);
+
+  // #239: diff mode. When `diff` is set, pair diff.from↔diff.to, classify each row, and render
+  // before→after through THIS engine — so density, resize, pin, reorder, sort, filter, grouping,
+  // export, virtualization, and pagination all apply. `rows` is ignored; `columns` is wrapped with a
+  // leading op-badge column. serverMode/editMode/onRowUpdate/onRowsChange are not meaningful in diff mode.
+  const isDiff = !!diff;
+  const [diffOnly, setDiffOnly] = React.useState(diff && diff.onlyChanged !== undefined ? diff.onlyChanged : true);
+  const diffRowKey = (diff && diff.rowKey) || rowKeyProp || ((r) => (r == null ? r : r.id));
+  const diffData = React.useMemo(
+    () => (isDiff ? classifyDiff(diff.from || [], diff.to || [], columnsProp, diffRowKey, { moveDetection: diff.moveDetection, compare: diff.compare }) : null),
+    [isDiff, diff, columnsProp], // eslint-disable-line react-hooks/exhaustive-deps
+  );
+  const onClassifiedRef = React.useRef(diff && diff.onClassified);
+  onClassifiedRef.current = diff && diff.onClassified;
+  React.useEffect(() => { if (diffData && onClassifiedRef.current) onClassifiedRef.current(diffData.counts); }, [diffData]);
+  const diffRowKeyFn = React.useCallback((r) => r.__diffKey, []);
+  const columns = React.useMemo(
+    () => (isDiff ? [DIFF_OP_COLUMN, ...columnsProp.map((c) => ({ ...c, renderCell: (val, row) => renderDiffCell(c, val, row) }))] : columnsProp),
+    [isDiff, columnsProp],
+  );
+  const rows = React.useMemo(
+    () => (isDiff ? diffData.rows.filter((r) => !diffOnly || r.op !== "unchanged").map((r) => ({ ...(r.to || r.from), __diffop: r.op, __diffMeta: r, __diffKey: r.key })) : rowsProp),
+    [isDiff, diffData, diffOnly, rowsProp],
+  );
+  const rowKey = isDiff ? diffRowKeyFn : rowKeyProp;
 
   const cols = React.useMemo(() => {
     const out = columns.map((c) => {
@@ -1887,6 +1953,7 @@ export function Datatable({
     return (
       <tr key={(pinSide ? "p-" : "") + k} className="twc-dt__row" role="row" aria-rowindex={(paginated && !serverMode ? pageVal * sizeVal : 0) + ri + 2}
         aria-selected={(checkboxSelection ? sel : rowActive) || undefined}
+        data-op={row.__diffop || undefined}
         data-selected={sel || undefined} data-active={rowActive || undefined}
         data-pinned-row={pinSide || undefined}
         data-reorderable={reorderable || undefined}
@@ -2095,6 +2162,20 @@ export function Datatable({
               ))}
             </div>
           </div>
+        ) : null}
+        {isDiff && diff.showSummary !== false ? (
+          <span className="twc-dt__diff-summary" aria-label="Diff summary">
+            <Badge size="sm" variant="soft" tone="success">+{diffData.counts.added}</Badge>
+            <Badge size="sm" variant="soft" tone="warning">~{diffData.counts.modified}</Badge>
+            <Badge size="sm" variant="soft" tone="danger">−{diffData.counts.removed}</Badge>
+            {diffData.counts.moved ? <Badge size="sm" variant="soft" tone="info">⇅{diffData.counts.moved}</Badge> : null}
+          </span>
+        ) : null}
+        {isDiff && diff.showToggle !== false ? (
+          <label className="twc-dt__diff-toggle">
+            <input type="checkbox" checked={diffOnly} onChange={(e) => setDiffOnly(e.target.checked)} />
+            {diff.toggleLabel != null ? diff.toggleLabel : "Only changed"}
+          </label>
         ) : null}
         <button type="button" className="twc-dt__tbtn" data-active={panel === "columns" || undefined} data-tip="Show or hide columns"
           onClick={(e) => { if (panel === "columns") { setPanel(null); closePanel(); } else { setColQuery(""); setPanel("columns"); setColMenu(null); openPanel(e.currentTarget, "left", 268); } }}>

@@ -14,11 +14,51 @@ import * as React from "react";
  *
  * @startingPoint section="Data display" subtitle="MUI-style sortable/filterable/pinnable data table" viewport="900x460"
  */
+/** Op counts returned to `DatatableDiff.onClassified` (and shown in the toolbar summary). */
+export interface DiffSummary {
+  added: number;
+  removed: number;
+  modified: number;
+  moved: number;
+  unchanged: number;
+}
+
+/** Diff payload for `Datatable`'s `diff` mode (#239). */
+export interface DatatableDiff<T = any> {
+  /** "before" rows (version A). */
+  from: T[];
+  /** "after" rows (version B). The table's own `rows` is ignored when `diff` is set. */
+  to: T[];
+  /** Stable business key to pair A↔B. Falls back to the table's `rowKey`, then `row.id`. */
+  rowKey?: (row: T) => React.Key;
+  /** Hide unchanged rows (initial state of the built-in toggle). @default true */
+  onlyChanged?: boolean;
+  /** Render the "only changed" toggle in the toolbar. @default true */
+  showToggle?: boolean;
+  /** Render the +added ~modified −removed (+ ⇅ moved) summary badges in the toolbar. @default true */
+  showSummary?: boolean;
+  /** Classify same-value, re-positioned rows as "moved" (LIS-minimal). @default true */
+  moveDetection?: boolean;
+  /** Global equality override; falls back to a column's `compare`, then `===`, then a JSON compare. */
+  compare?: (a: any, b: any, field: string) => boolean;
+  /** Label for the only-changed toggle. @default "Only changed" */
+  toggleLabel?: React.ReactNode;
+  /** Called after classification with the op counts (e.g. to drive an external summary). */
+  onClassified?: (summary: DiffSummary) => void;
+}
+
 export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLDivElement>, "rows"> {
   /** Column definitions. */
   columns: DatatableColumn<T>[];
-  /** Row objects. In server mode, only the current page's rows. */
-  rows: T[];
+  /** Row objects. In server mode, only the current page's rows. Optional (and ignored) when `diff` is set. */
+  rows?: T[];
+  /** Turn the grid into a two-dataset **diff** (#239). When set, the table pairs `diff.from`↔`diff.to`
+   *  on a business key, classifies each row added/removed/modified/moved/unchanged, and renders modified
+   *  cells as `before → after` — all through this same engine, so density, resize, pin, reorder, sort,
+   *  filter, quick-search, grouping, export, virtualization, and pagination apply. A leading "Change"
+   *  op-badge column is prepended, and a summary + only-changed toggle appear in the toolbar. `rows`,
+   *  `serverMode`, `editMode`, `onRowUpdate`, and `onRowsChange` are ignored in diff mode. */
+  diff?: DatatableDiff<T>;
   /** Show shimmering skeleton rows instead of data. @default false */
   loading?: boolean;
   /** Returns a stable key per row. @default (r,i) => r.id ?? i */
@@ -285,6 +325,9 @@ export interface DatatableColumn<T = any> {
   valueFormatter?: (value: any, row: T) => React.ReactNode;
   /** Fully custom cell renderer (badges, avatars, etc.). */
   renderCell?: (value: any, row: T) => React.ReactNode;
+  /** Diff-mode (#239) per-column equality override — return true when the two values are equal.
+   *  Precedence: column.compare → diff.compare → valueGetter/=== → JSON compare. */
+  compare?: (a: any, b: any) => boolean;
   /** For type:"actions" — returns the row's action items. */
   getActions?: (row: T) => DatatableRowAction<T>[];
 }
