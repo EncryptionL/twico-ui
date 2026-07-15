@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.17.0](https://github.com/EncryptionL/twico-ui/compare/v1.16.0...v1.17.0) (2026-07-15)
+
+
+### Features
+
+* **datatable:** batch action anchorEl + renderBatchEditCell ([#246](https://github.com/EncryptionL/twico-ui/issues/246), [#247](https://github.com/EncryptionL/twico-ui/issues/247)) ([1c84dca](https://github.com/EncryptionL/twico-ui/commit/1c84dcaa7da1d7e9f3edb7481bd1e9ad2671639f)), closes [#236](https://github.com/EncryptionL/twico-ui/issues/236)
+
 # [1.16.0](https://github.com/EncryptionL/twico-ui/compare/v1.15.1...v1.16.0) (2026-07-15)
 
 
