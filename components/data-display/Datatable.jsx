@@ -230,12 +230,17 @@ const DT_CSS = `
 .twc-dt__cfg-btn:hover { background: var(--color-surface-sunken); }
 .twc-dt__cfg-btn[data-primary="true"] { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-primary-fg); }
 .twc-dt__cfg-btn[data-primary="true"]:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); }
-.twc-dt__be-row { display: flex; align-items: center; gap: 10px; padding: 5px 6px; opacity: 0.6; transition: opacity var(--duration-fast); }
-.twc-dt__be-row[data-on] { opacity: 1; }
-.twc-dt__be-check { display: inline-flex; align-items: center; gap: 7px; width: 120px; flex: none; font-size: var(--text-sm); color: var(--color-text); cursor: pointer; }
-.twc-dt__be-check input { width: 16px; height: 16px; accent-color: var(--color-primary); cursor: pointer; flex: none; }
-.twc-dt__be-check span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* #244: batch editor = pick columns (searchable), then set a value for each. */
+.twc-dt__be-add { padding: 6px 6px 8px; border-bottom: var(--border-thin) solid var(--color-divider); }
+.twc-dt__be-row { display: flex; align-items: center; gap: 8px; padding: 5px 6px; }
+.twc-dt__be-name { width: 108px; flex: none; font-size: var(--text-sm); color: var(--color-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-dt__be-ctl { flex: 1; min-width: 0; }
+.twc-dt__be-x { flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: none;
+  background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm);
+  transition: background-color var(--duration-fast), color var(--duration-fast); }
+.twc-dt__be-x:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-dt__be-x svg { width: 14px; height: 14px; }
+.twc-dt__be-empty { padding: 14px 8px; font-size: var(--text-xs); color: var(--color-text-muted); text-align: center; }
 
 /* Pinned rows */
 .twc-dt__row[data-pinned-row] > .twc-dt__td { background: var(--color-primary-subtle); }
@@ -866,6 +871,7 @@ export function Datatable({
   disableColumnReorder = false, disableColumnResize = false,
   emptyMessage, renderEmpty,
   editMode = false, onRowUpdate, onRowsChange, onBatchUpdate,
+  showBatchEdit = true, batchEditFields = null,
   showPageJumper = true,
   selectionMode = "none", onRowClick, onCellClick, onActiveCellChange,
   showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [],
@@ -1804,9 +1810,15 @@ export function Datatable({
   }
 
   // ---- Batch edit: update one or more columns across all selected rows at once ----
+  // #244: `batchEditFields` allow-lists which columns the built-in editor offers (independent of
+  // `editable`, so trimming the editor never disables inline cell editing).
+  const batchEditKey = batchEditFields ? batchEditFields.join(" ") : "";
   const batchEditableCols = React.useMemo(
-    () => cols.filter((c) => c.type !== "actions" && (c.editable ?? (editMode && c.editable !== false))),
-    [cols, editMode]
+    () => {
+      const base = cols.filter((c) => c.type !== "actions" && (c.editable ?? (editMode && c.editable !== false)));
+      return batchEditFields ? base.filter((c) => batchEditFields.includes(c.field)) : base;
+    },
+    [cols, editMode, batchEditKey], // eslint-disable-line react-hooks/exhaustive-deps
   );
   const [batchEdit, setBatchEdit] = React.useState(null); // { fields: {field:true}, values: {field:val} }
   const [batchEditPos, openBatchEdit, closeBatchEdit] = useFloating();
@@ -2155,7 +2167,7 @@ export function Datatable({
             <button type="button" className="twc-dt__batch-x" onClick={clearSelection} aria-label="Clear selection"><Svg d={I.x} /></button>
             <span className="twc-dt__batch-count">{selected.size} selected</span>
             <div className="twc-dt__batch-actions">
-              {batchEditableCols.length ? (
+              {showBatchEdit && batchEditableCols.length ? (
                 <button type="button" className="twc-dt__batch-btn" onClick={(e) => openBatchEditor(e.currentTarget)}>
                   <Svg d={I.pencil} />Edit
                 </button>
@@ -2456,39 +2468,61 @@ export function Datatable({
       ) : null}
 
       {/* Batch edit panel — set columns across all selected rows */}
-      {batchEdit && batchEditPos ? (
-        <div className="twc-dt__pop twc-dt__cfg" style={{ top: batchEditPos.top, left: batchEditPos.left, width: 320 }}>
-          <Caret pos={batchEditPos} />
-          <div className="twc-dt__cfg-head">Edit {selected.size} selected {selected.size === 1 ? "row" : "rows"}</div>
-          <div className="twc-dt__cfg-list">
-            {batchEditableCols.map((c) => {
-              const on = !!batchEdit.fields[c.field];
-              const opts = c.valueOptions ? c.valueOptions.map((o) => (typeof o === "string" ? { value: o, label: o } : o)) : null;
-              return (
-                <div key={c.field} className="twc-dt__be-row" data-on={on || undefined}>
-                  <label className="twc-dt__be-check">
-                    <input type="checkbox" checked={on} onChange={(e) => setBatchEdit((b) => ({ ...b, fields: { ...b.fields, [c.field]: e.target.checked } }))} />
-                    <span>{c.headerName}</span>
-                  </label>
-                  <div className="twc-dt__be-ctl">
-                    {opts ? (
-                      <Select size="sm" portal searchable placeholder="New value…" value={batchEdit.values[c.field] ?? ""} options={opts} disabled={!on}
-                        onChange={(v) => setBatchEdit((b) => ({ ...b, fields: { ...b.fields, [c.field]: true }, values: { ...b.values, [c.field]: v } }))} />
-                    ) : (
-                      <Input size="sm" type={c.type === "number" || c.type === "currency" ? "number" : "text"} placeholder="New value…" value={batchEdit.values[c.field] ?? ""} disabled={!on}
-                        onChange={(e) => setBatchEdit((b) => ({ ...b, values: { ...b.values, [c.field]: e.target.value } }))} />
-                    )}
+      {batchEdit && batchEditPos ? (() => {
+        // #244: pick the columns to change (searchable), then set a value for each — instead of
+        // pre-rendering a row per editable column (unusable at ~90). Picked fields keep insertion order.
+        const pickedCols = Object.keys(batchEdit.fields)
+          .filter((f) => batchEdit.fields[f])
+          .map((f) => batchEditableCols.find((c) => c.field === f))
+          .filter(Boolean);
+        const unpicked = batchEditableCols.filter((c) => !batchEdit.fields[c.field]);
+        const addField = (f) => { if (f) setBatchEdit((b) => ({ ...b, fields: { ...b.fields, [f]: true }, values: { ...b.values, [f]: b.values[f] ?? "" } })); };
+        const removeField = (f) => setBatchEdit((b) => {
+          const fields = { ...b.fields }; delete fields[f];
+          const values = { ...b.values }; delete values[f];
+          return { ...b, fields, values };
+        });
+        return (
+          <div className="twc-dt__pop twc-dt__cfg" style={{ top: batchEditPos.top, left: batchEditPos.left, width: 320 }}>
+            <Caret pos={batchEditPos} />
+            <div className="twc-dt__cfg-head">Edit {selected.size} selected {selected.size === 1 ? "row" : "rows"}</div>
+            {unpicked.length ? (
+              <div className="twc-dt__be-add">
+                <Select size="sm" portal searchable placeholder="Add a column…" value=""
+                  aria-label="Add a column to edit"
+                  options={unpicked.map((c) => ({ value: c.field, label: String(c.headerName ?? c.field) }))}
+                  onChange={addField} />
+              </div>
+            ) : null}
+            <div className="twc-dt__cfg-list">
+              {pickedCols.length === 0 ? (
+                <div className="twc-dt__be-empty">Pick a column to set its value on all selected rows.</div>
+              ) : pickedCols.map((c) => {
+                const opts = c.valueOptions ? c.valueOptions.map((o) => (typeof o === "string" ? { value: o, label: o } : o)) : null;
+                return (
+                  <div key={c.field} className="twc-dt__be-row">
+                    <span className="twc-dt__be-name" title={String(c.headerName ?? c.field)}>{c.headerName}</span>
+                    <div className="twc-dt__be-ctl">
+                      {opts ? (
+                        <Select size="sm" portal searchable placeholder="New value…" value={batchEdit.values[c.field] ?? ""} options={opts}
+                          onChange={(v) => setBatchEdit((b) => ({ ...b, values: { ...b.values, [c.field]: v } }))} />
+                      ) : (
+                        <Input size="sm" type={c.type === "number" || c.type === "currency" ? "number" : "text"} placeholder="New value…" value={batchEdit.values[c.field] ?? ""}
+                          onChange={(e) => setBatchEdit((b) => ({ ...b, values: { ...b.values, [c.field]: e.target.value } }))} />
+                      )}
+                    </div>
+                    <button type="button" className="twc-dt__be-x" aria-label={`Remove ${String(c.headerName ?? c.field)}`} onClick={() => removeField(c.field)}><Svg d={I.x} /></button>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+            <div className="twc-dt__cfg-foot">
+              <button type="button" className="twc-dt__cfg-btn" onClick={() => { setBatchEdit(null); closeBatchEdit(); }}>Cancel</button>
+              <button type="button" className="twc-dt__cfg-btn" data-primary="true" disabled={pickedCols.length === 0} onClick={applyBatchEdit}>Apply to {selected.size}</button>
+            </div>
           </div>
-          <div className="twc-dt__cfg-foot">
-            <button type="button" className="twc-dt__cfg-btn" onClick={() => { setBatchEdit(null); closeBatchEdit(); }}>Cancel</button>
-            <button type="button" className="twc-dt__cfg-btn" data-primary="true" onClick={applyBatchEdit}>Apply to {selected.size}</button>
-          </div>
-        </div>
-      ) : null}
+        );
+      })() : null}
 
       {/* Column header menu */}
       {colMenu && menuPos ? (

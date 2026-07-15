@@ -165,6 +165,14 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  resolves only rows on the currently loaded page; for cross-page selections use the
    *  complete `selectedKeys` array and apply the `patch` server-side. */
   onBatchUpdate?: (changedRows: T[], patch: Record<string, any>, selectedKeys: Array<string | number>) => void;
+  /** Render the built-in "Edit" button in the selection toolbar (the batch editor). Set `false` to
+   *  suppress it and ship your own batch-edit action via `batchActions` — otherwise you'd get two
+   *  "Edit" buttons. @default true */
+  showBatchEdit?: boolean;
+  /** Allow-list the column `field`s the built-in batch editor offers. Defaults to every editable
+   *  column. Use it to trim a wide grid's editor **without** touching `editable` (which would also
+   *  disable inline cell editing). */
+  batchEditFields?: string[];
   /** Show a "Go to" page jumper in the footer when there are more than 5 pages. @default true */
   showPageJumper?: boolean;
   /** Click-to-select mode: "row" highlights the clicked row, "cell" highlights a single cell. @default "none" */

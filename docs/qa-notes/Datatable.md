@@ -49,6 +49,15 @@
   toggle injected; rows tinted via `data-op`. Modified cells are single-line/clipped (no `flex-wrap`
   blowup). `DatatableColumn.compare` added; `rows` made optional. `DiffTable` kept as a thin wrapper
   (API unchanged) delegating to `<Datatable diff={…} />`. — added 2026-07-14
+- **[#244] Batch editor: pick-then-edit + escape hatches** — the editor pre-rendered a row per editable
+  column (unusable at ~90: scrolling a long list in a 320px popover) and couldn't be disabled or replaced.
+  Now it opens **empty** with a searchable "Add a column…" `Select`; picking appends a row (name + value
+  input + remove ✕), and Apply is disabled until ≥1 column is picked — matching the state's existing
+  `fields: {}` ("choose what to change") intent. New `showBatchEdit` (default true) suppresses the built-in
+  button so a host can ship its own `batchActions` entry without a duplicate "Edit"; new `batchEditFields`
+  allow-lists the offered `field`s **without** touching `editable` (which would also kill inline editing).
+  Note the selection toolbar — and thus the Edit button — only renders when `batchActions` is non-empty
+  (pre-existing, unchanged). — fixed 2026-07-15
 - **[#242] Diff pinned cells went transparent** — the #239 op-tint rule
   `.twc-dt__row[data-op] > .twc-dt__td` (specificity 0,3,0) composited over `transparent` and
   out-specified the base `.twc-dt__td { background: --color-surface }`, so **pinned** (sticky) cells in a

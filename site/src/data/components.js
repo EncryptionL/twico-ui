@@ -5737,6 +5737,20 @@ export const components = [
         "description": "Fires with the new quick-search string as the user types in the built-in box (and when a host sets it)."
       },
       {
+        "prop": "showBatchEdit",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Render the built-in \"Edit\" button in the selection toolbar; set false to suppress it and ship your own batch-edit action via batchActions (avoids two Edit buttons)."
+      },
+      {
+        "prop": "batchEditFields",
+        "type": "string[]",
+        "required": false,
+        "default": "—",
+        "description": "Allow-list the column fields the built-in batch editor offers; defaults to every editable column. Trims a wide grid's editor without touching editable (which would also disable inline editing)."
+      },
+      {
         "prop": "diff",
         "type": "DatatableDiff<T>",
         "required": false,

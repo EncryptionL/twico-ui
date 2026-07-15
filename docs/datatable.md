@@ -488,12 +488,32 @@ mode; per-column `exportValue` still overrides the cell value.
 
 When **any column is `editable`** and `checkboxSelection` is on, selecting one or more rows adds a
 built-in **Edit** button to the selection toolbar (next to your `batchActions`). It opens a small
-popover listing the editable columns; pick one or more, set a new value, and **Apply** writes it
+popover where you **pick the columns to change and set a value for each**, and **Apply** writes them
 across every selected row at once. The grid fires **`onBatchUpdate(changedRows, patch, selectedKeys)`**
 — `patch` is the `{ field: value }` you chose, `changedRows` are the selected rows with that patch
 applied — so you persist it the same way you handle `onRowUpdate` for a single inline edit. This is a
 separate path from per-row `getActions` (inline action buttons + a `showInMenu` overflow menu) and
 from `batchActions` (your own toolbar buttons over the selection); a grid can use all three at once.
+
+### Scaling + escape hatches (#244)
+
+The editor used to render **one row per editable column** up-front. On a wide grid (a dynamic column
+catalogue with ~90 editable columns) that meant scrolling ~90 rows inside a 320px popover to find the
+one you wanted. It now opens **empty** with a searchable **"Add a column…"** picker: choose a column →
+its row (label + value input + a remove ✕) is appended; **Apply** is disabled until you pick at least
+one. So the work is *search/pick*, not *scroll* — and the flow matches what the state already modelled
+(`fields` starts `{}`, i.e. "choose what to change").
+
+- **`showBatchEdit`** (default `true`) — set `false` to suppress the built-in Edit button entirely, so
+  you can ship your own batch-edit entry via `batchActions` without ending up with **two** "Edit"
+  buttons. Needed when the generic editor can't know your controls (e.g. a master-backed combobox per
+  column); pair it with [`renderEditCell`](#custom-inline-cell-editor--rendereditcell-236) for the
+  inline path.
+- **`batchEditFields?: string[]`** — allow-list the `field`s the editor offers (defaults to every
+  editable column). This trims a wide grid's editor **without** touching `editable`, which would also
+  disable inline cell editing. An empty array offers nothing, so the Edit button doesn't render.
+- The selection toolbar (and therefore the built-in Edit button) only appears when there is at least
+  one `batchActions` entry — that's pre-existing behavior, unchanged here.
 
 ### Docs-site demo parity
 
