@@ -512,8 +512,15 @@ one. So the work is *search/pick*, not *scroll* — and the flow matches what th
 - **`batchEditFields?: string[]`** — allow-list the `field`s the editor offers (defaults to every
   editable column). This trims a wide grid's editor **without** touching `editable`, which would also
   disable inline cell editing. An empty array offers nothing, so the Edit button doesn't render.
-- The selection toolbar (and therefore the built-in Edit button) only appears when there is at least
-  one `batchActions` entry — that's pre-existing behavior, unchanged here.
+- **The editor stands alone (#249).** The selection toolbar renders when there are `batchActions` **or**
+  the built-in editor is available (`showBatchEdit` + ≥1 editable column) — `(batchActions.length ||
+  hasBatchEditor) && selected.size > 0`. It previously required a non-empty `batchActions`, which made
+  `showBatchEdit` silently inert: a host whose actions are permission-gated (e.g. `batchActions={canDelete
+  ? [del] : []}`) lost batch edit entirely for an update-but-not-delete role, and had to invent a dummy
+  action just to summon the toolbar. The `{n} selected` count + clear button are useful with the editor
+  alone, so the whole toolbar is the unit. Nothing changes for existing hosts (with a non-empty
+  `batchActions` the condition is identical); a host that wants neither passes `showBatchEdit={false}` +
+  `batchActions={[]}`.
 
 ### A batch action can anchor its own popover (#246)
 
@@ -581,6 +588,16 @@ pre-fetching every value up front.
   **Apply**, which then fires `onBatchUpdate(changedRows, patch, selectedKeys)` as usual. Reusing the inline
   signature would hand `row: null` to handlers that read `row`, so the grid doesn't silently fall back to
   `renderEditCell`; declare both when a column needs a rich control in both places.
+- **Portaled dropdowns are exempt from the editor's outside-click dismiss (#250).** twico's overlays
+  (`Select`/`Combobox` listboxes) portal to `<body>` as **`.twc-pop`** — a subtree disjoint from the inline
+  `.twc-dt__pop` popover — and an option's `mousedown` bubbles (its `preventDefault` doesn't stop
+  propagation). The batch handler guarded only `.twc-dt__pop`/`.twc-dt__batch`, so a mousedown on any option
+  dismissed the editor before the option's `onClick` could fire. Because the built-in **"Add a column…"**
+  `Select` portals too, the editor died on its *first* interaction. It now guards `.twc-pop` as well, matching
+  the inline cell editor (whose existing guard is why `renderEditCell` worked and `renderBatchEditCell`
+  didn't) and the header menu. **Testing note:** a regression test must fire a real **`mousedown`** against a
+  real **portaled** control — `fireEvent.click` on an inline fixture cannot fail on this
+  (`tests/datatable-batch-edit-portal.test.jsx`).
 
 ### Docs-site demo parity
 

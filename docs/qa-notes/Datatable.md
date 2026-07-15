@@ -49,6 +49,25 @@
   toggle injected; rows tinted via `data-op`. Modified cells are single-line/clipped (no `flex-wrap`
   blowup). `DatatableColumn.compare` added; `rows` made optional. `DiffTable` kept as a thin wrapper
   (API unchanged) delegating to `<Datatable diff={…} />`. — added 2026-07-14
+- **[#249] Built-in batch editor stands alone** — the selection toolbar (and thus the Edit button) rendered
+  only when `batchActions` was non-empty, so `showBatchEdit` was silently inert on its own: a host whose
+  actions are permission-gated to `[]` (update-but-not-delete role) lost batch edit entirely and had to
+  invent a dummy action to summon the toolbar. Gate is now `(batchActions.length || hasBatchEditor)` where
+  `hasBatchEditor = showBatchEdit && batchEditableCols.length > 0` — the toolbar is the unit (its `{n}
+  selected` count + clear button are useful with the editor alone). Identical for existing hosts with
+  non-empty `batchActions`; `showBatchEdit={false}` + `batchActions={[]}` still yields no toolbar.
+  Documented in datatable.md, replacing the note that called the coupling "pre-existing, unchanged".
+  — fixed 2026-07-15
+- **[#250] Batch editor survives its own dropdowns** — the batch editor's outside-click handler exempted only
+  `.twc-dt__pop` / `.twc-dt__batch`, not twico's **portaled** overlays (`.twc-pop`, rendered to `document.body`
+  — a subtree disjoint from the inline popover). An option's `mousedown` bubbles (its `preventDefault` doesn't
+  stop propagation), so it dismissed the editor before the option's `onClick` could fire: picking a value in a
+  `renderBatchEditCell` combobox staged nothing, and since the built-in **"Add a column…"** `Select` is itself
+  portaled, *the editor couldn't be used at all* — the first click closed it. The inline cell editor already
+  guarded `.twc-pop` (which is why `renderEditCell` worked and `renderBatchEditCell` didn't); the batch handler
+  was the lone outlier. Added the same guard. A regression test must fire a real **`mousedown`** against a real
+  **portaled** control — the existing suite used `fireEvent.click` on an inline fixture, so it could not fail on
+  this. — fixed 2026-07-15
 - **[#247] Batch clause honors a custom control** — the batch editor derived each clause's control only from
   `valueOptions` (static array → `Select`, else text `Input`) and never consulted `renderEditCell`, so a
   column with a rich inline editor degraded to a bare text box in batch. New `DatatableColumn.renderBatchEditCell({

@@ -90,6 +90,53 @@ describe("Datatable batch editor (#244)", () => {
     expect(editBtn(container)).toBeFalsy();
   });
 
+  // #249 — the built-in editor must stand alone: it used to need a batchActions entry to exist at all.
+  describe("standalone without batchActions (#249)", () => {
+    it("renders the selection toolbar + Edit button with no batchActions", () => {
+      const { container } = render(
+        <Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={() => {}} />,
+      );
+      selectFirstRow(container);
+      expect(container.querySelector(".twc-dt__batch")).toBeTruthy();
+      expect(editBtn(container)).toBeTruthy();
+      // the count + clear-selection affordances come with it
+      expect(container.querySelector(".twc-dt__batch-count").textContent).toBe("1 selected");
+      expect(container.querySelector(".twc-dt__batch-x")).toBeTruthy();
+    });
+
+    it("the standalone editor actually applies (the RBAC case: update but not delete)", () => {
+      let patch = null;
+      const { container } = render(
+        <Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection
+          batchActions={[]} /* permission-gated to empty */
+          onBatchUpdate={(_c, p) => { patch = p; }} />,
+      );
+      selectFirstRow(container);
+      fireEvent.click(editBtn(container));
+      fireEvent.click(document.querySelector(".twc-dt__be-add .twc-sel__trigger"));
+      fireEvent.click(Array.from(document.querySelectorAll('[role="option"]')).find((o) => o.textContent.trim() === "City"));
+      fireEvent.change(beRows()[0].querySelector("input"), { target: { value: "Oslo" } });
+      fireEvent.click(Array.from(document.querySelectorAll(".twc-dt__cfg-btn")).find((b) => b.textContent.includes("Apply")));
+      expect(patch).toEqual({ city: "Oslo" });
+    });
+
+    it("no toolbar when neither the editor nor actions are available", () => {
+      const { container } = render(
+        <Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection showBatchEdit={false} batchActions={[]} />,
+      );
+      selectFirstRow(container);
+      expect(container.querySelector(".twc-dt__batch")).toBeFalsy();
+    });
+
+    it("no toolbar when no column is editable and there are no actions", () => {
+      const { container } = render(
+        <Datatable columns={[{ field: "name", headerName: "Name" }]} rows={rows} rowKey={(r) => r.id} checkboxSelection />,
+      );
+      selectFirstRow(container);
+      expect(container.querySelector(".twc-dt__batch")).toBeFalsy();
+    });
+  });
+
   // #247 — the batch clause control must honor a column's custom editor, not degrade to a text input.
   describe("renderBatchEditCell (#247)", () => {
     const withCustom = [
