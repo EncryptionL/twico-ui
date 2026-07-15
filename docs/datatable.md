@@ -515,6 +515,73 @@ one. So the work is *search/pick*, not *scroll* — and the flow matches what th
 - The selection toolbar (and therefore the built-in Edit button) only appears when there is at least
   one `batchActions` entry — that's pre-existing behavior, unchanged here.
 
+### A batch action can anchor its own popover (#246)
+
+`showBatchEdit={false}` lets a host **replace** the built-in editor with its own `batchActions` entry —
+but a custom action used to receive only `(keys, rows, clearSelection)`, with no reference to the button
+that was clicked. The built-in editor anchors its popover because it renders its own button and captures
+the node (`openBatchEditor(e.currentTarget)`); a host had no equivalent, so a replacement could only open
+a **centered modal** while the thing it replaced got a popover — the escape hatch delivered the function
+but not the form.
+
+A batch action's `onClick` now receives a **4th argument**:
+
+```ts
+onClick?: (
+  keys: Array<string | number>,
+  rows: T[],
+  clearSelection: () => void,
+  ctx: DatatableBatchActionContext,   // { anchorEl: HTMLElement }
+) => void;
+```
+
+`ctx.anchorEl` is *that action's own* toolbar button, so the host can position any floating UI against it
+(`useFloating`, a controlled `Popover`, …) and match the built-in editor / Filters panel:
+
+```jsx
+<Datatable
+  columns={cols} rows={rows} checkboxSelection showBatchEdit={false}
+  batchActions={[{ label: "Edit", onClick: (keys, _rows, clear, { anchorEl }) => open(anchorEl, keys, clear) }]}
+/>
+```
+
+Additive and non-breaking — the argument is appended, so existing handlers that take three (or zero)
+parameters keep working untouched. Each action gets its **own** button, not a shared one.
+
+> Reach for this only when the built-in editor genuinely can't express your controls. Since #244 it is
+> already a popover with a searchable "Add a column…" picker, it renders a searchable `Select` for a
+> column with `valueOptions`, and since #247 a column can supply its **own** clause control via
+> `renderBatchEditCell` (below) — so replacing the whole editor is now rarely necessary.
+
+### Custom batch clause control — `renderBatchEditCell` (#247)
+
+The batch editor derived each clause's control **only** from `valueOptions` (a static array) → a searchable
+`Select`, else a plain text `Input`. It never consulted `renderEditCell`, so a column with a rich **inline**
+editor (`{ field, editable: true, renderEditCell }`) degraded to a **bare text box** in batch — the two
+editors disagreed about what that column's editor is. `valueOptions` isn't a workaround for a master-backed
+column: it's static and in-memory, so it can't express an async, paginated, **creatable** vocabulary without
+pre-fetching every value up front.
+
+`DatatableColumn.renderBatchEditCell` is the batch counterpart of `renderEditCell`:
+
+```tsx
+{
+  field: "color", headerName: "Color", editable: true,
+  renderEditCell:      ({ value, row, field, commit, cancel }) => <MyAsyncCombobox … />, // inline cell
+  renderBatchEditCell: ({ value, field, commit }) => (                                    // batch clause
+    <MyAsyncCombobox value={value} onChange={commit} />
+  ),
+}
+```
+
+- **Precedence:** `renderBatchEditCell` → `valueOptions` (`Select`) → typed `Input`. Columns without it are
+  unchanged.
+- **It's a separate hook from `renderEditCell` on purpose.** A batch clause has no single `row` and no
+  `cancel`, and its **`commit(nextValue)` only *stages* the draft** — nothing is written until the user hits
+  **Apply**, which then fires `onBatchUpdate(changedRows, patch, selectedKeys)` as usual. Reusing the inline
+  signature would hand `row: null` to handlers that read `row`, so the grid doesn't silently fall back to
+  `renderEditCell`; declare both when a column needs a rich control in both places.
+
 ### Docs-site demo parity
 
 The component page's **Usage** block renders `site/src/demos/<Name>Demo.jsx` but shows the `snippet`
