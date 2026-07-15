@@ -49,6 +49,18 @@
   toggle injected; rows tinted via `data-op`. Modified cells are single-line/clipped (no `flex-wrap`
   blowup). `DatatableColumn.compare` added; `rows` made optional. `DiffTable` kept as a thin wrapper
   (API unchanged) delegating to `<Datatable diff={…} />`. — added 2026-07-14
+- **[#247] Batch clause honors a custom control** — the batch editor derived each clause's control only from
+  `valueOptions` (static array → `Select`, else text `Input`) and never consulted `renderEditCell`, so a
+  column with a rich inline editor degraded to a bare text box in batch. New `DatatableColumn.renderBatchEditCell({
+  value, field, commit })` takes precedence over `valueOptions`. Kept as a **separate** hook from
+  `renderEditCell` (no `row`, no `cancel`; `commit` only *stages* the draft until Apply) — and deliberately
+  **no** silent fallback to `renderEditCell`, which would hand `row: null` to #236 handlers that read `row`.
+  — fixed 2026-07-15
+- **[#246] `batchActions` get their trigger element** — a custom batch action received only
+  `(keys, rows, clearSelection)`, so it could never anchor a popover to its own toolbar button (the built-in
+  editor can, via `openBatchEditor(e.currentTarget)`) and was stuck opening a centered modal. `onClick` now
+  gets a 4th arg `ctx: { anchorEl }` — that action's own button. Additive/non-breaking (appended arg; each
+  action gets its own button). New exported type `DatatableBatchActionContext`. — fixed 2026-07-15
 - **[#244] Batch editor: pick-then-edit + escape hatches** — the editor pre-rendered a row per editable
   column (unusable at ~90: scrolling a long list in a 320px popover) and couldn't be disabled or replaced.
   Now it opens **empty** with a searchable "Add a column…" `Select`; picking appends a row (name + value

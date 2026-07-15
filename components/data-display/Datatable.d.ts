@@ -317,6 +317,14 @@ export interface DatatableColumn<T = any> {
    *  or `cancel()` to discard. Twico overlay dropdowns (portaled as `.twc-pop`) are exempt from the
    *  cell's outside-click auto-cancel, so a Combobox popover works inside the cell. */
   renderEditCell?: (args: { value: any; row: T; field: string; commit: (nextValue: any) => void; cancel: () => void }) => React.ReactNode;
+  /** Custom control for this column's clause in the **batch** editor (#247) — the counterpart of
+   *  `renderEditCell` for the "Edit N selected rows" popover. Use it when the value is backed by a large,
+   *  async, creatable vocabulary that `valueOptions` (a static array) can't express; without it such a
+   *  column degrades to a plain text input in batch even though it has a rich inline editor.
+   *  Takes precedence over `valueOptions`. It is a **separate** hook from `renderEditCell` because a batch
+   *  clause has no single `row` and no `cancel`, and its `commit(nextValue)` only **stages** the draft —
+   *  nothing is written until the user hits **Apply** (which then fires `onBatchUpdate`). */
+  renderBatchEditCell?: (args: { value: any; field: string; commit: (nextValue: any) => void }) => React.ReactNode;
   /** Hide the column header ⋮ menu. @default false */
   disableColumnMenu?: boolean;
   /** Start with this column's cell text wrapped onto multiple lines (the row grows down) instead of
@@ -355,14 +363,28 @@ export interface DatatableRowAction<T = any> {
   disabled?: boolean;
 }
 
+/** Extra context handed to a batch action's `onClick`. */
+export interface DatatableBatchActionContext {
+  /** The selection-toolbar button that was clicked. Anchor a popover/panel to it — the same thing the
+   *  built-in batch editor does with its own button. */
+  anchorEl: HTMLElement;
+}
+
 /** A batch action shown in the selection toolbar. */
 export interface DatatableBatchAction<T = any> {
   /** Button label. */
   label: string;
   /** Leading icon node. */
   icon?: React.ReactNode;
-  /** Handler: (selectedKeys, selectedRows, clearSelection). */
-  onClick?: (keys: Array<string | number>, rows: T[], clearSelection: () => void) => void;
+  /** Handler: (selectedKeys, selectedRows, clearSelection, ctx).
+   *  `ctx.anchorEl` is the toolbar button that was clicked, so a custom action can anchor a popover to it
+   *  rather than being limited to a centered modal — matching the built-in batch editor and Filters panel. */
+  onClick?: (
+    keys: Array<string | number>,
+    rows: T[],
+    clearSelection: () => void,
+    ctx: DatatableBatchActionContext,
+  ) => void;
   /** Render in danger color. */
   danger?: boolean;
   disabled?: boolean;

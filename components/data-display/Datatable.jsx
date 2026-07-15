@@ -2174,7 +2174,9 @@ export function Datatable({
               ) : null}
               {batchActions.map((a, i) => (
                 <button type="button" key={i} className="twc-dt__batch-btn" data-danger={a.danger || undefined} disabled={a.disabled}
-                  onClick={() => a.onClick?.([...selected], selectedRows, clearSelection)}>
+                  /* `anchorEl` is this very button, so an action can anchor a popover to it exactly like the
+                     built-in batch editor does — without it a custom action could only open a centered modal. */
+                  onClick={(e) => a.onClick?.([...selected], selectedRows, clearSelection, { anchorEl: e.currentTarget })}>
                   {a.icon}{a.label}
                 </button>
               ))}
@@ -2503,7 +2505,17 @@ export function Datatable({
                   <div key={c.field} className="twc-dt__be-row">
                     <span className="twc-dt__be-name" title={String(c.headerName ?? c.field)}>{c.headerName}</span>
                     <div className="twc-dt__be-ctl">
-                      {opts ? (
+                      {/* #247: a column can supply the batch clause's control (a master-backed / async /
+                          creatable combobox), mirroring `renderEditCell` for the inline editor. `commit`
+                          only STAGES the draft — nothing is written until Apply — which is why this is a
+                          separate hook from `renderEditCell` (no `row`, no `cancel`). */}
+                      {c.renderBatchEditCell ? (
+                        c.renderBatchEditCell({
+                          value: batchEdit.values[c.field],
+                          field: c.field,
+                          commit: (v) => setBatchEdit((b) => ({ ...b, values: { ...b.values, [c.field]: v } })),
+                        })
+                      ) : opts ? (
                         <Select size="sm" portal searchable placeholder="New value…" value={batchEdit.values[c.field] ?? ""} options={opts}
                           onChange={(v) => setBatchEdit((b) => ({ ...b, values: { ...b.values, [c.field]: v } }))} />
                       ) : (

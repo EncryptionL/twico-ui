@@ -89,4 +89,58 @@ describe("Datatable batch editor (#244)", () => {
     selectFirstRow(container);
     expect(editBtn(container)).toBeFalsy();
   });
+
+  // #247 — the batch clause control must honor a column's custom editor, not degrade to a text input.
+  describe("renderBatchEditCell (#247)", () => {
+    const withCustom = [
+      { field: "name", headerName: "Name", editable: true },
+      {
+        field: "color", headerName: "Color", editable: true,
+        renderBatchEditCell: ({ value, field, commit }) => (
+          <button type="button" data-testid="custom-batch-ctl" data-field={field} onClick={() => commit("teal")}>
+            ctl:{String(value ?? "")}
+          </button>
+        ),
+      },
+    ];
+    const pick = (container, label) => {
+      fireEvent.click(editBtn(container));
+      fireEvent.click(document.querySelector(".twc-dt__be-add .twc-sel__trigger"));
+      fireEvent.click(Array.from(document.querySelectorAll('[role="option"]')).find((o) => o.textContent.trim() === label));
+    };
+
+    it("renders the column's custom control for its clause (instead of a plain input)", () => {
+      const { container } = render(<Datatable columns={withCustom} rows={rows} rowKey={(r) => r.id} checkboxSelection batchActions={BA} />);
+      selectFirstRow(container);
+      pick(container, "Color");
+      const ctl = document.querySelector('[data-testid="custom-batch-ctl"]');
+      expect(ctl).toBeTruthy();
+      expect(ctl.getAttribute("data-field")).toBe("color");
+      // and no fallback text input in that clause
+      expect(beRows()[0].querySelector("input")).toBeNull();
+    });
+
+    it("its commit() stages the draft and Apply writes it across the selection", () => {
+      let patch = null;
+      const { container } = render(
+        <Datatable columns={withCustom} rows={rows} rowKey={(r) => r.id} checkboxSelection batchActions={BA}
+          onBatchUpdate={(_changed, p) => { patch = p; }} />,
+      );
+      selectFirstRow(container);
+      pick(container, "Color");
+      fireEvent.click(document.querySelector('[data-testid="custom-batch-ctl"]')); // commit("teal") — stages only
+      expect(patch).toBeNull(); // nothing written until Apply
+      expect(document.querySelector('[data-testid="custom-batch-ctl"]').textContent).toBe("ctl:teal");
+      fireEvent.click(Array.from(document.querySelectorAll(".twc-dt__cfg-btn")).find((b) => b.textContent.includes("Apply")));
+      expect(patch).toEqual({ color: "teal" });
+    });
+
+    it("a column without it still gets the built-in control", () => {
+      const { container } = render(<Datatable columns={withCustom} rows={rows} rowKey={(r) => r.id} checkboxSelection batchActions={BA} />);
+      selectFirstRow(container);
+      pick(container, "Name");
+      expect(document.querySelector('[data-testid="custom-batch-ctl"]')).toBeNull();
+      expect(beRows()[0].querySelector("input")).toBeTruthy();
+    });
+  });
 });

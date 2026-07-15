@@ -123,10 +123,25 @@ to a selection bar:
 />
 ```
 
-Each batch handler receives `(selectedKeys, selectedRows, clearSelection)`. **Server-mode caveat:**
+Each batch handler receives `(selectedKeys, selectedRows, clearSelection, ctx)`. **Server-mode caveat:**
 `selectedRows` (and `onBatchUpdate`'s `changedRows`) resolve only the rows on the currently loaded page,
 since the table never holds off-page rows. For cross-page selections, use the complete `selectedKeys`
 array and re-fetch the full rows (or apply the patch) server-side rather than relying on the resolved rows.
+
+`ctx.anchorEl` is that action's own toolbar button (#246) — anchor a popover to it instead of opening a
+centered modal, so a custom action matches the built-in batch editor and the Filters panel:
+
+```jsx
+batchActions={[{ label: "Edit", onClick: (keys, _rows, clear, { anchorEl }) => openPanel(anchorEl, keys, clear) }]}
+```
+
+**Batch editor** — when any column is `editable`, the selection toolbar also gets a built-in **Edit** button
+(suppress it with `showBatchEdit={false}`; allow-list its columns with `batchEditFields`). It opens empty with
+a searchable "Add a column…" picker; each picked column gets a clause row. A clause's control comes from
+`column.renderBatchEditCell({ value, field, commit })` if present (#247 — for an async/creatable master-backed
+control), else `valueOptions` (a searchable Select), else a typed input. `commit` only *stages* the draft —
+**Apply** writes it across the selection via `onBatchUpdate`. It's separate from `renderEditCell` (the inline
+editor) because a clause has no `row`/`cancel`; declare both when a column needs a rich control in each.
 
 **Click-to-select** — separate from checkbox multi-select. `selectionMode="row"` highlights the row you click
 (fires `onRowClick(row, key)`); `selectionMode="cell"` highlights a single cell with a ring (fires
