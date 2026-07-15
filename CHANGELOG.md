@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.17.1](https://github.com/EncryptionL/twico-ui/compare/v1.17.0...v1.17.1) (2026-07-15)
+
+
+### Bug Fixes
+
+* **datatable:** batch editor survives portaled dropdowns + stands alone ([#249](https://github.com/EncryptionL/twico-ui/issues/249), [#250](https://github.com/EncryptionL/twico-ui/issues/250)) ([1b5ad91](https://github.com/EncryptionL/twico-ui/commit/1b5ad916f3a61e34f339a5a51e21bff06680cf62)), closes [#244](https://github.com/EncryptionL/twico-ui/issues/244) [#247](https://github.com/EncryptionL/twico-ui/issues/247) [#244](https://github.com/EncryptionL/twico-ui/issues/244)
+
 # [1.17.0](https://github.com/EncryptionL/twico-ui/compare/v1.16.0...v1.17.0) (2026-07-15)
 
 
