@@ -1820,6 +1820,8 @@ export function Datatable({
     },
     [cols, editMode, batchEditKey], // eslint-disable-line react-hooks/exhaustive-deps
   );
+  // #249: the built-in editor is available on its own — it no longer needs a `batchActions` entry to exist.
+  const hasBatchEditor = showBatchEdit && batchEditableCols.length > 0;
   const [batchEdit, setBatchEdit] = React.useState(null); // { fields: {field:true}, values: {field:val} }
   const [batchEditPos, openBatchEdit, closeBatchEdit] = useFloating();
 
@@ -1831,7 +1833,11 @@ export function Datatable({
   React.useEffect(() => {
     if (!batchEdit) return;
     const close = () => { setBatchEdit(null); closeBatchEdit(); };
-    const onDown = (e) => { if (!e.target.closest(".twc-dt__pop") && !e.target.closest(".twc-dt__batch")) close(); };
+    // #250: twico overlays (Select/Combobox listboxes) PORTAL to <body> as `.twc-pop`, a subtree disjoint
+    // from this inline popover — exempt them or an option's bubbling mousedown dismisses the editor before
+    // its onClick fires (the built-in "Add a column…" Select portals too, so the editor died on first use).
+    // Mirrors the inline cell editor's guard.
+    const onDown = (e) => { if (!e.target.closest(".twc-dt__pop") && !e.target.closest(".twc-dt__batch") && !e.target.closest(".twc-pop")) close(); };
     const onKey = (e) => { if (e.key === "Escape") close(); };
     document.addEventListener("mousedown", onDown); document.addEventListener("keydown", onKey);
     return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
@@ -2162,12 +2168,17 @@ export function Datatable({
       {/* PIVOT_RENDER_ANCHOR */}
       {/* Toolbar */}
       <div className="twc-dt__toolbar" data-compact={compact || undefined}>
-        {batchActions.length && selected.size > 0 ? (
+        {/* #249: the built-in editor keeps the selection toolbar alive on its own — it used to require at
+            least one `batchActions` entry, which made `showBatchEdit` silently inert (a host whose actions
+            are permission-gated to [] lost batch edit entirely, and had to invent a dummy action). The
+            `{n} selected` count + clear button are useful with the editor alone, so the toolbar is the unit.
+            Identical for existing hosts: with a non-empty `batchActions` the condition is unchanged. */}
+        {(batchActions.length || hasBatchEditor) && selected.size > 0 ? (
           <div className="twc-dt__batch">
             <button type="button" className="twc-dt__batch-x" onClick={clearSelection} aria-label="Clear selection"><Svg d={I.x} /></button>
             <span className="twc-dt__batch-count">{selected.size} selected</span>
             <div className="twc-dt__batch-actions">
-              {showBatchEdit && batchEditableCols.length ? (
+              {hasBatchEditor ? (
                 <button type="button" className="twc-dt__batch-btn" onClick={(e) => openBatchEditor(e.currentTarget)}>
                   <Svg d={I.pencil} />Edit
                 </button>
