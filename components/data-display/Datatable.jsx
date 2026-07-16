@@ -2017,6 +2017,12 @@ export function Datatable({
           const editable = isColEditable(c);
           const isEditing = editing && editing.key === k && editing.field === c.field;
           const cellActive = selectionMode === "cell" && activeCell && activeCell.key === k && activeCell.field === c.field;
+          // #253: the displayed value (formatted). Used for the truncation `title` — but only for a plain
+          // string/number (a `renderCell` node, actions, or a mid-edit cell get no title). Computed once
+          // and reused by the default renderers below so `valueFormatter` isn't called twice.
+          const display = c.valueFormatter ? c.valueFormatter(val, row) : val;
+          const cellTitle = !isActions && !c.renderCell && !isEditing && (typeof display === "string" || typeof display === "number")
+            ? String(display) : undefined;
           return (
             <td key={c.field} className="twc-dt__td" role="gridcell" data-r={ri} data-c={ci} aria-colindex={ci + 1 + (checkboxSelection ? 1 : 0)}
               tabIndex={focus.r === ri && focus.c === ci ? 0 : -1}
@@ -2024,7 +2030,7 @@ export function Datatable({
               data-editable={editable && !isEditing || undefined} data-editing={isEditing || undefined}
               data-cell-active={cellActive || undefined} data-wrap={wrapped.has(c.field) || undefined}
               data-pin={st.pin} data-pin-edge={st.edge}
-              style={{ width: widthOf(c), ...st.style }} title={isActions || c.renderCell || editable ? undefined : String(val ?? "")}
+              style={{ width: widthOf(c), ...st.style }} title={cellTitle}
               onClick={selectionMode === "cell" ? (e) => handleCellClick(e, k, row, c) : undefined}
               onFocus={() => setFocus((f) => (f.r === ri && f.c === ci ? f : { r: ri, c: ci }))}
               onDoubleClick={editable ? () => beginEdit(k, c, row) : undefined}>
@@ -2032,7 +2038,7 @@ export function Datatable({
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 6, maxWidth: "100%" }}>
                   {rowHandle(k, midIdx, row)}
                   <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
-                    {isActions ? renderActions(c, row) : c.renderCell ? c.renderCell(val, row) : c.valueFormatter ? c.valueFormatter(val, row) : val}
+                    {isActions ? renderActions(c, row) : c.renderCell ? c.renderCell(val, row) : display}
                   </span>
                 </span>
               ) : isEditing ? (
@@ -2049,7 +2055,7 @@ export function Datatable({
                     onChange={(v) => setEditing((e) => ({ ...e, value: v }))}
                     onCommit={() => commitEdit()} onCommitValue={(v) => commitEdit(v)} onCancel={cancelEdit} onKeyDown={onEditKey} />
                 )
-              ) : isActions ? renderActions(c, row) : c.renderCell ? c.renderCell(val, row) : c.valueFormatter ? c.valueFormatter(val, row) : val}
+              ) : isActions ? renderActions(c, row) : c.renderCell ? c.renderCell(val, row) : display}
               {editable && !isEditing ? <span className="twc-dt__edit-hint" aria-hidden="true"><Svg d={I.pencil} /></span> : null}
             </td>
           );
@@ -2323,6 +2329,7 @@ export function Datatable({
                     <div className="twc-dt__th-inner">
                       <span className="twc-dt__th-label"
                         role={c.sortable ? "button" : undefined} tabIndex={c.sortable ? 0 : undefined}
+                        title={typeof c.headerName === "string" ? c.headerName : undefined}
                         aria-label={c.sortable ? `${c.headerName}, sort` : undefined}
                         draggable={reorderable || undefined}
                         onDragStart={reorderable ? (e) => { setDrag({ from: c.field, over: null, after: false }); e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", c.field); } : undefined}
@@ -2434,8 +2441,11 @@ export function Datatable({
               const nf = (n) => n.toLocaleString();
               if (totalRows === 0) return "No rows";
               const shown = paged.length;
-              const start = paginated ? pageVal * sizeVal + 1 : 1;
-              const end = paginated ? start + shown - 1 : shown;
+              // #252: clamp to totalRows. In server mode a page change briefly keeps the previous page's
+              // `paged.length` (a full `sizeVal`) while `start` has already jumped to the last page, so
+              // `end` would overshoot the total until the fetch resolves. Clamp `start` too for an over-far page.
+              const start = paginated ? Math.min(pageVal * sizeVal + 1, totalRows) : 1;
+              const end = paginated ? Math.min(start + shown - 1, totalRows) : shown;
               return (
                 <>
                   {paginated
