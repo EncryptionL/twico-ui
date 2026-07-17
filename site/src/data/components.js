@@ -5751,6 +5751,27 @@ export const components = [
         "description": "Allow-list the column fields the built-in batch editor offers; defaults to every editable column. Trims a wide grid's editor without touching editable (which would also disable inline editing)."
       },
       {
+        "prop": "stateKey",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Persist the full view state (filters, sort, quick-search, page, page size, column order/widths/visibility/pinning, density) to localStorage under this key and restore it on mount. SSR-safe: storage is read in a mount effect, not during render, and unknown columns in a saved snapshot are dropped."
+      },
+      {
+        "prop": "initialState",
+        "type": "Partial<DatatableState>",
+        "required": false,
+        "default": "—",
+        "description": "Seed the view state on first mount (used only when stateKey has nothing stored yet). Omitted keys keep their defaults."
+      },
+      {
+        "prop": "onStateChange",
+        "type": "(state: DatatableState) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the complete DatatableState whenever the view changes, so you can persist it yourself (URL, server, …). Not fired on the initial mount for the default state; fires once after a stateKey/initialState restore."
+      },
+      {
         "prop": "diff",
         "type": "DatatableDiff<T>",
         "required": false,

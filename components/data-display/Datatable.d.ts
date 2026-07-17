@@ -173,6 +173,19 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  column. Use it to trim a wide grid's editor **without** touching `editable` (which would also
    *  disable inline cell editing). */
   batchEditFields?: string[];
+  /** Persist the full view state (filters, sort, quick-search, page, page size, column order / widths /
+   *  visibility / pinning, density) to `localStorage` under this key, and restore it on mount (#259).
+   *  SSR-safe: storage is never read during render — the server and first client render start from the
+   *  defaults, then the saved state is applied in a mount effect (so hydration never mismatches). Unknown
+   *  columns in a saved snapshot are ignored, so a later column change won't break restore. */
+  stateKey?: string;
+  /** Seed the view state on first mount (used only when `stateKey` has nothing stored yet). A partial
+   *  `DatatableState` — omitted keys keep their defaults. */
+  initialState?: Partial<DatatableState>;
+  /** Fired whenever the view state changes, with the complete `DatatableState`. Use it to persist the
+   *  state yourself (URL query, server, …) instead of — or in addition to — `stateKey`. Not fired on
+   *  the initial mount for the default state; fires once after a `stateKey`/`initialState` restore. */
+  onStateChange?: (state: DatatableState) => void;
   /** Show a "Go to" page jumper in the footer when there are more than 5 pages. @default true */
   showPageJumper?: boolean;
   /** Click-to-select mode: "row" highlights the clicked row, "cell" highlights a single cell. @default "none" */
@@ -261,6 +274,37 @@ export interface DatatableQuery {
   /** `field`s of the columns currently hidden via the Columns menu. Always populated in
    *  `onServerChange`; optional for the same reason as `visibleColumns`. */
   hiddenColumns?: string[];
+}
+
+/**
+ * The complete, serializable view state of a `Datatable` (#259) — everything the user can adjust
+ * from the toolbar and column headers. Persisted by `stateKey`, seeded by `initialState`, and
+ * reported by `onStateChange`. Every field is optional in `initialState`/a stored snapshot: unknown
+ * columns are dropped and missing keys fall back to the table's defaults, so a snapshot survives a
+ * schema change. `columnVisibility` lists only hidden columns (`{ field: false }`; absent = visible);
+ * `columnPinning` lists only pinned columns (`{ field: "left" | "right" }`).
+ */
+export interface DatatableState {
+  /** Active per-column filters (without the internal row id). */
+  filters: DatatableFilter[];
+  /** Active sort, or null. */
+  sort: { field: string; dir: "asc" | "desc" } | null;
+  /** Quick-search text. */
+  quickFilter: string;
+  /** Zero-based current page. */
+  page: number;
+  /** Rows per page. */
+  pageSize: number;
+  /** Column `field`s in their current left-to-right order. */
+  columnOrder: string[];
+  /** User-resized column widths in px, keyed by `field`. */
+  columnWidths: Record<string, number>;
+  /** Hidden columns, keyed by `field` (`false` = hidden; a visible column is simply absent). */
+  columnVisibility: Record<string, boolean>;
+  /** Pinned columns, keyed by `field`. */
+  columnPinning: Record<string, "left" | "right">;
+  /** Row-density preset. */
+  density: "compact" | "standard" | "comfortable";
 }
 
 export interface DatatableColumn<T = any> {

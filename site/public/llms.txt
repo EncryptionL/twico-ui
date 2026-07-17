@@ -1611,6 +1611,9 @@ Props:
 - `onQuickFilterChange` — `(value: string) => void` — Fires with the new quick-search string as the user types in the built-in box (and when a host sets it).
 - `showBatchEdit` — `boolean` · default `true` — Render the built-in "Edit" button in the selection toolbar; set false to suppress it and ship your own batch-edit action via batchActions (avoids two Edit buttons).
 - `batchEditFields` — `string[]` — Allow-list the column fields the built-in batch editor offers; defaults to every editable column. Trims a wide grid's editor without touching editable (which would also disable inline editing).
+- `stateKey` — `string` — Persist the full view state (filters, sort, quick-search, page, page size, column order/widths/visibility/pinning, density) to localStorage under this key and restore it on mount. SSR-safe: storage is read in a mount effect, not during render, and unknown columns in a saved snapshot are dropped.
+- `initialState` — `Partial<DatatableState>` — Seed the view state on first mount (used only when stateKey has nothing stored yet). Omitted keys keep their defaults.
+- `onStateChange` — `(state: DatatableState) => void` — Fires with the complete DatatableState whenever the view changes, so you can persist it yourself (URL, server, …). Not fired on the initial mount for the default state; fires once after a stateKey/initialState restore.
 - `diff` — `DatatableDiff<T>` — Turn the grid into a two-dataset diff: pairs diff.from↔diff.to on a key, classifies each row added/removed/modified/moved, and renders modified cells as before→after — through this same engine, so density/resize/pin/sort/filter/group/export/virtualization apply. Adds a leading op-badge column + a toolbar summary and only-changed toggle; rows/serverMode/editMode are ignored.
 
 ```jsx
@@ -3284,7 +3287,7 @@ export function useLocalStorage<T>( key: string, initialValue: T ): [T, (value: 
 
 ### useCopyToClipboard
 
-Copy text to the clipboard with a `copied` flag that auto-resets.
+Copy text to the clipboard with a `copied` flag that auto-resets. Uses the async Clipboard API in a secure context and falls back to a legacy `execCommand("copy")` path over plain HTTP on a LAN IP (where `navigator.clipboard` is undefined) and in older browsers, so `copy()` works off-secure-origin.
 
 ```ts
 export function useCopyToClipboard(timeout?: number): { copied: boolean; copy: (text: string) => Promise<boolean>; };
