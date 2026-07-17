@@ -268,23 +268,51 @@ export function useLocalStorage(key, initialValue) {
 }
 
 /** Copy text to the clipboard with a `copied` flag that auto-resets. */
+// #255: legacy `document.execCommand("copy")` fallback via a hidden, selected <textarea> — the async
+// Clipboard API is exposed ONLY in a secure context (HTTPS or localhost/127.0.0.1), so over plain HTTP
+// on a LAN IP (common on-prem/dev) it's undefined and copy would otherwise silently fail. Restores the
+// user's prior selection. Client-only (callers invoke `copy` from an event handler).
+function legacyCopy(text) {
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    // Off-screen but selectable — no scroll jump, no visible flash.
+    ta.style.cssText = "position:fixed;top:0;left:0;width:1px;height:1px;padding:0;border:none;opacity:0;pointer-events:none;";
+    document.body.appendChild(ta);
+    const sel = document.getSelection();
+    const prev = sel && sel.rangeCount > 0 ? sel.getRangeAt(0) : null;
+    ta.focus();
+    ta.select();
+    ta.setSelectionRange(0, ta.value.length);
+    const ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    if (prev && sel) { sel.removeAllRanges(); sel.addRange(prev); }
+    return ok;
+  } catch {
+    return false;
+  }
+}
+
 export function useCopyToClipboard(timeout = 1500) {
   const [copied, setCopied] = React.useState(false);
   const copy = React.useCallback(async (text) => {
-    // No Clipboard API (SSR, insecure HTTP context, older browser) → report failure
-    // rather than a false success, so `copied`/the return value reflect reality.
-    if (!canUseDOM || !navigator.clipboard) {
-      setCopied(false);
-      return false;
+    // SSR / no DOM at all → report failure rather than a false success.
+    if (!canUseDOM) { setCopied(false); return false; }
+    // Prefer the async Clipboard API (secure contexts only).
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        setCopied(true);
+        return true;
+      } catch {
+        // Permission denied / transient failure → fall through to the legacy path.
+      }
     }
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      return true;
-    } catch (e) {
-      setCopied(false);
-      return false;
-    }
+    // Fallback for insecure (HTTP-on-IP) contexts + older browsers.
+    const ok = legacyCopy(String(text ?? ""));
+    setCopied(ok);
+    return ok;
   }, []);
   React.useEffect(() => {
     if (!copied) return undefined;

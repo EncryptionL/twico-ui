@@ -106,7 +106,9 @@ export function useLocalStorage<T>(
   initialValue: T
 ): [T, (value: T | ((prev: T) => T)) => void];
 
-/** Copy text to the clipboard with a `copied` flag that auto-resets. */
+/** Copy text to the clipboard with a `copied` flag that auto-resets. Uses the async Clipboard API in a
+ *  secure context and falls back to a legacy `execCommand("copy")` path over plain HTTP on a LAN IP
+ *  (where `navigator.clipboard` is undefined) and in older browsers, so `copy()` works off-secure-origin. */
 export function useCopyToClipboard(timeout?: number): {
   copied: boolean;
   copy: (text: string) => Promise<boolean>;
