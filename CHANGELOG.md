@@ -2,6 +2,18 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.18.0](https://github.com/EncryptionL/twico-ui/compare/v1.17.2...v1.18.0) (2026-07-17)
+
+
+### Bug Fixes
+
+* **hooks:** copy off a secure origin via execCommand fallback ([2786e74](https://github.com/EncryptionL/twico-ui/commit/2786e7414aec19832eacb8277830f72ae935307e)), closes [#255](https://github.com/EncryptionL/twico-ui/issues/255)
+
+
+### Features
+
+* **datatable:** persist & restore view state via stateKey/initialState/onStateChange ([0830d59](https://github.com/EncryptionL/twico-ui/commit/0830d591e9bfb21395efa72ad67286326471371b)), closes [#45](https://github.com/EncryptionL/twico-ui/issues/45) [#259](https://github.com/EncryptionL/twico-ui/issues/259)
+
 ## [1.17.2](https://github.com/EncryptionL/twico-ui/compare/v1.17.1...v1.17.2) (2026-07-17)
 
 
