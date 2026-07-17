@@ -49,6 +49,19 @@
   toggle injected; rows tinted via `data-op`. Modified cells are single-line/clipped (no `flex-wrap`
   blowup). `DatatableColumn.compare` added; `rows` made optional. `DiffTable` kept as a thin wrapper
   (API unchanged) delegating to `<Datatable diff={…} />`. — added 2026-07-14
+- **[#253] Truncated cell/header text gets a `title`** — body cells and header labels ellipsize with no
+  native tooltip, so a clipped value (`44.00 CM x 69.00 CM x 1…`) couldn't be read without widening the
+  column or opening an editor. The body cell now sets `title` to the **displayed** text — `valueFormatter`
+  output when present, else the raw value — but only for a plain **string/number** (a `renderCell` node,
+  an actions column, or a mid-edit cell get none, since a stringified title there is meaningless). The
+  displayed value is computed once (`display`) and reused by the default renderers so `valueFormatter`
+  isn't called twice. Header labels set `title` to `headerName` when it's a string. (The prior code had a
+  raw-`val` title that also skipped `valueFormatter` columns and all editable cells.) — fixed 2026-07-16
+- **[#252] Footer range overshoot on the last server-mode page** — `Showing X–Y of Z` derived `end` from
+  `paged.length`, which during a page change is briefly the **previous** page's full `sizeVal` while
+  `start` had already jumped to the last page → `end` overshot the total (`Showing 6,026–6,050 of 6,042`)
+  until the fetch resolved. Clamped `end` (and `start`, for an over-far controlled `page`) to `totalRows`
+  via `Math.min`. No effect on any non-boundary page. — fixed 2026-07-16
 - **[#249] Built-in batch editor stands alone** — the selection toolbar (and thus the Edit button) rendered
   only when `batchActions` was non-empty, so `showBatchEdit` was silently inert on its own: a host whose
   actions are permission-gated to `[]` (update-but-not-delete role) lost batch edit entirely and had to
