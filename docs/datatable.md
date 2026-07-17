@@ -189,6 +189,52 @@ A non-breaking bonus: an **uncontrolled** `pageSize` prop change now re-applies 
 Sort / filter / quick-filter control was scoped as a follow-up (the same `commit`-helper pattern would
 route `cycleSort` / filter mutations / `setQuick` through controlled boundaries).
 
+## View-state persistence — `stateKey` / `initialState` / `onStateChange` (#259)
+
+Remember the user's view across reloads. The three props persist and restore the **whole** view state —
+`{ filters, sort, quickFilter, page, pageSize, columnOrder, columnWidths, columnVisibility, columnPinning,
+density }` (the exported `DatatableState` type):
+
+- **`stateKey`** — a `localStorage` key. On mount the saved snapshot is read and applied; on every change
+  it's written back.
+- **`initialState`** — a `Partial<DatatableState>` used to **seed** the view, but only when `stateKey` has
+  nothing stored yet (so a returning user's saved state wins over the seed).
+- **`onStateChange(state)`** — fires with the complete `DatatableState` on every change, for persisting the
+  state yourself (URL query, a server preferences row). Works with or without `stateKey`.
+
+**SSR-safe by construction.** Storage is never read during render. The server and the first client render
+start from the component's defaults (or `initialState`, which is a prop, so it's identical on both sides), and
+the stored snapshot is applied in a **mount effect** — hydration can't mismatch. `columnVisibility` lists only
+hidden columns (`{ field: false }`; absent = visible) and `columnPinning` only pinned ones, so the serialized
+shape is compact and diff-friendly.
+
+**Effect ordering is load-bearing.** Two effects cooperate:
+
+1. The **persist** effect is declared *before* the **restore** effect. On mount it therefore runs first, sees
+   `stateReadyRef.current === false`, and bails — so the default state is **not** written over the saved one.
+   Restore then applies the snapshot and flips the ref; the next render re-runs persist, which writes/reports
+   the now-restored state (`onStateChange` fires exactly once for a restore). With no `stateKey`/`initialState`
+   the restore effect still flips the ref, so `onStateChange` fires normally on the first real user change.
+2. Restore uses the **raw** setters (`setInternalPage`, `setInternalQuick`, …), not the `commit*` helpers, so
+   restoring filters doesn't reset the restored page to 0.
+
+**The prop-sync effects had to skip their mount run.** The density and `pageSize` "live-sync" effects
+(`setDensity(densityProp)` / `setInternalPage(0)`) fire on mount with `[densityProp]` / `[pageSize]` deps.
+Because each state already **initializes** to its prop, that mount run was always a redundant reset — but it
+also ran *after* the restore effect and clobbered the restored `density`/`page`. Both now skip their first run
+via a `…SyncedRef`, keeping their documented "re-apply on prop **change**" behavior (the `#45` pageSize-reset
+test still passes) without fighting restore. The column-order reconcile effect needed no change: it uses a
+functional `setOrder(prev => …)` updater that preserves whatever restore set.
+
+**Robust to schema drift.** `applyState` sanitizes every field against the current columns: unknown filter /
+sort / width / visibility / pinning / order entries are dropped, new columns keep their place at the end of the
+order, and the cleaned state is written back to storage (a snapshot self-heals after a column change). A
+corrupt/unreadable `localStorage` value is caught and ignored (falls back to `initialState`).
+
+**Controlled props still win.** Restore only touches the *uncontrolled* view — a `page`, `pageSize`, or
+`quickFilter` you drive from props is left alone (persist those yourself). Sort/filter/quick control remain the
+follow-up noted above; this feature persists their *internal* state, which is orthogonal.
+
 ## Row virtualization (windowing)
 
 Opt in with `virtualized` to render only the rows near the viewport for large client datasets.

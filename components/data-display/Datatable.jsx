@@ -872,6 +872,7 @@ export function Datatable({
   emptyMessage, renderEmpty,
   editMode = false, onRowUpdate, onRowsChange, onBatchUpdate,
   showBatchEdit = true, batchEditFields = null,
+  stateKey, initialState, onStateChange,
   showPageJumper = true,
   selectionMode = "none", onRowClick, onCellClick, onActiveCellChange,
   showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [],
@@ -1007,6 +1008,69 @@ export function Datatable({
   const [rowGrab, setRowGrab] = React.useState(null);
   const [reorderMsg, setReorderMsg] = React.useState("");
   const rowFocusRef = React.useRef(null); // key to restore focus to after a keyboard drop
+
+  // #259: persist/restore the full view state. `stateKey` → localStorage; `initialState` seeds it;
+  // `onStateChange` reports it (for URL/server persistence). SSR-safe: never read storage during render —
+  // start from defaults on the server + first client render (so hydration matches), then apply the saved
+  // state in a mount effect. Robust to unknown columns (a version/schema change won't break restore).
+  const serializeState = () => ({
+    filters: filters.map(({ id, ...f }) => f), // strip the internal row id
+    sort,
+    quickFilter: quick,
+    page: pageVal,
+    pageSize: sizeVal,
+    columnOrder: order,
+    columnWidths: widths,
+    columnVisibility: Object.fromEntries([...hidden].map((f) => [f, false])), // absent = visible
+    columnPinning: Object.fromEntries([...pins.left.map((f) => [f, "left"]), ...pins.right.map((f) => [f, "right"])]),
+    density,
+  });
+  const applyState = (s) => {
+    if (!s || typeof s !== "object") return;
+    const known = new Set(cols.map((c) => c.field).filter(Boolean));
+    if (Array.isArray(s.filters)) setFilters(s.filters.filter((f) => f && known.has(f.field)).map((f, i) => ({ id: Date.now() + Math.random() + i, field: f.field, op: f.op, value: f.value })));
+    if ("sort" in s) setSort(s.sort && known.has(s.sort.field) ? { field: s.sort.field, dir: s.sort.dir === "desc" ? "desc" : "asc" } : null);
+    if (typeof s.quickFilter === "string" && quickFilter === undefined) setInternalQuick(s.quickFilter);
+    if (typeof s.page === "number" && !pageControlled) setInternalPage(Math.max(0, Math.floor(s.page)));
+    if (typeof s.pageSize === "number" && !pageSizeControlled) setInternalRpp(s.pageSize > 0 ? s.pageSize : 10);
+    if (Array.isArray(s.columnOrder)) {
+      const savedOrder = s.columnOrder.filter((f) => known.has(f));
+      const missing = cols.map((c) => c.field).filter((f) => f && !savedOrder.includes(f)); // new columns keep their place at the end
+      setOrder([...savedOrder, ...missing]);
+    }
+    if (s.columnWidths && typeof s.columnWidths === "object") setWidths(Object.fromEntries(Object.entries(s.columnWidths).filter(([f, w]) => known.has(f) && typeof w === "number")));
+    if (s.columnVisibility && typeof s.columnVisibility === "object") setHidden(new Set(Object.keys(s.columnVisibility).filter((f) => known.has(f) && s.columnVisibility[f] === false)));
+    if (s.columnPinning && typeof s.columnPinning === "object") {
+      const l = [], r = [];
+      for (const [f, side] of Object.entries(s.columnPinning)) { if (!known.has(f)) continue; if (side === "left") l.push(f); else if (side === "right") r.push(f); }
+      setPins({ left: l, right: r });
+    }
+    if (s.density === "compact" || s.density === "standard" || s.density === "comfortable") setDensity(s.density);
+  };
+  const stateReadyRef = React.useRef(false);
+  const onStateChangeRef = React.useRef(onStateChange);
+  onStateChangeRef.current = onStateChange;
+  // Persist effect — declared BEFORE the restore effect so on MOUNT it runs first (ready=false → skips),
+  // then restore applies the saved state, then this re-runs once with the restored state. Prevents the
+  // default state from being written over the saved one on mount.
+  React.useEffect(() => {
+    if (!stateReadyRef.current) return undefined;
+    if (!stateKey && !onStateChange) return undefined;
+    const state = serializeState();
+    onStateChangeRef.current?.(state);
+    if (stateKey) { try { window.localStorage.setItem(stateKey, JSON.stringify(state)); } catch { /* storage unavailable/full */ } }
+    return undefined;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, stateKey]);
+  // Restore effect — mount only. Reads localStorage[stateKey] (else initialState) and applies it.
+  React.useEffect(() => {
+    let saved = null;
+    if (stateKey) { try { const raw = window.localStorage.getItem(stateKey); if (raw) saved = JSON.parse(raw); } catch { /* ignore corrupt/unreadable */ } }
+    if (!saved && initialState) saved = initialState;
+    if (saved) applyState(saved);
+    stateReadyRef.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // Collapse the toolbar to icon-only when the grid is too narrow for full labels.
   const rootRef = React.useRef(null);
   const [compact, setCompact] = React.useState(false);
@@ -1053,13 +1117,19 @@ export function Datatable({
   }, [columns]);
 
   // Live-sync the props that seed internal toolbar state: changing the prop re-applies it
-  // (the user can still adjust each one from the toolbar between prop changes).
-  React.useEffect(() => { setDensity(densityProp); }, [densityProp]);
+  // (the user can still adjust each one from the toolbar between prop changes). The density
+  // and pageSize syncs SKIP their first (mount) run: each state already initializes to its
+  // prop, so the mount run is a redundant reset — and it would otherwise overwrite a restored
+  // view state (#259, whose restore effect runs on the same mount).
+  const densitySyncedRef = React.useRef(false);
+  React.useEffect(() => { if (densitySyncedRef.current) setDensity(densityProp); else densitySyncedRef.current = true; }, [densityProp]);
   React.useEffect(() => { setAggOn(showAggregation); }, [showAggregation]);
-  // #45: re-apply `pageSize` when the prop changes (mirrors density/agg sync) so an
+  // #45: re-apply `pageSize` when the prop changes (mirrors the density sync) so an
   // uncontrolled table honors a new page size and resets to the first page. Skipped when
-  // pageSize is controlled (the parent drives it via onPageSizeChange).
+  // pageSize is controlled (the parent drives it via onPageSizeChange), and on mount.
+  const pageSizeSyncedRef = React.useRef(false);
   React.useEffect(() => {
+    if (!pageSizeSyncedRef.current) { pageSizeSyncedRef.current = true; return; }
     if (pageSizeControlled) return;
     setInternalRpp(pageSize > 0 ? pageSize : 10);
     setInternalPage(0);

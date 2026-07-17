@@ -92,6 +92,34 @@ const [size, setSize] = React.useState(25);
 // pairs naturally with serverMode: fetch on onServerChange, drive page from your URL / store.
 ```
 
+**View-state persistence** — remember how the user set up the grid across reloads. Give a `stateKey` and the
+full view state (filters, sort, quick-search, page, page size, column order / widths / visibility / pinning,
+density) is saved to `localStorage` and restored on mount:
+
+```jsx
+<Datatable stateKey="users-grid" columns={columns} rows={rows} />
+```
+
+`initialState` (a `Partial<DatatableState>`) seeds the state the first time — used only when `stateKey` has
+nothing stored yet. `onStateChange(state)` reports the complete `DatatableState` on every change, so you can
+persist it yourself instead (URL query, a server preferences record, …):
+
+```jsx
+<Datatable
+  stateKey="users-grid"
+  initialState={{ density: "compact", sort: { field: "name", dir: "asc" } }}
+  onStateChange={(s) => saveToServer(s)}
+  columns={columns}
+  rows={rows}
+/>
+```
+
+It's **SSR-safe** — storage is read in a mount effect, never during render, so the server and first client
+render match (no hydration mismatch). A saved snapshot **survives a schema change**: unknown columns are
+dropped and missing keys fall back to defaults, and the pruned state is written back. `stateKey` restores the
+*uncontrolled* parts of the view only — a `page`/`pageSize`/`quickFilter` you already control from props still
+wins (persist those yourself).
+
 **Actions column** — add a `type: "actions"` column with `getActions(row)`:
 
 ```jsx

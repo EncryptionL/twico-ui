@@ -147,7 +147,7 @@ export type { ComboboxProps, ComboboxOption, ComboboxGroup } from "../components
 export type { Command, CommandPaletteProps } from "../components/overlay/CommandPalette";
 export type { CurrencyOption, CurrencyFieldProps } from "../components/inputs/CurrencyField";
 export type { CurrencyProps } from "../components/inputs/Currency";
-export type { DatatableProps, DatatableQuery, DatatableColumn, DatatableRowAction, DatatableBatchAction, DatatableBatchActionContext, DatatableFilter, DatatableFilterOp, DatatableStringOp, DatatableNumberOp } from "../components/data-display/Datatable";
+export type { DatatableProps, DatatableQuery, DatatableState, DatatableColumn, DatatableRowAction, DatatableBatchAction, DatatableBatchActionContext, DatatableFilter, DatatableFilterOp, DatatableStringOp, DatatableNumberOp } from "../components/data-display/Datatable";
 export type { CardGridProps, CardGridQuery, CardGridSort, CardGridFilter, CardGridSortOption } from "../components/data-display/CardGrid";
 export type { DiffTableProps, DiffTableColumn, DiffOp } from "../components/data-display/DiffTable";
 export type { DatePickerProps } from "../components/inputs/DatePicker";

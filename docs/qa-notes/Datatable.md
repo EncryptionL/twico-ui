@@ -110,6 +110,17 @@
   (opaque, and visually identical to the non-pinned cells' effective color). Guarded by a source check in
   `tests/datatable-diff.test.jsx` (jsdom can't compute the injected-`<style>` cascade). Active/selected and
   pinned-row cells were already opaque (`--color-primary-subtle`), so unaffected. — fixed 2026-07-14
+- **[#259] View-state persistence** — `stateKey` (localStorage), `initialState` (seed), and
+  `onStateChange` persist/restore the full view state (`DatatableState`: filters, sort, quickFilter, page,
+  pageSize, columnOrder/Widths/Visibility/Pinning, density). SSR-safe: storage is read in a **mount effect**,
+  never during render, so hydration matches. Two cooperating effects — persist is declared *before* restore so
+  its mount run bails (`stateReadyRef` false) instead of overwriting the saved snapshot with defaults; restore
+  uses raw setters so it doesn't reset the restored page. The density + `pageSize` prop-sync effects now
+  **skip their mount run** (each state already inits to its prop, so the mount run was a redundant reset that
+  also clobbered restore) via `…SyncedRef`; the `#45` pageSize-reset behavior is unchanged. `applyState`
+  sanitizes against current columns (drops unknown fields, appends new columns, self-heals storage); corrupt
+  JSON is caught. Controlled `page`/`pageSize`/`quickFilter` are left alone. 5 tests in
+  `tests/datatable-state.test.jsx`. — added 2026-07-17
 
 ## Verified OK
 

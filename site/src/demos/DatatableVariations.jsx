@@ -342,6 +342,44 @@ function ControlledPaginationDemo() {
   );
 }
 
+/* ==================================================== VIEW-STATE PERSISTENCE */
+const STATE_DEMO_KEY = "twico-docs-datatable-state";
+function StatePersistenceDemo() {
+  const data = React.useMemo(() => makePeople(40), []);
+  const [snapshot, setSnapshot] = React.useState(null);
+  const btn = { display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 12px", border: "var(--border-thin) solid var(--color-border)", borderRadius: "var(--radius-md)", background: "var(--color-surface)", color: "var(--color-text)", font: "inherit", cursor: "pointer", alignSelf: "flex-start" };
+  const clear = () => { try { window.localStorage.removeItem(STATE_DEMO_KEY); } catch { /* storage off */ } };
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+      <Text size="sm" tone="muted" style={{ margin: 0 }}>
+        Sort, filter, resize, reorder, hide, pin, or change the density — then reload the page. The grid
+        restores exactly how you left it (saved to <code>localStorage</code> under <code>stateKey</code>).
+        <code>onStateChange</code> reports the live snapshot below.
+      </Text>
+      <Datatable
+        rows={data}
+        stateKey={STATE_DEMO_KEY}
+        onStateChange={setSnapshot}
+        showDensity
+        height={380}
+        columns={[
+          { field: "name", headerName: "Name", width: 220, renderCell: NameCell },
+          { field: "role", headerName: "Role", width: 120 },
+          { field: "department", headerName: "Department", width: 150 },
+          { field: "status", headerName: "Status", width: 130, renderCell: StatusBadge },
+          { field: "mrr", headerName: "MRR", type: "number", valueFormatter: (v) => usd(v) },
+        ]}
+      />
+      <button type="button" style={btn} onClick={clear}>Clear saved layout (reload to see defaults)</button>
+      {snapshot && (
+        <pre style={{ margin: 0, maxHeight: 160, overflow: "auto", padding: "var(--space-3)", background: "var(--color-surface-sunken)", border: "var(--border-thin) solid var(--color-border)", borderRadius: "var(--radius-md)", font: "var(--font-mono, monospace)", fontSize: "var(--text-xs)", color: "var(--color-text)" }}>
+          {JSON.stringify(snapshot, null, 2)}
+        </pre>
+      )}
+    </div>
+  );
+}
+
 /* ======================================================= 6. REORDER + PINNING */
 function ReorderPinningDemo() {
   const [rows, setRows] = React.useState(() => makePeople(12));
@@ -898,6 +936,27 @@ function ServerSideDemo() {
   );
 }`,
     render: () => <ControlledPaginationDemo />,
+  },
+  {
+    title: "View-state persistence",
+    description:
+      "Remember the user's setup across reloads. stateKey saves the full view state (filters, sort, quick-search, page, page size, column order/widths/visibility/pinning, density) to localStorage and restores it on mount; initialState seeds it the first time; onStateChange(state) reports the complete DatatableState so you can persist it yourself (URL, server). SSR-safe — storage is read in a mount effect, and unknown columns in a saved snapshot are dropped.",
+    code: `function PersistentGrid() {
+  const [snapshot, setSnapshot] = React.useState(null);
+  return (
+    <Datatable
+      rows={rows}
+      columns={columns}
+      stateKey="users-grid"                        // ← localStorage key; restore on mount
+      initialState={{ density: "compact" }}        // seed used only if nothing is stored yet
+      onStateChange={setSnapshot}                   // full DatatableState on every change
+      showDensity
+    />
+  );
+  // Sort / filter / resize / reorder / hide / pin / change density, then reload —
+  // the grid comes back exactly as the user left it.
+}`,
+    render: () => <StatePersistenceDemo />,
   },
   {
     title: "All props",
