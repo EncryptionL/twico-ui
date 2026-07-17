@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.17.2](https://github.com/EncryptionL/twico-ui/compare/v1.17.1...v1.17.2) (2026-07-17)
+
+
+### Bug Fixes
+
+* **datatable:** clamp footer range + title on truncated cells/headers ([#252](https://github.com/EncryptionL/twico-ui/issues/252), [#253](https://github.com/EncryptionL/twico-ui/issues/253)) ([21a023e](https://github.com/EncryptionL/twico-ui/commit/21a023eb20aa8d05b5413ea752c18e32e15a03dc))
+
 ## [1.17.1](https://github.com/EncryptionL/twico-ui/compare/v1.17.0...v1.17.1) (2026-07-15)
 
 
