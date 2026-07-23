@@ -121,6 +121,15 @@
   sanitizes against current columns (drops unknown fields, appends new columns, self-heals storage); corrupt
   JSON is caught. Controlled `page`/`pageSize`/`quickFilter` are left alone. 5 tests in
   `tests/datatable-state.test.jsx`. — added 2026-07-17
+- **[#261] Reorder grip clipped the selection checkbox** — with **both** `checkboxSelection` and
+  `rowReorder`, the drag grip and the checkbox share the one leading pinned cell. That cell is `width: 44`
+  with `padding: 0 12px` and `overflow: hidden`, so its 20px content area fit the 20px checkbox alone but
+  clipped it once the 14px grip + 4px gap were prepended (38px). Fix: a single `CHK_W` constant
+  (`checkboxSelection ? (rowReorder ? 68 : 44) : 0`) now drives the leading column width at **every** site
+  (header select-all `th`, body `td`, skeleton, empty-state) **and** `numLeft`/`leadW` (so pinned-column
+  offsets and the row-number column shift with it and stay aligned). Keyed on the static `rowReorder` prop,
+  not `canReorderRows`, so the width — and the offsets derived from it — don't jump when sorting/grouping
+  hides the grip. 3 tests in `tests/datatable-reorder-checkbox.test.jsx`. — fixed 2026-07-23
 
 ## Verified OK
 
