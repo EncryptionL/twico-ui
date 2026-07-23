@@ -146,6 +146,13 @@
   gained a backward-compatible **anchored mode** (`anchor` element + controlled `open`) that renders
   only the portaled bubble. Escape dismisses (WCAG 1.4.13). 4 tests in
   `tests/datatable-overflow-tooltip.test.jsx`; the #253 test now asserts `data-ovtext`. — fixed 2026-07-23
+- **[#267] Grab cursor covered the whole column header** — the column analog of #263.
+  `.twc-dt__th-label[draggable="true"] { cursor: grab }` put the affordance over the entire header, so
+  hovering to read/sort/open the ⋮ menu read as draggable. Removed that rule (the label keeps its
+  `cursor: pointer` for sort); the `grab` cursor now lives on the header grip (`.twc-dt__grip`), with
+  `cursor: grabbing` on `:active` / `.twc-dt__th[data-dragging]`. The header stays `draggable` (mouse
+  drag from anywhere still reorders the column) — only the cursor is scoped away. Source-guarded (jsdom
+  can't compute the injected-`<style>` cursor cascade) in `tests/datatable-reorder-cursor.test.jsx`. — fixed 2026-07-23
 
 ## Verified OK
 

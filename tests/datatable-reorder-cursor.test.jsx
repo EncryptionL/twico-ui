@@ -43,3 +43,25 @@ describe("Datatable reorder cursor scope (#263)", () => {
     expect(container.querySelector(".twc-dt__row-handle")).toBeTruthy(); // grip present
   });
 });
+
+// #267 — column analog of #263: the header grab cursor was on the whole `.twc-dt__th-label`, so any
+// hover read as draggable. It must be scoped to the header grip.
+describe("Datatable column-reorder cursor scope (#267)", () => {
+  it("does NOT put a grab cursor on the whole header label", () => {
+    const src = readFileSync(DT_SRC, "utf8");
+    expect(src).not.toContain('.twc-dt__th-label[draggable="true"] { cursor: grab');
+  });
+
+  it("scopes the grab cursor to the header grip, and grabbing while active/dragging", () => {
+    const src = readFileSync(DT_SRC, "utf8");
+    expect(src).toMatch(/\.twc-dt__grip \{[^}]*cursor: grab;/);
+    expect(src).toContain('.twc-dt__grip:active, .twc-dt__th[data-dragging="true"] .twc-dt__grip { cursor: grabbing; }');
+  });
+
+  it("still renders the header as a drag source with a grip (drag unaffected)", () => {
+    const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} />);
+    const label = container.querySelector(".twc-dt__th-label[draggable='true']");
+    expect(label).toBeTruthy();                       // header stays a mouse drag source
+    expect(container.querySelector(".twc-dt__grip")).toBeTruthy(); // grip affordance present
+  });
+});
