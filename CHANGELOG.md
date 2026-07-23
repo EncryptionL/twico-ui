@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.20.0](https://github.com/EncryptionL/twico-ui/compare/v1.19.1...v1.20.0) (2026-07-23)
+
+
+### Features
+
+* **datatable:** add column filterType, decoupling filter operators from the edit type ([68dbb6e](https://github.com/EncryptionL/twico-ui/commit/68dbb6e80cc3e50fd1072eff5fa8cf2415259ef0)), closes [#271](https://github.com/EncryptionL/twico-ui/issues/271) [263/#267](https://github.com/EncryptionL/twico-ui/issues/267) [#269](https://github.com/EncryptionL/twico-ui/issues/269) [#269](https://github.com/EncryptionL/twico-ui/issues/269) [#270](https://github.com/EncryptionL/twico-ui/issues/270) [#271](https://github.com/EncryptionL/twico-ui/issues/271)
+
 ## [1.19.1](https://github.com/EncryptionL/twico-ui/compare/v1.19.0...v1.19.1) (2026-07-23)
 
 
