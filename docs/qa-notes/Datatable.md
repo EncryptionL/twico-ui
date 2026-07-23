@@ -171,6 +171,15 @@
   toggle). Removed it (the row keeps its `cursor: pointer` toggle); the `grab` cursor now lives on the
   `.twc-dt__col-grip`, with `cursor: grabbing` on `:active` / `[data-dragging]`. The row stays a drag
   source. Source-guarded in `tests/datatable-reorder-cursor.test.jsx`. — fixed 2026-07-23
+- **[#273] Esc didn't cancel a cell edit for custom `renderEditCell` editors** — the built-in text
+  editor (via `onEditKey`) and built-in Select editor already handled Escape, but the custom-editor
+  wrapper had no keydown, so Esc did nothing for a `renderEditCell` control (which only gets
+  `commit`/`cancel`, not a keydown). The `.twc-dt__editor-wrap` around `renderEditCell` now handles
+  **Escape → `cancelEdit()`** (mirroring the built-in Select editor), so it works for every custom
+  editor without each wiring a handler. A custom control that wants Escape for itself (e.g. to close its
+  own open dropdown) stops propagation first. `onGridKeyDown` already bailed while editing, so no
+  interference. 3 tests in `tests/datatable-edit-escape.test.jsx` (built-in + custom + stopPropagation
+  contract). — fixed 2026-07-23
 
 ## Verified OK
 

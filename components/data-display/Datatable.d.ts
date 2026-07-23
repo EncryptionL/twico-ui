@@ -366,7 +366,9 @@ export interface DatatableColumn<T = any> {
    *  Providing it makes the column editable (unless `editable: false`) and takes precedence over the
    *  built-in select/text editor. Call `commit(nextValue)` to save (fires `onRowUpdate`/`onRowsChange`)
    *  or `cancel()` to discard. Twico overlay dropdowns (portaled as `.twc-pop`) are exempt from the
-   *  cell's outside-click auto-cancel, so a Combobox popover works inside the cell. */
+   *  cell's outside-click auto-cancel, so a Combobox popover works inside the cell. **Escape cancels**
+   *  the edit automatically (the wrapper calls `cancel()`), so you needn't wire a keydown — stop
+   *  propagation on Escape only if your control needs it (e.g. to close its own open dropdown). */
   renderEditCell?: (args: { value: any; row: T; field: string; commit: (nextValue: any) => void; cancel: () => void }) => React.ReactNode;
   /** Custom control for this column's clause in the **batch** editor (#247) — the counterpart of
    *  `renderEditCell` for the "Edit N selected rows" popover. Use it when the value is backed by a large,
