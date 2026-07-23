@@ -22,6 +22,20 @@ describe("Select keyboard navigation", () => {
     expect(screen.getAllByRole("option")).toHaveLength(3);
   });
 
+  it("#269: options carry a native title of their label so a clipped long name stays discoverable", () => {
+    const longOpts = [
+      { value: "a", label: "Grommet backing column — long name" },
+      { value: "b", label: "Part removal note" },
+      { value: "c", label: <span>Custom node</span> },
+    ];
+    render(<Select options={longOpts} searchable={false} />);
+    open(screen.getByRole("button"));
+    const opts = screen.getAllByRole("option");
+    expect(opts[0].getAttribute("title")).toBe("Grommet backing column — long name");
+    expect(opts[1].getAttribute("title")).toBe("Part removal note");
+    expect(opts[2].getAttribute("title")).toBeNull(); // custom node → no title
+  });
+
   it("Arrow + Enter selects an option and fires onChange with its value", () => {
     const onChange = vi.fn();
     render(<Select options={options} searchable={false} onChange={onChange} />);

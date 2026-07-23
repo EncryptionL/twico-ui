@@ -12,6 +12,11 @@
 
 ## Enhancements
 
+- **[#269] Full option label on hover** — each option button carries a native `title` equal to its label
+  (plain-string labels only), so a name clipped by the option's `text-overflow: ellipsis` stays
+  discoverable. Native `title` rather than a twico `Tooltip` because options live in a portaled,
+  virtualized listbox where a Tooltip per option is impractical. Surfaced via the Datatable filter
+  builder's column dropdown. — added 2026-07-23
 - **[#92] Opt-in option-list virtualization** — `virtualized` (+ `overscan`, default 8) windows
   `.twc-pop__list`, rendering only the option rows intersecting the viewport (plus spacer divs) so a
   250/500/1000-item list opens without mounting every button. aria-activedescendant / keyboard indexing

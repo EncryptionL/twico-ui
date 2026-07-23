@@ -221,9 +221,14 @@ a per-row Total group, a grand-total row, and per-value formatting. Empty inters
 />
 ```
 
-Column fields: `field`, `headerName`, `type` ("string"|"number"|"actions"), `width`, `sortable`, `filterable`,
-`hideable`, `pinnable`, `pinned` ("left"|"right"), `groupable`, `resizable`, `aggregation`, `aggregationFormatter`,
-`valueOptions`, `valueFormatter`, `renderCell`, `exportValue`, `getActions`.
+Column fields: `field`, `headerName`, `type` ("string"|"number"|"actions"), `filterType` ("string"|"number"),
+`width`, `sortable`, `filterable`, `hideable`, `pinnable`, `pinned` ("left"|"right"), `groupable`, `resizable`,
+`aggregation`, `aggregationFormatter`, `valueOptions`, `valueFormatter`, `renderCell`, `exportValue`, `getActions`.
+
+**`filterType`** decouples a column's *filter* operators from its edit `type` (#270). A value+unit
+measurement must edit as `type: "string"` (a `type: "number"` column coerces its commit with `Number()`,
+which wipes a custom value), yet can present **numeric** filter operators via `filterType: "number"` — pair
+it with a `valueGetter` returning the numeric value so the comparison is numeric. Sorting still uses `type`.
 
 **Aggregation / summary footer** — OFF by default. Users open the toolbar **Aggregation** panel to toggle the
 totals row and choose, per column, which aggregation to apply (numeric: Sum/Avg/Min/Max/Count; others: Count).

@@ -65,3 +65,17 @@ describe("Datatable column-reorder cursor scope (#267)", () => {
     expect(container.querySelector(".twc-dt__grip")).toBeTruthy(); // grip affordance present
   });
 });
+
+// #271 — columns show/hide panel analog of #263/#267: grab cursor was on the whole `.twc-dt__col-row`.
+describe("Datatable columns-panel cursor scope (#271)", () => {
+  it("does NOT put a grab cursor on the whole column row", () => {
+    const src = readFileSync(DT_SRC, "utf8");
+    expect(src).not.toContain('.twc-dt__col-row[draggable="true"] { cursor: grab');
+  });
+
+  it("scopes the grab cursor to the col-grip, and grabbing while active/dragging", () => {
+    const src = readFileSync(DT_SRC, "utf8");
+    expect(src).toMatch(/\.twc-dt__col-grip \{[^}]*cursor: grab;/);
+    expect(src).toContain('.twc-dt__col-grip:active, .twc-dt__col-row[data-dragging="true"] .twc-dt__col-grip { cursor: grabbing; }');
+  });
+});
