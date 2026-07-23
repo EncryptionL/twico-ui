@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.18.2](https://github.com/EncryptionL/twico-ui/compare/v1.18.1...v1.18.2) (2026-07-23)
+
+
+### Bug Fixes
+
+* **datatable:** scope the reorder grab cursor to the drag handle ([e6bc6cd](https://github.com/EncryptionL/twico-ui/commit/e6bc6cd71a4295fa25635a8a9467720133e041dd)), closes [#263](https://github.com/EncryptionL/twico-ui/issues/263)
+
 ## [1.18.1](https://github.com/EncryptionL/twico-ui/compare/v1.18.0...v1.18.1) (2026-07-23)
 
 
