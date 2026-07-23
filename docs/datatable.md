@@ -289,6 +289,14 @@ fully keyboard-driven reorder, mirroring the Kanban grab pattern:
 - Every step is announced through a visually-hidden `role="status" aria-live="polite"` region
   (`.twc-dt__sr`).
 
+When the grip lands **in the checkbox cell** (i.e. `checkboxSelection` is also on), that one leading
+pinned cell now has to hold grip + gap + checkbox. Its width comes from a single `CHK_W` constant
+(`checkboxSelection ? (rowReorder ? 68 : 44) : 0`) used at every leading-cell site — header select-all,
+body, skeleton, empty — **and** as `numLeft`/`leadW`, so the row-number column and every pinned-column
+offset shift with it and stay aligned. `CHK_W` keys off the static `rowReorder` prop (not the runtime
+`canReorderRows`), so the column width doesn't jump when sorting/grouping temporarily hides the grip
+(#261 — without the widening, the cell's `overflow: hidden` clipped the checkbox).
+
 Like drag reorder, it's disabled while sorting or grouping (`canReorderRows`).
 
 ### Row pinning needs a row ⋮ menu to host its items
