@@ -130,6 +130,12 @@
   offsets and the row-number column shift with it and stay aligned). Keyed on the static `rowReorder` prop,
   not `canReorderRows`, so the width — and the offsets derived from it — don't jump when sorting/grouping
   hides the grip. 3 tests in `tests/datatable-reorder-checkbox.test.jsx`. — fixed 2026-07-23
+- **[#263] Grab cursor covered the whole reorderable row** — `.twc-dt__row[data-reorderable] { cursor: grab }`
+  put the `grab` affordance over every cell, so a normal hover read as draggable. Removed that rule; the
+  `grab` cursor now lives only on `.twc-dt__row-handle` (the grip), with `cursor: grabbing` added on the
+  handle's `:active` / `[data-grabbed="true"]` states. The row stays `draggable` (mouse drag from anywhere
+  still works) — only the misleading cursor is scoped away. Guarded at the source (jsdom can't compute the
+  injected-`<style>` cursor cascade) in `tests/datatable-reorder-cursor.test.jsx`. Follow-up to #261. — fixed 2026-07-23
 
 ## Verified OK
 

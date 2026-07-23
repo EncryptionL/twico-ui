@@ -248,8 +248,8 @@ const DT_CSS = `
 .twc-dt__row[data-pinned-row="top"] > .twc-dt__td { border-bottom: var(--border-medium) solid var(--color-primary-border); box-shadow: 0 1px 0 var(--color-primary-border); }
 .twc-dt__row[data-pinned-row="bottom"] > .twc-dt__td { border-top: var(--border-medium) solid var(--color-primary-border); }
 
-/* Row reordering */
-.twc-dt__row[data-reorderable] { cursor: grab; }
+/* Row reordering — the grab affordance lives on the drag handle only (#263), not the whole row, so
+   hovering a normal data cell isn't presented as draggable (the row stays a drag source for the mouse). */
 .twc-dt__row[data-row-dragging] { opacity: 0.4; }
 /* #239 diff mode: row op tint + before→after cells (single-line, clipped by the td's own overflow). */
 .twc-dt__row[data-op="added"] > .twc-dt__td { background: color-mix(in srgb, var(--color-success) 7%, transparent); }
@@ -280,6 +280,7 @@ const DT_CSS = `
 .twc-dt__row:hover .twc-dt__row-handle, .twc-dt__row-handle:focus-visible { opacity: 0.7; }
 .twc-dt__row-handle:focus-visible { outline: none; box-shadow: var(--ring); color: var(--color-primary); }
 .twc-dt__row-handle[data-grabbed="true"] { opacity: 1; color: var(--color-primary); }
+.twc-dt__row-handle:active, .twc-dt__row-handle[data-grabbed="true"] { cursor: grabbing; }
 .twc-dt__row-handle svg { width: 14px; height: 14px; }
 /* Visually-hidden aria-live region for reorder announcements */
 .twc-dt__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
