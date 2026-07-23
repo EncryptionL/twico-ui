@@ -2172,7 +2172,11 @@ export function Datatable({
                   // async Combobox, …) and drives the lifecycle via commit/cancel. Wrapped in
                   // .twc-dt__editor-wrap so inline clicks (and any .twc-pop portal dropdown) don't
                   // trip the outside-click auto-cancel.
-                  <div className="twc-dt__editor-wrap">
+                  // #273: the wrapper handles Escape → cancel so it works for every custom editor without
+                  // each having to wire a keydown (they only get commit/cancel). A custom control that
+                  // wants Escape itself (e.g. to close its own open dropdown) stops propagation first.
+                  <div className="twc-dt__editor-wrap"
+                    onKeyDown={(e) => { if (e.key === "Escape") { e.stopPropagation(); cancelEdit(); } }}>
                     {c.renderEditCell({ value: editing.value, row, field: c.field, commit: (v) => commitEdit(v), cancel: cancelEdit })}
                   </div>
                 ) : (
