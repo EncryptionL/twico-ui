@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.19.0](https://github.com/EncryptionL/twico-ui/compare/v1.18.2...v1.19.0) (2026-07-23)
+
+
+### Features
+
+* **datatable:** reveal truncated cell/header text via the twico Tooltip ([754534e](https://github.com/EncryptionL/twico-ui/commit/754534eadea6c2ff4b0f6005bc8fd3b8a6f5c92b)), closes [#253](https://github.com/EncryptionL/twico-ui/issues/253) [#253](https://github.com/EncryptionL/twico-ui/issues/253) [#253](https://github.com/EncryptionL/twico-ui/issues/253) [#265](https://github.com/EncryptionL/twico-ui/issues/265)
+
 ## [1.18.2](https://github.com/EncryptionL/twico-ui/compare/v1.18.1...v1.18.2) (2026-07-23)
 
 
