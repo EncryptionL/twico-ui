@@ -388,13 +388,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__col-list { max-height: 230px; overflow-y: auto; }
 .twc-dt__col-row { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: var(--radius-md); cursor: pointer; }
 .twc-dt__col-row:hover { background: var(--color-surface-sunken); }
-.twc-dt__col-row[draggable="true"] { cursor: grab; }
+/* #271 (columns-panel analog of #263/#267): grab lives on the grip only, not the whole row — the row
+   keeps its 'cursor: pointer' (toggles visibility) and stays a drag source for the mouse. */
 .twc-dt__col-row[data-dragging="true"] { opacity: 0.5; }
 .twc-dt__col-row[data-dropbefore="true"] { box-shadow: inset 0 3px 0 var(--color-primary); }
 .twc-dt__col-row[data-dropafter="true"] { box-shadow: inset 0 -3px 0 var(--color-primary); }
-.twc-dt__col-grip { display: inline-flex; color: var(--color-text-subtle); flex: none; opacity: 0.45; }
+.twc-dt__col-grip { display: inline-flex; color: var(--color-text-subtle); flex: none; opacity: 0.45; cursor: grab; }
 .twc-dt__col-row:hover .twc-dt__col-grip { opacity: 0.8; }
 .twc-dt__col-grip svg { width: 14px; height: 14px; }
+.twc-dt__col-grip:active, .twc-dt__col-row[data-dragging="true"] .twc-dt__col-grip { cursor: grabbing; }
 .twc-dt__col-name { flex: 1; font-size: var(--text-sm); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-dt__col-pins { display: inline-flex; gap: 2px; flex: none; }
 .twc-dt__col-pin { display: inline-grid; place-items: center; width: 24px; height: 24px; border: none; padding: 0; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm); transition: background-color var(--duration-fast), color var(--duration-fast); }
@@ -534,6 +536,15 @@ const NUM_OPS = [
 ];
 const opsFor = (type) => (type === "number" ? NUM_OPS : STR_OPS);
 const isMultiOp = (op) => op === "isAnyOf";
+// #270: the type that drives a column's FILTER operators + value comparison, decoupled from its edit
+// `type`. A `filterType` override lets a column that must edit as a custom/string type (e.g. a
+// value+unit measurement, whose number-column commit coercion would wipe the pair) still present
+// numeric filter operators. Falls back to the edit `type`. Sort still uses the edit `type`.
+const filterTypeOf = (col) => {
+  const ft = col && col.filterType;
+  if (ft === "number" || ft === "string") return ft;
+  return col && col.type === "number" ? "number" : "string";
+};
 
 // #213: resolve a column's value for a row — a `valueGetter(row)` (nested/computed) or the raw
 // `row[field]`. Everything that derives a value (sort/filter/search/group/aggregate/render/pivot/
@@ -616,7 +627,7 @@ export function runDatatableQuery(rows, query, options = {}) {
   let out = Array.isArray(rows) ? rows : [];
   const quick = String(q.quickFilter || "").trim().toLowerCase();
   if (quick) out = out.filter((r) => searchFields.some((f) => String(gv(f, r) ?? "").toLowerCase().includes(quick)));
-  for (const f of q.filters || []) out = out.filter((r) => testFilter(gv(f.field, r), f.op, f.value, typeOf(f.field)));
+  for (const f of q.filters || []) { const fc = cols.find((c) => c.field === f.field); out = out.filter((r) => testFilter(gv(f.field, r), f.op, f.value, filterTypeOf(fc))); }
   if (q.sort && q.sort.field) {
     const { field, dir } = q.sort, numeric = typeOf(field) === "number";
     out = [...out].sort((a, b) => {
@@ -1340,7 +1351,7 @@ export function Datatable({
     }
     for (const f of filters) {
       const col = colByField[f.field]; if (!col) continue;
-      out = out.filter((r) => testFilter(getColVal(col, r), f.op, f.value, col.type));
+      out = out.filter((r) => testFilter(getColVal(col, r), f.op, f.value, filterTypeOf(col)));
     }
     if (sort) {
       const col = colByField[sort.field];
@@ -1623,7 +1634,7 @@ export function Datatable({
   }
   function addFilter(field) {
     const col = colByField[field] || cols[0];
-    setFilters((f) => [...f, { id: Date.now() + Math.random(), field: col.field, op: opsFor(col.type)[0].value, value: "" }]);
+    setFilters((f) => [...f, { id: Date.now() + Math.random(), field: col.field, op: opsFor(filterTypeOf(col))[0].value, value: "" }]);
   }
   function setPin(field, side) {
     setPins((p) => {
@@ -2891,14 +2902,14 @@ export function Datatable({
           </div>
           {filters.length === 0 ? <div className="twc-dt__empty" style={{ padding: "16px 12px" }}>No filters applied</div> :
             filters.map((f) => {
-              const col = colByField[f.field] || cols[0]; const ops = opsFor(col.type);
+              const col = colByField[f.field] || cols[0]; const ops = opsFor(filterTypeOf(col));
               const op = ops.find((o) => o.value === f.op) || ops[0];
               return (
                 <div className="twc-dt__frow" key={f.id}>
                   <div className="twc-dt__f-col">
                     <Select size="sm" portal value={f.field}
                       options={filterableCols.map((c) => ({ value: c.field, label: c.headerName }))}
-                      onChange={(v) => { const nc = colByField[v]; setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, field: v, op: opsFor(nc.type)[0].value, value: "" } : x)); }} />
+                      onChange={(v) => { const nc = colByField[v]; setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, field: v, op: opsFor(filterTypeOf(nc))[0].value, value: "" } : x)); }} />
                   </div>
                   <div className="twc-dt__f-op">
                     <Select size="sm" portal value={f.op}
@@ -2920,7 +2931,7 @@ export function Datatable({
                           onChange={(vals) => setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, value: vals } : x))} />
                       )
                     ) : (
-                      <Input size="sm" type={col.type === "number" ? "number" : "text"} placeholder="Value" value={f.value}
+                      <Input size="sm" type={filterTypeOf(col) === "number" ? "number" : "text"} placeholder="Value" value={f.value}
                         onChange={(e) => setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, value: e.target.value } : x))} />
                     )}
                   </div>

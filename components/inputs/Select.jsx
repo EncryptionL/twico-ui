@@ -305,6 +305,10 @@ export function Select({
         ref={idx === active ? activeRef : null}
         disabled={o.disabled || undefined} aria-disabled={o.disabled || undefined} data-disabled={o.disabled || undefined}
         data-selected={isSel || undefined} data-active={idx === active || undefined}
+        // #269: reveal the full option label when it's clipped by the (ellipsised) option width — a
+        // native title, since options live in a portaled, virtualized listbox where a Tooltip per option
+        // is impractical. Only for a plain string label (a custom node gets none).
+        title={typeof o.label === "string" ? o.label : undefined}
         onMouseEnter={() => { if (!o.disabled) setActive(idx); }} onClick={() => commit(o.value)}>
         <span className="twc-opt__main">
           <span className="twc-opt__label">{o.label}</span>

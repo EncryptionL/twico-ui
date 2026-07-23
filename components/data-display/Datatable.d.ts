@@ -318,6 +318,13 @@ export interface DatatableColumn<T = any> {
   headerName?: string;
   /** Data type. "actions" renders per-row action buttons via getActions. @default "string" */
   type?: "string" | "number" | "actions";
+  /** Filter operators + value comparison for this column, **decoupled from the edit `type`** (#270).
+   *  A `"number"` column edits by coercing its commit with `Number()`, which would wipe a custom value
+   *  (e.g. a value+unit measurement edited via `renderEditCell`) — so such a column must edit as
+   *  `type: "string"`, yet may still want **numeric** filter operators (`=` `≠` `>` `≥` `<` `≤`).
+   *  Set `filterType: "number"` to offer them (provide a `valueGetter` returning the numeric value so
+   *  the comparison is numeric). Falls back to `type`. Sorting still uses `type`. @default type */
+  filterType?: "string" | "number";
   /** Column width: a px number, or `"auto"` to size to the header's intrinsic width (chrome + label) so a short column fits without truncating or wasting the 160px default. @default 160 (120 for actions) */
   width?: number | "auto";
   /** Lower bound (px) for the resolved width, incl. `"auto"` and user resizes. */

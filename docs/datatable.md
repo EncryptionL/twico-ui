@@ -93,6 +93,18 @@ from the current `rows`; selection does not span pages in server mode.
   value controlled, so a host can render its own `<Input type="search">` and still drive client filtering
   **and** the `onServerChange` query (`quickFilter` in the emitted query). Useful when the built-in box
   doesn't fit a host's layout (or to work around a host-CSS clash). Uncontrolled unless `quickFilter` is set.
+- **`column.filterType` (#270)** decouples a column's **filter** operators + value comparison from its edit
+  `type`. A value+unit measurement (e.g. `"0.5 MM"`, edited via a custom `renderEditCell`) must edit as
+  `type: "string"` — a `type: "number"` column coerces its inline-edit commit with `Number()`, which turns
+  the pair into `NaN → null` and wipes the cell. But such a column can still present **numeric** operators
+  (`= ≠ > ≥ < ≤`, is empty / is not empty) with `filterType: "number"`. A module-level `filterTypeOf(col)`
+  (`col.filterType ?? type`) drives `opsFor` (the operator set), the filter value input type, and
+  `testFilter`'s comparison — in the filter builder, the client filter, **and** `runDatatableQuery`, so
+  server-mode parity holds. **Sort still uses the edit `type`.** Numeric comparison flows through
+  `getColVal`, so pair `filterType: "number"` with a `valueGetter` returning the numeric part.
+- **Filter-builder column dropdown (#269)** — the field `Select` (and every Select) sets a native `title`
+  on each string option, so a long `headerName` clipped by the option's ellipsis is discoverable on hover
+  (a Tooltip per option is impractical in a portaled, virtualized listbox).
 
 ## Custom inline cell editor — `renderEditCell` (#236)
 

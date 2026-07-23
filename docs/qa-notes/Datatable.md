@@ -153,6 +153,24 @@
   `cursor: grabbing` on `:active` / `.twc-dt__th[data-dragging]`. The header stays `draggable` (mouse
   drag from anywhere still reorders the column) — only the cursor is scoped away. Source-guarded (jsdom
   can't compute the injected-`<style>` cursor cascade) in `tests/datatable-reorder-cursor.test.jsx`. — fixed 2026-07-23
+- **[#269] Filter-builder column dropdown clipped long option labels** — the field `Select` (and every
+  `Select`) now sets a native `title` equal to a string option's label, so a name clipped by the option's
+  ellipsis is still discoverable on hover. Native `title` (not the #265 Tooltip) because options live in a
+  portaled, virtualized listbox where a Tooltip per option is impractical. A custom-node label gets none.
+  Test in `tests/Select.test.jsx`. — fixed 2026-07-23
+- **[#270] `filterType` — filter operators decoupled from edit `type`** — a value+unit measurement must
+  edit as `type: "string"` (a number column coerces its commit with `Number()`, wiping the pair), but can
+  now present numeric filter operators via `filterType: "number"`. A module-level `filterTypeOf(col)`
+  (`col.filterType ?? type`) drives the filter operator set (`opsFor`), the filter value input type, and
+  `testFilter`'s comparison type — in the builder, the client filter, **and** `runDatatableQuery` (so
+  server-mode parity holds). Sort still uses the edit `type`. Numeric comparison uses the column's
+  `valueGetter`, so a measurement column returns its numeric value for filtering. 3 tests in
+  `tests/datatable-filter-type.test.jsx`. — added 2026-07-23
+- **[#271] Grab cursor covered the whole columns-panel row** — the columns show/hide panel analog of
+  #263/#267. `.twc-dt__col-row[draggable]` set `cursor: grab` over the whole row (name + visibility
+  toggle). Removed it (the row keeps its `cursor: pointer` toggle); the `grab` cursor now lives on the
+  `.twc-dt__col-grip`, with `cursor: grabbing` on `:active` / `[data-dragging]`. The row stays a drag
+  source. Source-guarded in `tests/datatable-reorder-cursor.test.jsx`. — fixed 2026-07-23
 
 ## Verified OK
 
