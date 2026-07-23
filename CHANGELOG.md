@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.20.1](https://github.com/EncryptionL/twico-ui/compare/v1.20.0...v1.20.1) (2026-07-23)
+
+
+### Bug Fixes
+
+* **datatable:** Esc cancels a cell edit for custom renderEditCell editors ([f886023](https://github.com/EncryptionL/twico-ui/commit/f88602390edf75b1217b5ecd5a659951ce9c7748)), closes [#273](https://github.com/EncryptionL/twico-ui/issues/273)
+
 # [1.20.0](https://github.com/EncryptionL/twico-ui/compare/v1.19.1...v1.20.0) (2026-07-23)
 
 
