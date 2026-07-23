@@ -297,6 +297,11 @@ offset shift with it and stay aligned. `CHK_W` keys off the static `rowReorder` 
 `canReorderRows`), so the column width doesn't jump when sorting/grouping temporarily hides the grip
 (#261 — without the widening, the cell's `overflow: hidden` clipped the checkbox).
 
+The `grab`/`grabbing` cursor is scoped to the **grip handle** (`.twc-dt__row-handle`), not the whole row
+(#263). The `<tr>` stays `draggable`, so a mouse drag from anywhere on the row still reorders it — but only
+the handle presents the grab affordance, so hovering a normal data cell keeps the default cursor rather than
+reading as draggable.
+
 Like drag reorder, it's disabled while sorting or grouping (`canReorderRows`).
 
 ### Row pinning needs a row ⋮ menu to host its items
