@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.18.1](https://github.com/EncryptionL/twico-ui/compare/v1.18.0...v1.18.1) (2026-07-23)
+
+
+### Bug Fixes
+
+* **datatable:** stop the reorder grip from clipping the selection checkbox ([096f5e8](https://github.com/EncryptionL/twico-ui/commit/096f5e8977949bc664ffcec21931c9062d831522)), closes [#261](https://github.com/EncryptionL/twico-ui/issues/261)
+
 # [1.18.0](https://github.com/EncryptionL/twico-ui/compare/v1.17.2...v1.18.0) (2026-07-17)
 
 
