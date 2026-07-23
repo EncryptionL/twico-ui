@@ -41,20 +41,28 @@ export function Tooltip({
   placement = "top",
   delay = 120,
   className = "",
+  open: openProp,
+  anchor,
   ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-tooltip-styles", TOOLTIP_CSS);
 
+  // #265: "anchored" mode — when an `anchor` element is supplied, the tooltip is externally
+  // controlled (via `open`) and positioned against that element instead of wrapping a trigger.
+  // Lets a data grid drive ONE tooltip for whichever cell is hovered, instead of a Tooltip per
+  // cell. When `anchor` is omitted the component behaves exactly as before (hover/focus a trigger).
+  const anchored = anchor !== undefined;
   const id = React.useId();
-  const [show, setShow] = React.useState(false);
+  const [showU, setShowU] = React.useState(false);
+  const show = anchored ? !!openProp : showU;
   const [coords, setCoords] = React.useState(null);
   const timer = React.useRef(null);
   const closeTimer = React.useRef(null);
   const wrapRef = React.useRef(null);
   const tipRef = React.useRef(null);
-  const open = () => { clearTimeout(closeTimer.current); clearTimeout(timer.current); timer.current = setTimeout(() => setShow(true), delay); };
+  const open = () => { clearTimeout(closeTimer.current); clearTimeout(timer.current); timer.current = setTimeout(() => setShowU(true), delay); };
   // #114: a short close grace so the pointer can travel from the trigger to the (now hoverable) bubble.
-  const close = () => { clearTimeout(timer.current); clearTimeout(closeTimer.current); closeTimer.current = setTimeout(() => setShow(false), 120); };
+  const close = () => { clearTimeout(timer.current); clearTimeout(closeTimer.current); closeTimer.current = setTimeout(() => setShowU(false), 120); };
   const cancelClose = () => { clearTimeout(closeTimer.current); };
   // Clear any pending timers if the component unmounts before they fire.
   React.useEffect(() => () => { clearTimeout(timer.current); clearTimeout(closeTimer.current); }, []);
@@ -65,7 +73,7 @@ export function Tooltip({
   // axis is clamped to the viewport (minus a small margin) so long labels near an edge
   // don't overflow off-screen.
   const place = React.useCallback(() => {
-    const el = wrapRef.current; if (!el) return;
+    const el = anchored ? anchor : wrapRef.current; if (!el || !el.getBoundingClientRect) return;
     const r = el.getBoundingClientRect();
     const cx = Math.round(r.left + r.width / 2), cy = Math.round(r.top + r.height / 2);
     const vw = window.innerWidth, vh = window.innerHeight, gap = 8, margin = 8;
@@ -92,7 +100,7 @@ export function Tooltip({
     else if (side === "left") { const c = clampY(cy); setCoords({ ...base, top: c, right: Math.round(vw - r.left + gap), arrowY: arrowY(c) }); }
     else if (side === "right") { const c = clampY(cy); setCoords({ ...base, top: c, left: Math.round(r.right + gap), arrowY: arrowY(c) }); }
     else { const c = clampX(cx); setCoords({ ...base, left: c, bottom: Math.round(vh - r.top + gap), arrowX: arrowX(c) }); } // top (default)
-  }, [placement]);
+  }, [placement, anchored, anchor]);
   // Measure once on mount (client-only, so SSR renders no portal — no hydration diff)
   // and keep the closed tooltip positioned so the first open animates in smoothly.
   React.useEffect(() => { place(); }, [place]);
@@ -105,15 +113,42 @@ export function Tooltip({
     return () => { window.removeEventListener("scroll", onMove, true); window.removeEventListener("resize", onMove); };
   }, [show, place]);
 
-  // WCAG 1.4.13: Escape dismisses the tooltip; listener attached only while shown.
+  // WCAG 1.4.13: Escape dismisses the tooltip; listener attached only while shown. In anchored mode
+  // the parent owns visibility (`open`), so it handles Escape.
   React.useEffect(() => {
-    if (!show) return;
+    if (!show || anchored) return;
     const onKeyDown = (e) => {
-      if (e.key === "Escape") { clearTimeout(timer.current); setShow(false); }
+      if (e.key === "Escape") { clearTimeout(timer.current); setShowU(false); }
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [show]);
+  }, [show, anchored]);
+
+  // The portaled bubble — identical in both modes. Anchored mode drops the pointer handlers (the
+  // parent drives visibility) and only renders once an `anchor` is present.
+  const bubble = coords && (!anchored || anchor) ? createPortal(
+    <span
+      ref={tipRef}
+      id={id}
+      className="twc-tooltip"
+      data-place={coords.place || placement}
+      data-show={show || undefined}
+      role="tooltip"
+      aria-hidden={show ? undefined : "true"}
+      onMouseEnter={anchored ? undefined : cancelClose}
+      onMouseLeave={anchored ? undefined : close}
+      style={{
+        position: "fixed", left: coords.left, right: coords.right, top: coords.top, bottom: coords.bottom,
+        "--_tw-arrow-x": coords.arrowX != null ? `${coords.arrowX}px` : undefined,
+        "--_tw-arrow-y": coords.arrowY != null ? `${coords.arrowY}px` : undefined,
+      }}
+    >
+      {label}
+      <span className="twc-tooltip__arrow" aria-hidden="true" />
+    </span>, document.body) : null;
+
+  // Anchored mode: render only the bubble (+ styles), no wrapper / trigger / listeners.
+  if (anchored) return <>{__twcStyles}{bubble}</>;
 
   // Associate the trigger with the tooltip text for assistive technology.
   const describedBy = show ? id : undefined;
@@ -136,26 +171,7 @@ export function Tooltip({
     >
       {__twcStyles}
       {trigger}
-      {coords ? createPortal(
-        <span
-          ref={tipRef}
-          id={id}
-          className="twc-tooltip"
-          data-place={coords.place || placement}
-          data-show={show || undefined}
-          role="tooltip"
-          aria-hidden={show ? undefined : "true"}
-          onMouseEnter={cancelClose}
-          onMouseLeave={close}
-          style={{
-            position: "fixed", left: coords.left, right: coords.right, top: coords.top, bottom: coords.bottom,
-            "--_tw-arrow-x": coords.arrowX != null ? `${coords.arrowX}px` : undefined,
-            "--_tw-arrow-y": coords.arrowY != null ? `${coords.arrowY}px` : undefined,
-          }}
-        >
-          {label}
-          <span className="twc-tooltip__arrow" aria-hidden="true" />
-        </span>, document.body) : null}
+      {bubble}
     </span>
   );
 }

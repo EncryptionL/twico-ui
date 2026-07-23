@@ -12330,9 +12330,23 @@ export const components = [
       {
         "prop": "children",
         "type": "React.ReactNode",
-        "required": true,
+        "required": false,
         "default": "—",
-        "description": "The single trigger element the tooltip wraps and attaches its hover and focus listeners to."
+        "description": "The single trigger element the tooltip wraps and attaches its hover and focus listeners to. Omitted in anchored mode."
+      },
+      {
+        "prop": "anchor",
+        "type": "Element | null",
+        "required": false,
+        "default": "—",
+        "description": "Anchored mode: position one tooltip against this element instead of wrapping a trigger (renders only the portaled bubble). Lets a data grid drive a single tooltip for whichever cell is hovered."
+      },
+      {
+        "prop": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "—",
+        "description": "Anchored mode only: controlled visibility. Pair with anchor; the parent owns show/hide (and Escape)."
       },
       {
         "prop": "onClick",
