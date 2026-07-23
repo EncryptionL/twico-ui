@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.19.1](https://github.com/EncryptionL/twico-ui/compare/v1.19.0...v1.19.1) (2026-07-23)
+
+
+### Bug Fixes
+
+* **datatable:** scope the column-reorder grab cursor to the header grip ([666401e](https://github.com/EncryptionL/twico-ui/commit/666401e617050700af531af7abbfd0f5d41bf644)), closes [#267](https://github.com/EncryptionL/twico-ui/issues/267)
+
 # [1.19.0](https://github.com/EncryptionL/twico-ui/compare/v1.18.2...v1.19.0) (2026-07-23)
 
 
