@@ -116,14 +116,16 @@ const DT_CSS = `
 .twc-dt__resizer:focus-visible::after { background: var(--color-primary); }
 .twc-dt[data-resizing="true"] { cursor: col-resize; user-select: none; }
 
-/* Column reorder (drag) */
-.twc-dt__th-label[draggable="true"] { cursor: grab; }
+/* Column reorder (drag) — the grab affordance lives on the header grip only (#267, the column analog
+   of #263), not the whole header, so a plain hover to read/sort/open the ⋮ menu isn't shown as
+   draggable (the header stays a drag source for the mouse). */
 .twc-dt__th[data-dragging="true"] { opacity: 0.45; }
 .twc-dt__th[data-dropbefore="true"] .twc-dt__th-inner { box-shadow: inset 3px 0 0 var(--color-primary); }
 .twc-dt__th[data-dropafter="true"] .twc-dt__th-inner { box-shadow: inset -3px 0 0 var(--color-primary); }
-.twc-dt__grip { display: inline-flex; color: var(--color-text-subtle); opacity: 0; margin-inline-end: -2px; transition: opacity var(--duration-fast); flex: none; }
+.twc-dt__grip { display: inline-flex; color: var(--color-text-subtle); opacity: 0; margin-inline-end: -2px; transition: opacity var(--duration-fast); flex: none; cursor: grab; }
 .twc-dt__grip svg { width: 13px; height: 13px; }
 .twc-dt__th:hover .twc-dt__grip { opacity: 0.5; }
+.twc-dt__grip:active, .twc-dt__th[data-dragging="true"] .twc-dt__grip { cursor: grabbing; }
 
 /* Summary / aggregation footer row */
 .twc-dt__table tfoot td { position: sticky; bottom: 0; z-index: 3; background: var(--color-surface-sunken);

@@ -337,6 +337,12 @@ items:
 
 No new public prop: this reuses `disableColumnReorder` and the existing reorder state.
 
+The `grab`/`grabbing` cursor is scoped to the header **grip** (`.twc-dt__grip`), not the whole header
+label (#267, the column analog of #263). The label keeps its `cursor: pointer` (it's the sort click
+target) and stays `draggable`, so a mouse drag from anywhere on the header still reorders the column —
+but only the grip presents the grab affordance, so a plain hover to read the label, sort, or open the
+⋮ menu keeps the normal cursor instead of reading as draggable.
+
 ## Column sizing & narrow columns (#227 / #228 / #229)
 
 A small, fixed column — a row-number/ordinal, a status dot, a tiny badge — was awkward: the only
