@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"00b4a9096758","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"41b7413594bd","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"691f103de498","components/inputs/DateRangePicker.jsx":"5f46b4adc95e","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"273cec084ae7","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"b53669534cfc","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"9fe52df38764","components/inputs/TimePicker.jsx":"b5cedc49f13a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"868d4f2590f1","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"747521cd095b"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"d97a91bf41c0","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"41b7413594bd","components/inputs/Combobox.jsx":"8979a7b2b50d","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"691f103de498","components/inputs/DateRangePicker.jsx":"5f46b4adc95e","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"273cec084ae7","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"b53669534cfc","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5dff5b99cf69","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"9fe52df38764","components/inputs/TimePicker.jsx":"b5cedc49f13a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"ca508486a39c","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"747521cd095b"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -8060,11 +8060,15 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     placement = "top",
     delay = 120,
     className = "",
+    open: openProp,
+    anchor,
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-tooltip-styles", TOOLTIP_CSS);
+    const anchored = anchor !== void 0;
     const id = import_react.default.useId();
-    const [show, setShow] = import_react.default.useState(false);
+    const [showU, setShowU] = import_react.default.useState(false);
+    const show = anchored ? !!openProp : showU;
     const [coords, setCoords] = import_react.default.useState(null);
     const timer = import_react.default.useRef(null);
     const closeTimer = import_react.default.useRef(null);
@@ -8073,12 +8077,12 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const open = () => {
       clearTimeout(closeTimer.current);
       clearTimeout(timer.current);
-      timer.current = setTimeout(() => setShow(true), delay);
+      timer.current = setTimeout(() => setShowU(true), delay);
     };
     const close = () => {
       clearTimeout(timer.current);
       clearTimeout(closeTimer.current);
-      closeTimer.current = setTimeout(() => setShow(false), 120);
+      closeTimer.current = setTimeout(() => setShowU(false), 120);
     };
     const cancelClose = () => {
       clearTimeout(closeTimer.current);
@@ -8088,8 +8092,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       clearTimeout(closeTimer.current);
     }, []);
     const place = import_react.default.useCallback(() => {
-      const el = wrapRef.current;
-      if (!el) return;
+      const el = anchored ? anchor : wrapRef.current;
+      if (!el || !el.getBoundingClientRect) return;
       const r2 = el.getBoundingClientRect();
       const cx = Math.round(r2.left + r2.width / 2), cy = Math.round(r2.top + r2.height / 2);
       const vw = window.innerWidth, vh = window.innerHeight, gap = 8, margin = 8;
@@ -8121,7 +8125,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         const c = clampX(cx);
         setCoords({ ...base, left: c, bottom: Math.round(vh - r2.top + gap), arrowX: arrowX(c) });
       }
-    }, [placement]);
+    }, [placement, anchored, anchor]);
     import_react.default.useEffect(() => {
       place();
     }, [place]);
@@ -8137,16 +8141,50 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       };
     }, [show, place]);
     import_react.default.useEffect(() => {
-      if (!show) return;
+      if (!show || anchored) return;
       const onKeyDown = (e) => {
         if (e.key === "Escape") {
           clearTimeout(timer.current);
-          setShow(false);
+          setShowU(false);
         }
       };
       document.addEventListener("keydown", onKeyDown);
       return () => document.removeEventListener("keydown", onKeyDown);
-    }, [show]);
+    }, [show, anchored]);
+    const bubble = coords && (!anchored || anchor) ? (0, import_react_dom.createPortal)(
+      /* @__PURE__ */ jsxs(
+        "span",
+        {
+          ref: tipRef,
+          id,
+          className: "twc-tooltip",
+          "data-place": coords.place || placement,
+          "data-show": show || void 0,
+          role: "tooltip",
+          "aria-hidden": show ? void 0 : "true",
+          onMouseEnter: anchored ? void 0 : cancelClose,
+          onMouseLeave: anchored ? void 0 : close,
+          style: {
+            position: "fixed",
+            left: coords.left,
+            right: coords.right,
+            top: coords.top,
+            bottom: coords.bottom,
+            "--_tw-arrow-x": coords.arrowX != null ? `${coords.arrowX}px` : void 0,
+            "--_tw-arrow-y": coords.arrowY != null ? `${coords.arrowY}px` : void 0
+          },
+          children: [
+            label,
+            /* @__PURE__ */ jsx("span", { className: "twc-tooltip__arrow", "aria-hidden": "true" })
+          ]
+        }
+      ),
+      document.body
+    ) : null;
+    if (anchored) return /* @__PURE__ */ jsxs(Fragment, { children: [
+      __twcStyles,
+      bubble
+    ] });
     const describedBy = show ? id : void 0;
     const trigger = import_react.default.isValidElement(children) && children.type !== import_react.default.Fragment ? import_react.default.cloneElement(children, {
       "aria-describedby": [children.props["aria-describedby"], describedBy].filter(Boolean).join(" ") || void 0
@@ -8164,36 +8202,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         children: [
           __twcStyles,
           trigger,
-          coords ? (0, import_react_dom.createPortal)(
-            /* @__PURE__ */ jsxs(
-              "span",
-              {
-                ref: tipRef,
-                id,
-                className: "twc-tooltip",
-                "data-place": coords.place || placement,
-                "data-show": show || void 0,
-                role: "tooltip",
-                "aria-hidden": show ? void 0 : "true",
-                onMouseEnter: cancelClose,
-                onMouseLeave: close,
-                style: {
-                  position: "fixed",
-                  left: coords.left,
-                  right: coords.right,
-                  top: coords.top,
-                  bottom: coords.bottom,
-                  "--_tw-arrow-x": coords.arrowX != null ? `${coords.arrowX}px` : void 0,
-                  "--_tw-arrow-y": coords.arrowY != null ? `${coords.arrowY}px` : void 0
-                },
-                children: [
-                  label,
-                  /* @__PURE__ */ jsx("span", { className: "twc-tooltip__arrow", "aria-hidden": "true" })
-                ]
-              }
-            ),
-            document.body
-          ) : null
+          bubble
         ]
       }
     );
@@ -9426,6 +9435,40 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const scrollRef = import_react.default.useRef(null);
     const [scrollTop, setScrollTop] = import_react.default.useState(0);
     const [viewportH, setViewportH] = import_react.default.useState(0);
+    const [ovTip, setOvTip] = import_react.default.useState(null);
+    const ovTimer = import_react.default.useRef(null);
+    const hideOverflowTip = () => {
+      clearTimeout(ovTimer.current);
+      setOvTip((t) => t ? null : t);
+    };
+    const onOverflowOver = (e) => {
+      const el = e.target.closest?.("[data-ovtext]");
+      if (!el) return;
+      if (ovTip && ovTip.anchor === el) return;
+      clearTimeout(ovTimer.current);
+      if (el.scrollWidth > el.clientWidth + 1) {
+        const text = el.getAttribute("data-ovtext");
+        ovTimer.current = setTimeout(() => setOvTip({ anchor: el, text }), 120);
+      } else if (ovTip) setOvTip(null);
+    };
+    const onOverflowOut = (e) => {
+      const el = e.target.closest?.("[data-ovtext]");
+      if (el && !el.contains(e.relatedTarget)) hideOverflowTip();
+    };
+    const onOverflowFocus = (e) => {
+      const el = e.target.closest?.("[data-ovtext]");
+      if (el && el.scrollWidth > el.clientWidth + 1) setOvTip({ anchor: el, text: el.getAttribute("data-ovtext") });
+      else hideOverflowTip();
+    };
+    import_react.default.useEffect(() => () => clearTimeout(ovTimer.current), []);
+    import_react.default.useEffect(() => {
+      if (!ovTip) return void 0;
+      const onKey = (e) => {
+        if (e.key === "Escape") setOvTip(null);
+      };
+      document.addEventListener("keydown", onKey);
+      return () => document.removeEventListener("keydown", onKey);
+    }, [ovTip]);
     const [pivotOn, setPivotOn] = import_react.default.useState(pivotMode);
     const [aggConfig, setAggConfig] = import_react.default.useState(() => {
       const m = {};
@@ -10591,7 +10634,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   "data-pin": st.pin,
                   "data-pin-edge": st.edge,
                   style: { width: widthOf(c), ...st.style },
-                  title: cellTitle,
+                  "data-ovtext": cellTitle,
                   onClick: selectionMode === "cell" ? (e) => handleCellClick(e, k, row, c) : void 0,
                   onFocus: () => setFocus((f) => f.r === ri && f.c === ci ? f : { r: ri, c: ci }),
                   onDoubleClick: editable ? () => beginEdit(k, c, row) : void 0,
@@ -10932,233 +10975,247 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__groupbar-clear", onClick: () => setGroupBy([]), children: "Clear all" })
       ] }) : null,
       /* @__PURE__ */ jsx("div", { className: "twc-dt__sr", role: "status", "aria-live": "polite", children: reorderMsg }),
-      pivotActive ? renderPivot() : /* @__PURE__ */ jsx("div", { className: "twc-dt__scroll", style: { maxHeight: height }, ref: scrollRef, onScroll: virtualizing ? onScrollVirtual : void 0, children: /* @__PURE__ */ jsxs(
-        "table",
+      pivotActive ? renderPivot() : /* @__PURE__ */ jsx(
+        "div",
         {
-          className: "twc-dt__table",
-          style: { width: tableMinWidth, minWidth: "100%" },
-          ref: gridRef,
-          role: "grid",
-          "aria-label": ariaLabelAttr || ariaLabel,
-          "aria-rowcount": totalRows + 1,
-          "aria-colcount": ordered.length + (checkboxSelection ? 1 : 0),
-          "aria-busy": loading || void 0,
-          onKeyDown: onGridKeyDown,
-          children: [
-            /* @__PURE__ */ jsx("thead", { ref: theadRef, children: /* @__PURE__ */ jsxs("tr", { role: "row", "aria-rowindex": 1, children: [
-              checkboxSelection ? /* @__PURE__ */ jsx("th", { className: "twc-dt__th", role: "columnheader", "aria-label": "Select", "data-pin": "left", "data-pin-edge": pins.left.length || showRowNum ? void 0 : "left", style: { insetInlineStart: 0, width: CHK_W, minWidth: CHK_W }, children: /* @__PURE__ */ jsx("div", { className: "twc-dt__th-inner", style: { justifyContent: "center", padding: 0 }, children: /* @__PURE__ */ jsx(
-                "span",
-                {
-                  className: "twc-dt__check",
-                  "data-checked": allSel || void 0,
-                  "data-indeterminate": !allSel && someSel || void 0,
-                  onClick: toggleAll,
-                  role: "checkbox",
-                  "aria-checked": allSel ? true : someSel ? "mixed" : false,
-                  "aria-label": "Select all rows",
-                  tabIndex: 0,
-                  onKeyDown: (e) => {
-                    if (e.key === " " || e.key === "Enter") {
-                      e.preventDefault();
-                      toggleAll();
-                    }
-                  },
-                  children: /* @__PURE__ */ jsx(Svg, { d: allSel ? I.check : I.minus })
-                }
-              ) }) }) : null,
-              showRowNum ? /* @__PURE__ */ jsx("th", { className: "twc-dt__th twc-dt__rownum", role: "columnheader", "aria-label": "Row number", "data-pin": "left", "data-pin-edge": pins.left.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W, minWidth: NUM_W }, children: /* @__PURE__ */ jsxs("div", { className: "twc-dt__th-inner", children: [
-                /* @__PURE__ */ jsx("span", { className: "twc-dt__th-label", style: { flex: "none", cursor: "default" }, children: "#" }),
-                /* @__PURE__ */ jsx(
-                  "button",
-                  {
-                    type: "button",
-                    className: "twc-dt__menu-btn",
-                    "aria-label": "Row number column menu",
-                    "aria-haspopup": "menu",
-                    "aria-expanded": colMenu?.field === "__rownum__" || void 0,
-                    onClick: (e) => {
-                      e.stopPropagation();
-                      menuTriggerRef.current = e.currentTarget;
-                      setPanel(null);
-                      closePanel();
-                      setRowMenu(null);
-                      closeRowMenu();
-                      setExportOpen(false);
-                      closeExport();
-                      setColMenu({ field: "__rownum__" });
-                      openMenu(e.currentTarget, "right", 180);
-                    },
-                    children: /* @__PURE__ */ jsx(Svg, { d: I.more })
-                  }
-                )
-              ] }) }) : null,
-              ordered.map((c) => {
-                const st = stickyOf(c.field);
-                const sorted = sort && sort.field === c.field ? sort.dir : void 0;
-                const w = widthOf(c);
-                const reorderable = !disableColumnReorder && st.pin == null && c.type !== "actions" && c.reorderable !== false;
-                const resizable = !disableColumnResize && c.resizable !== false;
-                const hasMenu = !c.disableColumnMenu && (c.sortable || c.filterable || c.pinnable || c.hideable);
-                return /* @__PURE__ */ jsxs(
-                  "th",
-                  {
-                    className: "twc-dt__th",
-                    role: "columnheader",
-                    scope: "col",
-                    "aria-sort": sorted ? sorted === "asc" ? "ascending" : "descending" : c.sortable ? "none" : void 0,
-                    "data-num": c.type === "number" || void 0,
-                    "data-actions-col": c.type === "actions" || void 0,
-                    "data-sorted": sorted,
-                    "data-pin": st.pin,
-                    "data-pin-edge": st.edge,
-                    "data-dragging": drag.from === c.field || void 0,
-                    "data-dropbefore": drag.over === c.field && !drag.after || void 0,
-                    "data-dropafter": drag.over === c.field && drag.after || void 0,
-                    style: { width: w, minWidth: w, ...st.style },
-                    onDragOver: reorderable && drag.from ? (e) => {
-                      e.preventDefault();
-                      const r2 = e.currentTarget.getBoundingClientRect();
-                      const after = e.clientX > r2.left + r2.width / 2;
-                      setDrag((d) => d.over === c.field && d.after === after ? d : { ...d, over: c.field, after });
-                    } : void 0,
-                    onDrop: reorderable && drag.from ? (e) => {
-                      e.preventDefault();
-                      onColDrop(c.field);
-                    } : void 0,
-                    children: [
-                      /* @__PURE__ */ jsxs("div", { className: "twc-dt__th-inner", children: [
-                        /* @__PURE__ */ jsxs(
-                          "span",
-                          {
-                            className: "twc-dt__th-label",
-                            role: c.sortable ? "button" : void 0,
-                            tabIndex: c.sortable ? 0 : void 0,
-                            title: typeof c.headerName === "string" ? c.headerName : void 0,
-                            "aria-label": c.sortable ? `${c.headerName}, sort` : void 0,
-                            draggable: reorderable || void 0,
-                            onDragStart: reorderable ? (e) => {
-                              setDrag({ from: c.field, over: null, after: false });
-                              e.dataTransfer.effectAllowed = "move";
-                              e.dataTransfer.setData("text/plain", c.field);
-                            } : void 0,
-                            onDragEnd: reorderable ? () => setDrag({ from: null, over: null, after: false }) : void 0,
-                            onClick: () => c.sortable && cycleSort(c.field),
-                            onKeyDown: c.sortable ? (e) => {
-                              if (e.key === "Enter" || e.key === " ") {
-                                e.preventDefault();
-                                cycleSort(c.field);
-                              }
-                            } : void 0,
-                            children: [
-                              reorderable ? /* @__PURE__ */ jsx("span", { className: "twc-dt__grip", "aria-hidden": "true", children: /* @__PURE__ */ jsx(Svg, { d: I.grip }) }) : null,
-                              filteredFields.has(c.field) ? /* @__PURE__ */ jsx("span", { className: "twc-dt__filterdot" }) : null,
-                              c.headerName,
-                              c.sortable ? /* @__PURE__ */ jsx("span", { className: "twc-dt__sort", children: /* @__PURE__ */ jsx(Svg, { d: I.arrow }) }) : null
-                            ]
-                          }
-                        ),
-                        hasMenu ? /* @__PURE__ */ jsx(
-                          "button",
-                          {
-                            type: "button",
-                            className: "twc-dt__menu-btn",
-                            "aria-label": "Column menu",
-                            "aria-haspopup": "menu",
-                            "aria-expanded": colMenu?.field === c.field || void 0,
-                            onClick: (e) => {
-                              e.stopPropagation();
-                              menuTriggerRef.current = e.currentTarget;
-                              setPanel(null);
-                              closePanel();
-                              setRowMenu(null);
-                              closeRowMenu();
-                              setExportOpen(false);
-                              closeExport();
-                              setColMenu({ field: c.field });
-                              openMenu(e.currentTarget, "right", 230);
-                            },
-                            children: /* @__PURE__ */ jsx(Svg, { d: I.more })
-                          }
-                        ) : null
-                      ] }),
-                      resizable ? /* @__PURE__ */ jsx(
-                        "span",
-                        {
-                          className: "twc-dt__resizer",
-                          "data-active": resizing || void 0,
-                          role: "separator",
-                          "aria-orientation": "vertical",
-                          "aria-label": `Resize ${c.headerName} column (double-click to fit content)`,
-                          "aria-valuenow": w,
-                          "aria-valuemin": 72,
-                          tabIndex: 0,
-                          onPointerDown: (e) => startResize(e, c.field),
-                          onClick: (e) => e.stopPropagation(),
-                          onDoubleClick: (e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            autoFitColumn(c.field, e.currentTarget.closest("th"));
-                          },
-                          onKeyDown: (e) => {
-                            if (e.key === "Enter" || e.key === " ") {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              autoFitColumn(c.field, e.currentTarget.closest("th"));
-                              return;
-                            }
-                            if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
-                            e.preventDefault();
-                            e.stopPropagation();
-                            const delta = e.key === "ArrowRight" ? 10 : -10;
-                            setWidths((m) => ({ ...m, [c.field]: Math.max(72, (m[c.field] ?? intrinsicWidth(c)) + delta) }));
-                          },
-                          title: "Drag to resize \xB7 double-click to fit content"
+          className: "twc-dt__scroll",
+          style: { maxHeight: height },
+          ref: scrollRef,
+          onScroll: virtualizing ? onScrollVirtual : void 0,
+          onMouseOver: onOverflowOver,
+          onMouseOut: onOverflowOut,
+          onFocus: onOverflowFocus,
+          onBlur: hideOverflowTip,
+          children: /* @__PURE__ */ jsxs(
+            "table",
+            {
+              className: "twc-dt__table",
+              style: { width: tableMinWidth, minWidth: "100%" },
+              ref: gridRef,
+              role: "grid",
+              "aria-label": ariaLabelAttr || ariaLabel,
+              "aria-rowcount": totalRows + 1,
+              "aria-colcount": ordered.length + (checkboxSelection ? 1 : 0),
+              "aria-busy": loading || void 0,
+              onKeyDown: onGridKeyDown,
+              children: [
+                /* @__PURE__ */ jsx("thead", { ref: theadRef, children: /* @__PURE__ */ jsxs("tr", { role: "row", "aria-rowindex": 1, children: [
+                  checkboxSelection ? /* @__PURE__ */ jsx("th", { className: "twc-dt__th", role: "columnheader", "aria-label": "Select", "data-pin": "left", "data-pin-edge": pins.left.length || showRowNum ? void 0 : "left", style: { insetInlineStart: 0, width: CHK_W, minWidth: CHK_W }, children: /* @__PURE__ */ jsx("div", { className: "twc-dt__th-inner", style: { justifyContent: "center", padding: 0 }, children: /* @__PURE__ */ jsx(
+                    "span",
+                    {
+                      className: "twc-dt__check",
+                      "data-checked": allSel || void 0,
+                      "data-indeterminate": !allSel && someSel || void 0,
+                      onClick: toggleAll,
+                      role: "checkbox",
+                      "aria-checked": allSel ? true : someSel ? "mixed" : false,
+                      "aria-label": "Select all rows",
+                      tabIndex: 0,
+                      onKeyDown: (e) => {
+                        if (e.key === " " || e.key === "Enter") {
+                          e.preventDefault();
+                          toggleAll();
                         }
-                      ) : null
-                    ]
-                  },
-                  c.field
-                );
-              })
-            ] }) }),
-            /* @__PURE__ */ jsx("tbody", { children: loading ? Array.from({ length: paginated ? Math.min(sizeVal, 8) : 8 }).map((_, ri) => /* @__PURE__ */ jsxs("tr", { className: "twc-dt__row", role: "row", children: [
-              checkboxSelection ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td", role: "gridcell", "data-pin": "left", style: { insetInlineStart: 0, width: CHK_W }, children: /* @__PURE__ */ jsx("span", { className: "twc-dt__sk", "aria-hidden": "true", style: { "--_w": "18px", height: 18, borderRadius: 4 } }) }) : null,
-              showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", style: { insetInlineStart: numLeft, width: NUM_W }, children: /* @__PURE__ */ jsx("span", { className: "twc-dt__sk", "aria-hidden": "true", style: { "--_w": "16px", height: 14, borderRadius: 4 } }) }) : null,
-              ordered.map((c, ci) => {
-                const st = stickyOf(c.field);
-                return /* @__PURE__ */ jsx("td", { className: "twc-dt__td", role: "gridcell", "data-num": c.type === "number" || void 0, "data-pin": st.pin, "data-pin-edge": st.edge, style: { width: widthOf(c), ...st.style }, children: /* @__PURE__ */ jsx("span", { className: "twc-dt__sk", "aria-hidden": "true", style: { "--_w": `${45 + (ri * 13 + ci * 29) % 45}%` } }) }, c.field);
-              })
-            ] }, ri)) : (displayItems ? displayItems.length === 0 : paged.length === 0) ? (
-              // #121: customizable, filter-aware empty state. #122: grid roles on the empty row.
-              /* @__PURE__ */ jsx("tr", { role: "row", "aria-rowindex": 2, children: /* @__PURE__ */ jsx("td", { className: "twc-dt__td", role: "gridcell", colSpan: totalCols, style: { maxWidth: "none" }, children: /* @__PURE__ */ jsx("div", { className: "twc-dt__empty", children: renderEmpty ? renderEmpty() : emptyMessage ?? (filters.length > 0 || quick.trim() !== "" ? "No rows match your filters" : "No rows") }) }) })
-            ) : displayItems ? (() => {
-              let li = -1;
-              return displayItems.map((item) => item.kind === "group" ? renderGroupRow(item) : renderLeaf(item.row, ++li));
-            })() : /* @__PURE__ */ jsxs(Fragment, { children: [
-              pinnedTopRows.map((row) => renderLeaf(row, keyIndex.get(keyOf(row)), "top")),
-              vWindow ? /* @__PURE__ */ jsxs(Fragment, { children: [
-                vWindow.padTop > 0 ? /* @__PURE__ */ jsx("tr", { "aria-hidden": "true", className: "twc-dt__vspacer", children: /* @__PURE__ */ jsx("td", { colSpan: totalCols, style: { height: vWindow.padTop, padding: 0, border: "none", maxWidth: "none" } }) }) : null,
-                middleRows.slice(vWindow.start, vWindow.end).map((row, i) => renderLeaf(row, keyIndex.get(keyOf(row)), void 0, vWindow.start + i)),
-                vWindow.padBottom > 0 ? /* @__PURE__ */ jsx("tr", { "aria-hidden": "true", className: "twc-dt__vspacer", children: /* @__PURE__ */ jsx("td", { colSpan: totalCols, style: { height: vWindow.padBottom, padding: 0, border: "none", maxWidth: "none" } }) }) : null
-              ] }) : middleRows.map((row, i) => renderLeaf(row, keyIndex.get(keyOf(row)), void 0, i)),
-              pinnedBottomRows.map((row) => renderLeaf(row, keyIndex.get(keyOf(row)), "bottom"))
-            ] }) }),
-            hasAggregation && aggOn && !loading && paged.length > 0 ? /* @__PURE__ */ jsx("tfoot", { children: /* @__PURE__ */ jsxs("tr", { role: "row", children: [
-              checkboxSelection ? /* @__PURE__ */ jsx("td", { role: "gridcell", "data-pin": "left", "data-pin-edge": pins.left.length || showRowNum ? void 0 : "left", style: { insetInlineStart: 0, width: CHK_W } }) : null,
-              showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", "data-pin-edge": pins.left.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W } }) : null,
-              ordered.map((c) => {
-                const st = stickyOf(c.field);
-                const v = aggregate(c);
-                const display = v == null ? null : c.aggregationFormatter ? c.aggregationFormatter(v) : c.valueFormatter ? c.valueFormatter(v, null) : typeof v === "number" ? v.toLocaleString() : v;
-                return /* @__PURE__ */ jsx("td", { role: "gridcell", "data-num": c.type === "number" || void 0, "data-pin": st.pin, "data-pin-edge": st.edge, style: { width: widthOf(c), ...st.style }, children: v == null ? null : /* @__PURE__ */ jsxs(Fragment, { children: [
-                  typeof aggOf(c) === "string" ? /* @__PURE__ */ jsx("span", { className: "twc-dt__agg-label", children: aggLabels[aggOf(c)] }) : null,
-                  /* @__PURE__ */ jsx("span", { className: "twc-dt__agg-val", children: display })
-                ] }) }, c.field);
-              })
-            ] }) }) : null
-          ]
+                      },
+                      children: /* @__PURE__ */ jsx(Svg, { d: allSel ? I.check : I.minus })
+                    }
+                  ) }) }) : null,
+                  showRowNum ? /* @__PURE__ */ jsx("th", { className: "twc-dt__th twc-dt__rownum", role: "columnheader", "aria-label": "Row number", "data-pin": "left", "data-pin-edge": pins.left.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W, minWidth: NUM_W }, children: /* @__PURE__ */ jsxs("div", { className: "twc-dt__th-inner", children: [
+                    /* @__PURE__ */ jsx("span", { className: "twc-dt__th-label", style: { flex: "none", cursor: "default" }, children: "#" }),
+                    /* @__PURE__ */ jsx(
+                      "button",
+                      {
+                        type: "button",
+                        className: "twc-dt__menu-btn",
+                        "aria-label": "Row number column menu",
+                        "aria-haspopup": "menu",
+                        "aria-expanded": colMenu?.field === "__rownum__" || void 0,
+                        onClick: (e) => {
+                          e.stopPropagation();
+                          menuTriggerRef.current = e.currentTarget;
+                          setPanel(null);
+                          closePanel();
+                          setRowMenu(null);
+                          closeRowMenu();
+                          setExportOpen(false);
+                          closeExport();
+                          setColMenu({ field: "__rownum__" });
+                          openMenu(e.currentTarget, "right", 180);
+                        },
+                        children: /* @__PURE__ */ jsx(Svg, { d: I.more })
+                      }
+                    )
+                  ] }) }) : null,
+                  ordered.map((c) => {
+                    const st = stickyOf(c.field);
+                    const sorted = sort && sort.field === c.field ? sort.dir : void 0;
+                    const w = widthOf(c);
+                    const reorderable = !disableColumnReorder && st.pin == null && c.type !== "actions" && c.reorderable !== false;
+                    const resizable = !disableColumnResize && c.resizable !== false;
+                    const hasMenu = !c.disableColumnMenu && (c.sortable || c.filterable || c.pinnable || c.hideable);
+                    return /* @__PURE__ */ jsxs(
+                      "th",
+                      {
+                        className: "twc-dt__th",
+                        role: "columnheader",
+                        scope: "col",
+                        "aria-sort": sorted ? sorted === "asc" ? "ascending" : "descending" : c.sortable ? "none" : void 0,
+                        "data-num": c.type === "number" || void 0,
+                        "data-actions-col": c.type === "actions" || void 0,
+                        "data-sorted": sorted,
+                        "data-pin": st.pin,
+                        "data-pin-edge": st.edge,
+                        "data-dragging": drag.from === c.field || void 0,
+                        "data-dropbefore": drag.over === c.field && !drag.after || void 0,
+                        "data-dropafter": drag.over === c.field && drag.after || void 0,
+                        style: { width: w, minWidth: w, ...st.style },
+                        onDragOver: reorderable && drag.from ? (e) => {
+                          e.preventDefault();
+                          const r2 = e.currentTarget.getBoundingClientRect();
+                          const after = e.clientX > r2.left + r2.width / 2;
+                          setDrag((d) => d.over === c.field && d.after === after ? d : { ...d, over: c.field, after });
+                        } : void 0,
+                        onDrop: reorderable && drag.from ? (e) => {
+                          e.preventDefault();
+                          onColDrop(c.field);
+                        } : void 0,
+                        children: [
+                          /* @__PURE__ */ jsxs("div", { className: "twc-dt__th-inner", children: [
+                            /* @__PURE__ */ jsxs(
+                              "span",
+                              {
+                                className: "twc-dt__th-label",
+                                role: c.sortable ? "button" : void 0,
+                                tabIndex: c.sortable ? 0 : void 0,
+                                "data-ovtext": typeof c.headerName === "string" ? c.headerName : void 0,
+                                "aria-label": c.sortable ? `${c.headerName}, sort` : void 0,
+                                draggable: reorderable || void 0,
+                                onDragStart: reorderable ? (e) => {
+                                  setDrag({ from: c.field, over: null, after: false });
+                                  e.dataTransfer.effectAllowed = "move";
+                                  e.dataTransfer.setData("text/plain", c.field);
+                                } : void 0,
+                                onDragEnd: reorderable ? () => setDrag({ from: null, over: null, after: false }) : void 0,
+                                onClick: () => c.sortable && cycleSort(c.field),
+                                onKeyDown: c.sortable ? (e) => {
+                                  if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    cycleSort(c.field);
+                                  }
+                                } : void 0,
+                                children: [
+                                  reorderable ? /* @__PURE__ */ jsx("span", { className: "twc-dt__grip", "aria-hidden": "true", children: /* @__PURE__ */ jsx(Svg, { d: I.grip }) }) : null,
+                                  filteredFields.has(c.field) ? /* @__PURE__ */ jsx("span", { className: "twc-dt__filterdot" }) : null,
+                                  c.headerName,
+                                  c.sortable ? /* @__PURE__ */ jsx("span", { className: "twc-dt__sort", children: /* @__PURE__ */ jsx(Svg, { d: I.arrow }) }) : null
+                                ]
+                              }
+                            ),
+                            hasMenu ? /* @__PURE__ */ jsx(
+                              "button",
+                              {
+                                type: "button",
+                                className: "twc-dt__menu-btn",
+                                "aria-label": "Column menu",
+                                "aria-haspopup": "menu",
+                                "aria-expanded": colMenu?.field === c.field || void 0,
+                                onClick: (e) => {
+                                  e.stopPropagation();
+                                  menuTriggerRef.current = e.currentTarget;
+                                  setPanel(null);
+                                  closePanel();
+                                  setRowMenu(null);
+                                  closeRowMenu();
+                                  setExportOpen(false);
+                                  closeExport();
+                                  setColMenu({ field: c.field });
+                                  openMenu(e.currentTarget, "right", 230);
+                                },
+                                children: /* @__PURE__ */ jsx(Svg, { d: I.more })
+                              }
+                            ) : null
+                          ] }),
+                          resizable ? /* @__PURE__ */ jsx(
+                            "span",
+                            {
+                              className: "twc-dt__resizer",
+                              "data-active": resizing || void 0,
+                              role: "separator",
+                              "aria-orientation": "vertical",
+                              "aria-label": `Resize ${c.headerName} column (double-click to fit content)`,
+                              "aria-valuenow": w,
+                              "aria-valuemin": 72,
+                              tabIndex: 0,
+                              onPointerDown: (e) => startResize(e, c.field),
+                              onClick: (e) => e.stopPropagation(),
+                              onDoubleClick: (e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                autoFitColumn(c.field, e.currentTarget.closest("th"));
+                              },
+                              onKeyDown: (e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  autoFitColumn(c.field, e.currentTarget.closest("th"));
+                                  return;
+                                }
+                                if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+                                e.preventDefault();
+                                e.stopPropagation();
+                                const delta = e.key === "ArrowRight" ? 10 : -10;
+                                setWidths((m) => ({ ...m, [c.field]: Math.max(72, (m[c.field] ?? intrinsicWidth(c)) + delta) }));
+                              },
+                              title: "Drag to resize \xB7 double-click to fit content"
+                            }
+                          ) : null
+                        ]
+                      },
+                      c.field
+                    );
+                  })
+                ] }) }),
+                /* @__PURE__ */ jsx("tbody", { children: loading ? Array.from({ length: paginated ? Math.min(sizeVal, 8) : 8 }).map((_, ri) => /* @__PURE__ */ jsxs("tr", { className: "twc-dt__row", role: "row", children: [
+                  checkboxSelection ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td", role: "gridcell", "data-pin": "left", style: { insetInlineStart: 0, width: CHK_W }, children: /* @__PURE__ */ jsx("span", { className: "twc-dt__sk", "aria-hidden": "true", style: { "--_w": "18px", height: 18, borderRadius: 4 } }) }) : null,
+                  showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", style: { insetInlineStart: numLeft, width: NUM_W }, children: /* @__PURE__ */ jsx("span", { className: "twc-dt__sk", "aria-hidden": "true", style: { "--_w": "16px", height: 14, borderRadius: 4 } }) }) : null,
+                  ordered.map((c, ci) => {
+                    const st = stickyOf(c.field);
+                    return /* @__PURE__ */ jsx("td", { className: "twc-dt__td", role: "gridcell", "data-num": c.type === "number" || void 0, "data-pin": st.pin, "data-pin-edge": st.edge, style: { width: widthOf(c), ...st.style }, children: /* @__PURE__ */ jsx("span", { className: "twc-dt__sk", "aria-hidden": "true", style: { "--_w": `${45 + (ri * 13 + ci * 29) % 45}%` } }) }, c.field);
+                  })
+                ] }, ri)) : (displayItems ? displayItems.length === 0 : paged.length === 0) ? (
+                  // #121: customizable, filter-aware empty state. #122: grid roles on the empty row.
+                  /* @__PURE__ */ jsx("tr", { role: "row", "aria-rowindex": 2, children: /* @__PURE__ */ jsx("td", { className: "twc-dt__td", role: "gridcell", colSpan: totalCols, style: { maxWidth: "none" }, children: /* @__PURE__ */ jsx("div", { className: "twc-dt__empty", children: renderEmpty ? renderEmpty() : emptyMessage ?? (filters.length > 0 || quick.trim() !== "" ? "No rows match your filters" : "No rows") }) }) })
+                ) : displayItems ? (() => {
+                  let li = -1;
+                  return displayItems.map((item) => item.kind === "group" ? renderGroupRow(item) : renderLeaf(item.row, ++li));
+                })() : /* @__PURE__ */ jsxs(Fragment, { children: [
+                  pinnedTopRows.map((row) => renderLeaf(row, keyIndex.get(keyOf(row)), "top")),
+                  vWindow ? /* @__PURE__ */ jsxs(Fragment, { children: [
+                    vWindow.padTop > 0 ? /* @__PURE__ */ jsx("tr", { "aria-hidden": "true", className: "twc-dt__vspacer", children: /* @__PURE__ */ jsx("td", { colSpan: totalCols, style: { height: vWindow.padTop, padding: 0, border: "none", maxWidth: "none" } }) }) : null,
+                    middleRows.slice(vWindow.start, vWindow.end).map((row, i) => renderLeaf(row, keyIndex.get(keyOf(row)), void 0, vWindow.start + i)),
+                    vWindow.padBottom > 0 ? /* @__PURE__ */ jsx("tr", { "aria-hidden": "true", className: "twc-dt__vspacer", children: /* @__PURE__ */ jsx("td", { colSpan: totalCols, style: { height: vWindow.padBottom, padding: 0, border: "none", maxWidth: "none" } }) }) : null
+                  ] }) : middleRows.map((row, i) => renderLeaf(row, keyIndex.get(keyOf(row)), void 0, i)),
+                  pinnedBottomRows.map((row) => renderLeaf(row, keyIndex.get(keyOf(row)), "bottom"))
+                ] }) }),
+                hasAggregation && aggOn && !loading && paged.length > 0 ? /* @__PURE__ */ jsx("tfoot", { children: /* @__PURE__ */ jsxs("tr", { role: "row", children: [
+                  checkboxSelection ? /* @__PURE__ */ jsx("td", { role: "gridcell", "data-pin": "left", "data-pin-edge": pins.left.length || showRowNum ? void 0 : "left", style: { insetInlineStart: 0, width: CHK_W } }) : null,
+                  showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", "data-pin-edge": pins.left.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W } }) : null,
+                  ordered.map((c) => {
+                    const st = stickyOf(c.field);
+                    const v = aggregate(c);
+                    const display = v == null ? null : c.aggregationFormatter ? c.aggregationFormatter(v) : c.valueFormatter ? c.valueFormatter(v, null) : typeof v === "number" ? v.toLocaleString() : v;
+                    return /* @__PURE__ */ jsx("td", { role: "gridcell", "data-num": c.type === "number" || void 0, "data-pin": st.pin, "data-pin-edge": st.edge, style: { width: widthOf(c), ...st.style }, children: v == null ? null : /* @__PURE__ */ jsxs(Fragment, { children: [
+                      typeof aggOf(c) === "string" ? /* @__PURE__ */ jsx("span", { className: "twc-dt__agg-label", children: aggLabels[aggOf(c)] }) : null,
+                      /* @__PURE__ */ jsx("span", { className: "twc-dt__agg-val", children: display })
+                    ] }) }, c.field);
+                  })
+                ] }) }) : null
+              ]
+            }
+          )
         }
-      ) }),
+      ),
+      /* @__PURE__ */ jsx(Tooltip, { anchor: ovTip ? ovTip.anchor : null, open: !!ovTip, label: ovTip ? ovTip.text : null, placement: "top" }),
       !pivotActive ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__footer", children: [
         /* @__PURE__ */ jsxs("div", { className: "twc-dt__footer-row", "data-bottom": "true", children: [
           /* @__PURE__ */ jsx("span", { className: "twc-dt__status", children: loading ? "Loading\u2026" : (() => {

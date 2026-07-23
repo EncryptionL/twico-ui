@@ -2980,7 +2980,9 @@ Props:
 - `label` — `React.ReactNode` · **required** — The short hint text or content revealed on hover or focus, ideal for describing icon buttons without cluttering the layout.
 - `placement` — `"top" | "bottom" | "left" | "right"` · default `"top"` — Chooses which side of the trigger the tooltip appears on, one of top, bottom, left, or right (default top).
 - `delay` — `number` · default `120` — Open delay in milliseconds before the tooltip appears (default 120), preventing flicker as the pointer passes over triggers.
-- `children` — `React.ReactNode` · **required** — The single trigger element the tooltip wraps and attaches its hover and focus listeners to.
+- `children` — `React.ReactNode` — The single trigger element the tooltip wraps and attaches its hover and focus listeners to. Omitted in anchored mode.
+- `anchor` — `Element | null` — Anchored mode: position one tooltip against this element instead of wrapping a trigger (renders only the portaled bubble). Lets a data grid drive a single tooltip for whichever cell is hovered.
+- `open` — `boolean` — Anchored mode only: controlled visibility. Pair with anchor; the parent owns show/hide (and Escape).
 
 ```jsx
 import { Tooltip } from "twico-ui";

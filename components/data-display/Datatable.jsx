@@ -1092,6 +1092,41 @@ export function Datatable({
   const scrollRef = React.useRef(null);
   const [scrollTop, setScrollTop] = React.useState(0);
   const [viewportH, setViewportH] = React.useState(0);
+
+  // #265: one shared overflow Tooltip for the whole grid — reveals a truncated cell/header's full
+  // value through the twico Tooltip instead of the native `title`. Pointer/focus delegation on the
+  // scroll container catches any element carrying `data-ovtext` (set only on plain-text cells +
+  // headers) and shows the tip only when it's actually clipped (`scrollWidth > clientWidth`). One
+  // instance, measured lazily on hover — no Tooltip per cell.
+  const [ovTip, setOvTip] = React.useState(null); // { anchor: Element, text: string } | null
+  const ovTimer = React.useRef(null);
+  const hideOverflowTip = () => { clearTimeout(ovTimer.current); setOvTip((t) => (t ? null : t)); };
+  const onOverflowOver = (e) => {
+    const el = e.target.closest?.("[data-ovtext]");
+    if (!el) return;
+    if (ovTip && ovTip.anchor === el) return;               // already tracking this element
+    clearTimeout(ovTimer.current);
+    if (el.scrollWidth > el.clientWidth + 1) {              // only when actually truncated
+      const text = el.getAttribute("data-ovtext");
+      ovTimer.current = setTimeout(() => setOvTip({ anchor: el, text }), 120);
+    } else if (ovTip) setOvTip(null);
+  };
+  const onOverflowOut = (e) => {
+    const el = e.target.closest?.("[data-ovtext]");
+    if (el && !el.contains(e.relatedTarget)) hideOverflowTip();
+  };
+  const onOverflowFocus = (e) => {
+    const el = e.target.closest?.("[data-ovtext]");
+    if (el && el.scrollWidth > el.clientWidth + 1) setOvTip({ anchor: el, text: el.getAttribute("data-ovtext") });
+    else hideOverflowTip();
+  };
+  React.useEffect(() => () => clearTimeout(ovTimer.current), []);
+  React.useEffect(() => {
+    if (!ovTip) return undefined;
+    const onKey = (e) => { if (e.key === "Escape") setOvTip(null); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [ovTip]);
   const [pivotOn, setPivotOn] = React.useState(pivotMode);
   // Runtime, user-editable aggregation config: { [field]: "sum"|"avg"|"min"|"max"|"count" }
   const [aggConfig, setAggConfig] = React.useState(() => {
@@ -2093,9 +2128,10 @@ export function Datatable({
           const editable = isColEditable(c);
           const isEditing = editing && editing.key === k && editing.field === c.field;
           const cellActive = selectionMode === "cell" && activeCell && activeCell.key === k && activeCell.field === c.field;
-          // #253: the displayed value (formatted). Used for the truncation `title` — but only for a plain
-          // string/number (a `renderCell` node, actions, or a mid-edit cell get no title). Computed once
-          // and reused by the default renderers below so `valueFormatter` isn't called twice.
+          // #253/#265: the displayed value (formatted), exposed as `data-ovtext` so the shared overflow
+          // Tooltip (see below) can reveal the full value when the cell is truncated — but only for a
+          // plain string/number (a `renderCell` node, actions, or a mid-edit cell get none). Computed
+          // once and reused by the default renderers below so `valueFormatter` isn't called twice.
           const display = c.valueFormatter ? c.valueFormatter(val, row) : val;
           const cellTitle = !isActions && !c.renderCell && !isEditing && (typeof display === "string" || typeof display === "number")
             ? String(display) : undefined;
@@ -2106,7 +2142,7 @@ export function Datatable({
               data-editable={editable && !isEditing || undefined} data-editing={isEditing || undefined}
               data-cell-active={cellActive || undefined} data-wrap={wrapped.has(c.field) || undefined}
               data-pin={st.pin} data-pin-edge={st.edge}
-              style={{ width: widthOf(c), ...st.style }} title={cellTitle}
+              style={{ width: widthOf(c), ...st.style }} data-ovtext={cellTitle}
               onClick={selectionMode === "cell" ? (e) => handleCellClick(e, k, row, c) : undefined}
               onFocus={() => setFocus((f) => (f.r === ri && f.c === ci ? f : { r: ri, c: ci }))}
               onDoubleClick={editable ? () => beginEdit(k, c, row) : undefined}>
@@ -2354,7 +2390,8 @@ export function Datatable({
 
       {/* Grid */}
       {pivotActive ? renderPivot() : (
-      <div className="twc-dt__scroll" style={{ maxHeight: height }} ref={scrollRef} onScroll={virtualizing ? onScrollVirtual : undefined}>
+      <div className="twc-dt__scroll" style={{ maxHeight: height }} ref={scrollRef} onScroll={virtualizing ? onScrollVirtual : undefined}
+        onMouseOver={onOverflowOver} onMouseOut={onOverflowOut} onFocus={onOverflowFocus} onBlur={hideOverflowTip}>
         <table className="twc-dt__table" style={{ width: tableMinWidth, minWidth: "100%" }}
           ref={gridRef} role="grid" aria-label={ariaLabelAttr || ariaLabel}
           aria-rowcount={totalRows + 1} aria-colcount={ordered.length + (checkboxSelection ? 1 : 0)}
@@ -2405,7 +2442,7 @@ export function Datatable({
                     <div className="twc-dt__th-inner">
                       <span className="twc-dt__th-label"
                         role={c.sortable ? "button" : undefined} tabIndex={c.sortable ? 0 : undefined}
-                        title={typeof c.headerName === "string" ? c.headerName : undefined}
+                        data-ovtext={typeof c.headerName === "string" ? c.headerName : undefined}
                         aria-label={c.sortable ? `${c.headerName}, sort` : undefined}
                         draggable={reorderable || undefined}
                         onDragStart={reorderable ? (e) => { setDrag({ from: c.field, over: null, after: false }); e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", c.field); } : undefined}
@@ -2507,6 +2544,10 @@ export function Datatable({
         </table>
       </div>
       )}
+
+      {/* #265: shared overflow tooltip (twico Tooltip, anchored mode) — full text of a truncated
+          cell/header, only while one is hovered/focused and actually clipped. */}
+      <Tooltip anchor={ovTip ? ovTip.anchor : null} open={!!ovTip} label={ovTip ? ovTip.text : null} placement="top" />
 
       {/* Footer with pagination */}
       {!pivotActive ? (

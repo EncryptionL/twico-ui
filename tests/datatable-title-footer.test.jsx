@@ -36,18 +36,21 @@ describe("Datatable footer range clamp (#252)", () => {
   });
 });
 
-// #253 — truncated cell/header text carries a native `title` so the full value is visible on hover.
-describe("Datatable truncation title (#253)", () => {
+// #253/#265 — truncated cell/header text carries its full value in `data-ovtext`, which the shared
+// overflow Tooltip (#265, replacing the native `title`) reveals on hover/focus when actually clipped.
+describe("Datatable truncation overflow text (#253/#265)", () => {
   const rows = [{ id: 1, name: "A very long value that would be clipped by the column", size: 42, tag: "x" }];
 
-  it("plain string/number cells get a title equal to their displayed text", () => {
+  it("plain string/number cells get data-ovtext equal to their displayed text", () => {
     const { container } = render(
       <Datatable columns={[{ field: "name", headerName: "Name" }, { field: "size", headerName: "Size", type: "number" }]}
         rows={rows} rowKey={(r) => r.id} />,
     );
     const cells = container.querySelectorAll("tbody .twc-dt__td");
-    expect(cells[0].getAttribute("title")).toBe("A very long value that would be clipped by the column");
-    expect(cells[1].getAttribute("title")).toBe("42");
+    expect(cells[0].getAttribute("data-ovtext")).toBe("A very long value that would be clipped by the column");
+    expect(cells[1].getAttribute("data-ovtext")).toBe("42");
+    // no native title anymore — the affordance is the twico Tooltip
+    expect(cells[0].getAttribute("title")).toBeNull();
   });
 
   it("uses the FORMATTED display text for a valueFormatter column", () => {
@@ -55,19 +58,19 @@ describe("Datatable truncation title (#253)", () => {
       <Datatable columns={[{ field: "size", headerName: "Size", valueFormatter: (v) => `${v} cm` }]}
         rows={rows} rowKey={(r) => r.id} />,
     );
-    expect(container.querySelector("tbody .twc-dt__td").getAttribute("title")).toBe("42 cm");
+    expect(container.querySelector("tbody .twc-dt__td").getAttribute("data-ovtext")).toBe("42 cm");
   });
 
-  it("skips the title for a custom renderCell node (a title would be meaningless)", () => {
+  it("skips data-ovtext for a custom renderCell node (an overflow tip would be meaningless)", () => {
     const { container } = render(
       <Datatable columns={[{ field: "tag", headerName: "Tag", renderCell: (v) => <span data-x>{v}</span> }]}
         rows={rows} rowKey={(r) => r.id} />,
     );
-    expect(container.querySelector("tbody .twc-dt__td").getAttribute("title")).toBeNull();
+    expect(container.querySelector("tbody .twc-dt__td").getAttribute("data-ovtext")).toBeNull();
   });
 
-  it("string header labels get a title", () => {
+  it("string header labels get data-ovtext", () => {
     const { container } = render(<Datatable columns={[{ field: "name", headerName: "A long header name" }]} rows={rows} rowKey={(r) => r.id} />);
-    expect(within(container).getByText("A long header name").getAttribute("title")).toBe("A long header name");
+    expect(within(container).getByText("A long header name").getAttribute("data-ovtext")).toBe("A long header name");
   });
 });

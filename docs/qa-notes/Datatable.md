@@ -136,6 +136,16 @@
   handle's `:active` / `[data-grabbed="true"]` states. The row stays `draggable` (mouse drag from anywhere
   still works) — only the misleading cursor is scoped away. Guarded at the source (jsdom can't compute the
   injected-`<style>` cursor cascade) in `tests/datatable-reorder-cursor.test.jsx`. Follow-up to #261. — fixed 2026-07-23
+- **[#265] Truncated cell/header used native `title` → now the twico `Tooltip`** — follow-up to #253.
+  Instead of a per-cell `title` (or a Tooltip per cell, which would break the td's ellipsis and be
+  expensive), the grid keeps the full value in `data-ovtext` (set only on plain-text cells + string
+  headers, same gating as #253) and drives **one** shared Tooltip via pointer/focus **delegation** on
+  the `.twc-dt__scroll` container. On hover/focus of a `[data-ovtext]` element it measures
+  `scrollWidth > clientWidth` and, only when actually clipped, shows the tip after the same ~120ms
+  delay. To reuse the real Tooltip (styling/positioning/flip/timing) with a single instance, `Tooltip`
+  gained a backward-compatible **anchored mode** (`anchor` element + controlled `open`) that renders
+  only the portaled bubble. Escape dismisses (WCAG 1.4.13). 4 tests in
+  `tests/datatable-overflow-tooltip.test.jsx`; the #253 test now asserts `data-ovtext`. — fixed 2026-07-23
 
 ## Verified OK
 
