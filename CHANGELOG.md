@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.20.2](https://github.com/EncryptionL/twico-ui/compare/v1.20.1...v1.20.2) (2026-07-24)
+
+
+### Bug Fixes
+
+* **datatable:** restore persisted column order with new columns at their code position ([c1095eb](https://github.com/EncryptionL/twico-ui/commit/c1095eb238239914491ea004a3c297d33c98d69b)), closes [#259](https://github.com/EncryptionL/twico-ui/issues/259) [#284](https://github.com/EncryptionL/twico-ui/issues/284)
+
 ## [1.20.1](https://github.com/EncryptionL/twico-ui/compare/v1.20.0...v1.20.1) (2026-07-23)
 
 
