@@ -239,9 +239,14 @@ test still passes) without fighting restore. The column-order reconcile effect n
 functional `setOrder(prev => …)` updater that preserves whatever restore set.
 
 **Robust to schema drift.** `applyState` sanitizes every field against the current columns: unknown filter /
-sort / width / visibility / pinning / order entries are dropped, new columns keep their place at the end of the
-order, and the cleaned state is written back to storage (a snapshot self-heals after a column change). A
-corrupt/unreadable `localStorage` value is caught and ignored (falls back to `initialState`).
+sort / width / visibility / pinning / order entries are dropped, and the cleaned state is written back to
+storage (a snapshot self-heals after a column change). A column **added in code** lands at its
+**code-defined position** — not appended at the end (#284) — via the shared `mergeColOrder(saved, propFields)`
+reconciler (used on restore **and** on runtime `columns`-prop changes): still-present columns keep their saved
+order, a new column is inserted right after the nearest preceding prop column already placed, and removed
+columns drop out. So replacing one leading column with two new ones keeps the trailing audit columns after
+them, instead of stranding the new columns at the end. A corrupt/unreadable `localStorage` value is caught
+and ignored (falls back to `initialState`).
 
 **Controlled props still win.** Restore only touches the *uncontrolled* view — a `page`, `pageSize`, or
 `quickFilter` you drive from props is left alone (persist those yourself). Sort/filter/quick control remain the

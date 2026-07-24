@@ -180,6 +180,16 @@
   own open dropdown) stops propagation first. `onGridKeyDown` already bailed while editing, so no
   interference. 3 tests in `tests/datatable-edit-escape.test.jsx` (built-in + custom + stopPropagation
   contract). — fixed 2026-07-23
+- **[#284] Persisted column order appended new columns at the end** — follow-up to #259. When a `stateKey`
+  table's saved `columnOrder` was restored and the `columns` prop had since changed (a column added/replaced),
+  the still-known columns kept their saved positions but new columns were **appended at the end** — so
+  replacing a leading `value` column with two new ones pushed them behind the trailing audit columns. Fixed
+  with a shared `mergeColOrder(saved, propFields)`: keep saved order for present columns, drop removed ones,
+  and insert each added column at its **prop-relative** position (right after the nearest preceding prop
+  column already placed, else before the nearest following one). Used in **both** `applyState` (restore) and
+  the runtime columns-sync effect (previously `[...kept, ...added]`), so a changed set follows the code order
+  in every path. Existing #259 "drops unknown columns" behavior is unchanged (no new columns → same result).
+  2 tests in `tests/datatable-state.test.jsx` (restore + runtime add). — fixed 2026-07-24
 
 ## Verified OK
 
