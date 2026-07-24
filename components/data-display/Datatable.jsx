@@ -546,6 +546,28 @@ const filterTypeOf = (col) => {
   return col && col.type === "number" ? "number" : "string";
 };
 
+// #284: reconcile a saved/custom column order (`saved`) with the code-defined order (`propFields`).
+// Columns still present keep their saved positions; a column added in code (in `propFields` but not
+// `saved`) is inserted at its PROP-relative position — right after the nearest preceding prop column
+// already placed (or before the nearest following one) — instead of being appended at the end.
+// Columns dropped from `propFields` are removed. Used on `stateKey` restore AND runtime column-prop
+// changes, so a changed column set follows the code order rather than stranding new columns at the end.
+function mergeColOrder(saved, propFields) {
+  const known = new Set(propFields);
+  const result = saved.filter((f) => known.has(f)); // keep saved order, drop removed columns
+  const placed = new Set(result);
+  for (let i = 0; i < propFields.length; i++) {
+    const f = propFields[i];
+    if (!f || placed.has(f)) continue;
+    let at = 0;
+    for (let j = i - 1; j >= 0; j--) { const idx = result.indexOf(propFields[j]); if (idx !== -1) { at = idx + 1; break; } }
+    if (at === 0) { let before = result.length; for (let j = i + 1; j < propFields.length; j++) { const idx = result.indexOf(propFields[j]); if (idx !== -1) { before = idx; break; } } at = before; }
+    result.splice(at, 0, f);
+    placed.add(f);
+  }
+  return result;
+}
+
 // #213: resolve a column's value for a row — a `valueGetter(row)` (nested/computed) or the raw
 // `row[field]`. Everything that derives a value (sort/filter/search/group/aggregate/render/pivot/
 // export) routes through this, so all honour valueGetter; inline edits keep writing the raw key.
@@ -1048,9 +1070,9 @@ export function Datatable({
     if (typeof s.page === "number" && !pageControlled) setInternalPage(Math.max(0, Math.floor(s.page)));
     if (typeof s.pageSize === "number" && !pageSizeControlled) setInternalRpp(s.pageSize > 0 ? s.pageSize : 10);
     if (Array.isArray(s.columnOrder)) {
-      const savedOrder = s.columnOrder.filter((f) => known.has(f));
-      const missing = cols.map((c) => c.field).filter((f) => f && !savedOrder.includes(f)); // new columns keep their place at the end
-      setOrder([...savedOrder, ...missing]);
+      // #284: new columns (in `columns` but not the saved order) land at their code-defined position,
+      // not appended at the end.
+      setOrder(mergeColOrder(s.columnOrder, cols.map((c) => c.field).filter(Boolean)));
     }
     if (s.columnWidths && typeof s.columnWidths === "object") setWidths(Object.fromEntries(Object.entries(s.columnWidths).filter(([f, w]) => known.has(f) && typeof w === "number")));
     if (s.columnVisibility && typeof s.columnVisibility === "object") setHidden(new Set(Object.keys(s.columnVisibility).filter((f) => known.has(f) && s.columnVisibility[f] === false)));
@@ -1155,14 +1177,10 @@ export function Datatable({
   }));
   const pivotActive = pivotOn && pivotConfig.rows.length > 0 && pivotConfig.values.length > 0;
 
-  // Keep custom order in sync if the columns prop changes (add new, drop removed).
+  // Keep custom order in sync if the columns prop changes: drop removed columns and insert added ones at
+  // their code-defined position (#284), preserving the user's saved/dragged order for the rest.
   React.useEffect(() => {
-    setOrder((prev) => {
-      const fields = columns.map((c) => c.field);
-      const kept = prev.filter((f) => fields.includes(f));
-      const added = fields.filter((f) => !kept.includes(f));
-      return [...kept, ...added];
-    });
+    setOrder((prev) => mergeColOrder(prev, columns.map((c) => c.field).filter(Boolean)));
   }, [columns]);
 
   // Live-sync the props that seed internal toolbar state: changing the prop re-applies it

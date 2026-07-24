@@ -63,3 +63,35 @@ describe("Datatable view-state persistence (#259)", () => {
     expect(window.localStorage.length).toBe(0);
   });
 });
+
+// #284 — a saved column order reconciles against the current `columns` prop: new columns land at their
+// code-defined position (not appended at the end), removed columns are dropped.
+describe("Datatable column-order reconciliation (#284)", () => {
+  beforeEach(() => window.localStorage.clear());
+
+  it("restores new columns at their code position when the column set changed (not appended)", () => {
+    // saved order from the OLD set (a single leading `value` column + trailing audit columns)
+    window.localStorage.setItem("dt-284", JSON.stringify({
+      columnOrder: ["value", "created", "createdBy", "updated", "updatedBy"],
+    }));
+    // NEW code: `value` replaced by two columns in the SAME leading position
+    const newCols = [
+      { field: "colorCode", headerName: "Color Code" },
+      { field: "colorName", headerName: "Color Name" },
+      { field: "created", headerName: "Created" },
+      { field: "createdBy", headerName: "Created By" },
+      { field: "updated", headerName: "Updated" },
+      { field: "updatedBy", headerName: "Updated By" },
+    ];
+    const { container } = render(<Datatable columns={newCols} rows={[]} rowKey={(r) => r.id} stateKey="dt-284" />);
+    expect(headerNames(container)).toEqual(["Color Code", "Color Name", "Created", "Created By", "Updated", "Updated By"]);
+  });
+
+  it("inserts a runtime-added column at its code position, keeping the rest in order", () => {
+    const two = [{ field: "a", headerName: "A" }, { field: "c", headerName: "C" }];
+    const three = [{ field: "a", headerName: "A" }, { field: "b", headerName: "B" }, { field: "c", headerName: "C" }];
+    const { container, rerender } = render(<Datatable columns={two} rows={[]} rowKey={(r) => r.id} />);
+    rerender(<Datatable columns={three} rows={[]} rowKey={(r) => r.id} />);
+    expect(headerNames(container)).toEqual(["A", "B", "C"]); // B at its prop index, not appended at the end
+  });
+});
