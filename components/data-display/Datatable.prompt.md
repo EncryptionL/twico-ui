@@ -43,6 +43,9 @@ import { Datatable } from "./Datatable";
 - **Columns** toolbar button → a searchable, **drag-to-reorder** panel of visibility toggles, each row also with **pin left / pin right** controls (so you can pin any column without scrolling its header into view). **Filters** opens empty — add rows manually with **Add filter**
   (string: contains/equals/is any of/starts/ends/empty; number: =, ≠, >, ≥, <, ≤) built from `Select` + `Input`.
 - **Density** cycles row height. The search box quick-filters across visible columns.
+- **`toolbarActions`** injects a custom node into a **leading slot** of the toolbar (before Columns/Filters) —
+  e.g. an "Add row" button or bulk actions — mirroring `CardGrid`'s `toolbar` prop, so no internal-class hacks:
+  `<Datatable toolbarActions={<Button size="sm" leftIcon={<PlusIcon/>}>Add row</Button>} … />`.
 - **Empty state** — `emptyMessage` (filter-aware by default) or `renderEmpty` customizes the zero-row body; a
   column can opt out of reorder with `reorderable: false`; row actions use the twico `Tooltip` (not native `title`).
 - Footer shows the showing-range/total, a rows-per-page `Select` (options via `pageSizeOptions`), page-number `Pagination`, and a **"Go to" page jumper** (when >5 pages; toggle with `showPageJumper`). Pinned columns stay frozen.

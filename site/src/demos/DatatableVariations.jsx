@@ -1,5 +1,5 @@
 import React from "react";
-import { Datatable, runDatatableQuery, Badge, Avatar, Alert, Text, Progress } from "twico-ui";
+import { Datatable, runDatatableQuery, Badge, Avatar, Alert, Text, Progress, Button } from "twico-ui";
 import { makePeople, usd, STATUS_TONE } from "./_datatableData.js";
 
 /* ------------------------------------------------------------------ icons */
@@ -377,6 +377,32 @@ function StatePersistenceDemo() {
         </pre>
       )}
     </div>
+  );
+}
+
+/* ==================================================== TOOLBAR ACTIONS (#286) */
+const PlusIcon = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
+);
+function ToolbarActionsDemo() {
+  const [rows, setRows] = React.useState(() => makePeople(6));
+  const addRow = () => setRows((prev) => {
+    const n = prev.length + 1;
+    return [{ id: `new-${n}-${prev.length}`, name: `New Person ${n}`, role: "Viewer", status: "invited", mrr: 0 }, ...prev];
+  });
+  return (
+    <Datatable
+      rows={rows}
+      rowKey={(r) => r.id}
+      toolbarActions={<Button size="sm" variant="soft" leftIcon={<PlusIcon />} onClick={addRow}>Add row</Button>}
+      height={360}
+      columns={[
+        { field: "name", headerName: "Name", width: 200, renderCell: NameCell },
+        { field: "role", headerName: "Role", width: 120 },
+        { field: "status", headerName: "Status", width: 130, renderCell: StatusBadge },
+        { field: "mrr", headerName: "MRR", type: "number", valueFormatter: (v) => usd(v) },
+      ]}
+    />
   );
 }
 
@@ -957,6 +983,21 @@ function ServerSideDemo() {
   // the grid comes back exactly as the user left it.
 }`,
     render: () => <StatePersistenceDemo />,
+  },
+  {
+    title: "Toolbar actions slot",
+    description:
+      "toolbarActions injects a custom node into a leading slot of the toolbar (before the built-in Columns/Filters cluster) — e.g. an \"Add row\" button or bulk actions — mirroring CardGrid's toolbar prop, so no internal-class or absolute-position hacks are needed.",
+    code: `<Datatable
+  rows={rows}
+  columns={columns}
+  toolbarActions={
+    <Button size="sm" variant="soft" leftIcon={<PlusIcon />} onClick={addRow}>
+      Add row
+    </Button>
+  }
+/>`,
+    render: () => <ToolbarActionsDemo />,
   },
   {
     title: "All props",

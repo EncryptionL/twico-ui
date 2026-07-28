@@ -82,6 +82,10 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   quickFilter?: string;
   /** Fires with the new quick-search string as the user types (and when a host sets it). */
   onQuickFilterChange?: (value: string) => void;
+  /** Custom node rendered in a **leading slot** of the toolbar row, before the built-in Columns/Filters
+   *  cluster (#286) — for host controls like an "Add row" button or bulk actions. Mirrors `CardGrid`'s
+   *  `toolbar` prop, so no internal-class/absolute-position hacks are needed. */
+  toolbarActions?: React.ReactNode;
   /**
    * Actions shown in the toolbar when one or more rows are selected (requires
    * `checkboxSelection`). Each handler receives the selected keys, the resolved

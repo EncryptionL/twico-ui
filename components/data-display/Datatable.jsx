@@ -20,6 +20,8 @@ const DT_CSS = `
 /* Toolbar */
 .twc-dt__toolbar { position: relative; z-index: 10; display: flex; align-items: center; gap: 6px; padding: 8px 10px;
   border-bottom: var(--border-thin) solid var(--color-divider); flex-wrap: wrap; }
+/* #286: host-supplied leading toolbar slot — a flex cluster so multiple buttons align with the built-ins. */
+.twc-dt__toolbar-actions { display: inline-flex; align-items: center; gap: 6px; }
 /* z-index above the scroll area's sticky header (z:3) so a toolbar button's
    hover tooltip (a ::after that hangs below the bar) paints over the table
    instead of being covered by the header/first rows. */
@@ -917,6 +919,7 @@ export function Datatable({
   searchable = true,
   quickFilter,
   onQuickFilterChange,
+  toolbarActions,
   rowPinning = false, rowReorder = false, rowResize = false, onRowOrderChange,
   pivot = null, pivotMode = false,
   virtualized = false, overscan = 8, rowHeight,
@@ -2321,6 +2324,9 @@ export function Datatable({
       {/* PIVOT_RENDER_ANCHOR */}
       {/* Toolbar */}
       <div className="twc-dt__toolbar" data-compact={compact || undefined}>
+        {/* #286: leading slot for host controls (e.g. an "Add row" button), before the built-in
+            Columns/Filters cluster — mirrors CardGrid's `toolbar` prop, no internal-class hacks. */}
+        {toolbarActions != null ? <div className="twc-dt__toolbar-actions">{toolbarActions}</div> : null}
         {/* #249: the built-in editor keeps the selection toolbar alive on its own — it used to require at
             least one `batchActions` entry, which made `showBatchEdit` silently inert (a host whose actions
             are permission-gated to [] lost batch edit entirely, and had to invent a dummy action). The

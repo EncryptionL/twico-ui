@@ -190,6 +190,11 @@
   the runtime columns-sync effect (previously `[...kept, ...added]`), so a changed set follows the code order
   in every path. Existing #259 "drops unknown columns" behavior is unchanged (no new columns → same result).
   2 tests in `tests/datatable-state.test.jsx` (restore + runtime add). — fixed 2026-07-24
+- **[#286] Toolbar had no extension slot** — hosts had to hack an "Add row" button in by padding the internal
+  `.twc-dt__toolbar` class and absolutely positioning over it. New `toolbarActions?: React.ReactNode` renders a
+  custom node in a **leading slot** (`.twc-dt__toolbar-actions`, an inline-flex cluster) at the start of the
+  toolbar row, before the Columns/Filters cluster — mirroring `CardGrid`'s `toolbar` prop. Omitted entirely
+  when not passed. 2 tests in `tests/datatable-toolbar-actions.test.jsx` (leading placement + absence). — added 2026-07-28
 
 ## Verified OK
 
