@@ -5737,6 +5737,13 @@ export const components = [
         "description": "Fires with the new quick-search string as the user types in the built-in box (and when a host sets it)."
       },
       {
+        "prop": "toolbarActions",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Custom node rendered in a leading toolbar slot, before the built-in Columns/Filters cluster — for host controls like an \"Add row\" button or bulk actions. Mirrors CardGrid's toolbar prop, so no internal-class or absolute-position hacks are needed."
+      },
+      {
         "prop": "showBatchEdit",
         "type": "boolean",
         "required": false,

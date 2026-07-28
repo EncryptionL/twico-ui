@@ -93,6 +93,11 @@ from the current `rows`; selection does not span pages in server mode.
   value controlled, so a host can render its own `<Input type="search">` and still drive client filtering
   **and** the `onServerChange` query (`quickFilter` in the emitted query). Useful when the built-in box
   doesn't fit a host's layout (or to work around a host-CSS clash). Uncontrolled unless `quickFilter` is set.
+- **`toolbarActions` (#286)** injects a host node into a **leading slot** of the toolbar row (a
+  `.twc-dt__toolbar-actions` inline-flex cluster, before the built-in Columns/Filters) — for controls like an
+  "Add row" button or bulk actions — mirroring `CardGrid`'s `toolbar` prop. Previously hosts had to pad the
+  internal `.twc-dt__toolbar` class and absolutely position a button over it; this removes that hack. The slot
+  renders only when the prop is passed.
 - **`column.filterType` (#270)** decouples a column's **filter** operators + value comparison from its edit
   `type`. A value+unit measurement (e.g. `"0.5 MM"`, edited via a custom `renderEditCell`) must edit as
   `type: "string"` — a `type: "number"` column coerces its inline-edit commit with `Number()`, which turns
