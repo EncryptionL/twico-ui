@@ -235,6 +235,26 @@
   the parent reloads. 3 tests in `tests/datatable-roworder-reset.test.jsx` (server reset + client-mode
   persistence + source-guard). — fixed 2026-07-29
 
+- **[#298] `stateKey` persistence clobbered under React Strict Mode + async columns** — dev-only (Next.js
+  Strict Mode double-mounts): a user's filters/column order/visibility/pinning/sort/density/page were wiped
+  on refresh; production was fine (no double-invoke). Two root causes, all the same shape — a ref set
+  synchronously with no cleanup, so Strict Mode's setup → cleanup → setup fake-remount misreads setup B as
+  a real change while the restored `setState` from setup A hasn't committed:
+  1. **Write gate** (`stateReadyRef`) stayed `true` across the remount → setup B's persist effect serialized
+     the DEFAULT state and wrote it over the saved snapshot. _Fix:_ the restore effect now
+     `return () => { stateReadyRef.current = false; }` so the write re-gates until restore re-runs.
+  2. **Prop-sync guards** (`densitySyncedRef`/`pageSizeSyncedRef`) were boolean "have I run once" flags →
+     setup B ran their prop-changed branch (`setDensity(prop)` / `setInternalPage(0)`), clobbering the
+     restored density/page. _Fix:_ compare the previous prop **value** instead (the Strict-Mode-safe pattern
+     `rowGroupingKeyRef` already used) — an unchanged value on setup B is a no-op.
+  3. **Async columns** — if `columns` was empty at mount (a catalogue that loads later), `applyState`
+     filtered every saved field against an empty column set and dropped it, then the first settle persisted
+     the emptied state (same permanent clobber, non-Strict-Mode trigger). _Fix:_ defer restore until
+     `columns` exist, applied at most once via `stateRestoredRef` (a second effect keyed on `columns.length`),
+     and keep the write gated (`stateReadyRef` false) until then. A later columns change can't re-apply the
+     stale snapshot over live edits. 3 tests in `tests/datatable-state-strictmode.test.jsx` (source-guard +
+     Strict Mode preserve + async-columns restore). — fixed 2026-07-29
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.

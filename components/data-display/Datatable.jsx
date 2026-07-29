@@ -1158,6 +1158,7 @@ export function Datatable({
     }
   };
   const stateReadyRef = React.useRef(false);
+  const stateRestoredRef = React.useRef(false); // #298: restore applied at most once (survives a Strict Mode remount)
   const onStateChangeRef = React.useRef(onStateChange);
   onStateChangeRef.current = onStateChange;
   // Persist effect — declared BEFORE the restore effect so on MOUNT it runs first (ready=false → skips),
@@ -1172,15 +1173,36 @@ export function Datatable({
     return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, stateKey]);
-  // Restore effect — mount only. Reads localStorage[stateKey] (else initialState) and applies it.
-  React.useEffect(() => {
+  // Reads localStorage[stateKey] (else initialState) and applies it. Cheap to call more than once —
+  // applyState is idempotent for a given snapshot — but callers gate it (see the two effects below).
+  const restoreState = () => {
     let saved = null;
     if (stateKey) { try { const raw = window.localStorage.getItem(stateKey); if (raw) saved = JSON.parse(raw); } catch { /* ignore corrupt/unreadable */ } }
     if (!saved && initialState) saved = initialState;
     if (saved) applyState(saved);
-    stateReadyRef.current = true;
+    stateRestoredRef.current = true;
+  };
+  // Restore effect — mount only. Applies the saved/initial state, but ONLY once `columns` exist, so
+  // applyState can resolve saved fields against a real column set. The cleanup resets stateReadyRef so a
+  // React Strict Mode double-mount (setup → cleanup → setup) — or a real remount — re-gates the persist
+  // effect: without it, setup B saw stateReadyRef still `true` while the restored setState from setup A
+  // hadn't committed yet, so it serialized the DEFAULT state and wrote it over the saved snapshot (#298).
+  React.useEffect(() => {
+    if (columns.length) { restoreState(); stateReadyRef.current = true; }
+    return () => { stateReadyRef.current = false; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  // #298 (async columns): if `columns` was empty at mount (a column catalogue that loads later), the
+  // mount restore above was skipped — otherwise applyState would filter every saved field against an
+  // empty set and drop it, and the first settle would then persist that emptied state (a permanent
+  // clobber). Restore once columns first arrive. `stateRestoredRef` keeps this at-most-once, so a later
+  // columns change can't re-apply the stale saved snapshot over the user's live edits.
+  React.useEffect(() => {
+    if (stateRestoredRef.current || !columns.length) return;
+    restoreState();
+    stateReadyRef.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [columns.length]);
   // Collapse the toolbar to icon-only when the grid is too narrow for full labels.
   const rootRef = React.useRef(null);
   const [compact, setCompact] = React.useState(false);
@@ -1260,19 +1282,27 @@ export function Datatable({
   }, [columns]);
 
   // Live-sync the props that seed internal toolbar state: changing the prop re-applies it
-  // (the user can still adjust each one from the toolbar between prop changes). The density
-  // and pageSize syncs SKIP their first (mount) run: each state already initializes to its
-  // prop, so the mount run is a redundant reset — and it would otherwise overwrite a restored
-  // view state (#259, whose restore effect runs on the same mount).
-  const densitySyncedRef = React.useRef(false);
-  React.useEffect(() => { if (densitySyncedRef.current) setDensity(densityProp); else densitySyncedRef.current = true; }, [densityProp]);
-  React.useEffect(() => { setAggOn(showAggregation); }, [showAggregation]);
-  // #45: re-apply `pageSize` when the prop changes (mirrors the density sync) so an
-  // uncontrolled table honors a new page size and resets to the first page. Skipped when
-  // pageSize is controlled (the parent drives it via onPageSizeChange), and on mount.
-  const pageSizeSyncedRef = React.useRef(false);
+  // (the user can still adjust each one from the toolbar between prop changes). The density and
+  // pageSize syncs act only on an ACTUAL prop-value change, never on mount: each state already
+  // initializes to its prop, so a mount run would be a redundant reset — and would overwrite a
+  // restored view state (#259, whose restore runs on the same mount). #298: comparing the previous
+  // prop VALUE (not a boolean "have I run" flag) is what makes this React-Strict-Mode-safe — the
+  // dev double-mount (setup → cleanup → setup) re-runs the effect with an unchanged value, and a
+  // boolean flag would misread setup B as a prop change and clobber the restore. (See rowGrouping below.)
+  const densityPropRef = React.useRef(densityProp);
   React.useEffect(() => {
-    if (!pageSizeSyncedRef.current) { pageSizeSyncedRef.current = true; return; }
+    if (densityPropRef.current === densityProp) return;
+    densityPropRef.current = densityProp;
+    setDensity(densityProp);
+  }, [densityProp]);
+  React.useEffect(() => { setAggOn(showAggregation); }, [showAggregation]);
+  // #45: re-apply `pageSize` when the prop changes (mirrors the density sync) so an uncontrolled
+  // table honors a new page size and resets to the first page. Skipped when pageSize is controlled
+  // (the parent drives it via onPageSizeChange), and on mount / a Strict Mode remount (#298).
+  const pageSizePropRef = React.useRef(pageSize);
+  React.useEffect(() => {
+    if (pageSizePropRef.current === pageSize) return;
+    pageSizePropRef.current = pageSize;
     if (pageSizeControlled) return;
     setInternalRpp(pageSize > 0 ? pageSize : 10);
     setInternalPage(0);
