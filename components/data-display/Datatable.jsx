@@ -417,20 +417,52 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__link { border: none; background: transparent; color: var(--color-primary); font-family: inherit; font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 4px; border-radius: var(--radius-sm); }
 .twc-dt__link:hover { background: var(--color-primary-subtle); }
 
-/* Filter panel */
-.twc-dt__filters { width: 580px; max-width: calc(100vw - 32px); }
+/* Filter panel — user-resizable (#292): panel size + per-field widths resolve through a two-tier CSS var
+   cascade — user drag (-usr) > #289 measured auto-fit (-fit) > 118px fallback — entirely in clamp(), so
+   neither writer reads the other (reset = remove the -usr var and auto-fit instantly re-wins). */
+.twc-dt__filters {
+  position: relative;
+  width: var(--twc-dt-panel-w, 580px); max-width: calc(100vw - 32px);
+  height: var(--twc-dt-panel-h, auto); max-height: calc(100vh - 32px);
+  display: flex; flex-direction: column;
+}
+/* Rows list scrolls only once the user pins a height; Add-filter stays sticky. Safe because the filter
+   Selects portal to <body> — an inline (non-portaled) menu would be clipped by this scroll box. */
+.twc-dt__frows { min-height: 0; }
+.twc-dt__filters[data-panel-sized] .twc-dt__frows { flex: 1 1 auto; overflow-y: auto; }
+.twc-dt__filters[data-panel-sized] .twc-dt__f-add { position: sticky; bottom: 0; background: var(--color-surface-raised); padding-inline-end: 20px; }
 /* #289: wrap is a safety net — a beyond-cap label or the narrow responsive panel drops the value input
    to its own line instead of clipping the remove button; no effect in the normal (capped) case. */
 .twc-dt__frow { display: flex; align-items: center; gap: 6px; padding: 5px 4px; flex-wrap: wrap; }
-/* #289: column-field auto-fits the widest header label — JS writes --twc-dt-fcol-w (measured, clamped),
-   the max-width is the hard backstop that keeps the value input above its 140px floor inside the 580px
-   panel even if the var is stale/too large. Fallback 118px = the previous fixed behavior. */
-.twc-dt__f-col { flex: none; width: var(--twc-dt-fcol-w, 118px); min-width: 118px; max-width: 210px; }
-.twc-dt__f-op { flex: none; width: var(--twc-dt-fop-w, 118px); min-width: 118px; max-width: 170px; }
-.twc-dt__f-val { flex: 1; min-width: 140px; }
+/* col/op: user > measured (-fit, written by the #289 measurer) > 118px, clamped to a drag cap that
+   filterFieldMaxWidth can raise. Position:relative hosts the resize handle. */
+.twc-dt__f-col { position: relative; flex: none; min-width: 118px;
+  width: clamp(118px, var(--twc-dt-fcol-usr, var(--twc-dt-fcol-fit, 118px)), var(--twc-dt-fcol-cap, 360px)); }
+.twc-dt__f-op { position: relative; flex: none; min-width: 118px;
+  width: clamp(118px, var(--twc-dt-fop-usr, var(--twc-dt-fop-fit, 118px)), var(--twc-dt-fop-cap, 260px)); }
+/* value: the flex shock-absorber by default; the first drag flips it to a fixed width (data-val-fixed). */
+.twc-dt__f-val { position: relative; flex: 1 1 140px; min-width: 140px; }
+.twc-dt__filters[data-val-fixed] .twc-dt__f-val { flex: 0 0 clamp(140px, var(--twc-dt-fval-usr, 240px), 640px); }
+.twc-dt__filters[data-val-fixed] .twc-dt__frm-x { margin-inline-start: auto; }
 .twc-dt__frm-x { display: inline-grid; place-items: center; width: 30px; height: 38px; border: none; background: transparent; color: var(--color-text-subtle); border-radius: var(--radius-md); cursor: pointer; flex: none; align-self: flex-start; }
 .twc-dt__frm-x:hover { background: var(--color-danger-subtle); color: var(--color-danger-subtle-fg); }
 .twc-dt__frm-x svg { width: 15px; height: 15px; }
+/* per-field resize handle — cloned from the grid's .twc-dt__resizer; always-on baseline opacity so it's
+   discoverable/hittable on touch (no hover there), with a non-color-only focus ring. */
+.twc-dt__f-rz { position: absolute; top: 0; inset-inline-end: -3px; width: 8px; height: 100%; cursor: col-resize; touch-action: none; z-index: 6; opacity: 0.28; transition: opacity var(--duration-fast); }
+.twc-dt__f-rz::after { content: ""; position: absolute; top: 22%; inset-inline-end: 2px; width: 2px; height: 56%; background: var(--color-border-strong); border-radius: 2px; transition: width var(--duration-fast), background-color var(--duration-fast); }
+.twc-dt__frow:hover .twc-dt__f-rz, .twc-dt__f-rz:focus-visible, .twc-dt__f-rz[data-active="true"] { opacity: 1; }
+.twc-dt__f-rz:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--color-primary); border-radius: 2px; }
+.twc-dt__f-rz:focus-visible::after, .twc-dt__f-rz[data-active="true"]::after { width: 3px; background: var(--color-primary); }
+/* panel corner grip (2-axis) at the bottom-inline-end. */
+.twc-dt__pop-grip { position: absolute; inset-block-end: 2px; inset-inline-end: 2px; width: 14px; height: 14px; cursor: nwse-resize; touch-action: none; z-index: 8; opacity: 0.5; border-radius: 3px; background: linear-gradient(135deg, transparent 0 55%, var(--color-border-strong) 55% 64%, transparent 64% 73%, var(--color-border-strong) 73% 82%, transparent 82%); transition: opacity var(--duration-fast); }
+.twc-dt__pop-grip:hover, .twc-dt__pop-grip:focus-visible, .twc-dt__pop-grip[data-active="true"] { opacity: 1; }
+.twc-dt__pop-grip:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+[dir="rtl"] .twc-dt__pop-grip { cursor: nesw-resize; }
+@media (pointer: coarse) {
+  .twc-dt__f-rz { width: 16px; inset-inline-end: -6px; opacity: 0.4; }
+  .twc-dt__pop-grip { width: 20px; height: 20px; opacity: 0.6; }
+}
 .twc-dt__empty { padding: 30px 12px; text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
 
 /* Action cell */
@@ -927,6 +959,8 @@ export function Datatable({
   quickFilter,
   onQuickFilterChange,
   toolbarActions,
+  resizableFilters = true,
+  filterFieldMaxWidth,
   rowPinning = false, rowReorder = false, rowResize = false, onRowOrderChange,
   pivot = null, pivotMode = false,
   virtualized = false, overscan = 8, rowHeight,
@@ -1055,6 +1089,11 @@ export function Datatable({
   const [reorderMsg, setReorderMsg] = React.useState("");
   const rowFocusRef = React.useRef(null); // key to restore focus to after a keyboard drop
 
+  // #292: user-resized filter panel + field widths (declared before the persist effect so its deps can
+  // include them). Committed on pointerup/keystroke; live drags write CSS vars imperatively.
+  const [fWidths, setFWidths] = React.useState({});     // { col?, op?, val? } px
+  const [fPanelSize, setFPanelSize] = React.useState(null); // { w, h } | null
+
   // #259: persist/restore the full view state. `stateKey` → localStorage; `initialState` seeds it;
   // `onStateChange` reports it (for URL/server persistence). SSR-safe: never read storage during render —
   // start from defaults on the server + first client render (so hydration matches), then apply the saved
@@ -1070,6 +1109,9 @@ export function Datatable({
     columnVisibility: Object.fromEntries([...hidden].map((f) => [f, false])), // absent = visible
     columnPinning: Object.fromEntries([...pins.left.map((f) => [f, "left"]), ...pins.right.map((f) => [f, "right"])]),
     density,
+    // #292: additive, optional — user-resized filter panel + field widths (panel-global, not per column).
+    filterPanelSize: fPanelSize || undefined,
+    filterFieldWidths: (fWidths.col != null || fWidths.op != null || fWidths.val != null) ? fWidths : undefined,
   });
   const applyState = (s) => {
     if (!s || typeof s !== "object") return;
@@ -1092,6 +1134,17 @@ export function Datatable({
       setPins({ left: l, right: r });
     }
     if (s.density === "compact" || s.density === "standard" || s.density === "comfortable") setDensity(s.density);
+    // #292: restore filter panel + field sizes, viewport-re-clamped so a persisted size can't strand off-screen.
+    if (s.filterFieldWidths && typeof s.filterFieldWidths === "object") {
+      const fw = {};
+      for (const k of ["col", "op", "val"]) if (typeof s.filterFieldWidths[k] === "number") fw[k] = s.filterFieldWidths[k];
+      if (Object.keys(fw).length) setFWidths(fw);
+    }
+    if (s.filterPanelSize && typeof s.filterPanelSize === "object") {
+      const w = typeof s.filterPanelSize.w === "number" ? clampNum(s.filterPanelSize.w, 220, fMaxW()) : undefined;
+      const h = typeof s.filterPanelSize.h === "number" ? clampNum(s.filterPanelSize.h, 120, fMaxH()) : undefined;
+      if (w != null || h != null) setFPanelSize({ ...(w != null ? { w } : {}), ...(h != null ? { h } : {}) });
+    }
   };
   const stateReadyRef = React.useRef(false);
   const onStateChangeRef = React.useRef(onStateChange);
@@ -1107,7 +1160,7 @@ export function Datatable({
     if (stateKey) { try { window.localStorage.setItem(stateKey, JSON.stringify(state)); } catch { /* storage unavailable/full */ } }
     return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, stateKey]);
+  }, [filters, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, stateKey]);
   // Restore effect — mount only. Reads localStorage[stateKey] (else initialState) and applies it.
   React.useEffect(() => {
     let saved = null;
@@ -2075,8 +2128,8 @@ export function Datatable({
   // #289: auto-fit the filter panel's column-field (and operator) Select widths to the widest label, so
   // header names no longer truncate at the old fixed 118px. Measure the widest OPTION (not the selected
   // value) → the width is stable across selection and identical across rows. Clamp to a cap derived from
-  // the LIVE panel width so the value input keeps its 140px floor inside the 580px panel; the CSS
-  // max-width is the hard backstop. Re-measures after webfont swap and on responsive width changes.
+  // the LIVE panel width so the value input keeps its 140px floor inside the 580px panel; the CSS clamp()
+  // cap is the hard backstop. Writes the -fit tier only (#292); a user drag's -usr tier wins over it.
   React.useEffect(() => {
     const el = filterPanelRef.current;
     if (panel !== "filters" || !el || typeof document === "undefined") return undefined;
@@ -2094,8 +2147,10 @@ export function Datatable({
       const colCap = Math.max(118, Math.min(210, el.clientWidth - 118 - 30 - 140 - 3 * 6 - 2 * 4));
       const colW = Math.min(colCap, Math.max(118, Math.ceil(widest(filterableCols.map((c) => c.headerName ?? c.field)) + chrome)));
       const opW = Math.min(170, Math.max(118, Math.ceil(widest(ALL_OP_LABELS) + chrome)));
-      if (Number.isFinite(colW)) el.style.setProperty("--twc-dt-fcol-w", `${colW}px`);
-      if (Number.isFinite(opW)) el.style.setProperty("--twc-dt-fop-w", `${opW}px`);
+      // #292: write the MEASURED tier only (-fit). A user drag writes -usr, which wins in the clamp()
+      // cascade; this measurer never reads -usr, so a re-measure can't clobber a user width.
+      if (Number.isFinite(colW)) el.style.setProperty("--twc-dt-fcol-fit", `${colW}px`);
+      if (Number.isFinite(opW)) el.style.setProperty("--twc-dt-fop-fit", `${opW}px`);
     };
     measure();
     document.fonts?.ready?.then?.(measure).catch?.(() => {}); // re-measure after webfont swap (FOUT)
@@ -2104,6 +2159,100 @@ export function Datatable({
     return () => ro?.disconnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [panel, filterableCols, filters.length]);
+
+  // #292: user-resizable filter panel + fields. Live drags write CSS vars imperatively (no re-render per
+  // pointermove); the committed value lands in state (fWidths/fPanelSize, declared above) on pointerup →
+  // inline-style var → onStateChange/localStorage. Field widths are panel-global; the grip drives two axes.
+  const F_MIN = { col: 118, op: 118, val: 140 };
+  const F_VAR = { col: "--twc-dt-fcol-usr", op: "--twc-dt-fop-usr", val: "--twc-dt-fval-usr" };
+  const F_SEL = { col: ".twc-dt__f-col", op: ".twc-dt__f-op", val: ".twc-dt__f-val" };
+  const F_LABEL = { col: "column", op: "operator", val: "value" };
+  const fMaxW = () => (typeof window === "undefined" ? 9999 : window.innerWidth - 32);
+  const fMaxH = () => (typeof window === "undefined" ? 9999 : window.innerHeight - 32);
+  const clampNum = (v, lo, hi) => Math.max(lo, Math.min(hi, Math.round(v)));
+  // Live sibling widths from the DOM (NOT React state, which is undefined until a field is manually
+  // resized — reading state on the first value drag would yield NaN and silently kill it).
+  const fLiveW = (field) => { const p = filterPanelRef.current, el = p && p.querySelector(F_SEL[field]); return el ? el.getBoundingClientRect().width : F_MIN[field]; };
+  const fCap = (field) => {
+    if (field === "col") return filterFieldMaxWidth || 360;
+    if (field === "op") return filterFieldMaxWidth || 260;
+    const p = filterPanelRef.current; if (!p) return 640; // value: fill the row minus siblings
+    return clampNum(p.clientWidth - fLiveW("col") - fLiveW("op") - 30 /*remove*/ - 24 /*gaps*/, F_MIN.val, 640);
+  };
+  const isRtl = () => { const p = filterPanelRef.current; return p ? getComputedStyle(p).direction === "rtl" : false; };
+  const startFieldResize = (e, field) => {
+    if (e.button != null && e.button !== 0) return;
+    e.preventDefault(); e.stopPropagation();
+    const panel = filterPanelRef.current; if (!panel) return;
+    const handle = e.currentTarget; const startX = e.clientX; const startW = fLiveW(field);
+    const cap = fCap(field); const dir = isRtl() ? -1 : 1;
+    handle.setAttribute("data-active", "true");
+    if (field === "val") panel.setAttribute("data-val-fixed", ""); // flip flex→fixed for live feedback
+    let last = startW;
+    const onMove = (ev) => { last = clampNum(startW + (ev.clientX - startX) * dir, F_MIN[field], cap); panel.style.setProperty(F_VAR[field], `${last}px`); };
+    const onUp = () => { setFWidths((m) => ({ ...m, [field]: last })); handle.removeAttribute("data-active"); window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp); };
+    window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
+  };
+  const onFieldResizeKey = (e, field) => {
+    if (e.key === "Enter" || e.key === " " || e.key === "Backspace") { e.preventDefault(); e.stopPropagation(); resetFWidth(field); return; }
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
+    e.preventDefault(); e.stopPropagation();
+    const cur = fLiveW(field), cap = fCap(field), step = e.shiftKey ? 2 : 10, dir = isRtl() ? -1 : 1;
+    let next = cur;
+    if (e.key === "ArrowRight") next = cur + step * dir; else if (e.key === "ArrowLeft") next = cur - step * dir;
+    else if (e.key === "Home") next = F_MIN[field]; else if (e.key === "End") next = cap;
+    setFWidths((m) => ({ ...m, [field]: clampNum(next, F_MIN[field], cap) }));
+  };
+  const resetFWidth = (field) => {
+    setFWidths((m) => { const n = { ...m }; delete n[field]; return n; });
+    const p = filterPanelRef.current; if (p) { p.style.removeProperty(F_VAR[field]); if (field === "val") p.removeAttribute("data-val-fixed"); }
+  };
+  const startPanelResize = (e) => {
+    if (e.button != null && e.button !== 0) return;
+    e.preventDefault(); e.stopPropagation();
+    const panel = filterPanelRef.current; if (!panel) return;
+    const grip = e.currentTarget; const startX = e.clientX, startY = e.clientY;
+    const r = panel.getBoundingClientRect(); const startW = r.width, startH = r.height; const dir = isRtl() ? -1 : 1;
+    grip.setAttribute("data-active", "true"); panel.setAttribute("data-panel-sized", "");
+    let lw = startW, lh = startH;
+    const onMove = (ev) => {
+      lw = clampNum(startW + (ev.clientX - startX) * dir, 220, fMaxW());
+      lh = clampNum(startH + (ev.clientY - startY), 120, fMaxH());
+      panel.style.setProperty("--twc-dt-panel-w", `${lw}px`); panel.style.setProperty("--twc-dt-panel-h", `${lh}px`);
+    };
+    const onUp = () => { setFPanelSize({ w: lw, h: lh }); grip.removeAttribute("data-active"); window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp); };
+    window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
+  };
+  const onPanelGripKey = (e) => {
+    if (e.key === "Enter" || e.key === " " || e.key === "Backspace") { e.preventDefault(); resetPanelSize(); return; }
+    if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) return;
+    e.preventDefault();
+    const panel = filterPanelRef.current; if (!panel) return;
+    const r = panel.getBoundingClientRect(); const step = e.shiftKey ? 4 : 20; const dir = isRtl() ? -1 : 1;
+    let w = r.width, h = r.height;
+    if (e.key === "ArrowRight") w += step * dir; else if (e.key === "ArrowLeft") w -= step * dir;
+    else if (e.key === "ArrowDown") h += step; else if (e.key === "ArrowUp") h -= step;
+    else if (e.key === "Home") { w = 220; h = 120; } else if (e.key === "End") { w = fMaxW(); h = fMaxH(); }
+    setFPanelSize({ w: clampNum(w, 220, fMaxW()), h: clampNum(h, 120, fMaxH()) });
+  };
+  const resetPanelSize = () => {
+    setFPanelSize(null);
+    const p = filterPanelRef.current; if (p) { p.style.removeProperty("--twc-dt-panel-w"); p.style.removeProperty("--twc-dt-panel-h"); p.removeAttribute("data-panel-sized"); }
+  };
+  const resetFilterSizes = () => {
+    setFWidths({}); setFPanelSize(null);
+    const p = filterPanelRef.current;
+    if (p) { ["--twc-dt-fcol-usr", "--twc-dt-fop-usr", "--twc-dt-fval-usr", "--twc-dt-panel-w", "--twc-dt-panel-h"].forEach((v) => p.style.removeProperty(v)); p.removeAttribute("data-val-fixed"); p.removeAttribute("data-panel-sized"); }
+  };
+  const hasFilterSizeOverride = fWidths.col != null || fWidths.op != null || fWidths.val != null || fPanelSize != null;
+  // Panel-global field widths → the resize handle renders once (on the first row).
+  const fieldHandle = (field, rowIdx) => (resizableFilters && rowIdx === 0 ? (
+    <span className="twc-dt__f-rz" role="separator" aria-orientation="vertical" tabIndex={0}
+      aria-label={`Resize ${F_LABEL[field]} field (Enter to reset)`}
+      onPointerDown={(e) => startFieldResize(e, field)} onClick={(e) => e.stopPropagation()}
+      onKeyDown={(e) => onFieldResizeKey(e, field)} />
+  ) : null);
+
   const orderIdxOf = (f) => { const i = order.indexOf(f); return i === -1 ? 9999 : i; };
   const shownColRows = cols
     .filter((c) => c.field !== "__pinactions__" && c.headerName.toLowerCase().includes(colQuery.trim().toLowerCase()))
@@ -2964,13 +3113,29 @@ export function Datatable({
 
       {/* Filters panel (uses Select + Input components) */}
       {panel === "filters" && panelPos ? (
-        <div ref={filterPanelRef} className="twc-dt__pop twc-dt__filters" style={{ top: panelPos.top, left: panelPos.left }}>
+        <div ref={filterPanelRef} className="twc-dt__pop twc-dt__filters"
+          style={{
+            top: panelPos.top, left: panelPos.left,
+            "--twc-dt-fcol-usr": fWidths.col != null ? `${fWidths.col}px` : undefined,
+            "--twc-dt-fop-usr": fWidths.op != null ? `${fWidths.op}px` : undefined,
+            "--twc-dt-fval-usr": fWidths.val != null ? `${fWidths.val}px` : undefined,
+            "--twc-dt-panel-w": fPanelSize?.w != null ? `${fPanelSize.w}px` : undefined,
+            "--twc-dt-panel-h": fPanelSize?.h != null ? `${fPanelSize.h}px` : undefined,
+            "--twc-dt-fcol-cap": filterFieldMaxWidth ? `${filterFieldMaxWidth}px` : undefined,
+            "--twc-dt-fop-cap": filterFieldMaxWidth ? `${filterFieldMaxWidth}px` : undefined,
+          }}
+          data-val-fixed={fWidths.val != null ? "" : undefined}
+          data-panel-sized={fPanelSize?.h != null ? "" : undefined}>
           <div className="twc-dt__panel-head">
             <span className="twc-dt__panel-title">Filters</span>
-            {filters.length ? <button type="button" className="twc-dt__link" onClick={() => setFilters([])}>Clear all</button> : null}
+            <span style={{ display: "inline-flex", gap: 2 }}>
+              {resizableFilters && hasFilterSizeOverride ? <button type="button" className="twc-dt__link" onClick={resetFilterSizes}>Reset sizes</button> : null}
+              {filters.length ? <button type="button" className="twc-dt__link" onClick={() => setFilters([])}>Clear all</button> : null}
+            </span>
           </div>
+          <div className="twc-dt__frows">
           {filters.length === 0 ? <div className="twc-dt__empty" style={{ padding: "16px 12px" }}>No filters applied</div> :
-            filters.map((f) => {
+            filters.map((f, i) => {
               const col = colByField[f.field] || cols[0]; const ops = opsFor(filterTypeOf(col));
               const op = ops.find((o) => o.value === f.op) || ops[0];
               return (
@@ -2979,6 +3144,7 @@ export function Datatable({
                     <Select size="sm" portal value={f.field}
                       options={filterableCols.map((c) => ({ value: c.field, label: c.headerName }))}
                       onChange={(v) => { const nc = colByField[v]; setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, field: v, op: opsFor(filterTypeOf(nc))[0].value, value: "" } : x)); }} />
+                    {fieldHandle("col", i)}
                   </div>
                   <div className="twc-dt__f-op">
                     <Select size="sm" portal value={f.op}
@@ -2988,6 +3154,7 @@ export function Datatable({
                         const nextMulti = isMultiOp(v); const wasArr = Array.isArray(x.value);
                         return { ...x, op: v, value: nextMulti ? (wasArr ? x.value : []) : (wasArr ? "" : x.value) };
                       }))} />
+                    {fieldHandle("op", i)}
                   </div>
                   <div className="twc-dt__f-val">
                     {op.noInput ? null : op.multi ? (
@@ -3003,14 +3170,23 @@ export function Datatable({
                       <Input size="sm" type={filterTypeOf(col) === "number" ? "number" : "text"} placeholder="Value" value={f.value}
                         onChange={(e) => setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, value: e.target.value } : x))} />
                     )}
+                    {fieldHandle("val", i)}
                   </div>
                   <button type="button" className="twc-dt__frm-x" aria-label="Remove filter" onClick={() => setFilters((arr) => arr.filter((x) => x.id !== f.id))}><Svg d={I.x} /></button>
                 </div>
               );
             })}
-          <div style={{ padding: "6px 4px 2px" }}>
+          </div>
+          <div className="twc-dt__f-add" style={{ padding: "6px 4px 2px" }}>
             <button type="button" className="twc-dt__mi" style={{ color: "var(--color-primary)" }} onClick={() => addFilter(cols[0].field)}><Svg d={I.plus} style={{ color: "var(--color-primary)" }} /> Add filter</button>
           </div>
+          {resizableFilters ? (
+            <span className="twc-dt__pop-grip" role="slider" tabIndex={0}
+              aria-label="Resize filters panel (Enter to reset)"
+              aria-valuetext={`Width ${Math.round(fPanelSize?.w ?? 580)} pixels, height ${fPanelSize?.h != null ? Math.round(fPanelSize.h) + " pixels" : "auto"}`}
+              onPointerDown={startPanelResize} onKeyDown={onPanelGripKey}
+              onDoubleClick={(e) => { e.preventDefault(); resetPanelSize(); }} />
+          ) : null}
         </div>
       ) : null}
     </div>

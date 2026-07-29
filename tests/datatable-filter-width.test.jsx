@@ -13,9 +13,10 @@ const DT_SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "components",
 describe("Datatable filter field auto-fit (#289)", () => {
   it("drives the field widths from measured CSS vars, clamped, with wrap as a safety net", () => {
     const src = readFileSync(DT_SRC, "utf8");
-    expect(src).toContain(".twc-dt__f-col { flex: none; width: var(--twc-dt-fcol-w, 118px); min-width: 118px; max-width: 210px; }");
-    expect(src).toContain(".twc-dt__f-op { flex: none; width: var(--twc-dt-fop-w, 118px); min-width: 118px; max-width: 170px; }");
-    expect(src).toContain(".twc-dt__f-val { flex: 1; min-width: 140px; }"); // value input floor unchanged
+    // #292 renamed the measured var to -fit and moved to the clamp() cascade; the measurer still auto-fits.
+    expect(src).toContain("var(--twc-dt-fcol-fit, 118px)");
+    expect(src).toContain("var(--twc-dt-fop-fit, 118px)");
+    expect(src).toContain('setProperty("--twc-dt-fcol-fit"'); // measurer writes the -fit tier
     expect(src).toMatch(/\.twc-dt__frow \{[^}]*flex-wrap: wrap;/);
   });
 
@@ -32,7 +33,7 @@ describe("Datatable filter field auto-fit (#289)", () => {
       Element.prototype.getBoundingClientRect = origPad;
     });
 
-    it("widens the column field toward the cap for a long header, staying <= 210px", () => {
+    it("widens the measured (-fit) column width toward the cap for a long header, staying <= 210px", () => {
       const columns = [
         { field: "articleNumber", headerName: "A Very Long Article Number Header" }, // ~33 chars → beyond cap
         { field: "n", headerName: "N", type: "number" },
@@ -47,9 +48,9 @@ describe("Datatable filter field auto-fit (#289)", () => {
       fireEvent.click(Array.from(container.querySelectorAll("button")).find((b) => b.textContent.trim() === "Add filter"));
       // re-open to re-run the measure effect against the now-real clientWidth
       openFilters(); openFilters();
-      const w = parseFloat(panel.style.getPropertyValue("--twc-dt-fcol-w"));
+      const w = parseFloat(panel.style.getPropertyValue("--twc-dt-fcol-fit"));
       expect(w).toBeGreaterThan(118); // widened past the old fixed width
-      expect(w).toBeLessThanOrEqual(210); // never past the cap that protects the 140px value floor
+      expect(w).toBeLessThanOrEqual(210); // measured tier still capped (drag can exceed via -usr)
     });
   });
 });

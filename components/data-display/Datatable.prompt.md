@@ -46,6 +46,10 @@ import { Datatable } from "./Datatable";
 - **`toolbarActions`** injects a custom node into a **leading slot** of the toolbar (before Columns/Filters) —
   e.g. an "Add row" button or bulk actions — mirroring `CardGrid`'s `toolbar` prop, so no internal-class hacks:
   `<Datatable toolbarActions={<Button size="sm" leftIcon={<PlusIcon/>}>Add row</Button>} … />`.
+- **Resizable Filters** (`resizableFilters`, default `true`) — drag the Filters popover (bottom-inline-end grip)
+  and its column/operator/value fields (per-field handles) wider/narrower; layered over the auto-fit (a drag
+  overrides the measured width, reset returns to it). Keyboard-accessible (Arrow/Shift/Home/End, Enter=reset),
+  persists via `stateKey`, and a "Reset sizes" header action clears it. `filterFieldMaxWidth` raises the field cap.
 - **Empty state** — `emptyMessage` (filter-aware by default) or `renderEmpty` customizes the zero-row body; a
   column can opt out of reorder with `reorderable: false`; row actions use the twico `Tooltip` (not native `title`).
 - Footer shows the showing-range/total, a rows-per-page `Select` (options via `pageSizeOptions`), page-number `Pagination`, and a **"Go to" page jumper** (when >5 pages; toggle with `showPageJumper`). Pinned columns stay frozen.

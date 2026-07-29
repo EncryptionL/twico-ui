@@ -207,6 +207,21 @@
   `document.fonts.ready` (FOUT) and once a real trigger mounts. Guarded against NaN padding / missing canvas
   (jsdom). 2 tests in `tests/datatable-filter-width.test.jsx` (CSS source + measured widen). Supersedes the
   hover-only reveal from #269. — fixed 2026-07-29
+- **[#292] Resizable Filters popover + fields** — manual-override follow-up to #289 (`resizableFilters`,
+  default on; `filterFieldMaxWidth` raises the cap). Panel corner grip (2-axis) + per-field handles
+  (col/op/val). Coexists with the #289 auto-fit via a **pure-CSS two-tier cascade** — `clamp(min,
+  var(--…-usr, var(--…-fit, fallback)), --…-cap)`: the measurer writes only `-fit`, a drag writes only
+  `-usr` (wins), reset removes `-usr` (auto-fit re-wins); neither reads the other, so no re-measure race and
+  no JS "is-overridden" flag. Value field's first drag flips `flex:1`→fixed (`data-val-fixed`); its cap is
+  read from **live `getBoundingClientRect` widths**, not React state (which is `undefined` on the first drag
+  → would `NaN`). Height pin → `data-panel-sized` scrolls `.twc-dt__frows` (safe: filter Selects portal to
+  `<body>`). Live drags write vars imperatively; commit on pointerup/keystroke → `onStateChange`/localStorage
+  (persist effect deps extended with `fWidths`/`fPanelSize`). Persisted `filterPanelSize`/`filterFieldWidths`
+  on `DatatableState`, viewport-re-clamped on restore. Keyboard: Arrow/Shift/Home/End + Enter/Space/Backspace
+  reset; grip `aria-valuetext` announces both axes; "Reset sizes" header action. `fWidths`/`fPanelSize` state
+  declared before the persist effect (deps evaluate at render → TDZ if declared later). 10 tests in
+  `tests/datatable-filter-resize.test.jsx`. Non-breaking (injected styles hide the `-w`→`-fit` rename).
+  — added 2026-07-29
 
 ## Verified OK
 

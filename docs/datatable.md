@@ -120,6 +120,22 @@ from the current `rows`; selection does not span pages in server mode.
   panel; the CSS `max-width` is the hard backstop and `.twc-dt__frow` wraps as a safety net. Re-measures
   after `document.fonts.ready`. This is the default-visible fix; #269's native-`title` reveal remains for
   the residual beyond-cap case.
+- **Resizable Filters popover + fields (#292)** — the manual-override follow-up to #289 (`resizableFilters`,
+  default on). A user drags the panel (bottom-inline-end grip, both axes) and the column/operator/value fields
+  (per-field handles). It **coexists with #289 by a pure-CSS two-tier cascade**, no JS coordination flag:
+  `width: clamp(min, var(--twc-dt-fcol-usr, var(--twc-dt-fcol-fit, 118px)), var(--twc-dt-fcol-cap, 360px))` —
+  the #289 measurer writes only `-fit`, a drag writes only `-usr` (which wins), and **reset = remove `-usr`**
+  so auto-fit instantly re-wins; neither writer reads the other, so a re-measure can never clobber a user
+  width. The value field's first drag flips `flex:1`→fixed (`data-val-fixed`); its cap is read from **live DOM
+  widths** (`getBoundingClientRect`), never React state, which is `undefined` on the first drag and would
+  `NaN` the arithmetic. Pinning a height stamps `data-panel-sized` → the rows list scrolls and Add-filter
+  stays sticky (safe because the filter Selects portal to `<body>`; an inline menu would clip). Live drags
+  write CSS vars imperatively (no re-render per move); the committed width lands in state on pointerup/
+  keystroke → `onStateChange`/`localStorage`. Persisted as `filterPanelSize` / `filterFieldWidths` on
+  `DatatableState` (viewport-re-clamped on restore). Keyboard: Arrow (Shift = fine), Home/End, Enter/Space/
+  Backspace = reset; the panel grip's `aria-valuetext` announces both axes; a "Reset sizes" header action
+  clears everything. `filterFieldMaxWidth` raises the field cap. Non-breaking: styles are injected, so the
+  `-w`→`-fit` var rename is invisible; old state blobs open at 580 + auto-fit.
 
 ## Custom inline cell editor — `renderEditCell` (#236)
 
