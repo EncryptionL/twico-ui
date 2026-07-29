@@ -5744,6 +5744,20 @@ export const components = [
         "description": "Custom node rendered in a leading toolbar slot, before the built-in Columns/Filters cluster — for host controls like an \"Add row\" button or bulk actions. Mirrors CardGrid's toolbar prop, so no internal-class or absolute-position hacks are needed."
       },
       {
+        "prop": "resizableFilters",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Let the user drag-resize the Filters popover and its column/operator/value fields, layered over the auto-fit (a dragged width overrides the measured one; reset returns to it). Widths + panel size persist via stateKey and are keyboard-accessible. Set false to hide the handles/grip (fields still auto-fit)."
+      },
+      {
+        "prop": "filterFieldMaxWidth",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Raise the drag cap for the filter panel's column/operator fields, in px (defaults: column 360, operator 260). Only applies when resizableFilters is on."
+      },
+      {
         "prop": "showBatchEdit",
         "type": "boolean",
         "required": false,

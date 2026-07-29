@@ -86,6 +86,14 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  cluster (#286) — for host controls like an "Add row" button or bulk actions. Mirrors `CardGrid`'s
    *  `toolbar` prop, so no internal-class/absolute-position hacks are needed. */
   toolbarActions?: React.ReactNode;
+  /** Let the user drag-resize the **Filters** popover and its column/operator/value fields (#292), on top
+   *  of the #289 auto-fit (a dragged width overrides the measured one; reset returns to it). Widths + panel
+   *  size persist via `stateKey` and are keyboard-accessible. Set `false` to disable the handles/grip
+   *  (fields still auto-fit). @default true */
+  resizableFilters?: boolean;
+  /** Raise the drag cap for the filter panel's column/operator fields, in px (default col 360 / op 260) —
+   *  the #289-deferred "optional prop to raise the cap". Only affects `resizableFilters`. */
+  filterFieldMaxWidth?: number;
   /**
    * Actions shown in the toolbar when one or more rows are selected (requires
    * `checkboxSelection`). Each handler receives the selected keys, the resolved
@@ -309,6 +317,10 @@ export interface DatatableState {
   columnPinning: Record<string, "left" | "right">;
   /** Row-density preset. */
   density: "compact" | "standard" | "comfortable";
+  /** #292: user-resized Filters popover size (px). Absent until the user drags the panel grip. */
+  filterPanelSize?: { w?: number; h?: number };
+  /** #292: user-resized Filters field widths (px, panel-global — not per data column). Absent until dragged. */
+  filterFieldWidths?: { col?: number; op?: number; val?: number };
 }
 
 export interface DatatableColumn<T = any> {
