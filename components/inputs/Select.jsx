@@ -386,7 +386,7 @@ export function Select({
       popEl = RD.createPortal(
         <div className="twc-pop twc-pop--portal" id={listboxId} role="listbox" ref={popRef}
           data-state={popState} data-placement={coords.flip ? "top" : "bottom"}
-          style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, minWidth: coords.minWidth, maxWidth: coords.maxWidth, right: "auto", zIndex: "var(--z-tooltip)" }}>
+          style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, minWidth: coords.minWidth, maxWidth: coords.maxWidth, right: "auto", zIndex: "var(--z-floating)" }}>
           {popInner}
         </div>, document.body);
     } else if (!portal) {

@@ -367,8 +367,13 @@
   --z-overlay:  1200; /* @kind other */
   --z-modal:    1300; /* @kind other */
   --z-popover:  1400; /* @kind other */
-  --z-toast:    1500; /* @kind other */
-  --z-tooltip:  1600; /* @kind other */
+  /* #288: tooltips sit BELOW toasts — a hover-only hint must never cover a toast's interactive
+     close/action controls. Still above modals/popovers so a tooltip inside them shows. */
+  --z-tooltip:  1500; /* @kind other */
+  --z-toast:    1600; /* @kind other */
+  /* Portaled input dropdowns/listboxes (Select, Combobox, MultiSelect, date/time/color pickers) sit
+     ABOVE toasts, so a toast never covers a dropdown you're actively interacting with (#288). */
+  --z-floating: 1700; /* @kind other */
 }
 
 /* ===== tokens/radius.css ===== */

@@ -10,6 +10,15 @@
 
 - [x] **[P2] Stylesheet `data-place` position rules are dead (overridden by inline style) — confusing, not broken** — `TOOLTIP_CSS` sets `top/bottom/left/right` per `data-place` using `calc(100% + 8px)` (`Tooltip.jsx:15-18`), which presumes a positioned parent. Since the tooltip is portaled to `document.body` and given inline `position: fixed` with explicit `left/right/top/bottom` (including `auto`) (`Tooltip.jsx:116`), the inline values win and the CSS offsets are inert — only the `translate` / `transform-origin` / arrow rules from those selectors actually matter. No visible bug, but the dead CSS is a maintenance trap (someone editing the `calc()` offsets will see no effect). _Fix:_ drop the positional declarations from the `data-place` rules and keep only `translate`/`transform-origin`. `Tooltip.jsx:15-18` — ✓ fixed 2026-06-17
 
+- [x] **[#288] Tooltip rendered above a Toast, covering its close button** — `--z-tooltip` (1600) sat
+  above `--z-toast` (1500), and the shown bubble has `pointer-events: auto` (#114), so a tooltip on a trigger
+  near the bottom-right toast corner overlaid the toast and blocked its × control. The whole `--z-tooltip`
+  token was **shared** by the actual Tooltip *and* every portaled input dropdown (Select/Combobox/MultiSelect/
+  date-time-color pickers, via inline `zIndex`), so it couldn't just be lowered. Retuned the z-scale to
+  **tooltip (1500) < toast (1600) < `--z-floating` (1700, new)**: the Tooltip + Datatable overflow tip stay on
+  `--z-tooltip` (now below toast), and the 7 dropdown portals moved to `--z-floating` (above toast, so a toast
+  never covers an open dropdown either). Guarded by `tests/z-index-stacking.test.js`. — fixed 2026-07-29
+
 ## Verified OK
 
 - Portaled to `document.body` with fixed positioning, so it is never clipped by an overflow/scroll ancestor (`Tooltip.jsx:108`, `Tooltip.jsx:52-54`).

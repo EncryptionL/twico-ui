@@ -398,7 +398,7 @@ export function DatePicker({
 
       {open && coords ? createPortal(
         <div className="twc-dp__pop" ref={popRef} role="dialog" aria-modal="true" aria-label="Choose date"
-          style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" }}>
+          style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-floating)" }}>
           <div className="twc-dp__head">
             <button type="button" className="twc-dp__nav" aria-label={mode === "years" ? "Previous decade" : mode === "months" ? "Previous year" : "Previous month"} onClick={() => setView(mode === "years" ? new Date(y - 10, m, 1) : mode === "months" ? new Date(y - 1, m, 1) : new Date(y, m - 1, 1))}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
