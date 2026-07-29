@@ -223,6 +223,18 @@
   `tests/datatable-filter-resize.test.jsx`. Non-breaking (injected styles hide the `-w`→`-fit` rename).
   — added 2026-07-29
 
+- **[#296] serverMode rowReorder overlay never reset on a `rows` change** — a drop sets an **internal**
+  `rowOrder` that server-mode display re-sorts `rows` by; it was never cleared, so once the user dragged, the
+  table kept re-applying that stale order to every `rows` prop. A parent could neither **revert** a rejected
+  reorder (reload authoritative order → no effect) nor **reflect** a server-corrected order, except by
+  remounting (`key` bump → loses page/selection/scroll). _Fix:_ treat the drag order as an **optimistic
+  overlay** — `useEffect(() => { if (serverMode) setRowOrder(null); }, [rows, serverMode])`, so the next
+  `rows` reference the parent hands us clears it (reload reverts, no remount). **Client mode is deliberately
+  excluded**: there the overlay is the source of truth and must survive unrelated `rows` updates (e.g. a cell
+  edit), so it is not reset. A drag doesn't touch the `rows` prop, so the optimistic order still sticks until
+  the parent reloads. 3 tests in `tests/datatable-roworder-reset.test.jsx` (server reset + client-mode
+  persistence + source-guard). — fixed 2026-07-29
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.
