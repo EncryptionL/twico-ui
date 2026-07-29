@@ -48,6 +48,14 @@ for (const r of routes) {
   try {
     await page.goto(ORIGIN + r, { waitUntil: "load", timeout: 30000 });
     await page.waitForTimeout(350);
+    // A component page's Usage demo is lazily Suspended ("Loading preview…"). It must actually resolve —
+    // a demo that stays stuck (e.g. starved by heavy sibling demos) throws no error, so assert it clears.
+    if (r.startsWith("#/components/")) {
+      await page.waitForFunction(
+        () => ![...document.querySelectorAll("*")].some((n) => n.children.length === 0 && n.offsetParent !== null && /Loading preview/.test(n.textContent || "")),
+        { timeout: 8000 },
+      ).catch(() => errs.push('Usage demo stuck on "Loading preview…" (never rendered)'));
+    }
     if (errs.length) problems.push({ route: r, errs });
     else ok++;
   } catch (e) {
