@@ -2,6 +2,14 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.22.1](https://github.com/EncryptionL/twico-ui/compare/v1.22.0...v1.22.1) (2026-07-29)
+
+
+### Bug Fixes
+
+* **datatable:** keep the Filters popover position:fixed (regression from [#292](https://github.com/EncryptionL/twico-ui/issues/292)) ([0d53d05](https://github.com/EncryptionL/twico-ui/commit/0d53d057e861f5327af7b43730b3f143a937205e)), closes [#294](https://github.com/EncryptionL/twico-ui/issues/294)
+* **inputs:** portaled dropdown menu re-tracks its trigger's resize ([b6e6843](https://github.com/EncryptionL/twico-ui/commit/b6e6843f2345f60db0719f7e12bef504393e3189)), closes [#292](https://github.com/EncryptionL/twico-ui/issues/292)
+
 # [1.22.0](https://github.com/EncryptionL/twico-ui/compare/v1.21.1...v1.22.0) (2026-07-29)
 
 
