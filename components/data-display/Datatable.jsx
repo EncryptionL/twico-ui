@@ -419,9 +419,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 
 /* Filter panel */
 .twc-dt__filters { width: 580px; max-width: calc(100vw - 32px); }
-.twc-dt__frow { display: flex; align-items: center; gap: 6px; padding: 5px 4px; }
-.twc-dt__f-col { width: 118px; flex: none; }
-.twc-dt__f-op { width: 118px; flex: none; }
+/* #289: wrap is a safety net — a beyond-cap label or the narrow responsive panel drops the value input
+   to its own line instead of clipping the remove button; no effect in the normal (capped) case. */
+.twc-dt__frow { display: flex; align-items: center; gap: 6px; padding: 5px 4px; flex-wrap: wrap; }
+/* #289: column-field auto-fits the widest header label — JS writes --twc-dt-fcol-w (measured, clamped),
+   the max-width is the hard backstop that keeps the value input above its 140px floor inside the 580px
+   panel even if the var is stale/too large. Fallback 118px = the previous fixed behavior. */
+.twc-dt__f-col { flex: none; width: var(--twc-dt-fcol-w, 118px); min-width: 118px; max-width: 210px; }
+.twc-dt__f-op { flex: none; width: var(--twc-dt-fop-w, 118px); min-width: 118px; max-width: 170px; }
 .twc-dt__f-val { flex: 1; min-width: 140px; }
 .twc-dt__frm-x { display: inline-grid; place-items: center; width: 30px; height: 38px; border: none; background: transparent; color: var(--color-text-subtle); border-radius: var(--radius-md); cursor: pointer; flex: none; align-self: flex-start; }
 .twc-dt__frm-x:hover { background: var(--color-danger-subtle); color: var(--color-danger-subtle-fg); }
@@ -538,6 +543,8 @@ const NUM_OPS = [
 ];
 const opsFor = (type) => (type === "number" ? NUM_OPS : STR_OPS);
 const isMultiOp = (op) => op === "isAnyOf";
+// #289: every operator label (deduped) — measured to auto-fit the filter panel's operator Select width.
+const ALL_OP_LABELS = [...new Set([...STR_OPS, ...NUM_OPS].map((o) => o.label))];
 // #270: the type that drives a column's FILTER operators + value comparison, decoupled from its edit
 // `type`. A `filterType` override lets a column that must edit as a custom/string type (e.g. a
 // value+unit measurement, whose number-column commit coercion would wipe the pair) still present
@@ -1128,6 +1135,8 @@ export function Datatable({
   }, []);
   // Row virtualization scroll state.
   const scrollRef = React.useRef(null);
+  const filterPanelRef = React.useRef(null);   // #289: filter panel root, for measuring field widths
+  const measureCanvas = React.useRef(null);     // #289: reused canvas for text measurement
   const [scrollTop, setScrollTop] = React.useState(0);
   const [viewportH, setViewportH] = React.useState(0);
 
@@ -2062,7 +2071,39 @@ export function Datatable({
   }
 
   const tableMinWidth = leadW + ordered.reduce((a, c) => a + widthOf(c), 0);
-  const filterableCols = cols.filter((c) => c.filterable);
+  const filterableCols = React.useMemo(() => cols.filter((c) => c.filterable), [cols]);
+  // #289: auto-fit the filter panel's column-field (and operator) Select widths to the widest label, so
+  // header names no longer truncate at the old fixed 118px. Measure the widest OPTION (not the selected
+  // value) → the width is stable across selection and identical across rows. Clamp to a cap derived from
+  // the LIVE panel width so the value input keeps its 140px floor inside the 580px panel; the CSS
+  // max-width is the hard backstop. Re-measures after webfont swap and on responsive width changes.
+  React.useEffect(() => {
+    const el = filterPanelRef.current;
+    if (panel !== "filters" || !el || typeof document === "undefined") return undefined;
+    const measure = () => {
+      if (!el.isConnected) return;
+      const trigger = el.querySelector(".twc-sel__trigger");
+      const cs = getComputedStyle(trigger || el);
+      const ctx = (measureCanvas.current || (measureCanvas.current = document.createElement("canvas"))).getContext("2d");
+      if (!ctx) return;
+      ctx.font = cs.font || `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize}/${cs.lineHeight} ${cs.fontFamily}`;
+      const pad = trigger ? (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0) : 24;
+      const chrome = pad + 8 /*gap*/ + 16 /*chevron*/ + 4 /*slack*/;
+      const widest = (labels) => labels.reduce((m, l) => Math.max(m, ctx.measureText(String(l)).width), 0);
+      // available for f-col = panel − op(118) − remove(30) − f-val floor(140) − 3 gaps(6) − 2 pad(4)
+      const colCap = Math.max(118, Math.min(210, el.clientWidth - 118 - 30 - 140 - 3 * 6 - 2 * 4));
+      const colW = Math.min(colCap, Math.max(118, Math.ceil(widest(filterableCols.map((c) => c.headerName ?? c.field)) + chrome)));
+      const opW = Math.min(170, Math.max(118, Math.ceil(widest(ALL_OP_LABELS) + chrome)));
+      if (Number.isFinite(colW)) el.style.setProperty("--twc-dt-fcol-w", `${colW}px`);
+      if (Number.isFinite(opW)) el.style.setProperty("--twc-dt-fop-w", `${opW}px`);
+    };
+    measure();
+    document.fonts?.ready?.then?.(measure).catch?.(() => {}); // re-measure after webfont swap (FOUT)
+    let ro;
+    if (typeof ResizeObserver !== "undefined") { ro = new ResizeObserver(measure); ro.observe(el); }
+    return () => ro?.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [panel, filterableCols, filters.length]);
   const orderIdxOf = (f) => { const i = order.indexOf(f); return i === -1 ? 9999 : i; };
   const shownColRows = cols
     .filter((c) => c.field !== "__pinactions__" && c.headerName.toLowerCase().includes(colQuery.trim().toLowerCase()))
@@ -2923,7 +2964,7 @@ export function Datatable({
 
       {/* Filters panel (uses Select + Input components) */}
       {panel === "filters" && panelPos ? (
-        <div className="twc-dt__pop twc-dt__filters" style={{ top: panelPos.top, left: panelPos.left }}>
+        <div ref={filterPanelRef} className="twc-dt__pop twc-dt__filters" style={{ top: panelPos.top, left: panelPos.left }}>
           <div className="twc-dt__panel-head">
             <span className="twc-dt__panel-title">Filters</span>
             {filters.length ? <button type="button" className="twc-dt__link" onClick={() => setFilters([])}>Clear all</button> : null}

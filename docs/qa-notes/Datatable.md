@@ -195,6 +195,18 @@
   custom node in a **leading slot** (`.twc-dt__toolbar-actions`, an inline-flex cluster) at the start of the
   toolbar row, before the Columns/Filters cluster — mirroring `CardGrid`'s `toolbar` prop. Omitted entirely
   when not passed. 2 tests in `tests/datatable-toolbar-actions.test.jsx` (leading placement + absence). — added 2026-07-28
+- **[#289] Filter panel column/operator fields truncated labels (fixed 118px)** — `.twc-dt__f-col` /
+  `.twc-dt__f-op` were hard-pinned to 118px, so real `headerName`s ("Article Number", …) and longer
+  operators ellipsized before any interaction; consumers can't patch runtime-injected CSS. Now the fields
+  **auto-fit the widest label**: a mount effect measures the widest *option* (via a reused canvas, using the
+  live sm-trigger font) — not the selected value, so width is stable across selection and identical across
+  rows — and writes `--twc-dt-fcol-w` / `--twc-dt-fop-w` on the panel. Clamped: col `118..210`, op
+  `118..170`, where 210 is derived from the **live** panel width (`ResizeObserver` re-measures on the
+  responsive `calc(100vw - 32px)` cap) so the value input keeps its 140px floor inside 580px; CSS
+  `max-width` is the hard backstop and `.twc-dt__frow` gains `flex-wrap` as a safety net. Re-measures after
+  `document.fonts.ready` (FOUT) and once a real trigger mounts. Guarded against NaN padding / missing canvas
+  (jsdom). 2 tests in `tests/datatable-filter-width.test.jsx` (CSS source + measured widen). Supersedes the
+  hover-only reveal from #269. — fixed 2026-07-29
 
 ## Verified OK
 
