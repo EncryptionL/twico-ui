@@ -394,7 +394,7 @@ export function DateRangePicker({
 
       {open && coords ? createPortal(
         <div className="twc-drp__pop" ref={popRef} role="dialog" aria-modal="true" aria-label="Choose date range"
-          style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" }}>
+          style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-floating)" }}>
           {presetItems.length ? (
             <div className="twc-drp__presets">
               {presetItems.map((p, i) => (

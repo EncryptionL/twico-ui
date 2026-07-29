@@ -337,7 +337,7 @@ export function TimePicker({
 
       {open && coords ? createPortal(
         <div className="twc-tp__pop" ref={popRef} role="dialog" aria-modal="true" aria-label="Choose time"
-          style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" }}>
+          style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-floating)" }}>
           <div className="twc-tp__cols">
             {columns.map((col) => {
               const firstTab = col.items.find((it) => it.selected) || col.items.find((it) => !it.disabled);

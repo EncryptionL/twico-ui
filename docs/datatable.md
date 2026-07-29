@@ -110,6 +110,16 @@ from the current `rows`; selection does not span pages in server mode.
 - **Filter-builder column dropdown (#269)** — the field `Select` (and every Select) sets a native `title`
   on each string option, so a long `headerName` clipped by the option's ellipsis is discoverable on hover
   (a Tooltip per option is impractical in a portaled, virtualized listbox).
+- **Filter field auto-fit (#289)** — the filter panel's column-field and operator `Select`s were fixed at
+  118px and truncated real `headerName`s/operators on first open. They now **auto-fit the widest label**: a
+  mount effect measures the widest *option* with a reused canvas (the live sm-trigger font), writes
+  `--twc-dt-fcol-w` / `--twc-dt-fop-w` on the panel, and clamps (col `118..210`, op `118..170`). Measuring
+  the widest option (not the selected value) keeps the width **stable across selection** and **identical
+  across rows**. The 210px cap is derived from the live panel width (a `ResizeObserver` re-measures on the
+  responsive `calc(100vw - 32px)` cap) so the value input keeps its `min-width:140px` inside the 580px
+  panel; the CSS `max-width` is the hard backstop and `.twc-dt__frow` wraps as a safety net. Re-measures
+  after `document.fonts.ready`. This is the default-visible fix; #269's native-`title` reveal remains for
+  the residual beyond-cap case.
 
 ## Custom inline cell editor — `renderEditCell` (#236)
 

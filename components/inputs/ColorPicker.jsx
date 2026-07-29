@@ -256,7 +256,7 @@ export function ColorPicker({
 
       {open && coords ? createPortal(
         <div className="twc-cp__pop" ref={popRef} role="dialog" aria-modal="true" aria-label="Color picker"
-          style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-tooltip)" }}>
+          style={{ position: "fixed", left: coords.left, right: "auto", top: coords.top, bottom: coords.bottom, zIndex: "var(--z-floating)" }}>
           <div className="twc-cp__area" ref={areaRef} style={{ "--_h": hsv.h }} onPointerDown={startDrag(dragArea)}
             role="slider" tabIndex={0} aria-label="Saturation and brightness"
             aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(hsv.s)}

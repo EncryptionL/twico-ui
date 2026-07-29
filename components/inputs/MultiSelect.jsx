@@ -320,7 +320,7 @@ export function MultiSelect({
       popEl = RD.createPortal(
         <div className="twc-pop twc-pop--portal" ref={popRef}
           data-placement={coords.flip ? "top" : "bottom"}
-          style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, right: "auto", zIndex: "var(--z-tooltip)" }}>
+          style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, right: "auto", zIndex: "var(--z-floating)" }}>
           {popInner}
         </div>, document.body);
     } else if (!portal) {

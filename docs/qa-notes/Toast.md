@@ -6,6 +6,10 @@
 
 ## Resolved issues
 
+- [x] **[#288] Toast now renders above tooltips** — `--z-toast` was raised to 1600 (above `--z-tooltip` 1500)
+  so a hover tooltip can no longer cover a toast's close/action controls. Portaled input dropdowns moved to
+  `--z-floating` (1700) so they still sit above toasts. See `docs/qa-notes/Tooltip.md` for the full z-scale
+  rationale; guarded by `tests/z-index-stacking.test.js`. — fixed 2026-07-29
 - [x] **[P2] RTL slide animation** — The toast entry animation used the physical-direction `twico-slide-in-right` keyframe (`translateX(24px)`), so RTL toasts slid in from the wrong side. _Fixed:_ `Toast.jsx` now injects its own `twc-toast-slide-in` keyframe (LTR behaviour identical to before) plus a `[dir="rtl"] .twc-toast` override using `twc-toast-slide-in-rtl` (`translateX(-24px)`), so RTL toasts enter from the inline-end edge. `components/feedback/Toast.jsx`
 
 ## Verified OK
