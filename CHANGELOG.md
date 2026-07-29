@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.22.3](https://github.com/EncryptionL/twico-ui/compare/v1.22.2...v1.22.3) (2026-07-29)
+
+
+### Bug Fixes
+
+* **datatable:** stop stateKey persistence being clobbered under Strict Mode + async columns ([#298](https://github.com/EncryptionL/twico-ui/issues/298)) ([d7ff41e](https://github.com/EncryptionL/twico-ui/commit/d7ff41e2bd9f3e1d20d31eaf2b6ca0ae2348c6ab))
+
 ## [1.22.2](https://github.com/EncryptionL/twico-ui/compare/v1.22.1...v1.22.2) (2026-07-29)
 
 
