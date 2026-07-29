@@ -195,7 +195,12 @@ export function MultiSelect({
     const onMove = () => place();
     window.addEventListener("scroll", onMove, true);
     window.addEventListener("resize", onMove);
-    return () => { window.removeEventListener("scroll", onMove, true); window.removeEventListener("resize", onMove); };
+    // Re-place when the trigger itself resizes (a resized Datatable filter field / column while open) —
+    // no window event fires for that, so the portaled menu's matched width/position would go stale.
+    let ro;
+    const rt = controlRef.current;
+    if (rt && typeof ResizeObserver !== "undefined") { ro = new ResizeObserver(onMove); ro.observe(rt); }
+    return () => { window.removeEventListener("scroll", onMove, true); window.removeEventListener("resize", onMove); ro?.disconnect(); };
   }, [open, portal, place]);
 
   React.useEffect(() => {

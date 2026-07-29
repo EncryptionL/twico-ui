@@ -196,7 +196,13 @@ export function Select({
     const onMove = () => place();
     window.addEventListener("scroll", onMove, true);
     window.addEventListener("resize", onMove);
-    return () => { window.removeEventListener("scroll", onMove, true); window.removeEventListener("resize", onMove); };
+    // Re-place when the TRIGGER itself resizes (e.g. a resized Datatable filter field or table column while
+    // the menu is open) — no window event fires for that, so the portaled menu's trigger-matched width and
+    // position would otherwise go stale.
+    let ro;
+    const rt = triggerRef.current;
+    if (rt && typeof ResizeObserver !== "undefined") { ro = new ResizeObserver(onMove); ro.observe(rt); }
+    return () => { window.removeEventListener("scroll", onMove, true); window.removeEventListener("resize", onMove); ro?.disconnect(); };
   }, [open, portal, place]);
 
   React.useEffect(() => {

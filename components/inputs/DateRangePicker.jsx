@@ -181,7 +181,11 @@ export function DateRangePicker({
     const onMove = () => place();
     window.addEventListener("scroll", onMove, true);
     window.addEventListener("resize", onMove);
-    return () => { window.removeEventListener("scroll", onMove, true); window.removeEventListener("resize", onMove); };
+    // Re-place when the trigger itself resizes (e.g. a table column while open) — no window event fires.
+    let ro;
+    const rt = triggerRef.current;
+    if (rt && typeof ResizeObserver !== "undefined") { ro = new ResizeObserver(onMove); ro.observe(rt); }
+    return () => { window.removeEventListener("scroll", onMove, true); window.removeEventListener("resize", onMove); ro?.disconnect(); };
   }, [open, place]);
 
   React.useEffect(() => {
