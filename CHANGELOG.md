@@ -2,6 +2,14 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.21.1](https://github.com/EncryptionL/twico-ui/compare/v1.21.0...v1.21.1) (2026-07-29)
+
+
+### Bug Fixes
+
+* **datatable:** auto-fit filter panel field widths to the widest label ([29ca74c](https://github.com/EncryptionL/twico-ui/commit/29ca74cd89fde500ca024f574488a59feaa87ee0)), closes [#289](https://github.com/EncryptionL/twico-ui/issues/289)
+* **overlay:** stack tooltips below toasts, and dropdowns above ([7236003](https://github.com/EncryptionL/twico-ui/commit/7236003bbf97f73b7440abd89b39aa846b02edc1)), closes [#288](https://github.com/EncryptionL/twico-ui/issues/288)
+
 # [1.21.0](https://github.com/EncryptionL/twico-ui/compare/v1.20.2...v1.21.0) (2026-07-28)
 
 
