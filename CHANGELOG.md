@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.22.0](https://github.com/EncryptionL/twico-ui/compare/v1.21.1...v1.22.0) (2026-07-29)
+
+
+### Features
+
+* **datatable:** user-resizable filters popover + fields ([4a7aeab](https://github.com/EncryptionL/twico-ui/commit/4a7aeab2e7f08c452b3547f1406df811c9333f03)), closes [#292](https://github.com/EncryptionL/twico-ui/issues/292)
+
 ## [1.21.1](https://github.com/EncryptionL/twico-ui/compare/v1.21.0...v1.21.1) (2026-07-29)
 
 
