@@ -1085,6 +1085,14 @@ export function Datatable({
   const [headH, setHeadH] = React.useState(41);
   const theadRef = React.useRef(null);
   const [rowOrder, setRowOrder] = React.useState(null);
+  // #296: in server mode the internal drag order is an *optimistic overlay* on the incoming `rows`;
+  // the server owns the real order. So whenever the parent hands us a new `rows` reference (reloads
+  // after persisting a reorder, OR rejects it and reloads the authoritative order), drop the overlay
+  // so the fresh `rows` win. Without this the stale drag order kept re-applying to every `rows` prop,
+  // so a parent could neither revert a rejected drop nor reflect a server-corrected order without
+  // remounting. Client mode is intentionally excluded: there the overlay IS the source of truth, so it
+  // must survive unrelated `rows` updates (e.g. a cell edit) rather than being reset by them.
+  React.useEffect(() => { if (serverMode) setRowOrder(null); }, [rows, serverMode]);
   const [rowHeights, setRowHeights] = React.useState({});
   const [rowDrag, setRowDrag] = React.useState({ from: null, over: null, after: false });
   // Keyboard row reorder ("grab" mode): { key, index } where index is the live target slot among middleRows.

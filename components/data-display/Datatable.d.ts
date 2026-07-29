@@ -225,7 +225,10 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   rowReorder?: boolean;
   /** Enable drag-to-resize row height (handle on the row's bottom edge). @default false */
   rowResize?: boolean;
-  /** Called with the new array of row keys after a drag-reorder. */
+  /** Called with the new array of row keys after a drag-reorder. In `serverMode` the drag order is
+   *  an optimistic overlay: persist the keys, then hand back a new `rows` prop — the overlay clears on
+   *  any `rows` change, so a rejected reorder reverts (reload the authoritative order) and a
+   *  server-corrected order reflects, both without remounting. */
   onRowOrderChange?: (keys: Array<string | number>) => void;
   /** Initial pivot model (seeds the toolbar **Pivot** panel, which the user can edit live): aggregate `values` across `rows` (row groups) × `columns` (nested column groups). */
   pivot?: {
