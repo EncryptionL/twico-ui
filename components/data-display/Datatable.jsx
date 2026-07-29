@@ -421,7 +421,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
    cascade — user drag (-usr) > #289 measured auto-fit (-fit) > 118px fallback — entirely in clamp(), so
    neither writer reads the other (reset = remove the -usr var and auto-fit instantly re-wins). */
 .twc-dt__filters {
-  position: relative;
+  /* #294: do NOT set 'position' here — this element also carries .twc-dt__pop (position: fixed), and an
+     equal-specificity 'position: relative' defined later would clobber it, dropping the popover into normal
+     flow below the table. The panel stays position: fixed, which already anchors the absolutely-positioned
+     .twc-dt__pop-grip; per-field handles anchor to their own position: relative .twc-dt__f-* fields. */
   width: var(--twc-dt-panel-w, 580px); max-width: calc(100vw - 32px);
   height: var(--twc-dt-panel-h, auto); max-height: calc(100vh - 32px);
   display: flex; flex-direction: column;

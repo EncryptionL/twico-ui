@@ -49,6 +49,15 @@ site/
   fallback instead of breaking the page), a **code snippet**, a **Variations** section (several live
   examples loaded from `<Name>Variations.jsx`, each with its own preview + copyable code), and a
   **props table**. The "Variations" heading renders synchronously so the on-this-page TOC finds it.
+- **Variation demos render on-visible (`DeferOnVisible` in `Variations.jsx`).** Each variation's live
+  preview mounts only once it scrolls near the viewport (IntersectionObserver, 400px margin; SSR / no-IO
+  falls back to rendering immediately). This fixed a real bug: the Datatable page has ~12 variation demos,
+  each a full grid, and rendering them all in one commit **starved the lazily-Suspended Usage demo** above
+  them from ever committing — it sat on "Loading preview…" forever (no error, so `render-check` missed it).
+  The heading + description still render eagerly (outside the gate), so the on-this-page TOC and deep links
+  keep working — jumping to a section reveals its demo. `render-check.mjs` now also **asserts the Usage
+  demo actually resolves** (no visible "Loading preview…" after load) on every component route, closing the
+  blind spot that let this ship.
 - **"All props" example.** Every component's `<Name>Variations.jsx` ends with an entry titled
   **"All props"** that exercises every *component-specific* prop in one live example (preview +
   copyable JS/TS code) — the generic DOM passthrough (`id`/`style`/`className`/`...rest`) is left out.

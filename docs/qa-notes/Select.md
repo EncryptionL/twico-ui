@@ -12,6 +12,14 @@
 
 ## Enhancements
 
+- **Portaled menu tracks trigger resize** — the positioning effect re-placed only on window `scroll`/`resize`,
+  measuring the trigger once. When the **trigger itself** resized while the menu was open (a resized Datatable
+  filter field from #292, or a table column during a cell edit) no window event fired, so a portaled,
+  trigger-width-matched menu kept its stale width/position. Fixed by adding a `ResizeObserver` on the trigger
+  in the positioning effect (guarded `typeof ResizeObserver`, disconnected on cleanup). The same one-line fix
+  was applied to **every** portaled dropdown that anchors to its trigger — `Select`, `MultiSelect`, `Combobox`,
+  and the `DatePicker` / `DateRangePicker` / `TimePicker` / `ColorPicker` popovers. Guarded (source + a DOM
+  re-track test with a mocked ResizeObserver) in `tests/dropdown-trigger-resize.test.jsx`. — fixed 2026-07-29
 - **[#269] Full option label on hover** — each option button carries a native `title` equal to its label
   (plain-string labels only), so a name clipped by the option's `text-overflow: ellipsis` stays
   discoverable. Native `title` rather than a twico `Tooltip` because options live in a portaled,
