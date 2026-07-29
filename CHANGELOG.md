@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.22.2](https://github.com/EncryptionL/twico-ui/compare/v1.22.1...v1.22.2) (2026-07-29)
+
+
+### Bug Fixes
+
+* **datatable:** reset optimistic rowReorder overlay when rows change in server mode ([#296](https://github.com/EncryptionL/twico-ui/issues/296)) ([600cb16](https://github.com/EncryptionL/twico-ui/commit/600cb16099faf0f5498c11430773d8375dc593ac))
+
 ## [1.22.1](https://github.com/EncryptionL/twico-ui/compare/v1.22.0...v1.22.1) (2026-07-29)
 
 
