@@ -30,5 +30,8 @@ empty input clears the selection. For **async/remote** options pass `onInputChan
 `name` submits the value via a hidden form field; `emptyText` customizes the no-results text.
 For very long client-side lists set `virtualized` (optional `overscan`, default 8) to render only the visible slice;
 prefer the async `onInputChange` + `filter={false}` path for server-backed sets.
+Set `wrapOptions` to let long labels/descriptions wrap onto multiple lines instead of truncating to one line — handy
+when options share a long common prefix and differ only in a tail that would otherwise be cut off. It takes precedence
+over `virtualized` (wrapped rows aren't a fixed height).
 
 `tone` (`primary` | `success` | `warning` | `danger` | `info` | `neutral`, default `primary`) recolors the focus/open border and ring accent.

@@ -503,8 +503,13 @@ export const VARIATIONS = [
   },
   {
     "component": "Combobox",
-    "title": "All props",
+    "title": "Wrap long options",
     "i": 5
+  },
+  {
+    "component": "Combobox",
+    "title": "All props",
+    "i": 6
   },
   {
     "component": "CommandPalette",

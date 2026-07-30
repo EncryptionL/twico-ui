@@ -53,6 +53,10 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   virtualized?: boolean;
   /** Extra option rows rendered above/below the viewport when `virtualized`, to smooth fast scrolling. @default 8 */
   overscan?: number;
+  /** Let long option labels/descriptions wrap onto multiple lines instead of truncating to one line with an
+   *  ellipsis — useful when options share a long prefix and differ only in a truncated tail. Takes precedence
+   *  over `virtualized` (wrapped rows aren't a fixed height). @default false */
+  wrapOptions?: boolean;
   /** Composed with the field's open-on-focus behavior — your handler runs first. */
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   /** Composed with the field's keyboard navigation (Arrows/Enter/Escape) — your handler runs first; call `event.preventDefault()` to suppress it. */
