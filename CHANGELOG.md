@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.23.0](https://github.com/EncryptionL/twico-ui/compare/v1.22.3...v1.23.0) (2026-07-30)
+
+
+### Features
+
+* **combobox:** add wrapOptions to wrap long option labels/descriptions ([#300](https://github.com/EncryptionL/twico-ui/issues/300)) ([f0f247b](https://github.com/EncryptionL/twico-ui/commit/f0f247b75b3ce5bb593bbfd682d5feb4f63065d7))
+
 ## [1.22.3](https://github.com/EncryptionL/twico-ui/compare/v1.22.2...v1.22.3) (2026-07-29)
 
 
