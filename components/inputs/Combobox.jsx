@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { warnOnce } from "../_warn.js";
 import { createPortal } from "react-dom";
 
 const COMBO_CSS = `
@@ -64,6 +65,10 @@ const COMBO_CSS = `
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* #300: wrapOptions — let long labels/descriptions wrap onto multiple lines instead of truncating.
+   overflow-wrap: anywhere also breaks a single very long token so it can't overflow the popover edge. */
+.twc-opt[data-wrap="true"] { align-items: flex-start; }
+.twc-opt[data-wrap="true"] .twc-opt__label, .twc-opt[data-wrap="true"] .twc-opt__desc { overflow: visible; text-overflow: clip; white-space: normal; overflow-wrap: anywhere; }
 .twc-opt__check { flex: none; color: var(--color-primary); display: inline-flex; }
 .twc-opt__check svg { width: 16px; height: 16px; }
 .twc-pop__empty { padding: 14px 12px; text-align: center; font-size: var(--text-sm); color: var(--color-text-subtle); }
@@ -102,10 +107,14 @@ export function Combobox({
   placeholder = "Select…", options, value, defaultValue = null,
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
   onInputChange, filter, loading = false, emptyText = "No results found", name,
-  virtualized = false, overscan = 8,
+  virtualized: virtualizedProp = false, overscan = 8, wrapOptions = false,
   id, className = "", onFocus, onKeyDown, ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-combo-styles", COMBO_CSS);
+  // #300: wrapped option rows are variable-height, which the fixed-row-height virtualization can't
+  // measure — so wrapOptions takes precedence over virtualized (and we flag the conflict in dev).
+  if (virtualizedProp && wrapOptions) warnOnce("combobox-wrap-virtualized", "twico-ui Combobox: `wrapOptions` disables `virtualized` — wrapped option rows aren't a fixed height.");
+  const virtualized = virtualizedProp && !wrapOptions;
 
   const groups = React.useMemo(() => normalizeGroups(options), [options]);
   const flat = React.useMemo(() => groups.flatMap((g) => g.options), [groups]);
@@ -254,7 +263,7 @@ export function Combobox({
       <button key={o.value} id={optionId(idx)} type="button" className="twc-opt" role="option" aria-selected={isSel}
         ref={idx === active ? activeRef : null}
         disabled={o.disabled || undefined} aria-disabled={o.disabled || undefined} data-disabled={o.disabled || undefined}
-        data-selected={isSel || undefined} data-active={idx === active || undefined}
+        data-selected={isSel || undefined} data-active={idx === active || undefined} data-wrap={wrapOptions || undefined}
         onMouseEnter={() => { if (!o.disabled) setActive(idx); }} onMouseDown={(e) => e.preventDefault()} onClick={() => commit(o.value)}>
         <span className="twc-opt__main">
           <span className="twc-opt__label">{o.label}</span>

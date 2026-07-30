@@ -4583,6 +4583,13 @@ export const components = [
         "description": "Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling."
       },
       {
+        "prop": "wrapOptions",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Wrap long option labels/descriptions onto multiple lines instead of truncating; takes precedence over virtualized."
+      },
+      {
         "prop": "required",
         "type": "boolean",
         "required": false,

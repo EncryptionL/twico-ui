@@ -15,6 +15,17 @@
   into view. Off by default. For server-backed sets, prefer the async `onInputChange` + `filter={false}`
   path (#88). — added 2026-07-04
 
+- **[#300] `wrapOptions` — multi-line option text** — `.twc-opt__label`/`__desc` truncate to one line
+  (`white-space: nowrap` + ellipsis), so options sharing a long common prefix (real case: SAP
+  `thread_master` descriptions) were indistinguishable when the differing tail was cut off. `wrapOptions`
+  (default false) flips a `data-wrap` attribute on each option row; scoped CSS then sets
+  `white-space: normal` + `overflow-wrap: anywhere` (the latter also breaks a single very long token so it
+  can't overflow the popover edge) and top-aligns the check icon. **Takes precedence over `virtualized`**
+  — wrapped rows are variable-height, which the fixed-`rowH` (36/48) windowing can't measure; passing both
+  disables virtualization and `warnOnce`s in dev. Default single-line behavior is unchanged. 4 tests in
+  `tests/combobox-wrap-options.test.jsx`. Not (yet) mirrored on Select/MultiSelect (same `.twc-opt` markup,
+  could be added if requested). — added 2026-07-30
+
 ## Verified OK
 
 - Controlled/uncontrolled single-select (value/defaultValue/onChange)
