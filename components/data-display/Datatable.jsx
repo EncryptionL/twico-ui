@@ -2184,10 +2184,16 @@ export function Datatable({
     if (!editing) return;
     const onDown = (e) => {
       if (e.target.closest(".twc-dt__editor-wrap") || e.target.closest(".twc-pop")) return;
-      setEditing(null);
+      // #313: this capture-phase handler fires BEFORE the input's onBlur, so setEditing(null) here used
+      // to pre-empt the blur→commit and silently discard a typed value on click-away. The DEFAULT editor
+      // now COMMITS the pending value instead (spreadsheet-like). A `renderEditCell` column keeps its own
+      // semantics — it drives commit/cancel via the callbacks it was given — so we just dismiss it.
+      const col = colByField[editing.field];
+      if (col && col.renderEditCell) setEditing(null); else commitEdit();
     };
     document.addEventListener("mousedown", onDown, true);
     return () => document.removeEventListener("mousedown", onDown, true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editing]);
 
   function renderActions(col, row) {

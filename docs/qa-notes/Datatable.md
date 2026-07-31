@@ -289,6 +289,14 @@
   (Columns/Agg 240, Pivot/Batch-edit 260) + shared max `calc(100vw/100vh − 32px)`. 8 tests in
   `tests/datatable-resizable-popovers.test.jsx`. — added 2026-07-31
 
+- **[#313] Default cell editor discarded a typed value on click-away** — the outside-click effect runs in the
+  **capture** phase and called `setEditing(null)`, unmounting the editor *before* the input's `onBlur → commit`
+  could fire, so only Enter committed; a click-away silently lost the edit (and `commitEdit` then early-returned
+  on the now-null `editing`). _Fix:_ in that handler, a **default** editor (no `renderEditCell`) now
+  `commitEdit()`s the pending `editing.value` (spreadsheet-like) instead of discarding; a `renderEditCell`
+  column is still just dismissed (it owns its commit/cancel via the provided callbacks). Enter still commits,
+  Escape still cancels. 3 tests in `tests/datatable-edit-clickaway.test.jsx`. — fixed 2026-07-31
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.
