@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"fcb375278528","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"51a609af5226","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"273cec084ae7","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"e5635eb2268d","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"d2cf2fd0818d","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"9fe52df38764","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"ca508486a39c","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"747521cd095b"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"18e77b091e27","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"51a609af5226","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"273cec084ae7","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"e5635eb2268d","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"d2cf2fd0818d","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"9fe52df38764","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"ca508486a39c","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"747521cd095b"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -8722,6 +8722,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__panel-count { font-weight: 600; color: var(--color-text-muted); text-transform: none; letter-spacing: 0; margin-inline-start: 6px; font-variant-numeric: tabular-nums; }
 .twc-dt__link { border: none; background: transparent; color: var(--color-primary); font-family: inherit; font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 4px; border-radius: var(--radius-sm); }
 .twc-dt__link:hover { background: var(--color-primary-subtle); }
+/* #303: AND/OR connective toggle (segmented pill) in the Filters panel head. */
+.twc-dt__flogic { display: inline-flex; border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }
+.twc-dt__flogic-btn { border: none; background: transparent; color: var(--color-text-muted); font-family: inherit; font-size: 10px; font-weight: 700; letter-spacing: var(--tracking-wide); cursor: pointer; padding: 2px 8px; }
+.twc-dt__flogic-btn + .twc-dt__flogic-btn { border-inline-start: var(--border-thin) solid var(--color-border); }
+.twc-dt__flogic-btn:hover { background: var(--color-surface-sunken); }
+.twc-dt__flogic-btn[data-active] { background: var(--color-primary); color: var(--color-primary-fg); }
+.twc-dt__flogic-btn[data-active]:hover { background: var(--color-primary); }
 
 /* Filter panel \u2014 user-resizable (#292): panel size + per-field widths resolve through a two-tier CSS var
    cascade \u2014 user drag (-usr) > #289 measured auto-fit (-fit) > 118px fallback \u2014 entirely in clamp(), so
@@ -8752,7 +8759,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 /* value: the flex shock-absorber by default; the first drag flips it to a fixed width (data-val-fixed). */
 .twc-dt__f-val { position: relative; flex: 1 1 140px; min-width: 140px; }
 .twc-dt__filters[data-val-fixed] .twc-dt__f-val { flex: 0 0 clamp(140px, var(--twc-dt-fval-usr, 240px), 640px); }
-.twc-dt__filters[data-val-fixed] .twc-dt__frm-x { margin-inline-start: auto; }
+/* #303: each row now has two .twc-dt__frm-x (the add-condition "+" then remove "x"); put the auto margin
+   only on the first so the pair hugs the row end together (two auto margins would split the free space). */
+.twc-dt__filters[data-val-fixed] .twc-dt__frm-x:first-of-type { margin-inline-start: auto; }
 .twc-dt__frm-x { display: inline-grid; place-items: center; width: 30px; height: 38px; border: none; background: transparent; color: var(--color-text-subtle); border-radius: var(--radius-md); cursor: pointer; flex: none; align-self: flex-start; }
 .twc-dt__frm-x:hover { background: var(--color-danger-subtle); color: var(--color-danger-subtle-fg); }
 .twc-dt__frm-x svg { width: 15px; height: 15px; }
@@ -8772,6 +8781,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   .twc-dt__f-rz { width: 16px; inset-inline-end: -6px; opacity: 0.4; }
   .twc-dt__pop-grip { width: 20px; height: 20px; opacity: 0.6; }
 }
+/* #304: generic resizable popovers. When the grip commits a size, the panel carries data-pop-sized +
+   --twc-dt-pop-w/-h; the width override beats each panel default (incl. inline widths) and the inner
+   scroll list drops its max-height and flexes to fill the taller panel. The panel keeps its base
+   position: fixed (the absolute grip anchors to it) \u2014 do NOT set position here (see #294). Filters keep
+   their own data-panel-sized system (untouched). */
+.twc-dt__pop[data-pop-sized] { display: flex; flex-direction: column; width: var(--twc-dt-pop-w) !important; height: var(--twc-dt-pop-h); max-width: calc(100vw - 32px); max-height: calc(100vh - 32px); }
+.twc-dt__pop[data-pop-sized] .twc-dt__col-list, .twc-dt__pop[data-pop-sized] .twc-dt__cfg-list, .twc-dt__pop[data-pop-sized] .twc-dt__pivot-body { max-height: none; flex: 1 1 auto; overflow-y: auto; }
 .twc-dt__empty { padding: 30px 12px; text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
 
 /* Action cell */
@@ -9001,9 +9017,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     let out = Array.isArray(rows) ? rows : [];
     const quick = String(q.quickFilter || "").trim().toLowerCase();
     if (quick) out = out.filter((r2) => searchFields.some((f) => String(gv(f, r2) ?? "").toLowerCase().includes(quick)));
-    for (const f of q.filters || []) {
-      const fc = cols.find((c) => c.field === f.field);
-      out = out.filter((r2) => testFilter(gv(f.field, r2), f.op, f.value, filterTypeOf(fc)));
+    const qF = (q.filters || []).map((f) => [cols.find((c) => c.field === f.field), f]).filter(([fc]) => fc);
+    if (qF.length) {
+      if (q.filterLogic === "or") out = out.filter((r2) => qF.some(([fc, f]) => testFilter(gv(f.field, r2), f.op, f.value, filterTypeOf(fc))));
+      else for (const [fc, f] of qF) out = out.filter((r2) => testFilter(gv(f.field, r2), f.op, f.value, filterTypeOf(fc)));
     }
     if (q.sort && q.sort.field) {
       const { field, dir } = q.sort, numeric = typeOf(field) === "number";
@@ -9325,6 +9342,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     onQuickFilterChange,
     toolbarActions,
     resizableFilters = true,
+    resizablePopovers = false,
     filterFieldMaxWidth,
     rowPinning = false,
     rowReorder = false,
@@ -9414,6 +9432,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     });
     const [sort, setSort] = import_react.default.useState(null);
     const [filters, setFilters] = import_react.default.useState([]);
+    const [filterLogic, setFilterLogic] = import_react.default.useState("and");
     const [hidden, setHidden] = import_react.default.useState(() => /* @__PURE__ */ new Set());
     const [showRowNum, setShowRowNum] = import_react.default.useState(rowNumbers);
     const [wrapped, setWrapped] = import_react.default.useState(() => new Set((columns || []).filter((c) => c.wrapText).map((c) => c.field)));
@@ -9479,9 +9498,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const rowFocusRef = import_react.default.useRef(null);
     const [fWidths, setFWidths] = import_react.default.useState({});
     const [fPanelSize, setFPanelSize] = import_react.default.useState(null);
+    const [popSizes, setPopSizes] = import_react.default.useState({});
     const serializeState = () => ({
       filters: filters.map(({ id, ...f }) => f),
       // strip the internal row id
+      filterLogic,
+      // #303: "and" (default) | "or"
       sort,
       quickFilter: quick,
       page: pageVal,
@@ -9494,12 +9516,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       density,
       // #292: additive, optional — user-resized filter panel + field widths (panel-global, not per column).
       filterPanelSize: fPanelSize || void 0,
-      filterFieldWidths: fWidths.col != null || fWidths.op != null || fWidths.val != null ? fWidths : void 0
+      filterFieldWidths: fWidths.col != null || fWidths.op != null || fWidths.val != null ? fWidths : void 0,
+      // #304: additive, optional — user-resized sizes of the other toolbar popovers, keyed by popover id.
+      popoverSizes: Object.keys(popSizes).length ? popSizes : void 0
     });
     const applyState = (s) => {
       if (!s || typeof s !== "object") return;
       const known = new Set(cols.map((c) => c.field).filter(Boolean));
       if (Array.isArray(s.filters)) setFilters(s.filters.filter((f) => f && known.has(f.field)).map((f, i) => ({ id: Date.now() + Math.random() + i, field: f.field, op: f.op, value: f.value })));
+      if (s.filterLogic === "or" || s.filterLogic === "and") setFilterLogic(s.filterLogic);
       if ("sort" in s) setSort(s.sort && known.has(s.sort.field) ? { field: s.sort.field, dir: s.sort.dir === "desc" ? "desc" : "asc" } : null);
       if (typeof s.quickFilter === "string" && quickFilter === void 0) setInternalQuick(s.quickFilter);
       if (typeof s.page === "number" && !pageControlled) setInternalPage(Math.max(0, Math.floor(s.page)));
@@ -9529,6 +9554,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         const h = typeof s.filterPanelSize.h === "number" ? clampNum(s.filterPanelSize.h, 120, fMaxH()) : void 0;
         if (w != null || h != null) setFPanelSize({ ...w != null ? { w } : {}, ...h != null ? { h } : {} });
       }
+      if (s.popoverSizes && typeof s.popoverSizes === "object") {
+        const next = {};
+        for (const [id, sz] of Object.entries(s.popoverSizes)) {
+          if (!sz || typeof sz !== "object" || typeof sz.w !== "number" || typeof sz.h !== "number") continue;
+          next[id] = { w: clampNum(sz.w, popMinW(id), fMaxW()), h: clampNum(sz.h, 120, fMaxH()) };
+        }
+        if (Object.keys(next).length) setPopSizes(next);
+      }
     };
     const stateReadyRef = import_react.default.useRef(false);
     const stateRestoredRef = import_react.default.useRef(false);
@@ -9546,7 +9579,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         }
       }
       return void 0;
-    }, [filters, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, stateKey]);
+    }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, stateKey]);
     const restoreState = () => {
       let saved = null;
       if (stateKey) {
@@ -9813,24 +9846,26 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const CHK_W = checkboxSelection ? rowReorder ? 68 : 44 : 0;
     const numLeft = CHK_W;
     const leadW = numLeft + (showRowNum ? NUM_W : 0);
+    const visLeft = import_react.default.useMemo(() => pins.left.filter((f) => colByField[f] && !hidden.has(f)), [pins.left, colByField, hidden]);
+    const visRight = import_react.default.useMemo(() => pins.right.filter((f) => colByField[f] && !hidden.has(f)), [pins.right, colByField, hidden]);
     const stickyOf = (field) => {
-      if (pins.left.includes(field)) {
+      if (visLeft.includes(field)) {
         let off = leadW;
-        for (const f of pins.left) {
+        for (const f of visLeft) {
           if (f === field) break;
           off += widthOf(colByField[f] || {});
         }
-        const isEdge = pins.left[pins.left.length - 1] === field;
+        const isEdge = visLeft[visLeft.length - 1] === field;
         return { style: { insetInlineStart: off }, pin: "left", edge: isEdge ? "left" : void 0 };
       }
-      if (pins.right.includes(field)) {
+      if (visRight.includes(field)) {
         let off = 0;
-        const rev = [...pins.right].reverse();
+        const rev = [...visRight].reverse();
         for (const f of rev) {
           if (f === field) break;
           off += widthOf(colByField[f] || {});
         }
-        const isEdge = pins.right[0] === field;
+        const isEdge = visRight[0] === field;
         return { style: { insetInlineEnd: off }, pin: "right", edge: isEdge ? "right" : void 0 };
       }
       return {};
@@ -9849,10 +9884,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         const searchCols = searchFields && searchFields.length ? searchFields.map((f) => colByField[f] || { field: f }) : visibleCols;
         out = out.filter((r2) => searchCols.some((c) => String(getColVal(c, r2) ?? "").toLowerCase().includes(q)));
       }
-      for (const f of filters) {
-        const col = colByField[f.field];
-        if (!col) continue;
-        out = out.filter((r2) => testFilter(getColVal(col, r2), f.op, f.value, filterTypeOf(col)));
+      const activeF = filters.map((f) => [colByField[f.field], f]).filter(([col]) => col);
+      if (activeF.length) {
+        if (filterLogic === "or") {
+          out = out.filter((r2) => activeF.some(([col, f]) => testFilter(getColVal(col, r2), f.op, f.value, filterTypeOf(col))));
+        } else {
+          for (const [col, f] of activeF) out = out.filter((r2) => testFilter(getColVal(col, r2), f.op, f.value, filterTypeOf(col)));
+        }
       }
       if (sort) {
         const col = colByField[sort.field];
@@ -9869,7 +9907,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         out = [...out].sort((a, b) => (idx.get(keyOf(a)) ?? 1e9) - (idx.get(keyOf(b)) ?? 1e9));
       }
       return out;
-    }, [rows, quick, filters, sort, visibleCols, colByField, serverMode, rowOrder, searchFields]);
+    }, [rows, quick, filters, filterLogic, sort, visibleCols, colByField, serverMode, rowOrder, searchFields]);
     const paginated = pageSize > 0;
     const serverTotal = rowCount == null ? processed.length : rowCount;
     const totalRows = serverMode ? serverTotal : processed.length;
@@ -10144,6 +10182,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           pageSize: sizeVal,
           sort,
           filters: filters.map(({ id, ...f }) => f),
+          filterLogic,
+          // #303: "and" (default) | "or" — the server groups its WHERE accordingly
           quickFilter: quick.trim(),
           visibleColumns,
           hiddenColumns
@@ -10151,7 +10191,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         });
       }, 250);
       return () => clearTimeout(t);
-    }, [serverMode, pageVal, sizeVal, sort, filters, quick, visibleColumns, hiddenColumns]);
+    }, [serverMode, pageVal, sizeVal, sort, filters, filterLogic, quick, visibleColumns, hiddenColumns]);
     const onColVisRef = import_react.default.useRef(onColumnVisibilityChange);
     onColVisRef.current = onColumnVisibilityChange;
     const lastVisibleKey = import_react.default.useRef(null);
@@ -10809,7 +10849,97 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       }
     };
     const hasFilterSizeOverride = fWidths.col != null || fWidths.op != null || fWidths.val != null || fPanelSize != null;
-    const fieldHandle = (field, rowIdx) => resizableFilters && rowIdx === 0 ? /* @__PURE__ */ jsx(
+    const POP_MIN_W = { columns: 240, agg: 240, pivot: 260, batchedit: 260 };
+    const popMinW = (id) => POP_MIN_W[id] || 200;
+    const clearPop = (id, node) => {
+      if (node) {
+        node.style.removeProperty("--twc-dt-pop-w");
+        node.style.removeProperty("--twc-dt-pop-h");
+        node.removeAttribute("data-pop-sized");
+      }
+      setPopSizes((s) => {
+        if (!(id in s)) return s;
+        const n = { ...s };
+        delete n[id];
+        return n;
+      });
+    };
+    const startPopResize = (id) => (e) => {
+      if (e.button != null && e.button !== 0) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const pop = e.currentTarget.closest(".twc-dt__pop");
+      if (!pop) return;
+      const grip = e.currentTarget;
+      const startX = e.clientX, startY = e.clientY;
+      const r2 = pop.getBoundingClientRect();
+      const startW = r2.width, startH = r2.height;
+      const dir = typeof getComputedStyle !== "undefined" && getComputedStyle(pop).direction === "rtl" ? -1 : 1;
+      pop.style.setProperty("--twc-dt-pop-w", `${startW}px`);
+      pop.style.setProperty("--twc-dt-pop-h", `${startH}px`);
+      grip.setAttribute("data-active", "true");
+      pop.setAttribute("data-pop-sized", "");
+      let lw = startW, lh = startH;
+      const onMove = (ev) => {
+        lw = clampNum(startW + (ev.clientX - startX) * dir, popMinW(id), fMaxW());
+        lh = clampNum(startH + (ev.clientY - startY), 120, fMaxH());
+        pop.style.setProperty("--twc-dt-pop-w", `${lw}px`);
+        pop.style.setProperty("--twc-dt-pop-h", `${lh}px`);
+      };
+      const onUp = () => {
+        setPopSizes((s) => ({ ...s, [id]: { w: lw, h: lh } }));
+        grip.removeAttribute("data-active");
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onUp);
+      };
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", onUp);
+    };
+    const onPopGripKey = (id) => (e) => {
+      if (e.key === "Enter" || e.key === " " || e.key === "Backspace") {
+        e.preventDefault();
+        clearPop(id, e.currentTarget.closest(".twc-dt__pop"));
+        return;
+      }
+      if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) return;
+      e.preventDefault();
+      const pop = e.currentTarget.closest(".twc-dt__pop");
+      if (!pop) return;
+      const r2 = pop.getBoundingClientRect();
+      const step = e.shiftKey ? 4 : 20;
+      const dir = typeof getComputedStyle !== "undefined" && getComputedStyle(pop).direction === "rtl" ? -1 : 1;
+      let w = r2.width, h = r2.height;
+      if (e.key === "ArrowRight") w += step * dir;
+      else if (e.key === "ArrowLeft") w -= step * dir;
+      else if (e.key === "ArrowDown") h += step;
+      else if (e.key === "ArrowUp") h -= step;
+      else if (e.key === "Home") {
+        w = popMinW(id);
+        h = 120;
+      } else if (e.key === "End") {
+        w = fMaxW();
+        h = fMaxH();
+      }
+      setPopSizes((s) => ({ ...s, [id]: { w: clampNum(w, popMinW(id), fMaxW()), h: clampNum(h, 120, fMaxH()) } }));
+    };
+    const popStyle = (id) => popSizes[id] ? { "--twc-dt-pop-w": `${popSizes[id].w}px`, "--twc-dt-pop-h": `${popSizes[id].h}px` } : null;
+    const popGrip = (id) => resizablePopovers ? /* @__PURE__ */ jsx(
+      "span",
+      {
+        className: "twc-dt__pop-grip",
+        role: "slider",
+        tabIndex: 0,
+        "aria-label": "Resize panel (Enter or double-click to reset)",
+        "aria-valuetext": popSizes[id] ? `Width ${Math.round(popSizes[id].w)} pixels, height ${Math.round(popSizes[id].h)} pixels` : "Default size",
+        onPointerDown: startPopResize(id),
+        onKeyDown: onPopGripKey(id),
+        onDoubleClick: (e) => {
+          e.preventDefault();
+          clearPop(id, e.currentTarget.closest(".twc-dt__pop"));
+        }
+      }
+    ) : null;
+    const fieldHandle = (field, rowIdx) => (resizableFilters || resizablePopovers) && rowIdx === 0 ? /* @__PURE__ */ jsx(
       "span",
       {
         className: "twc-dt__f-rz",
@@ -10931,7 +11061,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           onDragEnd: reorderable ? () => setRowDrag({ from: null, over: null, after: false }) : void 0,
           onClick: (e) => handleRowClick(e, k, row),
           children: [
-            checkboxSelection ? /* @__PURE__ */ jsxs("td", { className: "twc-dt__td", role: "gridcell", "data-pin": "left", "data-pin-edge": pins.left.length || showRowNum ? void 0 : "left", style: { insetInlineStart: 0, width: CHK_W }, children: [
+            checkboxSelection ? /* @__PURE__ */ jsxs("td", { className: "twc-dt__td", role: "gridcell", "data-pin": "left", "data-pin-edge": visLeft.length || showRowNum ? void 0 : "left", style: { insetInlineStart: 0, width: CHK_W }, children: [
               /* @__PURE__ */ jsxs("span", { style: { display: "inline-flex", alignItems: "center", gap: 4 }, children: [
                 reorderable ? rowHandle(k, midIdx, row) : null,
                 /* @__PURE__ */ jsx(
@@ -10956,7 +11086,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               ] }),
               rowResize && !pinSide ? /* @__PURE__ */ jsx("span", { className: "twc-dt__row-resizer", title: "Drag to resize row", onPointerDown: (e) => startRowResize(e, k, e.currentTarget.closest("tr")), onClick: (e) => e.stopPropagation() }) : null
             ] }) : null,
-            showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", "data-pin-edge": pins.left.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W }, children: typeof ri === "number" ? (paginated || serverMode ? pageVal * sizeVal : 0) + ri + 1 : "" }) : null,
+            showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", "data-pin-edge": visLeft.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W }, children: typeof ri === "number" ? (paginated || serverMode ? pageVal * sizeVal : 0) + ri + 1 : "" }) : null,
             ordered.map((c, ci) => {
               const st = stickyOf(c.field);
               const val = getColVal(c, row);
@@ -11366,7 +11496,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               onKeyDown: onGridKeyDown,
               children: [
                 /* @__PURE__ */ jsx("thead", { ref: theadRef, children: /* @__PURE__ */ jsxs("tr", { role: "row", "aria-rowindex": 1, children: [
-                  checkboxSelection ? /* @__PURE__ */ jsx("th", { className: "twc-dt__th", role: "columnheader", "aria-label": "Select", "data-pin": "left", "data-pin-edge": pins.left.length || showRowNum ? void 0 : "left", style: { insetInlineStart: 0, width: CHK_W, minWidth: CHK_W }, children: /* @__PURE__ */ jsx("div", { className: "twc-dt__th-inner", style: { justifyContent: "center", padding: 0 }, children: /* @__PURE__ */ jsx(
+                  checkboxSelection ? /* @__PURE__ */ jsx("th", { className: "twc-dt__th", role: "columnheader", "aria-label": "Select", "data-pin": "left", "data-pin-edge": visLeft.length || showRowNum ? void 0 : "left", style: { insetInlineStart: 0, width: CHK_W, minWidth: CHK_W }, children: /* @__PURE__ */ jsx("div", { className: "twc-dt__th-inner", style: { justifyContent: "center", padding: 0 }, children: /* @__PURE__ */ jsx(
                     "span",
                     {
                       className: "twc-dt__check",
@@ -11386,7 +11516,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                       children: /* @__PURE__ */ jsx(Svg, { d: allSel ? I.check : I.minus })
                     }
                   ) }) }) : null,
-                  showRowNum ? /* @__PURE__ */ jsx("th", { className: "twc-dt__th twc-dt__rownum", role: "columnheader", "aria-label": "Row number", "data-pin": "left", "data-pin-edge": pins.left.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W, minWidth: NUM_W }, children: /* @__PURE__ */ jsxs("div", { className: "twc-dt__th-inner", children: [
+                  showRowNum ? /* @__PURE__ */ jsx("th", { className: "twc-dt__th twc-dt__rownum", role: "columnheader", "aria-label": "Row number", "data-pin": "left", "data-pin-edge": visLeft.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W, minWidth: NUM_W }, children: /* @__PURE__ */ jsxs("div", { className: "twc-dt__th-inner", children: [
                     /* @__PURE__ */ jsx("span", { className: "twc-dt__th-label", style: { flex: "none", cursor: "default" }, children: "#" }),
                     /* @__PURE__ */ jsx(
                       "button",
@@ -11564,8 +11694,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   pinnedBottomRows.map((row) => renderLeaf(row, keyIndex.get(keyOf(row)), "bottom"))
                 ] }) }),
                 hasAggregation && aggOn && !loading && paged.length > 0 ? /* @__PURE__ */ jsx("tfoot", { children: /* @__PURE__ */ jsxs("tr", { role: "row", children: [
-                  checkboxSelection ? /* @__PURE__ */ jsx("td", { role: "gridcell", "data-pin": "left", "data-pin-edge": pins.left.length || showRowNum ? void 0 : "left", style: { insetInlineStart: 0, width: CHK_W } }) : null,
-                  showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", "data-pin-edge": pins.left.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W } }) : null,
+                  checkboxSelection ? /* @__PURE__ */ jsx("td", { role: "gridcell", "data-pin": "left", "data-pin-edge": visLeft.length || showRowNum ? void 0 : "left", style: { insetInlineStart: 0, width: CHK_W } }) : null,
+                  showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", "data-pin-edge": visLeft.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W } }) : null,
                   ordered.map((c) => {
                     const st = stickyOf(c.field);
                     const v = aggregate(c);
@@ -11664,7 +11794,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           delete values[f];
           return { ...b, fields, values };
         });
-        return /* @__PURE__ */ jsxs("div", { className: "twc-dt__pop twc-dt__cfg", style: { top: batchEditPos.top, left: batchEditPos.left, width: 320 }, children: [
+        return /* @__PURE__ */ jsxs("div", { className: "twc-dt__pop twc-dt__cfg", style: { top: batchEditPos.top, left: batchEditPos.left, width: 320, ...popStyle("batchedit") }, "data-pop-sized": popSizes.batchedit ? "" : void 0, children: [
           /* @__PURE__ */ jsx(Caret, { pos: batchEditPos }),
           /* @__PURE__ */ jsxs("div", { className: "twc-dt__cfg-head", children: [
             "Edit ",
@@ -11726,7 +11856,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               "Apply to ",
               selected.size
             ] })
-          ] })
+          ] }),
+          popGrip("batchedit")
         ] });
       })() : null,
       colMenu && menuPos ? /* @__PURE__ */ jsxs(
@@ -11899,7 +12030,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           ]
         }
       ) : null,
-      panel === "columns" && panelPos ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__pop twc-dt__cols", style: { top: panelPos.top, left: panelPos.left }, role: "dialog", "aria-label": "Column settings", children: [
+      panel === "columns" && panelPos ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__pop twc-dt__cols", style: { top: panelPos.top, left: panelPos.left, ...popStyle("columns") }, "data-pop-sized": popSizes.columns ? "" : void 0, role: "dialog", "aria-label": "Column settings", children: [
         /* @__PURE__ */ jsxs("div", { className: "twc-dt__panel-head", children: [
           /* @__PURE__ */ jsxs("span", { className: "twc-dt__panel-title", children: [
             "Columns ",
@@ -12024,9 +12155,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               c.field
             );
           })
-        ] })
+        ] }),
+        popGrip("columns")
       ] }) : null,
-      panel === "agg" && panelPos ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__pop twc-dt__cfg", style: { top: panelPos.top, left: panelPos.left, width: 300 }, role: "dialog", "aria-label": "Aggregation settings", children: [
+      panel === "agg" && panelPos ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__pop twc-dt__cfg", style: { top: panelPos.top, left: panelPos.left, width: 300, ...popStyle("agg") }, "data-pop-sized": popSizes.agg ? "" : void 0, role: "dialog", "aria-label": "Aggregation settings", children: [
         /* @__PURE__ */ jsxs("div", { className: "twc-dt__panel-head", children: [
           /* @__PURE__ */ jsx("span", { className: "twc-dt__panel-title", children: "Aggregation" }),
           /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__link", onClick: () => setAggConfig({}), children: "Clear" })
@@ -12075,13 +12207,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               }
             ) })
           ] }, c.field);
-        }) })
+        }) }),
+        popGrip("agg")
       ] }) : null,
       panel === "pivot" && panelPos ? (() => {
         const fieldOpts = ordered.filter((c) => c.type !== "actions").map((c) => ({ value: c.field, label: c.headerName }));
         const aggOpts = [{ value: "sum", label: "Sum" }, { value: "avg", label: "Avg" }, { value: "min", label: "Min" }, { value: "max", label: "Max" }, { value: "count", label: "Count" }];
         const valueFieldOpts = ordered.filter((c) => c.type !== "actions" && !pivotConfig.values.some((v) => v.field === c.field)).map((c) => ({ value: c.field, label: c.headerName }));
-        return /* @__PURE__ */ jsxs("div", { className: "twc-dt__pop twc-dt__cfg", style: { top: panelPos.top, left: panelPos.left, width: 320 }, role: "dialog", "aria-label": "Pivot settings", children: [
+        return /* @__PURE__ */ jsxs("div", { className: "twc-dt__pop twc-dt__cfg", style: { top: panelPos.top, left: panelPos.left, width: 320, ...popStyle("pivot") }, "data-pop-sized": popSizes.pivot ? "" : void 0, role: "dialog", "aria-label": "Pivot settings", children: [
           /* @__PURE__ */ jsxs("div", { className: "twc-dt__panel-head", children: [
             /* @__PURE__ */ jsx("span", { className: "twc-dt__panel-title", children: "Pivot" }),
             /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__link", onClick: () => {
@@ -12089,106 +12222,109 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               setPivotOn(false);
             }, children: "Reset" })
           ] }),
-          /* @__PURE__ */ jsxs("div", { className: "twc-dt__cfg-toggle", children: [
-            /* @__PURE__ */ jsx("span", { children: "Pivot mode" }),
-            /* @__PURE__ */ jsx(
-              "span",
-              {
-                className: "twc-dt__sw",
-                "data-on": pivotOn || void 0,
-                role: "switch",
-                "aria-checked": pivotOn,
-                tabIndex: 0,
-                onClick: () => setPivotOn((v) => !v),
-                onKeyDown: (e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setPivotOn((v) => !v);
+          /* @__PURE__ */ jsxs("div", { className: "twc-dt__pivot-body", children: [
+            /* @__PURE__ */ jsxs("div", { className: "twc-dt__cfg-toggle", children: [
+              /* @__PURE__ */ jsx("span", { children: "Pivot mode" }),
+              /* @__PURE__ */ jsx(
+                "span",
+                {
+                  className: "twc-dt__sw",
+                  "data-on": pivotOn || void 0,
+                  role: "switch",
+                  "aria-checked": pivotOn,
+                  tabIndex: 0,
+                  onClick: () => setPivotOn((v) => !v),
+                  onKeyDown: (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setPivotOn((v) => !v);
+                    }
                   }
                 }
-              }
-            )
-          ] }),
-          !pivotActive && pivotOn ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__cfg-hint", children: [
-            "Add at least one ",
-            /* @__PURE__ */ jsx("b", { children: "Row" }),
-            " field and one ",
-            /* @__PURE__ */ jsx("b", { children: "Value" }),
-            " to see the pivot."
-          ] }) : null,
-          /* @__PURE__ */ jsxs("div", { className: "twc-dt__cfg-section", children: [
-            /* @__PURE__ */ jsx("span", { className: "twc-dt__cfg-label", children: "Rows" }),
-            /* @__PURE__ */ jsx(
-              MultiSelect,
-              {
-                portal: true,
-                placeholder: "Add row fields\u2026",
-                value: pivotConfig.rows,
-                options: fieldOpts,
-                onChange: (vals) => {
-                  setPivotConfig((p) => ({ ...p, rows: vals }));
-                  if (vals.length) setPivotOn(true);
+              )
+            ] }),
+            !pivotActive && pivotOn ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__cfg-hint", children: [
+              "Add at least one ",
+              /* @__PURE__ */ jsx("b", { children: "Row" }),
+              " field and one ",
+              /* @__PURE__ */ jsx("b", { children: "Value" }),
+              " to see the pivot."
+            ] }) : null,
+            /* @__PURE__ */ jsxs("div", { className: "twc-dt__cfg-section", children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-dt__cfg-label", children: "Rows" }),
+              /* @__PURE__ */ jsx(
+                MultiSelect,
+                {
+                  portal: true,
+                  placeholder: "Add row fields\u2026",
+                  value: pivotConfig.rows,
+                  options: fieldOpts,
+                  onChange: (vals) => {
+                    setPivotConfig((p) => ({ ...p, rows: vals }));
+                    if (vals.length) setPivotOn(true);
+                  }
                 }
-              }
-            )
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "twc-dt__cfg-section", children: [
-            /* @__PURE__ */ jsx("span", { className: "twc-dt__cfg-label", children: "Columns" }),
-            /* @__PURE__ */ jsx(
-              MultiSelect,
-              {
-                portal: true,
-                placeholder: "Add column fields\u2026",
-                value: pivotConfig.columns,
-                options: fieldOpts,
-                onChange: (vals) => setPivotConfig((p) => ({ ...p, columns: vals }))
-              }
-            )
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "twc-dt__cfg-section", children: [
-            /* @__PURE__ */ jsx("span", { className: "twc-dt__cfg-label", children: "Values" }),
-            pivotConfig.values.map((v, i) => /* @__PURE__ */ jsxs("div", { className: "twc-dt__cfg-row", children: [
-              /* @__PURE__ */ jsx("span", { className: "twc-dt__cfg-name", children: colByField[v.field]?.headerName || v.field }),
-              /* @__PURE__ */ jsx("div", { className: "twc-dt__cfg-ctl", children: /* @__PURE__ */ jsx(
+              )
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "twc-dt__cfg-section", children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-dt__cfg-label", children: "Columns" }),
+              /* @__PURE__ */ jsx(
+                MultiSelect,
+                {
+                  portal: true,
+                  placeholder: "Add column fields\u2026",
+                  value: pivotConfig.columns,
+                  options: fieldOpts,
+                  onChange: (vals) => setPivotConfig((p) => ({ ...p, columns: vals }))
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "twc-dt__cfg-section", children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-dt__cfg-label", children: "Values" }),
+              pivotConfig.values.map((v, i) => /* @__PURE__ */ jsxs("div", { className: "twc-dt__cfg-row", children: [
+                /* @__PURE__ */ jsx("span", { className: "twc-dt__cfg-name", children: colByField[v.field]?.headerName || v.field }),
+                /* @__PURE__ */ jsx("div", { className: "twc-dt__cfg-ctl", children: /* @__PURE__ */ jsx(
+                  Select,
+                  {
+                    size: "sm",
+                    value: v.agg || "sum",
+                    options: aggOpts,
+                    portal: true,
+                    onChange: (a) => setPivotConfig((p) => ({ ...p, values: p.values.map((x, j) => j === i ? { ...x, agg: a } : x) }))
+                  }
+                ) }),
+                /* @__PURE__ */ jsx(
+                  "button",
+                  {
+                    type: "button",
+                    className: "twc-dt__cfg-x",
+                    "aria-label": `Remove ${colByField[v.field]?.headerName || v.field}`,
+                    onClick: () => setPivotConfig((p) => ({ ...p, values: p.values.filter((_, j) => j !== i) })),
+                    children: /* @__PURE__ */ jsx(Svg, { d: I.x })
+                  }
+                )
+              ] }, v.field + i)),
+              valueFieldOpts.length ? /* @__PURE__ */ jsx("div", { className: "twc-dt__cfg-add", children: /* @__PURE__ */ jsx(
                 Select,
                 {
                   size: "sm",
-                  value: v.agg || "sum",
-                  options: aggOpts,
+                  placeholder: "Add value field\u2026",
+                  value: "",
+                  options: valueFieldOpts,
                   portal: true,
-                  onChange: (a) => setPivotConfig((p) => ({ ...p, values: p.values.map((x, j) => j === i ? { ...x, agg: a } : x) }))
-                }
-              ) }),
-              /* @__PURE__ */ jsx(
-                "button",
-                {
-                  type: "button",
-                  className: "twc-dt__cfg-x",
-                  "aria-label": `Remove ${colByField[v.field]?.headerName || v.field}`,
-                  onClick: () => setPivotConfig((p) => ({ ...p, values: p.values.filter((_, j) => j !== i) })),
-                  children: /* @__PURE__ */ jsx(Svg, { d: I.x })
-                }
-              )
-            ] }, v.field + i)),
-            valueFieldOpts.length ? /* @__PURE__ */ jsx("div", { className: "twc-dt__cfg-add", children: /* @__PURE__ */ jsx(
-              Select,
-              {
-                size: "sm",
-                placeholder: "Add value field\u2026",
-                value: "",
-                options: valueFieldOpts,
-                portal: true,
-                searchable: true,
-                searchPlaceholder: "Search fields\u2026",
-                onChange: (f) => {
-                  if (f) {
-                    setPivotConfig((p) => p.values.some((x) => x.field === f) ? p : { ...p, values: [...p.values, { field: f, agg: "sum" }] });
-                    setPivotOn(true);
+                  searchable: true,
+                  searchPlaceholder: "Search fields\u2026",
+                  onChange: (f) => {
+                    if (f) {
+                      setPivotConfig((p) => p.values.some((x) => x.field === f) ? p : { ...p, values: [...p.values, { field: f, agg: "sum" }] });
+                      setPivotOn(true);
+                    }
                   }
                 }
-              }
-            ) }) : null
-          ] })
+              ) }) : null
+            ] })
+          ] }),
+          popGrip("pivot")
         ] });
       })() : null,
       panel === "filters" && panelPos ? /* @__PURE__ */ jsxs(
@@ -12212,8 +12348,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           children: [
             /* @__PURE__ */ jsxs("div", { className: "twc-dt__panel-head", children: [
               /* @__PURE__ */ jsx("span", { className: "twc-dt__panel-title", children: "Filters" }),
-              /* @__PURE__ */ jsxs("span", { style: { display: "inline-flex", gap: 2 }, children: [
-                resizableFilters && hasFilterSizeOverride ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__link", onClick: resetFilterSizes, children: "Reset sizes" }) : null,
+              /* @__PURE__ */ jsxs("span", { style: { display: "inline-flex", alignItems: "center", gap: 6 }, children: [
+                filters.length > 1 ? /* @__PURE__ */ jsxs("span", { className: "twc-dt__flogic", role: "group", "aria-label": "Combine filters with", children: [
+                  /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__flogic-btn", "data-active": filterLogic === "and" || void 0, "aria-pressed": filterLogic === "and", onClick: () => setFilterLogic("and"), children: "AND" }),
+                  /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__flogic-btn", "data-active": filterLogic === "or" || void 0, "aria-pressed": filterLogic === "or", onClick: () => setFilterLogic("or"), children: "OR" })
+                ] }) : null,
+                (resizableFilters || resizablePopovers) && hasFilterSizeOverride ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__link", onClick: resetFilterSizes, children: "Reset sizes" }) : null,
                 filters.length ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__link", onClick: () => setFilters([]), children: "Clear all" }) : null
               ] })
             ] }),
@@ -12285,6 +12425,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   ),
                   fieldHandle("val", i)
                 ] }),
+                /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__frm-x", "aria-label": `Add another condition on ${col.headerName}`, title: "Add another condition on this column", onClick: () => addFilter(f.field), children: /* @__PURE__ */ jsx(Svg, { d: I.plus }) }),
                 /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__frm-x", "aria-label": "Remove filter", onClick: () => setFilters((arr) => arr.filter((x) => x.id !== f.id)), children: /* @__PURE__ */ jsx(Svg, { d: I.x }) })
               ] }, f.id);
             }) }),
@@ -12292,7 +12433,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               /* @__PURE__ */ jsx(Svg, { d: I.plus, style: { color: "var(--color-primary)" } }),
               " Add filter"
             ] }) }),
-            resizableFilters ? /* @__PURE__ */ jsx(
+            resizableFilters || resizablePopovers ? /* @__PURE__ */ jsx(
               "span",
               {
                 className: "twc-dt__pop-grip",

@@ -257,3 +257,14 @@ per-function map so the chosen function is honored: `aggregationValues={{ mrr: {
 at once (no need for one filter row per value). Give a column `valueOptions` to populate the multi-select
 (recommended in server mode, where the client only holds one page); otherwise distinct values are derived from
 the loaded rows. The operator emits `value` as a `string[]`, surfaced in `onServerChange` filters.
+
+**Filter connective (AND/OR)** — the Filters panel is implicitly AND by default; with 2+ clauses a small
+**AND/OR toggle** appears in the panel head to combine them (`filterLogic: "and" | "or"`, part of
+`DatatableQuery`/`DatatableState`; emitted in `onServerChange`, persisted via `stateKey`). A per-row **`+`**
+adds another condition on the same column — repeated same-field clauses AND together. Group your server-side
+`WHERE` by the emitted `filterLogic`.
+
+**Resizable popovers** — `resizableFilters` (default true) makes the Filters popover drag-resizable; set
+`resizablePopovers` to extend the corner grip + keyboard resize to the Columns, Aggregation, Pivot, and
+Batch-edit panels too (handy for a wide grid's Columns list). Each popover's size persists independently via
+`stateKey` (`popoverSizes`). `resizablePopovers` implies `resizableFilters`.

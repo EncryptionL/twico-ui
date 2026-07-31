@@ -5482,7 +5482,7 @@ export const components = [
         "type": "(state)=>void",
         "required": false,
         "default": "-",
-        "description": "Fires (debounced) with the serverMode query — sort, filters, page, quickFilter, and visibleColumns/hiddenColumns — so you fetch and project the data."
+        "description": "Fires (debounced) with the serverMode query — sort, filters, filterLogic ('and'|'or'), page, quickFilter, and visibleColumns/hiddenColumns — so you fetch and project the data."
       },
       {
         "prop": "onColumnVisibilityChange",
@@ -5763,6 +5763,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Raise the drag cap for the filter panel's column/operator fields, in px (defaults: column 360, operator 260). Only applies when resizableFilters is on."
+      },
+      {
+        "prop": "resizablePopovers",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Extend the resize grip + keyboard resize to the Columns, Aggregation, Pivot, and Batch-edit panels (not just Filters), so a wide grid's Columns list can be enlarged. Sizes persist per popover via stateKey. Implies resizableFilters."
       },
       {
         "prop": "showBatchEdit",

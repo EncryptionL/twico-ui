@@ -91,6 +91,11 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  size persist via `stateKey` and are keyboard-accessible. Set `false` to disable the handles/grip
    *  (fields still auto-fit). @default true */
   resizableFilters?: boolean;
+  /** #304: extend the drag-resize grip to the other toolbar popovers too — Columns, Aggregation, Pivot,
+   *  and Batch-edit — each with a corner grip + keyboard resize (Arrows, Home/End, Enter/double-click to
+   *  reset). Implies `resizableFilters`. Each popover's size persists independently via `stateKey`
+   *  (`popoverSizes`). Great for a wide grid whose Columns list is otherwise capped. @default false */
+  resizablePopovers?: boolean;
   /** Raise the drag cap for the filter panel's column/operator fields, in px (default col 360 / op 260) —
    *  the #289-deferred "optional prop to raise the cap". Only affects `resizableFilters`. */
   filterFieldMaxWidth?: number;
@@ -279,6 +284,9 @@ export interface DatatableQuery {
    * number columns emit =, !=, >, >=, <, <=. `value` is a `string[]` for `isAnyOf` and omitted for `isEmpty`/`isNotEmpty`.
    */
   filters: DatatableFilter[];
+  /** #303: how the `filters` combine — `"and"` (all must match, default) or `"or"` (any match).
+   *  Omitted is treated as `"and"` for back-compat; group your server-side WHERE accordingly. */
+  filterLogic?: "and" | "or";
   /** Quick-search text. */
   quickFilter: string;
   /** `field`s of the columns currently shown (in column order) — the built-in Columns menu
@@ -302,6 +310,8 @@ export interface DatatableQuery {
 export interface DatatableState {
   /** Active per-column filters (without the internal row id). */
   filters: DatatableFilter[];
+  /** #303: filter connective for the whole set — `"and"` (default) or `"or"`. Absent = `"and"`. */
+  filterLogic?: "and" | "or";
   /** Active sort, or null. */
   sort: { field: string; dir: "asc" | "desc" } | null;
   /** Quick-search text. */
@@ -324,6 +334,9 @@ export interface DatatableState {
   filterPanelSize?: { w?: number; h?: number };
   /** #292: user-resized Filters field widths (px, panel-global — not per data column). Absent until dragged. */
   filterFieldWidths?: { col?: number; op?: number; val?: number };
+  /** #304: user-resized sizes of the other toolbar popovers (Columns/Aggregation/Pivot/Batch-edit),
+   *  keyed by popover id → `{ w, h }` in px. Absent until a popover is dragged with `resizablePopovers`. */
+  popoverSizes?: Record<string, { w?: number; h?: number }>;
 }
 
 export interface DatatableColumn<T = any> {

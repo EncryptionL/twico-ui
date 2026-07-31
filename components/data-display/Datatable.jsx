@@ -416,6 +416,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__panel-count { font-weight: 600; color: var(--color-text-muted); text-transform: none; letter-spacing: 0; margin-inline-start: 6px; font-variant-numeric: tabular-nums; }
 .twc-dt__link { border: none; background: transparent; color: var(--color-primary); font-family: inherit; font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 4px; border-radius: var(--radius-sm); }
 .twc-dt__link:hover { background: var(--color-primary-subtle); }
+/* #303: AND/OR connective toggle (segmented pill) in the Filters panel head. */
+.twc-dt__flogic { display: inline-flex; border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }
+.twc-dt__flogic-btn { border: none; background: transparent; color: var(--color-text-muted); font-family: inherit; font-size: 10px; font-weight: 700; letter-spacing: var(--tracking-wide); cursor: pointer; padding: 2px 8px; }
+.twc-dt__flogic-btn + .twc-dt__flogic-btn { border-inline-start: var(--border-thin) solid var(--color-border); }
+.twc-dt__flogic-btn:hover { background: var(--color-surface-sunken); }
+.twc-dt__flogic-btn[data-active] { background: var(--color-primary); color: var(--color-primary-fg); }
+.twc-dt__flogic-btn[data-active]:hover { background: var(--color-primary); }
 
 /* Filter panel — user-resizable (#292): panel size + per-field widths resolve through a two-tier CSS var
    cascade — user drag (-usr) > #289 measured auto-fit (-fit) > 118px fallback — entirely in clamp(), so
@@ -446,7 +453,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 /* value: the flex shock-absorber by default; the first drag flips it to a fixed width (data-val-fixed). */
 .twc-dt__f-val { position: relative; flex: 1 1 140px; min-width: 140px; }
 .twc-dt__filters[data-val-fixed] .twc-dt__f-val { flex: 0 0 clamp(140px, var(--twc-dt-fval-usr, 240px), 640px); }
-.twc-dt__filters[data-val-fixed] .twc-dt__frm-x { margin-inline-start: auto; }
+/* #303: each row now has two .twc-dt__frm-x (the add-condition "+" then remove "x"); put the auto margin
+   only on the first so the pair hugs the row end together (two auto margins would split the free space). */
+.twc-dt__filters[data-val-fixed] .twc-dt__frm-x:first-of-type { margin-inline-start: auto; }
 .twc-dt__frm-x { display: inline-grid; place-items: center; width: 30px; height: 38px; border: none; background: transparent; color: var(--color-text-subtle); border-radius: var(--radius-md); cursor: pointer; flex: none; align-self: flex-start; }
 .twc-dt__frm-x:hover { background: var(--color-danger-subtle); color: var(--color-danger-subtle-fg); }
 .twc-dt__frm-x svg { width: 15px; height: 15px; }
@@ -466,6 +475,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   .twc-dt__f-rz { width: 16px; inset-inline-end: -6px; opacity: 0.4; }
   .twc-dt__pop-grip { width: 20px; height: 20px; opacity: 0.6; }
 }
+/* #304: generic resizable popovers. When the grip commits a size, the panel carries data-pop-sized +
+   --twc-dt-pop-w/-h; the width override beats each panel default (incl. inline widths) and the inner
+   scroll list drops its max-height and flexes to fill the taller panel. The panel keeps its base
+   position: fixed (the absolute grip anchors to it) — do NOT set position here (see #294). Filters keep
+   their own data-panel-sized system (untouched). */
+.twc-dt__pop[data-pop-sized] { display: flex; flex-direction: column; width: var(--twc-dt-pop-w) !important; height: var(--twc-dt-pop-h); max-width: calc(100vw - 32px); max-height: calc(100vh - 32px); }
+.twc-dt__pop[data-pop-sized] .twc-dt__col-list, .twc-dt__pop[data-pop-sized] .twc-dt__cfg-list, .twc-dt__pop[data-pop-sized] .twc-dt__pivot-body { max-height: none; flex: 1 1 auto; overflow-y: auto; }
 .twc-dt__empty { padding: 30px 12px; text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
 
 /* Action cell */
@@ -693,7 +709,14 @@ export function runDatatableQuery(rows, query, options = {}) {
   let out = Array.isArray(rows) ? rows : [];
   const quick = String(q.quickFilter || "").trim().toLowerCase();
   if (quick) out = out.filter((r) => searchFields.some((f) => String(gv(f, r) ?? "").toLowerCase().includes(quick)));
-  for (const f of q.filters || []) { const fc = cols.find((c) => c.field === f.field); out = out.filter((r) => testFilter(gv(f.field, r), f.op, f.value, filterTypeOf(fc))); }
+  // #303: mirror the client engine's AND/OR — "or" keeps a row matching ANY clause, "and" (default) narrows by all.
+  // Drop clauses on unknown fields (parity with the client `processed` engine): under OR a stray unknown-field
+  // clause could match every row (e.g. isEmpty on a missing field) and wrongly broaden the result.
+  const qF = (q.filters || []).map((f) => [cols.find((c) => c.field === f.field), f]).filter(([fc]) => fc);
+  if (qF.length) {
+    if (q.filterLogic === "or") out = out.filter((r) => qF.some(([fc, f]) => testFilter(gv(f.field, r), f.op, f.value, filterTypeOf(fc))));
+    else for (const [fc, f] of qF) out = out.filter((r) => testFilter(gv(f.field, r), f.op, f.value, filterTypeOf(fc)));
+  }
   if (q.sort && q.sort.field) {
     const { field, dir } = q.sort, numeric = typeOf(field) === "number";
     out = [...out].sort((a, b) => {
@@ -963,6 +986,7 @@ export function Datatable({
   onQuickFilterChange,
   toolbarActions,
   resizableFilters = true,
+  resizablePopovers = false,
   filterFieldMaxWidth,
   rowPinning = false, rowReorder = false, rowResize = false, onRowOrderChange,
   pivot = null, pivotMode = false,
@@ -1037,6 +1061,9 @@ export function Datatable({
   });
   const [sort, setSort] = React.useState(null);
   const [filters, setFilters] = React.useState([]);
+  // #303: how the filter clauses combine — "and" (all must match, default) or "or" (any). A set-wide
+  // connective, so it only matters with 2+ clauses; surfaced as an AND/OR toggle in the Filters panel.
+  const [filterLogic, setFilterLogic] = React.useState("and");
   const [hidden, setHidden] = React.useState(() => new Set());
   // Runtime visibility of the row-number gutter, seeded from the `rowNumbers` prop and
   // toggled from the Columns panel (the prop just enables the feature + sets the default).
@@ -1104,6 +1131,10 @@ export function Datatable({
   // include them). Committed on pointerup/keystroke; live drags write CSS vars imperatively.
   const [fWidths, setFWidths] = React.useState({});     // { col?, op?, val? } px
   const [fPanelSize, setFPanelSize] = React.useState(null); // { w, h } | null
+  // #304: user-resized sizes for the OTHER toolbar popovers (Columns/Aggregation/Pivot/Batch-edit),
+  // keyed by popover id → { w, h }. The Filters panel keeps its richer #292 resize above (panel size +
+  // per-field widths); this generic store powers `resizablePopovers` for the rest.
+  const [popSizes, setPopSizes] = React.useState({});
 
   // #259: persist/restore the full view state. `stateKey` → localStorage; `initialState` seeds it;
   // `onStateChange` reports it (for URL/server persistence). SSR-safe: never read storage during render —
@@ -1111,6 +1142,7 @@ export function Datatable({
   // state in a mount effect. Robust to unknown columns (a version/schema change won't break restore).
   const serializeState = () => ({
     filters: filters.map(({ id, ...f }) => f), // strip the internal row id
+    filterLogic, // #303: "and" (default) | "or"
     sort,
     quickFilter: quick,
     page: pageVal,
@@ -1123,11 +1155,14 @@ export function Datatable({
     // #292: additive, optional — user-resized filter panel + field widths (panel-global, not per column).
     filterPanelSize: fPanelSize || undefined,
     filterFieldWidths: (fWidths.col != null || fWidths.op != null || fWidths.val != null) ? fWidths : undefined,
+    // #304: additive, optional — user-resized sizes of the other toolbar popovers, keyed by popover id.
+    popoverSizes: Object.keys(popSizes).length ? popSizes : undefined,
   });
   const applyState = (s) => {
     if (!s || typeof s !== "object") return;
     const known = new Set(cols.map((c) => c.field).filter(Boolean));
     if (Array.isArray(s.filters)) setFilters(s.filters.filter((f) => f && known.has(f.field)).map((f, i) => ({ id: Date.now() + Math.random() + i, field: f.field, op: f.op, value: f.value })));
+    if (s.filterLogic === "or" || s.filterLogic === "and") setFilterLogic(s.filterLogic); // #303: default "and" when absent (back-compat)
     if ("sort" in s) setSort(s.sort && known.has(s.sort.field) ? { field: s.sort.field, dir: s.sort.dir === "desc" ? "desc" : "asc" } : null);
     if (typeof s.quickFilter === "string" && quickFilter === undefined) setInternalQuick(s.quickFilter);
     if (typeof s.page === "number" && !pageControlled) setInternalPage(Math.max(0, Math.floor(s.page)));
@@ -1156,6 +1191,15 @@ export function Datatable({
       const h = typeof s.filterPanelSize.h === "number" ? clampNum(s.filterPanelSize.h, 120, fMaxH()) : undefined;
       if (w != null || h != null) setFPanelSize({ ...(w != null ? { w } : {}), ...(h != null ? { h } : {}) });
     }
+    // #304: restore other popover sizes, viewport-re-clamped; only well-formed {w,h} entries survive.
+    if (s.popoverSizes && typeof s.popoverSizes === "object") {
+      const next = {};
+      for (const [id, sz] of Object.entries(s.popoverSizes)) {
+        if (!sz || typeof sz !== "object" || typeof sz.w !== "number" || typeof sz.h !== "number") continue;
+        next[id] = { w: clampNum(sz.w, popMinW(id), fMaxW()), h: clampNum(sz.h, 120, fMaxH()) };
+      }
+      if (Object.keys(next).length) setPopSizes(next);
+    }
   };
   const stateReadyRef = React.useRef(false);
   const stateRestoredRef = React.useRef(false); // #298: restore applied at most once (survives a Strict Mode remount)
@@ -1172,7 +1216,7 @@ export function Datatable({
     if (stateKey) { try { window.localStorage.setItem(stateKey, JSON.stringify(state)); } catch { /* storage unavailable/full */ } }
     return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, stateKey]);
+  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, stateKey]);
   // Reads localStorage[stateKey] (else initialState) and applies it. Cheap to call more than once —
   // applyState is idempotent for a given snapshot — but callers gate it (see the two effects below).
   const restoreState = () => {
@@ -1442,17 +1486,24 @@ export function Datatable({
   const CHK_W = checkboxSelection ? (rowReorder ? 68 : 44) : 0;
   const numLeft = CHK_W;                             // x of the row-number column (= checkbox column width)
   const leadW = numLeft + (showRowNum ? NUM_W : 0);  // x where pinned-left data columns begin
+  // #302: the sticky LAYOUT must be derived from the *visible* pinned columns, not the raw `pins`
+  // arrays — a pinned-then-hidden column has no rendered cell but still lives in `pins`, so counting
+  // it here reserved a phantom sticky slot (a "ghost" pinned column the body showed through) and put
+  // the edge shadow on the wrong column. `pins` stays the raw persisted state (so un-hiding restores
+  // the pin); only offset/edge/lead-gutter derivations skip hidden fields.
+  const visLeft = React.useMemo(() => pins.left.filter((f) => colByField[f] && !hidden.has(f)), [pins.left, colByField, hidden]);
+  const visRight = React.useMemo(() => pins.right.filter((f) => colByField[f] && !hidden.has(f)), [pins.right, colByField, hidden]);
   const stickyOf = (field) => {
-    if (pins.left.includes(field)) {
+    if (visLeft.includes(field)) {
       let off = leadW;
-      for (const f of pins.left) { if (f === field) break; off += widthOf(colByField[f] || {}); }
-      const isEdge = pins.left[pins.left.length - 1] === field;
+      for (const f of visLeft) { if (f === field) break; off += widthOf(colByField[f] || {}); }
+      const isEdge = visLeft[visLeft.length - 1] === field;
       return { style: { insetInlineStart: off }, pin: "left", edge: isEdge ? "left" : undefined };
     }
-    if (pins.right.includes(field)) {
-      let off = 0; const rev = [...pins.right].reverse();
+    if (visRight.includes(field)) {
+      let off = 0; const rev = [...visRight].reverse();
       for (const f of rev) { if (f === field) break; off += widthOf(colByField[f] || {}); }
-      const isEdge = pins.right[0] === field;
+      const isEdge = visRight[0] === field;
       return { style: { insetInlineEnd: off }, pin: "right", edge: isEdge ? "right" : undefined };
     }
     return {};
@@ -1473,9 +1524,15 @@ export function Datatable({
         : visibleCols;
       out = out.filter((r) => searchCols.some((c) => String(getColVal(c, r) ?? "").toLowerCase().includes(q)));
     }
-    for (const f of filters) {
-      const col = colByField[f.field]; if (!col) continue;
-      out = out.filter((r) => testFilter(getColVal(col, r), f.op, f.value, filterTypeOf(col)));
+    // #303: AND (default) narrows clause-by-clause; OR keeps a row that matches ANY clause. Resolve
+    // each clause's column once; skip unknown fields. With no clauses, neither branch narrows.
+    const activeF = filters.map((f) => [colByField[f.field], f]).filter(([col]) => col);
+    if (activeF.length) {
+      if (filterLogic === "or") {
+        out = out.filter((r) => activeF.some(([col, f]) => testFilter(getColVal(col, r), f.op, f.value, filterTypeOf(col))));
+      } else {
+        for (const [col, f] of activeF) out = out.filter((r) => testFilter(getColVal(col, r), f.op, f.value, filterTypeOf(col)));
+      }
     }
     if (sort) {
       const col = colByField[sort.field];
@@ -1491,7 +1548,7 @@ export function Datatable({
       out = [...out].sort((a, b) => (idx.get(keyOf(a)) ?? 1e9) - (idx.get(keyOf(b)) ?? 1e9));
     }
     return out;
-  }, [rows, quick, filters, sort, visibleCols, colByField, serverMode, rowOrder, searchFields]);
+  }, [rows, quick, filters, filterLogic, sort, visibleCols, colByField, serverMode, rowOrder, searchFields]);
 
   const paginated = pageSize > 0;
   const serverTotal = rowCount == null ? processed.length : rowCount;
@@ -1730,12 +1787,13 @@ export function Datatable({
       onServerChangeRef.current?.({
         page: pageVal, pageSize: sizeVal, sort,
         filters: filters.map(({ id, ...f }) => f),
+        filterLogic, // #303: "and" (default) | "or" — the server groups its WHERE accordingly
         quickFilter: quick.trim(),
         visibleColumns, hiddenColumns,   // #191: server can project only the visible columns
       });
     }, 250);
     return () => clearTimeout(t);
-  }, [serverMode, pageVal, sizeVal, sort, filters, quick, visibleColumns, hiddenColumns]);
+  }, [serverMode, pageVal, sizeVal, sort, filters, filterLogic, quick, visibleColumns, hiddenColumns]);
 
   // #191: report column show/hide toggles from the built-in Columns menu so a consumer can
   // drive server-side column projection off the same control. Fires on change, not on mount.
@@ -2286,8 +2344,59 @@ export function Datatable({
     if (p) { ["--twc-dt-fcol-usr", "--twc-dt-fop-usr", "--twc-dt-fval-usr", "--twc-dt-panel-w", "--twc-dt-panel-h"].forEach((v) => p.style.removeProperty(v)); p.removeAttribute("data-val-fixed"); p.removeAttribute("data-panel-sized"); }
   };
   const hasFilterSizeOverride = fWidths.col != null || fWidths.op != null || fWidths.val != null || fPanelSize != null;
+  // #304: generic per-popover resize for the non-filter toolbar panels. A corner grip inside each
+  // .twc-dt__pop drives its own panel via `closest` (no per-panel ref), commits { w, h } to popSizes
+  // keyed by popover id, and persists via stateKey. Per-popover min width; shared max (viewport - 32).
+  const POP_MIN_W = { columns: 240, agg: 240, pivot: 260, batchedit: 260 };
+  const popMinW = (id) => POP_MIN_W[id] || 200;
+  const clearPop = (id, node) => {
+    if (node) { node.style.removeProperty("--twc-dt-pop-w"); node.style.removeProperty("--twc-dt-pop-h"); node.removeAttribute("data-pop-sized"); }
+    setPopSizes((s) => { if (!(id in s)) return s; const n = { ...s }; delete n[id]; return n; });
+  };
+  const startPopResize = (id) => (e) => {
+    if (e.button != null && e.button !== 0) return;
+    e.preventDefault(); e.stopPropagation();
+    const pop = e.currentTarget.closest(".twc-dt__pop"); if (!pop) return;
+    const grip = e.currentTarget; const startX = e.clientX, startY = e.clientY;
+    const r = pop.getBoundingClientRect(); const startW = r.width, startH = r.height;
+    const dir = typeof getComputedStyle !== "undefined" && getComputedStyle(pop).direction === "rtl" ? -1 : 1;
+    // Seed the size vars to the current dimensions BEFORE flagging data-pop-sized, so the width-var
+    // override never applies with an unset var (which would collapse the panel to auto for one frame).
+    pop.style.setProperty("--twc-dt-pop-w", `${startW}px`); pop.style.setProperty("--twc-dt-pop-h", `${startH}px`);
+    grip.setAttribute("data-active", "true"); pop.setAttribute("data-pop-sized", "");
+    let lw = startW, lh = startH;
+    const onMove = (ev) => {
+      lw = clampNum(startW + (ev.clientX - startX) * dir, popMinW(id), fMaxW());
+      lh = clampNum(startH + (ev.clientY - startY), 120, fMaxH());
+      pop.style.setProperty("--twc-dt-pop-w", `${lw}px`); pop.style.setProperty("--twc-dt-pop-h", `${lh}px`);
+    };
+    const onUp = () => { setPopSizes((s) => ({ ...s, [id]: { w: lw, h: lh } })); grip.removeAttribute("data-active"); window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp); };
+    window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
+  };
+  const onPopGripKey = (id) => (e) => {
+    if (e.key === "Enter" || e.key === " " || e.key === "Backspace") { e.preventDefault(); clearPop(id, e.currentTarget.closest(".twc-dt__pop")); return; }
+    if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) return;
+    e.preventDefault();
+    const pop = e.currentTarget.closest(".twc-dt__pop"); if (!pop) return;
+    const r = pop.getBoundingClientRect(); const step = e.shiftKey ? 4 : 20; const dir = typeof getComputedStyle !== "undefined" && getComputedStyle(pop).direction === "rtl" ? -1 : 1;
+    let w = r.width, h = r.height;
+    if (e.key === "ArrowRight") w += step * dir; else if (e.key === "ArrowLeft") w -= step * dir;
+    else if (e.key === "ArrowDown") h += step; else if (e.key === "ArrowUp") h -= step;
+    else if (e.key === "Home") { w = popMinW(id); h = 120; } else if (e.key === "End") { w = fMaxW(); h = fMaxH(); }
+    setPopSizes((s) => ({ ...s, [id]: { w: clampNum(w, popMinW(id), fMaxW()), h: clampNum(h, 120, fMaxH()) } }));
+  };
+  // Inline style vars applied to a resizable panel's root so a persisted/committed size is honored on open.
+  const popStyle = (id) => (popSizes[id] ? { "--twc-dt-pop-w": `${popSizes[id].w}px`, "--twc-dt-pop-h": `${popSizes[id].h}px` } : null);
+  // The corner grip element (rendered only when resizablePopovers is on).
+  const popGrip = (id) => (resizablePopovers ? (
+    <span className="twc-dt__pop-grip" role="slider" tabIndex={0}
+      aria-label="Resize panel (Enter or double-click to reset)"
+      aria-valuetext={popSizes[id] ? `Width ${Math.round(popSizes[id].w)} pixels, height ${Math.round(popSizes[id].h)} pixels` : "Default size"}
+      onPointerDown={startPopResize(id)} onKeyDown={onPopGripKey(id)}
+      onDoubleClick={(e) => { e.preventDefault(); clearPop(id, e.currentTarget.closest(".twc-dt__pop")); }} />
+  ) : null);
   // Panel-global field widths → the resize handle renders once (on the first row).
-  const fieldHandle = (field, rowIdx) => (resizableFilters && rowIdx === 0 ? (
+  const fieldHandle = (field, rowIdx) => ((resizableFilters || resizablePopovers) && rowIdx === 0 ? (
     <span className="twc-dt__f-rz" role="separator" aria-orientation="vertical" tabIndex={0}
       aria-label={`Resize ${F_LABEL[field]} field (Enter to reset)`}
       onPointerDown={(e) => startFieldResize(e, field)} onClick={(e) => e.stopPropagation()}
@@ -2372,7 +2481,7 @@ export function Datatable({
         onDragEnd={reorderable ? () => setRowDrag({ from: null, over: null, after: false }) : undefined}
         onClick={(e) => handleRowClick(e, k, row)}>
         {checkboxSelection ? (
-          <td className="twc-dt__td" role="gridcell" data-pin="left" data-pin-edge={(pins.left.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: 0, width: CHK_W }}>
+          <td className="twc-dt__td" role="gridcell" data-pin="left" data-pin-edge={(visLeft.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: 0, width: CHK_W }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
               {reorderable ? rowHandle(k, midIdx, row) : null}
               <span className="twc-dt__check" data-checked={sel || undefined} onClick={() => toggleRow(k)}
@@ -2383,7 +2492,7 @@ export function Datatable({
           </td>
         ) : null}
         {showRowNum ? (
-          <td className="twc-dt__td twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W }}>
+          <td className="twc-dt__td twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" data-pin-edge={visLeft.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W }}>
             {typeof ri === "number" ? ((paginated || serverMode ? pageVal * sizeVal : 0) + ri + 1) : ""}
           </td>
         ) : null}
@@ -2671,7 +2780,7 @@ export function Datatable({
           <thead ref={theadRef}>
             <tr role="row" aria-rowindex={1}>
               {checkboxSelection ? (
-                <th className="twc-dt__th" role="columnheader" aria-label="Select" data-pin="left" data-pin-edge={(pins.left.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: 0, width: CHK_W, minWidth: CHK_W }}>
+                <th className="twc-dt__th" role="columnheader" aria-label="Select" data-pin="left" data-pin-edge={(visLeft.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: 0, width: CHK_W, minWidth: CHK_W }}>
                   <div className="twc-dt__th-inner" style={{ justifyContent: "center", padding: 0 }}>
                     <span className="twc-dt__check" data-checked={allSel || undefined} data-indeterminate={(!allSel && someSel) || undefined} onClick={toggleAll}
                       role="checkbox" aria-checked={allSel ? true : someSel ? "mixed" : false} aria-label="Select all rows" tabIndex={0}
@@ -2682,7 +2791,7 @@ export function Datatable({
                 </th>
               ) : null}
               {showRowNum ? (
-                <th className="twc-dt__th twc-dt__rownum" role="columnheader" aria-label="Row number" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W, minWidth: NUM_W }}>
+                <th className="twc-dt__th twc-dt__rownum" role="columnheader" aria-label="Row number" data-pin="left" data-pin-edge={visLeft.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W, minWidth: NUM_W }}>
                   <div className="twc-dt__th-inner">
                     <span className="twc-dt__th-label" style={{ flex: "none", cursor: "default" }}>#</span>
                     <button type="button" className="twc-dt__menu-btn" aria-label="Row number column menu"
@@ -2795,8 +2904,8 @@ export function Datatable({
           {hasAggregation && aggOn && !loading && paged.length > 0 ? (
             <tfoot>
               <tr role="row">
-                {checkboxSelection ? <td role="gridcell" data-pin="left" data-pin-edge={(pins.left.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: 0, width: CHK_W }} /> : null}
-                {showRowNum ? <td className="twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" data-pin-edge={pins.left.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W }} /> : null}
+                {checkboxSelection ? <td role="gridcell" data-pin="left" data-pin-edge={(visLeft.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: 0, width: CHK_W }} /> : null}
+                {showRowNum ? <td className="twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" data-pin-edge={visLeft.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W }} /> : null}
                 {ordered.map((c) => {
                   const st = stickyOf(c.field);
                   const v = aggregate(c);
@@ -2895,7 +3004,7 @@ export function Datatable({
           return { ...b, fields, values };
         });
         return (
-          <div className="twc-dt__pop twc-dt__cfg" style={{ top: batchEditPos.top, left: batchEditPos.left, width: 320 }}>
+          <div className="twc-dt__pop twc-dt__cfg" style={{ top: batchEditPos.top, left: batchEditPos.left, width: 320, ...popStyle("batchedit") }} data-pop-sized={popSizes.batchedit ? "" : undefined}>
             <Caret pos={batchEditPos} />
             <div className="twc-dt__cfg-head">Edit {selected.size} selected {selected.size === 1 ? "row" : "rows"}</div>
             {unpicked.length ? (
@@ -2942,6 +3051,7 @@ export function Datatable({
               <button type="button" className="twc-dt__cfg-btn" onClick={() => { setBatchEdit(null); closeBatchEdit(); }}>Cancel</button>
               <button type="button" className="twc-dt__cfg-btn" data-primary="true" disabled={pickedCols.length === 0} onClick={applyBatchEdit}>Apply to {selected.size}</button>
             </div>
+            {popGrip("batchedit")}
           </div>
         );
       })() : null}
@@ -3009,7 +3119,7 @@ export function Datatable({
 
       {/* Columns panel (searchable) */}
       {panel === "columns" && panelPos ? (
-        <div className="twc-dt__pop twc-dt__cols" style={{ top: panelPos.top, left: panelPos.left }} role="dialog" aria-label="Column settings">
+        <div className="twc-dt__pop twc-dt__cols" style={{ top: panelPos.top, left: panelPos.left, ...popStyle("columns") }} data-pop-sized={popSizes.columns ? "" : undefined} role="dialog" aria-label="Column settings">
           <div className="twc-dt__panel-head">
             <span className="twc-dt__panel-title">Columns <span className="twc-dt__panel-count" title={`${visibleColCount} of ${manageableCols.length} columns shown`}>{visibleColCount}/{manageableCols.length}</span></span>
             <div>
@@ -3066,12 +3176,13 @@ export function Datatable({
               );
               })}
           </div>
+          {popGrip("columns")}
         </div>
       ) : null}
 
       {/* Aggregation config panel */}
       {panel === "agg" && panelPos ? (
-        <div className="twc-dt__pop twc-dt__cfg" style={{ top: panelPos.top, left: panelPos.left, width: 300 }} role="dialog" aria-label="Aggregation settings">
+        <div className="twc-dt__pop twc-dt__cfg" style={{ top: panelPos.top, left: panelPos.left, width: 300, ...popStyle("agg") }} data-pop-sized={popSizes.agg ? "" : undefined} role="dialog" aria-label="Aggregation settings">
           <div className="twc-dt__panel-head">
             <span className="twc-dt__panel-title">Aggregation</span>
             <button type="button" className="twc-dt__link" onClick={() => setAggConfig({})}>Clear</button>
@@ -3098,6 +3209,7 @@ export function Datatable({
               );
             })}
           </div>
+          {popGrip("agg")}
         </div>
       ) : null}
 
@@ -3107,11 +3219,13 @@ export function Datatable({
         const aggOpts = [{ value: "sum", label: "Sum" }, { value: "avg", label: "Avg" }, { value: "min", label: "Min" }, { value: "max", label: "Max" }, { value: "count", label: "Count" }];
         const valueFieldOpts = ordered.filter((c) => c.type !== "actions" && !pivotConfig.values.some((v) => v.field === c.field)).map((c) => ({ value: c.field, label: c.headerName }));
         return (
-        <div className="twc-dt__pop twc-dt__cfg" style={{ top: panelPos.top, left: panelPos.left, width: 320 }} role="dialog" aria-label="Pivot settings">
+        <div className="twc-dt__pop twc-dt__cfg" style={{ top: panelPos.top, left: panelPos.left, width: 320, ...popStyle("pivot") }} data-pop-sized={popSizes.pivot ? "" : undefined} role="dialog" aria-label="Pivot settings">
           <div className="twc-dt__panel-head">
             <span className="twc-dt__panel-title">Pivot</span>
             <button type="button" className="twc-dt__link" onClick={() => { setPivotConfig({ rows: [], columns: [], values: [] }); setPivotOn(false); }}>Reset</button>
           </div>
+          {/* #304: scroll body so a resized Pivot panel (no single list like col/cfg) flex-fills + scrolls */}
+          <div className="twc-dt__pivot-body">
           <div className="twc-dt__cfg-toggle">
             <span>Pivot mode</span>
             <span className="twc-dt__sw" data-on={pivotOn || undefined} role="switch" aria-checked={pivotOn} tabIndex={0}
@@ -3148,6 +3262,8 @@ export function Datatable({
               </div>
             ) : null}
           </div>
+          </div>
+          {popGrip("pivot")}
         </div>
         );
       })() : null}
@@ -3169,8 +3285,15 @@ export function Datatable({
           data-panel-sized={fPanelSize?.h != null ? "" : undefined}>
           <div className="twc-dt__panel-head">
             <span className="twc-dt__panel-title">Filters</span>
-            <span style={{ display: "inline-flex", gap: 2 }}>
-              {resizableFilters && hasFilterSizeOverride ? <button type="button" className="twc-dt__link" onClick={resetFilterSizes}>Reset sizes</button> : null}
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+              {/* #303: AND/OR only matters with 2+ clauses */}
+              {filters.length > 1 ? (
+                <span className="twc-dt__flogic" role="group" aria-label="Combine filters with">
+                  <button type="button" className="twc-dt__flogic-btn" data-active={filterLogic === "and" || undefined} aria-pressed={filterLogic === "and"} onClick={() => setFilterLogic("and")}>AND</button>
+                  <button type="button" className="twc-dt__flogic-btn" data-active={filterLogic === "or" || undefined} aria-pressed={filterLogic === "or"} onClick={() => setFilterLogic("or")}>OR</button>
+                </span>
+              ) : null}
+              {(resizableFilters || resizablePopovers) && hasFilterSizeOverride ? <button type="button" className="twc-dt__link" onClick={resetFilterSizes}>Reset sizes</button> : null}
               {filters.length ? <button type="button" className="twc-dt__link" onClick={() => setFilters([])}>Clear all</button> : null}
             </span>
           </div>
@@ -3213,6 +3336,8 @@ export function Datatable({
                     )}
                     {fieldHandle("val", i)}
                   </div>
+                  {/* #303: append another clause on the SAME column (a discoverable same-field AND) */}
+                  <button type="button" className="twc-dt__frm-x" aria-label={`Add another condition on ${col.headerName}`} title="Add another condition on this column" onClick={() => addFilter(f.field)}><Svg d={I.plus} /></button>
                   <button type="button" className="twc-dt__frm-x" aria-label="Remove filter" onClick={() => setFilters((arr) => arr.filter((x) => x.id !== f.id))}><Svg d={I.x} /></button>
                 </div>
               );
@@ -3221,7 +3346,7 @@ export function Datatable({
           <div className="twc-dt__f-add" style={{ padding: "6px 4px 2px" }}>
             <button type="button" className="twc-dt__mi" style={{ color: "var(--color-primary)" }} onClick={() => addFilter(cols[0].field)}><Svg d={I.plus} style={{ color: "var(--color-primary)" }} /> Add filter</button>
           </div>
-          {resizableFilters ? (
+          {resizableFilters || resizablePopovers ? (
             <span className="twc-dt__pop-grip" role="slider" tabIndex={0}
               aria-label="Resize filters panel (Enter to reset)"
               aria-valuetext={`Width ${Math.round(fPanelSize?.w ?? 580)} pixels, height ${fPanelSize?.h != null ? Math.round(fPanelSize.h) + " pixels" : "auto"}`}
