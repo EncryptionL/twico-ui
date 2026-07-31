@@ -255,6 +255,40 @@
      stale snapshot over live edits. 3 tests in `tests/datatable-state-strictmode.test.jsx` (source-guard +
      Strict Mode preserve + async-columns restore). — fixed 2026-07-29
 
+- **[#302] Hidden-but-pinned column left a ghost pinned slot** — `pins.{left,right}` and the `hidden` Set are
+  independent state; `stickyOf` accumulated the sticky offset over the RAW `pins` arrays, so a pinned column
+  that was then hidden (no rendered cell) still reserved its width — a phantom sticky strip the scrolling body
+  showed through — and the pin-edge shadow landed on the wrong column. _Fix:_ derive `visLeft`/`visRight`
+  (visible pinned fields: `pins.side.filter(f => colByField[f] && !hidden.has(f))`) and drive ALL layout from
+  them — offset accumulation, `isEdge` (`visLeft[last]`/`visRight[0]`), and the six lead checkbox/row-number
+  `data-pin-edge` gates (`visLeft.length`). `pins` stays raw for persistence + membership, so un-hiding a
+  column restores its pin position. 3 tests in `tests/datatable-hidden-pin-ghost.test.jsx`. — fixed 2026-07-31
+
+- **[#303] Filter panel: explicit AND/OR + discoverable same-column condition** — the panel was a flat,
+  implicitly-AND-ed list with no way to express OR and no obvious "add a second condition on this column".
+  _Added:_ `filterLogic?: "and" | "or"` (default `"and"`, back-compat) on `DatatableQuery` + `DatatableState`,
+  surfaced as an **AND/OR segmented toggle** in the panel head (shown with 2+ clauses). BOTH filter engines
+  honor it — the client `processed` memo and the exported `runDatatableQuery` switch from sequential `.filter`
+  (AND) to `.some` (OR), guarded so zero clauses never blanks the grid; parity is required so client and server
+  modes agree. It threads through `serializeState`/`applyState`/`onServerChange` (+ all three dep arrays). A
+  per-row **`+`** ("Add another condition on <col>") appends a same-field clause via the existing `addFilter`,
+  making same-column AND discoverable (repeated same-field clauses already AND end-to-end). 12 tests in
+  `tests/datatable-filter-logic.test.jsx` (engine AND/OR/empty-set/same-column, client parity, toggle, add,
+  round-trip). — added 2026-07-31
+
+- **[#304] `resizablePopovers` — resize the other toolbar panels too** — only the Filters panel was resizable
+  (#292). `resizablePopovers` (default false) extends a corner grip + `role="slider"` keyboard resize (Arrows,
+  Home/End, Enter/double-click to reset) to the **Columns, Aggregation, Pivot, and Batch-edit** panels, so a
+  wide grid's Columns list (was capped at 268px × 230px) can be enlarged. Implemented as a generic engine:
+  `popSizes` keyed by popover id, a `closest(".twc-dt__pop")`-based `startPopResize`/`onPopGripKey` (no per-panel
+  ref), and a `.twc-dt__pop[data-pop-sized]` rule that overrides each panel's default/inline width and lets its
+  inner scroll list flex to fill — **without** setting `position` (the panel keeps `position: fixed`; the
+  absolute grip anchors to it — re-learning the #294 lesson). Sizes persist independently as
+  `popoverSizes: Record<popoverId, {w,h}>` on `DatatableState` (the #292 Filters keep their richer panel-size +
+  per-field-width resize, untouched; `resizablePopovers` also implies the Filters grip). Per-popover min clamps
+  (Columns/Agg 240, Pivot/Batch-edit 260) + shared max `calc(100vw/100vh − 32px)`. 8 tests in
+  `tests/datatable-resizable-popovers.test.jsx`. — added 2026-07-31
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.
