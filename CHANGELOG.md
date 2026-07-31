@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.24.0](https://github.com/EncryptionL/twico-ui/compare/v1.23.0...v1.24.0) (2026-07-31)
+
+
+### Features
+
+* **datatable:** filter AND/OR + resizable popovers; fix ghost pinned column ([#302](https://github.com/EncryptionL/twico-ui/issues/302), [#303](https://github.com/EncryptionL/twico-ui/issues/303), [#304](https://github.com/EncryptionL/twico-ui/issues/304)) ([b49f4c1](https://github.com/EncryptionL/twico-ui/commit/b49f4c1174e1c72ca6b786b4faee541744ed5318)), closes [#292](https://github.com/EncryptionL/twico-ui/issues/292) [#294](https://github.com/EncryptionL/twico-ui/issues/294)
+
 # [1.23.0](https://github.com/EncryptionL/twico-ui/compare/v1.22.3...v1.23.0) (2026-07-30)
 
 
