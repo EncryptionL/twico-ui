@@ -93,8 +93,9 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   resizableFilters?: boolean;
   /** #304: extend the drag-resize grip to the other toolbar popovers too — Columns, Aggregation, Pivot,
    *  and Batch-edit — each with a corner grip + keyboard resize (Arrows, Home/End, Enter/double-click to
-   *  reset). Implies `resizableFilters`. Each popover's size persists independently via `stateKey`
-   *  (`popoverSizes`). Great for a wide grid whose Columns list is otherwise capped. @default false */
+   *  reset). Independent of `resizableFilters` (which controls the Filters panel): each defaults `true` and
+   *  can be turned off on its own. Each popover's size persists independently via `stateKey` (`popoverSizes`).
+   *  Great for a wide grid whose Columns list is otherwise capped. Set `false` to opt a grid out. @default true */
   resizablePopovers?: boolean;
   /** Raise the drag cap for the filter panel's column/operator fields, in px (default col 360 / op 260) —
    *  the #289-deferred "optional prop to raise the cap". Only affects `resizableFilters`. */

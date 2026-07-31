@@ -264,7 +264,7 @@ the loaded rows. The operator emits `value` as a `string[]`, surfaced in `onServ
 adds another condition on the same column — repeated same-field clauses AND together. Group your server-side
 `WHERE` by the emitted `filterLogic`.
 
-**Resizable popovers** — `resizableFilters` (default true) makes the Filters popover drag-resizable; set
-`resizablePopovers` to extend the corner grip + keyboard resize to the Columns, Aggregation, Pivot, and
-Batch-edit panels too (handy for a wide grid's Columns list). Each popover's size persists independently via
-`stateKey` (`popoverSizes`). `resizablePopovers` implies `resizableFilters`.
+**Resizable popovers** — both `resizableFilters` and `resizablePopovers` default to **true**: the Filters,
+Columns, Aggregation, Pivot, and Batch-edit panels all get a corner grip + keyboard resize (handy for a wide
+grid's Columns list). Each popover's size persists independently via `stateKey` (`popoverSizes`). Set
+`resizablePopovers={false}` to opt a grid out (Filters can be disabled separately with `resizableFilters={false}`).

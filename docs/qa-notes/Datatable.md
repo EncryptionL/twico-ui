@@ -285,7 +285,7 @@
   inner scroll list flex to fill — **without** setting `position` (the panel keeps `position: fixed`; the
   absolute grip anchors to it — re-learning the #294 lesson). Sizes persist independently as
   `popoverSizes: Record<popoverId, {w,h}>` on `DatatableState` (the #292 Filters keep their richer panel-size +
-  per-field-width resize, untouched; `resizablePopovers` also implies the Filters grip). Per-popover min clamps
+  per-field-width resize, untouched, and independently gated by `resizableFilters` — see #314). Per-popover min clamps
   (Columns/Agg 240, Pivot/Batch-edit 260) + shared max `calc(100vw/100vh − 32px)`. 8 tests in
   `tests/datatable-resizable-popovers.test.jsx`. — added 2026-07-31
 
@@ -296,6 +296,13 @@
   `commitEdit()`s the pending `editing.value` (spreadsheet-like) instead of discarding; a `renderEditCell`
   column is still just dismissed (it owns its commit/cancel via the provided callbacks). Enter still commits,
   Escape still cancels. 3 tests in `tests/datatable-edit-clickaway.test.jsx`. — fixed 2026-07-31
+
+- **[#314] `resizablePopovers` now defaults `true`** (DX follow-up to #304) — it shipped default-`false`, so
+  every non-Filters popover was non-resizable unless each `<Datatable>` opted in (15+ call sites in the
+  reporter's app). It now defaults `true`, matching `resizableFilters`, so Columns/Aggregation/Pivot/Batch-edit
+  are drag-resizable everywhere by default; pass `resizablePopovers={false}` to opt a grid out. Additive
+  (opt-out preserved), not breaking. Test flipped + opt-out test added in
+  `tests/datatable-resizable-popovers.test.jsx`. — changed 2026-07-31
 
 ## Verified OK
 

@@ -986,7 +986,7 @@ export function Datatable({
   onQuickFilterChange,
   toolbarActions,
   resizableFilters = true,
-  resizablePopovers = false,
+  resizablePopovers = true, // #314: default-on (matches resizableFilters) — set false to opt a grid out
   filterFieldMaxWidth,
   rowPinning = false, rowReorder = false, rowResize = false, onRowOrderChange,
   pivot = null, pivotMode = false,
@@ -2402,7 +2402,7 @@ export function Datatable({
       onDoubleClick={(e) => { e.preventDefault(); clearPop(id, e.currentTarget.closest(".twc-dt__pop")); }} />
   ) : null);
   // Panel-global field widths → the resize handle renders once (on the first row).
-  const fieldHandle = (field, rowIdx) => ((resizableFilters || resizablePopovers) && rowIdx === 0 ? (
+  const fieldHandle = (field, rowIdx) => (resizableFilters && rowIdx === 0 ? (
     <span className="twc-dt__f-rz" role="separator" aria-orientation="vertical" tabIndex={0}
       aria-label={`Resize ${F_LABEL[field]} field (Enter to reset)`}
       onPointerDown={(e) => startFieldResize(e, field)} onClick={(e) => e.stopPropagation()}
@@ -3299,7 +3299,7 @@ export function Datatable({
                   <button type="button" className="twc-dt__flogic-btn" data-active={filterLogic === "or" || undefined} aria-pressed={filterLogic === "or"} onClick={() => setFilterLogic("or")}>OR</button>
                 </span>
               ) : null}
-              {(resizableFilters || resizablePopovers) && hasFilterSizeOverride ? <button type="button" className="twc-dt__link" onClick={resetFilterSizes}>Reset sizes</button> : null}
+              {resizableFilters && hasFilterSizeOverride ? <button type="button" className="twc-dt__link" onClick={resetFilterSizes}>Reset sizes</button> : null}
               {filters.length ? <button type="button" className="twc-dt__link" onClick={() => setFilters([])}>Clear all</button> : null}
             </span>
           </div>
@@ -3352,7 +3352,7 @@ export function Datatable({
           <div className="twc-dt__f-add" style={{ padding: "6px 4px 2px" }}>
             <button type="button" className="twc-dt__mi" style={{ color: "var(--color-primary)" }} onClick={() => addFilter(cols[0].field)}><Svg d={I.plus} style={{ color: "var(--color-primary)" }} /> Add filter</button>
           </div>
-          {resizableFilters || resizablePopovers ? (
+          {resizableFilters ? (
             <span className="twc-dt__pop-grip" role="slider" tabIndex={0}
               aria-label="Resize filters panel (Enter to reset)"
               aria-valuetext={`Width ${Math.round(fPanelSize?.w ?? 580)} pixels, height ${fPanelSize?.h != null ? Math.round(fPanelSize.h) + " pixels" : "auto"}`}

@@ -5768,8 +5768,8 @@ export const components = [
         "prop": "resizablePopovers",
         "type": "boolean",
         "required": false,
-        "default": "false",
-        "description": "Extend the resize grip + keyboard resize to the Columns, Aggregation, Pivot, and Batch-edit panels (not just Filters), so a wide grid's Columns list can be enlarged. Sizes persist per popover via stateKey. Implies resizableFilters."
+        "default": "true",
+        "description": "Extend the resize grip + keyboard resize to the Columns, Aggregation, Pivot, and Batch-edit panels (not just Filters), so a wide grid's Columns list can be enlarged. Sizes persist per popover via stateKey. Independent of resizableFilters; defaults true — set false to opt a grid out."
       },
       {
         "prop": "showBatchEdit",
