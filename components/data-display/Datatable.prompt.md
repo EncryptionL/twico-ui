@@ -194,7 +194,9 @@ rectangular range from an anchor (a plain click/Arrow starts a new single-cell s
 C/X/V** (copy/cut/paste as TSV). Paste is **format-restricted**: give columns a `copyType` token (e.g.
 `"part-name"`, `"measurement"`, `"master:suppliers"`; defaults to a number-vs-text bucket) and an in-app paste
 only writes a cell when the source and target `copyType` match — incompatible cells are skipped, never mis-written.
-Paste commits through `onRowUpdate`/`onRowsChange` (one batched change) and announces outcomes via `aria-live`.
+Paste commits through `onRowUpdate`/`onRowsChange` (one batched change) and announces outcomes via `aria-live`
+**and** a brief visible in-grid toast + a flash on the affected cells (#320). Wire `onCellsCopy(cells, {cut})` /
+`onCellsPaste({written, skipped})` to surface your own toast instead.
 
 **Accessibility** — renders as an ARIA `grid` (`role="grid"` + `aria-rowcount`/`aria-colcount`/`ariaLabel`),
 headers expose `aria-sort`, rows expose `aria-selected`/`aria-rowindex`, cells are `gridcell`s. Full keyboard

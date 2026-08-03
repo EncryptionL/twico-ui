@@ -114,4 +114,27 @@ describe("Datatable clipboard (#318)", () => {
     await waitFor(() => expect(onRowsChange).toHaveBeenCalled());
     expect(onRowsChange.mock.calls[0][0][0].qty).toBeNull();
   });
+
+  // #320: visible feedback (sighted users) + integration callbacks, on top of the SR-only aria-live.
+  it("shows a visible toast and flashes the copied cell on copy", () => {
+    const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} selectionMode="cell" enableClipboard />);
+    fireEvent.click(cell(container, 0, 0));
+    fireEvent.keyDown(cell(container, 0, 0), { key: "c", ctrlKey: true });
+    const toast = container.querySelector(".twc-dt__clip-toast");
+    expect(toast).toBeTruthy();
+    expect(toast.textContent).toContain("Copied");
+    expect(cell(container, 0, 0).getAttribute("data-copied")).toBe("true"); // flash
+  });
+
+  it("fires onCellsCopy (with cut flag) and onCellsPaste ({written,skipped}) callbacks", async () => {
+    const onCellsCopy = vi.fn(), onCellsPaste = vi.fn();
+    const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} selectionMode="cell" enableClipboard onCellsCopy={onCellsCopy} onCellsPaste={onCellsPaste} onRowsChange={() => {}} />);
+    fireEvent.click(cell(container, 0, 0));
+    fireEvent.keyDown(cell(container, 0, 0), { key: "c", ctrlKey: true });
+    expect(onCellsCopy).toHaveBeenCalledWith([{ key: 1, field: "name" }], { cut: false });
+    fireEvent.click(cell(container, 1, 0));
+    fireEvent.keyDown(cell(container, 1, 0), { key: "v", ctrlKey: true }); // paste "Ada" into name (same copyType)
+    await waitFor(() => expect(onCellsPaste).toHaveBeenCalled());
+    expect(onCellsPaste.mock.calls[0][0]).toEqual({ written: 1, skipped: 0 });
+  });
 });

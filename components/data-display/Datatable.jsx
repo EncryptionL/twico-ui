@@ -15,7 +15,14 @@ const DT_CSS = `
   /* Stay inside the parent even in a flex/grid container: min-width:0 lets a wide
      grid shrink (default min-width:auto would force it to its content width and
      overflow), so the internal __scroll handles horizontal scrolling. */
-  width: 100%; min-width: 0; max-width: 100%; }
+  width: 100%; min-width: 0; max-width: 100%; position: relative; }
+/* #320: visible clipboard feedback — a transient in-grid toast + a brief flash on the copied/pasted cells,
+   alongside the SR-only aria-live message (position: relative on the root anchors the toast; it does NOT
+   create a containing block for the position: fixed popovers, so those stay viewport-anchored). */
+.twc-dt__clip-toast { position: absolute; inset-block-end: 12px; inset-inline-end: 12px; z-index: 6; background: var(--color-text); color: var(--color-surface); font-size: var(--text-xs); font-weight: var(--font-semibold); padding: 6px 12px; border-radius: var(--radius-md); box-shadow: var(--shadow-md); pointer-events: none; }
+@keyframes twc-dt-copyflash { from { box-shadow: inset 0 0 0 2px var(--color-primary); } to { box-shadow: inset 0 0 0 2px transparent; } }
+.twc-dt__td[data-copied="true"] { animation: twc-dt-copyflash 1.3s var(--ease-standard); }
+@media (prefers-reduced-motion: reduce) { .twc-dt__td[data-copied="true"] { animation: none; } }
 
 /* Toolbar */
 .twc-dt__toolbar { position: relative; z-index: 10; display: flex; align-items: center; gap: 6px; padding: 8px 10px;
@@ -983,7 +990,7 @@ export function Datatable({
   stateKey, initialState, onStateChange,
   showPageJumper = true,
   selectionMode = "none", onRowClick, onCellClick, onActiveCellChange, onCellSelectionChange,
-  enableClipboard = false,
+  enableClipboard = false, onCellsCopy, onCellsPaste,
   showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [],
   rowNumbers = false,
   searchFields = null,
@@ -2240,6 +2247,18 @@ export function Datatable({
   // #318: spreadsheet clipboard (Ctrl/Cmd + C/X/V) on cells, gated by enableClipboard + selectionMode "cell".
   const [clipboardMsg, setClipboardMsg] = React.useState("");
   const clipboardRef = React.useRef(null); // last IN-APP copy: { tsv, colTypes } so paste can enforce source→target copyType
+  // #320: visible feedback — a transient in-grid toast + a brief cell flash, on top of the SR-only aria-live.
+  const [clipFx, setClipFx] = React.useState(null); // { msg, rect } | null
+  const clipFxTimer = React.useRef(null);
+  const onCellsCopyRef = React.useRef(onCellsCopy); onCellsCopyRef.current = onCellsCopy;
+  const onCellsPasteRef = React.useRef(onCellsPaste); onCellsPasteRef.current = onCellsPaste;
+  React.useEffect(() => () => { if (clipFxTimer.current) clearTimeout(clipFxTimer.current); }, []);
+  const announceClip = (msg, rect) => {
+    setClipboardMsg(msg);                    // aria-live (screen readers)
+    setClipFx({ msg, rect: rect || null });  // visible toast + cell-flash
+    if (clipFxTimer.current) clearTimeout(clipFxTimer.current);
+    clipFxTimer.current = setTimeout(() => setClipFx(null), 1600);
+  };
   // A column's opaque paste-compat token; defaults to a number-vs-text bucket by col.type.
   const copyTypeOf = (col) => (col && col.copyType != null ? col.copyType : (col && col.type === "number" ? "number" : "text"));
   const writeClipboard = (text) => {
@@ -2283,13 +2302,14 @@ export function Datatable({
     clipboardRef.current = { tsv, colTypes: grid[0].map((cell) => copyTypeOf(cell.col)), matrix: grid.map((line) => line.map((cell) => cell.value)) };
     writeClipboard(tsv);
     const n = grid.reduce((a, line) => a + line.length, 0);
+    onCellsCopyRef.current?.(grid.flatMap((line) => line.map((cell) => ({ key: cell.key, field: cell.field }))), { cut: !!cut }); // #320
     if (cut) {
       const patchByKey = new Map(); let clearable = 0;
       for (const line of grid) for (const cell of line) { if (!isColEditable(cell.col)) continue; clearable++; const p = patchByKey.get(cell.key) || {}; p[cell.field] = cell.col.type === "number" ? null : ""; patchByKey.set(cell.key, p); }
       writeCellPatches(patchByKey);
-      setClipboardMsg(`Cut ${clearable} cell${clearable === 1 ? "" : "s"}${clearable < n ? `, ${n - clearable} read-only kept` : ""}`);
+      announceClip(`Cut ${clearable} cell${clearable === 1 ? "" : "s"}${clearable < n ? `, ${n - clearable} read-only kept` : ""}`, cellRect);
     } else {
-      setClipboardMsg(`Copied ${n} cell${n === 1 ? "" : "s"}`);
+      announceClip(`Copied ${n} cell${n === 1 ? "" : "s"}`, cellRect);
     }
   };
   const pasteSelection = async () => {
@@ -2317,7 +2337,10 @@ export function Datatable({
       }
     }
     writeCellPatches(patchByKey);
-    setClipboardMsg(`Pasted ${written} cell${written === 1 ? "" : "s"}${skipped ? `, ${skipped} skipped (incompatible column)` : ""}`);
+    onCellsPasteRef.current?.({ written, skipped }); // #320
+    const maxCols = matrix.reduce((a, m) => Math.max(a, m.length), 0);
+    const pasteRect = written ? { r0: cellRect.r0, c0: cellRect.c0, r1: Math.min(cellRect.r0 + matrix.length - 1, leafRows.length - 1), c1: Math.min(cellRect.c0 + maxCols - 1, ordered.length - 1) } : null;
+    announceClip(`Pasted ${written} cell${written === 1 ? "" : "s"}${skipped ? `, ${skipped} skipped (incompatible column)` : ""}`, pasteRect);
   };
 
   // Dismiss an active editor when clicking outside it (and outside any popover it spawned).
@@ -2676,6 +2699,7 @@ export function Datatable({
           const cellActive = selectionMode === "cell" && activeCell && activeCell.key === k && activeCell.field === c.field;
           // #317: is this cell inside the current selection rectangle? (single-cell selection is a 1×1 rect)
           const cellSelected = selectionMode === "cell" && cellRect && ri >= cellRect.r0 && ri <= cellRect.r1 && ci >= cellRect.c0 && ci <= cellRect.c1;
+          const cellFlash = clipFx && clipFx.rect && ri >= clipFx.rect.r0 && ri <= clipFx.rect.r1 && ci >= clipFx.rect.c0 && ci <= clipFx.rect.c1; // #320 copy/paste flash
           const cellId = selectionMode === "cell" ? `${gridId}-${ri}-${ci}` : undefined;
           // #253/#265: the displayed value (formatted), exposed as `data-ovtext` so the shared overflow
           // Tooltip (see below) can reveal the full value when the cell is truncated — but only for a
@@ -2690,7 +2714,7 @@ export function Datatable({
               aria-selected={cellSelected || undefined}
               data-num={c.type === "number" || undefined} data-actions={isActions || undefined}
               data-editable={editable && !isEditing || undefined} data-editing={isEditing || undefined}
-              data-cell-active={cellActive || undefined} data-cell-selected={cellSelected || undefined} data-wrap={wrapped.has(c.field) || undefined}
+              data-cell-active={cellActive || undefined} data-cell-selected={cellSelected || undefined} data-copied={cellFlash || undefined} data-wrap={wrapped.has(c.field) || undefined}
               data-pin={st.pin} data-pin-edge={st.edge}
               style={{ width: widthOf(c), ...st.style }} data-ovtext={cellTitle}
               onClick={selectionMode === "cell" ? (e) => handleCellClick(e, k, row, c) : undefined}
@@ -2945,6 +2969,8 @@ export function Datatable({
       {/* Visually-hidden live region for keyboard-reorder announcements */}
       <div className="twc-dt__sr" role="status" aria-live="polite">{reorderMsg}</div>
       <div className="twc-dt__sr" role="status" aria-live="polite">{clipboardMsg}</div>
+      {/* #320: visible (sighted-user) clipboard confirmation — the aria-live div above covers screen readers */}
+      {clipFx ? <div className="twc-dt__clip-toast" aria-hidden="true">{clipFx.msg}</div> : null}
 
       {/* Grid */}
       {pivotActive ? renderPivot() : (

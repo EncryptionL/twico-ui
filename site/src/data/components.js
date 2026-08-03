@@ -5629,7 +5629,21 @@ export const components = [
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Enable spreadsheet clipboard in cell mode: Ctrl/Cmd+C/X/V copy/cut/paste as TSV. Paste is format-restricted by each column's copyType (incompatible cells skipped) and commits via one batched onRowsChange."
+        "description": "Enable spreadsheet clipboard in cell mode: Ctrl/Cmd+C/X/V copy/cut/paste as TSV. Paste is format-restricted by each column's copyType (incompatible cells skipped) and commits via one batched onRowsChange. Copy/cut/paste also show a visible in-grid toast + cell flash."
+      },
+      {
+        "prop": "onCellsCopy",
+        "type": "(cells,meta)=>void",
+        "required": false,
+        "default": "-",
+        "description": "Fires on a clipboard copy/cut with the copied cells ({key, field}[]) and { cut }, so you can surface your own toast or notification."
+      },
+      {
+        "prop": "onCellsPaste",
+        "type": "(result)=>void",
+        "required": false,
+        "default": "-",
+        "description": "Fires after a clipboard paste with { written, skipped } — cells committed vs rejected (read-only or incompatible copyType)."
       },
       {
         "prop": "showAggregation",

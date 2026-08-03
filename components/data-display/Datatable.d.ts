@@ -224,8 +224,15 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  TSV, Ctrl/Cmd+X cuts (copy then clear), Ctrl/Cmd+V pastes onto the target rectangle from the active
    *  cell. Paste is format-restricted by column `copyType` (incompatible cells are skipped) and commits
    *  through `onRowUpdate`/`onRowsChange` in one batched change; outcomes are announced via `aria-live`.
-   *  @default false */
+   *  Copy/cut/paste also show a brief **visible** in-grid confirmation toast + a flash on the affected cells
+   *  (#320), so sighted users get feedback too. @default false */
   enableClipboard?: boolean;
+  /** #320: fired on a clipboard copy/cut with the copied cells (row-major `{key,field}[]`) and `{ cut }`.
+   *  Use it to surface your own toast / integrate an app notification system. */
+  onCellsCopy?: (cells: Array<{ key: string | number; field: string }>, meta: { cut: boolean }) => void;
+  /** #320: fired after a clipboard paste with the outcome — `written` cells committed, `skipped` cells
+   *  rejected (read-only or incompatible `copyType`). */
+  onCellsPaste?: (result: { written: number; skipped: number }) => void;
   /** Show the **Aggregation** toolbar button and start with the totals row on. From that panel the user
    *  toggles totals and picks columns + functions (a column's `aggregation` prop seeds the initial choice);
    *  changing the prop re-applies it. When false (the default) the Aggregation button is hidden. @default false */
