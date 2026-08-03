@@ -187,6 +187,15 @@ are ignored, so the actions column, inline editing, and the checkbox column keep
 <Datatable selectionMode="cell" onCellClick={(value, row, field) => inspect(field, value)} … />
 ```
 
+**Cell range selection + clipboard** — in `selectionMode="cell"`, **Shift+Click** / **Shift+Arrow** extend a
+rectangular range from an anchor (a plain click/Arrow starts a new single-cell selection); selected cells expose
+`aria-selected`/`data-cell-selected`, the grid is `aria-multiselectable` with `aria-activedescendant`, and
+`onCellSelectionChange(cells)` reports the `{key,field}[]`. Set `enableClipboard` for spreadsheet **Ctrl/Cmd +
+C/X/V** (copy/cut/paste as TSV). Paste is **format-restricted**: give columns a `copyType` token (e.g.
+`"part-name"`, `"measurement"`, `"master:suppliers"`; defaults to a number-vs-text bucket) and an in-app paste
+only writes a cell when the source and target `copyType` match — incompatible cells are skipped, never mis-written.
+Paste commits through `onRowUpdate`/`onRowsChange` (one batched change) and announces outcomes via `aria-live`.
+
 **Accessibility** — renders as an ARIA `grid` (`role="grid"` + `aria-rowcount`/`aria-colcount`/`ariaLabel`),
 headers expose `aria-sort`, rows expose `aria-selected`/`aria-rowindex`, cells are `gridcell`s. Full keyboard
 nav: a roving tabindex moves a focus ring with Arrow keys, Home/End (Ctrl+Home/End for first/last cell),

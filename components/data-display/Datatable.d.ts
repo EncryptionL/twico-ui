@@ -206,7 +206,10 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   onStateChange?: (state: DatatableState) => void;
   /** Show a "Go to" page jumper in the footer when there are more than 5 pages. @default true */
   showPageJumper?: boolean;
-  /** Click-to-select mode: "row" highlights the clicked row, "cell" highlights a single cell. @default "none" */
+  /** Click-to-select mode: "row" highlights the clicked row, "cell" enables spreadsheet-like cell selection.
+   *  In "cell" mode the grid supports keyboard navigation and **rectangular range selection** (#317):
+   *  Shift+Click / Shift+Arrow extend a range from an anchor; selected cells expose `aria-selected` and the
+   *  grid is `aria-multiselectable` with `aria-activedescendant` on the active cell. @default "none" */
   selectionMode?: "none" | "row" | "cell";
   /** Fired when a row is clicked in "row" selection mode: (row, key). */
   onRowClick?: (row: T, key: string | number) => void;
@@ -214,6 +217,15 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   onCellClick?: (value: any, row: T, field: string) => void;
   /** Fired when the active cell changes: ({ key, field } | null). */
   onActiveCellChange?: (cell: { key: string | number; field: string } | null) => void;
+  /** #317: fired when the rectangular cell selection changes ("cell" mode) — every cell inside the
+   *  anchor→focus rectangle, in row-major order. Empty array when the selection clears. */
+  onCellSelectionChange?: (cells: Array<{ key: string | number; field: string }>) => void;
+  /** #318: enable spreadsheet clipboard on cells ("cell" mode): Ctrl/Cmd+C copies the active cell/range as
+   *  TSV, Ctrl/Cmd+X cuts (copy then clear), Ctrl/Cmd+V pastes onto the target rectangle from the active
+   *  cell. Paste is format-restricted by column `copyType` (incompatible cells are skipped) and commits
+   *  through `onRowUpdate`/`onRowsChange` in one batched change; outcomes are announced via `aria-live`.
+   *  @default false */
+  enableClipboard?: boolean;
   /** Show the **Aggregation** toolbar button and start with the totals row on. From that panel the user
    *  toggles totals and picks columns + functions (a column's `aggregation` prop seeds the initial choice);
    *  changing the prop re-applies it. When false (the default) the Aggregation button is hidden. @default false */
@@ -425,6 +437,11 @@ export interface DatatableColumn<T = any> {
   loadValueOptions?: (query: string) => Promise<Array<string | { value: string; label: string }>>;
   /** Format the raw value to a string/number for display. */
   valueFormatter?: (value: any, row: T) => React.ReactNode;
+  /** #318: opaque copy/paste compatibility token for the cell clipboard (`enableClipboard`). On an in-app
+   *  paste, a source cell is written to a target only when the two columns' `copyType` match — so e.g. a
+   *  "part-name" value never lands in a "measurement" column. Falls back to a number-vs-text bucket derived
+   *  from `type` when omitted. Examples: "text", "number", "part-name", "master:suppliers". */
+  copyType?: string;
   /** Fully custom cell renderer (badges, avatars, etc.). */
   renderCell?: (value: any, row: T) => React.ReactNode;
   /** Diff-mode (#239) per-column equality override — return true when the two values are equal.

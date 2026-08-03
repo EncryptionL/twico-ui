@@ -5618,6 +5618,20 @@ export const components = [
         "description": "Fires when the active cell changes via keyboard or click, receiving the new cell descriptor or null."
       },
       {
+        "prop": "onCellSelectionChange",
+        "type": "(cells)=>void",
+        "required": false,
+        "default": "-",
+        "description": "Fires when the rectangular cell selection changes in cell mode (Shift+Click / Shift+Arrow), with every selected cell {key, field} in row-major order."
+      },
+      {
+        "prop": "enableClipboard",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Enable spreadsheet clipboard in cell mode: Ctrl/Cmd+C/X/V copy/cut/paste as TSV. Paste is format-restricted by each column's copyType (incompatible cells skipped) and commits via one batched onRowsChange."
+      },
+      {
         "prop": "showAggregation",
         "type": "boolean",
         "required": false,

@@ -317,6 +317,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__row[data-selectable="true"] { cursor: pointer; }
 .twc-dt__row[data-active="true"] .twc-dt__td { background: var(--color-primary-subtle); box-shadow: inset 0 0 0 9999px transparent; }
 .twc-dt__row[data-active="true"] .twc-dt__td[data-pin] { background: var(--color-primary-subtle); }
+/* #317: data-cell-selected fills the range rectangle; data-cell-active keeps the ring on the moving corner. */
+.twc-dt__td[data-cell-selected="true"] { background: var(--color-primary-subtle); }
 .twc-dt__td[data-cell-active="true"] { box-shadow: inset 0 0 0 2px var(--color-primary); background: var(--color-primary-subtle); }
 .twc-dt__row:last-child .twc-dt__td { border-bottom: none; }
 
@@ -471,6 +473,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__pop-grip:hover, .twc-dt__pop-grip:focus-visible, .twc-dt__pop-grip[data-active="true"] { opacity: 1; }
 .twc-dt__pop-grip:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
 [dir="rtl"] .twc-dt__pop-grip { cursor: nesw-resize; }
+/* #316: a second grip in the bottom-inline-start corner grows a right-anchored panel toward the empty side (right edge pinned). */
+.twc-dt__pop-grip[data-side="start"] { inset-inline-start: 2px; inset-inline-end: auto; cursor: nesw-resize; background: linear-gradient(225deg, transparent 0 55%, var(--color-border-strong) 55% 64%, transparent 64% 73%, var(--color-border-strong) 73% 82%, transparent 82%); }
+[dir="rtl"] .twc-dt__pop-grip[data-side="start"] { cursor: nwse-resize; }
 @media (pointer: coarse) {
   .twc-dt__f-rz { width: 16px; inset-inline-end: -6px; opacity: 0.4; }
   .twc-dt__pop-grip { width: 20px; height: 20px; opacity: 0.6; }
@@ -977,7 +982,8 @@ export function Datatable({
   showBatchEdit = true, batchEditFields = null,
   stateKey, initialState, onStateChange,
   showPageJumper = true,
-  selectionMode = "none", onRowClick, onCellClick, onActiveCellChange,
+  selectionMode = "none", onRowClick, onCellClick, onActiveCellChange, onCellSelectionChange,
+  enableClipboard = false,
   showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [],
   rowNumbers = false,
   searchFields = null,
@@ -1086,7 +1092,9 @@ export function Datatable({
   const commitQuick = (v) => { onQuickFilterChange?.(v); if (quickFilter === undefined) setInternalQuick(v); commitPage(0); };
   const [selected, setSelected] = React.useState(() => new Set());
   const [activeRow, setActiveRow] = React.useState(null);
-  const [activeCell, setActiveCell] = React.useState(null); // { key, field }
+  const [activeCell, setActiveCell] = React.useState(null); // { key, field } — the moving/focus corner
+  const [anchorCell, setAnchorCell] = React.useState(null); // #317: fixed corner of a rectangular range
+  const gridId = React.useId(); // #317: stable prefix for cell ids (aria-activedescendant)
   // #45: controlled/uncontrolled pagination (hand-rolled per project rule — no
   // useControllableState). `page` controlled when provided; `pageSize` controlled when
   // `onPageSizeChange` is supplied. `commitPage`/`commitPageSize` always fire the callback
@@ -1197,6 +1205,7 @@ export function Datatable({
       for (const [id, sz] of Object.entries(s.popoverSizes)) {
         if (!sz || typeof sz !== "object" || typeof sz.w !== "number" || typeof sz.h !== "number") continue;
         next[id] = { w: clampNum(sz.w, popMinW(id), fMaxW()), h: clampNum(sz.h, 120, fMaxH()) };
+        if (typeof sz.left === "number") next[id].left = clampNum(sz.left, 8, fMaxW()); // #316: restore the left-grip shift
       }
       if (Object.keys(next).length) setPopSizes(next);
     }
@@ -1633,6 +1642,38 @@ export function Datatable({
   const keyIndex = React.useMemo(() => { const m = new Map(); leafRows.forEach((r, i) => m.set(keyOf(r, i), i)); return m; }, [leafRows]);
   // Position of each key within middleRows — used by keyboard reorder to highlight the live target slot.
   const keyIndexMid = React.useMemo(() => { const m = new Map(); middleRows.forEach((r, i) => m.set(keyOf(r, keyIndex.get(keyOf(r)) ?? i), i)); return m; }, [middleRows, keyIndex]);
+  // #317: resolve the anchor + active {key,field} endpoints to current row/col indices (so the rectangle
+  // follows rows across sort/filter/paging) and return the covering rectangle, or null. If an endpoint is
+  // gone (filtered out / off page), the range collapses to the surviving (active) cell.
+  const cellColIndex = React.useCallback((field) => ordered.findIndex((c) => c.field === field), [ordered]);
+  const cellRect = React.useMemo(() => {
+    if (selectionMode !== "cell" || !activeCell) return null;
+    const ar = keyIndex.get(activeCell.key), ac = cellColIndex(activeCell.field);
+    if (ar == null || ac < 0) return null;
+    const anchor = anchorCell || activeCell;
+    const nr = keyIndex.get(anchor.key), nc = cellColIndex(anchor.field);
+    const r0 = nr == null ? ar : Math.min(ar, nr), r1 = nr == null ? ar : Math.max(ar, nr);
+    const c0 = nc < 0 ? ac : Math.min(ac, nc), c1 = nc < 0 ? ac : Math.max(ac, nc);
+    return { r0, r1, c0, c1 };
+  }, [selectionMode, activeCell, anchorCell, keyIndex, cellColIndex]);
+  const activeCellId = React.useMemo(() => {
+    if (selectionMode !== "cell" || !activeCell) return undefined;
+    const ar = keyIndex.get(activeCell.key), ac = cellColIndex(activeCell.field);
+    return ar == null || ac < 0 ? undefined : `${gridId}-${ar}-${ac}`;
+  }, [selectionMode, activeCell, keyIndex, cellColIndex, gridId]);
+  // Fire onCellSelectionChange (row-major {key,field}[]) whenever the rectangle actually changes.
+  const onCellSelRef = React.useRef(onCellSelectionChange); onCellSelRef.current = onCellSelectionChange;
+  const prevSelSigRef = React.useRef("");
+  React.useEffect(() => {
+    const cb = onCellSelRef.current; if (selectionMode !== "cell" || !cb) return;
+    const cells = [];
+    if (cellRect) for (let r = cellRect.r0; r <= cellRect.r1; r++) for (let c = cellRect.c0; c <= cellRect.c1; c++) { const row = leafRows[r], col = ordered[c]; if (row && col) cells.push({ key: keyOf(row, r), field: col.field }); }
+    const sig = cells.map((x) => `${x.key}|${x.field}`).join(",");
+    if (sig === prevSelSigRef.current) return;
+    prevSelSigRef.current = sig;
+    cb(cells);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cellRect, selectionMode, leafRows, ordered]);
 
   // ---- Row reordering (drag) + row resizing (drag bottom edge) ----
   const canReorderRows = rowReorder && !activeGroupBy.length && !sort;
@@ -2047,6 +2088,8 @@ export function Datatable({
     const next = { key: k, field: col.field };
     setActiveCell(next);
     setActiveRow(k);
+    // #317: Shift+Click extends the rectangle from the existing anchor; a plain click starts a new one.
+    if (!(e.shiftKey && anchorCell)) setAnchorCell(next);
     onCellClick?.(row[col.field], row, col.field);
     onActiveCellChange?.(next);
   }
@@ -2060,6 +2103,13 @@ export function Datatable({
     if (editing) return;
     const td = e.target.closest(".twc-dt__td[data-r]");
     if (!td) return;
+    // #318: spreadsheet clipboard on the selection (Ctrl/Cmd + C/X/V) before nav keys.
+    if (enableClipboard && selectionMode === "cell" && (e.ctrlKey || e.metaKey)) {
+      const k = e.key.toLowerCase();
+      if (k === "c") { e.preventDefault(); copySelection(false); return; }
+      if (k === "x") { e.preventDefault(); copySelection(true); return; }
+      if (k === "v") { e.preventDefault(); pasteSelection(); return; }
+    }
     let r = +td.getAttribute("data-r"), c = +td.getAttribute("data-c");
     const maxR = leafRows.length - 1, maxC = ordered.length - 1;
     let handled = true;
@@ -2079,7 +2129,15 @@ export function Datatable({
       }
       default: handled = false;
     }
-    if (handled) { e.preventDefault(); setFocus({ r, c }); focusCell(r, c); }
+    if (handled) {
+      e.preventDefault(); setFocus({ r, c }); focusCell(r, c);
+      // #317: keyboard nav moves the cell selection. Shift+Arrow/Home/End extends the rectangle from the
+      // anchor (move the active corner only); a plain move starts a new single-cell selection (anchor = active).
+      if (selectionMode === "cell") {
+        const nk = keyOf(leafRows[r], r), col = ordered[c];
+        if (col) { const nc = { key: nk, field: col.field }; setActiveCell(nc); setActiveRow(nk); if (!e.shiftKey) setAnchorCell(nc); onActiveCellChange?.(nc); }
+      }
+    }
   }
   React.useEffect(() => { setFocus((f) => ({ r: Math.min(f.r, Math.max(0, leafRows.length - 1)), c: Math.min(f.c, Math.max(0, ordered.length - 1)) })); }, [leafRows.length, ordered.length, pageVal]);
 
@@ -2178,6 +2236,89 @@ export function Datatable({
     onRowsChange?.(nextAll);
     setBatchEdit(null); closeBatchEdit();
   }
+
+  // #318: spreadsheet clipboard (Ctrl/Cmd + C/X/V) on cells, gated by enableClipboard + selectionMode "cell".
+  const [clipboardMsg, setClipboardMsg] = React.useState("");
+  const clipboardRef = React.useRef(null); // last IN-APP copy: { tsv, colTypes } so paste can enforce source→target copyType
+  // A column's opaque paste-compat token; defaults to a number-vs-text bucket by col.type.
+  const copyTypeOf = (col) => (col && col.copyType != null ? col.copyType : (col && col.type === "number" ? "number" : "text"));
+  const writeClipboard = (text) => {
+    const execFallback = () => {
+      try {
+        if (typeof document !== "undefined") {
+          const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta); ta.focus(); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+        }
+      } catch { /* ignore */ }
+    };
+    try {
+      // writeText returns a Promise — a rejection (NotAllowedError) is ASYNC, so .catch() the fallback
+      // (a bare try/catch would miss it and leave an unhandled rejection).
+      if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text).catch(execFallback);
+    } catch { /* fall through to execCommand */ }
+    execFallback();
+    return Promise.resolve();
+  };
+  // Apply a Map<rowKey, {field: value}> in ONE pass → a single onRowsChange (never N), mirroring applyBatchEdit.
+  const writeCellPatches = (patchByKey) => {
+    if (!patchByKey.size) return 0;
+    const changed = [];
+    const nextAll = rows.map((r, i) => { const k = keyOf(r, i); const patch = patchByKey.get(k); if (!patch) return r; const updated = { ...r, ...patch }; changed.push([updated, r, patch]); return updated; });
+    changed.forEach(([updated, orig, patch]) => { for (const f of Object.keys(patch)) onRowUpdate?.(updated, orig, f); });
+    if (onRowsChange && changed.length) onRowsChange(nextAll);
+    return changed.length;
+  };
+  // Rectangle of the current selection (or the single active cell) as rows of {key,field,col,value}.
+  const rectCells = () => {
+    if (!cellRect) return null;
+    const out = [];
+    for (let r = cellRect.r0; r <= cellRect.r1; r++) { const row = leafRows[r]; if (!row) continue; const line = []; for (let c = cellRect.c0; c <= cellRect.c1; c++) { const col = ordered[c]; if (col) line.push({ key: keyOf(row, r), field: col.field, col, value: getColVal(col, row) }); } out.push(line); }
+    return out.length ? out : null;
+  };
+  const copySelection = (cut) => {
+    const grid = rectCells(); if (!grid) return;
+    const tsv = grid.map((line) => line.map((cell) => (cell.value == null ? "" : String(cell.value))).join("\t")).join("\n");
+    // Keep the raw value matrix too: an in-app paste uses it directly, so a cell containing a tab/newline
+    // round-trips faithfully instead of being corrupted by re-parsing the TSV.
+    clipboardRef.current = { tsv, colTypes: grid[0].map((cell) => copyTypeOf(cell.col)), matrix: grid.map((line) => line.map((cell) => cell.value)) };
+    writeClipboard(tsv);
+    const n = grid.reduce((a, line) => a + line.length, 0);
+    if (cut) {
+      const patchByKey = new Map(); let clearable = 0;
+      for (const line of grid) for (const cell of line) { if (!isColEditable(cell.col)) continue; clearable++; const p = patchByKey.get(cell.key) || {}; p[cell.field] = cell.col.type === "number" ? null : ""; patchByKey.set(cell.key, p); }
+      writeCellPatches(patchByKey);
+      setClipboardMsg(`Cut ${clearable} cell${clearable === 1 ? "" : "s"}${clearable < n ? `, ${n - clearable} read-only kept` : ""}`);
+    } else {
+      setClipboardMsg(`Copied ${n} cell${n === 1 ? "" : "s"}`);
+    }
+  };
+  const pasteSelection = async () => {
+    if (!cellRect) return;
+    let text = null;
+    try { if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.readText) text = await navigator.clipboard.readText(); } catch { setClipboardMsg("Paste unavailable — clipboard permission denied"); return; }
+    if (text == null) { setClipboardMsg("Nothing to paste"); return; }
+    // Enforce source→target copyType only for an IN-APP copy (same TSV we wrote); external pastes have no
+    // source metadata, so they rely on the per-column number coercion below (a wrong-type text → null).
+    const inApp = clipboardRef.current && clipboardRef.current.tsv === text ? clipboardRef.current : null;
+    // In-app paste uses the stored value matrix (tab/newline-safe); external paste parses the TSV.
+    let matrix;
+    if (inApp) matrix = inApp.matrix;
+    else { const lines = text.replace(/\r\n?/g, "\n").split("\n"); if (lines.length && lines[lines.length - 1] === "") lines.pop(); matrix = lines.map((line) => line.split("\t")); }
+    const patchByKey = new Map(); let written = 0, skipped = 0;
+    for (let i = 0; i < matrix.length; i++) {
+      const rr = cellRect.r0 + i; const row = leafRows[rr]; if (!row) break;
+      for (let j = 0; j < matrix[i].length; j++) {
+        const cc = cellRect.c0 + j; const col = ordered[cc]; if (!col) break;
+        if (!isColEditable(col)) { skipped++; continue; }
+        if (inApp && inApp.colTypes[j] != null && inApp.colTypes[j] !== copyTypeOf(col)) { skipped++; continue; } // #318: format-restricted
+        let v = matrix[i][j];
+        if (col.type === "number") { v = v === "" ? null : Number(v); if (Number.isNaN(v)) v = null; }
+        const k = keyOf(row, rr); const p = patchByKey.get(k) || {}; p[col.field] = v; patchByKey.set(k, p); written++;
+      }
+    }
+    writeCellPatches(patchByKey);
+    setClipboardMsg(`Pasted ${written} cell${written === 1 ? "" : "s"}${skipped ? `, ${skipped} skipped (incompatible column)` : ""}`);
+  };
 
   // Dismiss an active editor when clicking outside it (and outside any popover it spawned).
   React.useEffect(() => {
@@ -2356,30 +2497,39 @@ export function Datatable({
   const POP_MIN_W = { columns: 240, agg: 240, pivot: 260, batchedit: 260 };
   const popMinW = (id) => POP_MIN_W[id] || 200;
   const clearPop = (id, node) => {
-    if (node) { node.style.removeProperty("--twc-dt-pop-w"); node.style.removeProperty("--twc-dt-pop-h"); node.removeAttribute("data-pop-sized"); }
+    if (node) { node.style.removeProperty("--twc-dt-pop-w"); node.style.removeProperty("--twc-dt-pop-h"); node.style.removeProperty("left"); node.removeAttribute("data-pop-sized"); }
     setPopSizes((s) => { if (!(id in s)) return s; const n = { ...s }; delete n[id]; return n; });
   };
-  const startPopResize = (id) => (e) => {
+  // #316: `side` is "end" (bottom-right grip, grows rightward, left edge pinned) or "start" (bottom-left
+  // grip, grows leftward with the RIGHT edge pinned — for a right-anchored panel with no room to grow right).
+  // The start grip also commits a `left` into popSizes so the shifted position survives React re-render.
+  const startPopResize = (id, side) => (e) => {
     if (e.button != null && e.button !== 0) return;
     e.preventDefault(); e.stopPropagation();
     const pop = e.currentTarget.closest(".twc-dt__pop"); if (!pop) return;
     const grip = e.currentTarget; const startX = e.clientX, startY = e.clientY;
-    const r = pop.getBoundingClientRect(); const startW = r.width, startH = r.height;
+    const r = pop.getBoundingClientRect(); const startW = r.width, startH = r.height, startLeft = r.left, startRight = r.right;
     const dir = typeof getComputedStyle !== "undefined" && getComputedStyle(pop).direction === "rtl" ? -1 : 1;
+    const toStart = side === "start";
     // Seed the size vars to the current dimensions BEFORE flagging data-pop-sized, so the width-var
     // override never applies with an unset var (which would collapse the panel to auto for one frame).
     pop.style.setProperty("--twc-dt-pop-w", `${startW}px`); pop.style.setProperty("--twc-dt-pop-h", `${startH}px`);
     grip.setAttribute("data-active", "true"); pop.setAttribute("data-pop-sized", "");
-    let lw = startW, lh = startH;
+    let lw = startW, lh = startH, ll = startLeft;
     const onMove = (ev) => {
-      lw = clampNum(startW + (ev.clientX - startX) * dir, popMinW(id), fMaxW());
+      // start grip: pointer moving toward the start (left in LTR) widens the panel; keep the right edge fixed.
+      const dw = toStart ? (startX - ev.clientX) * dir : (ev.clientX - startX) * dir;
+      lw = clampNum(startW + dw, popMinW(id), fMaxW());
       lh = clampNum(startH + (ev.clientY - startY), 120, fMaxH());
       pop.style.setProperty("--twc-dt-pop-w", `${lw}px`); pop.style.setProperty("--twc-dt-pop-h", `${lh}px`);
+      if (toStart) { ll = Math.max(8, startRight - lw); pop.style.left = `${ll}px`; }
     };
-    const onUp = () => { setPopSizes((s) => ({ ...s, [id]: { w: lw, h: lh } })); grip.removeAttribute("data-active"); window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp); };
+    // Preserve any existing entry (e.g. a prior start-grip `left`) so the end grip doesn't drop it and snap
+    // the panel back to the trigger anchor; the start grip overrides `left` with its new value.
+    const onUp = () => { setPopSizes((s) => ({ ...s, [id]: { ...(s[id] || {}), w: lw, h: lh, ...(toStart ? { left: ll } : {}) } })); grip.removeAttribute("data-active"); window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp); };
     window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
   };
-  const onPopGripKey = (id) => (e) => {
+  const onPopGripKey = (id, side) => (e) => {
     if (e.key === "Enter" || e.key === " " || e.key === "Backspace") { e.preventDefault(); clearPop(id, e.currentTarget.closest(".twc-dt__pop")); return; }
     if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) return;
     e.preventDefault();
@@ -2389,17 +2539,33 @@ export function Datatable({
     if (e.key === "ArrowRight") w += step * dir; else if (e.key === "ArrowLeft") w -= step * dir;
     else if (e.key === "ArrowDown") h += step; else if (e.key === "ArrowUp") h -= step;
     else if (e.key === "Home") { w = popMinW(id); h = 120; } else if (e.key === "End") { w = fMaxW(); h = fMaxH(); }
-    setPopSizes((s) => ({ ...s, [id]: { w: clampNum(w, popMinW(id), fMaxW()), h: clampNum(h, 120, fMaxH()) } }));
+    w = clampNum(w, popMinW(id), fMaxW()); h = clampNum(h, 120, fMaxH());
+    // start grip keeps the right edge fixed: shift left by the width delta. End grip preserves any prior left.
+    const left = side === "start" ? Math.max(8, r.right - w) : undefined;
+    setPopSizes((s) => ({ ...s, [id]: { ...(s[id] || {}), w, h, ...(left != null ? { left } : {}) } }));
   };
-  // Inline style vars applied to a resizable panel's root so a persisted/committed size is honored on open.
-  const popStyle = (id) => (popSizes[id] ? { "--twc-dt-pop-w": `${popSizes[id].w}px`, "--twc-dt-pop-h": `${popSizes[id].h}px` } : null);
-  // The corner grip element (rendered only when resizablePopovers is on).
+  // Inline style vars applied to a resizable panel's root so a persisted/committed size (and the #316
+  // left-grip shift) is honored on open. `left` overrides the trigger-anchored panelPos.left.
+  const popStyle = (id) => {
+    const s = popSizes[id]; if (!s) return null;
+    const st = { "--twc-dt-pop-w": `${s.w}px`, "--twc-dt-pop-h": `${s.h}px` };
+    if (s.left != null) st.left = `${s.left}px`;
+    return st;
+  };
+  // Both corner grips (rendered only when resizablePopovers is on): end (grow right) + start (grow left).
   const popGrip = (id) => (resizablePopovers ? (
-    <span className="twc-dt__pop-grip" role="slider" tabIndex={0}
-      aria-label="Resize panel (Enter or double-click to reset)"
-      aria-valuetext={popSizes[id] ? `Width ${Math.round(popSizes[id].w)} pixels, height ${Math.round(popSizes[id].h)} pixels` : "Default size"}
-      onPointerDown={startPopResize(id)} onKeyDown={onPopGripKey(id)}
-      onDoubleClick={(e) => { e.preventDefault(); clearPop(id, e.currentTarget.closest(".twc-dt__pop")); }} />
+    <>
+      <span className="twc-dt__pop-grip" data-side="end" role="slider" tabIndex={0}
+        aria-label="Resize panel (Enter or double-click to reset)"
+        aria-valuetext={popSizes[id] ? `Width ${Math.round(popSizes[id].w)} pixels, height ${Math.round(popSizes[id].h)} pixels` : "Default size"}
+        onPointerDown={startPopResize(id, "end")} onKeyDown={onPopGripKey(id, "end")}
+        onDoubleClick={(e) => { e.preventDefault(); clearPop(id, e.currentTarget.closest(".twc-dt__pop")); }} />
+      <span className="twc-dt__pop-grip" data-side="start" role="slider" tabIndex={0}
+        aria-label="Resize panel leftward (Enter or double-click to reset)"
+        aria-valuetext={popSizes[id] ? `Width ${Math.round(popSizes[id].w)} pixels, height ${Math.round(popSizes[id].h)} pixels` : "Default size"}
+        onPointerDown={startPopResize(id, "start")} onKeyDown={onPopGripKey(id, "start")}
+        onDoubleClick={(e) => { e.preventDefault(); clearPop(id, e.currentTarget.closest(".twc-dt__pop")); }} />
+    </>
   ) : null);
   // Panel-global field widths → the resize handle renders once (on the first row).
   const fieldHandle = (field, rowIdx) => (resizableFilters && rowIdx === 0 ? (
@@ -2508,6 +2674,9 @@ export function Datatable({
           const editable = isColEditable(c);
           const isEditing = editing && editing.key === k && editing.field === c.field;
           const cellActive = selectionMode === "cell" && activeCell && activeCell.key === k && activeCell.field === c.field;
+          // #317: is this cell inside the current selection rectangle? (single-cell selection is a 1×1 rect)
+          const cellSelected = selectionMode === "cell" && cellRect && ri >= cellRect.r0 && ri <= cellRect.r1 && ci >= cellRect.c0 && ci <= cellRect.c1;
+          const cellId = selectionMode === "cell" ? `${gridId}-${ri}-${ci}` : undefined;
           // #253/#265: the displayed value (formatted), exposed as `data-ovtext` so the shared overflow
           // Tooltip (see below) can reveal the full value when the cell is truncated — but only for a
           // plain string/number (a `renderCell` node, actions, or a mid-edit cell get none). Computed
@@ -2516,11 +2685,12 @@ export function Datatable({
           const cellTitle = !isActions && !c.renderCell && !isEditing && (typeof display === "string" || typeof display === "number")
             ? String(display) : undefined;
           return (
-            <td key={c.field} className="twc-dt__td" role="gridcell" data-r={ri} data-c={ci} aria-colindex={ci + 1 + (checkboxSelection ? 1 : 0)}
+            <td key={c.field} id={cellId} className="twc-dt__td" role="gridcell" data-r={ri} data-c={ci} aria-colindex={ci + 1 + (checkboxSelection ? 1 : 0)}
               tabIndex={focus.r === ri && focus.c === ci ? 0 : -1}
+              aria-selected={cellSelected || undefined}
               data-num={c.type === "number" || undefined} data-actions={isActions || undefined}
               data-editable={editable && !isEditing || undefined} data-editing={isEditing || undefined}
-              data-cell-active={cellActive || undefined} data-wrap={wrapped.has(c.field) || undefined}
+              data-cell-active={cellActive || undefined} data-cell-selected={cellSelected || undefined} data-wrap={wrapped.has(c.field) || undefined}
               data-pin={st.pin} data-pin-edge={st.edge}
               style={{ width: widthOf(c), ...st.style }} data-ovtext={cellTitle}
               onClick={selectionMode === "cell" ? (e) => handleCellClick(e, k, row, c) : undefined}
@@ -2774,6 +2944,7 @@ export function Datatable({
 
       {/* Visually-hidden live region for keyboard-reorder announcements */}
       <div className="twc-dt__sr" role="status" aria-live="polite">{reorderMsg}</div>
+      <div className="twc-dt__sr" role="status" aria-live="polite">{clipboardMsg}</div>
 
       {/* Grid */}
       {pivotActive ? renderPivot() : (
@@ -2782,6 +2953,7 @@ export function Datatable({
         <table className="twc-dt__table" style={{ width: tableMinWidth, minWidth: "100%" }}
           ref={gridRef} role="grid" aria-label={ariaLabelAttr || ariaLabel}
           aria-rowcount={totalRows + 1} aria-colcount={ordered.length + (checkboxSelection ? 1 : 0)}
+          aria-multiselectable={selectionMode === "cell" || undefined} aria-activedescendant={activeCellId}
           aria-busy={loading || undefined} onKeyDown={onGridKeyDown}>
           <thead ref={theadRef}>
             <tr role="row" aria-rowindex={1}>

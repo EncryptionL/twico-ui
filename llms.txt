@@ -1592,6 +1592,8 @@ Props:
 - `onRowClick` — `(row,key)=>void` · default `-` — Fires with the clicked row and its key, useful for navigation or opening a detail view.
 - `onCellClick` — `(value,row,field)=>void` · default `-` — Fires with the clicked cell's value, its row, and the field name when a cell is clicked.
 - `onActiveCellChange` — `(cell|null)=>void` · default `-` — Fires when the active cell changes via keyboard or click, receiving the new cell descriptor or null.
+- `onCellSelectionChange` — `(cells)=>void` · default `-` — Fires when the rectangular cell selection changes in cell mode (Shift+Click / Shift+Arrow), with every selected cell {key, field} in row-major order.
+- `enableClipboard` — `boolean` · default `false` — Enable spreadsheet clipboard in cell mode: Ctrl/Cmd+C/X/V copy/cut/paste as TSV. Paste is format-restricted by each column's copyType (incompatible cells skipped) and commits via one batched onRowsChange.
 - `showAggregation` — `boolean` · default `false` — Shows the toolbar Aggregation button and starts with the totals row on; hidden by default, so enable it to expose column aggregations.
 - `ariaLabel` — `string` · default `Data table` — Sets the grid's accessible aria-label for screen readers, defaulting to "Data table".
 - `rowGrouping` — `string array` · default `[]` — Lists the field names to group rows by on initial render, collapsing rows into expandable groups; empty by default.

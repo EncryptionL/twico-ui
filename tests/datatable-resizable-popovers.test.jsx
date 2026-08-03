@@ -20,7 +20,7 @@ describe("Datatable resizablePopovers (#304)", () => {
     const src = readFileSync(DT_SRC, "utf8");
     it("adds a generic per-popover keyed resize engine + grip", () => {
       expect(src).toContain("const [popSizes, setPopSizes]");
-      expect(src).toContain("const startPopResize = (id) =>");
+      expect(src).toContain("const startPopResize = (id, side) =>"); // #316: parametrized by grip side
       expect(src).toContain("const popGrip = (id) =>");
       expect(src).toContain('setProperty("--twc-dt-pop-w"');
     });
@@ -82,6 +82,25 @@ describe("Datatable resizablePopovers (#304)", () => {
       const cols = container.querySelector(".twc-dt__cols");
       expect(cols.getAttribute("data-pop-sized")).toBe("");
       expect(cols.style.getPropertyValue("--twc-dt-pop-w")).toBe("320px");
+    });
+
+    // #316: a second bottom-left grip grows a right-anchored panel leftward (right edge pinned).
+    it("renders BOTH corner grips (end + start) on a resizable panel", () => {
+      const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} resizablePopovers />);
+      openColumns(container);
+      expect(container.querySelector('.twc-dt__cols .twc-dt__pop-grip[data-side="end"]')).toBeTruthy();
+      expect(container.querySelector('.twc-dt__cols .twc-dt__pop-grip[data-side="start"]')).toBeTruthy();
+    });
+
+    it("keyboard-resizing the START grip pins the right edge — commits a left offset in popoverSizes (#316)", () => {
+      const onStateChange = vi.fn();
+      const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} resizablePopovers onStateChange={onStateChange} />);
+      openColumns(container);
+      onStateChange.mockClear();
+      fireEvent.keyDown(container.querySelector('.twc-dt__cols .twc-dt__pop-grip[data-side="start"]'), { key: "ArrowLeft" });
+      const reported = onStateChange.mock.calls.at(-1)[0];
+      expect(reported.popoverSizes.columns).toHaveProperty("left"); // start grip stores a left anchor
+      expect(typeof reported.popoverSizes.columns.left).toBe("number");
     });
   });
 });
