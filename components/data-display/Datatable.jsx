@@ -981,7 +981,7 @@ export function Datatable({
   diff,
   density: densityProp = "comfortable", pageSize = 10, pageSizeOptions = [5, 10, 25, 50],
   page, onPageChange, onPageSizeChange,
-  height = 440, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [],
+  height = 440, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [], onRowSelectionChange,
   showExport = false, showDensity = false, showPivot = false, exportFilename = "export", aggregationValues = null,
   disableColumnReorder = false, disableColumnResize = false,
   emptyMessage, renderEmpty,
@@ -2149,6 +2149,18 @@ export function Datatable({
   React.useEffect(() => { setFocus((f) => ({ r: Math.min(f.r, Math.max(0, leafRows.length - 1)), c: Math.min(f.c, Math.max(0, ordered.length - 1)) })); }, [leafRows.length, ordered.length, pageVal]);
 
   const selectedRows = React.useMemo(() => rows.filter((r, i) => selected.has(keyOf(r, i))), [rows, selected]);
+  const selKeys = React.useMemo(() => [...selected], [selected]); // #322: stable keys array for predicates/callback
+  // #322: report the checkbox row selection (keys + rows) when it changes — the row-mode analogue of
+  // onCellSelectionChange, so a consumer can drive a batch action's disabled state itself.
+  const onRowSelRef = React.useRef(onRowSelectionChange); onRowSelRef.current = onRowSelectionChange;
+  const prevRowSelSigRef = React.useRef("");
+  React.useEffect(() => {
+    const cb = onRowSelRef.current; if (!cb) return;
+    const sig = selKeys.join(",");
+    if (sig === prevRowSelSigRef.current) return;
+    prevRowSelSigRef.current = sig;
+    cb(selKeys, selectedRows);
+  }, [selKeys, selectedRows]);
   function clearSelection() { setSelected(new Set()); }
 
   // ---- Inline editing ----
@@ -2882,14 +2894,21 @@ export function Datatable({
                   <Svg d={I.pencil} />Edit
                 </button>
               ) : null}
-              {batchActions.map((a, i) => (
-                <button type="button" key={i} className="twc-dt__batch-btn" data-danger={a.danger || undefined} disabled={a.disabled}
+              {batchActions.map((a, i) => {
+                // #322: `disabled` and `hidden` may be predicates evaluated against the current selection,
+                // so an action that only applies to a subset of the selected rows can reflect that.
+                const isHidden = typeof a.hidden === "function" ? a.hidden(selKeys, selectedRows) : !!a.hidden;
+                if (isHidden) return null;
+                const isDisabled = typeof a.disabled === "function" ? a.disabled(selKeys, selectedRows) : !!a.disabled;
+                return (
+                <button type="button" key={i} className="twc-dt__batch-btn" data-danger={a.danger || undefined} disabled={isDisabled}
                   /* `anchorEl` is this very button, so an action can anchor a popover to it exactly like the
                      built-in batch editor does — without it a custom action could only open a centered modal. */
-                  onClick={(e) => a.onClick?.([...selected], selectedRows, clearSelection, { anchorEl: e.currentTarget })}>
+                  onClick={(e) => a.onClick?.(selKeys, selectedRows, clearSelection, { anchorEl: e.currentTarget })}>
                   {a.icon}{a.label}
                 </button>
-              ))}
+                );
+              })}
             </div>
           </div>
         ) : null}

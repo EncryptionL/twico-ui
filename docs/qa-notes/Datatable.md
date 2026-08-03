@@ -342,6 +342,17 @@
   `onCellsPaste({ written, skipped })`. `announceClip(msg, rect)` drives all three from one place; the timer
   is cleared on unmount. 2 tests added to `tests/datatable-cell-selection.test.jsx`. — added 2026-08-03
 
+- **[#322] Selection-aware batch actions + `onRowSelectionChange`** — a `DatatableBatchAction` was always
+  shown on a non-empty selection with a static-boolean `disabled`, so an action that applies to only a subset
+  of the selected rows (e.g. "Mark as new thread" on entries but not group headers) couldn't reflect that,
+  and there was no row-mode selection callback. _Added:_ `disabled` and a new `hidden` on `DatatableBatchAction`
+  now also accept a **predicate** `(keys, rows) => boolean` evaluated against the live selection (twico has
+  `selKeys`/`selectedRows` in scope at the action-bar render), so `hidden: (_, rows) => rows.every(r => r.isGroup)`
+  drops the action when no entry is selected; static booleans still work (back-compat). Plus
+  `onRowSelectionChange(keys, rows)` — the checkbox-selection analogue of `onCellSelectionChange`, fired
+  (deduped by key signature) so a consumer can drive its own `disabled`. 4 tests in
+  `tests/datatable-batch-action-predicate.test.jsx`. — added 2026-08-03
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.

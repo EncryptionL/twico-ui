@@ -1562,7 +1562,8 @@ Props:
 - `loading` — `boolean` · default `false` — Replaces the grid body with skeleton rows while data is being fetched; off by default.
 - `rowKey` — `(row,index)=>key` · default `(r,i)=>r.id??i` — Returns a stable unique key per row, defaulting to the row's id or its index, to keep selection and renders consistent.
 - `checkboxSelection` — `boolean` · default `false` — Adds a leading checkbox column for selecting rows, enabling batch actions; off by default.
-- `batchActions` — `DatatableBatchAction array` · default `[]` — Defines actions shown in the selection toolbar that operate on the currently selected rows; empty by default.
+- `batchActions` — `DatatableBatchAction array` · default `[]` — Actions in the selection toolbar that operate on the selected rows; each action's disabled/hidden can be a predicate (keys, rows) => boolean evaluated against the current selection.
+- `onRowSelectionChange` — `(keys,rows)=>void` · default `-` — Fires when the checkbox row selection changes, with the selected keys and rows — the row-mode analogue of onCellSelectionChange, for driving a batch action's disabled state.
 - `density` — `compact|standard|comfortable` · default `comfortable` — Sets the row height preset (compact, standard, or comfortable) to trade vertical space for readability, defaulting to comfortable.
 - `pageSize` — `number` · default `10` — Rows per page (0 disables pagination). Uncontrolled by default (changing it re-applies + resets to page 0); controlled when onPageSizeChange is set.
 - `page` — `number` — Controlled current page (0-based); when set, the table renders this page and reports changes via onPageChange.

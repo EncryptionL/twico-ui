@@ -111,6 +111,10 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    * full row objects server-side rather than relying on `selectedRows`.
    */
   batchActions?: DatatableBatchAction<T>[];
+  /** #322: fired when the checkbox row selection changes — `(keys, rows)`. The row-mode analogue of
+   *  `onCellSelectionChange`, so a consumer can track the selection and drive a batch action's own
+   *  `disabled`/`hidden` (which also accept predicates). */
+  onRowSelectionChange?: (keys: Array<string | number>, rows: T[]) => void;
   /** Row height preset. With `showDensity`, the toolbar density button cycles it locally; changing this prop re-applies it. @default "comfortable" */
   density?: "compact" | "standard" | "comfortable";
   /**
@@ -497,7 +501,12 @@ export interface DatatableBatchAction<T = any> {
   ) => void;
   /** Render in danger color. */
   danger?: boolean;
-  disabled?: boolean;
+  /** #322: disable the action — a static boolean, or a predicate evaluated against the current selection so
+   *  an action that only applies to a subset of the selected rows can grey out when it doesn't apply. */
+  disabled?: boolean | ((keys: Array<string | number>, rows: T[]) => boolean);
+  /** #322: hide the action entirely when the predicate returns true (e.g. `(_, rows) => rows.every(r => r.isGroup)`
+   *  drops "Mark as new thread" when only group rows are selected). A static `true` always hides it. */
+  hidden?: boolean | ((keys: Array<string | number>, rows: T[]) => boolean);
 }
 
 export function Datatable<T = any>(props: DatatableProps<T>): React.JSX.Element;
