@@ -2,6 +2,18 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.25.0](https://github.com/EncryptionL/twico-ui/compare/v1.24.0...v1.25.0) (2026-08-03)
+
+
+### Bug Fixes
+
+* **datatable:** commit the default cell editor value on click-away instead of discarding ([#313](https://github.com/EncryptionL/twico-ui/issues/313)) ([08c0050](https://github.com/EncryptionL/twico-ui/commit/08c00501fc20a4deb5e0bf35be0ab9aa46a7c477))
+
+
+### Features
+
+* **datatable:** default resizablePopovers to true; decouple it from resizableFilters ([#314](https://github.com/EncryptionL/twico-ui/issues/314)) ([c509956](https://github.com/EncryptionL/twico-ui/commit/c509956b11648e6d138777843514ff9a5ec09e85)), closes [#304](https://github.com/EncryptionL/twico-ui/issues/304) [#292](https://github.com/EncryptionL/twico-ui/issues/292)
+
 # [1.24.0](https://github.com/EncryptionL/twico-ui/compare/v1.23.0...v1.24.0) (2026-07-31)
 
 
