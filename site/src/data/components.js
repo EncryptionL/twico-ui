@@ -5412,7 +5412,14 @@ export const components = [
         "type": "DatatableBatchAction array",
         "required": false,
         "default": "[]",
-        "description": "Defines actions shown in the selection toolbar that operate on the currently selected rows; empty by default."
+        "description": "Actions in the selection toolbar that operate on the selected rows; each action's disabled/hidden can be a predicate (keys, rows) => boolean evaluated against the current selection."
+      },
+      {
+        "prop": "onRowSelectionChange",
+        "type": "(keys,rows)=>void",
+        "required": false,
+        "default": "-",
+        "description": "Fires when the checkbox row selection changes, with the selected keys and rows — the row-mode analogue of onCellSelectionChange, for driving a batch action's disabled state."
       },
       {
         "prop": "density",
