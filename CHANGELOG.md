@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.27.0](https://github.com/EncryptionL/twico-ui/compare/v1.26.0...v1.27.0) (2026-08-03)
+
+
+### Features
+
+* **datatable:** visible clipboard copy/cut feedback + onCellsCopy/onCellsPaste ([#320](https://github.com/EncryptionL/twico-ui/issues/320)) ([cff0aaa](https://github.com/EncryptionL/twico-ui/commit/cff0aaa1d31241c3772bc7c38c975d5033a9e6f7))
+
 # [1.26.0](https://github.com/EncryptionL/twico-ui/compare/v1.25.0...v1.26.0) (2026-08-03)
 
 
