@@ -304,6 +304,35 @@
   (opt-out preserved), not breaking. Test flipped + opt-out test added in
   `tests/datatable-resizable-popovers.test.jsx`. — changed 2026-07-31
 
+- **[#316] Second (bottom-left) popover resize grip** — the resizable popovers had one grip in the
+  bottom-inline-end corner; a right-anchored panel (Columns/Agg/Pivot/Batch-edit sit near the grid's right
+  edge) had no room to grow rightward. `startPopResize` is now parametrized by grip **side**: the new
+  `data-side="start"` grip grows the panel leftward while **pinning the right edge** (drag/keyboard shift
+  `pop.style.left` down by the width delta) and commits a `left` into `popSizes[id]` (persisted +
+  viewport-clamped on restore) so the shift survives React re-render; `popStyle` emits that `left`. Both
+  grips render per panel. — added 2026-08-03
+
+- **[#317] Rectangular cell range selection + ARIA** — `selectionMode="cell"` had a single `activeCell` and
+  no `aria-selected`. Added an `anchorCell` and a `cellRect` memo that resolves anchor+active `{key,field}`
+  endpoints to live row/col indices (`keyIndex` / `ordered.findIndex`) so the rectangle **follows rows across
+  sort/filter/paging** and collapses safely when an endpoint is filtered out (no NaN). Cells in the rectangle
+  get `aria-selected` + `data-cell-selected`; the grid gets `aria-multiselectable` + `aria-activedescendant`
+  (a `React.useId` prefixed cell id). Shift+Click / Shift+Arrow extend from the anchor; a plain click/Arrow
+  starts a new single-cell selection (keyboard nav now moves the selection, spreadsheet-style). New
+  `onCellSelectionChange(cells)` fires (deduped by signature) with the row-major `{key,field}[]`. — added 2026-08-03
+
+- **[#318] Keyboard clipboard with format-restricted paste** — `enableClipboard` (default false, `"cell"`
+  mode) adds **Ctrl/Cmd + C/X/V**: copy the active cell/range as **TSV**, cut (copy then clear), paste onto
+  the target rectangle from the active cell. Paste is **format-restricted** — each column has an opaque
+  `copyType` (default number-vs-text bucket by `type`); on an **in-app** paste a source cell only writes to a
+  target when their `copyType` match, else it is **skipped** (never a silent wrong write). External pastes
+  (no source metadata) rely on the per-column number coercion. Writes go through a **single batched**
+  `onRowsChange` (+ `onRowUpdate` per changed cell) — mirroring `applyBatchEdit`, NOT per-cell `commitEdit`
+  (which is editing-state-bound and would fire N changes). Outcomes announced via an `aria-live` region
+  ("Copied 4 cells", "Pasted 3 cells, 1 skipped (incompatible column)"). `navigator.clipboard` is
+  SSR/permission-guarded with an `execCommand` fallback. 8 tests in `tests/datatable-cell-selection.test.jsx`
+  (+ #316/#317 coverage there and in `datatable-resizable-popovers.test.jsx`). — added 2026-08-03
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.
