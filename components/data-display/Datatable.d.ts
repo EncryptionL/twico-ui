@@ -217,6 +217,13 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   selectionMode?: "none" | "row" | "cell";
   /** Fired when a row is clicked in "row" selection mode: (row, key). */
   onRowClick?: (row: T, key: string | number) => void;
+  /** #324: controlled highlighted row key for `selectionMode="row"`. When provided, the grid highlights THIS
+   *  row (not its internal state) and reports clicks via `onRowClick` so you update the prop — the same
+   *  controlled/uncontrolled split as `page`. Pass `null` to clear. Lets an external selection (a graph, a
+   *  master/detail pane) drive the row highlight, with scroll-into-view. */
+  activeRowId?: string | number | null;
+  /** #324: scroll the controlled active row into view when `activeRowId` changes. @default true */
+  scrollActiveRowIntoView?: boolean;
   /** Fired when a cell is clicked in "cell" selection mode: (value, row, field). */
   onCellClick?: (value: any, row: T, field: string) => void;
   /** Fired when the active cell changes: ({ key, field } | null). */
