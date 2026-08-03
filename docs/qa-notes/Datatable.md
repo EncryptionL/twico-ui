@@ -333,6 +333,15 @@
   SSR/permission-guarded with an `execCommand` fallback. 8 tests in `tests/datatable-cell-selection.test.jsx`
   (+ #316/#317 coverage there and in `datatable-resizable-popovers.test.jsx`). — added 2026-08-03
 
+- **[#320] Visible clipboard feedback** — #318's copy/cut confirmation was **screen-reader-only** (aria-live),
+  so sighted users pressing Ctrl/Cmd+C saw nothing (paste at least changes cells). Added, alongside the
+  existing aria-live: (1) a brief **visible in-grid toast** (`.twc-dt__clip-toast`, absolute in the now
+  `position: relative` root — which does NOT create a containing block for the `position: fixed` popovers) that
+  auto-hides after 1.6 s; (2) a **flash pulse** on the copied/pasted cells (`data-copied` + a
+  `prefers-reduced-motion`-guarded keyframe); (3) integration callbacks `onCellsCopy(cells, { cut })` and
+  `onCellsPaste({ written, skipped })`. `announceClip(msg, rect)` drives all three from one place; the timer
+  is cleared on unmount. 2 tests added to `tests/datatable-cell-selection.test.jsx`. — added 2026-08-03
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.
