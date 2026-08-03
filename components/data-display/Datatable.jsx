@@ -990,6 +990,7 @@ export function Datatable({
   stateKey, initialState, onStateChange,
   showPageJumper = true,
   selectionMode = "none", onRowClick, onCellClick, onActiveCellChange, onCellSelectionChange,
+  activeRowId, scrollActiveRowIntoView = true,
   enableClipboard = false, onCellsCopy, onCellsPaste,
   showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [],
   rowNumbers = false,
@@ -1099,6 +1100,10 @@ export function Datatable({
   const commitQuick = (v) => { onQuickFilterChange?.(v); if (quickFilter === undefined) setInternalQuick(v); commitPage(0); };
   const [selected, setSelected] = React.useState(() => new Set());
   const [activeRow, setActiveRow] = React.useState(null);
+  // #324: controlled active row (selectionMode="row"), mirroring the controlled/uncontrolled `page` split —
+  // when `activeRowId` is provided the highlight follows the prop; onRowClick still fires so the host updates it.
+  const activeRowControlled = activeRowId !== undefined;
+  const activeRowVal = activeRowControlled ? activeRowId : activeRow;
   const [activeCell, setActiveCell] = React.useState(null); // { key, field } — the moving/focus corner
   const [anchorCell, setAnchorCell] = React.useState(null); // #317: fixed corner of a rectangular range
   const gridId = React.useId(); // #317: stable prefix for cell ids (aria-activedescendant)
@@ -2084,7 +2089,7 @@ export function Datatable({
     if (selectionMode === "none") return;
     if (e.target.closest("button, a, input, select, .twc-dt__check, .twc-dt__editor-wrap")) return;
     if (selectionMode === "row") {
-      setActiveRow(k);
+      if (!activeRowControlled) setActiveRow(k); // #324: controlled → the host drives the highlight via activeRowId
       onRowClick?.(row, k);
       onActiveCellChange?.(null);
     }
@@ -2131,7 +2136,7 @@ export function Datatable({
         const col = ordered[c];
         if (col && isColEditable(col)) { e.preventDefault(); beginEdit(keyOf(leafRows[r], r), col, leafRows[r]); return; }
         if (selectionMode === "cell") { e.preventDefault(); handleCellClick({ target: td }, keyOf(leafRows[r], r), leafRows[r], ordered[c]); return; }
-        if (selectionMode === "row") { e.preventDefault(); setActiveRow(keyOf(leafRows[r], r)); onRowClick?.(leafRows[r], keyOf(leafRows[r], r)); return; }
+        if (selectionMode === "row") { e.preventDefault(); const rk = keyOf(leafRows[r], r); if (!activeRowControlled) setActiveRow(rk); onRowClick?.(leafRows[r], rk); return; }
         handled = false; break;
       }
       default: handled = false;
@@ -2161,6 +2166,13 @@ export function Datatable({
     prevRowSelSigRef.current = sig;
     cb(selKeys, selectedRows);
   }, [selKeys, selectedRows]);
+  // #324: scroll the controlled active row into view when it changes (block: "nearest" → minimal scroll,
+  // no page jump; instant, so no motion for reduced-motion users). Only when controlled + enabled + non-null.
+  React.useEffect(() => {
+    if (!activeRowControlled || !scrollActiveRowIntoView || activeRowId == null) return;
+    const el = gridRef.current && gridRef.current.querySelector('.twc-dt__row[data-active="true"]');
+    if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest" });
+  }, [activeRowId, activeRowControlled, scrollActiveRowIntoView]);
   function clearSelection() { setSelected(new Set()); }
 
   // ---- Inline editing ----
@@ -2657,7 +2669,7 @@ export function Datatable({
   }
   function renderLeaf(row, ri, pinSide, midIdx) {
     const k = keyOf(row, ri); const sel = selected.has(k);
-    const rowActive = selectionMode === "row" && activeRow === k;
+    const rowActive = selectionMode === "row" && activeRowVal === k;
     const stickyStyle = pinSide === "top" ? { position: "sticky", top: headH, zIndex: 5 } : pinSide === "bottom" ? { position: "sticky", bottom: 0, zIndex: 5 } : undefined;
     const h = rowHeights[k];
     const rowStyle = { ...(stickyStyle || {}), ...(h ? { height: h } : {}) };

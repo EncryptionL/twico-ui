@@ -353,6 +353,16 @@
   (deduped by key signature) so a consumer can drive its own `disabled`. 4 tests in
   `tests/datatable-batch-action-predicate.test.jsx`. — added 2026-08-03
 
+- **[#324] Controlled active row (`selectionMode="row"`)** — the highlighted row lived in an internal,
+  click-only `activeRow`, so an external selection (a graph/map/master-detail pane beside the grid) couldn't
+  drive or clear it, leaving a stale highlight. _Added:_ `activeRowId?: string | number | null` — the same
+  controlled/uncontrolled split as `page`: when provided, `data-active` follows the prop (via a derived
+  `activeRowVal`), `onRowClick` still fires (so the host updates the prop), and the internal `setActiveRow` is
+  skipped in both the click and keyboard paths; `null` clears it. `scrollActiveRowIntoView` (default true)
+  scrolls the controlled row into view on change (`block: "nearest"` → minimal, instant, no page jump). The
+  checkbox-selection analogue is #322's `onRowSelectionChange`. 3 tests in
+  `tests/datatable-controlled-active-row.test.jsx`. — added 2026-08-03
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.

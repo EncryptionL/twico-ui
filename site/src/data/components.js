@@ -5611,6 +5611,20 @@ export const components = [
         "description": "Fires with the clicked row and its key, useful for navigation or opening a detail view."
       },
       {
+        "prop": "activeRowId",
+        "type": "string | number | null",
+        "required": false,
+        "default": "-",
+        "description": "Controlled highlighted row key for selectionMode=\"row\": the grid highlights this row (not internal state) and reports clicks via onRowClick so you update it; null clears it. Lets an external selection drive the highlight."
+      },
+      {
+        "prop": "scrollActiveRowIntoView",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Scroll the controlled active row into view when activeRowId changes."
+      },
+      {
         "prop": "onCellClick",
         "type": "(value,row,field)=>void",
         "required": false,

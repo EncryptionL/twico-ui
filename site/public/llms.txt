@@ -1591,6 +1591,8 @@ Props:
 - `showPageJumper` — `boolean` · default `true` — Shows a go-to-page input in the pagination footer for jumping directly to a page number; enabled by default.
 - `selectionMode` — `none|row|cell` · default `none` — Sets click-to-select granularity (none, row, or cell), controlling what gets highlighted on click, defaulting to none.
 - `onRowClick` — `(row,key)=>void` · default `-` — Fires with the clicked row and its key, useful for navigation or opening a detail view.
+- `activeRowId` — `string | number | null` · default `-` — Controlled highlighted row key for selectionMode="row": the grid highlights this row (not internal state) and reports clicks via onRowClick so you update it; null clears it. Lets an external selection drive the highlight.
+- `scrollActiveRowIntoView` — `boolean` · default `true` — Scroll the controlled active row into view when activeRowId changes.
 - `onCellClick` — `(value,row,field)=>void` · default `-` — Fires with the clicked cell's value, its row, and the field name when a cell is clicked.
 - `onActiveCellChange` — `(cell|null)=>void` · default `-` — Fires when the active cell changes via keyboard or click, receiving the new cell descriptor or null.
 - `onCellSelectionChange` — `(cells)=>void` · default `-` — Fires when the rectangular cell selection changes in cell mode (Shift+Click / Shift+Arrow), with every selected cell {key, field} in row-major order.
