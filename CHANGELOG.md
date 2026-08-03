@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.26.0](https://github.com/EncryptionL/twico-ui/compare/v1.25.0...v1.26.0) (2026-08-03)
+
+
+### Features
+
+* **datatable:** bottom-left popover grip, cell range selection, keyboard clipboard ([#316](https://github.com/EncryptionL/twico-ui/issues/316), [#317](https://github.com/EncryptionL/twico-ui/issues/317), [#318](https://github.com/EncryptionL/twico-ui/issues/318)) ([0c1a583](https://github.com/EncryptionL/twico-ui/commit/0c1a583ef8b983410547f7f1fb92f8660ec926c3))
+
 # [1.25.0](https://github.com/EncryptionL/twico-ui/compare/v1.24.0...v1.25.0) (2026-08-03)
 
 
