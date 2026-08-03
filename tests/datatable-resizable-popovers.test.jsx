@@ -43,22 +43,24 @@ describe("Datatable resizablePopovers (#304)", () => {
     const openColumns = (c) => fireEvent.click(Array.from(c.querySelectorAll(".twc-dt__tbtn")).find((b) => b.textContent.includes("Columns")));
     const openFilters = (c) => fireEvent.click(Array.from(c.querySelectorAll(".twc-dt__tbtn")).find((b) => b.textContent.includes("Filters")));
 
-    it("does NOT render a grip on the Columns panel by default", () => {
+    it("renders a grip on the Columns panel by default (#314: resizablePopovers defaults true)", () => {
       const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} />);
-      openColumns(container);
-      expect(container.querySelector(".twc-dt__cols .twc-dt__pop-grip")).toBeNull();
-    });
-
-    it("renders a grip on the Columns panel when resizablePopovers is on", () => {
-      const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} resizablePopovers />);
       openColumns(container);
       expect(container.querySelector(".twc-dt__cols .twc-dt__pop-grip")).toBeTruthy();
     });
 
-    it("implies the filters grip even when resizableFilters is false", () => {
+    it("resizablePopovers={false} opts a grid out (no grip on the Columns panel)", () => {
+      const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} resizablePopovers={false} />);
+      openColumns(container);
+      expect(container.querySelector(".twc-dt__cols .twc-dt__pop-grip")).toBeNull();
+    });
+
+    it("is independent of resizableFilters (#314): resizableFilters={false} removes the Filters grip while the Columns panel keeps its own", () => {
       const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} resizableFilters={false} resizablePopovers />);
       openFilters(container);
-      expect(container.querySelector(".twc-dt__filters .twc-dt__pop-grip")).toBeTruthy();
+      expect(container.querySelector(".twc-dt__filters .twc-dt__pop-grip")).toBeNull(); // filters opted out
+      openColumns(container);
+      expect(container.querySelector(".twc-dt__cols .twc-dt__pop-grip")).toBeTruthy();  // other panels still resizable
     });
 
     it("keyboard-resizes the Columns panel, marks it data-pop-sized, and persists popoverSizes", () => {
