@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.28.0](https://github.com/EncryptionL/twico-ui/compare/v1.27.0...v1.28.0) (2026-08-03)
+
+
+### Features
+
+* **datatable:** selection-aware batch actions (predicate disabled/hidden) + onRowSelectionChange ([#322](https://github.com/EncryptionL/twico-ui/issues/322)) ([33a1c36](https://github.com/EncryptionL/twico-ui/commit/33a1c36340e36cf0c9cc763cda7ed5d26fd46baa))
+
 # [1.27.0](https://github.com/EncryptionL/twico-ui/compare/v1.26.0...v1.27.0) (2026-08-03)
 
 
