@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.29.0](https://github.com/EncryptionL/twico-ui/compare/v1.28.0...v1.29.0) (2026-08-03)
+
+
+### Features
+
+* **datatable:** controlled active row for selectionMode="row" (activeRowId) ([#324](https://github.com/EncryptionL/twico-ui/issues/324)) ([c118a06](https://github.com/EncryptionL/twico-ui/commit/c118a069d3f91ce9640b39751cab24717569be2b))
+
 # [1.28.0](https://github.com/EncryptionL/twico-ui/compare/v1.27.0...v1.28.0) (2026-08-03)
 
 
