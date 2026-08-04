@@ -79,6 +79,11 @@ const DT_CSS = `
   font-size: var(--text-sm); color: var(--color-text); width: 150px; }
 .twc-dt__search input:focus, .twc-dt__search input:focus-visible { outline: none; box-shadow: none; }
 .twc-dt__search input::placeholder { color: var(--color-text-subtle); }
+/* #327: trailing clear (X) for the built-in search inputs (quick-search + column-menu search). */
+.twc-dt__search-clear { border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; display: inline-grid; place-items: center; width: 20px; height: 20px; padding: 0; border-radius: var(--radius-sm); flex: none; }
+.twc-dt__search-clear:hover { color: var(--color-text); background: var(--color-surface-sunken); }
+.twc-dt__search-clear:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-dt__search-clear svg { width: 14px; height: 14px; }
 .twc-dt__tlabel { display: inline; }
 /* Narrow grid: collapse the toolbar to icon-only buttons (labels survive as
    hover tooltips via data-tip) and let the search flex so nothing wraps. */
@@ -1413,6 +1418,10 @@ export function Datatable({
   const colMenuRef = React.useRef(null);
   const rowMenuRef = React.useRef(null);
   const exportMenuRef = React.useRef(null);
+  // #327: refs to refocus the built-in search inputs after their clear ✕ empties them — the button
+  // unmounts (rendered only while non-empty), which would otherwise drop keyboard focus to <body>.
+  const quickSearchRef = React.useRef(null);
+  const colSearchRef = React.useRef(null);
   // Move focus to the first item when a menu opens; restore to the trigger when it closes.
   function focusFirstItem(container) {
     if (!container) return;
@@ -2977,7 +2986,8 @@ export function Datatable({
         {searchable ? (
           <div className="twc-dt__search">
             <Svg d={I.search} />
-            <input placeholder="Search…" aria-label="Search rows" value={quick} onChange={(e) => commitQuick(e.target.value)} />
+            <input ref={quickSearchRef} placeholder="Search…" aria-label="Search rows" value={quick} onChange={(e) => commitQuick(e.target.value)} />
+            {quick ? <button type="button" className="twc-dt__search-clear" aria-label="Clear search" onMouseDown={(e) => e.preventDefault()} onClick={() => { commitQuick(""); quickSearchRef.current?.focus(); }}><Svg d={I.x} /></button> : null}
           </div>
         ) : null}
       </div>
@@ -3364,7 +3374,8 @@ export function Datatable({
           </div>
           <div className="twc-dt__col-search">
             <Svg d={I.search} />
-            <input autoFocus placeholder="Find column…" aria-label="Find column" value={colQuery} onChange={(e) => setColQuery(e.target.value)} />
+            <input ref={colSearchRef} autoFocus placeholder="Find column…" aria-label="Find column" value={colQuery} onChange={(e) => setColQuery(e.target.value)} />
+            {colQuery ? <button type="button" className="twc-dt__search-clear" aria-label="Clear column search" onMouseDown={(e) => e.preventDefault()} onClick={() => { setColQuery(""); colSearchRef.current?.focus(); }}><Svg d={I.x} /></button> : null}
           </div>
           <div className="twc-dt__col-list">
             {rowNumMatch ? (
@@ -3566,7 +3577,7 @@ export function Datatable({
                           onChange={(vals) => setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, value: vals } : x))} />
                       )
                     ) : (
-                      <Input size="sm" type={filterTypeOf(col) === "number" ? "number" : "text"} placeholder="Value" value={f.value}
+                      <Input size="sm" clearable type={filterTypeOf(col) === "number" ? "number" : "text"} placeholder="Value" value={f.value}
                         onChange={(e) => setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, value: e.target.value } : x))} />
                     )}
                     {fieldHandle("val", i)}

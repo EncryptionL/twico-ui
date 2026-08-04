@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { warnOnce } from "../_warn.js";
 import { createPortal } from "react-dom";
 
 const SELECT_CSS = `
@@ -71,6 +72,10 @@ const SELECT_CSS = `
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* #326: optional leading icon/swatch + trailing (right-aligned) hint on an option. */
+.twc-opt__icon { flex: none; display: inline-flex; align-items: center; color: var(--color-text-muted); }
+.twc-opt__icon svg { width: 16px; height: 16px; }
+.twc-opt__hint { flex: none; margin-inline-start: auto; padding-inline-start: var(--space-2); color: var(--color-text-muted); font-size: var(--text-xs); white-space: nowrap; }
 .twc-opt__check { flex: none; color: var(--color-primary); display: inline-flex; }
 .twc-opt__check svg { width: 16px; height: 16px; }
 .twc-pop__empty { padding: 14px 12px; text-align: center; font-size: var(--text-sm); color: var(--color-text-subtle); }
@@ -108,11 +113,14 @@ export function Select({
   placeholder = "Select…", searchPlaceholder = "Search…", searchable, options, value, defaultValue = null,
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
   matchTriggerWidth = true, loading = false, emptyText = "No results found", name,
-  virtualized = false, overscan = 8,
+  virtualized: virtualizedProp = false, overscan = 8, renderOption,
   id, className = "",
   onClick, onKeyDown, ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-select-styles", SELECT_CSS);
+  // #326: custom-rendered rows are variable-height, which the fixed-row-height virtualization can't measure.
+  if (virtualizedProp && renderOption) warnOnce("select-renderoption-virtualized", "twico-ui Select: `renderOption` disables `virtualized` — custom rows aren't a fixed height.");
+  const virtualized = virtualizedProp && !renderOption;
   const bufferRef = React.useRef("");
   const bufferTimerRef = React.useRef(null);
 
@@ -304,7 +312,8 @@ export function Select({
   const descId = `${fieldId}-desc`;
   const describedBy = error || hint ? descId : undefined;
 
-  const renderOption = (o, idx) => {
+  // #326: renamed from renderOption so the new prop of that name controls the row BODY.
+  const renderRow = (o, idx) => {
     const isSel = o.value === current;
     return (
       <button key={o.value} id={optionId(idx)} type="button" className="twc-opt" role="option" aria-selected={isSel}
@@ -316,10 +325,18 @@ export function Select({
         // is impractical. Only for a plain string label (a custom node gets none).
         title={typeof o.label === "string" ? o.label : undefined}
         onMouseEnter={() => { if (!o.disabled) setActive(idx); }} onClick={() => commit(o.value)}>
-        <span className="twc-opt__main">
-          <span className="twc-opt__label">{o.label}</span>
-          {o.description ? <span className="twc-opt__desc">{o.description}</span> : null}
-        </span>
+        {renderOption ? (
+          <span className="twc-opt__main">{renderOption(o, { selected: isSel, active: idx === active })}</span>
+        ) : (
+          <>
+            {o.icon != null ? <span className="twc-opt__icon" aria-hidden="true">{o.icon}</span> : null}
+            <span className="twc-opt__main">
+              <span className="twc-opt__label">{o.label}</span>
+              {o.description ? <span className="twc-opt__desc">{o.description}</span> : null}
+            </span>
+            {o.hint != null ? <span className="twc-opt__hint">{o.hint}</span> : null}
+          </>
+        )}
         {isSel ? <span className="twc-opt__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span> : null}
       </button>
     );
@@ -361,7 +378,7 @@ export function Select({
               {vTop > 0 ? <div aria-hidden="true" style={{ height: vTop }} /> : null}
               {vShown.map((r) => r.kind === "group"
                 ? <div key={`g${r.gi}`} className="twc-pop__group">{r.label}</div>
-                : renderOption(r.o, r.idx))}
+                : renderRow(r.o, r.idx))}
               {vBottom > 0 ? <div aria-hidden="true" style={{ height: vBottom }} /> : null}
             </>
           ) :
@@ -370,7 +387,7 @@ export function Select({
               {g.group ? <div className="twc-pop__group">{g.group}</div> : null}
               {g.options.map((o) => {
                 counter += 1; const idx = counter;
-                return renderOption(o, idx);
+                return renderRow(o, idx);
               })}
             </React.Fragment>
           ))}

@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"60fe3e975e75","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"51a609af5226","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"273cec084ae7","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"e5635eb2268d","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"d2cf2fd0818d","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"9fe52df38764","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"ca508486a39c","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"747521cd095b"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"e3ffb269f649","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"17ec8c522076","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"fe302900567c","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"186e526942fc","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"ca508486a39c","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"747521cd095b"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -5835,6 +5835,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* #326: optional leading icon/swatch + trailing (right-aligned) hint on an option. */
+.twc-opt__icon { flex: none; display: inline-flex; align-items: center; color: var(--color-text-muted); }
+.twc-opt__icon svg { width: 16px; height: 16px; }
+.twc-opt__hint { flex: none; margin-inline-start: auto; padding-inline-start: var(--space-2); color: var(--color-text-muted); font-size: var(--text-xs); white-space: nowrap; }
 /* #300: wrapOptions \u2014 let long labels/descriptions wrap onto multiple lines instead of truncating.
    overflow-wrap: anywhere also breaks a single very long token so it can't overflow the popover edge. */
 .twc-opt[data-wrap="true"] { align-items: flex-start; }
@@ -5902,6 +5906,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     virtualized: virtualizedProp = false,
     overscan = 8,
     wrapOptions = false,
+    renderOption,
     id,
     className = "",
     onFocus,
@@ -5909,8 +5914,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-combo-styles", COMBO_CSS);
-    if (virtualizedProp && wrapOptions) warnOnce("combobox-wrap-virtualized", "twico-ui Combobox: `wrapOptions` disables `virtualized` \u2014 wrapped option rows aren't a fixed height.");
-    const virtualized = virtualizedProp && !wrapOptions;
+    if (virtualizedProp && (wrapOptions || renderOption)) warnOnce("combobox-var-height-virtualized", "twico-ui Combobox: `wrapOptions`/`renderOption` disable `virtualized` \u2014 those rows aren't a fixed height.");
+    const virtualized = virtualizedProp && !wrapOptions && !renderOption;
     const groups = import_react.default.useMemo(() => normalizeGroups(options), [options]);
     const flat = import_react.default.useMemo(() => groups.flatMap((g) => g.options), [groups]);
     const autoId = import_react.default.useId();
@@ -6081,7 +6086,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const activeId = open && visible[active] ? optionId(active) : void 0;
     const descId = `${fieldId}-desc`;
     const describedBy = error || hint ? descId : void 0;
-    const renderOption = (o, idx) => {
+    const renderRow = (o, idx) => {
       const isSel = o.value === current;
       return /* @__PURE__ */ jsxs(
         "button",
@@ -6104,9 +6109,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           onMouseDown: (e) => e.preventDefault(),
           onClick: () => commit(o.value),
           children: [
-            /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
-              /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
-              o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
+            renderOption ? /* @__PURE__ */ jsx("span", { className: "twc-opt__main", children: renderOption(o, { selected: isSel, active: idx === active }) }) : /* @__PURE__ */ jsxs(Fragment, { children: [
+              o.icon != null ? /* @__PURE__ */ jsx("span", { className: "twc-opt__icon", "aria-hidden": "true", children: o.icon }) : null,
+              /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
+                /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
+                o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
+              ] }),
+              o.hint != null ? /* @__PURE__ */ jsx("span", { className: "twc-opt__hint", children: o.hint }) : null
             ] }),
             isSel ? /* @__PURE__ */ jsx("span", { className: "twc-opt__check", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }) : null
           ]
@@ -6128,14 +6137,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       "Loading\u2026"
     ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
       vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
-      vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderOption(r2.o, r2.idx)),
+      vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderRow(r2.o, r2.idx)),
       vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
     ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
       g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
       g.options.map((o) => {
         counter += 1;
         const idx = counter;
-        return renderOption(o, idx);
+        return renderRow(o, idx);
       })
     ] }, gi)) });
     const RD = { createPortal: typeof import_react_dom.createPortal === "function" ? import_react_dom.createPortal : typeof window !== "undefined" && window.ReactDOM && window.ReactDOM.createPortal };
@@ -6672,6 +6681,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* #326: optional leading icon/swatch + trailing (right-aligned) hint on an option. */
+.twc-opt__icon { flex: none; display: inline-flex; align-items: center; color: var(--color-text-muted); }
+.twc-opt__icon svg { width: 16px; height: 16px; }
+.twc-opt__hint { flex: none; margin-inline-start: auto; padding-inline-start: var(--space-2); color: var(--color-text-muted); font-size: var(--text-xs); white-space: nowrap; }
 .twc-opt__check { flex: none; color: var(--color-primary); display: inline-flex; }
 .twc-opt__check svg { width: 16px; height: 16px; }
 .twc-pop__empty { padding: 14px 12px; text-align: center; font-size: var(--text-sm); color: var(--color-text-subtle); }
@@ -6732,8 +6745,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     loading = false,
     emptyText = "No results found",
     name,
-    virtualized = false,
+    virtualized: virtualizedProp = false,
     overscan = 8,
+    renderOption,
     id,
     className = "",
     onClick,
@@ -6741,6 +6755,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-select-styles", SELECT_CSS);
+    if (virtualizedProp && renderOption) warnOnce("select-renderoption-virtualized", "twico-ui Select: `renderOption` disables `virtualized` \u2014 custom rows aren't a fixed height.");
+    const virtualized = virtualizedProp && !renderOption;
     const bufferRef = import_react.default.useRef("");
     const bufferTimerRef = import_react.default.useRef(null);
     const groups = import_react.default.useMemo(() => normalizeGroups2(options), [options]);
@@ -6946,7 +6962,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const activeId = open && visible[active] ? optionId(active) : void 0;
     const descId = `${fieldId}-desc`;
     const describedBy = error || hint ? descId : void 0;
-    const renderOption = (o, idx) => {
+    const renderRow = (o, idx) => {
       const isSel = o.value === current;
       return /* @__PURE__ */ jsxs(
         "button",
@@ -6968,9 +6984,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           },
           onClick: () => commit(o.value),
           children: [
-            /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
-              /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
-              o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
+            renderOption ? /* @__PURE__ */ jsx("span", { className: "twc-opt__main", children: renderOption(o, { selected: isSel, active: idx === active }) }) : /* @__PURE__ */ jsxs(Fragment, { children: [
+              o.icon != null ? /* @__PURE__ */ jsx("span", { className: "twc-opt__icon", "aria-hidden": "true", children: o.icon }) : null,
+              /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
+                /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
+                o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
+              ] }),
+              o.hint != null ? /* @__PURE__ */ jsx("span", { className: "twc-opt__hint", children: o.hint }) : null
             ] }),
             isSel ? /* @__PURE__ */ jsx("span", { className: "twc-opt__check", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }) : null
           ]
@@ -7018,14 +7038,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         "Loading\u2026"
       ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
         vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
-        vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderOption(r2.o, r2.idx)),
+        vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderRow(r2.o, r2.idx)),
         vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
       ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
         g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
         g.options.map((o) => {
           counter += 1;
           const idx = counter;
-          return renderOption(o, idx);
+          return renderRow(o, idx);
         })
       ] }, gi)) }),
       /* @__PURE__ */ jsx("div", { className: "twc-sel__sr", role: "status", "aria-live": "polite", children: loading ? "Loading\u2026" : visible.length === 0 ? emptyText : `${visible.length} result${visible.length === 1 ? "" : "s"}` })
@@ -7329,6 +7349,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-input__reveal:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-input__reveal:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-input__reveal svg { width: 17px; height: 17px; }
+/* #328: trailing clear (X) button \u2014 mirrors the reveal toggle; sits alongside rightIcon / the password eye. */
+.twc-input__clear { display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm); flex: none; transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+.twc-input__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-input__clear:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-input__clear svg { width: 15px; height: 15px; }
 .twc-input__addon { align-self: stretch; display: inline-flex; align-items: center; padding-inline: var(--space-3);
   background: var(--color-surface-sunken); color: var(--color-text-muted); font-size: var(--text-sm);
   font-weight: var(--font-semibold); white-space: nowrap; flex: none; }
@@ -7350,6 +7375,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     leftAddon,
     rightAddon,
     showCount = false,
+    clearable = false,
     type = "text",
     disabled = false,
     id,
@@ -7371,8 +7397,25 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const near = showCounter && count >= Math.floor(max * 0.9);
     const handleChange = (e) => {
       rest.onChange?.(e);
-      if (showCount && !countControlled) setLen(e.target.value.length);
+      if ((showCount || clearable) && !countControlled) setLen(e.target.value.length);
     };
+    const inputRef = import_react.default.useRef(null);
+    const userRef = rest.ref;
+    const setRef = import_react.default.useCallback((node) => {
+      inputRef.current = node;
+      if (typeof userRef === "function") userRef(node);
+      else if (userRef && typeof userRef === "object") userRef.current = node;
+    }, [userRef]);
+    const clearField = () => {
+      const el = inputRef.current;
+      if (!el) return;
+      const setter = typeof HTMLInputElement !== "undefined" && Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+      if (setter) setter.call(el, "");
+      else el.value = "";
+      el.dispatchEvent(new Event("input", { bubbles: true }));
+      el.focus();
+    };
+    const showClear = clearable && count > 0 && !disabled && !rest.readOnly;
     const ariaInvalid = invalid ? true : rest["aria-invalid"] ?? void 0;
     const describedBy = [error || hint ? descId : null, showCounter ? countId : null, rest["aria-describedby"]].filter(Boolean).join(" ") || void 0;
     const isPassword = type === "password";
@@ -7419,11 +7462,16 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             required: required || void 0,
             "aria-required": required || void 0,
             ...rest,
+            ref: setRef,
             onChange: handleChange,
             "aria-invalid": ariaInvalid,
             "aria-describedby": describedBy
           }
         ),
+        showClear ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-input__clear", "aria-label": "Clear", tabIndex: 0, onMouseDown: (e) => e.preventDefault(), onClick: clearField, children: /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+          /* @__PURE__ */ jsx("path", { d: "M18 6 6 18" }),
+          /* @__PURE__ */ jsx("path", { d: "m6 6 12 12" })
+        ] }) }) : null,
         suffix,
         rightAddon != null ? /* @__PURE__ */ jsx("span", { className: "twc-input__addon twc-input__addon--end", children: rightAddon }) : null
       ] }),
@@ -7511,6 +7559,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* #326: optional leading icon/swatch + trailing (right-aligned) hint on an option. */
+.twc-opt__icon { flex: none; display: inline-flex; align-items: center; color: var(--color-text-muted); }
+.twc-opt__icon svg { width: 16px; height: 16px; }
+.twc-opt__hint { flex: none; margin-inline-start: auto; padding-inline-start: var(--space-2); color: var(--color-text-muted); font-size: var(--text-xs); white-space: nowrap; }
 .twc-pop__empty { padding: 14px 12px; text-align: center; font-size: var(--text-sm); color: var(--color-text-subtle); }
 .twc-opt[data-disabled="true"] { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
 .twc-pop__loading { display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: 14px 12px; font-size: var(--text-sm); color: var(--color-text-muted); }
@@ -7572,8 +7624,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     maxTagCount,
     filter,
     onInputChange,
-    virtualized = false,
+    virtualized: virtualizedProp = false,
     overscan = 8,
+    renderOption,
     id,
     className = "",
     onFocus,
@@ -7581,6 +7634,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-ms-styles", MULTI_CSS);
+    if (virtualizedProp && renderOption) warnOnce("multiselect-renderoption-virtualized", "twico-ui MultiSelect: `renderOption` disables `virtualized` \u2014 custom rows aren't a fixed height.");
+    const virtualized = virtualizedProp && !renderOption;
     const groups = import_react.default.useMemo(() => normalizeGroups3(options), [options]);
     const flat = import_react.default.useMemo(() => groups.flatMap((g) => g.options), [groups]);
     const autoId = import_react.default.useId();
@@ -7740,7 +7795,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const activeId = open && visible[active] ? optionId(active) : void 0;
     const descId = `${fieldId}-desc`;
     const describedBy = error || hint ? descId : void 0;
-    const renderOption = (o, idx) => {
+    const renderRow = (o, idx) => {
       const isSel = selected.includes(o.value);
       const optDisabled = isOptDisabled(o);
       return /* @__PURE__ */ jsxs(
@@ -7764,9 +7819,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           onClick: () => toggle(o.value),
           children: [
             /* @__PURE__ */ jsx("span", { className: "twc-opt__box", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "3.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M20 6 9 17l-5-5" }) }) }),
-            /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
-              /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
-              o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
+            renderOption ? /* @__PURE__ */ jsx("span", { className: "twc-opt__main", children: renderOption(o, { selected: isSel, active: idx === active }) }) : /* @__PURE__ */ jsxs(Fragment, { children: [
+              o.icon != null ? /* @__PURE__ */ jsx("span", { className: "twc-opt__icon", "aria-hidden": "true", children: o.icon }) : null,
+              /* @__PURE__ */ jsxs("span", { className: "twc-opt__main", children: [
+                /* @__PURE__ */ jsx("span", { className: "twc-opt__label", children: o.label }),
+                o.description ? /* @__PURE__ */ jsx("span", { className: "twc-opt__desc", children: o.description }) : null
+              ] }),
+              o.hint != null ? /* @__PURE__ */ jsx("span", { className: "twc-opt__hint", children: o.hint }) : null
             ] })
           ]
         },
@@ -7796,14 +7855,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           "Loading\u2026"
         ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
           vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
-          vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderOption(r2.o, r2.idx)),
+          vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderRow(r2.o, r2.idx)),
           vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
         ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
           g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
           g.options.map((o) => {
             counter += 1;
             const idx = counter;
-            return renderOption(o, idx);
+            return renderRow(o, idx);
           })
         ] }, gi))
       }
@@ -8385,6 +8444,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   font-size: var(--text-sm); color: var(--color-text); width: 150px; }
 .twc-dt__search input:focus, .twc-dt__search input:focus-visible { outline: none; box-shadow: none; }
 .twc-dt__search input::placeholder { color: var(--color-text-subtle); }
+/* #327: trailing clear (X) for the built-in search inputs (quick-search + column-menu search). */
+.twc-dt__search-clear { border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; display: inline-grid; place-items: center; width: 20px; height: 20px; padding: 0; border-radius: var(--radius-sm); flex: none; }
+.twc-dt__search-clear:hover { color: var(--color-text); background: var(--color-surface-sunken); }
+.twc-dt__search-clear:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-dt__search-clear svg { width: 14px; height: 14px; }
 .twc-dt__tlabel { display: inline; }
 /* Narrow grid: collapse the toolbar to icon-only buttons (labels survive as
    hover tooltips via data-tip) and let the search flex so nothing wraps. */
@@ -9753,6 +9817,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const colMenuRef = import_react.default.useRef(null);
     const rowMenuRef = import_react.default.useRef(null);
     const exportMenuRef = import_react.default.useRef(null);
+    const quickSearchRef = import_react.default.useRef(null);
+    const colSearchRef = import_react.default.useRef(null);
     function focusFirstItem(container) {
       if (!container) return;
       const first = container.querySelector('[role="menuitem"]:not([disabled])');
@@ -11767,7 +11833,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         ] }) : null,
         searchable ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__search", children: [
           /* @__PURE__ */ jsx(Svg, { d: I.search }),
-          /* @__PURE__ */ jsx("input", { placeholder: "Search\u2026", "aria-label": "Search rows", value: quick, onChange: (e) => commitQuick(e.target.value) })
+          /* @__PURE__ */ jsx("input", { ref: quickSearchRef, placeholder: "Search\u2026", "aria-label": "Search rows", value: quick, onChange: (e) => commitQuick(e.target.value) }),
+          quick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__search-clear", "aria-label": "Clear search", onMouseDown: (e) => e.preventDefault(), onClick: () => {
+            commitQuick("");
+            quickSearchRef.current?.focus();
+          }, children: /* @__PURE__ */ jsx(Svg, { d: I.x }) }) : null
         ] }) : null
       ] }),
       !pivotActive && activeGroupBy.length ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__groupbar", children: [
@@ -12360,7 +12430,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "twc-dt__col-search", children: [
           /* @__PURE__ */ jsx(Svg, { d: I.search }),
-          /* @__PURE__ */ jsx("input", { autoFocus: true, placeholder: "Find column\u2026", "aria-label": "Find column", value: colQuery, onChange: (e) => setColQuery(e.target.value) })
+          /* @__PURE__ */ jsx("input", { ref: colSearchRef, autoFocus: true, placeholder: "Find column\u2026", "aria-label": "Find column", value: colQuery, onChange: (e) => setColQuery(e.target.value) }),
+          colQuery ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__search-clear", "aria-label": "Clear column search", onMouseDown: (e) => e.preventDefault(), onClick: () => {
+            setColQuery("");
+            colSearchRef.current?.focus();
+          }, children: /* @__PURE__ */ jsx(Svg, { d: I.x }) }) : null
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "twc-dt__col-list", children: [
           rowNumMatch ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__col-row", onClick: () => setShowRowNum((v) => !v), children: [
@@ -12730,6 +12804,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                     Input,
                     {
                       size: "sm",
+                      clearable: true,
                       type: filterTypeOf(col) === "number" ? "number" : "text",
                       placeholder: "Value",
                       value: f.value,
@@ -17818,6 +17893,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-textarea__el:disabled { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
 .twc-textarea__el[data-readonly] { background: var(--color-surface-sunken); }
 .twc-textarea__el[data-autosize="true"] { resize: none; overflow: hidden; }
+/* #328: clearable (X). Wrap positions the button top-inline-end so it dodges the bottom-right resize handle. */
+.twc-textarea__wrap { position: relative; display: block; }
+.twc-textarea__clear { position: absolute; top: 6px; inset-inline-end: 8px; display: inline-grid; place-items: center; width: 22px; height: 22px; padding: 0; border: none; background: var(--color-surface); color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm); transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+.twc-textarea__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-textarea__clear:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-textarea__clear svg { width: 15px; height: 15px; }
 .twc-field__footer { display: flex; align-items: center; gap: var(--space-2); }
 .twc-field__count { margin-inline-start: auto; font-size: var(--text-xs); color: var(--color-text-muted); font-variant-numeric: tabular-nums; flex: none; }
 .twc-field__count[data-danger="true"] { color: var(--color-danger-subtle-fg); }
@@ -17834,6 +17915,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     minRows,
     maxRows,
     showCount = false,
+    clearable = false,
     disabled = false,
     id,
     className = "",
@@ -17880,8 +17962,18 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     };
     const handleChange = (e) => {
       rest.onChange?.(e);
-      if (showCount && !countControlled) setLen(e.target.value.length);
+      if ((showCount || clearable) && !countControlled) setLen(e.target.value.length);
     };
+    const clearField = () => {
+      const el = innerRef.current;
+      if (!el) return;
+      const setter = typeof HTMLTextAreaElement !== "undefined" && Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, "value")?.set;
+      if (setter) setter.call(el, "");
+      else el.value = "";
+      el.dispatchEvent(new Event("input", { bubbles: true }));
+      el.focus();
+    };
+    const showClear = clearable && count > 0 && !disabled && !rest.readOnly;
     const ariaInvalid = invalid ? true : rest["aria-invalid"] ?? void 0;
     const describedBy = [error || hint ? descId : null, showCounter ? countId : null, rest["aria-describedby"]].filter(Boolean).join(" ") || void 0;
     return /* @__PURE__ */ jsxs("div", { className: `twc-field ${className}`, children: [
@@ -17890,27 +17982,33 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         label,
         required ? /* @__PURE__ */ jsx("span", { className: "twc-field__req", children: "*" }) : null
       ] }) : null,
-      /* @__PURE__ */ jsx(
-        "textarea",
-        {
-          ref: setRef,
-          id: fieldId,
-          className: "twc-textarea__el",
-          "data-size": size,
-          "data-tone": tone,
-          "data-autosize": autosize || void 0,
-          "data-readonly": rest.readOnly || void 0,
-          rows: autosize ? minRows ?? rows : rows,
-          disabled,
-          required: required || void 0,
-          "aria-required": required || void 0,
-          ...rest,
-          onInput: handleInput,
-          onChange: handleChange,
-          "aria-invalid": ariaInvalid,
-          "aria-describedby": describedBy
-        }
-      ),
+      /* @__PURE__ */ jsxs("div", { className: "twc-textarea__wrap", children: [
+        /* @__PURE__ */ jsx(
+          "textarea",
+          {
+            ref: setRef,
+            id: fieldId,
+            className: "twc-textarea__el",
+            "data-size": size,
+            "data-tone": tone,
+            "data-autosize": autosize || void 0,
+            "data-readonly": rest.readOnly || void 0,
+            rows: autosize ? minRows ?? rows : rows,
+            disabled,
+            required: required || void 0,
+            "aria-required": required || void 0,
+            ...rest,
+            onInput: handleInput,
+            onChange: handleChange,
+            "aria-invalid": ariaInvalid,
+            "aria-describedby": describedBy
+          }
+        ),
+        showClear ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-textarea__clear", "aria-label": "Clear", tabIndex: 0, onMouseDown: (e) => e.preventDefault(), onClick: clearField, children: /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+          /* @__PURE__ */ jsx("path", { d: "M18 6 6 18" }),
+          /* @__PURE__ */ jsx("path", { d: "m6 6 12 12" })
+        ] }) }) : null
+      ] }),
       error || hint || showCounter ? /* @__PURE__ */ jsxs("div", { className: "twc-field__footer", children: [
         error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : hint ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__hint", children: hint }) : null,
         showCounter ? /* @__PURE__ */ jsxs("span", { id: countId, className: "twc-field__count", "data-danger": near || void 0, "aria-live": "polite", children: [

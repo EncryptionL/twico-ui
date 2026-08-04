@@ -4590,6 +4590,13 @@ export const components = [
         "description": "Wrap long option labels/descriptions onto multiple lines instead of truncating; takes precedence over virtualized."
       },
       {
+        "prop": "renderOption",
+        "type": "(option, state) => React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Render a custom body per option; twico keeps the row chrome, keyboard nav, and ARIA. Disables virtualized."
+      },
+      {
         "prop": "required",
         "type": "boolean",
         "required": false,
@@ -8559,6 +8566,13 @@ export const components = [
         "description": "With maxLength, renders a live current / max character counter on the hint/error line, danger-toned near the limit."
       },
       {
+        "prop": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Shows a trailing clear ✕ when non-empty; clicking it empties the field and fires onChange with an empty value."
+      },
+      {
         "prop": "onChange",
         "type": "(e: React.ChangeEvent) => void",
         "required": false,
@@ -9035,6 +9049,13 @@ export const components = [
         "required": false,
         "default": "8",
         "description": "Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling."
+      },
+      {
+        "prop": "renderOption",
+        "type": "(option, state) => React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Render a custom body per option; twico keeps the checkbox, keyboard nav, and ARIA. Disables virtualized."
       },
       {
         "prop": "required",
@@ -10127,6 +10148,13 @@ export const components = [
         "required": false,
         "default": "8",
         "description": "Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling."
+      },
+      {
+        "prop": "renderOption",
+        "type": "(option, state) => React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Render a custom body per option; twico keeps the row chrome, checkmark, and ARIA. Disables virtualized."
       },
       {
         "prop": "required",
@@ -12076,6 +12104,13 @@ export const components = [
         "required": false,
         "default": "false",
         "description": "With maxLength, renders a live current / max character counter, danger-toned near the limit."
+      },
+      {
+        "prop": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Shows a top-inline-end clear ✕ when non-empty; clicking it empties the field and fires onChange with an empty value."
       },
       {
         "prop": "onChange",

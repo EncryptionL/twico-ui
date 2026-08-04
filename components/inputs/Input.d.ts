@@ -31,6 +31,10 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   rightAddon?: React.ReactNode;
   /** With `maxLength`, render a live `current / max` character counter on the hint/error line; danger-toned near the limit. @default false */
   showCount?: boolean;
+  /** #328: show a trailing clear (X) button when the field is non-empty; clicking it empties the field and
+   *  fires `onChange` with the empty value (controlled callers update). Composes with `rightIcon` and, for
+   *  `type="password"`, sits alongside the reveal-eye toggle. @default false */
+  clearable?: boolean;
 }
 
 export function Input(props: InputProps): React.JSX.Element;

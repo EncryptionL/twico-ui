@@ -12,6 +12,18 @@
 
 ## Enhancements
 
+- **[#327] Clear ✕ on the built-in inputs** — the three inputs the Datatable renders itself now clear in place:
+  the toolbar **quick-search** (a `.twc-dt__search-clear` ✕ shown when `quick` is non-empty → `commitQuick("")`,
+  which also resets to page 0), the **Columns-panel find box** (`.twc-dt__col-search .twc-dt__search-clear` →
+  `setColQuery("")`), and each per-column **filter value** input — which now opts into #328's `Input clearable`
+  (`<Input size="sm" clearable …>`), so its controlled `onChange` receives `""`. All three ✕ buttons
+  `preventDefault` on mousedown so the **mouse** path keeps focus on the field; because the button renders only
+  while the value is non-empty it **unmounts** on clear, so on **keyboard** activation (Enter/Space) the
+  quick-search and column-search handlers also call `inputRef.current?.focus()` to restore focus (matching the
+  Input/Textarea `clearField`) — otherwise focus fell to `<body>` (adversarial-review finding). 5 tests in
+  `tests/datatable-input-clear.test.jsx` (incl. a focus-restore test and a source guard that the filter value
+  Input keeps `clearable`). — added 2026-08-04
+
 - **[#229] Column `width: "auto"` + `minWidth`/`maxWidth`** — `DatatableColumn.width` is now `number | "auto"`.
   "auto" resolves to the header's intrinsic width (`AUTO_CHROME` 74px + ~8px/char label) so a short column
   fits without truncating or wasting the 160px default; `minWidth`/`maxWidth` clamp the result (incl. user

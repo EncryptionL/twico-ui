@@ -25,6 +25,9 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   maxRows?: number;
   /** With `maxLength`, render a live `current / max` character counter; danger-toned near the limit. @default false */
   showCount?: boolean;
+  /** #328: show a trailing clear (X) button (top-inline-end, clear of the resize handle) when non-empty;
+   *  clicking it empties the field and fires `onChange` with the empty value. @default false */
+  clearable?: boolean;
 }
 
 /** Forwards `ref` to the inner `<textarea>`. */

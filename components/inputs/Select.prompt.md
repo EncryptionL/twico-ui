@@ -28,3 +28,6 @@ Options: strings, `{value,label,description}`, or `{group,options}` groups. An o
 Keyboard: ↑/↓ move, Enter select, Esc close, and printable characters type-ahead-jump on the closed trigger.
 `tone` ("primary" | "success" | "warning" | "danger" | "info" | "neutral", default "primary") sets the focus/open border and ring color.
 For very long lists set `virtualized` (with optional `overscan`, default 8) to render only the visible option slice; keyboard nav still scrolls unrendered options into view.
+Richer options: an option may add `icon` (leading node) and/or `hint` (trailing muted node). For full control pass
+`renderOption(option, { selected, active }) => node` — twico keeps the row chrome (keyboard nav, ARIA, selected checkmark),
+you own the body. `renderOption` takes precedence over `icon`/`hint` and disables `virtualized` (custom rows aren't a fixed height).

@@ -57,6 +57,10 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
    *  ellipsis — useful when options share a long prefix and differ only in a truncated tail. Takes precedence
    *  over `virtualized` (wrapped rows aren't a fixed height). @default false */
   wrapOptions?: boolean;
+  /** #326: render a custom option row body (twico keeps the checkmark, keyboard nav, and ARIA wiring). For
+   *  lightweight cases prefer the additive `icon`/`hint` fields on an option instead. Disables `virtualized`
+   *  (custom rows aren't a fixed height). */
+  renderOption?: (option: ComboboxOption, state: { selected: boolean; active: boolean }) => React.ReactNode;
   /** Composed with the field's open-on-focus behavior — your handler runs first. */
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   /** Composed with the field's keyboard navigation (Arrows/Enter/Escape) — your handler runs first; call `event.preventDefault()` to suppress it. */

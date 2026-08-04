@@ -19,6 +19,18 @@
   `tests/scoped-style-id-dedup.test.js` (no id may map to two CSS bodies). See `docs/ssr-styles.md` → Conventions.
   — ✓ fixed 2026-07-14
 
+## Enhancements
+
+- **[#328] `clearable` — trailing clear ✕** — opt-in `clearable` (default false) renders a trailing ✕ button,
+  shown only when the field is non-empty and interactive (not `disabled`/`readOnly`). Clicking it empties the
+  value and fires `onChange` with `""` for **both** controlled and uncontrolled inputs, via the native
+  `HTMLInputElement.prototype.value` setter + a dispatched `input` event (so React's synthetic `onChange` runs),
+  then refocuses. `onMouseDown` is prevented so focus doesn't blur first. The ✕ sits **before** `rightIcon` /
+  the password reveal eye, so all three coexist. Length tracking for the show/hide test broadens the counter's
+  handler guard to `(showCount || clearable)`. An internal `useCallback` ref-merge keeps a consumer-supplied
+  `ref` intact (React 19 ref-as-prop) instead of clobbering it. 5 tests in `tests/input-clearable.test.jsx`.
+  — added 2026-08-04
+
 ## Verified OK
 
 - Controlled/uncontrolled input works with value/defaultValue/onChange

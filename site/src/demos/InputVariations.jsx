@@ -124,6 +124,19 @@ const variations = [
     ),
   },
   {
+    title: "Clearable",
+    description:
+      "Set `clearable` to show a trailing ✕ once the field has a value; clicking it empties the field and fires onChange with an empty string. It works for controlled and uncontrolled inputs and coexists with rightIcon and the password reveal eye.",
+    code: `<Input label="Search" clearable defaultValue="twico ui" placeholder="Search…" />
+<Input label="Password" type="password" clearable defaultValue="secret" />`,
+    render: () => (
+      <div style={{ display: "flex", flexDirection: "column", gap: 12, width: 340, maxWidth: "100%" }}>
+        <Input label="Search" clearable defaultValue="twico ui" placeholder="Search…" />
+        <Input label="Password" type="password" clearable defaultValue="secret" />
+      </div>
+    ),
+  },
+  {
     title: "All props",
     description:
       "Every Input-specific prop in one place. Shows the controlled value pattern, a leading and trailing icon, a tone accent, and a hint (passing `error` instead would turn the field red and replace the hint). disabled/readOnly are left off so the field stays interactive.",

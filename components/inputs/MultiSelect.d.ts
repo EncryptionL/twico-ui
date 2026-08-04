@@ -59,6 +59,10 @@ export interface MultiSelectProps extends Omit<React.InputHTMLAttributes<HTMLInp
   virtualized?: boolean;
   /** Extra option rows rendered above/below the viewport when `virtualized`, to smooth fast scrolling. @default 8 */
   overscan?: number;
+  /** #326: render a custom option row body (twico keeps the checkbox, keyboard nav, and ARIA wiring). For
+   *  lightweight cases prefer the additive `icon`/`hint` fields on an option instead. Disables `virtualized`
+   *  (custom rows aren't a fixed height). */
+  renderOption?: (option: MultiSelectOption, state: { selected: boolean; active: boolean }) => React.ReactNode;
   /** Composed with the field's open-on-focus behavior — your handler runs first. */
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   /** Composed with the field's keyboard navigation (Arrows/Enter/Escape/Backspace) — your handler runs first; call `event.preventDefault()` to suppress it. */

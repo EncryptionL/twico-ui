@@ -60,6 +60,11 @@ const INPUT_EXTRA_CSS = `
 .twc-input__reveal:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-input__reveal:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-input__reveal svg { width: 17px; height: 17px; }
+/* #328: trailing clear (X) button — mirrors the reveal toggle; sits alongside rightIcon / the password eye. */
+.twc-input__clear { display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm); flex: none; transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+.twc-input__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-input__clear:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-input__clear svg { width: 15px; height: 15px; }
 .twc-input__addon { align-self: stretch; display: inline-flex; align-items: center; padding-inline: var(--space-3);
   background: var(--color-surface-sunken); color: var(--color-text-muted); font-size: var(--text-sm);
   font-weight: var(--font-semibold); white-space: nowrap; flex: none; }
@@ -82,6 +87,7 @@ export function Input({
   leftAddon,
   rightAddon,
   showCount = false,
+  clearable = false,
   type = "text",
   disabled = false,
   id,
@@ -103,7 +109,27 @@ export function Input({
   const max = rest.maxLength;
   const showCounter = showCount && max != null;
   const near = showCounter && count >= Math.floor(max * 0.9);
-  const handleChange = (e) => { rest.onChange?.(e); if (showCount && !countControlled) setLen(e.target.value.length); };
+  // #328: track length for the uncontrolled clear affordance too (not just the counter).
+  const handleChange = (e) => { rest.onChange?.(e); if ((showCount || clearable) && !countControlled) setLen(e.target.value.length); };
+  // #328: clear (X). Native value-setter + dispatched input event so React fires onChange with "" for
+  // controlled AND uncontrolled callers; then refocus. Shown only when non-empty and interactive.
+  const inputRef = React.useRef(null);
+  // Merge our internal ref with any consumer-supplied `ref` (React 19 passes it via `...rest`) so
+  // clearable never clobbers a caller's ref — this stays a no-op on React 18 (ref is stripped).
+  const userRef = rest.ref;
+  const setRef = React.useCallback((node) => {
+    inputRef.current = node;
+    if (typeof userRef === "function") userRef(node);
+    else if (userRef && typeof userRef === "object") userRef.current = node;
+  }, [userRef]);
+  const clearField = () => {
+    const el = inputRef.current; if (!el) return;
+    const setter = typeof HTMLInputElement !== "undefined" && Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+    if (setter) setter.call(el, ""); else el.value = "";
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+    el.focus();
+  };
+  const showClear = clearable && count > 0 && !disabled && !rest.readOnly;
 
   // #72: aria-invalid forced true on error (visual+SR in sync); consumer value wins otherwise.
   // aria-describedby merges the message id, the counter id, and any consumer-supplied id.
@@ -151,10 +177,16 @@ export function Input({
           required={required || undefined}
           aria-required={required || undefined}
           {...rest}
+          ref={setRef}
           onChange={handleChange}
           aria-invalid={ariaInvalid}
           aria-describedby={describedBy}
         />
+        {showClear ? (
+          <button type="button" className="twc-input__clear" aria-label="Clear" tabIndex={0} onMouseDown={(e) => e.preventDefault()} onClick={clearField}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        ) : null}
         {suffix}
         {rightAddon != null ? <span className="twc-input__addon twc-input__addon--end">{rightAddon}</span> : null}
       </div>

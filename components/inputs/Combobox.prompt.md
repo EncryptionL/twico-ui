@@ -34,4 +34,9 @@ Set `wrapOptions` to let long labels/descriptions wrap onto multiple lines inste
 when options share a long common prefix and differ only in a tail that would otherwise be cut off. It takes precedence
 over `virtualized` (wrapped rows aren't a fixed height).
 
+Richer options: an option may add `icon` (leading node) and/or `hint` (trailing muted node, e.g. a shortcut or count)
+for a quick lift with no custom render. For full control pass `renderOption(option, { selected, active }) => node` — twico
+still owns the row chrome (keyboard nav, ARIA `aria-selected`/active state, and the clear affordance), you own the body.
+`renderOption` takes precedence over `icon`/`hint` and, like `wrapOptions`, disables `virtualized` (custom rows aren't a fixed height).
+
 `tone` (`primary` | `success` | `warning` | `danger` | `info` | `neutral`, default `primary`) recolors the focus/open border and ring accent.
