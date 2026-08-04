@@ -5800,6 +5800,27 @@ export const components = [
         "description": "Fires with the new quick-search string as the user types in the built-in box (and when a host sets it)."
       },
       {
+        "prop": "filterLogic",
+        "type": "\"and\" | \"or\"",
+        "required": false,
+        "default": "—",
+        "description": "Controlled And/Or connective between filter conditions — a single set-wide operator (MUI DataGrid-style); pair with onFilterLogicChange. Omit for uncontrolled (see defaultFilterLogic)."
+      },
+      {
+        "prop": "defaultFilterLogic",
+        "type": "\"and\" | \"or\"",
+        "required": false,
+        "default": "\"and\"",
+        "description": "Initial And/Or connective for the filter conditions when filterLogic is left uncontrolled."
+      },
+      {
+        "prop": "onFilterLogicChange",
+        "type": "(logic: \"and\" | \"or\") => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the new connective when the user changes the per-row And/Or connector in the Filters panel."
+      },
+      {
         "prop": "toolbarActions",
         "type": "React.ReactNode",
         "required": false,

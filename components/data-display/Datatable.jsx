@@ -8,6 +8,16 @@ import { Tooltip } from "../overlay/Tooltip.jsx";
 import { Badge } from "./Badge.jsx";
 import { classifyDiff, DIFF_OPS } from "../_diff.js";
 
+// #330: default Filters-panel width and the width of the leading And/Or connector cell, shared by the
+// JS-side consumers (resize-grip aria-valuetext fallback, open-position clamp, per-field width budgets) so
+// they stay in lockstep. NOTE: these MUST equal the literals baked into DT_CSS below — `.twc-dt__filters`
+// `width: var(--twc-dt-panel-w, 620px)` and `.twc-dt__f-logic { width: 68px }`. They are intentionally NOT
+// interpolated into DT_CSS: doing so turns that big scoped-CSS string into a non-constant template literal
+// that esbuild can no longer tree-shake, which leaked ~8.6 kB of Datatable CSS into every tree-shaken
+// single-component bundle (Button/Card). Keep the CSS literals and these constants edited together.
+const DT_FILTER_PANEL_W = 620;
+const DT_FILTER_LOGIC_W = 68;
+
 const DT_CSS = `
 .twc-dt { display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--color-text);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
@@ -430,13 +440,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__panel-count { font-weight: 600; color: var(--color-text-muted); text-transform: none; letter-spacing: 0; margin-inline-start: 6px; font-variant-numeric: tabular-nums; }
 .twc-dt__link { border: none; background: transparent; color: var(--color-primary); font-family: inherit; font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 4px; border-radius: var(--radius-sm); }
 .twc-dt__link:hover { background: var(--color-primary-subtle); }
-/* #303: AND/OR connective toggle (segmented pill) in the Filters panel head. */
-.twc-dt__flogic { display: inline-flex; border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }
-.twc-dt__flogic-btn { border: none; background: transparent; color: var(--color-text-muted); font-family: inherit; font-size: 10px; font-weight: 700; letter-spacing: var(--tracking-wide); cursor: pointer; padding: 2px 8px; }
-.twc-dt__flogic-btn + .twc-dt__flogic-btn { border-inline-start: var(--border-thin) solid var(--color-border); }
-.twc-dt__flogic-btn:hover { background: var(--color-surface-sunken); }
-.twc-dt__flogic-btn[data-active] { background: var(--color-primary); color: var(--color-primary-fg); }
-.twc-dt__flogic-btn[data-active]:hover { background: var(--color-primary); }
+/* #330: MUI DataGrid-style per-row And/Or connector. Row 1 shows a static "Where"; the first connector
+   row (row 2) hosts an editable And/Or Select bound to the single filterLogic; rows 3+ echo it as static
+   text. Fixed-width leading cell so the Column/Operator/Value cells stay aligned across rows. */
+.twc-dt__f-logic { position: relative; flex: none; width: 68px; }
+.twc-dt__f-where { display: inline-flex; align-items: center; height: 38px; padding-inline: 6px; color: var(--color-text-muted); font-size: var(--text-sm); font-weight: var(--font-medium); }
 
 /* Filter panel — user-resizable (#292): panel size + per-field widths resolve through a two-tier CSS var
    cascade — user drag (-usr) > #289 measured auto-fit (-fit) > 118px fallback — entirely in clamp(), so
@@ -446,7 +454,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
      equal-specificity 'position: relative' defined later would clobber it, dropping the popover into normal
      flow below the table. The panel stays position: fixed, which already anchors the absolutely-positioned
      .twc-dt__pop-grip; per-field handles anchor to their own position: relative .twc-dt__f-* fields. */
-  width: var(--twc-dt-panel-w, 580px); max-width: calc(100vw - 32px);
+  width: var(--twc-dt-panel-w, 620px); max-width: calc(100vw - 32px);
   height: var(--twc-dt-panel-h, auto); max-height: calc(100vh - 32px);
   display: flex; flex-direction: column;
 }
@@ -1003,6 +1011,9 @@ export function Datatable({
   searchable = true,
   quickFilter,
   onQuickFilterChange,
+  filterLogic: filterLogicProp,
+  defaultFilterLogic = "and",
+  onFilterLogicChange,
   toolbarActions,
   resizableFilters = true,
   resizablePopovers = true, // #314: default-on (matches resizableFilters) — set false to opt a grid out
@@ -1080,9 +1091,18 @@ export function Datatable({
   });
   const [sort, setSort] = React.useState(null);
   const [filters, setFilters] = React.useState([]);
-  // #303: how the filter clauses combine — "and" (all must match, default) or "or" (any). A set-wide
-  // connective, so it only matters with 2+ clauses; surfaced as an AND/OR toggle in the Filters panel.
-  const [filterLogic, setFilterLogic] = React.useState("and");
+  // #303/#330: how the filter clauses combine — "and" (all must match, default) or "or" (any). A set-wide
+  // connective (matching MUI DataGrid's single logicOperator), surfaced as a per-row And/Or connector in
+  // the Filters panel. Controllable: pass `filterLogic` (+ `onFilterLogicChange`) to drive it, else it is
+  // uncontrolled and seeded by `defaultFilterLogic`. Hand-rolled controlled/uncontrolled (no hook import).
+  const filterLogicControlled = filterLogicProp !== undefined;
+  const [filterLogicInternal, setFilterLogicInternal] = React.useState(defaultFilterLogic === "or" ? "or" : "and");
+  const filterLogic = filterLogicControlled ? (filterLogicProp === "or" ? "or" : "and") : filterLogicInternal;
+  const setFilterLogic = (next) => {
+    const v = next === "or" ? "or" : "and";
+    if (!filterLogicControlled) setFilterLogicInternal(v);
+    onFilterLogicChange?.(v);
+  };
   const [hidden, setHidden] = React.useState(() => new Set());
   // Runtime visibility of the row-number gutter, seeded from the `rowNumbers` prop and
   // toggled from the Columns panel (the prop just enables the feature + sets the default).
@@ -1187,7 +1207,7 @@ export function Datatable({
     if (!s || typeof s !== "object") return;
     const known = new Set(cols.map((c) => c.field).filter(Boolean));
     if (Array.isArray(s.filters)) setFilters(s.filters.filter((f) => f && known.has(f.field)).map((f, i) => ({ id: Date.now() + Math.random() + i, field: f.field, op: f.op, value: f.value })));
-    if (s.filterLogic === "or" || s.filterLogic === "and") setFilterLogic(s.filterLogic); // #303: default "and" when absent (back-compat)
+    if ((s.filterLogic === "or" || s.filterLogic === "and") && !filterLogicControlled) setFilterLogicInternal(s.filterLogic); // #303: default "and" when absent (back-compat); skip when controlled (parent owns it)
     if ("sort" in s) setSort(s.sort && known.has(s.sort.field) ? { field: s.sort.field, dir: s.sort.dir === "desc" ? "desc" : "asc" } : null);
     if (typeof s.quickFilter === "string" && quickFilter === undefined) setInternalQuick(s.quickFilter);
     if (typeof s.page === "number" && !pageControlled) setInternalPage(Math.max(0, Math.floor(s.page)));
@@ -2430,7 +2450,7 @@ export function Datatable({
   // #289: auto-fit the filter panel's column-field (and operator) Select widths to the widest label, so
   // header names no longer truncate at the old fixed 118px. Measure the widest OPTION (not the selected
   // value) → the width is stable across selection and identical across rows. Clamp to a cap derived from
-  // the LIVE panel width so the value input keeps its 140px floor inside the 580px panel; the CSS clamp()
+  // the LIVE panel width so the value input keeps its 140px floor inside the panel; the CSS clamp()
   // cap is the hard backstop. Writes the -fit tier only (#292); a user drag's -usr tier wins over it.
   React.useEffect(() => {
     const el = filterPanelRef.current;
@@ -2445,8 +2465,8 @@ export function Datatable({
       const pad = trigger ? (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0) : 24;
       const chrome = pad + 8 /*gap*/ + 16 /*chevron*/ + 4 /*slack*/;
       const widest = (labels) => labels.reduce((m, l) => Math.max(m, ctx.measureText(String(l)).width), 0);
-      // available for f-col = panel − op(118) − remove(30) − f-val floor(140) − 3 gaps(6) − 2 pad(4)
-      const colCap = Math.max(118, Math.min(210, el.clientWidth - 118 - 30 - 140 - 3 * 6 - 2 * 4));
+      // available for f-col = panel − logic(68) − op(118) − add/remove(2×30) − f-val floor(140) − 5 gaps(6) − 2 pad(4)
+      const colCap = Math.max(118, Math.min(210, el.clientWidth - DT_FILTER_LOGIC_W - 118 - 30 - 30 - 140 - 5 * 6 - 2 * 4));
       const colW = Math.min(colCap, Math.max(118, Math.ceil(widest(filterableCols.map((c) => c.headerName ?? c.field)) + chrome)));
       const opW = Math.min(170, Math.max(118, Math.ceil(widest(ALL_OP_LABELS) + chrome)));
       // #292: write the MEASURED tier only (-fit). A user drag writes -usr, which wins in the clamp()
@@ -2479,7 +2499,7 @@ export function Datatable({
     if (field === "col") return filterFieldMaxWidth || 360;
     if (field === "op") return filterFieldMaxWidth || 260;
     const p = filterPanelRef.current; if (!p) return 640; // value: fill the row minus siblings
-    return clampNum(p.clientWidth - fLiveW("col") - fLiveW("op") - 30 /*remove*/ - 24 /*gaps*/, F_MIN.val, 640);
+    return clampNum(p.clientWidth - DT_FILTER_LOGIC_W /*logic cell*/ - fLiveW("col") - fLiveW("op") - 30 - 30 /*add/remove*/ - 5 * 6 /*gaps*/ - 2 * 4 /*pad*/, F_MIN.val, 640);
   };
   const isRtl = () => { const p = filterPanelRef.current; return p ? getComputedStyle(p).direction === "rtl" : false; };
   const startFieldResize = (e, field) => {
@@ -2952,7 +2972,7 @@ export function Datatable({
           <Svg d={I.columns} /><span className="twc-dt__tlabel">Columns</span>{hidden.size ? <span className="twc-dt__tbadge">{cols.length - hidden.size}</span> : null}
         </button>
         <button type="button" className="twc-dt__tbtn" data-active={panel === "filters" || undefined} data-tip="Filter rows"
-          onClick={(e) => { if (panel === "filters") { setPanel(null); closePanel(); } else { setPanel("filters"); setColMenu(null); openPanel(e.currentTarget, "left", 580); } }}>
+          onClick={(e) => { if (panel === "filters") { setPanel(null); closePanel(); } else { setPanel("filters"); setColMenu(null); openPanel(e.currentTarget, "left", DT_FILTER_PANEL_W); } }}>
           <Svg d={I.filter} /><span className="twc-dt__tlabel">Filters</span>{filters.length ? <span className="twc-dt__tbadge">{filters.length}</span> : null}
         </button>
         {showDensity ? (
@@ -3319,7 +3339,7 @@ export function Datatable({
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "asc" || undefined} onClick={() => { setSort({ field: c.field, dir: "asc" }); close(); }}><Svg d={I.arrow} /> Sort ascending</button>
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "desc" || undefined} onClick={() => { setSort({ field: c.field, dir: "desc" }); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(180deg)" }} /> Sort descending</button>
               </>) : null}
-              {c.filterable ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); restoreTriggerFocus(); setPanel("filters"); openPanel(document.querySelector(".twc-dt__toolbar .twc-dt__tbtn:nth-child(2)"), "left", 580); }}><Svg d={I.filter} /> Filter</button> : null}
+              {c.filterable ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); restoreTriggerFocus(); setPanel("filters"); openPanel(document.querySelector(".twc-dt__toolbar .twc-dt__tbtn:nth-child(2)"), "left", DT_FILTER_PANEL_W); }}><Svg d={I.filter} /> Filter</button> : null}
               {hasTop && hasBottom ? <div className="twc-dt__sep" /> : null}
               {c.groupable ? <button type="button" role="menuitem" className="twc-dt__mi" data-active={groupBy.includes(c.field) || undefined} onClick={() => { toggleGroupField(c.field); close(); }}><Svg d={I.group} /> {groupBy.includes(c.field) ? "Stop grouping" : "Group by this column"}</button> : null}
               {/* #228: only when the column is actually movable — omit (not disable) for
@@ -3532,13 +3552,7 @@ export function Datatable({
           <div className="twc-dt__panel-head">
             <span className="twc-dt__panel-title">Filters</span>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-              {/* #303: AND/OR only matters with 2+ clauses */}
-              {filters.length > 1 ? (
-                <span className="twc-dt__flogic" role="group" aria-label="Combine filters with">
-                  <button type="button" className="twc-dt__flogic-btn" data-active={filterLogic === "and" || undefined} aria-pressed={filterLogic === "and"} onClick={() => setFilterLogic("and")}>AND</button>
-                  <button type="button" className="twc-dt__flogic-btn" data-active={filterLogic === "or" || undefined} aria-pressed={filterLogic === "or"} onClick={() => setFilterLogic("or")}>OR</button>
-                </span>
-              ) : null}
+              {/* #330: the And/Or connective now lives inline on each filter row (MUI DataGrid-style), not here. */}
               {resizableFilters && hasFilterSizeOverride ? <button type="button" className="twc-dt__link" onClick={resetFilterSizes}>Reset sizes</button> : null}
               {filters.length ? <button type="button" className="twc-dt__link" onClick={() => setFilters([])}>Clear all</button> : null}
             </span>
@@ -3550,6 +3564,19 @@ export function Datatable({
               const op = ops.find((o) => o.value === f.op) || ops[0];
               return (
                 <div className="twc-dt__frow" key={f.id}>
+                  {/* #330: MUI-style per-row And/Or connector — row 1 is "Where"; row 2 hosts the editable
+                      And/Or Select (the single, linked filterLogic); rows 3+ echo the chosen operator. */}
+                  <div className="twc-dt__f-logic">
+                    {i === 0 ? (
+                      <span className="twc-dt__f-where">Where</span>
+                    ) : i === 1 ? (
+                      <Select size="sm" portal aria-label="Combine with the other filters" value={filterLogic}
+                        options={[{ value: "and", label: "And" }, { value: "or", label: "Or" }]}
+                        onChange={(v) => setFilterLogic(v)} />
+                    ) : (
+                      <span className="twc-dt__f-where">{filterLogic === "or" ? "Or" : "And"}</span>
+                    )}
+                  </div>
                   <div className="twc-dt__f-col">
                     <Select size="sm" portal value={f.field}
                       options={filterableCols.map((c) => ({ value: c.field, label: c.headerName }))}
@@ -3595,7 +3622,7 @@ export function Datatable({
           {resizableFilters ? (
             <span className="twc-dt__pop-grip" role="slider" tabIndex={0}
               aria-label="Resize filters panel (Enter to reset)"
-              aria-valuetext={`Width ${Math.round(fPanelSize?.w ?? 580)} pixels, height ${fPanelSize?.h != null ? Math.round(fPanelSize.h) + " pixels" : "auto"}`}
+              aria-valuetext={`Width ${Math.round(fPanelSize?.w ?? DT_FILTER_PANEL_W)} pixels, height ${fPanelSize?.h != null ? Math.round(fPanelSize.h) + " pixels" : "auto"}`}
               onPointerDown={startPanelResize} onKeyDown={onPanelGripKey}
               onDoubleClick={(e) => { e.preventDefault(); resetPanelSize(); }} />
           ) : null}

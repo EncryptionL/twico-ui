@@ -82,6 +82,15 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   quickFilter?: string;
   /** Fires with the new quick-search string as the user types (and when a host sets it). */
   onQuickFilterChange?: (value: string) => void;
+  /** #330: how the filter clauses combine — `"and"` (all must match) or `"or"` (any). A single, set-wide
+   *  connective (matching MUI DataGrid's `logicOperator`), surfaced as the per-row And/Or connector in the
+   *  Filters panel and included as `filterLogic` in the `onServerChange` query. Pass this (with
+   *  `onFilterLogicChange`) to control it; omit for uncontrolled (seeded by `defaultFilterLogic`). */
+  filterLogic?: "and" | "or";
+  /** #330: initial And/Or connective when `filterLogic` is uncontrolled. @default "and" */
+  defaultFilterLogic?: "and" | "or";
+  /** #330: fires with the new connective (`"and"` | `"or"`) when the user changes the per-row And/Or select. */
+  onFilterLogicChange?: (logic: "and" | "or") => void;
   /** Custom node rendered in a **leading slot** of the toolbar row, before the built-in Columns/Filters
    *  cluster (#286) — for host controls like an "Add row" button or bulk actions. Mirrors `CardGrid`'s
    *  `toolbar` prop, so no internal-class/absolute-position hacks are needed. */
