@@ -52,8 +52,9 @@ import { Datatable } from "./Datatable";
   e.g. an "Add row" button or bulk actions — mirroring `CardGrid`'s `toolbar` prop, so no internal-class hacks:
   `<Datatable toolbarActions={<Button size="sm" leftIcon={<PlusIcon/>}>Add row</Button>} … />`.
 - **Resizable Filters** (`resizableFilters`, default `true`) — drag the Filters popover (bottom-inline-end grip)
-  and its column/operator/value fields (per-field handles) wider/narrower; layered over the auto-fit (a drag
-  overrides the measured width, reset returns to it). Keyboard-accessible (Arrow/Shift/Home/End, Enter=reset),
+  and its connector/column/operator/value fields (per-field handles) wider/narrower; layered over the auto-fit (a
+  drag overrides the measured width, reset returns to it). The And/Or connector is a resizable field like the
+  others — it auto-fits its label so it never truncates and can still be widened manually (#330). Keyboard-accessible (Arrow/Shift/Home/End, Enter=reset),
   persists via `stateKey`, and a "Reset sizes" header action clears it. `filterFieldMaxWidth` raises the field cap.
 - **Empty state** — `emptyMessage` (filter-aware by default) or `renderEmpty` customizes the zero-row body; a
   column can opt out of reorder with `reorderable: false`; row actions use the twico `Tooltip` (not native `title`).

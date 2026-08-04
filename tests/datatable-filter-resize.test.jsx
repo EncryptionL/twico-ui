@@ -39,10 +39,11 @@ describe("Datatable resizable filters (#292)", () => {
     const openFilters = (c) => fireEvent.click(Array.from(c.querySelectorAll(".twc-dt__tbtn")).find((b) => b.textContent.includes("Filters")));
     const addFilter = (c) => fireEvent.click(Array.from(c.querySelectorAll("button")).find((b) => b.textContent.trim() === "Add filter"));
 
-    it("renders 3 field handles (first row only) + the panel grip by default", () => {
+    it("renders 4 field handles (first row only) + the panel grip by default", () => {
       const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} />);
       openFilters(container); addFilter(container); addFilter(container); // two rows
-      expect(container.querySelectorAll(".twc-dt__f-rz").length).toBe(3); // still 3 — panel-global, first row
+      // connector + column + operator + value, all panel-global and only on the first row (#330 added the connector)
+      expect(container.querySelectorAll(".twc-dt__f-rz").length).toBe(4);
       expect(container.querySelector(".twc-dt__pop-grip")).toBeTruthy();
     });
 
