@@ -8,9 +8,13 @@ import { Tooltip } from "../overlay/Tooltip.jsx";
 import { Badge } from "./Badge.jsx";
 import { classifyDiff, DIFF_OPS } from "../_diff.js";
 
-// #330: default Filters-panel width and the width of the leading And/Or connector cell. Named constants so
-// the CSS default, the resize-grip aria-valuetext fallback, the open-position clamp, and the per-field width
-// budgets stay in lockstep (they previously drifted when the panel width was bumped for the new cell).
+// #330: default Filters-panel width and the width of the leading And/Or connector cell, shared by the
+// JS-side consumers (resize-grip aria-valuetext fallback, open-position clamp, per-field width budgets) so
+// they stay in lockstep. NOTE: these MUST equal the literals baked into DT_CSS below — `.twc-dt__filters`
+// `width: var(--twc-dt-panel-w, 620px)` and `.twc-dt__f-logic { width: 68px }`. They are intentionally NOT
+// interpolated into DT_CSS: doing so turns that big scoped-CSS string into a non-constant template literal
+// that esbuild can no longer tree-shake, which leaked ~8.6 kB of Datatable CSS into every tree-shaken
+// single-component bundle (Button/Card). Keep the CSS literals and these constants edited together.
 const DT_FILTER_PANEL_W = 620;
 const DT_FILTER_LOGIC_W = 68;
 
@@ -439,7 +443,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 /* #330: MUI DataGrid-style per-row And/Or connector. Row 1 shows a static "Where"; the first connector
    row (row 2) hosts an editable And/Or Select bound to the single filterLogic; rows 3+ echo it as static
    text. Fixed-width leading cell so the Column/Operator/Value cells stay aligned across rows. */
-.twc-dt__f-logic { position: relative; flex: none; width: ${DT_FILTER_LOGIC_W}px; }
+.twc-dt__f-logic { position: relative; flex: none; width: 68px; }
 .twc-dt__f-where { display: inline-flex; align-items: center; height: 38px; padding-inline: 6px; color: var(--color-text-muted); font-size: var(--text-sm); font-weight: var(--font-medium); }
 
 /* Filter panel — user-resizable (#292): panel size + per-field widths resolve through a two-tier CSS var
@@ -450,7 +454,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
      equal-specificity 'position: relative' defined later would clobber it, dropping the popover into normal
      flow below the table. The panel stays position: fixed, which already anchors the absolutely-positioned
      .twc-dt__pop-grip; per-field handles anchor to their own position: relative .twc-dt__f-* fields. */
-  width: var(--twc-dt-panel-w, ${DT_FILTER_PANEL_W}px); max-width: calc(100vw - 32px);
+  width: var(--twc-dt-panel-w, 620px); max-width: calc(100vw - 32px);
   height: var(--twc-dt-panel-h, auto); max-height: calc(100vh - 32px);
   display: flex; flex-direction: column;
 }
