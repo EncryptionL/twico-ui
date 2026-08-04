@@ -83,6 +83,16 @@ describe("Datatable Filters panel per-row And/Or connector + add-condition (#330
     expect(sel.textContent).toContain("And"); // single, linked logicOperator — defaults to And
   });
 
+  it("the connector is a resizable field — row 1 carries a drag handle like col/op/val (no more truncation)", () => {
+    const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} initialState={{ filters: seed2 }} />);
+    openFilters(container);
+    // the leading connector cell on the first row hosts a resize handle, matching the other filter fields
+    const handle = container.querySelector('.twc-dt__f-logic .twc-dt__f-rz[aria-label^="Resize connector"]');
+    expect(handle).toBeTruthy();
+    // and it is the only field-resize handle on the connector column (row 0 only, like col/op/val)
+    expect(container.querySelectorAll('.twc-dt__f-logic .twc-dt__f-rz').length).toBe(1);
+  });
+
   it("a single clause shows only 'Where' (no connector select)", () => {
     const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} initialState={{ filters: [{ field: "name", op: "contains", value: "ap" }] }} />);
     openFilters(container);

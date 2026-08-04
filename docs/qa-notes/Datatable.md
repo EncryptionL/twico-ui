@@ -12,6 +12,17 @@
 
 ## Enhancements
 
+- **[#330 follow-up] And/Or connector is a resizable filter field (fixes truncation)** — the initial #330
+  connector used a fixed 68px leading cell, which truncated "And" to "A…". Promoted it to a first-class
+  resizable filter field like Column/Operator/Value: it **auto-fits** its content (`--twc-dt-flogic-fit`
+  from the #289 measurer; CSS `clamp(84px, …-usr → …-fit → 84px, 180px)`) and carries a **drag handle** on
+  the first row (`fieldHandle("logic", i)` → the shared #292 resize path), with the width persisted in
+  `fWidths.logic` / `filterFieldWidths` (typed in `DatatableState`) and cleared by "Reset sizes". Registered
+  `logic` in F_MIN/F_VAR/F_SEL/F_LABEL (floor 84 — already fits "And"/"Or"/"Where", so it stays grow-only
+  like col/op with no post-measure shrink; cap 180). The removed fixed `DT_FILTER_LOGIC_W` constant is replaced by
+  the measured `logicW` in the col auto-fit budget and by `fLiveW("logic")` in the value drag cap.
+  Test in `tests/datatable-filter-logic.test.jsx` (connector renders a resize handle). — added 2026-08-04
+
 - **[#330] Per-row And/Or filter connector (MUI DataGrid-style)** — the #303 set-wide connective (`filterLogic`,
   default `"and"`) is now surfaced inline on the filter rows instead of as a header AND/OR pill. Row 1 reads
   *Where* (`.twc-dt__f-where`), the second row (`i === 1`) hosts an **editable And/Or `Select`**
@@ -22,11 +33,10 @@
   `defaultFilterLogic` seeds the uncontrolled default) — persistence restore sets internal state only when
   uncontrolled (no callback on restore). Client `processed` + exported `runDatatableQuery` already honor it and
   it still rides the `onServerChange` query as `filterLogic`. Default panel width bumped 580→620px for the added
-  leading column — via named `DT_FILTER_PANEL_W`/`DT_FILTER_LOGIC_W` constants shared by the CSS, the resize-grip
-  `aria-valuetext` fallback, the open-position clamp, and the per-field width budgets (`colCap`/`fCap('val')`,
-  which now reserve the 68px connector cell + the #303 second row button) so those can't drift again
-  (adversarial-review follow-up). Both engines drop unknown-field clauses under OR (a stray `isEmpty` on a removed
-  column must not match every row). Tests in `tests/datatable-filter-logic.test.jsx` (per-row connector render, Or-flip + callback,
+  leading column — via a named `DT_FILTER_PANEL_W` constant shared by the CSS default, the resize-grip
+  `aria-valuetext` fallback, and the open-position clamp so those can't drift (adversarial-review follow-up).
+  (The connector cell width was later made a resizable field — see the #330 follow-up entry above.) Both engines
+  drop unknown-field clauses under OR (a stray `isEmpty` on a removed column must not match every row). Tests in `tests/datatable-filter-logic.test.jsx` (per-row connector render, Or-flip + callback,
   rows-3+ echo, controlled prop, round-trips). — added 2026-08-04
 
 - **[#327] Clear ✕ on the built-in inputs** — the three inputs the Datatable renders itself now clear in place:

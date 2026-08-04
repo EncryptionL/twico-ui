@@ -372,8 +372,9 @@ export interface DatatableState {
   density: "compact" | "standard" | "comfortable";
   /** #292: user-resized Filters popover size (px). Absent until the user drags the panel grip. */
   filterPanelSize?: { w?: number; h?: number };
-  /** #292: user-resized Filters field widths (px, panel-global — not per data column). Absent until dragged. */
-  filterFieldWidths?: { col?: number; op?: number; val?: number };
+  /** #292: user-resized Filters field widths (px, panel-global — not per data column). Absent until dragged.
+   *  `logic` is the #330 And/Or connector field. */
+  filterFieldWidths?: { col?: number; op?: number; val?: number; logic?: number };
   /** #304: user-resized sizes of the other toolbar popovers (Columns/Aggregation/Pivot/Batch-edit),
    *  keyed by popover id → `{ w, h }` in px. Absent until a popover is dragged with `resizablePopovers`. */
   popoverSizes?: Record<string, { w?: number; h?: number }>;

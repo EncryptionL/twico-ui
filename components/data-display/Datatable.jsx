@@ -8,15 +8,13 @@ import { Tooltip } from "../overlay/Tooltip.jsx";
 import { Badge } from "./Badge.jsx";
 import { classifyDiff, DIFF_OPS } from "../_diff.js";
 
-// #330: default Filters-panel width and the width of the leading And/Or connector cell, shared by the
-// JS-side consumers (resize-grip aria-valuetext fallback, open-position clamp, per-field width budgets) so
-// they stay in lockstep. NOTE: these MUST equal the literals baked into DT_CSS below — `.twc-dt__filters`
-// `width: var(--twc-dt-panel-w, 620px)` and `.twc-dt__f-logic { width: 68px }`. They are intentionally NOT
-// interpolated into DT_CSS: doing so turns that big scoped-CSS string into a non-constant template literal
-// that esbuild can no longer tree-shake, which leaked ~8.6 kB of Datatable CSS into every tree-shaken
-// single-component bundle (Button/Card). Keep the CSS literals and these constants edited together.
+// #330: default Filters-panel width, shared by the JS-side consumers (resize-grip aria-valuetext fallback,
+// open-position clamp) so they stay in lockstep with the CSS default. NOTE: must equal the literal in DT_CSS
+// below — `.twc-dt__filters { width: var(--twc-dt-panel-w, 620px) }`. Intentionally NOT interpolated into
+// DT_CSS: doing so turns that big scoped-CSS string into a non-constant template literal esbuild can no
+// longer tree-shake (it leaked ~8.6 kB of Datatable CSS into every single-component bundle). Edit together.
+// (The And/Or connector width is not a constant — it is a resizable filter field; see F_MIN/F_SEL.logic.)
 const DT_FILTER_PANEL_W = 620;
-const DT_FILTER_LOGIC_W = 68;
 
 const DT_CSS = `
 .twc-dt { display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--color-text);
@@ -442,8 +440,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__link:hover { background: var(--color-primary-subtle); }
 /* #330: MUI DataGrid-style per-row And/Or connector. Row 1 shows a static "Where"; the first connector
    row (row 2) hosts an editable And/Or Select bound to the single filterLogic; rows 3+ echo it as static
-   text. Fixed-width leading cell so the Column/Operator/Value cells stay aligned across rows. */
-.twc-dt__f-logic { position: relative; flex: none; width: 68px; }
+   text. Leading cell aligns the Column/Operator/Value cells across rows. It is a first-class resizable
+   filter field like col/op: auto-fit to its content (-fit, from the #289 measurer) with a user drag tier
+   (-usr) winning in the clamp cascade, so it no longer truncates and the width can be adjusted manually. */
+.twc-dt__f-logic { position: relative; flex: none; min-width: 84px;
+  width: clamp(84px, var(--twc-dt-flogic-usr, var(--twc-dt-flogic-fit, 84px)), var(--twc-dt-flogic-cap, 180px)); }
 .twc-dt__f-where { display: inline-flex; align-items: center; height: 38px; padding-inline: 6px; color: var(--color-text-muted); font-size: var(--text-sm); font-weight: var(--font-medium); }
 
 /* Filter panel — user-resizable (#292): panel size + per-field widths resolve through a two-tier CSS var
@@ -1199,7 +1200,7 @@ export function Datatable({
     density,
     // #292: additive, optional — user-resized filter panel + field widths (panel-global, not per column).
     filterPanelSize: fPanelSize || undefined,
-    filterFieldWidths: (fWidths.col != null || fWidths.op != null || fWidths.val != null) ? fWidths : undefined,
+    filterFieldWidths: (fWidths.col != null || fWidths.op != null || fWidths.val != null || fWidths.logic != null) ? fWidths : undefined,
     // #304: additive, optional — user-resized sizes of the other toolbar popovers, keyed by popover id.
     popoverSizes: Object.keys(popSizes).length ? popSizes : undefined,
   });
@@ -1228,7 +1229,7 @@ export function Datatable({
     // #292: restore filter panel + field sizes, viewport-re-clamped so a persisted size can't strand off-screen.
     if (s.filterFieldWidths && typeof s.filterFieldWidths === "object") {
       const fw = {};
-      for (const k of ["col", "op", "val"]) if (typeof s.filterFieldWidths[k] === "number") fw[k] = s.filterFieldWidths[k];
+      for (const k of ["col", "op", "val", "logic"]) if (typeof s.filterFieldWidths[k] === "number") fw[k] = s.filterFieldWidths[k];
       if (Object.keys(fw).length) setFWidths(fw);
     }
     if (s.filterPanelSize && typeof s.filterPanelSize === "object") {
@@ -2465,12 +2466,17 @@ export function Datatable({
       const pad = trigger ? (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0) : 24;
       const chrome = pad + 8 /*gap*/ + 16 /*chevron*/ + 4 /*slack*/;
       const widest = (labels) => labels.reduce((m, l) => Math.max(m, ctx.measureText(String(l)).width), 0);
-      // available for f-col = panel − logic(68) − op(118) − add/remove(2×30) − f-val floor(140) − 5 gaps(6) − 2 pad(4)
-      const colCap = Math.max(118, Math.min(210, el.clientWidth - DT_FILTER_LOGIC_W - 118 - 30 - 30 - 140 - 5 * 6 - 2 * 4));
+      // #330: auto-fit the And/Or connector to its widest label (the editable Select's "And"/"Or"), clamped
+      // to the same 84–180 range as the CSS. 84 (the floor) already fits "And"/"Or"/"Where" at the default
+      // font, so this stays grow-only like col/op (no post-measure shrink) and only widens for a larger font.
+      const logicW = Math.min(180, Math.max(84, Math.ceil(widest(["And", "Or"]) + chrome)));
+      // available for f-col = panel − logic − op(118) − add/remove(2×30) − f-val floor(140) − 5 gaps(6) − 2 pad(4)
+      const colCap = Math.max(118, Math.min(210, el.clientWidth - logicW - 118 - 30 - 30 - 140 - 5 * 6 - 2 * 4));
       const colW = Math.min(colCap, Math.max(118, Math.ceil(widest(filterableCols.map((c) => c.headerName ?? c.field)) + chrome)));
       const opW = Math.min(170, Math.max(118, Math.ceil(widest(ALL_OP_LABELS) + chrome)));
       // #292: write the MEASURED tier only (-fit). A user drag writes -usr, which wins in the clamp()
       // cascade; this measurer never reads -usr, so a re-measure can't clobber a user width.
+      if (Number.isFinite(logicW)) el.style.setProperty("--twc-dt-flogic-fit", `${logicW}px`);
       if (Number.isFinite(colW)) el.style.setProperty("--twc-dt-fcol-fit", `${colW}px`);
       if (Number.isFinite(opW)) el.style.setProperty("--twc-dt-fop-fit", `${opW}px`);
     };
@@ -2485,10 +2491,10 @@ export function Datatable({
   // #292: user-resizable filter panel + fields. Live drags write CSS vars imperatively (no re-render per
   // pointermove); the committed value lands in state (fWidths/fPanelSize, declared above) on pointerup →
   // inline-style var → onStateChange/localStorage. Field widths are panel-global; the grip drives two axes.
-  const F_MIN = { col: 118, op: 118, val: 140 };
-  const F_VAR = { col: "--twc-dt-fcol-usr", op: "--twc-dt-fop-usr", val: "--twc-dt-fval-usr" };
-  const F_SEL = { col: ".twc-dt__f-col", op: ".twc-dt__f-op", val: ".twc-dt__f-val" };
-  const F_LABEL = { col: "column", op: "operator", val: "value" };
+  const F_MIN = { col: 118, op: 118, val: 140, logic: 84 };
+  const F_VAR = { col: "--twc-dt-fcol-usr", op: "--twc-dt-fop-usr", val: "--twc-dt-fval-usr", logic: "--twc-dt-flogic-usr" };
+  const F_SEL = { col: ".twc-dt__f-col", op: ".twc-dt__f-op", val: ".twc-dt__f-val", logic: ".twc-dt__f-logic" };
+  const F_LABEL = { col: "column", op: "operator", val: "value", logic: "connector" };
   const fMaxW = () => (typeof window === "undefined" ? 9999 : window.innerWidth - 32);
   const fMaxH = () => (typeof window === "undefined" ? 9999 : window.innerHeight - 32);
   const clampNum = (v, lo, hi) => Math.max(lo, Math.min(hi, Math.round(v)));
@@ -2496,10 +2502,11 @@ export function Datatable({
   // resized — reading state on the first value drag would yield NaN and silently kill it).
   const fLiveW = (field) => { const p = filterPanelRef.current, el = p && p.querySelector(F_SEL[field]); return el ? el.getBoundingClientRect().width : F_MIN[field]; };
   const fCap = (field) => {
+    if (field === "logic") return 180; // matches the CSS --twc-dt-flogic-cap default
     if (field === "col") return filterFieldMaxWidth || 360;
     if (field === "op") return filterFieldMaxWidth || 260;
     const p = filterPanelRef.current; if (!p) return 640; // value: fill the row minus siblings
-    return clampNum(p.clientWidth - DT_FILTER_LOGIC_W /*logic cell*/ - fLiveW("col") - fLiveW("op") - 30 - 30 /*add/remove*/ - 5 * 6 /*gaps*/ - 2 * 4 /*pad*/, F_MIN.val, 640);
+    return clampNum(p.clientWidth - fLiveW("logic") - fLiveW("col") - fLiveW("op") - 30 - 30 /*add/remove*/ - 5 * 6 /*gaps*/ - 2 * 4 /*pad*/, F_MIN.val, 640);
   };
   const isRtl = () => { const p = filterPanelRef.current; return p ? getComputedStyle(p).direction === "rtl" : false; };
   const startFieldResize = (e, field) => {
@@ -2564,9 +2571,9 @@ export function Datatable({
   const resetFilterSizes = () => {
     setFWidths({}); setFPanelSize(null);
     const p = filterPanelRef.current;
-    if (p) { ["--twc-dt-fcol-usr", "--twc-dt-fop-usr", "--twc-dt-fval-usr", "--twc-dt-panel-w", "--twc-dt-panel-h"].forEach((v) => p.style.removeProperty(v)); p.removeAttribute("data-val-fixed"); p.removeAttribute("data-panel-sized"); }
+    if (p) { ["--twc-dt-fcol-usr", "--twc-dt-fop-usr", "--twc-dt-fval-usr", "--twc-dt-flogic-usr", "--twc-dt-panel-w", "--twc-dt-panel-h"].forEach((v) => p.style.removeProperty(v)); p.removeAttribute("data-val-fixed"); p.removeAttribute("data-panel-sized"); }
   };
-  const hasFilterSizeOverride = fWidths.col != null || fWidths.op != null || fWidths.val != null || fPanelSize != null;
+  const hasFilterSizeOverride = fWidths.col != null || fWidths.op != null || fWidths.val != null || fWidths.logic != null || fPanelSize != null;
   // #304: generic per-popover resize for the non-filter toolbar panels. A corner grip inside each
   // .twc-dt__pop drives its own panel via `closest` (no per-panel ref), commits { w, h } to popSizes
   // keyed by popover id, and persists via stateKey. Per-popover min width; shared max (viewport - 32).
@@ -3542,6 +3549,7 @@ export function Datatable({
             "--twc-dt-fcol-usr": fWidths.col != null ? `${fWidths.col}px` : undefined,
             "--twc-dt-fop-usr": fWidths.op != null ? `${fWidths.op}px` : undefined,
             "--twc-dt-fval-usr": fWidths.val != null ? `${fWidths.val}px` : undefined,
+            "--twc-dt-flogic-usr": fWidths.logic != null ? `${fWidths.logic}px` : undefined,
             "--twc-dt-panel-w": fPanelSize?.w != null ? `${fPanelSize.w}px` : undefined,
             "--twc-dt-panel-h": fPanelSize?.h != null ? `${fPanelSize.h}px` : undefined,
             "--twc-dt-fcol-cap": filterFieldMaxWidth ? `${filterFieldMaxWidth}px` : undefined,
@@ -3576,6 +3584,7 @@ export function Datatable({
                     ) : (
                       <span className="twc-dt__f-where">{filterLogic === "or" ? "Or" : "And"}</span>
                     )}
+                    {fieldHandle("logic", i)}
                   </div>
                   <div className="twc-dt__f-col">
                     <Select size="sm" portal value={f.field}
