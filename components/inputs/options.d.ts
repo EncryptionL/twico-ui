@@ -10,6 +10,10 @@ export interface Option {
   label: string;
   /** Optional second line shown under the label. */
   description?: string;
+  /** #326: leading icon/swatch node, rendered before the label (mirrors a Command item's icon). */
+  icon?: import("react").ReactNode;
+  /** #326: trailing hint node, right-aligned after the label (e.g. a code, shortcut, or badge). */
+  hint?: import("react").ReactNode;
   /** Disable this option — not selectable, skipped by keyboard navigation. */
   disabled?: boolean;
 }

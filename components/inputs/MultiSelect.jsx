@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { warnOnce } from "../_warn.js";
 import { createPortal } from "react-dom";
 
 const MULTI_CSS = `
@@ -76,6 +77,10 @@ const MULTI_CSS = `
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* #326: optional leading icon/swatch + trailing (right-aligned) hint on an option. */
+.twc-opt__icon { flex: none; display: inline-flex; align-items: center; color: var(--color-text-muted); }
+.twc-opt__icon svg { width: 16px; height: 16px; }
+.twc-opt__hint { flex: none; margin-inline-start: auto; padding-inline-start: var(--space-2); color: var(--color-text-muted); font-size: var(--text-xs); white-space: nowrap; }
 .twc-pop__empty { padding: 14px 12px; text-align: center; font-size: var(--text-sm); color: var(--color-text-subtle); }
 .twc-opt[data-disabled="true"] { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
 .twc-pop__loading { display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: 14px 12px; font-size: var(--text-sm); color: var(--color-text-muted); }
@@ -114,10 +119,13 @@ export function MultiSelect({
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
   loading = false, emptyText = "No results found", name, max, maxTagCount,
   filter, onInputChange,
-  virtualized = false, overscan = 8,
+  virtualized: virtualizedProp = false, overscan = 8, renderOption,
   id, className = "", onFocus, onKeyDown, ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-ms-styles", MULTI_CSS);
+  // #326: custom-rendered rows are variable-height, which the fixed-row-height virtualization can't measure.
+  if (virtualizedProp && renderOption) warnOnce("multiselect-renderoption-virtualized", "twico-ui MultiSelect: `renderOption` disables `virtualized` — custom rows aren't a fixed height.");
+  const virtualized = virtualizedProp && !renderOption;
 
   const groups = React.useMemo(() => normalizeGroups(options), [options]);
   const flat = React.useMemo(() => groups.flatMap((g) => g.options), [groups]);
@@ -260,7 +268,8 @@ export function MultiSelect({
   const descId = `${fieldId}-desc`;
   const describedBy = error || hint ? descId : undefined;
 
-  const renderOption = (o, idx) => {
+  // #326: renamed from renderOption so the new prop of that name controls the row BODY (the checkbox stays).
+  const renderRow = (o, idx) => {
     const isSel = selected.includes(o.value);
     const optDisabled = isOptDisabled(o);
     return (
@@ -270,10 +279,18 @@ export function MultiSelect({
         data-selected={isSel || undefined} data-active={idx === active || undefined}
         onMouseEnter={() => { if (!optDisabled) setActive(idx); }} onMouseDown={(e) => e.preventDefault()} onClick={() => toggle(o.value)}>
         <span className="twc-opt__box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-        <span className="twc-opt__main">
-          <span className="twc-opt__label">{o.label}</span>
-          {o.description ? <span className="twc-opt__desc">{o.description}</span> : null}
-        </span>
+        {renderOption ? (
+          <span className="twc-opt__main">{renderOption(o, { selected: isSel, active: idx === active })}</span>
+        ) : (
+          <>
+            {o.icon != null ? <span className="twc-opt__icon" aria-hidden="true">{o.icon}</span> : null}
+            <span className="twc-opt__main">
+              <span className="twc-opt__label">{o.label}</span>
+              {o.description ? <span className="twc-opt__desc">{o.description}</span> : null}
+            </span>
+            {o.hint != null ? <span className="twc-opt__hint">{o.hint}</span> : null}
+          </>
+        )}
       </button>
     );
   };
@@ -300,7 +317,7 @@ export function MultiSelect({
             {vTop > 0 ? <div aria-hidden="true" style={{ height: vTop }} /> : null}
             {vShown.map((r) => r.kind === "group"
               ? <div key={`g${r.gi}`} className="twc-pop__group">{r.label}</div>
-              : renderOption(r.o, r.idx))}
+              : renderRow(r.o, r.idx))}
             {vBottom > 0 ? <div aria-hidden="true" style={{ height: vBottom }} /> : null}
           </>
         ) :
@@ -309,7 +326,7 @@ export function MultiSelect({
             {g.group ? <div className="twc-pop__group">{g.group}</div> : null}
             {g.options.map((o) => {
               counter += 1; const idx = counter;
-              return renderOption(o, idx);
+              return renderRow(o, idx);
             })}
           </React.Fragment>
         ))}

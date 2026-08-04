@@ -165,6 +165,53 @@ const variations = [
     ),
   },
   {
+    title: "Custom option rendering",
+    description:
+      "Add `icon` (leading) and/or `hint` (trailing, muted) to an option for a lift with no custom render, or pass `renderOption(option, { selected, active })` to own the row body entirely — twico keeps the row chrome including the selection checkbox, plus keyboard nav and ARIA. Custom/variable-height rows disable `virtualized`.",
+    code: `const envs = [
+  { value: "prod", label: "Production", icon: "🔴", hint: "live" },
+  { value: "stg", label: "Staging", icon: "🟡", hint: "qa" },
+  { value: "dev", label: "Development", icon: "🟢", hint: "local" },
+];
+
+{/* lightweight: option icon + hint */}
+<MultiSelect label="Environments" options={envs} defaultValue={["stg"]} />
+
+{/* full control: renderOption owns the body (checkbox/nav/ARIA stay) */}
+<MultiSelect
+  label="Environments (renderOption)"
+  options={envs}
+  defaultValue={["stg", "dev"]}
+  renderOption={(o, { selected }) => (
+    <span style={{ display: "flex", alignItems: "center", gap: 8, fontWeight: selected ? 700 : 500 }}>
+      <span>{o.icon}</span>{o.label}
+    </span>
+  )}
+/>`,
+    render: () => {
+      const envs = [
+        { value: "prod", label: "Production", icon: "🔴", hint: "live" },
+        { value: "stg", label: "Staging", icon: "🟡", hint: "qa" },
+        { value: "dev", label: "Development", icon: "🟢", hint: "local" },
+      ];
+      return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 12, width: 340, maxWidth: "100%" }}>
+          <MultiSelect label="Environments" options={envs} defaultValue={["stg"]} />
+          <MultiSelect
+            label="Environments (renderOption)"
+            options={envs}
+            defaultValue={["stg", "dev"]}
+            renderOption={(o, { selected }) => (
+              <span style={{ display: "flex", alignItems: "center", gap: 8, fontWeight: selected ? 700 : 500 }}>
+                <span>{o.icon}</span>{o.label}
+              </span>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
     title: "All props",
     description:
       "Every MultiSelect-specific prop in one place — label/hint (error replaces hint), required, size, tone, placeholder, grouped options, controlled value + onChange, clearable, disabled, placement, portal, minWidth, plus the composed onFocus and onKeyDown handlers. The value is controlled here; swap in defaultValue for an uncontrolled field.",

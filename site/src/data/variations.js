@@ -508,8 +508,13 @@ export const VARIATIONS = [
   },
   {
     "component": "Combobox",
-    "title": "All props",
+    "title": "Custom option rendering",
     "i": 6
+  },
+  {
+    "component": "Combobox",
+    "title": "All props",
+    "i": 7
   },
   {
     "component": "CommandPalette",
@@ -1163,8 +1168,13 @@ export const VARIATIONS = [
   },
   {
     "component": "Input",
-    "title": "All props",
+    "title": "Clearable",
     "i": 5
+  },
+  {
+    "component": "Input",
+    "title": "All props",
+    "i": 6
   },
   {
     "component": "Kanban",
@@ -1323,8 +1333,13 @@ export const VARIATIONS = [
   },
   {
     "component": "MultiSelect",
-    "title": "All props",
+    "title": "Custom option rendering",
     "i": 5
+  },
+  {
+    "component": "MultiSelect",
+    "title": "All props",
+    "i": 6
   },
   {
     "component": "Navbar",
@@ -1628,8 +1643,13 @@ export const VARIATIONS = [
   },
   {
     "component": "Select",
-    "title": "All props",
+    "title": "Custom option rendering",
     "i": 5
+  },
+  {
+    "component": "Select",
+    "title": "All props",
+    "i": 6
   },
   {
     "component": "Sidebar",
@@ -2058,8 +2078,13 @@ export const VARIATIONS = [
   },
   {
     "component": "Textarea",
-    "title": "All props",
+    "title": "Clearable",
     "i": 5
+  },
+  {
+    "component": "Textarea",
+    "title": "All props",
+    "i": 6
   },
   {
     "component": "TimePicker",

@@ -602,6 +602,7 @@ Props:
 - `virtualized` — `boolean` · default `false` — Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast.
 - `overscan` — `number` · default `8` — Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling.
 - `wrapOptions` — `boolean` · default `false` — Wrap long option labels/descriptions onto multiple lines instead of truncating; takes precedence over virtualized.
+- `renderOption` — `(option, state) => React.ReactNode` — Render a custom body per option; twico keeps the row chrome, keyboard nav, and ARIA. Disables virtualized.
 - `required` — `boolean` · default `false` — Adds a required asterisk next to the label, signaling that the user must select a value before submitting.
 - `size` — `"sm" | "md" | "lg"` · default `"md"` — Sets the control height across sm, md, or lg to match the density of the surrounding form.
 - `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
@@ -980,6 +981,7 @@ Props:
 - `leftAddon` — `React.ReactNode` — Bordered text addon flush against the leading edge (e.g. https://, @), distinct from the inline leftIcon.
 - `rightAddon` — `React.ReactNode` — Bordered text addon flush against the trailing edge (e.g. .00, kg, %).
 - `showCount` — `boolean` · default `false` — With maxLength, renders a live current / max character counter on the hint/error line, danger-toned near the limit.
+- `clearable` — `boolean` · default `false` — Shows a trailing clear ✕ when non-empty; clicking it empties the field and fires onChange with an empty value.
 - `onChange` — `(e: React.ChangeEvent) => void` — Native change handler on the underlying form control.
 - `name` — `string` — Form field name submitted with the value.
 - `placeholder` — `string` — Placeholder text shown while the field is empty.
@@ -1013,6 +1015,7 @@ Props:
 - `error` — `React.ReactNode` — Displays a validation error below the control and styles it as invalid to flag a selection problem.
 - `virtualized` — `boolean` · default `false` — Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast.
 - `overscan` — `number` · default `8` — Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling.
+- `renderOption` — `(option, state) => React.ReactNode` — Render a custom body per option; twico keeps the checkbox, keyboard nav, and ARIA. Disables virtualized.
 - `required` — `boolean` · default `false` — Marks the field as required and adds an asterisk to the label to signal a mandatory selection; defaults to false.
 - `placeholder` — `string` · default `"Select…"` — Sets the prompt text shown when no chips are selected, defaulting to "Select…" to invite a choice.
 - `value` — `string[]` — Controls the selected values as a string array, making the component fully controlled when paired with onChange.
@@ -1134,6 +1137,7 @@ Props:
 - `error` — `React.ReactNode` — Displays an error message and marks the field invalid, replacing the hint to flag failed validation.
 - `virtualized` — `boolean` · default `false` — Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast.
 - `overscan` — `number` · default `8` — Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling.
+- `renderOption` — `(option, state) => React.ReactNode` — Render a custom body per option; twico keeps the row chrome, checkmark, and ARIA. Disables virtualized.
 - `required` — `boolean` · default `false` — Appends a required asterisk to the label, signaling that a selection must be made before submitting.
 - `size` — `"sm" | "md" | "lg"` · default `"md"` — Controls the trigger height (sm, md, or lg) to match the density of nearby form controls, defaulting to md.
 - `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Recolors the focus/open accent (border + ring) using one of six semantic intents; defaults to primary.
@@ -1272,6 +1276,7 @@ Props:
 - `minRows` — `number` — Minimum rows when autosize is on (falls back to rows).
 - `maxRows` — `number` — Maximum rows when autosize is on; taller content scrolls internally.
 - `showCount` — `boolean` · default `false` — With maxLength, renders a live current / max character counter, danger-toned near the limit.
+- `clearable` — `boolean` · default `false` — Shows a top-inline-end clear ✕ when non-empty; clicking it empties the field and fires onChange with an empty value.
 - `onChange` — `(e: React.ChangeEvent) => void` — Native change handler on the underlying form control.
 - `name` — `string` — Form field name submitted with the value.
 - `placeholder` — `string` — Placeholder text shown while the field is empty.

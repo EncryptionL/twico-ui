@@ -10,6 +10,16 @@
 
 ## Enhancements
 
+- **[#326] Richer options — `renderOption` + option `icon`/`hint`** — the shared `Option` type gains optional
+  `icon` (leading node, rendered in `.twc-opt__icon`) and `hint` (trailing muted node in `.twc-opt__hint`, e.g.
+  a shortcut/count) for a lift with no custom render. For full control, `renderOption(option, { selected, active })
+  => node` replaces the row **body** while twico keeps the row chrome (the `.twc-opt` button, keyboard nav, ARIA
+  `aria-selected`/active, and the clear affordance). `renderOption` takes precedence over `icon`/`hint`. Like
+  `wrapOptions`, it **disables `virtualized`** (custom/variable-height rows can't be windowed by the fixed
+  `rowH`) and `warnOnce`s in dev if both are set (`combobox-var-height-virtualized`). Mirrored on Select +
+  MultiSelect (same `.twc-opt` markup; MultiSelect keeps its checkbox around the custom body). Shared tests in
+  `tests/select-family-render-option.test.jsx`. — added 2026-08-04
+
 - **[#92] Opt-in option-list virtualization** — `virtualized` (+ `overscan`, default 8) windows the
   option list to the visible slice for long client-side sets; keyboard nav scrolls unrendered options
   into view. Off by default. For server-backed sets, prefer the async `onInputChange` + `filter={false}`

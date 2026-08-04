@@ -56,6 +56,10 @@ export interface SelectProps extends Omit<React.HTMLAttributes<HTMLButtonElement
   virtualized?: boolean;
   /** Extra option rows rendered above/below the viewport when `virtualized`, to smooth fast scrolling. @default 8 */
   overscan?: number;
+  /** #326: render a custom option row body (twico keeps the checkmark, keyboard nav, and ARIA wiring). For
+   *  lightweight cases prefer the additive `icon`/`hint` fields on an option instead. Disables `virtualized`
+   *  (custom rows aren't a fixed height). */
+  renderOption?: (option: SelectOption, state: { selected: boolean; active: boolean }) => React.ReactNode;
 }
 
 /** Alias of the shared {@link Option} type (kept for backward-compatible imports). */

@@ -35,6 +35,12 @@ const TEXTAREA_CSS = `
 .twc-textarea__el:disabled { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
 .twc-textarea__el[data-readonly] { background: var(--color-surface-sunken); }
 .twc-textarea__el[data-autosize="true"] { resize: none; overflow: hidden; }
+/* #328: clearable (X). Wrap positions the button top-inline-end so it dodges the bottom-right resize handle. */
+.twc-textarea__wrap { position: relative; display: block; }
+.twc-textarea__clear { position: absolute; top: 6px; inset-inline-end: 8px; display: inline-grid; place-items: center; width: 22px; height: 22px; padding: 0; border: none; background: var(--color-surface); color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm); transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+.twc-textarea__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+.twc-textarea__clear:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-textarea__clear svg { width: 15px; height: 15px; }
 .twc-field__footer { display: flex; align-items: center; gap: var(--space-2); }
 .twc-field__count { margin-inline-start: auto; font-size: var(--text-xs); color: var(--color-text-muted); font-variant-numeric: tabular-nums; flex: none; }
 .twc-field__count[data-danger="true"] { color: var(--color-danger-subtle-fg); }
@@ -52,6 +58,7 @@ export const Textarea = React.forwardRef(function Textarea({
   minRows,
   maxRows,
   showCount = false,
+  clearable = false,
   disabled = false,
   id,
   className = "",
@@ -97,7 +104,17 @@ export const Textarea = React.forwardRef(function Textarea({
   }, [autosize, rest.value, minRows, maxRows, rows]);
 
   const handleInput = (e) => { rest.onInput?.(e); if (autosize) resize(); };
-  const handleChange = (e) => { rest.onChange?.(e); if (showCount && !countControlled) setLen(e.target.value.length); };
+  const handleChange = (e) => { rest.onChange?.(e); if ((showCount || clearable) && !countControlled) setLen(e.target.value.length); };
+  // #328: clear (X) — native value-setter + dispatched input event so onChange fires "" for controlled AND
+  // uncontrolled callers (also drives autosize via onInput); then refocus. Shown only when non-empty + interactive.
+  const clearField = () => {
+    const el = innerRef.current; if (!el) return;
+    const setter = typeof HTMLTextAreaElement !== "undefined" && Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, "value")?.set;
+    if (setter) setter.call(el, ""); else el.value = "";
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+    el.focus();
+  };
+  const showClear = clearable && count > 0 && !disabled && !rest.readOnly;
 
   // #72: error forces aria-invalid=true (visual+SR in sync); aria-describedby merges the
   // message id, counter id, and any consumer-supplied id — all applied after {...rest}.
@@ -113,24 +130,31 @@ export const Textarea = React.forwardRef(function Textarea({
           {label}{required ? <span className="twc-field__req">*</span> : null}
         </label>
       ) : null}
-      <textarea
-        ref={setRef}
-        id={fieldId}
-        className="twc-textarea__el"
-        data-size={size}
-        data-tone={tone}
-        data-autosize={autosize || undefined}
-        data-readonly={rest.readOnly || undefined}
-        rows={autosize ? (minRows ?? rows) : rows}
-        disabled={disabled}
-        required={required || undefined}
-        aria-required={required || undefined}
-        {...rest}
-        onInput={handleInput}
-        onChange={handleChange}
-        aria-invalid={ariaInvalid}
-        aria-describedby={describedBy}
-      />
+      <div className="twc-textarea__wrap">
+        <textarea
+          ref={setRef}
+          id={fieldId}
+          className="twc-textarea__el"
+          data-size={size}
+          data-tone={tone}
+          data-autosize={autosize || undefined}
+          data-readonly={rest.readOnly || undefined}
+          rows={autosize ? (minRows ?? rows) : rows}
+          disabled={disabled}
+          required={required || undefined}
+          aria-required={required || undefined}
+          {...rest}
+          onInput={handleInput}
+          onChange={handleChange}
+          aria-invalid={ariaInvalid}
+          aria-describedby={describedBy}
+        />
+        {showClear ? (
+          <button type="button" className="twc-textarea__clear" aria-label="Clear" tabIndex={0} onMouseDown={(e) => e.preventDefault()} onClick={clearField}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        ) : null}
+      </div>
       {(error || hint || showCounter) ? (
         <div className="twc-field__footer">
           {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}

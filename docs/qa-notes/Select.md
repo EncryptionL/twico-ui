@@ -12,6 +12,13 @@
 
 ## Enhancements
 
+- **[#326] Richer options — `renderOption` + option `icon`/`hint`** — options may add `icon` (leading, in
+  `.twc-opt__icon`) and `hint` (trailing muted, in `.twc-opt__hint`); `renderOption(option, { selected, active })
+  => node` replaces the row body while twico keeps the `.twc-opt` chrome (keyboard nav, ARIA, the selected
+  checkmark). `renderOption` wins over `icon`/`hint` and **disables `virtualized`** (variable-height rows;
+  `warnOnce` key `select-renderoption-virtualized`). Mirrors Combobox/MultiSelect. Shared tests in
+  `tests/select-family-render-option.test.jsx`. — added 2026-08-04
+
 - **Portaled menu tracks trigger resize** — the positioning effect re-placed only on window `scroll`/`resize`,
   measuring the trigger once. When the **trigger itself** resized while the menu was open (a resized Datatable
   filter field from #292, or a table column during a cell edit) no window event fired, so a portaled,

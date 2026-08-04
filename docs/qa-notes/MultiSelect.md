@@ -10,6 +10,13 @@ None identified.
 
 ## Enhancements
 
+- **[#326] Richer options — `renderOption` + option `icon`/`hint`** — options may add `icon` (leading, in
+  `.twc-opt__icon`) and `hint` (trailing muted, in `.twc-opt__hint`); `renderOption(option, { selected, active })
+  => node` replaces the row body while twico keeps the `.twc-opt` chrome **including the selection checkbox**
+  (`.twc-opt__box` stays outside the custom body). `renderOption` wins over `icon`/`hint` and **disables
+  `virtualized`** (variable-height rows; `warnOnce` key `multiselect-renderoption-virtualized`). Mirrors
+  Combobox/Select. Shared tests in `tests/select-family-render-option.test.jsx`. — added 2026-08-04
+
 - **[#92] Opt-in option-list virtualization** — `virtualized` (+ `overscan`, default 8) windows the
   checkable option list to the visible slice for long lists; aria-activedescendant / keyboard indexing
   spans the full list and nav scrolls unrendered options into view. Off by default. — added 2026-07-04

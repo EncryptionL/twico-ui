@@ -136,6 +136,17 @@ const variations = [
     ),
   },
   {
+    title: "Clearable",
+    description:
+      "Set `clearable` to show a ✕ at the top-inline-end of the field once it has content (positioned to dodge the resize grip). Clicking it empties the value, fires onChange with an empty string, and re-collapses an autosize textarea.",
+    code: `<Textarea label="Notes" clearable defaultValue="Draft note — click the ✕ to clear." rows={3} />`,
+    render: () => (
+      <div style={{ width: 380, maxWidth: "100%" }}>
+        <Textarea label="Notes" clearable defaultValue="Draft note — click the ✕ to clear." rows={3} />
+      </div>
+    ),
+  },
+  {
     title: "All props",
     description:
       "Every Textarea-specific prop in one place — label, required, size, tone, and the hint/error pair (error replaces hint and turns the field red). Shown controlled via value + onChange; disabled/readOnly are left off so the field stays interactive. Native textarea attributes (rows, maxLength, placeholder) pass straight through.",

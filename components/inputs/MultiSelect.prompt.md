@@ -25,4 +25,7 @@ Props: `options` (strings / {value,label,description} / {group,options}; an opti
 `maxTagCount` (collapse chips to a "+N more" pill), `name` (hidden form fields), `loading`, `emptyText`,
 plus field props. Backspace on empty input removes the last chip; chip remove buttons are out of the tab order.
 For very long lists set `virtualized` (optional `overscan`, default 8) to render only the visible option slice.
+Richer options: an option may add `icon` (leading node) and/or `hint` (trailing muted node). For full control pass
+`renderOption(option, { selected, active }) => node` — twico keeps the row chrome including the selection checkbox,
+you own the body. `renderOption` takes precedence over `icon`/`hint` and disables `virtualized` (custom rows aren't a fixed height).
 Set `tone` (`primary` default, `success`/`warning`/`danger`/`info`/`neutral`) to recolor the focus/open accent.

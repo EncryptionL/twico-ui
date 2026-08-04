@@ -194,6 +194,53 @@ const variations = [
     ),
   },
   {
+    title: "Custom option rendering",
+    description:
+      "Add `icon` (leading) and/or `hint` (trailing, muted) to an option for a lift with no custom render, or pass `renderOption(option, { selected, active })` to own the row body entirely — twico keeps the row chrome, keyboard nav, and ARIA. Custom/variable-height rows disable `virtualized`.",
+    code: `const envs = [
+  { value: "prod", label: "Production", icon: "🔴", hint: "live" },
+  { value: "stg", label: "Staging", icon: "🟡", hint: "qa" },
+  { value: "dev", label: "Development", icon: "🟢", hint: "local" },
+];
+
+{/* lightweight: option icon + hint */}
+<Combobox label="Environment" options={envs} defaultValue="stg" />
+
+{/* full control: renderOption owns the body (checkmark/nav/ARIA stay) */}
+<Combobox
+  label="Environment (renderOption)"
+  options={envs}
+  defaultValue="stg"
+  renderOption={(o, { selected }) => (
+    <span style={{ display: "flex", alignItems: "center", gap: 8, fontWeight: selected ? 700 : 500 }}>
+      <span>{o.icon}</span>{o.label}
+    </span>
+  )}
+/>`,
+    render: () => {
+      const envs = [
+        { value: "prod", label: "Production", icon: "🔴", hint: "live" },
+        { value: "stg", label: "Staging", icon: "🟡", hint: "qa" },
+        { value: "dev", label: "Development", icon: "🟢", hint: "local" },
+      ];
+      return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 12, width: 340, maxWidth: "100%" }}>
+          <Combobox label="Environment" options={envs} defaultValue="stg" />
+          <Combobox
+            label="Environment (renderOption)"
+            options={envs}
+            defaultValue="stg"
+            renderOption={(o, { selected }) => (
+              <span style={{ display: "flex", alignItems: "center", gap: 8, fontWeight: selected ? 700 : 500 }}>
+                <span>{o.icon}</span>{o.label}
+              </span>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
     title: "All props",
     description:
       "Every Combobox-specific prop in one place — label/hint/required, size, tone, placeholder, grouped options, the controlled value + onChange pair (defaultValue for uncontrolled), clearable, disabled, placement, portal, minWidth, plus the composed onFocus/onKeyDown handlers. Pass error instead of hint for the invalid state.",

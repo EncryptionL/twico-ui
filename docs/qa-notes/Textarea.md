@@ -8,6 +8,16 @@
 
 None identified.
 
+## Enhancements
+
+- **[#328] `clearable` — trailing clear ✕** — opt-in `clearable` (default false) renders a ✕ positioned
+  top-inline-end of the textarea (dodging the bottom-right resize grip), shown only when non-empty and
+  interactive. It empties the value and fires `onChange` with `""` for controlled + uncontrolled callers
+  (native `HTMLTextAreaElement.prototype.value` setter + dispatched `input` event, which also drives
+  `autosize` back to collapsed via `onInput`), then refocuses. The `<textarea>` is wrapped in a
+  `.twc-textarea__wrap` positioning context; `ref` forwarding to the inner `<textarea>` is unchanged.
+  2 tests in `tests/input-clearable.test.jsx`. — added 2026-08-04
+
 ## Verified OK
 
 - All tone variants apply to focus border and ring (lines 40-45)
