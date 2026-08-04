@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.31.1](https://github.com/EncryptionL/twico-ui/compare/v1.31.0...v1.31.1) (2026-08-04)
+
+
+### Bug Fixes
+
+* **datatable:** make the filter And/Or connector a resizable field (no more truncation) ([15698fd](https://github.com/EncryptionL/twico-ui/commit/15698fdee0191e178cfb0a65cb08775c25d20b91)), closes [#289](https://github.com/EncryptionL/twico-ui/issues/289) [#292](https://github.com/EncryptionL/twico-ui/issues/292)
+
 # [1.31.0](https://github.com/EncryptionL/twico-ui/compare/v1.30.0...v1.31.0) (2026-08-04)
 
 
