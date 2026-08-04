@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.30.0](https://github.com/EncryptionL/twico-ui/compare/v1.29.0...v1.30.0) (2026-08-04)
+
+
+### Features
+
+* **inputs,datatable:** clearable inputs, richer select options, and datatable input clears ([e5eadbc](https://github.com/EncryptionL/twico-ui/commit/e5eadbce72db3ed96487bc7097d49c7c7caa6dfb)), closes [#328](https://github.com/EncryptionL/twico-ui/issues/328) [#326](https://github.com/EncryptionL/twico-ui/issues/326) [#327](https://github.com/EncryptionL/twico-ui/issues/327) [#326](https://github.com/EncryptionL/twico-ui/issues/326) [#327](https://github.com/EncryptionL/twico-ui/issues/327) [#328](https://github.com/EncryptionL/twico-ui/issues/328)
+
 # [1.29.0](https://github.com/EncryptionL/twico-ui/compare/v1.28.0...v1.29.0) (2026-08-03)
 
 
