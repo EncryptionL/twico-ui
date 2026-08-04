@@ -2,6 +2,18 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.31.0](https://github.com/EncryptionL/twico-ui/compare/v1.30.0...v1.31.0) (2026-08-04)
+
+
+### Bug Fixes
+
+* **datatable:** keep DT_CSS a plain literal so single-component bundles tree-shake ([9574c2b](https://github.com/EncryptionL/twico-ui/commit/9574c2b52be39bdfcd27241a381b463eb7002c11)), closes [#330](https://github.com/EncryptionL/twico-ui/issues/330)
+
+
+### Features
+
+* **datatable:** MUI DataGrid-style per-row And/Or filter connector + controllable filterLogic ([3d79a1f](https://github.com/EncryptionL/twico-ui/commit/3d79a1f1c2e8f55d439e1bfeb37c0258b37cf5bc)), closes [#303](https://github.com/EncryptionL/twico-ui/issues/303) [#330](https://github.com/EncryptionL/twico-ui/issues/330)
+
 # [1.30.0](https://github.com/EncryptionL/twico-ui/compare/v1.29.0...v1.30.0) (2026-08-04)
 
 
