@@ -6,6 +6,9 @@ import { Datatable, runDatatableQuery } from "../components/data-display/Datatab
 // #303 — the Filters panel gains an explicit AND/OR connective (filterLogic, default "and") plus a
 // discoverable per-row "add another condition" affordance. Both filter engines (client `processed` and
 // the exported `runDatatableQuery`) honor filterLogic; it round-trips through onServerChange/state.
+// #330 — that connective is now surfaced as a MUI DataGrid-style per-row And/Or connector (row 1 "Where",
+// row 2 an editable And/Or select, rows 3+ static echo) and is controllable via
+// `filterLogic`/`defaultFilterLogic`/`onFilterLogicChange`.
 
 const columns = [
   { field: "name", headerName: "Name" },
@@ -57,7 +60,7 @@ describe("Datatable filterLogic — client engine parity via initialState (#303)
   });
 });
 
-describe("Datatable Filters panel AND/OR toggle + add-condition (#303)", () => {
+describe("Datatable Filters panel per-row And/Or connector + add-condition (#330)", () => {
   let orig;
   beforeEach(() => {
     orig = Element.prototype.getBoundingClientRect;
@@ -66,24 +69,55 @@ describe("Datatable Filters panel AND/OR toggle + add-condition (#303)", () => {
   afterEach(() => { Element.prototype.getBoundingClientRect = orig; });
 
   const openFilters = (c) => fireEvent.click(Array.from(c.querySelectorAll(".twc-dt__tbtn")).find((b) => b.textContent.includes("Filters")));
+  const logicCells = (c) => Array.from(c.querySelectorAll(".twc-dt__f-logic"));
+  const seed2 = [{ field: "name", op: "contains", value: "ap" }, { field: "tag", op: "equals", value: "red" }];
 
-  it("shows the AND/OR toggle only with 2+ clauses; defaults to AND and flips to OR on click", () => {
-    const seed2 = [{ field: "name", op: "contains", value: "ap" }, { field: "tag", op: "equals", value: "red" }];
+  it("row 1 is 'Where'; the second row hosts an editable And/Or select (default And)", () => {
     const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} initialState={{ filters: seed2 }} />);
     openFilters(container);
-    const btns = () => Array.from(container.querySelectorAll(".twc-dt__flogic-btn"));
-    expect(btns().length).toBe(2);
-    const [andBtn, orBtn] = btns();
-    expect(andBtn.getAttribute("data-active")).toBe("true"); // default AND
-    expect(orBtn.getAttribute("data-active")).toBeNull();
-    fireEvent.click(orBtn);
-    expect(container.querySelectorAll('.twc-dt__flogic-btn[data-active="true"]')[0].textContent).toBe("OR");
+    const cells = logicCells(container);
+    expect(cells.length).toBe(2);
+    expect(cells[0].querySelector(".twc-dt__f-where").textContent).toBe("Where");
+    const sel = cells[1].querySelector(".twc-sel__trigger");
+    expect(sel).toBeTruthy();
+    expect(sel.textContent).toContain("And"); // single, linked logicOperator — defaults to And
   });
 
-  it("hides the toggle with a single clause", () => {
+  it("a single clause shows only 'Where' (no connector select)", () => {
     const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} initialState={{ filters: [{ field: "name", op: "contains", value: "ap" }] }} />);
     openFilters(container);
-    expect(container.querySelectorAll(".twc-dt__flogic-btn").length).toBe(0);
+    const cells = logicCells(container);
+    expect(cells.length).toBe(1);
+    expect(cells[0].querySelector(".twc-dt__f-where").textContent).toBe("Where");
+    expect(cells[0].querySelector(".twc-sel__trigger")).toBeNull();
+  });
+
+  it("choosing Or on the connector flips the client result to the union and fires onFilterLogicChange", () => {
+    const onFilterLogicChange = vi.fn();
+    const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} initialState={{ filters: seed2 }} onFilterLogicChange={onFilterLogicChange} />);
+    const bodyRows = () => container.querySelectorAll("tbody tr.twc-dt__row").length;
+    expect(bodyRows()).toBe(1); // AND intersection: apple only
+    openFilters(container);
+    fireEvent.click(logicCells(container)[1].querySelector(".twc-sel__trigger"));
+    fireEvent.click(Array.from(document.querySelectorAll(".twc-opt")).find((o) => o.textContent.trim() === "Or"));
+    expect(onFilterLogicChange).toHaveBeenCalledWith("or");
+    expect(bodyRows()).toBe(3); // uncontrolled self-update → OR union
+  });
+
+  it("rows 3+ echo the chosen operator as static text (single linked operator)", () => {
+    const seed3 = [
+      { field: "name", op: "contains", value: "a" },
+      { field: "tag", op: "equals", value: "red" },
+      { field: "name", op: "contains", value: "p" },
+    ];
+    const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} initialState={{ filters: seed3, filterLogic: "or" }} />);
+    openFilters(container);
+    const cells = logicCells(container);
+    expect(cells.length).toBe(3);
+    expect(cells[0].querySelector(".twc-dt__f-where").textContent).toBe("Where");
+    expect(cells[1].querySelector(".twc-sel__trigger").textContent).toContain("Or"); // editable connector reflects Or
+    expect(cells[2].querySelector(".twc-dt__f-where").textContent).toBe("Or");       // static echo, not a second control
+    expect(cells[2].querySelector(".twc-sel__trigger")).toBeNull();
   });
 
   it("per-row '+' appends another clause on the same column", () => {
@@ -92,6 +126,32 @@ describe("Datatable Filters panel AND/OR toggle + add-condition (#303)", () => {
     expect(container.querySelectorAll(".twc-dt__frow").length).toBe(1);
     fireEvent.click(container.querySelector('[aria-label^="Add another condition"]'));
     expect(container.querySelectorAll(".twc-dt__frow").length).toBe(2); // a second row appended
+  });
+});
+
+describe("Datatable controlled filterLogic (#330)", () => {
+  let orig;
+  beforeEach(() => {
+    orig = Element.prototype.getBoundingClientRect;
+    Element.prototype.getBoundingClientRect = () => ({ top: 100, bottom: 120, left: 100, right: 260, width: 160, height: 20, x: 100, y: 100, toJSON() {} });
+  });
+  afterEach(() => { Element.prototype.getBoundingClientRect = orig; });
+  const seed2 = [{ field: "name", op: "contains", value: "ap" }, { field: "tag", op: "equals", value: "red" }];
+
+  it("the prop drives the result and the select; self-clicks fire onFilterLogicChange but don't self-update until the parent changes the prop", () => {
+    const onFilterLogicChange = vi.fn();
+    const { container, rerender } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} filterLogic="or" onFilterLogicChange={onFilterLogicChange} initialState={{ filters: seed2 }} />);
+    const bodyRows = () => container.querySelectorAll("tbody tr.twc-dt__row").length;
+    expect(bodyRows()).toBe(3); // controlled OR union
+    fireEvent.click(Array.from(container.querySelectorAll(".twc-dt__tbtn")).find((b) => b.textContent.includes("Filters")));
+    const trigger = container.querySelectorAll(".twc-dt__f-logic")[1].querySelector(".twc-sel__trigger");
+    expect(trigger.textContent).toContain("Or");
+    fireEvent.click(trigger);
+    fireEvent.click(Array.from(document.querySelectorAll(".twc-opt")).find((o) => o.textContent.trim() === "And"));
+    expect(onFilterLogicChange).toHaveBeenCalledWith("and");
+    expect(bodyRows()).toBe(3); // still OR — controlled, no self-update
+    rerender(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} filterLogic="and" onFilterLogicChange={onFilterLogicChange} initialState={{ filters: seed2 }} />);
+    expect(bodyRows()).toBe(1); // parent flipped the prop → AND intersection
   });
 });
 
@@ -119,8 +179,9 @@ describe("Datatable filterLogic round-trips (#303)", () => {
       initialState={{ filters: [{ field: "name", op: "contains", value: "ap" }, { field: "tag", op: "equals", value: "red" }], filterLogic: "or" }} />);
     const stored = JSON.parse(window.localStorage.getItem("dt-303"));
     expect(stored.filterLogic).toBe("or");
-    // restored → the OR toggle is active when the panel opens
+    // restored → the per-row connector select reflects OR when the panel opens
     fireEvent.click(Array.from(container.querySelectorAll(".twc-dt__tbtn")).find((b) => b.textContent.includes("Filters")));
-    expect(container.querySelectorAll('.twc-dt__flogic-btn[data-active="true"]')[0].textContent).toBe("OR");
+    const sel = container.querySelectorAll(".twc-dt__f-logic")[1].querySelector(".twc-sel__trigger");
+    expect(sel.textContent).toContain("Or");
   });
 });

@@ -12,6 +12,23 @@
 
 ## Enhancements
 
+- **[#330] Per-row And/Or filter connector (MUI DataGrid-style)** — the #303 set-wide connective (`filterLogic`,
+  default `"and"`) is now surfaced inline on the filter rows instead of as a header AND/OR pill. Row 1 reads
+  *Where* (`.twc-dt__f-where`), the second row (`i === 1`) hosts an **editable And/Or `Select`**
+  (`.twc-dt__f-logic .twc-sel__trigger`) bound to the single `filterLogic`, and rows 3+ echo the chosen operator
+  as static text — matching MUI's **single `logicOperator`** model (one linked connective, edited once, not truly
+  mixed per-clause). The old `.twc-dt__flogic*` header toggle + its CSS were removed. `filterLogic` is now a
+  **controllable prop**: hand-rolled controlled/uncontrolled (`filterLogic` + `onFilterLogicChange`;
+  `defaultFilterLogic` seeds the uncontrolled default) — persistence restore sets internal state only when
+  uncontrolled (no callback on restore). Client `processed` + exported `runDatatableQuery` already honor it and
+  it still rides the `onServerChange` query as `filterLogic`. Default panel width bumped 580→620px for the added
+  leading column — via named `DT_FILTER_PANEL_W`/`DT_FILTER_LOGIC_W` constants shared by the CSS, the resize-grip
+  `aria-valuetext` fallback, the open-position clamp, and the per-field width budgets (`colCap`/`fCap('val')`,
+  which now reserve the 68px connector cell + the #303 second row button) so those can't drift again
+  (adversarial-review follow-up). Both engines drop unknown-field clauses under OR (a stray `isEmpty` on a removed
+  column must not match every row). Tests in `tests/datatable-filter-logic.test.jsx` (per-row connector render, Or-flip + callback,
+  rows-3+ echo, controlled prop, round-trips). — added 2026-08-04
+
 - **[#327] Clear ✕ on the built-in inputs** — the three inputs the Datatable renders itself now clear in place:
   the toolbar **quick-search** (a `.twc-dt__search-clear` ✕ shown when `quick` is non-empty → `commitQuick("")`,
   which also resets to page 0), the **Columns-panel find box** (`.twc-dt__col-search .twc-dt__search-clear` →

@@ -1622,6 +1622,9 @@ Props:
 - `searchable` — `boolean` · default `true` — Render the built-in toolbar quick-search box; set false to externalize search with your own input wired to quickFilter (CardGrid parity).
 - `quickFilter` — `string` — Controlled quick-search string; pair with onQuickFilterChange to drive search from outside (the value flows into client filtering and the onServerChange query).
 - `onQuickFilterChange` — `(value: string) => void` — Fires with the new quick-search string as the user types in the built-in box (and when a host sets it).
+- `filterLogic` — `"and" | "or"` — Controlled And/Or connective between filter conditions — a single set-wide operator (MUI DataGrid-style); pair with onFilterLogicChange. Omit for uncontrolled (see defaultFilterLogic).
+- `defaultFilterLogic` — `"and" | "or"` · default `"and"` — Initial And/Or connective for the filter conditions when filterLogic is left uncontrolled.
+- `onFilterLogicChange` — `(logic: "and" | "or") => void` — Fires with the new connective when the user changes the per-row And/Or connector in the Filters panel.
 - `toolbarActions` — `React.ReactNode` — Custom node rendered in a leading toolbar slot, before the built-in Columns/Filters cluster — for host controls like an "Add row" button or bulk actions. Mirrors CardGrid's toolbar prop, so no internal-class or absolute-position hacks are needed.
 - `resizableFilters` — `boolean` · default `true` — Let the user drag-resize the Filters popover and its column/operator/value fields, layered over the auto-fit (a dragged width overrides the measured one; reset returns to it). Widths + panel size persist via stateKey and are keyboard-accessible. Set false to hide the handles/grip (fields still auto-fit).
 - `filterFieldMaxWidth` — `number` — Raise the drag cap for the filter panel's column/operator fields, in px (defaults: column 360, operator 260). Only applies when resizableFilters is on.

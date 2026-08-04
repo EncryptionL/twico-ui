@@ -42,6 +42,11 @@ import { Datatable } from "./Datatable";
 - **Export** is a split button: clicking it downloads the current view as **CSV** by default; the chevron opens a format menu (**CSV**, **Excel `.xlsx`**). Exports all filtered+sorted rows client-side (the loaded page in server mode). Customize a column's exported value with `exportValue`.
 - **Columns** toolbar button → a searchable, **drag-to-reorder** panel of visibility toggles, each row also with **pin left / pin right** controls (so you can pin any column without scrolling its header into view). **Filters** opens empty — add rows manually with **Add filter**
   (string: contains/equals/is any of/starts/ends/empty; number: =, ≠, >, ≥, <, ≤) built from `Select` + `Input`.
+- **And / Or connector** (MUI DataGrid-style, #330): each filter row after the first shows an inline **And ▾ / Or ▾**
+  select — row 1 reads *Where*, the second row hosts the editable connector, and the rest echo it. It's a single,
+  set-wide connective (like MUI's `logicOperator`), so `"premium" OR "eco"` on one column matches **either**.
+  Control it with `filterLogic` (`"and"` | `"or"`) + `onFilterLogicChange` (or seed the uncontrolled default with
+  `defaultFilterLogic`); it's included as `filterLogic` in the `onServerChange` query so server mode can group its WHERE.
 - **Density** cycles row height. The search box quick-filters across visible columns; a trailing **✕** clears it once you type (the Columns-panel find box and each per-column filter **value** input clear the same way).
 - **`toolbarActions`** injects a custom node into a **leading slot** of the toolbar (before Columns/Filters) —
   e.g. an "Add row" button or bulk actions — mirroring `CardGrid`'s `toolbar` prop, so no internal-class hacks:
