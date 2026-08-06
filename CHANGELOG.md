@@ -2,6 +2,21 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.32.0](https://github.com/EncryptionL/twico-ui/compare/v1.31.1...v1.32.0) (2026-08-06)
+
+
+### Bug Fixes
+
+* **datatable:** make the batch-editor column-name field drag-resizable (no more truncation) ([e08dc28](https://github.com/EncryptionL/twico-ui/commit/e08dc2883869d956682cdfff239e49d12d8ed663))
+* **datatable:** stop the combine editor's Layout options clipping ([db2945c](https://github.com/EncryptionL/twico-ui/commit/db2945cf6e850e449ad56f31e6a0d0304f8ab852)), closes [#339](https://github.com/EncryptionL/twico-ui/issues/339)
+
+
+### Features
+
+* **datatable:** combined columns — merge several columns' data into one column ([7fe22c4](https://github.com/EncryptionL/twico-ui/commit/7fe22c45c7f762541562db65791a3f34dd904cf8))
+* **datatable:** let users build combined columns from the column menu (columnCombining) ([8a36398](https://github.com/EncryptionL/twico-ui/commit/8a36398e90c999528ec3e65a8ec83ec7af188308)), closes [#338](https://github.com/EncryptionL/twico-ui/issues/338)
+* **iconbutton:** add as="a" anchor support for icon links ([f65cb0f](https://github.com/EncryptionL/twico-ui/commit/f65cb0ff6b71a7eb001e13564a9686199653dfa9))
+
 ## [1.31.1](https://github.com/EncryptionL/twico-ui/compare/v1.31.0...v1.31.1) (2026-08-04)
 
 
