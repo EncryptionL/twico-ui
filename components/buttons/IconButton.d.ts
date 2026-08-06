@@ -18,6 +18,15 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
   size?: "xs" | "sm" | "md" | "lg";
   /** Fully rounded (circular). @default false */
   round?: boolean;
+  /** #342: render as a different element — use `"a"` for an icon **link** (GitHub icon, external nav, …) so
+   *  navigation is a real link, not a button. @default "button" */
+  as?: "button" | "a";
+  /** Link destination — only used with `as="a"`; scheme-sanitized (javascript:/data:/vbscript: drop the href). */
+  href?: string;
+  /** Anchor target — only used with `as="a"` (e.g. "_blank"). */
+  target?: React.HTMLAttributeAnchorTarget;
+  /** Anchor rel — only used with `as="a"`; pair "noopener noreferrer" with target="_blank". */
+  rel?: string;
   /** Accessible label — required for icon-only buttons. */
   "aria-label": string;
 }

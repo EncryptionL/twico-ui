@@ -8436,6 +8436,34 @@ export const components = [
         "description": "Renders a fully rounded circular button when true instead of the default squared shape with rounded corners."
       },
       {
+        "prop": "as",
+        "type": "\"button\" | \"a\"",
+        "required": false,
+        "default": "\"button\"",
+        "description": "Render as an \"a\" anchor for an icon link (a GitHub/repo icon, external nav) so navigation is a real link, not a button."
+      },
+      {
+        "prop": "href",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Link destination — only used with as=\"a\"; scheme-sanitized (javascript:/data:/vbscript: render without href)."
+      },
+      {
+        "prop": "target",
+        "type": "React.HTMLAttributeAnchorTarget",
+        "required": false,
+        "default": "—",
+        "description": "Anchor target — only used with as=\"a\" (e.g. \"_blank\")."
+      },
+      {
+        "prop": "rel",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Anchor rel — only used with as=\"a\"; pair \"noopener noreferrer\" with target=\"_blank\"."
+      },
+      {
         "prop": "aria-label",
         "type": "string",
         "required": true,

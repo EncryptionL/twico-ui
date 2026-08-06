@@ -259,6 +259,10 @@ Props:
 - `tone` — `"primary" | "danger"` · default `"primary"` — Color/intent, orthogonal to variant (mirrors Button) — primary by default; tone="danger" makes an icon-only destructive button in any variant.
 - `size` — `"xs" | "sm" | "md" | "lg"` · default `"md"` — Adds a new "xs" size (~26px square, smaller than "sm") to the existing union; sm/md/lg are unchanged.
 - `round` — `boolean` · default `false` — Renders a fully rounded circular button when true instead of the default squared shape with rounded corners.
+- `as` — `"button" | "a"` · default `"button"` — Render as an "a" anchor for an icon link (a GitHub/repo icon, external nav) so navigation is a real link, not a button.
+- `href` — `string` — Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href).
+- `target` — `React.HTMLAttributeAnchorTarget` — Anchor target — only used with as="a" (e.g. "_blank").
+- `rel` — `string` — Anchor rel — only used with as="a"; pair "noopener noreferrer" with target="_blank".
 - `aria-label` — `string` · **required** — Provides the required accessible name for this icon-only button so screen readers announce its purpose.
 - `onClick` — `(e: React.MouseEvent) => void` — Click handler — fires on click/tap and on Enter or Space.
 - `type` — `"button" | "submit" | "reset"` · default `"button"` — Native button type — use "submit" to submit a surrounding form.
