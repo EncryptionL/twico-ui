@@ -1033,6 +1033,40 @@ function ServerSideDemo() {
     },
   },
   {
+    title: "User-built combined columns",
+    description:
+      "Set `columnCombining` to let end-users build combined columns themselves — open any column's ⋮ menu and choose \"Combine columns…\" to fold other columns into it (inline or stacked, with optional labels); the merged columns hide and \"Uncombine\" restores them. Pair with `stateKey` to persist each user's choices.",
+    code: `<Datatable
+  rowKey={(r) => r.id}
+  rows={makePeople(8)}
+  columnCombining              // adds "Combine columns…" to every column's ⋮ menu
+  stateKey="people-grid"       // remembers each user's combined columns
+  columns={[
+    { field: "name", headerName: "Name" },
+    { field: "email", headerName: "Email" },
+    { field: "country", headerName: "Country" },
+    { field: "role", headerName: "Role" },
+    { field: "department", headerName: "Department" },
+    { field: "mrr", headerName: "MRR", type: "number", valueFormatter: usd },
+  ]}
+/>`,
+    render: () => (
+      <Datatable
+        rowKey={(r) => r.id}
+        rows={makePeople(8)}
+        columnCombining
+        columns={[
+          { field: "name", headerName: "Name" },
+          { field: "email", headerName: "Email" },
+          { field: "country", headerName: "Country" },
+          { field: "role", headerName: "Role" },
+          { field: "department", headerName: "Department" },
+          { field: "mrr", headerName: "MRR", type: "number", valueFormatter: usd },
+        ]}
+      />
+    ),
+  },
+  {
     title: "All props",
     description:
       "Every Datatable-specific prop in one grid — the top-level props plus the full column, row-action, and batch-action contracts. Mutually-exclusive props are shown in their interactive form with a comment pointing at the alternative (serverMode/pivotMode/virtualized are off so client paging, selection, inline + batch editing, row reorder/pin/resize, grouping, aggregation, and CSV/Excel export all stay live). The server-mode props (rowCount, onServerChange, aggregationValues) and the pivot model are passed for completeness — they take effect once serverMode/pivotMode are on.",

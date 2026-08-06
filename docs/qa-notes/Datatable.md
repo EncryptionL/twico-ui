@@ -12,6 +12,31 @@
 
 ## Enhancements
 
+- **[#339] User-built combined columns (runtime ⋮-menu editor)** — opt-in `columnCombining` (default false)
+  adds a **"Combine columns…"** item to each non-actions column's ⋮ menu. It opens a combine-editor panel
+  (`panel === "combine"`, anchored at the ⋮ trigger) with a switch list of the other columns, an inline/stacked
+  `Select`, a labels switch, and Apply / Uncombine. Runtime combines live in a `userCombine` state map (target
+  field → `{ fields:[target, ...sources], layout, separator, labels }`) that **overrides** a column's
+  declarative `combine` in the `cols` resolution (`combineCfg(userCombine[c.field] || c.combine)`); it reuses
+  the #338 derivation, so all value ops + the render just work. Persists via `stateKey` as `columnCombine`
+  (typed on `DatatableState`, sanitized on restore — unknown fields dropped, target normalized to index 0,
+  entries need ≥1 source). No recursion when a target lists its own field: `srcCols` resolve against the
+  pre-resolution `byField` snapshot (built before the loop reassigns `out[i]`). Editor styled with
+  `.twc-dt__combine-hint`/`-opts`/`-opt`/`-foot`/`-apply` (plain DT_CSS literals).
+
+  **Source hiding + stack wrapping are DERIVED, not stored** (adversarial-review hardening): `combineSources`
+  (all runtime combine sources) and `stackCombineTargets` (declarative + runtime stack combines) feed
+  `effectiveHidden = hidden ∪ combineSources` and `effectiveWrapped = wrapped ∪ stackCombineTargets`, which
+  drive grid rendering (`visibleCols`/`visibleColumns`/`visLeft`/`visRight`/`visibleColCount`, cell `data-wrap`)
+  while the manual `hidden`/`wrapped` sets stay the user's own toggles. This reference-counts by construction
+  (a source shared by two combines stays hidden until both are removed), never clobbers a manual hide/wrap, and
+  needs no re-hide on restore — so `apply`/`uncombine` only mutate `userCombine`. The Columns panel shows a
+  combine source as a locked "· combined" row (off + disabled) so re-showing can't desync it. The combine
+  editor excludes `hideable: false` columns and other combine targets from its candidate list; the diff-mode
+  `columns` memo honours `userCombine` too (so a runtime combine isn't blank on added/removed diff rows); and
+  the editor restores focus to the ⋮ trigger on close (and takes focus on open). 8 tests in
+  `tests/datatable-combine-menu.test.jsx` (incl. refcount + diff-mode). — added 2026-08-06
+
 - **[#338] Combined columns — merge several columns' data into one column** — a `DatatableColumn.combine`
   option (`string[]` shorthand or `{ fields, layout, separator, labels }`) makes one column display several
   other fields' values in a single cell. The `cols` memo resolves it (after column normalization, keyed by a

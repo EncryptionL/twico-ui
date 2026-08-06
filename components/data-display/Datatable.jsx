@@ -326,6 +326,15 @@ const DT_CSS = `
 .twc-dt__combine--stack { display: flex; flex-direction: column; gap: 1px; }
 .twc-dt__combine-sep { color: var(--color-text-subtle); padding-inline: 3px; }
 .twc-dt__combine-label { color: var(--color-text-muted); font-weight: var(--font-medium); }
+/* #339: the runtime combine-columns editor panel. */
+.twc-dt__combine-hint { padding: 2px 12px 8px; font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-dt__combine-opts { padding: 8px 12px; border-top: var(--border-thin) solid var(--color-divider); display: flex; flex-direction: column; gap: 8px; }
+.twc-dt__combine-opt { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: var(--text-sm); color: var(--color-text); }
+.twc-dt__combine-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; border-top: var(--border-thin) solid var(--color-divider); }
+.twc-dt__combine-apply { border: none; background: var(--color-primary); color: var(--color-primary-fg); font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold); padding: 6px 14px; border-radius: var(--radius-md); cursor: pointer; }
+.twc-dt__combine-apply:hover { opacity: 0.9; }
+.twc-dt__combine-apply:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-dt__col-combined { color: var(--color-text-subtle); font-size: var(--text-xs); font-style: italic; }
 .twc-dt__td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
 /* Auto row-number gutter (rowNumbers) — a sticky-left ordinal column. */
 .twc-dt__rownum { text-align: end; font-variant-numeric: tabular-nums; color: var(--color-text-subtle);
@@ -1046,6 +1055,7 @@ export function Datatable({
   height = 440, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [], onRowSelectionChange,
   showExport = false, showDensity = false, showPivot = false, exportFilename = "export", aggregationValues = null,
   disableColumnReorder = false, disableColumnResize = false,
+  columnCombining = false,
   emptyMessage, renderEmpty,
   editMode = false, onRowUpdate, onRowsChange, onBatchUpdate,
   showBatchEdit = true, batchEditFields = null,
@@ -1089,21 +1099,25 @@ export function Datatable({
   onClassifiedRef.current = diff && diff.onClassified;
   React.useEffect(() => { if (diffData && onClassifiedRef.current) onClassifiedRef.current(diffData.counts); }, [diffData]);
   const diffRowKeyFn = React.useCallback((r) => r.__diffKey, []);
+  // #339: runtime user-defined combined columns (opt-in via `columnCombining`), keyed by TARGET field →
+  // { fields:[target, ...sources], layout, separator, labels }. Overrides a column's declarative `combine`.
+  // Declared here (before the diff `columns` memo) so diff mode can honour a runtime combine too.
+  const [userCombine, setUserCombine] = React.useState({});
   const columns = React.useMemo(
     () => {
       if (!isDiff) return columnsProp;
-      // #338: enrich a combined column with its derived value getter BEFORE the diff wrap, so
-      // renderDiffCell's getColVal(col, meta.from/to) yields the combined text for added/removed rows
-      // (otherwise they'd render blank — the synthetic combine field isn't a real key on the row data).
+      // #338/#339: enrich a combined column (declarative OR runtime) with its derived value getter BEFORE the
+      // diff wrap, so renderDiffCell's getColVal(col, meta.from/to) yields the combined text for added/removed
+      // rows (otherwise they'd render blank — the synthetic combine field isn't a real key on the row data).
       const byField = {};
       for (const c of columnsProp) if (c && c.field != null) byField[c.field] = c;
       return [DIFF_OP_COLUMN, ...columnsProp.map((c) => {
-        const cfg = combineCfg(c.combine);
+        const cfg = combineCfg(userCombine[c.field] || c.combine);
         const base = cfg && !c.valueGetter ? { ...c, valueGetter: combineValueGetter(combineSrcCols(cfg, byField), cfg) } : c;
         return { ...base, renderCell: (val, row) => renderDiffCell(base, val, row) };
       })];
     },
-    [isDiff, columnsProp],
+    [isDiff, columnsProp, userCombine],
   );
   const rows = React.useMemo(
     () => (isDiff ? diffData.rows.filter((r) => !diffOnly || r.op !== "unchanged").map((r) => ({ ...(r.to || r.from), __diffop: r.op, __diffMeta: r, __diffKey: r.key })) : rowsProp),
@@ -1139,7 +1153,10 @@ export function Datatable({
     for (const c of out) if (c.field != null) byField[c.field] = c;
     for (let i = 0; i < out.length; i++) {
       const c = out[i];
-      const cfg = combineCfg(c.combine);
+      // #339: a runtime user combine (from the ⋮-menu editor) overrides the column's declarative `combine`.
+      // srcCols resolve against `byField`, which holds the PRE-resolution column objects (built above before
+      // this loop reassigns out[i]), so a target that lists its own field can't recurse into its own getter.
+      const cfg = combineCfg(userCombine[c.field] || c.combine);
       if (!cfg) continue;
       const srcCols = combineSrcCols(cfg, byField);
       out[i] = {
@@ -1153,7 +1170,7 @@ export function Datatable({
       };
     }
     return out;
-  }, [columns, rowPinning]);
+  }, [columns, rowPinning, userCombine]);
 
   // Stable per-row key. Prefer rowKey, then r.id; otherwise fall back to a key
   // tied to the row's object IDENTITY (a WeakMap), NOT its index — an index-based
@@ -1192,11 +1209,39 @@ export function Datatable({
   // Per-column text wrapping: cells in these fields wrap onto multiple lines
   // (the row grows down) instead of clipping to one line. Seeded from a column's
   // `wrapText`, toggled live from the column ⋮ menu.
-  const [wrapped, setWrapped] = React.useState(() => new Set(
-    // #338: a stack-layout combined column needs wrapping so the row grows to show every line.
-    (columns || []).filter((c) => c.wrapText || (c.combine && !Array.isArray(c.combine) && c.combine.layout === "stack")).map((c) => c.field),
-  ));
+  const [wrapped, setWrapped] = React.useState(() => new Set((columns || []).filter((c) => c.wrapText).map((c) => c.field)));
   const toggleWrap = (field) => setWrapped((w) => { const n = new Set(w); n.has(field) ? n.delete(field) : n.add(field); return n; });
+
+  // #339: open/apply/clear a runtime combined column. Sources are hidden while combined; editing swaps the
+  // hidden set from the old sources to the new; uncombining (or applying with none selected) restores them.
+  const openCombineEditor = (field) => {
+    const existing = userCombine[field];
+    setCombineTarget(field);
+    setCombineDraft({
+      selected: existing ? existing.fields.filter((f) => f !== field) : [],
+      layout: existing && existing.layout === "stack" ? "stack" : "inline",
+      labels: !!(existing && existing.labels),
+    });
+  };
+  const closeCombineEditor = () => { setPanel(null); closePanel(); setCombineTarget(null); setCombineDraft(null); restoreTriggerFocus(); };
+  const applyCombine = () => {
+    if (!combineTarget || !combineDraft) return;
+    const field = combineTarget;
+    // Source hiding + stack wrapping are DERIVED from userCombine (effectiveHidden/effectiveWrapped) — nothing
+    // to add/remove on the hidden/wrapped sets here, so there's no bookkeeping to get wrong on edit/uncombine.
+    const sources = combineDraft.selected.filter((f) => f !== field);
+    setUserCombine((m) => {
+      const next = { ...m };
+      if (sources.length) next[field] = { fields: [field, ...sources], layout: combineDraft.layout === "stack" ? "stack" : "inline", separator: " · ", labels: !!combineDraft.labels };
+      else delete next[field]; // nothing selected → treat Apply as Uncombine
+      return next;
+    });
+    closeCombineEditor();
+  };
+  const uncombine = (field) => {
+    setUserCombine((m) => { const next = { ...m }; delete next[field]; return next; });
+    closeCombineEditor();
+  };
   const [pins, setPins] = React.useState(() => {
     const left = [], right = [];
     columns.forEach((c) => { if (c.pinned === "left") left.push(c.field); else if (c.pinned === "right") right.push(c.field); });
@@ -1287,6 +1332,8 @@ export function Datatable({
     filterFieldWidths: (fWidths.col != null || fWidths.op != null || fWidths.val != null || fWidths.logic != null) ? fWidths : undefined,
     // #304: additive, optional — user-resized sizes of the other toolbar popovers, keyed by popover id.
     popoverSizes: Object.keys(popSizes).length ? popSizes : undefined,
+    // #339: additive, optional — runtime user-defined combined columns, keyed by target field.
+    columnCombine: Object.keys(userCombine).length ? userCombine : undefined,
   });
   const applyState = (s) => {
     if (!s || typeof s !== "object") return;
@@ -1331,6 +1378,19 @@ export function Datatable({
       }
       if (Object.keys(next).length) setPopSizes(next);
     }
+    // #339: restore runtime combined columns — drop unknown target/source fields and NORMALIZE the target to
+    // index 0 (so combineValueGetter/render + effectiveHidden's fields.slice(1) all agree); keep entries with
+    // ≥1 real source. Source hiding + stack wrapping are DERIVED (effectiveHidden/effectiveWrapped), so nothing
+    // needs re-hiding here — a hand-authored initialState with only `columnCombine` hides its sources on its own.
+    if (s.columnCombine && typeof s.columnCombine === "object") {
+      const uc = {};
+      for (const [f, cfg] of Object.entries(s.columnCombine)) {
+        if (!known.has(f) || !cfg || !Array.isArray(cfg.fields)) continue;
+        const rest = cfg.fields.filter((x) => known.has(x) && x !== f);
+        if (rest.length) uc[f] = { fields: [f, ...rest], layout: cfg.layout === "stack" ? "stack" : "inline", separator: typeof cfg.separator === "string" ? cfg.separator : " · ", labels: !!cfg.labels };
+      }
+      if (Object.keys(uc).length) setUserCombine(uc);
+    }
   };
   const stateReadyRef = React.useRef(false);
   const stateRestoredRef = React.useRef(false); // #298: restore applied at most once (survives a Strict Mode remount)
@@ -1347,7 +1407,7 @@ export function Datatable({
     if (stateKey) { try { window.localStorage.setItem(stateKey, JSON.stringify(state)); } catch { /* storage unavailable/full */ } }
     return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, stateKey]);
+  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, stateKey]);
   // Reads localStorage[stateKey] (else initialState) and applies it. Cheap to call more than once —
   // applyState is idempotent for a given snapshot — but callers gate it (see the two effects below).
   const restoreState = () => {
@@ -1514,6 +1574,18 @@ export function Datatable({
   const [menuPos, openMenu, closeMenu] = useFloating();
   const [panel, setPanel] = React.useState(null);
   const [panelPos, openPanel, closePanel] = useFloating();
+  // #339: the combine-editor panel's target column + draft ({ selected source fields, layout, labels }).
+  const [combineTarget, setCombineTarget] = React.useState(null);
+  const [combineDraft, setCombineDraft] = React.useState(null);
+  const combinePanelRef = React.useRef(null);
+  // Move focus into the editor on open (else it falls to <body> when the ⋮ menu closes); closeCombineEditor
+  // returns focus to the ⋮ trigger via restoreTriggerFocus.
+  React.useEffect(() => {
+    if (panel === "combine" && combinePanelRef.current) {
+      const el = combinePanelRef.current.querySelector('[role="switch"], button, [tabindex]');
+      (el || combinePanelRef.current).focus?.();
+    }
+  }, [panel]);
   const [rowMenu, setRowMenu] = React.useState(null);
   const [rowMenuPos, openRowMenu, closeRowMenu] = useFloating();
   const [exportOpen, setExportOpen] = React.useState(false);
@@ -1577,7 +1649,23 @@ export function Datatable({
   }, [exportOpen]);
 
   const colByField = React.useMemo(() => Object.fromEntries(cols.map((c) => [c.field, c])), [cols]);
-  const visibleCols = cols.filter((c) => !hidden.has(c.field));
+  // #339: a runtime combine's source columns are hidden and (for stack layout) its target wraps — both DERIVED
+  // from userCombine, never stored in the hidden/wrapped sets. This auto-reference-counts (a source shared by
+  // two combines stays hidden until both are removed), never touches a column's manual hide/wrap, and needs no
+  // re-hide on restore. `effectiveHidden`/`effectiveWrapped` drive grid rendering; the manual sets stay the
+  // user's own toggles.
+  const combineSources = React.useMemo(() => {
+    const s = new Set();
+    for (const cfg of Object.values(userCombine)) (cfg && cfg.fields ? cfg.fields : []).slice(1).forEach((f) => s.add(f));
+    return s;
+  }, [userCombine]);
+  const stackCombineTargets = React.useMemo(
+    () => new Set(cols.filter((c) => { const cfg = combineCfg(userCombine[c.field] || c.combine); return cfg && cfg.layout === "stack"; }).map((c) => c.field)),
+    [cols, userCombine],
+  );
+  const effectiveHidden = React.useMemo(() => (combineSources.size ? new Set([...hidden, ...combineSources]) : hidden), [hidden, combineSources]);
+  const effectiveWrapped = React.useMemo(() => (stackCombineTargets.size ? new Set([...wrapped, ...stackCombineTargets]) : wrapped), [wrapped, stackCombineTargets]);
+  const visibleCols = cols.filter((c) => !effectiveHidden.has(c.field));
   // #191: data-column field ids exposed to server mode for column projection. Exclude
   // synthetic/actions columns (e.g. the auto-added __pinactions__ gutter — it has a real
   // string field but no projectable data). Key the memo on CONTENT (a JSON string), not on
@@ -1603,13 +1691,13 @@ export function Datatable({
   }, [colFields, hiddenKey]);
   const ordered = React.useMemo(() => {
     const orderIdx = (f) => { const i = order.indexOf(f); return i === -1 ? 9999 : i; };
-    const L = pins.left.map((f) => colByField[f]).filter((c) => c && !hidden.has(c.field));
-    const R = pins.right.map((f) => colByField[f]).filter((c) => c && !hidden.has(c.field));
+    const L = pins.left.map((f) => colByField[f]).filter((c) => c && !effectiveHidden.has(c.field));
+    const R = pins.right.map((f) => colByField[f]).filter((c) => c && !effectiveHidden.has(c.field));
     const mid = visibleCols
       .filter((c) => !pins.left.includes(c.field) && !pins.right.includes(c.field))
       .sort((a, b) => orderIdx(a.field) - orderIdx(b.field));
     return [...L, ...mid, ...R];
-  }, [pins, hidden, visibleCols, colByField, order]);
+  }, [pins, effectiveHidden, visibleCols, colByField, order]);
 
   // Leading sticky-left columns: the selection checkbox (44px) and the optional row-number column,
   // in that order. Pinned-left data columns start after both.
@@ -1626,8 +1714,8 @@ export function Datatable({
   // it here reserved a phantom sticky slot (a "ghost" pinned column the body showed through) and put
   // the edge shadow on the wrong column. `pins` stays the raw persisted state (so un-hiding restores
   // the pin); only offset/edge/lead-gutter derivations skip hidden fields.
-  const visLeft = React.useMemo(() => pins.left.filter((f) => colByField[f] && !hidden.has(f)), [pins.left, colByField, hidden]);
-  const visRight = React.useMemo(() => pins.right.filter((f) => colByField[f] && !hidden.has(f)), [pins.right, colByField, hidden]);
+  const visLeft = React.useMemo(() => pins.left.filter((f) => colByField[f] && !effectiveHidden.has(f)), [pins.left, colByField, effectiveHidden]);
+  const visRight = React.useMemo(() => pins.right.filter((f) => colByField[f] && !effectiveHidden.has(f)), [pins.right, colByField, effectiveHidden]);
   const stickyOf = (field) => {
     if (visLeft.includes(field)) {
       let off = leadW;
@@ -2751,7 +2839,7 @@ export function Datatable({
   // Visible / total column counts shown in the Columns panel header (data columns only —
   // excludes the synthetic pinned-actions gutter).
   const manageableCols = cols.filter((c) => c.field !== "__pinactions__");
-  const visibleColCount = manageableCols.filter((c) => !hidden.has(c.field)).length;
+  const visibleColCount = manageableCols.filter((c) => !effectiveHidden.has(c.field)).length;
   const rppOptions = Array.from(new Set([...(pageSizeOptions || []), pageSize].filter((n) => n > 0))).sort((a, b) => a - b).map((n) => ({ value: String(n), label: String(n) }));
 
   const totalCols = ordered.length + (checkboxSelection ? 1 : 0) + (showRowNum ? 1 : 0);
@@ -2858,7 +2946,7 @@ export function Datatable({
               aria-selected={cellSelected || undefined}
               data-num={c.type === "number" || undefined} data-actions={isActions || undefined}
               data-editable={editable && !isEditing || undefined} data-editing={isEditing || undefined}
-              data-cell-active={cellActive || undefined} data-cell-selected={cellSelected || undefined} data-copied={cellFlash || undefined} data-wrap={wrapped.has(c.field) || undefined}
+              data-cell-active={cellActive || undefined} data-cell-selected={cellSelected || undefined} data-copied={cellFlash || undefined} data-wrap={effectiveWrapped.has(c.field) || undefined}
               data-pin={st.pin} data-pin-edge={st.edge}
               style={{ width: widthOf(c), ...st.style }} data-ovtext={cellTitle}
               onClick={selectionMode === "cell" ? (e) => handleCellClick(e, k, row, c) : undefined}
@@ -3433,6 +3521,8 @@ export function Datatable({
               {c.filterable ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); restoreTriggerFocus(); setPanel("filters"); openPanel(document.querySelector(".twc-dt__toolbar .twc-dt__tbtn:nth-child(2)"), "left", DT_FILTER_PANEL_W); }}><Svg d={I.filter} /> Filter</button> : null}
               {hasTop && hasBottom ? <div className="twc-dt__sep" /> : null}
               {c.groupable ? <button type="button" role="menuitem" className="twc-dt__mi" data-active={groupBy.includes(c.field) || undefined} onClick={() => { toggleGroupField(c.field); close(); }}><Svg d={I.group} /> {groupBy.includes(c.field) ? "Stop grouping" : "Group by this column"}</button> : null}
+              {/* #339: build a combined column at runtime — fold other columns' data into this one. */}
+              {columnCombining && c.type !== "actions" ? <button type="button" role="menuitem" className="twc-dt__mi" data-active={!!userCombine[c.field] || undefined} onClick={() => { const anchor = menuTriggerRef.current; setColMenu(null); closeMenu(); openCombineEditor(c.field); setPanel("combine"); openPanel(anchor, "right", 300); }}><Svg d={I.columns} /> {userCombine[c.field] ? "Edit combined column…" : "Combine columns…"}</button> : null}
               {/* #228: only when the column is actually movable — omit (not disable) for
                   reorderable:false, pinned, actions, or when there's nothing to reorder. */}
               {!disableColumnReorder && c.reorderable !== false && c.type !== "actions" && !pins.left.includes(c.field) && !pins.right.includes(c.field) && movableMidFields.length > 1 ? (() => {
@@ -3510,9 +3600,9 @@ export function Datatable({
                   onDragEnd={canDrag ? () => setDrag({ from: null, over: null, after: false }) : undefined}
                   onDragOver={canDrag && drag.from ? (e) => { e.preventDefault(); const r = e.currentTarget.getBoundingClientRect(); const after = e.clientY > r.top + r.height / 2; setDrag((d) => (d.over === c.field && d.after === after ? d : { ...d, over: c.field, after })); } : undefined}
                   onDrop={canDrag && drag.from ? (e) => { e.preventDefault(); onColDrop(c.field); } : undefined}
-                  onClick={() => c.hideable && toggleHiddenField(c.field)}>
+                  onClick={() => c.hideable && !combineSources.has(c.field) && toggleHiddenField(c.field)}>
                   {canDrag ? <span className="twc-dt__col-grip" aria-hidden="true"><Svg d={I.grip} /></span> : null}
-                  <span className="twc-dt__col-name">{c.headerName}</span>
+                  <span className="twc-dt__col-name">{c.headerName}{combineSources.has(c.field) ? <span className="twc-dt__col-combined"> · combined</span> : null}</span>
                   {c.pinnable && c.type !== "actions" ? (
                     // Pin from here too, so columns scrolled out of view (no reachable header ⋮) can still be pinned.
                     <span className="twc-dt__col-pins" draggable={false} onClick={(e) => e.stopPropagation()}>
@@ -3524,11 +3614,11 @@ export function Datatable({
                         onClick={() => setPin(c.field, pins.right.includes(c.field) ? null : "right")}><Svg d={I.pin} /></button>
                     </span>
                   ) : null}
-                  <span className="twc-dt__sw" data-on={!hidden.has(c.field) || undefined}
-                    role="switch" aria-checked={!hidden.has(c.field)} aria-label={c.headerName}
-                    aria-disabled={!c.hideable || undefined} tabIndex={c.hideable ? 0 : -1}
-                    onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && c.hideable) { e.preventDefault(); toggleHiddenField(c.field); } }}
-                    style={c.hideable ? undefined : { opacity: 0.4 }} />
+                  <span className="twc-dt__sw" data-on={!effectiveHidden.has(c.field) || undefined}
+                    role="switch" aria-checked={!effectiveHidden.has(c.field)} aria-label={c.headerName}
+                    aria-disabled={!c.hideable || combineSources.has(c.field) || undefined} tabIndex={c.hideable && !combineSources.has(c.field) ? 0 : -1}
+                    onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && c.hideable && !combineSources.has(c.field)) { e.preventDefault(); toggleHiddenField(c.field); } }}
+                    style={c.hideable && !combineSources.has(c.field) ? undefined : { opacity: 0.4 }} />
                 </div>
               );
               })}
@@ -3536,6 +3626,50 @@ export function Datatable({
           {popGrip("columns")}
         </div>
       ) : null}
+
+      {/* #339: combine-columns editor — fold selected columns into `combineTarget`. */}
+      {panel === "combine" && panelPos && combineTarget && combineDraft ? (() => {
+        const target = colByField[combineTarget];
+        const candidates = cols.filter((c) => c.field !== combineTarget && c.type !== "actions" && c.field !== "__pinactions__" && c.hideable !== false && !userCombine[c.field]);
+        const toggle = (f) => setCombineDraft((d) => ({ ...d, selected: d.selected.includes(f) ? d.selected.filter((x) => x !== f) : [...d.selected, f] }));
+        return (
+          <div ref={combinePanelRef} tabIndex={-1} className="twc-dt__pop twc-dt__cols" style={{ top: panelPos.top, left: panelPos.left, ...popStyle("combine") }} data-pop-sized={popSizes.combine ? "" : undefined} role="dialog" aria-label={`Combine columns into ${target?.headerName || combineTarget}`}>
+            <div className="twc-dt__panel-head">
+              <span className="twc-dt__panel-title">Combine into “{target?.headerName || combineTarget}”</span>
+            </div>
+            <div className="twc-dt__combine-hint">Pick columns to merge into this one — their data shows in this cell and their own columns hide.</div>
+            <div className="twc-dt__col-list">
+              {candidates.length === 0 ? <div className="twc-dt__empty" style={{ padding: "18px 12px" }}>No other columns</div> :
+                candidates.map((c) => {
+                  const on = combineDraft.selected.includes(c.field);
+                  return (
+                    <div key={c.field} className="twc-dt__col-row" onClick={() => toggle(c.field)}>
+                      <span className="twc-dt__col-name">{c.headerName}</span>
+                      <span className="twc-dt__sw" data-on={on || undefined} role="switch" aria-checked={on} aria-label={c.headerName} tabIndex={0}
+                        onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(c.field); } }} />
+                    </div>
+                  );
+                })}
+            </div>
+            <div className="twc-dt__combine-opts">
+              <label className="twc-dt__combine-opt"><span>Layout</span>
+                <Select size="sm" portal value={combineDraft.layout}
+                  options={[{ value: "inline", label: "Inline" }, { value: "stack", label: "Stacked" }]}
+                  onChange={(v) => setCombineDraft((d) => ({ ...d, layout: v }))} />
+              </label>
+              <div className="twc-dt__combine-opt" onClick={() => setCombineDraft((d) => ({ ...d, labels: !d.labels }))} style={{ cursor: "pointer" }}>
+                <span>Show labels</span>
+                <span className="twc-dt__sw" data-on={combineDraft.labels || undefined} role="switch" aria-checked={combineDraft.labels} aria-label="Show labels" tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setCombineDraft((d) => ({ ...d, labels: !d.labels })); } }} />
+              </div>
+            </div>
+            <div className="twc-dt__combine-foot">
+              {userCombine[combineTarget] ? <button type="button" className="twc-dt__link" onClick={() => uncombine(combineTarget)}>Uncombine</button> : <span />}
+              <button type="button" className="twc-dt__combine-apply" onClick={applyCombine}>Apply</button>
+            </div>
+          </div>
+        );
+      })() : null}
 
       {/* Aggregation config panel */}
       {panel === "agg" && panelPos ? (

@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"d175e42923fd","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"17ec8c522076","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"fe302900567c","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"186e526942fc","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"ca508486a39c","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"747521cd095b"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"5a2309f549c9","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"17ec8c522076","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"fe302900567c","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"186e526942fc","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"ca508486a39c","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"747521cd095b"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -8684,6 +8684,15 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__combine--stack { display: flex; flex-direction: column; gap: 1px; }
 .twc-dt__combine-sep { color: var(--color-text-subtle); padding-inline: 3px; }
 .twc-dt__combine-label { color: var(--color-text-muted); font-weight: var(--font-medium); }
+/* #339: the runtime combine-columns editor panel. */
+.twc-dt__combine-hint { padding: 2px 12px 8px; font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-dt__combine-opts { padding: 8px 12px; border-top: var(--border-thin) solid var(--color-divider); display: flex; flex-direction: column; gap: 8px; }
+.twc-dt__combine-opt { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: var(--text-sm); color: var(--color-text); }
+.twc-dt__combine-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; border-top: var(--border-thin) solid var(--color-divider); }
+.twc-dt__combine-apply { border: none; background: var(--color-primary); color: var(--color-primary-fg); font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold); padding: 6px 14px; border-radius: var(--radius-md); cursor: pointer; }
+.twc-dt__combine-apply:hover { opacity: 0.9; }
+.twc-dt__combine-apply:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-dt__col-combined { color: var(--color-text-subtle); font-size: var(--text-xs); font-style: italic; }
 .twc-dt__td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
 /* Auto row-number gutter (rowNumbers) \u2014 a sticky-left ordinal column. */
 .twc-dt__rownum { text-align: end; font-variant-numeric: tabular-nums; color: var(--color-text-subtle);
@@ -9426,6 +9435,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     aggregationValues = null,
     disableColumnReorder = false,
     disableColumnResize = false,
+    columnCombining = false,
     emptyMessage,
     renderEmpty,
     editMode = false,
@@ -9492,18 +9502,19 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       if (diffData && onClassifiedRef.current) onClassifiedRef.current(diffData.counts);
     }, [diffData]);
     const diffRowKeyFn = import_react.default.useCallback((r2) => r2.__diffKey, []);
+    const [userCombine, setUserCombine] = import_react.default.useState({});
     const columns = import_react.default.useMemo(
       () => {
         if (!isDiff) return columnsProp;
         const byField = {};
         for (const c of columnsProp) if (c && c.field != null) byField[c.field] = c;
         return [DIFF_OP_COLUMN, ...columnsProp.map((c) => {
-          const cfg = combineCfg(c.combine);
+          const cfg = combineCfg(userCombine[c.field] || c.combine);
           const base = cfg && !c.valueGetter ? { ...c, valueGetter: combineValueGetter(combineSrcCols(cfg, byField), cfg) } : c;
           return { ...base, renderCell: (val, row) => renderDiffCell(base, val, row) };
         })];
       },
-      [isDiff, columnsProp]
+      [isDiff, columnsProp, userCombine]
     );
     const rows = import_react.default.useMemo(
       () => isDiff ? diffData.rows.filter((r2) => !diffOnly || r2.op !== "unchanged").map((r2) => ({ ...r2.to || r2.from, __diffop: r2.op, __diffMeta: r2, __diffKey: r2.key })) : rowsProp,
@@ -9547,7 +9558,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       for (const c of out) if (c.field != null) byField[c.field] = c;
       for (let i = 0; i < out.length; i++) {
         const c = out[i];
-        const cfg = combineCfg(c.combine);
+        const cfg = combineCfg(userCombine[c.field] || c.combine);
         if (!cfg) continue;
         const srcCols = combineSrcCols(cfg, byField);
         out[i] = {
@@ -9562,7 +9573,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         };
       }
       return out;
-    }, [columns, rowPinning]);
+    }, [columns, rowPinning, userCombine]);
     const _autoKey = import_react.default.useRef();
     if (!_autoKey.current) _autoKey.current = { map: /* @__PURE__ */ new WeakMap(), n: 0 };
     const keyOf = rowKey || ((r2, i) => {
@@ -9590,15 +9601,48 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     };
     const [hidden, setHidden] = import_react.default.useState(() => /* @__PURE__ */ new Set());
     const [showRowNum, setShowRowNum] = import_react.default.useState(rowNumbers);
-    const [wrapped, setWrapped] = import_react.default.useState(() => new Set(
-      // #338: a stack-layout combined column needs wrapping so the row grows to show every line.
-      (columns || []).filter((c) => c.wrapText || c.combine && !Array.isArray(c.combine) && c.combine.layout === "stack").map((c) => c.field)
-    ));
+    const [wrapped, setWrapped] = import_react.default.useState(() => new Set((columns || []).filter((c) => c.wrapText).map((c) => c.field)));
     const toggleWrap = (field) => setWrapped((w) => {
       const n = new Set(w);
       n.has(field) ? n.delete(field) : n.add(field);
       return n;
     });
+    const openCombineEditor = (field) => {
+      const existing = userCombine[field];
+      setCombineTarget(field);
+      setCombineDraft({
+        selected: existing ? existing.fields.filter((f) => f !== field) : [],
+        layout: existing && existing.layout === "stack" ? "stack" : "inline",
+        labels: !!(existing && existing.labels)
+      });
+    };
+    const closeCombineEditor = () => {
+      setPanel(null);
+      closePanel();
+      setCombineTarget(null);
+      setCombineDraft(null);
+      restoreTriggerFocus();
+    };
+    const applyCombine = () => {
+      if (!combineTarget || !combineDraft) return;
+      const field = combineTarget;
+      const sources = combineDraft.selected.filter((f) => f !== field);
+      setUserCombine((m) => {
+        const next = { ...m };
+        if (sources.length) next[field] = { fields: [field, ...sources], layout: combineDraft.layout === "stack" ? "stack" : "inline", separator: " \xB7 ", labels: !!combineDraft.labels };
+        else delete next[field];
+        return next;
+      });
+      closeCombineEditor();
+    };
+    const uncombine = (field) => {
+      setUserCombine((m) => {
+        const next = { ...m };
+        delete next[field];
+        return next;
+      });
+      closeCombineEditor();
+    };
     const [pins, setPins] = import_react.default.useState(() => {
       const left = [], right = [];
       columns.forEach((c) => {
@@ -9680,7 +9724,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       filterPanelSize: fPanelSize || void 0,
       filterFieldWidths: fWidths.col != null || fWidths.op != null || fWidths.val != null || fWidths.logic != null ? fWidths : void 0,
       // #304: additive, optional — user-resized sizes of the other toolbar popovers, keyed by popover id.
-      popoverSizes: Object.keys(popSizes).length ? popSizes : void 0
+      popoverSizes: Object.keys(popSizes).length ? popSizes : void 0,
+      // #339: additive, optional — runtime user-defined combined columns, keyed by target field.
+      columnCombine: Object.keys(userCombine).length ? userCombine : void 0
     });
     const applyState = (s) => {
       if (!s || typeof s !== "object") return;
@@ -9725,6 +9771,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         }
         if (Object.keys(next).length) setPopSizes(next);
       }
+      if (s.columnCombine && typeof s.columnCombine === "object") {
+        const uc = {};
+        for (const [f, cfg] of Object.entries(s.columnCombine)) {
+          if (!known.has(f) || !cfg || !Array.isArray(cfg.fields)) continue;
+          const rest2 = cfg.fields.filter((x) => known.has(x) && x !== f);
+          if (rest2.length) uc[f] = { fields: [f, ...rest2], layout: cfg.layout === "stack" ? "stack" : "inline", separator: typeof cfg.separator === "string" ? cfg.separator : " \xB7 ", labels: !!cfg.labels };
+        }
+        if (Object.keys(uc).length) setUserCombine(uc);
+      }
     };
     const stateReadyRef = import_react.default.useRef(false);
     const stateRestoredRef = import_react.default.useRef(false);
@@ -9742,7 +9797,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         }
       }
       return void 0;
-    }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, stateKey]);
+    }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, stateKey]);
     const restoreState = () => {
       let saved = null;
       if (stateKey) {
@@ -9883,6 +9938,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const [menuPos, openMenu, closeMenu] = useFloating();
     const [panel, setPanel] = import_react.default.useState(null);
     const [panelPos, openPanel, closePanel] = useFloating();
+    const [combineTarget, setCombineTarget] = import_react.default.useState(null);
+    const [combineDraft, setCombineDraft] = import_react.default.useState(null);
+    const combinePanelRef = import_react.default.useRef(null);
+    import_react.default.useEffect(() => {
+      if (panel === "combine" && combinePanelRef.current) {
+        const el = combinePanelRef.current.querySelector('[role="switch"], button, [tabindex]');
+        (el || combinePanelRef.current).focus?.();
+      }
+    }, [panel]);
     const [rowMenu, setRowMenu] = import_react.default.useState(null);
     const [rowMenuPos, openRowMenu, closeRowMenu] = useFloating();
     const [exportOpen, setExportOpen] = import_react.default.useState(false);
@@ -9983,7 +10047,21 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       };
     }, [exportOpen]);
     const colByField = import_react.default.useMemo(() => Object.fromEntries(cols.map((c) => [c.field, c])), [cols]);
-    const visibleCols = cols.filter((c) => !hidden.has(c.field));
+    const combineSources = import_react.default.useMemo(() => {
+      const s = /* @__PURE__ */ new Set();
+      for (const cfg of Object.values(userCombine)) (cfg && cfg.fields ? cfg.fields : []).slice(1).forEach((f) => s.add(f));
+      return s;
+    }, [userCombine]);
+    const stackCombineTargets = import_react.default.useMemo(
+      () => new Set(cols.filter((c) => {
+        const cfg = combineCfg(userCombine[c.field] || c.combine);
+        return cfg && cfg.layout === "stack";
+      }).map((c) => c.field)),
+      [cols, userCombine]
+    );
+    const effectiveHidden = import_react.default.useMemo(() => combineSources.size ? /* @__PURE__ */ new Set([...hidden, ...combineSources]) : hidden, [hidden, combineSources]);
+    const effectiveWrapped = import_react.default.useMemo(() => stackCombineTargets.size ? /* @__PURE__ */ new Set([...wrapped, ...stackCombineTargets]) : wrapped, [wrapped, stackCombineTargets]);
+    const visibleCols = cols.filter((c) => !effectiveHidden.has(c.field));
     const colFieldsKey = JSON.stringify(
       cols.filter((c) => typeof c.field === "string" && c.type !== "actions").map((c) => c.field)
     );
@@ -10002,17 +10080,17 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         const i = order.indexOf(f);
         return i === -1 ? 9999 : i;
       };
-      const L = pins.left.map((f) => colByField[f]).filter((c) => c && !hidden.has(c.field));
-      const R2 = pins.right.map((f) => colByField[f]).filter((c) => c && !hidden.has(c.field));
+      const L = pins.left.map((f) => colByField[f]).filter((c) => c && !effectiveHidden.has(c.field));
+      const R2 = pins.right.map((f) => colByField[f]).filter((c) => c && !effectiveHidden.has(c.field));
       const mid = visibleCols.filter((c) => !pins.left.includes(c.field) && !pins.right.includes(c.field)).sort((a, b) => orderIdx(a.field) - orderIdx(b.field));
       return [...L, ...mid, ...R2];
-    }, [pins, hidden, visibleCols, colByField, order]);
+    }, [pins, effectiveHidden, visibleCols, colByField, order]);
     const NUM_W = 56;
     const CHK_W = checkboxSelection ? rowReorder ? 68 : 44 : 0;
     const numLeft = CHK_W;
     const leadW = numLeft + (showRowNum ? NUM_W : 0);
-    const visLeft = import_react.default.useMemo(() => pins.left.filter((f) => colByField[f] && !hidden.has(f)), [pins.left, colByField, hidden]);
-    const visRight = import_react.default.useMemo(() => pins.right.filter((f) => colByField[f] && !hidden.has(f)), [pins.right, colByField, hidden]);
+    const visLeft = import_react.default.useMemo(() => pins.left.filter((f) => colByField[f] && !effectiveHidden.has(f)), [pins.left, colByField, effectiveHidden]);
+    const visRight = import_react.default.useMemo(() => pins.right.filter((f) => colByField[f] && !effectiveHidden.has(f)), [pins.right, colByField, effectiveHidden]);
     const stickyOf = (field) => {
       if (visLeft.includes(field)) {
         let off = leadW;
@@ -11399,7 +11477,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const shownColRows = cols.filter((c) => c.field !== "__pinactions__" && c.headerName.toLowerCase().includes(colQuery.trim().toLowerCase())).sort((a, b) => orderIdxOf(a.field) - orderIdxOf(b.field));
     const rowNumMatch = rowNumbers && "row number".includes(colQuery.trim().toLowerCase());
     const manageableCols = cols.filter((c) => c.field !== "__pinactions__");
-    const visibleColCount = manageableCols.filter((c) => !hidden.has(c.field)).length;
+    const visibleColCount = manageableCols.filter((c) => !effectiveHidden.has(c.field)).length;
     const rppOptions = Array.from(new Set([...pageSizeOptions || [], pageSize].filter((n) => n > 0))).sort((a, b) => a - b).map((n) => ({ value: String(n), label: String(n) }));
     const totalCols = ordered.length + (checkboxSelection ? 1 : 0) + (showRowNum ? 1 : 0);
     function renderGroupRow(item) {
@@ -11557,7 +11635,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   "data-cell-active": cellActive || void 0,
                   "data-cell-selected": cellSelected || void 0,
                   "data-copied": cellFlash || void 0,
-                  "data-wrap": wrapped.has(c.field) || void 0,
+                  "data-wrap": effectiveWrapped.has(c.field) || void 0,
                   "data-pin": st.pin,
                   "data-pin-edge": st.edge,
                   style: { width: widthOf(c), ...st.style },
@@ -12393,6 +12471,18 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   " ",
                   groupBy.includes(c.field) ? "Stop grouping" : "Group by this column"
                 ] }) : null,
+                columnCombining && c.type !== "actions" ? /* @__PURE__ */ jsxs("button", { type: "button", role: "menuitem", className: "twc-dt__mi", "data-active": !!userCombine[c.field] || void 0, onClick: () => {
+                  const anchor = menuTriggerRef.current;
+                  setColMenu(null);
+                  closeMenu();
+                  openCombineEditor(c.field);
+                  setPanel("combine");
+                  openPanel(anchor, "right", 300);
+                }, children: [
+                  /* @__PURE__ */ jsx(Svg, { d: I.columns }),
+                  " ",
+                  userCombine[c.field] ? "Edit combined column\u2026" : "Combine columns\u2026"
+                ] }) : null,
                 !disableColumnReorder && c.reorderable !== false && c.type !== "actions" && !pins.left.includes(c.field) && !pins.right.includes(c.field) && movableMidFields.length > 1 ? (() => {
                   const midIdx = movableMidFields.indexOf(c.field);
                   const atFirst = midIdx === 0;
@@ -12560,10 +12650,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   e.preventDefault();
                   onColDrop(c.field);
                 } : void 0,
-                onClick: () => c.hideable && toggleHiddenField(c.field),
+                onClick: () => c.hideable && !combineSources.has(c.field) && toggleHiddenField(c.field),
                 children: [
                   canDrag ? /* @__PURE__ */ jsx("span", { className: "twc-dt__col-grip", "aria-hidden": "true", children: /* @__PURE__ */ jsx(Svg, { d: I.grip }) }) : null,
-                  /* @__PURE__ */ jsx("span", { className: "twc-dt__col-name", children: c.headerName }),
+                  /* @__PURE__ */ jsxs("span", { className: "twc-dt__col-name", children: [
+                    c.headerName,
+                    combineSources.has(c.field) ? /* @__PURE__ */ jsx("span", { className: "twc-dt__col-combined", children: " \xB7 combined" }) : null
+                  ] }),
                   c.pinnable && c.type !== "actions" ? (
                     // Pin from here too, so columns scrolled out of view (no reachable header ⋮) can still be pinned.
                     /* @__PURE__ */ jsxs("span", { className: "twc-dt__col-pins", draggable: false, onClick: (e) => e.stopPropagation(), children: [
@@ -12599,19 +12692,19 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                     "span",
                     {
                       className: "twc-dt__sw",
-                      "data-on": !hidden.has(c.field) || void 0,
+                      "data-on": !effectiveHidden.has(c.field) || void 0,
                       role: "switch",
-                      "aria-checked": !hidden.has(c.field),
+                      "aria-checked": !effectiveHidden.has(c.field),
                       "aria-label": c.headerName,
-                      "aria-disabled": !c.hideable || void 0,
-                      tabIndex: c.hideable ? 0 : -1,
+                      "aria-disabled": !c.hideable || combineSources.has(c.field) || void 0,
+                      tabIndex: c.hideable && !combineSources.has(c.field) ? 0 : -1,
                       onKeyDown: (e) => {
-                        if ((e.key === "Enter" || e.key === " ") && c.hideable) {
+                        if ((e.key === "Enter" || e.key === " ") && c.hideable && !combineSources.has(c.field)) {
                           e.preventDefault();
                           toggleHiddenField(c.field);
                         }
                       },
-                      style: c.hideable ? void 0 : { opacity: 0.4 }
+                      style: c.hideable && !combineSources.has(c.field) ? void 0 : { opacity: 0.4 }
                     }
                   )
                 ]
@@ -12622,6 +12715,81 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         ] }),
         popGrip("columns")
       ] }) : null,
+      panel === "combine" && panelPos && combineTarget && combineDraft ? (() => {
+        const target = colByField[combineTarget];
+        const candidates = cols.filter((c) => c.field !== combineTarget && c.type !== "actions" && c.field !== "__pinactions__" && c.hideable !== false && !userCombine[c.field]);
+        const toggle = (f) => setCombineDraft((d) => ({ ...d, selected: d.selected.includes(f) ? d.selected.filter((x) => x !== f) : [...d.selected, f] }));
+        return /* @__PURE__ */ jsxs("div", { ref: combinePanelRef, tabIndex: -1, className: "twc-dt__pop twc-dt__cols", style: { top: panelPos.top, left: panelPos.left, ...popStyle("combine") }, "data-pop-sized": popSizes.combine ? "" : void 0, role: "dialog", "aria-label": `Combine columns into ${target?.headerName || combineTarget}`, children: [
+          /* @__PURE__ */ jsx("div", { className: "twc-dt__panel-head", children: /* @__PURE__ */ jsxs("span", { className: "twc-dt__panel-title", children: [
+            "Combine into \u201C",
+            target?.headerName || combineTarget,
+            "\u201D"
+          ] }) }),
+          /* @__PURE__ */ jsx("div", { className: "twc-dt__combine-hint", children: "Pick columns to merge into this one \u2014 their data shows in this cell and their own columns hide." }),
+          /* @__PURE__ */ jsx("div", { className: "twc-dt__col-list", children: candidates.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-dt__empty", style: { padding: "18px 12px" }, children: "No other columns" }) : candidates.map((c) => {
+            const on = combineDraft.selected.includes(c.field);
+            return /* @__PURE__ */ jsxs("div", { className: "twc-dt__col-row", onClick: () => toggle(c.field), children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-dt__col-name", children: c.headerName }),
+              /* @__PURE__ */ jsx(
+                "span",
+                {
+                  className: "twc-dt__sw",
+                  "data-on": on || void 0,
+                  role: "switch",
+                  "aria-checked": on,
+                  "aria-label": c.headerName,
+                  tabIndex: 0,
+                  onKeyDown: (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      toggle(c.field);
+                    }
+                  }
+                }
+              )
+            ] }, c.field);
+          }) }),
+          /* @__PURE__ */ jsxs("div", { className: "twc-dt__combine-opts", children: [
+            /* @__PURE__ */ jsxs("label", { className: "twc-dt__combine-opt", children: [
+              /* @__PURE__ */ jsx("span", { children: "Layout" }),
+              /* @__PURE__ */ jsx(
+                Select,
+                {
+                  size: "sm",
+                  portal: true,
+                  value: combineDraft.layout,
+                  options: [{ value: "inline", label: "Inline" }, { value: "stack", label: "Stacked" }],
+                  onChange: (v) => setCombineDraft((d) => ({ ...d, layout: v }))
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "twc-dt__combine-opt", onClick: () => setCombineDraft((d) => ({ ...d, labels: !d.labels })), style: { cursor: "pointer" }, children: [
+              /* @__PURE__ */ jsx("span", { children: "Show labels" }),
+              /* @__PURE__ */ jsx(
+                "span",
+                {
+                  className: "twc-dt__sw",
+                  "data-on": combineDraft.labels || void 0,
+                  role: "switch",
+                  "aria-checked": combineDraft.labels,
+                  "aria-label": "Show labels",
+                  tabIndex: 0,
+                  onKeyDown: (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setCombineDraft((d) => ({ ...d, labels: !d.labels }));
+                    }
+                  }
+                }
+              )
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "twc-dt__combine-foot", children: [
+            userCombine[combineTarget] ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__link", onClick: () => uncombine(combineTarget), children: "Uncombine" }) : /* @__PURE__ */ jsx("span", {}),
+            /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__combine-apply", onClick: applyCombine, children: "Apply" })
+          ] })
+        ] });
+      })() : null,
       panel === "agg" && panelPos ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__pop twc-dt__cfg", style: { top: panelPos.top, left: panelPos.left, width: 300, ...popStyle("agg") }, "data-pop-sized": popSizes.agg ? "" : void 0, role: "dialog", "aria-label": "Aggregation settings", children: [
         /* @__PURE__ */ jsxs("div", { className: "twc-dt__panel-head", children: [
           /* @__PURE__ */ jsx("span", { className: "twc-dt__panel-title", children: "Aggregation" }),

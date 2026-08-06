@@ -5849,6 +5849,13 @@ export const components = [
         "description": "Extend the resize grip + keyboard resize to the Columns, Aggregation, Pivot, and Batch-edit panels (not just Filters), so a wide grid's Columns list can be enlarged. Sizes persist per popover via stateKey. Independent of resizableFilters; defaults true — set false to opt a grid out."
       },
       {
+        "prop": "columnCombining",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Let users build their own combined columns at runtime: each column's ⋮ menu gains \"Combine columns…\" to fold other columns' data into that one (they hide), with inline/stacked layout + labels, and Uncombine to restore. Persists via stateKey."
+      },
+      {
         "prop": "showBatchEdit",
         "type": "boolean",
         "required": false,

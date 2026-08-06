@@ -184,6 +184,12 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  column, or **double-click** that edge to auto-fit the column to its widest visible content
    *  (header + rendered cells), Excel-style. @default false */
   disableColumnResize?: boolean;
+  /** #339: let end-users build their own combined columns at runtime. Adds a **"Combine columns…"** item to
+   *  each column's ⋮ menu that opens an editor to fold other columns' data into that column (they show in its
+   *  cell and their own columns hide); layout (inline/stacked) + labels are configurable, and "Uncombine"
+   *  restores them. The result is the same as a declarative `column.combine` and persists via `stateKey`.
+   *  @default false */
+  columnCombining?: boolean;
   /** Make all columns editable by default (double-click a cell to edit; per-column `editable` overrides). @default false */
   editMode?: boolean;
   /** Called when a cell edit is committed: (updatedRow, originalRow, field). */
@@ -378,6 +384,9 @@ export interface DatatableState {
   /** #304: user-resized sizes of the other toolbar popovers (Columns/Aggregation/Pivot/Batch-edit),
    *  keyed by popover id → `{ w, h }` in px. Absent until a popover is dragged with `resizablePopovers`. */
   popoverSizes?: Record<string, { w?: number; h?: number }>;
+  /** #339: runtime user-defined combined columns (from `columnCombining`), keyed by target field →
+   *  `{ fields:[target, ...sources], layout, separator, labels }`. Absent until the user combines columns. */
+  columnCombine?: Record<string, { fields: string[]; layout?: "inline" | "stack"; separator?: string; labels?: boolean }>;
 }
 
 export interface DatatableColumn<T = any> {
