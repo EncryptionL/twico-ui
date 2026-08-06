@@ -3653,7 +3653,7 @@ export function Datatable({
             </div>
             <div className="twc-dt__combine-opts">
               <label className="twc-dt__combine-opt"><span>Layout</span>
-                <Select size="sm" portal value={combineDraft.layout}
+                <Select size="sm" portal matchTriggerWidth={false} value={combineDraft.layout}
                   options={[{ value: "inline", label: "Inline" }, { value: "stack", label: "Stacked" }]}
                   onChange={(v) => setCombineDraft((d) => ({ ...d, layout: v }))} />
               </label>

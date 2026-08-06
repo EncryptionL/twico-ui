@@ -22,7 +22,9 @@
   (typed on `DatatableState`, sanitized on restore — unknown fields dropped, target normalized to index 0,
   entries need ≥1 source). No recursion when a target lists its own field: `srcCols` resolve against the
   pre-resolution `byField` snapshot (built before the loop reassigns `out[i]`). Editor styled with
-  `.twc-dt__combine-hint`/`-opts`/`-opt`/`-foot`/`-apply` (plain DT_CSS literals).
+  `.twc-dt__combine-hint`/`-opts`/`-opt`/`-foot`/`-apply` (plain DT_CSS literals); the Layout `Select` uses
+  `matchTriggerWidth={false}` so its "Inline"/"Stacked" options size to content instead of clipping to the
+  narrow trigger.
 
   **Source hiding + stack wrapping are DERIVED, not stored** (adversarial-review hardening): `combineSources`
   (all runtime combine sources) and `stackCombineTargets` (declarative + runtime stack combines) feed
