@@ -12,6 +12,29 @@
 
 ## Enhancements
 
+- **[#338] Combined columns — merge several columns' data into one column** — a `DatatableColumn.combine`
+  option (`string[]` shorthand or `{ fields, layout, separator, labels }`) makes one column display several
+  other fields' values in a single cell. The `cols` memo resolves it (after column normalization, keyed by a
+  local `byField` map) by auto-deriving a **`valueGetter`** — the combined text, which routes through the
+  central `getColVal` so sort / filter / quick-search / grouping / aggregation / **export** (line ~2029:
+  `exportValue ?? getColVal`) all operate on it — and a **`renderCell`** (module-level `renderCombined`), unless
+  the consumer supplied their own. `layout: "inline"` (default) joins with `separator` (default `" · "`);
+  `"stack"` stacks each value on its own line and is auto-added to the `wrapped` set (seeded from raw
+  `columns`) so the row grows. `labels` prefixes each with its source column's header. Each value reuses its
+  source column's `valueFormatter` (so the combined text uses raw values but the render is formatted — same
+  split as a normal column). The combined value is synthetic, so the column is forced `editable: false` (never
+  inline-editable, even under grid `editMode`). CSS: `.twc-dt__combine` / `--stack` / `-sep` / `-label` (plain
+  literals in DT_CSS — not interpolated, to preserve tree-shaking). Adversarial-review hardening: (a) **diff
+  mode** — the derived valueGetter is now attached to combine columns in the diff `columns` memo *before* the
+  diff renderCell wrap, so `renderDiffCell`'s `getColVal(col, meta.from/to)` yields the combined text for
+  added/removed rows instead of a blank cell; (b) a consumer-supplied `valueGetter` **without** `renderCell`
+  now falls back to the default cell render (renderCell `undefined`) so the shown value matches the
+  sort/filter/export value rather than the auto source-join; (c) `renderCombined` keys items by source index,
+  not field, so a duplicate field in `combine` can't collide. Shared `combineCfg`/`combineSrcCols`/
+  `combineValueGetter` helpers back both the `cols` resolution and the diff wrap. The full-barrel size-limit
+  budget was raised 120→125 kB to absorb the feature (the per-component tree-shaken budgets are unchanged —
+  `combine` lives only in Datatable). 10 tests in `tests/datatable-combine-columns.test.jsx`. — added 2026-08-06
+
 - **[#330 follow-up] And/Or connector is a resizable filter field (fixes truncation)** — the initial #330
   connector used a fixed 68px leading cell, which truncated "And" to "A…". Promoted it to a first-class
   resizable filter field like Column/Operator/Value: it **auto-fits** its content (`--twc-dt-flogic-fit`

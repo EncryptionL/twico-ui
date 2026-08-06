@@ -38,6 +38,7 @@ import { Datatable } from "./Datatable";
 - Click a header to cycle sort (asc → desc → none); the **⋮** menu has sort, filter, group, move, pin left/right, **wrap text** (multi-line cells instead of clipping — also seedable per column via `wrapText`), and hide.
 - **Drag a column header** to reorder (middle, non-pinned columns), **or drag rows in the Columns panel** to reorder any column; **drag the right edge** of a header to resize it, or **double-click** that edge to auto-fit the column to its content (Excel-style).
 - **Inline editing** — set `editable: true` on a column (or `editMode` on the grid for all columns) and **double-click a cell** to edit. Enter or blur commits, Esc cancels. Columns with `valueOptions` edit via a searchable dropdown; number/currency columns get a number input.
+- **Combined columns (#338)** — set `combine: ["firstName", "lastName"]` (shorthand) or `combine: { fields, layout, separator, labels }` on a column to show several other columns' values in one cell. Twico auto-derives the value (so sort, filter, quick-search, grouping, aggregation, and export all operate on the combined text) and the render, reusing each source column's `valueFormatter`. `layout: "inline"` (default) joins with `separator` (default `" · "`); `layout: "stack"` puts each on its own line and auto-wraps the row; `labels` prefixes each value with its source column's header. Display-only (never inline-editable).
 - **Batch edit** — with `checkboxSelection`, selecting rows shows an **Edit** button in the selection toolbar (when editable columns exist). It opens a panel to set one or more columns at once and **Apply** them to every selected row; fires `onBatchUpdate(changedRows, patch, selectedKeys)` plus `onRowsChange`.s` (or `editType: "select"`) edit via a dropdown; number columns get a number input. On commit the grid calls `onRowUpdate(updatedRow, originalRow, field)`; pass `onRowsChange` to also receive the full next rows array (client mode).
 - **Export** is a split button: clicking it downloads the current view as **CSV** by default; the chevron opens a format menu (**CSV**, **Excel `.xlsx`**). Exports all filtered+sorted rows client-side (the loaded page in server mode). Customize a column's exported value with `exportValue`.
 - **Columns** toolbar button → a searchable, **drag-to-reorder** panel of visibility toggles, each row also with **pin left / pin right** controls (so you can pin any column without scrolling its header into view). **Filters** opens empty — add rows manually with **Add filter**
@@ -247,7 +248,7 @@ a per-row Total group, a grand-total row, and per-value formatting. Empty inters
 
 Column fields: `field`, `headerName`, `type` ("string"|"number"|"actions"), `filterType` ("string"|"number"),
 `width`, `sortable`, `filterable`, `hideable`, `pinnable`, `pinned` ("left"|"right"), `groupable`, `resizable`,
-`aggregation`, `aggregationFormatter`, `valueOptions`, `valueFormatter`, `renderCell`, `exportValue`, `getActions`.
+`aggregation`, `aggregationFormatter`, `valueOptions`, `valueFormatter`, `valueGetter`, `combine`, `renderCell`, `exportValue`, `getActions`.
 
 **`filterType`** decouples a column's *filter* operators from its edit `type` (#270). A value+unit
 measurement must edit as `type: "string"` (a `type: "number"` column coerces its commit with `Number()`,

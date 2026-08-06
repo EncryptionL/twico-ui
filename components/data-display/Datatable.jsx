@@ -322,6 +322,10 @@ const DT_CSS = `
    clipping to one line. height stays a per-row minimum, so single-line cells are unchanged. */
 .twc-dt__td[data-wrap="true"] { white-space: normal; overflow: hidden; text-overflow: clip;
   word-break: break-word; overflow-wrap: anywhere; vertical-align: top; padding-block: 10px; line-height: 1.45; }
+/* #338: "combined" column cell — one column showing several source columns' values. */
+.twc-dt__combine--stack { display: flex; flex-direction: column; gap: 1px; }
+.twc-dt__combine-sep { color: var(--color-text-subtle); padding-inline: 3px; }
+.twc-dt__combine-label { color: var(--color-text-muted); font-weight: var(--font-medium); }
 .twc-dt__td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
 /* Auto row-number gutter (rowNumbers) — a sticky-left ordinal column. */
 .twc-dt__rownum { text-align: end; font-variant-numeric: tabular-nums; color: var(--color-text-subtle);
@@ -660,6 +664,50 @@ function mergeColOrder(saved, propFields) {
 // Crash-safe when `col` is missing (row[undefined] → undefined), so callers can pass `{ field }`.
 const getColVal = (col, row) =>
   col && col.valueGetter ? col.valueGetter(row) : row == null ? undefined : row[col && col.field];
+
+// #338: normalize a `combine` prop (array shorthand or { fields, layout, separator, labels }) to a config,
+// or null when absent/empty. Shared by the `cols` resolution and the diff-mode column wrap.
+function combineCfg(combine) {
+  if (!combine) return null;
+  const cfg = Array.isArray(combine) ? { fields: combine } : combine;
+  const fields = Array.isArray(cfg.fields) ? cfg.fields.filter((f) => f != null) : [];
+  if (!fields.length) return null;
+  return { fields, separator: cfg.separator != null ? cfg.separator : " · ", labels: !!cfg.labels, layout: cfg.layout === "stack" ? "stack" : "inline" };
+}
+// Resolve a combine config's source columns against a field→column map (bare {field} fallback for a field
+// that isn't itself a defined column).
+const combineSrcCols = (cfg, byField) => cfg.fields.map((f) => (byField && byField[f]) || { field: f, headerName: String(f) });
+// The derived VALUE for a combined column: the raw source values (label-prefixed when cfg.labels) joined by
+// the separator. This is what sort/filter/quick-search/grouping/aggregation/export use via getColVal; the
+// CELL render (renderCombined) additionally applies each source column's valueFormatter — so a combined
+// column's stored value uses raw source values while its cell can show formatted ones (same split as any
+// column whose valueGetter and valueFormatter differ).
+const combineValueGetter = (srcCols, cfg) => (row) =>
+  srcCols
+    .map((sc) => { const v = getColVal(sc, row); const s = v == null ? "" : String(v); return cfg.labels && s ? `${sc.headerName ?? sc.field}: ${s}` : s; })
+    .filter(Boolean)
+    .join(cfg.separator);
+
+// #338: render a "combined" column cell — several source columns' values shown together in one cell.
+// `inline` joins them with a muted separator; `stack` puts each on its own line (pair with wrapText so the
+// row grows); `labels` prefixes each value with its source column's header. Each value reuses its source
+// column's valueFormatter so it reads like that column's own cell; empty values are skipped.
+function renderCombined(srcCols, row, cfg) {
+  const nodes = [];
+  let count = 0;
+  srcCols.forEach((sc, idx) => {
+    const v = getColVal(sc, row);
+    if (v == null || v === "") return;
+    const disp = sc.valueFormatter ? sc.valueFormatter(v, row) : v;
+    const label = cfg.labels ? React.createElement("span", { className: "twc-dt__combine-label" }, (sc.headerName ?? sc.field) + ": ") : null;
+    // Key by source INDEX (not field) so a duplicate field in `combine` can't collide on React key.
+    if (count > 0 && cfg.layout !== "stack") nodes.push(React.createElement("span", { key: "sep" + idx, className: "twc-dt__combine-sep", "aria-hidden": "true" }, cfg.separator));
+    nodes.push(React.createElement("span", { key: idx, className: "twc-dt__combine-item" }, label, disp));
+    count++;
+  });
+  if (!nodes.length) return "";
+  return React.createElement("span", { className: cfg.layout === "stack" ? "twc-dt__combine twc-dt__combine--stack" : "twc-dt__combine" }, nodes);
+}
 
 // #239 diff mode: render one value through the ORIGINAL column's renderer.
 const diffValueNode = (col, v, row) =>
@@ -1042,7 +1090,19 @@ export function Datatable({
   React.useEffect(() => { if (diffData && onClassifiedRef.current) onClassifiedRef.current(diffData.counts); }, [diffData]);
   const diffRowKeyFn = React.useCallback((r) => r.__diffKey, []);
   const columns = React.useMemo(
-    () => (isDiff ? [DIFF_OP_COLUMN, ...columnsProp.map((c) => ({ ...c, renderCell: (val, row) => renderDiffCell(c, val, row) }))] : columnsProp),
+    () => {
+      if (!isDiff) return columnsProp;
+      // #338: enrich a combined column with its derived value getter BEFORE the diff wrap, so
+      // renderDiffCell's getColVal(col, meta.from/to) yields the combined text for added/removed rows
+      // (otherwise they'd render blank — the synthetic combine field isn't a real key on the row data).
+      const byField = {};
+      for (const c of columnsProp) if (c && c.field != null) byField[c.field] = c;
+      return [DIFF_OP_COLUMN, ...columnsProp.map((c) => {
+        const cfg = combineCfg(c.combine);
+        const base = cfg && !c.valueGetter ? { ...c, valueGetter: combineValueGetter(combineSrcCols(cfg, byField), cfg) } : c;
+        return { ...base, renderCell: (val, row) => renderDiffCell(base, val, row) };
+      })];
+    },
     [isDiff, columnsProp],
   );
   const rows = React.useMemo(
@@ -1070,6 +1130,27 @@ export function Datatable({
         sortable: false, filterable: false, hideable: false, pinnable: false, groupable: false,
         disableColumnMenu: true, getActions: () => [],
       });
+    }
+    // #338: resolve "combined" columns — a column whose `combine` lists other fields shows their values
+    // together in one cell. Auto-derive a valueGetter (combined text → drives sort/filter/search/group/
+    // aggregate/export via getColVal) and a renderCell (combined display), unless the consumer supplied
+    // their own. The value is synthetic, so the column is forced display-only (never inline-editable).
+    const byField = {};
+    for (const c of out) if (c.field != null) byField[c.field] = c;
+    for (let i = 0; i < out.length; i++) {
+      const c = out[i];
+      const cfg = combineCfg(c.combine);
+      if (!cfg) continue;
+      const srcCols = combineSrcCols(cfg, byField);
+      out[i] = {
+        ...c,
+        editable: false, // the combined value is synthetic — inline editing would write to a phantom field
+        valueGetter: c.valueGetter || combineValueGetter(srcCols, cfg),
+        // Consumer renderCell wins. If they overrode only valueGetter, fall back to the DEFAULT cell render
+        // (renderCell: undefined) so the cell shows THEIR value — keeping display in sync with what
+        // sort/filter/search/export use — rather than the auto source-join. Otherwise render the combined cell.
+        renderCell: c.renderCell || (c.valueGetter ? undefined : ((value, row) => renderCombined(srcCols, row, cfg))),
+      };
     }
     return out;
   }, [columns, rowPinning]);
@@ -1111,7 +1192,10 @@ export function Datatable({
   // Per-column text wrapping: cells in these fields wrap onto multiple lines
   // (the row grows down) instead of clipping to one line. Seeded from a column's
   // `wrapText`, toggled live from the column ⋮ menu.
-  const [wrapped, setWrapped] = React.useState(() => new Set((columns || []).filter((c) => c.wrapText).map((c) => c.field)));
+  const [wrapped, setWrapped] = React.useState(() => new Set(
+    // #338: a stack-layout combined column needs wrapping so the row grows to show every line.
+    (columns || []).filter((c) => c.wrapText || (c.combine && !Array.isArray(c.combine) && c.combine.layout === "stack")).map((c) => c.field),
+  ));
   const toggleWrap = (field) => setWrapped((w) => { const n = new Set(w); n.has(field) ? n.delete(field) : n.add(field); return n; });
   const [pins, setPins] = React.useState(() => {
     const left = [], right = [];
