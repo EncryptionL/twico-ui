@@ -387,6 +387,8 @@ export interface DatatableState {
   /** #339: runtime user-defined combined columns (from `columnCombining`), keyed by target field →
    *  `{ fields:[target, ...sources], layout, separator, labels }`. Absent until the user combines columns. */
   columnCombine?: Record<string, { fields: string[]; layout?: "inline" | "stack"; separator?: string; labels?: boolean }>;
+  /** #341: user-resized width (px) of the batch-editor's column-name field. Absent until the user drags it. */
+  batchNameWidth?: number;
 }
 
 export interface DatatableColumn<T = any> {

@@ -257,7 +257,13 @@ const DT_CSS = `
 /* #244: batch editor = pick columns (searchable), then set a value for each. */
 .twc-dt__be-add { padding: 6px 6px 8px; border-bottom: var(--border-thin) solid var(--color-divider); }
 .twc-dt__be-row { display: flex; align-items: center; gap: 8px; padding: 5px 6px; }
-.twc-dt__be-name { width: 108px; flex: none; font-size: var(--text-sm); color: var(--color-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* #341: cap width at min(260, row − 160px) so the value control keeps ~120px (+ gaps + remove) and never
+   collapses — panel-width-aware in pure CSS, so it also grows if the (resizable) panel is widened. */
+.twc-dt__be-name { position: relative; flex: none; width: clamp(88px, var(--twc-dt-be-name-usr, 108px), min(260px, 100% - 160px)); font-size: var(--text-sm); color: var(--color-text); }
+/* #341: ellipsis lives on the inner text span so the outer field can host the (edge-overhanging) resize handle without clipping it. */
+.twc-dt__be-name-txt { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* #341: reveal the batch-name resize handle (reused .twc-dt__f-rz) on row hover, like the filter fields. */
+.twc-dt__be-row:hover .twc-dt__f-rz { opacity: 1; }
 .twc-dt__be-ctl { flex: 1; min-width: 0; }
 .twc-dt__be-x { flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: none;
   background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm);
@@ -1304,8 +1310,9 @@ export function Datatable({
 
   // #292: user-resized filter panel + field widths (declared before the persist effect so its deps can
   // include them). Committed on pointerup/keystroke; live drags write CSS vars imperatively.
-  const [fWidths, setFWidths] = React.useState({});     // { col?, op?, val? } px
+  const [fWidths, setFWidths] = React.useState({});     // { col?, op?, val?, logic? } px
   const [fPanelSize, setFPanelSize] = React.useState(null); // { w, h } | null
+  const [batchNameW, setBatchNameW] = React.useState(null); // #341: batch-editor column-name field width (px) | null
   // #304: user-resized sizes for the OTHER toolbar popovers (Columns/Aggregation/Pivot/Batch-edit),
   // keyed by popover id → { w, h }. The Filters panel keeps its richer #292 resize above (panel size +
   // per-field widths); this generic store powers `resizablePopovers` for the rest.
@@ -1334,6 +1341,8 @@ export function Datatable({
     popoverSizes: Object.keys(popSizes).length ? popSizes : undefined,
     // #339: additive, optional — runtime user-defined combined columns, keyed by target field.
     columnCombine: Object.keys(userCombine).length ? userCombine : undefined,
+    // #341: additive, optional — user-resized batch-editor column-name field width (px).
+    batchNameWidth: batchNameW != null ? batchNameW : undefined,
   });
   const applyState = (s) => {
     if (!s || typeof s !== "object") return;
@@ -1391,6 +1400,7 @@ export function Datatable({
       }
       if (Object.keys(uc).length) setUserCombine(uc);
     }
+    if (typeof s.batchNameWidth === "number") setBatchNameW(clampNum(s.batchNameWidth, 88, 260)); // #341
   };
   const stateReadyRef = React.useRef(false);
   const stateRestoredRef = React.useRef(false); // #298: restore applied at most once (survives a Strict Mode remount)
@@ -1407,7 +1417,7 @@ export function Datatable({
     if (stateKey) { try { window.localStorage.setItem(stateKey, JSON.stringify(state)); } catch { /* storage unavailable/full */ } }
     return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, stateKey]);
+  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey]);
   // Reads localStorage[stateKey] (else initialState) and applies it. Cheap to call more than once —
   // applyState is idempotent for a given snapshot — but callers gate it (see the two effects below).
   const restoreState = () => {
@@ -2708,6 +2718,38 @@ export function Datatable({
     setFWidths((m) => { const n = { ...m }; delete n[field]; return n; });
     const p = filterPanelRef.current; if (p) { p.style.removeProperty(F_VAR[field]); if (field === "val") p.removeAttribute("data-val-fixed"); }
   };
+  // #341: drag/keyboard-resize the batch-editor's column-name field (panel-global, persisted via
+  // `batchNameW`), mirroring the filter fields — the fixed 108px label truncated long headers. Targets the
+  // batch panel via `closest` (no dedicated ref); Enter/Backspace resets to the default width.
+  const BE_NAME_MIN = 88, BE_NAME_MAX = 260;
+  const startBeNameResize = (e) => {
+    if (e.button != null && e.button !== 0) return;
+    e.preventDefault(); e.stopPropagation();
+    const handle = e.currentTarget;
+    const panel = handle.closest(".twc-dt__cfg"), nameEl = handle.closest(".twc-dt__be-name");
+    if (!panel || !nameEl) return;
+    const startX = e.clientX, startW = nameEl.getBoundingClientRect().width;
+    const dir = getComputedStyle(panel).direction === "rtl" ? -1 : 1;
+    handle.setAttribute("data-active", "true");
+    let last = startW;
+    const onMove = (ev) => { last = clampNum(startW + (ev.clientX - startX) * dir, BE_NAME_MIN, BE_NAME_MAX); panel.style.setProperty("--twc-dt-be-name-usr", `${last}px`); };
+    const onUp = () => { setBatchNameW(last); handle.removeAttribute("data-active"); window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp); };
+    window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
+  };
+  const onBeNameResizeKey = (e) => {
+    const panel = e.currentTarget.closest(".twc-dt__cfg");
+    if (e.key === "Enter" || e.key === " " || e.key === "Backspace") { e.preventDefault(); e.stopPropagation(); setBatchNameW(null); if (panel) panel.style.removeProperty("--twc-dt-be-name-usr"); return; }
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
+    e.preventDefault(); e.stopPropagation();
+    const nameEl = e.currentTarget.closest(".twc-dt__be-name");
+    const cur = nameEl ? nameEl.getBoundingClientRect().width : (batchNameW ?? 108);
+    const dir = panel && getComputedStyle(panel).direction === "rtl" ? -1 : 1;
+    const step = e.shiftKey ? 2 : 10;
+    let next = cur;
+    if (e.key === "ArrowRight") next = cur + step * dir; else if (e.key === "ArrowLeft") next = cur - step * dir;
+    else if (e.key === "Home") next = BE_NAME_MIN; else if (e.key === "End") next = BE_NAME_MAX;
+    setBatchNameW(clampNum(next, BE_NAME_MIN, BE_NAME_MAX));
+  };
   const startPanelResize = (e) => {
     if (e.button != null && e.button !== 0) return;
     e.preventDefault(); e.stopPropagation();
@@ -3448,7 +3490,7 @@ export function Datatable({
           return { ...b, fields, values };
         });
         return (
-          <div className="twc-dt__pop twc-dt__cfg" style={{ top: batchEditPos.top, left: batchEditPos.left, width: 320, ...popStyle("batchedit") }} data-pop-sized={popSizes.batchedit ? "" : undefined}>
+          <div className="twc-dt__pop twc-dt__cfg" style={{ top: batchEditPos.top, left: batchEditPos.left, width: 320, "--twc-dt-be-name-usr": batchNameW != null ? `${batchNameW}px` : undefined, ...popStyle("batchedit") }} data-pop-sized={popSizes.batchedit ? "" : undefined}>
             <Caret pos={batchEditPos} />
             <div className="twc-dt__cfg-head">Edit {selected.size} selected {selected.size === 1 ? "row" : "rows"}</div>
             {unpicked.length ? (
@@ -3462,11 +3504,19 @@ export function Datatable({
             <div className="twc-dt__cfg-list">
               {pickedCols.length === 0 ? (
                 <div className="twc-dt__be-empty">Pick a column to set its value on all selected rows.</div>
-              ) : pickedCols.map((c) => {
+              ) : pickedCols.map((c, i) => {
                 const opts = c.valueOptions ? c.valueOptions.map((o) => (typeof o === "string" ? { value: o, label: o } : o)) : null;
                 return (
                   <div key={c.field} className="twc-dt__be-row">
-                    <span className="twc-dt__be-name" title={String(c.headerName ?? c.field)}>{c.headerName}</span>
+                    <span className="twc-dt__be-name" title={String(c.headerName ?? c.field)}>
+                      <span className="twc-dt__be-name-txt">{c.headerName}</span>
+                      {/* #341: drag/keyboard-resize the (panel-global) column-name field — handle on the first row only. */}
+                      {resizableFilters && i === 0 ? (
+                        <span className="twc-dt__f-rz" role="separator" aria-orientation="vertical" tabIndex={0}
+                          aria-label="Resize column name field (Enter to reset)"
+                          onPointerDown={startBeNameResize} onClick={(e) => e.stopPropagation()} onKeyDown={onBeNameResizeKey} />
+                      ) : null}
+                    </span>
                     <div className="twc-dt__be-ctl">
                       {/* #247: a column can supply the batch clause's control (a master-backed / async /
                           creatable combobox), mirroring `renderEditCell` for the inline editor. `commit`

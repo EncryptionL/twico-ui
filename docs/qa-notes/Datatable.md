@@ -12,6 +12,18 @@
 
 ## Enhancements
 
+- **[#341] Batch-editor column-name field is drag-resizable** — the batch editor's clause column-name label
+  (`.twc-dt__be-name`) was a fixed 108px and truncated long headers (e.g. "MLM ID (Material…)"). It's now a
+  resizable field like the filter column field: `clamp(88px, var(--twc-dt-be-name-usr, 108px), min(260px, 100% - 160px))`
+  — the `100% - 160px` cap keeps ~120px (+ gaps + remove button) for the value control so it never collapses in
+  the fixed 320px panel (adversarial-review finding), and it grows if the panel is widened — with a
+  reused `.twc-dt__f-rz` drag handle on the **first** clause row (panel-global; pointer + keyboard resize
+  Arrow/Shift/Home/End, Enter/Backspace resets). Width persists in `batchNameW` state → `batchNameWidth` on
+  `DatatableState` (via `stateKey`). Dedicated `startBeNameResize`/`onBeNameResizeKey` handlers target the batch
+  panel via `closest(".twc-dt__cfg")` (the filter machinery is bound to `filterPanelRef`, so not reused
+  directly). Gated by `resizableFilters` (default true). 2 tests in `tests/datatable-batch-edit.test.jsx`
+  (handle + persist/reset; `resizableFilters={false}` removes it). — added 2026-08-06
+
 - **[#339] User-built combined columns (runtime ⋮-menu editor)** — opt-in `columnCombining` (default false)
   adds a **"Combine columns…"** item to each non-actions column's ⋮ menu. It opens a combine-editor panel
   (`panel === "combine"`, anchored at the ⋮ trigger) with a switch list of the other columns, an inline/stacked

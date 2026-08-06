@@ -184,7 +184,9 @@ a searchable "Add a column…" picker; each picked column gets a clause row. A c
 `column.renderBatchEditCell({ value, field, commit })` if present (#247 — for an async/creatable master-backed
 control), else `valueOptions` (a searchable Select), else a typed input. `commit` only *stages* the draft —
 **Apply** writes it across the selection via `onBatchUpdate`. It's separate from `renderEditCell` (the inline
-editor) because a clause has no `row`/`cancel`; declare both when a column needs a rich control in each.
+editor) because a clause has no `row`/`cancel`; declare both when a column needs a rich control in each. Each
+clause's **column-name label is drag-resizable** (a handle on the first clause, panel-global, keyboard-accessible,
+persisted via `stateKey` — gated by `resizableFilters`) so a long header no longer truncates (#341).
 
 **Click-to-select** — separate from checkbox multi-select. `selectionMode="row"` highlights the row you click
 (fires `onRowClick(row, key)`); `selectionMode="cell"` highlights a single cell with a ring (fires
