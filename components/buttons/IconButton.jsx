@@ -31,6 +31,8 @@ const ICONBTN_CSS = `
 .twc-iconbtn:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-iconbtn:active:not(:disabled) { transform: scale(var(--press-scale)); }
 .twc-iconbtn:disabled { opacity: 0.5; cursor: not-allowed; }
+/* #342: disabled state for the anchor form (as="a") — :disabled doesn't apply to <a>. */
+.twc-iconbtn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
 .twc-iconbtn svg { width: 1.25em; height: 1.25em; }
 
 /* tone supplies the accent set; variant decides how it's applied — mirrors Button. Default tone
@@ -50,6 +52,14 @@ const ICONBTN_CSS = `
 .twc-iconbtn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
 `;
 
+// #342: block javascript:/data:/vbscript: URLs (incl. whitespace/control-char obfuscation browsers strip)
+// from reaching a DOM href. Consumer hrefs are a trust boundary. Mirrors Button/nav components.
+function safeHref(url) {
+  if (url == null) return undefined;
+  const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+  return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
+}
+
 export function IconButton({
   children,
   icon,
@@ -58,26 +68,35 @@ export function IconButton({
   size = "md",
   round = false,
   disabled = false,
+  as = "button",
+  href,
   className = "",
   "aria-label": ariaLabel,
   ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-iconbtn-styles", ICONBTN_CSS);
+  // #342: render as an anchor for an icon LINK (GitHub icon, external nav, …) — navigation should be a real
+  // link, not a button. `target`/`rel` flow through `...rest`. An inert (disabled) anchor drops its href.
+  const Tag = as;
+  const inert = Tag === "a" && disabled;
 
   return (
-    <button
+    <Tag
       className={`twc-iconbtn ${className}`}
       data-variant={variant}
       data-tone={tone}
       data-size={size}
       data-round={round || undefined}
-      disabled={disabled}
-      type="button"
+      disabled={Tag === "button" ? disabled : undefined}
+      type={Tag === "button" ? "button" : undefined}
+      href={Tag === "a" && !inert ? safeHref(href) : undefined}
+      aria-disabled={inert || undefined}
+      tabIndex={inert ? -1 : undefined}
       aria-label={ariaLabel}
       {...rest}
     >
       {__twcStyles}
       {icon || children}
-    </button>
+    </Tag>
   );
 }

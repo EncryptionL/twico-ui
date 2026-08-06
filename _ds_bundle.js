@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"735aa6aab36f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"79eed5e4958f","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"17ec8c522076","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"fe302900567c","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"186e526942fc","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"ca508486a39c","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"747521cd095b"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"08d7c8158ce2","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"7ec238ef75d3","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"09ec9a9ef81d","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"17ec8c522076","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"c47489a9ed41","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"fe302900567c","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"186e526942fc","components/inputs/Slider.jsx":"7dfd16e9f6dd","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"b2f722dbb05c","components/overlay/Drawer.jsx":"8058a8767615","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"9f108f05696a","components/overlay/Tooltip.jsx":"ca508486a39c","components/typography/Code.jsx":"a81bc10244fb","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"747521cd095b"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -8615,7 +8615,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 /* #244: batch editor = pick columns (searchable), then set a value for each. */
 .twc-dt__be-add { padding: 6px 6px 8px; border-bottom: var(--border-thin) solid var(--color-divider); }
 .twc-dt__be-row { display: flex; align-items: center; gap: 8px; padding: 5px 6px; }
-.twc-dt__be-name { width: 108px; flex: none; font-size: var(--text-sm); color: var(--color-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* #341: cap width at min(260, row \u2212 160px) so the value control keeps ~120px (+ gaps + remove) and never
+   collapses \u2014 panel-width-aware in pure CSS, so it also grows if the (resizable) panel is widened. */
+.twc-dt__be-name { position: relative; flex: none; width: clamp(88px, var(--twc-dt-be-name-usr, 108px), min(260px, 100% - 160px)); font-size: var(--text-sm); color: var(--color-text); }
+/* #341: ellipsis lives on the inner text span so the outer field can host the (edge-overhanging) resize handle without clipping it. */
+.twc-dt__be-name-txt { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* #341: reveal the batch-name resize handle (reused .twc-dt__f-rz) on row hover, like the filter fields. */
+.twc-dt__be-row:hover .twc-dt__f-rz { opacity: 1; }
 .twc-dt__be-ctl { flex: 1; min-width: 0; }
 .twc-dt__be-x { flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: none;
   background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm);
@@ -8680,6 +8686,19 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
    clipping to one line. height stays a per-row minimum, so single-line cells are unchanged. */
 .twc-dt__td[data-wrap="true"] { white-space: normal; overflow: hidden; text-overflow: clip;
   word-break: break-word; overflow-wrap: anywhere; vertical-align: top; padding-block: 10px; line-height: 1.45; }
+/* #338: "combined" column cell \u2014 one column showing several source columns' values. */
+.twc-dt__combine--stack { display: flex; flex-direction: column; gap: 1px; }
+.twc-dt__combine-sep { color: var(--color-text-subtle); padding-inline: 3px; }
+.twc-dt__combine-label { color: var(--color-text-muted); font-weight: var(--font-medium); }
+/* #339: the runtime combine-columns editor panel. */
+.twc-dt__combine-hint { padding: 2px 12px 8px; font-size: var(--text-xs); color: var(--color-text-muted); }
+.twc-dt__combine-opts { padding: 8px 12px; border-top: var(--border-thin) solid var(--color-divider); display: flex; flex-direction: column; gap: 8px; }
+.twc-dt__combine-opt { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: var(--text-sm); color: var(--color-text); }
+.twc-dt__combine-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; border-top: var(--border-thin) solid var(--color-divider); }
+.twc-dt__combine-apply { border: none; background: var(--color-primary); color: var(--color-primary-fg); font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold); padding: 6px 14px; border-radius: var(--radius-md); cursor: pointer; }
+.twc-dt__combine-apply:hover { opacity: 0.9; }
+.twc-dt__combine-apply:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-dt__col-combined { color: var(--color-text-subtle); font-size: var(--text-xs); font-style: italic; }
 .twc-dt__td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
 /* Auto row-number gutter (rowNumbers) \u2014 a sticky-left ordinal column. */
 .twc-dt__rownum { text-align: end; font-variant-numeric: tabular-nums; color: var(--color-text-subtle);
@@ -9014,6 +9033,34 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     return result;
   }
   var getColVal = (col, row) => col && col.valueGetter ? col.valueGetter(row) : row == null ? void 0 : row[col && col.field];
+  function combineCfg(combine) {
+    if (!combine) return null;
+    const cfg = Array.isArray(combine) ? { fields: combine } : combine;
+    const fields = Array.isArray(cfg.fields) ? cfg.fields.filter((f) => f != null) : [];
+    if (!fields.length) return null;
+    return { fields, separator: cfg.separator != null ? cfg.separator : " \xB7 ", labels: !!cfg.labels, layout: cfg.layout === "stack" ? "stack" : "inline" };
+  }
+  var combineSrcCols = (cfg, byField) => cfg.fields.map((f) => byField && byField[f] || { field: f, headerName: String(f) });
+  var combineValueGetter = (srcCols, cfg) => (row) => srcCols.map((sc) => {
+    const v = getColVal(sc, row);
+    const s = v == null ? "" : String(v);
+    return cfg.labels && s ? `${sc.headerName ?? sc.field}: ${s}` : s;
+  }).filter(Boolean).join(cfg.separator);
+  function renderCombined(srcCols, row, cfg) {
+    const nodes = [];
+    let count = 0;
+    srcCols.forEach((sc, idx) => {
+      const v = getColVal(sc, row);
+      if (v == null || v === "") return;
+      const disp = sc.valueFormatter ? sc.valueFormatter(v, row) : v;
+      const label = cfg.labels ? import_react.default.createElement("span", { className: "twc-dt__combine-label" }, (sc.headerName ?? sc.field) + ": ") : null;
+      if (count > 0 && cfg.layout !== "stack") nodes.push(import_react.default.createElement("span", { key: "sep" + idx, className: "twc-dt__combine-sep", "aria-hidden": "true" }, cfg.separator));
+      nodes.push(import_react.default.createElement("span", { key: idx, className: "twc-dt__combine-item" }, label, disp));
+      count++;
+    });
+    if (!nodes.length) return "";
+    return import_react.default.createElement("span", { className: cfg.layout === "stack" ? "twc-dt__combine twc-dt__combine--stack" : "twc-dt__combine" }, nodes);
+  }
   var diffValueNode = (col, v, row) => col.renderCell ? col.renderCell(v, row) : col.valueFormatter ? col.valueFormatter(v, row) : v == null ? "" : v;
   function renderDiffCell(col, val, row) {
     const meta = row && row.__diffMeta;
@@ -9394,6 +9441,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     aggregationValues = null,
     disableColumnReorder = false,
     disableColumnResize = false,
+    columnCombining = false,
     emptyMessage,
     renderEmpty,
     editMode = false,
@@ -9460,9 +9508,19 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       if (diffData && onClassifiedRef.current) onClassifiedRef.current(diffData.counts);
     }, [diffData]);
     const diffRowKeyFn = import_react.default.useCallback((r2) => r2.__diffKey, []);
+    const [userCombine, setUserCombine] = import_react.default.useState({});
     const columns = import_react.default.useMemo(
-      () => isDiff ? [DIFF_OP_COLUMN, ...columnsProp.map((c) => ({ ...c, renderCell: (val, row) => renderDiffCell(c, val, row) }))] : columnsProp,
-      [isDiff, columnsProp]
+      () => {
+        if (!isDiff) return columnsProp;
+        const byField = {};
+        for (const c of columnsProp) if (c && c.field != null) byField[c.field] = c;
+        return [DIFF_OP_COLUMN, ...columnsProp.map((c) => {
+          const cfg = combineCfg(userCombine[c.field] || c.combine);
+          const base = cfg && !c.valueGetter ? { ...c, valueGetter: combineValueGetter(combineSrcCols(cfg, byField), cfg) } : c;
+          return { ...base, renderCell: (val, row) => renderDiffCell(base, val, row) };
+        })];
+      },
+      [isDiff, columnsProp, userCombine]
     );
     const rows = import_react.default.useMemo(
       () => isDiff ? diffData.rows.filter((r2) => !diffOnly || r2.op !== "unchanged").map((r2) => ({ ...r2.to || r2.from, __diffop: r2.op, __diffMeta: r2, __diffKey: r2.key })) : rowsProp,
@@ -9502,8 +9560,26 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           getActions: () => []
         });
       }
+      const byField = {};
+      for (const c of out) if (c.field != null) byField[c.field] = c;
+      for (let i = 0; i < out.length; i++) {
+        const c = out[i];
+        const cfg = combineCfg(userCombine[c.field] || c.combine);
+        if (!cfg) continue;
+        const srcCols = combineSrcCols(cfg, byField);
+        out[i] = {
+          ...c,
+          editable: false,
+          // the combined value is synthetic — inline editing would write to a phantom field
+          valueGetter: c.valueGetter || combineValueGetter(srcCols, cfg),
+          // Consumer renderCell wins. If they overrode only valueGetter, fall back to the DEFAULT cell render
+          // (renderCell: undefined) so the cell shows THEIR value — keeping display in sync with what
+          // sort/filter/search/export use — rather than the auto source-join. Otherwise render the combined cell.
+          renderCell: c.renderCell || (c.valueGetter ? void 0 : ((value, row) => renderCombined(srcCols, row, cfg)))
+        };
+      }
       return out;
-    }, [columns, rowPinning]);
+    }, [columns, rowPinning, userCombine]);
     const _autoKey = import_react.default.useRef();
     if (!_autoKey.current) _autoKey.current = { map: /* @__PURE__ */ new WeakMap(), n: 0 };
     const keyOf = rowKey || ((r2, i) => {
@@ -9537,6 +9613,42 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       n.has(field) ? n.delete(field) : n.add(field);
       return n;
     });
+    const openCombineEditor = (field) => {
+      const existing = userCombine[field];
+      setCombineTarget(field);
+      setCombineDraft({
+        selected: existing ? existing.fields.filter((f) => f !== field) : [],
+        layout: existing && existing.layout === "stack" ? "stack" : "inline",
+        labels: !!(existing && existing.labels)
+      });
+    };
+    const closeCombineEditor = () => {
+      setPanel(null);
+      closePanel();
+      setCombineTarget(null);
+      setCombineDraft(null);
+      restoreTriggerFocus();
+    };
+    const applyCombine = () => {
+      if (!combineTarget || !combineDraft) return;
+      const field = combineTarget;
+      const sources = combineDraft.selected.filter((f) => f !== field);
+      setUserCombine((m) => {
+        const next = { ...m };
+        if (sources.length) next[field] = { fields: [field, ...sources], layout: combineDraft.layout === "stack" ? "stack" : "inline", separator: " \xB7 ", labels: !!combineDraft.labels };
+        else delete next[field];
+        return next;
+      });
+      closeCombineEditor();
+    };
+    const uncombine = (field) => {
+      setUserCombine((m) => {
+        const next = { ...m };
+        delete next[field];
+        return next;
+      });
+      closeCombineEditor();
+    };
     const [pins, setPins] = import_react.default.useState(() => {
       const left = [], right = [];
       columns.forEach((c) => {
@@ -9598,6 +9710,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const rowFocusRef = import_react.default.useRef(null);
     const [fWidths, setFWidths] = import_react.default.useState({});
     const [fPanelSize, setFPanelSize] = import_react.default.useState(null);
+    const [batchNameW, setBatchNameW] = import_react.default.useState(null);
     const [popSizes, setPopSizes] = import_react.default.useState({});
     const serializeState = () => ({
       filters: filters.map(({ id, ...f }) => f),
@@ -9618,7 +9731,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       filterPanelSize: fPanelSize || void 0,
       filterFieldWidths: fWidths.col != null || fWidths.op != null || fWidths.val != null || fWidths.logic != null ? fWidths : void 0,
       // #304: additive, optional — user-resized sizes of the other toolbar popovers, keyed by popover id.
-      popoverSizes: Object.keys(popSizes).length ? popSizes : void 0
+      popoverSizes: Object.keys(popSizes).length ? popSizes : void 0,
+      // #339: additive, optional — runtime user-defined combined columns, keyed by target field.
+      columnCombine: Object.keys(userCombine).length ? userCombine : void 0,
+      // #341: additive, optional — user-resized batch-editor column-name field width (px).
+      batchNameWidth: batchNameW != null ? batchNameW : void 0
     });
     const applyState = (s) => {
       if (!s || typeof s !== "object") return;
@@ -9663,6 +9780,16 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         }
         if (Object.keys(next).length) setPopSizes(next);
       }
+      if (s.columnCombine && typeof s.columnCombine === "object") {
+        const uc = {};
+        for (const [f, cfg] of Object.entries(s.columnCombine)) {
+          if (!known.has(f) || !cfg || !Array.isArray(cfg.fields)) continue;
+          const rest2 = cfg.fields.filter((x) => known.has(x) && x !== f);
+          if (rest2.length) uc[f] = { fields: [f, ...rest2], layout: cfg.layout === "stack" ? "stack" : "inline", separator: typeof cfg.separator === "string" ? cfg.separator : " \xB7 ", labels: !!cfg.labels };
+        }
+        if (Object.keys(uc).length) setUserCombine(uc);
+      }
+      if (typeof s.batchNameWidth === "number") setBatchNameW(clampNum(s.batchNameWidth, 88, 260));
     };
     const stateReadyRef = import_react.default.useRef(false);
     const stateRestoredRef = import_react.default.useRef(false);
@@ -9680,7 +9807,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         }
       }
       return void 0;
-    }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, stateKey]);
+    }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey]);
     const restoreState = () => {
       let saved = null;
       if (stateKey) {
@@ -9821,6 +9948,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const [menuPos, openMenu, closeMenu] = useFloating();
     const [panel, setPanel] = import_react.default.useState(null);
     const [panelPos, openPanel, closePanel] = useFloating();
+    const [combineTarget, setCombineTarget] = import_react.default.useState(null);
+    const [combineDraft, setCombineDraft] = import_react.default.useState(null);
+    const combinePanelRef = import_react.default.useRef(null);
+    import_react.default.useEffect(() => {
+      if (panel === "combine" && combinePanelRef.current) {
+        const el = combinePanelRef.current.querySelector('[role="switch"], button, [tabindex]');
+        (el || combinePanelRef.current).focus?.();
+      }
+    }, [panel]);
     const [rowMenu, setRowMenu] = import_react.default.useState(null);
     const [rowMenuPos, openRowMenu, closeRowMenu] = useFloating();
     const [exportOpen, setExportOpen] = import_react.default.useState(false);
@@ -9921,7 +10057,21 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       };
     }, [exportOpen]);
     const colByField = import_react.default.useMemo(() => Object.fromEntries(cols.map((c) => [c.field, c])), [cols]);
-    const visibleCols = cols.filter((c) => !hidden.has(c.field));
+    const combineSources = import_react.default.useMemo(() => {
+      const s = /* @__PURE__ */ new Set();
+      for (const cfg of Object.values(userCombine)) (cfg && cfg.fields ? cfg.fields : []).slice(1).forEach((f) => s.add(f));
+      return s;
+    }, [userCombine]);
+    const stackCombineTargets = import_react.default.useMemo(
+      () => new Set(cols.filter((c) => {
+        const cfg = combineCfg(userCombine[c.field] || c.combine);
+        return cfg && cfg.layout === "stack";
+      }).map((c) => c.field)),
+      [cols, userCombine]
+    );
+    const effectiveHidden = import_react.default.useMemo(() => combineSources.size ? /* @__PURE__ */ new Set([...hidden, ...combineSources]) : hidden, [hidden, combineSources]);
+    const effectiveWrapped = import_react.default.useMemo(() => stackCombineTargets.size ? /* @__PURE__ */ new Set([...wrapped, ...stackCombineTargets]) : wrapped, [wrapped, stackCombineTargets]);
+    const visibleCols = cols.filter((c) => !effectiveHidden.has(c.field));
     const colFieldsKey = JSON.stringify(
       cols.filter((c) => typeof c.field === "string" && c.type !== "actions").map((c) => c.field)
     );
@@ -9940,17 +10090,17 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         const i = order.indexOf(f);
         return i === -1 ? 9999 : i;
       };
-      const L = pins.left.map((f) => colByField[f]).filter((c) => c && !hidden.has(c.field));
-      const R2 = pins.right.map((f) => colByField[f]).filter((c) => c && !hidden.has(c.field));
+      const L = pins.left.map((f) => colByField[f]).filter((c) => c && !effectiveHidden.has(c.field));
+      const R2 = pins.right.map((f) => colByField[f]).filter((c) => c && !effectiveHidden.has(c.field));
       const mid = visibleCols.filter((c) => !pins.left.includes(c.field) && !pins.right.includes(c.field)).sort((a, b) => orderIdx(a.field) - orderIdx(b.field));
       return [...L, ...mid, ...R2];
-    }, [pins, hidden, visibleCols, colByField, order]);
+    }, [pins, effectiveHidden, visibleCols, colByField, order]);
     const NUM_W = 56;
     const CHK_W = checkboxSelection ? rowReorder ? 68 : 44 : 0;
     const numLeft = CHK_W;
     const leadW = numLeft + (showRowNum ? NUM_W : 0);
-    const visLeft = import_react.default.useMemo(() => pins.left.filter((f) => colByField[f] && !hidden.has(f)), [pins.left, colByField, hidden]);
-    const visRight = import_react.default.useMemo(() => pins.right.filter((f) => colByField[f] && !hidden.has(f)), [pins.right, colByField, hidden]);
+    const visLeft = import_react.default.useMemo(() => pins.left.filter((f) => colByField[f] && !effectiveHidden.has(f)), [pins.left, colByField, effectiveHidden]);
+    const visRight = import_react.default.useMemo(() => pins.right.filter((f) => colByField[f] && !effectiveHidden.has(f)), [pins.right, colByField, effectiveHidden]);
     const stickyOf = (field) => {
       if (visLeft.includes(field)) {
         let off = leadW;
@@ -11115,6 +11265,54 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         if (field === "val") p.removeAttribute("data-val-fixed");
       }
     };
+    const BE_NAME_MIN = 88, BE_NAME_MAX = 260;
+    const startBeNameResize = (e) => {
+      if (e.button != null && e.button !== 0) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const handle = e.currentTarget;
+      const panel2 = handle.closest(".twc-dt__cfg"), nameEl = handle.closest(".twc-dt__be-name");
+      if (!panel2 || !nameEl) return;
+      const startX = e.clientX, startW = nameEl.getBoundingClientRect().width;
+      const dir = getComputedStyle(panel2).direction === "rtl" ? -1 : 1;
+      handle.setAttribute("data-active", "true");
+      let last = startW;
+      const onMove = (ev) => {
+        last = clampNum(startW + (ev.clientX - startX) * dir, BE_NAME_MIN, BE_NAME_MAX);
+        panel2.style.setProperty("--twc-dt-be-name-usr", `${last}px`);
+      };
+      const onUp = () => {
+        setBatchNameW(last);
+        handle.removeAttribute("data-active");
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onUp);
+      };
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", onUp);
+    };
+    const onBeNameResizeKey = (e) => {
+      const panel2 = e.currentTarget.closest(".twc-dt__cfg");
+      if (e.key === "Enter" || e.key === " " || e.key === "Backspace") {
+        e.preventDefault();
+        e.stopPropagation();
+        setBatchNameW(null);
+        if (panel2) panel2.style.removeProperty("--twc-dt-be-name-usr");
+        return;
+      }
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const nameEl = e.currentTarget.closest(".twc-dt__be-name");
+      const cur = nameEl ? nameEl.getBoundingClientRect().width : batchNameW ?? 108;
+      const dir = panel2 && getComputedStyle(panel2).direction === "rtl" ? -1 : 1;
+      const step = e.shiftKey ? 2 : 10;
+      let next = cur;
+      if (e.key === "ArrowRight") next = cur + step * dir;
+      else if (e.key === "ArrowLeft") next = cur - step * dir;
+      else if (e.key === "Home") next = BE_NAME_MIN;
+      else if (e.key === "End") next = BE_NAME_MAX;
+      setBatchNameW(clampNum(next, BE_NAME_MIN, BE_NAME_MAX));
+    };
     const startPanelResize = (e) => {
       if (e.button != null && e.button !== 0) return;
       e.preventDefault();
@@ -11337,7 +11535,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const shownColRows = cols.filter((c) => c.field !== "__pinactions__" && c.headerName.toLowerCase().includes(colQuery.trim().toLowerCase())).sort((a, b) => orderIdxOf(a.field) - orderIdxOf(b.field));
     const rowNumMatch = rowNumbers && "row number".includes(colQuery.trim().toLowerCase());
     const manageableCols = cols.filter((c) => c.field !== "__pinactions__");
-    const visibleColCount = manageableCols.filter((c) => !hidden.has(c.field)).length;
+    const visibleColCount = manageableCols.filter((c) => !effectiveHidden.has(c.field)).length;
     const rppOptions = Array.from(new Set([...pageSizeOptions || [], pageSize].filter((n) => n > 0))).sort((a, b) => a - b).map((n) => ({ value: String(n), label: String(n) }));
     const totalCols = ordered.length + (checkboxSelection ? 1 : 0) + (showRowNum ? 1 : 0);
     function renderGroupRow(item) {
@@ -11495,7 +11693,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   "data-cell-active": cellActive || void 0,
                   "data-cell-selected": cellSelected || void 0,
                   "data-copied": cellFlash || void 0,
-                  "data-wrap": wrapped.has(c.field) || void 0,
+                  "data-wrap": effectiveWrapped.has(c.field) || void 0,
                   "data-pin": st.pin,
                   "data-pin-edge": st.edge,
                   style: { width: widthOf(c), ...st.style },
@@ -12192,7 +12390,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           delete values[f];
           return { ...b, fields, values };
         });
-        return /* @__PURE__ */ jsxs("div", { className: "twc-dt__pop twc-dt__cfg", style: { top: batchEditPos.top, left: batchEditPos.left, width: 320, ...popStyle("batchedit") }, "data-pop-sized": popSizes.batchedit ? "" : void 0, children: [
+        return /* @__PURE__ */ jsxs("div", { className: "twc-dt__pop twc-dt__cfg", style: { top: batchEditPos.top, left: batchEditPos.left, width: 320, "--twc-dt-be-name-usr": batchNameW != null ? `${batchNameW}px` : void 0, ...popStyle("batchedit") }, "data-pop-sized": popSizes.batchedit ? "" : void 0, children: [
           /* @__PURE__ */ jsx(Caret, { pos: batchEditPos }),
           /* @__PURE__ */ jsxs("div", { className: "twc-dt__cfg-head", children: [
             "Edit ",
@@ -12213,10 +12411,25 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               onChange: addField
             }
           ) }) : null,
-          /* @__PURE__ */ jsx("div", { className: "twc-dt__cfg-list", children: pickedCols.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-dt__be-empty", children: "Pick a column to set its value on all selected rows." }) : pickedCols.map((c) => {
+          /* @__PURE__ */ jsx("div", { className: "twc-dt__cfg-list", children: pickedCols.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-dt__be-empty", children: "Pick a column to set its value on all selected rows." }) : pickedCols.map((c, i) => {
             const opts = c.valueOptions ? c.valueOptions.map((o) => typeof o === "string" ? { value: o, label: o } : o) : null;
             return /* @__PURE__ */ jsxs("div", { className: "twc-dt__be-row", children: [
-              /* @__PURE__ */ jsx("span", { className: "twc-dt__be-name", title: String(c.headerName ?? c.field), children: c.headerName }),
+              /* @__PURE__ */ jsxs("span", { className: "twc-dt__be-name", title: String(c.headerName ?? c.field), children: [
+                /* @__PURE__ */ jsx("span", { className: "twc-dt__be-name-txt", children: c.headerName }),
+                resizableFilters && i === 0 ? /* @__PURE__ */ jsx(
+                  "span",
+                  {
+                    className: "twc-dt__f-rz",
+                    role: "separator",
+                    "aria-orientation": "vertical",
+                    tabIndex: 0,
+                    "aria-label": "Resize column name field (Enter to reset)",
+                    onPointerDown: startBeNameResize,
+                    onClick: (e) => e.stopPropagation(),
+                    onKeyDown: onBeNameResizeKey
+                  }
+                ) : null
+              ] }),
               /* @__PURE__ */ jsx("div", { className: "twc-dt__be-ctl", children: c.renderBatchEditCell ? c.renderBatchEditCell({
                 value: batchEdit.values[c.field],
                 field: c.field,
@@ -12330,6 +12543,18 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   /* @__PURE__ */ jsx(Svg, { d: I.group }),
                   " ",
                   groupBy.includes(c.field) ? "Stop grouping" : "Group by this column"
+                ] }) : null,
+                columnCombining && c.type !== "actions" ? /* @__PURE__ */ jsxs("button", { type: "button", role: "menuitem", className: "twc-dt__mi", "data-active": !!userCombine[c.field] || void 0, onClick: () => {
+                  const anchor = menuTriggerRef.current;
+                  setColMenu(null);
+                  closeMenu();
+                  openCombineEditor(c.field);
+                  setPanel("combine");
+                  openPanel(anchor, "right", 300);
+                }, children: [
+                  /* @__PURE__ */ jsx(Svg, { d: I.columns }),
+                  " ",
+                  userCombine[c.field] ? "Edit combined column\u2026" : "Combine columns\u2026"
                 ] }) : null,
                 !disableColumnReorder && c.reorderable !== false && c.type !== "actions" && !pins.left.includes(c.field) && !pins.right.includes(c.field) && movableMidFields.length > 1 ? (() => {
                   const midIdx = movableMidFields.indexOf(c.field);
@@ -12498,10 +12723,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   e.preventDefault();
                   onColDrop(c.field);
                 } : void 0,
-                onClick: () => c.hideable && toggleHiddenField(c.field),
+                onClick: () => c.hideable && !combineSources.has(c.field) && toggleHiddenField(c.field),
                 children: [
                   canDrag ? /* @__PURE__ */ jsx("span", { className: "twc-dt__col-grip", "aria-hidden": "true", children: /* @__PURE__ */ jsx(Svg, { d: I.grip }) }) : null,
-                  /* @__PURE__ */ jsx("span", { className: "twc-dt__col-name", children: c.headerName }),
+                  /* @__PURE__ */ jsxs("span", { className: "twc-dt__col-name", children: [
+                    c.headerName,
+                    combineSources.has(c.field) ? /* @__PURE__ */ jsx("span", { className: "twc-dt__col-combined", children: " \xB7 combined" }) : null
+                  ] }),
                   c.pinnable && c.type !== "actions" ? (
                     // Pin from here too, so columns scrolled out of view (no reachable header ⋮) can still be pinned.
                     /* @__PURE__ */ jsxs("span", { className: "twc-dt__col-pins", draggable: false, onClick: (e) => e.stopPropagation(), children: [
@@ -12537,19 +12765,19 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                     "span",
                     {
                       className: "twc-dt__sw",
-                      "data-on": !hidden.has(c.field) || void 0,
+                      "data-on": !effectiveHidden.has(c.field) || void 0,
                       role: "switch",
-                      "aria-checked": !hidden.has(c.field),
+                      "aria-checked": !effectiveHidden.has(c.field),
                       "aria-label": c.headerName,
-                      "aria-disabled": !c.hideable || void 0,
-                      tabIndex: c.hideable ? 0 : -1,
+                      "aria-disabled": !c.hideable || combineSources.has(c.field) || void 0,
+                      tabIndex: c.hideable && !combineSources.has(c.field) ? 0 : -1,
                       onKeyDown: (e) => {
-                        if ((e.key === "Enter" || e.key === " ") && c.hideable) {
+                        if ((e.key === "Enter" || e.key === " ") && c.hideable && !combineSources.has(c.field)) {
                           e.preventDefault();
                           toggleHiddenField(c.field);
                         }
                       },
-                      style: c.hideable ? void 0 : { opacity: 0.4 }
+                      style: c.hideable && !combineSources.has(c.field) ? void 0 : { opacity: 0.4 }
                     }
                   )
                 ]
@@ -12560,6 +12788,82 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         ] }),
         popGrip("columns")
       ] }) : null,
+      panel === "combine" && panelPos && combineTarget && combineDraft ? (() => {
+        const target = colByField[combineTarget];
+        const candidates = cols.filter((c) => c.field !== combineTarget && c.type !== "actions" && c.field !== "__pinactions__" && c.hideable !== false && !userCombine[c.field]);
+        const toggle = (f) => setCombineDraft((d) => ({ ...d, selected: d.selected.includes(f) ? d.selected.filter((x) => x !== f) : [...d.selected, f] }));
+        return /* @__PURE__ */ jsxs("div", { ref: combinePanelRef, tabIndex: -1, className: "twc-dt__pop twc-dt__cols", style: { top: panelPos.top, left: panelPos.left, ...popStyle("combine") }, "data-pop-sized": popSizes.combine ? "" : void 0, role: "dialog", "aria-label": `Combine columns into ${target?.headerName || combineTarget}`, children: [
+          /* @__PURE__ */ jsx("div", { className: "twc-dt__panel-head", children: /* @__PURE__ */ jsxs("span", { className: "twc-dt__panel-title", children: [
+            "Combine into \u201C",
+            target?.headerName || combineTarget,
+            "\u201D"
+          ] }) }),
+          /* @__PURE__ */ jsx("div", { className: "twc-dt__combine-hint", children: "Pick columns to merge into this one \u2014 their data shows in this cell and their own columns hide." }),
+          /* @__PURE__ */ jsx("div", { className: "twc-dt__col-list", children: candidates.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-dt__empty", style: { padding: "18px 12px" }, children: "No other columns" }) : candidates.map((c) => {
+            const on = combineDraft.selected.includes(c.field);
+            return /* @__PURE__ */ jsxs("div", { className: "twc-dt__col-row", onClick: () => toggle(c.field), children: [
+              /* @__PURE__ */ jsx("span", { className: "twc-dt__col-name", children: c.headerName }),
+              /* @__PURE__ */ jsx(
+                "span",
+                {
+                  className: "twc-dt__sw",
+                  "data-on": on || void 0,
+                  role: "switch",
+                  "aria-checked": on,
+                  "aria-label": c.headerName,
+                  tabIndex: 0,
+                  onKeyDown: (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      toggle(c.field);
+                    }
+                  }
+                }
+              )
+            ] }, c.field);
+          }) }),
+          /* @__PURE__ */ jsxs("div", { className: "twc-dt__combine-opts", children: [
+            /* @__PURE__ */ jsxs("label", { className: "twc-dt__combine-opt", children: [
+              /* @__PURE__ */ jsx("span", { children: "Layout" }),
+              /* @__PURE__ */ jsx(
+                Select,
+                {
+                  size: "sm",
+                  portal: true,
+                  matchTriggerWidth: false,
+                  value: combineDraft.layout,
+                  options: [{ value: "inline", label: "Inline" }, { value: "stack", label: "Stacked" }],
+                  onChange: (v) => setCombineDraft((d) => ({ ...d, layout: v }))
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "twc-dt__combine-opt", onClick: () => setCombineDraft((d) => ({ ...d, labels: !d.labels })), style: { cursor: "pointer" }, children: [
+              /* @__PURE__ */ jsx("span", { children: "Show labels" }),
+              /* @__PURE__ */ jsx(
+                "span",
+                {
+                  className: "twc-dt__sw",
+                  "data-on": combineDraft.labels || void 0,
+                  role: "switch",
+                  "aria-checked": combineDraft.labels,
+                  "aria-label": "Show labels",
+                  tabIndex: 0,
+                  onKeyDown: (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setCombineDraft((d) => ({ ...d, labels: !d.labels }));
+                    }
+                  }
+                }
+              )
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "twc-dt__combine-foot", children: [
+            userCombine[combineTarget] ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__link", onClick: () => uncombine(combineTarget), children: "Uncombine" }) : /* @__PURE__ */ jsx("span", {}),
+            /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__combine-apply", onClick: applyCombine, children: "Apply" })
+          ] })
+        ] });
+      })() : null,
       panel === "agg" && panelPos ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__pop twc-dt__cfg", style: { top: panelPos.top, left: panelPos.left, width: 300, ...popStyle("agg") }, "data-pop-sized": popSizes.agg ? "" : void 0, role: "dialog", "aria-label": "Aggregation settings", children: [
         /* @__PURE__ */ jsxs("div", { className: "twc-dt__panel-head", children: [
           /* @__PURE__ */ jsx("span", { className: "twc-dt__panel-title", children: "Aggregation" }),
@@ -15712,6 +16016,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-iconbtn:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-iconbtn:active:not(:disabled) { transform: scale(var(--press-scale)); }
 .twc-iconbtn:disabled { opacity: 0.5; cursor: not-allowed; }
+/* #342: disabled state for the anchor form (as="a") \u2014 :disabled doesn't apply to <a>. */
+.twc-iconbtn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
 .twc-iconbtn svg { width: 1.25em; height: 1.25em; }
 
 /* tone supplies the accent set; variant decides how it's applied \u2014 mirrors Button. Default tone
@@ -15730,6 +16036,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-iconbtn[data-variant="outline"]:hover:not(:disabled) { border-color: var(--_accent); color: var(--_accent); background: var(--color-surface-sunken); }
 .twc-iconbtn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
 `;
+  function safeHref6(url) {
+    if (url == null) return void 0;
+    const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+    return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
+  }
   function IconButton({
     children,
     icon,
@@ -15738,21 +16049,28 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     size = "md",
     round = false,
     disabled = false,
+    as = "button",
+    href,
     className = "",
     "aria-label": ariaLabel,
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-iconbtn-styles", ICONBTN_CSS);
+    const Tag2 = as;
+    const inert = Tag2 === "a" && disabled;
     return /* @__PURE__ */ jsxs(
-      "button",
+      Tag2,
       {
         className: `twc-iconbtn ${className}`,
         "data-variant": variant,
         "data-tone": tone,
         "data-size": size,
         "data-round": round || void 0,
-        disabled,
-        type: "button",
+        disabled: Tag2 === "button" ? disabled : void 0,
+        type: Tag2 === "button" ? "button" : void 0,
+        href: Tag2 === "a" && !inert ? safeHref6(href) : void 0,
+        "aria-disabled": inert || void 0,
+        tabIndex: inert ? -1 : void 0,
         "aria-label": ariaLabel,
         ...rest,
         children: [
@@ -15954,7 +16272,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 `;
   function List({ items, plain = false, emptyMessage, className = "", ...rest }) {
     const __twcStyles = useScopedStyles("twc-list-styles", LIST_CSS);
-    const safeHref13 = (url) => {
+    const safeHref14 = (url) => {
       if (url == null) return void 0;
       const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
       return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -15966,7 +16284,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       /* @__PURE__ */ jsxs("ul", { className: `twc-list ${className}`, role: "list", "data-plain": plain || void 0, ...rest, children: [
         __twcStyles,
         items.length === 0 ? /* @__PURE__ */ jsx("li", { role: "presentation", style: { display: "contents" }, children: /* @__PURE__ */ jsx("div", { className: "twc-list__empty", children: emptyMessage ?? "Nothing here yet" }) }) : items.map((it, i) => {
-          const href = safeHref13(it.href);
+          const href = safeHref14(it.href);
           const interactive = Boolean(it.onClick || href);
           const Tag2 = href ? "a" : interactive ? "button" : "div";
           const content = /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -16022,7 +16340,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   .twc-navbar__menu-btn { display: inline-grid; }
 }
 `;
-  function safeHref6(url) {
+  function safeHref7(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -16045,9 +16363,9 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     return /* @__PURE__ */ jsxs("header", { className: `twc-navbar ${className}`, "data-sticky": sticky || void 0, ...rest, children: [
       __twcStyles,
       onMenuClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__menu-btn", "aria-expanded": menuOpen, "aria-controls": menuControls, "aria-label": menuOpen ? "Close menu" : "Open menu", onClick: onMenuClick, children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M4 6h16M4 12h16M4 18h16" }) }) }) : null,
-      brand ? brandHref ? /* @__PURE__ */ jsx("a", { className: "twc-navbar__brand", href: safeHref6(brandHref), children: brand }) : onBrandClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__brand", onClick: onBrandClick, children: brand }) : /* @__PURE__ */ jsx("span", { className: "twc-navbar__brand", children: brand }) : null,
+      brand ? brandHref ? /* @__PURE__ */ jsx("a", { className: "twc-navbar__brand", href: safeHref7(brandHref), children: brand }) : onBrandClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__brand", onClick: onBrandClick, children: brand }) : /* @__PURE__ */ jsx("span", { className: "twc-navbar__brand", children: brand }) : null,
       /* @__PURE__ */ jsx("nav", { className: "twc-navbar__links", "aria-label": navLabel, children: links.map((l, i) => {
-        const href = safeHref6(l.href);
+        const href = safeHref7(l.href);
         const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
           l.icon,
           l.label
@@ -16834,13 +17152,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       document.addEventListener("keydown", onKey);
       return () => document.removeEventListener("keydown", onKey);
     }, [overlay, open, openProp, onOpenChange]);
-    const safeHref13 = (url) => {
+    const safeHref14 = (url) => {
       if (url == null) return void 0;
       const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
       return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
     };
     const renderItem = (it, i) => {
-      const href = safeHref13(it.href);
+      const href = safeHref14(it.href);
       const labelStr = typeof it.label === "string" ? it.label : void 0;
       const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
         it.icon ? /* @__PURE__ */ jsx("span", { className: "twc-sidebar__ic", "aria-hidden": "true", children: it.icon }) : labelStr != null ? /* @__PURE__ */ jsx("span", { className: "twc-sidebar__ic twc-sidebar__ic--initial", "aria-hidden": "true", children: labelStr.charAt(0) }) : null,
@@ -18554,7 +18872,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     if (BG[bg]) return `var(${BG[bg]})`;
     return String(bg).startsWith("--") ? `var(${bg})` : bg;
   }
-  function safeHref7(url) {
+  function safeHref8(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -18602,7 +18920,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       ...style,
       ...flatStyle
     };
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref7(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref8(rest.href);
     return /* @__PURE__ */ jsxs(Tag2, { ref, className: `twc-box ${className}`.trim(), style: s, "data-twc-sx": sxAttr, ...rest, children: [
       styleNode,
       children
@@ -18610,7 +18928,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   });
   Box.displayName = "Box";
   var SIZES = { sm: 640, md: 768, lg: 1024, xl: 1280, full: "100%" };
-  function safeHref8(url) {
+  function safeHref9(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -18627,7 +18945,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }, ref) {
     const { flatStyle, styleNode, sxAttr } = useSx(sx);
     const max = SIZES[size] ?? size;
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref8(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref9(rest.href);
     return /* @__PURE__ */ jsxs(
       Tag2,
       {
@@ -18658,7 +18976,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     if (typeof v === "number") return `var(--space-${String(v).replace(".", "-")})`;
     return v;
   }
-  function safeHref9(url) {
+  function safeHref10(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -18686,7 +19004,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     ...rest
   }, ref) {
     const { flatStyle, styleNode, sxAttr } = useSx(sx);
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref9(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref10(rest.href);
     const kids = divider != null ? import_react.default.Children.toArray(children).flatMap((child, i, arr) => i < arr.length - 1 ? [child, /* @__PURE__ */ jsx(import_react.default.Fragment, { children: divider }, `twc-stack-div-${i}`)] : [child]) : children;
     return /* @__PURE__ */ jsxs(
       Tag2,
@@ -18741,7 +19059,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-code__copy:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-code__copy svg { width: 15px; height: 15px; display: block; }
 `;
-  function safeHref10(url) {
+  function safeHref11(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -18758,7 +19076,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }) {
     const __twcStyles = useScopedStyles("twc-code-styles", CODE_CSS);
     const Tag2 = as ?? (block ? "pre" : "code");
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref10(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref11(rest.href);
     const rootRef = import_react.default.useRef(null);
     const [copied, setCopied] = import_react.default.useState(false);
     const timerRef = import_react.default.useRef(null);
@@ -18783,7 +19101,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     ] });
   }
   var LEVEL_SIZE = { 1: "4xl", 2: "2xl", 3: "xl", 4: "lg", 5: "base", 6: "sm" };
-  function safeHref11(url) {
+  function safeHref12(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -18805,7 +19123,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const { flatStyle, styleNode, sxAttr } = useSx(sx);
     const Tag2 = as || `h${level}`;
     const sz = size || (display ? "display" : LEVEL_SIZE[level]) || "2xl";
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref11(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref12(rest.href);
     return /* @__PURE__ */ jsxs(
       Tag2,
       {
@@ -18852,7 +19170,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     // Adopt the surrounding color (e.g. inside a solid Button/Badge/Alert or a link).
     inherit: "inherit"
   };
-  function safeHref12(url) {
+  function safeHref13(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -18872,7 +19190,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     ...rest
   }, ref) {
     const { flatStyle, styleNode, sxAttr } = useSx(sx);
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref12(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref13(rest.href);
     const toneToken = TONE[tone] || TONE.default;
     return /* @__PURE__ */ jsxs(
       Tag2,

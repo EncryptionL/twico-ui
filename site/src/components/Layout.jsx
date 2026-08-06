@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import { Box, Stack, Button, IconButton, Drawer, useMediaQuery, useDisclosure } from "twico-ui";
 import Logo from "./Logo.jsx";
 import Sidebar from "./Sidebar.jsx";
@@ -20,7 +20,6 @@ const GithubIcon = (
 
 export default function Layout() {
   const location = useLocation();
-  const navigate = useNavigate();
   const isHome = location.pathname === "/";
   const isMobile = useMediaQuery("(max-width: 859px)");
   const showToc = useMediaQuery("(min-width: 1200px)");
@@ -54,16 +53,17 @@ export default function Layout() {
           {!isHome ? <Search /> : null}
           {!isMobile ? (
             <>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/docs/installation")}>Docs</Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/components")}>Components</Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/theme-builder")}>Theme builder</Button>
-              <Button variant="ghost" size="sm" aria-label="Changelog (opens in new tab)" rightIcon={<ExternalLinkIcon size={14} />} onClick={() => window.open(CHANGELOG_URL, "_blank", "noopener,noreferrer")}>Changelog</Button>
-              <Button variant="ghost" size="sm" aria-label="npm (opens in new tab)" rightIcon={<ExternalLinkIcon size={14} />} onClick={() => window.open(NPM_URL, "_blank", "noopener,noreferrer")}>npm</Button>
+              {/* Navigation is real links (a11y: middle-click / open-in-new-tab / announced as links). */}
+              <Button as="a" href="#/docs/installation" variant="ghost" size="sm">Docs</Button>
+              <Button as="a" href="#/components" variant="ghost" size="sm">Components</Button>
+              <Button as="a" href="#/theme-builder" variant="ghost" size="sm">Theme builder</Button>
+              <Button as="a" href={CHANGELOG_URL} target="_blank" rel="noopener noreferrer" variant="ghost" size="sm" aria-label="Changelog (opens in new tab)" rightIcon={<ExternalLinkIcon size={14} />}>Changelog</Button>
+              <Button as="a" href={NPM_URL} target="_blank" rel="noopener noreferrer" variant="ghost" size="sm" aria-label="npm (opens in new tab)" rightIcon={<ExternalLinkIcon size={14} />}>npm</Button>
             </>
           ) : null}
           {/* Version switching is a docs aid — hide it on the marketing landing page. */}
           {!isHome ? <VersionSelector /> : null}
-          <IconButton variant="ghost" aria-label="GitHub repository" icon={GithubIcon} onClick={() => window.open(REPO_URL, "_blank", "noopener,noreferrer")} />
+          <IconButton as="a" href={REPO_URL} target="_blank" rel="noopener noreferrer" variant="ghost" aria-label="GitHub repository (opens in new tab)" icon={GithubIcon} />
           <ThemeToggle />
         </Stack>
       </Stack>

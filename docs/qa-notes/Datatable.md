@@ -12,6 +12,68 @@
 
 ## Enhancements
 
+- **[#341] Batch-editor column-name field is drag-resizable** — the batch editor's clause column-name label
+  (`.twc-dt__be-name`) was a fixed 108px and truncated long headers (e.g. "MLM ID (Material…)"). It's now a
+  resizable field like the filter column field: `clamp(88px, var(--twc-dt-be-name-usr, 108px), min(260px, 100% - 160px))`
+  — the `100% - 160px` cap keeps ~120px (+ gaps + remove button) for the value control so it never collapses in
+  the fixed 320px panel (adversarial-review finding), and it grows if the panel is widened — with a
+  reused `.twc-dt__f-rz` drag handle on the **first** clause row (panel-global; pointer + keyboard resize
+  Arrow/Shift/Home/End, Enter/Backspace resets). Width persists in `batchNameW` state → `batchNameWidth` on
+  `DatatableState` (via `stateKey`). Dedicated `startBeNameResize`/`onBeNameResizeKey` handlers target the batch
+  panel via `closest(".twc-dt__cfg")` (the filter machinery is bound to `filterPanelRef`, so not reused
+  directly). Gated by `resizableFilters` (default true). 2 tests in `tests/datatable-batch-edit.test.jsx`
+  (handle + persist/reset; `resizableFilters={false}` removes it). — added 2026-08-06
+
+- **[#339] User-built combined columns (runtime ⋮-menu editor)** — opt-in `columnCombining` (default false)
+  adds a **"Combine columns…"** item to each non-actions column's ⋮ menu. It opens a combine-editor panel
+  (`panel === "combine"`, anchored at the ⋮ trigger) with a switch list of the other columns, an inline/stacked
+  `Select`, a labels switch, and Apply / Uncombine. Runtime combines live in a `userCombine` state map (target
+  field → `{ fields:[target, ...sources], layout, separator, labels }`) that **overrides** a column's
+  declarative `combine` in the `cols` resolution (`combineCfg(userCombine[c.field] || c.combine)`); it reuses
+  the #338 derivation, so all value ops + the render just work. Persists via `stateKey` as `columnCombine`
+  (typed on `DatatableState`, sanitized on restore — unknown fields dropped, target normalized to index 0,
+  entries need ≥1 source). No recursion when a target lists its own field: `srcCols` resolve against the
+  pre-resolution `byField` snapshot (built before the loop reassigns `out[i]`). Editor styled with
+  `.twc-dt__combine-hint`/`-opts`/`-opt`/`-foot`/`-apply` (plain DT_CSS literals); the Layout `Select` uses
+  `matchTriggerWidth={false}` so its "Inline"/"Stacked" options size to content instead of clipping to the
+  narrow trigger.
+
+  **Source hiding + stack wrapping are DERIVED, not stored** (adversarial-review hardening): `combineSources`
+  (all runtime combine sources) and `stackCombineTargets` (declarative + runtime stack combines) feed
+  `effectiveHidden = hidden ∪ combineSources` and `effectiveWrapped = wrapped ∪ stackCombineTargets`, which
+  drive grid rendering (`visibleCols`/`visibleColumns`/`visLeft`/`visRight`/`visibleColCount`, cell `data-wrap`)
+  while the manual `hidden`/`wrapped` sets stay the user's own toggles. This reference-counts by construction
+  (a source shared by two combines stays hidden until both are removed), never clobbers a manual hide/wrap, and
+  needs no re-hide on restore — so `apply`/`uncombine` only mutate `userCombine`. The Columns panel shows a
+  combine source as a locked "· combined" row (off + disabled) so re-showing can't desync it. The combine
+  editor excludes `hideable: false` columns and other combine targets from its candidate list; the diff-mode
+  `columns` memo honours `userCombine` too (so a runtime combine isn't blank on added/removed diff rows); and
+  the editor restores focus to the ⋮ trigger on close (and takes focus on open). 8 tests in
+  `tests/datatable-combine-menu.test.jsx` (incl. refcount + diff-mode). — added 2026-08-06
+
+- **[#338] Combined columns — merge several columns' data into one column** — a `DatatableColumn.combine`
+  option (`string[]` shorthand or `{ fields, layout, separator, labels }`) makes one column display several
+  other fields' values in a single cell. The `cols` memo resolves it (after column normalization, keyed by a
+  local `byField` map) by auto-deriving a **`valueGetter`** — the combined text, which routes through the
+  central `getColVal` so sort / filter / quick-search / grouping / aggregation / **export** (line ~2029:
+  `exportValue ?? getColVal`) all operate on it — and a **`renderCell`** (module-level `renderCombined`), unless
+  the consumer supplied their own. `layout: "inline"` (default) joins with `separator` (default `" · "`);
+  `"stack"` stacks each value on its own line and is auto-added to the `wrapped` set (seeded from raw
+  `columns`) so the row grows. `labels` prefixes each with its source column's header. Each value reuses its
+  source column's `valueFormatter` (so the combined text uses raw values but the render is formatted — same
+  split as a normal column). The combined value is synthetic, so the column is forced `editable: false` (never
+  inline-editable, even under grid `editMode`). CSS: `.twc-dt__combine` / `--stack` / `-sep` / `-label` (plain
+  literals in DT_CSS — not interpolated, to preserve tree-shaking). Adversarial-review hardening: (a) **diff
+  mode** — the derived valueGetter is now attached to combine columns in the diff `columns` memo *before* the
+  diff renderCell wrap, so `renderDiffCell`'s `getColVal(col, meta.from/to)` yields the combined text for
+  added/removed rows instead of a blank cell; (b) a consumer-supplied `valueGetter` **without** `renderCell`
+  now falls back to the default cell render (renderCell `undefined`) so the shown value matches the
+  sort/filter/export value rather than the auto source-join; (c) `renderCombined` keys items by source index,
+  not field, so a duplicate field in `combine` can't collide. Shared `combineCfg`/`combineSrcCols`/
+  `combineValueGetter` helpers back both the `cols` resolution and the diff wrap. The full-barrel size-limit
+  budget was raised 120→125 kB to absorb the feature (the per-component tree-shaken budgets are unchanged —
+  `combine` lives only in Datatable). 10 tests in `tests/datatable-combine-columns.test.jsx`. — added 2026-08-06
+
 - **[#330 follow-up] And/Or connector is a resizable filter field (fixes truncation)** — the initial #330
   connector used a fixed 68px leading cell, which truncated "And" to "A…". Promoted it to a first-class
   resizable filter field like Column/Operator/Value: it **auto-fits** its content (`--twc-dt-flogic-fit`

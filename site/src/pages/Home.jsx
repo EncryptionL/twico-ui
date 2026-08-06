@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button, Badge, Card, Stack, Grid, Heading, Text, Container, Box, Switch, Avatar, Tag } from "twico-ui";
 import CodeBlock from "../components/CodeBlock.jsx";
 import ErrorBoundary from "../components/ErrorBoundary.jsx";
@@ -22,7 +22,6 @@ const footerLink = { color: "var(--color-text-muted)", fontSize: "var(--text-sm)
 const eyebrow = { textTransform: "uppercase", letterSpacing: "0.08em" };
 
 export default function Home() {
-  const navigate = useNavigate();
   return (
     <Container size="xl">
       {/* Hero */}
@@ -42,8 +41,8 @@ export default function Home() {
         </Box>
 
         <Stack direction="row" gap={3} justify="center" wrap>
-          <Button onClick={() => navigate("/docs/installation")}>Get started</Button>
-          <Button variant="soft" onClick={() => navigate("/components")}>Browse components</Button>
+          <Button as="a" href="#/docs/installation">Get started</Button>
+          <Button as="a" href="#/components" variant="soft">Browse components</Button>
         </Stack>
 
         <Text size="sm" tone="subtle" align="center">
@@ -102,8 +101,8 @@ export default function Home() {
             toggle you see is a component from the library.
           </Text>
           <Stack direction="row" gap={3} justify="center" wrap>
-            <Button onClick={() => navigate("/components")}>Explore the components</Button>
-            <Button variant="outline" aria-label="Star on GitHub (opens in new tab)" rightIcon={<ExternalLinkIcon size={16} />} onClick={() => window.open(REPO_URL, "_blank", "noopener,noreferrer")}>Star on GitHub</Button>
+            <Button as="a" href="#/components">Explore the components</Button>
+            <Button as="a" href={REPO_URL} target="_blank" rel="noopener noreferrer" variant="outline" aria-label="Star on GitHub (opens in new tab)" rightIcon={<ExternalLinkIcon size={16} />}>Star on GitHub</Button>
           </Stack>
         </Stack>
       </Card>

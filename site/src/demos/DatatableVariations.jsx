@@ -1000,6 +1000,74 @@ function ServerSideDemo() {
     render: () => <ToolbarActionsDemo />,
   },
   {
+    title: "Combined columns",
+    description:
+      "Merge several columns' data into one column with `combine`. Twico derives the value so sort, filter, quick-search, and export all operate on the combined text, and the cell reuses each source column's formatter. Here \"Member\" stacks name + email + country on their own lines, and \"Plan\" inlines role · department. Use the array shorthand (`combine: [\"role\", \"department\"]`) or the object form for `layout` / `separator` / `labels`.",
+    code: `const rows = makePeople(6);
+
+<Datatable
+  rowKey={(r) => r.id}
+  rows={rows}
+  columns={[
+    // one column, several fields — each on its own line
+    { field: "member", headerName: "Member", width: 260,
+      combine: { fields: ["name", "email", "country"], layout: "stack" } },
+    // inline shorthand — joined with the default " · " separator
+    { field: "plan", headerName: "Plan", combine: ["role", "department"] },
+    { field: "mrr", headerName: "MRR", type: "number", valueFormatter: usd, aggregation: "sum" },
+  ]}
+/>`,
+    render: () => {
+      const rows = makePeople(6);
+      return (
+        <Datatable
+          rowKey={(r) => r.id}
+          rows={rows}
+          columns={[
+            { field: "member", headerName: "Member", width: 260, combine: { fields: ["name", "email", "country"], layout: "stack" } },
+            { field: "plan", headerName: "Plan", combine: ["role", "department"] },
+            { field: "mrr", headerName: "MRR", type: "number", valueFormatter: usd, aggregation: "sum" },
+          ]}
+        />
+      );
+    },
+  },
+  {
+    title: "User-built combined columns",
+    description:
+      "Set `columnCombining` to let end-users build combined columns themselves — open any column's ⋮ menu and choose \"Combine columns…\" to fold other columns into it (inline or stacked, with optional labels); the merged columns hide and \"Uncombine\" restores them. This demo sets `stateKey`, so your combines persist across a page refresh — combine a few columns, then reload and they're still there.",
+    code: `<Datatable
+  rowKey={(r) => r.id}
+  rows={makePeople(8)}
+  columnCombining              // adds "Combine columns…" to every column's ⋮ menu
+  stateKey="twico-docs-combine-demo"  // persists each user's combines (survives refresh)
+  columns={[
+    { field: "name", headerName: "Name" },
+    { field: "email", headerName: "Email" },
+    { field: "country", headerName: "Country" },
+    { field: "role", headerName: "Role" },
+    { field: "department", headerName: "Department" },
+    { field: "mrr", headerName: "MRR", type: "number", valueFormatter: usd },
+  ]}
+/>`,
+    render: () => (
+      <Datatable
+        rowKey={(r) => r.id}
+        rows={makePeople(8)}
+        columnCombining
+        stateKey="twico-docs-combine-demo"
+        columns={[
+          { field: "name", headerName: "Name" },
+          { field: "email", headerName: "Email" },
+          { field: "country", headerName: "Country" },
+          { field: "role", headerName: "Role" },
+          { field: "department", headerName: "Department" },
+          { field: "mrr", headerName: "MRR", type: "number", valueFormatter: usd },
+        ]}
+      />
+    ),
+  },
+  {
     title: "All props",
     description:
       "Every Datatable-specific prop in one grid — the top-level props plus the full column, row-action, and batch-action contracts. Mutually-exclusive props are shown in their interactive form with a comment pointing at the alternative (serverMode/pivotMode/virtualized are off so client paging, selection, inline + batch editing, row reorder/pin/resize, grouping, aggregation, and CSV/Excel export all stay live). The server-mode props (rowCount, onServerChange, aggregationValues) and the pivot model are passed for completeness — they take effect once serverMode/pivotMode are on.",

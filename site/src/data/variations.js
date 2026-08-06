@@ -688,8 +688,18 @@ export const VARIATIONS = [
   },
   {
     "component": "Datatable",
-    "title": "All props",
+    "title": "Combined columns",
     "i": 11
+  },
+  {
+    "component": "Datatable",
+    "title": "User-built combined columns",
+    "i": 12
+  },
+  {
+    "component": "Datatable",
+    "title": "All props",
+    "i": 13
   },
   {
     "component": "DatePicker",

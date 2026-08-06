@@ -71,6 +71,30 @@ describe("Datatable batch editor (#244)", () => {
     expect(apply).not.toBeDisabled();
   });
 
+  it("#341: the column-name field is resizable (handle on the first row) and the width persists via stateKey", () => {
+    window.localStorage.clear();
+    const { container } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection batchActions={BA} stateKey="dt-be-341" />);
+    selectFirstRow(container);
+    fireEvent.click(editBtn(container));
+    fireEvent.click(document.querySelector(".twc-dt__be-add .twc-sel__trigger"));
+    fireEvent.click(Array.from(document.querySelectorAll('[role="option"]')).find((o) => o.textContent.trim() === "City"));
+    const handle = beRows()[0].querySelector(".twc-dt__be-name .twc-dt__f-rz[aria-label^='Resize column name']");
+    expect(handle).toBeTruthy();
+    fireEvent.keyDown(handle, { key: "End" }); // grow to max → persisted
+    expect(JSON.parse(window.localStorage.getItem("dt-be-341")).batchNameWidth).toBe(260);
+    fireEvent.keyDown(handle, { key: "Enter" }); // reset → cleared
+    expect(JSON.parse(window.localStorage.getItem("dt-be-341")).batchNameWidth).toBeUndefined();
+  });
+
+  it("#341: resizableFilters={false} removes the column-name resize handle", () => {
+    const { container } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection batchActions={BA} resizableFilters={false} />);
+    selectFirstRow(container);
+    fireEvent.click(editBtn(container));
+    fireEvent.click(document.querySelector(".twc-dt__be-add .twc-sel__trigger"));
+    fireEvent.click(Array.from(document.querySelectorAll('[role="option"]')).find((o) => o.textContent.trim() === "City"));
+    expect(beRows()[0].querySelector(".twc-dt__f-rz")).toBeNull();
+  });
+
   it("batchEditFields allow-lists which columns the picker offers", () => {
     const { container } = render(
       <Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection batchActions={BA} batchEditFields={["city"]} />,

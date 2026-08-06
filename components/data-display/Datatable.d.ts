@@ -184,6 +184,12 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  column, or **double-click** that edge to auto-fit the column to its widest visible content
    *  (header + rendered cells), Excel-style. @default false */
   disableColumnResize?: boolean;
+  /** #339: let end-users build their own combined columns at runtime. Adds a **"Combine columns…"** item to
+   *  each column's ⋮ menu that opens an editor to fold other columns' data into that column (they show in its
+   *  cell and their own columns hide); layout (inline/stacked) + labels are configurable, and "Uncombine"
+   *  restores them. The result is the same as a declarative `column.combine` and persists via `stateKey`.
+   *  @default false */
+  columnCombining?: boolean;
   /** Make all columns editable by default (double-click a cell to edit; per-column `editable` overrides). @default false */
   editMode?: boolean;
   /** Called when a cell edit is committed: (updatedRow, originalRow, field). */
@@ -378,6 +384,11 @@ export interface DatatableState {
   /** #304: user-resized sizes of the other toolbar popovers (Columns/Aggregation/Pivot/Batch-edit),
    *  keyed by popover id → `{ w, h }` in px. Absent until a popover is dragged with `resizablePopovers`. */
   popoverSizes?: Record<string, { w?: number; h?: number }>;
+  /** #339: runtime user-defined combined columns (from `columnCombining`), keyed by target field →
+   *  `{ fields:[target, ...sources], layout, separator, labels }`. Absent until the user combines columns. */
+  columnCombine?: Record<string, { fields: string[]; layout?: "inline" | "stack"; separator?: string; labels?: boolean }>;
+  /** #341: user-resized width (px) of the batch-editor's column-name field. Absent until the user drags it. */
+  batchNameWidth?: number;
 }
 
 export interface DatatableColumn<T = any> {
@@ -387,6 +398,18 @@ export interface DatatableColumn<T = any> {
    *  quick-search, grouping, aggregation, the default cell render, and export. Falls back to
    *  `row[field]` when omitted. Inline edits still write to the raw `field`. */
   valueGetter?: (row: T) => unknown;
+  /** #338: merge several other columns' values into this one column — a convenience layer over
+   *  `valueGetter`. Give the source `fields` (or the shorthand `combine: ["a", "b"]`); Twico auto-derives
+   *  the combined value — so sort, filter, quick-search, grouping, aggregation, and export all operate on
+   *  it — and the cell render. `layout: "inline"` (default) joins the values with `separator` (default
+   *  `" · "`) on one line; `"stack"` puts each on its own line and auto-wraps the row. `labels` prefixes
+   *  each value with its source column's header. Note the split: the derived **value** used for
+   *  sort/filter/quick-search/grouping/aggregation/export is the raw source values joined by `separator`
+   *  (label-prefixed when `labels`), while the **cell render** additionally applies each source column's
+   *  `valueFormatter`. The combined value is synthetic, so the column is display-only (never inline-editable).
+   *  Supplying your own `valueGetter` and/or `renderCell` overrides the derived one(s) independently —
+   *  override `valueGetter` alone and the cell shows that value (not the source-join). */
+  combine?: string[] | { fields: string[]; layout?: "inline" | "stack"; separator?: string; labels?: boolean };
   /** Header label. @default field ("Actions" for actions columns) */
   headerName?: string;
   /** Data type. "actions" renders per-row action buttons via getActions. @default "string" */

@@ -5849,6 +5849,13 @@ export const components = [
         "description": "Extend the resize grip + keyboard resize to the Columns, Aggregation, Pivot, and Batch-edit panels (not just Filters), so a wide grid's Columns list can be enlarged. Sizes persist per popover via stateKey. Independent of resizableFilters; defaults true — set false to opt a grid out."
       },
       {
+        "prop": "columnCombining",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Let users build their own combined columns at runtime: each column's ⋮ menu gains \"Combine columns…\" to fold other columns' data into that one (they hide), with inline/stacked layout + labels, and Uncombine to restore. Persists via stateKey."
+      },
+      {
         "prop": "showBatchEdit",
         "type": "boolean",
         "required": false,
@@ -8427,6 +8434,34 @@ export const components = [
         "required": false,
         "default": "false",
         "description": "Renders a fully rounded circular button when true instead of the default squared shape with rounded corners."
+      },
+      {
+        "prop": "as",
+        "type": "\"button\" | \"a\"",
+        "required": false,
+        "default": "\"button\"",
+        "description": "Render as an \"a\" anchor for an icon link (a GitHub/repo icon, external nav) so navigation is a real link, not a button."
+      },
+      {
+        "prop": "href",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Link destination — only used with as=\"a\"; scheme-sanitized (javascript:/data:/vbscript: render without href)."
+      },
+      {
+        "prop": "target",
+        "type": "React.HTMLAttributeAnchorTarget",
+        "required": false,
+        "default": "—",
+        "description": "Anchor target — only used with as=\"a\" (e.g. \"_blank\")."
+      },
+      {
+        "prop": "rel",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Anchor rel — only used with as=\"a\"; pair \"noopener noreferrer\" with target=\"_blank\"."
       },
       {
         "prop": "aria-label",
