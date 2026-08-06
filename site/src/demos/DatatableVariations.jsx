@@ -1035,12 +1035,12 @@ function ServerSideDemo() {
   {
     title: "User-built combined columns",
     description:
-      "Set `columnCombining` to let end-users build combined columns themselves — open any column's ⋮ menu and choose \"Combine columns…\" to fold other columns into it (inline or stacked, with optional labels); the merged columns hide and \"Uncombine\" restores them. Pair with `stateKey` to persist each user's choices.",
+      "Set `columnCombining` to let end-users build combined columns themselves — open any column's ⋮ menu and choose \"Combine columns…\" to fold other columns into it (inline or stacked, with optional labels); the merged columns hide and \"Uncombine\" restores them. This demo sets `stateKey`, so your combines persist across a page refresh — combine a few columns, then reload and they're still there.",
     code: `<Datatable
   rowKey={(r) => r.id}
   rows={makePeople(8)}
   columnCombining              // adds "Combine columns…" to every column's ⋮ menu
-  stateKey="people-grid"       // remembers each user's combined columns
+  stateKey="twico-docs-combine-demo"  // persists each user's combines (survives refresh)
   columns={[
     { field: "name", headerName: "Name" },
     { field: "email", headerName: "Email" },
@@ -1055,6 +1055,7 @@ function ServerSideDemo() {
         rowKey={(r) => r.id}
         rows={makePeople(8)}
         columnCombining
+        stateKey="twico-docs-combine-demo"
         columns={[
           { field: "name", headerName: "Name" },
           { field: "email", headerName: "Email" },
