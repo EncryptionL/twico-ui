@@ -495,6 +495,24 @@ export interface DatatableColumn<T = any> {
   copyType?: string;
   /** Fully custom cell renderer (badges, avatars, etc.). */
   renderCell?: (value: any, row: T) => React.ReactNode;
+  /** #345: per-cell class hook — return a class name applied to the whole cell (`.twc-dt__td`, pinned cells
+   *  included), not just its content. Use for value/row-based tinting (e.g. a "changed" cell) via your own
+   *  stylesheet, without coupling to the internal class name. Because it participates in the CSS cascade, a
+   *  `cellClassName` tint co-exists with the built-in hover/selection/diff backgrounds (a plain class may even
+   *  lose to them by specificity — use a more specific selector, or `cellStyle`, to always win). Prefer this
+   *  over `cellStyle` when those state cues must stay visible on a tinted cell. Called `(value, row)` to match
+   *  `renderCell`/`valueFormatter`. */
+  cellClassName?: (value: any, row: T) => string | undefined;
+  /** #345: per-cell inline-style hook — return a style object applied to the whole cell (`.twc-dt__td`,
+   *  pinned cells included). The simplest way to tint an entire cell from the value/row with no stylesheet.
+   *  Pin positioning **and** stickiness are always preserved (don't set `position`/`inset-*`). Two caveats,
+   *  because an inline style wins over every built-in background: (1) on a **pinned** column the background
+   *  must be **opaque** — a translucent value lets the cells scrolling underneath the sticky cell bleed
+   *  through; composite over the surface, e.g. `color-mix(in srgb, var(--color-danger) 14%, var(--color-surface))`
+   *  rather than `…, transparent`. (2) it also overrides the hover / range-selection / edit-mode / diff
+   *  backgrounds on that cell — use `cellClassName` instead if those cues must remain visible. Called
+   *  `(value, row)` to match `renderCell`/`valueFormatter`. */
+  cellStyle?: (value: any, row: T) => React.CSSProperties | undefined;
   /** Diff-mode (#239) per-column equality override — return true when the two values are equal.
    *  Precedence: column.compare → diff.compare → valueGetter/=== → JSON compare. */
   compare?: (a: any, b: any) => boolean;

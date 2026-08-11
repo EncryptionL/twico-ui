@@ -702,6 +702,11 @@ export const VARIATIONS = [
     "i": 13
   },
   {
+    "component": "Datatable",
+    "title": "Per-cell tint — cellStyle / cellClassName",
+    "i": 14
+  },
+  {
     "component": "DatePicker",
     "title": "With label",
     "i": 0

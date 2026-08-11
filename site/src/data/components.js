@@ -11663,6 +11663,20 @@ export const components = [
         "description": "Alias for render (Datatable vocabulary); render wins when both are set."
       },
       {
+        "prop": "cellClassName (column)",
+        "type": "(value: any, row: T) => string | undefined",
+        "required": false,
+        "default": "—",
+        "description": "Class applied to the whole cell (.twc-dt__td, pinned included) — value/row-based tinting via your own stylesheet; a plain class may lose to the hover/selection background (specificity)."
+      },
+      {
+        "prop": "cellStyle (column)",
+        "type": "(value: any, row: T) => React.CSSProperties | undefined",
+        "required": false,
+        "default": "—",
+        "description": "Inline style applied to the whole cell (.twc-dt__td, pinned included) — the simplest full-cell tint from value/row; wins over hover/selection/diff backgrounds (use cellClassName if those cues must stay visible), pin positioning preserved. On a pinned column keep the background opaque (composite over var(--color-surface))."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,

@@ -657,6 +657,30 @@ function DatatableAllProps() {
   );
 }
 
+// #345: per-cell cellStyle — tint the WHOLE cell (padding included, pinned cells too) from the value/row,
+// no :has() and no stylesheet. Under/over-budget cells get a success/danger wash.
+const BUDGET_ROWS = [
+  { id: 1, dept: "Engineering", budget: 120000, actual: 134000 },
+  { id: 2, dept: "Design", budget: 60000, actual: 52000 },
+  { id: 3, dept: "Sales", budget: 90000, actual: 90000 },
+  { id: 4, dept: "Support", budget: 45000, actual: 61000 },
+].map((r) => ({ ...r, variance: r.actual - r.budget }));
+// Composite over --color-surface (opaque), not transparent — so the tint stays safe even on a pinned column
+// (a translucent background on a sticky cell would let scrolled-under cells bleed through).
+const varianceTint = (v) =>
+  v === 0 ? undefined : { background: `color-mix(in srgb, var(--color-${v > 0 ? "danger" : "success"}) 14%, var(--color-surface))`, fontWeight: 600 };
+function CellHighlightDemo() {
+  const columns = [
+    { field: "dept", headerName: "Department", width: 170, pinned: "left" },
+    { field: "budget", headerName: "Budget", type: "number", width: 150, valueFormatter: usd },
+    { field: "actual", headerName: "Actual", type: "number", width: 150, valueFormatter: usd,
+      cellStyle: (v, row) => varianceTint(row.variance) },
+    { field: "variance", headerName: "Variance", type: "number", width: 150,
+      valueFormatter: (v) => (v > 0 ? "+" : "") + usd(v), cellStyle: (v) => varianceTint(v) },
+  ];
+  return <Datatable columns={columns} rows={BUDGET_ROWS} rowKey={(r) => r.id} pageSize={0} />;
+}
+
 /* ================================================================= variations */
 const variations = [
   {
@@ -1181,6 +1205,37 @@ function ServerSideDemo() {
   );
 }`,
     render: () => <DatatableAllProps />,
+  },
+  {
+    title: "Per-cell tint — cellStyle / cellClassName",
+    description:
+      "Colour the WHOLE cell (padding included, pinned cells too) from the value/row via a column's cellStyle (inline, always wins over hover/selection) or cellClassName (your own class) — no :has() and no coupling to the internal cell class.",
+    code: `// Tint the whole .twc-dt__td from the value/row — no :has(), no stylesheet.
+// cellStyle(value, row) => React.CSSProperties | undefined   (inline — always wins)
+// cellClassName(value, row) => string | undefined            (your class — CSS specificity applies)
+// On a PINNED column the background must be OPAQUE (composite over --color-surface, not transparent),
+// else scrolled-under cells bleed through the sticky cell. cellStyle also overrides the hover/selection
+// backgrounds on that cell — use cellClassName if you need those cues to stay visible.
+const tint = (v) =>
+  v === 0 ? undefined : { background: \`color-mix(in srgb, var(--color-\${v > 0 ? "danger" : "success"}) 14%, var(--color-surface))\`, fontWeight: 600 };
+
+const columns = [
+  { field: "dept", headerName: "Department", pinned: "left" },
+  { field: "budget", headerName: "Budget", type: "number", valueFormatter: usd },
+  {
+    field: "actual", headerName: "Actual", type: "number", valueFormatter: usd,
+    cellStyle: (value, row) => tint(row.variance),   // over budget → red wash, under → green
+  },
+  {
+    field: "variance", headerName: "Variance", type: "number",
+    valueFormatter: (v) => (v > 0 ? "+" : "") + usd(v),
+    cellStyle: (value) => tint(value),
+    // or, class-based: cellClassName: (value) => (value > 0 ? "over-budget" : undefined),
+  },
+];
+
+<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} pageSize={0} />`,
+    render: () => <CellHighlightDemo />,
   },
 ];
 

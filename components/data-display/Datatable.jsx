@@ -2986,15 +2986,19 @@ export function Datatable({
           const display = c.valueFormatter ? c.valueFormatter(val, row) : val;
           const cellTitle = !isActions && !c.renderCell && !isEditing && (typeof display === "string" || typeof display === "number")
             ? String(display) : undefined;
+          // #345: per-cell class/style hooks — colour the whole cell (.twc-dt__td, pinned cells included)
+          // from the value/row, not just its content. Called (value, row) to match renderCell/valueFormatter.
+          const cellClass = c.cellClassName ? c.cellClassName(val, row) : undefined;
+          const cellSty = c.cellStyle ? c.cellStyle(val, row) : undefined;
           return (
-            <td key={c.field} id={cellId} className="twc-dt__td" role="gridcell" data-r={ri} data-c={ci} aria-colindex={ci + 1 + (checkboxSelection ? 1 : 0)}
+            <td key={c.field} id={cellId} className={cellClass ? `twc-dt__td ${cellClass}` : "twc-dt__td"} role="gridcell" data-r={ri} data-c={ci} aria-colindex={ci + 1 + (checkboxSelection ? 1 : 0)}
               tabIndex={focus.r === ri && focus.c === ci ? 0 : -1}
               aria-selected={cellSelected || undefined}
               data-num={c.type === "number" || undefined} data-actions={isActions || undefined}
               data-editable={editable && !isEditing || undefined} data-editing={isEditing || undefined}
               data-cell-active={cellActive || undefined} data-cell-selected={cellSelected || undefined} data-copied={cellFlash || undefined} data-wrap={effectiveWrapped.has(c.field) || undefined}
               data-pin={st.pin} data-pin-edge={st.edge}
-              style={{ width: widthOf(c), ...st.style }} data-ovtext={cellTitle}
+              style={{ width: widthOf(c), ...cellSty, ...st.style, ...(st.pin ? { position: "sticky", zIndex: 2 } : null) }} data-ovtext={cellTitle}
               onClick={selectionMode === "cell" ? (e) => handleCellClick(e, k, row, c) : undefined}
               onFocus={() => setFocus((f) => (f.r === ri && f.c === ci ? f : { r: ri, c: ci }))}
               onDoubleClick={editable ? () => beginEdit(k, c, row) : undefined}>
