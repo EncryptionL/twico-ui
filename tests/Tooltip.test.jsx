@@ -1,7 +1,12 @@
 import React from "react";
 import { describe, it, expect } from "vitest";
 import { render, fireEvent, act } from "@testing-library/react";
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 import { Tooltip } from "../components/overlay/Tooltip.jsx";
+
+const TIP_SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "components", "overlay", "Tooltip.jsx");
 
 // jsdom performs no layout (getBoundingClientRect/offsetWidth are 0), so stub the trigger
 // rect and the measured bubble box to exercise place()'s clamp + dynamic-arrow math.
@@ -54,6 +59,19 @@ describe("Tooltip width + dynamic arrow", () => {
       expect(style).toMatch(/left:\s*892px/);
       expect(style).toMatch(/--_tw-arrow-x:\s*178px/);
     } finally { restore(); }
+  });
+
+  it("#348: bubble never intercepts the pointer (pointer-events:none, no self-sustain handler)", () => {
+    render(<Tooltip label="hi"><button>x</button></Tooltip>);
+    // The fix: the base rule disables hit-testing so neither a hidden nor a shown bubble blocks
+    // neighbouring cells/buttons; and there is NO data-show rule that re-enables pointer-events.
+    const css = Array.from(document.querySelectorAll("style")).map((s) => s.textContent || "").join("\n");
+    expect(css).toMatch(/\.twc-tooltip\s*\{[^}]*pointer-events:\s*none/);
+    expect(css).not.toMatch(/\.twc-tooltip\[data-show="true"\]\s*\{[^}]*pointer-events/);
+    // The now-dead self-sustaining handler (bubble onMouseEnter=cancelClose) is removed entirely
+    // (with pointer-events:none the pointer can never reach the bubble, so it would never fire).
+    const src = readFileSync(TIP_SRC, "utf8");
+    expect(src).not.toContain("cancelClose");
   });
 
   it("centres the arrow when the trigger is not near an edge", async () => {

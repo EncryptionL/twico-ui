@@ -37,8 +37,10 @@ trigger so the arrow always points at it. Both fall back to `50%` before the fir
 
 ## A11y
 
-`role="tooltip"` + `aria-describedby` wiring on the trigger; **Escape** dismisses (WCAG 1.4.13); a
-short close grace lets the pointer travel from the trigger onto the (hoverable) bubble (#114).
+`role="tooltip"` + `aria-describedby` wiring on the trigger; **Escape** dismisses (WCAG 1.4.13). The
+bubble is `pointer-events: none` (#348) — purely presentational, it never intercepts the pointer, so it
+can't block neighbouring cells/buttons or self-sustain its own hover (use `Popover` for interactive
+content). A short close grace still smooths flicker on a brief pointer exit of the trigger.
 `prefers-reduced-motion` drops the scale/translate animation.
 
 ## Verification
