@@ -10,6 +10,14 @@
 
 ## Enhancements
 
+- **[#342] `disabled` fully suppresses the clear ✕** — the clear "✕" render condition
+  (`clearable && selected && !open`) lacked a `!disabled` term, so a disabled Combobox still rendered a
+  clickable clear that fired `onChange(null)` — a disabled (read-only) control could be value-wiped
+  (`.twc-cb__control[data-disabled]` sets only opacity, no `pointer-events: none`). Added `!disabled` to the
+  render (matching Select/DatePicker) **and** a `if (disabled) return;` sink guard at the top of `commit()`,
+  so no path (clear ✕, Backspace-to-clear) mutates value while disabled. Tests in
+  `tests/disabled-clear-affordance.test.jsx`. — fixed 2026-08-11
+
 - **[#326] Richer options — `renderOption` + option `icon`/`hint`** — the shared `Option` type gains optional
   `icon` (leading node, rendered in `.twc-opt__icon`) and `hint` (trailing muted node in `.twc-opt__hint`, e.g.
   a shortcut/count) for a lift with no custom render. For full control, `renderOption(option, { selected, active })

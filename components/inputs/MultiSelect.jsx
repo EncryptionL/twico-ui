@@ -36,6 +36,7 @@ const MULTI_CSS = `
   background: var(--_accent-subtle); color: var(--_accent-subtle-fg);
   border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: var(--font-semibold);
 }
+.twc-ms__control[data-disabled="true"] .twc-ms__chip { padding-inline-end: 9px; } /* #342: no ✕ → symmetric pad */
 .twc-ms__chip-x { display: inline-grid; place-items: center; width: 16px; height: 16px; border: none; padding: 0; background: transparent; color: inherit; cursor: pointer; border-radius: var(--radius-full); opacity: 0.7; }
 .twc-ms__chip-x:hover { opacity: 1; background: color-mix(in srgb, currentColor 18%, transparent); }
 .twc-ms__chip-x svg { width: 12px; height: 12px; }
@@ -242,6 +243,7 @@ export function MultiSelect({
   }, [active, open, virtualized, rows, listH]);
 
   function commit(next) {
+    if (disabled) return; // #342: a disabled control must never clear/change its value
     if (value === undefined) setInternal(next);
     onChange?.(next);
   }
@@ -365,9 +367,12 @@ export function MultiSelect({
           {(maxTagCount != null ? selectedOpts.slice(0, maxTagCount) : selectedOpts).map((o) => (
             <span className="twc-ms__chip" key={o.value}>
               {o.label}
-              <button type="button" tabIndex={-1} className="twc-ms__chip-x" aria-label={`Remove ${o.label}`} onClick={(e) => { e.stopPropagation(); toggle(o.value); }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-              </button>
+              {/* #342: no per-chip remove ✕ on a disabled control (read-only) */}
+              {!disabled ? (
+                <button type="button" tabIndex={-1} className="twc-ms__chip-x" aria-label={`Remove ${o.label}`} onClick={(e) => { e.stopPropagation(); toggle(o.value); }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                </button>
+              ) : null}
             </span>
           ))}
           {maxTagCount != null && selectedOpts.length > maxTagCount ? (
@@ -386,7 +391,7 @@ export function MultiSelect({
             </button>
           ) : null}
           <button type="button" className="twc-ms__chev" aria-label="Toggle" tabIndex={-1}
-                  onClick={(e) => { e.stopPropagation(); setOpen((o) => !o); inputRef.current?.focus(); }}>
+                  onClick={(e) => { e.stopPropagation(); if (!disabled) { setOpen((o) => !o); inputRef.current?.focus(); } }}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </button>
         </div>

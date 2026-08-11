@@ -10,6 +10,15 @@ None identified.
 
 ## Enhancements
 
+- **[#342] `disabled` suppresses per-chip remove + popover open** — only the main "Clear all" ✕ guarded
+  `!disabled`; the **per-chip remove ✕** and the **chevron** did not, so a disabled MultiSelect still let you
+  remove chips and — via the chevron, which called `setOpen` directly (unlike the `!disabled`-guarded control
+  body) — open the popover to add/remove options, all firing `onChange`. Now the per-chip ✕ isn't rendered
+  when disabled (symmetric chip padding restored via `.twc-ms__control[data-disabled="true"] .twc-ms__chip`),
+  the chevron onClick is `!disabled`-guarded (no open), and `commit()` early-returns on `disabled` as a sink
+  guard covering every path (chip ✕, option toggle, Backspace, Clear-all). Tests in
+  `tests/disabled-clear-affordance.test.jsx`. — fixed 2026-08-11
+
 - **[#326] Richer options — `renderOption` + option `icon`/`hint`** — options may add `icon` (leading, in
   `.twc-opt__icon`) and `hint` (trailing muted, in `.twc-opt__hint`); `renderOption(option, { selected, active })
   => node` replaces the row body while twico keeps the `.twc-opt` chrome **including the selection checkbox**

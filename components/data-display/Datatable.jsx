@@ -2324,6 +2324,10 @@ export function Datatable({
     if (el) el.focus();
   }
   function onGridKeyDown(e) {
+    // #343: never hijack keys (clipboard Ctrl/Cmd+C/X/V, Arrow/Home/End nav) from a focused editable
+    // target inside a cell — e.g. an <input>/<select>/<textarea> in a custom renderCell. Mirrors the
+    // editable-target guard in handleCellClick/handleRowClick so typing/selection there stays native.
+    if (e.target.closest("input, textarea, select, [contenteditable='true']")) return;
     if (editing) return;
     const td = e.target.closest(".twc-dt__td[data-r]");
     if (!td) return;

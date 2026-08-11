@@ -8,6 +8,15 @@
 
 None identified.
 
+## Enhancements
+
+- **[#342] `disabled` suppresses the per-file remove ✕** — the per-file remove "✕" (and its `remove()` sink)
+  had no `disabled` guard, so a disabled FileUpload holding files (via `value`/`defaultValue`) still let each
+  file be removed one-by-one, firing `onChange` — bypassing the read-only intent (all add/drop paths were
+  already `!disabled`-guarded; only the remove path leaked). The ✕ is no longer rendered when disabled (the
+  files stay listed, read-only) and `remove()` early-returns on `disabled`. Tests in
+  `tests/disabled-clear-affordance.test.jsx`. — fixed 2026-08-11
+
 ## Verified OK
 
 - Controlled/uncontrolled file list (value/defaultValue/onChange)
