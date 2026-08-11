@@ -1930,6 +1930,8 @@ Props:
 - `field (column)` — `string` — Alias for key (Datatable vocabulary); key wins when both are set.
 - `headerName (column)` — `React.ReactNode` — Alias for header (Datatable vocabulary); header wins when both are set.
 - `renderCell (column)` — `(value: any, row: T, index: number) => React.ReactNode` — Alias for render (Datatable vocabulary); render wins when both are set.
+- `cellClassName (column)` — `(value: any, row: T) => string | undefined` — Class applied to the whole cell (.twc-dt__td, pinned included) — value/row-based tinting via your own stylesheet; a plain class may lose to the hover/selection background (specificity).
+- `cellStyle (column)` — `(value: any, row: T) => React.CSSProperties | undefined` — Inline style applied to the whole cell (.twc-dt__td, pinned included) — the simplest full-cell tint from value/row; wins over hover/selection/diff backgrounds (use cellClassName if those cues must stay visible), pin positioning preserved. On a pinned column keep the background opaque (composite over var(--color-surface)).
 
 ```jsx
 import { Table } from "twico-ui";

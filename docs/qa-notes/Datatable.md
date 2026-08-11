@@ -12,6 +12,27 @@
 
 ## Enhancements
 
+- **[#345] Per-cell `cellClassName` / `cellStyle` hooks on `DatatableColumn`** — `renderCell` only styles a
+  cell's *content* (which sits inside the cell padding), so tinting the whole `.twc-dt__td` from the row/value
+  previously required a `:has([data-marker])` rule coupled to the internal class. Added two column hooks applied
+  to the single data-cell render (`Datatable.jsx` ~2990), so **pinned cells are covered automatically** (pinning
+  is `data-pin` on the same `<td>`): `cellClassName(value, row) => string | undefined` (class-based; CSS
+  specificity applies, so a plain class can lose to the hover/selection background) and
+  `cellStyle(value, row) => React.CSSProperties | undefined` (inline; wins over hover/selection/diff
+  backgrounds — the simplest full-cell tint, no stylesheet). Args are `(value, row)` to match
+  `renderCell`/`valueFormatter`; the user style is spread **before** the pin `inset-inline-*`, and for pinned
+  body cells `position: sticky; z-index: 2` is re-asserted **after** it, so pin offset **and** stickiness are
+  preserved even against a misused `cellStyle`. Both are `undefined`/no-op when the column omits them.
+  **Adversarial-review caveats (documented, not bugs — inherent to "inline wins"):** (1) on a **pinned**
+  column a `cellStyle` background must be **opaque** (composite over `var(--color-surface)`, not `transparent`)
+  or the sticky cell bleeds through on horizontal scroll — the #242 defect, now reachable via the public prop;
+  the shipped demo uses an opaque composite. (2) an inline `cellStyle` background also overrides that cell's
+  hover / range-selection / edit-mode / diff background — use `cellClassName` (cascade-friendly) when those
+  cues must stay visible. Both are called out in the `cellStyle` JSDoc. 8 tests in
+  `tests/datatable-cell-style.test.jsx` (class, inline style, `(value,row)` args, left-pin, **right-pin**
+  `insetInlineEnd`+re-asserted stickiness, **diff-mode**, no-hooks, invocation); site variation "Per-cell tint"
+  (`DatatableVariations.jsx`, opaque cellStyle budget-variance demo). — added 2026-08-11
+
 - **[#343] `onGridKeyDown` ignores keys from editable targets in cells** — with `selectionMode="cell"` +
   `enableClipboard`, the grid's keydown handler captured Ctrl/Cmd+C/X/V and Arrow/Home/End even when a
   focused `<input>`/`<select>`/`<textarea>`/`[contenteditable]` inside a cell (e.g. an `<Input>` in a custom
