@@ -240,6 +240,7 @@ export function Combobox({
   function openMenu() { if (disabled) return; setQuery(""); setOpen(true); }
   function close() { setOpen(false); setQuery(""); }
   function commit(v) {
+    if (disabled) return; // #342: a disabled control must never clear/change its value
     const o = flat.find((x) => x.value === v);
     if (o && o.disabled) return; // #90
     if (value === undefined) setInternal(v);
@@ -364,7 +365,7 @@ export function Combobox({
             onKeyDown={(e) => { onKeyDown?.(e); if (!e.defaultPrevented) handleKeyDown(e); }}
             {...rest}
           />
-          {clearable && selected && !open ? (
+          {clearable && selected && !open && !disabled ? (
             <button type="button" className="twc-cb__clear" aria-label="Clear" onClick={(e) => { e.stopPropagation(); commit(null); }}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
             </button>

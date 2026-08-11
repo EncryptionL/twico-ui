@@ -12,6 +12,15 @@
 
 ## Enhancements
 
+- **[#343] `onGridKeyDown` ignores keys from editable targets in cells** — with `selectionMode="cell"` +
+  `enableClipboard`, the grid's keydown handler captured Ctrl/Cmd+C/X/V and Arrow/Home/End even when a
+  focused `<input>`/`<select>`/`<textarea>`/`[contenteditable]` inside a cell (e.g. an `<Input>` in a custom
+  `renderCell`) had focus — hijacking copy/paste and caret movement from the field. Added an editable-target
+  guard (`if (e.target.closest("input, textarea, select, [contenteditable='true']")) return;`) at the top of
+  `onGridKeyDown`, mirroring the guard already in `handleCellClick`/`handleRowClick`. Scoped to editable
+  targets so action buttons/links inside cells stay grid-navigable. Tests in
+  `tests/datatable-editable-target-guard.test.jsx`. — fixed 2026-08-11
+
 - **[#341] Batch-editor column-name field is drag-resizable** — the batch editor's clause column-name label
   (`.twc-dt__be-name`) was a fixed 108px and truncated long headers (e.g. "MLM ID (Material…)"). It's now a
   resizable field like the filter column field: `clamp(88px, var(--twc-dt-be-name-usr, 108px), min(260px, 100% - 160px))`

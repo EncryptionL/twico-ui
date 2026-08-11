@@ -122,7 +122,7 @@ export function FileUpload({
     if (multiple) { if (accepted.length) set([...retained, ...accepted]); }
     else if (accepted.length) set(accepted.slice(0, 1));
   }
-  function remove(i) { set(files.filter((_, idx) => idx !== i)); }
+  function remove(i) { if (disabled) return; set(files.filter((_, idx) => idx !== i)); } // #342: disabled must not remove
 
   return (
     <div className={`twc-upload ${className}`} data-size={size} {...rest}>
@@ -165,9 +165,12 @@ export function FileUpload({
                 <span className="twc-upload__file-name">{f.name}</span>
                 <span className="twc-upload__file-size">{fmtSize(f.size)}</span>
               </span>
-              <button className="twc-upload__file-x" aria-label={`Remove ${f.name}`} onClick={() => remove(i)} type="button">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-              </button>
+              {/* #342: no remove ✕ on a disabled control (read-only) */}
+              {!disabled ? (
+                <button className="twc-upload__file-x" aria-label={`Remove ${f.name}`} onClick={() => remove(i)} type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                </button>
+              ) : null}
             </div>
           ))}
         </div>
