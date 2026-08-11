@@ -6,6 +6,9 @@ const TOOLTIP_CSS = `
 .twc-tooltip-wrap { display: inline-flex; }
 .twc-tooltip {
   position: fixed; z-index: var(--z-tooltip);
+  /* #348: purely presentational — the bubble must NEVER intercept the pointer, so neither a hidden
+     (opacity:0) nor a shown bubble can block neighbouring cells/buttons (matches MUI/Radix tooltips). */
+  pointer-events: none;
   padding: 6px 10px; border-radius: var(--radius-md);
   background: var(--color-text); color: var(--color-surface);
   font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-medium);
@@ -17,7 +20,6 @@ const TOOLTIP_CSS = `
   width: max-content; max-width: var(--_tw-maxw, 320px); box-shadow: var(--shadow-md);
   opacity: 0; transform: scale(0.9); transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-spring);
 }
-.twc-tooltip[data-show="true"] { pointer-events: auto; }
 .twc-tooltip[data-show="true"] { opacity: 1; transform: scale(1); }
 .twc-tooltip[data-place="top"]    { transform-origin: bottom center; translate: -50% 0; }
 .twc-tooltip[data-place="bottom"] { transform-origin: top center; translate: -50% 0; }
@@ -61,9 +63,9 @@ export function Tooltip({
   const wrapRef = React.useRef(null);
   const tipRef = React.useRef(null);
   const open = () => { clearTimeout(closeTimer.current); clearTimeout(timer.current); timer.current = setTimeout(() => setShowU(true), delay); };
-  // #114: a short close grace so the pointer can travel from the trigger to the (now hoverable) bubble.
+  // A short close grace smooths flicker on a brief pointer exit/re-entry of the trigger. (#348: the
+  // bubble is pointer-events:none, so there's no longer a "travel onto the hoverable bubble" case.)
   const close = () => { clearTimeout(timer.current); clearTimeout(closeTimer.current); closeTimer.current = setTimeout(() => setShowU(false), 120); };
-  const cancelClose = () => { clearTimeout(closeTimer.current); };
   // Clear any pending timers if the component unmounts before they fire.
   React.useEffect(() => () => { clearTimeout(timer.current); clearTimeout(closeTimer.current); }, []);
 
@@ -124,8 +126,8 @@ export function Tooltip({
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [show, anchored]);
 
-  // The portaled bubble — identical in both modes. Anchored mode drops the pointer handlers (the
-  // parent drives visibility) and only renders once an `anchor` is present.
+  // The portaled bubble — identical in both modes. It's pointer-events:none (#348), so it never
+  // catches the mouse (no self-sustaining hover); anchored mode also only renders once `anchor` is present.
   const bubble = coords && (!anchored || anchor) ? createPortal(
     <span
       ref={tipRef}
@@ -135,8 +137,6 @@ export function Tooltip({
       data-show={show || undefined}
       role="tooltip"
       aria-hidden={show ? undefined : "true"}
-      onMouseEnter={anchored ? undefined : cancelClose}
-      onMouseLeave={anchored ? undefined : close}
       style={{
         position: "fixed", left: coords.left, right: coords.right, top: coords.top, bottom: coords.bottom,
         "--_tw-arrow-x": coords.arrowX != null ? `${coords.arrowX}px` : undefined,

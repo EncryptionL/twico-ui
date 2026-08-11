@@ -19,6 +19,16 @@
   `--z-tooltip` (now below toast), and the 7 dropdown portals moved to `--z-floating` (above toast, so a toast
   never covers an open dropdown either). Guarded by `tests/z-index-stacking.test.js`. — fixed 2026-07-29
 
+- [x] **[#348] Hidden bubble captured pointer events, blocking neighbouring cells/buttons** — the base
+  `.twc-tooltip` rule set no `pointer-events`, and `[data-show="true"]` set `pointer-events: auto`, so every
+  tooltip left an invisible (`opacity:0`) but hit-testable `position:fixed` rectangle over the page — and a
+  shown bubble covering a neighbour self-sustained via `onMouseEnter=cancelClose`. In dense UIs (Datatable
+  cells, rows of `IconButton`s) these stole hover/click from adjacent elements (hovering cell A popped cell
+  B's tooltip). _Fix:_ `pointer-events: none` on the base rule + dropped the `[data-show="true"]`
+  `pointer-events: auto` override; the bubble's now-dead `onMouseEnter`/`onMouseLeave` (`cancelClose`/`close`)
+  handlers removed. A tooltip is purely presentational (use `Popover` for interactive content), matching
+  MUI/Radix. Guarded by `tests/Tooltip.test.jsx` (CSS + source). — ✓ fixed 2026-08-11
+
 ## Verified OK
 
 - Portaled to `document.body` with fixed positioning, so it is never clipped by an overflow/scroll ancestor (`Tooltip.jsx:108`, `Tooltip.jsx:52-54`).
