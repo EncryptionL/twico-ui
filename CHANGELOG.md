@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.33.0](https://github.com/EncryptionL/twico-ui/compare/v1.32.1...v1.33.0) (2026-08-11)
+
+
+### Features
+
+* **datatable:** per-cell cellClassName/cellStyle hooks on DatatableColumn ([ac58410](https://github.com/EncryptionL/twico-ui/commit/ac58410109b9a67ed7cb78717a3a98a8b8639cb1)), closes [#242](https://github.com/EncryptionL/twico-ui/issues/242) [#345](https://github.com/EncryptionL/twico-ui/issues/345)
+
 ## [1.32.1](https://github.com/EncryptionL/twico-ui/compare/v1.32.0...v1.32.1) (2026-08-11)
 
 
