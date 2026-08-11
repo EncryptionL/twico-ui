@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.33.1](https://github.com/EncryptionL/twico-ui/compare/v1.33.0...v1.33.1) (2026-08-11)
+
+
+### Bug Fixes
+
+* **tooltip:** make the bubble non-interactive so it never blocks neighbours ([b4b197a](https://github.com/EncryptionL/twico-ui/commit/b4b197a60f1df64eb357939f7e5098d3022c56cd)), closes [#348](https://github.com/EncryptionL/twico-ui/issues/348)
+
 # [1.33.0](https://github.com/EncryptionL/twico-ui/compare/v1.32.1...v1.33.0) (2026-08-11)
 
 
