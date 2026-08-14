@@ -233,15 +233,16 @@ export function Slider({
                   <input
                     className="twc-slider__input"
                     type="text"
-                    inputMode="decimal"
+                    inputMode={min < 0 ? "text" : "decimal"}
                     size={inputSize}
                     value={typed[i] != null ? typed[i] : String(clampedVals[i])}
                     disabled={disabled || undefined}
-                    aria-label={isRange ? (i === 0 ? "Minimum value" : "Maximum value") : (label || "Value")}
+                    aria-labelledby={isRange ? undefined : labelId}
+                    aria-label={isRange ? (i === 0 ? "Minimum value" : "Maximum value") : (labelId ? undefined : "Value")}
                     onChange={(e) => setTyped((t) => ({ ...t, [i]: e.target.value }))}
                     onBlur={() => commitInput(i)}
                     onKeyDown={(e) => {
-                      if (e.key === "Enter") { e.preventDefault(); commitInput(i); }
+                      if (e.key === "Enter") { if (typed[i] != null) { e.preventDefault(); commitInput(i); } } // let a clean input submit its form
                       else if (e.key === "ArrowUp") { e.preventDefault(); stepInput(i, 1); }
                       else if (e.key === "ArrowDown") { e.preventDefault(); stepInput(i, -1); }
                     }}

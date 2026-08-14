@@ -18,8 +18,11 @@
   mid-keystroke); commits on blur/Enter through the shared `setThumb` (clamp → snap to `step` → cross-clamp
   `start ≤ end` → `commit`), ArrowUp/Down step, and a blank/invalid entry reverts. Shows the RAW number (not
   `formatValue`, which could be non-parseable like `"$200"`). Name-based form submission still uses the
-  existing hidden inputs (the editable inputs are UI-only). 6 tests in `tests/Slider.test.jsx`; site
-  variations "Dual-thumb range" + "Editable — type an exact value". — added 2026-08-14
+  existing hidden inputs (the editable inputs are UI-only). Adversarial-review hardening: single-mode inputs
+  use `aria-labelledby` (not `aria-label`) so a ReactNode `label` isn't stringified to `[object Object]`;
+  `inputMode` falls back to `"text"` when `min < 0` so mobile keyboards expose a minus; and Enter only
+  `preventDefault`s when there's an uncommitted edit, so a clean input still submits its form. 9 tests in
+  `tests/Slider.test.jsx`; site variations "Dual-thumb range" + "Editable — type an exact value". — added 2026-08-14
 
 ## Verified OK
 

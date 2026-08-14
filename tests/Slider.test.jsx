@@ -151,4 +151,30 @@ describe("Slider editable inputs (#351)", () => {
     fireEvent.blur(inputs[0]);
     expect(onChange).toHaveBeenLastCalledWith([60, 60]); // cross-clamped to the upper thumb
   });
+
+  it("disabled makes the editable inputs disabled", () => {
+    const { container } = render(<Slider editable disabled value={40} onChange={() => {}} />);
+    expect(container.querySelector(".twc-slider__input").disabled).toBe(true);
+  });
+
+  it("without editable, no numeric input renders (value span instead)", () => {
+    const { container } = render(<Slider value={40} onChange={() => {}} />);
+    expect(container.querySelector(".twc-slider__input")).toBeNull();
+    expect(container.querySelector(".twc-slider__value")).toBeTruthy();
+  });
+
+  it("with name, form submission carries the committed value, not the partial typed string", () => {
+    const { container } = render(<form><Slider editable name="vol" value={30} onChange={() => {}} /></form>);
+    const input = container.querySelector(".twc-slider__input");
+    fireEvent.change(input, { target: { value: "7" } }); // typed but not committed
+    expect(new FormData(container.querySelector("form")).get("vol")).toBe("30");
+    expect(input.getAttribute("name")).toBeNull(); // the editable input is UI-only (no name)
+  });
+
+  it("uses aria-labelledby (not a stringified node) when label is a ReactNode", () => {
+    const { container } = render(<Slider editable label={<span>Volume</span>} value={40} onChange={() => {}} />);
+    const input = container.querySelector(".twc-slider__input");
+    expect(input.getAttribute("aria-label")).toBeNull();       // never "[object Object]"
+    expect(input.getAttribute("aria-labelledby")).toBeTruthy(); // points at the rendered <label>
+  });
 });
