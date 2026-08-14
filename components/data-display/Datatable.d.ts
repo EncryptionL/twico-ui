@@ -303,6 +303,15 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   overscan?: number;
   /** Estimated row height in px, used only for rows not yet measured (they refine to their real height once scrolled into view). Defaults to the density preset (compact 36 / standard 44 / comfortable 56). Set this to your typical row height for the best first-paint estimate. */
   rowHeight?: number;
+  /** #350 (first pass): expandable/collapsible rows. Return the detail panel to render below `row` when it is
+   *  expanded, or `null`/`undefined` to make that row non-expandable (no chevron). Supplying this function
+   *  enables a leading chevron column and a full-width detail `<tr>` under each expanded row. Not yet
+   *  supported with `virtualized` (the detail row's height isn't measured by the windowing math). */
+  renderRowDetail?: (row: T) => React.ReactNode;
+  /** Controlled set of expanded row keys (values from `rowKey`). Omit for uncontrolled (internal) expansion. */
+  expandedRowIds?: Array<string | number>;
+  /** Fires with the next full array of expanded row keys whenever a row is expanded or collapsed. */
+  onExpandedRowsChange?: (ids: Array<string | number>) => void;
 }
 
 /** String-column filter operators (Datatable server mode). */

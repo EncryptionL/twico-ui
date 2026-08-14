@@ -1201,6 +1201,7 @@ Props:
 - `disabled` — `boolean` · default `false` — Disables dragging and keyboard input while dimming the slider to show it is currently inactive.
 - `showValue` — `boolean` · default `true` — Displays the current value at the top-right above the track when true (the default), for an always-visible readout.
 - `showTicks` — `boolean` · default `false` — Renders step ticks along the rail when enabled, helping users see and snap to discrete increments.
+- `editable` — `boolean` · default `false` — Show numeric input(s) in the header so users can type an exact value (two in range mode), synced with the thumbs; typed entry commits on blur/Enter (ArrowUp/Down step) and is clamped, snapped, and cross-clamped.
 - `formatValue` — `(value: number) => React.ReactNode` — Formats the displayed value in the label and drag bubble, useful for adding units, currency, or custom text.
 - `range` — `boolean` · default `false` — Enable dual-thumb range mode (also auto-enabled by a [number, number] value/defaultValue); onChange then emits a [min, max] tuple.
 - `pageStep` — `number` · default `Math.max(step, (max-min)/10)` — Large-step increment for PageUp/PageDown keys; defaults to ~10% of the range.
@@ -1614,6 +1615,9 @@ Props:
 - `rowPinning` — `boolean` · default `false` — Allows users to pin rows to the top or bottom so they stay visible while scrolling; off by default.
 - `rowReorder` — `boolean` · default `false` — Enables drag-and-drop reordering of rows so users can change their sequence; off by default.
 - `rowResize` — `boolean` · default `false` — Allows users to drag row edges to adjust individual row heights; off by default.
+- `renderRowDetail` — `(row: T) => React.ReactNode` — Expandable rows: return a detail panel to show under an expanded row (null ⇒ that row isn't expandable). Adds a leading chevron column + a full-width detail row. Not yet supported with virtualized.
+- `expandedRowIds` — `Array<string | number>` — Controlled set of expanded row keys (from rowKey). Omit for uncontrolled expansion; pair with onExpandedRowsChange to control it.
+- `onExpandedRowsChange` — `(ids: Array<string | number>) => void` — Fires with the next full array of expanded row keys whenever a row's detail panel is expanded or collapsed.
 - `onRowOrderChange` — `(keys)=>void` · default `-` — Fires with the new array of row keys after a drag reorder, letting you persist the updated order.
 - `pivot` — `object|null` · default `null` — Supplies the initial pivot model defining row, column, and value fields for cross-tabulated analysis; null by default.
 - `pivotMode` — `boolean` · default `false` — Renders the grid in pivot view from the start instead of the flat table layout; off by default.

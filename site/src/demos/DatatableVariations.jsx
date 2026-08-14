@@ -681,6 +681,36 @@ function CellHighlightDemo() {
   return <Datatable columns={columns} rows={BUDGET_ROWS} rowKey={(r) => r.id} pageSize={0} />;
 }
 
+// #350: expandable/collapsible rows — renderRowDetail(row) returns the panel shown beneath an expanded row.
+const DETAIL_PEOPLE = makePeople(6);
+function RowDetailDemo() {
+  const columns = [
+    { field: "name", headerName: "Name", width: 200 },
+    { field: "role", headerName: "Role", width: 130, renderCell: (v) => <Badge variant="soft" size="sm" tone="neutral">{v}</Badge> },
+    { field: "department", headerName: "Department", width: 160 },
+    { field: "seats", headerName: "Seats", type: "number", width: 110 },
+  ];
+  const field = (label, value) => (
+    <div><Text size="sm" tone="muted">{label}</Text><Text size="sm">{value}</Text></div>
+  );
+  return (
+    <Datatable
+      columns={columns}
+      rows={DETAIL_PEOPLE}
+      rowKey={(r) => r.id}
+      pageSize={0}
+      renderRowDetail={(row) => (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--space-4)" }}>
+          {field("Email", row.email)}
+          {field("Country", row.country)}
+          {field("Status", row.status)}
+          {field("Start date", row.startDate)}
+        </div>
+      )}
+    />
+  );
+}
+
 /* ================================================================= variations */
 const variations = [
   {
@@ -1236,6 +1266,34 @@ const columns = [
 
 <Datatable columns={columns} rows={rows} rowKey={(r) => r.id} pageSize={0} />`,
     render: () => <CellHighlightDemo />,
+  },
+  {
+    title: "Expandable / collapsible rows",
+    description:
+      "Give each row an expand chevron that reveals a full-width detail panel via renderRowDetail(row). Return null for a row to make it non-expandable. Expansion is uncontrolled by default; pass expandedRowIds + onExpandedRowsChange to control it. (First pass — not yet supported with virtualized.)",
+    code: `// renderRowDetail(row) => ReactNode  (return null ⇒ that row isn't expandable)
+// Adds a leading chevron column + a full-width detail <tr> under each expanded row.
+const columns = [
+  { field: "name", headerName: "Name" },
+  { field: "role", headerName: "Role" },
+  { field: "department", headerName: "Department" },
+  { field: "seats", headerName: "Seats", type: "number" },
+];
+
+<Datatable
+  columns={columns}
+  rows={rows}
+  rowKey={(r) => r.id}
+  renderRowDetail={(row) => (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--space-4)" }}>
+      <div><Text size="sm" tone="muted">Email</Text><Text size="sm">{row.email}</Text></div>
+      <div><Text size="sm" tone="muted">Country</Text><Text size="sm">{row.country}</Text></div>
+      <div><Text size="sm" tone="muted">Status</Text><Text size="sm">{row.status}</Text></div>
+    </div>
+  )}
+  // Optional controlled mode:  expandedRowIds={openIds} onExpandedRowsChange={setOpenIds}
+/>`,
+    render: () => <RowDetailDemo />,
   },
 ];
 

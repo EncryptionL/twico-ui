@@ -43,6 +43,18 @@ const SLIDER_CSS = `
   transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
 }
 .twc-slider__track[data-show-bubble="true"] .twc-slider__bubble { opacity: 1; transform: translateX(-50%) scale(1); }
+/* #351: editable numeric inputs (manual entry, synced with the thumbs) */
+.twc-slider__inputs { display: inline-flex; align-items: center; gap: var(--space-1-5); }
+.twc-slider__input-sep { color: var(--color-text-muted); font-weight: var(--font-semibold); }
+.twc-slider__input {
+  min-width: 0; text-align: end; font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold);
+  color: var(--_accent); font-variant-numeric: tabular-nums;
+  padding: 2px 6px; border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface);
+  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+.twc-slider__input:hover:not(:disabled) { border-color: var(--color-border-strong); }
+.twc-slider__input:focus-visible { outline: none; border-color: var(--_accent); box-shadow: var(--ring); }
+.twc-slider[data-disabled="true"] .twc-slider__input { cursor: not-allowed; }
 `;
 
 export function Slider({
@@ -62,6 +74,7 @@ export function Slider({
   range = false,
   showValue = true,
   showTicks = false,
+  editable = false,
   formatValue,
   getAriaValueText,
   name,
@@ -102,6 +115,9 @@ export function Slider({
   const indices = isRange ? [0, 1] : [0];
   const trackRef = React.useRef(null);
   const [dragging, setDragging] = React.useState(false);
+  // #351: `editable` — while a numeric input is focused, `typed[i]` holds its raw (uncommitted) string so
+  // partial entry isn't clamped/snapped mid-keystroke; it commits on blur/Enter and clears back to the value.
+  const [typed, setTyped] = React.useState({});
 
   const fmt = (v) => (formatValue ? formatValue(v) : v.toFixed(decimals));
   // #81/#84: prefer getAriaValueText; else a string/number formatValue; else the decimal string.
@@ -126,6 +142,23 @@ export function Slider({
     }
     commit(next);
   };
+
+  // #351: editable numeric inputs. Parse + clamp/snap/cross-clamp on commit (blur/Enter); a blank/invalid
+  // entry reverts to the current value. `setThumb` already does the clamp + cross-clamp + commit.
+  const commitInput = (i) => {
+    const s = typed[i];
+    setTyped((t) => { const n = { ...t }; delete n[i]; return n; });
+    if (s == null || String(s).trim() === "") return;
+    const num = parseFloat(s);
+    if (Number.isFinite(num)) setThumb(i, num);
+  };
+  const stepInput = (i, dir) => {
+    const base = typed[i] != null && Number.isFinite(parseFloat(typed[i])) ? parseFloat(typed[i]) : clampedVals[i];
+    setTyped((t) => { const n = { ...t }; delete n[i]; return n; });
+    setThumb(i, base + dir * step);
+  };
+  // Character width for the inputs — the longest of the min/max/decimal representations (+ sign, + slack).
+  const inputSize = Math.max(String(min).length, String(max).length, decimals > 0 ? decimals + 2 : 1) + 1;
 
   const fromClientX = (clientX) => {
     const node = trackRef.current;
@@ -189,10 +222,35 @@ export function Slider({
       {name ? clampedVals.map((v, i) => (
         <input key={i} type="hidden" name={name} value={v} disabled={disabled || undefined} />
       )) : null}
-      {(label || showValue) ? (
+      {(label || showValue || editable) ? (
         <div className="twc-slider__head">
           {label ? <label className="twc-slider__label" id={labelId}>{label}</label> : <span />}
-          {showValue ? <span className="twc-slider__value">{headValue}</span> : null}
+          {editable ? (
+            <span className="twc-slider__inputs">
+              {indices.map((i) => (
+                <React.Fragment key={i}>
+                  {i > 0 ? <span className="twc-slider__input-sep" aria-hidden="true">–</span> : null}
+                  <input
+                    className="twc-slider__input"
+                    type="text"
+                    inputMode={min < 0 ? "text" : "decimal"}
+                    size={inputSize}
+                    value={typed[i] != null ? typed[i] : String(clampedVals[i])}
+                    disabled={disabled || undefined}
+                    aria-labelledby={isRange ? undefined : labelId}
+                    aria-label={isRange ? (i === 0 ? "Minimum value" : "Maximum value") : (labelId ? undefined : "Value")}
+                    onChange={(e) => setTyped((t) => ({ ...t, [i]: e.target.value }))}
+                    onBlur={() => commitInput(i)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") { if (typed[i] != null) { e.preventDefault(); commitInput(i); } } // let a clean input submit its form
+                      else if (e.key === "ArrowUp") { e.preventDefault(); stepInput(i, 1); }
+                      else if (e.key === "ArrowDown") { e.preventDefault(); stepInput(i, -1); }
+                    }}
+                  />
+                </React.Fragment>
+              ))}
+            </span>
+          ) : showValue ? <span className="twc-slider__value">{headValue}</span> : null}
         </div>
       ) : null}
       <div className="twc-slider__track" ref={trackRef} data-show-bubble={dragging || undefined} onPointerDown={onPointerDown}>

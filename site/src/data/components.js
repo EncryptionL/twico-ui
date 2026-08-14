@@ -5716,6 +5716,27 @@ export const components = [
         "description": "Allows users to drag row edges to adjust individual row heights; off by default."
       },
       {
+        "prop": "renderRowDetail",
+        "type": "(row: T) => React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Expandable rows: return a detail panel to show under an expanded row (null ⇒ that row isn't expandable). Adds a leading chevron column + a full-width detail row. Not yet supported with virtualized."
+      },
+      {
+        "prop": "expandedRowIds",
+        "type": "Array<string | number>",
+        "required": false,
+        "default": "—",
+        "description": "Controlled set of expanded row keys (from rowKey). Omit for uncontrolled expansion; pair with onExpandedRowsChange to control it."
+      },
+      {
+        "prop": "onExpandedRowsChange",
+        "type": "(ids: Array<string | number>) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the next full array of expanded row keys whenever a row's detail panel is expanded or collapsed."
+      },
+      {
         "prop": "onRowOrderChange",
         "type": "(keys)=>void",
         "required": false,
@@ -10755,6 +10776,13 @@ export const components = [
         "required": false,
         "default": "false",
         "description": "Renders step ticks along the rail when enabled, helping users see and snap to discrete increments."
+      },
+      {
+        "prop": "editable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Show numeric input(s) in the header so users can type an exact value (two in range mode), synced with the thumbs; typed entry commits on blur/Enter (ArrowUp/Down step) and is clamped, snapped, and cross-clamped."
       },
       {
         "prop": "formatValue",

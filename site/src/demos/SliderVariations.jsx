@@ -45,6 +45,32 @@ const variations = [
     ),
   },
   {
+    title: "Dual-thumb range",
+    description: "A [start, end] value (or the `range` prop) shows two thumbs; drag either to set the bounds. onChange emits a [start, end] tuple.",
+    code: `<Slider label="Price" min={0} max={1000} step={50} defaultValue={[200, 800]}
+  formatValue={(v) => \`$\${v}\`} />`,
+    render: () => (
+      <div style={{ width: 340, maxWidth: "100%" }}>
+        <Slider label="Price" min={0} max={1000} step={50} defaultValue={[200, 800]} formatValue={(v) => `$${v}`} />
+      </div>
+    ),
+  },
+  {
+    title: "Editable — type an exact value",
+    description: "`editable` adds numeric input(s) in the header so users can type an exact value (two inputs in range mode), kept in sync with the thumbs. Typed entry commits on blur/Enter, ArrowUp/Down step, and it's clamped, snapped, and cross-clamped.",
+    code: `{/* single */}
+<Slider label="Volume" min={0} max={100} defaultValue={40} editable />
+
+{/* range: two editable inputs, synced with both thumbs */}
+<Slider label="Price" min={0} max={1000} step={10} defaultValue={[200, 800]} editable />`,
+    render: () => (
+      <div style={{ width: 340, maxWidth: "100%", display: "flex", flexDirection: "column", gap: 24 }}>
+        <Slider label="Volume" min={0} max={100} defaultValue={40} editable />
+        <Slider label="Price" min={0} max={1000} step={10} defaultValue={[200, 800]} editable />
+      </div>
+    ),
+  },
+  {
     title: "With ticks",
     description: "Render step ticks along the rail for discrete values.",
     code: `<Slider label="Price" min={0} max={1000} step={250} showTicks defaultValue={500} formatValue={(v) => \`$\${v}\`} />`,
