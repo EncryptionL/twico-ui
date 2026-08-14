@@ -2,6 +2,19 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.34.0](https://github.com/EncryptionL/twico-ui/compare/v1.33.1...v1.34.0) (2026-08-14)
+
+
+### Bug Fixes
+
+* **slider:** harden editable inputs (a11y label, mobile minus, form Enter) ([8acc6aa](https://github.com/EncryptionL/twico-ui/commit/8acc6aae0d805fa57da3622595423b5658b61710)), closes [#351](https://github.com/EncryptionL/twico-ui/issues/351)
+
+
+### Features
+
+* **datatable:** expandable/collapsible rows via renderRowDetail (first pass) ([54a4954](https://github.com/EncryptionL/twico-ui/commit/54a495485f3430a37c4ce4191a96653a286d8307))
+* **slider:** editable numeric inputs — type an exact value, synced with thumbs ([b804c65](https://github.com/EncryptionL/twico-ui/commit/b804c650e416a01992a1fc13d67bed2ec5e45250))
+
 ## [1.33.1](https://github.com/EncryptionL/twico-ui/compare/v1.33.0...v1.33.1) (2026-08-11)
 
 
