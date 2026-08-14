@@ -9,6 +9,12 @@ updates:
     open-pull-requests-limit: 10
     commit-message:
       prefix: "chore(deps)"
+    # Batch weekly minor+patch bumps into ONE PR (majors still come individually so a breaking major can't
+    # hold back the safe bumps). All are auto-merged once green by dependabot-auto-merge.yml.
+    groups:
+      root-minor-and-patch:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
     ignore:
       # TypeScript 7.x is the native (Go) compiler; its programmatic API is not yet
       # compatible with tsup's DTS generation (rollup-plugin-dts) — the build crashes with
@@ -26,6 +32,10 @@ updates:
     open-pull-requests-limit: 10
     commit-message:
       prefix: "chore(deps)"
+    groups:
+      site-minor-and-patch:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
 
   # GitHub Actions used by the workflows
   - package-ecosystem: "github-actions"
@@ -35,3 +45,7 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: "ci(deps)"
+    groups:
+      actions-minor-and-patch:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]

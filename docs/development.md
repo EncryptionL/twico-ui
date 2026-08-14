@@ -42,6 +42,27 @@ feat!: rename Datatable column props  # major (breaking)
 docs: …  chore: …  ci: …  refactor: … # no release
 ```
 
+## Dependency updates (Dependabot auto-merge)
+
+Dependency bumps are hands-off. [`.github/dependabot.yml`](../.github/dependabot.yml) opens **weekly**
+updates against **`dev`** for three ecosystems — root npm (build/release toolchain), `/site` npm, and
+GitHub Actions — and **groups** each ecosystem's minor+patch bumps into a single PR (majors still come
+individually, so a breaking major can't hold back the safe bumps). The package ships **zero runtime
+dependencies**, so every bump is dev/CI/site tooling.
+
+[`.github/workflows/dependabot-auto-merge.yml`](../.github/workflows/dependabot-auto-merge.yml) then
+**squash-merges each Dependabot PR automatically once every check is green** (CI + CodeQL + Interaction).
+It runs via `workflow_run` (which carries a write token — Dependabot's own `pull_request` token is
+read-only) so it needs **no branch protection** and doesn't affect the direct-push-to-`dev` flow. A bump
+that breaks any check is simply **left open** for a human — that's the only time you touch a Dependabot PR.
+
+> `workflow_run` workflows only fire from the copy on the **default branch (`main`)**, so this workflow is
+> active only once it has been merged to `main` (it rides along on the next `dev → main` release).
+
+To change the policy: hold majors by adding a `dependabot/fetch-metadata` step and gating the merge on
+`steps.meta.outputs.update-type != 'version-update:semver-major'`; or pause a specific dependency via an
+`ignore` entry in `dependabot.yml`.
+
 ## Adding or changing a component
 
 1. **Create the component**: `components/<group>/<Name>.jsx` with a named `export function <Name>`.
