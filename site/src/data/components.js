@@ -5716,6 +5716,27 @@ export const components = [
         "description": "Allows users to drag row edges to adjust individual row heights; off by default."
       },
       {
+        "prop": "renderRowDetail",
+        "type": "(row: T) => React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Expandable rows: return a detail panel to show under an expanded row (null ⇒ that row isn't expandable). Adds a leading chevron column + a full-width detail row. Not yet supported with virtualized."
+      },
+      {
+        "prop": "expandedRowIds",
+        "type": "Array<string | number>",
+        "required": false,
+        "default": "—",
+        "description": "Controlled set of expanded row keys (from rowKey). Omit for uncontrolled expansion; pair with onExpandedRowsChange to control it."
+      },
+      {
+        "prop": "onExpandedRowsChange",
+        "type": "(ids: Array<string | number>) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with the next full array of expanded row keys whenever a row's detail panel is expanded or collapsed."
+      },
+      {
         "prop": "onRowOrderChange",
         "type": "(keys)=>void",
         "required": false,

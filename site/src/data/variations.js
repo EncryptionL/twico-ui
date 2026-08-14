@@ -707,6 +707,11 @@ export const VARIATIONS = [
     "i": 14
   },
   {
+    "component": "Datatable",
+    "title": "Expandable / collapsible rows",
+    "i": 15
+  },
+  {
     "component": "DatePicker",
     "title": "With label",
     "i": 0

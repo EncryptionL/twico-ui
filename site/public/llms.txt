@@ -1614,6 +1614,9 @@ Props:
 - `rowPinning` — `boolean` · default `false` — Allows users to pin rows to the top or bottom so they stay visible while scrolling; off by default.
 - `rowReorder` — `boolean` · default `false` — Enables drag-and-drop reordering of rows so users can change their sequence; off by default.
 - `rowResize` — `boolean` · default `false` — Allows users to drag row edges to adjust individual row heights; off by default.
+- `renderRowDetail` — `(row: T) => React.ReactNode` — Expandable rows: return a detail panel to show under an expanded row (null ⇒ that row isn't expandable). Adds a leading chevron column + a full-width detail row. Not yet supported with virtualized.
+- `expandedRowIds` — `Array<string | number>` — Controlled set of expanded row keys (from rowKey). Omit for uncontrolled expansion; pair with onExpandedRowsChange to control it.
+- `onExpandedRowsChange` — `(ids: Array<string | number>) => void` — Fires with the next full array of expanded row keys whenever a row's detail panel is expanded or collapsed.
 - `onRowOrderChange` — `(keys)=>void` · default `-` — Fires with the new array of row keys after a drag reorder, letting you persist the updated order.
 - `pivot` — `object|null` · default `null` — Supplies the initial pivot model defining row, column, and value fields for cross-tabulated analysis; null by default.
 - `pivotMode` — `boolean` · default `false` — Renders the grid in pivot view from the start instead of the flat table layout; off by default.

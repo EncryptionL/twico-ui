@@ -226,6 +226,11 @@ while row grouping is active.
 target; the new key order is reported via `onRowOrderChange`; disabled while a sort or grouping is active).
 `rowResize` adds a drag handle on each row's bottom edge to change its height.
 
+**Expandable rows** — `renderRowDetail={(row) => <YourPanel …/>}` gives each row an expand/collapse chevron
+(a leading column) that reveals a full-width detail panel beneath it; return `null` for a row to make it
+non-expandable. Uncontrolled by default; pass `expandedRowIds` + `onExpandedRowsChange` to control which rows
+are open. First pass: not yet supported with `virtualized`.
+
 **Pivoting** — OFF by default. Users open the toolbar **Pivot** panel to toggle pivot mode and build the model
 live: pick **Rows** and **Columns** fields (MultiSelect) and add **Values** with a per-value aggregation. A `pivot`
 prop seeds the initial model. The result is a cross-tab (Material UI Data Grid style): `rows` become row-group

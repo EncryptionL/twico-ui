@@ -185,6 +185,16 @@ const DT_CSS = `
 .twc-dt__group-sub span { font-variant-numeric: tabular-nums; }
 .twc-dt__group-sub span b { color: var(--color-text); }
 
+/* #350: expandable row detail (renderRowDetail) — leading chevron column + full-width detail row */
+.twc-dt__expand-cell { text-align: center; padding-inline: 0; }
+.twc-dt__expand-btn { display: inline-grid; place-items: center; width: 24px; height: 24px; border: none; padding: 0; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm); }
+.twc-dt__expand-btn:hover { color: var(--color-text); background: color-mix(in srgb, currentColor 12%, transparent); }
+.twc-dt__expand-btn:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-dt__expand-chev { display: inline-flex; transform: rotate(-90deg); transition: transform var(--duration-base) var(--ease-spring); }
+.twc-dt__expand-chev[data-open] { transform: rotate(0deg); color: var(--color-primary); }
+.twc-dt__expand-chev svg { width: 16px; height: 16px; }
+.twc-dt__detail-cell { box-sizing: border-box; background: var(--color-surface-sunken); border-bottom: var(--border-thin) solid var(--color-divider); padding: 12px 16px; }
+
 /* Pivot view */
 .twc-dt__pivot { table-layout: auto; width: 100%; }
 .twc-dt__pivot th, .twc-dt__pivot td { white-space: nowrap; }
@@ -1086,6 +1096,11 @@ export function Datatable({
   rowPinning = false, rowReorder = false, rowResize = false, onRowOrderChange,
   pivot = null, pivotMode = false,
   virtualized = false, overscan = 8, rowHeight,
+  // #350 (first pass): expandable/collapsible rows. `renderRowDetail(row)` returns the detail panel for a
+  // row (return null/undefined ⇒ that row isn't expandable). Presence of the fn enables a leading chevron
+  // column + a full-width detail <tr> under each expanded row. Expansion is uncontrolled unless
+  // `expandedRowIds` is supplied; `onExpandedRowsChange` fires the next expanded-key array on every toggle.
+  renderRowDetail, expandedRowIds, onExpandedRowsChange,
   className = "", ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-dt-styles", DT_CSS);
@@ -1289,6 +1304,14 @@ export function Datatable({
   const gridRef = React.useRef(null);
   const [groupBy, setGroupBy] = React.useState(rowGrouping || []);
   const [collapsed, setCollapsed] = React.useState(() => new Set());
+  // #350: expanded row-detail keys. Uncontrolled by default; `expandedRowIds` (a controlled array of keys)
+  // takes over when supplied, mirroring the activeRow/page controlled pattern.
+  const [internalExpanded, setInternalExpanded] = React.useState(() => new Set());
+  const expandControlled = expandedRowIds !== undefined;
+  const expandedSet = React.useMemo(
+    () => new Set(expandControlled ? expandedRowIds : internalExpanded),
+    [expandControlled, expandedRowIds, internalExpanded],
+  );
   const [pinnedRows, setPinnedRows] = React.useState({ top: [], bottom: [] });
   const [headH, setHeadH] = React.useState(41);
   const theadRef = React.useRef(null);
@@ -1717,7 +1740,12 @@ export function Datatable({
   // `overflow: hidden` clips the checkbox. Keyed on the static `rowReorder` prop (not `canReorderRows`)
   // so the width — and every pinned-column offset derived from it — stays stable while sorting/grouping.
   const CHK_W = checkboxSelection ? (rowReorder ? 68 : 44) : 0;
-  const numLeft = CHK_W;                             // x of the row-number column (= checkbox column width)
+  // #350: the optional leading expand/collapse column sits leftmost (before the checkbox). Its width folds
+  // into numLeft/leadW so every downstream offset (checkbox x, rownum x, pinned-column offsets, min-width)
+  // shifts automatically — the only hardcoded `insetInlineStart: 0` that must become `EXP_W` is the checkbox.
+  const hasRowDetail = typeof renderRowDetail === "function";
+  const EXP_W = hasRowDetail ? 44 : 0;
+  const numLeft = EXP_W + CHK_W;                     // x of the row-number column (after expand + checkbox)
   const leadW = numLeft + (showRowNum ? NUM_W : 0);  // x where pinned-left data columns begin
   // #302: the sticky LAYOUT must be derived from the *visible* pinned columns, not the raw `pins`
   // arrays — a pinned-then-hidden column has no rendered cell but still lives in `pins`, so counting
@@ -2295,6 +2323,13 @@ export function Datatable({
     setSelected((s) => { const n = new Set(s); if (allSel) paged.forEach((r) => n.delete(keyOf(r))); else paged.forEach((r) => n.add(keyOf(r))); return n; });
   }
   function toggleRow(k) { setSelected((s) => { const n = new Set(s); n.has(k) ? n.delete(k) : n.add(k); return n; }); }
+  // #350: expand/collapse a row's detail panel. Always fires onExpandedRowsChange; writes internal state
+  // only when uncontrolled (mirrors commitPage). `k` is the row's keyOf(...) key.
+  function toggleRowDetail(k) {
+    const n = new Set(expandedSet); n.has(k) ? n.delete(k) : n.add(k);
+    onExpandedRowsChange?.([...n]);
+    if (!expandControlled) setInternalExpanded(n);
+  }
 
   // Click-to-select (row or cell mode). Ignores clicks on interactive cell content.
   function handleRowClick(e, k, row) {
@@ -2888,7 +2923,7 @@ export function Datatable({
   const visibleColCount = manageableCols.filter((c) => !effectiveHidden.has(c.field)).length;
   const rppOptions = Array.from(new Set([...(pageSizeOptions || []), pageSize].filter((n) => n > 0))).sort((a, b) => a - b).map((n) => ({ value: String(n), label: String(n) }));
 
-  const totalCols = ordered.length + (checkboxSelection ? 1 : 0) + (showRowNum ? 1 : 0);
+  const totalCols = ordered.length + (checkboxSelection ? 1 : 0) + (showRowNum ? 1 : 0) + (hasRowDetail ? 1 : 0);
   function renderGroupRow(item) {
     const subs = aggOn ? subtotalText(item.rows) : [];
     return (
@@ -2923,6 +2958,11 @@ export function Datatable({
   }
   function renderLeaf(row, ri, pinSide, midIdx) {
     const k = keyOf(row, ri); const sel = selected.has(k);
+    // #350: compute the row's detail once — drives both the chevron-enable check and the panel body. Pinned
+    // (sticky) rows never render a detail panel (a panel beneath a sticky row stacks oddly).
+    const detail = hasRowDetail && !pinSide ? renderRowDetail(row) : null;
+    const expandable = detail != null;
+    const open = expandable && expandedSet.has(k);
     const rowActive = selectionMode === "row" && activeRowVal === k;
     const stickyStyle = pinSide === "top" ? { position: "sticky", top: headH, zIndex: 5 } : pinSide === "bottom" ? { position: "sticky", bottom: 0, zIndex: 5 } : undefined;
     const h = rowHeights[k];
@@ -2933,7 +2973,8 @@ export function Datatable({
     const grabTarget = rowGrab && !grabbed && midIdx != null && rowGrab.index === midIdx
       ? (rowGrab.index >= keyIndexMid.get(rowGrab.key) ? "after" : "before") : undefined;
     return (
-      <tr key={(pinSide ? "p-" : "") + k} className="twc-dt__row" role="row" aria-rowindex={(paginated && !serverMode ? pageVal * sizeVal : 0) + ri + 2}
+      <React.Fragment key={(pinSide ? "p-" : "") + k}>
+      <tr className="twc-dt__row" role="row" aria-rowindex={(paginated && !serverMode ? pageVal * sizeVal : 0) + ri + 2}
         aria-selected={(checkboxSelection ? sel : rowActive) || undefined}
         data-op={row.__diffop || undefined}
         data-selected={sel || undefined} data-active={rowActive || undefined}
@@ -2953,8 +2994,17 @@ export function Datatable({
         onDrop={reorderable && rowDrag.from != null ? (e) => { e.preventDefault(); onRowDrop(k); } : undefined}
         onDragEnd={reorderable ? () => setRowDrag({ from: null, over: null, after: false }) : undefined}
         onClick={(e) => handleRowClick(e, k, row)}>
+        {hasRowDetail ? (
+          <td className="twc-dt__td twc-dt__expand-cell" role="gridcell" data-pin="left" data-pin-edge={(checkboxSelection || showRowNum || visLeft.length) ? undefined : "left"} style={{ insetInlineStart: 0, width: EXP_W }}>
+            {expandable ? (
+              <button type="button" className="twc-dt__expand-btn" aria-expanded={open} aria-controls={open ? `${gridId}-detail-${ri}` : undefined} aria-label={open ? "Collapse row" : "Expand row"} onClick={(e) => { e.stopPropagation(); toggleRowDetail(k); }}>
+                <span className="twc-dt__expand-chev" data-open={open || undefined}><Svg d={I.chevDown} /></span>
+              </button>
+            ) : null}
+          </td>
+        ) : null}
         {checkboxSelection ? (
-          <td className="twc-dt__td" role="gridcell" data-pin="left" data-pin-edge={(visLeft.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: 0, width: CHK_W }}>
+          <td className="twc-dt__td" role="gridcell" data-pin="left" data-pin-edge={(visLeft.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: EXP_W, width: CHK_W }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
               {reorderable ? rowHandle(k, midIdx, row) : null}
               <span className="twc-dt__check" data-checked={sel || undefined} onClick={() => toggleRow(k)}
@@ -2991,7 +3041,7 @@ export function Datatable({
           const cellClass = c.cellClassName ? c.cellClassName(val, row) : undefined;
           const cellSty = c.cellStyle ? c.cellStyle(val, row) : undefined;
           return (
-            <td key={c.field} id={cellId} className={cellClass ? `twc-dt__td ${cellClass}` : "twc-dt__td"} role="gridcell" data-r={ri} data-c={ci} aria-colindex={ci + 1 + (checkboxSelection ? 1 : 0)}
+            <td key={c.field} id={cellId} className={cellClass ? `twc-dt__td ${cellClass}` : "twc-dt__td"} role="gridcell" data-r={ri} data-c={ci} aria-colindex={ci + 1 + (checkboxSelection ? 1 : 0) + (hasRowDetail ? 1 : 0)}
               tabIndex={focus.r === ri && focus.c === ci ? 0 : -1}
               aria-selected={cellSelected || undefined}
               data-num={c.type === "number" || undefined} data-actions={isActions || undefined}
@@ -3033,6 +3083,12 @@ export function Datatable({
           );
         })}
       </tr>
+      {open ? (
+        <tr className="twc-dt__detail-row" role="row">
+          <td id={`${gridId}-detail-${ri}`} className="twc-dt__detail-cell" role="gridcell" colSpan={totalCols} style={{ maxWidth: "none" }}>{detail}</td>
+        </tr>
+      ) : null}
+      </React.Fragment>
     );
   }
 
@@ -3268,13 +3324,16 @@ export function Datatable({
         onMouseOver={onOverflowOver} onMouseOut={onOverflowOut} onFocus={onOverflowFocus} onBlur={hideOverflowTip}>
         <table className="twc-dt__table" style={{ width: tableMinWidth, minWidth: "100%" }}
           ref={gridRef} role="grid" aria-label={ariaLabelAttr || ariaLabel}
-          aria-rowcount={totalRows + 1} aria-colcount={ordered.length + (checkboxSelection ? 1 : 0)}
+          aria-rowcount={totalRows + 1} aria-colcount={ordered.length + (checkboxSelection ? 1 : 0) + (hasRowDetail ? 1 : 0)}
           aria-multiselectable={selectionMode === "cell" || undefined} aria-activedescendant={activeCellId}
           aria-busy={loading || undefined} onKeyDown={onGridKeyDown}>
           <thead ref={theadRef}>
             <tr role="row" aria-rowindex={1}>
+              {hasRowDetail ? (
+                <th className="twc-dt__th twc-dt__expand-cell" role="columnheader" aria-label="Expand" data-pin="left" data-pin-edge={(checkboxSelection || showRowNum || visLeft.length) ? undefined : "left"} style={{ insetInlineStart: 0, width: EXP_W, minWidth: EXP_W }} />
+              ) : null}
               {checkboxSelection ? (
-                <th className="twc-dt__th" role="columnheader" aria-label="Select" data-pin="left" data-pin-edge={(visLeft.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: 0, width: CHK_W, minWidth: CHK_W }}>
+                <th className="twc-dt__th" role="columnheader" aria-label="Select" data-pin="left" data-pin-edge={(visLeft.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: EXP_W, width: CHK_W, minWidth: CHK_W }}>
                   <div className="twc-dt__th-inner" style={{ justifyContent: "center", padding: 0 }}>
                     <span className="twc-dt__check" data-checked={allSel || undefined} data-indeterminate={(!allSel && someSel) || undefined} onClick={toggleAll}
                       role="checkbox" aria-checked={allSel ? true : someSel ? "mixed" : false} aria-label="Select all rows" tabIndex={0}
@@ -3363,7 +3422,8 @@ export function Datatable({
             {loading ? (
               Array.from({ length: paginated ? Math.min(sizeVal, 8) : 8 }).map((_, ri) => (
                 <tr key={ri} className="twc-dt__row" role="row">
-                  {checkboxSelection ? <td className="twc-dt__td" role="gridcell" data-pin="left" style={{ insetInlineStart: 0, width: CHK_W }}><span className="twc-dt__sk" aria-hidden="true" style={{ "--_w": "18px", height: 18, borderRadius: 4 }} /></td> : null}
+                  {hasRowDetail ? <td className="twc-dt__td twc-dt__expand-cell" role="gridcell" data-pin="left" style={{ insetInlineStart: 0, width: EXP_W }} /> : null}
+                  {checkboxSelection ? <td className="twc-dt__td" role="gridcell" data-pin="left" style={{ insetInlineStart: EXP_W, width: CHK_W }}><span className="twc-dt__sk" aria-hidden="true" style={{ "--_w": "18px", height: 18, borderRadius: 4 }} /></td> : null}
                   {showRowNum ? <td className="twc-dt__td twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" style={{ insetInlineStart: numLeft, width: NUM_W }}><span className="twc-dt__sk" aria-hidden="true" style={{ "--_w": "16px", height: 14, borderRadius: 4 }} /></td> : null}
                   {ordered.map((c, ci) => {
                     const st = stickyOf(c.field);
@@ -3398,7 +3458,8 @@ export function Datatable({
           {hasAggregation && aggOn && !loading && paged.length > 0 ? (
             <tfoot>
               <tr role="row">
-                {checkboxSelection ? <td role="gridcell" data-pin="left" data-pin-edge={(visLeft.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: 0, width: CHK_W }} /> : null}
+                {hasRowDetail ? <td role="gridcell" data-pin="left" data-pin-edge={(checkboxSelection || showRowNum || visLeft.length) ? undefined : "left"} style={{ insetInlineStart: 0, width: EXP_W }} /> : null}
+                {checkboxSelection ? <td role="gridcell" data-pin="left" data-pin-edge={(visLeft.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: EXP_W, width: CHK_W }} /> : null}
                 {showRowNum ? <td className="twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" data-pin-edge={visLeft.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W }} /> : null}
                 {ordered.map((c) => {
                   const st = stickyOf(c.field);

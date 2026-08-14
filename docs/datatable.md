@@ -324,6 +324,31 @@ Props: `virtualized` (`false`), `overscan` (`8`), `rowHeight` (density default).
 Known trade-off: roving-tabindex grid keyboard nav (`ArrowUp`/`Down` between cells) can only reach the
 rows currently in the window; this is the standard virtualization compromise.
 
+## Expandable / collapsible rows — `renderRowDetail` (#350, first pass)
+
+Give each row an expand/collapse chevron that reveals a **full-width detail panel** beneath it. Supply
+`renderRowDetail(row) => React.ReactNode`; returning `null`/`undefined` makes that specific row
+non-expandable (no chevron). Presence of the function enables a **leading chevron column** (leftmost, sticky,
+`EXP_W` = 44px, folded into `numLeft`/`leadW` so every downstream offset — checkbox `x`, row-number `x`,
+pinned-column offsets, min-width — shifts automatically) plus a `.twc-dt__detail-row` `<tr>` whose single
+`<td colSpan={totalCols}>` holds the panel.
+
+- **State.** Uncontrolled by default (internal `Set` of `keyOf` keys). Pass `expandedRowIds` (a controlled
+  array of keys) to control it; `onExpandedRowsChange(ids)` fires the next full key array on every toggle
+  (always, controlled or not) — mirroring the `activeRowId` / `page` controlled pattern.
+- **Interaction.** The toggle is a real `<button>` (with `e.stopPropagation()`), so `handleRowClick`/
+  `handleCellClick`/`onGridKeyDown`'s existing `closest("button, …")` guards already keep it from
+  selecting/editing the row. `aria-expanded` + `aria-controls` wire the toggle to the panel; the detail `<td>`
+  carries **no** `data-r`/`data-c`, so roving grid keyboard nav skips it and the leaf row-index model is
+  unchanged. `totalCols`, `aria-colcount`, and per-cell `aria-colindex` each gain `+ (hasRowDetail ? 1 : 0)`.
+- **First-pass limits (to revise later).** Not wired into **virtualization** (the detail row's height isn't
+  measured by the windowing math → scroll drift when `virtualized`); excluded from **pivot** mode; a **pinned
+  (sticky) row** shows no panel (`!pinSide`) though it still renders the empty chevron cell for alignment; and
+  expansion is **not** persisted via `stateKey`. Grouping works (detail row lives inside the row's Fragment).
+
+Props: `renderRowDetail`, `expandedRowIds`, `onExpandedRowsChange`. Tests: `tests/datatable-row-detail.test.jsx`.
+Site: DatatableVariations "Expandable / collapsible rows".
+
 ## Keyboard row reorder
 
 `rowReorder` already made the whole row mouse-draggable. It now also renders a **focusable drag handle**

@@ -12,6 +12,18 @@
 
 ## Enhancements
 
+- **[#350] Expandable / collapsible rows — `renderRowDetail` (first pass)** — `renderRowDetail(row) => node`
+  (null ⇒ not expandable) adds a leading sticky chevron column (`EXP_W`=44px, folded into `numLeft`/`leadW` so
+  the checkbox `insetInlineStart` 0→EXP_W in all four leading-cell sites — body/header/skeleton/tfoot — and
+  every pinned offset shifts automatically) and a full-width `.twc-dt__detail-row` (`<td colSpan={totalCols}>`)
+  rendered via a keyed `React.Fragment` around each leaf row. Uncontrolled internal `Set` by default;
+  `expandedRowIds` controls it and `onExpandedRowsChange` always fires the next key array. The toggle is a real
+  `<button>` (+ `stopPropagation`) so the existing click/keydown `closest("button,…")` guards keep it from
+  selecting/editing; the detail `<td>` has no `data-r`/`data-c` so grid nav skips it; `totalCols`/`aria-colcount`/
+  `aria-colindex` each get `+hasRowDetail`. **First-pass limits:** not measured by virtualization, excluded from
+  pivot, no panel on pinned (sticky) rows, not persisted via `stateKey`. 6 tests in
+  `tests/datatable-row-detail.test.jsx`; site variation "Expandable / collapsible rows". — added 2026-08-14
+
 - **[#345] Per-cell `cellClassName` / `cellStyle` hooks on `DatatableColumn`** — `renderCell` only styles a
   cell's *content* (which sits inside the cell padding), so tinting the whole `.twc-dt__td` from the row/value
   previously required a `:has([data-marker])` rule coupled to the internal class. Added two column hooks applied
