@@ -1,0 +1,51 @@
+name: Dependabot auto-merge
+
+# Squash-merges a Dependabot PR once EVERY check on it is green (CI + CodeQL + Interaction check).
+#
+# Runs via `workflow_run` (not `pull_request`) on purpose: Dependabot's own pull_request runs get a
+# read-only GITHUB_TOKEN, whereas a workflow_run runs in the base-repo context with the write token needed
+# to merge. It needs no branch protection and does not touch the direct-push-to-dev flow — a bump that
+# breaks any check simply stays open for a human.
+#
+# NOTE: `workflow_run` only fires from the workflow file on the repository's DEFAULT branch (main), so this
+# file must be present on `main` to take effect (it activates once merged there).
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    # Only a successful CI run, on a Dependabot pull request, from this repo (never a fork).
+    if: >-
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.actor.login == 'dependabot[bot]' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Wait for all checks, then squash-merge the Dependabot PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
+        run: |
+          pr=$(gh pr list --repo "$REPO" --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [ -z "$pr" ]; then
+            echo "No open PR for branch '$BRANCH' — nothing to do."
+            exit 0
+          fi
+          echo "PR #$pr — waiting for all checks to complete…"
+          # `gh pr checks --watch` blocks until every check finishes and exits non-zero if any is not green.
+          # (The auto-merge run itself is workflow_run-triggered, so it is not a PR check → no self-wait.)
+          if gh pr checks "$pr" --repo "$REPO" --watch --interval 30; then
+            echo "All checks green — squash-merging PR #$pr."
+            gh pr merge "$pr" --repo "$REPO" --squash --delete-branch
+          else
+            echo "Some checks failed or are stuck — leaving PR #$pr open for review."
+          fi
