@@ -37,6 +37,10 @@ export interface SliderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   showValue?: boolean;
   /** Render step ticks along the rail. @default false */
   showTicks?: boolean;
+  /** Show editable numeric input(s) in the header so users can type an exact value (two inputs in range mode),
+   *  kept in sync with the thumbs. Typed entry commits on blur/Enter (ArrowUp/Down step); it's clamped, snapped
+   *  to `step`, and cross-clamped (start ≤ end). Replaces the read-only value display. @default false */
+  editable?: boolean;
   /** Color intent. @default "primary" */
   tone?: Tone;
   /** Format the displayed value (label + bubble). If it returns a node, pair it with `getAriaValueText`. */

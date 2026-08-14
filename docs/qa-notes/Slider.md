@@ -10,6 +10,17 @@
 
 - [x] **[P2] No validation of min/max/step** — ✓ fixed 2026-06-17 (guarded locals: non-finite min→0, max≤min→min+1, step≤0→1, applied everywhere; valid props unchanged). `Slider.jsx`.
 
+## Enhancements
+
+- **[#351] `editable` — typed numeric inputs, synced with the thumbs** — opt-in `editable` renders a numeric
+  input in the header (two inputs in range mode) so users can enter an exact value by hand, in addition to
+  dragging. Uses `typed[i]` to hold the raw uncommitted string while focused (so partial entry isn't clamped
+  mid-keystroke); commits on blur/Enter through the shared `setThumb` (clamp → snap to `step` → cross-clamp
+  `start ≤ end` → `commit`), ArrowUp/Down step, and a blank/invalid entry reverts. Shows the RAW number (not
+  `formatValue`, which could be non-parseable like `"$200"`). Name-based form submission still uses the
+  existing hidden inputs (the editable inputs are UI-only). 6 tests in `tests/Slider.test.jsx`; site
+  variations "Dual-thumb range" + "Editable — type an exact value". — added 2026-08-14
+
 ## Verified OK
 
 - Controlled/uncontrolled value (value/defaultValue/onChange)

@@ -1201,6 +1201,7 @@ Props:
 - `disabled` — `boolean` · default `false` — Disables dragging and keyboard input while dimming the slider to show it is currently inactive.
 - `showValue` — `boolean` · default `true` — Displays the current value at the top-right above the track when true (the default), for an always-visible readout.
 - `showTicks` — `boolean` · default `false` — Renders step ticks along the rail when enabled, helping users see and snap to discrete increments.
+- `editable` — `boolean` · default `false` — Show numeric input(s) in the header so users can type an exact value (two in range mode), synced with the thumbs; typed entry commits on blur/Enter (ArrowUp/Down step) and is clamped, snapped, and cross-clamped.
 - `formatValue` — `(value: number) => React.ReactNode` — Formats the displayed value in the label and drag bubble, useful for adding units, currency, or custom text.
 - `range` — `boolean` · default `false` — Enable dual-thumb range mode (also auto-enabled by a [number, number] value/defaultValue); onChange then emits a [min, max] tuple.
 - `pageStep` — `number` · default `Math.max(step, (max-min)/10)` — Large-step increment for PageUp/PageDown keys; defaults to ~10% of the range.

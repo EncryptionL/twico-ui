@@ -10778,6 +10778,13 @@ export const components = [
         "description": "Renders step ticks along the rail when enabled, helping users see and snap to discrete increments."
       },
       {
+        "prop": "editable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Show numeric input(s) in the header so users can type an exact value (two in range mode), synced with the thumbs; typed entry commits on blur/Enter (ArrowUp/Down step) and is clamped, snapped, and cross-clamped."
+      },
+      {
         "prop": "formatValue",
         "type": "(value: number) => React.ReactNode",
         "required": false,

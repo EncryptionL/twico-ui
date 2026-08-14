@@ -96,3 +96,59 @@ describe("Slider range mode (#86)", () => {
     expect(screen.getAllByRole("slider")).toHaveLength(1);
   });
 });
+
+describe("Slider editable inputs (#351)", () => {
+  it("renders a numeric input showing the raw value (not formatValue)", () => {
+    const { container } = render(<Slider editable value={200} min={0} max={1000} formatValue={(v) => "$" + v} onChange={() => {}} />);
+    const input = container.querySelector(".twc-slider__input");
+    expect(input).toBeTruthy();
+    expect(input.value).toBe("200"); // raw + parseable, not "$200"
+  });
+
+  it("typing + blur commits a clamped, step-snapped value", () => {
+    const onChange = vi.fn();
+    const { container } = render(<Slider editable min={0} max={100} step={5} value={40} onChange={onChange} />);
+    const input = container.querySelector(".twc-slider__input");
+    fireEvent.change(input, { target: { value: "63" } });
+    fireEvent.blur(input);
+    expect(onChange).toHaveBeenLastCalledWith(65); // snapped to step 5
+    fireEvent.change(input, { target: { value: "999" } });
+    fireEvent.blur(input);
+    expect(onChange).toHaveBeenLastCalledWith(100); // clamped to max
+  });
+
+  it("Enter commits; ArrowUp/ArrowDown step by `step`", () => {
+    const onChange = vi.fn();
+    const { container } = render(<Slider editable min={0} max={100} step={5} value={40} onChange={onChange} />);
+    const input = container.querySelector(".twc-slider__input");
+    fireEvent.change(input, { target: { value: "22" } });
+    fireEvent.keyDown(input, { key: "Enter" });
+    expect(onChange).toHaveBeenLastCalledWith(20); // 22 snapped to nearest step (5)
+    fireEvent.keyDown(input, { key: "ArrowUp" });
+    expect(onChange).toHaveBeenLastCalledWith(45); // 40 + step
+    fireEvent.keyDown(input, { key: "ArrowDown" });
+    expect(onChange).toHaveBeenLastCalledWith(35); // 40 - step
+  });
+
+  it("a blank/invalid entry reverts on blur (no onChange)", () => {
+    const onChange = vi.fn();
+    const { container } = render(<Slider editable value={40} onChange={onChange} />);
+    const input = container.querySelector(".twc-slider__input");
+    fireEvent.change(input, { target: { value: "" } });
+    fireEvent.blur(input);
+    expect(onChange).not.toHaveBeenCalled();
+    expect(input.value).toBe("40"); // reverted to the current value
+  });
+
+  it("range mode renders two inputs and cross-clamps typed entry (start ≤ end)", () => {
+    const onChange = vi.fn();
+    const { container } = render(<Slider editable value={[20, 60]} onChange={onChange} />);
+    const inputs = container.querySelectorAll(".twc-slider__input");
+    expect(inputs).toHaveLength(2);
+    expect(inputs[0].value).toBe("20");
+    expect(inputs[1].value).toBe("60");
+    fireEvent.change(inputs[0], { target: { value: "80" } }); // start typed above end
+    fireEvent.blur(inputs[0]);
+    expect(onChange).toHaveBeenLastCalledWith([60, 60]); // cross-clamped to the upper thumb
+  });
+});

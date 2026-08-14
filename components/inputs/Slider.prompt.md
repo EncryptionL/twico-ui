@@ -10,9 +10,13 @@ const [vol, setVol] = React.useState(40);
 
 {/* dual-thumb range: a tuple value (or range) enables two thumbs; onChange emits [lo, hi] */}
 <Slider label="Budget" value={[200, 800]} min={0} max={1000} step={50} onChange={setRange} />
+
+{/* editable: type an exact value (two inputs in range mode), synced with the thumbs */}
+<Slider label="Budget" defaultValue={[200, 800]} min={0} max={1000} step={50} editable />
 ```
 
 Props: `value`/`defaultValue` (a `[number, number]` tuple — or `range` — enables **dual-thumb range mode**),
+`editable` (typed numeric input(s) in the header, synced with the thumbs; commit on blur/Enter, ArrowUp/Down step),
 `min`, `max`, `step`, `pageStep`, `precision`, `showValue`, `showTicks`, `formatValue`, `getAriaValueText`
 (announce a node `formatValue` to AT), `name` (hidden form field), `disabled`.
 `tone` sets the color intent (primary · success · warning · danger · info · neutral, default primary).

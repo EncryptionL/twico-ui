@@ -1743,28 +1743,38 @@ export const VARIATIONS = [
   },
   {
     "component": "Slider",
-    "title": "With ticks",
+    "title": "Dual-thumb range",
     "i": 2
   },
   {
     "component": "Slider",
-    "title": "Formatted value, hidden readout",
+    "title": "Editable — type an exact value",
     "i": 3
   },
   {
     "component": "Slider",
-    "title": "Disabled",
+    "title": "With ticks",
     "i": 4
   },
   {
     "component": "Slider",
-    "title": "Tones",
+    "title": "Formatted value, hidden readout",
     "i": 5
   },
   {
     "component": "Slider",
-    "title": "All props",
+    "title": "Disabled",
     "i": 6
+  },
+  {
+    "component": "Slider",
+    "title": "Tones",
+    "i": 7
+  },
+  {
+    "component": "Slider",
+    "title": "All props",
+    "i": 8
   },
   {
     "component": "Sparkline",
