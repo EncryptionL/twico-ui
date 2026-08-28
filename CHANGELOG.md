@@ -2,6 +2,18 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.35.0](https://github.com/EncryptionL/twico-ui/compare/v1.34.0...v1.35.0) (2026-08-28)
+
+
+### Bug Fixes
+
+* **datatable:** harden [#359](https://github.com/EncryptionL/twico-ui/issues/359) row-tree (server no-refire, child edit, numbering, cycle) ([7c0c70b](https://github.com/EncryptionL/twico-ui/commit/7c0c70b11b1689a8f60912df3a9cbcc3a2c36a8c)), closes [#350](https://github.com/EncryptionL/twico-ui/issues/350) [#350](https://github.com/EncryptionL/twico-ui/issues/350)
+
+
+### Features
+
+* **datatable:** server-mode lazy row-tree — getRowCanExpand/getSubRows/getRowDepth ([15c7c76](https://github.com/EncryptionL/twico-ui/commit/15c7c767212940c96d5f031466bd251ee4cc83cb)), closes [#350](https://github.com/EncryptionL/twico-ui/issues/350) [#350](https://github.com/EncryptionL/twico-ui/issues/350) [#350](https://github.com/EncryptionL/twico-ui/issues/350) [#359](https://github.com/EncryptionL/twico-ui/issues/359)
+
 # [1.34.0](https://github.com/EncryptionL/twico-ui/compare/v1.33.1...v1.34.0) (2026-08-14)
 
 
