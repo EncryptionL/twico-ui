@@ -9,21 +9,21 @@ import { Datatable } from "../components/data-display/Datatable.jsx";
 
 const columns = [
   { field: "name", headerName: "Name" },
-  { field: "size", headerName: "Size" },
+  { field: "type", headerName: "Type" },
 ];
 const cell = (c, r, col) => c.querySelector(`.twc-dt__td[data-r="${r}"][data-c="${col}"]`);
 
 describe("Datatable server-mode lazy row-tree (#359)", () => {
   // Host-flattened rows (server returns parents; children appear inline only when the host adds them).
   const serverRows = [
-    { id: "p1", name: "HP4630-3", size: "", isSizeParent: true },
-    { id: "p2", name: "HP4630-4", size: "", isSizeParent: true },
-    { id: "leaf", name: "One-off", size: "M", isSizeParent: false },
+    { id: "p1", name: "Audio", type: "Category", parent: true },
+    { id: "p2", name: "Lighting", type: "Category", parent: true },
+    { id: "leaf", name: "Standalone Widget", type: "Item", parent: false },
   ];
 
   it("draws a chevron only on rows where getRowCanExpand is true (+ a header expand column)", () => {
     const { container } = render(
-      <Datatable columns={columns} rows={serverRows} rowKey={(r) => r.id} serverMode rowCount={3} onServerChange={() => {}} getRowCanExpand={(r) => r.isSizeParent} />,
+      <Datatable columns={columns} rows={serverRows} rowKey={(r) => r.id} serverMode rowCount={3} onServerChange={() => {}} getRowCanExpand={(r) => r.parent} />,
     );
     expect(container.querySelector("thead .twc-dt__expand-cell")).toBeTruthy();
     expect(container.querySelectorAll(".twc-dt__expand-btn").length).toBe(2); // p1 + p2, not the leaf
@@ -32,7 +32,7 @@ describe("Datatable server-mode lazy row-tree (#359)", () => {
   it("toggling a tree parent fires onExpandedRowsChange and renders NO detail panel", () => {
     const onExpandedRowsChange = vi.fn();
     const { container } = render(
-      <Datatable columns={columns} rows={serverRows} rowKey={(r) => r.id} serverMode rowCount={3} onServerChange={() => {}} getRowCanExpand={(r) => r.isSizeParent} onExpandedRowsChange={onExpandedRowsChange} />,
+      <Datatable columns={columns} rows={serverRows} rowKey={(r) => r.id} serverMode rowCount={3} onServerChange={() => {}} getRowCanExpand={(r) => r.parent} onExpandedRowsChange={onExpandedRowsChange} />,
     );
     fireEvent.click(container.querySelector(".twc-dt__expand-btn"));
     expect(onExpandedRowsChange).toHaveBeenCalledWith(["p1"]);
@@ -42,7 +42,7 @@ describe("Datatable server-mode lazy row-tree (#359)", () => {
   it("folds the expanded set into the onServerChange query so the host can fetch children", async () => {
     const onServerChange = vi.fn();
     const { container } = render(
-      <Datatable columns={columns} rows={serverRows} rowKey={(r) => r.id} serverMode rowCount={3} onServerChange={onServerChange} getRowCanExpand={(r) => r.isSizeParent} />,
+      <Datatable columns={columns} rows={serverRows} rowKey={(r) => r.id} serverMode rowCount={3} onServerChange={onServerChange} getRowCanExpand={(r) => r.parent} />,
     );
     await waitFor(() => expect(onServerChange).toHaveBeenCalled()); // initial debounced emit
     onServerChange.mockClear();
@@ -53,11 +53,11 @@ describe("Datatable server-mode lazy row-tree (#359)", () => {
 });
 
 describe("Datatable client-mode row-tree — getSubRows (#359)", () => {
-  const parents = [{ id: "p1", name: "HP4630-3", size: "base" }];
+  const parents = [{ id: "p1", name: "Audio", type: "Category" }];
   const kids = {
     p1: [
-      { id: "p1-a", name: "child A", size: "HP4630-3" },
-      { id: "p1-b", name: "child B", size: "HP4630-3T" },
+      { id: "p1-a", name: "child A", type: "Item" },
+      { id: "p1-b", name: "child B", type: "Item" },
     ],
   };
   const props = {
@@ -108,10 +108,10 @@ describe("Datatable row-tree — adversarial-review hardening (#359)", () => {
 
   it("editing a client-tree CHILD cell fires onRowUpdate with the child row", () => {
     const onRowUpdate = vi.fn();
-    const kids = { p1: [{ id: "p1-a", name: "child A", size: "S" }] };
-    const cols = [{ field: "name", headerName: "Name", editable: true }, { field: "size", headerName: "Size" }];
+    const kids = { p1: [{ id: "p1-a", name: "child A", type: "Item" }] };
+    const cols = [{ field: "name", headerName: "Name", editable: true }, { field: "type", headerName: "Type" }];
     const { container } = render(
-      <Datatable columns={cols} rows={[{ id: "p1", name: "HP", size: "" }]} rowKey={(r) => r.id}
+      <Datatable columns={cols} rows={[{ id: "p1", name: "Widget", type: "" }]} rowKey={(r) => r.id}
         getRowCanExpand={(r) => !!kids[r.id]} getSubRows={(r) => kids[r.id] || []} onRowUpdate={onRowUpdate} />,
     );
     fireEvent.click(container.querySelector(".twc-dt__expand-btn")); // expand → child row at data-r=1

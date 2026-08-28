@@ -12,8 +12,8 @@ import { Combobox } from "../components/inputs/Combobox.jsx";
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "components", "inputs", "Combobox.jsx");
 const longOptions = [
-  { value: "a", label: "M40 ANEFIL BONDED NYLON WPN VARIANT ALPHA", description: "thread_master :: A" },
-  { value: "b", label: "M40 ANEFIL BONDED NYLON WPN VARIANT BRAVO", description: "thread_master :: B" },
+  { value: "a", label: "Aurora Wireless Speaker 40W Bluetooth Edition VARIANT ALPHA", description: "catalog :: A" },
+  { value: "b", label: "Aurora Wireless Speaker 40W Bluetooth Edition VARIANT BRAVO", description: "catalog :: B" },
 ];
 
 const openList = () => fireEvent.focus(document.querySelector('input[role="combobox"]'));
@@ -29,7 +29,7 @@ describe("Combobox wrapOptions (#300)", () => {
   });
 
   it("does NOT set data-wrap by default (options stay single-line)", () => {
-    render(<Combobox label="Thread" options={longOptions} />);
+    render(<Combobox label="Product" options={longOptions} />);
     openList();
     const opts = optionEls();
     expect(opts.length).toBe(2);
@@ -37,7 +37,7 @@ describe("Combobox wrapOptions (#300)", () => {
   });
 
   it("sets data-wrap on every option when wrapOptions is on", () => {
-    render(<Combobox label="Thread" options={longOptions} wrapOptions />);
+    render(<Combobox label="Product" options={longOptions} wrapOptions />);
     openList();
     const opts = optionEls();
     expect(opts.length).toBe(2);
@@ -46,7 +46,7 @@ describe("Combobox wrapOptions (#300)", () => {
 
   it("takes precedence over `virtualized` — warns once and renders every row (not windowed)", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-    render(<Combobox label="Thread" options={longOptions} wrapOptions virtualized />);
+    render(<Combobox label="Product" options={longOptions} wrapOptions virtualized />);
     openList();
     // both rows render as normal wrapped options rather than being sliced by fixed-height virtualization
     const opts = optionEls();

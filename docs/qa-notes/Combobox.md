@@ -34,8 +34,8 @@
   path (#88). — added 2026-07-04
 
 - **[#300] `wrapOptions` — multi-line option text** — `.twc-opt__label`/`__desc` truncate to one line
-  (`white-space: nowrap` + ellipsis), so options sharing a long common prefix (real case: SAP
-  `thread_master` descriptions) were indistinguishable when the differing tail was cut off. `wrapOptions`
+  (`white-space: nowrap` + ellipsis), so options sharing a long common prefix (e.g. catalog descriptions that
+  share a leading code) were indistinguishable when the differing tail was cut off. `wrapOptions`
   (default false) flips a `data-wrap` attribute on each option row; scoped CSS then sets
   `white-space: normal` + `overflow-wrap: anywhere` (the latter also breaks a single very long token so it
   can't overflow the popover edge) and top-aligns the check icon. **Takes precedence over `virtualized`**

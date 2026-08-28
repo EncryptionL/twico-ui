@@ -711,38 +711,38 @@ function RowDetailDemo() {
   );
 }
 
-// #359: client-mode lazy row-tree — parent parts expand to reveal their per-size child rows in the SAME
-// columns (real grid rows, not a detail panel). Mirrors the PLM "Mapped BOM" size-children use case.
-const TREE_PARTS = [
-  { id: "HP4630-3", article: "HP4630-3", model: "Falcon", stage: "DEV" },
-  { id: "HP4630-4", article: "HP4630-4", model: "Falcon", stage: "DEV" },
-  { id: "HP4700-1", article: "HP4700-1", model: "Comet", stage: "PROTO" }, // a leaf (no children → no chevron)
+// #359: client-mode lazy row-tree — a parent row expands to reveal CHILD rows in the SAME columns (real grid
+// rows, not a detail panel). Here a product category expands to its products (all data is fictional).
+const TREE_ROWS = [
+  { id: "cat-audio", name: "Audio", type: "Category", status: "" },
+  { id: "cat-lighting", name: "Lighting", type: "Category", status: "" },
+  { id: "item-solo", name: "Standalone Widget", type: "Item", status: "In stock" }, // a leaf (no children → no chevron)
 ];
-const SIZE_CHILDREN = {
-  "HP4630-3": [
-    { id: "HP4630-3/S", article: "HP4630-3S", model: "Falcon", stage: "size 6" },
-    { id: "HP4630-3/M", article: "HP4630-3M", model: "Falcon", stage: "size 8" },
-    { id: "HP4630-3/L", article: "HP4630-3L", model: "Falcon", stage: "size 10" },
+const CHILD_ITEMS = {
+  "cat-audio": [
+    { id: "audio-1", name: "Aurora Speaker", type: "Item", status: "In stock" },
+    { id: "audio-2", name: "Echo Microphone", type: "Item", status: "Backorder" },
+    { id: "audio-3", name: "Pulse Headphones", type: "Item", status: "In stock" },
   ],
-  "HP4630-4": [
-    { id: "HP4630-4/S", article: "HP4630-4S", model: "Falcon", stage: "size 6" },
-    { id: "HP4630-4/M", article: "HP4630-4M", model: "Falcon", stage: "size 8" },
+  "cat-lighting": [
+    { id: "light-1", name: "Nimbus Lamp", type: "Item", status: "In stock" },
+    { id: "light-2", name: "Halo Sconce", type: "Item", status: "Low stock" },
   ],
 };
 function RowTreeDemo() {
   const columns = [
-    { field: "article", headerName: "Article", width: 200 },
-    { field: "model", headerName: "Model", width: 160 },
-    { field: "stage", headerName: "Stage / Size", width: 160 },
+    { field: "name", headerName: "Name", width: 220 },
+    { field: "type", headerName: "Type", width: 140 },
+    { field: "status", headerName: "Status", width: 140 },
   ];
   return (
     <Datatable
       columns={columns}
-      rows={TREE_PARTS}
+      rows={TREE_ROWS}
       rowKey={(r) => r.id}
       pageSize={0}
-      getRowCanExpand={(r) => !!SIZE_CHILDREN[r.id]}
-      getSubRows={(r) => SIZE_CHILDREN[r.id] || []}
+      getRowCanExpand={(r) => !!CHILD_ITEMS[r.id]}
+      getSubRows={(r) => CHILD_ITEMS[r.id] || []}
     />
   );
 }
@@ -1340,14 +1340,14 @@ const columns = [
 // client: getSubRows(row) => T[]    children spliced in as real rows
 // server: expanded set is folded into onServerChange({ ...query, expanded }); host returns children inline
 const columns = [
-  { field: "article", headerName: "Article" },
-  { field: "model", headerName: "Model" },
-  { field: "stage", headerName: "Stage / Size" },
+  { field: "name", headerName: "Name" },
+  { field: "type", headerName: "Type" },
+  { field: "status", headerName: "Status" },
 ];
 
 <Datatable
   columns={columns}
-  rows={parts}
+  rows={rows}
   rowKey={(r) => r.id}
   getRowCanExpand={(r) => !!childrenOf[r.id]}
   getSubRows={(r) => childrenOf[r.id] || []}
