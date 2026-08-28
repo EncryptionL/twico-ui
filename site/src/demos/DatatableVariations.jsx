@@ -711,6 +711,42 @@ function RowDetailDemo() {
   );
 }
 
+// #359: client-mode lazy row-tree — a parent row expands to reveal CHILD rows in the SAME columns (real grid
+// rows, not a detail panel). Here a product category expands to its products (all data is fictional).
+const TREE_ROWS = [
+  { id: "cat-audio", name: "Audio", type: "Category", status: "" },
+  { id: "cat-lighting", name: "Lighting", type: "Category", status: "" },
+  { id: "item-solo", name: "Standalone Widget", type: "Item", status: "In stock" }, // a leaf (no children → no chevron)
+];
+const CHILD_ITEMS = {
+  "cat-audio": [
+    { id: "audio-1", name: "Aurora Speaker", type: "Item", status: "In stock" },
+    { id: "audio-2", name: "Echo Microphone", type: "Item", status: "Backorder" },
+    { id: "audio-3", name: "Pulse Headphones", type: "Item", status: "In stock" },
+  ],
+  "cat-lighting": [
+    { id: "light-1", name: "Nimbus Lamp", type: "Item", status: "In stock" },
+    { id: "light-2", name: "Halo Sconce", type: "Item", status: "Low stock" },
+  ],
+};
+function RowTreeDemo() {
+  const columns = [
+    { field: "name", headerName: "Name", width: 220 },
+    { field: "type", headerName: "Type", width: 140 },
+    { field: "status", headerName: "Status", width: 140 },
+  ];
+  return (
+    <Datatable
+      columns={columns}
+      rows={TREE_ROWS}
+      rowKey={(r) => r.id}
+      pageSize={0}
+      getRowCanExpand={(r) => !!CHILD_ITEMS[r.id]}
+      getSubRows={(r) => CHILD_ITEMS[r.id] || []}
+    />
+  );
+}
+
 /* ================================================================= variations */
 const variations = [
   {
@@ -1294,6 +1330,30 @@ const columns = [
   // Optional controlled mode:  expandedRowIds={openIds} onExpandedRowsChange={setOpenIds}
 />`,
     render: () => <RowDetailDemo />,
+  },
+  {
+    title: "Lazy row-tree (expandable parent rows)",
+    description:
+      "A hierarchical grid: parent rows expand to reveal CHILD rows in the SAME columns (not a panel). getRowCanExpand draws the chevron; client mode uses getSubRows, server mode folds the expanded set into onServerChange (`expanded`) so the host returns children inline. getRowDepth indents nested rows.",
+    code: `// Parent rows expand to CHILD rows in the same columns (vs renderRowDetail's panel).
+// getRowCanExpand(row) => boolean   draws the chevron on parents
+// client: getSubRows(row) => T[]    children spliced in as real rows
+// server: expanded set is folded into onServerChange({ ...query, expanded }); host returns children inline
+const columns = [
+  { field: "name", headerName: "Name" },
+  { field: "type", headerName: "Type" },
+  { field: "status", headerName: "Status" },
+];
+
+<Datatable
+  columns={columns}
+  rows={rows}
+  rowKey={(r) => r.id}
+  getRowCanExpand={(r) => !!childrenOf[r.id]}
+  getSubRows={(r) => childrenOf[r.id] || []}
+  // server mode instead: serverMode rowCount={total} onServerChange={q => fetch(q /* incl. q.expanded */)}
+/>`,
+    render: () => <RowTreeDemo />,
   },
 ];
 

@@ -12,6 +12,26 @@
 
 ## Enhancements
 
+- **[#359] Server-mode lazy row-tree — `getRowCanExpand` / `getRowDepth` / `getSubRows`** — parent DATA rows
+  expand to reveal CHILD data rows in the SAME columns (vs #350's bespoke panel). **Reuses the entire #350
+  chevron machinery** by generalizing `hasRowDetail` → `hasExpandCol = hasRowDetail || hasRowTree`
+  (`hasRowTree = typeof getRowCanExpand === "function"`), so with `getRowCanExpand` absent every gate is
+  byte-identical to today. A row is expandable via `renderRowDetail(row) != null || getRowCanExpand(row)`; a
+  tree parent renders **no** detail `<tr>` (guarded `open && detail != null`). **Server mode:** the expanded
+  set is folded into the `onServerChange` query (`expanded`, keyed off a stable `expandedKey` so it doesn't
+  churn), and the host returns children inline (owns `rowCount`/paging). **Client mode:** a `treeRows` memo
+  flattens `getSubRows` children in after each expanded parent, **after** pagination (so children don't consume
+  page budget / aren't independently sorted). `getRowDepth` (or the client splice `depthByKey`) indents the
+  first data cell `depth×20px`. Limits carried from #350: no virtualized/pivot/grouping, no pinned chevron;
+  tree rows need stable keys. **Adversarial-review hardening:** the `expanded` query fold + effect dep are
+  gated on `hasRowTree` (a `treeExpandedKey`) so a `renderRowDetail`-only **server** grid keeps its v1.34
+  behaviour (no `onServerChange` re-fire / no `expanded` field on a #350 panel toggle); `commitEdit`/paste
+  resolve the row from `leafRows` (not `paged`) so a client-tree **child edit** fires `onRowUpdate`
+  (array-persist stays top-level); client row numbers + `aria-rowindex`/`aria-rowcount` use a global
+  `treeSeqByKey` sequence (the per-page leaf index duplicated them across pages); the `getSubRows` walk has a
+  visited guard against a cyclic `getSubRows`. 9 tests in `tests/datatable-row-tree.test.jsx` (+ #350
+  regression green); site variation "Lazy row-tree". — added 2026-08-28
+
 - **[#350] Expandable / collapsible rows — `renderRowDetail` (first pass)** — `renderRowDetail(row) => node`
   (null ⇒ not expandable) adds a leading sticky chevron column (`EXP_W`=44px, folded into `numLeft`/`leadW` so
   the checkbox `insetInlineStart` 0→EXP_W in all four leading-cell sites — body/header/skeleton/tfoot — and

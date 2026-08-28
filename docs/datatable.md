@@ -349,6 +349,35 @@ pinned-column offsets, min-width — shifts automatically) plus a `.twc-dt__deta
 Props: `renderRowDetail`, `expandedRowIds`, `onExpandedRowsChange`. Tests: `tests/datatable-row-detail.test.jsx`.
 Site: DatatableVariations "Expandable / collapsible rows".
 
+## Server-mode lazy row-tree — `getRowCanExpand` (#359)
+
+Where `renderRowDetail` (#350) reveals a bespoke full-width **panel**, a row-tree reveals **child data rows in
+the same columns** (their own editable/mappable/pinnable/selectable cells align with the parent). It **reuses
+the whole #350 chevron machinery** — the same leading sticky chevron column, `expandedRowIds`/
+`onExpandedRowsChange`, and internal expanded `Set`; when `getRowCanExpand` is absent nothing changes.
+
+- **`getRowCanExpand(row) => boolean`** draws the chevron on a parent **data** row (independent of
+  `renderRowDetail`). A row is expandable if `renderRowDetail(row) != null` **or** `getRowCanExpand(row)`;
+  a row-tree parent renders **no** detail `<tr>` — its children are real rows.
+- **Server mode (the primary case).** The grid never fetches children. The expanded key set is folded into the
+  `onServerChange` query as **`expanded`** (a `DatatableQuery` field), so toggling a parent re-emits the query
+  (debounced) and the host returns the parent + its children **inline** in `rows` — flattened, each carrying
+  its depth. The host owns paging: set **`rowCount` to the flattened visible count** (a collapsed parent is one
+  row). Selection/inline-edit of children is the host's concern (the grid iterates the page's top-level rows).
+- **Client mode.** **`getSubRows(row) => T[]`** supplies children directly; the grid splices them in as
+  first-class rows immediately after an expanded parent. They're spliced **after** pagination (so they don't
+  consume the parent's page budget) and are therefore **not** independently sorted/filtered — parent order
+  governs, matching MUI tree data.
+- **`getRowDepth(row) => number`** (server) or the client splice sets the nesting depth; the **first data
+  cell** is indented `depth × 20px` so nested rows read as a tree.
+- **Key stability:** tree rows need stable unique keys (`rowKey`/`id`) — a child reusing an id collides in the
+  expanded/selected sets. **Limits (shared with #350):** not yet supported with `virtualized`, `rowGrouping`,
+  or pivot; no chevron on a pinned (sticky) row.
+
+Props: `getRowCanExpand`, `getRowDepth`, `getSubRows` (+ shared `expandedRowIds`/`onExpandedRowsChange`);
+`DatatableQuery.expanded`. Tests: `tests/datatable-row-tree.test.jsx`. Site: DatatableVariations
+"Lazy row-tree (expandable parent rows)".
+
 ## Keyboard row reorder
 
 `rowReorder` already made the whole row mouse-draggable. It now also renders a **focusable drag handle**

@@ -15,10 +15,10 @@ const countries = [
 ];
 
 // Options that share a long common prefix and differ only in a tail — the truncation case wrapOptions solves.
-const threads = [
-  { value: "a", label: "M40 ANEFIL BONDED NYLON WPN — 300M CONE — TKT 40 — BLACK", description: "thread_master · A" },
-  { value: "b", label: "M40 ANEFIL BONDED NYLON WPN — 300M CONE — TKT 40 — NAVY", description: "thread_master · B" },
-  { value: "c", label: "M40 ANEFIL BONDED NYLON WPN — 500M CONE — TKT 60 — WHITE", description: "thread_master · C" },
+const catalog = [
+  { value: "a", label: "Aurora Wireless Speaker — 40W — Bluetooth 5.3 — Charcoal", description: "catalog · A" },
+  { value: "b", label: "Aurora Wireless Speaker — 40W — Bluetooth 5.3 — Ivory", description: "catalog · B" },
+  { value: "c", label: "Aurora Wireless Speaker — 60W — Bluetooth 5.3 — Slate", description: "catalog · C" },
 ];
 
 function ComboboxAllProps() {
@@ -171,24 +171,24 @@ const variations = [
     description:
       "When options share a long common prefix and differ only in a tail, single-line truncation makes them indistinguishable. Set wrapOptions so labels/descriptions wrap onto multiple lines. (It takes precedence over virtualized, whose rows must be a fixed height.)",
     code: `<Combobox
-  label="Thread"
-  placeholder="Search a thread"
+  label="Product"
+  placeholder="Search a product"
   wrapOptions
   minWidth={320}
   options={[
-    { value: "a", label: "M40 ANEFIL BONDED NYLON WPN — 300M CONE — TKT 40 — BLACK", description: "thread_master · A" },
-    { value: "b", label: "M40 ANEFIL BONDED NYLON WPN — 300M CONE — TKT 40 — NAVY", description: "thread_master · B" },
-    { value: "c", label: "M40 ANEFIL BONDED NYLON WPN — 500M CONE — TKT 60 — WHITE", description: "thread_master · C" },
+    { value: "a", label: "Aurora Wireless Speaker — 40W — Bluetooth 5.3 — Charcoal", description: "catalog · A" },
+    { value: "b", label: "Aurora Wireless Speaker — 40W — Bluetooth 5.3 — Ivory", description: "catalog · B" },
+    { value: "c", label: "Aurora Wireless Speaker — 60W — Bluetooth 5.3 — Slate", description: "catalog · C" },
   ]}
 />`,
     render: () => (
       <div style={{ width: 340, maxWidth: "100%" }}>
         <Combobox
-          label="Thread"
-          placeholder="Search a thread"
+          label="Product"
+          placeholder="Search a product"
           wrapOptions
           minWidth={320}
-          options={threads}
+          options={catalog}
         />
       </div>
     ),

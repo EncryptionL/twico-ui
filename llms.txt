@@ -1617,7 +1617,10 @@ Props:
 - `rowResize` — `boolean` · default `false` — Allows users to drag row edges to adjust individual row heights; off by default.
 - `renderRowDetail` — `(row: T) => React.ReactNode` — Expandable rows: return a detail panel to show under an expanded row (null ⇒ that row isn't expandable). Adds a leading chevron column + a full-width detail row. Not yet supported with virtualized.
 - `expandedRowIds` — `Array<string | number>` — Controlled set of expanded row keys (from rowKey). Omit for uncontrolled expansion; pair with onExpandedRowsChange to control it.
-- `onExpandedRowsChange` — `(ids: Array<string | number>) => void` — Fires with the next full array of expanded row keys whenever a row's detail panel is expanded or collapsed.
+- `onExpandedRowsChange` — `(ids: Array<string | number>) => void` — Fires with the next full array of expanded row keys whenever a row is expanded or collapsed (shared by renderRowDetail and the row-tree).
+- `getRowCanExpand` — `(row: T) => boolean` — Server-mode lazy row-tree: draws the leading chevron on a parent DATA row (independent of renderRowDetail); expanding reveals child rows in the SAME columns. Server mode folds the expanded set into onServerChange (`expanded`); client mode uses getSubRows.
+- `getRowDepth` — `(row: T) => number` · default `0` — 0-based nesting depth for the tree indent on the first data cell (server mode supplies it; client mode derives it from the getSubRows splice).
+- `getSubRows` — `(row: T) => T[]` — Client-mode child rows for an expanded parent, spliced in as first-class rows (same columns) after it. Ignored in serverMode (host returns children inline). Rendered after pagination, so not independently sorted/filtered.
 - `onRowOrderChange` — `(keys)=>void` · default `-` — Fires with the new array of row keys after a drag reorder, letting you persist the updated order.
 - `pivot` — `object|null` · default `null` — Supplies the initial pivot model defining row, column, and value fields for cross-tabulated analysis; null by default.
 - `pivotMode` — `boolean` · default `false` — Renders the grid in pivot view from the start instead of the flat table layout; off by default.
