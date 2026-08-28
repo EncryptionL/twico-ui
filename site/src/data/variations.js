@@ -712,6 +712,11 @@ export const VARIATIONS = [
     "i": 15
   },
   {
+    "component": "Datatable",
+    "title": "Lazy row-tree (expandable parent rows)",
+    "i": 16
+  },
+  {
     "component": "DatePicker",
     "title": "With label",
     "i": 0

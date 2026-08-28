@@ -711,6 +711,42 @@ function RowDetailDemo() {
   );
 }
 
+// #359: client-mode lazy row-tree — parent parts expand to reveal their per-size child rows in the SAME
+// columns (real grid rows, not a detail panel). Mirrors the PLM "Mapped BOM" size-children use case.
+const TREE_PARTS = [
+  { id: "HP4630-3", article: "HP4630-3", model: "Falcon", stage: "DEV" },
+  { id: "HP4630-4", article: "HP4630-4", model: "Falcon", stage: "DEV" },
+  { id: "HP4700-1", article: "HP4700-1", model: "Comet", stage: "PROTO" }, // a leaf (no children → no chevron)
+];
+const SIZE_CHILDREN = {
+  "HP4630-3": [
+    { id: "HP4630-3/S", article: "HP4630-3S", model: "Falcon", stage: "size 6" },
+    { id: "HP4630-3/M", article: "HP4630-3M", model: "Falcon", stage: "size 8" },
+    { id: "HP4630-3/L", article: "HP4630-3L", model: "Falcon", stage: "size 10" },
+  ],
+  "HP4630-4": [
+    { id: "HP4630-4/S", article: "HP4630-4S", model: "Falcon", stage: "size 6" },
+    { id: "HP4630-4/M", article: "HP4630-4M", model: "Falcon", stage: "size 8" },
+  ],
+};
+function RowTreeDemo() {
+  const columns = [
+    { field: "article", headerName: "Article", width: 200 },
+    { field: "model", headerName: "Model", width: 160 },
+    { field: "stage", headerName: "Stage / Size", width: 160 },
+  ];
+  return (
+    <Datatable
+      columns={columns}
+      rows={TREE_PARTS}
+      rowKey={(r) => r.id}
+      pageSize={0}
+      getRowCanExpand={(r) => !!SIZE_CHILDREN[r.id]}
+      getSubRows={(r) => SIZE_CHILDREN[r.id] || []}
+    />
+  );
+}
+
 /* ================================================================= variations */
 const variations = [
   {
@@ -1294,6 +1330,30 @@ const columns = [
   // Optional controlled mode:  expandedRowIds={openIds} onExpandedRowsChange={setOpenIds}
 />`,
     render: () => <RowDetailDemo />,
+  },
+  {
+    title: "Lazy row-tree (expandable parent rows)",
+    description:
+      "A hierarchical grid: parent rows expand to reveal CHILD rows in the SAME columns (not a panel). getRowCanExpand draws the chevron; client mode uses getSubRows, server mode folds the expanded set into onServerChange (`expanded`) so the host returns children inline. getRowDepth indents nested rows.",
+    code: `// Parent rows expand to CHILD rows in the same columns (vs renderRowDetail's panel).
+// getRowCanExpand(row) => boolean   draws the chevron on parents
+// client: getSubRows(row) => T[]    children spliced in as real rows
+// server: expanded set is folded into onServerChange({ ...query, expanded }); host returns children inline
+const columns = [
+  { field: "article", headerName: "Article" },
+  { field: "model", headerName: "Model" },
+  { field: "stage", headerName: "Stage / Size" },
+];
+
+<Datatable
+  columns={columns}
+  rows={parts}
+  rowKey={(r) => r.id}
+  getRowCanExpand={(r) => !!childrenOf[r.id]}
+  getSubRows={(r) => childrenOf[r.id] || []}
+  // server mode instead: serverMode rowCount={total} onServerChange={q => fetch(q /* incl. q.expanded */)}
+/>`,
+    render: () => <RowTreeDemo />,
   },
 ];
 

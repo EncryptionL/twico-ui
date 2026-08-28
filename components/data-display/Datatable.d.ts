@@ -310,8 +310,26 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   renderRowDetail?: (row: T) => React.ReactNode;
   /** Controlled set of expanded row keys (values from `rowKey`). Omit for uncontrolled (internal) expansion. */
   expandedRowIds?: Array<string | number>;
-  /** Fires with the next full array of expanded row keys whenever a row is expanded or collapsed. */
+  /** Fires with the next full array of expanded row keys whenever a row is expanded or collapsed.
+   *  Shared by `renderRowDetail` (#350) and the row-tree (#359). */
   onExpandedRowsChange?: (ids: Array<string | number>) => void;
+  /** #359 (server-mode lazy row-tree): draw the same leading chevron on a parent DATA row (independent of
+   *  `renderRowDetail`). Expanding reveals CHILD data rows in the SAME columns rather than a detail panel.
+   *  In **server mode** the grid does not fetch children — the expanded key set is folded into the
+   *  `onServerChange` query (`expanded`), so the host returns the parent + its children inline (and sets
+   *  `rowCount` to the flattened visible count; a collapsed parent counts as one row). Uses the shared
+   *  `expandedRowIds`/`onExpandedRowsChange`. Tree rows need stable unique keys (via `rowKey`/`id`). Carries
+   *  the #350 limits: not yet supported with `virtualized`, pivot, or `rowGrouping`, and no chevron on a
+   *  pinned (sticky) row. */
+  getRowCanExpand?: (row: T) => boolean;
+  /** #359: 0-based nesting depth, used only for the tree indent on the first data cell (0 = top-level parent).
+   *  In server mode supply it from the host-flattened rows; in client mode it's derived from the `getSubRows`
+   *  splice when omitted. @default 0 */
+  getRowDepth?: (row: T) => number;
+  /** #359 (client mode): children for an expanded parent, spliced in as first-class rows (same columns)
+   *  immediately after it. Ignored in `serverMode` (the host returns children inline). Children are rendered
+   *  after pagination, so they don't consume the parent's page budget and aren't independently sorted/filtered. */
+  getSubRows?: (row: T) => T[];
 }
 
 /** String-column filter operators (Datatable server mode). */
@@ -352,6 +370,10 @@ export interface DatatableQuery {
   /** `field`s of the columns currently hidden via the Columns menu. Always populated in
    *  `onServerChange`; optional for the same reason as `visibleColumns`. */
   hiddenColumns?: string[];
+  /** #359 (server-mode lazy row-tree): keys of the currently-expanded parent rows. Always populated in
+   *  `onServerChange` when `getRowCanExpand` is used — the host fetches those parents' children and returns
+   *  them inline (a collapsed parent is one row). Optional on a hand-built query. */
+  expanded?: Array<string | number>;
 }
 
 /**

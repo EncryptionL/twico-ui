@@ -1101,6 +1101,11 @@ export function Datatable({
   // column + a full-width detail <tr> under each expanded row. Expansion is uncontrolled unless
   // `expandedRowIds` is supplied; `onExpandedRowsChange` fires the next expanded-key array on every toggle.
   renderRowDetail, expandedRowIds, onExpandedRowsChange,
+  // #359: server-mode lazy row-tree — `getRowCanExpand(row)` draws the same leading chevron on parent DATA
+  // rows (independent of renderRowDetail); expanding reveals CHILD data rows in the SAME columns rather than a
+  // panel. In server mode the host returns children inline (the expanded set is folded into onServerChange);
+  // in client mode `getSubRows(row)` supplies them. `getRowDepth(row)` indents nested rows so they read as a tree.
+  getRowCanExpand, getRowDepth, getSubRows,
   className = "", ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-dt-styles", DT_CSS);
@@ -1312,6 +1317,9 @@ export function Datatable({
     () => new Set(expandControlled ? expandedRowIds : internalExpanded),
     [expandControlled, expandedRowIds, internalExpanded],
   );
+  // #359: stable content key for the expanded set (the memo above is a fresh Set each render). Used as the
+  // onServerChange effect dep so a toggle re-emits the query without churning on unrelated re-renders.
+  const expandedKey = React.useMemo(() => JSON.stringify([...expandedSet].sort()), [expandedSet]);
   const [pinnedRows, setPinnedRows] = React.useState({ top: [], bottom: [] });
   const [headH, setHeadH] = React.useState(41);
   const theadRef = React.useRef(null);
@@ -1744,7 +1752,9 @@ export function Datatable({
   // into numLeft/leadW so every downstream offset (checkbox x, rownum x, pinned-column offsets, min-width)
   // shifts automatically — the only hardcoded `insetInlineStart: 0` that must become `EXP_W` is the checkbox.
   const hasRowDetail = typeof renderRowDetail === "function";
-  const EXP_W = hasRowDetail ? 44 : 0;
+  const hasRowTree = typeof getRowCanExpand === "function"; // #359
+  const hasExpandCol = hasRowDetail || hasRowTree;   // #359: the leading chevron column serves both
+  const EXP_W = hasExpandCol ? 44 : 0;
   const numLeft = EXP_W + CHK_W;                     // x of the row-number column (after expand + checkbox)
   const leadW = numLeft + (showRowNum ? NUM_W : 0);  // x where pinned-left data columns begin
   // #302: the sticky LAYOUT must be derived from the *visible* pinned columns, not the raw `pins`
@@ -1818,6 +1828,26 @@ export function Datatable({
   const paged = !paginated || serverMode ? processed : processed.slice(pageVal * sizeVal, pageVal * sizeVal + sizeVal);
   React.useEffect(() => { if (pageVal > totalPages - 1) commitPage(0); }, [totalPages]);
 
+  // #359: client-mode lazy row-tree — when `getSubRows` is provided (and not serverMode), flatten each
+  // expanded parent's children in AFTER it as first-class rows (same columns). Runs after pagination so
+  // children don't consume the parent's page budget (a collapsed parent counts as one row). Children need
+  // stable unique keys (via `rowKey`/`id`). In server mode the host returns children inline instead.
+  const treeRows = React.useMemo(() => {
+    if (serverMode || typeof getSubRows !== "function") return null;
+    const out = [];
+    const walk = (r, d) => {
+      out.push({ row: r, depth: d });
+      if (expandedSet.has(keyOf(r))) for (const c of (getSubRows(r) || [])) walk(c, d + 1);
+    };
+    for (const r of paged) walk(r, 0);
+    return out;
+  }, [serverMode, getSubRows, paged, expandedSet, keyOf]);
+  const depthByKey = React.useMemo(() => {
+    const m = new Map();
+    if (treeRows) for (const t of treeRows) m.set(keyOf(t.row), t.depth);
+    return m;
+  }, [treeRows, keyOf]);
+
   // ---- Row grouping ----
   // Groups the rendered page by one or more fields into collapsible group rows.
   // (Operates over the current page; disable pagination with pageSize={0} to group all client rows.)
@@ -1865,7 +1895,7 @@ export function Datatable({
     };
     return build(paged, 0, "");
   }, [activeGroupBy, collapsed, paged, ordered, aggOn]);
-  const leafRows = displayItems ? displayItems.filter((i) => i.kind === "leaf").map((i) => i.row) : paged;
+  const leafRows = displayItems ? displayItems.filter((i) => i.kind === "leaf").map((i) => i.row) : (treeRows ? treeRows.map((t) => t.row) : paged); // #359: client tree flatten
   function toggleGroup(key) { setCollapsed((s) => { const n = new Set(s); n.has(key) ? n.delete(key) : n.add(key); return n; }); }
   function toggleGroupField(field) { setGroupBy((g) => (g.includes(field) ? g.filter((f) => f !== field) : [...g, field])); }
 
@@ -2083,10 +2113,11 @@ export function Datatable({
         filterLogic, // #303: "and" (default) | "or" — the server groups its WHERE accordingly
         quickFilter: quick.trim(),
         visibleColumns, hiddenColumns,   // #191: server can project only the visible columns
+        expanded: [...expandedSet],      // #359: expanded parent keys — the host fetches those children inline
       });
     }, 250);
     return () => clearTimeout(t);
-  }, [serverMode, pageVal, sizeVal, sort, filters, filterLogic, quick, visibleColumns, hiddenColumns]);
+  }, [serverMode, pageVal, sizeVal, sort, filters, filterLogic, quick, visibleColumns, hiddenColumns, expandedKey]);
 
   // #191: report column show/hide toggles from the built-in Columns menu so a consumer can
   // drive server-side column projection off the same control. Fires on change, not on mount.
@@ -2923,7 +2954,7 @@ export function Datatable({
   const visibleColCount = manageableCols.filter((c) => !effectiveHidden.has(c.field)).length;
   const rppOptions = Array.from(new Set([...(pageSizeOptions || []), pageSize].filter((n) => n > 0))).sort((a, b) => a - b).map((n) => ({ value: String(n), label: String(n) }));
 
-  const totalCols = ordered.length + (checkboxSelection ? 1 : 0) + (showRowNum ? 1 : 0) + (hasRowDetail ? 1 : 0);
+  const totalCols = ordered.length + (checkboxSelection ? 1 : 0) + (showRowNum ? 1 : 0) + (hasExpandCol ? 1 : 0);
   function renderGroupRow(item) {
     const subs = aggOn ? subtotalText(item.rows) : [];
     return (
@@ -2961,8 +2992,12 @@ export function Datatable({
     // #350: compute the row's detail once — drives both the chevron-enable check and the panel body. Pinned
     // (sticky) rows never render a detail panel (a panel beneath a sticky row stacks oddly).
     const detail = hasRowDetail && !pinSide ? renderRowDetail(row) : null;
-    const expandable = detail != null;
+    // #359: a row is expandable via a detail panel (renderRowDetail) OR as a row-tree parent (getRowCanExpand).
+    const canTreeExpand = hasRowTree && !pinSide && !!getRowCanExpand(row);
+    const expandable = detail != null || canTreeExpand;
     const open = expandable && expandedSet.has(k);
+    // #359: nesting depth for the tree indent — from getRowDepth (server) or the client splice map.
+    const depth = getRowDepth ? (getRowDepth(row) || 0) : (depthByKey.get(k) || 0);
     const rowActive = selectionMode === "row" && activeRowVal === k;
     const stickyStyle = pinSide === "top" ? { position: "sticky", top: headH, zIndex: 5 } : pinSide === "bottom" ? { position: "sticky", bottom: 0, zIndex: 5 } : undefined;
     const h = rowHeights[k];
@@ -2994,10 +3029,10 @@ export function Datatable({
         onDrop={reorderable && rowDrag.from != null ? (e) => { e.preventDefault(); onRowDrop(k); } : undefined}
         onDragEnd={reorderable ? () => setRowDrag({ from: null, over: null, after: false }) : undefined}
         onClick={(e) => handleRowClick(e, k, row)}>
-        {hasRowDetail ? (
+        {hasExpandCol ? (
           <td className="twc-dt__td twc-dt__expand-cell" role="gridcell" data-pin="left" data-pin-edge={(checkboxSelection || showRowNum || visLeft.length) ? undefined : "left"} style={{ insetInlineStart: 0, width: EXP_W }}>
             {expandable ? (
-              <button type="button" className="twc-dt__expand-btn" aria-expanded={open} aria-controls={open ? `${gridId}-detail-${ri}` : undefined} aria-label={open ? "Collapse row" : "Expand row"} onClick={(e) => { e.stopPropagation(); toggleRowDetail(k); }}>
+              <button type="button" className="twc-dt__expand-btn" aria-expanded={open} aria-controls={open && detail != null ? `${gridId}-detail-${ri}` : undefined} aria-label={open ? "Collapse row" : "Expand row"} onClick={(e) => { e.stopPropagation(); toggleRowDetail(k); }}>
                 <span className="twc-dt__expand-chev" data-open={open || undefined}><Svg d={I.chevDown} /></span>
               </button>
             ) : null}
@@ -3041,14 +3076,14 @@ export function Datatable({
           const cellClass = c.cellClassName ? c.cellClassName(val, row) : undefined;
           const cellSty = c.cellStyle ? c.cellStyle(val, row) : undefined;
           return (
-            <td key={c.field} id={cellId} className={cellClass ? `twc-dt__td ${cellClass}` : "twc-dt__td"} role="gridcell" data-r={ri} data-c={ci} aria-colindex={ci + 1 + (checkboxSelection ? 1 : 0) + (hasRowDetail ? 1 : 0)}
+            <td key={c.field} id={cellId} className={cellClass ? `twc-dt__td ${cellClass}` : "twc-dt__td"} role="gridcell" data-r={ri} data-c={ci} aria-colindex={ci + 1 + (checkboxSelection ? 1 : 0) + (hasExpandCol ? 1 : 0)}
               tabIndex={focus.r === ri && focus.c === ci ? 0 : -1}
               aria-selected={cellSelected || undefined}
               data-num={c.type === "number" || undefined} data-actions={isActions || undefined}
               data-editable={editable && !isEditing || undefined} data-editing={isEditing || undefined}
               data-cell-active={cellActive || undefined} data-cell-selected={cellSelected || undefined} data-copied={cellFlash || undefined} data-wrap={effectiveWrapped.has(c.field) || undefined}
               data-pin={st.pin} data-pin-edge={st.edge}
-              style={{ width: widthOf(c), ...cellSty, ...st.style, ...(st.pin ? { position: "sticky", zIndex: 2 } : null) }} data-ovtext={cellTitle}
+              style={{ width: widthOf(c), ...cellSty, ...st.style, ...(st.pin ? { position: "sticky", zIndex: 2 } : null), ...(ci === 0 && depth ? { paddingInlineStart: `calc(12px + ${depth * 20}px)` } : null) }} data-ovtext={cellTitle}
               onClick={selectionMode === "cell" ? (e) => handleCellClick(e, k, row, c) : undefined}
               onFocus={() => setFocus((f) => (f.r === ri && f.c === ci ? f : { r: ri, c: ci }))}
               onDoubleClick={editable ? () => beginEdit(k, c, row) : undefined}>
@@ -3083,7 +3118,8 @@ export function Datatable({
           );
         })}
       </tr>
-      {open ? (
+      {/* #359: only renderRowDetail rows get a full-width panel; a row-tree parent's children are real rows. */}
+      {open && detail != null ? (
         <tr className="twc-dt__detail-row" role="row">
           <td id={`${gridId}-detail-${ri}`} className="twc-dt__detail-cell" role="gridcell" colSpan={totalCols} style={{ maxWidth: "none" }}>{detail}</td>
         </tr>
@@ -3324,12 +3360,12 @@ export function Datatable({
         onMouseOver={onOverflowOver} onMouseOut={onOverflowOut} onFocus={onOverflowFocus} onBlur={hideOverflowTip}>
         <table className="twc-dt__table" style={{ width: tableMinWidth, minWidth: "100%" }}
           ref={gridRef} role="grid" aria-label={ariaLabelAttr || ariaLabel}
-          aria-rowcount={totalRows + 1} aria-colcount={ordered.length + (checkboxSelection ? 1 : 0) + (hasRowDetail ? 1 : 0)}
+          aria-rowcount={totalRows + 1} aria-colcount={ordered.length + (checkboxSelection ? 1 : 0) + (hasExpandCol ? 1 : 0)}
           aria-multiselectable={selectionMode === "cell" || undefined} aria-activedescendant={activeCellId}
           aria-busy={loading || undefined} onKeyDown={onGridKeyDown}>
           <thead ref={theadRef}>
             <tr role="row" aria-rowindex={1}>
-              {hasRowDetail ? (
+              {hasExpandCol ? (
                 <th className="twc-dt__th twc-dt__expand-cell" role="columnheader" aria-label="Expand" data-pin="left" data-pin-edge={(checkboxSelection || showRowNum || visLeft.length) ? undefined : "left"} style={{ insetInlineStart: 0, width: EXP_W, minWidth: EXP_W }} />
               ) : null}
               {checkboxSelection ? (
@@ -3422,7 +3458,7 @@ export function Datatable({
             {loading ? (
               Array.from({ length: paginated ? Math.min(sizeVal, 8) : 8 }).map((_, ri) => (
                 <tr key={ri} className="twc-dt__row" role="row">
-                  {hasRowDetail ? <td className="twc-dt__td twc-dt__expand-cell" role="gridcell" data-pin="left" style={{ insetInlineStart: 0, width: EXP_W }} /> : null}
+                  {hasExpandCol ? <td className="twc-dt__td twc-dt__expand-cell" role="gridcell" data-pin="left" style={{ insetInlineStart: 0, width: EXP_W }} /> : null}
                   {checkboxSelection ? <td className="twc-dt__td" role="gridcell" data-pin="left" style={{ insetInlineStart: EXP_W, width: CHK_W }}><span className="twc-dt__sk" aria-hidden="true" style={{ "--_w": "18px", height: 18, borderRadius: 4 }} /></td> : null}
                   {showRowNum ? <td className="twc-dt__td twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" style={{ insetInlineStart: numLeft, width: NUM_W }}><span className="twc-dt__sk" aria-hidden="true" style={{ "--_w": "16px", height: 14, borderRadius: 4 }} /></td> : null}
                   {ordered.map((c, ci) => {
@@ -3458,7 +3494,7 @@ export function Datatable({
           {hasAggregation && aggOn && !loading && paged.length > 0 ? (
             <tfoot>
               <tr role="row">
-                {hasRowDetail ? <td role="gridcell" data-pin="left" data-pin-edge={(checkboxSelection || showRowNum || visLeft.length) ? undefined : "left"} style={{ insetInlineStart: 0, width: EXP_W }} /> : null}
+                {hasExpandCol ? <td role="gridcell" data-pin="left" data-pin-edge={(checkboxSelection || showRowNum || visLeft.length) ? undefined : "left"} style={{ insetInlineStart: 0, width: EXP_W }} /> : null}
                 {checkboxSelection ? <td role="gridcell" data-pin="left" data-pin-edge={(visLeft.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: EXP_W, width: CHK_W }} /> : null}
                 {showRowNum ? <td className="twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" data-pin-edge={visLeft.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W }} /> : null}
                 {ordered.map((c) => {

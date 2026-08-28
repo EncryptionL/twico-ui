@@ -5734,7 +5734,28 @@ export const components = [
         "type": "(ids: Array<string | number>) => void",
         "required": false,
         "default": "—",
-        "description": "Fires with the next full array of expanded row keys whenever a row's detail panel is expanded or collapsed."
+        "description": "Fires with the next full array of expanded row keys whenever a row is expanded or collapsed (shared by renderRowDetail and the row-tree)."
+      },
+      {
+        "prop": "getRowCanExpand",
+        "type": "(row: T) => boolean",
+        "required": false,
+        "default": "—",
+        "description": "Server-mode lazy row-tree: draws the leading chevron on a parent DATA row (independent of renderRowDetail); expanding reveals child rows in the SAME columns. Server mode folds the expanded set into onServerChange (`expanded`); client mode uses getSubRows."
+      },
+      {
+        "prop": "getRowDepth",
+        "type": "(row: T) => number",
+        "required": false,
+        "default": "0",
+        "description": "0-based nesting depth for the tree indent on the first data cell (server mode supplies it; client mode derives it from the getSubRows splice)."
+      },
+      {
+        "prop": "getSubRows",
+        "type": "(row: T) => T[]",
+        "required": false,
+        "default": "—",
+        "description": "Client-mode child rows for an expanded parent, spliced in as first-class rows (same columns) after it. Ignored in serverMode (host returns children inline). Rendered after pagination, so not independently sorted/filtered."
       },
       {
         "prop": "onRowOrderChange",

@@ -231,6 +231,13 @@ target; the new key order is reported via `onRowOrderChange`; disabled while a s
 non-expandable. Uncontrolled by default; pass `expandedRowIds` + `onExpandedRowsChange` to control which rows
 are open. First pass: not yet supported with `virtualized`.
 
+**Lazy row-tree** — for a *hierarchical grid* where a parent row expands to reveal **child rows in the same
+columns** (not a panel), use `getRowCanExpand={(row) => row.isParent}` — same chevron column, same
+`expandedRowIds`/`onExpandedRowsChange`. In **server mode** the expanded set rides along in the `onServerChange`
+query (`expanded`) so your host returns the parent + its children inline (set `rowCount` to the flattened count;
+a collapsed parent = one row). In **client mode** pass `getSubRows={(row) => row.children}`. `getRowDepth` (or
+the client splice) indents nested rows so they read as a tree.
+
 **Pivoting** — OFF by default. Users open the toolbar **Pivot** panel to toggle pivot mode and build the model
 live: pick **Rows** and **Columns** fields (MultiSelect) and add **Values** with a per-value aggregation. A `pivot`
 prop seeds the initial model. The result is a cross-tab (Material UI Data Grid style): `rows` become row-group
