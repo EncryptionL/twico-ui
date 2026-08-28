@@ -1317,8 +1317,7 @@ export function Datatable({
     () => new Set(expandControlled ? expandedRowIds : internalExpanded),
     [expandControlled, expandedRowIds, internalExpanded],
   );
-  // #359: stable content key for the expanded set (the memo above is a fresh Set each render). Used as the
-  // onServerChange effect dep so a toggle re-emits the query without churning on unrelated re-renders.
+  // #359: stable content key for the expanded set (the memo above is a fresh Set each render).
   const expandedKey = React.useMemo(() => JSON.stringify([...expandedSet].sort()), [expandedSet]);
   const [pinnedRows, setPinnedRows] = React.useState({ top: [], bottom: [] });
   const [headH, setHeadH] = React.useState(41);
@@ -1754,6 +1753,9 @@ export function Datatable({
   const hasRowDetail = typeof renderRowDetail === "function";
   const hasRowTree = typeof getRowCanExpand === "function"; // #359
   const hasExpandCol = hasRowDetail || hasRowTree;   // #359: the leading chevron column serves both
+  // #359: only a server row-tree needs the host to refetch children on expand — gate the query fold on it so a
+  // renderRowDetail-only (#350) server grid keeps its v1.34 behaviour (no onServerChange re-fire on panel toggle).
+  const treeExpandedKey = hasRowTree ? expandedKey : "";
   const EXP_W = hasExpandCol ? 44 : 0;
   const numLeft = EXP_W + CHK_W;                     // x of the row-number column (after expand + checkbox)
   const leadW = numLeft + (showRowNum ? NUM_W : 0);  // x where pinned-left data columns begin
@@ -1835,9 +1837,13 @@ export function Datatable({
   const treeRows = React.useMemo(() => {
     if (serverMode || typeof getSubRows !== "function") return null;
     const out = [];
+    const seen = new Set(); // #359 review: guard a cyclic/duplicate-key getSubRows from recursing forever
     const walk = (r, d) => {
+      const key = keyOf(r);
+      if (seen.has(key)) return;
+      seen.add(key);
       out.push({ row: r, depth: d });
-      if (expandedSet.has(keyOf(r))) for (const c of (getSubRows(r) || [])) walk(c, d + 1);
+      if (expandedSet.has(key)) for (const c of (getSubRows(r) || [])) walk(c, d + 1);
     };
     for (const r of paged) walk(r, 0);
     return out;
@@ -1847,6 +1853,15 @@ export function Datatable({
     if (treeRows) for (const t of treeRows) m.set(keyOf(t.row), t.depth);
     return m;
   }, [treeRows, keyOf]);
+  // #359 review: a GLOBAL 0-based sequence over all processed rows (parents + expanded children), so client
+  // row numbers + aria-rowindex stay unique/continuous across pages (the per-page leaf index duplicates them).
+  const treeSeqByKey = React.useMemo(() => {
+    if (!treeRows) return null;
+    const m = new Map(); const seen = new Set(); let n = 0;
+    const walk = (r) => { const key = keyOf(r); if (seen.has(key)) return; seen.add(key); m.set(key, n++); if (expandedSet.has(key)) for (const c of (getSubRows(r) || [])) walk(c); };
+    for (const r of processed) walk(r);
+    return m;
+  }, [treeRows, processed, expandedSet, getSubRows, keyOf]);
 
   // ---- Row grouping ----
   // Groups the rendered page by one or more fields into collapsible group rows.
@@ -2113,11 +2128,11 @@ export function Datatable({
         filterLogic, // #303: "and" (default) | "or" — the server groups its WHERE accordingly
         quickFilter: quick.trim(),
         visibleColumns, hiddenColumns,   // #191: server can project only the visible columns
-        expanded: [...expandedSet],      // #359: expanded parent keys — the host fetches those children inline
+        ...(hasRowTree ? { expanded: [...expandedSet] } : null), // #359: only a row-tree folds expanded parents in
       });
     }, 250);
     return () => clearTimeout(t);
-  }, [serverMode, pageVal, sizeVal, sort, filters, filterLogic, quick, visibleColumns, hiddenColumns, expandedKey]);
+  }, [serverMode, pageVal, sizeVal, sort, filters, filterLogic, quick, visibleColumns, hiddenColumns, treeExpandedKey]);
 
   // #191: report column show/hide toggles from the built-in Columns menu so a consumer can
   // drive server-side column projection off the same control. Fires on change, not on mount.
@@ -2472,12 +2487,14 @@ export function Datatable({
     const col = colByField[editing.field];
     let next = override !== undefined ? override : editing.value;
     if (col?.type === "number") { next = next === "" ? null : Number(next); if (Number.isNaN(next)) next = null; }
-    const row = paged.find((r, i) => keyOf(r, i) === editing.key);
+    // #359: resolve from leafRows (which includes tree children) so a client-tree child edit resolves and
+    // fires onRowUpdate; the array-persist below can only carry top-level rows.
+    const row = leafRows.find((r, i) => keyOf(r, i) === editing.key);
     setEditing(null);
     if (!row || row[editing.field] === next) return;
     const updated = { ...row, [editing.field]: next };
     onRowUpdate?.(updated, row, editing.field);
-    if (onRowsChange) {
+    if (onRowsChange && rows.some((r, i) => keyOf(r, i) === editing.key)) {
       onRowsChange(rows.map((r, i) => (keyOf(r, i) === editing.key ? updated : r)));
     }
   }
@@ -2587,11 +2604,16 @@ export function Datatable({
   // Apply a Map<rowKey, {field: value}> in ONE pass → a single onRowsChange (never N), mirroring applyBatchEdit.
   const writeCellPatches = (patchByKey) => {
     if (!patchByKey.size) return 0;
-    const changed = [];
-    const nextAll = rows.map((r, i) => { const k = keyOf(r, i); const patch = patchByKey.get(k); if (!patch) return r; const updated = { ...r, ...patch }; changed.push([updated, r, patch]); return updated; });
-    changed.forEach(([updated, orig, patch]) => { for (const f of Object.keys(patch)) onRowUpdate?.(updated, orig, f); });
-    if (onRowsChange && changed.length) onRowsChange(nextAll);
-    return changed.length;
+    // #359: fire onRowUpdate for every patched row in the RENDERED leaf set (includes tree children).
+    let count = 0;
+    leafRows.forEach((r, i) => { const patch = patchByKey.get(keyOf(r, i)); if (!patch) return; const updated = { ...r, ...patch }; for (const f of Object.keys(patch)) onRowUpdate?.(updated, r, f); count++; });
+    // The array persist (onRowsChange) can only carry top-level rows; children persist via onRowUpdate above.
+    if (onRowsChange) {
+      let anyTop = false;
+      const nextAll = rows.map((r, i) => { const patch = patchByKey.get(keyOf(r, i)); if (!patch) return r; anyTop = true; return { ...r, ...patch }; });
+      if (anyTop) onRowsChange(nextAll);
+    }
+    return count;
   };
   // Rectangle of the current selection (or the single active cell) as rows of {key,field,col,value}.
   const rectCells = () => {
@@ -3009,7 +3031,7 @@ export function Datatable({
       ? (rowGrab.index >= keyIndexMid.get(rowGrab.key) ? "after" : "before") : undefined;
     return (
       <React.Fragment key={(pinSide ? "p-" : "") + k}>
-      <tr className="twc-dt__row" role="row" aria-rowindex={(paginated && !serverMode ? pageVal * sizeVal : 0) + ri + 2}
+      <tr className="twc-dt__row" role="row" aria-rowindex={treeSeqByKey ? treeSeqByKey.get(k) + 2 : (paginated && !serverMode ? pageVal * sizeVal : 0) + ri + 2}
         aria-selected={(checkboxSelection ? sel : rowActive) || undefined}
         data-op={row.__diffop || undefined}
         data-selected={sel || undefined} data-active={rowActive || undefined}
@@ -3051,7 +3073,7 @@ export function Datatable({
         ) : null}
         {showRowNum ? (
           <td className="twc-dt__td twc-dt__rownum" role="gridcell" aria-hidden="true" data-pin="left" data-pin-edge={visLeft.length ? undefined : "left"} style={{ insetInlineStart: numLeft, width: NUM_W }}>
-            {typeof ri === "number" ? ((paginated || serverMode ? pageVal * sizeVal : 0) + ri + 1) : ""}
+            {treeSeqByKey ? (treeSeqByKey.get(k) + 1) : (typeof ri === "number" ? ((paginated || serverMode ? pageVal * sizeVal : 0) + ri + 1) : "")}
           </td>
         ) : null}
         {ordered.map((c, ci) => {
@@ -3360,7 +3382,7 @@ export function Datatable({
         onMouseOver={onOverflowOver} onMouseOut={onOverflowOut} onFocus={onOverflowFocus} onBlur={hideOverflowTip}>
         <table className="twc-dt__table" style={{ width: tableMinWidth, minWidth: "100%" }}
           ref={gridRef} role="grid" aria-label={ariaLabelAttr || ariaLabel}
-          aria-rowcount={totalRows + 1} aria-colcount={ordered.length + (checkboxSelection ? 1 : 0) + (hasExpandCol ? 1 : 0)}
+          aria-rowcount={(treeSeqByKey ? treeSeqByKey.size : totalRows) + 1} aria-colcount={ordered.length + (checkboxSelection ? 1 : 0) + (hasExpandCol ? 1 : 0)}
           aria-multiselectable={selectionMode === "cell" || undefined} aria-activedescendant={activeCellId}
           aria-busy={loading || undefined} onKeyDown={onGridKeyDown}>
           <thead ref={theadRef}>

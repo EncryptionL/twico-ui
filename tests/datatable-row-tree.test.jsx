@@ -90,3 +90,44 @@ describe("Datatable client-mode row-tree — getSubRows (#359)", () => {
     expect(container.querySelector(".twc-dt__expand-btn")).toBeNull();
   });
 });
+
+describe("Datatable row-tree — adversarial-review hardening (#359)", () => {
+  it("a renderRowDetail-only server grid adds no `expanded` and does NOT re-fire onServerChange on panel toggle", async () => {
+    const onServerChange = vi.fn();
+    const { container } = render(
+      <Datatable columns={columns} rows={[{ id: "a", name: "A", size: "" }]} rowKey={(r) => r.id}
+        serverMode rowCount={1} onServerChange={onServerChange} renderRowDetail={(r) => <div>detail {r.name}</div>} />,
+    );
+    await waitFor(() => expect(onServerChange).toHaveBeenCalled());
+    expect(onServerChange.mock.calls.at(-1)[0]).not.toHaveProperty("expanded"); // no row-tree → no field
+    onServerChange.mockClear();
+    fireEvent.click(container.querySelector(".twc-dt__expand-btn")); // open the #350 detail panel
+    await new Promise((r) => setTimeout(r, 320)); // past the 250ms debounce
+    expect(onServerChange).not.toHaveBeenCalled(); // v1.34 behaviour restored (no spurious refetch)
+  });
+
+  it("editing a client-tree CHILD cell fires onRowUpdate with the child row", () => {
+    const onRowUpdate = vi.fn();
+    const kids = { p1: [{ id: "p1-a", name: "child A", size: "S" }] };
+    const cols = [{ field: "name", headerName: "Name", editable: true }, { field: "size", headerName: "Size" }];
+    const { container } = render(
+      <Datatable columns={cols} rows={[{ id: "p1", name: "HP", size: "" }]} rowKey={(r) => r.id}
+        getRowCanExpand={(r) => !!kids[r.id]} getSubRows={(r) => kids[r.id] || []} onRowUpdate={onRowUpdate} />,
+    );
+    fireEvent.click(container.querySelector(".twc-dt__expand-btn")); // expand → child row at data-r=1
+    fireEvent.doubleClick(cell(container, 1, 0)); // the child's Name cell
+    const input = container.querySelector(".twc-dt__editor");
+    fireEvent.change(input, { target: { value: "renamed" } });
+    fireEvent.keyDown(input, { key: "Enter" });
+    expect(onRowUpdate.mock.calls.at(-1)[0]).toMatchObject({ id: "p1-a", name: "renamed" }); // the CHILD, updated
+  });
+
+  it("a cyclic getSubRows does not recurse forever (the visited guard dedupes it)", () => {
+    const self = { id: "x", name: "self", size: "" }; // getSubRows returns the row itself
+    const { container } = render(
+      <Datatable columns={columns} rows={[self]} rowKey={(r) => r.id} getRowCanExpand={() => true} getSubRows={() => [self]} />,
+    );
+    fireEvent.click(container.querySelector(".twc-dt__expand-btn")); // would infinite-loop without the guard
+    expect(container.querySelectorAll('.twc-dt__td[data-c="0"]').length).toBe(1); // rendered once
+  });
+});

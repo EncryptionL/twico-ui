@@ -23,8 +23,14 @@
   flattens `getSubRows` children in after each expanded parent, **after** pagination (so children don't consume
   page budget / aren't independently sorted). `getRowDepth` (or the client splice `depthByKey`) indents the
   first data cell `depth×20px`. Limits carried from #350: no virtualized/pivot/grouping, no pinned chevron;
-  tree rows need stable keys. 6 tests in `tests/datatable-row-tree.test.jsx` (+ #350 regression green); site
-  variation "Lazy row-tree". — added 2026-08-28
+  tree rows need stable keys. **Adversarial-review hardening:** the `expanded` query fold + effect dep are
+  gated on `hasRowTree` (a `treeExpandedKey`) so a `renderRowDetail`-only **server** grid keeps its v1.34
+  behaviour (no `onServerChange` re-fire / no `expanded` field on a #350 panel toggle); `commitEdit`/paste
+  resolve the row from `leafRows` (not `paged`) so a client-tree **child edit** fires `onRowUpdate`
+  (array-persist stays top-level); client row numbers + `aria-rowindex`/`aria-rowcount` use a global
+  `treeSeqByKey` sequence (the per-page leaf index duplicated them across pages); the `getSubRows` walk has a
+  visited guard against a cyclic `getSubRows`. 9 tests in `tests/datatable-row-tree.test.jsx` (+ #350
+  regression green); site variation "Lazy row-tree". — added 2026-08-28
 
 - **[#350] Expandable / collapsible rows — `renderRowDetail` (first pass)** — `renderRowDetail(row) => node`
   (null ⇒ not expandable) adds a leading sticky chevron column (`EXP_W`=44px, folded into `numLeft`/`leadW` so
