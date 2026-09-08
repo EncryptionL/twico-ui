@@ -137,6 +137,50 @@ from the current `rows`; selection does not span pages in server mode.
   clears everything. `filterFieldMaxWidth` raises the field cap. Non-breaking: styles are injected, so the
   `-w`→`-fit` var rename is invisible; old state blobs open at 580 + auto-fit.
 
+## Custom column header — `renderHeader` (#367)
+
+`headerName` is a plain-text `string` (label, search key, export/aggregation label, a11y). To render a
+**custom header** — e.g. a label with a trailing (i) `Tooltip` explaining a non-obvious column — use
+`DatatableColumn.renderHeader`, the header analogue of `renderCell` (mirrors MUI DataGrid's `renderHeader`):
+
+```tsx
+{
+  field: "seats",
+  headerName: "Seats",            // stays the search / Columns-menu / export / a11y label
+  type: "number",
+  sortable: false,                // header hosts a focusable Tooltip trigger — don't nest it in the sort button
+  renderHeader: ({ column }) => (  // rendered in the header cell in place of headerName
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+      {column.headerName}
+      <Tooltip label="Paid seats included in the plan. Overages bill monthly." placement="bottom">
+        <span tabIndex={0} aria-label="About Seats" style={{ cursor: "help" }}>ⓘ</span>
+      </Tooltip>
+    </span>
+  ),
+}
+```
+
+- Keep `headerName` set to the plain-text label — a single `colLabel(c)` helper (`typeof c.headerName ===
+  "string" ? c.headerName : field`) backs every **string consumer**: the **Columns menu** filter, the
+  Columns/Filters/Pivot pickers' Select/MultiSelect option labels, CSV/Excel export headers, aggregation
+  subtotals, `autoWidth`, and the sort/resize + switch/pin `aria-label`s. So a non-string `headerName` degrades
+  to the field label there instead of crashing or emitting `"[object Object]"`. (Quick-search filters cell
+  **values**, not `headerName`, so it is unaffected either way.)
+- **If the header is interactive** (a `Tooltip` trigger, a button, a link), set `sortable: false` on that
+  column. A sortable header's label is itself a `role="button"` (click = sort) that renders `renderHeader` as
+  its child, so a focusable/clickable node inside it nests interactives (WCAG 4.1.2) and its clicks bubble up to
+  toggle sort. (Alternatively `stopPropagation` on the affordance and keep it outside the button hit-area.)
+- `autoWidth` (`width: "auto"`) estimates the column width from the **string label** length, not the rendered
+  node — a `renderHeader` column that needs more room should set a fixed `width` or rely on double-click
+  auto-fit rather than `"auto"`.
+- The header `Tooltip` portals to `document.body` (fixed positioning), so it's never clipped by the header's
+  overflow. Use `placement="bottom"` — a top-edge trigger's tooltip should open downward (Tooltip doesn't
+  auto-flip).
+- **Regression note:** a non-string `headerName` (a `ReactNode`) used to throw `TypeError:
+  c.headerName.toLowerCase is not a function` in the Columns menu **and** the Columns/Filters/Pivot pickers; via
+  `colLabel` every such string consumer now degrades to the field label instead of crashing. Prefer
+  `renderHeader` (+ a string `headerName`) over stuffing a node into `headerName`.
+
 ## Custom inline cell editor — `renderEditCell` (#236)
 
 The built-in editor covers a text/number input and a static-`valueOptions` `<select>`. For a cell backed by a

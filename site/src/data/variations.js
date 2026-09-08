@@ -717,6 +717,11 @@ export const VARIATIONS = [
     "i": 16
   },
   {
+    "component": "Datatable",
+    "title": "Custom column header (renderHeader)",
+    "i": 17
+  },
+  {
     "component": "DatePicker",
     "title": "With label",
     "i": 0

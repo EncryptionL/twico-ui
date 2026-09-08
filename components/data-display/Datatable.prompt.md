@@ -263,7 +263,7 @@ a per-row Total group, a grand-total row, and per-value formatting. Empty inters
 
 Column fields: `field`, `headerName`, `type` ("string"|"number"|"actions"), `filterType` ("string"|"number"),
 `width`, `sortable`, `filterable`, `hideable`, `pinnable`, `pinned` ("left"|"right"), `groupable`, `resizable`,
-`aggregation`, `aggregationFormatter`, `valueOptions`, `valueFormatter`, `valueGetter`, `combine`, `renderCell`, `exportValue`, `getActions`.
+`aggregation`, `aggregationFormatter`, `valueOptions`, `valueFormatter`, `valueGetter`, `combine`, `renderCell`, `renderHeader` (`({ column }) => node` for a custom header, e.g. a label + (i) `Tooltip`; `headerName` stays the search/export/a11y label), `exportValue`, `getActions`.
 
 **`filterType`** decouples a column's *filter* operators from its edit `type` (#270). A value+unit
 measurement must edit as `type: "string"` (a `type: "number"` column coerces its commit with `Number()`,

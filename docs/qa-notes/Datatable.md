@@ -12,6 +12,21 @@
 
 ## Enhancements
 
+- **[#367] Custom column header — `renderHeader` (+ non-string `headerName` no longer crashes the Columns menu)** —
+  `headerName` is `string`-only and the sole header affordance was a native `title` repeating the label, so there
+  was no way to render a header with (say) a trailing (i) `Tooltip`. Casting a `ReactNode` through `headerName`
+  wasn't a workaround: the cell render survived it, but the Columns-menu filter did `c.headerName.toLowerCase()`,
+  which threw `TypeError: … is not a function` the moment the panel opened (export/aggregation were already
+  `typeof … === "string"`-guarded; that one path wasn't). Fixed with the issue's preferred **option 1** (MUI
+  DataGrid's `renderHeader`): `renderHeader?: ({ column }) => ReactNode` renders in place of `headerName` in the
+  header cell, while `headerName` stays the plain-text label used for quick-search, the Columns menu, CSV/Excel
+  export, aggregation, and the a11y sort/resize labels — so it **can't break a string consumer by construction**.
+  A single module-level `colLabel(c) = typeof c.headerName === "string" ? c.headerName : String(c.field ?? "")`
+  now backs every string consumer (the crashing Columns filter, the sort/resize `aria-label`s, the Columns/Combine
+  switch `aria-label`s, `autoWidth`), so a non-string `headerName` degrades to the field label instead of throwing.
+  5 tests in `tests/datatable-render-header.test.jsx` (incl. the Columns-menu crash regression); site variation
+  "Custom column header (renderHeader)". — added 2026-09-08
+
 - **[#359] Server-mode lazy row-tree — `getRowCanExpand` / `getRowDepth` / `getSubRows`** — parent DATA rows
   expand to reveal CHILD data rows in the SAME columns (vs #350's bespoke panel). **Reuses the entire #350
   chevron machinery** by generalizing `hasRowDetail` → `hasExpandCol = hasRowDetail || hasRowTree`
