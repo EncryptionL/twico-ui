@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.36.1](https://github.com/EncryptionL/twico-ui/compare/v1.36.0...v1.36.1) (2026-09-09)
+
+
+### Bug Fixes
+
+* **datatable:** runtime combine into a valueGetter/renderCell target ([#369](https://github.com/EncryptionL/twico-ui/issues/369)) ([6363f38](https://github.com/EncryptionL/twico-ui/commit/6363f38ffd2b754dc7be9ddb6f47cbfc9bab10e2)), closes [#338](https://github.com/EncryptionL/twico-ui/issues/338)
+
 # [1.36.0](https://github.com/EncryptionL/twico-ui/compare/v1.35.0...v1.36.0) (2026-09-09)
 
 
