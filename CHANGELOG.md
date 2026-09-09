@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.36.0](https://github.com/EncryptionL/twico-ui/compare/v1.35.0...v1.36.0) (2026-09-09)
+
+
+### Features
+
+* **datatable:** custom column header via renderHeader ([#367](https://github.com/EncryptionL/twico-ui/issues/367)) ([647ab35](https://github.com/EncryptionL/twico-ui/commit/647ab35d171170b215d2945c5aa624e02230f144))
+
 # [1.35.0](https://github.com/EncryptionL/twico-ui/compare/v1.34.0...v1.35.0) (2026-08-28)
 
 
