@@ -187,7 +187,9 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   /** #339: let end-users build their own combined columns at runtime. Adds a **"Combine columns…"** item to
    *  each column's ⋮ menu that opens an editor to fold other columns' data into that column (they show in its
    *  cell and their own columns hide); layout (inline/stacked) + labels are configurable, and "Uncombine"
-   *  restores them. The result is the same as a declarative `column.combine` and persists via `stateKey`.
+   *  restores them. The result is like a declarative `column.combine` and persists via `stateKey` — except a
+   *  runtime combine also applies the source-join value + render over a target's own `valueGetter`/`renderCell`
+   *  (so a synthetic getter-backed column can still be a target), which a declarative `combine` defers to (#369).
    *  @default false */
   columnCombining?: boolean;
   /** Make all columns editable by default (double-click a cell to edit; per-column `editable` overrides). @default false */
@@ -439,7 +441,11 @@ export interface DatatableColumn<T = any> {
    *  (label-prefixed when `labels`), while the **cell render** additionally applies each source column's
    *  `valueFormatter`. The combined value is synthetic, so the column is display-only (never inline-editable).
    *  Supplying your own `valueGetter` and/or `renderCell` overrides the derived one(s) independently —
-   *  override `valueGetter` alone and the cell shows that value (not the source-join). */
+   *  override `valueGetter` alone and the cell shows that value (not the source-join). **This precedence is
+   *  for a *declarative* `combine` only.** A *runtime* combine the user builds via `columnCombining` (the ⋮ →
+   *  "Combine columns…" editor) is an explicit action, so it applies the source-join value + render even when
+   *  the target column has its own `valueGetter`/`renderCell` — a synthetic getter-backed column can still be
+   *  a combine target (#369). Uncombining restores the column's own value/render. */
   combine?: string[] | { fields: string[]; layout?: "inline" | "stack"; separator?: string; labels?: boolean };
   /** Header label. @default field ("Actions" for actions columns) */
   headerName?: string;

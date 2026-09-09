@@ -12,6 +12,20 @@
 
 ## Enhancements
 
+- **[#369] Runtime combine into a `valueGetter`/`renderCell` target no longer silently no-ops** — the combined-
+  column construction resolved `valueGetter: c.valueGetter || combineValueGetter(...)` and `renderCell:
+  c.renderCell || (c.valueGetter ? undefined : renderCombined)`, so a target column that already had either hook
+  kept showing only its own value. Correct for a **declarative** `combine`, but it also swallowed a **runtime**
+  combine (`userCombine`, from the ⋮ → "Combine columns…" editor): the toggles worked and the sources hid, yet
+  the target cell was unchanged and nothing reported it. This blocks any synthetic getter-backed column (e.g. a
+  sidecar/ERP field that *must* supply a `valueGetter` because `getColVal` falls back to `row[field]`) from ever
+  being a combine target. Fixed by distinguishing the two: `const explicit = !!userCombine[c.field]; const useJoin
+  = explicit || !c.valueGetter;` — an explicit runtime combine applies the source-join **value and render** even
+  over the target's own getter/renderer (uncombining restores them), while a declarative `combine` keeps the old
+  precedence byte-for-byte. Same guard applied to the diff-mode column path. 4 tests in
+  `tests/datatable-combine-target-getter.test.jsx` (+ the 10 #338 combine tests stay green); site variation
+  unchanged. — added 2026-09-09
+
 - **[#367] Custom column header — `renderHeader` (+ non-string `headerName` no longer crashes the Columns menu)** —
   `headerName` is `string`-only and the sole header affordance was a native `title` repeating the label, so there
   was no way to render a header with (say) a trailing (i) `Tooltip`. Casting a `ReactNode` through `headerName`
