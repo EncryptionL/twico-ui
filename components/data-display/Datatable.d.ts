@@ -443,6 +443,13 @@ export interface DatatableColumn<T = any> {
   combine?: string[] | { fields: string[]; layout?: "inline" | "stack"; separator?: string; labels?: boolean };
   /** Header label. @default field ("Actions" for actions columns) */
   headerName?: string;
+  /** #367: fully custom column-header renderer — the header analogue of `renderCell`, mirroring MUI
+   *  DataGrid's `renderHeader`. Receives the resolved column and returns the node rendered inside the
+   *  header cell (e.g. a label + a trailing (i) `Tooltip`) in place of `headerName`. `headerName` stays
+   *  the plain-text label used for quick-search, the Columns menu, CSV/Excel export, aggregation, and the
+   *  a11y sort/resize labels, so a custom header never breaks those string consumers — keep it set to that
+   *  label. (A non-string `headerName` also no longer throws in the Columns menu.) */
+  renderHeader?: (args: { column: DatatableColumn<T> }) => React.ReactNode;
   /** Data type. "actions" renders per-row action buttons via getActions. @default "string" */
   type?: "string" | "number" | "actions";
   /** Filter operators + value comparison for this column, **decoupled from the edit `type`** (#270).

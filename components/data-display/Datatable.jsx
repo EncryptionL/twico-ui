@@ -699,6 +699,14 @@ function combineCfg(combine) {
   if (!fields.length) return null;
   return { fields, separator: cfg.separator != null ? cfg.separator : " · ", labels: !!cfg.labels, layout: cfg.layout === "stack" ? "stack" : "inline" };
 }
+// #367: the plain-text label for a column — headerName when it's a string, else the field. A custom
+// `renderHeader` (or a non-string headerName) must never reach a STRING consumer: the Columns menu's
+// `.toLowerCase()` filter, the Columns/Filters/Pivot pickers' Select/MultiSelect option labels (also
+// `.toLowerCase()`d), CSV/Excel export headers, aggregation subtotals, autoWidth, and the a11y
+// sort/resize + switch/pin/remove aria-labels. They all go through this, so a ReactNode header degrades
+// to the field label instead of crashing or emitting "[object Object]" (the Columns filter threw a
+// TypeError — #367). (Quick-search filters cell VALUES, not headerName, so it isn't a consumer here.)
+const colLabel = (c) => (typeof c.headerName === "string" ? c.headerName : String(c.field ?? ""));
 // Resolve a combine config's source columns against a field→column map (bare {field} fallback for a field
 // that isn't itself a defined column).
 const combineSrcCols = (cfg, byField) => cfg.fields.map((f) => (byField && byField[f]) || { field: f, headerName: String(f) });
@@ -709,7 +717,7 @@ const combineSrcCols = (cfg, byField) => cfg.fields.map((f) => (byField && byFie
 // column whose valueGetter and valueFormatter differ).
 const combineValueGetter = (srcCols, cfg) => (row) =>
   srcCols
-    .map((sc) => { const v = getColVal(sc, row); const s = v == null ? "" : String(v); return cfg.labels && s ? `${sc.headerName ?? sc.field}: ${s}` : s; })
+    .map((sc) => { const v = getColVal(sc, row); const s = v == null ? "" : String(v); return cfg.labels && s ? `${colLabel(sc)}: ${s}` : s; })
     .filter(Boolean)
     .join(cfg.separator);
 
@@ -724,7 +732,7 @@ function renderCombined(srcCols, row, cfg) {
     const v = getColVal(sc, row);
     if (v == null || v === "") return;
     const disp = sc.valueFormatter ? sc.valueFormatter(v, row) : v;
-    const label = cfg.labels ? React.createElement("span", { className: "twc-dt__combine-label" }, (sc.headerName ?? sc.field) + ": ") : null;
+    const label = cfg.labels ? React.createElement("span", { className: "twc-dt__combine-label" }, colLabel(sc) + ": ") : null;
     // Key by source INDEX (not field) so a duplicate field in `combine` can't collide on React key.
     if (count > 0 && cfg.layout !== "stack") nodes.push(React.createElement("span", { key: "sep" + idx, className: "twc-dt__combine-sep", "aria-hidden": "true" }, cfg.separator));
     nodes.push(React.createElement("span", { key: idx, className: "twc-dt__combine-item" }, label, disp));
@@ -948,7 +956,7 @@ function EditCell({ col, value, options, onChange, onCommit, onCommitValue, onCa
         className="twc-dt__editor"
         type={col.type === "number" ? "number" : "text"}
         value={value ?? ""}
-        aria-label={`Edit ${col.headerName}`}
+        aria-label={`Edit ${colLabel(col)}`}
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={onKeyDown}
         onBlur={onCommit}
@@ -1598,7 +1606,7 @@ export function Datatable({
   // resize grip for a pixel-exact content fit (autoFitColumn).
   const AUTO_CHROME = 74; // th padding (24) + sort icon (14) + menu btn (24) + gaps, reserved even when hidden
   const autoWidth = (c) => {
-    const label = typeof c.headerName === "string" ? c.headerName : String(c.field ?? "");
+    const label = colLabel(c);
     return AUTO_CHROME + Math.ceil(label.length * 8); // ~8px/char (semibold text-sm), slight over-estimate so labels never clip
   };
   const clampWidth = (w, c) => {
@@ -1689,6 +1697,8 @@ export function Datatable({
   }, [exportOpen]);
 
   const colByField = React.useMemo(() => Object.fromEntries(cols.map((c) => [c.field, c])), [cols]);
+  // #367: the plain-text label for a field key — the column's colLabel, or the field itself when unknown.
+  const fieldLabel = (f) => colLabel(colByField[f] || { field: f });
   // #339: a runtime combine's source columns are hidden and (for stack layout) its target wraps — both DERIVED
   // from userCombine, never stored in the hidden/wrapped sets. This auto-reference-counts (a source shared by
   // two combines stays hidden until both are removed), never touches a column's manual hide/wrap, and needs no
@@ -1875,7 +1885,7 @@ export function Datatable({
       const v = computeAgg({ ...c, aggregation: agg }, rowsIn);
       if (v == null) continue;
       const disp = c.aggregationFormatter ? c.aggregationFormatter(v) : c.valueFormatter ? c.valueFormatter(v, null) : (typeof v === "number" ? v.toLocaleString() : v);
-      parts.push(`${c.headerName} ${disp}`);
+      parts.push(`${colLabel(c)} ${disp}`);
     }
     return parts;
   }
@@ -2189,7 +2199,7 @@ export function Datatable({
       next.splice(dir > 0 ? b + 1 : b, 0, field);
       return next;
     });
-    const label = colByField[field]?.headerName || field;
+    const label = fieldLabel(field);
     setReorderMsg(`Moved ${label} ${dir < 0 ? "left" : "right"}.`);
   }
 
@@ -2317,7 +2327,7 @@ export function Datatable({
         `<dimension ref="A1:${lastCell}"/>` +
         '<sheetViews><sheetView tabSelected="1" workbookViewId="0"/></sheetViews>' +
         "<sheetData>" +
-        rowXml(expCols.map((c) => c.headerName), 1) +
+        rowXml(expCols.map((c) => colLabel(c)), 1) +
         source.map((row, ri) => rowXml(expCols.map((c) => cellValue(c, row)), ri + 2)).join("") +
         "</sheetData></worksheet>";
       download(xlsxPackage(sheet), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx");
@@ -2328,7 +2338,7 @@ export function Datatable({
       const s = defang(v, v == null ? "" : String(v));
       return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
     };
-    const header = expCols.map((c) => escape(c.headerName)).join(",");
+    const header = expCols.map((c) => escape(colLabel(c))).join(",");
     const lines = source.map((row) => expCols.map((c) => escape(cellValue(c, row))).join(","));
     const text = "\uFEFF" + [header, ...lines].join("\r\n");
     download(text, "text/csv;charset=utf-8;", "csv");
@@ -2746,7 +2756,7 @@ export function Datatable({
       const logicW = Math.min(180, Math.max(84, Math.ceil(widest(["And", "Or"]) + chrome)));
       // available for f-col = panel − logic − op(118) − add/remove(2×30) − f-val floor(140) − 5 gaps(6) − 2 pad(4)
       const colCap = Math.max(118, Math.min(210, el.clientWidth - logicW - 118 - 30 - 30 - 140 - 5 * 6 - 2 * 4));
-      const colW = Math.min(colCap, Math.max(118, Math.ceil(widest(filterableCols.map((c) => c.headerName ?? c.field)) + chrome)));
+      const colW = Math.min(colCap, Math.max(118, Math.ceil(widest(filterableCols.map((c) => colLabel(c))) + chrome)));
       const opW = Math.min(170, Math.max(118, Math.ceil(widest(ALL_OP_LABELS) + chrome)));
       // #292: write the MEASURED tier only (-fit). A user drag writes -usr, which wins in the clamp()
       // cascade; this measurer never reads -usr, so a re-measure can't clobber a user width.
@@ -2966,7 +2976,7 @@ export function Datatable({
 
   const orderIdxOf = (f) => { const i = order.indexOf(f); return i === -1 ? 9999 : i; };
   const shownColRows = cols
-    .filter((c) => c.field !== "__pinactions__" && c.headerName.toLowerCase().includes(colQuery.trim().toLowerCase()))
+    .filter((c) => c.field !== "__pinactions__" && colLabel(c).toLowerCase().includes(colQuery.trim().toLowerCase()))
     .sort((a, b) => orderIdxOf(a.field) - orderIdxOf(b.field));
   // The row-number gutter gets its own show/hide row in the Columns panel when the feature is enabled.
   const rowNumMatch = rowNumbers && "row number".includes(colQuery.trim().toLowerCase());
@@ -2985,7 +2995,7 @@ export function Datatable({
           <button type="button" className="twc-dt__group-toggle" style={{ marginLeft: item.depth * 18 }}
             aria-expanded={!item.collapsed} onClick={() => toggleGroup(item.key)}>
             <span className="twc-dt__group-chev" data-open={!item.collapsed || undefined}><Svg d={I.chevDown} /></span>
-            <span className="twc-dt__group-name">{colByField[item.field]?.headerName || item.field}:</span>
+            <span className="twc-dt__group-name">{fieldLabel(item.field)}:</span>
             <span className="twc-dt__group-val">{String(item.value)}</span>
             <span className="twc-dt__group-count">{item.count}</span>
           </button>
@@ -3156,8 +3166,8 @@ export function Datatable({
     const colPathOf = (r) => cFields.map((f) => String(getColVal(colByField[f], r) ?? "—"));
     const aggOf = (subset, v) => computeAgg({ ...colByField[v.field], field: v.field, aggregation: v.agg || "sum" }, subset || []);
     const fmt = (val, v) => { if (val == null) return "—"; const col = colByField[v.field]; const f = v.valueFormatter || col?.valueFormatter; return f ? f(val, null) : (typeof val === "number" ? val.toLocaleString() : val); };
-    const vlabel = (v) => v.label || (colByField[v.field]?.headerName || v.field);
-    const rowFieldLabel = rFields.map((f) => colByField[f]?.headerName || f).join(" / ");
+    const vlabel = (v) => v.label || fieldLabel(v.field);
+    const rowFieldLabel = rFields.map((f) => fieldLabel(f)).join(" / ");
 
     // Build the leaf column paths (ordered, distinct) and the per-level header spans.
     const leafPaths = [];
@@ -3362,8 +3372,8 @@ export function Datatable({
           <span className="twc-dt__groupbar-label">Grouped by</span>
           {activeGroupBy.map((f) => (
             <span key={f} className="twc-dt__groupchip">
-              {colByField[f]?.headerName || f}
-              <button type="button" className="twc-dt__groupchip-x" aria-label={`Stop grouping by ${colByField[f]?.headerName || f}`} onClick={() => toggleGroupField(f)}><Svg d={I.x} /></button>
+              {fieldLabel(f)}
+              <button type="button" className="twc-dt__groupchip-x" aria-label={`Stop grouping by ${fieldLabel(f)}`} onClick={() => toggleGroupField(f)}><Svg d={I.x} /></button>
             </span>
           ))}
           <button type="button" className="twc-dt__groupbar-clear" onClick={() => setGroupBy([])}>Clear all</button>
@@ -3434,8 +3444,8 @@ export function Datatable({
                     <div className="twc-dt__th-inner">
                       <span className="twc-dt__th-label"
                         role={c.sortable ? "button" : undefined} tabIndex={c.sortable ? 0 : undefined}
-                        data-ovtext={typeof c.headerName === "string" ? c.headerName : undefined}
-                        aria-label={c.sortable ? `${c.headerName}, sort` : undefined}
+                        data-ovtext={!c.renderHeader && typeof c.headerName === "string" ? c.headerName : undefined}
+                        aria-label={c.sortable ? `${colLabel(c)}, sort` : undefined}
                         draggable={reorderable || undefined}
                         onDragStart={reorderable ? (e) => { setDrag({ from: c.field, over: null, after: false }); e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", c.field); } : undefined}
                         onDragEnd={reorderable ? () => setDrag({ from: null, over: null, after: false }) : undefined}
@@ -3443,7 +3453,7 @@ export function Datatable({
                         onKeyDown={c.sortable ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); cycleSort(c.field); } } : undefined}>
                         {reorderable ? <span className="twc-dt__grip" aria-hidden="true"><Svg d={I.grip} /></span> : null}
                         {filteredFields.has(c.field) ? <span className="twc-dt__filterdot" /> : null}
-                        {c.headerName}
+                        {c.renderHeader ? c.renderHeader({ column: c }) : c.headerName}
                         {c.sortable ? <span className="twc-dt__sort"><Svg d={I.arrow} /></span> : null}
                       </span>
                       {hasMenu ? (
@@ -3455,7 +3465,7 @@ export function Datatable({
                       ) : null}
                     </div>
                     {resizable ? <span className="twc-dt__resizer" data-active={resizing || undefined}
-                      role="separator" aria-orientation="vertical" aria-label={`Resize ${c.headerName} column (double-click to fit content)`}
+                      role="separator" aria-orientation="vertical" aria-label={`Resize ${colLabel(c)} column (double-click to fit content)`}
                       aria-valuenow={w} aria-valuemin={72} tabIndex={0}
                       onPointerDown={(e) => startResize(e, c.field)} onClick={(e) => e.stopPropagation()}
                       onDoubleClick={(e) => { e.preventDefault(); e.stopPropagation(); autoFitColumn(c.field, e.currentTarget.closest("th")); }}
@@ -3624,7 +3634,7 @@ export function Datatable({
               <div className="twc-dt__be-add">
                 <Select size="sm" portal searchable placeholder="Add a column…" value=""
                   aria-label="Add a column to edit"
-                  options={unpicked.map((c) => ({ value: c.field, label: String(c.headerName ?? c.field) }))}
+                  options={unpicked.map((c) => ({ value: c.field, label: colLabel(c) }))}
                   onChange={addField} />
               </div>
             ) : null}
@@ -3635,8 +3645,8 @@ export function Datatable({
                 const opts = c.valueOptions ? c.valueOptions.map((o) => (typeof o === "string" ? { value: o, label: o } : o)) : null;
                 return (
                   <div key={c.field} className="twc-dt__be-row">
-                    <span className="twc-dt__be-name" title={String(c.headerName ?? c.field)}>
-                      <span className="twc-dt__be-name-txt">{c.headerName}</span>
+                    <span className="twc-dt__be-name" title={colLabel(c)}>
+                      <span className="twc-dt__be-name-txt">{colLabel(c)}</span>
                       {/* #341: drag/keyboard-resize the (panel-global) column-name field — handle on the first row only. */}
                       {resizableFilters && i === 0 ? (
                         <span className="twc-dt__f-rz" role="separator" aria-orientation="vertical" tabIndex={0}
@@ -3663,7 +3673,7 @@ export function Datatable({
                           onChange={(e) => setBatchEdit((b) => ({ ...b, values: { ...b.values, [c.field]: e.target.value } }))} />
                       )}
                     </div>
-                    <button type="button" className="twc-dt__be-x" aria-label={`Remove ${String(c.headerName ?? c.field)}`} onClick={() => removeField(c.field)}><Svg d={I.x} /></button>
+                    <button type="button" className="twc-dt__be-x" aria-label={`Remove ${colLabel(c)}`} onClick={() => removeField(c.field)}><Svg d={I.x} /></button>
                   </div>
                 );
               })}
@@ -3779,20 +3789,20 @@ export function Datatable({
                   onDrop={canDrag && drag.from ? (e) => { e.preventDefault(); onColDrop(c.field); } : undefined}
                   onClick={() => c.hideable && !combineSources.has(c.field) && toggleHiddenField(c.field)}>
                   {canDrag ? <span className="twc-dt__col-grip" aria-hidden="true"><Svg d={I.grip} /></span> : null}
-                  <span className="twc-dt__col-name">{c.headerName}{combineSources.has(c.field) ? <span className="twc-dt__col-combined"> · combined</span> : null}</span>
+                  <span className="twc-dt__col-name">{colLabel(c)}{combineSources.has(c.field) ? <span className="twc-dt__col-combined"> · combined</span> : null}</span>
                   {c.pinnable && c.type !== "actions" ? (
                     // Pin from here too, so columns scrolled out of view (no reachable header ⋮) can still be pinned.
                     <span className="twc-dt__col-pins" draggable={false} onClick={(e) => e.stopPropagation()}>
                       <button type="button" className="twc-dt__col-pin" data-on={pins.left.includes(c.field) || undefined}
-                        aria-pressed={pins.left.includes(c.field)} aria-label={`Pin ${c.headerName} to left`} title={pins.left.includes(c.field) ? "Unpin" : "Pin to left"}
+                        aria-pressed={pins.left.includes(c.field)} aria-label={`Pin ${colLabel(c)} to left`} title={pins.left.includes(c.field) ? "Unpin" : "Pin to left"}
                         onClick={() => setPin(c.field, pins.left.includes(c.field) ? null : "left")}><Svg d={I.pinL} /></button>
                       <button type="button" className="twc-dt__col-pin" data-on={pins.right.includes(c.field) || undefined}
-                        aria-pressed={pins.right.includes(c.field)} aria-label={`Pin ${c.headerName} to right`} title={pins.right.includes(c.field) ? "Unpin" : "Pin to right"}
+                        aria-pressed={pins.right.includes(c.field)} aria-label={`Pin ${colLabel(c)} to right`} title={pins.right.includes(c.field) ? "Unpin" : "Pin to right"}
                         onClick={() => setPin(c.field, pins.right.includes(c.field) ? null : "right")}><Svg d={I.pin} /></button>
                     </span>
                   ) : null}
                   <span className="twc-dt__sw" data-on={!effectiveHidden.has(c.field) || undefined}
-                    role="switch" aria-checked={!effectiveHidden.has(c.field)} aria-label={c.headerName}
+                    role="switch" aria-checked={!effectiveHidden.has(c.field)} aria-label={colLabel(c)}
                     aria-disabled={!c.hideable || combineSources.has(c.field) || undefined} tabIndex={c.hideable && !combineSources.has(c.field) ? 0 : -1}
                     onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && c.hideable && !combineSources.has(c.field)) { e.preventDefault(); toggleHiddenField(c.field); } }}
                     style={c.hideable && !combineSources.has(c.field) ? undefined : { opacity: 0.4 }} />
@@ -3810,9 +3820,9 @@ export function Datatable({
         const candidates = cols.filter((c) => c.field !== combineTarget && c.type !== "actions" && c.field !== "__pinactions__" && c.hideable !== false && !userCombine[c.field]);
         const toggle = (f) => setCombineDraft((d) => ({ ...d, selected: d.selected.includes(f) ? d.selected.filter((x) => x !== f) : [...d.selected, f] }));
         return (
-          <div ref={combinePanelRef} tabIndex={-1} className="twc-dt__pop twc-dt__cols" style={{ top: panelPos.top, left: panelPos.left, ...popStyle("combine") }} data-pop-sized={popSizes.combine ? "" : undefined} role="dialog" aria-label={`Combine columns into ${target?.headerName || combineTarget}`}>
+          <div ref={combinePanelRef} tabIndex={-1} className="twc-dt__pop twc-dt__cols" style={{ top: panelPos.top, left: panelPos.left, ...popStyle("combine") }} data-pop-sized={popSizes.combine ? "" : undefined} role="dialog" aria-label={`Combine columns into ${target ? colLabel(target) : combineTarget}`}>
             <div className="twc-dt__panel-head">
-              <span className="twc-dt__panel-title">Combine into “{target?.headerName || combineTarget}”</span>
+              <span className="twc-dt__panel-title">Combine into “{target ? colLabel(target) : combineTarget}”</span>
             </div>
             <div className="twc-dt__combine-hint">Pick columns to merge into this one — their data shows in this cell and their own columns hide.</div>
             <div className="twc-dt__col-list">
@@ -3821,8 +3831,8 @@ export function Datatable({
                   const on = combineDraft.selected.includes(c.field);
                   return (
                     <div key={c.field} className="twc-dt__col-row" onClick={() => toggle(c.field)}>
-                      <span className="twc-dt__col-name">{c.headerName}</span>
-                      <span className="twc-dt__sw" data-on={on || undefined} role="switch" aria-checked={on} aria-label={c.headerName} tabIndex={0}
+                      <span className="twc-dt__col-name">{colLabel(c)}</span>
+                      <span className="twc-dt__sw" data-on={on || undefined} role="switch" aria-checked={on} aria-label={colLabel(c)} tabIndex={0}
                         onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(c.field); } }} />
                     </div>
                   );
@@ -3868,7 +3878,7 @@ export function Datatable({
                 : [{ value: "", label: "None" }, { value: "count", label: "Count" }];
               return (
                 <div className="twc-dt__cfg-row" key={c.field}>
-                  <span className="twc-dt__cfg-name">{c.headerName}</span>
+                  <span className="twc-dt__cfg-name">{colLabel(c)}</span>
                   <div className="twc-dt__cfg-ctl">
                     <Select size="sm" value={aggConfig[c.field] || ""} options={opts} portal
                       onChange={(v) => { setAggConfig((m) => { const n = { ...m }; if (!v) delete n[c.field]; else n[c.field] = v; return n; }); if (v) setAggOn(true); }} />
@@ -3883,9 +3893,9 @@ export function Datatable({
 
       {/* Pivot config panel */}
       {panel === "pivot" && panelPos ? (() => {
-        const fieldOpts = ordered.filter((c) => c.type !== "actions").map((c) => ({ value: c.field, label: c.headerName }));
+        const fieldOpts = ordered.filter((c) => c.type !== "actions").map((c) => ({ value: c.field, label: colLabel(c) }));
         const aggOpts = [{ value: "sum", label: "Sum" }, { value: "avg", label: "Avg" }, { value: "min", label: "Min" }, { value: "max", label: "Max" }, { value: "count", label: "Count" }];
-        const valueFieldOpts = ordered.filter((c) => c.type !== "actions" && !pivotConfig.values.some((v) => v.field === c.field)).map((c) => ({ value: c.field, label: c.headerName }));
+        const valueFieldOpts = ordered.filter((c) => c.type !== "actions" && !pivotConfig.values.some((v) => v.field === c.field)).map((c) => ({ value: c.field, label: colLabel(c) }));
         return (
         <div className="twc-dt__pop twc-dt__cfg" style={{ top: panelPos.top, left: panelPos.left, width: 320, ...popStyle("pivot") }} data-pop-sized={popSizes.pivot ? "" : undefined} role="dialog" aria-label="Pivot settings">
           <div className="twc-dt__panel-head">
@@ -3914,12 +3924,12 @@ export function Datatable({
             <span className="twc-dt__cfg-label">Values</span>
             {pivotConfig.values.map((v, i) => (
               <div className="twc-dt__cfg-row" key={v.field + i}>
-                <span className="twc-dt__cfg-name">{colByField[v.field]?.headerName || v.field}</span>
+                <span className="twc-dt__cfg-name">{fieldLabel(v.field)}</span>
                 <div className="twc-dt__cfg-ctl">
                   <Select size="sm" value={v.agg || "sum"} options={aggOpts} portal
                     onChange={(a) => setPivotConfig((p) => ({ ...p, values: p.values.map((x, j) => (j === i ? { ...x, agg: a } : x)) }))} />
                 </div>
-                <button type="button" className="twc-dt__cfg-x" aria-label={`Remove ${colByField[v.field]?.headerName || v.field}`}
+                <button type="button" className="twc-dt__cfg-x" aria-label={`Remove ${fieldLabel(v.field)}`}
                   onClick={() => setPivotConfig((p) => ({ ...p, values: p.values.filter((_, j) => j !== i) }))}><Svg d={I.x} /></button>
               </div>
             ))}
@@ -3983,7 +3993,7 @@ export function Datatable({
                   </div>
                   <div className="twc-dt__f-col">
                     <Select size="sm" portal value={f.field}
-                      options={filterableCols.map((c) => ({ value: c.field, label: c.headerName }))}
+                      options={filterableCols.map((c) => ({ value: c.field, label: colLabel(c) }))}
                       onChange={(v) => { const nc = colByField[v]; setFilters((arr) => arr.map((x) => x.id === f.id ? { ...x, field: v, op: opsFor(filterTypeOf(nc))[0].value, value: "" } : x)); }} />
                     {fieldHandle("col", i)}
                   </div>
@@ -4014,7 +4024,7 @@ export function Datatable({
                     {fieldHandle("val", i)}
                   </div>
                   {/* #303: append another clause on the SAME column (a discoverable same-field AND) */}
-                  <button type="button" className="twc-dt__frm-x" aria-label={`Add another condition on ${col.headerName}`} title="Add another condition on this column" onClick={() => addFilter(f.field)}><Svg d={I.plus} /></button>
+                  <button type="button" className="twc-dt__frm-x" aria-label={`Add another condition on ${colLabel(col)}`} title="Add another condition on this column" onClick={() => addFilter(f.field)}><Svg d={I.plus} /></button>
                   <button type="button" className="twc-dt__frm-x" aria-label="Remove filter" onClick={() => setFilters((arr) => arr.filter((x) => x.id !== f.id))}><Svg d={I.x} /></button>
                 </div>
               );

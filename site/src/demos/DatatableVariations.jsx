@@ -1,5 +1,5 @@
 import React from "react";
-import { Datatable, runDatatableQuery, Badge, Avatar, Alert, Text, Progress, Button } from "twico-ui";
+import { Datatable, runDatatableQuery, Badge, Avatar, Alert, Text, Progress, Button, Tooltip } from "twico-ui";
 import { makePeople, usd, STATUS_TONE } from "./_datatableData.js";
 
 /* ------------------------------------------------------------------ icons */
@@ -1354,6 +1354,60 @@ const columns = [
   // server mode instead: serverMode rowCount={total} onServerChange={q => fetch(q /* incl. q.expanded */)}
 />`,
     render: () => <RowTreeDemo />,
+  },
+  {
+    title: "Custom column header (renderHeader)",
+    description:
+      "renderHeader({ column }) renders a custom node in the header cell — here a label with a trailing (i) Tooltip that explains a column whose meaning isn't self-evident. headerName stays the plain-text label used for quick-search, the Columns menu, export, aggregation, and the sort/resize a11y labels, so the custom header can't break those (a non-string headerName no longer throws in the Columns menu either).",
+    code: `<Datatable
+  rows={rows}
+  rowKey={(r) => r.id}
+  columns={[
+    { field: "name", headerName: "Name" },
+    { field: "role", headerName: "Role" },
+    {
+      field: "seats",
+      headerName: "Seats", // stays the search / export / a11y label
+      type: "number",
+      sortable: false,     // the header hosts a focusable Tooltip trigger — don't nest it in the sort button
+      renderHeader: ({ column }) => (
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+          {column.headerName}
+          <Tooltip label="Paid seats included in the plan. Overages bill monthly." placement="bottom">
+            <span tabIndex={0} aria-label="About Seats" style={{ cursor: "help" }}>ⓘ</span>
+          </Tooltip>
+        </span>
+      ),
+    },
+    { field: "mrr", headerName: "MRR", type: "number" },
+  ]}
+/>`,
+    render: () => {
+      const rows = makePeople(6);
+      return (
+        <Datatable
+          rows={rows}
+          rowKey={(r) => r.id}
+          pageSize={0}
+          columns={[
+            { field: "name", headerName: "Name", width: 210, renderCell: NameCell },
+            { field: "role", headerName: "Role", width: 120 },
+            {
+              field: "seats", headerName: "Seats", type: "number", width: 150, sortable: false,
+              renderHeader: ({ column }) => (
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-1-5)" }}>
+                  {column.headerName}
+                  <Tooltip label="Paid seats included in the plan. Overages bill monthly." placement="bottom">
+                    <span tabIndex={0} aria-label="About Seats" style={{ display: "inline-flex", color: "var(--color-text-subtle)", cursor: "help" }}>ⓘ</span>
+                  </Tooltip>
+                </span>
+              ),
+            },
+            { field: "mrr", headerName: "MRR", type: "number", width: 120, valueFormatter: (v) => usd(v) },
+          ]}
+        />
+      );
+    },
   },
 ];
 
