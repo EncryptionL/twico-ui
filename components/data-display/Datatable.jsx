@@ -1147,7 +1147,8 @@ export function Datatable({
       for (const c of columnsProp) if (c && c.field != null) byField[c.field] = c;
       return [DIFF_OP_COLUMN, ...columnsProp.map((c) => {
         const cfg = combineCfg(userCombine[c.field] || c.combine);
-        const base = cfg && !c.valueGetter ? { ...c, valueGetter: combineValueGetter(combineSrcCols(cfg, byField), cfg) } : c;
+        // #369: a runtime user combine applies the join value even over a consumer valueGetter (declarative keeps it).
+        const base = cfg && (!!userCombine[c.field] || !c.valueGetter) ? { ...c, valueGetter: combineValueGetter(combineSrcCols(cfg, byField), cfg) } : c;
         return { ...base, renderCell: (val, row) => renderDiffCell(base, val, row) };
       })];
     },
@@ -1193,14 +1194,22 @@ export function Datatable({
       const cfg = combineCfg(userCombine[c.field] || c.combine);
       if (!cfg) continue;
       const srcCols = combineSrcCols(cfg, byField);
+      // #339/#369: a runtime user combine (from the ⋮-menu editor) is an EXPLICIT action, so it applies the
+      // source-join value + render even when the target already has its own valueGetter/renderCell (a synthetic
+      // sidecar column has no choice but to supply a getter, which used to silently disqualify it — the combine
+      // toggles worked, sources hid, but the target kept showing only its own value). A DECLARATIVE `combine`
+      // keeps the old precedence below: a consumer's own valueGetter/renderCell wins, so overriding the value
+      // alone merely changes which value shows (kept in sync with sort/filter/search/export).
+      const explicit = !!userCombine[c.field];
+      const useJoin = explicit || !c.valueGetter;
       out[i] = {
         ...c,
         editable: false, // the combined value is synthetic — inline editing would write to a phantom field
-        valueGetter: c.valueGetter || combineValueGetter(srcCols, cfg),
-        // Consumer renderCell wins. If they overrode only valueGetter, fall back to the DEFAULT cell render
-        // (renderCell: undefined) so the cell shows THEIR value — keeping display in sync with what
-        // sort/filter/search/export use — rather than the auto source-join. Otherwise render the combined cell.
-        renderCell: c.renderCell || (c.valueGetter ? undefined : ((value, row) => renderCombined(srcCols, row, cfg))),
+        valueGetter: useJoin ? combineValueGetter(srcCols, cfg) : c.valueGetter,
+        // In diff mode the diff `columns` memo already wrapped renderCell in renderDiffCell (over the enriched
+        // combined value) — keep that wrapper, or an EXPLICIT combine's `!explicit` short-circuit would strip the
+        // diff arrows / old→new styling (#369 review). Declarative diff already preserved it (c.renderCell truthy).
+        renderCell: isDiff ? c.renderCell : ((!explicit && c.renderCell) || (useJoin ? ((value, row) => renderCombined(srcCols, row, cfg)) : undefined)),
       };
     }
     return out;

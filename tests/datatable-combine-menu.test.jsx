@@ -114,5 +114,28 @@ describe("Datatable columnCombining — runtime combine menu (#339)", () => {
     const body = container.querySelector("tbody").textContent;
     expect(body).toContain("Alan");
     expect(body).toContain("alan@twico.dev"); // combined value rendered for the added row
+    // #369 review: a runtime combine must KEEP the diff-aware cell render — the target's renderCell is the
+    // renderDiffCell wrapper (diff-new/old + →), not renderCombined. If the explicit-combine override stripped
+    // it, the added row's combined cell would be a plain .twc-dt__combine span with no diff styling.
+    expect(container.querySelector(".twc-dt__diff-new")).toBeTruthy(); // added-row diff styling preserved
+    expect(container.querySelector(".twc-dt__combine")).toBeNull(); // NOT the plain combine render
+  });
+
+  it("Uncombine restores a getter-backed target's own value (#369)", () => {
+    const SIDE = { A1: "EMEA-1", A2: "EMEA-2" };
+    const gcols = [
+      { field: "region", headerName: "Region", valueGetter: (r) => SIDE[r.code] },
+      { field: "city", headerName: "City" },
+    ];
+    const grows = [{ id: 1, code: "A1", city: "Paris" }, { id: 2, code: "A2", city: "Berlin" }];
+    const { container } = render(<Datatable rowKey={(r) => r.id} rows={grows} columns={gcols} columnCombining
+      initialState={{ columnCombine: { region: { fields: ["region", "city"] } } }} />);
+    expect(container.querySelector("tbody tr.twc-dt__row .twc-dt__combine")).toBeTruthy(); // combined (the #369 fix)
+    openColMenu(container, 0); // Region's ⋮ → Edit combined column → Uncombine
+    fireEvent.click(menuItem(container, "Edit combined column") || menuItem(container, "Combine columns"));
+    fireEvent.click(editorEl(container).querySelector(".twc-dt__link"));
+    expect(container.querySelector("tbody tr.twc-dt__row .twc-dt__combine")).toBeNull(); // combine gone
+    expect(container.querySelector("tbody").textContent).toContain("EMEA-1"); // target's OWN getter value is back
+    expect(headerText(container)).toContain("City"); // source column restored
   });
 });
