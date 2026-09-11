@@ -6,6 +6,8 @@
 
 ## Open issues
 
+- [x] **[#372] Added `dividers` (header rule) for parity with Dialog** — Drawer already pins header/footer (unconditional flex-column, so #371's scrollBody problem never applied) and had a footer `border-top`, but no header rule and no way to toggle either. Added a `dividers` prop (default `true`) matching Dialog: header `border-bottom` + footer `border-top` via per-region `data-divider` (auto-suppressed for empty regions — no footer; a header with only a close button). The previously always-on footer border is now gated on the prop (default `true`, so unchanged by default); the header rule is new. `Drawer.jsx` — ✓ fixed 2026-09-11
+
 - [x] **[P2] `side` is physical, not logical, so RTL drawers do not mirror** — `side="left"/"right"/"top"/"bottom"` remain *physical by design* (they name explicit edges). Added **logical** `side="start"/"end"` (inline-start/inline-end) built on logical properties + a direction-flipping slide variable, so they mirror under `dir="rtl"`. Probe-verified: `end` sits at the right edge in LTR, the left edge in RTL. `Drawer.jsx` — ✓ fixed 2026-06-17
 
 - [x] **[P2] Body scroll not locked while open** — Same as Dialog: the scrim is fixed and full-viewport but the page behind it still scrolls (wheel after pointer leaves the panel; iOS body scroll under the panel). _Fix:_ set `body { overflow: hidden }` on open and restore on unmount (SSR-guarded), or document as consumer responsibility. `Drawer.jsx:80-84` — ✓ fixed 2026-06-17

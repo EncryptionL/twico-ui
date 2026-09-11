@@ -53,6 +53,10 @@ const DIALOG_CSS = `
 .twc-dialog__close svg { width: 18px; height: 18px; }
 .twc-dialog__body { padding: var(--space-4) var(--space-5); font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-normal); }
 .twc-dialog__footer { display: flex; gap: var(--space-2); justify-content: flex-end; padding: 0 var(--space-5) var(--space-5); }
+/* #372: header/body and body/footer rules (on by default). Per-region data-divider so the rule is
+   suppressed when the region is empty (no footer; a header with only a close button and no title/description). */
+.twc-dialog__header[data-divider="true"] { padding-bottom: var(--space-4); border-bottom: var(--border-thin) solid var(--color-divider); }
+.twc-dialog__footer[data-divider="true"] { padding-top: var(--space-4); border-top: var(--border-thin) solid var(--color-divider); }
 `;
 
 export function Dialog({
@@ -63,7 +67,8 @@ export function Dialog({
   footer,
   children,
   size = "md",
-  scrollBody = false,
+  scrollBody = true,
+  dividers = true,
   closeOnBackdrop = true,
   className = "",
   ...rest
@@ -112,7 +117,7 @@ export function Dialog({
       {__twcStyles}
       <div ref={dialogRef} className={`twc-dialog ${className}`} data-state={state} data-size={size} data-scroll-body={scrollBody ? "true" : undefined} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-label={!title ? "Dialog" : undefined} aria-describedby={description ? descId : undefined} {...rest}>
         {(title || description || onClose) ? (
-          <div className="twc-dialog__header">
+          <div className="twc-dialog__header" data-divider={dividers && (title || description) && (children || footer) ? "true" : undefined}>
             <div className="twc-dialog__titles">
               {title ? <div className="twc-dialog__title" id={titleId}>{title}</div> : null}
               {description ? <div className="twc-dialog__desc" id={descId}>{description}</div> : null}
@@ -125,7 +130,7 @@ export function Dialog({
           </div>
         ) : null}
         {children ? <div className="twc-dialog__body">{children}</div> : null}
-        {footer ? <div className="twc-dialog__footer">{footer}</div> : null}
+        {footer ? <div className="twc-dialog__footer" data-divider={dividers && children ? "true" : undefined}>{footer}</div> : null}
       </div>
     </div>
   );

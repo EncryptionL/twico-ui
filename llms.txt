@@ -2882,7 +2882,8 @@ Props:
 - `size` — `"sm" | "md" | "lg" | "full"` · default `"md"` — Adds a new "full" option: a near-fullscreen panel that fills the viewport minus a small margin (existing sm/md/lg unchanged).
 - `closeOnBackdrop` — `boolean` · default `true` — Closes the dialog when the surrounding scrim is clicked, enabled by default; disable for required interactions.
 - `children` — `React.ReactNode` — Main body content of the dialog, such as forms, messages, or detail views requiring the user's attention.
-- `scrollBody` — `boolean` · default `false` — Keep the header and footer fixed and scroll only the body, so long content does not overflow the viewport.
+- `scrollBody` — `boolean` · default `true` — Pin the header and footer and scroll only the body, so the action buttons never scroll off-screen; set false to scroll the whole panel as one block.
+- `dividers` — `boolean` · default `true` — Draw a rule between header/body and body/footer (auto-suppressed for an empty region); set false to read as one continuous surface.
 
 ```jsx
 import { Dialog, Button } from "twico-ui";
@@ -2921,6 +2922,7 @@ Props:
 - `description` — `React.ReactNode` — Secondary supporting text shown under the title to give context for the drawer's content or task.
 - `footer` — `React.ReactNode` — Footer region for pinned actions, typically right-aligned buttons displayed below the drawer body.
 - `closeOnBackdrop` — `boolean` · default `true` — Closes the drawer when the backdrop scrim is clicked, enabled by default; disable for required interactions.
+- `dividers` — `boolean` · default `true` — Draw a rule between header/body and body/footer (matches Dialog; auto-suppressed for an empty region); set false for one continuous surface.
 - `children` — `React.ReactNode` — Body content of the drawer, such as nav menus, filters, detail views, or a cart over the page.
 - `width` — `"sm" | "md" | "lg" | number | string` · default `"md"` — Panel width for side left/right — preset sm/md/lg, a number (px), or a CSS length.
 - `height` — `"sm" | "md" | "lg" | number | string` · default `"md"` — Panel height for side top/bottom — preset sm/md/lg, a number (px), or a CSS length.
