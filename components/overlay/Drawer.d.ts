@@ -20,6 +20,10 @@ export interface DrawerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   height?: "sm" | "md" | "lg" | number | string;
   /** Close when the backdrop is clicked. @default true */
   closeOnBackdrop?: boolean;
+  /** Draw a rule between header/body and body/footer (matches `Dialog`). Suppressed automatically where the
+   *  region is empty (no footer; a header with only a close button and no title/description). Set `false` for a
+   *  panel that should read as one continuous surface. @default true */
+  dividers?: boolean;
   children?: React.ReactNode;
 }
 

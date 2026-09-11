@@ -122,6 +122,7 @@ function DrawerAllProps() {
             <Button onClick={() => setOpen(false)}>Save changes</Button>
           </>
         }
+        dividers={true}
         closeOnBackdrop={true}       // click the scrim to dismiss
       >
         <Input label="Display name" placeholder="Ada Lovelace" />
@@ -198,7 +199,7 @@ const variations = [
   },
   {
     title: "All props",
-    description: "Every Drawer-specific prop in one place: controlled open/onClose, side, width (height for top/bottom), title, description, footer, closeOnBackdrop, and children.",
+    description: "Every Drawer-specific prop in one place: controlled open/onClose, side, width (height for top/bottom), title, description, footer, dividers (header/footer rules), closeOnBackdrop, and children.",
     code: `const [open, setOpen] = React.useState(false);
 
 <Button variant="soft" onClick={() => setOpen(true)}>Open (every prop)</Button>
@@ -216,6 +217,7 @@ const variations = [
       <Button onClick={() => setOpen(false)}>Save changes</Button>
     </>
   }
+  dividers={true}              // header/footer rules (default); false = one surface
   closeOnBackdrop={true}       // click the scrim to dismiss
 >
   <Input label="Display name" placeholder="Ada Lovelace" />

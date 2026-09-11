@@ -109,6 +109,7 @@ function DialogAllProps() {
         description="Every Dialog prop demonstrated in one place."
         size="lg"
         scrollBody={true}
+        dividers={true}
         closeOnBackdrop={true}
         footer={
           <>
@@ -229,7 +230,7 @@ const variations = [
   {
     title: "All props",
     description:
-      "Every Dialog-specific prop in one place — open/onClose control, title, description, footer actions, size, scrollBody (pins header + footer), closeOnBackdrop, and children.",
+      "Every Dialog-specific prop in one place — open/onClose control, title, description, footer actions, size, scrollBody (pins header + footer), dividers (header/footer rules), closeOnBackdrop, and children.",
     code: `const [open, setOpen] = React.useState(false);
 
 <Button variant="soft" onClick={() => setOpen(true)}>Open all-props dialog</Button>
@@ -239,7 +240,8 @@ const variations = [
   title="Update billing details"
   description="Every Dialog prop demonstrated in one place."
   size="lg"                         // sm | md | lg | full
-  scrollBody={true}                 // pin header + footer, scroll only the body
+  scrollBody={true}                 // pin header + footer, scroll only the body (default)
+  dividers={true}                   // rules between header/body/footer (default); false = one surface
   closeOnBackdrop={true}            // set false to require an explicit action
   footer={
     <>

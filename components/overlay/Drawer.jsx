@@ -48,7 +48,11 @@ const DRAWER_CSS = `
 .twc-drawer__close:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-drawer__close svg { width: 18px; height: 18px; }
 .twc-drawer__body { flex: 1; overflow-y: auto; padding: var(--space-2) var(--space-5) var(--space-5); font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-normal); }
-.twc-drawer__footer { display: flex; gap: var(--space-2); justify-content: flex-end; padding: var(--space-4) var(--space-5); border-top: var(--border-thin) solid var(--color-divider); }
+.twc-drawer__footer { display: flex; gap: var(--space-2); justify-content: flex-end; padding: var(--space-4) var(--space-5); }
+/* #372: header/footer rules (on by default), consistent with Dialog. Per-region data-divider so an empty
+   region grows no stray line (no footer; a header with only a close button and no title/description). */
+.twc-drawer__header[data-divider="true"] { border-bottom: var(--border-thin) solid var(--color-divider); }
+.twc-drawer__footer[data-divider="true"] { border-top: var(--border-thin) solid var(--color-divider); }
 @media (prefers-reduced-motion: reduce) {
   .twc-drawer__overlay[data-state], .twc-drawer[data-state] { animation-duration: 1ms; }
 }
@@ -67,6 +71,7 @@ export function Drawer({
   width,
   height,
   closeOnBackdrop = true,
+  dividers = true,
   children,
   className = "",
   style,
@@ -122,7 +127,7 @@ export function Drawer({
       {__twcStyles}
       <div ref={panelRef} className={`twc-drawer ${className}`} data-side={side} data-state={state} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-label={!title ? "Drawer" : undefined} aria-describedby={description ? descId : undefined} style={{ ...(dim ? sizeVar : null), ...style }} {...rest}>
         {(title || description || onClose) ? (
-          <div className="twc-drawer__header">
+          <div className="twc-drawer__header" data-divider={dividers && (title || description) ? "true" : undefined}>
             <div className="twc-drawer__titles">
               {title ? <div className="twc-drawer__title" id={titleId}>{title}</div> : null}
               {description ? <div className="twc-drawer__desc" id={descId}>{description}</div> : null}
@@ -135,7 +140,7 @@ export function Drawer({
           </div>
         ) : null}
         <div className="twc-drawer__body">{children}</div>
-        {footer ? <div className="twc-drawer__footer">{footer}</div> : null}
+        {footer ? <div className="twc-drawer__footer" data-divider={dividers ? "true" : undefined}>{footer}</div> : null}
       </div>
     </div>
   );

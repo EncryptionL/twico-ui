@@ -7592,8 +7592,15 @@ export const components = [
         "prop": "scrollBody",
         "type": "boolean",
         "required": false,
-        "default": "false",
-        "description": "Keep the header and footer fixed and scroll only the body, so long content does not overflow the viewport."
+        "default": "true",
+        "description": "Pin the header and footer and scroll only the body, so the action buttons never scroll off-screen; set false to scroll the whole panel as one block."
+      },
+      {
+        "prop": "dividers",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Draw a rule between header/body and body/footer (auto-suppressed for an empty region); set false to read as one continuous surface."
       },
       {
         "prop": "onClick",
@@ -7819,6 +7826,13 @@ export const components = [
         "required": false,
         "default": "true",
         "description": "Closes the drawer when the backdrop scrim is clicked, enabled by default; disable for required interactions."
+      },
+      {
+        "prop": "dividers",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Draw a rule between header/body and body/footer (matches Dialog; auto-suppressed for an empty region); set false for one continuous surface."
       },
       {
         "prop": "children",

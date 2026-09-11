@@ -21,7 +21,9 @@ const POPOVER_CSS = `
 .twc-popover__arrow { position: absolute; width: 11px; height: 11px; background: var(--color-surface-raised);
   border-left: var(--border-thin) solid var(--color-border); border-top: var(--border-thin) solid var(--color-border);
   transform: rotate(45deg); }
-.twc-popover__inner { padding: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-normal); }
+/* #373: cap the panel to the room place() measured and scroll INSIDE the inner (not the panel — the panel
+   must keep overflow visible so the absolutely-positioned arrow isn't clipped) so a tall panel's footer stays reachable. */
+.twc-popover__inner { padding: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-normal); overflow-y: auto; }
 .twc-popover__title { font-size: var(--text-sm); font-weight: var(--font-bold); color: var(--color-text); margin-bottom: 4px; }
 `;
 
@@ -90,7 +92,9 @@ export function Popover({
       l = Math.max(M, Math.min(l, vw - w - M));
       left = l;
       arrow = { left: Math.min(Math.max(r.left + r.width / 2 - l - 5.5, 10), w - 20), [flip ? "bottom" : "top"]: -6 };
-      return setPos({ top, bottom, left, width: w, flip, arrow });
+      // Clamp to the room on the CHOSEN side (place() already flips to the roomier side), never above it —
+      // a hard floor would push the panel back off-screen on a very short viewport (the #373 bug). #373.
+      return setPos({ top, bottom, left, width: w, flip, arrow, maxHeight: flip ? spaceAbove : spaceBelow });
     }
     // left / right — center on the trigger using the REAL panel height, flip to the
     // other side when there isn't room, and clamp within the viewport.
@@ -104,7 +108,7 @@ export function Popover({
     const cy = r.top + r.height / 2;
     top = Math.max(M, Math.min(cy - ph / 2, vh - ph - M));
     arrow = { top: Math.min(Math.max(cy - top - 5.5, 8), ph - 18), [onRight ? "left" : "right"]: -6 };
-    setPos({ top, left, width: w, flip: false, arrow });
+    setPos({ top, left, width: w, flip: false, arrow, maxHeight: vh - 2 * M });
   }, [placement, align, width]);
 
   React.useEffect(() => {
@@ -166,7 +170,7 @@ export function Popover({
       style={{ top: pos.top, bottom: pos.bottom, left: pos.left, width: pos.width }}>
       {__twcStyles}
       <span className="twc-popover__arrow" style={pos.arrow} aria-hidden="true" />
-      <div className="twc-popover__inner">
+      <div className="twc-popover__inner" style={{ maxHeight: pos.maxHeight }}>
         {title ? <div className="twc-popover__title" id={`${popId}-title`}>{title}</div> : null}
         {children}
       </div>
