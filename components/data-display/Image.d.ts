@@ -5,7 +5,9 @@ export interface ImageProps extends Omit<React.ImgHTMLAttributes<HTMLImageElemen
   src?: string;
   /** Alternative text (required for accessibility; pass "" for decorative images). */
   alt: string;
-  /** object-fit value. */
+  /** object-fit value. When set, the image fills its container by default (`width`/`height: 100%`); pass an
+   *  explicit `width`/`height` (or size the container / `style`) to give it a fixed box that `fit` crops within
+   *  — an explicit `width`/`height` now wins over the fill (#378). */
   fit?: "cover" | "contain" | "fill" | "none" | "scale-down";
   /** Border radius token (e.g. "md", "lg", "full"). */
   radius?: string;
