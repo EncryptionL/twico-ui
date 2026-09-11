@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.37.0](https://github.com/EncryptionL/twico-ui/compare/v1.36.1...v1.37.0) (2026-09-11)
+
+
+### Features
+
+* **overlay:** safer Dialog/Drawer defaults + Popover height clamp ([#371](https://github.com/EncryptionL/twico-ui/issues/371), [#372](https://github.com/EncryptionL/twico-ui/issues/372), [#373](https://github.com/EncryptionL/twico-ui/issues/373)) ([0f7a386](https://github.com/EncryptionL/twico-ui/commit/0f7a38656956bb9ef7cdd0331d2b5e6776aa7d7c))
+
 ## [1.36.1](https://github.com/EncryptionL/twico-ui/compare/v1.36.0...v1.36.1) (2026-09-09)
 
 
