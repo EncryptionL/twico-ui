@@ -6,6 +6,19 @@
 
 ## Open issues
 
+- [x] **[#380] Cell paste was dead outside a secure context (and reported "Nothing to paste")** —
+  `navigator.clipboard` is `[SecureContext]`, so on an `http://` origin that isn't localhost `readText()` is
+  simply absent. `pasteSelection` fell through to `setClipboardMsg("Nothing to paste")` with a full clipboard,
+  and — worse — the Ctrl/Cmd+V **keydown** `preventDefault()`'d *before* attempting the read, killing the one
+  mechanism that still works on an insecure origin (the native `paste` event). Copy/cut were fine (they have an
+  `execCommand` fallback), which made it look like the grid had clipboard support and only paste was broken.
+  Fixed: the paste-application logic is extracted into a shared `applyPastedText(text)`; the Ctrl/Cmd+V keydown
+  now only `preventDefault()`s + reads via `readText()` **when that API exists** (secure context), otherwise it
+  lets the native paste fire; a new `onPaste` handler on the grid reads `e.clipboardData.getData("text/plain")`
+  (NOT `[SecureContext]`) and runs the same matrix path. `onGridPaste` is gated on `readText` being absent, so
+  a secure context never double-pastes (the keydown already suppressed the native event there). 6 tests in
+  `tests/datatable-paste-insecure.test.jsx`. `Datatable.jsx` — ✓ fixed 2026-09-18
+
 - [x] **[P1] Sticky header z-index collision with pinned columns** — ✓ fixed 2026-06-17 (pinned header cells bumped to z-index 5, above pinned body cells/selected-row bg). The header is z-index: 3, pinned columns (left/right) are z-index: 4–5, but when a column is pinned and sticky, their stacking context may cause the header to visually hide behind the pinned cell if the row is selected (primary-subtle background extends under the header). _Fix:_ Ensure pinned column header cells have z-index: 5 and selected-row bg doesn't extend into the sticky zone, or add a subtle separator line. (Full Datatable RTL — pinned offsets, pivot borders, edge shadows, resizer — was implemented 2026-06-17 via logical properties; this z-index edge is the only remaining item.)
 
 - [x] **[P2] Column resize handle position in RTL** — The resizer is positioned `right: 0`, which is correct for LTR but becomes `left: 0` in RTL, placing the handle on the wrong (leading) edge of the column. _Fix:_ Change `right: 0` to `inset-inline-end: 0` so it positions logically. `Datatable.jsx:107` — ✓ fixed 2026-06-17

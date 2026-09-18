@@ -2436,7 +2436,10 @@ export function Datatable({
       const k = e.key.toLowerCase();
       if (k === "c") { e.preventDefault(); copySelection(false); return; }
       if (k === "x") { e.preventDefault(); copySelection(true); return; }
-      if (k === "v") { e.preventDefault(); pasteSelection(); return; }
+      // #380: only intercept + read via the async Clipboard API where it exists (secure context). Otherwise
+      // DON'T preventDefault — let the native paste fire so onGridPaste can read e.clipboardData (works on
+      // an insecure origin, where the old preventDefault-then-readText path silently reported "Nothing to paste").
+      if (k === "v") { if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.readText) { e.preventDefault(); pasteSelection(); } return; }
     }
     let r = +td.getAttribute("data-r"), c = +td.getAttribute("data-c");
     const maxR = leafRows.length - 1, maxC = ordered.length - 1;
@@ -2605,12 +2608,11 @@ export function Datatable({
   const copyTypeOf = (col) => (col && col.copyType != null ? col.copyType : (col && col.type === "number" ? "number" : "text"));
   const writeClipboard = (text) => {
     const execFallback = () => {
-      try {
-        if (typeof document !== "undefined") {
-          const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
-          document.body.appendChild(ta); ta.focus(); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
-        }
-      } catch { /* ignore */ }
+      if (typeof document === "undefined") return;
+      const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      // removeChild in `finally` so a throwing execCommand can't leak the hidden textarea into <body>.
+      try { document.execCommand("copy"); } catch { /* ignore */ } finally { if (ta.parentNode) ta.parentNode.removeChild(ta); }
     };
     try {
       // writeText returns a Promise — a rejection (NotAllowedError) is ASYNC, so .catch() the fallback
@@ -2659,11 +2661,10 @@ export function Datatable({
       announceClip(`Copied ${n} cell${n === 1 ? "" : "s"}`, cellRect);
     }
   };
-  const pasteSelection = async () => {
-    if (!cellRect) return;
-    let text = null;
-    try { if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.readText) text = await navigator.clipboard.readText(); } catch { setClipboardMsg("Paste unavailable — clipboard permission denied"); return; }
-    if (text == null) { setClipboardMsg("Nothing to paste"); return; }
+  // Apply pasted TSV text to the cell rectangle. Shared by the async readText path (pasteSelection) and the
+  // native `paste` event path (onGridPaste) so both write cells through exactly the same logic (#380).
+  const applyPastedText = (text) => {
+    if (text == null || !cellRect) return;
     // Enforce source→target copyType only for an IN-APP copy (same TSV we wrote); external pastes have no
     // source metadata, so they rely on the per-column number coercion below (a wrong-type text → null).
     const inApp = clipboardRef.current && clipboardRef.current.tsv === text ? clipboardRef.current : null;
@@ -2688,6 +2689,33 @@ export function Datatable({
     const maxCols = matrix.reduce((a, m) => Math.max(a, m.length), 0);
     const pasteRect = written ? { r0: cellRect.r0, c0: cellRect.c0, r1: Math.min(cellRect.r0 + matrix.length - 1, leafRows.length - 1), c1: Math.min(cellRect.c0 + maxCols - 1, ordered.length - 1) } : null;
     announceClip(`Pasted ${written} cell${written === 1 ? "" : "s"}${skipped ? `, ${skipped} skipped (incompatible column)` : ""}`, pasteRect);
+  };
+  const pasteSelection = async () => {
+    if (!cellRect) return;
+    let text = null;
+    try { if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.readText) text = await navigator.clipboard.readText(); } catch { setClipboardMsg("Paste unavailable — clipboard permission denied"); return; }
+    if (text == null) { setClipboardMsg("Nothing to paste"); return; }
+    applyPastedText(text);
+  };
+  // #380: native-paste fallback for insecure contexts. `navigator.clipboard` is [SecureContext], so on an
+  // http:// origin that isn't localhost `readText()` is absent — but `ClipboardEvent.clipboardData` is NOT
+  // gated and carries the data during a genuine paste gesture. Active ONLY when readText is unavailable; in a
+  // secure context the Ctrl/Cmd+V keydown already handled it via readText (and preventDefault'd, so no native
+  // paste event fires here → no double-paste).
+  const onGridPaste = (e) => {
+    // #343/#380: fully mirror onGridKeyDown's guards. (1) Don't hijack a paste into a focused cell editor (an
+    // <input>/<textarea>/<select> in a custom renderCell, or the open inline editor) — it must land natively
+    // there. (2) Only act when a DATA cell is the paste target — not a header sort button, expand toggle, drag
+    // handle, or a control in a renderRowDetail panel — matching onGridKeyDown's `!td` bail, so a stale cellRect
+    // can't be mutated by a paste fired while focus sits on some other in-grid control.
+    if (e.target.closest("input, textarea, select, [contenteditable='true']") || editing) return;
+    if (!e.target.closest(".twc-dt__td[data-r]")) return;
+    if (!(enableClipboard && selectionMode === "cell") || !cellRect) return;
+    if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.readText) return;
+    const text = e.clipboardData ? e.clipboardData.getData("text/plain") : null;
+    if (text == null || text === "") return;
+    e.preventDefault();
+    applyPastedText(text);
   };
 
   // Dismiss an active editor when clicking outside it (and outside any popover it spawned).
@@ -3403,7 +3431,7 @@ export function Datatable({
           ref={gridRef} role="grid" aria-label={ariaLabelAttr || ariaLabel}
           aria-rowcount={(treeSeqByKey ? treeSeqByKey.size : totalRows) + 1} aria-colcount={ordered.length + (checkboxSelection ? 1 : 0) + (hasExpandCol ? 1 : 0)}
           aria-multiselectable={selectionMode === "cell" || undefined} aria-activedescendant={activeCellId}
-          aria-busy={loading || undefined} onKeyDown={onGridKeyDown}>
+          aria-busy={loading || undefined} onKeyDown={onGridKeyDown} onPaste={onGridPaste}>
           <thead ref={theadRef}>
             <tr role="row" aria-rowindex={1}>
               {hasExpandCol ? (
