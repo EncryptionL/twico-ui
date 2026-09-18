@@ -55,13 +55,32 @@ export function Code({
   const timerRef = React.useRef(null);
   React.useEffect(() => () => clearTimeout(timerRef.current), []);
   const doCopy = () => {
-    if (typeof navigator === "undefined" || !navigator.clipboard) return;
     const text = typeof children === "string" ? children : rootRef.current?.textContent ?? "";
-    navigator.clipboard.writeText(text).then(() => {
+    const flash = () => {
       setCopied(true);
       clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => setCopied(false), 2000);
-    }).catch(() => {});
+    };
+    // #380: navigator.clipboard is [SecureContext] — undefined on an http:// origin that isn't localhost.
+    // Fall back to a hidden-textarea execCommand("copy") (matching useCopyToClipboard / Datatable's writer)
+    // instead of silently no-op'ing, so `copyable` works over plain HTTP too.
+    const execFallback = () => {
+      try {
+        if (typeof document === "undefined") return;
+        const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        const ok = document.execCommand("copy"); document.body.removeChild(ta);
+        if (ok) flash();
+      } catch { /* ignore */ }
+    };
+    try {
+      // writeText rejects async (NotAllowedError) — .catch() the fallback, or a bare try/catch would miss it.
+      if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(flash).catch(execFallback);
+        return;
+      }
+    } catch { /* fall through to execCommand */ }
+    execFallback();
   };
 
   return (

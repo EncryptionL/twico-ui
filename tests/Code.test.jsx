@@ -54,4 +54,16 @@ describe("Code copyable (#163)", () => {
     });
     expect(screen.getByRole("button", { name: "Kopiert!" })).toBeInTheDocument();
   });
+
+  it("falls back to execCommand('copy') when navigator.clipboard is unavailable (#380, insecure context)", async () => {
+    delete navigator.clipboard; // simulate a plain-HTTP origin where the [SecureContext] API is absent
+    const origExec = Object.getOwnPropertyDescriptor(document, "execCommand"); // jsdom doesn't define it
+    const exec = vi.fn(() => true);
+    document.execCommand = exec;
+    render(<Code block copyable>curl https://x</Code>);
+    await act(async () => { screen.getByRole("button", { name: "Copy code" }).click(); });
+    expect(exec).toHaveBeenCalledWith("copy"); // no longer a silent no-op
+    expect(screen.getByRole("button", { name: "Copied" })).toBeInTheDocument();
+    if (origExec) Object.defineProperty(document, "execCommand", origExec); else delete document.execCommand;
+  });
 });
