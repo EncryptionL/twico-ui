@@ -2,6 +2,14 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.37.2](https://github.com/EncryptionL/twico-ui/compare/v1.37.1...v1.37.2) (2026-09-18)
+
+
+### Bug Fixes
+
+* **datatable,code:** clipboard paste/copy work outside a secure context ([#380](https://github.com/EncryptionL/twico-ui/issues/380)) ([29aa913](https://github.com/EncryptionL/twico-ui/commit/29aa91382df6df40333ec49132b8883ec6f56b9f)), closes [#343](https://github.com/EncryptionL/twico-ui/issues/343)
+* **datatable,code:** harden [#380](https://github.com/EncryptionL/twico-ui/issues/380) clipboard fix (review follow-ups) ([849c9f8](https://github.com/EncryptionL/twico-ui/commit/849c9f88d331e38d5fd1faf41401b8424e904541))
+
 ## [1.37.1](https://github.com/EncryptionL/twico-ui/compare/v1.37.0...v1.37.1) (2026-09-14)
 
 
