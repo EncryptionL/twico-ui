@@ -2608,12 +2608,11 @@ export function Datatable({
   const copyTypeOf = (col) => (col && col.copyType != null ? col.copyType : (col && col.type === "number" ? "number" : "text"));
   const writeClipboard = (text) => {
     const execFallback = () => {
-      try {
-        if (typeof document !== "undefined") {
-          const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
-          document.body.appendChild(ta); ta.focus(); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
-        }
-      } catch { /* ignore */ }
+      if (typeof document === "undefined") return;
+      const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      // removeChild in `finally` so a throwing execCommand can't leak the hidden textarea into <body>.
+      try { document.execCommand("copy"); } catch { /* ignore */ } finally { if (ta.parentNode) ta.parentNode.removeChild(ta); }
     };
     try {
       // writeText returns a Promise — a rejection (NotAllowedError) is ASYNC, so .catch() the fallback
@@ -2704,9 +2703,13 @@ export function Datatable({
   // secure context the Ctrl/Cmd+V keydown already handled it via readText (and preventDefault'd, so no native
   // paste event fires here → no double-paste).
   const onGridPaste = (e) => {
-    // #343: don't hijack a paste into a focused cell editor (an <input>/<textarea>/<select> in a custom
-    // renderCell, or the open inline editor) — it must land natively there. Mirrors onGridKeyDown's guard.
+    // #343/#380: fully mirror onGridKeyDown's guards. (1) Don't hijack a paste into a focused cell editor (an
+    // <input>/<textarea>/<select> in a custom renderCell, or the open inline editor) — it must land natively
+    // there. (2) Only act when a DATA cell is the paste target — not a header sort button, expand toggle, drag
+    // handle, or a control in a renderRowDetail panel — matching onGridKeyDown's `!td` bail, so a stale cellRect
+    // can't be mutated by a paste fired while focus sits on some other in-grid control.
     if (e.target.closest("input, textarea, select, [contenteditable='true']") || editing) return;
+    if (!e.target.closest(".twc-dt__td[data-r]")) return;
     if (!(enableClipboard && selectionMode === "cell") || !cellRect) return;
     if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.readText) return;
     const text = e.clipboardData ? e.clipboardData.getData("text/plain") : null;

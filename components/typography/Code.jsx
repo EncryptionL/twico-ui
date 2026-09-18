@@ -65,13 +65,12 @@ export function Code({
     // Fall back to a hidden-textarea execCommand("copy") (matching useCopyToClipboard / Datatable's writer)
     // instead of silently no-op'ing, so `copyable` works over plain HTTP too.
     const execFallback = () => {
-      try {
-        if (typeof document === "undefined") return;
-        const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
-        document.body.appendChild(ta); ta.focus(); ta.select();
-        const ok = document.execCommand("copy"); document.body.removeChild(ta);
-        if (ok) flash();
-      } catch { /* ignore */ }
+      if (typeof document === "undefined") return;
+      const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      // removeChild in `finally` so a throwing execCommand (sandboxed iframe / SecurityError) can't leak the
+      // focused hidden textarea into <body>.
+      try { if (document.execCommand("copy")) flash(); } catch { /* ignore */ } finally { if (ta.parentNode) ta.parentNode.removeChild(ta); }
     };
     try {
       // writeText rejects async (NotAllowedError) — .catch() the fallback, or a bare try/catch would miss it.

@@ -81,4 +81,26 @@ describe("Datatable paste in an insecure context (#380)", () => {
     fireEvent.paste(input, clipData("Zed")); // paste targets the editor input, bubbling to the grid
     expect(onRowsChange).not.toHaveBeenCalled(); // grid paste NOT triggered — the #343 editable guard let it through
   });
+
+  it("does NOT hijack a paste targeting a focusable input in a custom renderCell (isolates the target guard, editing === null)", () => {
+    setInsecure();
+    const onRowsChange = vi.fn();
+    const cols = [{ field: "name", headerName: "Name", editable: true, renderCell: (v) => <input data-testid="rc-input" defaultValue={v} /> }];
+    const { container, getByTestId } = render(<Datatable columns={cols} rows={[{ id: 1, name: "Ada" }]} rowKey={(r) => r.id} selectionMode="cell" enableClipboard onRowsChange={onRowsChange} />);
+    fireEvent.click(cell(container, 0, 0)); // select the cell — the inline editor is NOT open (editing === null)
+    fireEvent.paste(getByTestId("rc-input"), clipData("Zed")); // target is the renderCell's own input
+    expect(onRowsChange).not.toHaveBeenCalled(); // blocked by the input-target guard, not the editing flag
+  });
+
+  it("does NOT paste into the last-selected cells when focus/target is a non-cell control (td-origin guard)", () => {
+    setInsecure();
+    const onRowsChange = vi.fn();
+    const cols = [{ field: "name", headerName: "Name", editable: true, sortable: true }, { field: "qty", headerName: "Qty", type: "number", editable: true }];
+    const { container } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} selectionMode="cell" enableClipboard onRowsChange={onRowsChange} />);
+    fireEvent.click(cell(container, 0, 0)); // cellRect persists after focus leaves the cell
+    const headerBtn = container.querySelector('thead .twc-dt__th-label[role="button"]'); // focusable, NOT a data cell
+    expect(headerBtn).toBeTruthy();
+    fireEvent.paste(headerBtn, clipData("Zed\t9"));
+    expect(onRowsChange).not.toHaveBeenCalled(); // #380 review: mirrors onGridKeyDown's `!td` bail — no stale-rect write
+  });
 });
