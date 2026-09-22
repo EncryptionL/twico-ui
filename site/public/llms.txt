@@ -1588,6 +1588,8 @@ Props:
 - `showExport` — `boolean` · default `false` — Shows the toolbar Export button (CSV split button with a format menu); hidden by default — enable it to expose exporting.
 - `showDensity` — `boolean` · default `false` — Shows the toolbar density button that cycles compact/standard/comfortable; hidden by default (the density prop still sets the row height).
 - `showPivot` — `boolean` · default `false` — Shows the toolbar Pivot button; hidden by default, but appears automatically when a pivot model or pivotMode is provided.
+- `showColumns` — `boolean` · default `auto` — Show the Columns toolbar button; omit for the smart default (only when a column is hideable or rowNumbers is on), or force on/off.
+- `showFilters` — `boolean` · default `auto` — Show the Filters toolbar button; omit for the smart default (only when a column is filterable), or force on/off with true/false.
 - `exportFilename` — `string` · default `export` — Sets the base filename used for exported files, defaulting to "export".
 - `aggregationValues` — `object|null` · default `null` — Supplies precomputed footer aggregation values for serverMode, where totals cannot be calculated client-side; null by default.
 - `disableColumnReorder` — `boolean` · default `false` — Prevents users from dragging columns into a new order, locking the column arrangement; off by default.
@@ -1612,6 +1614,8 @@ Props:
 - `showAggregation` — `boolean` · default `false` — Shows the toolbar Aggregation button and starts with the totals row on; hidden by default, so enable it to expose column aggregations.
 - `ariaLabel` — `string` · default `Data table` — Sets the grid's accessible aria-label for screen readers, defaulting to "Data table".
 - `rowGrouping` — `string array` · default `[]` — Lists the field names to group rows by on initial render, collapsing rows into expandable groups; empty by default.
+- `showGroupBar` — `boolean` · default `true` — Show the "Grouped by" bar (chips + Clear all); set false for a layout-locked grouping so users can't remove it. Grouping still applies.
+- `renderGroupLabel` — `(group: { field, value, count, rows }) => React.ReactNode` — Custom content for a group header row (in place of "field: value  count"); the chevron and collapse/expand toggle are kept.
 - `rowPinning` — `boolean` · default `false` — Allows users to pin rows to the top or bottom so they stay visible while scrolling; off by default.
 - `rowReorder` — `boolean` · default `false` — Enables drag-and-drop reordering of rows so users can change their sequence; off by default.
 - `rowResize` — `boolean` · default `false` — Allows users to drag row edges to adjust individual row heights; off by default.

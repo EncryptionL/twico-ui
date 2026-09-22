@@ -5527,6 +5527,20 @@ export const components = [
         "description": "Shows the toolbar Pivot button; hidden by default, but appears automatically when a pivot model or pivotMode is provided."
       },
       {
+        "prop": "showColumns",
+        "type": "boolean",
+        "required": false,
+        "default": "auto",
+        "description": "Show the Columns toolbar button; omit for the smart default (only when a column is hideable or rowNumbers is on), or force on/off."
+      },
+      {
+        "prop": "showFilters",
+        "type": "boolean",
+        "required": false,
+        "default": "auto",
+        "description": "Show the Filters toolbar button; omit for the smart default (only when a column is filterable), or force on/off with true/false."
+      },
+      {
         "prop": "exportFilename",
         "type": "string",
         "required": false,
@@ -5693,6 +5707,20 @@ export const components = [
         "required": false,
         "default": "[]",
         "description": "Lists the field names to group rows by on initial render, collapsing rows into expandable groups; empty by default."
+      },
+      {
+        "prop": "showGroupBar",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Show the \"Grouped by\" bar (chips + Clear all); set false for a layout-locked grouping so users can't remove it. Grouping still applies."
+      },
+      {
+        "prop": "renderGroupLabel",
+        "type": "(group: { field, value, count, rows }) => React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "Custom content for a group header row (in place of \"field: value  count\"); the chevron and collapse/expand toggle are kept."
       },
       {
         "prop": "rowPinning",

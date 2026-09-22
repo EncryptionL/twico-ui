@@ -10,7 +10,11 @@ const TOOLTIP_CSS = `
      (opacity:0) nor a shown bubble can block neighbouring cells/buttons (matches MUI/Radix tooltips). */
   pointer-events: none;
   padding: 6px 10px; border-radius: var(--radius-md);
-  background: var(--color-text); color: var(--color-surface);
+  /* #385: capture the ink as the bubble bg via a private var BEFORE the content wrapper re-scopes
+     --color-text, so a token-driven child (Text/Heading) reads the bubble's fg — not the page ink,
+     which is this very background — and the re-scope can't feed back into the bg. */
+  --_tt-bg: var(--color-text); --_tt-fg: var(--color-surface);
+  background: var(--_tt-bg); color: var(--_tt-fg);
   font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-medium);
   line-height: 1.3; white-space: normal;
   /* Grow horizontally to max-width, then wrap. max-content sizes to the content (capped by
@@ -26,7 +30,13 @@ const TOOLTIP_CSS = `
 .twc-tooltip[data-place="left"]   { transform-origin: right center; translate: 0 -50%; }
 .twc-tooltip[data-place="right"]  { transform-origin: left center; translate: 0 -50%; }
 .twc-tooltip[data-show="true"][data-place="top"], .twc-tooltip[data-show="true"][data-place="bottom"] { transform: scale(1); }
-.twc-tooltip__arrow { position: absolute; width: 7px; height: 7px; background: var(--color-text); transform: rotate(45deg); }
+.twc-tooltip__arrow { position: absolute; width: 7px; height: 7px; background: var(--_tt-bg); transform: rotate(45deg); }
+/* #385: re-scope token ink for the label subtree so Text/Heading (which set --color-text as an inline
+   style) render in the bubble's fg instead of the page ink. display:contents adds no box, so the label's
+   own flex/block layout is unchanged; custom properties still inherit through it. */
+.twc-tooltip__content { display: contents; --color-text: var(--_tt-fg);
+  --color-text-muted: color-mix(in srgb, var(--_tt-fg) 72%, var(--_tt-bg));
+  --color-text-subtle: color-mix(in srgb, var(--_tt-fg) 55%, var(--_tt-bg)); }
 /* Arrow tracks the trigger via --_tw-arrow-x/y (px from the tooltip edge) instead of being
    locked to the centre, so it still points at the trigger when the bubble is clamped near a
    viewport edge. Falls back to 50% before measurement / SSR. */
@@ -143,7 +153,7 @@ export function Tooltip({
         "--_tw-arrow-y": coords.arrowY != null ? `${coords.arrowY}px` : undefined,
       }}
     >
-      {label}
+      <span className="twc-tooltip__content">{label}</span>
       <span className="twc-tooltip__arrow" aria-hidden="true" />
     </span>, document.body) : null;
 

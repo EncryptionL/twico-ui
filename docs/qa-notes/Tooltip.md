@@ -6,6 +6,17 @@
 
 ## Open issues
 
+- [x] **[#385] A `Text` inside a rich `label` was invisible (drawn in the bubble's own bg)** — `.twc-tooltip`
+  paints `background: var(--color-text); color: var(--color-surface)` (inverted). `Text` (and `Heading`) set
+  `color: var(--color-text)` **inline** (TONE.default → `--color-text`), so they don't inherit the bubble's
+  `color` and can't be overridden by a tooltip stylesheet rule (inline wins) — they render in `--color-text`,
+  which is exactly the bubble's background → an empty-looking bubble in both themes. Fixed with the issue's
+  option 1 (fixes every call site, no consumer change): the bubble's bg is captured in a private `--_tt-bg`
+  var **before** any re-scope, and the label is wrapped in a `display:contents` `.twc-tooltip__content` that
+  redefines `--color-text` (+ `--color-text-muted`/`-subtle`, via `color-mix`) to the bubble's fg, so any
+  token-driven child reads correctly. `display:contents` adds no box, so the label's own flex/block layout is
+  unchanged; the private var means the re-scope can't feed back into the bg. `Tooltip.jsx` — ✓ fixed 2026-09-22
+
 - [x] **[P2] No viewport clamp; `white-space: nowrap` labels can overflow the edge** — The tooltip is `white-space: nowrap` (`Tooltip.jsx:11`) and positioned by setting its leading edge to the trigger center then visually centering via `translate: -50% 0` (top/bottom) (`Tooltip.jsx:15-16`, `Tooltip.jsx:61`). There is no clamp to the viewport, so a long label on a trigger near the left/right edge (or a top/bottom-placed tooltip wider than twice the trigger's distance to the edge) renders partly off-screen. Tooltips never flip either. _Fix:_ clamp the computed coordinate into `[gap, vw - width - gap]` after measuring the tooltip width, or allow wrapping with a `max-width`. `Tooltip.jsx:55-65` — ✓ fixed 2026-06-17
 
 - [x] **[P2] Stylesheet `data-place` position rules are dead (overridden by inline style) — confusing, not broken** — `TOOLTIP_CSS` sets `top/bottom/left/right` per `data-place` using `calc(100% + 8px)` (`Tooltip.jsx:15-18`), which presumes a positioned parent. Since the tooltip is portaled to `document.body` and given inline `position: fixed` with explicit `left/right/top/bottom` (including `auto`) (`Tooltip.jsx:116`), the inline values win and the CSS offsets are inert — only the `translate` / `transform-origin` / arrow rules from those selectors actually matter. No visible bug, but the dead CSS is a maintenance trap (someone editing the `calc()` offsets will see no effect). _Fix:_ drop the positional declarations from the `data-place` rules and keep only `translate`/`transform-origin`. `Tooltip.jsx:15-18` — ✓ fixed 2026-06-17

@@ -1077,7 +1077,7 @@ export function Datatable({
   density: densityProp = "comfortable", pageSize = 10, pageSizeOptions = [5, 10, 25, 50],
   page, onPageChange, onPageSizeChange,
   height = 440, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [], onRowSelectionChange,
-  showExport = false, showDensity = false, showPivot = false, exportFilename = "export", aggregationValues = null,
+  showExport = false, showDensity = false, showPivot = false, showColumns, showFilters, exportFilename = "export", aggregationValues = null,
   disableColumnReorder = false, disableColumnResize = false,
   columnCombining = false,
   emptyMessage, renderEmpty,
@@ -1088,7 +1088,7 @@ export function Datatable({
   selectionMode = "none", onRowClick, onCellClick, onActiveCellChange, onCellSelectionChange,
   activeRowId, scrollActiveRowIntoView = true,
   enableClipboard = false, onCellsCopy, onCellsPaste,
-  showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [],
+  showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [], showGroupBar = true, renderGroupLabel,
   rowNumbers = false,
   searchFields = null,
   searchable = true,
@@ -2769,6 +2769,12 @@ export function Datatable({
 
   const tableMinWidth = leadW + ordered.reduce((a, c) => a + widthOf(c), 0);
   const filterableCols = React.useMemo(() => cols.filter((c) => c.filterable), [cols]);
+  // #386: ONE gate for the Columns / Filters toolbar buttons AND their column-menu (Hide / Filter) counterparts,
+  // so an explicit show{Columns,Filters}={false} also drops the menu items — otherwise a menu Filter would push a
+  // phantom filter with no panel to reach (and no button to anchor to), and a menu Hide would strand a column
+  // with no Columns panel to restore it. Auto default: show only when the panel would have something to do.
+  const columnsShown = showColumns !== undefined ? showColumns : (cols.some((c) => c.hideable) || rowNumbers);
+  const filtersShown = showFilters !== undefined ? showFilters : filterableCols.length > 0;
   // #289: auto-fit the filter panel's column-field (and operator) Select widths to the widest label, so
   // header names no longer truncate at the old fixed 118px. Measure the widest OPTION (not the selected
   // value) → the width is stable across selection and identical across rows. Clamp to a cap derived from
@@ -3026,15 +3032,21 @@ export function Datatable({
   const totalCols = ordered.length + (checkboxSelection ? 1 : 0) + (showRowNum ? 1 : 0) + (hasExpandCol ? 1 : 0);
   function renderGroupRow(item) {
     const subs = aggOn ? subtotalText(item.rows) : [];
+    // #387: renderGroupLabel replaces the default "<field>: <value> <count>" content; the chevron + toggle stay.
+    const custom = renderGroupLabel ? renderGroupLabel({ field: item.field, value: item.value, count: item.count, rows: item.rows }) : null;
     return (
       <tr key={`g${item.key}`} className="twc-dt__group-row" role="row">
         <td className="twc-dt__group-cell" role="gridcell" colSpan={totalCols} style={{ maxWidth: "none" }}>
           <button type="button" className="twc-dt__group-toggle" style={{ marginLeft: item.depth * 18 }}
             aria-expanded={!item.collapsed} onClick={() => toggleGroup(item.key)}>
             <span className="twc-dt__group-chev" data-open={!item.collapsed || undefined}><Svg d={I.chevDown} /></span>
-            <span className="twc-dt__group-name">{fieldLabel(item.field)}:</span>
-            <span className="twc-dt__group-val">{String(item.value)}</span>
-            <span className="twc-dt__group-count">{item.count}</span>
+            {renderGroupLabel ? custom : (
+              <>
+                <span className="twc-dt__group-name">{fieldLabel(item.field)}:</span>
+                <span className="twc-dt__group-val">{String(item.value)}</span>
+                <span className="twc-dt__group-count">{item.count}</span>
+              </>
+            )}
           </button>
           {subs.length ? <span className="twc-dt__group-sub">{subs.map((s, i) => <span key={i}>{s}</span>)}</span> : null}
         </td>
@@ -3357,14 +3369,20 @@ export function Datatable({
             {diff.toggleLabel != null ? diff.toggleLabel : "Only changed"}
           </label>
         ) : null}
-        <button type="button" className="twc-dt__tbtn" data-active={panel === "columns" || undefined} data-tip="Show or hide columns"
+        {/* #386: show Columns only when something is hideable (or the row-number column can be toggled); Filters
+            only when a column is filterable. showColumns/showFilters force it on/off. An empty panel helps no one. */}
+        {columnsShown ? (
+        <button type="button" className="twc-dt__tbtn" data-tbtn="columns" data-active={panel === "columns" || undefined} data-tip="Show or hide columns"
           onClick={(e) => { if (panel === "columns") { setPanel(null); closePanel(); } else { setColQuery(""); setPanel("columns"); setColMenu(null); openPanel(e.currentTarget, "left", 268); } }}>
           <Svg d={I.columns} /><span className="twc-dt__tlabel">Columns</span>{hidden.size ? <span className="twc-dt__tbadge">{cols.length - hidden.size}</span> : null}
         </button>
-        <button type="button" className="twc-dt__tbtn" data-active={panel === "filters" || undefined} data-tip="Filter rows"
+        ) : null}
+        {filtersShown ? (
+        <button type="button" className="twc-dt__tbtn" data-tbtn="filters" data-active={panel === "filters" || undefined} data-tip="Filter rows"
           onClick={(e) => { if (panel === "filters") { setPanel(null); closePanel(); } else { setPanel("filters"); setColMenu(null); openPanel(e.currentTarget, "left", DT_FILTER_PANEL_W); } }}>
           <Svg d={I.filter} /><span className="twc-dt__tlabel">Filters</span>{filters.length ? <span className="twc-dt__tbadge">{filters.length}</span> : null}
         </button>
+        ) : null}
         {showDensity ? (
           <button type="button" className="twc-dt__tbtn" data-tip="Change row density" onClick={() => setDensity((d) => d === "compact" ? "standard" : d === "standard" ? "comfortable" : "compact")}>
             <Svg d={I.density} /><span className="twc-dt__tlabel">{density[0].toUpperCase() + density.slice(1)}</span>
@@ -3403,7 +3421,7 @@ export function Datatable({
       </div>
 
       {/* Active row-grouping chips */}
-      {!pivotActive && activeGroupBy.length ? (
+      {!pivotActive && activeGroupBy.length && showGroupBar ? (
         <div className="twc-dt__groupbar">
           <Svg d={I.group} />
           <span className="twc-dt__groupbar-label">Grouped by</span>
@@ -3742,7 +3760,7 @@ export function Datatable({
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "asc" || undefined} onClick={() => { setSort({ field: c.field, dir: "asc" }); close(); }}><Svg d={I.arrow} /> Sort ascending</button>
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "desc" || undefined} onClick={() => { setSort({ field: c.field, dir: "desc" }); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(180deg)" }} /> Sort descending</button>
               </>) : null}
-              {c.filterable ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); restoreTriggerFocus(); setPanel("filters"); openPanel(document.querySelector(".twc-dt__toolbar .twc-dt__tbtn:nth-child(2)"), "left", DT_FILTER_PANEL_W); }}><Svg d={I.filter} /> Filter</button> : null}
+              {c.filterable && filtersShown ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); restoreTriggerFocus(); setPanel("filters"); openPanel(document.querySelector('.twc-dt__toolbar .twc-dt__tbtn[data-tbtn="filters"]'), "left", DT_FILTER_PANEL_W); }}><Svg d={I.filter} /> Filter</button> : null}
               {hasTop && hasBottom ? <div className="twc-dt__sep" /> : null}
               {c.groupable ? <button type="button" role="menuitem" className="twc-dt__mi" data-active={groupBy.includes(c.field) || undefined} onClick={() => { toggleGroupField(c.field); close(); }}><Svg d={I.group} /> {groupBy.includes(c.field) ? "Stop grouping" : "Group by this column"}</button> : null}
               {/* #339: build a combined column at runtime — fold other columns' data into this one. */}
@@ -3765,7 +3783,7 @@ export function Datatable({
               </>) : null}
               {/* #227: `wrappable: false` removes just this item (e.g. a fixed single-token column). */}
               {c.type !== "actions" && c.wrappable !== false ? <button type="button" role="menuitem" className="twc-dt__mi" data-active={wrapped.has(c.field) || undefined} onClick={() => { toggleWrap(c.field); close(); }}><Svg d={I.wrap} /> {wrapped.has(c.field) ? "Unwrap text" : "Wrap text"}</button> : null}
-              {c.hideable ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={() => { setHidden((h) => new Set(h).add(c.field)); close(); }}><Svg d={I.eyeOff} /> Hide column</button> : null}
+              {c.hideable && columnsShown ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={() => { setHidden((h) => new Set(h).add(c.field)); close(); }}><Svg d={I.eyeOff} /> Hide column</button> : null}
             </>);
           })()}
         </div>
