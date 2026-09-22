@@ -181,7 +181,8 @@ export interface UseFilePickerOptions {
   multiple?: boolean;
   /** Max size per file in bytes; larger files are rejected. */
   maxSize?: number;
-  /** Max number of files accepted (multiple mode). */
+  /** Max number of files accepted within a SINGLE selection (the hook is stateless — it can't count across
+   *  separate picks; track cumulative selection yourself). */
   maxFiles?: number;
   /** Called with the files that passed validation. */
   onFiles?: (files: File[]) => void;

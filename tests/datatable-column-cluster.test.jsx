@@ -16,22 +16,23 @@ beforeEach(() => { origRect = Element.prototype.getBoundingClientRect; Element.p
 afterEach(() => { Element.prototype.getBoundingClientRect = origRect; cleanup(); vi.restoreAllMocks(); });
 
 describe("Datatable column align (#397)", () => {
-  it("emits data-align on body cells, headers and the footer; headerAlign overrides the header", () => {
+  it("emits data-align only when it OVERRIDES the type default (headerAlign overrides the header)", () => {
     const columns = [
-      { field: "name", align: "center", headerAlign: "right" },
-      { field: "qty", type: "number", aggregation: "sum" },
+      { field: "name", align: "center", headerAlign: "right" }, // string default left → both override
+      { field: "qty", type: "number", align: "left", aggregation: "sum" }, // number default right → left overrides
+      { field: "note" }, // string default left → NO override, no data-align
     ];
-    const { container } = render(<Datatable columns={columns} rows={rows} rowKey={(r) => r.id} showAggregation />);
+    const { container } = render(<Datatable columns={columns} rows={rows.map((r) => ({ ...r, note: "n" }))} rowKey={(r) => r.id} showAggregation />);
     const th = Array.from(container.querySelectorAll("thead th"));
     const nameTh = th.find((t) => t.textContent.toLowerCase().includes("name"));
     expect(nameTh.getAttribute("data-align")).toBe("right"); // headerAlign wins for the header
-    const bodyCell = container.querySelector('tbody td[data-align="center"]');
-    expect(bodyCell).toBeTruthy(); // body cell uses align
-    // number column defaults to right on both header and body
-    const qtyTd = Array.from(container.querySelectorAll("tbody td")).find((td) => td.getAttribute("data-align") === "right");
-    expect(qtyTd).toBeTruthy();
-    const footRight = container.querySelector('tfoot td[data-align="right"]');
-    expect(footRight).toBeTruthy();
+    expect(container.querySelector('tbody td[data-align="center"]')).toBeTruthy(); // name body cell (center override)
+    // number column forced to left → data-align="left" emitted (overrides the right default)
+    expect(Array.from(container.querySelectorAll("tbody td")).some((td) => td.getAttribute("data-align") === "left")).toBe(true);
+    expect(container.querySelector('tfoot td[data-align="left"]')).toBeTruthy(); // qty footer override
+    // a plain string column at its default emits NO data-align (no attribute churn / no default regression)
+    const noteTh = th.find((t) => t.textContent.toLowerCase().includes("note"));
+    expect(noteTh.getAttribute("data-align")).toBeNull();
   });
 });
 

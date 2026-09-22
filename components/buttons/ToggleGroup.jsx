@@ -29,6 +29,9 @@ export function ToggleGroup({
   const __twcStyles = useScopedStyles("twc-togglegroup-styles", TOGGLEGROUP_CSS);
   const groupRef = React.useRef(null);
   const multiple = type === "multiple";
+  // #405 (review): the roving tab stop FOLLOWS focus (WAI-ARIA), so tabbing out and back returns to the
+  // last-focused toggle — not always the selected/first one.
+  const [focusedIdx, setFocusedIdx] = React.useState(null);
 
   // Hand-rolled controlled/uncontrolled (no hooks-barrel import), passing the VALUE not the event.
   const [internal, setInternal] = React.useState(defaultValue !== undefined ? defaultValue : (multiple ? [] : null));
@@ -63,10 +66,13 @@ export function ToggleGroup({
     if (e.key === "Home") i = items.findIndex((it) => !it.disabled);
     else if (e.key === "End") { for (let k = n - 1; k >= 0; k--) { if (!items[k].disabled) { i = k; break; } } }
     else { const dir = e.key === nextKey ? 1 : -1; let guard = 0; do { i = (i + dir + n) % n; } while (items[i] && items[i].disabled && ++guard <= n); }
-    if (btns && items[i] && !items[i].disabled && btns[i]) btns[i].focus();
+    if (btns && items[i] && !items[i].disabled && btns[i]) { btns[i].focus(); setFocusedIdx(i); }
   }
 
-  const focusIdx = roving ? firstFocusIndex() : -1;
+  // The roving anchor: the last-focused enabled index, else the selected/first-enabled one.
+  const rovingIdx = roving
+    ? (focusedIdx != null && items[focusedIdx] && !items[focusedIdx].disabled ? focusedIdx : firstFocusIndex())
+    : -1;
   return (
     <div
       ref={groupRef}
@@ -89,7 +95,8 @@ export function ToggleGroup({
           pressed={isSelected(it.value)}
           leftIcon={it.icon}
           aria-label={it["aria-label"]}
-          tabIndex={roving ? (i === focusIdx ? 0 : -1) : undefined}
+          tabIndex={roving ? (i === rovingIdx ? 0 : -1) : undefined}
+          onFocus={roving ? () => setFocusedIdx(i) : undefined}
           onClick={() => toggle(it.value)}
         >
           {it.label}

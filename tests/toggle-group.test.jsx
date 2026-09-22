@@ -79,6 +79,18 @@ describe("ToggleGroup roving (#405)", () => {
     expect(getByText("Center").closest("button").getAttribute("aria-pressed")).toBe("false"); // not selection
   });
 
+  it("the roving tab stop follows arrow-key focus (review fix)", () => {
+    const { container, getByText } = render(<ToggleGroup aria-label="Align" items={items} roving />);
+    const grp = container.querySelector('[role="group"]');
+    container.querySelectorAll("button")[0].focus();
+    fireEvent.keyDown(grp, { key: "ArrowRight" }); // focus → Center
+    const center = getByText("Center").closest("button");
+    expect(document.activeElement).toBe(center);
+    // the roving 0 moved to the now-focused Center (so tabbing out and back returns here), others -1
+    expect(center.tabIndex).toBe(0);
+    expect(getByText("Left").closest("button").tabIndex).toBe(-1);
+  });
+
   it("without roving, all buttons keep the native tab order (no tabIndex override)", () => {
     const { container } = render(<ToggleGroup aria-label="Align" items={items} />);
     container.querySelectorAll("button").forEach((b) => expect(b.getAttribute("tabindex")).toBeNull());

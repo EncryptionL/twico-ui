@@ -448,10 +448,11 @@ export const usePortal = _usePortal;
 export const useScrollLock = _useScrollLock;
 
 /**
- * #406: open a native file picker from your own button/trigger while reusing FileUpload's validation
- * (`accept` / `maxSize` / `maxFiles`, dedupe). Render `<input {...getInputProps()} />` (hidden) once, then
- * call `open()` from any control. `onFiles(accepted)` fires with the valid files and `onReject(rejections)`
- * with `{ file, reason: "type" | "size" | "count" }[]`. SSR-safe; both callbacks are memoized.
+ * #406: open a native file picker from your own button/trigger while reusing FileUpload's per-pick validation.
+ * Render `<input {...getInputProps()} />` (hidden) once, then call `open()` from any control. `onFiles(accepted)`
+ * fires with the valid files and `onReject(rejections)` with `{ file, reason: "type" | "size" | "count" }[]`.
+ * `accept` + `maxSize` are checked per file; `maxFiles` bounds a SINGLE selection (the hook is stateless, so it
+ * can't dedupe or count across separate picks — track cumulative selection yourself). SSR-safe; memoized.
  */
 export function useFilePicker({ accept, multiple = false, maxSize, maxFiles, onFiles, onReject } = {}) {
   const inputRef = React.useRef(null);

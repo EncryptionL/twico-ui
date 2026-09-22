@@ -39,6 +39,12 @@ describe("ImageViewer zoom (#407)", () => {
     expect(imgTransform(container)).toContain("translate(0px, 0px)");
   });
 
+  it("ignores a pure-horizontal wheel (deltaY===0) — no accidental zoom-out (review fix)", () => {
+    const { container } = render(<ImageViewer src="/x.png" alt="X" />);
+    fireEvent.wheel(stageOf(container), { deltaY: 0, deltaX: 120, clientX: 250, clientY: 200 });
+    expect(imgTransform(container)).toContain("scale(1)"); // unchanged
+  });
+
   it("does not zoom below minZoom", () => {
     const { container } = render(<ImageViewer src="/x.png" alt="X" />);
     fireEvent.keyDown(stageOf(container), { key: "-" });

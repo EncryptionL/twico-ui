@@ -94,8 +94,9 @@ is still registered and its parent correctly yields). Wiring:
   React `onKeyDown` ran first) **or** `!isTop()`, and the backdrop `mousedown` is gated on `isTop()`.
 - **Popover / Menu** — outside-pointer dismissal gates on `isTop()`; `Popover` also `preventDefault`s `Escape`
   so an enclosing Dialog stands down (`Menu` already `preventDefault`s it in its React handler).
-- **Tooltip** — a shown (non-`anchored`) tooltip joins the stack and consumes `Escape` when topmost (a
-  focus-shown tooltip is dismissed before the dialog behind it).
+- **Tooltip** — deliberately **not** a layer: a shown tooltip hides on `Escape` but does **not** consume it
+  (no `preventDefault`), matching Radix/MUI, so the same `Escape` still closes an enclosing Dialog on the first
+  press. A transient hover/focus tooltip isn't a modal layer.
 - **Select / Combobox / MultiSelect** — `preventDefault` on `Escape` **only while the list is open**, so the
   enclosing Dialog's `defaultPrevented` guard sees it.
 

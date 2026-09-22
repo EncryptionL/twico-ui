@@ -92,7 +92,7 @@ export function ImageViewer({
   // Non-passive wheel — React's onWheel is passive, so preventDefault there is ignored (the page would scroll).
   React.useEffect(() => {
     const stage = stageRef.current; if (!stage) return undefined;
-    const onWheel = (e) => { e.preventDefault(); zoomAt(e.clientX, e.clientY, zoomRef.current * (e.deltaY < 0 ? 1 + step : 1 / (1 + step))); };
+    const onWheel = (e) => { if (!e.deltaY) return; /* ignore a pure-horizontal trackpad swipe (deltaY===0) */ e.preventDefault(); zoomAt(e.clientX, e.clientY, zoomRef.current * (e.deltaY < 0 ? 1 + step : 1 / (1 + step))); };
     stage.addEventListener("wheel", onWheel, { passive: false });
     return () => stage.removeEventListener("wheel", onWheel);
     // eslint-disable-next-line react-hooks/exhaustive-deps

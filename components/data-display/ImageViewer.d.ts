@@ -34,7 +34,8 @@ export interface ImageViewerProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   maxZoom?: number;
   /** Zoom increment for the wheel / keys / buttons. @default 0.25 */
   step?: number;
-  /** Controlled zoom level. Pair with `onZoomChange`. */
+  /** Controlled zoom level. Pair with `onZoomChange` and echo it back into this prop — pan/anchor math runs
+   *  against the rendered zoom, so a controlled value that never updates would drift. */
   zoom?: number;
   /** Initial zoom for the uncontrolled case. @default 1 */
   defaultZoom?: number;

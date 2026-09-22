@@ -7,7 +7,7 @@
 ## Open issues
 
 - [x] **[#398] a disabled trigger never showed its tooltip from the keyboard, and only sometimes on hover** — added CSS so a disabled/aria-disabled child of `.twc-tooltip-wrap` is `pointer-events:none` (hover reaches the wrap, which owns onMouseEnter) with a not-allowed cursor; pair with `Button`/`IconButton` `focusableWhenDisabled` for keyboard reach. `tests/disabled-tooltip.test.jsx`. `Tooltip.jsx` — ✓ fixed 2026-09-22
-- [x] **[#389] a shown tooltip Escape also closed an enclosing Dialog** — the Tooltip now joins the shared dismissable-layer stack (`useLayer`, `_overlay.js`): a shown (non-anchored) tooltip consumes Escape when topmost. `Tooltip.jsx` — ✓ fixed 2026-09-22
+- [x] **[#389] considered for the dismissable-layer stack, deliberately left out** — a transient hover/focus tooltip is NOT a modal layer: it hides on Escape but does not `preventDefault`/consume it (matching Radix/MUI), so the same Escape still closes an enclosing Dialog on the first press. The modal layers (Menu/Select/Popover/nested Dialog) own the stack; the review flagged that making the tooltip topmost-and-consuming would force two Escapes to close a dialog whenever a tooltip showed. `Tooltip.jsx` — ✓ 2026-09-22
 
 - [x] **[#385] A `Text` inside a rich `label` was invisible (drawn in the bubble's own bg)** — `.twc-tooltip`
   paints `background: var(--color-text); color: var(--color-surface)` (inverted). `Text` (and `Heading`) set

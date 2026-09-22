@@ -90,6 +90,17 @@ describe("Datatable onEditingChange signal (#396)", () => {
     fireEvent.keyDown(container.querySelector(".twc-dt__editor"), { key: "Escape" });
     expect(onEditingChange).toHaveBeenLastCalledWith(null, "cancel");
   });
+
+  it("double-clicking inside an OPEN editor does not re-fire start (review fix)", () => {
+    const onEditingChange = vi.fn();
+    const cols = [{ field: "name" }, { field: "qty", type: "number", editable: true }];
+    const { container } = render(<Datatable rowKey={(r) => r.id} rows={rows} columns={cols} onEditingChange={onEditingChange} />);
+    dblOpen(container, 0, 1);
+    const startCalls = onEditingChange.mock.calls.filter((c) => c[1] === "start").length;
+    // a second double-click lands on the open editor and bubbles to the cell — must NOT re-open/re-fire start
+    fireEvent.doubleClick(container.querySelector(".twc-dt__editor"));
+    expect(onEditingChange.mock.calls.filter((c) => c[1] === "start").length).toBe(startCalls);
+  });
 });
 
 describe("Datatable onCellsCommit batched clipboard (#394)", () => {

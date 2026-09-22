@@ -1,8 +1,10 @@
 import React from "react";
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { render, fireEvent, cleanup } from "@testing-library/react";
+import { render, fireEvent, cleanup, act } from "@testing-library/react";
 import { Dialog } from "../components/overlay/Dialog.jsx";
 import { Select } from "../components/inputs/Select.jsx";
+import { Tooltip } from "../components/overlay/Tooltip.jsx";
+import { Button } from "../components/buttons/Button.jsx";
 
 // #389: a dismissable-layer stack — Escape / outside-pointer reach only the TOPMOST open overlay, so a nested
 // Menu/Select/Popover/Tooltip or a stacked Dialog no longer also closes its parent.
@@ -29,6 +31,24 @@ describe("Dialog/Drawer dismissable-layer stack (#389)", () => {
     render(<Dialog open onClose={onClose} title="Solo">body</Dialog>);
     fireEvent.keyDown(document, { key: "Escape" });
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("a shown Tooltip does NOT consume Escape — the enclosing Dialog still closes on the first press (review fix)", () => {
+    vi.useFakeTimers();
+    try {
+      const onClose = vi.fn();
+      render(
+        <Dialog open onClose={onClose} title="Edit">
+          <Tooltip label="Help" delay={0}><Button>?</Button></Tooltip>
+        </Dialog>,
+      );
+      fireEvent.mouseEnter(document.querySelector(".twc-tooltip-wrap")); // Dialog portals to body
+      act(() => { vi.advanceTimersByTime(20); }); // tooltip shows (joins nothing)
+      fireEvent.keyDown(document, { key: "Escape" });
+      expect(onClose).toHaveBeenCalledTimes(1); // one Escape closes the dialog despite the visible tooltip
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it("an open Select inside a Dialog: Escape closes the Select, not the Dialog", () => {
