@@ -24,6 +24,10 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   loading?: boolean;
   /** Stretch to fill the container width. @default false */
   fullWidth?: boolean;
+  /** #398: when `disabled`, stay in the tab order (render `aria-disabled` instead of native `disabled`) so a
+   *  wrapping `Tooltip` explaining *why* it's disabled is reachable by keyboard. Click and Enter/Space are
+   *  still blocked and the disabled styling still applies. @default false */
+  focusableWhenDisabled?: boolean;
   /** Render as a different element (e.g. "a"). @default "button" */
   as?: "button" | "a";
   /** Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href). */

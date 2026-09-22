@@ -4,6 +4,11 @@ import { createPortal } from "react-dom";
 
 const TOOLTIP_CSS = `
 .twc-tooltip-wrap { display: inline-flex; }
+/* #398: a native disabled control swallows the pointer events the tooltip opens from (browser-dependent),
+   so a disabled trigger often never shows its tooltip on hover. Let the pointer fall through to the wrap,
+   which owns onMouseEnter, and keep the not-allowed cursor hint. */
+.twc-tooltip-wrap > :disabled, .twc-tooltip-wrap > [aria-disabled="true"] { pointer-events: none; }
+.twc-tooltip-wrap:has(> :disabled), .twc-tooltip-wrap:has(> [aria-disabled="true"]) { cursor: not-allowed; }
 .twc-tooltip {
   position: fixed; z-index: var(--z-tooltip);
   /* #348: purely presentational — the bubble must NEVER intercept the pointer, so neither a hidden

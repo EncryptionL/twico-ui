@@ -18,6 +18,10 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
   size?: "xs" | "sm" | "md" | "lg";
   /** Fully rounded (circular). @default false */
   round?: boolean;
+  /** #398: when `disabled`, stay focusable (render `aria-disabled` instead of native `disabled`) so a wrapping
+   *  `Tooltip` explaining *why* it's disabled is reachable by keyboard. Click and Enter/Space stay blocked and
+   *  the disabled styling still applies. @default false */
+  focusableWhenDisabled?: boolean;
   /** #342: render as a different element — use `"a"` for an icon **link** (GitHub icon, external nav, …) so
    *  navigation is a real link, not a button. @default "button" */
   as?: "button" | "a";

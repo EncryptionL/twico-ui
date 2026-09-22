@@ -68,10 +68,12 @@ export function IconButton({
   size = "md",
   round = false,
   disabled = false,
+  focusableWhenDisabled = false,
   as = "button",
   href,
   className = "",
   "aria-label": ariaLabel,
+  onClick,
   ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-iconbtn-styles", ICONBTN_CSS);
@@ -79,6 +81,9 @@ export function IconButton({
   // link, not a button. `target`/`rel` flow through `...rest`. An inert (disabled) anchor drops its href.
   const Tag = as;
   const inert = Tag === "a" && disabled;
+  // #398: keep a disabled icon button focusable (aria-disabled, not native disabled) so a wrapping Tooltip's
+  // reason is keyboard-reachable; block click + keyboard activation. The [aria-disabled] CSS already styles it.
+  const softDisabled = disabled && focusableWhenDisabled && Tag === "button";
 
   return (
     <Tag
@@ -87,12 +92,13 @@ export function IconButton({
       data-tone={tone}
       data-size={size}
       data-round={round || undefined}
-      disabled={Tag === "button" ? disabled : undefined}
+      disabled={Tag === "button" ? disabled && !softDisabled : undefined}
       type={Tag === "button" ? "button" : undefined}
       href={Tag === "a" && !inert ? safeHref(href) : undefined}
-      aria-disabled={inert || undefined}
+      aria-disabled={inert || softDisabled || undefined}
       tabIndex={inert ? -1 : undefined}
       aria-label={ariaLabel}
+      onClick={softDisabled ? (e) => e.preventDefault() : onClick}
       {...rest}
     >
       {__twcStyles}
