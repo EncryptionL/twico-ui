@@ -1,6 +1,7 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import { createPortal } from "react-dom";
+import { useLayer } from "../_overlay.js";
 
 const TOOLTIP_CSS = `
 .twc-tooltip-wrap { display: inline-flex; }
@@ -130,16 +131,19 @@ export function Tooltip({
     return () => { window.removeEventListener("scroll", onMove, true); window.removeEventListener("resize", onMove); };
   }, [show, place]);
 
+  // #389: a shown (non-anchored) tooltip joins the dismissable-layer stack, so Escape dismisses it before an
+  // enclosing Dialog/Drawer — and preventDefault stops the parent from also closing.
+  const isTop = useLayer(show && !anchored);
   // WCAG 1.4.13: Escape dismisses the tooltip; listener attached only while shown. In anchored mode
   // the parent owns visibility (`open`), so it handles Escape.
   React.useEffect(() => {
     if (!show || anchored) return;
     const onKeyDown = (e) => {
-      if (e.key === "Escape") { clearTimeout(timer.current); setShowU(false); }
+      if (e.key === "Escape" && !e.defaultPrevented && isTop()) { e.preventDefault(); clearTimeout(timer.current); setShowU(false); }
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [show, anchored]);
+  }, [show, anchored, isTop]);
 
   // The portaled bubble — identical in both modes. It's pointer-events:none (#348), so it never
   // catches the mouse (no self-sustaining hover); anchored mode also only renders once `anchor` is present.

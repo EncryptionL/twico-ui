@@ -1,6 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
-import { useFocusTrap } from "../_overlay.js";
+import { useFocusTrap, useLayer } from "../_overlay.js";
 import { createPortal } from "react-dom";
 
 const POPOVER_CSS = `
@@ -111,6 +111,7 @@ export function Popover({
     setPos({ top, left, width: w, flip: false, arrow, maxHeight: vh - 2 * M });
   }, [placement, align, width]);
 
+  const isTop = useLayer(open && render); // #389: dismissable-layer stack
   React.useEffect(() => {
     if (!open) return;
     place();
@@ -118,9 +119,11 @@ export function Popover({
     const onDown = (e) => {
       if (wrapRef.current?.contains(e.target)) return;
       if (popRef.current?.contains(e.target)) return;
+      if (!isTop()) return; // #389: only the topmost layer dismisses on an outside pointer
       setOpen(false);
     };
-    const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
+    // #389: preventDefault so an outer Dialog's defaultPrevented guard sees it; gate to the topmost layer.
+    const onKey = (e) => { if (e.key === "Escape" && !e.defaultPrevented && isTop()) { e.preventDefault(); setOpen(false); } };
     window.addEventListener("scroll", onMove, true);
     window.addEventListener("resize", onMove);
     document.addEventListener("mousedown", onDown);
@@ -131,7 +134,7 @@ export function Popover({
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("keydown", onKey);
     };
-  }, [open, place]);
+  }, [open, place, isTop]);
 
   // Keep the popover mounted through the close animation, then unmount.
   React.useEffect(() => {
