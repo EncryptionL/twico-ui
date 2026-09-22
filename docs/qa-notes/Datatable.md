@@ -6,6 +6,24 @@
 
 ## Open issues
 
+- [x] **[#387] rowGrouping's "Grouped by" bar can't be hidden, and the group row label can't be customised** —
+  a screen whose layout *is* the grouping got a removable "Grouped by: … × · Clear all" bar (a wasted row that
+  also let the user dismantle a grouping they can't restore, since it only re-applies on a `rowGrouping` prop
+  change), and the group row always read `"<field>: <value>  <count>"`. Added `showGroupBar` (default `true`) —
+  `false` hides the whole bar (grouping still applies; layout reflows since the bar is just a flex div) — and
+  `renderGroupLabel({ field, value, count, rows }) => ReactNode`, which replaces the group-row content while
+  keeping the chevron + collapse/expand toggle. 3 tests in `tests/datatable-group-bar-label.test.jsx`.
+  `Datatable.jsx` — ✓ fixed 2026-09-22
+
+- [x] **[#386] Columns / Filters toolbar buttons couldn't be turned off and opened empty panels** — unlike
+  `showExport`/`showDensity`/`showPivot`, the Columns and Filters buttons always rendered — even when no column
+  was `hideable`/`filterable` (e.g. a permission matrix of fixed toggle columns), where each opened an empty
+  panel. Added `showColumns` / `showFilters`: omit for the smart default (Columns shows only when a column is
+  `hideable` or `rowNumbers` is on; Filters only when a column is `filterable`), or pass `true`/`false` to force
+  it. Also gave the Filters button a stable `data-tbtn="filters"` (and Columns `data-tbtn="columns"`) and
+  repointed the column-menu "Filter" item's panel anchor at it, since hiding Columns would otherwise shift the
+  old `nth-child(2)` target. 5 tests in `tests/datatable-toolbar-toggles.test.jsx`. `Datatable.jsx` — ✓ fixed 2026-09-22
+
 - [x] **[#380] Cell paste was dead outside a secure context (and reported "Nothing to paste")** —
   `navigator.clipboard` is `[SecureContext]`, so on an `http://` origin that isn't localhost `readText()` is
   simply absent. `pasteSelection` fell through to `setClipboardMsg("Nothing to paste")` with a full clipboard,

@@ -10,15 +10,26 @@ Everything here is **additive**: with the relevant prop off, the table renders e
 
 ## Toolbar tools are opt-in; default density is comfortable
 
-The top toolbar always shows **Columns**, **Filters**, and the quick **Search**. The four heavier
-tools are **off by default** and each has a `show*` flag (a developer opts in):
+The quick **Search** shows by default (`searchable`). **Columns** and **Filters** show on a smart default
+(#386): Columns only when a column is `hideable` (or `rowNumbers` is on — its toggle lives in that panel),
+Filters only when a column is `filterable` — so a fixed-column grid doesn't get buttons that open empty
+panels. Force either with `showColumns` / `showFilters` (`true`/`false`); the gate also governs the matching
+column-⋮-menu **Hide column** / **Filter** items, so forcing a button off never strands a hidden column or a
+phantom filter. The four heavier tools are **off by default** and each has a `show*` flag (a developer opts in):
 
 | Tool | Prop | Default | Notes |
 | --- | --- | --- | --- |
+| Columns button | `showColumns` | auto | Shown when a column is `hideable` or `rowNumbers` is on; `true`/`false` forces it. |
+| Filters button | `showFilters` | auto | Shown when a column is `filterable`; `true`/`false` forces it. |
 | Density button | `showDensity` | `false` | The `density` prop still sets the row height when the button is hidden. |
 | Aggregation button | `showAggregation` | `false` | When on, also starts with the totals row shown. |
 | Pivot button | `showPivot` | `false` | Also appears automatically when a `pivot` model or `pivotMode` is supplied. |
 | Export button | `showExport` | `false` | CSV split button + format menu. |
+
+Row grouping (#387): the **"Grouped by"** bar shows by default; set `showGroupBar={false}` for a screen whose
+layout *is* the grouping (the bar's remove/clear controls would otherwise let a user dismantle a grouping they
+can't restore). `renderGroupLabel({ field, value, count, rows })` replaces the group header row's content
+(the chevron + toggle are kept; return non-interactive content).
 
 The default **`density` is `"comfortable"`** (was `"standard"`).
 

@@ -41,7 +41,7 @@ env:
   # share their minor's docs (point at the latest patch tag). Keep this matched to the
   # snapshot entries in site/public/versions.json — only the latest ~2 prior minors, so
   # the version switcher stays short and we don't rebuild ancient docs on every deploy.
-  DOC_SNAPSHOTS: "1.36=v1.36.1 1.35=v1.35.0"
+  DOC_SNAPSHOTS: "1.37=v1.37.2 1.36=v1.36.1"
 
 jobs:
   build:

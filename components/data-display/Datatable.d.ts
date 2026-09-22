@@ -165,6 +165,12 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   showDensity?: boolean;
   /** Show the Pivot toolbar button. Also shown automatically when `pivot` or `pivotMode` is set. @default false */
   showPivot?: boolean;
+  /** Show the **Columns** toolbar button (the show/hide picker). Omit for the smart default — shown only when a
+   *  column is `hideable` or `rowNumbers` is on (else the picker would be empty). `true`/`false` forces it. */
+  showColumns?: boolean;
+  /** Show the **Filters** toolbar button (the filter builder). Omit for the smart default — shown only when a
+   *  column is `filterable` (else the builder would be empty). `true`/`false` forces it. */
+  showFilters?: boolean;
   /** Filename (without extension) for exports (CSV / Excel). @default "export" */
   exportFilename?: string;
   /** Server-mode precomputed aggregation. Per field, either a scalar/node (used as-is) or a per-function map
@@ -269,6 +275,16 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   ariaLabel?: string;
   /** Row-grouping fields (collapsible groups with subtotals). Changing the prop re-applies it; users can also group via a column's ⋮ menu. @default [] */
   rowGrouping?: string[];
+  /** Show the "Grouped by …" bar above the header (with the per-field chips + Clear all). Set `false` for a
+   *  screen whose layout **is** the grouping — the bar's remove/clear controls would otherwise let the user
+   *  dismantle a grouping they can't restore. Grouping still applies; only the bar is hidden. @default true */
+  showGroupBar?: boolean;
+  /** #387: custom content for a group header row (the chevron + collapse/expand toggle are kept). Return the
+   *  node to render in place of the default `"<field>: <value>  <count>"` — e.g. a section title + a summary.
+   *  `rows` is the group's rows; `count` is their number. Return `null` to render an empty label (matching
+   *  `renderCell`/`renderHeader`). The content sits **inside** the group's toggle button, so keep it
+   *  non-interactive — a nested button/link would be invalid HTML and its clicks would also toggle the group. */
+  renderGroupLabel?: (group: { field: string; value: unknown; count: number; rows: T[] }) => React.ReactNode;
   /** Enable row pinning — adds "Pin to top/bottom" to each row's actions menu; pinned rows stay sticky above/below the scroll body. @default false */
   rowPinning?: boolean;
   /** Enable reorder of rows: the whole row is mouse-draggable, and a focusable drag handle supports
