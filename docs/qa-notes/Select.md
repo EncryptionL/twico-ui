@@ -2,9 +2,11 @@
 
 - **Group:** inputs
 - **Status:** open
-- **Reviewed:** 2026-06-17
+- **Reviewed:** 2026-09-22
 
 ## Open issues
+
+- [x] **[#389] Escape closing an open Select inside a Dialog also closed the Dialog** — Select now preventDefaults Escape when the listbox is open, so an enclosing Dialog/Drawer stands down. `Select.jsx` — ✓ fixed 2026-09-22
 
 - [x] **[P1] Portal z-index string vs numeric mismatch** — Portal popover uses CSS var `z-index: "var(--z-tooltip)"` (line 263) but this should be just the CSS variable without quotes in the style object. Fix: change to `zIndex: "var(--z-tooltip)"` in camelCase JS prop. `Select.jsx:263`. — ✓ fixed 2026-06-17
 

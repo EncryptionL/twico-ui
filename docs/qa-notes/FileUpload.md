@@ -2,9 +2,11 @@
 
 - **Group:** inputs
 - **Status:** clean
-- **Reviewed:** 2026-06-17
+- **Reviewed:** 2026-09-22
 
 ## Open issues
+
+- [x] **[#406] no way to open the picker from your own button (custom triggers lost validation)** — extracted the accept/maxSize/maxFiles/dedupe validation to `components/_upload.js`; made FileUpload `forwardRef` with an `open()` handle; added a headless `trigger` prop (+ `dropOnTrigger`) that renders only your element; and a `useFilePicker` hook (`{ open, getInputProps }`) that reuses the same validation. `tests/file-picker.test.jsx`. `FileUpload.jsx`/`.d.ts` — ✓ fixed 2026-09-22
 
 None identified.
 

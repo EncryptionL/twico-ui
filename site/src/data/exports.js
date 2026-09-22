@@ -9,7 +9,7 @@ const HOOKS = [
   "useLocalStorage", "useCopyToClipboard", "useDebouncedValue", "useDebouncedCallback",
   "useInterval", "useTimeout", "useWindowSize", "useHover",
   "useIntersectionObserver", "useId", "useFocusTrap", "usePortal",
-  "useScrollLock",
+  "useScrollLock", "useFilePicker",
 ];
 
 // Every named export of "twico-ui" — used to derive the import line when a snippet

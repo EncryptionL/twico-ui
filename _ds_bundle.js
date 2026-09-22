@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0823cbd5dd6e","components/buttons/IconButton.jsx":"08d7c8158ce2","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"a01b96563bf6","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"d254338e5425","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"e76c3c9b7486","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"1a2ba8757f82","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"b584cb27245e","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"84c273ffce88","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"186e526942fc","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"325eab1f094f","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"603eed939945","components/overlay/Dialog.jsx":"60b0487c6f8b","components/overlay/Drawer.jsx":"f9693145d74b","components/overlay/Menu.jsx":"e706754dfaab","components/overlay/Popover.jsx":"24dcf8e7bfd5","components/overlay/Tooltip.jsx":"339fff77469a","components/typography/Code.jsx":"f6f1da463524","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"747521cd095b"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"ae72a0bd4839","components/buttons/IconButton.jsx":"2013d7631168","components/buttons/ToggleGroup.jsx":"4f4409c9e596","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"dd42c5236cd9","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"8a26be2385f0","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"e76c3c9b7486","components/data-display/ImageViewer.jsx":"fff410872609","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"4483fbcdede4","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"7c7baafad108","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"21da33e87561","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"8e4d0341769e","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"e12abfd82a1a","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"73dc62deceda","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"dc0f83aa872f","components/overlay/Popover.jsx":"d6946296e6a8","components/overlay/Tooltip.jsx":"5704ea45a7b3","components/typography/Code.jsx":"f6f1da463524","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"d8aa22398ec8"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -101,6 +101,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     Heatmap: () => Heatmap,
     IconButton: () => IconButton,
     Image: () => Image,
+    ImageViewer: () => ImageViewer,
     Input: () => Input,
     Kanban: () => Kanban,
     Kbd: () => Kbd,
@@ -143,6 +144,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     Toast: () => Toast,
     ToastProvider: () => ToastProvider,
     ToastViewport: () => ToastViewport,
+    ToggleGroup: () => ToggleGroup,
     Tooltip: () => Tooltip,
     TreeView: () => TreeView,
     Treemap: () => Treemap,
@@ -159,6 +161,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useDebouncedValue: () => useDebouncedValue,
     useDisclosure: () => useDisclosure,
     useEventListener: () => useEventListener,
+    useFilePicker: () => useFilePicker,
     useFocusTrap: () => useFocusTrap2,
     useHover: () => useHover,
     useId: () => useId,
@@ -178,7 +181,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useToggle: () => useToggle,
     useWindowSize: () => useWindowSize
   });
-  var React51 = __toESM(require_react(), 1);
+  var React53 = __toESM(require_react(), 1);
   var import_react = __toESM(require_react(), 1);
 
   // rg:react/jsx-runtime
@@ -196,11 +199,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 
   // dist/index.mjs
   var import_react_dom = __toESM(require_react_dom(), 1);
-  var SUPPORTS_STYLE_HOIST = parseInt(String(React51.version), 10) >= 19;
-  var NonceContext = React51.createContext(void 0);
+  var SUPPORTS_STYLE_HOIST = parseInt(String(React53.version), 10) >= 19;
+  var NonceContext = React53.createContext(void 0);
   function useScopedStyles(id, css) {
-    const nonce = React51.useContext(NonceContext);
-    React51.useInsertionEffect(() => {
+    const nonce = React53.useContext(NonceContext);
+    React53.useInsertionEffect(() => {
       if (SUPPORTS_STYLE_HOIST) return;
       if (typeof document === "undefined") return;
       if (!css) return;
@@ -216,7 +219,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       }
       if (el.textContent !== css) el.textContent = css;
     }, [id, css, nonce]);
-    return SUPPORTS_STYLE_HOIST && css ? React51.createElement("style", { href: id, precedence: "twc-ui" }, css) : null;
+    return SUPPORTS_STYLE_HOIST && css ? React53.createElement("style", { href: id, precedence: "twc-ui" }, css) : null;
   }
   function TwicoProvider({ nonce, children }) {
     return import_react.default.createElement(NonceContext.Provider, { value: nonce }, children);
@@ -373,6 +376,21 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         }
       };
     }, [locked]);
+  }
+  var __layerSeq = 0;
+  var __openLayers = /* @__PURE__ */ new Set();
+  function useLayer(active) {
+    const depth = import_react.default.useRef(0);
+    import_react.default.useEffect(() => {
+      if (!active) return void 0;
+      const d = ++__layerSeq;
+      depth.current = d;
+      __openLayers.add(d);
+      return () => {
+        __openLayers.delete(d);
+      };
+    }, [active]);
+    return import_react.default.useCallback(() => __openLayers.size === 0 || depth.current === Math.max(...__openLayers), []);
   }
   function useInertBackground(ref, active) {
     import_react.default.useEffect(() => {
@@ -536,6 +554,505 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     ] });
   });
   Image.displayName = "Image";
+  var ICONBTN_CSS = `
+.twc-iconbtn {
+  --_sz: var(--control-h-md);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--_sz);
+  height: var(--_sz);
+  padding: 0;
+  border: var(--border-thin) solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--color-text-muted);
+  background: transparent;
+  overflow: hidden;
+  transition: background-color var(--duration-fast) var(--ease-standard),
+              color var(--duration-fast) var(--ease-standard),
+              border-color var(--duration-fast) var(--ease-standard),
+              box-shadow var(--duration-fast) var(--ease-standard),
+              transform var(--duration-fast) var(--ease-spring);
+}
+.twc-iconbtn[data-round="true"] { border-radius: var(--radius-full); }
+/* xs: ~26px square \u2014 composed from space tokens (no global control-h-xs token). */
+.twc-iconbtn[data-size="xs"] { --_sz: calc(var(--space-6) + var(--space-0-5)); }
+.twc-iconbtn[data-size="sm"] { --_sz: var(--control-h-sm); }
+.twc-iconbtn[data-size="lg"] { --_sz: var(--control-h-lg); }
+.twc-iconbtn:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-iconbtn:active:not(:disabled) { transform: scale(var(--press-scale)); }
+.twc-iconbtn:disabled { opacity: 0.5; cursor: not-allowed; }
+/* #342: disabled state for the anchor form (as="a") \u2014 :disabled doesn't apply to <a>. */
+.twc-iconbtn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+.twc-iconbtn svg { width: 1.25em; height: 1.25em; }
+
+/* tone supplies the accent set; variant decides how it's applied \u2014 mirrors Button. Default tone
+   primary; danger reuses its (active-less) hover for the pressed state. */
+.twc-iconbtn { --_accent: var(--color-primary); --_accent-hover: var(--color-primary-hover);
+  --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); }
+.twc-iconbtn[data-tone="danger"] { --_accent: var(--color-danger); --_accent-hover: var(--color-danger-hover);
+  --_accent-fg: var(--color-danger-fg); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
+.twc-iconbtn[data-variant="solid"] { background: var(--_accent); color: var(--_accent-fg); }
+.twc-iconbtn[data-variant="solid"]:hover:not(:disabled) { background: var(--_accent-hover); box-shadow: var(--shadow-brand); }
+.twc-iconbtn[data-variant="solid"]:active:not(:disabled) { filter: brightness(0.92); }
+.twc-iconbtn[data-variant="soft"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); }
+.twc-iconbtn[data-variant="soft"]:hover:not(:disabled) { background: var(--_accent-subtle); filter: brightness(0.97); }
+.dark .twc-iconbtn[data-variant="soft"]:hover:not(:disabled) { filter: brightness(1.25); }
+.twc-iconbtn[data-variant="outline"] { border-color: var(--color-border-strong); color: var(--color-text); }
+.twc-iconbtn[data-variant="outline"]:hover:not(:disabled) { border-color: var(--_accent); color: var(--_accent); background: var(--color-surface-sunken); }
+.twc-iconbtn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
+/* #405: toggle "on" state (aria-pressed) \u2014 a soft tone fill + tone border, works over any variant. */
+.twc-iconbtn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
+`;
+  function safeHref2(url) {
+    if (url == null) return void 0;
+    const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+    return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
+  }
+  function IconButton({
+    children,
+    icon,
+    variant = "ghost",
+    tone = "primary",
+    size = "md",
+    round = false,
+    disabled = false,
+    focusableWhenDisabled = false,
+    pressed,
+    as = "button",
+    href,
+    className = "",
+    "aria-label": ariaLabel,
+    onClick,
+    ...rest
+  }) {
+    const __twcStyles = useScopedStyles("twc-iconbtn-styles", ICONBTN_CSS);
+    const Tag2 = as;
+    const inert = Tag2 === "a" && disabled;
+    const softDisabled = disabled && focusableWhenDisabled && Tag2 === "button";
+    return /* @__PURE__ */ jsxs(
+      Tag2,
+      {
+        className: `twc-iconbtn ${className}`,
+        "data-variant": variant,
+        "data-tone": tone,
+        "data-size": size,
+        "data-round": round || void 0,
+        disabled: Tag2 === "button" ? disabled && !softDisabled : void 0,
+        type: Tag2 === "button" ? "button" : void 0,
+        href: Tag2 === "a" && !inert ? safeHref2(href) : void 0,
+        "aria-disabled": inert || softDisabled || void 0,
+        "aria-pressed": pressed,
+        tabIndex: inert ? -1 : void 0,
+        "aria-label": ariaLabel,
+        onClick: softDisabled ? (e) => e.preventDefault() : onClick,
+        ...rest,
+        children: [
+          __twcStyles,
+          icon || children
+        ]
+      }
+    );
+  }
+  var TOOLTIP_CSS = `
+.twc-tooltip-wrap { display: inline-flex; }
+/* #398: a native disabled control swallows the pointer events the tooltip opens from (browser-dependent),
+   so a disabled trigger often never shows its tooltip on hover. Let the pointer fall through to the wrap,
+   which owns onMouseEnter, and keep the not-allowed cursor hint. */
+.twc-tooltip-wrap > :disabled, .twc-tooltip-wrap > [aria-disabled="true"] { pointer-events: none; }
+.twc-tooltip-wrap:has(> :disabled), .twc-tooltip-wrap:has(> [aria-disabled="true"]) { cursor: not-allowed; }
+.twc-tooltip {
+  position: fixed; z-index: var(--z-tooltip);
+  /* #348: purely presentational \u2014 the bubble must NEVER intercept the pointer, so neither a hidden
+     (opacity:0) nor a shown bubble can block neighbouring cells/buttons (matches MUI/Radix tooltips). */
+  pointer-events: none;
+  padding: 6px 10px; border-radius: var(--radius-md);
+  /* #385: capture the ink as the bubble bg via a private var BEFORE the content wrapper re-scopes
+     --color-text, so a token-driven child (Text/Heading) reads the bubble's fg \u2014 not the page ink,
+     which is this very background \u2014 and the re-scope can't feed back into the bg. */
+  --_tt-bg: var(--color-text); --_tt-fg: var(--color-surface);
+  background: var(--_tt-bg); color: var(--_tt-fg);
+  font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-medium);
+  line-height: 1.3; white-space: normal;
+  /* Grow horizontally to max-width, then wrap. max-content sizes to the content (capped by
+     max-width) and \u2014 unlike shrink-to-fit width:auto \u2014 is NOT constrained by the space between
+     the fixed left edge and the viewport edge, so a tooltip near the right edge no longer
+     collapses to ~1 word per line and stretch vertically. */
+  width: max-content; max-width: var(--_tw-maxw, 320px); box-shadow: var(--shadow-md);
+  opacity: 0; transform: scale(0.9); transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-spring);
+}
+.twc-tooltip[data-show="true"] { opacity: 1; transform: scale(1); }
+.twc-tooltip[data-place="top"]    { transform-origin: bottom center; translate: -50% 0; }
+.twc-tooltip[data-place="bottom"] { transform-origin: top center; translate: -50% 0; }
+.twc-tooltip[data-place="left"]   { transform-origin: right center; translate: 0 -50%; }
+.twc-tooltip[data-place="right"]  { transform-origin: left center; translate: 0 -50%; }
+.twc-tooltip[data-show="true"][data-place="top"], .twc-tooltip[data-show="true"][data-place="bottom"] { transform: scale(1); }
+.twc-tooltip__arrow { position: absolute; width: 7px; height: 7px; background: var(--_tt-bg); transform: rotate(45deg); }
+/* #385: re-scope token ink for the label subtree so Text/Heading (which set --color-text as an inline
+   style) render in the bubble's fg instead of the page ink. display:contents adds no box, so the label's
+   own flex/block layout is unchanged; custom properties still inherit through it. */
+.twc-tooltip__content { display: contents; --color-text: var(--_tt-fg);
+  --color-text-muted: color-mix(in srgb, var(--_tt-fg) 72%, var(--_tt-bg));
+  --color-text-subtle: color-mix(in srgb, var(--_tt-fg) 55%, var(--_tt-bg)); }
+/* Arrow tracks the trigger via --_tw-arrow-x/y (px from the tooltip edge) instead of being
+   locked to the centre, so it still points at the trigger when the bubble is clamped near a
+   viewport edge. Falls back to 50% before measurement / SSR. */
+.twc-tooltip[data-place="top"] .twc-tooltip__arrow    { bottom: -3px; left: var(--_tw-arrow-x, 50%); margin-left: -3.5px; }
+.twc-tooltip[data-place="bottom"] .twc-tooltip__arrow { top: -3px; left: var(--_tw-arrow-x, 50%); margin-left: -3.5px; }
+.twc-tooltip[data-place="left"] .twc-tooltip__arrow   { right: -3px; top: var(--_tw-arrow-y, 50%); margin-top: -3.5px; }
+.twc-tooltip[data-place="right"] .twc-tooltip__arrow  { left: -3px; top: var(--_tw-arrow-y, 50%); margin-top: -3.5px; }
+@media (prefers-reduced-motion: reduce) { .twc-tooltip { transition: opacity var(--duration-fast) linear; transform: none; } }
+`;
+  function Tooltip({
+    children,
+    label,
+    placement = "top",
+    delay = 120,
+    className = "",
+    open: openProp,
+    anchor,
+    ...rest
+  }) {
+    const __twcStyles = useScopedStyles("twc-tooltip-styles", TOOLTIP_CSS);
+    const anchored = anchor !== void 0;
+    const id = import_react.default.useId();
+    const [showU, setShowU] = import_react.default.useState(false);
+    const show = anchored ? !!openProp : showU;
+    const [coords, setCoords] = import_react.default.useState(null);
+    const timer = import_react.default.useRef(null);
+    const closeTimer = import_react.default.useRef(null);
+    const wrapRef = import_react.default.useRef(null);
+    const tipRef = import_react.default.useRef(null);
+    const open = () => {
+      clearTimeout(closeTimer.current);
+      clearTimeout(timer.current);
+      timer.current = setTimeout(() => setShowU(true), delay);
+    };
+    const close = () => {
+      clearTimeout(timer.current);
+      clearTimeout(closeTimer.current);
+      closeTimer.current = setTimeout(() => setShowU(false), 120);
+    };
+    import_react.default.useEffect(() => () => {
+      clearTimeout(timer.current);
+      clearTimeout(closeTimer.current);
+    }, []);
+    const place = import_react.default.useCallback(() => {
+      const el = anchored ? anchor : wrapRef.current;
+      if (!el || !el.getBoundingClientRect) return;
+      const r2 = el.getBoundingClientRect();
+      const cx = Math.round(r2.left + r2.width / 2), cy = Math.round(r2.top + r2.height / 2);
+      const vw = window.innerWidth, vh = window.innerHeight, gap = 8, margin = 8;
+      const tip = tipRef.current;
+      const tw = tip ? tip.offsetWidth : 0, th = tip ? tip.offsetHeight : 0;
+      const clampX = (c) => tw ? Math.round(Math.min(Math.max(c, margin + tw / 2), vw - margin - tw / 2)) : c;
+      const clampY = (c) => th ? Math.round(Math.min(Math.max(c, margin + th / 2), vh - margin - th / 2)) : c;
+      const spaceAbove = r2.top - gap - margin, spaceBelow = vh - r2.bottom - gap - margin;
+      const spaceLeft = r2.left - gap - margin, spaceRight = vw - r2.right - gap - margin;
+      let side = placement;
+      if (placement === "top" && spaceAbove < th && spaceBelow > spaceAbove) side = "bottom";
+      else if (placement === "bottom" && spaceBelow < th && spaceAbove > spaceBelow) side = "top";
+      else if (placement === "left" && spaceLeft < tw && spaceRight > spaceLeft) side = "right";
+      else if (placement === "right" && spaceRight < tw && spaceLeft > spaceRight) side = "left";
+      const base = { left: "auto", right: "auto", top: "auto", bottom: "auto", place: side };
+      const AP = 12;
+      const arrowX = (center) => tw ? Math.round(Math.min(Math.max(cx - (center - tw / 2), AP), tw - AP)) : void 0;
+      const arrowY = (center) => th ? Math.round(Math.min(Math.max(cy - (center - th / 2), AP), th - AP)) : void 0;
+      if (side === "bottom") {
+        const c = clampX(cx);
+        setCoords({ ...base, left: c, top: Math.round(r2.bottom + gap), arrowX: arrowX(c) });
+      } else if (side === "left") {
+        const c = clampY(cy);
+        setCoords({ ...base, top: c, right: Math.round(vw - r2.left + gap), arrowY: arrowY(c) });
+      } else if (side === "right") {
+        const c = clampY(cy);
+        setCoords({ ...base, top: c, left: Math.round(r2.right + gap), arrowY: arrowY(c) });
+      } else {
+        const c = clampX(cx);
+        setCoords({ ...base, left: c, bottom: Math.round(vh - r2.top + gap), arrowX: arrowX(c) });
+      }
+    }, [placement, anchored, anchor]);
+    import_react.default.useEffect(() => {
+      place();
+    }, [place]);
+    import_react.default.useEffect(() => {
+      if (!show) return void 0;
+      place();
+      const onMove = () => place();
+      window.addEventListener("scroll", onMove, true);
+      window.addEventListener("resize", onMove);
+      return () => {
+        window.removeEventListener("scroll", onMove, true);
+        window.removeEventListener("resize", onMove);
+      };
+    }, [show, place]);
+    const isTop = useLayer(show && !anchored);
+    import_react.default.useEffect(() => {
+      if (!show || anchored) return;
+      const onKeyDown = (e) => {
+        if (e.key === "Escape" && !e.defaultPrevented && isTop()) {
+          e.preventDefault();
+          clearTimeout(timer.current);
+          setShowU(false);
+        }
+      };
+      document.addEventListener("keydown", onKeyDown);
+      return () => document.removeEventListener("keydown", onKeyDown);
+    }, [show, anchored, isTop]);
+    const bubble = coords && (!anchored || anchor) ? (0, import_react_dom.createPortal)(
+      /* @__PURE__ */ jsxs(
+        "span",
+        {
+          ref: tipRef,
+          id,
+          className: "twc-tooltip",
+          "data-place": coords.place || placement,
+          "data-show": show || void 0,
+          role: "tooltip",
+          "aria-hidden": show ? void 0 : "true",
+          style: {
+            position: "fixed",
+            left: coords.left,
+            right: coords.right,
+            top: coords.top,
+            bottom: coords.bottom,
+            "--_tw-arrow-x": coords.arrowX != null ? `${coords.arrowX}px` : void 0,
+            "--_tw-arrow-y": coords.arrowY != null ? `${coords.arrowY}px` : void 0
+          },
+          children: [
+            /* @__PURE__ */ jsx("span", { className: "twc-tooltip__content", children: label }),
+            /* @__PURE__ */ jsx("span", { className: "twc-tooltip__arrow", "aria-hidden": "true" })
+          ]
+        }
+      ),
+      document.body
+    ) : null;
+    if (anchored) return /* @__PURE__ */ jsxs(Fragment, { children: [
+      __twcStyles,
+      bubble
+    ] });
+    const describedBy = show ? id : void 0;
+    const trigger = import_react.default.isValidElement(children) && children.type !== import_react.default.Fragment ? import_react.default.cloneElement(children, {
+      "aria-describedby": [children.props["aria-describedby"], describedBy].filter(Boolean).join(" ") || void 0
+    }) : /* @__PURE__ */ jsx("span", { "aria-describedby": describedBy, children });
+    return /* @__PURE__ */ jsxs(
+      "span",
+      {
+        ref: wrapRef,
+        className: `twc-tooltip-wrap ${className}`,
+        onMouseEnter: open,
+        onMouseLeave: close,
+        onFocus: open,
+        onBlur: close,
+        ...rest,
+        children: [
+          __twcStyles,
+          trigger,
+          bubble
+        ]
+      }
+    );
+  }
+  var IV_CSS = `
+.twc-iv { position: relative; display: block; width: 100%; font-family: var(--font-sans); }
+.twc-iv__stage { position: relative; overflow: hidden; width: 100%; height: 100%; min-height: 200px; touch-action: none;
+  background: var(--color-surface-sunken); border-radius: var(--radius-lg); }
+.twc-iv__stage:focus-visible { outline: none; box-shadow: var(--ring); }
+.twc-iv__stage[data-zoomed="true"] { cursor: grab; }
+.twc-iv__stage[data-dragging="true"] { cursor: grabbing; }
+.twc-iv__img { display: block; width: 100%; height: 100%; transform-origin: center center; user-select: none; -webkit-user-drag: none;
+  transition: transform var(--duration-fast) var(--ease-standard); }
+.twc-iv__stage[data-dragging="true"] .twc-iv__img { transition: none; }
+@media (prefers-reduced-motion: reduce) { .twc-iv__img { transition: none; } }
+.twc-iv__controls { position: absolute; inset-block-end: var(--space-2); inset-inline-end: var(--space-2); display: flex; gap: var(--space-1);
+  background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-full); padding: 3px; box-shadow: var(--shadow-md); }
+`;
+  var clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+  var IcoPlus = /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+    /* @__PURE__ */ jsx("circle", { cx: "11", cy: "11", r: "8" }),
+    /* @__PURE__ */ jsx("path", { d: "m21 21-4.3-4.3M11 8v6M8 11h6" })
+  ] });
+  var IcoMinus = /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+    /* @__PURE__ */ jsx("circle", { cx: "11", cy: "11", r: "8" }),
+    /* @__PURE__ */ jsx("path", { d: "m21 21-4.3-4.3M8 11h6" })
+  ] });
+  var IcoReset = /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+    /* @__PURE__ */ jsx("path", { d: "M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.3 2.6L3 8" }),
+    /* @__PURE__ */ jsx("path", { d: "M3 3v5h5" })
+  ] });
+  function ImageViewer({
+    src,
+    alt,
+    minZoom = 1,
+    maxZoom = 8,
+    step = 0.25,
+    zoom: zoomProp,
+    defaultZoom = 1,
+    onZoomChange,
+    doubleClickZoom = 2,
+    controls,
+    fit = "contain",
+    className = "",
+    style,
+    ...rest
+  }) {
+    const __twcStyles = useScopedStyles("twc-imageviewer-styles", IV_CSS);
+    const stageRef = import_react.default.useRef(null);
+    const [internalZoom, setInternalZoom] = import_react.default.useState(clamp(defaultZoom, minZoom, maxZoom));
+    const zoomControlled = zoomProp !== void 0;
+    const zoom = clamp(zoomControlled ? zoomProp : internalZoom, minZoom, maxZoom);
+    const [offset, setOffset] = import_react.default.useState({ x: 0, y: 0 });
+    const [dragging, setDragging] = import_react.default.useState(false);
+    const zoomRef = import_react.default.useRef(zoom);
+    zoomRef.current = zoom;
+    const offsetRef = import_react.default.useRef(offset);
+    offsetRef.current = offset;
+    const applyZoom = (next) => {
+      const z = clamp(next, minZoom, maxZoom);
+      if (!zoomControlled) setInternalZoom(z);
+      onZoomChange?.(z);
+      return z;
+    };
+    const reset = () => {
+      applyZoom(minZoom);
+      setOffset({ x: 0, y: 0 });
+    };
+    const clampOffset = (off, s) => {
+      const r2 = stageRef.current && stageRef.current.getBoundingClientRect();
+      if (!r2) return off;
+      const maxX = Math.max(0, r2.width * (s - 1) / 2);
+      const maxY = Math.max(0, r2.height * (s - 1) / 2);
+      return { x: clamp(off.x, -maxX, maxX), y: clamp(off.y, -maxY, maxY) };
+    };
+    const zoomAt = (clientX, clientY, nextScale) => {
+      const oldS = zoomRef.current;
+      const s = clamp(nextScale, minZoom, maxZoom);
+      const r2 = stageRef.current && stageRef.current.getBoundingClientRect();
+      if (!r2) {
+        applyZoom(s);
+        return;
+      }
+      const qx = clientX - (r2.left + r2.width / 2), qy = clientY - (r2.top + r2.height / 2);
+      const ratio = oldS === 0 ? 1 : s / oldS;
+      const off = { x: qx * (1 - ratio) + offsetRef.current.x * ratio, y: qy * (1 - ratio) + offsetRef.current.y * ratio };
+      applyZoom(s);
+      setOffset(s <= minZoom ? { x: 0, y: 0 } : clampOffset(off, s));
+    };
+    const zoomFromCenter = (next) => {
+      const r2 = stageRef.current && stageRef.current.getBoundingClientRect();
+      if (r2) zoomAt(r2.left + r2.width / 2, r2.top + r2.height / 2, next);
+      else if (applyZoom(next) <= minZoom) setOffset({ x: 0, y: 0 });
+    };
+    const mountedRef = import_react.default.useRef(false);
+    import_react.default.useEffect(() => {
+      if (mountedRef.current) reset();
+      else mountedRef.current = true;
+    }, [src]);
+    import_react.default.useEffect(() => {
+      const stage = stageRef.current;
+      if (!stage) return void 0;
+      const onWheel = (e) => {
+        e.preventDefault();
+        zoomAt(e.clientX, e.clientY, zoomRef.current * (e.deltaY < 0 ? 1 + step : 1 / (1 + step)));
+      };
+      stage.addEventListener("wheel", onWheel, { passive: false });
+      return () => stage.removeEventListener("wheel", onWheel);
+    }, [step, minZoom, maxZoom]);
+    const pointers = import_react.default.useRef(/* @__PURE__ */ new Map());
+    const pinchRef = import_react.default.useRef(null);
+    const panRef = import_react.default.useRef(null);
+    const onPointerDown = (e) => {
+      pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      e.currentTarget.setPointerCapture?.(e.pointerId);
+      if (pointers.current.size === 2) {
+        const [a, b] = [...pointers.current.values()];
+        pinchRef.current = { dist: Math.hypot(a.x - b.x, a.y - b.y) || 1, startZoom: zoomRef.current };
+        panRef.current = null;
+        setDragging(false);
+      } else if (pointers.current.size === 1 && zoomRef.current > minZoom) {
+        panRef.current = { x: e.clientX, y: e.clientY, ox: offsetRef.current.x, oy: offsetRef.current.y };
+        setDragging(true);
+      }
+    };
+    const onPointerMove = (e) => {
+      if (!pointers.current.has(e.pointerId)) return;
+      pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.current.size === 2 && pinchRef.current) {
+        const [a, b] = [...pointers.current.values()];
+        const dist = Math.hypot(a.x - b.x, a.y - b.y);
+        zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, pinchRef.current.startZoom * (dist / pinchRef.current.dist));
+      } else if (panRef.current) {
+        setOffset(clampOffset({ x: panRef.current.ox + (e.clientX - panRef.current.x), y: panRef.current.oy + (e.clientY - panRef.current.y) }, zoomRef.current));
+      }
+    };
+    const onPointerUp = (e) => {
+      pointers.current.delete(e.pointerId);
+      e.currentTarget.releasePointerCapture?.(e.pointerId);
+      if (pointers.current.size < 2) pinchRef.current = null;
+      if (pointers.current.size === 0) {
+        panRef.current = null;
+        setDragging(false);
+      }
+    };
+    const onKeyDown = (e) => {
+      if (e.key === "+" || e.key === "=") {
+        e.preventDefault();
+        zoomFromCenter(zoomRef.current + step);
+      } else if (e.key === "-" || e.key === "_") {
+        e.preventDefault();
+        zoomFromCenter(zoomRef.current - step);
+      } else if (e.key === "0") {
+        e.preventDefault();
+        reset();
+      }
+    };
+    const onDoubleClick = (e) => {
+      if (zoomRef.current > minZoom) reset();
+      else zoomAt(e.clientX, e.clientY, doubleClickZoom);
+    };
+    const canZoomIn = zoom < maxZoom, canZoomOut = zoom > minZoom;
+    const api = { zoom, zoomIn: () => zoomFromCenter(zoom + step), zoomOut: () => zoomFromCenter(zoom - step), reset, canZoomIn, canZoomOut };
+    const defaultControls = /* @__PURE__ */ jsxs("div", { className: "twc-iv__controls", children: [
+      /* @__PURE__ */ jsx(Tooltip, { label: "Zoom out", placement: "top", children: /* @__PURE__ */ jsx(IconButton, { "aria-label": "Zoom out", variant: "ghost", size: "sm", disabled: !canZoomOut, onClick: api.zoomOut, icon: IcoMinus }) }),
+      /* @__PURE__ */ jsx(Tooltip, { label: "Zoom in", placement: "top", children: /* @__PURE__ */ jsx(IconButton, { "aria-label": "Zoom in", variant: "ghost", size: "sm", disabled: !canZoomIn, onClick: api.zoomIn, icon: IcoPlus }) }),
+      /* @__PURE__ */ jsx(Tooltip, { label: "Reset", placement: "top", children: /* @__PURE__ */ jsx(IconButton, { "aria-label": "Reset zoom", variant: "ghost", size: "sm", disabled: !canZoomOut, onClick: api.reset, icon: IcoReset }) })
+    ] });
+    const controlsNode = controls === false ? null : typeof controls === "function" ? controls(api) : controls != null ? controls : defaultControls;
+    return /* @__PURE__ */ jsxs("div", { className: `twc-iv ${className}`.trim(), style, ...rest, children: [
+      __twcStyles,
+      /* @__PURE__ */ jsx(
+        "div",
+        {
+          ref: stageRef,
+          className: "twc-iv__stage",
+          tabIndex: 0,
+          role: "group",
+          "aria-label": alt ? `${alt} \u2014 zoomable` : "Zoomable image",
+          "data-dragging": dragging || void 0,
+          "data-zoomed": zoom > minZoom || void 0,
+          onPointerDown,
+          onPointerMove,
+          onPointerUp,
+          onPointerCancel: onPointerUp,
+          onDoubleClick,
+          onKeyDown,
+          children: /* @__PURE__ */ jsx(
+            "img",
+            {
+              src,
+              alt,
+              className: "twc-iv__img",
+              draggable: false,
+              style: { transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`, objectFit: fit }
+            }
+          )
+        }
+      ),
+      controlsNode
+    ] });
+  }
   var ACCORDION_CSS = `
 .twc-accordion { display: flex; flex-direction: column; font-family: var(--font-sans);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-surface); }
@@ -828,7 +1345,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-menu__item-label { flex: 1 1 auto; min-width: 0; }
 .twc-menu__shortcut { margin-inline-start: auto; padding-inline-start: var(--space-3); font-size: var(--text-xs); color: var(--color-text-subtle); font-family: var(--font-mono); }
 `;
-  var safeHref2 = (url) => {
+  var safeHref3 = (url) => {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -889,6 +1406,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       const avail = (flip ? r2.top : vh - r2.bottom) - gap - M;
       setPos({ top, bottom, left, width: w, flip, maxHeight: Math.max(120, avail) });
     }, [align, width]);
+    const isTop = useLayer(open && render);
     import_react.default.useEffect(() => {
       if (!open) return;
       place();
@@ -896,6 +1414,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       const onDown = (e) => {
         if (wrapRef.current?.contains(e.target)) return;
         if (menuRef.current?.contains(e.target)) return;
+        if (!isTop()) return;
         setOpen(false);
       };
       window.addEventListener("scroll", onMove, true);
@@ -906,7 +1425,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         window.removeEventListener("resize", onMove);
         document.removeEventListener("mousedown", onDown);
       };
-    }, [open, place]);
+    }, [open, place, isTop]);
     import_react.default.useEffect(() => {
       if (open) {
         setRender(true);
@@ -1000,7 +1519,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
           items.map((it, i) => {
             if (it.separator) return /* @__PURE__ */ jsx("div", { className: "twc-menu__sep", role: "separator" }, `s${i}`);
             if (it.label && it.heading) return /* @__PURE__ */ jsx("div", { className: "twc-menu__label", children: it.label }, `h${i}`);
-            const href = !it.disabled ? safeHref2(it.href) : void 0;
+            const href = !it.disabled ? safeHref3(it.href) : void 0;
             const Tag2 = href ? "a" : "button";
             return /* @__PURE__ */ jsxs(
               Tag2,
@@ -1069,6 +1588,13 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-avatar-menu__sub { font-size: var(--text-xs); color: var(--color-text-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
 .twc-avatar-menu__chev { color: var(--color-text-subtle); display: inline-flex; flex: none; margin-inline-end: 2px; transition: transform var(--duration-base) var(--ease-spring); }
 .twc-avatar-menu__chev svg { width: 15px; height: 15px; }
+/* #402: fullWidth \u2014 the trigger (and its Menu wrap) stretch, the text column grows, and the chevron is pinned
+   to the inline-end, so a sidebar footer account row fills the rail. The compound .--block.twc-menu-wrap beats
+   Menu's own .twc-menu-wrap rule regardless of scoped-stylesheet order. */
+.twc-avatar-menu--block.twc-menu-wrap { display: flex; width: 100%; }
+.twc-avatar-menu--block .twc-avatar-menu { display: flex; width: 100%; }
+.twc-avatar-menu--block .twc-avatar-menu__text { flex: 1 1 auto; }
+.twc-avatar-menu--block .twc-avatar-menu__name, .twc-avatar-menu--block .twc-avatar-menu__sub { max-width: none; }
 `;
   function AvatarMenu({
     name,
@@ -1080,6 +1606,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     items,
     showName = false,
     showChevron,
+    fullWidth = false,
     align = "end",
     className = "",
     ...rest
@@ -1113,7 +1640,8 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         ]
       }
     );
-    return /* @__PURE__ */ jsx(Menu, { className, trigger, items, header, align, width: 240, "aria-label": `${name || "Account"} menu`, ...rest });
+    const wrapClass = `${fullWidth ? "twc-avatar-menu--block " : ""}${className}`.trim();
+    return /* @__PURE__ */ jsx(Menu, { className: wrapClass, trigger, items, header, align, width: 240, "aria-label": `${name || "Account"} menu`, ...rest });
   }
   var BADGE_CSS = `
 .twc-badge {
@@ -1181,7 +1709,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-breadcrumb__ellipsis { border: none; background: transparent; cursor: pointer; color: var(--color-text-subtle); padding: 3px 7px; border-radius: var(--radius-sm); font: inherit; }
 .twc-breadcrumb__ellipsis:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 `;
-  function safeHref3(url) {
+  function safeHref4(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -1220,7 +1748,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                 it.label
               ]
             }
-          ) : safeHref3(it.href) ? /* @__PURE__ */ jsxs("a", { className: "twc-breadcrumb__item", href: safeHref3(it.href), onClick: it.onClick, children: [
+          ) : safeHref4(it.href) ? /* @__PURE__ */ jsxs("a", { className: "twc-breadcrumb__item", href: safeHref4(it.href), onClick: it.onClick, children: [
             it.icon ? /* @__PURE__ */ jsx("span", { "aria-hidden": "true", style: { display: "inline-flex" }, children: it.icon }) : null,
             it.label
           ] }) : it.onClick ? /* @__PURE__ */ jsxs("button", { type: "button", className: "twc-breadcrumb__item", onClick: it.onClick, children: [
@@ -1271,6 +1799,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-btn:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-btn:active:not(:disabled) { transform: scale(var(--press-scale)); }
 .twc-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+/* #398: focusableWhenDisabled renders aria-disabled instead of native disabled \u2014 same look, pointer blocked
+   (so :hover:not(:disabled) never fires), but the button stays focusable for a keyboard-reachable tooltip. */
+.twc-btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
 /* Hide the label/icons under the centered spinner via visibility on the content
    span \u2014 variant rules set \`color\` later in this sheet, so a color-based hide
    would lose the specificity tie and leave the label showing through. */
@@ -1308,6 +1839,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 /* ghost \u2014 neutral at rest, accent on hover */
 .twc-btn[data-variant="ghost"] { background: transparent; color: var(--color-text-muted); }
 .twc-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
+/* #405: toggle "on" state (aria-pressed) \u2014 a soft tone fill + tone border, variant-agnostic (works over any
+   variant); source-ordered after the variant rules so it wins at rest, hover keeps its higher specificity. */
+.twc-btn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
 
 .twc-btn__spinner {
   position: absolute; inset: 0; margin: auto;
@@ -1331,7 +1865,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
    animation:none, so no static scale(0) dot lingers for the 600ms cleanup window). */
 @media (prefers-reduced-motion: reduce) { .twc-ripple { display: none; } }
 `;
-  function safeHref4(url) {
+  function safeHref5(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -1346,6 +1880,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     loading = false,
     fullWidth = false,
     disabled = false,
+    focusableWhenDisabled = false,
+    pressed,
     as = "button",
     href,
     className = "",
@@ -1356,9 +1892,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const [ripples, setRipples] = import_react.default.useState([]);
     const Tag2 = as;
     const inert = Tag2 === "a" && (disabled || loading);
+    const softDisabled = disabled && focusableWhenDisabled && !loading && Tag2 === "button";
     function handleClick(e) {
       if (disabled || loading) {
-        if (inert) e.preventDefault();
+        if (inert || softDisabled) e.preventDefault();
         return;
       }
       const rect = e.currentTarget.getBoundingClientRect();
@@ -1380,10 +1917,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         "data-size": size,
         "data-loading": loading || void 0,
         "data-block": fullWidth || void 0,
-        disabled: Tag2 === "button" ? disabled || loading : void 0,
+        disabled: Tag2 === "button" ? (disabled || loading) && !softDisabled : void 0,
         type: Tag2 === "button" ? "button" : void 0,
-        href: inert ? void 0 : safeHref4(href),
-        "aria-disabled": inert || void 0,
+        href: inert ? void 0 : safeHref5(href),
+        "aria-disabled": inert || softDisabled || void 0,
+        "aria-pressed": pressed,
         tabIndex: inert ? -1 : void 0,
         "aria-busy": loading || void 0,
         onClick: handleClick,
@@ -3166,7 +3704,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       onDataClick({ x: p.x, y: p.y, z: p.point.z, series: seriesName(list[p.si], p.si), seriesIndex: p.si, index: p.pi, point: p.point });
     };
     const selectPoint = (key) => setSelected((s) => s === key ? null : key);
-    const clamp2 = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+    const clamp3 = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
     const svgPoint = (e) => {
       const svg = svgRef.current;
       if (!svg || typeof svg.getScreenCTM !== "function" || typeof svg.createSVGPoint !== "function") return null;
@@ -3180,8 +3718,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       return { px: loc.x, py: loc.y };
     };
     const dataFromPx = (px, py) => {
-      const cx = clamp2(px, padL, padL + innerW);
-      const cy = clamp2(py, padT, padT + innerH);
+      const cx = clamp3(px, padL, padL + innerW);
+      const cy = clamp3(py, padT, padT + innerH);
       return {
         x: xScale.min + (cx - padL) / innerW * (xScale.max - xScale.min),
         y: yScale.min + (padT + innerH - cy) / innerH * (yScale.max - yScale.min)
@@ -3288,8 +3826,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       const onWheel = (e) => {
         e.preventDefault();
         const pt = svgPoint(e);
-        const fx = pt ? clamp2((pt.px - padL) / innerW, 0, 1) : 0.5;
-        const fy = pt ? clamp2((padT + innerH - pt.py) / innerH, 0, 1) : 0.5;
+        const fx = pt ? clamp3((pt.px - padL) / innerW, 0, 1) : 0.5;
+        const fy = pt ? clamp3((padT + innerH - pt.py) / innerH, 0, 1) : 0.5;
         const factor = e.deltaY < 0 ? 0.8 : 1.25;
         const x0 = xScale.min, x1 = xScale.max, y0 = yScale.min, y1 = yScale.max;
         const cxv = x0 + fx * (x1 - x0), cyv = y0 + fy * (y1 - y0);
@@ -3751,7 +4289,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-chart__hm-scale { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-chart__hm-bar { flex: none; width: 96px; height: 10px; border-radius: var(--radius-sm); border: 1px solid var(--color-divider); }
 `;
-  var clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
+  var clamp2 = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
   function Heatmap({
     data,
     min,
@@ -3814,15 +4352,15 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const lo = min != null ? min : dataMin;
     const hi = max != null ? max : dataMax;
     const span = hi - lo;
-    const pctOf = (v) => span > 0 ? clamp((v - lo) / span * 100, 0, 100) : 60;
+    const pctOf = (v) => span > 0 ? clamp2((v - lo) / span * 100, 0, 100) : 60;
     const fillOf = (v) => `color-mix(in srgb, ${colorScale} ${pctOf(v)}%, transparent)`;
     const nX = fullXs.length;
     const nY = fullYs.length;
     const canZoom = zoomable && nX > 1 && nY > 1;
-    const vc0 = canZoom && zoom ? clamp(zoom.c0, 0, nX - 1) : 0;
-    const vc1 = canZoom && zoom ? clamp(zoom.c1, 0, nX - 1) : Math.max(0, nX - 1);
-    const vr0 = canZoom && zoom ? clamp(zoom.r0, 0, nY - 1) : 0;
-    const vr1 = canZoom && zoom ? clamp(zoom.r1, 0, nY - 1) : Math.max(0, nY - 1);
+    const vc0 = canZoom && zoom ? clamp2(zoom.c0, 0, nX - 1) : 0;
+    const vc1 = canZoom && zoom ? clamp2(zoom.c1, 0, nX - 1) : Math.max(0, nX - 1);
+    const vr0 = canZoom && zoom ? clamp2(zoom.r0, 0, nY - 1) : 0;
+    const vr1 = canZoom && zoom ? clamp2(zoom.r1, 0, nY - 1) : Math.max(0, nY - 1);
     const xs = fullXs.slice(vc0, vc1 + 1);
     const ys = fullYs.slice(vr0, vr1 + 1);
     const cols = xs.length;
@@ -3842,7 +4380,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const innerH = H - padT - padB;
     const cw = innerW / Math.max(1, cols);
     const chh = innerH / Math.max(1, rowN);
-    const gap = clamp(cellGap, 0, Math.min(cw, chh) - 1) || 0;
+    const gap = clamp2(cellGap, 0, Math.min(cw, chh) - 1) || 0;
     const svgPoint = (e) => {
       const svg = svgRef.current;
       if (!svg || typeof svg.getScreenCTM !== "function" || typeof svg.createSVGPoint !== "function") return null;
@@ -3855,8 +4393,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       if (!Number.isFinite(loc.x) || !Number.isFinite(loc.y)) return null;
       return { px: loc.x, py: loc.y };
     };
-    const colAtPx = (px) => cw > 0 ? clamp(Math.floor((clamp(px, padL, padL + innerW) - padL) / cw), 0, cols - 1) : 0;
-    const rowAtPx = (py) => chh > 0 ? clamp(Math.floor((clamp(py, padT, padT + innerH) - padT) / chh), 0, rowN - 1) : 0;
+    const colAtPx = (px) => cw > 0 ? clamp2(Math.floor((clamp2(px, padL, padL + innerW) - padL) / cw), 0, cols - 1) : 0;
+    const rowAtPx = (py) => chh > 0 ? clamp2(Math.floor((clamp2(py, padT, padT + innerH) - padT) / chh), 0, rowN - 1) : 0;
     const cellAtPx = (px, py) => {
       if (!(cols > 0) || !(rowN > 0)) return null;
       if (px < padL || px > padL + innerW || py < padT || py > padT + innerH) return null;
@@ -3868,10 +4406,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       return { x, y, v, has, key: `${vc0 + ci}-${vr0 + ri}`, fill: has ? fillOf(v) : void 0 };
     };
     const applyZoom = (win) => {
-      const c0 = clamp(Math.min(win.c0, win.c1), 0, nX - 1);
-      const c1 = clamp(Math.max(win.c0, win.c1), 0, nX - 1);
-      const r0 = clamp(Math.min(win.r0, win.r1), 0, nY - 1);
-      const r1 = clamp(Math.max(win.r0, win.r1), 0, nY - 1);
+      const c0 = clamp2(Math.min(win.c0, win.c1), 0, nX - 1);
+      const c1 = clamp2(Math.max(win.c0, win.c1), 0, nX - 1);
+      const r0 = clamp2(Math.min(win.r0, win.r1), 0, nY - 1);
+      const r1 = clamp2(Math.max(win.r0, win.r1), 0, nY - 1);
       if (!(c1 >= c0) || !(r1 >= r0)) return;
       if (c0 === 0 && c1 === nX - 1 && r0 === 0 && r1 === nY - 1) {
         setZoom(null);
@@ -3881,8 +4419,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     };
     const panTo = (z0, dCols, dRows) => {
       const wc = z0.c1 - z0.c0, wr = z0.r1 - z0.r0;
-      const c0 = clamp(z0.c0 + dCols, 0, Math.max(0, nX - 1 - wc));
-      const r0 = clamp(z0.r0 + dRows, 0, Math.max(0, nY - 1 - wr));
+      const c0 = clamp2(z0.c0 + dCols, 0, Math.max(0, nX - 1 - wc));
+      const r0 = clamp2(z0.r0 + dRows, 0, Math.max(0, nY - 1 - wr));
       setZoom({ c0, c1: c0 + wc, r0, r1: r0 + wr });
     };
     const onOverlayDown = (e) => {
@@ -3954,16 +4492,16 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       const onWheel = (e) => {
         e.preventDefault();
         const pt = svgPoint(e);
-        const fx = pt && innerW > 0 ? clamp((pt.px - padL) / innerW, 0, 1) : 0.5;
-        const fy = pt && innerH > 0 ? clamp((pt.py - padT) / innerH, 0, 1) : 0.5;
+        const fx = pt && innerW > 0 ? clamp2((pt.px - padL) / innerW, 0, 1) : 0.5;
+        const fy = pt && innerH > 0 ? clamp2((pt.py - padT) / innerH, 0, 1) : 0.5;
         const factor = e.deltaY < 0 ? 0.7 : 1.4;
         const wc = vc1 - vc0 + 1, wr = vr1 - vr0 + 1;
-        const newWc = clamp(Math.round(wc * factor), 1, nX);
-        const newWr = clamp(Math.round(wr * factor), 1, nY);
-        const curCol = vc0 + clamp(Math.floor(fx * cols), 0, cols - 1);
-        const curRow = vr0 + clamp(Math.floor(fy * rowN), 0, rowN - 1);
-        const nc0 = clamp(Math.round(curCol - fx * (newWc - 1)), 0, nX - newWc);
-        const nr0 = clamp(Math.round(curRow - fy * (newWr - 1)), 0, nY - newWr);
+        const newWc = clamp2(Math.round(wc * factor), 1, nX);
+        const newWr = clamp2(Math.round(wr * factor), 1, nY);
+        const curCol = vc0 + clamp2(Math.floor(fx * cols), 0, cols - 1);
+        const curRow = vr0 + clamp2(Math.floor(fy * rowN), 0, rowN - 1);
+        const nc0 = clamp2(Math.round(curCol - fx * (newWc - 1)), 0, nX - newWc);
+        const nr0 = clamp2(Math.round(curRow - fy * (newWr - 1)), 0, nY - newWr);
         applyZoom({ c0: nc0, c1: nc0 + newWc - 1, r0: nr0, r1: nr0 + newWr - 1 });
       };
       svg.addEventListener("wheel", onWheel, { passive: false });
@@ -6086,6 +6624,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         e.preventDefault();
         if (open && visible[active]) commit(visible[active].value);
       } else if (e.key === "Escape") {
+        if (open) e.preventDefault();
         close();
         inputRef.current?.blur();
       } else if (e.key === "Backspace" && !query && selected) {
@@ -6338,9 +6877,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       }
     }, [open]);
     useFocusTrap(paletteRef, open && mounted);
+    const isTop = useLayer(open && mounted);
     import_react.default.useEffect(() => {
       if (!open) return void 0;
       const onKey = (e) => {
+        if (e.defaultPrevented || !isTop()) return;
         if (e.key === "Escape") {
           e.preventDefault();
           onClose?.();
@@ -6348,7 +6889,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       };
       document.addEventListener("keydown", onKey);
       return () => document.removeEventListener("keydown", onKey);
-    }, [open, onClose]);
+    }, [open, onClose, isTop]);
     const q = query.trim().toLowerCase();
     const filtered = import_react.default.useMemo(() => commands.filter(
       (c) => !q || c.label.toLowerCase().includes(q) || (c.keywords || "").toLowerCase().includes(q) || (c.group || "").toLowerCase().includes(q)
@@ -6396,7 +6937,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const activeId = flat[active] ? optionId(active) : void 0;
     let idx = -1;
     const overlay = /* @__PURE__ */ jsxs("div", { className: "twc-cmdk__overlay", "data-state": state, onMouseDown: (e) => {
-      if (e.target === e.currentTarget) onClose?.();
+      if (e.target === e.currentTarget && isTop()) onClose?.();
     }, children: [
       __twcStyles,
       /* @__PURE__ */ jsxs("div", { ref: paletteRef, className: `twc-cmdk ${className}`, "data-state": state, role: "dialog", "aria-modal": "true", "aria-label": "Command palette", tabIndex: -1, ...rest, children: [
@@ -6958,8 +7499,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         setOpen(false);
         return;
       }
-      if (e.key === "Escape") setOpen(false);
-      else if (e.key === "ArrowDown") {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setOpen(false);
+      } else if (e.key === "ArrowDown") {
         e.preventDefault();
         setActive((a) => nextEnabled(a, 1));
       } else if (e.key === "ArrowUp") {
@@ -7798,6 +8341,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         e.preventDefault();
         if (open && visible[active]) toggle(visible[active].value);
       } else if (e.key === "Escape") {
+        if (open) e.preventDefault();
         setOpen(false);
         setQuery("");
       } else if (e.key === "Backspace" && !query && selected.length) {
@@ -8135,198 +8679,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       ] }) : null
     ] });
   }
-  var TOOLTIP_CSS = `
-.twc-tooltip-wrap { display: inline-flex; }
-.twc-tooltip {
-  position: fixed; z-index: var(--z-tooltip);
-  /* #348: purely presentational \u2014 the bubble must NEVER intercept the pointer, so neither a hidden
-     (opacity:0) nor a shown bubble can block neighbouring cells/buttons (matches MUI/Radix tooltips). */
-  pointer-events: none;
-  padding: 6px 10px; border-radius: var(--radius-md);
-  /* #385: capture the ink as the bubble bg via a private var BEFORE the content wrapper re-scopes
-     --color-text, so a token-driven child (Text/Heading) reads the bubble's fg \u2014 not the page ink,
-     which is this very background \u2014 and the re-scope can't feed back into the bg. */
-  --_tt-bg: var(--color-text); --_tt-fg: var(--color-surface);
-  background: var(--_tt-bg); color: var(--_tt-fg);
-  font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-medium);
-  line-height: 1.3; white-space: normal;
-  /* Grow horizontally to max-width, then wrap. max-content sizes to the content (capped by
-     max-width) and \u2014 unlike shrink-to-fit width:auto \u2014 is NOT constrained by the space between
-     the fixed left edge and the viewport edge, so a tooltip near the right edge no longer
-     collapses to ~1 word per line and stretch vertically. */
-  width: max-content; max-width: var(--_tw-maxw, 320px); box-shadow: var(--shadow-md);
-  opacity: 0; transform: scale(0.9); transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-spring);
-}
-.twc-tooltip[data-show="true"] { opacity: 1; transform: scale(1); }
-.twc-tooltip[data-place="top"]    { transform-origin: bottom center; translate: -50% 0; }
-.twc-tooltip[data-place="bottom"] { transform-origin: top center; translate: -50% 0; }
-.twc-tooltip[data-place="left"]   { transform-origin: right center; translate: 0 -50%; }
-.twc-tooltip[data-place="right"]  { transform-origin: left center; translate: 0 -50%; }
-.twc-tooltip[data-show="true"][data-place="top"], .twc-tooltip[data-show="true"][data-place="bottom"] { transform: scale(1); }
-.twc-tooltip__arrow { position: absolute; width: 7px; height: 7px; background: var(--_tt-bg); transform: rotate(45deg); }
-/* #385: re-scope token ink for the label subtree so Text/Heading (which set --color-text as an inline
-   style) render in the bubble's fg instead of the page ink. display:contents adds no box, so the label's
-   own flex/block layout is unchanged; custom properties still inherit through it. */
-.twc-tooltip__content { display: contents; --color-text: var(--_tt-fg);
-  --color-text-muted: color-mix(in srgb, var(--_tt-fg) 72%, var(--_tt-bg));
-  --color-text-subtle: color-mix(in srgb, var(--_tt-fg) 55%, var(--_tt-bg)); }
-/* Arrow tracks the trigger via --_tw-arrow-x/y (px from the tooltip edge) instead of being
-   locked to the centre, so it still points at the trigger when the bubble is clamped near a
-   viewport edge. Falls back to 50% before measurement / SSR. */
-.twc-tooltip[data-place="top"] .twc-tooltip__arrow    { bottom: -3px; left: var(--_tw-arrow-x, 50%); margin-left: -3.5px; }
-.twc-tooltip[data-place="bottom"] .twc-tooltip__arrow { top: -3px; left: var(--_tw-arrow-x, 50%); margin-left: -3.5px; }
-.twc-tooltip[data-place="left"] .twc-tooltip__arrow   { right: -3px; top: var(--_tw-arrow-y, 50%); margin-top: -3.5px; }
-.twc-tooltip[data-place="right"] .twc-tooltip__arrow  { left: -3px; top: var(--_tw-arrow-y, 50%); margin-top: -3.5px; }
-@media (prefers-reduced-motion: reduce) { .twc-tooltip { transition: opacity var(--duration-fast) linear; transform: none; } }
-`;
-  function Tooltip({
-    children,
-    label,
-    placement = "top",
-    delay = 120,
-    className = "",
-    open: openProp,
-    anchor,
-    ...rest
-  }) {
-    const __twcStyles = useScopedStyles("twc-tooltip-styles", TOOLTIP_CSS);
-    const anchored = anchor !== void 0;
-    const id = import_react.default.useId();
-    const [showU, setShowU] = import_react.default.useState(false);
-    const show = anchored ? !!openProp : showU;
-    const [coords, setCoords] = import_react.default.useState(null);
-    const timer = import_react.default.useRef(null);
-    const closeTimer = import_react.default.useRef(null);
-    const wrapRef = import_react.default.useRef(null);
-    const tipRef = import_react.default.useRef(null);
-    const open = () => {
-      clearTimeout(closeTimer.current);
-      clearTimeout(timer.current);
-      timer.current = setTimeout(() => setShowU(true), delay);
-    };
-    const close = () => {
-      clearTimeout(timer.current);
-      clearTimeout(closeTimer.current);
-      closeTimer.current = setTimeout(() => setShowU(false), 120);
-    };
-    import_react.default.useEffect(() => () => {
-      clearTimeout(timer.current);
-      clearTimeout(closeTimer.current);
-    }, []);
-    const place = import_react.default.useCallback(() => {
-      const el = anchored ? anchor : wrapRef.current;
-      if (!el || !el.getBoundingClientRect) return;
-      const r2 = el.getBoundingClientRect();
-      const cx = Math.round(r2.left + r2.width / 2), cy = Math.round(r2.top + r2.height / 2);
-      const vw = window.innerWidth, vh = window.innerHeight, gap = 8, margin = 8;
-      const tip = tipRef.current;
-      const tw = tip ? tip.offsetWidth : 0, th = tip ? tip.offsetHeight : 0;
-      const clampX = (c) => tw ? Math.round(Math.min(Math.max(c, margin + tw / 2), vw - margin - tw / 2)) : c;
-      const clampY = (c) => th ? Math.round(Math.min(Math.max(c, margin + th / 2), vh - margin - th / 2)) : c;
-      const spaceAbove = r2.top - gap - margin, spaceBelow = vh - r2.bottom - gap - margin;
-      const spaceLeft = r2.left - gap - margin, spaceRight = vw - r2.right - gap - margin;
-      let side = placement;
-      if (placement === "top" && spaceAbove < th && spaceBelow > spaceAbove) side = "bottom";
-      else if (placement === "bottom" && spaceBelow < th && spaceAbove > spaceBelow) side = "top";
-      else if (placement === "left" && spaceLeft < tw && spaceRight > spaceLeft) side = "right";
-      else if (placement === "right" && spaceRight < tw && spaceLeft > spaceRight) side = "left";
-      const base = { left: "auto", right: "auto", top: "auto", bottom: "auto", place: side };
-      const AP = 12;
-      const arrowX = (center) => tw ? Math.round(Math.min(Math.max(cx - (center - tw / 2), AP), tw - AP)) : void 0;
-      const arrowY = (center) => th ? Math.round(Math.min(Math.max(cy - (center - th / 2), AP), th - AP)) : void 0;
-      if (side === "bottom") {
-        const c = clampX(cx);
-        setCoords({ ...base, left: c, top: Math.round(r2.bottom + gap), arrowX: arrowX(c) });
-      } else if (side === "left") {
-        const c = clampY(cy);
-        setCoords({ ...base, top: c, right: Math.round(vw - r2.left + gap), arrowY: arrowY(c) });
-      } else if (side === "right") {
-        const c = clampY(cy);
-        setCoords({ ...base, top: c, left: Math.round(r2.right + gap), arrowY: arrowY(c) });
-      } else {
-        const c = clampX(cx);
-        setCoords({ ...base, left: c, bottom: Math.round(vh - r2.top + gap), arrowX: arrowX(c) });
-      }
-    }, [placement, anchored, anchor]);
-    import_react.default.useEffect(() => {
-      place();
-    }, [place]);
-    import_react.default.useEffect(() => {
-      if (!show) return void 0;
-      place();
-      const onMove = () => place();
-      window.addEventListener("scroll", onMove, true);
-      window.addEventListener("resize", onMove);
-      return () => {
-        window.removeEventListener("scroll", onMove, true);
-        window.removeEventListener("resize", onMove);
-      };
-    }, [show, place]);
-    import_react.default.useEffect(() => {
-      if (!show || anchored) return;
-      const onKeyDown = (e) => {
-        if (e.key === "Escape") {
-          clearTimeout(timer.current);
-          setShowU(false);
-        }
-      };
-      document.addEventListener("keydown", onKeyDown);
-      return () => document.removeEventListener("keydown", onKeyDown);
-    }, [show, anchored]);
-    const bubble = coords && (!anchored || anchor) ? (0, import_react_dom.createPortal)(
-      /* @__PURE__ */ jsxs(
-        "span",
-        {
-          ref: tipRef,
-          id,
-          className: "twc-tooltip",
-          "data-place": coords.place || placement,
-          "data-show": show || void 0,
-          role: "tooltip",
-          "aria-hidden": show ? void 0 : "true",
-          style: {
-            position: "fixed",
-            left: coords.left,
-            right: coords.right,
-            top: coords.top,
-            bottom: coords.bottom,
-            "--_tw-arrow-x": coords.arrowX != null ? `${coords.arrowX}px` : void 0,
-            "--_tw-arrow-y": coords.arrowY != null ? `${coords.arrowY}px` : void 0
-          },
-          children: [
-            /* @__PURE__ */ jsx("span", { className: "twc-tooltip__content", children: label }),
-            /* @__PURE__ */ jsx("span", { className: "twc-tooltip__arrow", "aria-hidden": "true" })
-          ]
-        }
-      ),
-      document.body
-    ) : null;
-    if (anchored) return /* @__PURE__ */ jsxs(Fragment, { children: [
-      __twcStyles,
-      bubble
-    ] });
-    const describedBy = show ? id : void 0;
-    const trigger = import_react.default.isValidElement(children) && children.type !== import_react.default.Fragment ? import_react.default.cloneElement(children, {
-      "aria-describedby": [children.props["aria-describedby"], describedBy].filter(Boolean).join(" ") || void 0
-    }) : /* @__PURE__ */ jsx("span", { "aria-describedby": describedBy, children });
-    return /* @__PURE__ */ jsxs(
-      "span",
-      {
-        ref: wrapRef,
-        className: `twc-tooltip-wrap ${className}`,
-        onMouseEnter: open,
-        onMouseLeave: close,
-        onFocus: open,
-        onBlur: close,
-        ...rest,
-        children: [
-          __twcStyles,
-          trigger,
-          bubble
-        ]
-      }
-    );
-  }
   var DIFF_OPS = {
     added: { label: "Added", tone: "success" },
     removed: { label: "Removed", tone: "danger" },
@@ -8398,6 +8750,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     return { rows, counts };
   }
   var DT_FILTER_PANEL_W = 620;
+  var safeHref6 = (url) => {
+    if (url == null) return void 0;
+    const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+    return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
+  };
+  var DT_CELL_WIDGET_SEL = 'button:not(:disabled), a[href], [role="button"], [role="switch"], [role="checkbox"], [role="link"]';
+  var dtCellWidgets = (td) => td ? Array.from(td.querySelectorAll(DT_CELL_WIDGET_SEL)).filter((el) => el.getAttribute("aria-hidden") !== "true" && el.getAttribute("aria-disabled") !== "true") : [];
   var DT_CSS = `
 .twc-dt { display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--color-text);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
@@ -8491,13 +8850,25 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__th, .twc-dt__td { box-sizing: border-box; text-align: start; }
 .twc-dt__th { position: sticky; top: 0; z-index: 3; background: var(--color-surface-sunken);
   border-bottom: var(--border-thin) solid var(--color-border); padding: 0; height: 44px;
-  font-size: var(--text-xs); font-weight: var(--font-bold); letter-spacing: var(--tracking-wide);
-  text-transform: uppercase; color: var(--color-text-muted); white-space: nowrap; }
+  font-size: var(--text-xs); font-weight: var(--font-bold);
+  color: var(--color-text-muted); white-space: nowrap; }
+/* #400: the upper-case + letter-spacing live on a text-only span, not the whole cell, so a renderHeader
+   node starts from neutral type (a <span>/Text no longer renders UPPER-CASE while a <button> \u2014 which UA
+   styles reset to text-transform:none \u2014 does not). The default headerName keeps the styled look + ellipsis. */
+.twc-dt__th-text { text-transform: uppercase; letter-spacing: var(--tracking-wide); overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .twc-dt__th-inner { display: flex; align-items: center; gap: 6px; height: 100%; padding: 0 12px; }
 .twc-dt__th[data-num="true"] .twc-dt__th-inner { flex-direction: row-reverse; }
-.twc-dt__th-label { cursor: pointer; user-select: none; flex: 1; overflow: hidden; text-overflow: ellipsis;
+.twc-dt__th-label { user-select: none; flex: 1; overflow: hidden; text-overflow: ellipsis;
   display: inline-flex; align-items: center; gap: 5px; }
+.twc-dt__th-label[role="button"] { cursor: pointer; } /* #400: pointer only when the header is sortable */
 .twc-dt__th[data-num="true"] .twc-dt__th-label { flex-direction: row-reverse; }
+/* #397: per-column alignment for data cells, headers and the footer (mirrors the Table component's
+   data-align). Placed after the data-num rules so an explicit align wins over the number default. */
+.twc-dt__td[data-align="left"], .twc-dt__table tfoot td[data-align="left"] { text-align: start; }
+.twc-dt__td[data-align="center"], .twc-dt__table tfoot td[data-align="center"] { text-align: center; }
+.twc-dt__td[data-align="right"], .twc-dt__table tfoot td[data-align="right"] { text-align: end; }
+.twc-dt__th[data-align="center"] .twc-dt__th-label { justify-content: center; }
+.twc-dt__th[data-align="right"] .twc-dt__th-label { justify-content: flex-end; }
 .twc-dt__sort { display: inline-flex; opacity: 0; transition: opacity var(--duration-fast), transform var(--duration-base) var(--ease-spring); color: var(--color-primary); }
 .twc-dt__sort svg { width: 14px; height: 14px; }
 .twc-dt__th[data-sorted="asc"] .twc-dt__sort, .twc-dt__th[data-sorted="desc"] .twc-dt__sort { opacity: 1; }
@@ -8803,8 +9174,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__mi { display: flex; align-items: center; gap: 10px; width: 100%; padding: 8px 10px; border: none; background: transparent;
   font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); text-align: start;
   border-radius: var(--radius-md); cursor: pointer; transition: background-color var(--duration-fast); }
+.twc-dt__mi { text-decoration: none; } /* #399: link (<a role="menuitem">) variant */
 .twc-dt__mi:hover { background: var(--color-surface-sunken); }
 .twc-dt__mi:disabled { color: var(--color-text-subtle); opacity: 0.5; cursor: default; pointer-events: none; }
+.twc-dt__mi-hint { margin-inline-start: auto; padding-inline-start: 12px; color: var(--color-text-subtle); font-size: var(--text-xs); font-weight: var(--font-normal); } /* #399: disabledReason */
 .twc-dt__mi svg { width: 16px; height: 16px; color: var(--color-text-subtle); flex: none; }
 .twc-dt__mi[data-active="true"] { color: var(--color-primary); }
 .twc-dt__mi[data-active="true"] svg { color: var(--color-primary); }
@@ -8954,7 +9327,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__check:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-dt__th-label:focus-visible { outline: none; box-shadow: var(--ring); border-radius: var(--radius-sm); }
 .twc-dt__act { display: inline-grid; place-items: center; width: 30px; height: 30px; border: none; background: transparent;
-  color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md);
+  color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); text-decoration: none; /* #399: link (<a>) variant */
   transition: background-color var(--duration-fast), color var(--duration-fast), transform var(--duration-fast) var(--ease-spring); }
 .twc-dt__act:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dt__act:active { transform: scale(0.88); }
@@ -9478,6 +9851,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     aggregationValues = null,
     disableColumnReorder = false,
     disableColumnResize = false,
+    defaultColumn,
     columnCombining = false,
     emptyMessage,
     renderEmpty,
@@ -9485,6 +9859,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     onRowUpdate,
     onRowsChange,
     onBatchUpdate,
+    onEditingChange,
     showBatchEdit = true,
     batchEditFields = null,
     stateKey,
@@ -9492,21 +9867,28 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     onStateChange,
     showPageJumper = true,
     selectionMode = "none",
+    cellNavigation = "cell",
     onRowClick,
     onCellClick,
     onActiveCellChange,
     onCellSelectionChange,
     activeRowId,
     scrollActiveRowIntoView = true,
+    activeCell,
+    scrollActiveCellIntoView = false,
     enableClipboard = false,
     onCellsCopy,
     onCellsPaste,
+    onCellsCommit,
     showAggregation = false,
     ariaLabel = "Data table",
     "aria-label": ariaLabelAttr,
     rowGrouping = [],
     showGroupBar = true,
     renderGroupLabel,
+    collapsedGroups,
+    defaultCollapsedGroups = [],
+    onCollapsedGroupsChange,
     rowNumbers = false,
     searchFields = null,
     searchable = true,
@@ -9581,6 +9963,16 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     );
     const rowKey = isDiff ? diffRowKeyFn : rowKeyProp;
     const cols = import_react.default.useMemo(() => {
+      const seenFields = /* @__PURE__ */ new Map();
+      for (const c of columns) {
+        if (!c || c.field == null) continue;
+        const name = c.headerName ?? c.field;
+        if (seenFields.has(c.field)) {
+          warnOnce(`Datatable.dupField.${c.field}`, `Twico Datatable: duplicate column field "${c.field}" (headers "${seenFields.get(c.field)}" and "${name}"). \`field\` must be unique within \`columns\` \u2014 it is the column's identity for width, visibility, order, pinning and persisted stateKey state.`);
+        } else {
+          seenFields.set(c.field, name);
+        }
+      }
       const out = columns.map((c) => {
         const isActions = c.type === "actions";
         return {
@@ -9593,7 +9985,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           groupable: !isActions && c.type !== "number",
           disableColumnMenu: false,
           headerName: isActions ? "Actions" : c.field,
+          // #403: `defaultColumn` shallow-merges UNDER each column (built-in defaults < defaultColumn < column),
+          // so a fixed-layout grid sets its flags once. Spreading `undefined` is a no-op → default unchanged.
           align: c.type === "number" ? "right" : isActions ? "right" : "left",
+          ...defaultColumn,
           ...c
         };
       });
@@ -9634,7 +10029,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         };
       }
       return out;
-    }, [columns, rowPinning, userCombine]);
+    }, [columns, rowPinning, userCombine, defaultColumn]);
     const _autoKey = import_react.default.useRef();
     if (!_autoKey.current) _autoKey.current = { map: /* @__PURE__ */ new WeakMap(), n: 0 };
     const keyOf = rowKey || ((r2, i) => {
@@ -9724,7 +10119,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const [activeRow, setActiveRow] = import_react.default.useState(null);
     const activeRowControlled = activeRowId !== void 0;
     const activeRowVal = activeRowControlled ? activeRowId : activeRow;
-    const [activeCell, setActiveCell] = import_react.default.useState(null);
+    const [internalActiveCell, setInternalActiveCell] = import_react.default.useState(null);
+    const activeCellControlled = activeCell !== void 0;
+    const activeCellVal = activeCellControlled ? activeCell : internalActiveCell;
+    const commitActiveCell = (next) => {
+      onActiveCellChange?.(next);
+      if (!activeCellControlled) setInternalActiveCell(next);
+    };
     const [anchorCell, setAnchorCell] = import_react.default.useState(null);
     const gridId = import_react.default.useId();
     const [internalPage, setInternalPage] = import_react.default.useState(0);
@@ -9748,9 +10149,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const [drag, setDrag] = import_react.default.useState({ from: null, over: null, after: false });
     const [aggOn, setAggOn] = import_react.default.useState(showAggregation);
     const [focus, setFocus] = import_react.default.useState({ r: 0, c: 0 });
+    const [interacting, setInteracting] = import_react.default.useState(null);
     const gridRef = import_react.default.useRef(null);
     const [groupBy, setGroupBy] = import_react.default.useState(rowGrouping || []);
-    const [collapsed, setCollapsed] = import_react.default.useState(() => /* @__PURE__ */ new Set());
+    const [internalCollapsed, setInternalCollapsed] = import_react.default.useState(() => new Set(defaultCollapsedGroups));
+    const collapsedControlled = collapsedGroups !== void 0;
+    const collapsedSet = import_react.default.useMemo(() => new Set(collapsedControlled ? collapsedGroups : internalCollapsed), [collapsedControlled, collapsedGroups, internalCollapsed]);
     const [internalExpanded, setInternalExpanded] = import_react.default.useState(() => /* @__PURE__ */ new Set());
     const expandControlled = expandedRowIds !== void 0;
     const expandedSet = import_react.default.useMemo(
@@ -9797,7 +10201,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       // #339: additive, optional — runtime user-defined combined columns, keyed by target field.
       columnCombine: Object.keys(userCombine).length ? userCombine : void 0,
       // #341: additive, optional — user-resized batch-editor column-name field width (px).
-      batchNameWidth: batchNameW != null ? batchNameW : void 0
+      batchNameWidth: batchNameW != null ? batchNameW : void 0,
+      // #393: additive, optional — the active grouping fields + which groups are collapsed.
+      grouping: groupBy.length ? groupBy : void 0,
+      collapsedGroups: collapsedSet.size ? [...collapsedSet] : void 0
     });
     const applyState = (s) => {
       if (!s || typeof s !== "object") return;
@@ -9852,6 +10259,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         if (Object.keys(uc).length) setUserCombine(uc);
       }
       if (typeof s.batchNameWidth === "number") setBatchNameW(clampNum(s.batchNameWidth, 88, 260));
+      if (Array.isArray(s.grouping)) setGroupBy(s.grouping.filter((f) => known.has(f)));
+      if (Array.isArray(s.collapsedGroups) && !collapsedControlled) setInternalCollapsed(new Set(s.collapsedGroups.filter((k) => typeof k === "string")));
     };
     const stateReadyRef = import_react.default.useRef(false);
     const stateRestoredRef = import_react.default.useRef(false);
@@ -9869,7 +10278,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         }
       }
       return void 0;
-    }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey]);
+    }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedSet]);
     const restoreState = () => {
       let saved = null;
       if (stateKey) {
@@ -10313,21 +10722,20 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         const items = [];
         for (const [value, rs] of map) {
           const key = `${prefix}/${field}:${value}`;
-          const isCollapsed = collapsed.has(key);
+          const isCollapsed = collapsedSet.has(key);
           items.push({ kind: "group", key, field, value, depth, count: rs.length, rows: rs, collapsed: isCollapsed });
           if (!isCollapsed) items.push(...build(rs, depth + 1, key));
         }
         return items;
       };
       return build(paged, 0, "");
-    }, [activeGroupBy, collapsed, paged, ordered, aggOn]);
+    }, [activeGroupBy, collapsedSet, paged, ordered, aggOn]);
     const leafRows = displayItems ? displayItems.filter((i) => i.kind === "leaf").map((i) => i.row) : treeRows ? treeRows.map((t) => t.row) : paged;
     function toggleGroup(key) {
-      setCollapsed((s) => {
-        const n = new Set(s);
-        n.has(key) ? n.delete(key) : n.add(key);
-        return n;
-      });
+      const n = new Set(collapsedSet);
+      n.has(key) ? n.delete(key) : n.add(key);
+      onCollapsedGroupsChange?.([...n]);
+      if (!collapsedControlled) setInternalCollapsed(n);
     }
     function toggleGroupField(field) {
       setGroupBy((g) => g.includes(field) ? g.filter((f) => f !== field) : [...g, field]);
@@ -10367,20 +10775,20 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     }, [middleRows, keyIndex]);
     const cellColIndex = import_react.default.useCallback((field) => ordered.findIndex((c) => c.field === field), [ordered]);
     const cellRect = import_react.default.useMemo(() => {
-      if (selectionMode !== "cell" || !activeCell) return null;
-      const ar = keyIndex.get(activeCell.key), ac = cellColIndex(activeCell.field);
+      if (selectionMode !== "cell" || !activeCellVal) return null;
+      const ar = keyIndex.get(activeCellVal.key), ac = cellColIndex(activeCellVal.field);
       if (ar == null || ac < 0) return null;
-      const anchor = anchorCell || activeCell;
+      const anchor = anchorCell || activeCellVal;
       const nr = keyIndex.get(anchor.key), nc = cellColIndex(anchor.field);
       const r0 = nr == null ? ar : Math.min(ar, nr), r1 = nr == null ? ar : Math.max(ar, nr);
       const c0 = nc < 0 ? ac : Math.min(ac, nc), c1 = nc < 0 ? ac : Math.max(ac, nc);
       return { r0, r1, c0, c1 };
-    }, [selectionMode, activeCell, anchorCell, keyIndex, cellColIndex]);
+    }, [selectionMode, activeCellVal, anchorCell, keyIndex, cellColIndex]);
     const activeCellId = import_react.default.useMemo(() => {
-      if (selectionMode !== "cell" || !activeCell) return void 0;
-      const ar = keyIndex.get(activeCell.key), ac = cellColIndex(activeCell.field);
+      if (selectionMode !== "cell" || !activeCellVal) return void 0;
+      const ar = keyIndex.get(activeCellVal.key), ac = cellColIndex(activeCellVal.field);
       return ar == null || ac < 0 ? void 0 : `${gridId}-${ar}-${ac}`;
-    }, [selectionMode, activeCell, keyIndex, cellColIndex, gridId]);
+    }, [selectionMode, activeCellVal, keyIndex, cellColIndex, gridId]);
     const onCellSelRef = import_react.default.useRef(onCellSelectionChange);
     onCellSelRef.current = onCellSelectionChange;
     const prevSelSigRef = import_react.default.useRef("");
@@ -10779,13 +11187,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const aggLabels = { sum: "Sum", avg: "Avg", min: "Min", max: "Max", count: "Count" };
     const hasAggregation = ordered.some((c) => aggOf(c));
     const filteredFields = new Set(filters.map((f) => f.field));
-    const allSel = paged.length > 0 && paged.every((r2) => selected.has(keyOf(r2)));
-    const someSel = paged.some((r2) => selected.has(keyOf(r2)));
+    const selRows = activeGroupBy.length ? leafRows : paged;
+    const allSel = selRows.length > 0 && selRows.every((r2) => selected.has(keyOf(r2)));
+    const someSel = selRows.some((r2) => selected.has(keyOf(r2)));
     function toggleAll() {
       setSelected((s) => {
         const n = new Set(s);
-        if (allSel) paged.forEach((r2) => n.delete(keyOf(r2)));
-        else paged.forEach((r2) => n.add(keyOf(r2)));
+        if (allSel) selRows.forEach((r2) => n.delete(keyOf(r2)));
+        else selRows.forEach((r2) => n.add(keyOf(r2)));
         return n;
       });
     }
@@ -10808,28 +11217,46 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       if (selectionMode === "row") {
         if (!activeRowControlled) setActiveRow(k);
         onRowClick?.(row, k);
-        onActiveCellChange?.(null);
+        commitActiveCell(null);
       }
     }
     function handleCellClick(e, k, row, col) {
       if (selectionMode !== "cell") return;
       if (e.target.closest("button, a, input, select, .twc-dt__check, .twc-dt__editor-wrap")) return;
       const next = { key: k, field: col.field };
-      setActiveCell(next);
+      commitActiveCell(next);
       setActiveRow(k);
       if (!(e.shiftKey && anchorCell)) setAnchorCell(next);
       onCellClick?.(row[col.field], row, col.field);
-      onActiveCellChange?.(next);
     }
-    function focusCell(r2, c) {
+    function focusCell(r2, c, opts) {
       const el = gridRef.current?.querySelector(`.twc-dt__td[data-r="${r2}"][data-c="${c}"]`);
-      if (el) el.focus();
+      if (!el) return;
+      if (cellNavigation === "widget" && !(opts && opts.cell)) {
+        const w = dtCellWidgets(el);
+        if (w.length === 1) {
+          w[0].focus();
+          return;
+        }
+      }
+      el.focus();
     }
     function onGridKeyDown(e) {
       if (e.target.closest("input, textarea, select, [contenteditable='true']")) return;
       if (editing) return;
+      if (e.defaultPrevented) return;
+      if (e.target.closest('[aria-expanded="true"]')) return;
       const td = e.target.closest(".twc-dt__td[data-r]");
       if (!td) return;
+      if (cellNavigation === "widget" && interacting) {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          const ic = interacting;
+          setInteracting(null);
+          focusCell(ic.r, ic.c, { cell: true });
+        }
+        return;
+      }
       if (enableClipboard && selectionMode === "cell" && (e.ctrlKey || e.metaKey)) {
         const k = e.key.toLowerCase();
         if (k === "c") {
@@ -10853,6 +11280,25 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       let r2 = +td.getAttribute("data-r"), c = +td.getAttribute("data-c");
       const maxR = leafRows.length - 1, maxC = ordered.length - 1;
       let handled = true;
+      if (cellNavigation === "widget") {
+        const onWidget = e.target !== td && !!e.target.closest(DT_CELL_WIDGET_SEL);
+        if (onWidget) {
+          if (e.key === "Enter" || e.key === " ") return;
+        } else if (e.key === "F2" || e.key === "Enter") {
+          const ws = dtCellWidgets(td);
+          if (ws.length > 1) {
+            e.preventDefault();
+            setInteracting({ r: r2, c });
+            ws[0].focus();
+            return;
+          }
+          if (ws.length === 1 && e.key === "Enter") {
+            e.preventDefault();
+            ws[0].click();
+            return;
+          }
+        }
+      }
       switch (e.key) {
         case "ArrowDown":
           r2 = Math.min(r2 + 1, maxR);
@@ -10907,10 +11353,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           const nk = keyOf(leafRows[r2], r2), col = ordered[c];
           if (col) {
             const nc = { key: nk, field: col.field };
-            setActiveCell(nc);
+            commitActiveCell(nc);
             setActiveRow(nk);
             if (!e.shiftKey) setAnchorCell(nc);
-            onActiveCellChange?.(nc);
           }
         }
       }
@@ -10918,6 +11363,19 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     import_react.default.useEffect(() => {
       setFocus((f) => ({ r: Math.min(f.r, Math.max(0, leafRows.length - 1)), c: Math.min(f.c, Math.max(0, ordered.length - 1)) }));
     }, [leafRows.length, ordered.length, pageVal]);
+    import_react.default.useLayoutEffect(() => {
+      if (cellNavigation !== "widget") return;
+      const grid = gridRef.current;
+      if (!grid) return;
+      grid.querySelectorAll(".twc-dt__td[data-r]").forEach((td) => {
+        const active = +td.getAttribute("data-r") === focus.r && +td.getAttribute("data-c") === focus.c;
+        const ws = td.querySelectorAll(DT_CELL_WIDGET_SEL);
+        ws.forEach((w, i) => {
+          if (w.getAttribute("aria-hidden") !== "true") w.tabIndex = active && i === 0 ? 0 : -1;
+        });
+        td.tabIndex = active && ws.length === 0 ? 0 : -1;
+      });
+    }, [cellNavigation, focus.r, focus.c, leafRows, ordered, pageVal, interacting, hidden, pins]);
     const selectedRows = import_react.default.useMemo(() => rows.filter((r2, i) => selected.has(keyOf(r2, i))), [rows, selected]);
     const selKeys = import_react.default.useMemo(() => [...selected], [selected]);
     const onRowSelRef = import_react.default.useRef(onRowSelectionChange);
@@ -10935,35 +11393,100 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       if (!activeRowControlled || !scrollActiveRowIntoView || activeRowId == null) return;
       const el = gridRef.current && gridRef.current.querySelector('.twc-dt__row[data-active="true"]');
       if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest" });
-    }, [activeRowId, activeRowControlled, scrollActiveRowIntoView]);
+    }, [activeRowId, activeRowControlled, scrollActiveRowIntoView, keyIndex]);
+    import_react.default.useEffect(() => {
+      if (!scrollActiveCellIntoView || !activeCellVal) return void 0;
+      const opt = typeof scrollActiveCellIntoView === "object" ? scrollActiveCellIntoView : {};
+      const block = opt.block === "center" ? "center" : "nearest";
+      const inline = opt.inline === "center" ? "center" : "nearest";
+      const ri = keyIndex.get(activeCellVal.key), ci = cellColIndex(activeCellVal.field);
+      if (ri == null || ci < 0) return void 0;
+      let raf = 0;
+      const reveal = () => {
+        const sc = scrollRef.current;
+        if (!sc) return;
+        const td = gridRef.current && gridRef.current.querySelector(`.twc-dt__td[data-r="${ri}"][data-c="${ci}"]`);
+        if (td) {
+          const scR = sc.getBoundingClientRect(), tR = td.getBoundingClientRect();
+          if (block === "center") {
+            const mid = (scR.top + headH + scR.bottom) / 2;
+            sc.scrollTop += tR.top + tR.height / 2 - mid;
+          } else if (tR.top < scR.top + headH) sc.scrollTop -= scR.top + headH - tR.top;
+          else if (tR.bottom > scR.bottom) sc.scrollTop += tR.bottom - scR.bottom;
+          if (!td.getAttribute("data-pin")) {
+            let leftInset = 0, rightInset = 0;
+            gridRef.current.querySelectorAll('thead .twc-dt__th[data-pin="left"]').forEach((th) => {
+              leftInset += th.offsetWidth;
+            });
+            gridRef.current.querySelectorAll('thead .twc-dt__th[data-pin="right"]').forEach((th) => {
+              rightInset += th.offsetWidth;
+            });
+            if (inline === "center") {
+              const midX = (scR.left + leftInset + scR.right - rightInset) / 2;
+              sc.scrollLeft += tR.left + tR.width / 2 - midX;
+            } else if (tR.left < scR.left + leftInset) sc.scrollLeft -= scR.left + leftInset - tR.left;
+            else if (tR.right > scR.right - rightInset) sc.scrollLeft += tR.right - (scR.right - rightInset);
+          }
+        } else if (virtualizing && offsets) {
+          const mi = keyIndexMid.get(activeCellVal.key);
+          if (mi != null && offsets[mi] != null) {
+            sc.scrollTop = Math.max(0, offsets[mi] - (block === "center" ? sc.clientHeight / 2 : headH));
+            raf = requestAnimationFrame(reveal);
+          }
+        }
+      };
+      reveal();
+      return () => {
+        if (raf) cancelAnimationFrame(raf);
+      };
+    }, [activeCellVal, scrollActiveCellIntoView, keyIndex, cellColIndex, virtualizing, offsets, keyIndexMid, headH]);
     function clearSelection() {
       setSelected(/* @__PURE__ */ new Set());
     }
     const [editing, setEditing] = import_react.default.useState(null);
+    const stagedEditRef = import_react.default.useRef(null);
+    const onEditingChangeRef = import_react.default.useRef(onEditingChange);
+    onEditingChangeRef.current = onEditingChange;
     const isColEditable = (c) => c.type !== "actions" && c.editable !== false && (c.editable === true || c.renderEditCell != null || editMode);
+    function applyRowUpdate(rowKey2, updated, orig, field) {
+      onRowUpdate?.(updated, orig, field);
+      if (onRowsChange && rows.some((r2, i) => keyOf(r2, i) === rowKey2)) {
+        onRowsChange(rows.map((r2, i) => keyOf(r2, i) === rowKey2 ? updated : r2));
+      }
+    }
     function beginEdit(rowK, col, row) {
       if (!isColEditable(col)) return;
+      stagedEditRef.current = null;
       setEditing({ key: rowK, field: col.field, value: row[col.field] ?? "" });
+      onEditingChangeRef.current?.({ key: rowK, field: col.field }, "start");
     }
     function cancelEdit() {
+      const cur = editing;
+      stagedEditRef.current = null;
       setEditing(null);
+      if (cur) onEditingChangeRef.current?.(null, "cancel");
     }
-    function commitEdit(override) {
+    function commitEdit(override, patch) {
       if (!editing) return;
+      const cur = editing;
       const col = colByField[editing.field];
+      const row = leafRows.find((r2, i) => keyOf(r2, i) === editing.key);
+      stagedEditRef.current = null;
+      setEditing(null);
+      onEditingChangeRef.current?.(null, "commit");
+      if (!row) return;
+      if (patch) {
+        if (Object.keys(patch).every((k) => row[k] === patch[k])) return;
+        applyRowUpdate(cur.key, { ...row, ...patch }, row, cur.field);
+        return;
+      }
       let next = override !== void 0 ? override : editing.value;
       if (col?.type === "number") {
         next = next === "" ? null : Number(next);
         if (Number.isNaN(next)) next = null;
       }
-      const row = leafRows.find((r2, i) => keyOf(r2, i) === editing.key);
-      setEditing(null);
-      if (!row || row[editing.field] === next) return;
-      const updated = { ...row, [editing.field]: next };
-      onRowUpdate?.(updated, row, editing.field);
-      if (onRowsChange && rows.some((r2, i) => keyOf(r2, i) === editing.key)) {
-        onRowsChange(rows.map((r2, i) => keyOf(r2, i) === editing.key ? updated : r2));
-      }
+      if (row[editing.field] === next) return;
+      applyRowUpdate(cur.key, { ...row, [editing.field]: next }, row, cur.field);
     }
     function onEditKey(e) {
       if (e.key === "Enter") {
@@ -11054,6 +11577,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     onCellsCopyRef.current = onCellsCopy;
     const onCellsPasteRef = import_react.default.useRef(onCellsPaste);
     onCellsPasteRef.current = onCellsPaste;
+    const onCellsCommitRef = import_react.default.useRef(onCellsCommit);
+    onCellsCommitRef.current = onCellsCommit;
     import_react.default.useEffect(() => () => {
       if (clipFxTimer.current) clearTimeout(clipFxTimer.current);
     }, []);
@@ -11088,16 +11613,19 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       execFallback();
       return Promise.resolve();
     };
-    const writeCellPatches = (patchByKey) => {
+    const writeCellPatches = (patchByKey, meta) => {
       if (!patchByKey.size) return 0;
       let count = 0;
+      const grouped = onCellsCommitRef.current && meta ? [] : null;
       leafRows.forEach((r2, i) => {
         const patch = patchByKey.get(keyOf(r2, i));
         if (!patch) return;
         const updated = { ...r2, ...patch };
-        for (const f of Object.keys(patch)) onRowUpdate?.(updated, r2, f);
+        if (grouped) grouped.push({ key: keyOf(r2, i), row: updated, patch });
+        else for (const f of Object.keys(patch)) onRowUpdate?.(updated, r2, f);
         count++;
       });
+      if (grouped && grouped.length) onCellsCommitRef.current(grouped, meta);
       if (onRowsChange) {
         let anyTop = false;
         const nextAll = rows.map((r2, i) => {
@@ -11143,7 +11671,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           p[cell.field] = cell.col.type === "number" ? null : "";
           patchByKey.set(cell.key, p);
         }
-        writeCellPatches(patchByKey);
+        writeCellPatches(patchByKey, { source: "cut" });
         announceClip(`Cut ${clearable} cell${clearable === 1 ? "" : "s"}${clearable < n ? `, ${n - clearable} read-only kept` : ""}`, cellRect);
       } else {
         announceClip(`Copied ${n} cell${n === 1 ? "" : "s"}`, cellRect);
@@ -11189,7 +11717,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           written++;
         }
       }
-      writeCellPatches(patchByKey);
+      writeCellPatches(patchByKey, { source: "paste" });
       onCellsPasteRef.current?.({ written, skipped });
       const maxCols = matrix.reduce((a, m) => Math.max(a, m.length), 0);
       const pasteRect = written ? { r0: cellRect.r0, c0: cellRect.c0, r1: Math.min(cellRect.r0 + matrix.length - 1, leafRows.length - 1), c1: Math.min(cellRect.c0 + maxCols - 1, ordered.length - 1) } : null;
@@ -11225,8 +11753,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       const onDown = (e) => {
         if (e.target.closest(".twc-dt__editor-wrap") || e.target.closest(".twc-pop")) return;
         const col = colByField[editing.field];
-        if (col && col.renderEditCell) setEditing(null);
-        else commitEdit();
+        if (col && col.renderEditCell) {
+          if (stagedEditRef.current) commitEdit(stagedEditRef.current.value);
+          else cancelEdit();
+        } else commitEdit();
       };
       document.addEventListener("mousedown", onDown, true);
       return () => document.removeEventListener("mousedown", onDown, true);
@@ -11243,22 +11773,42 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         ];
       })() : [];
       const menu = [...items.filter((a) => a.showInMenu), ...pinItems];
-      return /* @__PURE__ */ jsxs("div", { className: "twc-dt__actions", style: { justifyContent: col.align === "right" ? "flex-end" : "flex-start" }, children: [
-        inline.map((a, i) => /* @__PURE__ */ jsx(Tooltip, { label: a.label, placement: "top", children: /* @__PURE__ */ jsx(
-          "button",
-          {
-            type: "button",
-            className: "twc-dt__act",
-            "data-danger": a.danger || void 0,
-            "aria-label": a.label,
-            disabled: a.disabled,
-            onClick: (e) => {
-              e.stopPropagation();
-              a.onClick?.(row);
-            },
-            children: a.icon
-          }
-        ) }, i)),
+      return /* @__PURE__ */ jsxs("div", { className: "twc-dt__actions", style: { justifyContent: col.align === "right" ? "flex-end" : col.align === "center" ? "center" : "flex-start" }, children: [
+        inline.map((a, i) => {
+          const href = !a.disabled ? safeHref6(a.href) : void 0;
+          const tip = a.disabled && a.disabledReason != null ? a.disabledReason : a.label;
+          return /* @__PURE__ */ jsx(Tooltip, { label: tip, placement: "top", children: href ? /* @__PURE__ */ jsx(
+            "a",
+            {
+              className: "twc-dt__act",
+              "data-danger": a.danger || void 0,
+              "aria-label": a.label,
+              href,
+              target: a.target,
+              rel: a.rel,
+              onClick: (e) => {
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                e.stopPropagation();
+                a.onClick?.(row);
+              },
+              children: a.icon
+            }
+          ) : /* @__PURE__ */ jsx(
+            "button",
+            {
+              type: "button",
+              className: "twc-dt__act",
+              "data-danger": a.danger || void 0,
+              "aria-label": a.label,
+              disabled: a.disabled,
+              onClick: (e) => {
+                e.stopPropagation();
+                a.onClick?.(row);
+              },
+              children: a.icon
+            }
+          ) }, i);
+        }),
         menu.length ? /* @__PURE__ */ jsx(Tooltip, { label: "More actions", placement: "top", children: /* @__PURE__ */ jsx(
           "button",
           {
@@ -11674,7 +12224,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const totalCols = ordered.length + (checkboxSelection ? 1 : 0) + (showRowNum ? 1 : 0) + (hasExpandCol ? 1 : 0);
     function renderGroupRow(item) {
       const subs = aggOn ? subtotalText(item.rows) : [];
-      const custom = renderGroupLabel ? renderGroupLabel({ field: item.field, value: item.value, count: item.count, rows: item.rows }) : null;
+      const custom = renderGroupLabel ? renderGroupLabel({ field: item.field, value: item.value, count: item.count, rows: item.rows, collapsed: item.collapsed, toggle: () => toggleGroup(item.key) }) : null;
       return /* @__PURE__ */ jsx("tr", { className: "twc-dt__group-row", role: "row", children: /* @__PURE__ */ jsxs("td", { className: "twc-dt__group-cell", role: "gridcell", colSpan: totalCols, style: { maxWidth: "none" }, children: [
         /* @__PURE__ */ jsxs(
           "button",
@@ -11816,7 +12366,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                 const isActions = c.type === "actions";
                 const editable = isColEditable(c);
                 const isEditing = editing && editing.key === k && editing.field === c.field;
-                const cellActive = selectionMode === "cell" && activeCell && activeCell.key === k && activeCell.field === c.field;
+                const cellActive = selectionMode === "cell" && activeCellVal && activeCellVal.key === k && activeCellVal.field === c.field;
                 const cellSelected = selectionMode === "cell" && cellRect && ri >= cellRect.r0 && ri <= cellRect.r1 && ci >= cellRect.c0 && ci <= cellRect.c1;
                 const cellFlash = clipFx && clipFx.rect && ri >= clipFx.rect.r0 && ri <= clipFx.rect.r1 && ci >= clipFx.rect.c0 && ci <= clipFx.rect.c1;
                 const cellId = selectionMode === "cell" ? `${gridId}-${ri}-${ci}` : void 0;
@@ -11833,10 +12383,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                     "data-r": ri,
                     "data-c": ci,
                     "aria-colindex": ci + 1 + (checkboxSelection ? 1 : 0) + (hasExpandCol ? 1 : 0),
-                    tabIndex: focus.r === ri && focus.c === ci ? 0 : -1,
+                    tabIndex: cellNavigation === "widget" ? -1 : focus.r === ri && focus.c === ci ? 0 : -1,
                     "aria-selected": cellSelected || void 0,
                     "data-num": c.type === "number" || void 0,
                     "data-actions": isActions || void 0,
+                    "data-align": c.align || void 0,
                     "data-editable": editable && !isEditing || void 0,
                     "data-editing": isEditing || void 0,
                     "data-cell-active": cellActive || void 0,
@@ -11872,7 +12423,18 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                                 cancelEdit();
                               }
                             },
-                            children: c.renderEditCell({ value: editing.value, row, field: c.field, commit: (v) => commitEdit(v), cancel: cancelEdit })
+                            children: c.renderEditCell({
+                              value: editing.value,
+                              row,
+                              field: c.field,
+                              commit: (v) => commitEdit(v),
+                              cancel: cancelEdit,
+                              setDraft: (v) => {
+                                stagedEditRef.current = { value: v };
+                                setEditing((ed) => ed ? { ...ed, value: v } : ed);
+                              },
+                              commitPatch: (patch) => commitEdit(void 0, patch)
+                            })
                           }
                         )
                       ) : /* @__PURE__ */ jsx(
@@ -11999,7 +12561,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         ] }) })
       ] }) });
     }
-    return /* @__PURE__ */ jsxs("div", { className: `twc-dt ${className}`, ref: rootRef, "data-density": density, "data-resizing": resizing || void 0, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { className: `twc-dt ${className}`, ref: rootRef, "data-density": density, "data-resizing": resizing || void 0, "data-editing": editing ? "" : void 0, ...rest, children: [
       __twcStyles,
       /* @__PURE__ */ jsxs("div", { className: "twc-dt__toolbar", "data-compact": compact || void 0, children: [
         toolbarActions != null ? /* @__PURE__ */ jsx("div", { className: "twc-dt__toolbar-actions", children: toolbarActions }) : null,
@@ -12308,6 +12870,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                         "aria-sort": sorted ? sorted === "asc" ? "ascending" : "descending" : c.sortable ? "none" : void 0,
                         "data-num": c.type === "number" || void 0,
                         "data-actions-col": c.type === "actions" || void 0,
+                        "data-align": (c.headerAlign ?? c.align) || void 0,
                         "data-sorted": sorted,
                         "data-pin": st.pin,
                         "data-pin-edge": st.edge,
@@ -12333,7 +12896,6 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                                 className: "twc-dt__th-label",
                                 role: c.sortable ? "button" : void 0,
                                 tabIndex: c.sortable ? 0 : void 0,
-                                "data-ovtext": !c.renderHeader && typeof c.headerName === "string" ? c.headerName : void 0,
                                 "aria-label": c.sortable ? `${colLabel(c)}, sort` : void 0,
                                 draggable: reorderable || void 0,
                                 onDragStart: reorderable ? (e) => {
@@ -12352,7 +12914,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                                 children: [
                                   reorderable ? /* @__PURE__ */ jsx("span", { className: "twc-dt__grip", "aria-hidden": "true", children: /* @__PURE__ */ jsx(Svg, { d: I.grip }) }) : null,
                                   filteredFields.has(c.field) ? /* @__PURE__ */ jsx("span", { className: "twc-dt__filterdot" }) : null,
-                                  c.renderHeader ? c.renderHeader({ column: c }) : c.headerName,
+                                  c.renderHeader ? c.renderHeader({ column: c }) : /* @__PURE__ */ jsx("span", { className: "twc-dt__th-text", "data-ovtext": typeof c.headerName === "string" ? c.headerName : void 0, children: c.headerName }),
                                   c.sortable ? /* @__PURE__ */ jsx("span", { className: "twc-dt__sort", children: /* @__PURE__ */ jsx(Svg, { d: I.arrow }) }) : null
                                 ]
                               }
@@ -12452,7 +13014,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                     const st = stickyOf(c.field);
                     const v = aggregate(c);
                     const display = v == null ? null : c.aggregationFormatter ? c.aggregationFormatter(v) : c.valueFormatter ? c.valueFormatter(v, null) : typeof v === "number" ? v.toLocaleString() : v;
-                    return /* @__PURE__ */ jsx("td", { role: "gridcell", "data-num": c.type === "number" || void 0, "data-pin": st.pin, "data-pin-edge": st.edge, style: { width: widthOf(c), ...st.style }, children: v == null ? null : /* @__PURE__ */ jsxs(Fragment, { children: [
+                    return /* @__PURE__ */ jsx("td", { role: "gridcell", "data-num": c.type === "number" || void 0, "data-align": c.align || void 0, "data-pin": st.pin, "data-pin-edge": st.edge, style: { width: widthOf(c), ...st.style }, children: v == null ? null : /* @__PURE__ */ jsxs(Fragment, { children: [
                       typeof aggOf(c) === "string" ? /* @__PURE__ */ jsx("span", { className: "twc-dt__agg-label", children: aggLabels[aggOf(c)] }) : null,
                       /* @__PURE__ */ jsx("span", { className: "twc-dt__agg-val", children: display })
                     ] }) }, c.field);
@@ -12686,7 +13248,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   closeMenu();
                   restoreTriggerFocus();
                   setPanel("filters");
-                  openPanel(document.querySelector('.twc-dt__toolbar .twc-dt__tbtn[data-tbtn="filters"]'), "left", DT_FILTER_PANEL_W);
+                  const filterBtn = rootRef.current?.querySelector('.twc-dt__toolbar [data-tbtn="filters"]');
+                  openPanel(filterBtn ?? menuTriggerRef.current, "left", DT_FILTER_PANEL_W);
                 }, children: [
                   /* @__PURE__ */ jsx(Svg, { d: I.filter }),
                   " Filter"
@@ -12785,27 +13348,53 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           style: { top: rowMenuPos.top, left: rowMenuPos.left, width: rowMenuPos.width, maxHeight: rowMenuPos.maxHeight, overflowY: "auto" },
           children: [
             /* @__PURE__ */ jsx(Caret, { pos: rowMenuPos }),
-            rowMenu.items.map((a, i) => /* @__PURE__ */ jsxs(
-              "button",
-              {
-                type: "button",
-                role: "menuitem",
-                className: "twc-dt__mi",
-                disabled: a.disabled,
-                style: a.danger ? { color: "var(--color-danger-subtle-fg)" } : void 0,
-                onClick: () => {
-                  a.onClick?.(rowMenu.row);
-                  setRowMenu(null);
-                  closeRowMenu();
-                  restoreTriggerFocus();
+            rowMenu.items.map((a, i) => {
+              const href = !a.disabled ? safeHref6(a.href) : void 0;
+              const sty = a.danger ? { color: "var(--color-danger-subtle-fg)" } : void 0;
+              const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
+                a.icon || null,
+                a.label,
+                a.disabled && a.disabledReason != null ? /* @__PURE__ */ jsx("span", { className: "twc-dt__mi-hint", children: a.disabledReason }) : null
+              ] });
+              const done = () => {
+                setRowMenu(null);
+                closeRowMenu();
+                restoreTriggerFocus();
+              };
+              return href ? /* @__PURE__ */ jsx(
+                "a",
+                {
+                  role: "menuitem",
+                  className: "twc-dt__mi",
+                  href,
+                  target: a.target,
+                  rel: a.rel,
+                  style: sty,
+                  onClick: (e) => {
+                    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                    a.onClick?.(rowMenu.row);
+                    done();
+                  },
+                  children: inner
                 },
-                children: [
-                  a.icon || null,
-                  a.label
-                ]
-              },
-              i
-            ))
+                i
+              ) : /* @__PURE__ */ jsx(
+                "button",
+                {
+                  type: "button",
+                  role: "menuitem",
+                  className: "twc-dt__mi",
+                  disabled: a.disabled,
+                  style: sty,
+                  onClick: () => {
+                    a.onClick?.(rowMenu.row);
+                    done();
+                  },
+                  children: inner
+                },
+                i
+              );
+            })
           ]
         }
       ) : null,
@@ -13337,7 +13926,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     return typeof v === "number" ? `${v}px` : v;
   }
   var BP = { sm: 640, md: 768, lg: 1024, xl: 1280 };
-  function safeHref5(url) {
+  function safeHref7(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -13376,7 +13965,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     }
     const __twcStyles = useScopedStyles(gridId ? `twc-grid-${gridId}` : "twc-grid", css);
     const templateColumns = minChildWidth ? `repeat(auto-fill, minmax(min(${len(minChildWidth)}, 100%), 1fr))` : responsive ? `repeat(var(--twc-grid-cols, ${columns.base ?? 1}), minmax(0, 1fr))` : `repeat(${columns || 1}, minmax(0, 1fr))`;
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref5(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref7(rest.href);
     return /* @__PURE__ */ jsxs(
       Tag2,
       {
@@ -15682,9 +16271,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     useScrollLock(open);
     useInertBackground(dialogRef, open && mounted);
     useFocusTrap(dialogRef, open && mounted);
+    const isTop = useLayer(open && mounted);
     import_react.default.useEffect(() => {
       if (!open) return void 0;
       const onKey = (e) => {
+        if (e.defaultPrevented || !isTop()) return;
         if (e.key === "Escape") {
           e.preventDefault();
           onClose?.();
@@ -15692,11 +16283,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       };
       document.addEventListener("keydown", onKey);
       return () => document.removeEventListener("keydown", onKey);
-    }, [open, onClose]);
+    }, [open, onClose, isTop]);
     if (!mounted) return null;
     const state = open ? "open" : "closed";
     const overlay = /* @__PURE__ */ jsxs("div", { className: "twc-dialog__overlay", "data-state": state, onMouseDown: (e) => {
-      if (closeOnBackdrop && e.target === e.currentTarget) onClose?.();
+      if (closeOnBackdrop && e.target === e.currentTarget && isTop()) onClose?.();
     }, children: [
       __twcStyles,
       /* @__PURE__ */ jsxs("div", { ref: dialogRef, className: `twc-dialog ${className}`, "data-state": state, "data-size": size, "data-scroll-body": scrollBody ? "true" : void 0, role: "dialog", "aria-modal": "true", tabIndex: -1, "aria-labelledby": title ? titleId : void 0, "aria-label": !title ? "Dialog" : void 0, "aria-describedby": description ? descId : void 0, ...rest, children: [
@@ -15852,9 +16443,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     useScrollLock(open);
     useInertBackground(panelRef, open && mounted);
     useFocusTrap(panelRef, open && mounted);
+    const isTop = useLayer(open && mounted);
     import_react.default.useEffect(() => {
       if (!open) return void 0;
       const onKey = (e) => {
+        if (e.defaultPrevented || !isTop()) return;
         if (e.key === "Escape") {
           e.preventDefault();
           onClose?.();
@@ -15862,7 +16455,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       };
       document.addEventListener("keydown", onKey);
       return () => document.removeEventListener("keydown", onKey);
-    }, [open, onClose]);
+    }, [open, onClose, isTop]);
     if (!mounted) return null;
     const state = open ? "open" : "closed";
     const isHorizontal = side === "left" || side === "right" || side === "start" || side === "end";
@@ -15870,7 +16463,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const dim = DRAWER_SIZES[raw] || (typeof raw === "number" ? `${raw}px` : raw);
     const sizeVar = isHorizontal ? { "--_w": dim } : { "--_h": dim };
     const overlay = /* @__PURE__ */ jsxs("div", { className: "twc-drawer__overlay", "data-state": state, onMouseDown: (e) => {
-      if (closeOnBackdrop && e.target === e.currentTarget) onClose?.();
+      if (closeOnBackdrop && e.target === e.currentTarget && isTop()) onClose?.();
     }, children: [
       __twcStyles,
       /* @__PURE__ */ jsxs("div", { ref: panelRef, className: `twc-drawer ${className}`, "data-side": side, "data-state": state, role: "dialog", "aria-modal": "true", tabIndex: -1, "aria-labelledby": title ? titleId : void 0, "aria-label": !title ? "Drawer" : void 0, "aria-describedby": description ? descId : void 0, style: { ...dim ? sizeVar : null, ...style }, ...rest, children: [
@@ -15959,6 +16552,35 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : hint ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__hint", children: hint }) : null
     ] });
   }
+  function matchesAccept(file, accept) {
+    if (!accept) return true;
+    const toks = accept.split(",").map((t) => t.trim().toLowerCase()).filter(Boolean);
+    if (!toks.length) return true;
+    const name = file.name.toLowerCase(), type = (file.type || "").toLowerCase();
+    return toks.some((t) => t.startsWith(".") ? name.endsWith(t) : t.endsWith("/*") ? type.startsWith(t.slice(0, -1)) : type === t);
+  }
+  var fileKey = (f) => `${f.name}-${f.size}-${f.lastModified}`;
+  function partitionFiles(list, { current = [], accept, multiple = false, maxSize, maxFiles } = {}) {
+    const incoming = Array.from(list || []);
+    const retained = multiple ? current.slice() : [];
+    const seen2 = new Set(retained.map(fileKey));
+    const accepted = [];
+    const rejections = [];
+    for (const f of incoming) {
+      if (multiple && seen2.has(fileKey(f))) continue;
+      let reason = null;
+      if (accept && !matchesAccept(f, accept)) reason = "type";
+      else if (maxSize && f.size > maxSize) reason = "size";
+      else if (multiple && maxFiles && retained.length + accepted.length >= maxFiles) reason = "count";
+      if (reason) {
+        rejections.push({ file: f, reason });
+        continue;
+      }
+      accepted.push(f);
+      if (multiple) seen2.add(fileKey(f));
+    }
+    return { accepted, rejections };
+  }
   var UPLOAD_CSS = `
 .twc-upload { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-3); }
 .twc-upload[data-size="sm"] { --_pad-y: var(--space-5); --_pad-x: var(--space-4); }
@@ -16011,15 +16633,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
     return (bytes / (1024 * 1024)).toFixed(1) + " MB";
   }
-  function matchesAccept(file, accept) {
-    if (!accept) return true;
-    const toks = accept.split(",").map((t) => t.trim().toLowerCase()).filter(Boolean);
-    if (!toks.length) return true;
-    const name = file.name.toLowerCase(), type = (file.type || "").toLowerCase();
-    return toks.some((t) => t.startsWith(".") ? name.endsWith(t) : t.endsWith("/*") ? type.startsWith(t.slice(0, -1)) : type === t);
-  }
-  var fileKey = (f) => `${f.name}-${f.size}-${f.lastModified}`;
-  function FileUpload({
+  var FileUpload = import_react.default.forwardRef(function FileUpload2({
     accept,
     multiple = false,
     disabled = false,
@@ -16037,13 +16651,18 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     onChange,
     id,
     className = "",
+    trigger,
+    dropOnTrigger = false,
+    children,
+    // #406: destructured so a consumer's children never leak onto the root div via ...rest
     ...rest
-  }) {
+  }, ref) {
     const __twcStyles = useScopedStyles("twc-upload-styles", UPLOAD_CSS);
     const [internal, setInternal] = import_react.default.useState(defaultValue);
     const files = value !== void 0 ? value : internal;
     const [drag, setDrag] = import_react.default.useState(false);
     const inputRef = import_react.default.useRef(null);
+    import_react.default.useImperativeHandle(ref, () => ({ open: () => inputRef.current?.click() }), []);
     const autoId = import_react.default.useId();
     const fieldId = id || autoId;
     const descId = `${fieldId}-desc`;
@@ -16053,32 +16672,62 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       onChange?.(next);
     };
     function addFiles(list) {
-      const incoming = Array.from(list);
-      const retained = multiple ? files.slice() : [];
-      const seen2 = new Set(retained.map(fileKey));
-      const accepted = [];
-      const rejections = [];
-      for (const f of incoming) {
-        if (multiple && seen2.has(fileKey(f))) continue;
-        let reason = null;
-        if (accept && !matchesAccept(f, accept)) reason = "type";
-        else if (maxSize && f.size > maxSize) reason = "size";
-        else if (multiple && maxFiles && retained.length + accepted.length >= maxFiles) reason = "count";
-        if (reason) {
-          rejections.push({ file: f, reason });
-          continue;
-        }
-        accepted.push(f);
-        if (multiple) seen2.add(fileKey(f));
-      }
+      const { accepted, rejections } = partitionFiles(list, { current: files, accept, multiple, maxSize, maxFiles });
       if (rejections.length) onReject?.(rejections);
       if (multiple) {
-        if (accepted.length) set([...retained, ...accepted]);
+        if (accepted.length) set([...files.slice(), ...accepted]);
       } else if (accepted.length) set(accepted.slice(0, 1));
     }
     function remove(i) {
       if (disabled) return;
       set(files.filter((_, idx) => idx !== i));
+    }
+    const hiddenInput = /* @__PURE__ */ jsx(
+      "input",
+      {
+        ref: inputRef,
+        className: "twc-upload__input",
+        type: "file",
+        accept,
+        multiple,
+        disabled,
+        onChange: (e) => {
+          if (e.target.files.length) addFiles(e.target.files);
+          e.target.value = "";
+        }
+      }
+    );
+    if (trigger) {
+      return /* @__PURE__ */ jsxs("div", { className: `twc-upload ${className}`, "data-size": size, ...rest, children: [
+        __twcStyles,
+        label ? /* @__PURE__ */ jsxs("label", { className: "twc-field__label", htmlFor: fieldId, children: [
+          label,
+          required ? /* @__PURE__ */ jsx("span", { className: "twc-field__req", children: "*" }) : null
+        ] }) : null,
+        /* @__PURE__ */ jsx(
+          "span",
+          {
+            className: "twc-upload__trigger",
+            onClick: () => {
+              if (!disabled) inputRef.current?.click();
+            },
+            onDragOver: dropOnTrigger ? (e) => {
+              e.preventDefault();
+              if (!disabled) setDrag(true);
+            } : void 0,
+            onDragLeave: dropOnTrigger ? () => setDrag(false) : void 0,
+            onDrop: dropOnTrigger ? (e) => {
+              e.preventDefault();
+              setDrag(false);
+              if (!disabled && e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
+            } : void 0,
+            "data-drag": drag || void 0,
+            children: trigger
+          }
+        ),
+        hiddenInput,
+        error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : null
+      ] });
     }
     return /* @__PURE__ */ jsxs("div", { className: `twc-upload ${className}`, "data-size": size, ...rest, children: [
       __twcStyles,
@@ -16124,21 +16773,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               " or drag and drop"
             ] }),
             /* @__PURE__ */ jsx("span", { className: "twc-upload__hint", id: !error && hint ? descId : void 0, children: hint || (accept ? accept.replace(/\./g, "").toUpperCase() : "Any file") }),
-            /* @__PURE__ */ jsx(
-              "input",
-              {
-                ref: inputRef,
-                className: "twc-upload__input",
-                type: "file",
-                accept,
-                multiple,
-                disabled,
-                onChange: (e) => {
-                  if (e.target.files.length) addFiles(e.target.files);
-                  e.target.value = "";
-                }
-              }
-            )
+            hiddenInput
           ]
         }
       ),
@@ -16152,97 +16787,108 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       ] }, fileKey(f))) }) : null,
       error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : null
     ] });
-  }
-  var ICONBTN_CSS = `
-.twc-iconbtn {
-  --_sz: var(--control-h-md);
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--_sz);
-  height: var(--_sz);
-  padding: 0;
-  border: var(--border-thin) solid transparent;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  color: var(--color-text-muted);
-  background: transparent;
-  overflow: hidden;
-  transition: background-color var(--duration-fast) var(--ease-standard),
-              color var(--duration-fast) var(--ease-standard),
-              border-color var(--duration-fast) var(--ease-standard),
-              box-shadow var(--duration-fast) var(--ease-standard),
-              transform var(--duration-fast) var(--ease-spring);
-}
-.twc-iconbtn[data-round="true"] { border-radius: var(--radius-full); }
-/* xs: ~26px square \u2014 composed from space tokens (no global control-h-xs token). */
-.twc-iconbtn[data-size="xs"] { --_sz: calc(var(--space-6) + var(--space-0-5)); }
-.twc-iconbtn[data-size="sm"] { --_sz: var(--control-h-sm); }
-.twc-iconbtn[data-size="lg"] { --_sz: var(--control-h-lg); }
-.twc-iconbtn:focus-visible { outline: none; box-shadow: var(--ring); }
-.twc-iconbtn:active:not(:disabled) { transform: scale(var(--press-scale)); }
-.twc-iconbtn:disabled { opacity: 0.5; cursor: not-allowed; }
-/* #342: disabled state for the anchor form (as="a") \u2014 :disabled doesn't apply to <a>. */
-.twc-iconbtn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
-.twc-iconbtn svg { width: 1.25em; height: 1.25em; }
-
-/* tone supplies the accent set; variant decides how it's applied \u2014 mirrors Button. Default tone
-   primary; danger reuses its (active-less) hover for the pressed state. */
-.twc-iconbtn { --_accent: var(--color-primary); --_accent-hover: var(--color-primary-hover);
-  --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); }
-.twc-iconbtn[data-tone="danger"] { --_accent: var(--color-danger); --_accent-hover: var(--color-danger-hover);
-  --_accent-fg: var(--color-danger-fg); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
-.twc-iconbtn[data-variant="solid"] { background: var(--_accent); color: var(--_accent-fg); }
-.twc-iconbtn[data-variant="solid"]:hover:not(:disabled) { background: var(--_accent-hover); box-shadow: var(--shadow-brand); }
-.twc-iconbtn[data-variant="solid"]:active:not(:disabled) { filter: brightness(0.92); }
-.twc-iconbtn[data-variant="soft"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); }
-.twc-iconbtn[data-variant="soft"]:hover:not(:disabled) { background: var(--_accent-subtle); filter: brightness(0.97); }
-.dark .twc-iconbtn[data-variant="soft"]:hover:not(:disabled) { filter: brightness(1.25); }
-.twc-iconbtn[data-variant="outline"] { border-color: var(--color-border-strong); color: var(--color-text); }
-.twc-iconbtn[data-variant="outline"]:hover:not(:disabled) { border-color: var(--_accent); color: var(--_accent); background: var(--color-surface-sunken); }
-.twc-iconbtn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
+  });
+  FileUpload.displayName = "FileUpload";
+  var TOGGLEGROUP_CSS = `
+.twc-togglegroup { display: inline-flex; gap: var(--space-1); }
+.twc-togglegroup[data-orientation="vertical"] { flex-direction: column; align-items: stretch; }
 `;
-  function safeHref6(url) {
-    if (url == null) return void 0;
-    const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
-    return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
-  }
-  function IconButton({
-    children,
-    icon,
-    variant = "ghost",
-    tone = "primary",
+  function ToggleGroup({
+    items = [],
+    type = "single",
+    value,
+    defaultValue,
+    onValueChange,
     size = "md",
-    round = false,
+    tone = "primary",
+    variant = "outline",
+    roving = false,
+    orientation = "horizontal",
     disabled = false,
-    as = "button",
-    href,
     className = "",
     "aria-label": ariaLabel,
     ...rest
   }) {
-    const __twcStyles = useScopedStyles("twc-iconbtn-styles", ICONBTN_CSS);
-    const Tag2 = as;
-    const inert = Tag2 === "a" && disabled;
+    const __twcStyles = useScopedStyles("twc-togglegroup-styles", TOGGLEGROUP_CSS);
+    const groupRef = import_react.default.useRef(null);
+    const multiple = type === "multiple";
+    const [internal, setInternal] = import_react.default.useState(defaultValue !== void 0 ? defaultValue : multiple ? [] : null);
+    const current = value !== void 0 ? value : internal;
+    const isSelected = (v) => multiple ? Array.isArray(current) && current.includes(v) : current === v;
+    const commit = (next) => {
+      if (value === void 0) setInternal(next);
+      onValueChange?.(next);
+    };
+    const toggle = (v) => {
+      if (multiple) {
+        const cur = Array.isArray(current) ? current : [];
+        commit(cur.includes(v) ? cur.filter((x) => x !== v) : [...cur, v]);
+      } else {
+        commit(current === v ? null : v);
+      }
+    };
+    const firstFocusIndex = () => {
+      const sel = items.findIndex((it) => !it.disabled && isSelected(it.value));
+      return sel >= 0 ? sel : items.findIndex((it) => !it.disabled);
+    };
+    function onKeyDown(e) {
+      const vertical = orientation === "vertical";
+      const prevKey = vertical ? "ArrowUp" : "ArrowLeft";
+      const nextKey = vertical ? "ArrowDown" : "ArrowRight";
+      if (![prevKey, nextKey, "Home", "End"].includes(e.key)) return;
+      const n = items.length;
+      if (!n || items.every((it) => it.disabled) || disabled) return;
+      e.preventDefault();
+      const btns = groupRef.current ? groupRef.current.querySelectorAll("button") : null;
+      const activeIdx = btns ? Array.from(btns).findIndex((b) => b === document.activeElement) : -1;
+      let i = activeIdx < 0 ? firstFocusIndex() : activeIdx;
+      if (e.key === "Home") i = items.findIndex((it) => !it.disabled);
+      else if (e.key === "End") {
+        for (let k = n - 1; k >= 0; k--) {
+          if (!items[k].disabled) {
+            i = k;
+            break;
+          }
+        }
+      } else {
+        const dir = e.key === nextKey ? 1 : -1;
+        let guard = 0;
+        do {
+          i = (i + dir + n) % n;
+        } while (items[i] && items[i].disabled && ++guard <= n);
+      }
+      if (btns && items[i] && !items[i].disabled && btns[i]) btns[i].focus();
+    }
+    const focusIdx = roving ? firstFocusIndex() : -1;
     return /* @__PURE__ */ jsxs(
-      Tag2,
+      "div",
       {
-        className: `twc-iconbtn ${className}`,
-        "data-variant": variant,
-        "data-tone": tone,
-        "data-size": size,
-        "data-round": round || void 0,
-        disabled: Tag2 === "button" ? disabled : void 0,
-        type: Tag2 === "button" ? "button" : void 0,
-        href: Tag2 === "a" && !inert ? safeHref6(href) : void 0,
-        "aria-disabled": inert || void 0,
-        tabIndex: inert ? -1 : void 0,
+        ref: groupRef,
+        className: `twc-togglegroup ${className}`.trim(),
+        role: "group",
         "aria-label": ariaLabel,
+        "data-orientation": orientation === "vertical" ? "vertical" : void 0,
+        "aria-orientation": roving && orientation === "vertical" ? "vertical" : void 0,
+        onKeyDown: roving ? onKeyDown : void 0,
         ...rest,
         children: [
           __twcStyles,
-          icon || children
+          items.map((it, i) => /* @__PURE__ */ jsx(
+            Button,
+            {
+              variant,
+              tone,
+              size,
+              disabled: disabled || it.disabled,
+              pressed: isSelected(it.value),
+              leftIcon: it.icon,
+              "aria-label": it["aria-label"],
+              tabIndex: roving ? i === focusIdx ? 0 : -1 : void 0,
+              onClick: () => toggle(it.value),
+              children: it.label
+            },
+            it.value
+          ))
         ]
       }
     );
@@ -16439,7 +17085,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 `;
   function List({ items, plain = false, emptyMessage, className = "", ...rest }) {
     const __twcStyles = useScopedStyles("twc-list-styles", LIST_CSS);
-    const safeHref14 = (url) => {
+    const safeHref15 = (url) => {
       if (url == null) return void 0;
       const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
       return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -16451,7 +17097,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       /* @__PURE__ */ jsxs("ul", { className: `twc-list ${className}`, role: "list", "data-plain": plain || void 0, ...rest, children: [
         __twcStyles,
         items.length === 0 ? /* @__PURE__ */ jsx("li", { role: "presentation", style: { display: "contents" }, children: /* @__PURE__ */ jsx("div", { className: "twc-list__empty", children: emptyMessage ?? "Nothing here yet" }) }) : items.map((it, i) => {
-          const href = safeHref14(it.href);
+          const href = safeHref15(it.href);
           const interactive = Boolean(it.onClick || href);
           const Tag2 = href ? "a" : interactive ? "button" : "div";
           const content = /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -16507,7 +17153,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   .twc-navbar__menu-btn { display: inline-grid; }
 }
 `;
-  function safeHref7(url) {
+  function safeHref8(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -16530,9 +17176,9 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     return /* @__PURE__ */ jsxs("header", { className: `twc-navbar ${className}`, "data-sticky": sticky || void 0, ...rest, children: [
       __twcStyles,
       onMenuClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__menu-btn", "aria-expanded": menuOpen, "aria-controls": menuControls, "aria-label": menuOpen ? "Close menu" : "Open menu", onClick: onMenuClick, children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M4 6h16M4 12h16M4 18h16" }) }) }) : null,
-      brand ? brandHref ? /* @__PURE__ */ jsx("a", { className: "twc-navbar__brand", href: safeHref7(brandHref), children: brand }) : onBrandClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__brand", onClick: onBrandClick, children: brand }) : /* @__PURE__ */ jsx("span", { className: "twc-navbar__brand", children: brand }) : null,
+      brand ? brandHref ? /* @__PURE__ */ jsx("a", { className: "twc-navbar__brand", href: safeHref8(brandHref), children: brand }) : onBrandClick ? /* @__PURE__ */ jsx("button", { type: "button", className: "twc-navbar__brand", onClick: onBrandClick, children: brand }) : /* @__PURE__ */ jsx("span", { className: "twc-navbar__brand", children: brand }) : null,
       /* @__PURE__ */ jsx("nav", { className: "twc-navbar__links", "aria-label": navLabel, children: links.map((l, i) => {
-        const href = safeHref7(l.href);
+        const href = safeHref8(l.href);
         const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
           l.icon,
           l.label
@@ -16661,6 +17307,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       arrow = { top: Math.min(Math.max(cy - top - 5.5, 8), ph - 18), [onRight ? "left" : "right"]: -6 };
       setPos({ top, left, width: w, flip: false, arrow, maxHeight: vh - 2 * M });
     }, [placement, align, width]);
+    const isTop = useLayer(open && render);
     import_react.default.useEffect(() => {
       if (!open) return;
       place();
@@ -16668,10 +17315,14 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       const onDown = (e) => {
         if (wrapRef.current?.contains(e.target)) return;
         if (popRef.current?.contains(e.target)) return;
+        if (!isTop()) return;
         setOpen(false);
       };
       const onKey = (e) => {
-        if (e.key === "Escape") setOpen(false);
+        if (e.key === "Escape" && !e.defaultPrevented && isTop()) {
+          e.preventDefault();
+          setOpen(false);
+        }
       };
       window.addEventListener("scroll", onMove, true);
       window.addEventListener("resize", onMove);
@@ -16683,7 +17334,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         document.removeEventListener("mousedown", onDown);
         document.removeEventListener("keydown", onKey);
       };
-    }, [open, place]);
+    }, [open, place, isTop]);
     import_react.default.useEffect(() => {
       if (open) {
         setRender(true);
@@ -17198,6 +17849,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   transition: font-size var(--duration-base) var(--ease-standard), gap var(--duration-base) var(--ease-standard); }
 .twc-sidebar__nav { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: var(--space-3); display: flex; flex-direction: column; gap: 2px; }
 .twc-sidebar__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+/* #401: keep the nav's flex children (section headings + lists) at their content height so a short rail
+   SCROLLS instead of squashing the headings to slivers. A flex item with non-visible overflow otherwise gets
+   an auto min-height of 0. Doesn't touch the section max-height collapse transition. */
+.twc-sidebar__nav > * { flex-shrink: 0; }
 .twc-sidebar__section { font-size: 10px; font-weight: var(--font-bold); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--color-text-subtle); padding: var(--space-3) var(--space-3) var(--space-1); white-space: nowrap; overflow: hidden; max-height: 2.5rem; opacity: 1; visibility: visible;
   transition: max-height var(--duration-base) var(--ease-standard), padding var(--duration-base) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard) var(--duration-fast), visibility 0s; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__section { max-height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; visibility: hidden;
@@ -17230,6 +17885,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot-user > * > :not(:first-child) { display: none; }
 .twc-sidebar__foot { flex: none; border-top: var(--border-thin) solid var(--color-divider); padding: var(--space-2); }
 .twc-sidebar__foot-user { display: flex; align-items: center; padding: 6px 6px 8px; }
+/* #402: footerInset={false} cancels the foot's built-in padding so a full-width account row's hover bg reaches
+   the rail edges + the top divider (a --space-1 gap is kept above). The negative margins mirror .twc-sidebar__foot's
+   own var(--space-2) padding \u2014 both live in this file, so they can't silently drift like a consumer workaround. */
+.twc-sidebar__foot-user[data-inset="false"] { padding: 0; margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) var(--space-1); }
+.twc-sidebar[data-collapsed="true"] .twc-sidebar__foot-user[data-inset="false"] { margin-inline: 0; }
 .twc-sidebar__collapse { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 9px; border: none; background: none; cursor: pointer;
   color: var(--color-text-muted); border-radius: var(--radius-md); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold);
   transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
@@ -17261,6 +17921,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     brand,
     items,
     footer,
+    footerInset = true,
     collapsed: collapsedProp,
     defaultCollapsed = false,
     collapsible = true,
@@ -17321,13 +17982,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       document.addEventListener("keydown", onKey);
       return () => document.removeEventListener("keydown", onKey);
     }, [overlay, open, openProp, onOpenChange]);
-    const safeHref14 = (url) => {
+    const safeHref15 = (url) => {
       if (url == null) return void 0;
       const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
       return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
     };
     const renderItem = (it, i) => {
-      const href = safeHref14(it.href);
+      const href = safeHref15(it.href);
       const labelStr = typeof it.label === "string" ? it.label : void 0;
       const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
         it.icon ? /* @__PURE__ */ jsx("span", { className: "twc-sidebar__ic", "aria-hidden": "true", children: it.icon }) : labelStr != null ? /* @__PURE__ */ jsx("span", { className: "twc-sidebar__ic twc-sidebar__ic--initial", "aria-hidden": "true", children: labelStr.charAt(0) }) : null,
@@ -17366,7 +18027,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         /* @__PURE__ */ jsx("ul", { className: "twc-sidebar__list", ...g.section != null ? { "aria-labelledby": g.sid } : {}, children: g.entries.map(({ it, i }) => /* @__PURE__ */ jsx("li", { children: renderItem(it) }, i)) })
       ] }, gi)) }),
       footer || collapsible ? /* @__PURE__ */ jsxs("div", { className: "twc-sidebar__foot", children: [
-        footer ? /* @__PURE__ */ jsx("div", { className: "twc-sidebar__foot-user", children: footer }) : null,
+        footer ? /* @__PURE__ */ jsx("div", { className: "twc-sidebar__foot-user", "data-inset": footerInset === false ? "false" : void 0, children: footer }) : null,
         collapsible ? /* @__PURE__ */ jsxs("button", { type: "button", className: "twc-sidebar__collapse", onClick: toggle, "aria-expanded": !collapsed, "aria-controls": navId, "aria-label": collapsed ? "Expand sidebar" : "Collapse sidebar", children: [
           /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m15 18-6-6 6-6" }) }),
           /* @__PURE__ */ jsx("span", { children: "Collapse" })
@@ -19107,7 +19768,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     if (BG[bg]) return `var(${BG[bg]})`;
     return String(bg).startsWith("--") ? `var(${bg})` : bg;
   }
-  function safeHref8(url) {
+  function safeHref9(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -19155,7 +19816,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       ...style,
       ...flatStyle
     };
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref8(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref9(rest.href);
     return /* @__PURE__ */ jsxs(Tag2, { ref, className: `twc-box ${className}`.trim(), style: s, "data-twc-sx": sxAttr, ...rest, children: [
       styleNode,
       children
@@ -19163,7 +19824,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   });
   Box.displayName = "Box";
   var SIZES = { sm: 640, md: 768, lg: 1024, xl: 1280, full: "100%" };
-  function safeHref9(url) {
+  function safeHref10(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -19180,7 +19841,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }, ref) {
     const { flatStyle, styleNode, sxAttr } = useSx(sx);
     const max = SIZES[size] ?? size;
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref9(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref10(rest.href);
     return /* @__PURE__ */ jsxs(
       Tag2,
       {
@@ -19211,7 +19872,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     if (typeof v === "number") return `var(--space-${String(v).replace(".", "-")})`;
     return v;
   }
-  function safeHref10(url) {
+  function safeHref11(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -19239,7 +19900,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     ...rest
   }, ref) {
     const { flatStyle, styleNode, sxAttr } = useSx(sx);
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref10(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref11(rest.href);
     const kids = divider != null ? import_react.default.Children.toArray(children).flatMap((child, i, arr) => i < arr.length - 1 ? [child, /* @__PURE__ */ jsx(import_react.default.Fragment, { children: divider }, `twc-stack-div-${i}`)] : [child]) : children;
     return /* @__PURE__ */ jsxs(
       Tag2,
@@ -19294,7 +19955,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-code__copy:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-code__copy svg { width: 15px; height: 15px; display: block; }
 `;
-  function safeHref11(url) {
+  function safeHref12(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -19311,7 +19972,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }) {
     const __twcStyles = useScopedStyles("twc-code-styles", CODE_CSS);
     const Tag2 = as ?? (block ? "pre" : "code");
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref11(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref12(rest.href);
     const rootRef = import_react.default.useRef(null);
     const [copied, setCopied] = import_react.default.useState(false);
     const timerRef = import_react.default.useRef(null);
@@ -19358,7 +20019,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     ] });
   }
   var LEVEL_SIZE = { 1: "4xl", 2: "2xl", 3: "xl", 4: "lg", 5: "base", 6: "sm" };
-  function safeHref12(url) {
+  function safeHref13(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -19380,7 +20041,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const { flatStyle, styleNode, sxAttr } = useSx(sx);
     const Tag2 = as || `h${level}`;
     const sz = size || (display ? "display" : LEVEL_SIZE[level]) || "2xl";
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref12(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref13(rest.href);
     return /* @__PURE__ */ jsxs(
       Tag2,
       {
@@ -19427,7 +20088,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     // Adopt the surrounding color (e.g. inside a solid Button/Badge/Alert or a link).
     inherit: "inherit"
   };
-  function safeHref13(url) {
+  function safeHref14(url) {
     if (url == null) return void 0;
     const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
     return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? void 0 : url;
@@ -19447,7 +20108,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     ...rest
   }, ref) {
     const { flatStyle, styleNode, sxAttr } = useSx(sx);
-    if (Tag2 === "a" && rest.href != null) rest.href = safeHref13(rest.href);
+    if (Tag2 === "a" && rest.href != null) rest.href = safeHref14(rest.href);
     const toneToken = TONE[tone] || TONE.default;
     return /* @__PURE__ */ jsxs(
       Tag2,
@@ -19842,5 +20503,27 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   var useFocusTrap2 = useFocusTrap;
   var usePortal2 = usePortal;
   var useScrollLock2 = useScrollLock;
+  function useFilePicker({ accept, multiple = false, maxSize, maxFiles, onFiles, onReject } = {}) {
+    const inputRef = import_react.default.useRef(null);
+    const cbRef = import_react.default.useRef({ onFiles, onReject });
+    cbRef.current = { onFiles, onReject };
+    const open = import_react.default.useCallback(() => {
+      inputRef.current?.click();
+    }, []);
+    const getInputProps = import_react.default.useCallback(() => ({
+      ref: inputRef,
+      type: "file",
+      accept,
+      multiple,
+      style: { display: "none" },
+      onChange: (e) => {
+        const { accepted, rejections } = partitionFiles(e.target.files, { accept, multiple, maxSize, maxFiles });
+        if (accepted.length) cbRef.current.onFiles?.(accepted);
+        if (rejections.length) cbRef.current.onReject?.(rejections);
+        e.target.value = "";
+      }
+    }), [accept, multiple, maxSize, maxFiles]);
+    return { open, getInputProps };
+  }
   return __toCommonJS(index_exports);
 })();

@@ -2,9 +2,11 @@
 
 - **Group:** inputs
 - **Status:** open
-- **Reviewed:** 2026-06-17
+- **Reviewed:** 2026-09-22
 
 ## Open issues
+
+- [x] **[#389] Escape closing an open Combobox inside a Dialog also closed the Dialog** — Combobox now preventDefaults Escape when its list is open. `Combobox.jsx` — ✓ fixed 2026-09-22
 
 - [ ] **[P2] Backspace with selected item keeps selection** — Line 182 has a comment "keep selection; user can clear" but the logic does nothing — just returns early. User expects Backspace to be able to clear the field when empty. Consider allowing a second press to clear, or document this behavior. `Combobox.jsx:182`.
 

@@ -3,6 +3,21 @@
 Developer notes for the larger, opt-in capabilities of `components/data-display/Datatable.jsx`.
 Everything here is **additive**: with the relevant prop off, the table renders exactly as before.
 
+> **1.39 additions** (all additive; details + rationale in [qa-notes/Datatable.md](./qa-notes/Datatable.md)):
+> - **Columns:** `align`/`headerAlign` now do `left`/`center`/`right` for cells + headers (#397); `defaultColumn`
+>   sets table-level column defaults (#403); a duplicate `field` warns in dev (#404); `renderHeader` starts from
+>   neutral type + non-sortable headers lose the pointer cursor (#400). Row actions gain `href`/`target`/`rel`
+>   (link actions) + `disabledReason` (#399).
+> - **Editing / clipboard:** `renderEditCell` gains `setDraft` (commit-on-click-away) + `commitPatch`
+>   (multi-key writes) (#390); `onCellsCommit` batches a paste/cut into one call (#394); `onEditingChange` +
+>   a `data-editing` root attribute report editor open/close (#396).
+> - **Keyboard:** in-cell Menu/Select keys no longer leak to grid nav (#391); opt-in `cellNavigation="widget"`
+>   (WAI-ARIA grid pattern) (#392).
+> - **Grouping / scroll:** controlled `collapsedGroups` (+ `defaultCollapsedGroups`/`onCollapsedGroupsChange`,
+>   persisted in `DatatableState`; `renderGroupLabel` also gets `{ collapsed, toggle }`); select-all skips
+>   collapsed rows (#393); controlled `activeCell` + `scrollActiveCellIntoView` reveal any cell in-scroller (#395).
+> - **Fix:** the column-menu "Filter" anchor is scoped to this table (#408, a #386 regression).
+
 > **Card layouts:** [`CardGrid`](../components/data-display/CardGrid.jsx) (#204, see
 > [qa-notes/CardGrid.md](./qa-notes/CardGrid.md)) is the **card analogue** of Datatable's `serverMode`.
 > It reuses `runDatatableQuery` and emits the **same** query shape (`{ page, pageSize, sort, filters,

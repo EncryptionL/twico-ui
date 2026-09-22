@@ -1,10 +1,12 @@
 # QA notes — Popover
 
 - **Group:** overlay
-- **Reviewed:** 2026-06-17
+- **Reviewed:** 2026-09-22
 - **Status:** clean
 
 ## Open issues
+
+- [x] **[#389] Escape/outside-click over a Popover-in-Dialog closed both** — Popover joins the dismissable-layer stack (gates outside-pointer + preventDefaults Escape when topmost). `Popover.jsx` — ✓ fixed 2026-09-22
 
 - [x] **[#373] No `max-height`/overflow, so a tall panel rendered off-screen with its footer unreachable** — `.twc-popover` set no height cap and no overflow, so a panel taller than the room below its trigger rendered past the viewport edge; because it is `position: fixed`, page scrolling couldn't bring it back and there was no scrollbar to recover the footer (`Menu` and the Datatable popups already clamp — which made this look like an oversight). `place()` now sets a `maxHeight` from the `spaceBelow`/`spaceAbove` it already measures for the flip decision (or `vh − 2·M` for left/right, floored at 120), applied to `.twc-popover__inner` with `overflow-y: auto`. The clamp + scroll live on the INNER, not the panel, because the panel must keep `overflow: visible` so the absolutely-positioned arrow (`top`/`left: -6`) isn't clipped. `Tooltip` was checked and deliberately left as-is — a hover-dismissed bubble shouldn't grow a scrollbar (it is `max-width` + wrap, meant for short text). `Popover.jsx` — ✓ fixed 2026-09-11
 

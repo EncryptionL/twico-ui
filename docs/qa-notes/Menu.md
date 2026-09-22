@@ -1,10 +1,12 @@
 # QA notes — Menu
 
 - **Group:** overlay
-- **Reviewed:** 2026-06-17
+- **Reviewed:** 2026-09-22
 - **Status:** open
 
 ## Open issues
+
+- [x] **[#389] a backdrop click over a Menu-in-Dialog closed both** — Menus outside-pointer dismissal now gates on the dismissable-layer stack (`isTop()`), so only the topmost layer closes. `Menu.jsx` — ✓ fixed 2026-09-22
 
 - [x] **[P1] Tab order is broken while the menu is open** — Keyboard nav keeps DOM focus on the trigger and tracks the highlight via `aria-activedescendant` (`Menu.jsx:188-203`), but the menu items render as real, tabbable `<button>`s in a portal at the end of `document.body` (`Menu.jsx:162-178`). The roving model never moves DOM focus into them and there is no focus trap, so pressing Tab while open moves focus to whatever follows the trigger in the source order, leaving an open menu with a now-tabbable button cluster orphaned at the end of the DOM. A subsequent Tab can land on those buttons out of context. _Fix:_ give the menu items `tabIndex={-1}` (the APG menu-button pattern keeps them out of the tab sequence; activation is via the roving handler), or move real focus into the menu and trap Tab like Dialog does. `Menu.jsx:162-178` — ✓ fixed 2026-06-17
 
