@@ -1115,9 +1115,10 @@ export function Datatable({
   stateKey, initialState, onStateChange,
   showPageJumper = true,
   selectionMode = "none", cellNavigation = "cell", onRowClick, onCellClick, onActiveCellChange, onCellSelectionChange,
-  activeRowId, scrollActiveRowIntoView = true,
+  activeRowId, scrollActiveRowIntoView = true, activeCell, scrollActiveCellIntoView = false,
   enableClipboard = false, onCellsCopy, onCellsPaste, onCellsCommit,
   showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [], showGroupBar = true, renderGroupLabel,
+  collapsedGroups, defaultCollapsedGroups = [], onCollapsedGroupsChange,
   rowNumbers = false,
   searchFields = null,
   searchable = true,
@@ -1346,7 +1347,12 @@ export function Datatable({
   // when `activeRowId` is provided the highlight follows the prop; onRowClick still fires so the host updates it.
   const activeRowControlled = activeRowId !== undefined;
   const activeRowVal = activeRowControlled ? activeRowId : activeRow;
-  const [activeCell, setActiveCell] = React.useState(null); // { key, field } — the moving/focus corner
+  const [internalActiveCell, setInternalActiveCell] = React.useState(null); // { key, field } — the moving/focus corner
+  // #395: controllable active cell (mirrors activeRowId). Drives the highlight in cell mode AND gives a stable
+  // scroll target in any mode. commitActiveCell reports via onActiveCellChange and self-updates when uncontrolled.
+  const activeCellControlled = activeCell !== undefined;
+  const activeCellVal = activeCellControlled ? activeCell : internalActiveCell;
+  const commitActiveCell = (next) => { onActiveCellChange?.(next); if (!activeCellControlled) setInternalActiveCell(next); };
   const [anchorCell, setAnchorCell] = React.useState(null); // #317: fixed corner of a rectangular range
   const gridId = React.useId(); // #317: stable prefix for cell ids (aria-activedescendant)
   // #45: controlled/uncontrolled pagination (hand-rolled per project rule — no
@@ -1371,7 +1377,11 @@ export function Datatable({
   const [interacting, setInteracting] = React.useState(null);
   const gridRef = React.useRef(null);
   const [groupBy, setGroupBy] = React.useState(rowGrouping || []);
-  const [collapsed, setCollapsed] = React.useState(() => new Set());
+  // #393: controllable/persisted group-collapse state (mirrors activeRowId / expandedRowIds). Keys are the
+  // internal group-path strings ("/status:open", nested "/status:open/owner:ann").
+  const [internalCollapsed, setInternalCollapsed] = React.useState(() => new Set(defaultCollapsedGroups));
+  const collapsedControlled = collapsedGroups !== undefined;
+  const collapsedSet = React.useMemo(() => new Set(collapsedControlled ? collapsedGroups : internalCollapsed), [collapsedControlled, collapsedGroups, internalCollapsed]);
   // #350: expanded row-detail keys. Uncontrolled by default; `expandedRowIds` (a controlled array of keys)
   // takes over when supplied, mirroring the activeRow/page controlled pattern.
   const [internalExpanded, setInternalExpanded] = React.useState(() => new Set());
@@ -1436,6 +1446,9 @@ export function Datatable({
     columnCombine: Object.keys(userCombine).length ? userCombine : undefined,
     // #341: additive, optional — user-resized batch-editor column-name field width (px).
     batchNameWidth: batchNameW != null ? batchNameW : undefined,
+    // #393: additive, optional — the active grouping fields + which groups are collapsed.
+    grouping: groupBy.length ? groupBy : undefined,
+    collapsedGroups: collapsedSet.size ? [...collapsedSet] : undefined,
   });
   const applyState = (s) => {
     if (!s || typeof s !== "object") return;
@@ -1494,6 +1507,9 @@ export function Datatable({
       if (Object.keys(uc).length) setUserCombine(uc);
     }
     if (typeof s.batchNameWidth === "number") setBatchNameW(clampNum(s.batchNameWidth, 88, 260)); // #341
+    // #393: restore grouping fields (known only) + collapsed groups (skip collapsed when host-controlled).
+    if (Array.isArray(s.grouping)) setGroupBy(s.grouping.filter((f) => known.has(f)));
+    if (Array.isArray(s.collapsedGroups) && !collapsedControlled) setInternalCollapsed(new Set(s.collapsedGroups.filter((k) => typeof k === "string")));
   };
   const stateReadyRef = React.useRef(false);
   const stateRestoredRef = React.useRef(false); // #298: restore applied at most once (survives a Strict Mode remount)
@@ -1510,7 +1526,7 @@ export function Datatable({
     if (stateKey) { try { window.localStorage.setItem(stateKey, JSON.stringify(state)); } catch { /* storage unavailable/full */ } }
     return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey]);
+  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedSet]);
   // Reads localStorage[stateKey] (else initialState) and applies it. Cheap to call more than once —
   // applyState is idempotent for a given snapshot — but callers gate it (see the two effects below).
   const restoreState = () => {
@@ -1967,16 +1983,17 @@ export function Datatable({
       const items = [];
       for (const [value, rs] of map) {
         const key = `${prefix}/${field}:${value}`;
-        const isCollapsed = collapsed.has(key);
+        const isCollapsed = collapsedSet.has(key);
         items.push({ kind: "group", key, field, value, depth, count: rs.length, rows: rs, collapsed: isCollapsed });
         if (!isCollapsed) items.push(...build(rs, depth + 1, key));
       }
       return items;
     };
     return build(paged, 0, "");
-  }, [activeGroupBy, collapsed, paged, ordered, aggOn]);
+  }, [activeGroupBy, collapsedSet, paged, ordered, aggOn]);
   const leafRows = displayItems ? displayItems.filter((i) => i.kind === "leaf").map((i) => i.row) : (treeRows ? treeRows.map((t) => t.row) : paged); // #359: client tree flatten
-  function toggleGroup(key) { setCollapsed((s) => { const n = new Set(s); n.has(key) ? n.delete(key) : n.add(key); return n; }); }
+  // #393: controlled/uncontrolled toggle — always report via onCollapsedGroupsChange; only self-update when uncontrolled.
+  function toggleGroup(key) { const n = new Set(collapsedSet); n.has(key) ? n.delete(key) : n.add(key); onCollapsedGroupsChange?.([...n]); if (!collapsedControlled) setInternalCollapsed(n); }
   function toggleGroupField(field) { setGroupBy((g) => (g.includes(field) ? g.filter((f) => f !== field) : [...g, field])); }
 
   // ---- Row pinning (sticky pinned rows above/below the scroll body) ----
@@ -2009,20 +2026,20 @@ export function Datatable({
   // gone (filtered out / off page), the range collapses to the surviving (active) cell.
   const cellColIndex = React.useCallback((field) => ordered.findIndex((c) => c.field === field), [ordered]);
   const cellRect = React.useMemo(() => {
-    if (selectionMode !== "cell" || !activeCell) return null;
-    const ar = keyIndex.get(activeCell.key), ac = cellColIndex(activeCell.field);
+    if (selectionMode !== "cell" || !activeCellVal) return null;
+    const ar = keyIndex.get(activeCellVal.key), ac = cellColIndex(activeCellVal.field);
     if (ar == null || ac < 0) return null;
-    const anchor = anchorCell || activeCell;
+    const anchor = anchorCell || activeCellVal;
     const nr = keyIndex.get(anchor.key), nc = cellColIndex(anchor.field);
     const r0 = nr == null ? ar : Math.min(ar, nr), r1 = nr == null ? ar : Math.max(ar, nr);
     const c0 = nc < 0 ? ac : Math.min(ac, nc), c1 = nc < 0 ? ac : Math.max(ac, nc);
     return { r0, r1, c0, c1 };
-  }, [selectionMode, activeCell, anchorCell, keyIndex, cellColIndex]);
+  }, [selectionMode, activeCellVal, anchorCell, keyIndex, cellColIndex]);
   const activeCellId = React.useMemo(() => {
-    if (selectionMode !== "cell" || !activeCell) return undefined;
-    const ar = keyIndex.get(activeCell.key), ac = cellColIndex(activeCell.field);
+    if (selectionMode !== "cell" || !activeCellVal) return undefined;
+    const ar = keyIndex.get(activeCellVal.key), ac = cellColIndex(activeCellVal.field);
     return ar == null || ac < 0 ? undefined : `${gridId}-${ar}-${ac}`;
-  }, [selectionMode, activeCell, keyIndex, cellColIndex, gridId]);
+  }, [selectionMode, activeCellVal, keyIndex, cellColIndex, gridId]);
   // Fire onCellSelectionChange (row-major {key,field}[]) whenever the rectangle actually changes.
   const onCellSelRef = React.useRef(onCellSelectionChange); onCellSelRef.current = onCellSelectionChange;
   const prevSelSigRef = React.useRef("");
@@ -2428,10 +2445,13 @@ export function Datatable({
   const hasAggregation = ordered.some((c) => aggOf(c));
 
   const filteredFields = new Set(filters.map((f) => f.field));
-  const allSel = paged.length > 0 && paged.every((r) => selected.has(keyOf(r)));
-  const someSel = paged.some((r) => selected.has(keyOf(r)));
+  // #393: when grouping is active, select-all covers only the VISIBLE leaf rows (leafRows excludes rows inside
+  // collapsed groups), so a bulk action can't silently include rows the user can't see.
+  const selRows = activeGroupBy.length ? leafRows : paged;
+  const allSel = selRows.length > 0 && selRows.every((r) => selected.has(keyOf(r)));
+  const someSel = selRows.some((r) => selected.has(keyOf(r)));
   function toggleAll() {
-    setSelected((s) => { const n = new Set(s); if (allSel) paged.forEach((r) => n.delete(keyOf(r))); else paged.forEach((r) => n.add(keyOf(r))); return n; });
+    setSelected((s) => { const n = new Set(s); if (allSel) selRows.forEach((r) => n.delete(keyOf(r))); else selRows.forEach((r) => n.add(keyOf(r))); return n; });
   }
   function toggleRow(k) { setSelected((s) => { const n = new Set(s); n.has(k) ? n.delete(k) : n.add(k); return n; }); }
   // #350: expand/collapse a row's detail panel. Always fires onExpandedRowsChange; writes internal state
@@ -2449,19 +2469,18 @@ export function Datatable({
     if (selectionMode === "row") {
       if (!activeRowControlled) setActiveRow(k); // #324: controlled → the host drives the highlight via activeRowId
       onRowClick?.(row, k);
-      onActiveCellChange?.(null);
+      commitActiveCell(null); // #395: clear the active cell (internal + notify) when a row is picked
     }
   }
   function handleCellClick(e, k, row, col) {
     if (selectionMode !== "cell") return;
     if (e.target.closest("button, a, input, select, .twc-dt__check, .twc-dt__editor-wrap")) return;
     const next = { key: k, field: col.field };
-    setActiveCell(next);
+    commitActiveCell(next);
     setActiveRow(k);
     // #317: Shift+Click extends the rectangle from the existing anchor; a plain click starts a new one.
     if (!(e.shiftKey && anchorCell)) setAnchorCell(next);
     onCellClick?.(row[col.field], row, col.field);
-    onActiveCellChange?.(next);
   }
 
   // ---- Keyboard grid navigation (roving tabindex over data cells) ----
@@ -2545,7 +2564,7 @@ export function Datatable({
       // anchor (move the active corner only); a plain move starts a new single-cell selection (anchor = active).
       if (selectionMode === "cell") {
         const nk = keyOf(leafRows[r], r), col = ordered[c];
-        if (col) { const nc = { key: nk, field: col.field }; setActiveCell(nc); setActiveRow(nk); if (!e.shiftKey) setAnchorCell(nc); onActiveCellChange?.(nc); }
+        if (col) { const nc = { key: nk, field: col.field }; commitActiveCell(nc); setActiveRow(nk); if (!e.shiftKey) setAnchorCell(nc); }
       }
     }
   }
@@ -2586,7 +2605,43 @@ export function Datatable({
     if (!activeRowControlled || !scrollActiveRowIntoView || activeRowId == null) return;
     const el = gridRef.current && gridRef.current.querySelector('.twc-dt__row[data-active="true"]');
     if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest" });
-  }, [activeRowId, activeRowControlled, scrollActiveRowIntoView]);
+    // #395: `keyIndex` in the deps so the scroll re-applies once a server-mode page fetch mounts the row.
+  }, [activeRowId, activeRowControlled, scrollActiveRowIntoView, keyIndex]);
+  // #395: reveal the controlled active cell inside the grid's OWN scroller (never scrollIntoView, which would
+  // scroll the page). Works in any selectionMode, on both axes, honours the sticky header + pinned columns,
+  // and re-runs when rows change so a server-mode page fetch — or a virtualized row mounting — lands on it.
+  React.useEffect(() => {
+    if (!scrollActiveCellIntoView || !activeCellVal) return undefined;
+    const opt = typeof scrollActiveCellIntoView === "object" ? scrollActiveCellIntoView : {};
+    const block = opt.block === "center" ? "center" : "nearest";
+    const inline = opt.inline === "center" ? "center" : "nearest";
+    const ri = keyIndex.get(activeCellVal.key), ci = cellColIndex(activeCellVal.field);
+    if (ri == null || ci < 0) return undefined;
+    let raf = 0;
+    const reveal = () => {
+      const sc = scrollRef.current; if (!sc) return;
+      const td = gridRef.current && gridRef.current.querySelector(`.twc-dt__td[data-r="${ri}"][data-c="${ci}"]`);
+      if (td) {
+        const scR = sc.getBoundingClientRect(), tR = td.getBoundingClientRect();
+        if (block === "center") { const mid = (scR.top + headH + scR.bottom) / 2; sc.scrollTop += (tR.top + tR.height / 2) - mid; }
+        else if (tR.top < scR.top + headH) sc.scrollTop -= (scR.top + headH - tR.top);
+        else if (tR.bottom > scR.bottom) sc.scrollTop += (tR.bottom - scR.bottom);
+        if (!td.getAttribute("data-pin")) { // a sticky pinned cell reports its stuck position — don't chase it
+          let leftInset = 0, rightInset = 0;
+          gridRef.current.querySelectorAll('thead .twc-dt__th[data-pin="left"]').forEach((th) => { leftInset += th.offsetWidth; });
+          gridRef.current.querySelectorAll('thead .twc-dt__th[data-pin="right"]').forEach((th) => { rightInset += th.offsetWidth; });
+          if (inline === "center") { const midX = (scR.left + leftInset + scR.right - rightInset) / 2; sc.scrollLeft += (tR.left + tR.width / 2) - midX; }
+          else if (tR.left < scR.left + leftInset) sc.scrollLeft -= (scR.left + leftInset - tR.left);
+          else if (tR.right > scR.right - rightInset) sc.scrollLeft += (tR.right - (scR.right - rightInset));
+        }
+      } else if (virtualizing && offsets) { // target row not mounted yet — pre-scroll from the prefix-sum, then re-reveal
+        const mi = keyIndexMid.get(activeCellVal.key);
+        if (mi != null && offsets[mi] != null) { sc.scrollTop = Math.max(0, offsets[mi] - (block === "center" ? sc.clientHeight / 2 : headH)); raf = requestAnimationFrame(reveal); }
+      }
+    };
+    reveal();
+    return () => { if (raf) cancelAnimationFrame(raf); };
+  }, [activeCellVal, scrollActiveCellIntoView, keyIndex, cellColIndex, virtualizing, offsets, keyIndexMid, headH]);
   function clearSelection() { setSelected(new Set()); }
 
   // ---- Inline editing ----
@@ -3177,7 +3232,7 @@ export function Datatable({
   function renderGroupRow(item) {
     const subs = aggOn ? subtotalText(item.rows) : [];
     // #387: renderGroupLabel replaces the default "<field>: <value> <count>" content; the chevron + toggle stay.
-    const custom = renderGroupLabel ? renderGroupLabel({ field: item.field, value: item.value, count: item.count, rows: item.rows }) : null;
+    const custom = renderGroupLabel ? renderGroupLabel({ field: item.field, value: item.value, count: item.count, rows: item.rows, collapsed: item.collapsed, toggle: () => toggleGroup(item.key) }) : null;
     return (
       <tr key={`g${item.key}`} className="twc-dt__group-row" role="row">
         <td className="twc-dt__group-cell" role="gridcell" colSpan={totalCols} style={{ maxWidth: "none" }}>
@@ -3284,7 +3339,7 @@ export function Datatable({
           const isActions = c.type === "actions";
           const editable = isColEditable(c);
           const isEditing = editing && editing.key === k && editing.field === c.field;
-          const cellActive = selectionMode === "cell" && activeCell && activeCell.key === k && activeCell.field === c.field;
+          const cellActive = selectionMode === "cell" && activeCellVal && activeCellVal.key === k && activeCellVal.field === c.field;
           // #317: is this cell inside the current selection rectangle? (single-cell selection is a 1×1 rect)
           const cellSelected = selectionMode === "cell" && cellRect && ri >= cellRect.r0 && ri <= cellRect.r1 && ci >= cellRect.c0 && ci <= cellRect.c1;
           const cellFlash = clipFx && clipFx.rect && ri >= clipFx.rect.r0 && ri <= clipFx.rect.r1 && ci >= clipFx.rect.c0 && ci <= clipFx.rect.c1; // #320 copy/paste flash

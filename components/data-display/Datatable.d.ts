@@ -263,6 +263,14 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   activeRowId?: string | number | null;
   /** #324: scroll the controlled active row into view when `activeRowId` changes. @default true */
   scrollActiveRowIntoView?: boolean;
+  /** #395: controlled active cell ({ key, field } | null), independent of `selectionMode`. In "cell" mode it
+   *  drives the highlight; in any mode it is the target for `scrollActiveCellIntoView`. Pass `null` to clear.
+   *  Lets a host step through specific cells (next changed cell, next validation error, find-in-grid). */
+  activeCell?: { key: string | number; field: string } | null;
+  /** #395: reveal the `activeCell` inside the grid's own scroller (both axes, honouring the sticky header and
+   *  pinned columns; never scrolls the page). Re-applied when `rows` change, so a server-mode page switch or a
+   *  virtualized mount lands on the cell. Pass an object to center it. @default false */
+  scrollActiveCellIntoView?: boolean | { block?: "nearest" | "center"; inline?: "nearest" | "center" };
   /** Fired when a cell is clicked in "cell" selection mode: (value, row, field). */
   onCellClick?: (value: any, row: T, field: string) => void;
   /** Fired when the active cell changes: ({ key, field } | null). */
@@ -309,10 +317,19 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   showGroupBar?: boolean;
   /** #387: custom content for a group header row (the chevron + collapse/expand toggle are kept). Return the
    *  node to render in place of the default `"<field>: <value>  <count>"` — e.g. a section title + a summary.
-   *  `rows` is the group's rows; `count` is their number. Return `null` to render an empty label (matching
-   *  `renderCell`/`renderHeader`). The content sits **inside** the group's toggle button, so keep it
-   *  non-interactive — a nested button/link would be invalid HTML and its clicks would also toggle the group. */
-  renderGroupLabel?: (group: { field: string; value: unknown; count: number; rows: T[] }) => React.ReactNode;
+   *  `rows` is the group's rows; `count` is their number; `collapsed` is its current state and `toggle()`
+   *  flips it. Return `null` to render an empty label (matching `renderCell`/`renderHeader`). The content sits
+   *  **inside** the group's toggle button, so keep it non-interactive — a nested button/link would be invalid
+   *  HTML and its clicks would also toggle the group. */
+  renderGroupLabel?: (group: { field: string; value: unknown; count: number; rows: T[]; collapsed: boolean; toggle: () => void }) => React.ReactNode;
+  /** #393: which groups are collapsed, as internal group-path keys (`"/status:open"`, nested
+   *  `"/status:open/owner:ann"`). Controlled — pair with `onCollapsedGroupsChange`; omit for uncontrolled. */
+  collapsedGroups?: string[];
+  /** #393: initial collapsed groups for the uncontrolled case (ignored when `collapsedGroups` is set). @default [] */
+  defaultCollapsedGroups?: string[];
+  /** #393: fired when the user collapses/expands a group, with the next array of collapsed group keys. Also
+   *  the way to persist collapse state outside `stateKey`. */
+  onCollapsedGroupsChange?: (keys: string[]) => void;
   /** Enable row pinning — adds "Pin to top/bottom" to each row's actions menu; pinned rows stay sticky above/below the scroll body. @default false */
   rowPinning?: boolean;
   /** Enable reorder of rows: the whole row is mouse-draggable, and a focusable drag handle supports
@@ -466,6 +483,10 @@ export interface DatatableState {
   columnCombine?: Record<string, { fields: string[]; layout?: "inline" | "stack"; separator?: string; labels?: boolean }>;
   /** #341: user-resized width (px) of the batch-editor's column-name field. Absent until the user drags it. */
   batchNameWidth?: number;
+  /** #393: active grouping fields (from the column ⋮ "Group by" items). Absent when nothing is grouped. */
+  grouping?: string[];
+  /** #393: collapsed group keys (internal group-path strings). Absent when every group is expanded. */
+  collapsedGroups?: string[];
 }
 
 export interface DatatableColumn<T = any> {

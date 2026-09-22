@@ -66,7 +66,7 @@ describe("Datatable clipboard (#318)", () => {
   it("source-guard: default copyType is a number-vs-text bucket; paste batches into one write path", () => {
     const src = readFileSync(DT_SRC, "utf8");
     expect(src).toMatch(/copyTypeOf = \(col\) =>.*number.*text/);
-    expect(src).toContain("const writeCellPatches = (patchByKey)"); // single onRowsChange, not per-cell commitEdit
+    expect(src).toContain("const writeCellPatches = (patchByKey, meta)"); // single onRowsChange; #394 added the batch meta arg
   });
 
   it("Ctrl+C copies the active cell", () => {
