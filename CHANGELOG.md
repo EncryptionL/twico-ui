@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.38.0](https://github.com/EncryptionL/twico-ui/compare/v1.37.2...v1.38.0) (2026-09-22)
+
+
+### Features
+
+* **datatable,tooltip:** toolbar/group-bar controls + rich tooltip labels ([#385](https://github.com/EncryptionL/twico-ui/issues/385), [#386](https://github.com/EncryptionL/twico-ui/issues/386), [#387](https://github.com/EncryptionL/twico-ui/issues/387)) ([a89fb1f](https://github.com/EncryptionL/twico-ui/commit/a89fb1f4885bc51f2383b4c3437eb502aa574a37))
+
 ## [1.37.2](https://github.com/EncryptionL/twico-ui/compare/v1.37.1...v1.37.2) (2026-09-18)
 
 
