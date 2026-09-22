@@ -2,6 +2,29 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.39.0](https://github.com/EncryptionL/twico-ui/compare/v1.38.0...v1.39.0) (2026-09-22)
+
+
+### Bug Fixes
+
+* address adversarial-review findings on the [#389](https://github.com/EncryptionL/twico-ui/issues/389)-[#408](https://github.com/EncryptionL/twico-ui/issues/408) batch ([26124c5](https://github.com/EncryptionL/twico-ui/commit/26124c50f7c5e8bef6626ca9ba603f053d26e8b6)), closes [389/#398](https://github.com/EncryptionL/twico-ui/issues/398)
+* **datatable:** keep the header overflow tooltip working after the [#400](https://github.com/EncryptionL/twico-ui/issues/400) text-span wrap ([3375800](https://github.com/EncryptionL/twico-ui/commit/3375800c4b19c408a30e26c82a3ea393c29ad87e))
+* **site:** render ImageViewer controlled variation as a component (React [#310](https://github.com/EncryptionL/twico-ui/issues/310)) ([827d56a](https://github.com/EncryptionL/twico-ui/commit/827d56a8134d3149f7e2f8cbe275394473bd24e7))
+
+
+### Features
+
+* **buttons:** pressed (toggle) state on Button/IconButton + new ToggleGroup ([#405](https://github.com/EncryptionL/twico-ui/issues/405)) ([8182da7](https://github.com/EncryptionL/twico-ui/commit/8182da786cc54c6e3ec7e405ab4d9fca3c96cf12))
+* **datatable:** column align, defaultColumn, row-action links + fixes ([#397](https://github.com/EncryptionL/twico-ui/issues/397), [#399](https://github.com/EncryptionL/twico-ui/issues/399), [#400](https://github.com/EncryptionL/twico-ui/issues/400), [#403](https://github.com/EncryptionL/twico-ui/issues/403), [#404](https://github.com/EncryptionL/twico-ui/issues/404), [#408](https://github.com/EncryptionL/twico-ui/issues/408)) ([fe9b5e3](https://github.com/EncryptionL/twico-ui/commit/fe9b5e3bc282b0a377d2216368f877346008b185)), closes [#386](https://github.com/EncryptionL/twico-ui/issues/386)
+* **datatable:** controllable group collapse + persisted grouping, controlled activeCell + scroll-to-cell ([#393](https://github.com/EncryptionL/twico-ui/issues/393), [#395](https://github.com/EncryptionL/twico-ui/issues/395)) ([82af4f3](https://github.com/EncryptionL/twico-ui/commit/82af4f3e073e4578b1ef087fb9f6f493b0234548)), closes [#324](https://github.com/EncryptionL/twico-ui/issues/324)
+* **datatable:** guard in-cell popup keys + opt-in widget cell navigation ([#391](https://github.com/EncryptionL/twico-ui/issues/391), [#392](https://github.com/EncryptionL/twico-ui/issues/392)) ([f12f361](https://github.com/EncryptionL/twico-ui/commit/f12f361bf5fea12e1dd5f695b5af01f4db55d625))
+* **datatable:** renderEditCell staging + commitPatch, batched clipboard commit, edit signal ([#390](https://github.com/EncryptionL/twico-ui/issues/390), [#394](https://github.com/EncryptionL/twico-ui/issues/394), [#396](https://github.com/EncryptionL/twico-ui/issues/396)) ([6b5ba44](https://github.com/EncryptionL/twico-ui/commit/6b5ba447b07fb6ee8fef058c756b8bf3fbb60847))
+* **fileupload:** headless trigger + open() handle + useFilePicker hook ([#406](https://github.com/EncryptionL/twico-ui/issues/406)) ([560881b](https://github.com/EncryptionL/twico-ui/commit/560881b90e06379d3c8676cd75e50e0cb947a21a))
+* **imageviewer:** new zoomable image viewer + raise full-barrel size budget ([#407](https://github.com/EncryptionL/twico-ui/issues/407), [#405](https://github.com/EncryptionL/twico-ui/issues/405)) ([4210df9](https://github.com/EncryptionL/twico-ui/commit/4210df9966b12adf56cc2ca8c7f44c32af020ca7)), closes [#406](https://github.com/EncryptionL/twico-ui/issues/406)
+* **overlays:** dismissable-layer stack so Escape/backdrop hit only the topmost layer ([#389](https://github.com/EncryptionL/twico-ui/issues/389)) ([8bff874](https://github.com/EncryptionL/twico-ui/commit/8bff874f8145503f3f280eb0608231853437d38d))
+* **sidebar,avatarmenu:** scroll short rails, footerInset + AvatarMenu fullWidth ([#401](https://github.com/EncryptionL/twico-ui/issues/401), [#402](https://github.com/EncryptionL/twico-ui/issues/402)) ([cd318db](https://github.com/EncryptionL/twico-ui/commit/cd318dbcddc56fd0154fbd6d9c76fe8aef40b1d3))
+* **tooltip,button:** show tooltips on disabled triggers + focusableWhenDisabled ([#398](https://github.com/EncryptionL/twico-ui/issues/398)) ([0deb710](https://github.com/EncryptionL/twico-ui/commit/0deb7103c95b0d818c18bf9958886dfff525f83e))
+
 # [1.38.0](https://github.com/EncryptionL/twico-ui/compare/v1.37.2...v1.38.0) (2026-09-22)
 
 
