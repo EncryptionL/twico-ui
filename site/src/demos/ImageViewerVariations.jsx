@@ -13,6 +13,13 @@ const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500' vi
 </svg>`;
 const src = `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 
+// A real component (rendered as an element) — the variations harness CALLS `render()` inline, so hooks must
+// live in a mounted component, not directly inside the render function (that trips React's rules of hooks).
+function ControlledViewer() {
+  const [zoom, setZoom] = React.useState(1);
+  return <ImageViewer src={src} alt="Sample drawing, controlled zoom" zoom={zoom} onZoomChange={setZoom} maxZoom={12} style={{ height: 260, maxWidth: 480 }} />;
+}
+
 const variations = [
   {
     title: "Default",
@@ -31,10 +38,7 @@ const variations = [
     description: "Drive zoom yourself with zoom / onZoomChange, and raise maxZoom for fine inspection.",
     code: `const [zoom, setZoom] = React.useState(1);
 <ImageViewer src={src} alt="Photo" zoom={zoom} onZoomChange={setZoom} maxZoom={12} style={{ height: 320 }} />`,
-    render: function Controlled() {
-      const [zoom, setZoom] = React.useState(1);
-      return <ImageViewer src={src} alt="Sample drawing, controlled zoom" zoom={zoom} onZoomChange={setZoom} maxZoom={12} style={{ height: 260, maxWidth: 480 }} />;
-    },
+    render: () => <ControlledViewer />,
   },
 ];
 
