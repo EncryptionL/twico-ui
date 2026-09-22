@@ -28,6 +28,9 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    *  wrapping `Tooltip` explaining *why* it's disabled is reachable by keyboard. Click and Enter/Space are
    *  still blocked and the disabled styling still applies. @default false */
   focusableWhenDisabled?: boolean;
+  /** #405: toggle "on" state — sets `aria-pressed` and shows a soft fill + border in the current `tone`
+   *  (works with any `variant`). Omit for a plain (non-toggle) button. @default undefined */
+  pressed?: boolean;
   /** Render as a different element (e.g. "a"). @default "button" */
   as?: "button" | "a";
   /** Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href). */

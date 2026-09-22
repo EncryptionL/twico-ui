@@ -74,6 +74,9 @@ const CSS = `
 /* ghost — neutral at rest, accent on hover */
 .twc-btn[data-variant="ghost"] { background: transparent; color: var(--color-text-muted); }
 .twc-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
+/* #405: toggle "on" state (aria-pressed) — a soft tone fill + tone border, variant-agnostic (works over any
+   variant); source-ordered after the variant rules so it wins at rest, hover keeps its higher specificity. */
+.twc-btn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
 
 .twc-btn__spinner {
   position: absolute; inset: 0; margin: auto;
@@ -117,6 +120,7 @@ export function Button({
   fullWidth = false,
   disabled = false,
   focusableWhenDisabled = false,
+  pressed,
   as = "button",
   href,
   className = "",
@@ -161,6 +165,7 @@ export function Button({
       type={Tag === "button" ? "button" : undefined}
       href={inert ? undefined : safeHref(href)}
       aria-disabled={inert || softDisabled || undefined}
+      aria-pressed={pressed}
       tabIndex={inert ? -1 : undefined}
       aria-busy={loading || undefined}
       onClick={handleClick}

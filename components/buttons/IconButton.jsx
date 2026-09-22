@@ -50,6 +50,8 @@ const ICONBTN_CSS = `
 .twc-iconbtn[data-variant="outline"] { border-color: var(--color-border-strong); color: var(--color-text); }
 .twc-iconbtn[data-variant="outline"]:hover:not(:disabled) { border-color: var(--_accent); color: var(--_accent); background: var(--color-surface-sunken); }
 .twc-iconbtn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
+/* #405: toggle "on" state (aria-pressed) — a soft tone fill + tone border, works over any variant. */
+.twc-iconbtn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
 `;
 
 // #342: block javascript:/data:/vbscript: URLs (incl. whitespace/control-char obfuscation browsers strip)
@@ -69,6 +71,7 @@ export function IconButton({
   round = false,
   disabled = false,
   focusableWhenDisabled = false,
+  pressed,
   as = "button",
   href,
   className = "",
@@ -96,6 +99,7 @@ export function IconButton({
       type={Tag === "button" ? "button" : undefined}
       href={Tag === "a" && !inert ? safeHref(href) : undefined}
       aria-disabled={inert || softDisabled || undefined}
+      aria-pressed={pressed}
       tabIndex={inert ? -1 : undefined}
       aria-label={ariaLabel}
       onClick={softDisabled ? (e) => e.preventDefault() : onClick}

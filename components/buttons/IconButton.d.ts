@@ -22,6 +22,9 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
    *  `Tooltip` explaining *why* it's disabled is reachable by keyboard. Click and Enter/Space stay blocked and
    *  the disabled styling still applies. @default false */
   focusableWhenDisabled?: boolean;
+  /** #405: toggle "on" state — sets `aria-pressed` and shows a soft fill + border in the current `tone`
+   *  (works with any `variant`), e.g. a pin/unpin or bold/italic icon toggle. @default undefined */
+  pressed?: boolean;
   /** #342: render as a different element — use `"a"` for an icon **link** (GitHub icon, external nav, …) so
    *  navigation is a real link, not a button. @default "button" */
   as?: "button" | "a";
