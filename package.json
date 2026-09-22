@@ -126,7 +126,7 @@
     {
       "name": "ESM (full barrel)",
       "path": "dist/index.mjs",
-      "limit": "125 kB"
+      "limit": "132 kB"
     },
     {
       "name": "Button only (tree-shaken)",

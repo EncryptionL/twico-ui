@@ -13,6 +13,7 @@ export { Pre } from "../components/typography/Pre";
 export { Anchor } from "../components/navigation/Anchor";
 export { Label } from "../components/inputs/Label";
 export { Image } from "../components/data-display/Image";
+export { ImageViewer } from "../components/data-display/ImageViewer";
 export { Accordion } from "../components/navigation/Accordion";
 export { Alert } from "../components/feedback/Alert";
 export { Avatar } from "../components/data-display/Avatar";
@@ -116,6 +117,7 @@ export type { PreProps } from "../components/typography/Pre";
 export type { AnchorProps } from "../components/navigation/Anchor";
 export type { LabelProps } from "../components/inputs/Label";
 export type { ImageProps } from "../components/data-display/Image";
+export type { ImageViewerProps, ImageViewerControlsApi } from "../components/data-display/ImageViewer";
 export type { Option, OptionGroup } from "../components/inputs/options";
 
 export type { AccordionProps, AccordionItem } from "../components/navigation/Accordion";
