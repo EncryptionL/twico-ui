@@ -7,6 +7,7 @@ import { Pagination } from "./Pagination.jsx";
 import { Tooltip } from "../overlay/Tooltip.jsx";
 import { Badge } from "./Badge.jsx";
 import { classifyDiff, DIFF_OPS } from "../_diff.js";
+import { warnOnce } from "../_warn.js";
 
 // #330: default Filters-panel width, shared by the JS-side consumers (resize-grip aria-valuetext fallback,
 // open-position clamp) so they stay in lockstep with the CSS default. NOTE: must equal the literal in DT_CSS
@@ -15,6 +16,14 @@ import { classifyDiff, DIFF_OPS } from "../_diff.js";
 // longer tree-shake (it leaked ~8.6 kB of Datatable CSS into every single-component bundle). Edit together.
 // (The And/Or connector width is not a constant — it is a resizable filter field; see F_MIN/F_SEL.logic.)
 const DT_FILTER_PANEL_W = 620;
+
+// #399: block javascript:/data:/vbscript: URLs from reaching a row-action anchor (consumer hrefs are
+// untrusted). Mirrors the shared `safeHref` used in the nav components (Menu, Breadcrumbs, …).
+const safeHref = (url) => {
+  if (url == null) return undefined;
+  const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+  return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
+};
 
 const DT_CSS = `
 .twc-dt { display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--color-text);
@@ -109,13 +118,25 @@ const DT_CSS = `
 .twc-dt__th, .twc-dt__td { box-sizing: border-box; text-align: start; }
 .twc-dt__th { position: sticky; top: 0; z-index: 3; background: var(--color-surface-sunken);
   border-bottom: var(--border-thin) solid var(--color-border); padding: 0; height: 44px;
-  font-size: var(--text-xs); font-weight: var(--font-bold); letter-spacing: var(--tracking-wide);
-  text-transform: uppercase; color: var(--color-text-muted); white-space: nowrap; }
+  font-size: var(--text-xs); font-weight: var(--font-bold);
+  color: var(--color-text-muted); white-space: nowrap; }
+/* #400: the upper-case + letter-spacing live on a text-only span, not the whole cell, so a renderHeader
+   node starts from neutral type (a <span>/Text no longer renders UPPER-CASE while a <button> — which UA
+   styles reset to text-transform:none — does not). The default headerName keeps the styled look + ellipsis. */
+.twc-dt__th-text { text-transform: uppercase; letter-spacing: var(--tracking-wide); overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .twc-dt__th-inner { display: flex; align-items: center; gap: 6px; height: 100%; padding: 0 12px; }
 .twc-dt__th[data-num="true"] .twc-dt__th-inner { flex-direction: row-reverse; }
-.twc-dt__th-label { cursor: pointer; user-select: none; flex: 1; overflow: hidden; text-overflow: ellipsis;
+.twc-dt__th-label { user-select: none; flex: 1; overflow: hidden; text-overflow: ellipsis;
   display: inline-flex; align-items: center; gap: 5px; }
+.twc-dt__th-label[role="button"] { cursor: pointer; } /* #400: pointer only when the header is sortable */
 .twc-dt__th[data-num="true"] .twc-dt__th-label { flex-direction: row-reverse; }
+/* #397: per-column alignment for data cells, headers and the footer (mirrors the Table component's
+   data-align). Placed after the data-num rules so an explicit align wins over the number default. */
+.twc-dt__td[data-align="left"], .twc-dt__table tfoot td[data-align="left"] { text-align: start; }
+.twc-dt__td[data-align="center"], .twc-dt__table tfoot td[data-align="center"] { text-align: center; }
+.twc-dt__td[data-align="right"], .twc-dt__table tfoot td[data-align="right"] { text-align: end; }
+.twc-dt__th[data-align="center"] .twc-dt__th-label { justify-content: center; }
+.twc-dt__th[data-align="right"] .twc-dt__th-label { justify-content: flex-end; }
 .twc-dt__sort { display: inline-flex; opacity: 0; transition: opacity var(--duration-fast), transform var(--duration-base) var(--ease-spring); color: var(--color-primary); }
 .twc-dt__sort svg { width: 14px; height: 14px; }
 .twc-dt__th[data-sorted="asc"] .twc-dt__sort, .twc-dt__th[data-sorted="desc"] .twc-dt__sort { opacity: 1; }
@@ -421,8 +442,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__mi { display: flex; align-items: center; gap: 10px; width: 100%; padding: 8px 10px; border: none; background: transparent;
   font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); text-align: start;
   border-radius: var(--radius-md); cursor: pointer; transition: background-color var(--duration-fast); }
+.twc-dt__mi { text-decoration: none; } /* #399: link (<a role="menuitem">) variant */
 .twc-dt__mi:hover { background: var(--color-surface-sunken); }
 .twc-dt__mi:disabled { color: var(--color-text-subtle); opacity: 0.5; cursor: default; pointer-events: none; }
+.twc-dt__mi-hint { margin-inline-start: auto; padding-inline-start: 12px; color: var(--color-text-subtle); font-size: var(--text-xs); font-weight: var(--font-normal); } /* #399: disabledReason */
 .twc-dt__mi svg { width: 16px; height: 16px; color: var(--color-text-subtle); flex: none; }
 .twc-dt__mi[data-active="true"] { color: var(--color-primary); }
 .twc-dt__mi[data-active="true"] svg { color: var(--color-primary); }
@@ -572,7 +595,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__check:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-dt__th-label:focus-visible { outline: none; box-shadow: var(--ring); border-radius: var(--radius-sm); }
 .twc-dt__act { display: inline-grid; place-items: center; width: 30px; height: 30px; border: none; background: transparent;
-  color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md);
+  color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); text-decoration: none; /* #399: link (<a>) variant */
   transition: background-color var(--duration-fast), color var(--duration-fast), transform var(--duration-fast) var(--ease-spring); }
 .twc-dt__act:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dt__act:active { transform: scale(0.88); }
@@ -1078,7 +1101,7 @@ export function Datatable({
   page, onPageChange, onPageSizeChange,
   height = 440, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [], onRowSelectionChange,
   showExport = false, showDensity = false, showPivot = false, showColumns, showFilters, exportFilename = "export", aggregationValues = null,
-  disableColumnReorder = false, disableColumnResize = false,
+  disableColumnReorder = false, disableColumnResize = false, defaultColumn,
   columnCombining = false,
   emptyMessage, renderEmpty,
   editMode = false, onRowUpdate, onRowsChange, onBatchUpdate,
@@ -1161,6 +1184,19 @@ export function Datatable({
   const rowKey = isDiff ? diffRowKeyFn : rowKeyProp;
 
   const cols = React.useMemo(() => {
+    // #404: a `columns` array with two entries sharing a `field` misbehaves silently — width, visibility,
+    // order and pins are all keyed by field (last-wins), and React logs duplicate-key warnings. Warn once
+    // per repeated field in development (no-op in prod / after first fire), naming both headers.
+    const seenFields = new Map();
+    for (const c of columns) {
+      if (!c || c.field == null) continue;
+      const name = c.headerName ?? c.field;
+      if (seenFields.has(c.field)) {
+        warnOnce(`Datatable.dupField.${c.field}`, `Twico Datatable: duplicate column field "${c.field}" (headers "${seenFields.get(c.field)}" and "${name}"). \`field\` must be unique within \`columns\` — it is the column's identity for width, visibility, order, pinning and persisted stateKey state.`);
+      } else {
+        seenFields.set(c.field, name);
+      }
+    }
     const out = columns.map((c) => {
       const isActions = c.type === "actions";
       return {
@@ -1168,7 +1204,9 @@ export function Datatable({
         sortable: !isActions, filterable: !isActions, hideable: !isActions, pinnable: true,
         groupable: !isActions && c.type !== "number",
         disableColumnMenu: false, headerName: isActions ? "Actions" : c.field,
-        align: c.type === "number" ? "right" : isActions ? "right" : "left", ...c,
+        // #403: `defaultColumn` shallow-merges UNDER each column (built-in defaults < defaultColumn < column),
+        // so a fixed-layout grid sets its flags once. Spreading `undefined` is a no-op → default unchanged.
+        align: c.type === "number" ? "right" : isActions ? "right" : "left", ...defaultColumn, ...c,
       };
     });
     // Row pinning exposes "Pin to top/bottom" through a row's ⋮ actions menu. If the consumer didn't
@@ -1213,7 +1251,7 @@ export function Datatable({
       };
     }
     return out;
-  }, [columns, rowPinning, userCombine]);
+  }, [columns, rowPinning, userCombine, defaultColumn]);
 
   // Stable per-row key. Prefer rowKey, then r.id; otherwise fall back to a key
   // tied to the row's object IDENTITY (a WeakMap), NOT its index — an index-based
@@ -2747,13 +2785,27 @@ export function Datatable({
     })() : [];
     const menu = [...items.filter((a) => a.showInMenu), ...pinItems];
     return (
-      <div className="twc-dt__actions" style={{ justifyContent: col.align === "right" ? "flex-end" : "flex-start" }}>
-        {inline.map((a, i) => (
-          <Tooltip key={i} label={a.label} placement="top">
-            <button type="button" className="twc-dt__act" data-danger={a.danger || undefined} aria-label={a.label}
-              disabled={a.disabled} onClick={(e) => { e.stopPropagation(); a.onClick?.(row); }}>{a.icon}</button>
-          </Tooltip>
-        ))}
+      <div className="twc-dt__actions" style={{ justifyContent: col.align === "right" ? "flex-end" : col.align === "center" ? "center" : "flex-start" }}>
+        {inline.map((a, i) => {
+          // #399: a navigation action renders as a real (scheme-sanitised) <a> so it can be middle-clicked,
+          // opened in a new tab, or copied. onClick still runs for a plain left-click (client routers keep
+          // working); modifier / middle clicks fall through to the browser. A disabled action shows its
+          // `disabledReason` (when given) as the tooltip. Non-link actions keep the native <button>.
+          const href = !a.disabled ? safeHref(a.href) : undefined;
+          const tip = a.disabled && a.disabledReason != null ? a.disabledReason : a.label;
+          return (
+            <Tooltip key={i} label={tip} placement="top">
+              {href ? (
+                <a className="twc-dt__act" data-danger={a.danger || undefined} aria-label={a.label}
+                  href={href} target={a.target} rel={a.rel}
+                  onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; e.stopPropagation(); a.onClick?.(row); }}>{a.icon}</a>
+              ) : (
+                <button type="button" className="twc-dt__act" data-danger={a.danger || undefined} aria-label={a.label}
+                  disabled={a.disabled} onClick={(e) => { e.stopPropagation(); a.onClick?.(row); }}>{a.icon}</button>
+              )}
+            </Tooltip>
+          );
+        })}
         {menu.length ? (
           <Tooltip label="More actions" placement="top">
             <button type="button" className="twc-dt__act" aria-label="More actions"
@@ -3160,7 +3212,7 @@ export function Datatable({
             <td key={c.field} id={cellId} className={cellClass ? `twc-dt__td ${cellClass}` : "twc-dt__td"} role="gridcell" data-r={ri} data-c={ci} aria-colindex={ci + 1 + (checkboxSelection ? 1 : 0) + (hasExpandCol ? 1 : 0)}
               tabIndex={focus.r === ri && focus.c === ci ? 0 : -1}
               aria-selected={cellSelected || undefined}
-              data-num={c.type === "number" || undefined} data-actions={isActions || undefined}
+              data-num={c.type === "number" || undefined} data-actions={isActions || undefined} data-align={c.align || undefined}
               data-editable={editable && !isEditing || undefined} data-editing={isEditing || undefined}
               data-cell-active={cellActive || undefined} data-cell-selected={cellSelected || undefined} data-copied={cellFlash || undefined} data-wrap={effectiveWrapped.has(c.field) || undefined}
               data-pin={st.pin} data-pin-edge={st.edge}
@@ -3488,7 +3540,7 @@ export function Datatable({
                 return (
                   <th key={c.field} className="twc-dt__th" role="columnheader" scope="col"
                     aria-sort={sorted ? (sorted === "asc" ? "ascending" : "descending") : (c.sortable ? "none" : undefined)}
-                    data-num={c.type === "number" || undefined} data-actions-col={c.type === "actions" || undefined}
+                    data-num={c.type === "number" || undefined} data-actions-col={c.type === "actions" || undefined} data-align={(c.headerAlign ?? c.align) || undefined}
                     data-sorted={sorted} data-pin={st.pin} data-pin-edge={st.edge}
                     data-dragging={drag.from === c.field || undefined}
                     data-dropbefore={(drag.over === c.field && !drag.after) || undefined}
@@ -3508,7 +3560,7 @@ export function Datatable({
                         onKeyDown={c.sortable ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); cycleSort(c.field); } } : undefined}>
                         {reorderable ? <span className="twc-dt__grip" aria-hidden="true"><Svg d={I.grip} /></span> : null}
                         {filteredFields.has(c.field) ? <span className="twc-dt__filterdot" /> : null}
-                        {c.renderHeader ? c.renderHeader({ column: c }) : c.headerName}
+                        {c.renderHeader ? c.renderHeader({ column: c }) : <span className="twc-dt__th-text">{c.headerName}</span>}
                         {c.sortable ? <span className="twc-dt__sort"><Svg d={I.arrow} /></span> : null}
                       </span>
                       {hasMenu ? (
@@ -3589,7 +3641,7 @@ export function Datatable({
                   const v = aggregate(c);
                   const display = v == null ? null : (c.aggregationFormatter ? c.aggregationFormatter(v) : c.valueFormatter ? c.valueFormatter(v, null) : (typeof v === "number" ? v.toLocaleString() : v));
                   return (
-                    <td key={c.field} role="gridcell" data-num={c.type === "number" || undefined} data-pin={st.pin} data-pin-edge={st.edge} style={{ width: widthOf(c), ...st.style }}>
+                    <td key={c.field} role="gridcell" data-num={c.type === "number" || undefined} data-align={c.align || undefined} data-pin={st.pin} data-pin-edge={st.edge} style={{ width: widthOf(c), ...st.style }}>
                       {v == null ? null : (<>
                         {typeof aggOf(c) === "string" ? <span className="twc-dt__agg-label">{aggLabels[aggOf(c)]}</span> : null}
                         <span className="twc-dt__agg-val">{display}</span>
@@ -3760,7 +3812,7 @@ export function Datatable({
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "asc" || undefined} onClick={() => { setSort({ field: c.field, dir: "asc" }); close(); }}><Svg d={I.arrow} /> Sort ascending</button>
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "desc" || undefined} onClick={() => { setSort({ field: c.field, dir: "desc" }); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(180deg)" }} /> Sort descending</button>
               </>) : null}
-              {c.filterable && filtersShown ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); restoreTriggerFocus(); setPanel("filters"); openPanel(document.querySelector('.twc-dt__toolbar .twc-dt__tbtn[data-tbtn="filters"]'), "left", DT_FILTER_PANEL_W); }}><Svg d={I.filter} /> Filter</button> : null}
+              {c.filterable && filtersShown ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); restoreTriggerFocus(); setPanel("filters"); /* #408: anchor to THIS table's own Filters button (rootRef-scoped, not a document-wide lookup that grabs the first grid's button); fall back to the ⋮ trigger when the toolbar is scrolled out of view so the panel always places. */ const filterBtn = rootRef.current?.querySelector('.twc-dt__toolbar [data-tbtn="filters"]'); openPanel(filterBtn ?? menuTriggerRef.current, "left", DT_FILTER_PANEL_W); }}><Svg d={I.filter} /> Filter</button> : null}
               {hasTop && hasBottom ? <div className="twc-dt__sep" /> : null}
               {c.groupable ? <button type="button" role="menuitem" className="twc-dt__mi" data-active={groupBy.includes(c.field) || undefined} onClick={() => { toggleGroupField(c.field); close(); }}><Svg d={I.group} /> {groupBy.includes(c.field) ? "Stop grouping" : "Group by this column"}</button> : null}
               {/* #339: build a combined column at runtime — fold other columns' data into this one. */}
@@ -3795,13 +3847,27 @@ export function Datatable({
           onKeyDown={(e) => onMenuKeyDown(e, () => { setRowMenu(null); closeRowMenu(); })}
           style={{ top: rowMenuPos.top, left: rowMenuPos.left, width: rowMenuPos.width, maxHeight: rowMenuPos.maxHeight, overflowY: "auto" }}>
           <Caret pos={rowMenuPos} />
-          {rowMenu.items.map((a, i) => (
-            <button type="button" key={i} role="menuitem" className="twc-dt__mi" disabled={a.disabled}
-              style={a.danger ? { color: "var(--color-danger-subtle-fg)" } : undefined}
-              onClick={() => { a.onClick?.(rowMenu.row); setRowMenu(null); closeRowMenu(); restoreTriggerFocus(); }}>
-              {a.icon || null}{a.label}
-            </button>
-          ))}
+          {rowMenu.items.map((a, i) => {
+            // #399: an overflow action with a (sanitised) href renders as <a role="menuitem"> like Menu's link
+            // items — middle/modifier clicks open the browser, a plain click runs onClick and closes the menu.
+            // A disabled action shows its `disabledReason` as an inline muted hint (reachable regardless of the
+            // disabled-button pointer-events quirk).
+            const href = !a.disabled ? safeHref(a.href) : undefined;
+            const sty = a.danger ? { color: "var(--color-danger-subtle-fg)" } : undefined;
+            const inner = (<>{a.icon || null}{a.label}{a.disabled && a.disabledReason != null ? <span className="twc-dt__mi-hint">{a.disabledReason}</span> : null}</>);
+            const done = () => { setRowMenu(null); closeRowMenu(); restoreTriggerFocus(); };
+            return href ? (
+              <a key={i} role="menuitem" className="twc-dt__mi" href={href} target={a.target} rel={a.rel} style={sty}
+                onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; a.onClick?.(rowMenu.row); done(); }}>
+                {inner}
+              </a>
+            ) : (
+              <button type="button" key={i} role="menuitem" className="twc-dt__mi" disabled={a.disabled} style={sty}
+                onClick={() => { a.onClick?.(rowMenu.row); done(); }}>
+                {inner}
+              </button>
+            );
+          })}
         </div>
       ) : null}
 

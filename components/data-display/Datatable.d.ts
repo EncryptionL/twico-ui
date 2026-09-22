@@ -182,6 +182,13 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  rearrange only the movable, unpinned columns and leave pinned/actions columns in place.
    *  @default false */
   disableColumnReorder?: boolean;
+  /** #403: table-level column defaults, shallow-merged **under** each column definition before
+   *  normalisation (built-in defaults < `defaultColumn` < the column). A per-column value always wins.
+   *  Set shared flags once instead of repeating them — e.g. a fixed-layout grid:
+   *  `defaultColumn={{ sortable: false, filterable: false, hideable: false, pinnable: false, groupable: false,
+   *  resizable: false, reorderable: false, wrappable: false, disableColumnMenu: true }}`. Like TanStack Table's
+   *  `defaultColumn` / AG Grid's `defaultColDef`. The smart Columns/Filters toolbar buttons follow it too. @default undefined */
+  defaultColumn?: Partial<DatatableColumn<T>>;
   /** Message rendered when there are no rows (filter-aware default: "No rows match your filters" when a filter/quick-search is active, else "No rows"). */
   emptyMessage?: React.ReactNode;
   /** Render a custom empty state inside the table body (e.g. the shipped `<EmptyState/>`). Overrides `emptyMessage`. */
@@ -441,7 +448,10 @@ export interface DatatableState {
 }
 
 export interface DatatableColumn<T = any> {
-  /** Row object key (also the default sort/filter/search/group/export key). */
+  /** Row object key (also the default sort/filter/search/group/export key). **Must be unique within
+   *  `columns`** — it is the column's identity for width, visibility, order, pinning and persisted `stateKey`
+   *  state (a duplicate `field` makes two columns share that state and logs a dev warning). To show one row
+   *  key in two columns, give the second its own `field` and read the value with `valueGetter`. */
   field: string;
   /** Derive the column's value from the whole row (nested/computed) — drives sort, filter,
    *  quick-search, grouping, aggregation, the default cell render, and export. Falls back to
@@ -487,8 +497,12 @@ export interface DatatableColumn<T = any> {
   minWidth?: number;
   /** Upper bound (px) for the resolved width; `minWidth` wins if they conflict. */
   maxWidth?: number;
-  /** Cell alignment; currently affects the actions column's button justification. @default "right" for number/actions columns, else "left" */
-  align?: "left" | "right";
+  /** Horizontal alignment of the column's body cells and footer (and the actions column's button
+   *  justification), emitted as `data-align` like the `Table` component. Use `"center"` for status icons,
+   *  toggles or short counts. @default "right" for number/actions columns, else "left" */
+  align?: "left" | "center" | "right";
+  /** Header-cell alignment, when it should differ from the body `align`. @default the column's `align` */
+  headerAlign?: "left" | "center" | "right";
   /** Allow sorting this column. @default true */
   sortable?: boolean;
   /** Allow filtering this column. @default true */
@@ -586,13 +600,26 @@ export interface DatatableRowAction<T = any> {
   icon?: React.ReactNode;
   /** Accessible label / tooltip / menu text. */
   label: string;
-  /** Click handler, receives the row. */
+  /** Click handler, receives the row. Still runs for a plain left-click when `href` is set (so client-side
+   *  routing keeps working); modifier and middle clicks fall through to the browser. */
   onClick?: (row: T) => void;
+  /** #399: render this action as a link (`<a>`) — middle-click, open-in-new-tab and copy-address all work.
+   *  The URL is scheme-sanitised (`javascript:`/`data:`/`vbscript:` are dropped). A `disabled` action never
+   *  emits an href. */
+  href?: string;
+  /** Anchor `target` for the `href` link (e.g. `"_blank"`). */
+  target?: string;
+  /** Anchor `rel` for the `href` link (pair `rel="noopener noreferrer"` with `target="_blank"`). */
+  rel?: string;
   /** Place in the ⋮ overflow menu instead of inline. @default false */
   showInMenu?: boolean;
   /** Render in danger color. */
   danger?: boolean;
   disabled?: boolean;
+  /** #399: shown when `disabled` — as the tooltip for an inline action and as an inline hint in the ⋮ menu.
+   *  Reaching an inline disabled action's tooltip by hover/keyboard also needs `focusableWhenDisabled` on the
+   *  trigger (see #398); the menu hint is always reachable. */
+  disabledReason?: React.ReactNode;
 }
 
 /** Extra context handed to a batch action's `onClick`. */
