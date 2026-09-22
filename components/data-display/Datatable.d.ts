@@ -267,13 +267,20 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   onCellClick?: (value: any, row: T, field: string) => void;
   /** Fired when the active cell changes: ({ key, field } | null). */
   onActiveCellChange?: (cell: { key: string | number; field: string } | null) => void;
+  /** #396: fired at every inline-edit transition so a host can, for example, stand down its own keyboard
+   *  shortcuts while a cell is being edited. `reason` is `"start"` (an editor opened), `"commit"` (it closed
+   *  saving — fired even when the value was unchanged) or `"cancel"` (it closed discarding). The grid root
+   *  also carries a `data-editing` attribute while any editor is open. */
+  onEditingChange?: (cell: { key: string | number; field: string } | null, reason: "start" | "commit" | "cancel") => void;
   /** #317: fired when the rectangular cell selection changes ("cell" mode) — every cell inside the
    *  anchor→focus rectangle, in row-major order. Empty array when the selection clears. */
   onCellSelectionChange?: (cells: Array<{ key: string | number; field: string }>) => void;
   /** #318: enable spreadsheet clipboard on cells ("cell" mode): Ctrl/Cmd+C copies the active cell/range as
    *  TSV, Ctrl/Cmd+X cuts (copy then clear), Ctrl/Cmd+V pastes onto the target rectangle from the active
-   *  cell. Paste is format-restricted by column `copyType` (incompatible cells are skipped) and commits
-   *  through `onRowUpdate`/`onRowsChange` in one batched change; outcomes are announced via `aria-live`.
+   *  cell. Paste is format-restricted by column `copyType` (incompatible cells are skipped). It commits
+   *  through `onRowsChange` in one change and, per cell, through `onRowUpdate` (once per changed field) —
+   *  unless `onCellsCommit` is supplied, which reports the whole paste/cut as a single grouped call instead.
+   *  Outcomes are announced via `aria-live`.
    *  Copy/cut/paste also show a brief **visible** in-grid confirmation toast + a flash on the affected cells
    *  (#320), so sighted users get feedback too. @default false */
   enableClipboard?: boolean;
@@ -283,6 +290,11 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   /** #320: fired after a clipboard paste with the outcome — `written` cells committed, `skipped` cells
    *  rejected (read-only or incompatible `copyType`). */
   onCellsPaste?: (result: { written: number; skipped: number }) => void;
+  /** #394: when supplied, a paste or cut reports the whole change as ONE call — the grouped patches per row
+   *  (`key`, the updated `row`, and its `patch`) plus `meta.source` — instead of firing `onRowUpdate` once per
+   *  cell (which bursts N writes through a rate-limited API). `onRowsChange` is unaffected. The clipboard
+   *  counterpart of `onBatchUpdate`. */
+  onCellsCommit?: (changes: Array<{ key: string | number; row: T; patch: Partial<T> }>, meta: { source: "paste" | "cut" }) => void;
   /** Show the **Aggregation** toolbar button and start with the totals row on. From that panel the user
    *  toggles totals and picks columns + functions (a column's `aggregation` prop seeds the initial choice);
    *  changing the prop re-applies it. When false (the default) the Aggregation button is hidden. @default false */
@@ -547,8 +559,13 @@ export interface DatatableColumn<T = any> {
    *  or `cancel()` to discard. Twico overlay dropdowns (portaled as `.twc-pop`) are exempt from the
    *  cell's outside-click auto-cancel, so a Combobox popover works inside the cell. **Escape cancels**
    *  the edit automatically (the wrapper calls `cancel()`), so you needn't wire a keydown — stop
-   *  propagation on Escape only if your control needs it (e.g. to close its own open dropdown). */
-  renderEditCell?: (args: { value: any; row: T; field: string; commit: (nextValue: any) => void; cancel: () => void }) => React.ReactNode;
+   *  propagation on Escape only if your control needs it (e.g. to close its own open dropdown).
+   *  #390: call `setDraft(next)` as the user types to STAGE a value — click-away then commits the staged
+   *  draft spreadsheet-style (like the built-in editor) instead of discarding it; an editor that never stages
+   *  keeps the cancel-on-click-away behaviour. Call `commitPatch(patch)` to write several stored keys at once
+   *  (a quantity + its unit shown as one column) — it writes `{ ...row, ...patch }` and no-ops only when every
+   *  patched key is unchanged. */
+  renderEditCell?: (args: { value: any; row: T; field: string; commit: (nextValue: any) => void; cancel: () => void; setDraft: (next: any) => void; commitPatch: (patch: Partial<T>) => void }) => React.ReactNode;
   /** Custom control for this column's clause in the **batch** editor (#247) — the counterpart of
    *  `renderEditCell` for the "Edit N selected rows" popover. Use it when the value is backed by a large,
    *  async, creatable vocabulary that `valueOptions` (a static array) can't express; without it such a

@@ -1110,13 +1110,13 @@ export function Datatable({
   disableColumnReorder = false, disableColumnResize = false, defaultColumn,
   columnCombining = false,
   emptyMessage, renderEmpty,
-  editMode = false, onRowUpdate, onRowsChange, onBatchUpdate,
+  editMode = false, onRowUpdate, onRowsChange, onBatchUpdate, onEditingChange,
   showBatchEdit = true, batchEditFields = null,
   stateKey, initialState, onStateChange,
   showPageJumper = true,
   selectionMode = "none", cellNavigation = "cell", onRowClick, onCellClick, onActiveCellChange, onCellSelectionChange,
   activeRowId, scrollActiveRowIntoView = true,
-  enableClipboard = false, onCellsCopy, onCellsPaste,
+  enableClipboard = false, onCellsCopy, onCellsPaste, onCellsCommit,
   showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [], showGroupBar = true, renderGroupLabel,
   rowNumbers = false,
   searchFields = null,
@@ -2591,29 +2591,52 @@ export function Datatable({
 
   // ---- Inline editing ----
   const [editing, setEditing] = React.useState(null); // { key, field, value }
+  // #390: a custom renderEditCell can stage its draft here (via the `setDraft` arg) so click-away commits it
+  // spreadsheet-style, exactly like the built-in editor. Editors that never stage keep the old cancel-on-away.
+  const stagedEditRef = React.useRef(null);
+  // #396: fire an observability signal at every edit transition (imperative, not an effect — an effect on
+  // `editing` can't tell a commit from a cancel).
+  const onEditingChangeRef = React.useRef(onEditingChange); onEditingChangeRef.current = onEditingChange;
   // #236: a `renderEditCell` column is editable too (unless `editable: false`).
   const isColEditable = (c) => c.type !== "actions" && c.editable !== false && (c.editable === true || c.renderEditCell != null || editMode);
 
+  // #390/#394: the shared onRowUpdate + onRowsChange tail, so single-key, multi-key and clipboard writes agree.
+  function applyRowUpdate(rowKey, updated, orig, field) {
+    onRowUpdate?.(updated, orig, field);
+    if (onRowsChange && rows.some((r, i) => keyOf(r, i) === rowKey)) {
+      onRowsChange(rows.map((r, i) => (keyOf(r, i) === rowKey ? updated : r)));
+    }
+  }
+
   function beginEdit(rowK, col, row) {
     if (!isColEditable(col)) return;
+    stagedEditRef.current = null;
     setEditing({ key: rowK, field: col.field, value: row[col.field] ?? "" });
+    onEditingChangeRef.current?.({ key: rowK, field: col.field }, "start");
   }
-  function cancelEdit() { setEditing(null); }
-  function commitEdit(override) {
+  function cancelEdit() { const cur = editing; stagedEditRef.current = null; setEditing(null); if (cur) onEditingChangeRef.current?.(null, "cancel"); }
+  // #390: `patch` (from commitPatch) writes several stored keys at once; otherwise the single `field` is written.
+  function commitEdit(override, patch) {
     if (!editing) return;
+    const cur = editing;
     const col = colByField[editing.field];
-    let next = override !== undefined ? override : editing.value;
-    if (col?.type === "number") { next = next === "" ? null : Number(next); if (Number.isNaN(next)) next = null; }
     // #359: resolve from leafRows (which includes tree children) so a client-tree child edit resolves and
     // fires onRowUpdate; the array-persist below can only carry top-level rows.
     const row = leafRows.find((r, i) => keyOf(r, i) === editing.key);
+    stagedEditRef.current = null;
     setEditing(null);
-    if (!row || row[editing.field] === next) return;
-    const updated = { ...row, [editing.field]: next };
-    onRowUpdate?.(updated, row, editing.field);
-    if (onRowsChange && rows.some((r, i) => keyOf(r, i) === editing.key)) {
-      onRowsChange(rows.map((r, i) => (keyOf(r, i) === editing.key ? updated : r)));
+    onEditingChangeRef.current?.(null, "commit"); // #396: fire before the no-op early return so every commit reports
+    if (!row) return;
+    if (patch) {
+      // #390: multi-key edit — no-op only when every patched key is unchanged; else write the merged row.
+      if (Object.keys(patch).every((k) => row[k] === patch[k])) return;
+      applyRowUpdate(cur.key, { ...row, ...patch }, row, cur.field);
+      return;
     }
+    let next = override !== undefined ? override : editing.value;
+    if (col?.type === "number") { next = next === "" ? null : Number(next); if (Number.isNaN(next)) next = null; }
+    if (row[editing.field] === next) return;
+    applyRowUpdate(cur.key, { ...row, [editing.field]: next }, row, cur.field);
   }
   function onEditKey(e) {
     if (e.key === "Enter") { e.preventDefault(); commitEdit(); }
@@ -2692,6 +2715,7 @@ export function Datatable({
   const clipFxTimer = React.useRef(null);
   const onCellsCopyRef = React.useRef(onCellsCopy); onCellsCopyRef.current = onCellsCopy;
   const onCellsPasteRef = React.useRef(onCellsPaste); onCellsPasteRef.current = onCellsPaste;
+  const onCellsCommitRef = React.useRef(onCellsCommit); onCellsCommitRef.current = onCellsCommit; // #394
   React.useEffect(() => () => { if (clipFxTimer.current) clearTimeout(clipFxTimer.current); }, []);
   const announceClip = (msg, rect) => {
     setClipboardMsg(msg);                    // aria-live (screen readers)
@@ -2718,11 +2742,21 @@ export function Datatable({
     return Promise.resolve();
   };
   // Apply a Map<rowKey, {field: value}> in ONE pass → a single onRowsChange (never N), mirroring applyBatchEdit.
-  const writeCellPatches = (patchByKey) => {
+  // #394: when `onCellsCommit` is supplied and `meta` is passed, report the whole paste/cut as ONE grouped call
+  // instead of looping onRowUpdate per cell — so a host persisting through onRowUpdate isn't hit with N writes.
+  const writeCellPatches = (patchByKey, meta) => {
     if (!patchByKey.size) return 0;
     // #359: fire onRowUpdate for every patched row in the RENDERED leaf set (includes tree children).
     let count = 0;
-    leafRows.forEach((r, i) => { const patch = patchByKey.get(keyOf(r, i)); if (!patch) return; const updated = { ...r, ...patch }; for (const f of Object.keys(patch)) onRowUpdate?.(updated, r, f); count++; });
+    const grouped = onCellsCommitRef.current && meta ? [] : null;
+    leafRows.forEach((r, i) => {
+      const patch = patchByKey.get(keyOf(r, i)); if (!patch) return;
+      const updated = { ...r, ...patch };
+      if (grouped) grouped.push({ key: keyOf(r, i), row: updated, patch });
+      else for (const f of Object.keys(patch)) onRowUpdate?.(updated, r, f);
+      count++;
+    });
+    if (grouped && grouped.length) onCellsCommitRef.current(grouped, meta); // one call for the whole batch
     // The array persist (onRowsChange) can only carry top-level rows; children persist via onRowUpdate above.
     if (onRowsChange) {
       let anyTop = false;
@@ -2750,7 +2784,7 @@ export function Datatable({
     if (cut) {
       const patchByKey = new Map(); let clearable = 0;
       for (const line of grid) for (const cell of line) { if (!isColEditable(cell.col)) continue; clearable++; const p = patchByKey.get(cell.key) || {}; p[cell.field] = cell.col.type === "number" ? null : ""; patchByKey.set(cell.key, p); }
-      writeCellPatches(patchByKey);
+      writeCellPatches(patchByKey, { source: "cut" });
       announceClip(`Cut ${clearable} cell${clearable === 1 ? "" : "s"}${clearable < n ? `, ${n - clearable} read-only kept` : ""}`, cellRect);
     } else {
       announceClip(`Copied ${n} cell${n === 1 ? "" : "s"}`, cellRect);
@@ -2779,7 +2813,7 @@ export function Datatable({
         const k = keyOf(row, rr); const p = patchByKey.get(k) || {}; p[col.field] = v; patchByKey.set(k, p); written++;
       }
     }
-    writeCellPatches(patchByKey);
+    writeCellPatches(patchByKey, { source: "paste" });
     onCellsPasteRef.current?.({ written, skipped }); // #320
     const maxCols = matrix.reduce((a, m) => Math.max(a, m.length), 0);
     const pasteRect = written ? { r0: cellRect.r0, c0: cellRect.c0, r1: Math.min(cellRect.r0 + matrix.length - 1, leafRows.length - 1), c1: Math.min(cellRect.c0 + maxCols - 1, ordered.length - 1) } : null;
@@ -2820,10 +2854,11 @@ export function Datatable({
       if (e.target.closest(".twc-dt__editor-wrap") || e.target.closest(".twc-pop")) return;
       // #313: this capture-phase handler fires BEFORE the input's onBlur, so setEditing(null) here used
       // to pre-empt the blur→commit and silently discard a typed value on click-away. The DEFAULT editor
-      // now COMMITS the pending value instead (spreadsheet-like). A `renderEditCell` column keeps its own
-      // semantics — it drives commit/cancel via the callbacks it was given — so we just dismiss it.
+      // now COMMITS the pending value instead (spreadsheet-like). #390: a `renderEditCell` column that
+      // STAGED a draft (via `setDraft`) commits it the same way; one that never staged keeps cancel-on-away.
       const col = colByField[editing.field];
-      if (col && col.renderEditCell) setEditing(null); else commitEdit();
+      if (col && col.renderEditCell) { if (stagedEditRef.current) commitEdit(stagedEditRef.current.value); else cancelEdit(); }
+      else commitEdit();
     };
     document.addEventListener("mousedown", onDown, true);
     return () => document.removeEventListener("mousedown", onDown, true);
@@ -3295,7 +3330,9 @@ export function Datatable({
                   // wants Escape itself (e.g. to close its own open dropdown) stops propagation first.
                   <div className="twc-dt__editor-wrap"
                     onKeyDown={(e) => { if (e.key === "Escape") { e.stopPropagation(); cancelEdit(); } }}>
-                    {c.renderEditCell({ value: editing.value, row, field: c.field, commit: (v) => commitEdit(v), cancel: cancelEdit })}
+                    {c.renderEditCell({ value: editing.value, row, field: c.field, commit: (v) => commitEdit(v), cancel: cancelEdit,
+                      setDraft: (v) => { stagedEditRef.current = { value: v }; setEditing((ed) => (ed ? { ...ed, value: v } : ed)); },
+                      commitPatch: (patch) => commitEdit(undefined, patch) })}
                   </div>
                 ) : (
                   <EditCell col={c} value={editing.value} options={c.valueOptions ? optionsForField(c.field) : null}
@@ -3423,7 +3460,7 @@ export function Datatable({
   }
 
   return (
-    <div className={`twc-dt ${className}`} ref={rootRef} data-density={density} data-resizing={resizing || undefined} {...rest}>
+    <div className={`twc-dt ${className}`} ref={rootRef} data-density={density} data-resizing={resizing || undefined} data-editing={editing ? "" : undefined} {...rest}>
       {__twcStyles}
       {/* PIVOT_RENDER_ANCHOR */}
       {/* Toolbar */}
