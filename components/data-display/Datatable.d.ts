@@ -245,6 +245,15 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  Shift+Click / Shift+Arrow extend a range from an anchor; selected cells expose `aria-selected` and the
    *  grid is `aria-multiselectable` with `aria-activedescendant` on the active cell. @default "none" */
   selectionMode?: "none" | "row" | "cell";
+  /** #392: keyboard cell-navigation model (WAI-ARIA APG grid pattern), independent of `selectionMode`.
+   *  - `"cell"` (default): arrow keys move focus to the `<td>`; today's behaviour, unchanged.
+   *  - `"widget"`: when a data cell holds exactly **one** interactive control (a toggle button, link, chip,
+   *    switch or checkbox), arrow keys focus that control so **Enter/Space** act on it, and the grid body
+   *    becomes a **single Tab stop** (every other in-cell control is `tabindex=-1`) instead of one stop per
+   *    control. A cell with several controls enters an interaction mode on **Enter/F2** (Tab moves within the
+   *    cell, **Escape** returns to the cell). Text inputs/selects (editing) and checkbox-selection / row-expand
+   *    controls are unaffected. @default "cell" */
+  cellNavigation?: "cell" | "widget";
   /** Fired when a row is clicked in "row" selection mode: (row, key). */
   onRowClick?: (row: T, key: string | number) => void;
   /** #324: controlled highlighted row key for `selectionMode="row"`. When provided, the grid highlights THIS

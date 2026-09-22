@@ -25,6 +25,12 @@ const safeHref = (url) => {
   return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
 };
 
+// #392: interactive controls inside a data cell that the "widget" cell-navigation mode focuses/roves (a
+// toggle, link, chip, switch or checkbox). Deliberately excludes text inputs/selects (those are for editing,
+// guarded elsewhere) and arrow-consuming widgets (listbox/slider/menu/radiogroup) that need arrows themselves.
+const DT_CELL_WIDGET_SEL = 'button:not(:disabled), a[href], [role="button"], [role="switch"], [role="checkbox"], [role="link"]';
+const dtCellWidgets = (td) => td ? Array.from(td.querySelectorAll(DT_CELL_WIDGET_SEL)).filter((el) => el.getAttribute("aria-hidden") !== "true" && el.getAttribute("aria-disabled") !== "true") : [];
+
 const DT_CSS = `
 .twc-dt { display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--color-text);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
@@ -1108,7 +1114,7 @@ export function Datatable({
   showBatchEdit = true, batchEditFields = null,
   stateKey, initialState, onStateChange,
   showPageJumper = true,
-  selectionMode = "none", onRowClick, onCellClick, onActiveCellChange, onCellSelectionChange,
+  selectionMode = "none", cellNavigation = "cell", onRowClick, onCellClick, onActiveCellChange, onCellSelectionChange,
   activeRowId, scrollActiveRowIntoView = true,
   enableClipboard = false, onCellsCopy, onCellsPaste,
   showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [], showGroupBar = true, renderGroupLabel,
@@ -1361,6 +1367,8 @@ export function Datatable({
   const [drag, setDrag] = React.useState({ from: null, over: null, after: false });
   const [aggOn, setAggOn] = React.useState(showAggregation);
   const [focus, setFocus] = React.useState({ r: 0, c: 0 });
+  // #392: widget-mode interaction state — {r,c} of the multi-widget cell whose Tab-cycle is active, else null.
+  const [interacting, setInteracting] = React.useState(null);
   const gridRef = React.useRef(null);
   const [groupBy, setGroupBy] = React.useState(rowGrouping || []);
   const [collapsed, setCollapsed] = React.useState(() => new Set());
@@ -2457,9 +2465,16 @@ export function Datatable({
   }
 
   // ---- Keyboard grid navigation (roving tabindex over data cells) ----
-  function focusCell(r, c) {
+  function focusCell(r, c, opts) {
     const el = gridRef.current?.querySelector(`.twc-dt__td[data-r="${r}"][data-c="${c}"]`);
-    if (el) el.focus();
+    if (!el) return;
+    // #392: in widget mode, land on the cell's single interactive control (APG grid pattern) so Enter/Space
+    // act on it. A cell with 0 or >1 widgets (or an explicit `{ cell: true }`) focuses the <td> itself.
+    if (cellNavigation === "widget" && !(opts && opts.cell)) {
+      const w = dtCellWidgets(el);
+      if (w.length === 1) { w[0].focus(); return; }
+    }
+    el.focus();
   }
   function onGridKeyDown(e) {
     // #343: never hijack keys (clipboard Ctrl/Cmd+C/X/V, Arrow/Home/End nav) from a focused editable
@@ -2467,8 +2482,21 @@ export function Datatable({
     // editable-target guard in handleCellClick/handleRowClick so typing/selection there stays native.
     if (e.target.closest("input, textarea, select, [contenteditable='true']")) return;
     if (editing) return;
+    // #391: a child widget that owns a popup (an in-cell Menu/Select trigger) already handled this key —
+    // `defaultPrevented` covers the keys it consumes (Arrow/Enter/Space), and an open trigger's
+    // `aria-expanded="true"` covers the ones it does not (ArrowLeft/Right, Home, End). Without this the grid
+    // also moves cell focus, stranding the open popup. The grid's own aria-expanded controls (column ⋮, export,
+    // row-expand) live outside a data cell, so the td lookup below already skips them.
+    if (e.defaultPrevented) return;
+    if (e.target.closest('[aria-expanded="true"]')) return;
     const td = e.target.closest(".twc-dt__td[data-r]");
     if (!td) return;
+    // #392: widget mode — while interacting inside a multi-widget cell, keys act natively (Tab moves within
+    // the cell); Escape leaves interaction mode and returns focus to the cell.
+    if (cellNavigation === "widget" && interacting) {
+      if (e.key === "Escape") { e.preventDefault(); const ic = interacting; setInteracting(null); focusCell(ic.r, ic.c, { cell: true }); }
+      return;
+    }
     // #318: spreadsheet clipboard on the selection (Ctrl/Cmd + C/X/V) before nav keys.
     if (enableClipboard && selectionMode === "cell" && (e.ctrlKey || e.metaKey)) {
       const k = e.key.toLowerCase();
@@ -2482,6 +2510,19 @@ export function Datatable({
     let r = +td.getAttribute("data-r"), c = +td.getAttribute("data-c");
     const maxR = leafRows.length - 1, maxC = ordered.length - 1;
     let handled = true;
+    // #392: widget-mode activation. A single in-cell widget already has focus → let it handle Enter/Space
+    // natively (only nav keys fall through to move the roving focus). On a <td>-focused cell, Enter/F2 enters
+    // interaction mode for a multi-widget cell, or activates the sole widget.
+    if (cellNavigation === "widget") {
+      const onWidget = e.target !== td && !!e.target.closest(DT_CELL_WIDGET_SEL);
+      if (onWidget) {
+        if (e.key === "Enter" || e.key === " ") return;
+      } else if (e.key === "F2" || e.key === "Enter") {
+        const ws = dtCellWidgets(td);
+        if (ws.length > 1) { e.preventDefault(); setInteracting({ r, c }); ws[0].focus(); return; }
+        if (ws.length === 1 && e.key === "Enter") { e.preventDefault(); ws[0].click(); return; }
+      }
+    }
     switch (e.key) {
       case "ArrowDown": r = Math.min(r + 1, maxR); break;
       case "ArrowUp": r = Math.max(r - 1, 0); break;
@@ -2509,6 +2550,22 @@ export function Datatable({
     }
   }
   React.useEffect(() => { setFocus((f) => ({ r: Math.min(f.r, Math.max(0, leafRows.length - 1)), c: Math.min(f.c, Math.max(0, ordered.length - 1)) })); }, [leafRows.length, ordered.length, pageVal]);
+  // #392: widget mode keeps the grid body a single Tab stop. renderCell content is host-supplied and can't take
+  // a roving React tabIndex, so this is a DOM pass: every data-cell widget is set tabindex=-1 except the one in
+  // the active cell (which becomes the roving 0); a cell with no widget lets its <td> carry the 0. No-op unless
+  // widget mode is on (the default 'cell' path renders the roving tabIndex on the <td> and never runs this).
+  React.useLayoutEffect(() => {
+    if (cellNavigation !== "widget") return;
+    const grid = gridRef.current;
+    if (!grid) return;
+    grid.querySelectorAll(".twc-dt__td[data-r]").forEach((td) => {
+      const active = +td.getAttribute("data-r") === focus.r && +td.getAttribute("data-c") === focus.c;
+      const ws = td.querySelectorAll(DT_CELL_WIDGET_SEL);
+      ws.forEach((w, i) => { if (w.getAttribute("aria-hidden") !== "true") w.tabIndex = active && i === 0 ? 0 : -1; });
+      // A cell with no widget keeps the roving 0 on the <td> itself; otherwise the widget carries it.
+      td.tabIndex = active && ws.length === 0 ? 0 : -1;
+    });
+  }, [cellNavigation, focus.r, focus.c, leafRows, ordered, pageVal, interacting, hidden, pins]);
 
   const selectedRows = React.useMemo(() => rows.filter((r, i) => selected.has(keyOf(r, i))), [rows, selected]);
   const selKeys = React.useMemo(() => [...selected], [selected]); // #322: stable keys array for predicates/callback
@@ -3210,7 +3267,7 @@ export function Datatable({
           const cellSty = c.cellStyle ? c.cellStyle(val, row) : undefined;
           return (
             <td key={c.field} id={cellId} className={cellClass ? `twc-dt__td ${cellClass}` : "twc-dt__td"} role="gridcell" data-r={ri} data-c={ci} aria-colindex={ci + 1 + (checkboxSelection ? 1 : 0) + (hasExpandCol ? 1 : 0)}
-              tabIndex={focus.r === ri && focus.c === ci ? 0 : -1}
+              tabIndex={cellNavigation === "widget" ? -1 : (focus.r === ri && focus.c === ci ? 0 : -1)}
               aria-selected={cellSelected || undefined}
               data-num={c.type === "number" || undefined} data-actions={isActions || undefined} data-align={c.align || undefined}
               data-editable={editable && !isEditing || undefined} data-editing={isEditing || undefined}
