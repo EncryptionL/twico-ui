@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { fileKey, partitionFiles } from "../_upload.js";
 
 const UPLOAD_CSS = `
 .twc-upload { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-3); }
@@ -55,18 +56,7 @@ function fmtSize(bytes) {
   return (bytes / (1024 * 1024)).toFixed(1) + " MB";
 }
 
-// #102: does a file satisfy an `accept` list (extensions, exact MIME, or `type/*`)?
-function matchesAccept(file, accept) {
-  if (!accept) return true;
-  const toks = accept.split(",").map((t) => t.trim().toLowerCase()).filter(Boolean);
-  if (!toks.length) return true;
-  const name = file.name.toLowerCase(), type = (file.type || "").toLowerCase();
-  return toks.some((t) => t.startsWith(".") ? name.endsWith(t) : t.endsWith("/*") ? type.startsWith(t.slice(0, -1)) : type === t);
-}
-// #104: stable identity for a File so re-adds dedupe and rows key by identity.
-const fileKey = (f) => `${f.name}-${f.size}-${f.lastModified}`;
-
-export function FileUpload({
+export const FileUpload = React.forwardRef(function FileUpload({
   accept,
   multiple = false,
   disabled = false,
@@ -84,14 +74,20 @@ export function FileUpload({
   onChange,
   id,
   className = "",
+  trigger,
+  dropOnTrigger = false,
+  children, // #406: destructured so a consumer's children never leak onto the root div via ...rest
   ...rest
-}) {
+}, ref) {
   const __twcStyles = useScopedStyles("twc-upload-styles", UPLOAD_CSS);
 
   const [internal, setInternal] = React.useState(defaultValue);
   const files = value !== undefined ? value : internal;
   const [drag, setDrag] = React.useState(false);
   const inputRef = React.useRef(null);
+
+  // #406: imperative handle so a custom trigger can open the picker (reusing this component's validation).
+  React.useImperativeHandle(ref, () => ({ open: () => inputRef.current?.click() }), []);
 
   const autoId = React.useId();
   const fieldId = id || autoId;
@@ -101,28 +97,42 @@ export function FileUpload({
   const set = (next) => { if (value === undefined) setInternal(next); onChange?.(next); };
 
   // #102/#103/#104: validate each incoming file against accept / maxSize / maxFiles, dedupe
-  // re-adds (multiple mode), and report rejections via onReject.
+  // re-adds (multiple mode), and report rejections via onReject. Shared with useFilePicker (_upload.js).
   function addFiles(list) {
-    const incoming = Array.from(list);
-    const retained = multiple ? files.slice() : [];
-    const seen = new Set(retained.map(fileKey));
-    const accepted = [];
-    const rejections = [];
-    for (const f of incoming) {
-      if (multiple && seen.has(fileKey(f))) continue; // dedupe — silent no-op
-      let reason = null;
-      if (accept && !matchesAccept(f, accept)) reason = "type";
-      else if (maxSize && f.size > maxSize) reason = "size";
-      else if (multiple && maxFiles && retained.length + accepted.length >= maxFiles) reason = "count";
-      if (reason) { rejections.push({ file: f, reason }); continue; }
-      accepted.push(f);
-      if (multiple) seen.add(fileKey(f));
-    }
+    const { accepted, rejections } = partitionFiles(list, { current: files, accept, multiple, maxSize, maxFiles });
     if (rejections.length) onReject?.(rejections);
-    if (multiple) { if (accepted.length) set([...retained, ...accepted]); }
+    if (multiple) { if (accepted.length) set([...files.slice(), ...accepted]); }
     else if (accepted.length) set(accepted.slice(0, 1));
   }
   function remove(i) { if (disabled) return; set(files.filter((_, idx) => idx !== i)); } // #342: disabled must not remove
+
+  const hiddenInput = (
+    <input ref={inputRef} className="twc-upload__input" type="file" accept={accept} multiple={multiple} disabled={disabled}
+      onChange={(e) => { if (e.target.files.length) addFiles(e.target.files); e.target.value = ""; }} />
+  );
+
+  // #406: headless mode — render only the label, the caller's trigger (a click opens the picker), and the
+  // hidden input. No dropzone, no file list; the caller owns the list via value/onChange.
+  if (trigger) {
+    return (
+      <div className={`twc-upload ${className}`} data-size={size} {...rest}>
+        {__twcStyles}
+        {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
+        <span
+          className="twc-upload__trigger"
+          onClick={() => { if (!disabled) inputRef.current?.click(); }}
+          onDragOver={dropOnTrigger ? (e) => { e.preventDefault(); if (!disabled) setDrag(true); } : undefined}
+          onDragLeave={dropOnTrigger ? () => setDrag(false) : undefined}
+          onDrop={dropOnTrigger ? (e) => { e.preventDefault(); setDrag(false); if (!disabled && e.dataTransfer.files.length) addFiles(e.dataTransfer.files); } : undefined}
+          data-drag={drag || undefined}
+        >
+          {trigger}
+        </span>
+        {hiddenInput}
+        {error ? <span id={descId} className="twc-field__error">{error}</span> : null}
+      </div>
+    );
+  }
 
   return (
     <div className={`twc-upload ${className}`} data-size={size} {...rest}>
@@ -151,8 +161,7 @@ export function FileUpload({
         </span>
         <span className="twc-upload__title"><em>Click to upload</em> or drag and drop</span>
         <span className="twc-upload__hint" id={!error && hint ? descId : undefined}>{hint || (accept ? accept.replace(/\./g, "").toUpperCase() : "Any file")}</span>
-        <input ref={inputRef} className="twc-upload__input" type="file" accept={accept} multiple={multiple} disabled={disabled}
-          onChange={(e) => { if (e.target.files.length) addFiles(e.target.files); e.target.value = ""; }} />
+        {hiddenInput}
       </div>
       {files.length ? (
         <div className="twc-upload__list">
@@ -178,4 +187,5 @@ export function FileUpload({
       {error ? <span id={descId} className="twc-field__error">{error}</span> : null}
     </div>
   );
-}
+});
+FileUpload.displayName = "FileUpload";

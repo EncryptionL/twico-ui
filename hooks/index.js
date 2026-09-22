@@ -1,6 +1,7 @@
 import React from "react";
 import { warnOnce } from "../components/_warn.js";
 import { useFocusTrap as _useFocusTrap, usePortal as _usePortal, useScrollLock as _useScrollLock } from "../components/_overlay.js";
+import { partitionFiles } from "../components/_upload.js";
 
 const canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
 
@@ -445,3 +446,30 @@ export const usePortal = _usePortal;
 /** Lock body scroll while `locked` is true — refcounted, with scrollbar-gutter compensation
  *  (implemented in components/_overlay.js so overlays can share it without the hooks barrel). */
 export const useScrollLock = _useScrollLock;
+
+/**
+ * #406: open a native file picker from your own button/trigger while reusing FileUpload's validation
+ * (`accept` / `maxSize` / `maxFiles`, dedupe). Render `<input {...getInputProps()} />` (hidden) once, then
+ * call `open()` from any control. `onFiles(accepted)` fires with the valid files and `onReject(rejections)`
+ * with `{ file, reason: "type" | "size" | "count" }[]`. SSR-safe; both callbacks are memoized.
+ */
+export function useFilePicker({ accept, multiple = false, maxSize, maxFiles, onFiles, onReject } = {}) {
+  const inputRef = React.useRef(null);
+  const cbRef = React.useRef({ onFiles, onReject });
+  cbRef.current = { onFiles, onReject };
+  const open = React.useCallback(() => { inputRef.current?.click(); }, []);
+  const getInputProps = React.useCallback(() => ({
+    ref: inputRef,
+    type: "file",
+    accept,
+    multiple,
+    style: { display: "none" },
+    onChange: (e) => {
+      const { accepted, rejections } = partitionFiles(e.target.files, { accept, multiple, maxSize, maxFiles });
+      if (accepted.length) cbRef.current.onFiles?.(accepted);
+      if (rejections.length) cbRef.current.onReject?.(rejections);
+      e.target.value = ""; // allow re-picking the same file
+    },
+  }), [accept, multiple, maxSize, maxFiles]);
+  return { open, getInputProps };
+}

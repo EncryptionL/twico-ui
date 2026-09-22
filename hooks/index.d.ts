@@ -172,3 +172,28 @@ export function useFocusTrap<T extends HTMLElement = HTMLElement>(
  * on the server (no document). Centralizes the overlay portal pattern.
  */
 export function usePortal(): (node: React.ReactNode) => React.ReactPortal | React.ReactNode | null;
+
+/** #406: options for {@link useFilePicker}. */
+export interface UseFilePickerOptions {
+  /** Accepted file types (input accept string, e.g. "image/*,.pdf"). */
+  accept?: string;
+  /** Allow selecting multiple files. @default false */
+  multiple?: boolean;
+  /** Max size per file in bytes; larger files are rejected. */
+  maxSize?: number;
+  /** Max number of files accepted (multiple mode). */
+  maxFiles?: number;
+  /** Called with the files that passed validation. */
+  onFiles?: (files: File[]) => void;
+  /** Called with rejected files: `{ file, reason }` where reason is "type" | "size" | "count". */
+  onReject?: (rejections: Array<{ file: File; reason: "type" | "size" | "count" }>) => void;
+}
+
+/**
+ * #406: open a native file picker from your own trigger while reusing FileUpload's validation. Render
+ * `<input {...getInputProps()} />` (hidden) once, then call `open()` from any control.
+ */
+export function useFilePicker(options?: UseFilePickerOptions): {
+  open: () => void;
+  getInputProps: () => React.InputHTMLAttributes<HTMLInputElement> & { ref: React.RefObject<HTMLInputElement | null> };
+};

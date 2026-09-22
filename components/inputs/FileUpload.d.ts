@@ -37,6 +37,18 @@ export interface FileUploadProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   /** Called with the files that failed validation: `{ file, reason }` where reason is "type" | "size" | "count". */
   onReject?: (rejections: Array<{ file: File; reason: "type" | "size" | "count" }>) => void;
   onChange?: (files: File[]) => void;
+  /** #406: headless mode — render only this element (a camera badge, an "Attach" IconButton, …) instead of the
+   *  dropzone + file list. A click opens the picker and the same accept/maxSize/maxFiles/onReject validation
+   *  still runs; track the files yourself via `value`/`onChange`. */
+  trigger?: React.ReactNode;
+  /** #406: also accept dropped files onto the `trigger` (headless mode only). @default false */
+  dropOnTrigger?: boolean;
+  children?: React.ReactNode;
 }
 
-export function FileUpload(props: FileUploadProps): React.JSX.Element;
+/** #406: imperative handle exposed via a ref — `open()` opens the native file picker. */
+export interface FileUploadHandle {
+  open(): void;
+}
+
+export const FileUpload: React.ForwardRefExoticComponent<FileUploadProps & React.RefAttributes<FileUploadHandle>>;
