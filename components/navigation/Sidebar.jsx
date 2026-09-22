@@ -20,6 +20,10 @@ const SIDEBAR_CSS = `
   transition: font-size var(--duration-base) var(--ease-standard), gap var(--duration-base) var(--ease-standard); }
 .twc-sidebar__nav { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: var(--space-3); display: flex; flex-direction: column; gap: 2px; }
 .twc-sidebar__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+/* #401: keep the nav's flex children (section headings + lists) at their content height so a short rail
+   SCROLLS instead of squashing the headings to slivers. A flex item with non-visible overflow otherwise gets
+   an auto min-height of 0. Doesn't touch the section max-height collapse transition. */
+.twc-sidebar__nav > * { flex-shrink: 0; }
 .twc-sidebar__section { font-size: 10px; font-weight: var(--font-bold); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--color-text-subtle); padding: var(--space-3) var(--space-3) var(--space-1); white-space: nowrap; overflow: hidden; max-height: 2.5rem; opacity: 1; visibility: visible;
   transition: max-height var(--duration-base) var(--ease-standard), padding var(--duration-base) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard) var(--duration-fast), visibility 0s; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__section { max-height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; visibility: hidden;
@@ -52,6 +56,11 @@ const SIDEBAR_CSS = `
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot-user > * > :not(:first-child) { display: none; }
 .twc-sidebar__foot { flex: none; border-top: var(--border-thin) solid var(--color-divider); padding: var(--space-2); }
 .twc-sidebar__foot-user { display: flex; align-items: center; padding: 6px 6px 8px; }
+/* #402: footerInset={false} cancels the foot's built-in padding so a full-width account row's hover bg reaches
+   the rail edges + the top divider (a --space-1 gap is kept above). The negative margins mirror .twc-sidebar__foot's
+   own var(--space-2) padding — both live in this file, so they can't silently drift like a consumer workaround. */
+.twc-sidebar__foot-user[data-inset="false"] { padding: 0; margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) var(--space-1); }
+.twc-sidebar[data-collapsed="true"] .twc-sidebar__foot-user[data-inset="false"] { margin-inline: 0; }
 .twc-sidebar__collapse { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 9px; border: none; background: none; cursor: pointer;
   color: var(--color-text-muted); border-radius: var(--radius-md); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold);
   transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
@@ -84,6 +93,7 @@ export function Sidebar({
   brand,
   items,
   footer,
+  footerInset = true,
   collapsed: collapsedProp,
   defaultCollapsed = false,
   collapsible = true,
@@ -217,7 +227,7 @@ export function Sidebar({
       </nav>
       {(footer || collapsible) ? (
         <div className="twc-sidebar__foot">
-          {footer ? <div className="twc-sidebar__foot-user">{footer}</div> : null}
+          {footer ? <div className="twc-sidebar__foot-user" data-inset={footerInset === false ? "false" : undefined}>{footer}</div> : null}
           {collapsible ? (
             <button type="button" className="twc-sidebar__collapse" onClick={toggle} aria-expanded={!collapsed} aria-controls={navId} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>

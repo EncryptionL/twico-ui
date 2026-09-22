@@ -26,6 +26,9 @@ export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   items: SidebarItem[];
   /** Content pinned above the collapse toggle (e.g. a user row). */
   footer?: React.ReactNode;
+  /** #402: remove the built-in padding around `footer` content so an edge-to-edge account row (whose hover
+   *  background should reach the rail edges + the top divider) doesn't need consumer negative margins. @default true */
+  footerInset?: boolean;
   /** Controlled collapsed state. */
   collapsed?: boolean;
   /** Uncontrolled initial collapsed state. @default false */

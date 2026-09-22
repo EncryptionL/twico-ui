@@ -14,6 +14,13 @@ const AVATARMENU_CSS = `
 .twc-avatar-menu__sub { font-size: var(--text-xs); color: var(--color-text-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
 .twc-avatar-menu__chev { color: var(--color-text-subtle); display: inline-flex; flex: none; margin-inline-end: 2px; transition: transform var(--duration-base) var(--ease-spring); }
 .twc-avatar-menu__chev svg { width: 15px; height: 15px; }
+/* #402: fullWidth — the trigger (and its Menu wrap) stretch, the text column grows, and the chevron is pinned
+   to the inline-end, so a sidebar footer account row fills the rail. The compound .--block.twc-menu-wrap beats
+   Menu's own .twc-menu-wrap rule regardless of scoped-stylesheet order. */
+.twc-avatar-menu--block.twc-menu-wrap { display: flex; width: 100%; }
+.twc-avatar-menu--block .twc-avatar-menu { display: flex; width: 100%; }
+.twc-avatar-menu--block .twc-avatar-menu__text { flex: 1 1 auto; }
+.twc-avatar-menu--block .twc-avatar-menu__name, .twc-avatar-menu--block .twc-avatar-menu__sub { max-width: none; }
 `;
 
 export function AvatarMenu({
@@ -26,6 +33,7 @@ export function AvatarMenu({
   items,
   showName = false,
   showChevron,
+  fullWidth = false,
   align = "end",
   className = "",
   ...rest
@@ -69,5 +77,6 @@ export function AvatarMenu({
     </span>
   );
 
-  return <Menu className={className} trigger={trigger} items={items} header={header} align={align} width={240} aria-label={`${name || "Account"} menu`} {...rest} />;
+  const wrapClass = `${fullWidth ? "twc-avatar-menu--block " : ""}${className}`.trim();
+  return <Menu className={wrapClass} trigger={trigger} items={items} header={header} align={align} width={240} aria-label={`${name || "Account"} menu`} {...rest} />;
 }
