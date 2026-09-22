@@ -3700,7 +3700,6 @@ export function Datatable({
                     <div className="twc-dt__th-inner">
                       <span className="twc-dt__th-label"
                         role={c.sortable ? "button" : undefined} tabIndex={c.sortable ? 0 : undefined}
-                        data-ovtext={!c.renderHeader && typeof c.headerName === "string" ? c.headerName : undefined}
                         aria-label={c.sortable ? `${colLabel(c)}, sort` : undefined}
                         draggable={reorderable || undefined}
                         onDragStart={reorderable ? (e) => { setDrag({ from: c.field, over: null, after: false }); e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", c.field); } : undefined}
@@ -3709,7 +3708,7 @@ export function Datatable({
                         onKeyDown={c.sortable ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); cycleSort(c.field); } } : undefined}>
                         {reorderable ? <span className="twc-dt__grip" aria-hidden="true"><Svg d={I.grip} /></span> : null}
                         {filteredFields.has(c.field) ? <span className="twc-dt__filterdot" /> : null}
-                        {c.renderHeader ? c.renderHeader({ column: c }) : <span className="twc-dt__th-text">{c.headerName}</span>}
+                        {c.renderHeader ? c.renderHeader({ column: c }) : <span className="twc-dt__th-text" data-ovtext={typeof c.headerName === "string" ? c.headerName : undefined}>{c.headerName}</span>}
                         {c.sortable ? <span className="twc-dt__sort"><Svg d={I.arrow} /></span> : null}
                       </span>
                       {hasMenu ? (
