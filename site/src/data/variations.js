@@ -1172,6 +1172,21 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "ImageViewer",
+    "title": "Default",
+    "i": 0
+  },
+  {
+    "component": "ImageViewer",
+    "title": "No built-in controls",
+    "i": 1
+  },
+  {
+    "component": "ImageViewer",
+    "title": "Custom max zoom + controlled",
+    "i": 2
+  },
+  {
     "component": "Input",
     "title": "Label, hint & required",
     "i": 0
@@ -2235,6 +2250,26 @@ export const VARIATIONS = [
     "component": "Toast",
     "title": "All props",
     "i": 5
+  },
+  {
+    "component": "ToggleGroup",
+    "title": "Single (exclusive)",
+    "i": 0
+  },
+  {
+    "component": "ToggleGroup",
+    "title": "Multiple",
+    "i": 1
+  },
+  {
+    "component": "ToggleGroup",
+    "title": "Tone, size & OFF variant",
+    "i": 2
+  },
+  {
+    "component": "ToggleGroup",
+    "title": "Roving arrow-key focus",
+    "i": 3
   },
   {
     "component": "Tooltip",

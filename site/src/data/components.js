@@ -8622,6 +8622,252 @@ export const components = [
     "tagline": "Icon-only button with a required aria-label"
   },
   {
+    "name": "ToggleGroup",
+    "slug": "togglegroup",
+    "group": "Buttons & actions",
+    "summary": "A set of toggle buttons (aria-pressed) for a tool/mode switch, formatting bar, or segmented control. It composes Button (reusing its variant/tone styles) and is a group of toggle buttons, not a radiogroup: with roving, arrows move focus and Space/Enter/click toggle. For a single pressed button, use Button/IconButton with the `pressed` prop.",
+    "importName": "ToggleGroup",
+    "propsRows": [
+      {
+        "prop": "items",
+        "type": "ToggleGroupItem[]",
+        "required": true,
+        "default": "—",
+        "description": "The toggles to render — each { value, label?, icon?, disabled?, \"aria-label\"? }. Use aria-label for an icon-only toggle."
+      },
+      {
+        "prop": "type",
+        "type": "\"single\" | \"multiple\"",
+        "required": false,
+        "default": "\"single\"",
+        "description": "single holds one value (string | null; clicking the active one deselects); multiple holds a string[]."
+      },
+      {
+        "prop": "value",
+        "type": "string | string[] | null",
+        "required": false,
+        "default": "—",
+        "description": "Controlled value — a string | null for single, a string[] for multiple. Pair with onValueChange."
+      },
+      {
+        "prop": "defaultValue",
+        "type": "string | string[] | null",
+        "required": false,
+        "default": "—",
+        "description": "Initial value for the uncontrolled case."
+      },
+      {
+        "prop": "onValueChange",
+        "type": "(value: string | string[] | null) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fired with the next value (a string | null, or a fresh string[]) when a toggle changes."
+      },
+      {
+        "prop": "tone",
+        "type": "\"primary\" | \"danger\"",
+        "required": false,
+        "default": "\"primary\"",
+        "description": "Tone applied to the pressed (\"on\") fill of each toggle."
+      },
+      {
+        "prop": "variant",
+        "type": "\"solid\" | \"soft\" | \"outline\" | \"ghost\"",
+        "required": false,
+        "default": "\"outline\"",
+        "description": "The Button variant used for the OFF (unpressed) look, giving a segmented feel by default."
+      },
+      {
+        "prop": "size",
+        "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Button size for every toggle."
+      },
+      {
+        "prop": "roving",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Opt into WAI-ARIA roving arrow-key focus — the group becomes one Tab stop and arrows move focus (Space/Enter/click still toggle)."
+      },
+      {
+        "prop": "orientation",
+        "type": "\"horizontal\" | \"vertical\"",
+        "required": false,
+        "default": "\"horizontal\"",
+        "description": "Layout direction and the roving arrow-key axis."
+      },
+      {
+        "prop": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Disable the whole group (individual items can also set disabled)."
+      },
+      {
+        "prop": "aria-label",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Accessible label for the role=\"group\" container."
+      }
+    ],
+    "snippet": "import { ToggleGroup } from \"twico-ui\";\n\nconst [align, setAlign] = React.useState(\"left\");\n<ToggleGroup\n  aria-label=\"Text alignment\"\n  value={align}\n  onValueChange={setAlign}\n  items={[\n    { value: \"left\", label: \"Left\" },\n    { value: \"center\", label: \"Center\" },\n    { value: \"right\", label: \"Right\" },\n  ]}\n/>",
+    "tagline": "A group of toggle buttons (single or multiple)"
+  },
+  {
+    "name": "ImageViewer",
+    "slug": "imageviewer",
+    "group": "Data display",
+    "summary": "A zoomable, pannable image on a fixed stage — for inspecting a product photo, a scanned document, or a technical drawing. Pointer-anchored wheel + pinch zoom (via a non-passive listener so the page behind never scrolls), drag-to-pan when zoomed, +/-/0 keys, and double-click to toggle. For a plain, non-interactive image use Image.",
+    "importName": "ImageViewer",
+    "propsRows": [
+      {
+        "prop": "src",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Image source URL."
+      },
+      {
+        "prop": "alt",
+        "type": "string",
+        "required": true,
+        "default": "—",
+        "description": "Accessible description of the image (required)."
+      },
+      {
+        "prop": "minZoom",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": "Minimum zoom level, also the reset level."
+      },
+      {
+        "prop": "maxZoom",
+        "type": "number",
+        "required": false,
+        "default": "8",
+        "description": "Maximum zoom level."
+      },
+      {
+        "prop": "step",
+        "type": "number",
+        "required": false,
+        "default": "0.25",
+        "description": "Zoom increment applied by the wheel, the +/- keys, and the buttons."
+      },
+      {
+        "prop": "zoom",
+        "type": "number",
+        "required": false,
+        "default": "—",
+        "description": "Controlled zoom level; pair with onZoomChange."
+      },
+      {
+        "prop": "defaultZoom",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": "Initial zoom for the uncontrolled case."
+      },
+      {
+        "prop": "onZoomChange",
+        "type": "(zoom: number) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fired with the new zoom level whenever it changes."
+      },
+      {
+        "prop": "doubleClickZoom",
+        "type": "number",
+        "required": false,
+        "default": "2",
+        "description": "Zoom level a double-click toggles to from minZoom."
+      },
+      {
+        "prop": "controls",
+        "type": "React.ReactNode | ((api) => React.ReactNode) | false",
+        "required": false,
+        "default": "built-in controls",
+        "description": "The built-in zoom in/out/reset controls, your own node, a render function receiving the zoom API, or false to hide them."
+      },
+      {
+        "prop": "fit",
+        "type": "\"contain\" | \"cover\"",
+        "required": false,
+        "default": "\"contain\"",
+        "description": "How the image fills the stage at 1x."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Inline styles merged onto the root element after the component's own."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { ImageViewer } from \"twico-ui\";\n\n<ImageViewer src=\"/plans/drawing.png\" alt=\"Assembly drawing\" style={{ height: 420 }} />",
+    "tagline": "Zoomable, pannable image viewer on a fixed stage"
+  },
+  {
     "name": "Input",
     "slug": "input",
     "group": "Inputs",

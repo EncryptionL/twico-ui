@@ -207,7 +207,7 @@ in the examples.
 
 ---
 
-## Component reference (81 components)
+## Component reference (83 components)
 
 ### Buttons & actions
 
@@ -279,6 +279,42 @@ const TrashIcon = () => (<svg width="18" height="18" viewBox="0 0 24 24" fill="n
 <IconButton aria-label="Settings" icon={<SettingsIcon />} />
 <IconButton aria-label="Like" variant="soft" round icon={<HeartIcon />} />
 <IconButton aria-label="Delete" variant="outline" icon={<TrashIcon />} />
+```
+
+#### ToggleGroup
+
+A set of toggle buttons (aria-pressed) for a tool/mode switch, formatting bar, or segmented control. It composes Button (reusing its variant/tone styles) and is a group of toggle buttons, not a radiogroup: with roving, arrows move focus and Space/Enter/click toggle. For a single pressed button, use Button/IconButton with the `pressed` prop.
+
+`import { ToggleGroup } from "twico-ui"`
+
+Props:
+- `items` — `ToggleGroupItem[]` · **required** — The toggles to render — each { value, label?, icon?, disabled?, "aria-label"? }. Use aria-label for an icon-only toggle.
+- `type` — `"single" | "multiple"` · default `"single"` — single holds one value (string | null; clicking the active one deselects); multiple holds a string[].
+- `value` — `string | string[] | null` — Controlled value — a string | null for single, a string[] for multiple. Pair with onValueChange.
+- `defaultValue` — `string | string[] | null` — Initial value for the uncontrolled case.
+- `onValueChange` — `(value: string | string[] | null) => void` — Fired with the next value (a string | null, or a fresh string[]) when a toggle changes.
+- `tone` — `"primary" | "danger"` · default `"primary"` — Tone applied to the pressed ("on") fill of each toggle.
+- `variant` — `"solid" | "soft" | "outline" | "ghost"` · default `"outline"` — The Button variant used for the OFF (unpressed) look, giving a segmented feel by default.
+- `size` — `"xs" | "sm" | "md" | "lg"` · default `"md"` — Button size for every toggle.
+- `roving` — `boolean` · default `false` — Opt into WAI-ARIA roving arrow-key focus — the group becomes one Tab stop and arrows move focus (Space/Enter/click still toggle).
+- `orientation` — `"horizontal" | "vertical"` · default `"horizontal"` — Layout direction and the roving arrow-key axis.
+- `disabled` — `boolean` · default `false` — Disable the whole group (individual items can also set disabled).
+- `aria-label` — `string` — Accessible label for the role="group" container.
+
+```jsx
+import { ToggleGroup } from "twico-ui";
+
+const [align, setAlign] = React.useState("left");
+<ToggleGroup
+  aria-label="Text alignment"
+  value={align}
+  onValueChange={setAlign}
+  items={[
+    { value: "left", label: "Left" },
+    { value: "center", label: "Center" },
+    { value: "right", label: "Right" },
+  ]}
+/>
 ```
 
 ### Layout
@@ -1792,6 +1828,31 @@ const after = [
   ]}
   onlyChanged
 />
+```
+
+#### ImageViewer
+
+A zoomable, pannable image on a fixed stage — for inspecting a product photo, a scanned document, or a technical drawing. Pointer-anchored wheel + pinch zoom (via a non-passive listener so the page behind never scrolls), drag-to-pan when zoomed, +/-/0 keys, and double-click to toggle. For a plain, non-interactive image use Image.
+
+`import { ImageViewer } from "twico-ui"`
+
+Props:
+- `src` — `string` — Image source URL.
+- `alt` — `string` · **required** — Accessible description of the image (required).
+- `minZoom` — `number` · default `1` — Minimum zoom level, also the reset level.
+- `maxZoom` — `number` · default `8` — Maximum zoom level.
+- `step` — `number` · default `0.25` — Zoom increment applied by the wheel, the +/- keys, and the buttons.
+- `zoom` — `number` — Controlled zoom level; pair with onZoomChange.
+- `defaultZoom` — `number` · default `1` — Initial zoom for the uncontrolled case.
+- `onZoomChange` — `(zoom: number) => void` — Fired with the new zoom level whenever it changes.
+- `doubleClickZoom` — `number` · default `2` — Zoom level a double-click toggles to from minZoom.
+- `controls` — `React.ReactNode | ((api) => React.ReactNode) | false` · default `built-in controls` — The built-in zoom in/out/reset controls, your own node, a render function receiving the zoom API, or false to hide them.
+- `fit` — `"contain" | "cover"` · default `"contain"` — How the image fills the stage at 1x.
+
+```jsx
+import { ImageViewer } from "twico-ui";
+
+<ImageViewer src="/plans/drawing.png" alt="Assembly drawing" style={{ height: 420 }} />
 ```
 
 #### Kanban
