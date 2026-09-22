@@ -1,10 +1,12 @@
 # QA notes — Drawer
 
 - **Group:** overlay
-- **Reviewed:** 2026-06-17
+- **Reviewed:** 2026-09-22
 - **Status:** clean
 
 ## Open issues
+
+- [x] **[#389] Escape / backdrop meant for a nested overlay also closed the Drawer** — joins the shared dismissable-layer stack (see Dialog qa-note): document Escape bails on `defaultPrevented`/not-topmost, backdrop gated on `isTop()`. `Drawer.jsx` — ✓ fixed 2026-09-22
 
 - [x] **[#372] Added `dividers` (header rule) for parity with Dialog** — Drawer already pins header/footer (unconditional flex-column, so #371's scrollBody problem never applied) and had a footer `border-top`, but no header rule and no way to toggle either. Added a `dividers` prop (default `true`) matching Dialog: header `border-bottom` + footer `border-top` via per-region `data-divider` (auto-suppressed for empty regions — no footer; a header with only a close button). The previously always-on footer border is now gated on the prop (default `true`, so unchanged by default); the header rule is new. `Drawer.jsx` — ✓ fixed 2026-09-11
 

@@ -7,6 +7,7 @@ import { Pagination } from "./Pagination.jsx";
 import { Tooltip } from "../overlay/Tooltip.jsx";
 import { Badge } from "./Badge.jsx";
 import { classifyDiff, DIFF_OPS } from "../_diff.js";
+import { warnOnce } from "../_warn.js";
 
 // #330: default Filters-panel width, shared by the JS-side consumers (resize-grip aria-valuetext fallback,
 // open-position clamp) so they stay in lockstep with the CSS default. NOTE: must equal the literal in DT_CSS
@@ -15,6 +16,25 @@ import { classifyDiff, DIFF_OPS } from "../_diff.js";
 // longer tree-shake (it leaked ~8.6 kB of Datatable CSS into every single-component bundle). Edit together.
 // (The And/Or connector width is not a constant — it is a resizable filter field; see F_MIN/F_SEL.logic.)
 const DT_FILTER_PANEL_W = 620;
+
+// #399: block javascript:/data:/vbscript: URLs from reaching a row-action anchor (consumer hrefs are
+// untrusted). Mirrors the shared `safeHref` used in the nav components (Menu, Breadcrumbs, …).
+const safeHref = (url) => {
+  if (url == null) return undefined;
+  const s = String(url).replace(/[\x00-\x20]+/g, "").toLowerCase();
+  return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
+};
+
+// #397: a column's natural (default) alignment by type — `data-align` is emitted only when the effective
+// alignment OVERRIDES this, so the attribute never fights the pre-existing data-num right-alignment / header
+// row-reverse on default columns (which would regress every number column).
+const dtNaturalAlign = (c) => (c.type === "number" || c.type === "actions") ? "right" : "left";
+
+// #392: interactive controls inside a data cell that the "widget" cell-navigation mode focuses/roves (a
+// toggle, link, chip, switch or checkbox). Deliberately excludes text inputs/selects (those are for editing,
+// guarded elsewhere) and arrow-consuming widgets (listbox/slider/menu/radiogroup) that need arrows themselves.
+const DT_CELL_WIDGET_SEL = 'button:not(:disabled), a[href], [role="button"], [role="switch"], [role="checkbox"], [role="link"]';
+const dtCellWidgets = (td) => td ? Array.from(td.querySelectorAll(DT_CELL_WIDGET_SEL)).filter((el) => el.getAttribute("aria-hidden") !== "true" && el.getAttribute("aria-disabled") !== "true") : [];
 
 const DT_CSS = `
 .twc-dt { display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--color-text);
@@ -109,13 +129,29 @@ const DT_CSS = `
 .twc-dt__th, .twc-dt__td { box-sizing: border-box; text-align: start; }
 .twc-dt__th { position: sticky; top: 0; z-index: 3; background: var(--color-surface-sunken);
   border-bottom: var(--border-thin) solid var(--color-border); padding: 0; height: 44px;
-  font-size: var(--text-xs); font-weight: var(--font-bold); letter-spacing: var(--tracking-wide);
-  text-transform: uppercase; color: var(--color-text-muted); white-space: nowrap; }
+  font-size: var(--text-xs); font-weight: var(--font-bold);
+  color: var(--color-text-muted); white-space: nowrap; }
+/* #400: the upper-case + letter-spacing live on a text-only span, not the whole cell, so a renderHeader
+   node starts from neutral type (a <span>/Text no longer renders UPPER-CASE while a <button> — which UA
+   styles reset to text-transform:none — does not). The default headerName keeps the styled look + ellipsis. */
+.twc-dt__th-text { text-transform: uppercase; letter-spacing: var(--tracking-wide); overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .twc-dt__th-inner { display: flex; align-items: center; gap: 6px; height: 100%; padding: 0 12px; }
 .twc-dt__th[data-num="true"] .twc-dt__th-inner { flex-direction: row-reverse; }
-.twc-dt__th-label { cursor: pointer; user-select: none; flex: 1; overflow: hidden; text-overflow: ellipsis;
+.twc-dt__th-label { user-select: none; flex: 1; overflow: hidden; text-overflow: ellipsis;
   display: inline-flex; align-items: center; gap: 5px; }
+.twc-dt__th-label[role="button"] { cursor: pointer; } /* #400: pointer only when the header is sortable */
 .twc-dt__th[data-num="true"] .twc-dt__th-label { flex-direction: row-reverse; }
+/* #397: per-column alignment OVERRIDE (emitted only when it differs from the type default). The .twc-dt__table
+   prefix raises specificity above the data-num text-align so an explicit align wins regardless of source order;
+   the header resets the data-num row-reverse and drives alignment via justify-content (so number headers keep
+   their default arrow-left row-reverse when NOT overridden). */
+.twc-dt__table .twc-dt__td[data-align="left"], .twc-dt__table tfoot td[data-align="left"] { text-align: start; }
+.twc-dt__table .twc-dt__td[data-align="center"], .twc-dt__table tfoot td[data-align="center"] { text-align: center; }
+.twc-dt__table .twc-dt__td[data-align="right"], .twc-dt__table tfoot td[data-align="right"] { text-align: end; }
+.twc-dt__th[data-align] .twc-dt__th-label { flex-direction: row; }
+.twc-dt__th[data-align="left"] .twc-dt__th-label { justify-content: flex-start; }
+.twc-dt__th[data-align="center"] .twc-dt__th-label { justify-content: center; }
+.twc-dt__th[data-align="right"] .twc-dt__th-label { justify-content: flex-end; }
 .twc-dt__sort { display: inline-flex; opacity: 0; transition: opacity var(--duration-fast), transform var(--duration-base) var(--ease-spring); color: var(--color-primary); }
 .twc-dt__sort svg { width: 14px; height: 14px; }
 .twc-dt__th[data-sorted="asc"] .twc-dt__sort, .twc-dt__th[data-sorted="desc"] .twc-dt__sort { opacity: 1; }
@@ -421,8 +457,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__mi { display: flex; align-items: center; gap: 10px; width: 100%; padding: 8px 10px; border: none; background: transparent;
   font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); text-align: start;
   border-radius: var(--radius-md); cursor: pointer; transition: background-color var(--duration-fast); }
+.twc-dt__mi { text-decoration: none; } /* #399: link (<a role="menuitem">) variant */
 .twc-dt__mi:hover { background: var(--color-surface-sunken); }
 .twc-dt__mi:disabled { color: var(--color-text-subtle); opacity: 0.5; cursor: default; pointer-events: none; }
+.twc-dt__mi-hint { margin-inline-start: auto; padding-inline-start: 12px; color: var(--color-text-subtle); font-size: var(--text-xs); font-weight: var(--font-normal); } /* #399: disabledReason */
 .twc-dt__mi svg { width: 16px; height: 16px; color: var(--color-text-subtle); flex: none; }
 .twc-dt__mi[data-active="true"] { color: var(--color-primary); }
 .twc-dt__mi[data-active="true"] svg { color: var(--color-primary); }
@@ -572,7 +610,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__check:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-dt__th-label:focus-visible { outline: none; box-shadow: var(--ring); border-radius: var(--radius-sm); }
 .twc-dt__act { display: inline-grid; place-items: center; width: 30px; height: 30px; border: none; background: transparent;
-  color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md);
+  color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); text-decoration: none; /* #399: link (<a>) variant */
   transition: background-color var(--duration-fast), color var(--duration-fast), transform var(--duration-fast) var(--ease-spring); }
 .twc-dt__act:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dt__act:active { transform: scale(0.88); }
@@ -1078,17 +1116,18 @@ export function Datatable({
   page, onPageChange, onPageSizeChange,
   height = 440, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [], onRowSelectionChange,
   showExport = false, showDensity = false, showPivot = false, showColumns, showFilters, exportFilename = "export", aggregationValues = null,
-  disableColumnReorder = false, disableColumnResize = false,
+  disableColumnReorder = false, disableColumnResize = false, defaultColumn,
   columnCombining = false,
   emptyMessage, renderEmpty,
-  editMode = false, onRowUpdate, onRowsChange, onBatchUpdate,
+  editMode = false, onRowUpdate, onRowsChange, onBatchUpdate, onEditingChange,
   showBatchEdit = true, batchEditFields = null,
   stateKey, initialState, onStateChange,
   showPageJumper = true,
-  selectionMode = "none", onRowClick, onCellClick, onActiveCellChange, onCellSelectionChange,
-  activeRowId, scrollActiveRowIntoView = true,
-  enableClipboard = false, onCellsCopy, onCellsPaste,
+  selectionMode = "none", cellNavigation = "cell", onRowClick, onCellClick, onActiveCellChange, onCellSelectionChange,
+  activeRowId, scrollActiveRowIntoView = true, activeCell, scrollActiveCellIntoView = false,
+  enableClipboard = false, onCellsCopy, onCellsPaste, onCellsCommit,
   showAggregation = false, ariaLabel = "Data table", "aria-label": ariaLabelAttr, rowGrouping = [], showGroupBar = true, renderGroupLabel,
+  collapsedGroups, defaultCollapsedGroups = [], onCollapsedGroupsChange,
   rowNumbers = false,
   searchFields = null,
   searchable = true,
@@ -1161,6 +1200,19 @@ export function Datatable({
   const rowKey = isDiff ? diffRowKeyFn : rowKeyProp;
 
   const cols = React.useMemo(() => {
+    // #404: a `columns` array with two entries sharing a `field` misbehaves silently — width, visibility,
+    // order and pins are all keyed by field (last-wins), and React logs duplicate-key warnings. Warn once
+    // per repeated field in development (no-op in prod / after first fire), naming both headers.
+    const seenFields = new Map();
+    for (const c of columns) {
+      if (!c || c.field == null) continue;
+      const name = c.headerName ?? c.field;
+      if (seenFields.has(c.field)) {
+        warnOnce(`Datatable.dupField.${c.field}`, `Twico Datatable: duplicate column field "${c.field}" (headers "${seenFields.get(c.field)}" and "${name}"). \`field\` must be unique within \`columns\` — it is the column's identity for width, visibility, order, pinning and persisted stateKey state.`);
+      } else {
+        seenFields.set(c.field, name);
+      }
+    }
     const out = columns.map((c) => {
       const isActions = c.type === "actions";
       return {
@@ -1168,7 +1220,9 @@ export function Datatable({
         sortable: !isActions, filterable: !isActions, hideable: !isActions, pinnable: true,
         groupable: !isActions && c.type !== "number",
         disableColumnMenu: false, headerName: isActions ? "Actions" : c.field,
-        align: c.type === "number" ? "right" : isActions ? "right" : "left", ...c,
+        // #403: `defaultColumn` shallow-merges UNDER each column (built-in defaults < defaultColumn < column),
+        // so a fixed-layout grid sets its flags once. Spreading `undefined` is a no-op → default unchanged.
+        align: c.type === "number" ? "right" : isActions ? "right" : "left", ...defaultColumn, ...c,
       };
     });
     // Row pinning exposes "Pin to top/bottom" through a row's ⋮ actions menu. If the consumer didn't
@@ -1213,7 +1267,7 @@ export function Datatable({
       };
     }
     return out;
-  }, [columns, rowPinning, userCombine]);
+  }, [columns, rowPinning, userCombine, defaultColumn]);
 
   // Stable per-row key. Prefer rowKey, then r.id; otherwise fall back to a key
   // tied to the row's object IDENTITY (a WeakMap), NOT its index — an index-based
@@ -1302,7 +1356,12 @@ export function Datatable({
   // when `activeRowId` is provided the highlight follows the prop; onRowClick still fires so the host updates it.
   const activeRowControlled = activeRowId !== undefined;
   const activeRowVal = activeRowControlled ? activeRowId : activeRow;
-  const [activeCell, setActiveCell] = React.useState(null); // { key, field } — the moving/focus corner
+  const [internalActiveCell, setInternalActiveCell] = React.useState(null); // { key, field } — the moving/focus corner
+  // #395: controllable active cell (mirrors activeRowId). Drives the highlight in cell mode AND gives a stable
+  // scroll target in any mode. commitActiveCell reports via onActiveCellChange and self-updates when uncontrolled.
+  const activeCellControlled = activeCell !== undefined;
+  const activeCellVal = activeCellControlled ? activeCell : internalActiveCell;
+  const commitActiveCell = (next) => { onActiveCellChange?.(next); if (!activeCellControlled) setInternalActiveCell(next); };
   const [anchorCell, setAnchorCell] = React.useState(null); // #317: fixed corner of a rectangular range
   const gridId = React.useId(); // #317: stable prefix for cell ids (aria-activedescendant)
   // #45: controlled/uncontrolled pagination (hand-rolled per project rule — no
@@ -1323,9 +1382,19 @@ export function Datatable({
   const [drag, setDrag] = React.useState({ from: null, over: null, after: false });
   const [aggOn, setAggOn] = React.useState(showAggregation);
   const [focus, setFocus] = React.useState({ r: 0, c: 0 });
+  // #392: widget-mode interaction state — {r,c} of the multi-widget cell whose Tab-cycle is active, else null.
+  const [interacting, setInteracting] = React.useState(null);
   const gridRef = React.useRef(null);
   const [groupBy, setGroupBy] = React.useState(rowGrouping || []);
-  const [collapsed, setCollapsed] = React.useState(() => new Set());
+  // #393: controllable/persisted group-collapse state (mirrors activeRowId / expandedRowIds). Keys are the
+  // internal group-path strings ("/status:open", nested "/status:open/owner:ann").
+  const [internalCollapsed, setInternalCollapsed] = React.useState(() => new Set(defaultCollapsedGroups));
+  const collapsedControlled = collapsedGroups !== undefined;
+  const collapsedSet = React.useMemo(() => new Set(collapsedControlled ? collapsedGroups : internalCollapsed), [collapsedControlled, collapsedGroups, internalCollapsed]);
+  // #393 (review): a stable CONTENT signature of the collapsed set — the persist effect keys on this, not the
+  // Set object, so a controlled inline `collapsedGroups={[...]}` (new array each render) can't churn
+  // onStateChange/localStorage every render (or loop when the emitted state is fed back).
+  const collapsedKey = React.useMemo(() => [...collapsedSet].sort().join("\u0000"), [collapsedSet]);
   // #350: expanded row-detail keys. Uncontrolled by default; `expandedRowIds` (a controlled array of keys)
   // takes over when supplied, mirroring the activeRow/page controlled pattern.
   const [internalExpanded, setInternalExpanded] = React.useState(() => new Set());
@@ -1390,6 +1459,9 @@ export function Datatable({
     columnCombine: Object.keys(userCombine).length ? userCombine : undefined,
     // #341: additive, optional — user-resized batch-editor column-name field width (px).
     batchNameWidth: batchNameW != null ? batchNameW : undefined,
+    // #393: additive, optional — the active grouping fields + which groups are collapsed.
+    grouping: groupBy.length ? groupBy : undefined,
+    collapsedGroups: collapsedSet.size ? [...collapsedSet] : undefined,
   });
   const applyState = (s) => {
     if (!s || typeof s !== "object") return;
@@ -1448,6 +1520,9 @@ export function Datatable({
       if (Object.keys(uc).length) setUserCombine(uc);
     }
     if (typeof s.batchNameWidth === "number") setBatchNameW(clampNum(s.batchNameWidth, 88, 260)); // #341
+    // #393: restore grouping fields (known only) + collapsed groups (skip collapsed when host-controlled).
+    if (Array.isArray(s.grouping)) setGroupBy(s.grouping.filter((f) => known.has(f)));
+    if (Array.isArray(s.collapsedGroups) && !collapsedControlled) setInternalCollapsed(new Set(s.collapsedGroups.filter((k) => typeof k === "string")));
   };
   const stateReadyRef = React.useRef(false);
   const stateRestoredRef = React.useRef(false); // #298: restore applied at most once (survives a Strict Mode remount)
@@ -1464,7 +1539,7 @@ export function Datatable({
     if (stateKey) { try { window.localStorage.setItem(stateKey, JSON.stringify(state)); } catch { /* storage unavailable/full */ } }
     return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey]);
+  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedKey]);
   // Reads localStorage[stateKey] (else initialState) and applies it. Cheap to call more than once —
   // applyState is idempotent for a given snapshot — but callers gate it (see the two effects below).
   const restoreState = () => {
@@ -1921,16 +1996,22 @@ export function Datatable({
       const items = [];
       for (const [value, rs] of map) {
         const key = `${prefix}/${field}:${value}`;
-        const isCollapsed = collapsed.has(key);
+        const isCollapsed = collapsedSet.has(key);
         items.push({ kind: "group", key, field, value, depth, count: rs.length, rows: rs, collapsed: isCollapsed });
         if (!isCollapsed) items.push(...build(rs, depth + 1, key));
       }
       return items;
     };
     return build(paged, 0, "");
-  }, [activeGroupBy, collapsed, paged, ordered, aggOn]);
+  }, [activeGroupBy, collapsedSet, paged, ordered, aggOn]);
   const leafRows = displayItems ? displayItems.filter((i) => i.kind === "leaf").map((i) => i.row) : (treeRows ? treeRows.map((t) => t.row) : paged); // #359: client tree flatten
-  function toggleGroup(key) { setCollapsed((s) => { const n = new Set(s); n.has(key) ? n.delete(key) : n.add(key); return n; }); }
+  // #393: controlled/uncontrolled toggle — always report via onCollapsedGroupsChange; only self-update when uncontrolled.
+  // #393 (review): uncontrolled toggles use the functional updater so two synchronous toggles both apply
+  // (a render-snapshot copy would coalesce to only the last). Controlled mode reports the next set + defers to the host.
+  function toggleGroup(key) {
+    if (collapsedControlled) { const n = new Set(collapsedSet); n.has(key) ? n.delete(key) : n.add(key); onCollapsedGroupsChange?.([...n]); return; }
+    setInternalCollapsed((prev) => { const n = new Set(prev); n.has(key) ? n.delete(key) : n.add(key); onCollapsedGroupsChange?.([...n]); return n; });
+  }
   function toggleGroupField(field) { setGroupBy((g) => (g.includes(field) ? g.filter((f) => f !== field) : [...g, field])); }
 
   // ---- Row pinning (sticky pinned rows above/below the scroll body) ----
@@ -1963,20 +2044,20 @@ export function Datatable({
   // gone (filtered out / off page), the range collapses to the surviving (active) cell.
   const cellColIndex = React.useCallback((field) => ordered.findIndex((c) => c.field === field), [ordered]);
   const cellRect = React.useMemo(() => {
-    if (selectionMode !== "cell" || !activeCell) return null;
-    const ar = keyIndex.get(activeCell.key), ac = cellColIndex(activeCell.field);
+    if (selectionMode !== "cell" || !activeCellVal) return null;
+    const ar = keyIndex.get(activeCellVal.key), ac = cellColIndex(activeCellVal.field);
     if (ar == null || ac < 0) return null;
-    const anchor = anchorCell || activeCell;
+    const anchor = anchorCell || activeCellVal;
     const nr = keyIndex.get(anchor.key), nc = cellColIndex(anchor.field);
     const r0 = nr == null ? ar : Math.min(ar, nr), r1 = nr == null ? ar : Math.max(ar, nr);
     const c0 = nc < 0 ? ac : Math.min(ac, nc), c1 = nc < 0 ? ac : Math.max(ac, nc);
     return { r0, r1, c0, c1 };
-  }, [selectionMode, activeCell, anchorCell, keyIndex, cellColIndex]);
+  }, [selectionMode, activeCellVal, anchorCell, keyIndex, cellColIndex]);
   const activeCellId = React.useMemo(() => {
-    if (selectionMode !== "cell" || !activeCell) return undefined;
-    const ar = keyIndex.get(activeCell.key), ac = cellColIndex(activeCell.field);
+    if (selectionMode !== "cell" || !activeCellVal) return undefined;
+    const ar = keyIndex.get(activeCellVal.key), ac = cellColIndex(activeCellVal.field);
     return ar == null || ac < 0 ? undefined : `${gridId}-${ar}-${ac}`;
-  }, [selectionMode, activeCell, keyIndex, cellColIndex, gridId]);
+  }, [selectionMode, activeCellVal, keyIndex, cellColIndex, gridId]);
   // Fire onCellSelectionChange (row-major {key,field}[]) whenever the rectangle actually changes.
   const onCellSelRef = React.useRef(onCellSelectionChange); onCellSelRef.current = onCellSelectionChange;
   const prevSelSigRef = React.useRef("");
@@ -2382,10 +2463,13 @@ export function Datatable({
   const hasAggregation = ordered.some((c) => aggOf(c));
 
   const filteredFields = new Set(filters.map((f) => f.field));
-  const allSel = paged.length > 0 && paged.every((r) => selected.has(keyOf(r)));
-  const someSel = paged.some((r) => selected.has(keyOf(r)));
+  // #393: when grouping is active, select-all covers only the VISIBLE leaf rows (leafRows excludes rows inside
+  // collapsed groups), so a bulk action can't silently include rows the user can't see.
+  const selRows = activeGroupBy.length ? leafRows : paged;
+  const allSel = selRows.length > 0 && selRows.every((r) => selected.has(keyOf(r)));
+  const someSel = selRows.some((r) => selected.has(keyOf(r)));
   function toggleAll() {
-    setSelected((s) => { const n = new Set(s); if (allSel) paged.forEach((r) => n.delete(keyOf(r))); else paged.forEach((r) => n.add(keyOf(r))); return n; });
+    setSelected((s) => { const n = new Set(s); if (allSel) selRows.forEach((r) => n.delete(keyOf(r))); else selRows.forEach((r) => n.add(keyOf(r))); return n; });
   }
   function toggleRow(k) { setSelected((s) => { const n = new Set(s); n.has(k) ? n.delete(k) : n.add(k); return n; }); }
   // #350: expand/collapse a row's detail panel. Always fires onExpandedRowsChange; writes internal state
@@ -2403,25 +2487,39 @@ export function Datatable({
     if (selectionMode === "row") {
       if (!activeRowControlled) setActiveRow(k); // #324: controlled → the host drives the highlight via activeRowId
       onRowClick?.(row, k);
-      onActiveCellChange?.(null);
+      commitActiveCell(null); // #395: clear the active cell (internal + notify) when a row is picked
     }
   }
   function handleCellClick(e, k, row, col) {
     if (selectionMode !== "cell") return;
     if (e.target.closest("button, a, input, select, .twc-dt__check, .twc-dt__editor-wrap")) return;
     const next = { key: k, field: col.field };
-    setActiveCell(next);
+    commitActiveCell(next);
     setActiveRow(k);
     // #317: Shift+Click extends the rectangle from the existing anchor; a plain click starts a new one.
     if (!(e.shiftKey && anchorCell)) setAnchorCell(next);
     onCellClick?.(row[col.field], row, col.field);
-    onActiveCellChange?.(next);
   }
 
   // ---- Keyboard grid navigation (roving tabindex over data cells) ----
-  function focusCell(r, c) {
+  function focusCell(r, c, opts) {
     const el = gridRef.current?.querySelector(`.twc-dt__td[data-r="${r}"][data-c="${c}"]`);
-    if (el) el.focus();
+    if (!el) return;
+    // #392: in widget mode, land on the cell's single interactive control (APG grid pattern) so Enter/Space
+    // act on it. A cell with 0 or >1 widgets (or an explicit `{ cell: true }`) focuses the <td> itself.
+    if (cellNavigation === "widget" && !(opts && opts.cell)) {
+      const w = dtCellWidgets(el);
+      if (w.length === 1) { w[0].focus(); return; }
+    }
+    el.focus();
+  }
+  // #392 (review): leave widget interaction mode when focus exits the interacting cell (e.g. Tab past its last
+  // widget), so `interacting` can never get stuck swallowing grid keys.
+  function onGridBlur(e) {
+    if (!interacting) return;
+    const nextTd = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest(".twc-dt__td[data-r]");
+    const stillInside = nextTd && +nextTd.getAttribute("data-r") === interacting.r && +nextTd.getAttribute("data-c") === interacting.c;
+    if (!stillInside) setInteracting(null);
   }
   function onGridKeyDown(e) {
     // #343: never hijack keys (clipboard Ctrl/Cmd+C/X/V, Arrow/Home/End nav) from a focused editable
@@ -2429,8 +2527,21 @@ export function Datatable({
     // editable-target guard in handleCellClick/handleRowClick so typing/selection there stays native.
     if (e.target.closest("input, textarea, select, [contenteditable='true']")) return;
     if (editing) return;
+    // #391: a child widget that owns a popup (an in-cell Menu/Select trigger) already handled this key —
+    // `defaultPrevented` covers the keys it consumes (Arrow/Enter/Space), and an open trigger's
+    // `aria-expanded="true"` covers the ones it does not (ArrowLeft/Right, Home, End). Without this the grid
+    // also moves cell focus, stranding the open popup. The grid's own aria-expanded controls (column ⋮, export,
+    // row-expand) live outside a data cell, so the td lookup below already skips them.
+    if (e.defaultPrevented) return;
+    if (e.target.closest('[aria-expanded="true"]')) return;
     const td = e.target.closest(".twc-dt__td[data-r]");
     if (!td) return;
+    // #392: widget mode — while interacting inside a multi-widget cell, keys act natively (Tab moves within
+    // the cell); Escape leaves interaction mode and returns focus to the cell.
+    if (cellNavigation === "widget" && interacting) {
+      if (e.key === "Escape") { e.preventDefault(); const ic = interacting; setInteracting(null); focusCell(ic.r, ic.c, { cell: true }); }
+      return;
+    }
     // #318: spreadsheet clipboard on the selection (Ctrl/Cmd + C/X/V) before nav keys.
     if (enableClipboard && selectionMode === "cell" && (e.ctrlKey || e.metaKey)) {
       const k = e.key.toLowerCase();
@@ -2444,6 +2555,19 @@ export function Datatable({
     let r = +td.getAttribute("data-r"), c = +td.getAttribute("data-c");
     const maxR = leafRows.length - 1, maxC = ordered.length - 1;
     let handled = true;
+    // #392: widget-mode activation. A single in-cell widget already has focus → let it handle Enter/Space
+    // natively (only nav keys fall through to move the roving focus). On a <td>-focused cell, Enter/F2 enters
+    // interaction mode for a multi-widget cell, or activates the sole widget.
+    if (cellNavigation === "widget") {
+      const onWidget = e.target !== td && !!e.target.closest(DT_CELL_WIDGET_SEL);
+      if (onWidget) {
+        if (e.key === "Enter" || e.key === " ") return;
+      } else if (e.key === "F2" || e.key === "Enter") {
+        const ws = dtCellWidgets(td);
+        if (ws.length > 1) { e.preventDefault(); setInteracting({ r, c }); ws[0].focus(); return; }
+        if (ws.length === 1 && e.key === "Enter") { e.preventDefault(); ws[0].click(); return; }
+      }
+    }
     switch (e.key) {
       case "ArrowDown": r = Math.min(r + 1, maxR); break;
       case "ArrowUp": r = Math.max(r - 1, 0); break;
@@ -2466,11 +2590,32 @@ export function Datatable({
       // anchor (move the active corner only); a plain move starts a new single-cell selection (anchor = active).
       if (selectionMode === "cell") {
         const nk = keyOf(leafRows[r], r), col = ordered[c];
-        if (col) { const nc = { key: nk, field: col.field }; setActiveCell(nc); setActiveRow(nk); if (!e.shiftKey) setAnchorCell(nc); onActiveCellChange?.(nc); }
+        if (col) { const nc = { key: nk, field: col.field }; commitActiveCell(nc); setActiveRow(nk); if (!e.shiftKey) setAnchorCell(nc); }
       }
     }
   }
   React.useEffect(() => { setFocus((f) => ({ r: Math.min(f.r, Math.max(0, leafRows.length - 1)), c: Math.min(f.c, Math.max(0, ordered.length - 1)) })); }, [leafRows.length, ordered.length, pageVal]);
+  // #392: widget mode keeps the grid body a single Tab stop. renderCell content is host-supplied and can't take
+  // a roving React tabIndex, so this is a DOM pass: every data-cell widget is set tabindex=-1 except the one in
+  // the active cell (which becomes the roving 0); a cell with no widget lets its <td> carry the 0. No-op unless
+  // widget mode is on (the default 'cell' path renders the roving tabIndex on the <td> and never runs this).
+  React.useLayoutEffect(() => {
+    if (cellNavigation !== "widget") return;
+    const grid = gridRef.current;
+    if (!grid) return;
+    grid.querySelectorAll(".twc-dt__td[data-r]").forEach((td) => {
+      const r = +td.getAttribute("data-r"), c = +td.getAttribute("data-c");
+      const active = r === focus.r && c === focus.c;
+      // In interaction mode the ACTIVE-multi-widget cell exposes ALL its widgets so Tab cycles among them.
+      const interactingHere = interacting && interacting.r === r && interacting.c === c;
+      const ws = td.querySelectorAll(DT_CELL_WIDGET_SEL);
+      ws.forEach((w, i) => { if (w.getAttribute("aria-hidden") !== "true") w.tabIndex = interactingHere ? 0 : (active && i === 0 ? 0 : -1); });
+      // A cell with no widget keeps the roving 0 on the <td> itself; otherwise the widget carries it.
+      td.tabIndex = active && ws.length === 0 ? 0 : -1;
+    });
+    // `scrollTop` dep: a virtualized grid mounts new rows on scroll (leafRows is a stable ref), so re-run the
+    // roving pass or scrolled-in widgets keep their default (tabbable) tabIndex — breaking the single-Tab-stop.
+  }, [cellNavigation, focus.r, focus.c, leafRows, ordered, pageVal, interacting, hidden, pins, scrollTop]);
 
   const selectedRows = React.useMemo(() => rows.filter((r, i) => selected.has(keyOf(r, i))), [rows, selected]);
   const selKeys = React.useMemo(() => [...selected], [selected]); // #322: stable keys array for predicates/callback
@@ -2491,34 +2636,102 @@ export function Datatable({
     if (!activeRowControlled || !scrollActiveRowIntoView || activeRowId == null) return;
     const el = gridRef.current && gridRef.current.querySelector('.twc-dt__row[data-active="true"]');
     if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest" });
-  }, [activeRowId, activeRowControlled, scrollActiveRowIntoView]);
+    // #395: `keyIndex` in the deps so the scroll re-applies once a server-mode page fetch mounts the row.
+  }, [activeRowId, activeRowControlled, scrollActiveRowIntoView, keyIndex]);
+  // #395: reveal the controlled active cell inside the grid's OWN scroller (never scrollIntoView, which would
+  // scroll the page). Works in any selectionMode, on both axes, honours the sticky header + pinned columns,
+  // and re-runs when rows change so a server-mode page fetch — or a virtualized row mounting — lands on it.
+  React.useEffect(() => {
+    if (!scrollActiveCellIntoView || !activeCellVal) return undefined;
+    const opt = typeof scrollActiveCellIntoView === "object" ? scrollActiveCellIntoView : {};
+    const block = opt.block === "center" ? "center" : "nearest";
+    const inline = opt.inline === "center" ? "center" : "nearest";
+    const ri = keyIndex.get(activeCellVal.key), ci = cellColIndex(activeCellVal.field);
+    if (ri == null || ci < 0) return undefined;
+    let raf = 0;
+    const reveal = () => {
+      const sc = scrollRef.current; if (!sc) return;
+      const td = gridRef.current && gridRef.current.querySelector(`.twc-dt__td[data-r="${ri}"][data-c="${ci}"]`);
+      if (td) {
+        const scR = sc.getBoundingClientRect(), tR = td.getBoundingClientRect();
+        if (block === "center") { const mid = (scR.top + headH + scR.bottom) / 2; sc.scrollTop += (tR.top + tR.height / 2) - mid; }
+        else if (tR.top < scR.top + headH) sc.scrollTop -= (scR.top + headH - tR.top);
+        else if (tR.bottom > scR.bottom) sc.scrollTop += (tR.bottom - scR.bottom);
+        if (!td.getAttribute("data-pin")) { // a sticky pinned cell reports its stuck position — don't chase it
+          let leftInset = 0, rightInset = 0;
+          gridRef.current.querySelectorAll('thead .twc-dt__th[data-pin="left"]').forEach((th) => { leftInset += th.offsetWidth; });
+          gridRef.current.querySelectorAll('thead .twc-dt__th[data-pin="right"]').forEach((th) => { rightInset += th.offsetWidth; });
+          if (inline === "center") { const midX = (scR.left + leftInset + scR.right - rightInset) / 2; sc.scrollLeft += (tR.left + tR.width / 2) - midX; }
+          else if (tR.left < scR.left + leftInset) sc.scrollLeft -= (scR.left + leftInset - tR.left);
+          else if (tR.right > scR.right - rightInset) sc.scrollLeft += (tR.right - (scR.right - rightInset));
+        }
+      } else if (virtualizing && offsets) { // target row not mounted yet — pre-scroll from the prefix-sum, then re-reveal
+        const mi = keyIndexMid.get(activeCellVal.key);
+        if (mi != null && offsets[mi] != null) { sc.scrollTop = Math.max(0, offsets[mi] - (block === "center" ? sc.clientHeight / 2 : headH)); raf = requestAnimationFrame(reveal); }
+      }
+    };
+    reveal();
+    return () => { if (raf) cancelAnimationFrame(raf); };
+    // #395 (review): key on the activeCell PRIMITIVES (not the object identity) so a controlled inline
+    // `activeCell={{…}}` doesn't re-run — and re-center — on every unrelated parent render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCellVal?.key, activeCellVal?.field, scrollActiveCellIntoView, keyIndex, cellColIndex, virtualizing, offsets, keyIndexMid, headH]);
   function clearSelection() { setSelected(new Set()); }
 
   // ---- Inline editing ----
   const [editing, setEditing] = React.useState(null); // { key, field, value }
+  // #390: a custom renderEditCell can stage its draft here (via the `setDraft` arg) so click-away commits it
+  // spreadsheet-style, exactly like the built-in editor. Editors that never stage keep the old cancel-on-away.
+  const stagedEditRef = React.useRef(null);
+  // #396: fire an observability signal at every edit transition (imperative, not an effect — an effect on
+  // `editing` can't tell a commit from a cancel). `editStoppedRef` guards against a double stop-signal when a
+  // renderEditCell editor calls its cancel()/commit() and the same synchronous keydown also reaches the wrapper.
+  const onEditingChangeRef = React.useRef(onEditingChange); onEditingChangeRef.current = onEditingChange;
+  const editStoppedRef = React.useRef(false);
   // #236: a `renderEditCell` column is editable too (unless `editable: false`).
   const isColEditable = (c) => c.type !== "actions" && c.editable !== false && (c.editable === true || c.renderEditCell != null || editMode);
 
+  // #390/#394: the shared onRowUpdate + onRowsChange tail, so single-key, multi-key and clipboard writes agree.
+  function applyRowUpdate(rowKey, updated, orig, field) {
+    onRowUpdate?.(updated, orig, field);
+    if (onRowsChange && rows.some((r, i) => keyOf(r, i) === rowKey)) {
+      onRowsChange(rows.map((r, i) => (keyOf(r, i) === rowKey ? updated : r)));
+    }
+  }
+
   function beginEdit(rowK, col, row) {
     if (!isColEditable(col)) return;
+    // #396: a double-click INSIDE an open editor bubbles to the cell's onDoubleClick — ignore it so we don't
+    // re-fire onEditingChange("start") without a commit/cancel and reset the in-progress value to the row's.
+    if (editing && editing.key === rowK && editing.field === col.field) return;
+    stagedEditRef.current = null;
+    editStoppedRef.current = false;
     setEditing({ key: rowK, field: col.field, value: row[col.field] ?? "" });
+    onEditingChangeRef.current?.({ key: rowK, field: col.field }, "start");
   }
-  function cancelEdit() { setEditing(null); }
-  function commitEdit(override) {
+  function cancelEdit() { const cur = editing; stagedEditRef.current = null; setEditing(null); if (cur && !editStoppedRef.current) { editStoppedRef.current = true; onEditingChangeRef.current?.(null, "cancel"); } }
+  // #390: `patch` (from commitPatch) writes several stored keys at once; otherwise the single `field` is written.
+  function commitEdit(override, patch) {
     if (!editing) return;
+    const cur = editing;
     const col = colByField[editing.field];
-    let next = override !== undefined ? override : editing.value;
-    if (col?.type === "number") { next = next === "" ? null : Number(next); if (Number.isNaN(next)) next = null; }
     // #359: resolve from leafRows (which includes tree children) so a client-tree child edit resolves and
     // fires onRowUpdate; the array-persist below can only carry top-level rows.
     const row = leafRows.find((r, i) => keyOf(r, i) === editing.key);
+    stagedEditRef.current = null;
     setEditing(null);
-    if (!row || row[editing.field] === next) return;
-    const updated = { ...row, [editing.field]: next };
-    onRowUpdate?.(updated, row, editing.field);
-    if (onRowsChange && rows.some((r, i) => keyOf(r, i) === editing.key)) {
-      onRowsChange(rows.map((r, i) => (keyOf(r, i) === editing.key ? updated : r)));
+    if (!editStoppedRef.current) { editStoppedRef.current = true; onEditingChangeRef.current?.(null, "commit"); } // #396: fire once, before the no-op early return, so every commit reports
+    if (!row) return;
+    if (patch) {
+      // #390: multi-key edit — no-op only when every patched key is unchanged; else write the merged row.
+      if (Object.keys(patch).every((k) => row[k] === patch[k])) return;
+      applyRowUpdate(cur.key, { ...row, ...patch }, row, cur.field);
+      return;
     }
+    let next = override !== undefined ? override : editing.value;
+    if (col?.type === "number") { next = next === "" ? null : Number(next); if (Number.isNaN(next)) next = null; }
+    if (row[editing.field] === next) return;
+    applyRowUpdate(cur.key, { ...row, [editing.field]: next }, row, cur.field);
   }
   function onEditKey(e) {
     if (e.key === "Enter") { e.preventDefault(); commitEdit(); }
@@ -2597,6 +2810,7 @@ export function Datatable({
   const clipFxTimer = React.useRef(null);
   const onCellsCopyRef = React.useRef(onCellsCopy); onCellsCopyRef.current = onCellsCopy;
   const onCellsPasteRef = React.useRef(onCellsPaste); onCellsPasteRef.current = onCellsPaste;
+  const onCellsCommitRef = React.useRef(onCellsCommit); onCellsCommitRef.current = onCellsCommit; // #394
   React.useEffect(() => () => { if (clipFxTimer.current) clearTimeout(clipFxTimer.current); }, []);
   const announceClip = (msg, rect) => {
     setClipboardMsg(msg);                    // aria-live (screen readers)
@@ -2623,11 +2837,21 @@ export function Datatable({
     return Promise.resolve();
   };
   // Apply a Map<rowKey, {field: value}> in ONE pass → a single onRowsChange (never N), mirroring applyBatchEdit.
-  const writeCellPatches = (patchByKey) => {
+  // #394: when `onCellsCommit` is supplied and `meta` is passed, report the whole paste/cut as ONE grouped call
+  // instead of looping onRowUpdate per cell — so a host persisting through onRowUpdate isn't hit with N writes.
+  const writeCellPatches = (patchByKey, meta) => {
     if (!patchByKey.size) return 0;
     // #359: fire onRowUpdate for every patched row in the RENDERED leaf set (includes tree children).
     let count = 0;
-    leafRows.forEach((r, i) => { const patch = patchByKey.get(keyOf(r, i)); if (!patch) return; const updated = { ...r, ...patch }; for (const f of Object.keys(patch)) onRowUpdate?.(updated, r, f); count++; });
+    const grouped = onCellsCommitRef.current && meta ? [] : null;
+    leafRows.forEach((r, i) => {
+      const patch = patchByKey.get(keyOf(r, i)); if (!patch) return;
+      const updated = { ...r, ...patch };
+      if (grouped) grouped.push({ key: keyOf(r, i), row: updated, patch });
+      else for (const f of Object.keys(patch)) onRowUpdate?.(updated, r, f);
+      count++;
+    });
+    if (grouped && grouped.length) onCellsCommitRef.current(grouped, meta); // one call for the whole batch
     // The array persist (onRowsChange) can only carry top-level rows; children persist via onRowUpdate above.
     if (onRowsChange) {
       let anyTop = false;
@@ -2655,7 +2879,7 @@ export function Datatable({
     if (cut) {
       const patchByKey = new Map(); let clearable = 0;
       for (const line of grid) for (const cell of line) { if (!isColEditable(cell.col)) continue; clearable++; const p = patchByKey.get(cell.key) || {}; p[cell.field] = cell.col.type === "number" ? null : ""; patchByKey.set(cell.key, p); }
-      writeCellPatches(patchByKey);
+      writeCellPatches(patchByKey, { source: "cut" });
       announceClip(`Cut ${clearable} cell${clearable === 1 ? "" : "s"}${clearable < n ? `, ${n - clearable} read-only kept` : ""}`, cellRect);
     } else {
       announceClip(`Copied ${n} cell${n === 1 ? "" : "s"}`, cellRect);
@@ -2684,7 +2908,7 @@ export function Datatable({
         const k = keyOf(row, rr); const p = patchByKey.get(k) || {}; p[col.field] = v; patchByKey.set(k, p); written++;
       }
     }
-    writeCellPatches(patchByKey);
+    writeCellPatches(patchByKey, { source: "paste" });
     onCellsPasteRef.current?.({ written, skipped }); // #320
     const maxCols = matrix.reduce((a, m) => Math.max(a, m.length), 0);
     const pasteRect = written ? { r0: cellRect.r0, c0: cellRect.c0, r1: Math.min(cellRect.r0 + matrix.length - 1, leafRows.length - 1), c1: Math.min(cellRect.c0 + maxCols - 1, ordered.length - 1) } : null;
@@ -2725,10 +2949,11 @@ export function Datatable({
       if (e.target.closest(".twc-dt__editor-wrap") || e.target.closest(".twc-pop")) return;
       // #313: this capture-phase handler fires BEFORE the input's onBlur, so setEditing(null) here used
       // to pre-empt the blur→commit and silently discard a typed value on click-away. The DEFAULT editor
-      // now COMMITS the pending value instead (spreadsheet-like). A `renderEditCell` column keeps its own
-      // semantics — it drives commit/cancel via the callbacks it was given — so we just dismiss it.
+      // now COMMITS the pending value instead (spreadsheet-like). #390: a `renderEditCell` column that
+      // STAGED a draft (via `setDraft`) commits it the same way; one that never staged keeps cancel-on-away.
       const col = colByField[editing.field];
-      if (col && col.renderEditCell) setEditing(null); else commitEdit();
+      if (col && col.renderEditCell) { if (stagedEditRef.current) commitEdit(stagedEditRef.current.value); else cancelEdit(); }
+      else commitEdit();
     };
     document.addEventListener("mousedown", onDown, true);
     return () => document.removeEventListener("mousedown", onDown, true);
@@ -2747,13 +2972,27 @@ export function Datatable({
     })() : [];
     const menu = [...items.filter((a) => a.showInMenu), ...pinItems];
     return (
-      <div className="twc-dt__actions" style={{ justifyContent: col.align === "right" ? "flex-end" : "flex-start" }}>
-        {inline.map((a, i) => (
-          <Tooltip key={i} label={a.label} placement="top">
-            <button type="button" className="twc-dt__act" data-danger={a.danger || undefined} aria-label={a.label}
-              disabled={a.disabled} onClick={(e) => { e.stopPropagation(); a.onClick?.(row); }}>{a.icon}</button>
-          </Tooltip>
-        ))}
+      <div className="twc-dt__actions" style={{ justifyContent: col.align === "right" ? "flex-end" : col.align === "center" ? "center" : "flex-start" }}>
+        {inline.map((a, i) => {
+          // #399: a navigation action renders as a real (scheme-sanitised) <a> so it can be middle-clicked,
+          // opened in a new tab, or copied. onClick still runs for a plain left-click (client routers keep
+          // working); modifier / middle clicks fall through to the browser. A disabled action shows its
+          // `disabledReason` (when given) as the tooltip. Non-link actions keep the native <button>.
+          const href = !a.disabled ? safeHref(a.href) : undefined;
+          const tip = a.disabled && a.disabledReason != null ? a.disabledReason : a.label;
+          return (
+            <Tooltip key={i} label={tip} placement="top">
+              {href ? (
+                <a className="twc-dt__act" data-danger={a.danger || undefined} aria-label={a.label}
+                  href={href} target={a.target} rel={a.rel}
+                  onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; e.stopPropagation(); a.onClick?.(row); }}>{a.icon}</a>
+              ) : (
+                <button type="button" className="twc-dt__act" data-danger={a.danger || undefined} aria-label={a.label}
+                  disabled={a.disabled} onClick={(e) => { e.stopPropagation(); a.onClick?.(row); }}>{a.icon}</button>
+              )}
+            </Tooltip>
+          );
+        })}
         {menu.length ? (
           <Tooltip label="More actions" placement="top">
             <button type="button" className="twc-dt__act" aria-label="More actions"
@@ -3033,7 +3272,7 @@ export function Datatable({
   function renderGroupRow(item) {
     const subs = aggOn ? subtotalText(item.rows) : [];
     // #387: renderGroupLabel replaces the default "<field>: <value> <count>" content; the chevron + toggle stay.
-    const custom = renderGroupLabel ? renderGroupLabel({ field: item.field, value: item.value, count: item.count, rows: item.rows }) : null;
+    const custom = renderGroupLabel ? renderGroupLabel({ field: item.field, value: item.value, count: item.count, rows: item.rows, collapsed: item.collapsed, toggle: () => toggleGroup(item.key) }) : null;
     return (
       <tr key={`g${item.key}`} className="twc-dt__group-row" role="row">
         <td className="twc-dt__group-cell" role="gridcell" colSpan={totalCols} style={{ maxWidth: "none" }}>
@@ -3140,7 +3379,7 @@ export function Datatable({
           const isActions = c.type === "actions";
           const editable = isColEditable(c);
           const isEditing = editing && editing.key === k && editing.field === c.field;
-          const cellActive = selectionMode === "cell" && activeCell && activeCell.key === k && activeCell.field === c.field;
+          const cellActive = selectionMode === "cell" && activeCellVal && activeCellVal.key === k && activeCellVal.field === c.field;
           // #317: is this cell inside the current selection rectangle? (single-cell selection is a 1×1 rect)
           const cellSelected = selectionMode === "cell" && cellRect && ri >= cellRect.r0 && ri <= cellRect.r1 && ci >= cellRect.c0 && ci <= cellRect.c1;
           const cellFlash = clipFx && clipFx.rect && ri >= clipFx.rect.r0 && ri <= clipFx.rect.r1 && ci >= clipFx.rect.c0 && ci <= clipFx.rect.c1; // #320 copy/paste flash
@@ -3158,9 +3397,9 @@ export function Datatable({
           const cellSty = c.cellStyle ? c.cellStyle(val, row) : undefined;
           return (
             <td key={c.field} id={cellId} className={cellClass ? `twc-dt__td ${cellClass}` : "twc-dt__td"} role="gridcell" data-r={ri} data-c={ci} aria-colindex={ci + 1 + (checkboxSelection ? 1 : 0) + (hasExpandCol ? 1 : 0)}
-              tabIndex={focus.r === ri && focus.c === ci ? 0 : -1}
+              tabIndex={cellNavigation === "widget" ? -1 : (focus.r === ri && focus.c === ci ? 0 : -1)}
               aria-selected={cellSelected || undefined}
-              data-num={c.type === "number" || undefined} data-actions={isActions || undefined}
+              data-num={c.type === "number" || undefined} data-actions={isActions || undefined} data-align={c.align !== dtNaturalAlign(c) ? c.align : undefined}
               data-editable={editable && !isEditing || undefined} data-editing={isEditing || undefined}
               data-cell-active={cellActive || undefined} data-cell-selected={cellSelected || undefined} data-copied={cellFlash || undefined} data-wrap={effectiveWrapped.has(c.field) || undefined}
               data-pin={st.pin} data-pin-edge={st.edge}
@@ -3186,7 +3425,9 @@ export function Datatable({
                   // wants Escape itself (e.g. to close its own open dropdown) stops propagation first.
                   <div className="twc-dt__editor-wrap"
                     onKeyDown={(e) => { if (e.key === "Escape") { e.stopPropagation(); cancelEdit(); } }}>
-                    {c.renderEditCell({ value: editing.value, row, field: c.field, commit: (v) => commitEdit(v), cancel: cancelEdit })}
+                    {c.renderEditCell({ value: editing.value, row, field: c.field, commit: (v) => commitEdit(v), cancel: cancelEdit,
+                      setDraft: (v) => { stagedEditRef.current = { value: v }; setEditing((ed) => (ed ? { ...ed, value: v } : ed)); },
+                      commitPatch: (patch) => commitEdit(undefined, patch) })}
                   </div>
                 ) : (
                   <EditCell col={c} value={editing.value} options={c.valueOptions ? optionsForField(c.field) : null}
@@ -3314,7 +3555,7 @@ export function Datatable({
   }
 
   return (
-    <div className={`twc-dt ${className}`} ref={rootRef} data-density={density} data-resizing={resizing || undefined} {...rest}>
+    <div className={`twc-dt ${className}`} ref={rootRef} data-density={density} data-resizing={resizing || undefined} data-editing={editing ? "" : undefined} {...rest}>
       {__twcStyles}
       {/* PIVOT_RENDER_ANCHOR */}
       {/* Toolbar */}
@@ -3449,7 +3690,7 @@ export function Datatable({
           ref={gridRef} role="grid" aria-label={ariaLabelAttr || ariaLabel}
           aria-rowcount={(treeSeqByKey ? treeSeqByKey.size : totalRows) + 1} aria-colcount={ordered.length + (checkboxSelection ? 1 : 0) + (hasExpandCol ? 1 : 0)}
           aria-multiselectable={selectionMode === "cell" || undefined} aria-activedescendant={activeCellId}
-          aria-busy={loading || undefined} onKeyDown={onGridKeyDown} onPaste={onGridPaste}>
+          aria-busy={loading || undefined} onKeyDown={onGridKeyDown} onPaste={onGridPaste} onBlur={cellNavigation === "widget" ? onGridBlur : undefined}>
           <thead ref={theadRef}>
             <tr role="row" aria-rowindex={1}>
               {hasExpandCol ? (
@@ -3488,7 +3729,7 @@ export function Datatable({
                 return (
                   <th key={c.field} className="twc-dt__th" role="columnheader" scope="col"
                     aria-sort={sorted ? (sorted === "asc" ? "ascending" : "descending") : (c.sortable ? "none" : undefined)}
-                    data-num={c.type === "number" || undefined} data-actions-col={c.type === "actions" || undefined}
+                    data-num={c.type === "number" || undefined} data-actions-col={c.type === "actions" || undefined} data-align={(c.headerAlign ?? c.align) !== dtNaturalAlign(c) ? (c.headerAlign ?? c.align) : undefined}
                     data-sorted={sorted} data-pin={st.pin} data-pin-edge={st.edge}
                     data-dragging={drag.from === c.field || undefined}
                     data-dropbefore={(drag.over === c.field && !drag.after) || undefined}
@@ -3499,7 +3740,6 @@ export function Datatable({
                     <div className="twc-dt__th-inner">
                       <span className="twc-dt__th-label"
                         role={c.sortable ? "button" : undefined} tabIndex={c.sortable ? 0 : undefined}
-                        data-ovtext={!c.renderHeader && typeof c.headerName === "string" ? c.headerName : undefined}
                         aria-label={c.sortable ? `${colLabel(c)}, sort` : undefined}
                         draggable={reorderable || undefined}
                         onDragStart={reorderable ? (e) => { setDrag({ from: c.field, over: null, after: false }); e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", c.field); } : undefined}
@@ -3508,7 +3748,7 @@ export function Datatable({
                         onKeyDown={c.sortable ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); cycleSort(c.field); } } : undefined}>
                         {reorderable ? <span className="twc-dt__grip" aria-hidden="true"><Svg d={I.grip} /></span> : null}
                         {filteredFields.has(c.field) ? <span className="twc-dt__filterdot" /> : null}
-                        {c.renderHeader ? c.renderHeader({ column: c }) : c.headerName}
+                        {c.renderHeader ? c.renderHeader({ column: c }) : <span className="twc-dt__th-text" data-ovtext={typeof c.headerName === "string" ? c.headerName : undefined}>{c.headerName}</span>}
                         {c.sortable ? <span className="twc-dt__sort"><Svg d={I.arrow} /></span> : null}
                       </span>
                       {hasMenu ? (
@@ -3589,7 +3829,7 @@ export function Datatable({
                   const v = aggregate(c);
                   const display = v == null ? null : (c.aggregationFormatter ? c.aggregationFormatter(v) : c.valueFormatter ? c.valueFormatter(v, null) : (typeof v === "number" ? v.toLocaleString() : v));
                   return (
-                    <td key={c.field} role="gridcell" data-num={c.type === "number" || undefined} data-pin={st.pin} data-pin-edge={st.edge} style={{ width: widthOf(c), ...st.style }}>
+                    <td key={c.field} role="gridcell" data-num={c.type === "number" || undefined} data-align={c.align !== dtNaturalAlign(c) ? c.align : undefined} data-pin={st.pin} data-pin-edge={st.edge} style={{ width: widthOf(c), ...st.style }}>
                       {v == null ? null : (<>
                         {typeof aggOf(c) === "string" ? <span className="twc-dt__agg-label">{aggLabels[aggOf(c)]}</span> : null}
                         <span className="twc-dt__agg-val">{display}</span>
@@ -3760,7 +4000,7 @@ export function Datatable({
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "asc" || undefined} onClick={() => { setSort({ field: c.field, dir: "asc" }); close(); }}><Svg d={I.arrow} /> Sort ascending</button>
                 <button type="button" role="menuitem" className="twc-dt__mi" data-active={sort?.field === c.field && sort.dir === "desc" || undefined} onClick={() => { setSort({ field: c.field, dir: "desc" }); close(); }}><Svg d={I.arrow} style={{ transform: "rotate(180deg)" }} /> Sort descending</button>
               </>) : null}
-              {c.filterable && filtersShown ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); restoreTriggerFocus(); setPanel("filters"); openPanel(document.querySelector('.twc-dt__toolbar .twc-dt__tbtn[data-tbtn="filters"]'), "left", DT_FILTER_PANEL_W); }}><Svg d={I.filter} /> Filter</button> : null}
+              {c.filterable && filtersShown ? <button type="button" role="menuitem" className="twc-dt__mi" onClick={(e) => { addFilter(c.field); setColMenu(null); closeMenu(); restoreTriggerFocus(); setPanel("filters"); /* #408: anchor to THIS table's own Filters button (rootRef-scoped, not a document-wide lookup that grabs the first grid's button); fall back to the ⋮ trigger when the toolbar is scrolled out of view so the panel always places. */ const filterBtn = rootRef.current?.querySelector('.twc-dt__toolbar [data-tbtn="filters"]'); openPanel(filterBtn ?? menuTriggerRef.current, "left", DT_FILTER_PANEL_W); }}><Svg d={I.filter} /> Filter</button> : null}
               {hasTop && hasBottom ? <div className="twc-dt__sep" /> : null}
               {c.groupable ? <button type="button" role="menuitem" className="twc-dt__mi" data-active={groupBy.includes(c.field) || undefined} onClick={() => { toggleGroupField(c.field); close(); }}><Svg d={I.group} /> {groupBy.includes(c.field) ? "Stop grouping" : "Group by this column"}</button> : null}
               {/* #339: build a combined column at runtime — fold other columns' data into this one. */}
@@ -3795,13 +4035,27 @@ export function Datatable({
           onKeyDown={(e) => onMenuKeyDown(e, () => { setRowMenu(null); closeRowMenu(); })}
           style={{ top: rowMenuPos.top, left: rowMenuPos.left, width: rowMenuPos.width, maxHeight: rowMenuPos.maxHeight, overflowY: "auto" }}>
           <Caret pos={rowMenuPos} />
-          {rowMenu.items.map((a, i) => (
-            <button type="button" key={i} role="menuitem" className="twc-dt__mi" disabled={a.disabled}
-              style={a.danger ? { color: "var(--color-danger-subtle-fg)" } : undefined}
-              onClick={() => { a.onClick?.(rowMenu.row); setRowMenu(null); closeRowMenu(); restoreTriggerFocus(); }}>
-              {a.icon || null}{a.label}
-            </button>
-          ))}
+          {rowMenu.items.map((a, i) => {
+            // #399: an overflow action with a (sanitised) href renders as <a role="menuitem"> like Menu's link
+            // items — middle/modifier clicks open the browser, a plain click runs onClick and closes the menu.
+            // A disabled action shows its `disabledReason` as an inline muted hint (reachable regardless of the
+            // disabled-button pointer-events quirk).
+            const href = !a.disabled ? safeHref(a.href) : undefined;
+            const sty = a.danger ? { color: "var(--color-danger-subtle-fg)" } : undefined;
+            const inner = (<>{a.icon || null}{a.label}{a.disabled && a.disabledReason != null ? <span className="twc-dt__mi-hint">{a.disabledReason}</span> : null}</>);
+            const done = () => { setRowMenu(null); closeRowMenu(); restoreTriggerFocus(); };
+            return href ? (
+              <a key={i} role="menuitem" className="twc-dt__mi" href={href} target={a.target} rel={a.rel} style={sty}
+                onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; a.onClick?.(rowMenu.row); done(); }}>
+                {inner}
+              </a>
+            ) : (
+              <button type="button" key={i} role="menuitem" className="twc-dt__mi" disabled={a.disabled} style={sty}
+                onClick={() => { a.onClick?.(rowMenu.row); done(); }}>
+                {inner}
+              </button>
+            );
+          })}
         </div>
       ) : null}
 

@@ -34,6 +34,9 @@ const CSS = `
 .twc-btn:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-btn:active:not(:disabled) { transform: scale(var(--press-scale)); }
 .twc-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+/* #398: focusableWhenDisabled renders aria-disabled instead of native disabled — same look, pointer blocked
+   (so :hover:not(:disabled) never fires), but the button stays focusable for a keyboard-reachable tooltip. */
+.twc-btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
 /* Hide the label/icons under the centered spinner via visibility on the content
    span — variant rules set \`color\` later in this sheet, so a color-based hide
    would lose the specificity tie and leave the label showing through. */
@@ -71,6 +74,9 @@ const CSS = `
 /* ghost — neutral at rest, accent on hover */
 .twc-btn[data-variant="ghost"] { background: transparent; color: var(--color-text-muted); }
 .twc-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
+/* #405: toggle "on" state (aria-pressed) — a soft tone fill + tone border, variant-agnostic (works over any
+   variant); source-ordered after the variant rules so it wins at rest, hover keeps its higher specificity. */
+.twc-btn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
 
 .twc-btn__spinner {
   position: absolute; inset: 0; margin: auto;
@@ -113,6 +119,8 @@ export function Button({
   loading = false,
   fullWidth = false,
   disabled = false,
+  focusableWhenDisabled = false,
+  pressed,
   as = "button",
   href,
   className = "",
@@ -123,10 +131,13 @@ export function Button({
   const [ripples, setRipples] = React.useState([]);
   const Tag = as;
   const inert = Tag === "a" && (disabled || loading);
+  // #398: a disabled <button> can stay focusable (aria-disabled instead of native disabled) so a wrapping
+  // Tooltip's "why it's disabled" reason is reachable from the keyboard. Click + keyboard activation stay off.
+  const softDisabled = disabled && focusableWhenDisabled && !loading && Tag === "button";
 
   function handleClick(e) {
     if (disabled || loading) {
-      if (inert) e.preventDefault();
+      if (inert || softDisabled) e.preventDefault();
       return;
     }
     const rect = e.currentTarget.getBoundingClientRect();
@@ -150,10 +161,11 @@ export function Button({
       data-size={size}
       data-loading={loading || undefined}
       data-block={fullWidth || undefined}
-      disabled={Tag === "button" ? disabled || loading : undefined}
+      disabled={Tag === "button" ? (disabled || loading) && !softDisabled : undefined}
       type={Tag === "button" ? "button" : undefined}
       href={inert ? undefined : safeHref(href)}
-      aria-disabled={inert || undefined}
+      aria-disabled={inert || softDisabled || undefined}
+      aria-pressed={pressed}
       tabIndex={inert ? -1 : undefined}
       aria-busy={loading || undefined}
       onClick={handleClick}

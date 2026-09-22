@@ -2,9 +2,12 @@
 
 - **Group:** buttons
 - **Status:** clean
-- **Reviewed:** 2026-06-17
+- **Reviewed:** 2026-09-22
 
 ## Open issues
+
+- [x] **[#405] no pressed (toggle) state** — added `pressed` (aria-pressed + soft tone fill), for a pin/unpin or bold/italic icon toggle. `tests/toggle-group.test.jsx`. `IconButton.jsx`/`.d.ts` — ✓ fixed 2026-09-22
+- [x] **[#398] a disabled IconButton couldnt host a keyboard-reachable tooltip** — added `focusableWhenDisabled` (aria-disabled, stays focusable, click/keyboard blocked). `IconButton.jsx`/`.d.ts` — ✓ fixed 2026-09-22
 - [x] **[P2] No default `type="button"`** — The rendered `<button>` has no explicit `type`, so it defaults to `type="submit"`. An icon button placed in a `<form>` (e.g. a clear/close affordance in a search field) will submit the form on click. `type` is only present if the consumer passes it through `...rest`. _Fix:_ default `type="button"` (overridable via `...rest`), e.g. add `type="button"` on the element before `{...rest}`. `components/buttons/IconButton.jsx:71-81` — ✓ fixed 2026-06-17
 
 ## Enhancements

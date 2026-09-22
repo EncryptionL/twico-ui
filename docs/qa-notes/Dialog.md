@@ -1,10 +1,12 @@
 # QA notes — Dialog
 
 - **Group:** overlay
-- **Reviewed:** 2026-06-17
+- **Reviewed:** 2026-09-22
 - **Status:** clean
 
 ## Open issues
+
+- [x] **[#389] Escape / a backdrop click meant for a nested overlay also closed the Dialog (no overlay stack)** — added a shared dismissable-layer stack (`useLayer` in `_overlay.js`): every open overlay registers and Escape/outside-pointer reach only the topmost. Dialog/Drawer/CommandPalette bail their document Escape on `defaultPrevented` or when not topmost, and gate the backdrop on `isTop()`; Popover/Menu gate outside-pointer; Tooltip consumes Escape when topmost; Select/Combobox/MultiSelect preventDefault Escape when open. `tests/overlay-layer-stack.test.jsx`. `_overlay.js` + the overlay/input components — ✓ fixed 2026-09-22
 
 - [x] **[#371] `scrollBody` defaulted to `false`, scrolling the footer buttons off-screen** — with the old default, once content exceeded the viewport the title scrolled away at the top and the footer (Save/Cancel) at the bottom, so the user had to scroll to the end of the body to reach the button that acts on it — the worse of the two behaviours, and the one you got by writing the obvious thing (in one app: 44 of 78 call sites passed `scrollBody`, 34 didn't — an unprincipled split). Flipped the default to `scrollBody: true` (header/footer pinned, only the body scrolls — matching `Drawer`, which is unconditionally flex-column). A dialog whose content fits renders identically (the panel is `max-height`-capped, not fixed-height, so it still shrinks to content). `scrollBody={false}` still scrolls the whole panel as one block. Migration note: a non-portaled child that deliberately overflows the panel would now be clipped (rare — the overlay inputs all portal by default). `Dialog.jsx` — ✓ fixed 2026-09-11
 - [x] **[#372] No divider between header / body / footer** — the three regions differed only by padding and font size, so with a scrolling body content slid up under the title and behind the buttons with no line marking the boundary (worst exactly where the component was already doing the right thing — the pinned header/footer of `scrollBody`). Added a `dividers` prop (default `true`): a `border-bottom` on the header and `border-top` on the footer via per-region `data-divider`, so the rule is auto-suppressed where the region is empty (no footer; a header with only a close button and no title/description). `dividers={false}` reads as one continuous surface. Uses `--color-divider` (matching Drawer's footer). Composes with #371 — dividers matter most when the body scrolls. `Dialog.jsx` — ✓ fixed 2026-09-11

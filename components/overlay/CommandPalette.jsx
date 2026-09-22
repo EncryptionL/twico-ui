@@ -1,6 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
-import { useFocusTrap, usePortal, useScrollLock } from "../_overlay.js";
+import { useFocusTrap, usePortal, useScrollLock, useLayer } from "../_overlay.js";
 
 const COMMAND_CSS = `
 .twc-cmdk__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(3px);
@@ -82,14 +82,16 @@ export function CommandPalette({
 
   // Modal a11y (2/2): Escape closes. Kept here (not in useFocusTrap) because closing
   // is component-specific; the trap owns only Tab/Shift+Tab.
+  const isTop = useLayer(open && mounted); // #389: dismissable-layer stack
   React.useEffect(() => {
     if (!open) return undefined;
     const onKey = (e) => {
+      if (e.defaultPrevented || !isTop()) return; // #389
       if (e.key === "Escape") { e.preventDefault(); onClose?.(); }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+  }, [open, onClose, isTop]);
 
   const q = query.trim().toLowerCase();
   const filtered = React.useMemo(() => commands.filter((c) =>
@@ -130,7 +132,7 @@ export function CommandPalette({
   let idx = -1;
 
   const overlay = (
-    <div className="twc-cmdk__overlay" data-state={state} onMouseDown={(e) => { if (e.target === e.currentTarget) onClose?.(); }}>
+    <div className="twc-cmdk__overlay" data-state={state} onMouseDown={(e) => { if (e.target === e.currentTarget && isTop()) onClose?.(); }}>
       {__twcStyles}
       <div ref={paletteRef} className={`twc-cmdk ${className}`} data-state={state} role="dialog" aria-modal="true" aria-label="Command palette" tabIndex={-1} {...rest}>
         <div className="twc-cmdk__search">

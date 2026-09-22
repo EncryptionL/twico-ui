@@ -4,6 +4,11 @@ import { createPortal } from "react-dom";
 
 const TOOLTIP_CSS = `
 .twc-tooltip-wrap { display: inline-flex; }
+/* #398: a native disabled control swallows the pointer events the tooltip opens from (browser-dependent),
+   so a disabled trigger often never shows its tooltip on hover. Let the pointer fall through to the wrap,
+   which owns onMouseEnter, and keep the not-allowed cursor hint. */
+.twc-tooltip-wrap > :disabled, .twc-tooltip-wrap > [aria-disabled="true"] { pointer-events: none; }
+.twc-tooltip-wrap:has(> :disabled), .twc-tooltip-wrap:has(> [aria-disabled="true"]) { cursor: not-allowed; }
 .twc-tooltip {
   position: fixed; z-index: var(--z-tooltip);
   /* #348: purely presentational — the bubble must NEVER intercept the pointer, so neither a hidden
@@ -127,6 +132,9 @@ export function Tooltip({
 
   // WCAG 1.4.13: Escape dismisses the tooltip; listener attached only while shown. In anchored mode
   // the parent owns visibility (`open`), so it handles Escape.
+  // #389 review: a transient hover/focus tooltip is NOT a modal dismissable layer — it hides on Escape but
+  // does NOT preventDefault or consume it (matching Radix/MUI), so the SAME Escape still closes an enclosing
+  // Dialog/Drawer on the first press (the modal layers Menu/Select/Popover/nested-Dialog own the layer stack).
   React.useEffect(() => {
     if (!show || anchored) return;
     const onKeyDown = (e) => {

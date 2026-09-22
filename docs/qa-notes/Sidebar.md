@@ -2,9 +2,12 @@
 
 - **Group:** navigation
 - **Status:** clean
-- **Reviewed:** 2026-06-17
+- **Reviewed:** 2026-09-22
 
 ## Open issues
+
+- [x] **[#401] section headings squashed instead of the nav scrolling on a short rail** — added `.twc-sidebar__nav > * { flex-shrink: 0 }` so the nav scrolls first (a non-visible-overflow flex item otherwise gets an auto min-height of 0). Doesnt affect the collapse animation. `tests/sidebar-footer-scroll.test.jsx`. `Sidebar.jsx` — ✓ fixed 2026-09-22
+- [x] **[#402] footer content was always inset (an edge-to-edge account row needed negative margins)** — added `footerInset` (default `true`); `false` cancels the built-in padding so a full-width account rows hover bg reaches the rail edges. `Sidebar.jsx`/`.d.ts` — ✓ fixed 2026-09-22
 
 - [x] **[P1] onClick items jump the page to `#`** — Nav items always render as `<a href={safeHref(it.href) || "#"}>`. The collapsed/uncontrolled demos and many real sidebars drive navigation purely from `onClick` with no `href`; because `href` defaults to `"#"` and no handler calls `preventDefault`, clicking scrolls the viewport to the top and pushes a `#` history entry. Same root cause as Navbar. _Fix:_ render a `<button>` when no `href` is supplied (also resolves the deferred render-as-button item), or drop the `"#"` fallback so the anchor is inert. `components/navigation/Sidebar.jsx:84`. — ✓ fixed 2026-06-17
 - [x] **[P2] Collapsed labels are visually hidden but stay in the a11y tree** — In collapsed mode `.twc-sidebar__label`/`__badge` are hidden with `display: none` (good, fully removes them), but the row's accessible name then falls back to the first-letter "initial" span which is `aria-hidden="true"`, leaving the link with **no accessible name** for screen readers when there is no icon-with-label. The native `title` is set only when collapsed AND label is a string, which helps sighted hover but `title` is not a reliable accessible name. _Fix:_ keep an `aria-label={typeof it.label === "string" ? it.label : undefined}` on the anchor so the collapsed icon-only link is still announced. `components/navigation/Sidebar.jsx:84-92`. — ✓ fixed 2026-06-17

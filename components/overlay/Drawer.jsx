@@ -1,6 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
-import { useFocusTrap, usePortal, useScrollLock, useInertBackground } from "../_overlay.js";
+import { useFocusTrap, usePortal, useScrollLock, useInertBackground, useLayer } from "../_overlay.js";
 
 const DRAWER_CSS = `
 .twc-drawer__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(2px); }
@@ -102,16 +102,20 @@ export function Drawer({
   // renders one render after `open` flips, so panelRef only exists once mounted.
   useFocusTrap(panelRef, open && mounted);
 
+  // #389: dismissable-layer stack — Escape / backdrop act only when this drawer is topmost.
+  const isTop = useLayer(open && mounted);
+
   // Modal a11y (2/2): Escape closes. Kept here (not in useFocusTrap) because closing
   // is component-specific; the trap owns only Tab/Shift+Tab.
   React.useEffect(() => {
     if (!open) return undefined;
     const onKey = (e) => {
+      if (e.defaultPrevented || !isTop()) return; // a nested layer already handled it, or this isn't the top
       if (e.key === "Escape") { e.preventDefault(); onClose?.(); }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+  }, [open, onClose, isTop]);
 
   if (!mounted) return null;
   const state = open ? "open" : "closed";
@@ -123,7 +127,7 @@ export function Drawer({
   const sizeVar = isHorizontal ? { "--_w": dim } : { "--_h": dim };
 
   const overlay = (
-    <div className="twc-drawer__overlay" data-state={state} onMouseDown={(e) => { if (closeOnBackdrop && e.target === e.currentTarget) onClose?.(); }}>
+    <div className="twc-drawer__overlay" data-state={state} onMouseDown={(e) => { if (closeOnBackdrop && e.target === e.currentTarget && isTop()) onClose?.(); }}>
       {__twcStyles}
       <div ref={panelRef} className={`twc-drawer ${className}`} data-side={side} data-state={state} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-label={!title ? "Drawer" : undefined} aria-describedby={description ? descId : undefined} style={{ ...(dim ? sizeVar : null), ...style }} {...rest}>
         {(title || description || onClose) ? (

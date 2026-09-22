@@ -27,6 +27,9 @@ export interface AvatarMenuProps extends Omit<React.HTMLAttributes<HTMLSpanEleme
   showName?: boolean;
   /** Show a chevron in the trigger (defaults to `showName`). */
   showChevron?: boolean;
+  /** #402: stretch the trigger to full width — the name/subtitle column grows and the chevron pins to the
+   *  inline-end — for a sidebar footer account row (pair with `Sidebar footerInset={false}`). @default false */
+  fullWidth?: boolean;
   /** Menu alignment to the trigger. @default "end" */
   align?: "start" | "end";
 }

@@ -2,9 +2,63 @@
 
 - **Group:** data-display
 - **Status:** clean
-- **Reviewed:** 2026-06-17
+- **Reviewed:** 2026-09-22
 
 ## Open issues
+
+- [x] **[#408] column-menu "Filter" anchored the panel to the FIRST grid's Filters button** — a regression from
+  the #386 fix: the ⋮ "Filter" item opened the panel via a document-wide
+  `document.querySelector('[data-tbtn="filters"]')`, so with two Datatables (or a table inside a body-portaled
+  Dialog) it grabbed the wrong table's button (panel mis-positioned, or left half-open when that button was
+  off-screen). Scoped the lookup to this table's `rootRef` and fall back to the ⋮ trigger when the toolbar is
+  scrolled out of view. `tests/datatable-column-cluster.test.jsx`. `Datatable.jsx` — ✓ fixed 2026-09-22
+- [x] **[#404] two columns sharing a `field` misbehaved silently** — width/visibility/order/pins are all keyed
+  by `field` (last-wins) + React dup-key warnings. Now `warnOnce` in development names the field + both headers;
+  documented `field` must be unique. `Datatable.jsx`/`.d.ts` — ✓ fixed 2026-09-22
+- [x] **[#403] a fixed-layout grid repeated the same flags on every column** — added `defaultColumn` (a
+  `Partial<DatatableColumn>` shallow-merged **under** each column: built-in < defaultColumn < column), so a
+  permission matrix sets `sortable:false`/`disableColumnMenu:true`/… once. `Datatable.jsx`/`.d.ts` — ✓ fixed 2026-09-22
+- [x] **[#400] renderHeader inherited the default header's upper-case/letter-spaced type; non-sortable headers
+  showed a pointer** — moved the upper-case + letter-spacing onto a `.twc-dt__th-text` span (so a custom header
+  starts neutral and the button-vs-span inconsistency is gone) and scoped the pointer cursor to sortable headers.
+  The overflow-tooltip `data-ovtext` moved to that span (the element that now truncates). `Datatable.jsx` — ✓ fixed 2026-09-22
+- [x] **[#397] `align` only affected the actions column** — now honours `left`/`center`/`right` for body cells,
+  headers and the footer via `data-align` (mirroring the `Table` component), plus a `headerAlign` override.
+  `Datatable.jsx`/`.d.ts`. `tests/datatable-column-cluster.test.jsx` — ✓ fixed 2026-09-22
+- [x] **[#399] built-in row actions couldn't be links, and a disabled action couldn't say why** — added
+  `href`/`target`/`rel` to `DatatableRowAction` (renders a scheme-sanitised `<a>` inline + `<a role="menuitem">`
+  in the ⋮ menu; plain left-click still runs `onClick`, modifier/middle clicks go to the browser) and
+  `disabledReason` (tooltip inline, inline hint in the menu). `Datatable.jsx`/`.d.ts` — ✓ fixed 2026-09-22
+- [x] **[#391] Arrow/Home/End in an open in-cell Menu/Select also moved grid focus** — `onGridKeyDown` now
+  returns early when a child handled the key (`e.defaultPrevented`) or the target is inside an open popup trigger
+  (`[aria-expanded="true"]`). `tests/datatable-cell-navigation.test.jsx`. `Datatable.jsx` — ✓ fixed 2026-09-22
+- [x] **[#392] arrow nav stopped on the cell (Enter/Space couldn't reach the control); every in-cell control was
+  a Tab stop** — added opt-in `cellNavigation="widget"` (default `"cell"` unchanged): arrows focus a cell's single
+  control so Enter/Space act on it, the body becomes one Tab stop (other controls `tabindex=-1`), and multi-widget
+  cells enter an interaction mode on Enter/F2 (Tab within, Escape returns). WAI-ARIA grid pattern.
+  `tests/datatable-cell-navigation.test.jsx`. `Datatable.jsx`/`.d.ts` — ✓ fixed 2026-09-22
+- [x] **[#390] a custom renderEditCell was always cancelled on click-away; commit could only write its own
+  field** — added `setDraft(next)` (stages a draft so click-away commits it, like the built-in editor) and
+  `commitPatch(patch)` (writes several stored keys, no-ops only when all unchanged) to the `renderEditCell` args.
+  `tests/datatable-edit-signals.test.jsx`. `Datatable.jsx`/`.d.ts` — ✓ fixed 2026-09-22
+- [x] **[#394] a clipboard paste/cut fired one onRowUpdate per cell** — added `onCellsCommit(changes, meta)`;
+  when supplied, a paste/cut reports the whole change as ONE grouped call (`{key,row,patch}[]` + `{source}`)
+  instead of N `onRowUpdate`s (which burst through a rate limit). `onRowsChange` unchanged; the cut path gained an
+  after-write signal. `tests/datatable-edit-signals.test.jsx`. `Datatable.jsx`/`.d.ts` — ✓ fixed 2026-09-22
+- [x] **[#396] no signal that an inline editor is open** — added `onEditingChange(cell, reason)` fired at
+  start/commit/cancel (commit fires even for an unchanged value) plus a `data-editing` attribute on the grid root.
+  `tests/datatable-edit-signals.test.jsx`. `Datatable.jsx`/`.d.ts` — ✓ fixed 2026-09-22
+- [x] **[#393] row-group collapse state was internal (unreadable/uncontrollable/unpersisted); select-all included
+  collapsed rows** — added controlled/uncontrolled `collapsedGroups`/`defaultCollapsedGroups`/
+  `onCollapsedGroupsChange`; `renderGroupLabel` now also receives `{ collapsed, toggle }`; `grouping` +
+  `collapsedGroups` join `DatatableState` (persisted via `stateKey`/`onStateChange`); and the header select-all
+  now covers only the visible leaf rows when groups are collapsed. `tests/datatable-group-state-cell.test.jsx`.
+  `Datatable.jsx`/`.d.ts` — ✓ fixed 2026-09-22
+- [x] **[#395] no way to bring a cell (row+column) into view** — added controlled `activeCell` (any
+  `selectionMode`) + `scrollActiveCellIntoView`: the cell is revealed inside the grid's OWN scroller on both axes
+  (honouring the sticky header + pinned columns), never via `scrollIntoView` (no page jump), re-applied on `rows`
+  change (server-mode/virtualized). The #324 `activeRowId` scroll got the same server-mode retry.
+  `tests/datatable-group-state-cell.test.jsx`. `Datatable.jsx`/`.d.ts` — ✓ fixed 2026-09-22
 
 - [x] **[#387] rowGrouping's "Grouped by" bar can't be hidden, and the group row label can't be customised** —
   a screen whose layout *is* the grouping got a removable "Grouped by: … × · Clear all" bar (a wasted row that

@@ -300,7 +300,7 @@ export function Select({
     }
     if (!open) return;
     if (e.key === "Tab") { setOpen(false); return; }
-    if (e.key === "Escape") setOpen(false);
+    if (e.key === "Escape") { e.preventDefault(); setOpen(false); } // #389: preventDefault so an enclosing Dialog/Drawer doesn't also close
     else if (e.key === "ArrowDown") { e.preventDefault(); setActive((a) => nextEnabled(a, 1)); }
     else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => nextEnabled(a, -1)); }
     else if (e.key === "Enter") { e.preventDefault(); if (visible[active]) commit(visible[active].value); }

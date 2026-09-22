@@ -2,9 +2,11 @@
 
 - **Group:** data-display
 - **Status:** clean
-- **Reviewed:** 2026-06-17
+- **Reviewed:** 2026-09-22
 
 ## Open issues
+
+- [x] **[#402] the trigger couldnt stretch to a full-width sidebar footer account row** — added `fullWidth` (the trigger + its Menu wrap stretch, the name/subtitle column grows, the chevron pins to the inline-end). `tests/sidebar-footer-scroll.test.jsx`. `AvatarMenu.jsx`/`.d.ts` — ✓ fixed 2026-09-22
 
 (none)
 

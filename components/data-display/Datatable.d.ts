@@ -182,6 +182,13 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  rearrange only the movable, unpinned columns and leave pinned/actions columns in place.
    *  @default false */
   disableColumnReorder?: boolean;
+  /** #403: table-level column defaults, shallow-merged **under** each column definition before
+   *  normalisation (built-in defaults < `defaultColumn` < the column). A per-column value always wins.
+   *  Set shared flags once instead of repeating them — e.g. a fixed-layout grid:
+   *  `defaultColumn={{ sortable: false, filterable: false, hideable: false, pinnable: false, groupable: false,
+   *  resizable: false, reorderable: false, wrappable: false, disableColumnMenu: true }}`. Like TanStack Table's
+   *  `defaultColumn` / AG Grid's `defaultColDef`. The smart Columns/Filters toolbar buttons follow it too. @default undefined */
+  defaultColumn?: Partial<DatatableColumn<T>>;
   /** Message rendered when there are no rows (filter-aware default: "No rows match your filters" when a filter/quick-search is active, else "No rows"). */
   emptyMessage?: React.ReactNode;
   /** Render a custom empty state inside the table body (e.g. the shipped `<EmptyState/>`). Overrides `emptyMessage`. */
@@ -238,6 +245,15 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  Shift+Click / Shift+Arrow extend a range from an anchor; selected cells expose `aria-selected` and the
    *  grid is `aria-multiselectable` with `aria-activedescendant` on the active cell. @default "none" */
   selectionMode?: "none" | "row" | "cell";
+  /** #392: keyboard cell-navigation model (WAI-ARIA APG grid pattern), independent of `selectionMode`.
+   *  - `"cell"` (default): arrow keys move focus to the `<td>`; today's behaviour, unchanged.
+   *  - `"widget"`: when a data cell holds exactly **one** interactive control (a toggle button, link, chip,
+   *    switch or checkbox), arrow keys focus that control so **Enter/Space** act on it, and the grid body
+   *    becomes a **single Tab stop** (every other in-cell control is `tabindex=-1`) instead of one stop per
+   *    control. A cell with several controls enters an interaction mode on **Enter/F2** (Tab moves within the
+   *    cell, **Escape** returns to the cell). Text inputs/selects (editing) and checkbox-selection / row-expand
+   *    controls are unaffected. @default "cell" */
+  cellNavigation?: "cell" | "widget";
   /** Fired when a row is clicked in "row" selection mode: (row, key). */
   onRowClick?: (row: T, key: string | number) => void;
   /** #324: controlled highlighted row key for `selectionMode="row"`. When provided, the grid highlights THIS
@@ -247,17 +263,32 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   activeRowId?: string | number | null;
   /** #324: scroll the controlled active row into view when `activeRowId` changes. @default true */
   scrollActiveRowIntoView?: boolean;
+  /** #395: controlled active cell ({ key, field } | null), independent of `selectionMode`. In "cell" mode it
+   *  drives the highlight; in any mode it is the target for `scrollActiveCellIntoView`. Pass `null` to clear.
+   *  Lets a host step through specific cells (next changed cell, next validation error, find-in-grid). */
+  activeCell?: { key: string | number; field: string } | null;
+  /** #395: reveal the `activeCell` inside the grid's own scroller (both axes, honouring the sticky header and
+   *  pinned columns; never scrolls the page). Re-applied when `rows` change, so a server-mode page switch or a
+   *  virtualized mount lands on the cell. Pass an object to center it. @default false */
+  scrollActiveCellIntoView?: boolean | { block?: "nearest" | "center"; inline?: "nearest" | "center" };
   /** Fired when a cell is clicked in "cell" selection mode: (value, row, field). */
   onCellClick?: (value: any, row: T, field: string) => void;
   /** Fired when the active cell changes: ({ key, field } | null). */
   onActiveCellChange?: (cell: { key: string | number; field: string } | null) => void;
+  /** #396: fired at every inline-edit transition so a host can, for example, stand down its own keyboard
+   *  shortcuts while a cell is being edited. `reason` is `"start"` (an editor opened), `"commit"` (it closed
+   *  saving — fired even when the value was unchanged) or `"cancel"` (it closed discarding). The grid root
+   *  also carries a `data-editing` attribute while any editor is open. */
+  onEditingChange?: (cell: { key: string | number; field: string } | null, reason: "start" | "commit" | "cancel") => void;
   /** #317: fired when the rectangular cell selection changes ("cell" mode) — every cell inside the
    *  anchor→focus rectangle, in row-major order. Empty array when the selection clears. */
   onCellSelectionChange?: (cells: Array<{ key: string | number; field: string }>) => void;
   /** #318: enable spreadsheet clipboard on cells ("cell" mode): Ctrl/Cmd+C copies the active cell/range as
    *  TSV, Ctrl/Cmd+X cuts (copy then clear), Ctrl/Cmd+V pastes onto the target rectangle from the active
-   *  cell. Paste is format-restricted by column `copyType` (incompatible cells are skipped) and commits
-   *  through `onRowUpdate`/`onRowsChange` in one batched change; outcomes are announced via `aria-live`.
+   *  cell. Paste is format-restricted by column `copyType` (incompatible cells are skipped). It commits
+   *  through `onRowsChange` in one change and, per cell, through `onRowUpdate` (once per changed field) —
+   *  unless `onCellsCommit` is supplied, which reports the whole paste/cut as a single grouped call instead.
+   *  Outcomes are announced via `aria-live`.
    *  Copy/cut/paste also show a brief **visible** in-grid confirmation toast + a flash on the affected cells
    *  (#320), so sighted users get feedback too. @default false */
   enableClipboard?: boolean;
@@ -267,6 +298,11 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   /** #320: fired after a clipboard paste with the outcome — `written` cells committed, `skipped` cells
    *  rejected (read-only or incompatible `copyType`). */
   onCellsPaste?: (result: { written: number; skipped: number }) => void;
+  /** #394: when supplied, a paste or cut reports the whole change as ONE call — the grouped patches per row
+   *  (`key`, the updated `row`, and its `patch`) plus `meta.source` — instead of firing `onRowUpdate` once per
+   *  cell (which bursts N writes through a rate-limited API). `onRowsChange` is unaffected. The clipboard
+   *  counterpart of `onBatchUpdate`. */
+  onCellsCommit?: (changes: Array<{ key: string | number; row: T; patch: Partial<T> }>, meta: { source: "paste" | "cut" }) => void;
   /** Show the **Aggregation** toolbar button and start with the totals row on. From that panel the user
    *  toggles totals and picks columns + functions (a column's `aggregation` prop seeds the initial choice);
    *  changing the prop re-applies it. When false (the default) the Aggregation button is hidden. @default false */
@@ -281,10 +317,19 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   showGroupBar?: boolean;
   /** #387: custom content for a group header row (the chevron + collapse/expand toggle are kept). Return the
    *  node to render in place of the default `"<field>: <value>  <count>"` — e.g. a section title + a summary.
-   *  `rows` is the group's rows; `count` is their number. Return `null` to render an empty label (matching
-   *  `renderCell`/`renderHeader`). The content sits **inside** the group's toggle button, so keep it
-   *  non-interactive — a nested button/link would be invalid HTML and its clicks would also toggle the group. */
-  renderGroupLabel?: (group: { field: string; value: unknown; count: number; rows: T[] }) => React.ReactNode;
+   *  `rows` is the group's rows; `count` is their number; `collapsed` is its current state and `toggle()`
+   *  flips it. Return `null` to render an empty label (matching `renderCell`/`renderHeader`). The content sits
+   *  **inside** the group's toggle button, so keep it non-interactive — a nested button/link would be invalid
+   *  HTML and its clicks would also toggle the group. */
+  renderGroupLabel?: (group: { field: string; value: unknown; count: number; rows: T[]; collapsed: boolean; toggle: () => void }) => React.ReactNode;
+  /** #393: which groups are collapsed, as internal group-path keys (`"/status:open"`, nested
+   *  `"/status:open/owner:ann"`). Controlled — pair with `onCollapsedGroupsChange`; omit for uncontrolled. */
+  collapsedGroups?: string[];
+  /** #393: initial collapsed groups for the uncontrolled case (ignored when `collapsedGroups` is set). @default [] */
+  defaultCollapsedGroups?: string[];
+  /** #393: fired when the user collapses/expands a group, with the next array of collapsed group keys. Also
+   *  the way to persist collapse state outside `stateKey`. */
+  onCollapsedGroupsChange?: (keys: string[]) => void;
   /** Enable row pinning — adds "Pin to top/bottom" to each row's actions menu; pinned rows stay sticky above/below the scroll body. @default false */
   rowPinning?: boolean;
   /** Enable reorder of rows: the whole row is mouse-draggable, and a focusable drag handle supports
@@ -438,10 +483,17 @@ export interface DatatableState {
   columnCombine?: Record<string, { fields: string[]; layout?: "inline" | "stack"; separator?: string; labels?: boolean }>;
   /** #341: user-resized width (px) of the batch-editor's column-name field. Absent until the user drags it. */
   batchNameWidth?: number;
+  /** #393: active grouping fields (from the column ⋮ "Group by" items). Absent when nothing is grouped. */
+  grouping?: string[];
+  /** #393: collapsed group keys (internal group-path strings). Absent when every group is expanded. */
+  collapsedGroups?: string[];
 }
 
 export interface DatatableColumn<T = any> {
-  /** Row object key (also the default sort/filter/search/group/export key). */
+  /** Row object key (also the default sort/filter/search/group/export key). **Must be unique within
+   *  `columns`** — it is the column's identity for width, visibility, order, pinning and persisted `stateKey`
+   *  state (a duplicate `field` makes two columns share that state and logs a dev warning). To show one row
+   *  key in two columns, give the second its own `field` and read the value with `valueGetter`. */
   field: string;
   /** Derive the column's value from the whole row (nested/computed) — drives sort, filter,
    *  quick-search, grouping, aggregation, the default cell render, and export. Falls back to
@@ -487,8 +539,12 @@ export interface DatatableColumn<T = any> {
   minWidth?: number;
   /** Upper bound (px) for the resolved width; `minWidth` wins if they conflict. */
   maxWidth?: number;
-  /** Cell alignment; currently affects the actions column's button justification. @default "right" for number/actions columns, else "left" */
-  align?: "left" | "right";
+  /** Horizontal alignment of the column's body cells and footer (and the actions column's button
+   *  justification), emitted as `data-align` like the `Table` component. Use `"center"` for status icons,
+   *  toggles or short counts. @default "right" for number/actions columns, else "left" */
+  align?: "left" | "center" | "right";
+  /** Header-cell alignment, when it should differ from the body `align`. @default the column's `align` */
+  headerAlign?: "left" | "center" | "right";
   /** Allow sorting this column. @default true */
   sortable?: boolean;
   /** Allow filtering this column. @default true */
@@ -524,8 +580,13 @@ export interface DatatableColumn<T = any> {
    *  or `cancel()` to discard. Twico overlay dropdowns (portaled as `.twc-pop`) are exempt from the
    *  cell's outside-click auto-cancel, so a Combobox popover works inside the cell. **Escape cancels**
    *  the edit automatically (the wrapper calls `cancel()`), so you needn't wire a keydown — stop
-   *  propagation on Escape only if your control needs it (e.g. to close its own open dropdown). */
-  renderEditCell?: (args: { value: any; row: T; field: string; commit: (nextValue: any) => void; cancel: () => void }) => React.ReactNode;
+   *  propagation on Escape only if your control needs it (e.g. to close its own open dropdown).
+   *  #390: call `setDraft(next)` as the user types to STAGE a value — click-away then commits the staged
+   *  draft spreadsheet-style (like the built-in editor) instead of discarding it; an editor that never stages
+   *  keeps the cancel-on-click-away behaviour. Call `commitPatch(patch)` to write several stored keys at once
+   *  (a quantity + its unit shown as one column) — it writes `{ ...row, ...patch }` and no-ops only when every
+   *  patched key is unchanged. */
+  renderEditCell?: (args: { value: any; row: T; field: string; commit: (nextValue: any) => void; cancel: () => void; setDraft: (next: any) => void; commitPatch: (patch: Partial<T>) => void }) => React.ReactNode;
   /** Custom control for this column's clause in the **batch** editor (#247) — the counterpart of
    *  `renderEditCell` for the "Edit N selected rows" popover. Use it when the value is backed by a large,
    *  async, creatable vocabulary that `valueOptions` (a static array) can't express; without it such a
@@ -586,13 +647,26 @@ export interface DatatableRowAction<T = any> {
   icon?: React.ReactNode;
   /** Accessible label / tooltip / menu text. */
   label: string;
-  /** Click handler, receives the row. */
+  /** Click handler, receives the row. Still runs for a plain left-click when `href` is set (so client-side
+   *  routing keeps working); modifier and middle clicks fall through to the browser. */
   onClick?: (row: T) => void;
+  /** #399: render this action as a link (`<a>`) — middle-click, open-in-new-tab and copy-address all work.
+   *  The URL is scheme-sanitised (`javascript:`/`data:`/`vbscript:` are dropped). A `disabled` action never
+   *  emits an href. */
+  href?: string;
+  /** Anchor `target` for the `href` link (e.g. `"_blank"`). */
+  target?: string;
+  /** Anchor `rel` for the `href` link (pair `rel="noopener noreferrer"` with `target="_blank"`). */
+  rel?: string;
   /** Place in the ⋮ overflow menu instead of inline. @default false */
   showInMenu?: boolean;
   /** Render in danger color. */
   danger?: boolean;
   disabled?: boolean;
+  /** #399: shown when `disabled` — as the tooltip for an inline action and as an inline hint in the ⋮ menu.
+   *  Reaching an inline disabled action's tooltip by hover/keyboard also needs `focusableWhenDisabled` on the
+   *  trigger (see #398); the menu hint is always reachable. */
+  disabledReason?: React.ReactNode;
 }
 
 /** Extra context handed to a batch action's `onClick`. */

@@ -79,6 +79,38 @@ The site's `gen:exports` scans `hooks/index.js` for `export function|const use�
 the re-export is written as `export const useFocusTrap = …` (not `export … from`) to
 stay discoverable.
 
+## The dismissable-layer stack (#389)
+
+Before this, `Dialog`/`Drawer` called `onClose()` on **every** document `Escape` and closed on any backdrop
+`mousedown`, with no idea what was open on top. So pressing `Escape` to dismiss a nested `Menu`, `Select`,
+`Popover`, `Tooltip` or a second `Dialog` **also** closed the parent — throwing away, e.g., unsaved changes.
+
+`components/_overlay.js` now exports a lightweight `useLayer(active)` primitive: every open overlay registers
+while `active`, and the returned `isTop()` reports whether it is the topmost open layer (highest of a
+module-level sequence set; cleanup runs after commit, so within one `Escape`/pointer event the just-closed child
+is still registered and its parent correctly yields). Wiring:
+
+- **Dialog / Drawer / CommandPalette** — their document `Escape` handler bails on `e.defaultPrevented` (a child
+  React `onKeyDown` ran first) **or** `!isTop()`, and the backdrop `mousedown` is gated on `isTop()`.
+- **Popover / Menu** — outside-pointer dismissal gates on `isTop()`; `Popover` also `preventDefault`s `Escape`
+  so an enclosing Dialog stands down (`Menu` already `preventDefault`s it in its React handler).
+- **Tooltip** — deliberately **not** a layer: a shown tooltip hides on `Escape` but does **not** consume it
+  (no `preventDefault`), matching Radix/MUI, so the same `Escape` still closes an enclosing Dialog on the first
+  press. A transient hover/focus tooltip isn't a modal layer.
+- **Select / Combobox / MultiSelect** — `preventDefault` on `Escape` **only while the list is open**, so the
+  enclosing Dialog's `defaultPrevented` guard sees it.
+
+Tested in `tests/overlay-layer-stack.test.jsx` (nested Dialog Escape hits only the inner; an open Select inside
+a Dialog closes the Select, not the Dialog; a lone Dialog still closes — no regression).
+
+## Disabled triggers (#398)
+
+A native `disabled` control swallows the pointer events a `Tooltip` opens from, so a disabled button's "why it's
+disabled" tooltip often never showed. `Tooltip` CSS now sets `pointer-events: none` on a disabled/`aria-disabled`
+child of `.twc-tooltip-wrap` (hover reaches the wrap) with a `not-allowed` cursor. `Button`/`IconButton` gained
+`focusableWhenDisabled`, which renders `aria-disabled` instead of native `disabled` so the trigger stays
+focusable (tooltip reachable by keyboard) while click + `Enter`/`Space` stay blocked.
+
 ## Tests
 
 - `tests/useFocusTrap.test.jsx` — focus-in, restore (and `restoreFocus:false`), and

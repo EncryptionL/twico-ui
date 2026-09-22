@@ -2,9 +2,11 @@
 
 - **Group:** inputs
 - **Status:** clean
-- **Reviewed:** 2026-06-17
+- **Reviewed:** 2026-09-22
 
 ## Open issues
+
+- [x] **[#389] Escape closing an open MultiSelect inside a Dialog also closed the Dialog** — MultiSelect now preventDefaults Escape when open. `MultiSelect.jsx` — ✓ fixed 2026-09-22
 
 None identified.
 

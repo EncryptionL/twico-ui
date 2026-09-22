@@ -259,7 +259,7 @@ export function MultiSelect({
     if (e.key === "ArrowDown") { e.preventDefault(); if (!open) setOpen(true); else setActive((a) => nextEnabled(a, 1)); }
     else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => nextEnabled(a, -1)); }
     else if (e.key === "Enter") { e.preventDefault(); if (open && visible[active]) toggle(visible[active].value); }
-    else if (e.key === "Escape") { setOpen(false); setQuery(""); }
+    else if (e.key === "Escape") { if (open) e.preventDefault(); setOpen(false); setQuery(""); } // #389: consume Escape only when open
     else if (e.key === "Backspace" && !query && selected.length) { commit(selected.slice(0, -1)); }
   }
 

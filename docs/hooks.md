@@ -20,6 +20,7 @@ package root (`import { useMediaQuery } from "twico-ui"`).
 | Events & DOM | `useEventListener`, `useClickOutside`, `useKeyPress`, `useHover`, `useIntersectionObserver`, `useScrollLock` |
 | Timing | `useDebouncedValue`, `useDebouncedCallback`, `useInterval`, `useTimeout` |
 | Overlay | `useFocusTrap`, `usePortal` |
+| Inputs | `useFilePicker` |
 | Utilities | `useCopyToClipboard`, `useId`, `useMounted`, `useIsomorphicLayoutEffect` |
 
 ## Conventions
@@ -44,6 +45,11 @@ package root (`import { useMediaQuery } from "twico-ui"`).
   internal helper `components/_overlay.js` — **not** `hooks/index.js` — so the overlay components can
   share them without importing the public hooks barrel (CLAUDE.md §5); `hooks/index.js` re-exports them
   as the public API. See [`docs/overlays.md`](./overlays.md).
+- **`useFilePicker` (#406)** opens a native file picker from your own trigger while reusing FileUpload's
+  validation. `useFilePicker({ accept, multiple, maxSize, maxFiles, onFiles, onReject })` returns
+  `{ open, getInputProps }`: render `<input {...getInputProps()} />` (hidden) once, then call `open()` from any
+  control. The accept/maxSize/maxFiles/dedupe logic is shared with `FileUpload` via the internal
+  `components/_upload.js` (so the hook stays out of the public barrel'\''s way, mirroring `_overlay.js`).
 - **Stable callbacks:** returned functions (`onOpen`, `copy`, `toggle`, …) are memoized so they are
   safe to pass to effects and memoized children.
 - **The docs site dogfoods them:** the layout uses `useMediaQuery` + `useDisclosure`, the theme

@@ -1,6 +1,7 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import { createPortal } from "react-dom";
+import { useLayer } from "../_overlay.js";
 
 const MENU_CSS = `
 .twc-menu-wrap { position: relative; display: inline-flex; }
@@ -109,6 +110,7 @@ export function Menu({
     setPos({ top, bottom, left, width: w, flip, maxHeight: Math.max(120, avail) });
   }, [align, width]);
 
+  const isTop = useLayer(open && render); // #389: dismissable-layer stack
   React.useEffect(() => {
     if (!open) return;
     place();
@@ -116,6 +118,7 @@ export function Menu({
     const onDown = (e) => {
       if (wrapRef.current?.contains(e.target)) return;
       if (menuRef.current?.contains(e.target)) return;
+      if (!isTop()) return; // #389: only the topmost layer dismisses on an outside pointer (a menu over a dialog)
       setOpen(false);
     };
     window.addEventListener("scroll", onMove, true);
@@ -126,7 +129,7 @@ export function Menu({
       window.removeEventListener("resize", onMove);
       document.removeEventListener("mousedown", onDown);
     };
-  }, [open, place]);
+  }, [open, place, isTop]);
 
   // Keep the menu mounted through the close animation, then unmount.
   React.useEffect(() => {

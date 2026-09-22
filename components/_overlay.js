@@ -96,6 +96,27 @@ export function useScrollLock(locked = true) {
   }, [locked]);
 }
 
+// #389: a lightweight dismissable-layer stack. Every open overlay (Dialog/Drawer/CommandPalette/Popover/
+// Menu/Tooltip) registers while it is `active`; the returned `isTop()` reports whether this layer is the
+// topmost open one. Escape and outside-pointer handlers gate on it so those events reach only the layer on
+// top (a nested Menu/Popover/Dialog consumes them instead of also closing its parent). Registration order is
+// mount order; the highest sequence number is the topmost. Cleanup runs after commit, so within one Escape/
+// pointer event the just-closed child is still registered and its parent correctly yields.
+let __layerSeq = 0;
+const __openLayers = new Set();
+export function useLayer(active) {
+  const depth = React.useRef(0);
+  React.useEffect(() => {
+    if (!active) return undefined;
+    const d = ++__layerSeq;
+    depth.current = d;
+    __openLayers.add(d);
+    return () => { __openLayers.delete(d); };
+  }, [active]);
+  // Stable: reads the live module-level set/ref, so it never needs to change identity.
+  return React.useCallback(() => __openLayers.size === 0 || depth.current === Math.max(...__openLayers), []);
+}
+
 /**
  * #115: while `active`, mark every sibling of the overlay's portal subtree `inert` +
  * `aria-hidden` so a screen-reader virtual cursor / mobile swipe can't reach the page

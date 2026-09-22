@@ -1,6 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
-import { useFocusTrap, usePortal, useScrollLock, useInertBackground } from "../_overlay.js";
+import { useFocusTrap, usePortal, useScrollLock, useInertBackground, useLayer } from "../_overlay.js";
 
 const DIALOG_CSS = `
 .twc-dialog__overlay {
@@ -98,22 +98,28 @@ export function Dialog({
   // renders one render AFTER `open` flips, so dialogRef only exists once mounted.
   useFocusTrap(dialogRef, open && mounted);
 
+  // #389: register on the dismissable-layer stack so Escape / backdrop only act when this dialog is topmost
+  // (a nested Menu/Select/Popover/Tooltip or a dialog opened on top consumes them first).
+  const isTop = useLayer(open && mounted);
+
   // Modal a11y (2/2): Escape closes. Kept here (not in useFocusTrap) because closing
   // is component-specific; the trap owns only Tab/Shift+Tab.
   React.useEffect(() => {
     if (!open) return undefined;
     const onKey = (e) => {
+      // #389: a nested layer already handled it (defaultPrevented), or this dialog isn't the top layer.
+      if (e.defaultPrevented || !isTop()) return;
       if (e.key === "Escape") { e.preventDefault(); onClose?.(); }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+  }, [open, onClose, isTop]);
 
   if (!mounted) return null;
   const state = open ? "open" : "closed";
 
   const overlay = (
-    <div className="twc-dialog__overlay" data-state={state} onMouseDown={(e) => { if (closeOnBackdrop && e.target === e.currentTarget) onClose?.(); }}>
+    <div className="twc-dialog__overlay" data-state={state} onMouseDown={(e) => { if (closeOnBackdrop && e.target === e.currentTarget && isTop()) onClose?.(); }}>
       {__twcStyles}
       <div ref={dialogRef} className={`twc-dialog ${className}`} data-state={state} data-size={size} data-scroll-body={scrollBody ? "true" : undefined} role="dialog" aria-modal="true" tabIndex={-1} aria-labelledby={title ? titleId : undefined} aria-label={!title ? "Dialog" : undefined} aria-describedby={description ? descId : undefined} {...rest}>
         {(title || description || onClose) ? (
