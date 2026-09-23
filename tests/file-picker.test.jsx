@@ -85,4 +85,21 @@ describe("FileUpload headless trigger + ref (#406)", () => {
     expect(container.querySelector(".twc-upload__zone")).toBeTruthy();
     expect(container.querySelector("[data-leak]")).toBeNull(); // children destructured, not spread on root
   });
+
+  it("#415: the hidden input is out of the tab order + a11y tree; label names the zone via aria-labelledby", () => {
+    const { container } = render(<FileUpload label="Attachments" />);
+    const input = container.querySelector('input[type="file"]');
+    expect(input.getAttribute("tabindex")).toBe("-1");
+    expect(input.getAttribute("aria-hidden")).toBe("true");
+    const zone = container.querySelector(".twc-upload__zone");
+    expect(zone.getAttribute("aria-labelledby")).toMatch(/-label .*-title/); // named by the label + title, not htmlFor
+    expect(container.querySelector("label").hasAttribute("for")).toBe(false); // no htmlFor at a non-labelable div
+  });
+
+  it("#415: trigger mode names the trigger from label without clobbering its own aria-label", () => {
+    const { container } = render(<FileUpload label="Avatar" trigger={<button aria-label="Change picture">c</button>} />);
+    const btn = container.querySelector(".twc-upload__trigger button");
+    expect(btn.getAttribute("aria-label")).toBe("Change picture"); // own name preserved
+    expect(btn.getAttribute("aria-labelledby")).toBeNull(); // not overridden
+  });
 });

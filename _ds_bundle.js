@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"ae72a0bd4839","components/buttons/IconButton.jsx":"2013d7631168","components/buttons/ToggleGroup.jsx":"a00518525d96","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"dd42c5236cd9","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"d46425a6cb0d","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"e76c3c9b7486","components/data-display/ImageViewer.jsx":"c8e06c0dc230","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"4483fbcdede4","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"7c7baafad108","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"21da33e87561","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"8e4d0341769e","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"e12abfd82a1a","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"73dc62deceda","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"dc0f83aa872f","components/overlay/Popover.jsx":"d6946296e6a8","components/overlay/Tooltip.jsx":"6110a466bc65","components/typography/Code.jsx":"f6f1da463524","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"d8aa22398ec8"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"3afedfdb15e1","components/buttons/IconButton.jsx":"216931ccc9b1","components/buttons/ToggleGroup.jsx":"fe374dcc220f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"ec5f65bdfad1","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"0c24d6c3adc2","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"c1fe68414c67","components/data-display/ImageViewer.jsx":"7379ad3f27c6","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"0b053b6b1aeb","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"5706752240e2","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"21da33e87561","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"8e4d0341769e","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"a405fca979fc","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"73dc62deceda","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"1b441f7db7b4","components/overlay/Popover.jsx":"4a83df72084d","components/overlay/Tooltip.jsx":"c4f8042a77e8","components/typography/Code.jsx":"f6f1da463524","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"0239a8903772"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -605,6 +605,15 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-iconbtn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
 /* #405: toggle "on" state (aria-pressed) \u2014 a soft tone fill + tone border, works over any variant. */
 .twc-iconbtn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
+/* #411: pressed fill can carry any status Tone. */
+.twc-iconbtn[aria-pressed="true"][data-pressed-tone="success"] { --_accent: var(--color-success); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); }
+.twc-iconbtn[aria-pressed="true"][data-pressed-tone="warning"] { --_accent: var(--color-warning); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
+.twc-iconbtn[aria-pressed="true"][data-pressed-tone="info"] { --_accent: var(--color-info); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }
+.twc-iconbtn[aria-pressed="true"][data-pressed-tone="danger"] { --_accent: var(--color-danger); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
+.twc-iconbtn[aria-pressed="true"][data-pressed-tone="neutral"] { --_accent: var(--color-border-strong); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text); }
+/* #418: keep the pressed look on hover (matching-specificity, after the variant hover rules). */
+.twc-iconbtn[aria-pressed="true"]:hover:not(:disabled) { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); filter: brightness(0.97); }
+.dark .twc-iconbtn[aria-pressed="true"]:hover:not(:disabled) { filter: brightness(1.25); }
 `;
   function safeHref2(url) {
     if (url == null) return void 0;
@@ -621,6 +630,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     disabled = false,
     focusableWhenDisabled = false,
     pressed,
+    pressedTone,
     as = "button",
     href,
     className = "",
@@ -645,6 +655,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         href: Tag2 === "a" && !inert ? safeHref2(href) : void 0,
         "aria-disabled": inert || softDisabled || void 0,
         "aria-pressed": pressed,
+        "data-pressed-tone": pressedTone || void 0,
         tabIndex: inert ? -1 : void 0,
         "aria-label": ariaLabel,
         onClick: softDisabled ? (e) => e.preventDefault() : onClick,
@@ -663,6 +674,10 @@ var TwicoUiDesignSystem_f2f16a = (() => {
    which owns onMouseEnter, and keep the not-allowed cursor hint. */
 .twc-tooltip-wrap > :disabled, .twc-tooltip-wrap > [aria-disabled="true"] { pointer-events: none; }
 .twc-tooltip-wrap:has(> :disabled), .twc-tooltip-wrap:has(> [aria-disabled="true"]) { cursor: not-allowed; }
+/* #420: the trigger is often wrapped by a Menu/Popover span, so the disabled control is a grandchild \u2014 reach it. */
+.twc-tooltip-wrap :is(.twc-menu-wrap, .twc-popover-wrap) > :disabled,
+.twc-tooltip-wrap :is(.twc-menu-wrap, .twc-popover-wrap) > [aria-disabled="true"] { pointer-events: none; }
+.twc-tooltip-wrap:has(:is(.twc-menu-wrap, .twc-popover-wrap) > :is(:disabled, [aria-disabled="true"])) { cursor: not-allowed; }
 .twc-tooltip {
   position: fixed; z-index: var(--z-tooltip);
   /* #348: purely presentational \u2014 the bubble must NEVER intercept the pointer, so neither a hidden
@@ -856,7 +871,8 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   var IV_CSS = `
 .twc-iv { position: relative; display: block; width: 100%; font-family: var(--font-sans); }
 .twc-iv__stage { position: relative; overflow: hidden; width: 100%; height: 100%; min-height: 200px; touch-action: none;
-  background: var(--color-surface-sunken); border-radius: var(--radius-lg); }
+  /* #414: styleable via --twc-iv-bg / --twc-iv-radius (or the radius prop) \u2014 current values as the fallback. */
+  background: var(--twc-iv-bg, var(--color-surface-sunken)); border-radius: var(--twc-iv-radius, var(--radius-lg)); }
 .twc-iv__stage:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-iv__stage[data-zoomed="true"] { cursor: grab; }
 .twc-iv__stage[data-dragging="true"] { cursor: grabbing; }
@@ -880,7 +896,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     /* @__PURE__ */ jsx("path", { d: "M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.3 2.6L3 8" }),
     /* @__PURE__ */ jsx("path", { d: "M3 3v5h5" })
   ] });
-  function ImageViewer({
+  var ImageViewer = /* @__PURE__ */ import_react.default.forwardRef(function ImageViewer2({
     src,
     alt,
     minZoom = 1,
@@ -889,15 +905,18 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     zoom: zoomProp,
     defaultZoom = 1,
     onZoomChange,
+    onStateChange,
     doubleClickZoom = 2,
     controls,
     fit = "contain",
+    radius,
     className = "",
     style,
     ...rest
-  }) {
+  }, ref) {
     const __twcStyles = useScopedStyles("twc-imageviewer-styles", IV_CSS);
     const stageRef = import_react.default.useRef(null);
+    const natRef = import_react.default.useRef({ w: 0, h: 0 });
     const [internalZoom, setInternalZoom] = import_react.default.useState(clamp(defaultZoom, minZoom, maxZoom));
     const zoomControlled = zoomProp !== void 0;
     const zoom = clamp(zoomControlled ? zoomProp : internalZoom, minZoom, maxZoom);
@@ -917,11 +936,23 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       applyZoom(minZoom);
       setOffset({ x: 0, y: 0 });
     };
+    const contentBox = (r2) => {
+      const nw = natRef.current.w, nh = natRef.current.h;
+      if (!nw || !nh) return { cw: r2.width, ch: r2.height };
+      const sx = r2.width / nw, sy = r2.height / nh;
+      let sc;
+      if (fit === "cover") sc = Math.max(sx, sy);
+      else if (fit === "none") sc = 1;
+      else if (fit === "scale-down") sc = Math.min(1, Math.min(sx, sy));
+      else sc = Math.min(sx, sy);
+      return { cw: nw * sc, ch: nh * sc };
+    };
     const clampOffset = (off, s) => {
       const r2 = stageRef.current && stageRef.current.getBoundingClientRect();
       if (!r2) return off;
-      const maxX = Math.max(0, r2.width * (s - 1) / 2);
-      const maxY = Math.max(0, r2.height * (s - 1) / 2);
+      const { cw, ch } = contentBox(r2);
+      const maxX = Math.max(0, (cw * s - r2.width) / 2);
+      const maxY = Math.max(0, (ch * s - r2.height) / 2);
       return { x: clamp(off.x, -maxX, maxX), y: clamp(off.y, -maxY, maxY) };
     };
     const zoomAt = (clientX, clientY, nextScale) => {
@@ -958,7 +989,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       };
       stage.addEventListener("wheel", onWheel, { passive: false });
       return () => stage.removeEventListener("wheel", onWheel);
-    }, [step, minZoom, maxZoom]);
+    }, [step, minZoom, maxZoom, fit]);
     const pointers = import_react.default.useRef(/* @__PURE__ */ new Map());
     const pinchRef = import_react.default.useRef(null);
     const panRef = import_react.default.useRef(null);
@@ -1013,6 +1044,15 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     };
     const canZoomIn = zoom < maxZoom, canZoomOut = zoom > minZoom;
     const api = { zoom, zoomIn: () => zoomFromCenter(zoom + step), zoomOut: () => zoomFromCenter(zoom - step), reset, canZoomIn, canZoomOut };
+    import_react.default.useImperativeHandle(ref, () => api);
+    const onStateChangeRef = import_react.default.useRef(onStateChange);
+    onStateChangeRef.current = onStateChange;
+    import_react.default.useEffect(() => {
+      onStateChangeRef.current?.({ zoom, canZoomIn, canZoomOut });
+    }, [zoom, canZoomIn, canZoomOut]);
+    import_react.default.useEffect(() => {
+      setOffset((o) => clampOffset(o, zoomRef.current));
+    }, [fit]);
     const defaultControls = /* @__PURE__ */ jsxs("div", { className: "twc-iv__controls", children: [
       /* @__PURE__ */ jsx(Tooltip, { label: "Zoom out", placement: "top", children: /* @__PURE__ */ jsx(IconButton, { "aria-label": "Zoom out", variant: "ghost", size: "sm", disabled: !canZoomOut, onClick: api.zoomOut, icon: IcoMinus }) }),
       /* @__PURE__ */ jsx(Tooltip, { label: "Zoom in", placement: "top", children: /* @__PURE__ */ jsx(IconButton, { "aria-label": "Zoom in", variant: "ghost", size: "sm", disabled: !canZoomIn, onClick: api.zoomIn, icon: IcoPlus }) }),
@@ -1026,6 +1066,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         {
           ref: stageRef,
           className: "twc-iv__stage",
+          style: radius ? { "--twc-iv-radius": `var(--radius-${radius})` } : void 0,
           tabIndex: 0,
           role: "group",
           "aria-label": alt ? `${alt} \u2014 zoomable` : "Zoomable image",
@@ -1044,6 +1085,10 @@ var TwicoUiDesignSystem_f2f16a = (() => {
               alt,
               className: "twc-iv__img",
               draggable: false,
+              onLoad: (e) => {
+                natRef.current = { w: e.currentTarget.naturalWidth, h: e.currentTarget.naturalHeight };
+                setOffset((o) => clampOffset(o, zoomRef.current));
+              },
               style: { transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`, objectFit: fit }
             }
           )
@@ -1051,7 +1096,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       ),
       controlsNode
     ] });
-  }
+  });
   var ACCORDION_CSS = `
 .twc-accordion { display: flex; flex-direction: column; font-family: var(--font-sans);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-surface); }
@@ -1360,10 +1405,13 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     onOpenChange,
     "aria-label": ariaLabel,
     "aria-labelledby": ariaLabelledby,
+    "aria-describedby": ariaDescribedby,
     className = "",
     ...rest
   }) {
     const __twcStyles = useScopedStyles("twc-menu-styles", MENU_CSS);
+    const _tp = import_react.default.isValidElement(trigger) ? trigger.props : {};
+    const triggerDisabled = _tp.disabled === true || _tp["aria-disabled"] === true || _tp["aria-disabled"] === "true";
     const [openState, setOpenState] = import_react.default.useState(defaultOpen);
     const [render, setRender] = import_react.default.useState(false);
     const [pos, setPos] = import_react.default.useState(null);
@@ -1434,11 +1482,14 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       return () => clearTimeout(t);
     }, [open]);
     const toggle = () => {
+      if (triggerDisabled && !open) return;
       setOpen((o) => !o);
       setActive(-1);
     };
     function onKeyDown(e) {
+      if (e.defaultPrevented) return;
       if (!open) {
+        if (triggerDisabled) return;
         if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") {
           e.preventDefault();
           setOpen(true);
@@ -1557,7 +1608,10 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       "aria-haspopup": "menu",
       "aria-expanded": open,
       "aria-controls": open ? menuId : void 0,
-      "aria-activedescendant": activeDescId
+      "aria-activedescendant": activeDescId,
+      // #420: forward an incoming aria-describedby (e.g. from a wrapping Tooltip) to the focusable trigger,
+      // not the wrapper span, so the description is announced on focus.
+      "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || void 0
     }) : /* @__PURE__ */ jsx(
       "span",
       {
@@ -1567,6 +1621,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         "aria-expanded": open,
         "aria-controls": open ? menuId : void 0,
         "aria-activedescendant": activeDescId,
+        "aria-describedby": ariaDescribedby,
         onClick: toggle,
         children: trigger
       }
@@ -1591,9 +1646,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
    to the inline-end, so a sidebar footer account row fills the rail. The compound .--block.twc-menu-wrap beats
    Menu's own .twc-menu-wrap rule regardless of scoped-stylesheet order. */
 .twc-avatar-menu--block.twc-menu-wrap { display: flex; width: 100%; }
-.twc-avatar-menu--block .twc-avatar-menu { display: flex; width: 100%; }
+.twc-avatar-menu--block .twc-avatar-menu { display: flex; width: 100%; border-radius: var(--radius-md); } /* #416: square-ish full-bleed row, not a pill */
 .twc-avatar-menu--block .twc-avatar-menu__text { flex: 1 1 auto; }
 .twc-avatar-menu--block .twc-avatar-menu__name, .twc-avatar-menu--block .twc-avatar-menu__sub { max-width: none; }
+/* #416: rotate the chevron while the menu is open (existing transition on __chev animates it). */
+.twc-avatar-menu[aria-expanded="true"] .twc-avatar-menu__chev { transform: rotate(180deg); }
 `;
   function AvatarMenu({
     name,
@@ -1606,6 +1663,9 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     showName = false,
     showChevron,
     fullWidth = false,
+    header,
+    headerExtra,
+    menuWidth,
     align = "end",
     className = "",
     ...rest
@@ -1613,11 +1673,12 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     const __twcStyles = useScopedStyles("twc-avatar-menu-styles", AVATARMENU_CSS);
     const sub = subtitle ?? email;
     const showChev = showChevron ?? showName;
-    const header = /* @__PURE__ */ jsxs(Fragment, { children: [
+    const headerNode = header !== void 0 ? header : /* @__PURE__ */ jsxs(Fragment, { children: [
       /* @__PURE__ */ jsx(Avatar, { name, src, size: "md", status }),
       /* @__PURE__ */ jsxs("span", { className: "twc-menu__header-main", children: [
         /* @__PURE__ */ jsx("span", { className: "twc-menu__header-title", children: name }),
-        sub ? /* @__PURE__ */ jsx("span", { className: "twc-menu__header-sub", children: sub }) : null
+        sub ? /* @__PURE__ */ jsx("span", { className: "twc-menu__header-sub", children: sub }) : null,
+        headerExtra != null ? headerExtra : null
       ] })
     ] });
     const trigger = /* @__PURE__ */ jsxs(
@@ -1640,7 +1701,8 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       }
     );
     const wrapClass = `${fullWidth ? "twc-avatar-menu--block " : ""}${className}`.trim();
-    return /* @__PURE__ */ jsx(Menu, { className: wrapClass, trigger, items, header, align, width: 240, "aria-label": `${name || "Account"} menu`, ...rest });
+    const resolvedWidth = menuWidth !== void 0 ? menuWidth : fullWidth ? void 0 : 240;
+    return /* @__PURE__ */ jsx(Menu, { className: wrapClass, trigger, items, header: headerNode, align, width: resolvedWidth, "aria-label": `${name || "Account"} menu`, ...rest });
   }
   var BADGE_CSS = `
 .twc-badge {
@@ -1838,9 +1900,20 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 /* ghost \u2014 neutral at rest, accent on hover */
 .twc-btn[data-variant="ghost"] { background: transparent; color: var(--color-text-muted); }
 .twc-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
-/* #405: toggle "on" state (aria-pressed) \u2014 a soft tone fill + tone border, variant-agnostic (works over any
-   variant); source-ordered after the variant rules so it wins at rest, hover keeps its higher specificity. */
+/* #405: toggle "on" state (aria-pressed) \u2014 a soft tone fill + tone border, variant-agnostic (works over any variant). */
 .twc-btn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
+/* #411: pressed "on" fill can carry any status Tone (not just the ActionTone), so a toggle option shows its own
+   meaning colour \u2014 success/warning/info/neutral; only the pressed fill props are remapped. */
+.twc-btn[aria-pressed="true"][data-pressed-tone="success"] { --_accent: var(--color-success); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); }
+.twc-btn[aria-pressed="true"][data-pressed-tone="warning"] { --_accent: var(--color-warning); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
+.twc-btn[aria-pressed="true"][data-pressed-tone="info"] { --_accent: var(--color-info); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }
+.twc-btn[aria-pressed="true"][data-pressed-tone="danger"] { --_accent: var(--color-danger); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
+.twc-btn[aria-pressed="true"][data-pressed-tone="neutral"] { --_accent: var(--color-border-strong); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text); }
+/* #418: keep the pressed look under the pointer \u2014 the variant hover rules (0,4,0) otherwise beat the base
+   pressed rule (0,2,0). This matching-specificity rule, source-ordered after them, restores the fill/fg/border
+   (resetting the text colour too, so solid stays legible \u2014 incl. tone="danger"). */
+.twc-btn[aria-pressed="true"]:hover:not(:disabled) { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); filter: brightness(0.97); }
+.dark .twc-btn[aria-pressed="true"]:hover:not(:disabled) { filter: brightness(1.25); }
 
 .twc-btn__spinner {
   position: absolute; inset: 0; margin: auto;
@@ -1881,6 +1954,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     disabled = false,
     focusableWhenDisabled = false,
     pressed,
+    pressedTone,
     as = "button",
     href,
     className = "",
@@ -1921,6 +1995,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         href: inert ? void 0 : safeHref5(href),
         "aria-disabled": inert || softDisabled || void 0,
         "aria-pressed": pressed,
+        "data-pressed-tone": pressedTone || void 0,
         tabIndex: inert ? -1 : void 0,
         "aria-busy": loading || void 0,
         onClick: handleClick,
@@ -6623,9 +6698,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         e.preventDefault();
         if (open && visible[active]) commit(visible[active].value);
       } else if (e.key === "Escape") {
-        if (open) e.preventDefault();
-        close();
-        inputRef.current?.blur();
+        if (open) {
+          e.preventDefault();
+          close();
+        }
       } else if (e.key === "Backspace" && !query && selected) {
         e.preventDefault();
         commit(null);
@@ -9336,6 +9412,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__act:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dt__act:active { transform: scale(0.88); }
 .twc-dt__act[data-danger="true"]:hover { background: var(--color-danger-subtle); color: var(--color-danger-subtle-fg); }
+/* #419: a disabled inline action reads as disabled (menu items already do). Pointer-blocking for the
+   aria-disabled (with-reason) case comes from the Tooltip wrap. */
+.twc-dt__act:disabled, .twc-dt__act[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; color: var(--color-text-subtle); }
 .twc-dt__act svg { width: 16px; height: 16px; }
 
 /* Batch (selection) toolbar overlay */
@@ -10126,7 +10205,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const [internalActiveCell, setInternalActiveCell] = import_react.default.useState(null);
     const activeCellControlled = activeCell !== void 0;
     const activeCellVal = activeCellControlled ? activeCell : internalActiveCell;
+    const selfCellSigRef = import_react.default.useRef(null);
+    const jumpAppliedRef = import_react.default.useRef(null);
     const commitActiveCell = (next) => {
+      const sig = next ? next.key + "\0" + next.field : null;
+      selfCellSigRef.current = sig;
+      jumpAppliedRef.current = null;
       onActiveCellChange?.(next);
       if (!activeCellControlled) setInternalActiveCell(next);
     };
@@ -11260,6 +11344,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       const stillInside = nextTd && +nextTd.getAttribute("data-r") === interacting.r && +nextTd.getAttribute("data-c") === interacting.c;
       if (!stillInside) setInteracting(null);
     }
+    function onGridKeyDownCapture(e) {
+      if (cellNavigation !== "widget") return;
+      if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+      const trg = e.target.closest && e.target.closest("[aria-haspopup]");
+      if (!trg || trg.getAttribute("aria-expanded") === "true") return;
+      if (!e.target.closest(".twc-dt__td[data-r]")) return;
+      onGridKeyDown(e);
+    }
     function onGridKeyDown(e) {
       if (e.target.closest("input, textarea, select, [contenteditable='true']")) return;
       if (editing) return;
@@ -11299,23 +11391,20 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       let r2 = +td.getAttribute("data-r"), c = +td.getAttribute("data-c");
       const maxR = leafRows.length - 1, maxC = ordered.length - 1;
       let handled = true;
-      if (cellNavigation === "widget") {
-        const onWidget = e.target !== td && !!e.target.closest(DT_CELL_WIDGET_SEL);
-        if (onWidget) {
-          if (e.key === "Enter" || e.key === " ") return;
-        } else if (e.key === "F2" || e.key === "Enter") {
-          const ws = dtCellWidgets(td);
-          if (ws.length > 1) {
-            e.preventDefault();
-            setInteracting({ r: r2, c });
-            ws[0].focus();
-            return;
-          }
-          if (ws.length === 1 && e.key === "Enter") {
-            e.preventDefault();
-            ws[0].click();
-            return;
-          }
+      const onWidget = e.target !== td && !!e.target.closest(DT_CELL_WIDGET_SEL);
+      if (onWidget && (e.key === "Enter" || e.key === " ")) return;
+      if (cellNavigation === "widget" && !onWidget && (e.key === "F2" || e.key === "Enter")) {
+        const ws = dtCellWidgets(td);
+        if (ws.length > 1) {
+          e.preventDefault();
+          setInteracting({ r: r2, c });
+          ws[0].focus();
+          return;
+        }
+        if (ws.length === 1 && e.key === "Enter") {
+          e.preventDefault();
+          ws[0].click();
+          return;
         }
       }
       switch (e.key) {
@@ -11341,7 +11430,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         case "Enter":
         case " ": {
           const col = ordered[c];
-          if (col && isColEditable(col)) {
+          if (col && isCellEditable(col, leafRows[r2])) {
             e.preventDefault();
             beginEdit(keyOf(leafRows[r2], r2), col, leafRows[r2]);
             return;
@@ -11415,11 +11504,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       const el = gridRef.current && gridRef.current.querySelector('.twc-dt__row[data-active="true"]');
       if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest" });
     }, [activeRowId, activeRowControlled, scrollActiveRowIntoView, keyIndex]);
+    const revealOn = !!scrollActiveCellIntoView;
+    const revealBlock = scrollActiveCellIntoView && typeof scrollActiveCellIntoView === "object" && scrollActiveCellIntoView.block === "center" ? "center" : "nearest";
+    const revealInline = scrollActiveCellIntoView && typeof scrollActiveCellIntoView === "object" && scrollActiveCellIntoView.inline === "center" ? "center" : "nearest";
     import_react.default.useEffect(() => {
-      if (!scrollActiveCellIntoView || !activeCellVal) return void 0;
-      const opt = typeof scrollActiveCellIntoView === "object" ? scrollActiveCellIntoView : {};
-      const block = opt.block === "center" ? "center" : "nearest";
-      const inline = opt.inline === "center" ? "center" : "nearest";
+      if (!revealOn || !activeCellVal) return void 0;
+      const block = revealBlock, inline = revealInline;
       const ri = keyIndex.get(activeCellVal.key), ci = cellColIndex(activeCellVal.field);
       if (ri == null || ci < 0) return void 0;
       let raf = 0;
@@ -11460,7 +11550,22 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       return () => {
         if (raf) cancelAnimationFrame(raf);
       };
-    }, [activeCellVal?.key, activeCellVal?.field, scrollActiveCellIntoView, keyIndex, cellColIndex, virtualizing, offsets, keyIndexMid, headH]);
+    }, [activeCellVal?.key, activeCellVal?.field, revealOn, revealBlock, revealInline, keyIndex, cellColIndex, virtualizing, offsets, keyIndexMid, headH]);
+    import_react.default.useEffect(() => {
+      if (!activeCellControlled || !activeCellVal) {
+        jumpAppliedRef.current = null;
+        return;
+      }
+      const sig = activeCellVal.key + "\0" + activeCellVal.field;
+      if (sig === selfCellSigRef.current || sig === jumpAppliedRef.current) return;
+      const ri = keyIndex.get(activeCellVal.key), ci = cellColIndex(activeCellVal.field);
+      if (ri == null || ci < 0) return;
+      jumpAppliedRef.current = sig;
+      if (selectionMode === "cell") setAnchorCell(activeCellVal);
+      setFocus({ r: ri, c: ci });
+      const grid = gridRef.current;
+      if (grid && grid.contains(document.activeElement) && grid !== document.activeElement) focusCell(ri, ci);
+    }, [activeCellControlled, selectionMode, activeCellVal?.key, activeCellVal?.field, keyIndex, cellColIndex]);
     function clearSelection() {
       setSelected(/* @__PURE__ */ new Set());
     }
@@ -11469,7 +11574,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const onEditingChangeRef = import_react.default.useRef(onEditingChange);
     onEditingChangeRef.current = onEditingChange;
     const editStoppedRef = import_react.default.useRef(false);
-    const isColEditable = (c) => c.type !== "actions" && c.editable !== false && (c.editable === true || c.renderEditCell != null || editMode);
+    const isColEditable = (c) => c.type !== "actions" && c.editable !== false && (c.editable === true || typeof c.editable === "function" || c.renderEditCell != null || editMode);
+    const isCellEditable = (c, row) => isColEditable(c) && (typeof c.editable !== "function" || !!c.editable(row, { field: c.field }));
     function applyRowUpdate(rowKey2, updated, orig, field) {
       onRowUpdate?.(updated, orig, field);
       if (onRowsChange && rows.some((r2, i) => keyOf(r2, i) === rowKey2)) {
@@ -11477,7 +11583,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       }
     }
     function beginEdit(rowK, col, row) {
-      if (!isColEditable(col)) return;
+      if (!isCellEditable(col, row)) return;
       if (editing && editing.key === rowK && editing.field === col.field) return;
       stagedEditRef.current = null;
       editStoppedRef.current = false;
@@ -11590,7 +11696,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       const nextAll = rows.map((r2, i) => {
         const k = keyOf(r2, i);
         if (!selKeys2.has(k)) return r2;
-        const updated = { ...r2, ...patch };
+        const rowPatch = {};
+        for (const c of active) {
+          if (typeof c.editable !== "function" || c.editable(r2, { field: c.field })) rowPatch[c.field] = patch[c.field];
+        }
+        if (!Object.keys(rowPatch).length) return r2;
+        const updated = { ...r2, ...rowPatch };
         changedRows.push(updated);
         return updated;
       });
@@ -11677,7 +11788,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         const line = [];
         for (let c = cellRect.c0; c <= cellRect.c1; c++) {
           const col = ordered[c];
-          if (col) line.push({ key: keyOf(row, r2), field: col.field, col, value: getColVal(col, row) });
+          if (col) line.push({ key: keyOf(row, r2), field: col.field, col, row, value: getColVal(col, row) });
         }
         out.push(line);
       }
@@ -11695,7 +11806,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         const patchByKey = /* @__PURE__ */ new Map();
         let clearable = 0;
         for (const line of grid) for (const cell of line) {
-          if (!isColEditable(cell.col)) continue;
+          if (!isCellEditable(cell.col, cell.row)) continue;
           clearable++;
           const p = patchByKey.get(cell.key) || {};
           p[cell.field] = cell.col.type === "number" ? null : "";
@@ -11727,7 +11838,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           const cc = cellRect.c0 + j;
           const col = ordered[cc];
           if (!col) break;
-          if (!isColEditable(col)) {
+          if (!isCellEditable(col, row)) {
             skipped++;
             continue;
           }
@@ -11784,13 +11895,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         if (e.target.closest(".twc-dt__editor-wrap") || e.target.closest(".twc-pop")) return;
         const col = colByField[editing.field];
         if (col && col.renderEditCell) {
-          if (stagedEditRef.current) commitEdit(stagedEditRef.current.value);
-          else cancelEdit();
+          const s = stagedEditRef.current;
+          if (!s) cancelEdit();
+          else if (s.patch) commitEdit(void 0, s.patch);
+          else commitEdit(s.value);
         } else commitEdit();
       };
       document.addEventListener("mousedown", onDown, true);
       return () => document.removeEventListener("mousedown", onDown, true);
-    }, [editing]);
+    }, [editing, rows, leafRows]);
     function renderActions(col, row) {
       const items = (col.getActions ? col.getActions(row) : []) || [];
       const inline = items.filter((a) => !a.showInMenu);
@@ -11807,6 +11920,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         inline.map((a, i) => {
           const href = !a.disabled ? safeHref6(a.href) : void 0;
           const tip = a.disabled && a.disabledReason != null ? a.disabledReason : a.label;
+          const soft = !!a.disabled && a.disabledReason != null;
           return /* @__PURE__ */ jsx(Tooltip, { label: tip, placement: "top", children: href ? /* @__PURE__ */ jsx(
             "a",
             {
@@ -11819,7 +11933,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               onClick: (e) => {
                 if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
                 e.stopPropagation();
-                a.onClick?.(row);
+                a.onClick?.(row, e);
               },
               children: a.icon
             }
@@ -11830,10 +11944,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               className: "twc-dt__act",
               "data-danger": a.danger || void 0,
               "aria-label": a.label,
-              disabled: a.disabled,
+              disabled: a.disabled && !soft,
+              "aria-disabled": soft || void 0,
               onClick: (e) => {
                 e.stopPropagation();
-                a.onClick?.(row);
+                if (a.disabled) return;
+                a.onClick?.(row, e);
               },
               children: a.icon
             }
@@ -12394,7 +12510,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                 const st = stickyOf(c.field);
                 const val = getColVal(c, row);
                 const isActions = c.type === "actions";
-                const editable = isColEditable(c);
+                const editable = isCellEditable(c, row);
                 const isEditing = editing && editing.key === k && editing.field === c.field;
                 const cellActive = selectionMode === "cell" && activeCellVal && activeCellVal.key === k && activeCellVal.field === c.field;
                 const cellSelected = selectionMode === "cell" && cellRect && ri >= cellRect.r0 && ri <= cellRect.r1 && ci >= cellRect.c0 && ci <= cellRect.c1;
@@ -12440,15 +12556,16 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                         // async Combobox, …) and drives the lifecycle via commit/cancel. Wrapped in
                         // .twc-dt__editor-wrap so inline clicks (and any .twc-pop portal dropdown) don't
                         // trip the outside-click auto-cancel.
-                        // #273: the wrapper handles Escape → cancel so it works for every custom editor without
-                        // each having to wire a keydown (they only get commit/cancel). A custom control that
-                        // wants Escape itself (e.g. to close its own open dropdown) stops propagation first.
+                        // #273/#412: the wrapper cancels on Escape so custom editors get it for free — but it IGNORES
+                        // an Escape a nested control already handled (defaultPrevented), so closing a Select/Combobox/
+                        // MultiSelect list inside the editor doesn't also cancel the edit (a second Escape, list now
+                        // closed, then cancels — the WAI-ARIA two-step). A control can still stopPropagation to keep it.
                         /* @__PURE__ */ jsx(
                           "div",
                           {
                             className: "twc-dt__editor-wrap",
                             onKeyDown: (e) => {
-                              if (e.key === "Escape") {
+                              if (e.key === "Escape" && !e.defaultPrevented) {
                                 e.stopPropagation();
                                 cancelEdit();
                               }
@@ -12459,9 +12576,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                               field: c.field,
                               commit: (v) => commitEdit(v),
                               cancel: cancelEdit,
-                              setDraft: (v) => {
-                                stagedEditRef.current = { value: v };
-                                setEditing((ed) => ed ? { ...ed, value: v } : ed);
+                              // #413/#423: stage a value — or a patch with { patch: true } — for the click-away commit;
+                              // { silent: true } stages into the ref WITHOUT re-rendering the grid (for an editor that
+                              // renders from its own draft state, so per-keystroke staging isn't O(rows)).
+                              setDraft: (next, opts) => {
+                                stagedEditRef.current = opts?.patch ? { patch: next } : { value: next };
+                                if (!opts?.silent && !opts?.patch) setEditing((ed) => ed ? { ...ed, value: next } : ed);
                               },
                               commitPatch: (patch) => commitEdit(void 0, patch)
                             })
@@ -12834,6 +12954,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               "aria-activedescendant": activeCellId,
               "aria-busy": loading || void 0,
               onKeyDown: onGridKeyDown,
+              onKeyDownCapture: cellNavigation === "widget" ? onGridKeyDownCapture : void 0,
               onPaste: onGridPaste,
               onBlur: cellNavigation === "widget" ? onGridBlur : void 0,
               children: [
@@ -13403,7 +13524,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   style: sty,
                   onClick: (e) => {
                     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-                    a.onClick?.(rowMenu.row);
+                    a.onClick?.(rowMenu.row, e);
                     done();
                   },
                   children: inner
@@ -13417,8 +13538,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                   className: "twc-dt__mi",
                   disabled: a.disabled,
                   style: sty,
-                  onClick: () => {
-                    a.onClick?.(rowMenu.row);
+                  onClick: (e) => {
+                    a.onClick?.(rowMenu.row, e);
                     done();
                   },
                   children: inner
@@ -16645,7 +16766,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-upload__title { font-size: var(--text-sm); color: var(--color-text); font-weight: var(--font-semibold); }
 .twc-upload__title em { color: var(--color-primary); font-style: normal; }
 .twc-upload__hint { font-size: var(--text-xs); color: var(--color-text-subtle); }
-.twc-upload__input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.twc-upload__input { display: none; } /* #415: out of the tab order + a11y tree; inputRef.click() still works */
 .twc-upload__list { display: flex; flex-direction: column; gap: 8px; }
 .twc-upload__file { display: flex; align-items: center; gap: var(--space-3); padding: 9px 12px;
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); }
@@ -16697,6 +16818,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const autoId = import_react.default.useId();
     const fieldId = id || autoId;
     const descId = `${fieldId}-desc`;
+    const labelId = `${fieldId}-label`;
+    const titleId = `${fieldId}-title`;
     const invalid = Boolean(error);
     const set = (next) => {
       if (value === void 0) setInternal(next);
@@ -16713,25 +16836,34 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       if (disabled) return;
       set(files.filter((_, idx) => idx !== i));
     }
-    const hiddenInput = /* @__PURE__ */ jsx(
-      "input",
-      {
-        ref: inputRef,
-        className: "twc-upload__input",
-        type: "file",
-        accept,
-        multiple,
-        disabled,
-        onChange: (e) => {
-          if (e.target.files.length) addFiles(e.target.files);
-          e.target.value = "";
+    const hiddenInput = (
+      // #415: also tabIndex=-1 + aria-hidden on the element (jsdom can't see the display:none scoped CSS) so it is
+      // never a stray Tab stop / unlabeled control; both click paths (trigger/zone onClick + imperative open()) work.
+      /* @__PURE__ */ jsx(
+        "input",
+        {
+          ref: inputRef,
+          className: "twc-upload__input",
+          type: "file",
+          accept,
+          multiple,
+          disabled,
+          tabIndex: -1,
+          "aria-hidden": "true",
+          onChange: (e) => {
+            if (e.target.files.length) addFiles(e.target.files);
+            e.target.value = "";
+          }
         }
-      }
+      )
     );
     if (trigger) {
+      const triggerEl = import_react.default.isValidElement(trigger) && error ? import_react.default.cloneElement(trigger, {
+        "aria-describedby": [trigger.props["aria-describedby"], descId].filter(Boolean).join(" ") || void 0
+      }) : trigger;
       return /* @__PURE__ */ jsxs("div", { className: `twc-upload ${className}`, "data-size": size, ...rest, children: [
         __twcStyles,
-        label ? /* @__PURE__ */ jsxs("label", { className: "twc-field__label", htmlFor: fieldId, children: [
+        label ? /* @__PURE__ */ jsxs("label", { className: "twc-field__label", id: labelId, children: [
           label,
           required ? /* @__PURE__ */ jsx("span", { className: "twc-field__req", children: "*" }) : null
         ] }) : null,
@@ -16753,7 +16885,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               if (!disabled && e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
             } : void 0,
             "data-drag": drag || void 0,
-            children: trigger
+            children: triggerEl
           }
         ),
         hiddenInput,
@@ -16762,7 +16894,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     }
     return /* @__PURE__ */ jsxs("div", { className: `twc-upload ${className}`, "data-size": size, ...rest, children: [
       __twcStyles,
-      label ? /* @__PURE__ */ jsxs("label", { className: "twc-field__label", htmlFor: fieldId, children: [
+      label ? /* @__PURE__ */ jsxs("label", { className: "twc-field__label", id: labelId, onClick: () => !disabled && inputRef.current?.click(), children: [
         label,
         required ? /* @__PURE__ */ jsx("span", { className: "twc-field__req", children: "*" }) : null
       ] }) : null,
@@ -16779,6 +16911,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           tabIndex: disabled ? -1 : 0,
           "aria-required": required || void 0,
           "aria-invalid": invalid || void 0,
+          "aria-labelledby": label ? `${labelId} ${titleId}` : void 0,
           "aria-describedby": error || hint ? descId : void 0,
           onClick: () => !disabled && inputRef.current?.click(),
           onKeyDown: (e) => {
@@ -16799,7 +16932,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           },
           children: [
             /* @__PURE__ */ jsx("span", { className: "twc-upload__icon", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" }) }) }),
-            /* @__PURE__ */ jsxs("span", { className: "twc-upload__title", children: [
+            /* @__PURE__ */ jsxs("span", { className: "twc-upload__title", id: titleId, children: [
               /* @__PURE__ */ jsx("em", { children: "Click to upload" }),
               " or drag and drop"
             ] }),
@@ -16912,7 +17045,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             Button,
             {
               variant,
-              tone,
+              tone: tone === "danger" ? "danger" : "primary",
+              pressedTone: it.tone ?? tone,
               size,
               disabled: disabled || it.disabled,
               pressed: isSelected(it.value),
@@ -17280,6 +17414,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     open: openProp,
     defaultOpen = false,
     onOpenChange,
+    "aria-describedby": ariaDescribedby,
     className = "",
     ...rest
   }) {
@@ -17427,7 +17562,9 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       tabIndex: trigger.props.tabIndex ?? 0,
       "aria-haspopup": "dialog",
       "aria-expanded": open,
-      "aria-controls": open ? popId : void 0
+      "aria-controls": open ? popId : void 0,
+      // #420: forward an incoming aria-describedby (e.g. from a wrapping Tooltip) to the focusable trigger.
+      "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || void 0
     }) : /* @__PURE__ */ jsx(
       "span",
       {
@@ -17436,6 +17573,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         "aria-haspopup": "dialog",
         "aria-expanded": open,
         "aria-controls": open ? popId : void 0,
+        "aria-describedby": ariaDescribedby,
         onClick: toggle,
         onKeyDown: (e) => {
           if (e.key === "Enter" || e.key === " ") {
@@ -17926,6 +18064,9 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
    own var(--space-2) padding \u2014 both live in this file, so they can't silently drift like a consumer workaround. */
 .twc-sidebar__foot-user[data-inset="false"] { padding: 0; margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) var(--space-1); }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot-user[data-inset="false"] { margin-inline: 0; }
+/* #417: when the account row is the foot's last child (collapsible=false / nothing follows), cancel the foot's
+   bottom padding too so the edge-to-edge row reaches the rail's bottom edge (no consumer negative margin). */
+.twc-sidebar__foot-user[data-inset="false"]:last-child { margin-bottom: calc(-1 * var(--space-2)); }
 .twc-sidebar__collapse { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 9px; border: none; background: none; cursor: pointer;
   color: var(--color-text-muted); border-radius: var(--radius-md); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold);
   transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }

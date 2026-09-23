@@ -9,6 +9,10 @@ const TOOLTIP_CSS = `
    which owns onMouseEnter, and keep the not-allowed cursor hint. */
 .twc-tooltip-wrap > :disabled, .twc-tooltip-wrap > [aria-disabled="true"] { pointer-events: none; }
 .twc-tooltip-wrap:has(> :disabled), .twc-tooltip-wrap:has(> [aria-disabled="true"]) { cursor: not-allowed; }
+/* #420: the trigger is often wrapped by a Menu/Popover span, so the disabled control is a grandchild — reach it. */
+.twc-tooltip-wrap :is(.twc-menu-wrap, .twc-popover-wrap) > :disabled,
+.twc-tooltip-wrap :is(.twc-menu-wrap, .twc-popover-wrap) > [aria-disabled="true"] { pointer-events: none; }
+.twc-tooltip-wrap:has(:is(.twc-menu-wrap, .twc-popover-wrap) > :is(:disabled, [aria-disabled="true"])) { cursor: not-allowed; }
 .twc-tooltip {
   position: fixed; z-index: var(--z-tooltip);
   /* #348: purely presentational — the bubble must NEVER intercept the pointer, so neither a hidden

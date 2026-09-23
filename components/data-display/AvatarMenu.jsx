@@ -18,9 +18,11 @@ const AVATARMENU_CSS = `
    to the inline-end, so a sidebar footer account row fills the rail. The compound .--block.twc-menu-wrap beats
    Menu's own .twc-menu-wrap rule regardless of scoped-stylesheet order. */
 .twc-avatar-menu--block.twc-menu-wrap { display: flex; width: 100%; }
-.twc-avatar-menu--block .twc-avatar-menu { display: flex; width: 100%; }
+.twc-avatar-menu--block .twc-avatar-menu { display: flex; width: 100%; border-radius: var(--radius-md); } /* #416: square-ish full-bleed row, not a pill */
 .twc-avatar-menu--block .twc-avatar-menu__text { flex: 1 1 auto; }
 .twc-avatar-menu--block .twc-avatar-menu__name, .twc-avatar-menu--block .twc-avatar-menu__sub { max-width: none; }
+/* #416: rotate the chevron while the menu is open (existing transition on __chev animates it). */
+.twc-avatar-menu[aria-expanded="true"] .twc-avatar-menu__chev { transform: rotate(180deg); }
 `;
 
 export function AvatarMenu({
@@ -34,6 +36,9 @@ export function AvatarMenu({
   showName = false,
   showChevron,
   fullWidth = false,
+  header,
+  headerExtra,
+  menuWidth,
   align = "end",
   className = "",
   ...rest
@@ -43,12 +48,15 @@ export function AvatarMenu({
   const sub = subtitle ?? email;
   const showChev = showChevron ?? showName;
 
-  const header = (
+  // #416: `header` fully replaces the built-in menu header; otherwise `headerExtra` is appended under the
+  // name/subtitle (a presence line, a role badge) — shown only in the menu, not the trigger.
+  const headerNode = header !== undefined ? header : (
     <>
       <Avatar name={name} src={src} size="md" status={status} />
       <span className="twc-menu__header-main">
         <span className="twc-menu__header-title">{name}</span>
         {sub ? <span className="twc-menu__header-sub">{sub}</span> : null}
+        {headerExtra != null ? headerExtra : null}
       </span>
     </>
   );
@@ -78,5 +86,8 @@ export function AvatarMenu({
   );
 
   const wrapClass = `${fullWidth ? "twc-avatar-menu--block " : ""}${className}`.trim();
-  return <Menu className={wrapClass} trigger={trigger} items={items} header={header} align={align} width={240} aria-label={`${name || "Account"} menu`} {...rest} />;
+  // #416: in fullWidth mode let the menu match the (stretched) trigger width — Menu's max(200, triggerWidth)
+  // applies when width is undefined; menuWidth overrides either way.
+  const resolvedWidth = menuWidth !== undefined ? menuWidth : (fullWidth ? undefined : 240);
+  return <Menu className={wrapClass} trigger={trigger} items={items} header={headerNode} align={align} width={resolvedWidth} aria-label={`${name || "Account"} menu`} {...rest} />;
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { ActionTone } from "../_types";
+import type { Tone } from "../_types";
 
 /** One toggle button in a {@link ToggleGroup}. */
 export interface ToggleGroupItem {
@@ -11,6 +11,9 @@ export interface ToggleGroupItem {
   icon?: React.ReactNode;
   /** Disable just this toggle. */
   disabled?: boolean;
+  /** #411: pressed ("on") tone for THIS item, overriding the group `tone` — so options can carry their own
+   *  meaning colour (e.g. Allow=success, Deny=danger, Clear=neutral). */
+  tone?: Tone;
   /** Accessible label — required when the toggle is icon-only. */
   "aria-label"?: string;
 }
@@ -36,8 +39,9 @@ export interface ToggleGroupProps {
   onValueChange?: (value: string | string[] | null) => void;
   /** Button size. @default "md" */
   size?: "xs" | "sm" | "md" | "lg";
-  /** Tone applied to the pressed ("on") fill. @default "primary" */
-  tone?: ActionTone;
+  /** #411: default pressed ("on") fill tone for the group — the full status `Tone` scale (a per-item `tone`
+   *  overrides it). The unpressed look stays action-neutral. @default "primary" */
+  tone?: Tone;
   /** The button variant used for the OFF (unpressed) look. @default "outline" */
   variant?: "solid" | "soft" | "outline" | "ghost";
   /** Opt into roving arrow-key focus (WAI-ARIA) — the group is one Tab stop and arrows move focus between

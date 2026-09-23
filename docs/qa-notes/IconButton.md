@@ -2,9 +2,11 @@
 
 - **Group:** buttons
 - **Status:** clean
-- **Reviewed:** 2026-09-22
+- **Reviewed:** 2026-09-23
 
 ## Open issues
+
+- [x] **[#418/#411] pressed hover + per-tone pressed fill** — matching-specificity pressed-hover rule + `pressedTone`. `IconButton.jsx`/`.d.ts` — ✓ 2026-09-23
 
 - [x] **[#405] no pressed (toggle) state** — added `pressed` (aria-pressed + soft tone fill), for a pin/unpin or bold/italic icon toggle. `tests/toggle-group.test.jsx`. `IconButton.jsx`/`.d.ts` — ✓ fixed 2026-09-22
 - [x] **[#398] a disabled IconButton couldnt host a keyboard-reachable tooltip** — added `focusableWhenDisabled` (aria-disabled, stays focusable, click/keyboard blocked). `IconButton.jsx`/`.d.ts` — ✓ fixed 2026-09-22

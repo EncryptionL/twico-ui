@@ -615,6 +615,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__act:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dt__act:active { transform: scale(0.88); }
 .twc-dt__act[data-danger="true"]:hover { background: var(--color-danger-subtle); color: var(--color-danger-subtle-fg); }
+/* #419: a disabled inline action reads as disabled (menu items already do). Pointer-blocking for the
+   aria-disabled (with-reason) case comes from the Tooltip wrap. */
+.twc-dt__act:disabled, .twc-dt__act[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; color: var(--color-text-subtle); }
 .twc-dt__act svg { width: 16px; height: 16px; }
 
 /* Batch (selection) toolbar overlay */
@@ -1361,7 +1364,15 @@ export function Datatable({
   // scroll target in any mode. commitActiveCell reports via onActiveCellChange and self-updates when uncontrolled.
   const activeCellControlled = activeCell !== undefined;
   const activeCellVal = activeCellControlled ? activeCell : internalActiveCell;
-  const commitActiveCell = (next) => { onActiveCellChange?.(next); if (!activeCellControlled) setInternalActiveCell(next); };
+  // #421: remember the cell the grid itself just committed (click/arrow), so the host-driven-jump effect below
+  // can tell a genuine external activeCell change from an echo of the grid's own update (which already set
+  // anchor + roving focus) and not clobber a Shift+Arrow range extend.
+  const selfCellSigRef = React.useRef(null);
+  // #421: which activeCell value the host-jump effect has already applied — so it applies once per value and
+  // the setFocus re-render (keyIndex churn) doesn't loop. Reset on every grid-originated commit so a host can
+  // RE-jump to a cell the grid has since navigated away from.
+  const jumpAppliedRef = React.useRef(null);
+  const commitActiveCell = (next) => { const sig = next ? next.key + "\u0000" + next.field : null; selfCellSigRef.current = sig; jumpAppliedRef.current = null; onActiveCellChange?.(next); if (!activeCellControlled) setInternalActiveCell(next); };
   const [anchorCell, setAnchorCell] = React.useState(null); // #317: fixed corner of a rectangular range
   const gridId = React.useId(); // #317: stable prefix for cell ids (aria-activedescendant)
   // #45: controlled/uncontrolled pagination (hand-rolled per project rule — no
@@ -2521,6 +2532,18 @@ export function Datatable({
     const stillInside = nextTd && +nextTd.getAttribute("data-r") === interacting.r && +nextTd.getAttribute("data-c") === interacting.c;
     if (!stillInside) setInteracting(null);
   }
+  // #410: in widget mode a cell's single control may be a COLLAPSED popup trigger ([aria-haspopup], not open),
+  // which opens on ArrowDown + preventDefault — so the #391 defaultPrevented guard would otherwise stop the grid
+  // moving down. Run Up/Down FIRST in the capture phase (before the trigger's bubble handler) so the grid owns
+  // row movement on a collapsed trigger; Enter/Space still open it, and once open the #391 guard lets it navigate.
+  function onGridKeyDownCapture(e) {
+    if (cellNavigation !== "widget") return;
+    if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+    const trg = e.target.closest && e.target.closest("[aria-haspopup]");
+    if (!trg || trg.getAttribute("aria-expanded") === "true") return;
+    if (!e.target.closest(".twc-dt__td[data-r]")) return;
+    onGridKeyDown(e); // full roving move + preventDefault; the trigger's bubble handler then sees defaultPrevented and bails
+  }
   function onGridKeyDown(e) {
     // #343: never hijack keys (clipboard Ctrl/Cmd+C/X/V, Arrow/Home/End nav) from a focused editable
     // target inside a cell — e.g. an <input>/<select>/<textarea> in a custom renderCell. Mirrors the
@@ -2555,18 +2578,18 @@ export function Datatable({
     let r = +td.getAttribute("data-r"), c = +td.getAttribute("data-c");
     const maxR = leafRows.length - 1, maxC = ordered.length - 1;
     let handled = true;
-    // #392: widget-mode activation. A single in-cell widget already has focus → let it handle Enter/Space
-    // natively (only nav keys fall through to move the roving focus). On a <td>-focused cell, Enter/F2 enters
-    // interaction mode for a multi-widget cell, or activates the sole widget.
-    if (cellNavigation === "widget") {
-      const onWidget = e.target !== td && !!e.target.closest(DT_CELL_WIDGET_SEL);
-      if (onWidget) {
-        if (e.key === "Enter" || e.key === " ") return;
-      } else if (e.key === "F2" || e.key === "Enter") {
-        const ws = dtCellWidgets(td);
-        if (ws.length > 1) { e.preventDefault(); setInteracting({ r, c }); ws[0].focus(); return; }
-        if (ws.length === 1 && e.key === "Enter") { e.preventDefault(); ws[0].click(); return; }
-      }
+    // #422: an in-cell control (button/link/switch/checkbox/…) owns Enter/Space in EVERY mode — let it
+    // activate natively rather than the grid selecting the row/cell or opening the editor (the mouse path
+    // already guards this via handleRowClick/handleCellClick's closest(...) check). onWidget is false when the
+    // <td> itself is focused, so #392's td-focused Enter/Space and widget interaction entry are unaffected.
+    const onWidget = e.target !== td && !!e.target.closest(DT_CELL_WIDGET_SEL);
+    if (onWidget && (e.key === "Enter" || e.key === " ")) return;
+    // #392: widget-mode interaction entry — on a <td>-focused cell, Enter/F2 enters interaction mode for a
+    // multi-widget cell, or activates the sole widget.
+    if (cellNavigation === "widget" && !onWidget && (e.key === "F2" || e.key === "Enter")) {
+      const ws = dtCellWidgets(td);
+      if (ws.length > 1) { e.preventDefault(); setInteracting({ r, c }); ws[0].focus(); return; }
+      if (ws.length === 1 && e.key === "Enter") { e.preventDefault(); ws[0].click(); return; }
     }
     switch (e.key) {
       case "ArrowDown": r = Math.min(r + 1, maxR); break;
@@ -2577,7 +2600,7 @@ export function Datatable({
       case "End": c = maxC; if (e.ctrlKey) r = maxR; break;
       case "Enter": case " ": {
         const col = ordered[c];
-        if (col && isColEditable(col)) { e.preventDefault(); beginEdit(keyOf(leafRows[r], r), col, leafRows[r]); return; }
+        if (col && isCellEditable(col, leafRows[r])) { e.preventDefault(); beginEdit(keyOf(leafRows[r], r), col, leafRows[r]); return; }
         if (selectionMode === "cell") { e.preventDefault(); handleCellClick({ target: td }, keyOf(leafRows[r], r), leafRows[r], ordered[c]); return; }
         if (selectionMode === "row") { e.preventDefault(); const rk = keyOf(leafRows[r], r); if (!activeRowControlled) setActiveRow(rk); onRowClick?.(leafRows[r], rk); return; }
         handled = false; break;
@@ -2641,11 +2664,15 @@ export function Datatable({
   // #395: reveal the controlled active cell inside the grid's OWN scroller (never scrollIntoView, which would
   // scroll the page). Works in any selectionMode, on both axes, honours the sticky header + pinned columns,
   // and re-runs when rows change so a server-mode page fetch — or a virtualized row mounting — lands on it.
+  // #421: resolve the reveal options to primitives at render scope, so the effect can key on them instead of the
+  // `scrollActiveCellIntoView` object identity (an inline `{ block: "center" }` would otherwise re-reveal — pull
+  // the grid back — on every unrelated host render).
+  const revealOn = !!scrollActiveCellIntoView;
+  const revealBlock = (scrollActiveCellIntoView && typeof scrollActiveCellIntoView === "object" && scrollActiveCellIntoView.block === "center") ? "center" : "nearest";
+  const revealInline = (scrollActiveCellIntoView && typeof scrollActiveCellIntoView === "object" && scrollActiveCellIntoView.inline === "center") ? "center" : "nearest";
   React.useEffect(() => {
-    if (!scrollActiveCellIntoView || !activeCellVal) return undefined;
-    const opt = typeof scrollActiveCellIntoView === "object" ? scrollActiveCellIntoView : {};
-    const block = opt.block === "center" ? "center" : "nearest";
-    const inline = opt.inline === "center" ? "center" : "nearest";
+    if (!revealOn || !activeCellVal) return undefined;
+    const block = revealBlock, inline = revealInline;
     const ri = keyIndex.get(activeCellVal.key), ci = cellColIndex(activeCellVal.field);
     if (ri == null || ci < 0) return undefined;
     let raf = 0;
@@ -2672,10 +2699,30 @@ export function Datatable({
     };
     reveal();
     return () => { if (raf) cancelAnimationFrame(raf); };
-    // #395 (review): key on the activeCell PRIMITIVES (not the object identity) so a controlled inline
-    // `activeCell={{…}}` doesn't re-run — and re-center — on every unrelated parent render.
+    // #395/#421: key on the activeCell + option PRIMITIVES (not the object identities) so a controlled inline
+    // `activeCell={{…}}` / `scrollActiveCellIntoView={{…}}` doesn't re-run — and re-center — every parent render.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCellVal?.key, activeCellVal?.field, scrollActiveCellIntoView, keyIndex, cellColIndex, virtualizing, offsets, keyIndexMid, headH]);
+  }, [activeCellVal?.key, activeCellVal?.field, revealOn, revealBlock, revealInline, keyIndex, cellColIndex, virtualizing, offsets, keyIndexMid, headH]);
+  // #421: a host-driven activeCell change (in any mode) collapses the selection to that cell and moves the roving
+  // focus there, so a "jump to cell" doesn't extend a rectangle from the last-clicked anchor or leave arrow-nav
+  // behind. Guarded by selfCellSigRef (don't clobber the grid's own click/arrow/Shift+Arrow updates) AND by
+  // jumpAppliedRef so it applies ONCE per activeCell value — `keyIndex` is in the deps (server-mode retry while
+  // the target row is unmounted) but its identity churns each render, and this effect setStates, so without the
+  // applied-guard the setFocus re-render would re-run the effect forever. commitActiveCell clears the ref on each
+  // grid move so a repeat host jump to a cell the grid has since left still re-applies.
+  React.useEffect(() => {
+    if (!activeCellControlled || !activeCellVal) { jumpAppliedRef.current = null; return; }
+    const sig = activeCellVal.key + "\u0000" + activeCellVal.field;
+    if (sig === selfCellSigRef.current || sig === jumpAppliedRef.current) return;
+    const ri = keyIndex.get(activeCellVal.key), ci = cellColIndex(activeCellVal.field);
+    if (ri == null || ci < 0) return; // not rendered yet (server mode) — retry when keyIndex updates
+    jumpAppliedRef.current = sig;
+    if (selectionMode === "cell") setAnchorCell(activeCellVal);
+    setFocus({ r: ri, c: ci });
+    const grid = gridRef.current; // only move DOM focus when the grid already has it (an external stepper button keeps focus)
+    if (grid && grid.contains(document.activeElement) && grid !== document.activeElement) focusCell(ri, ci);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCellControlled, selectionMode, activeCellVal?.key, activeCellVal?.field, keyIndex, cellColIndex]);
   function clearSelection() { setSelected(new Set()); }
 
   // ---- Inline editing ----
@@ -2689,7 +2736,12 @@ export function Datatable({
   const onEditingChangeRef = React.useRef(onEditingChange); onEditingChangeRef.current = onEditingChange;
   const editStoppedRef = React.useRef(false);
   // #236: a `renderEditCell` column is editable too (unless `editable: false`).
-  const isColEditable = (c) => c.type !== "actions" && c.editable !== false && (c.editable === true || c.renderEditCell != null || editMode);
+  // #424: column-level CAPABILITY test — a function `editable` counts as editable-capable here…
+  const isColEditable = (c) => c.type !== "actions" && c.editable !== false && (c.editable === true || typeof c.editable === "function" || c.renderEditCell != null || editMode);
+  // …and this per-cell gate additionally runs a function `editable(row, { field })`, so a column can be
+  // editable only on the rows that satisfy a predicate (mirrors cellStyle/cellClassName). A false result
+  // behaves exactly like editable:false for that cell (no editor on Enter/F2/double-click, skipped by paste/cut/batch).
+  const isCellEditable = (c, row) => isColEditable(c) && (typeof c.editable !== "function" || !!c.editable(row, { field: c.field }));
 
   // #390/#394: the shared onRowUpdate + onRowsChange tail, so single-key, multi-key and clipboard writes agree.
   function applyRowUpdate(rowKey, updated, orig, field) {
@@ -2700,7 +2752,7 @@ export function Datatable({
   }
 
   function beginEdit(rowK, col, row) {
-    if (!isColEditable(col)) return;
+    if (!isCellEditable(col, row)) return; // #424: catch-all per-row gate (covers Enter/F2/double-click)
     // #396: a double-click INSIDE an open editor bubbles to the cell's onDoubleClick — ignore it so we don't
     // re-fire onEditingChange("start") without a commit/cancel and reset the in-progress value to the row's.
     if (editing && editing.key === rowK && editing.field === col.field) return;
@@ -2793,7 +2845,11 @@ export function Datatable({
     const nextAll = rows.map((r, i) => {
       const k = keyOf(r, i);
       if (!selKeys.has(k)) return r;
-      const updated = { ...r, ...patch };
+      // #424: a function `editable` column only writes the rows it permits; a static column applies to all.
+      const rowPatch = {};
+      for (const c of active) { if (typeof c.editable !== "function" || c.editable(r, { field: c.field })) rowPatch[c.field] = patch[c.field]; }
+      if (!Object.keys(rowPatch).length) return r;
+      const updated = { ...r, ...rowPatch };
       changedRows.push(updated);
       return updated;
     });
@@ -2864,7 +2920,7 @@ export function Datatable({
   const rectCells = () => {
     if (!cellRect) return null;
     const out = [];
-    for (let r = cellRect.r0; r <= cellRect.r1; r++) { const row = leafRows[r]; if (!row) continue; const line = []; for (let c = cellRect.c0; c <= cellRect.c1; c++) { const col = ordered[c]; if (col) line.push({ key: keyOf(row, r), field: col.field, col, value: getColVal(col, row) }); } out.push(line); }
+    for (let r = cellRect.r0; r <= cellRect.r1; r++) { const row = leafRows[r]; if (!row) continue; const line = []; for (let c = cellRect.c0; c <= cellRect.c1; c++) { const col = ordered[c]; if (col) line.push({ key: keyOf(row, r), field: col.field, col, row, value: getColVal(col, row) }); } out.push(line); }
     return out.length ? out : null;
   };
   const copySelection = (cut) => {
@@ -2878,7 +2934,7 @@ export function Datatable({
     onCellsCopyRef.current?.(grid.flatMap((line) => line.map((cell) => ({ key: cell.key, field: cell.field }))), { cut: !!cut }); // #320
     if (cut) {
       const patchByKey = new Map(); let clearable = 0;
-      for (const line of grid) for (const cell of line) { if (!isColEditable(cell.col)) continue; clearable++; const p = patchByKey.get(cell.key) || {}; p[cell.field] = cell.col.type === "number" ? null : ""; patchByKey.set(cell.key, p); }
+      for (const line of grid) for (const cell of line) { if (!isCellEditable(cell.col, cell.row)) continue; clearable++; const p = patchByKey.get(cell.key) || {}; p[cell.field] = cell.col.type === "number" ? null : ""; patchByKey.set(cell.key, p); }
       writeCellPatches(patchByKey, { source: "cut" });
       announceClip(`Cut ${clearable} cell${clearable === 1 ? "" : "s"}${clearable < n ? `, ${n - clearable} read-only kept` : ""}`, cellRect);
     } else {
@@ -2901,7 +2957,7 @@ export function Datatable({
       const rr = cellRect.r0 + i; const row = leafRows[rr]; if (!row) break;
       for (let j = 0; j < matrix[i].length; j++) {
         const cc = cellRect.c0 + j; const col = ordered[cc]; if (!col) break;
-        if (!isColEditable(col)) { skipped++; continue; }
+        if (!isCellEditable(col, row)) { skipped++; continue; } // #424: per-row editability
         if (inApp && inApp.colTypes[j] != null && inApp.colTypes[j] !== copyTypeOf(col)) { skipped++; continue; } // #318: format-restricted
         let v = matrix[i][j];
         if (col.type === "number") { v = v === "" ? null : Number(v); if (Number.isNaN(v)) v = null; }
@@ -2952,13 +3008,18 @@ export function Datatable({
       // now COMMITS the pending value instead (spreadsheet-like). #390: a `renderEditCell` column that
       // STAGED a draft (via `setDraft`) commits it the same way; one that never staged keeps cancel-on-away.
       const col = colByField[editing.field];
-      if (col && col.renderEditCell) { if (stagedEditRef.current) commitEdit(stagedEditRef.current.value); else cancelEdit(); }
+      // #390/#413: commit the staged draft on click-away — a patch takes the multi-key commit path (no-op only
+      // when every key is unchanged), a value the single-field path; an editor that never staged still cancels.
+      if (col && col.renderEditCell) { const s = stagedEditRef.current; if (!s) cancelEdit(); else if (s.patch) commitEdit(undefined, s.patch); else commitEdit(s.value); }
       else commitEdit();
     };
     document.addEventListener("mousedown", onDown, true);
     return () => document.removeEventListener("mousedown", onDown, true);
+    // #423: re-subscribe when the data changes too, so the click-away commit closes over the CURRENT rows —
+    // a silent setDraft (no setEditing) otherwise leaves this handler on the beginEdit-time closure and would
+    // write a staged value against a stale rows array (reverting concurrent updates) on click-away.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editing]);
+  }, [editing, rows, leafRows]);
 
   function renderActions(col, row) {
     const items = (col.getActions ? col.getActions(row) : []) || [];
@@ -2980,15 +3041,19 @@ export function Datatable({
           // `disabledReason` (when given) as the tooltip. Non-link actions keep the native <button>.
           const href = !a.disabled ? safeHref(a.href) : undefined;
           const tip = a.disabled && a.disabledReason != null ? a.disabledReason : a.label;
+          // #419: a disabled action WITH a reason renders aria-disabled (not native disabled) so it stays in the
+          // tab order and its Tooltip reason is keyboard-reachable; click + Enter/Space are still blocked.
+          const soft = !!a.disabled && a.disabledReason != null;
           return (
             <Tooltip key={i} label={tip} placement="top">
               {href ? (
                 <a className="twc-dt__act" data-danger={a.danger || undefined} aria-label={a.label}
                   href={href} target={a.target} rel={a.rel}
-                  onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; e.stopPropagation(); a.onClick?.(row); }}>{a.icon}</a>
+                  onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; e.stopPropagation(); a.onClick?.(row, e); }}>{a.icon}</a>
               ) : (
                 <button type="button" className="twc-dt__act" data-danger={a.danger || undefined} aria-label={a.label}
-                  disabled={a.disabled} onClick={(e) => { e.stopPropagation(); a.onClick?.(row); }}>{a.icon}</button>
+                  disabled={a.disabled && !soft} aria-disabled={soft || undefined}
+                  onClick={(e) => { e.stopPropagation(); if (a.disabled) return; a.onClick?.(row, e); }}>{a.icon}</button>
               )}
             </Tooltip>
           );
@@ -3377,7 +3442,7 @@ export function Datatable({
         {ordered.map((c, ci) => {
           const st = stickyOf(c.field); const val = getColVal(c, row);
           const isActions = c.type === "actions";
-          const editable = isColEditable(c);
+          const editable = isCellEditable(c, row); // #424: per-row (drives the edit-hint, cursor + double-click)
           const isEditing = editing && editing.key === k && editing.field === c.field;
           const cellActive = selectionMode === "cell" && activeCellVal && activeCellVal.key === k && activeCellVal.field === c.field;
           // #317: is this cell inside the current selection rectangle? (single-cell selection is a 1×1 rect)
@@ -3420,13 +3485,17 @@ export function Datatable({
                   // async Combobox, …) and drives the lifecycle via commit/cancel. Wrapped in
                   // .twc-dt__editor-wrap so inline clicks (and any .twc-pop portal dropdown) don't
                   // trip the outside-click auto-cancel.
-                  // #273: the wrapper handles Escape → cancel so it works for every custom editor without
-                  // each having to wire a keydown (they only get commit/cancel). A custom control that
-                  // wants Escape itself (e.g. to close its own open dropdown) stops propagation first.
+                  // #273/#412: the wrapper cancels on Escape so custom editors get it for free — but it IGNORES
+                  // an Escape a nested control already handled (defaultPrevented), so closing a Select/Combobox/
+                  // MultiSelect list inside the editor doesn't also cancel the edit (a second Escape, list now
+                  // closed, then cancels — the WAI-ARIA two-step). A control can still stopPropagation to keep it.
                   <div className="twc-dt__editor-wrap"
-                    onKeyDown={(e) => { if (e.key === "Escape") { e.stopPropagation(); cancelEdit(); } }}>
+                    onKeyDown={(e) => { if (e.key === "Escape" && !e.defaultPrevented) { e.stopPropagation(); cancelEdit(); } }}>
                     {c.renderEditCell({ value: editing.value, row, field: c.field, commit: (v) => commitEdit(v), cancel: cancelEdit,
-                      setDraft: (v) => { stagedEditRef.current = { value: v }; setEditing((ed) => (ed ? { ...ed, value: v } : ed)); },
+                      // #413/#423: stage a value — or a patch with { patch: true } — for the click-away commit;
+                      // { silent: true } stages into the ref WITHOUT re-rendering the grid (for an editor that
+                      // renders from its own draft state, so per-keystroke staging isn't O(rows)).
+                      setDraft: (next, opts) => { stagedEditRef.current = opts?.patch ? { patch: next } : { value: next }; if (!opts?.silent && !opts?.patch) setEditing((ed) => (ed ? { ...ed, value: next } : ed)); },
                       commitPatch: (patch) => commitEdit(undefined, patch) })}
                   </div>
                 ) : (
@@ -3690,7 +3759,7 @@ export function Datatable({
           ref={gridRef} role="grid" aria-label={ariaLabelAttr || ariaLabel}
           aria-rowcount={(treeSeqByKey ? treeSeqByKey.size : totalRows) + 1} aria-colcount={ordered.length + (checkboxSelection ? 1 : 0) + (hasExpandCol ? 1 : 0)}
           aria-multiselectable={selectionMode === "cell" || undefined} aria-activedescendant={activeCellId}
-          aria-busy={loading || undefined} onKeyDown={onGridKeyDown} onPaste={onGridPaste} onBlur={cellNavigation === "widget" ? onGridBlur : undefined}>
+          aria-busy={loading || undefined} onKeyDown={onGridKeyDown} onKeyDownCapture={cellNavigation === "widget" ? onGridKeyDownCapture : undefined} onPaste={onGridPaste} onBlur={cellNavigation === "widget" ? onGridBlur : undefined}>
           <thead ref={theadRef}>
             <tr role="row" aria-rowindex={1}>
               {hasExpandCol ? (
@@ -4046,12 +4115,12 @@ export function Datatable({
             const done = () => { setRowMenu(null); closeRowMenu(); restoreTriggerFocus(); };
             return href ? (
               <a key={i} role="menuitem" className="twc-dt__mi" href={href} target={a.target} rel={a.rel} style={sty}
-                onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; a.onClick?.(rowMenu.row); done(); }}>
+                onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; a.onClick?.(rowMenu.row, e); done(); }}>
                 {inner}
               </a>
             ) : (
               <button type="button" key={i} role="menuitem" className="twc-dt__mi" disabled={a.disabled} style={sty}
-                onClick={() => { a.onClick?.(rowMenu.row); done(); }}>
+                onClick={(e) => { a.onClick?.(rowMenu.row, e); done(); }}>
                 {inner}
               </button>
             );

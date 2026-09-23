@@ -66,6 +66,23 @@ describe("Datatable row-action links + disabledReason (#399)", () => {
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
+  it("passes the event to onClick so a link action can preventDefault the full load (#419)", () => {
+    const onClick = vi.fn((row, e) => e.preventDefault());
+    const { container } = render(<Datatable rowKey={(r) => r.id} rows={rows}
+      columns={actionsCol(() => [{ icon: <i>o</i>, label: "Open", href: "/x", onClick }])} />);
+    fireEvent.click(container.querySelector('a.twc-dt__act[aria-label="Open"]'), { button: 0 });
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onClick.mock.calls[0][1]).toBeTruthy(); // second arg is the event
+  });
+
+  it("a disabled inline action with a reason is aria-disabled (focusable), not native disabled (#419)", () => {
+    const { container } = render(<Datatable rowKey={(r) => r.id} rows={rows}
+      columns={actionsCol(() => [{ icon: <i>d</i>, label: "Del", disabled: true, disabledReason: "In use" }])} />);
+    const btn = container.querySelector('.twc-dt__act[aria-label="Del"]');
+    expect(btn.getAttribute("aria-disabled")).toBe("true");
+    expect(btn.hasAttribute("disabled")).toBe(false); // stays in the tab order for keyboard tooltip
+  });
+
   it("shows the disabledReason as an inline hint in the ⋮ overflow menu", () => {
     const { container } = render(<Datatable rowKey={(r) => r.id} rows={rows}
       columns={actionsCol(() => [{ icon: <i>d</i>, label: "Delete", disabled: true, disabledReason: "Still in use", showInMenu: true }])} />);

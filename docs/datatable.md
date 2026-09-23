@@ -18,6 +18,15 @@ Everything here is **additive**: with the relevant prop off, the table renders e
 >   collapsed rows (#393); controlled `activeCell` + `scrollActiveCellIntoView` reveal any cell in-scroller (#395).
 > - **Fix:** the column-menu "Filter" anchor is scoped to this table (#408, a #386 regression).
 
+> **1.40 follow-ups** (refinements to the 1.39 work; details in [qa-notes/Datatable.md](./qa-notes/Datatable.md)):
+> `editable` accepts a per-row predicate `(row, { field }) => boolean` (#424); `renderEditCell`'s `setDraft`
+> gains `{ patch }` (stage a multi-key edit for click-away, #413) and `{ silent }` (stage without re-rendering
+> the grid — per-keystroke perf, #423); the editor no longer cancels on an Escape a nested dropdown consumed
+> (#412); row-action `onClick` receives `(row, e)` so a link can `preventDefault` the native load, and a disabled
+> inline action is keyboard-reachable (#419). Keyboard: Enter/Space activate a focused in-cell control in every
+> mode (#422), `cellNavigation="widget"` ArrowUp/Down walks past collapsed popup triggers (#410), and a
+> controlled `activeCell` jump collapses the selection + moves focus (#421).
+
 > **Card layouts:** [`CardGrid`](../components/data-display/CardGrid.jsx) (#204, see
 > [qa-notes/CardGrid.md](./qa-notes/CardGrid.md)) is the **card analogue** of Datatable's `serverMode`.
 > It reuses `runDatatableQuery` and emits the **same** query shape (`{ page, pageSize, sort, filters,

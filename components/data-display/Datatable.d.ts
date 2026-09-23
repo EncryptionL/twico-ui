@@ -569,8 +569,11 @@ export interface DatatableColumn<T = any> {
   aggregationFormatter?: (value: any) => React.ReactNode;
   /** Map a row to its exported CSV value (defaults to the raw field value). */
   exportValue?: (value: any, row: T) => string | number;
-  /** Make this column's cells editable (double-click to edit). Overrides the grid `editMode`. */
-  editable?: boolean;
+  /** Make this column's cells editable (double-click to edit). Overrides the grid `editMode`. #424: pass a
+   *  predicate `(row, { field }) => boolean` to make it editable only on the rows that satisfy it (like
+   *  `cellStyle`/`cellClassName`). A `false` result behaves exactly like `editable: false` for that cell — no
+   *  editor on double-click/Enter/F2, and the cell is skipped by paste, cut and the batch editor. */
+  editable?: boolean | ((row: T, ctx: { field: string }) => boolean);
   /** Editor type. "select" (or any column with `valueOptions`) renders a dropdown; else a text/number input by column type. */
   editType?: "text" | "number" | "select";
   /** Full escape hatch for the inline cell editor — render your own control (a searchable / creatable /
@@ -579,14 +582,18 @@ export interface DatatableColumn<T = any> {
    *  built-in select/text editor. Call `commit(nextValue)` to save (fires `onRowUpdate`/`onRowsChange`)
    *  or `cancel()` to discard. Twico overlay dropdowns (portaled as `.twc-pop`) are exempt from the
    *  cell's outside-click auto-cancel, so a Combobox popover works inside the cell. **Escape cancels**
-   *  the edit automatically (the wrapper calls `cancel()`), so you needn't wire a keydown — stop
-   *  propagation on Escape only if your control needs it (e.g. to close its own open dropdown).
+   *  the edit automatically — but #412: the wrapper IGNORES an Escape a nested control already handled
+   *  (`defaultPrevented`), so a twico Select/Combobox/MultiSelect closing its list inside the editor doesn't
+   *  cancel the whole edit (a second Escape does). A custom control can still `stopPropagation` to keep Escape.
    *  #390: call `setDraft(next)` as the user types to STAGE a value — click-away then commits the staged
    *  draft spreadsheet-style (like the built-in editor) instead of discarding it; an editor that never stages
-   *  keeps the cancel-on-click-away behaviour. Call `commitPatch(patch)` to write several stored keys at once
+   *  keeps the cancel-on-click-away behaviour. #413: pass `{ patch: true }` to stage a multi-key PATCH for
+   *  click-away (same no-op rule as `commitPatch`); #423: pass `{ silent: true }` to stage WITHOUT re-rendering
+   *  the grid (for an editor that renders from its own draft state — avoids per-keystroke lag on large pages).
+   *  Call `commitPatch(patch)` to write several stored keys at once
    *  (a quantity + its unit shown as one column) — it writes `{ ...row, ...patch }` and no-ops only when every
    *  patched key is unchanged. */
-  renderEditCell?: (args: { value: any; row: T; field: string; commit: (nextValue: any) => void; cancel: () => void; setDraft: (next: any) => void; commitPatch: (patch: Partial<T>) => void }) => React.ReactNode;
+  renderEditCell?: (args: { value: any; row: T; field: string; commit: (nextValue: any) => void; cancel: () => void; setDraft: (next: any, opts?: { patch?: boolean; silent?: boolean }) => void; commitPatch: (patch: Partial<T>) => void }) => React.ReactNode;
   /** Custom control for this column's clause in the **batch** editor (#247) — the counterpart of
    *  `renderEditCell` for the "Edit N selected rows" popover. Use it when the value is backed by a large,
    *  async, creatable vocabulary that `valueOptions` (a static array) can't express; without it such a
@@ -647,9 +654,11 @@ export interface DatatableRowAction<T = any> {
   icon?: React.ReactNode;
   /** Accessible label / tooltip / menu text. */
   label: string;
-  /** Click handler, receives the row. Still runs for a plain left-click when `href` is set (so client-side
-   *  routing keeps working); modifier and middle clicks fall through to the browser. */
-  onClick?: (row: T) => void;
+  /** Click handler, receives the row and the click event. Still runs for a plain left-click when `href` is set
+   *  (so client-side routing keeps working); #419: call `e.preventDefault()` there to suppress the native
+   *  navigation before you route (otherwise the browser also follows `href` → a full page load). Modifier and
+   *  middle clicks fall through to the browser. */
+  onClick?: (row: T, e: React.MouseEvent) => void;
   /** #399: render this action as a link (`<a>`) — middle-click, open-in-new-tab and copy-address all work.
    *  The URL is scheme-sanitised (`javascript:`/`data:`/`vbscript:` are dropped). A `disabled` action never
    *  emits an href. */
@@ -664,8 +673,9 @@ export interface DatatableRowAction<T = any> {
   danger?: boolean;
   disabled?: boolean;
   /** #399: shown when `disabled` — as the tooltip for an inline action and as an inline hint in the ⋮ menu.
-   *  Reaching an inline disabled action's tooltip by hover/keyboard also needs `focusableWhenDisabled` on the
-   *  trigger (see #398); the menu hint is always reachable. */
+   *  #419: when set, the inline action renders `aria-disabled` (not native `disabled`) so it stays focusable and
+   *  the reason is reachable by hover AND keyboard; click and Enter/Space stay blocked. The menu hint is always
+   *  reachable. */
   disabledReason?: React.ReactNode;
 }
 

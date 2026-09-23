@@ -62,6 +62,25 @@ describe("ImageViewer zoom (#407)", () => {
   });
 });
 
+describe("ImageViewer follow-ups (#414)", () => {
+  it("accepts fit=scale-down/none and applies it to the img", () => {
+    const { container } = render(<ImageViewer src="/x.png" alt="X" fit="scale-down" />);
+    expect(container.querySelector(".twc-iv__img").style.objectFit).toBe("scale-down");
+  });
+  it("exposes the zoom API via ref and fires onStateChange", () => {
+    const ref = React.createRef();
+    const onStateChange = vi.fn();
+    render(<ImageViewer src="/x.png" alt="X" ref={ref} onStateChange={onStateChange} controls={false} />);
+    expect(typeof ref.current.zoomIn).toBe("function");
+    expect(onStateChange).toHaveBeenCalled(); // fires on mount
+    expect(onStateChange.mock.calls.at(-1)[0]).toMatchObject({ zoom: 1, canZoomOut: false });
+  });
+  it("applies a radius token to the stage via a custom property", () => {
+    const { container } = render(<ImageViewer src="/x.png" alt="X" radius="md" />);
+    expect(container.querySelector(".twc-iv__stage").style.getPropertyValue("--twc-iv-radius")).toBe("var(--radius-md)");
+  });
+});
+
 describe("ImageViewer controls (#407)", () => {
   it("renders default controls with zoom-out disabled at min", () => {
     const { container } = render(<ImageViewer src="/x.png" alt="X" />);

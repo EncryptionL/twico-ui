@@ -30,6 +30,35 @@ const items = [
   { value: "right", label: "Right", disabled: true },
 ];
 
+describe("Button/IconButton pressed hover + tone (#418, #411)", () => {
+  const css = () => Array.from(document.querySelectorAll("style")).map((s) => s.textContent).join("\n");
+  it("declares a matching-specificity pressed-hover rule for both button + icon-button (#418)", () => {
+    render(<Button pressed>x</Button>);
+    render(<IconButton aria-label="p" pressed icon={<i>p</i>} />);
+    const c = css();
+    expect(c).toMatch(/\.twc-btn\[aria-pressed="true"\]:hover:not\(:disabled\)\s*\{[^}]*background:\s*var\(--_accent-subtle\)/);
+    expect(c).toMatch(/\.twc-iconbtn\[aria-pressed="true"\]:hover:not\(:disabled\)/);
+  });
+  it("pressedTone emits data-pressed-tone and defines the neutral mapping (#411)", () => {
+    const { getByRole } = render(<Button pressed pressedTone="success">x</Button>);
+    expect(getByRole("button").getAttribute("data-pressed-tone")).toBe("success");
+    expect(css()).toMatch(/\[data-pressed-tone="neutral"\]\s*\{[^}]*--_accent-subtle:\s*var\(--color-surface-sunken\)/);
+  });
+});
+
+describe("ToggleGroup per-item tone (#411)", () => {
+  it("passes each item's tone as pressedTone (falling back to the group tone) and clamps the base tone", () => {
+    const { container } = render(<ToggleGroup aria-label="Mode" tone="info"
+      items={[{ value: "a", label: "Allow", tone: "success" }, { value: "b", label: "Deny", tone: "danger" }, { value: "c", label: "Clear" }]} />);
+    const btns = Array.from(container.querySelectorAll("button"));
+    expect(btns[0].getAttribute("data-pressed-tone")).toBe("success"); // item tone
+    expect(btns[1].getAttribute("data-pressed-tone")).toBe("danger");
+    expect(btns[2].getAttribute("data-pressed-tone")).toBe("info"); // group tone fallback
+    // the unpressed action look is clamped to ActionTone (info group → primary base), so existing groups are stable
+    expect(btns[0].getAttribute("data-tone")).toBe("primary");
+  });
+});
+
 describe("ToggleGroup single (#405)", () => {
   it("renders a role=group of toggle buttons and toggles selection", () => {
     const onValueChange = vi.fn();

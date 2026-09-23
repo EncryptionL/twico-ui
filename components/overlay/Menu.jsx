@@ -58,10 +58,14 @@ export function Menu({
   onOpenChange,
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledby,
+  "aria-describedby": ariaDescribedby,
   className = "",
   ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-menu-styles", MENU_CSS);
+  // #420: don't open from a disabled trigger (keyboard OR click) — mirrors a native disabled control.
+  const _tp = React.isValidElement(trigger) ? trigger.props : {};
+  const triggerDisabled = _tp.disabled === true || _tp["aria-disabled"] === true || _tp["aria-disabled"] === "true";
 
   const [openState, setOpenState] = React.useState(defaultOpen);
   const [render, setRender] = React.useState(false);
@@ -138,10 +142,14 @@ export function Menu({
     return () => clearTimeout(t);
   }, [open]);
 
-  const toggle = () => { setOpen((o) => !o); setActive(-1); };
+  const toggle = () => { if (triggerDisabled && !open) return; setOpen((o) => !o); setActive(-1); }; // #420: no open from a disabled trigger
 
   function onKeyDown(e) {
+    // #410: a parent (e.g. a Datatable widget-nav cell) may claim this key in the capture phase and
+    // preventDefault it — respect that and don't also open the menu (mirrors Select's trigger guard).
+    if (e.defaultPrevented) return;
     if (!open) {
+      if (triggerDisabled) return; // #420: a disabled trigger doesn't OPEN (but an already-open menu can still Escape/navigate)
       // #118: opening by keyboard highlights the first interactive item (APG); mouse-open stays at -1.
       if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") { e.preventDefault(); setOpen(true); setActive(interactiveIdx[0] ?? -1); }
       return;
@@ -239,10 +247,13 @@ export function Menu({
         "aria-expanded": open,
         "aria-controls": open ? menuId : undefined,
         "aria-activedescendant": activeDescId,
+        // #420: forward an incoming aria-describedby (e.g. from a wrapping Tooltip) to the focusable trigger,
+        // not the wrapper span, so the description is announced on focus.
+        "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || undefined,
       })
     : (
         <span role="button" tabIndex={0} aria-haspopup="menu" aria-expanded={open}
-          aria-controls={open ? menuId : undefined} aria-activedescendant={activeDescId} onClick={toggle}>
+          aria-controls={open ? menuId : undefined} aria-activedescendant={activeDescId} aria-describedby={ariaDescribedby} onClick={toggle}>
           {trigger}
         </span>
       );

@@ -1,10 +1,12 @@
 # QA notes — Menu
 
 - **Group:** overlay
-- **Reviewed:** 2026-09-22
+- **Reviewed:** 2026-09-23
 - **Status:** open
 
 ## Open issues
+
+- [x] **[#420/#410] Menu opened from a disabled trigger, and swallowed a parent-claimed key** — guard opening when the trigger is disabled/aria-disabled; bail onKeyDown on defaultPrevented; forward aria-describedby to the focusable trigger. `Menu.jsx` — ✓ 2026-09-23
 
 - [x] **[#389] a backdrop click over a Menu-in-Dialog closed both** — Menus outside-pointer dismissal now gates on the dismissable-layer stack (`isTop()`), so only the topmost layer closes. `Menu.jsx` — ✓ fixed 2026-09-22
 

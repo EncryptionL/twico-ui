@@ -4,6 +4,7 @@ import { render, fireEvent, cleanup, act } from "@testing-library/react";
 import { Tooltip } from "../components/overlay/Tooltip.jsx";
 import { Button } from "../components/buttons/Button.jsx";
 import { IconButton } from "../components/buttons/IconButton.jsx";
+import { Menu } from "../components/overlay/Menu.jsx";
 
 // #398: a disabled Button/IconButton can show its "why disabled" tooltip. CSS lets hover reach the wrap, and
 // focusableWhenDisabled keeps the trigger focusable (aria-disabled, not native disabled) while blocking clicks.
@@ -29,6 +30,29 @@ describe("Tooltip disabled-trigger CSS (#398)", () => {
     } finally {
       vi.useRealTimers();
     }
+  });
+});
+
+describe("Tooltip over a Menu with a disabled trigger (#420)", () => {
+  it("widens the pass-through CSS to a Menu/Popover-wrapped disabled trigger", () => {
+    render(<Tooltip label="why"><Menu trigger={<IconButton aria-label="more" disabled focusableWhenDisabled icon={<i>x</i>} />} items={[{ label: "A" }]} /></Tooltip>);
+    const css = Array.from(document.querySelectorAll("style")).map((s) => s.textContent).join("\n");
+    expect(css).toMatch(/\.twc-tooltip-wrap\s+:is\(\.twc-menu-wrap,\s*\.twc-popover-wrap\)\s*>\s*\[aria-disabled="true"\]/);
+  });
+
+  it("a Menu with a disabled trigger does not open from the keyboard (#420)", () => {
+    const { container } = render(<Menu trigger={<IconButton aria-label="more" disabled focusableWhenDisabled icon={<i>x</i>} />} items={[{ label: "A" }]} />);
+    const trigger = container.querySelector('[aria-haspopup="menu"]');
+    fireEvent.keyDown(container.querySelector(".twc-menu-wrap"), { key: "ArrowDown" });
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+    fireEvent.keyDown(container.querySelector(".twc-menu-wrap"), { key: "Enter" });
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("forwards aria-describedby to the Menu's focusable trigger, not the wrapper (#420)", () => {
+    const { container } = render(<Menu aria-describedby="desc-x" trigger={<IconButton aria-label="more" icon={<i>x</i>} />} items={[{ label: "A" }]} />);
+    expect(container.querySelector(".twc-menu-wrap").getAttribute("aria-describedby")).toBeNull();
+    expect(container.querySelector('[aria-haspopup="menu"]').getAttribute("aria-describedby")).toBe("desc-x");
   });
 });
 

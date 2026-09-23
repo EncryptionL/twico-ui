@@ -42,7 +42,7 @@ describe("Datatable controllable group collapse (#393)", () => {
 
   it("renderGroupLabel receives collapsed + a working toggle()", () => {
     const seen = [];
-    const { container } = render(<Datatable {...grouped} rows={rows}
+    render(<Datatable {...grouped} rows={rows}
       renderGroupLabel={({ value, collapsed, toggle }) => { seen.push({ value, collapsed }); return <span data-toggle onClick={toggle}>{String(value)}</span>; }} />);
     expect(seen.some((g) => g.collapsed === false)).toBe(true);
   });
@@ -64,7 +64,7 @@ describe("Datatable stateKey persists grouping + collapsedGroups (#393)", () => 
   it("round-trips grouping and collapse through localStorage", () => {
     try { window.localStorage.clear(); } catch { /* ignore */ }
     const cols = [{ field: "name" }, { field: "team", groupable: true }];
-    const { unmount, container } = render(<Datatable rowKey={(r) => r.id} rows={rows} columns={cols} rowGrouping={["team"]} stateKey="dt-group-test" defaultCollapsedGroups={["/team:A"]} />);
+    const { unmount } = render(<Datatable rowKey={(r) => r.id} rows={rows} columns={cols} rowGrouping={["team"]} stateKey="dt-group-test" defaultCollapsedGroups={["/team:A"]} />);
     // the collapse state is written to storage
     const saved = JSON.parse(window.localStorage.getItem("dt-group-test"));
     expect(saved.grouping).toEqual(["team"]);

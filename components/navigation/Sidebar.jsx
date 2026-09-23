@@ -61,6 +61,9 @@ const SIDEBAR_CSS = `
    own var(--space-2) padding — both live in this file, so they can't silently drift like a consumer workaround. */
 .twc-sidebar__foot-user[data-inset="false"] { padding: 0; margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) var(--space-1); }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot-user[data-inset="false"] { margin-inline: 0; }
+/* #417: when the account row is the foot's last child (collapsible=false / nothing follows), cancel the foot's
+   bottom padding too so the edge-to-edge row reaches the rail's bottom edge (no consumer negative margin). */
+.twc-sidebar__foot-user[data-inset="false"]:last-child { margin-bottom: calc(-1 * var(--space-2)); }
 .twc-sidebar__collapse { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 9px; border: none; background: none; cursor: pointer;
   color: var(--color-text-muted); border-radius: var(--radius-md); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold);
   transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }

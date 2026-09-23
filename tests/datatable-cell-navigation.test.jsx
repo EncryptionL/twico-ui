@@ -1,5 +1,5 @@
 import React from "react";
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, fireEvent, cleanup } from "@testing-library/react";
 import { Datatable } from "../components/data-display/Datatable.jsx";
 
@@ -80,5 +80,59 @@ describe("Datatable widget cell-navigation (#392)", () => {
     c00.focus();
     fireEvent.keyDown(c00, { key: "ArrowDown" });
     expect(document.activeElement).toBe(cellAt(container, 1, 0));
+  });
+
+  it("widget mode: ArrowDown on a collapsed popup trigger moves down instead of opening it (#410)", () => {
+    const cols = [{ field: "name", renderCell: (v) => <button aria-haspopup="menu" aria-expanded="false">{v}</button> }];
+    const { container } = render(<Datatable rowKey={(r) => r.id} rows={rows} columns={cols} cellNavigation="widget" />);
+    const btn = (r) => cellAt(container, r, 0).querySelector("button");
+    btn(0).focus();
+    fireEvent.keyDown(btn(0), { key: "ArrowDown" });
+    expect(document.activeElement).toBe(btn(1)); // moved down
+    expect(btn(0).getAttribute("aria-expanded")).toBe("false"); // did not open
+  });
+});
+
+describe("Datatable Enter/Space on in-cell control activates it in every mode (#422)", () => {
+  it("in selectionMode=row, Enter on a focused in-cell button does not select the row", () => {
+    const onRowClick = vi.fn();
+    const onClick = vi.fn();
+    const cols = [{ field: "name", renderCell: (v) => <button type="button" onClick={onClick}>{v}</button> }];
+    const { container } = render(<Datatable rowKey={(r) => r.id} rows={rows} columns={cols} selectionMode="row" onRowClick={onRowClick} />);
+    const btn = cellAt(container, 0, 0).querySelector("button");
+    btn.focus();
+    fireEvent.keyDown(btn, { key: "Enter" });
+    expect(onRowClick).not.toHaveBeenCalled(); // grid left Enter to the control
+  });
+});
+
+describe("Datatable controlled activeCell jump collapses selection + moves focus (#421)", () => {
+  it("does not loop and moves the roving focus to a host-set cell", () => {
+    const cols = [{ field: "name" }, { field: "age", type: "number" }];
+    const { container, rerender } = render(<Datatable rowKey={(r) => r.id} rows={rows} columns={cols} selectionMode="cell" activeCell={null} />);
+    // a host jump to (row 2, age) — must apply once without freezing (regression: infinite render loop)
+    rerender(<Datatable rowKey={(r) => r.id} rows={rows} columns={cols} selectionMode="cell" activeCell={{ key: 3, field: "age" }} />);
+    const target = cellAt(container, 2, 1);
+    expect(target.getAttribute("data-cell-active")).toBe("true");
+  });
+
+  it("re-jumps to a cell the grid has since navigated away from (#421 review fix)", () => {
+    const cols = [{ field: "name" }, { field: "age", type: "number" }];
+    function Harness() {
+      const [ac, setAc] = React.useState({ key: 1, field: "name" });
+      return (<>
+        <button data-testid="jumpA" onClick={() => setAc({ key: 1, field: "name" })}>jump</button>
+        <Datatable rowKey={(r) => r.id} rows={rows} columns={cols} selectionMode="cell" activeCell={ac} onActiveCellChange={(c) => setAc(c)} />
+      </>);
+    }
+    const { container, getByTestId } = render(<Harness />);
+    // grid moves away: arrow right from (0,0) → (0,1); commitActiveCell resets the jump memory
+    cellAt(container, 0, 0).focus();
+    fireEvent.keyDown(cellAt(container, 0, 0), { key: "ArrowRight" });
+    expect(cellAt(container, 0, 1).tabIndex).toBe(0);
+    // host re-jumps to the ORIGINAL cell A — must move focus back (was stale-blocked before the fix)
+    fireEvent.click(getByTestId("jumpA"));
+    expect(cellAt(container, 0, 0).tabIndex).toBe(0);
+    expect(cellAt(container, 0, 1).tabIndex).toBe(-1);
   });
 });

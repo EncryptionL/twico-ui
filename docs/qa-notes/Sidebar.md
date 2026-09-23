@@ -2,9 +2,11 @@
 
 - **Group:** navigation
 - **Status:** clean
-- **Reviewed:** 2026-09-22
+- **Reviewed:** 2026-09-23
 
 ## Open issues
+
+- [x] **[#417] footerInset={false} still left a gap below the row** — when the footer row is the foots last child, cancel the bottom padding too so it reaches the rails bottom edge. `Sidebar.jsx` — ✓ 2026-09-23
 
 - [x] **[#401] section headings squashed instead of the nav scrolling on a short rail** — added `.twc-sidebar__nav > * { flex-shrink: 0 }` so the nav scrolls first (a non-visible-overflow flex item otherwise gets an auto min-height of 0). Doesnt affect the collapse animation. `tests/sidebar-footer-scroll.test.jsx`. `Sidebar.jsx` — ✓ fixed 2026-09-22
 - [x] **[#402] footer content was always inset (an edge-to-edge account row needed negative margins)** — added `footerInset` (default `true`); `false` cancels the built-in padding so a full-width account rows hover bg reaches the rail edges. `Sidebar.jsx`/`.d.ts` — ✓ fixed 2026-09-22

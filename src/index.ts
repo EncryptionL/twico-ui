@@ -117,7 +117,7 @@ export type { PreProps } from "../components/typography/Pre";
 export type { AnchorProps } from "../components/navigation/Anchor";
 export type { LabelProps } from "../components/inputs/Label";
 export type { ImageProps } from "../components/data-display/Image";
-export type { ImageViewerProps, ImageViewerControlsApi } from "../components/data-display/ImageViewer";
+export type { ImageViewerProps, ImageViewerControlsApi, ImageViewerState } from "../components/data-display/ImageViewer";
 export type { Option, OptionGroup } from "../components/inputs/options";
 
 export type { AccordionProps, AccordionItem } from "../components/navigation/Accordion";
