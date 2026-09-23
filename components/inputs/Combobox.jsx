@@ -250,7 +250,7 @@ export function Combobox({
     if (e.key === "ArrowDown") { e.preventDefault(); if (!open) { openMenu(); return; } setActive((a) => nextEnabled(a, 1)); }
     else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => nextEnabled(a, -1)); }
     else if (e.key === "Enter") { e.preventDefault(); if (open && visible[active]) commit(visible[active].value); }
-    else if (e.key === "Escape") { if (open) e.preventDefault(); close(); inputRef.current?.blur(); } // #389: consume Escape only when the list is open
+    else if (e.key === "Escape") { if (open) { e.preventDefault(); close(); } } // #389/#412: close the list (keeping focus in the input, WAI-ARIA combobox); never blur; when closed let Escape bubble
     // #94: Backspace on an empty input clears the current selection (parity with MultiSelect).
     else if (e.key === "Backspace" && !query && selected) { e.preventDefault(); commit(null); }
   }

@@ -2577,7 +2577,7 @@ export function Datatable({
       case "End": c = maxC; if (e.ctrlKey) r = maxR; break;
       case "Enter": case " ": {
         const col = ordered[c];
-        if (col && isColEditable(col)) { e.preventDefault(); beginEdit(keyOf(leafRows[r], r), col, leafRows[r]); return; }
+        if (col && isCellEditable(col, leafRows[r])) { e.preventDefault(); beginEdit(keyOf(leafRows[r], r), col, leafRows[r]); return; }
         if (selectionMode === "cell") { e.preventDefault(); handleCellClick({ target: td }, keyOf(leafRows[r], r), leafRows[r], ordered[c]); return; }
         if (selectionMode === "row") { e.preventDefault(); const rk = keyOf(leafRows[r], r); if (!activeRowControlled) setActiveRow(rk); onRowClick?.(leafRows[r], rk); return; }
         handled = false; break;
@@ -2689,7 +2689,12 @@ export function Datatable({
   const onEditingChangeRef = React.useRef(onEditingChange); onEditingChangeRef.current = onEditingChange;
   const editStoppedRef = React.useRef(false);
   // #236: a `renderEditCell` column is editable too (unless `editable: false`).
-  const isColEditable = (c) => c.type !== "actions" && c.editable !== false && (c.editable === true || c.renderEditCell != null || editMode);
+  // #424: column-level CAPABILITY test — a function `editable` counts as editable-capable here…
+  const isColEditable = (c) => c.type !== "actions" && c.editable !== false && (c.editable === true || typeof c.editable === "function" || c.renderEditCell != null || editMode);
+  // …and this per-cell gate additionally runs a function `editable(row, { field })`, so a column can be
+  // editable only on the rows that satisfy a predicate (mirrors cellStyle/cellClassName). A false result
+  // behaves exactly like editable:false for that cell (no editor on Enter/F2/double-click, skipped by paste/cut/batch).
+  const isCellEditable = (c, row) => isColEditable(c) && (typeof c.editable !== "function" || !!c.editable(row, { field: c.field }));
 
   // #390/#394: the shared onRowUpdate + onRowsChange tail, so single-key, multi-key and clipboard writes agree.
   function applyRowUpdate(rowKey, updated, orig, field) {
@@ -2700,7 +2705,7 @@ export function Datatable({
   }
 
   function beginEdit(rowK, col, row) {
-    if (!isColEditable(col)) return;
+    if (!isCellEditable(col, row)) return; // #424: catch-all per-row gate (covers Enter/F2/double-click)
     // #396: a double-click INSIDE an open editor bubbles to the cell's onDoubleClick — ignore it so we don't
     // re-fire onEditingChange("start") without a commit/cancel and reset the in-progress value to the row's.
     if (editing && editing.key === rowK && editing.field === col.field) return;
@@ -2793,7 +2798,11 @@ export function Datatable({
     const nextAll = rows.map((r, i) => {
       const k = keyOf(r, i);
       if (!selKeys.has(k)) return r;
-      const updated = { ...r, ...patch };
+      // #424: a function `editable` column only writes the rows it permits; a static column applies to all.
+      const rowPatch = {};
+      for (const c of active) { if (typeof c.editable !== "function" || c.editable(r, { field: c.field })) rowPatch[c.field] = patch[c.field]; }
+      if (!Object.keys(rowPatch).length) return r;
+      const updated = { ...r, ...rowPatch };
       changedRows.push(updated);
       return updated;
     });
@@ -2864,7 +2873,7 @@ export function Datatable({
   const rectCells = () => {
     if (!cellRect) return null;
     const out = [];
-    for (let r = cellRect.r0; r <= cellRect.r1; r++) { const row = leafRows[r]; if (!row) continue; const line = []; for (let c = cellRect.c0; c <= cellRect.c1; c++) { const col = ordered[c]; if (col) line.push({ key: keyOf(row, r), field: col.field, col, value: getColVal(col, row) }); } out.push(line); }
+    for (let r = cellRect.r0; r <= cellRect.r1; r++) { const row = leafRows[r]; if (!row) continue; const line = []; for (let c = cellRect.c0; c <= cellRect.c1; c++) { const col = ordered[c]; if (col) line.push({ key: keyOf(row, r), field: col.field, col, row, value: getColVal(col, row) }); } out.push(line); }
     return out.length ? out : null;
   };
   const copySelection = (cut) => {
@@ -2878,7 +2887,7 @@ export function Datatable({
     onCellsCopyRef.current?.(grid.flatMap((line) => line.map((cell) => ({ key: cell.key, field: cell.field }))), { cut: !!cut }); // #320
     if (cut) {
       const patchByKey = new Map(); let clearable = 0;
-      for (const line of grid) for (const cell of line) { if (!isColEditable(cell.col)) continue; clearable++; const p = patchByKey.get(cell.key) || {}; p[cell.field] = cell.col.type === "number" ? null : ""; patchByKey.set(cell.key, p); }
+      for (const line of grid) for (const cell of line) { if (!isCellEditable(cell.col, cell.row)) continue; clearable++; const p = patchByKey.get(cell.key) || {}; p[cell.field] = cell.col.type === "number" ? null : ""; patchByKey.set(cell.key, p); }
       writeCellPatches(patchByKey, { source: "cut" });
       announceClip(`Cut ${clearable} cell${clearable === 1 ? "" : "s"}${clearable < n ? `, ${n - clearable} read-only kept` : ""}`, cellRect);
     } else {
@@ -2901,7 +2910,7 @@ export function Datatable({
       const rr = cellRect.r0 + i; const row = leafRows[rr]; if (!row) break;
       for (let j = 0; j < matrix[i].length; j++) {
         const cc = cellRect.c0 + j; const col = ordered[cc]; if (!col) break;
-        if (!isColEditable(col)) { skipped++; continue; }
+        if (!isCellEditable(col, row)) { skipped++; continue; } // #424: per-row editability
         if (inApp && inApp.colTypes[j] != null && inApp.colTypes[j] !== copyTypeOf(col)) { skipped++; continue; } // #318: format-restricted
         let v = matrix[i][j];
         if (col.type === "number") { v = v === "" ? null : Number(v); if (Number.isNaN(v)) v = null; }
@@ -2952,7 +2961,9 @@ export function Datatable({
       // now COMMITS the pending value instead (spreadsheet-like). #390: a `renderEditCell` column that
       // STAGED a draft (via `setDraft`) commits it the same way; one that never staged keeps cancel-on-away.
       const col = colByField[editing.field];
-      if (col && col.renderEditCell) { if (stagedEditRef.current) commitEdit(stagedEditRef.current.value); else cancelEdit(); }
+      // #390/#413: commit the staged draft on click-away — a patch takes the multi-key commit path (no-op only
+      // when every key is unchanged), a value the single-field path; an editor that never staged still cancels.
+      if (col && col.renderEditCell) { const s = stagedEditRef.current; if (!s) cancelEdit(); else if (s.patch) commitEdit(undefined, s.patch); else commitEdit(s.value); }
       else commitEdit();
     };
     document.addEventListener("mousedown", onDown, true);
@@ -3377,7 +3388,7 @@ export function Datatable({
         {ordered.map((c, ci) => {
           const st = stickyOf(c.field); const val = getColVal(c, row);
           const isActions = c.type === "actions";
-          const editable = isColEditable(c);
+          const editable = isCellEditable(c, row); // #424: per-row (drives the edit-hint, cursor + double-click)
           const isEditing = editing && editing.key === k && editing.field === c.field;
           const cellActive = selectionMode === "cell" && activeCellVal && activeCellVal.key === k && activeCellVal.field === c.field;
           // #317: is this cell inside the current selection rectangle? (single-cell selection is a 1×1 rect)
@@ -3420,13 +3431,17 @@ export function Datatable({
                   // async Combobox, …) and drives the lifecycle via commit/cancel. Wrapped in
                   // .twc-dt__editor-wrap so inline clicks (and any .twc-pop portal dropdown) don't
                   // trip the outside-click auto-cancel.
-                  // #273: the wrapper handles Escape → cancel so it works for every custom editor without
-                  // each having to wire a keydown (they only get commit/cancel). A custom control that
-                  // wants Escape itself (e.g. to close its own open dropdown) stops propagation first.
+                  // #273/#412: the wrapper cancels on Escape so custom editors get it for free — but it IGNORES
+                  // an Escape a nested control already handled (defaultPrevented), so closing a Select/Combobox/
+                  // MultiSelect list inside the editor doesn't also cancel the edit (a second Escape, list now
+                  // closed, then cancels — the WAI-ARIA two-step). A control can still stopPropagation to keep it.
                   <div className="twc-dt__editor-wrap"
-                    onKeyDown={(e) => { if (e.key === "Escape") { e.stopPropagation(); cancelEdit(); } }}>
+                    onKeyDown={(e) => { if (e.key === "Escape" && !e.defaultPrevented) { e.stopPropagation(); cancelEdit(); } }}>
                     {c.renderEditCell({ value: editing.value, row, field: c.field, commit: (v) => commitEdit(v), cancel: cancelEdit,
-                      setDraft: (v) => { stagedEditRef.current = { value: v }; setEditing((ed) => (ed ? { ...ed, value: v } : ed)); },
+                      // #413/#423: stage a value — or a patch with { patch: true } — for the click-away commit;
+                      // { silent: true } stages into the ref WITHOUT re-rendering the grid (for an editor that
+                      // renders from its own draft state, so per-keystroke staging isn't O(rows)).
+                      setDraft: (next, opts) => { stagedEditRef.current = opts?.patch ? { patch: next } : { value: next }; if (!opts?.silent && !opts?.patch) setEditing((ed) => (ed ? { ...ed, value: next } : ed)); },
                       commitPatch: (patch) => commitEdit(undefined, patch) })}
                   </div>
                 ) : (
