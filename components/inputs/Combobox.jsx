@@ -218,9 +218,12 @@ export function Combobox({
   const prevOpenRef = React.useRef(open);
   React.useEffect(() => { if (prevOpenRef.current !== open) { prevOpenRef.current = open; onOpenChangeRef.current?.(open); } }, [open]);
   // #95: on open, highlight the currently-selected option (runs after the [query] reset so it wins).
+  // #425: index into the FILTERED `visible` list, not the unfiltered `flat` — a seeded `defaultQuery` may
+  // narrow `visible`, and `active` is a `visible` index everywhere it's read (Enter commits `visible[active]`,
+  // aria-activedescendant, arrow-key bounds). Falls back to 0 when the selected option isn't in the filtered list.
   React.useEffect(() => {
     if (!open) return;
-    const idx = flat.findIndex((o) => o.value === current);
+    const idx = visible.findIndex((o) => o.value === current);
     setActive(idx >= 0 ? idx : 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);

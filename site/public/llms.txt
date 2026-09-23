@@ -650,7 +650,7 @@ Props:
 - `options` — `Array<string | ComboboxOption | ComboboxGroup>` · **required** — Defines the selectable items as plain strings, value/label/description objects, or grouped option collections.
 - `value` — `string | null` — Sets the selected option's value in controlled mode, pairing with onChange to keep the field in sync.
 - `defaultValue` — `string | null` · default `null` — Provides the initial selection for uncontrolled usage, defaulting to null so the field starts empty.
-- `defaultQuery` — `string` — Seeds the search input with this text each time the menu opens (caret at the end) without emitting onInputChange — handy for a cell editor pre-filled with the current value.
+- `defaultQuery` — `string` — Seeds the search text each time the menu opens (caret at the end) without emitting onInputChange; matched against option labels/descriptions, so a cell editor pre-fills with the option's label, not its value.
 - `onChange` — `(value: string | null) => void` — Fires with the newly selected value, or null when the selection is cleared, so you can update state.
 - `clearable` — `boolean` · default `false` — Adds a clear button when a value is selected, letting users reset the field back to an empty selection.
 - `disabled` — `boolean` · default `false` — Blocks typing and selection while dimming the field, indicating the control is currently unavailable.

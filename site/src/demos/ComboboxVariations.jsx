@@ -38,7 +38,7 @@ function ComboboxCellEditor() {
         onChange={(v) => { if (v) setCommitted(v); setStaged(null); }}
         onOpenChange={(open) => { if (!open) setStaged(null); }} // withdraw the staged draft when it closes
       />
-      <div style={{ fontSize: 13, color: "var(--color-fg-muted)" }}>
+      <div style={{ fontSize: 13, color: "var(--color-text-muted)" }}>
         Committed: <b>{committed}</b>{staged != null ? <> · staged: <b>{staged || "(empty)"}</b></> : null}
       </div>
     </div>

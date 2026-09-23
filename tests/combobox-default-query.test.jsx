@@ -96,3 +96,65 @@ describe("Combobox defaultQuery (#425)", () => {
     expect(input().value).toBe("");
   });
 });
+
+// Regression: a seeded defaultQuery narrows the visible list, but the on-open highlight effect used to index the
+// UNFILTERED `flat` list — so with a selected value + a filtering seed, `active` pointed outside `visible`, which
+// dropped aria-activedescendant, broke arrow bounds, and made Enter either a no-op or commit the WRONG option.
+// The highlight effect now indexes `visible`.
+const activeOption = () => document.querySelector('.twc-opt[data-active="true"]');
+
+describe("Combobox defaultQuery + selected value (#425 regression)", () => {
+  it("highlights the selected option (not a stale flat index) when the seed filters to a single match, and Enter commits it", () => {
+    const onChange = vi.fn();
+    render(<Combobox label="Color" options={OPTIONS} value="blue" defaultQuery="Blue" onChange={onChange} />);
+    fireEvent.focus(input()); // seed "Blue" -> visible = [Blue] only
+    expect(activeOption()?.textContent).toContain("Blue");
+    const adId = input().getAttribute("aria-activedescendant");
+    expect(adId).toBeTruthy();
+    expect(document.getElementById(adId)).not.toBeNull(); // points at a real, rendered option
+    fireEvent.keyDown(input(), { key: "Enter" }); // headline cell-editor flow: open pre-filled, Enter accepts
+    expect(onChange).toHaveBeenCalledWith("blue");
+  });
+
+  it("commits the intended option (not a wrong one) when the selection sits inside a multi-match filtered list", () => {
+    const onChange = vi.fn();
+    const opts = [
+      { value: "red", label: "Red" },
+      { value: "green", label: "Green" },
+      { value: "grape", label: "Grape" },
+      { value: "orange", label: "Orange" },
+    ];
+    // seed "gr" -> visible = [Green, Grape]; grape is flat index 2 (out of range for the len-2 visible list).
+    render(<Combobox label="Fruit" options={opts} value="grape" defaultQuery="gr" onChange={onChange} />);
+    fireEvent.focus(input());
+    expect(activeOption()?.textContent).toContain("Grape");
+    fireEvent.keyDown(input(), { key: "Enter" });
+    expect(onChange).toHaveBeenCalledWith("grape");
+  });
+
+  it("falls back to the first visible option when the selected value is filtered out by the seed", () => {
+    render(<Combobox label="Color" options={OPTIONS} value="blue" defaultQuery="ee" onChange={() => {}} />);
+    fireEvent.focus(input()); // "ee" matches only "Green"; blue is filtered out -> active clamps to 0 (Green)
+    expect(activeOption()?.textContent).toContain("Green");
+  });
+});
+
+describe("Combobox onOpenChange — extra close/no-refire paths (#425)", () => {
+  it("fires false when a selection is committed (the primary close path)", () => {
+    const onOpenChange = vi.fn();
+    render(<Combobox label="Color" options={OPTIONS} onOpenChange={onOpenChange} />);
+    fireEvent.focus(input());
+    onOpenChange.mockClear();
+    fireEvent.click(document.querySelector(".twc-opt")); // commit -> close
+    expect(onOpenChange).toHaveBeenCalledExactlyOnceWith(false);
+  });
+
+  it("does NOT re-fire while typing keeps the menu open", () => {
+    const onOpenChange = vi.fn();
+    render(<Combobox label="Color" options={OPTIONS} onOpenChange={onOpenChange} />);
+    fireEvent.focus(input());
+    fireEvent.change(input(), { target: { value: "r" } });
+    fireEvent.change(input(), { target: { value: "re" } });
+    expect(onOpenChange).toHaveBeenCalledExactlyOnceWith(true); // still just the single open transition
+  });
+});

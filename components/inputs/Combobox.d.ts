@@ -26,8 +26,10 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   value?: string | null;
   /** Uncontrolled initial value. */
   defaultValue?: string | null;
-  /** Seed the search input with this text each time the menu opens (caret placed at the end), without emitting it as
-   *  an `onInputChange`. Useful when opening as a cell editor pre-filled with the current value. */
+  /** Seed the search *text* with this string each time the menu opens (caret placed at the end), without emitting it as
+   *  an `onInputChange`. It is matched against option labels/descriptions like any typed query — not the option
+   *  `value` — so to open a cell editor pre-filled on the current selection, pass its **label** (e.g. `"Japan"`),
+   *  not its value (`"jp"`). */
   defaultQuery?: string;
   /** Called with the chosen option's value, or `null` when cleared via `clearable`. */
   onChange?: (value: string | null) => void;

@@ -4650,7 +4650,7 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Seeds the search input with this text each time the menu opens (caret at the end) without emitting onInputChange — handy for a cell editor pre-filled with the current value."
+        "description": "Seeds the search text each time the menu opens (caret at the end) without emitting onInputChange; matched against option labels/descriptions, so a cell editor pre-fills with the option's label, not its value."
       },
       {
         "prop": "onChange",

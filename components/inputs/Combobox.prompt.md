@@ -42,6 +42,8 @@ still owns the row chrome (keyboard nav, ARIA `aria-selected`/active state, and 
 `tone` (`primary` | `success` | `warning` | `danger` | `info` | `neutral`, default `primary`) recolors the focus/open border and ring accent.
 
 As a **cell editor** (or any host that stages the typed query): `defaultQuery` seeds the search box each time the menu
-opens (caret at the end, e.g. pre-fill the current value for a one-character correction) without emitting an
-`onInputChange`; `onOpenChange(open)` fires on every open↔close transition — including the silent `close()` (chevron,
-Escape, outside click) that resets the typed query — so the host can withdraw whatever it staged when the control drops it.
+opens (caret at the end) without emitting an `onInputChange`. It is the search **text** (matched against option
+labels/descriptions, not the option `value`), so to pre-fill on the current selection for a one-character correction
+pass its label (e.g. `"Japan"`, not `"jp"`). `onOpenChange(open)` fires on every open↔close transition — including the
+silent `close()` (chevron, Escape, outside click) that resets the typed query — so the host can withdraw whatever it
+staged when the control drops it.
