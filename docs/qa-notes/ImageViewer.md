@@ -2,9 +2,11 @@
 
 - **Group:** data-display
 - **Status:** clean
-- **Reviewed:** 2026-09-22
+- **Reviewed:** 2026-09-23
 
 ## Open issues
+
+- [x] **[#414] small images upscaled; zoom API trapped in the viewer; fixed stage radius** — fit="scale-down"/"none" (pan bounds from the rendered image box); forwardRef exposes the zoom API + onStateChange for a host toolbar; a `radius` prop + --twc-iv-radius/--twc-iv-bg custom props. `ImageViewer.jsx`/`.d.ts` — ✓ 2026-09-23
 
 - [x] **[#407] no zoom/pan viewer for an image (charts had `zoomable`, images had nothing)** — added
   `ImageViewer`, a zoomable/pannable image on a fixed stage. Pointer-anchored wheel + pinch zoom via a

@@ -2,7 +2,7 @@
 
 - **Group:** data-display
 - **Status:** clean
-- **Reviewed:** 2026-09-22
+- **Reviewed:** 2026-09-23
 
 ## Open issues
 

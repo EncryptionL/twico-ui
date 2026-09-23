@@ -2,9 +2,11 @@
 
 - **Group:** buttons
 - **Status:** clean
-- **Reviewed:** 2026-09-22
+- **Reviewed:** 2026-09-23
 
 ## Open issues
+
+- [x] **[#411] one tone for the whole group; no per-option meaning colour** — ToggleGroupItem gains `tone`, the group tone widens to the full Tone scale (drives the pressed fill via Button pressedTone; the unpressed look stays ActionTone-safe). `ToggleGroup.jsx`/`.d.ts` — ✓ 2026-09-23
 
 - [x] **[#405] no toggle-button group (only a form RadioGroup or a Tabs tablist existed)** — added
   `ToggleGroup`, a `role="group"` of toggle buttons that composes `Button` (reusing its variant/tone CSS, so it

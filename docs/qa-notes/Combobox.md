@@ -2,9 +2,11 @@
 
 - **Group:** inputs
 - **Status:** open
-- **Reviewed:** 2026-09-22
+- **Reviewed:** 2026-09-23
 
 ## Open issues
+
+- [x] **[#412] Escape blurred the input (and cancelled an enclosing editor)** — Escape now closes the list keeping focus (WAI-ARIA); a closed-list Escape bubbles. `Combobox.jsx` — ✓ 2026-09-23
 
 - [x] **[#389] Escape closing an open Combobox inside a Dialog also closed the Dialog** — Combobox now preventDefaults Escape when its list is open. `Combobox.jsx` — ✓ fixed 2026-09-22
 

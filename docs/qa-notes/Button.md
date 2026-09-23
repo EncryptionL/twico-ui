@@ -2,9 +2,11 @@
 
 - **Group:** buttons
 - **Status:** clean
-- **Reviewed:** 2026-09-22
+- **Reviewed:** 2026-09-23
 
 ## Open issues
+
+- [x] **[#418] a pressed button lost its look on hover; #411 pressed fill limited to primary/danger** — added a matching-specificity `[aria-pressed=true]:hover` rule and `pressedTone` (full status Tone scale). `Button.jsx`/`.d.ts` — ✓ 2026-09-23
 
 - [x] **[#405] no pressed (toggle) state** — added `pressed` (sets `aria-pressed` + a soft tone fill/border, variant-agnostic); see the new `ToggleGroup`. `tests/toggle-group.test.jsx`. `Button.jsx`/`.d.ts` — ✓ fixed 2026-09-22
 - [x] **[#398] a disabled Button couldnt host a keyboard-reachable tooltip** — added `focusableWhenDisabled` (renders `aria-disabled` instead of native `disabled`, staying focusable; click + Enter/Space still blocked) + a matching `[aria-disabled]` style. `tests/disabled-tooltip.test.jsx`. `Button.jsx`/`.d.ts` — ✓ fixed 2026-09-22

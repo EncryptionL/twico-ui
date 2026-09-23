@@ -1,10 +1,12 @@
 # QA notes — Popover
 
 - **Group:** overlay
-- **Reviewed:** 2026-09-22
+- **Reviewed:** 2026-09-23
 - **Status:** clean
 
 ## Open issues
+
+- [x] **[#420] aria-describedby landed on the wrapper, not the trigger** — Popover forwards an incoming aria-describedby to the cloned trigger. `Popover.jsx` — ✓ 2026-09-23
 
 - [x] **[#389] Escape/outside-click over a Popover-in-Dialog closed both** — Popover joins the dismissable-layer stack (gates outside-pointer + preventDefaults Escape when topmost). `Popover.jsx` — ✓ fixed 2026-09-22
 

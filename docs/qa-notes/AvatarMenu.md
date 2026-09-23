@@ -2,9 +2,11 @@
 
 - **Group:** data-display
 - **Status:** clean
-- **Reviewed:** 2026-09-22
+- **Reviewed:** 2026-09-23
 
 ## Open issues
+
+- [x] **[#416] fullWidth couldnt replace a real account menu** — added header/headerExtra/menuWidth; fullWidth squares the trigger (radius-md) + matches the menu to the trigger width; the chevron rotates while open. `AvatarMenu.jsx`/`.d.ts` — ✓ 2026-09-23
 
 - [x] **[#402] the trigger couldnt stretch to a full-width sidebar footer account row** — added `fullWidth` (the trigger + its Menu wrap stretch, the name/subtitle column grows, the chevron pins to the inline-end). `tests/sidebar-footer-scroll.test.jsx`. `AvatarMenu.jsx`/`.d.ts` — ✓ fixed 2026-09-22
 

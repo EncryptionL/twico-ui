@@ -2,9 +2,11 @@
 
 - **Group:** inputs
 - **Status:** clean
-- **Reviewed:** 2026-09-22
+- **Reviewed:** 2026-09-23
 
 ## Open issues
+
+- [x] **[#415] the hidden input was an unlabeled Tab stop; `label` labelled nothing** — the input is display:none + tabIndex=-1 + aria-hidden; the label names the zone via aria-labelledby (and forwards to a custom trigger without clobbering its aria). `FileUpload.jsx` — ✓ 2026-09-23
 
 - [x] **[#406] no way to open the picker from your own button (custom triggers lost validation)** — extracted the accept/maxSize/maxFiles/dedupe validation to `components/_upload.js`; made FileUpload `forwardRef` with an `open()` handle; added a headless `trigger` prop (+ `dropOnTrigger`) that renders only your element; and a `useFilePicker` hook (`{ open, getInputProps }`) that reuses the same validation. `tests/file-picker.test.jsx`. `FileUpload.jsx`/`.d.ts` — ✓ fixed 2026-09-22
 
