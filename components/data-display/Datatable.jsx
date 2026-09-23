@@ -1368,7 +1368,11 @@ export function Datatable({
   // can tell a genuine external activeCell change from an echo of the grid's own update (which already set
   // anchor + roving focus) and not clobber a Shift+Arrow range extend.
   const selfCellSigRef = React.useRef(null);
-  const commitActiveCell = (next) => { selfCellSigRef.current = next ? next.key + "\u0000" + next.field : null; onActiveCellChange?.(next); if (!activeCellControlled) setInternalActiveCell(next); };
+  // #421: which activeCell value the host-jump effect has already applied — so it applies once per value and
+  // the setFocus re-render (keyIndex churn) doesn't loop. Reset on every grid-originated commit so a host can
+  // RE-jump to a cell the grid has since navigated away from.
+  const jumpAppliedRef = React.useRef(null);
+  const commitActiveCell = (next) => { const sig = next ? next.key + "\u0000" + next.field : null; selfCellSigRef.current = sig; jumpAppliedRef.current = null; onActiveCellChange?.(next); if (!activeCellControlled) setInternalActiveCell(next); };
   const [anchorCell, setAnchorCell] = React.useState(null); // #317: fixed corner of a rectangular range
   const gridId = React.useId(); // #317: stable prefix for cell ids (aria-activedescendant)
   // #45: controlled/uncontrolled pagination (hand-rolled per project rule — no
@@ -2704,8 +2708,8 @@ export function Datatable({
   // behind. Guarded by selfCellSigRef (don't clobber the grid's own click/arrow/Shift+Arrow updates) AND by
   // jumpAppliedRef so it applies ONCE per activeCell value — `keyIndex` is in the deps (server-mode retry while
   // the target row is unmounted) but its identity churns each render, and this effect setStates, so without the
-  // applied-guard the setFocus re-render would re-run the effect forever.
-  const jumpAppliedRef = React.useRef(null);
+  // applied-guard the setFocus re-render would re-run the effect forever. commitActiveCell clears the ref on each
+  // grid move so a repeat host jump to a cell the grid has since left still re-applies.
   React.useEffect(() => {
     if (!activeCellControlled || !activeCellVal) { jumpAppliedRef.current = null; return; }
     const sig = activeCellVal.key + "\u0000" + activeCellVal.field;
@@ -3011,8 +3015,11 @@ export function Datatable({
     };
     document.addEventListener("mousedown", onDown, true);
     return () => document.removeEventListener("mousedown", onDown, true);
+    // #423: re-subscribe when the data changes too, so the click-away commit closes over the CURRENT rows —
+    // a silent setDraft (no setEditing) otherwise leaves this handler on the beginEdit-time closure and would
+    // write a staged value against a stale rows array (reverting concurrent updates) on click-away.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editing]);
+  }, [editing, rows, leafRows]);
 
   function renderActions(col, row) {
     const items = (col.getActions ? col.getActions(row) : []) || [];

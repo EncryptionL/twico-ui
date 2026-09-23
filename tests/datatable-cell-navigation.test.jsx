@@ -115,4 +115,24 @@ describe("Datatable controlled activeCell jump collapses selection + moves focus
     const target = cellAt(container, 2, 1);
     expect(target.getAttribute("data-cell-active")).toBe("true");
   });
+
+  it("re-jumps to a cell the grid has since navigated away from (#421 review fix)", () => {
+    const cols = [{ field: "name" }, { field: "age", type: "number" }];
+    function Harness() {
+      const [ac, setAc] = React.useState({ key: 1, field: "name" });
+      return (<>
+        <button data-testid="jumpA" onClick={() => setAc({ key: 1, field: "name" })}>jump</button>
+        <Datatable rowKey={(r) => r.id} rows={rows} columns={cols} selectionMode="cell" activeCell={ac} onActiveCellChange={(c) => setAc(c)} />
+      </>);
+    }
+    const { container, getByTestId } = render(<Harness />);
+    // grid moves away: arrow right from (0,0) → (0,1); commitActiveCell resets the jump memory
+    cellAt(container, 0, 0).focus();
+    fireEvent.keyDown(cellAt(container, 0, 0), { key: "ArrowRight" });
+    expect(cellAt(container, 0, 1).tabIndex).toBe(0);
+    // host re-jumps to the ORIGINAL cell A — must move focus back (was stale-blocked before the fix)
+    fireEvent.click(getByTestId("jumpA"));
+    expect(cellAt(container, 0, 0).tabIndex).toBe(0);
+    expect(cellAt(container, 0, 1).tabIndex).toBe(-1);
+  });
 });

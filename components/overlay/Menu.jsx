@@ -148,8 +148,8 @@ export function Menu({
     // #410: a parent (e.g. a Datatable widget-nav cell) may claim this key in the capture phase and
     // preventDefault it — respect that and don't also open the menu (mirrors Select's trigger guard).
     if (e.defaultPrevented) return;
-    if (triggerDisabled) return; // #420: a disabled trigger doesn't open on Enter/Space/ArrowDown
     if (!open) {
+      if (triggerDisabled) return; // #420: a disabled trigger doesn't OPEN (but an already-open menu can still Escape/navigate)
       // #118: opening by keyboard highlights the first interactive item (APG); mouse-open stays at -1.
       if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") { e.preventDefault(); setOpen(true); setActive(interactiveIdx[0] ?? -1); }
       return;

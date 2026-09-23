@@ -114,8 +114,9 @@ export const ImageViewer = React.forwardRef(function ImageViewer({
     const onWheel = (e) => { if (!e.deltaY) return; /* ignore a pure-horizontal trackpad swipe (deltaY===0) */ e.preventDefault(); zoomAt(e.clientX, e.clientY, zoomRef.current * (e.deltaY < 0 ? 1 + step : 1 / (1 + step))); };
     stage.addEventListener("wheel", onWheel, { passive: false });
     return () => stage.removeEventListener("wheel", onWheel);
+    // #414: `fit` too — the listener's zoomAt→clampOffset closes over the content box, which changes with fit.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step, minZoom, maxZoom]);
+  }, [step, minZoom, maxZoom, fit]);
 
   // Pointer tracking: 1 pointer (when zoomed) pans; 2 pointers pinch-zoom about their midpoint.
   const pointers = React.useRef(new Map());

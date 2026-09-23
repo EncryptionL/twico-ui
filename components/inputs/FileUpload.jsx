@@ -119,12 +119,12 @@ export const FileUpload = React.forwardRef(function FileUpload({
   // #406: headless mode — render only the label, the caller's trigger (a click opens the picker), and the
   // hidden input. No dropzone, no file list; the caller owns the list via value/onChange.
   if (trigger) {
-    // #415: name the trigger from `label` (only when it has no own accessible name) and forward the error id,
-    // without ever clobbering the consumer's aria — `htmlFor` can't point at a custom trigger element.
-    const triggerEl = React.isValidElement(trigger)
+    // #415: forward the error id to the trigger (merging, never clobbering, its own aria) — `htmlFor` can't
+    // point at a custom trigger element. We deliberately do NOT add aria-labelledby: a trigger already carries
+    // its own accessible name (its text/aria-label), and overriding it with the field label would drop that name.
+    const triggerEl = React.isValidElement(trigger) && error
       ? React.cloneElement(trigger, {
-          "aria-describedby": [trigger.props["aria-describedby"], error ? descId : null].filter(Boolean).join(" ") || undefined,
-          ...(label && !trigger.props["aria-label"] && !trigger.props["aria-labelledby"] ? { "aria-labelledby": labelId } : {}),
+          "aria-describedby": [trigger.props["aria-describedby"], descId].filter(Boolean).join(" ") || undefined,
         })
       : trigger;
     return (
