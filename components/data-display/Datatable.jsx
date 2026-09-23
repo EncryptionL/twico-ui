@@ -1361,7 +1361,11 @@ export function Datatable({
   // scroll target in any mode. commitActiveCell reports via onActiveCellChange and self-updates when uncontrolled.
   const activeCellControlled = activeCell !== undefined;
   const activeCellVal = activeCellControlled ? activeCell : internalActiveCell;
-  const commitActiveCell = (next) => { onActiveCellChange?.(next); if (!activeCellControlled) setInternalActiveCell(next); };
+  // #421: remember the cell the grid itself just committed (click/arrow), so the host-driven-jump effect below
+  // can tell a genuine external activeCell change from an echo of the grid's own update (which already set
+  // anchor + roving focus) and not clobber a Shift+Arrow range extend.
+  const selfCellSigRef = React.useRef(null);
+  const commitActiveCell = (next) => { selfCellSigRef.current = next ? next.key + "\u0000" + next.field : null; onActiveCellChange?.(next); if (!activeCellControlled) setInternalActiveCell(next); };
   const [anchorCell, setAnchorCell] = React.useState(null); // #317: fixed corner of a rectangular range
   const gridId = React.useId(); // #317: stable prefix for cell ids (aria-activedescendant)
   // #45: controlled/uncontrolled pagination (hand-rolled per project rule — no
@@ -2521,6 +2525,18 @@ export function Datatable({
     const stillInside = nextTd && +nextTd.getAttribute("data-r") === interacting.r && +nextTd.getAttribute("data-c") === interacting.c;
     if (!stillInside) setInteracting(null);
   }
+  // #410: in widget mode a cell's single control may be a COLLAPSED popup trigger ([aria-haspopup], not open),
+  // which opens on ArrowDown + preventDefault — so the #391 defaultPrevented guard would otherwise stop the grid
+  // moving down. Run Up/Down FIRST in the capture phase (before the trigger's bubble handler) so the grid owns
+  // row movement on a collapsed trigger; Enter/Space still open it, and once open the #391 guard lets it navigate.
+  function onGridKeyDownCapture(e) {
+    if (cellNavigation !== "widget") return;
+    if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+    const trg = e.target.closest && e.target.closest("[aria-haspopup]");
+    if (!trg || trg.getAttribute("aria-expanded") === "true") return;
+    if (!e.target.closest(".twc-dt__td[data-r]")) return;
+    onGridKeyDown(e); // full roving move + preventDefault; the trigger's bubble handler then sees defaultPrevented and bails
+  }
   function onGridKeyDown(e) {
     // #343: never hijack keys (clipboard Ctrl/Cmd+C/X/V, Arrow/Home/End nav) from a focused editable
     // target inside a cell — e.g. an <input>/<select>/<textarea> in a custom renderCell. Mirrors the
@@ -2555,18 +2571,18 @@ export function Datatable({
     let r = +td.getAttribute("data-r"), c = +td.getAttribute("data-c");
     const maxR = leafRows.length - 1, maxC = ordered.length - 1;
     let handled = true;
-    // #392: widget-mode activation. A single in-cell widget already has focus → let it handle Enter/Space
-    // natively (only nav keys fall through to move the roving focus). On a <td>-focused cell, Enter/F2 enters
-    // interaction mode for a multi-widget cell, or activates the sole widget.
-    if (cellNavigation === "widget") {
-      const onWidget = e.target !== td && !!e.target.closest(DT_CELL_WIDGET_SEL);
-      if (onWidget) {
-        if (e.key === "Enter" || e.key === " ") return;
-      } else if (e.key === "F2" || e.key === "Enter") {
-        const ws = dtCellWidgets(td);
-        if (ws.length > 1) { e.preventDefault(); setInteracting({ r, c }); ws[0].focus(); return; }
-        if (ws.length === 1 && e.key === "Enter") { e.preventDefault(); ws[0].click(); return; }
-      }
+    // #422: an in-cell control (button/link/switch/checkbox/…) owns Enter/Space in EVERY mode — let it
+    // activate natively rather than the grid selecting the row/cell or opening the editor (the mouse path
+    // already guards this via handleRowClick/handleCellClick's closest(...) check). onWidget is false when the
+    // <td> itself is focused, so #392's td-focused Enter/Space and widget interaction entry are unaffected.
+    const onWidget = e.target !== td && !!e.target.closest(DT_CELL_WIDGET_SEL);
+    if (onWidget && (e.key === "Enter" || e.key === " ")) return;
+    // #392: widget-mode interaction entry — on a <td>-focused cell, Enter/F2 enters interaction mode for a
+    // multi-widget cell, or activates the sole widget.
+    if (cellNavigation === "widget" && !onWidget && (e.key === "F2" || e.key === "Enter")) {
+      const ws = dtCellWidgets(td);
+      if (ws.length > 1) { e.preventDefault(); setInteracting({ r, c }); ws[0].focus(); return; }
+      if (ws.length === 1 && e.key === "Enter") { e.preventDefault(); ws[0].click(); return; }
     }
     switch (e.key) {
       case "ArrowDown": r = Math.min(r + 1, maxR); break;
@@ -2641,11 +2657,15 @@ export function Datatable({
   // #395: reveal the controlled active cell inside the grid's OWN scroller (never scrollIntoView, which would
   // scroll the page). Works in any selectionMode, on both axes, honours the sticky header + pinned columns,
   // and re-runs when rows change so a server-mode page fetch — or a virtualized row mounting — lands on it.
+  // #421: resolve the reveal options to primitives at render scope, so the effect can key on them instead of the
+  // `scrollActiveCellIntoView` object identity (an inline `{ block: "center" }` would otherwise re-reveal — pull
+  // the grid back — on every unrelated host render).
+  const revealOn = !!scrollActiveCellIntoView;
+  const revealBlock = (scrollActiveCellIntoView && typeof scrollActiveCellIntoView === "object" && scrollActiveCellIntoView.block === "center") ? "center" : "nearest";
+  const revealInline = (scrollActiveCellIntoView && typeof scrollActiveCellIntoView === "object" && scrollActiveCellIntoView.inline === "center") ? "center" : "nearest";
   React.useEffect(() => {
-    if (!scrollActiveCellIntoView || !activeCellVal) return undefined;
-    const opt = typeof scrollActiveCellIntoView === "object" ? scrollActiveCellIntoView : {};
-    const block = opt.block === "center" ? "center" : "nearest";
-    const inline = opt.inline === "center" ? "center" : "nearest";
+    if (!revealOn || !activeCellVal) return undefined;
+    const block = revealBlock, inline = revealInline;
     const ri = keyIndex.get(activeCellVal.key), ci = cellColIndex(activeCellVal.field);
     if (ri == null || ci < 0) return undefined;
     let raf = 0;
@@ -2672,10 +2692,30 @@ export function Datatable({
     };
     reveal();
     return () => { if (raf) cancelAnimationFrame(raf); };
-    // #395 (review): key on the activeCell PRIMITIVES (not the object identity) so a controlled inline
-    // `activeCell={{…}}` doesn't re-run — and re-center — on every unrelated parent render.
+    // #395/#421: key on the activeCell + option PRIMITIVES (not the object identities) so a controlled inline
+    // `activeCell={{…}}` / `scrollActiveCellIntoView={{…}}` doesn't re-run — and re-center — every parent render.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCellVal?.key, activeCellVal?.field, scrollActiveCellIntoView, keyIndex, cellColIndex, virtualizing, offsets, keyIndexMid, headH]);
+  }, [activeCellVal?.key, activeCellVal?.field, revealOn, revealBlock, revealInline, keyIndex, cellColIndex, virtualizing, offsets, keyIndexMid, headH]);
+  // #421: a host-driven activeCell change (in any mode) collapses the selection to that cell and moves the roving
+  // focus there, so a "jump to cell" doesn't extend a rectangle from the last-clicked anchor or leave arrow-nav
+  // behind. Guarded by selfCellSigRef (don't clobber the grid's own click/arrow/Shift+Arrow updates) AND by
+  // jumpAppliedRef so it applies ONCE per activeCell value — `keyIndex` is in the deps (server-mode retry while
+  // the target row is unmounted) but its identity churns each render, and this effect setStates, so without the
+  // applied-guard the setFocus re-render would re-run the effect forever.
+  const jumpAppliedRef = React.useRef(null);
+  React.useEffect(() => {
+    if (!activeCellControlled || !activeCellVal) { jumpAppliedRef.current = null; return; }
+    const sig = activeCellVal.key + "\u0000" + activeCellVal.field;
+    if (sig === selfCellSigRef.current || sig === jumpAppliedRef.current) return;
+    const ri = keyIndex.get(activeCellVal.key), ci = cellColIndex(activeCellVal.field);
+    if (ri == null || ci < 0) return; // not rendered yet (server mode) — retry when keyIndex updates
+    jumpAppliedRef.current = sig;
+    if (selectionMode === "cell") setAnchorCell(activeCellVal);
+    setFocus({ r: ri, c: ci });
+    const grid = gridRef.current; // only move DOM focus when the grid already has it (an external stepper button keeps focus)
+    if (grid && grid.contains(document.activeElement) && grid !== document.activeElement) focusCell(ri, ci);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCellControlled, selectionMode, activeCellVal?.key, activeCellVal?.field, keyIndex, cellColIndex]);
   function clearSelection() { setSelected(new Set()); }
 
   // ---- Inline editing ----
@@ -3705,7 +3745,7 @@ export function Datatable({
           ref={gridRef} role="grid" aria-label={ariaLabelAttr || ariaLabel}
           aria-rowcount={(treeSeqByKey ? treeSeqByKey.size : totalRows) + 1} aria-colcount={ordered.length + (checkboxSelection ? 1 : 0) + (hasExpandCol ? 1 : 0)}
           aria-multiselectable={selectionMode === "cell" || undefined} aria-activedescendant={activeCellId}
-          aria-busy={loading || undefined} onKeyDown={onGridKeyDown} onPaste={onGridPaste} onBlur={cellNavigation === "widget" ? onGridBlur : undefined}>
+          aria-busy={loading || undefined} onKeyDown={onGridKeyDown} onKeyDownCapture={cellNavigation === "widget" ? onGridKeyDownCapture : undefined} onPaste={onGridPaste} onBlur={cellNavigation === "widget" ? onGridBlur : undefined}>
           <thead ref={theadRef}>
             <tr role="row" aria-rowindex={1}>
               {hasExpandCol ? (

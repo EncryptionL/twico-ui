@@ -141,6 +141,9 @@ export function Menu({
   const toggle = () => { setOpen((o) => !o); setActive(-1); };
 
   function onKeyDown(e) {
+    // #410: a parent (e.g. a Datatable widget-nav cell) may claim this key in the capture phase and
+    // preventDefault it — respect that and don't also open the menu (mirrors Select's trigger guard).
+    if (e.defaultPrevented) return;
     if (!open) {
       // #118: opening by keyboard highlights the first interactive item (APG); mouse-open stays at -1.
       if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") { e.preventDefault(); setOpen(true); setActive(interactiveIdx[0] ?? -1); }
