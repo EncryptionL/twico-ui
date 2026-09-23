@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { ActionTone } from "../_types";
+import type { ActionTone, Tone } from "../_types";
 
 /**
  * Square (or circular) button for a single icon. Always provide an aria-label.
@@ -25,6 +25,9 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
   /** #405: toggle "on" state — sets `aria-pressed` and shows a soft fill + border in the current `tone`
    *  (works with any `variant`), e.g. a pin/unpin or bold/italic icon toggle. @default undefined */
   pressed?: boolean;
+  /** #411: tone of the pressed ("on") fill — the full status `Tone` scale, so a toggle can carry its own
+   *  selected-state meaning while `tone` stays `ActionTone` for the unpressed look. Defaults to `tone`. @default undefined */
+  pressedTone?: Tone;
   /** #342: render as a different element — use `"a"` for an icon **link** (GitHub icon, external nav, …) so
    *  navigation is a real link, not a button. @default "button" */
   as?: "button" | "a";

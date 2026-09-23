@@ -74,9 +74,20 @@ const CSS = `
 /* ghost — neutral at rest, accent on hover */
 .twc-btn[data-variant="ghost"] { background: transparent; color: var(--color-text-muted); }
 .twc-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
-/* #405: toggle "on" state (aria-pressed) — a soft tone fill + tone border, variant-agnostic (works over any
-   variant); source-ordered after the variant rules so it wins at rest, hover keeps its higher specificity. */
+/* #405: toggle "on" state (aria-pressed) — a soft tone fill + tone border, variant-agnostic (works over any variant). */
 .twc-btn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
+/* #411: pressed "on" fill can carry any status Tone (not just the ActionTone), so a toggle option shows its own
+   meaning colour — success/warning/info/neutral; only the pressed fill props are remapped. */
+.twc-btn[aria-pressed="true"][data-pressed-tone="success"] { --_accent: var(--color-success); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); }
+.twc-btn[aria-pressed="true"][data-pressed-tone="warning"] { --_accent: var(--color-warning); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
+.twc-btn[aria-pressed="true"][data-pressed-tone="info"] { --_accent: var(--color-info); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }
+.twc-btn[aria-pressed="true"][data-pressed-tone="danger"] { --_accent: var(--color-danger); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
+.twc-btn[aria-pressed="true"][data-pressed-tone="neutral"] { --_accent: var(--color-border-strong); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text); }
+/* #418: keep the pressed look under the pointer — the variant hover rules (0,4,0) otherwise beat the base
+   pressed rule (0,2,0). This matching-specificity rule, source-ordered after them, restores the fill/fg/border
+   (resetting the text colour too, so solid stays legible — incl. tone="danger"). */
+.twc-btn[aria-pressed="true"]:hover:not(:disabled) { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); filter: brightness(0.97); }
+.dark .twc-btn[aria-pressed="true"]:hover:not(:disabled) { filter: brightness(1.25); }
 
 .twc-btn__spinner {
   position: absolute; inset: 0; margin: auto;
@@ -121,6 +132,7 @@ export function Button({
   disabled = false,
   focusableWhenDisabled = false,
   pressed,
+  pressedTone,
   as = "button",
   href,
   className = "",
@@ -166,6 +178,7 @@ export function Button({
       href={inert ? undefined : safeHref(href)}
       aria-disabled={inert || softDisabled || undefined}
       aria-pressed={pressed}
+      data-pressed-tone={pressedTone || undefined}
       tabIndex={inert ? -1 : undefined}
       aria-busy={loading || undefined}
       onClick={handleClick}

@@ -89,7 +89,10 @@ export function ToggleGroup({
         <Button
           key={it.value}
           variant={variant}
-          tone={tone}
+          /* #411: `tone` (any status Tone) drives the pressed "on" fill per item (or the group default); the
+             unpressed action look stays ActionTone-safe (primary/danger) so existing groups are byte-identical. */
+          tone={tone === "danger" ? "danger" : "primary"}
+          pressedTone={it.tone ?? tone}
           size={size}
           disabled={disabled || it.disabled}
           pressed={isSelected(it.value)}

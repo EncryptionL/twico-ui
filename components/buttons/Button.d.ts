@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { ActionTone } from "../_types";
+import type { ActionTone, Tone } from "../_types";
 
 /**
  * Primary action button with a solid / soft / outline / ghost **variant** (fill style) crossed with a
@@ -31,6 +31,10 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   /** #405: toggle "on" state — sets `aria-pressed` and shows a soft fill + border in the current `tone`
    *  (works with any `variant`). Omit for a plain (non-toggle) button. @default undefined */
   pressed?: boolean;
+  /** #411: tone of the pressed ("on") fill — the full status `Tone` scale, so a toggle can carry its own
+   *  selected-state meaning (e.g. success/warning/info/neutral) while `tone` stays `ActionTone` for the
+   *  unpressed action look. Defaults to `tone`. @default undefined */
+  pressedTone?: Tone;
   /** Render as a different element (e.g. "a"). @default "button" */
   as?: "button" | "a";
   /** Link destination — only used with as="a"; scheme-sanitized (javascript:/data:/vbscript: render without href). */
