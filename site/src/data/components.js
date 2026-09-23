@@ -4646,6 +4646,13 @@ export const components = [
         "description": "Provides the initial selection for uncontrolled usage, defaulting to null so the field starts empty."
       },
       {
+        "prop": "defaultQuery",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Seeds the search text each time the menu opens (caret at the end) without emitting onInputChange; matched against option labels/descriptions, so a cell editor pre-fills with the option's label, not its value."
+      },
+      {
         "prop": "onChange",
         "type": "(value: string | null) => void",
         "required": false,
@@ -4693,6 +4700,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Called with the raw query on every keystroke — drive a debounced remote fetch (with `loading` + `filter={false}`)."
+      },
+      {
+        "prop": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires with true when the menu opens and false when it closes (including the silent close() that resets the typed query), so a host staging that query can withdraw it."
       },
       {
         "prop": "filter",
