@@ -53,7 +53,7 @@ describe("Dialog/Drawer dismissable-layer stack (#389)", () => {
 
   it("an open Select inside a Dialog: Escape closes the Select, not the Dialog", () => {
     const onClose = vi.fn();
-    const { container } = render(
+    render(
       <Dialog open onClose={onClose} title="Edit">
         <Select options={[{ value: "a", label: "A" }, { value: "b", label: "B" }]} />
       </Dialog>,
