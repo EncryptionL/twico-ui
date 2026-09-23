@@ -26,6 +26,9 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   value?: string | null;
   /** Uncontrolled initial value. */
   defaultValue?: string | null;
+  /** Seed the search input with this text each time the menu opens (caret placed at the end), without emitting it as
+   *  an `onInputChange`. Useful when opening as a cell editor pre-filled with the current value. */
+  defaultQuery?: string;
   /** Called with the chosen option's value, or `null` when cleared via `clearable`. */
   onChange?: (value: string | null) => void;
   /** Show a clear (×) affix when a value is selected. */
@@ -41,6 +44,9 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   minWidth?: number;
   /** Called with the raw query on every keystroke — drive a debounced remote fetch (with `loading` + `filter={false}`). */
   onInputChange?: (query: string) => void;
+  /** Called with `true` when the menu opens and `false` when it closes (including when `close()` silently resets the
+   *  typed query) — a host staging that query (e.g. a cell editor) can withdraw it on close. */
+  onOpenChange?: (open: boolean) => void;
   /** Client-side filtering: `false` shows options as-is (server-ranked); a function replaces the default label/description match. */
   filter?: boolean | ((option: ComboboxOption, query: string) => boolean);
   /** Show a loading row instead of the option list / empty state. @default false */

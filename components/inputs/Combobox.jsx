@@ -108,9 +108,9 @@ function ensureVisible(list, el) {
 
 export function Combobox({
   label, hint, error, required = false, size = "md", tone = "primary",
-  placeholder = "Select…", options, value, defaultValue = null,
+  placeholder = "Select…", options, value, defaultValue = null, defaultQuery,
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
-  onInputChange, filter, loading = false, emptyText = "No results found", name,
+  onInputChange, onOpenChange, filter, loading = false, emptyText = "No results found", name,
   virtualized: virtualizedProp = false, overscan = 8, wrapOptions = false, renderOption,
   id, className = "", onFocus, onKeyDown, ...rest
 }) {
@@ -211,6 +211,12 @@ export function Combobox({
     return () => document.removeEventListener("mousedown", onDown);
   }, [open]);
   React.useEffect(() => { setActive(0); }, [query]);
+  // #425: fire onOpenChange on every open↔close transition (an effect catches every path — openMenu, typing,
+  // close(), chevron), so a host staging the typed query as a cell-editor draft can withdraw it when close()
+  // silently resets the query. Skips the mount (no spurious `false`).
+  const onOpenChangeRef = React.useRef(onOpenChange); onOpenChangeRef.current = onOpenChange;
+  const prevOpenRef = React.useRef(open);
+  React.useEffect(() => { if (prevOpenRef.current !== open) { prevOpenRef.current = open; onOpenChangeRef.current?.(open); } }, [open]);
   // #95: on open, highlight the currently-selected option (runs after the [query] reset so it wins).
   React.useEffect(() => {
     if (!open) return;
@@ -237,7 +243,16 @@ export function Combobox({
     setScrollTop(next);
   }, [active, open, virtualized, rows, listH]);
 
-  function openMenu() { if (disabled) return; setQuery(""); setOpen(true); }
+  function openMenu() {
+    if (disabled) return;
+    // #425: seed the input with defaultQuery on open (caret at end) so a host can pre-fill the search
+    // (e.g. a cell editor opening with the current value staged). setQuery is state, not the input's
+    // onChange, so this never emits onInputChange — it's a seed, not a user-typed change.
+    const seed = defaultQuery || "";
+    setQuery(seed);
+    setOpen(true);
+    if (seed) requestAnimationFrame(() => { const el = inputRef.current; if (el) el.setSelectionRange(seed.length, seed.length); });
+  }
   function close() { setOpen(false); setQuery(""); }
   function commit(v) {
     if (disabled) return; // #342: a disabled control must never clear/change its value

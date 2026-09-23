@@ -513,8 +513,13 @@ export const VARIATIONS = [
   },
   {
     "component": "Combobox",
-    "title": "All props",
+    "title": "Spot-edit cell editor (defaultQuery + onOpenChange)",
     "i": 7
+  },
+  {
+    "component": "Combobox",
+    "title": "All props",
+    "i": 8
   },
   {
     "component": "CommandPalette",

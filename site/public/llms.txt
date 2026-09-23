@@ -650,6 +650,7 @@ Props:
 - `options` — `Array<string | ComboboxOption | ComboboxGroup>` · **required** — Defines the selectable items as plain strings, value/label/description objects, or grouped option collections.
 - `value` — `string | null` — Sets the selected option's value in controlled mode, pairing with onChange to keep the field in sync.
 - `defaultValue` — `string | null` · default `null` — Provides the initial selection for uncontrolled usage, defaulting to null so the field starts empty.
+- `defaultQuery` — `string` — Seeds the search input with this text each time the menu opens (caret at the end) without emitting onInputChange — handy for a cell editor pre-filled with the current value.
 - `onChange` — `(value: string | null) => void` — Fires with the newly selected value, or null when the selection is cleared, so you can update state.
 - `clearable` — `boolean` · default `false` — Adds a clear button when a value is selected, letting users reset the field back to an empty selection.
 - `disabled` — `boolean` · default `false` — Blocks typing and selection while dimming the field, indicating the control is currently unavailable.
@@ -657,6 +658,7 @@ Props:
 - `portal` — `boolean` · default `false` — Render the dropdown in a portal (position:fixed on document.body) so it is never clipped by a scrolling/overflow-hidden ancestor; auto-flips up near the viewport bottom.
 - `minWidth` — `number` · default `0` — Minimum popover width in px when portaled (useful when the control is narrow).
 - `onInputChange` — `(query: string) => void` — Called with the raw query on every keystroke — drive a debounced remote fetch (with `loading` + `filter={false}`).
+- `onOpenChange` — `(open: boolean) => void` — Fires with true when the menu opens and false when it closes (including the silent close() that resets the typed query), so a host staging that query can withdraw it.
 - `filter` — `boolean | ((option: ComboboxOption, query: string) => boolean)` — Client-side filtering: `false` shows options as-is (server-ranked); a function replaces the default label/description match.
 - `loading` — `boolean` · default `false` — Show a loading row instead of the option list / empty state.
 - `emptyText` — `string` · default `"No results found"` — Text shown when no options match.

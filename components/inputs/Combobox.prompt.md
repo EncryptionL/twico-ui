@@ -40,3 +40,8 @@ still owns the row chrome (keyboard nav, ARIA `aria-selected`/active state, and 
 `renderOption` takes precedence over `icon`/`hint` and, like `wrapOptions`, disables `virtualized` (custom rows aren't a fixed height).
 
 `tone` (`primary` | `success` | `warning` | `danger` | `info` | `neutral`, default `primary`) recolors the focus/open border and ring accent.
+
+As a **cell editor** (or any host that stages the typed query): `defaultQuery` seeds the search box each time the menu
+opens (caret at the end, e.g. pre-fill the current value for a one-character correction) without emitting an
+`onInputChange`; `onOpenChange(open)` fires on every open↔close transition — including the silent `close()` (chevron,
+Escape, outside click) that resets the typed query — so the host can withdraw whatever it staged when the control drops it.

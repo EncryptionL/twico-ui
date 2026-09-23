@@ -21,6 +21,30 @@ const catalog = [
   { value: "c", label: "Aurora Wireless Speaker — 60W — Bluetooth 5.3 — Slate", description: "catalog · C" },
 ];
 
+// #425 — as a cell editor (or any host that stages the typed query): `defaultQuery` seeds the search box on
+// open for a spot edit, and `onOpenChange` lets the host withdraw a staged draft when the control silently
+// closes (chevron / Escape / outside click). Rendered as a component (not inline) so its hooks are stable.
+function ComboboxCellEditor() {
+  const [staged, setStaged] = React.useState(null);
+  const [committed, setCommitted] = React.useState("Mango");
+  return (
+    <div style={{ width: 340, maxWidth: "100%", display: "grid", gap: 10 }}>
+      <Combobox
+        label="Edit fruit"
+        // Seed the box with the current value each time it opens (caret at end) so one character can be fixed.
+        defaultQuery={committed}
+        options={fruits}
+        onInputChange={(q) => setStaged(q)}   // host stages what the user types
+        onChange={(v) => { if (v) setCommitted(v); setStaged(null); }}
+        onOpenChange={(open) => { if (!open) setStaged(null); }} // withdraw the staged draft when it closes
+      />
+      <div style={{ fontSize: 13, color: "var(--color-fg-muted)" }}>
+        Committed: <b>{committed}</b>{staged != null ? <> · staged: <b>{staged || "(empty)"}</b></> : null}
+      </div>
+    </div>
+  );
+}
+
 function ComboboxAllProps() {
   const [value, setValue] = React.useState("jp"); // or defaultValue for uncontrolled
 
@@ -239,6 +263,29 @@ const variations = [
         </div>
       );
     },
+  },
+  {
+    title: "Spot-edit cell editor (defaultQuery + onOpenChange)",
+    description:
+      "As a datatable cell editor the field owns its text: the typed query is internal, close() (chevron / Escape / outside click) resets it silently, and there was no way to pre-fill it. `defaultQuery` seeds the box on open (caret at the end) so one character can be corrected without retyping; `onOpenChange(open)` fires on every open↔close so a host that staged the query (e.g. with the grid) can withdraw it when the control drops it.",
+    code: `function CellEditor() {
+  const [staged, setStaged] = React.useState(null);
+  const [committed, setCommitted] = React.useState("Mango");
+  return (
+    <>
+      <Combobox
+        label="Edit fruit"
+        defaultQuery={committed}                     // seed on open, caret at end (no onInputChange)
+        options={["Apple", "Banana", "Cherry", "Mango", "Orange", "Pear"]}
+        onInputChange={(q) => setStaged(q)}          // host stages what the user types
+        onChange={(v) => { if (v) setCommitted(v); setStaged(null); }}
+        onOpenChange={(open) => { if (!open) setStaged(null); }} // withdraw the draft on silent close
+      />
+      <div>Committed: <b>{committed}</b>{staged != null && <> · staged: <b>{staged || "(empty)"}</b></>}</div>
+    </>
+  );
+}`,
+    render: () => <ComboboxCellEditor />,
   },
   {
     title: "All props",
