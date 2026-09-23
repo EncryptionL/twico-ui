@@ -35,7 +35,7 @@ const UPLOAD_CSS = `
 .twc-upload__title { font-size: var(--text-sm); color: var(--color-text); font-weight: var(--font-semibold); }
 .twc-upload__title em { color: var(--color-primary); font-style: normal; }
 .twc-upload__hint { font-size: var(--text-xs); color: var(--color-text-subtle); }
-.twc-upload__input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.twc-upload__input { display: none; } /* #415: out of the tab order + a11y tree; inputRef.click() still works */
 .twc-upload__list { display: flex; flex-direction: column; gap: 8px; }
 .twc-upload__file { display: flex; align-items: center; gap: var(--space-3); padding: 9px 12px;
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); }
@@ -92,6 +92,8 @@ export const FileUpload = React.forwardRef(function FileUpload({
   const autoId = React.useId();
   const fieldId = id || autoId;
   const descId = `${fieldId}-desc`;
+  const labelId = `${fieldId}-label`; // #415: htmlFor can't target a div/role="button", so name via aria-labelledby
+  const titleId = `${fieldId}-title`;
   const invalid = Boolean(error);
 
   const set = (next) => { if (value === undefined) setInternal(next); onChange?.(next); };
@@ -107,17 +109,28 @@ export const FileUpload = React.forwardRef(function FileUpload({
   function remove(i) { if (disabled) return; set(files.filter((_, idx) => idx !== i)); } // #342: disabled must not remove
 
   const hiddenInput = (
+    // #415: also tabIndex=-1 + aria-hidden on the element (jsdom can't see the display:none scoped CSS) so it is
+    // never a stray Tab stop / unlabeled control; both click paths (trigger/zone onClick + imperative open()) work.
     <input ref={inputRef} className="twc-upload__input" type="file" accept={accept} multiple={multiple} disabled={disabled}
+      tabIndex={-1} aria-hidden="true"
       onChange={(e) => { if (e.target.files.length) addFiles(e.target.files); e.target.value = ""; }} />
   );
 
   // #406: headless mode — render only the label, the caller's trigger (a click opens the picker), and the
   // hidden input. No dropzone, no file list; the caller owns the list via value/onChange.
   if (trigger) {
+    // #415: name the trigger from `label` (only when it has no own accessible name) and forward the error id,
+    // without ever clobbering the consumer's aria — `htmlFor` can't point at a custom trigger element.
+    const triggerEl = React.isValidElement(trigger)
+      ? React.cloneElement(trigger, {
+          "aria-describedby": [trigger.props["aria-describedby"], error ? descId : null].filter(Boolean).join(" ") || undefined,
+          ...(label && !trigger.props["aria-label"] && !trigger.props["aria-labelledby"] ? { "aria-labelledby": labelId } : {}),
+        })
+      : trigger;
     return (
       <div className={`twc-upload ${className}`} data-size={size} {...rest}>
         {__twcStyles}
-        {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
+        {label ? (<label className="twc-field__label" id={labelId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
         <span
           className="twc-upload__trigger"
           onClick={() => { if (!disabled) inputRef.current?.click(); }}
@@ -126,7 +139,7 @@ export const FileUpload = React.forwardRef(function FileUpload({
           onDrop={dropOnTrigger ? (e) => { e.preventDefault(); setDrag(false); if (!disabled && e.dataTransfer.files.length) addFiles(e.dataTransfer.files); } : undefined}
           data-drag={drag || undefined}
         >
-          {trigger}
+          {triggerEl}
         </span>
         {hiddenInput}
         {error ? <span id={descId} className="twc-field__error">{error}</span> : null}
@@ -138,7 +151,7 @@ export const FileUpload = React.forwardRef(function FileUpload({
     <div className={`twc-upload ${className}`} data-size={size} {...rest}>
       {__twcStyles}
       {label ? (
-        <label className="twc-field__label" htmlFor={fieldId}>
+        <label className="twc-field__label" id={labelId} onClick={() => !disabled && inputRef.current?.click()}>
           {label}{required ? <span className="twc-field__req">*</span> : null}
         </label>
       ) : null}
@@ -149,6 +162,7 @@ export const FileUpload = React.forwardRef(function FileUpload({
         role="button" tabIndex={disabled ? -1 : 0}
         aria-required={required || undefined}
         aria-invalid={invalid || undefined}
+        aria-labelledby={label ? `${labelId} ${titleId}` : undefined}
         aria-describedby={error || hint ? descId : undefined}
         onClick={() => !disabled && inputRef.current?.click()}
         onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && !disabled) { e.preventDefault(); inputRef.current?.click(); } }}
@@ -159,7 +173,7 @@ export const FileUpload = React.forwardRef(function FileUpload({
         <span className="twc-upload__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
         </span>
-        <span className="twc-upload__title"><em>Click to upload</em> or drag and drop</span>
+        <span className="twc-upload__title" id={titleId}><em>Click to upload</em> or drag and drop</span>
         <span className="twc-upload__hint" id={!error && hint ? descId : undefined}>{hint || (accept ? accept.replace(/\./g, "").toUpperCase() : "Any file")}</span>
         {hiddenInput}
       </div>

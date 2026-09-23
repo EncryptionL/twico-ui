@@ -10,7 +10,8 @@ import { Tooltip } from "../overlay/Tooltip.jsx";
 const IV_CSS = `
 .twc-iv { position: relative; display: block; width: 100%; font-family: var(--font-sans); }
 .twc-iv__stage { position: relative; overflow: hidden; width: 100%; height: 100%; min-height: 200px; touch-action: none;
-  background: var(--color-surface-sunken); border-radius: var(--radius-lg); }
+  /* #414: styleable via --twc-iv-bg / --twc-iv-radius (or the radius prop) — current values as the fallback. */
+  background: var(--twc-iv-bg, var(--color-surface-sunken)); border-radius: var(--twc-iv-radius, var(--radius-lg)); }
 .twc-iv__stage:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-iv__stage[data-zoomed="true"] { cursor: grab; }
 .twc-iv__stage[data-dragging="true"] { cursor: grabbing; }
@@ -27,7 +28,7 @@ const IcoPlus = (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 const IcoMinus = (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3M8 11h6"/></svg>);
 const IcoReset = (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.3 2.6L3 8"/><path d="M3 3v5h5"/></svg>);
 
-export function ImageViewer({
+export const ImageViewer = React.forwardRef(function ImageViewer({
   src,
   alt,
   minZoom = 1,
@@ -36,15 +37,18 @@ export function ImageViewer({
   zoom: zoomProp,
   defaultZoom = 1,
   onZoomChange,
+  onStateChange,
   doubleClickZoom = 2,
   controls,
   fit = "contain",
+  radius,
   className = "",
   style,
   ...rest
-}) {
+}, ref) {
   const __twcStyles = useScopedStyles("twc-imageviewer-styles", IV_CSS);
   const stageRef = React.useRef(null);
+  const natRef = React.useRef({ w: 0, h: 0 }); // #414: natural image size, for content-box pan bounds
 
   const [internalZoom, setInternalZoom] = React.useState(clamp(defaultZoom, minZoom, maxZoom));
   const zoomControlled = zoomProp !== undefined;
@@ -58,12 +62,27 @@ export function ImageViewer({
   const applyZoom = (next) => { const z = clamp(next, minZoom, maxZoom); if (!zoomControlled) setInternalZoom(z); onZoomChange?.(z); return z; };
   const reset = () => { applyZoom(minZoom); setOffset({ x: 0, y: 0 }); };
 
-  // Pan bounds: keep the (scaled) image from being dragged off the stage.
+  // #414: the object-fit content box at 1× (so pan bounds match the actual rendered image, not the stage —
+  // tighter for `contain`/`scale-down`, correct for a small image that isn't upscaled). Falls back to the stage
+  // size before the image loads.
+  const contentBox = (r) => {
+    const nw = natRef.current.w, nh = natRef.current.h;
+    if (!nw || !nh) return { cw: r.width, ch: r.height };
+    const sx = r.width / nw, sy = r.height / nh;
+    let sc;
+    if (fit === "cover") sc = Math.max(sx, sy);
+    else if (fit === "none") sc = 1;
+    else if (fit === "scale-down") sc = Math.min(1, Math.min(sx, sy));
+    else sc = Math.min(sx, sy); // contain
+    return { cw: nw * sc, ch: nh * sc };
+  };
+  // Pan bounds: keep the (scaled) content from being dragged off the stage.
   const clampOffset = (off, s) => {
     const r = stageRef.current && stageRef.current.getBoundingClientRect();
     if (!r) return off;
-    const maxX = Math.max(0, (r.width * (s - 1)) / 2);
-    const maxY = Math.max(0, (r.height * (s - 1)) / 2);
+    const { cw, ch } = contentBox(r);
+    const maxX = Math.max(0, (cw * s - r.width) / 2);
+    const maxY = Math.max(0, (ch * s - r.height) / 2);
     return { x: clamp(off.x, -maxX, maxX), y: clamp(off.y, -maxY, maxY) };
   };
 
@@ -144,6 +163,13 @@ export function ImageViewer({
 
   const canZoomIn = zoom < maxZoom, canZoomOut = zoom > minZoom;
   const api = { zoom, zoomIn: () => zoomFromCenter(zoom + step), zoomOut: () => zoomFromCenter(zoom - step), reset, canZoomIn, canZoomOut };
+  // #414: expose the same zoom API via a ref, so a host can drive controls from its own toolbar (controls={false}).
+  React.useImperativeHandle(ref, () => api);
+  // #414: reactive state for a host toolbar's disabled states (pairs with the imperative handle).
+  const onStateChangeRef = React.useRef(onStateChange); onStateChangeRef.current = onStateChange;
+  React.useEffect(() => { onStateChangeRef.current?.({ zoom, canZoomIn, canZoomOut }); }, [zoom, canZoomIn, canZoomOut]);
+  // #414: re-clamp the pan offset when `fit` changes (the content box, hence the bounds, changes with it).
+  React.useEffect(() => { setOffset((o) => clampOffset(o, zoomRef.current)); /* eslint-disable-next-line */ }, [fit]);
   const defaultControls = (
     <div className="twc-iv__controls">
       <Tooltip label="Zoom out" placement="top"><IconButton aria-label="Zoom out" variant="ghost" size="sm" disabled={!canZoomOut} onClick={api.zoomOut} icon={IcoMinus} /></Tooltip>
@@ -159,6 +185,7 @@ export function ImageViewer({
       <div
         ref={stageRef}
         className="twc-iv__stage"
+        style={radius ? { "--twc-iv-radius": `var(--radius-${radius})` } : undefined}
         tabIndex={0}
         role="group"
         aria-label={alt ? `${alt} — zoomable` : "Zoomable image"}
@@ -176,10 +203,12 @@ export function ImageViewer({
           alt={alt}
           className="twc-iv__img"
           draggable={false}
+          onLoad={(e) => { natRef.current = { w: e.currentTarget.naturalWidth, h: e.currentTarget.naturalHeight }; setOffset((o) => clampOffset(o, zoomRef.current)); }}
           style={{ transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`, objectFit: fit }}
         />
       </div>
       {controlsNode}
     </div>
   );
-}
+});
+ImageViewer.displayName = "ImageViewer";

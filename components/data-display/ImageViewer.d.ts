@@ -46,8 +46,23 @@ export interface ImageViewerProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   /** Built-in zoom in/out/reset controls, or your own. Pass a node, a render function receiving the zoom API,
    *  or `false` to hide them. @default the built-in controls */
   controls?: React.ReactNode | ((api: ImageViewerControlsApi) => React.ReactNode) | false;
-  /** How the image fills the stage at 1×. @default "contain" */
-  fit?: "contain" | "cover";
+  /** How the image fills the stage at 1×. #414: `"scale-down"`/`"none"` (like `Image`) avoid upscaling a small
+   *  image; pan bounds follow the rendered image box. @default "contain" */
+  fit?: "contain" | "cover" | "scale-down" | "none";
+  /** #414: reactive zoom state — pair with `controls={false}` to drive your own toolbar's disabled states
+   *  (the imperative `ref` gives the actions). Fires on mount and whenever the state changes. */
+  onStateChange?: (state: ImageViewerState) => void;
+  /** #414: border-radius token for the stage, e.g. `"md"`, `"lg"`, `"full"`. (Or set the `--twc-iv-radius` /
+   *  `--twc-iv-bg` custom properties on the root.) @default "lg" */
+  radius?: string;
 }
 
-export function ImageViewer(props: ImageViewerProps): React.JSX.Element;
+/** #414: the reactive state reported by `onStateChange`. */
+export interface ImageViewerState {
+  zoom: number;
+  canZoomIn: boolean;
+  canZoomOut: boolean;
+}
+
+/** #414: `ref` exposes the zoom API ({@link ImageViewerControlsApi}) so a host toolbar can drive it. */
+export declare const ImageViewer: React.ForwardRefExoticComponent<ImageViewerProps & React.RefAttributes<ImageViewerControlsApi>>;

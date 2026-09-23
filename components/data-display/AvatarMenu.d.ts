@@ -28,8 +28,16 @@ export interface AvatarMenuProps extends Omit<React.HTMLAttributes<HTMLSpanEleme
   /** Show a chevron in the trigger (defaults to `showName`). */
   showChevron?: boolean;
   /** #402: stretch the trigger to full width — the name/subtitle column grows and the chevron pins to the
-   *  inline-end — for a sidebar footer account row (pair with `Sidebar footerInset={false}`). @default false */
+   *  inline-end — for a sidebar footer account row (pair with `Sidebar footerInset={false}`). In fullWidth mode
+   *  the trigger uses a `radius-md` (not pill) and the menu matches the trigger width. @default false */
   fullWidth?: boolean;
+  /** #416: fully replace the built-in menu header (avatar + name + subtitle). */
+  header?: React.ReactNode;
+  /** #416: extra content appended under the name/subtitle in the built-in menu header (e.g. a presence line or
+   *  role badge) — menu only, not the trigger. Ignored when `header` is set. */
+  headerExtra?: React.ReactNode;
+  /** #416: menu popup width in px. @default 240 (or the trigger width when `fullWidth`) */
+  menuWidth?: number;
   /** Menu alignment to the trigger. @default "end" */
   align?: "start" | "end";
 }

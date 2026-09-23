@@ -30,6 +30,23 @@ describe("Sidebar footerInset (#402)", () => {
   });
 });
 
+describe("Sidebar footer bottom edge + AvatarMenu header/width (#417, #416)", () => {
+  it("#417: cancels the foot bottom padding when the footer row is the last child", () => {
+    render(<Sidebar brand="X" items={items} footer={<span>acct</span>} footerInset={false} collapsible={false} />);
+    expect(css()).toMatch(/\.twc-sidebar__foot-user\[data-inset="false"\]:last-child\s*\{[^}]*margin-bottom/);
+  });
+  it("#416: fullWidth drops the fixed menu width and squares the trigger; chevron rotates on open", () => {
+    render(<AvatarMenu name="Ada" showName items={[{ label: "Sign out" }]} fullWidth />);
+    const c = css();
+    expect(c).toMatch(/\.twc-avatar-menu--block \.twc-avatar-menu\s*\{[^}]*border-radius:\s*var\(--radius-md\)/);
+    expect(c).toMatch(/\.twc-avatar-menu\[aria-expanded="true"\] \.twc-avatar-menu__chev\s*\{[^}]*rotate\(180deg\)/);
+  });
+  it("#416: headerExtra + menuWidth are accepted without error", () => {
+    const { container } = render(<AvatarMenu name="Ada" showName items={[{ label: "Out" }]} headerExtra={<span data-extra>Online</span>} menuWidth={320} />);
+    expect(container.querySelector(".twc-avatar-menu")).toBeTruthy();
+  });
+});
+
 describe("AvatarMenu fullWidth (#402)", () => {
   it("adds the --block class to the menu wrap and declares the stretch CSS", () => {
     const { container } = render(<AvatarMenu name="Ada" showName items={[{ label: "Sign out" }]} fullWidth />);
