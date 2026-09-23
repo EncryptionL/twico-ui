@@ -2,6 +2,18 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.41.0](https://github.com/EncryptionL/twico-ui/compare/v1.40.0...v1.41.0) (2026-09-23)
+
+
+### Bug Fixes
+
+* **combobox:** keep active option in sync with a filtering defaultQuery ([2d13c08](https://github.com/EncryptionL/twico-ui/commit/2d13c0813cad21c5cda267f5344b2213715b48e2)), closes [#425](https://github.com/EncryptionL/twico-ui/issues/425)
+
+
+### Features
+
+* **combobox:** add defaultQuery + onOpenChange for cell-editor use ([4d65be7](https://github.com/EncryptionL/twico-ui/commit/4d65be7f0062cf77abd438a1b342393e944f5562))
+
 # [1.40.0](https://github.com/EncryptionL/twico-ui/compare/v1.39.0...v1.40.0) (2026-09-23)
 
 
