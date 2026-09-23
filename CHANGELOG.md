@@ -2,6 +2,23 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.40.0](https://github.com/EncryptionL/twico-ui/compare/v1.39.0...v1.40.0) (2026-09-23)
+
+
+### Bug Fixes
+
+* address adversarial-review findings on the [#410](https://github.com/EncryptionL/twico-ui/issues/410)-424 batch ([f01783f](https://github.com/EncryptionL/twico-ui/commit/f01783f61f6fb93077419362c155a3ad4b64c598)), closes [#410-424](https://github.com/EncryptionL/twico-ui/issues/410-424) [#421](https://github.com/EncryptionL/twico-ui/issues/421)
+* **imageviewer:** restore per-component tree-shaking (size-budget regression) ([20562b4](https://github.com/EncryptionL/twico-ui/commit/20562b4d1dfe7a372a70c6d3fee5c725dbd3a77a))
+
+
+### Features
+
+* **buttons:** keep the pressed look on hover + per-tone pressed fill ([#418](https://github.com/EncryptionL/twico-ui/issues/418), [#411](https://github.com/EncryptionL/twico-ui/issues/411)) ([2c3dd29](https://github.com/EncryptionL/twico-ui/commit/2c3dd2930ff36828f4d329fd30a980ce0edf01eb))
+* **datatable,overlays:** row-action event + disabled a11y, nested disabled-trigger tooltips ([#419](https://github.com/EncryptionL/twico-ui/issues/419), [#420](https://github.com/EncryptionL/twico-ui/issues/420)) ([f0d5409](https://github.com/EncryptionL/twico-ui/commit/f0d5409b680bfe50bdd8f40f4c5ecefd6945dd30))
+* **datatable:** editor Escape/dropdown fix, staged patch + silent draft, per-row editable ([#412](https://github.com/EncryptionL/twico-ui/issues/412), [#413](https://github.com/EncryptionL/twico-ui/issues/413), [#423](https://github.com/EncryptionL/twico-ui/issues/423), [#424](https://github.com/EncryptionL/twico-ui/issues/424)) ([60fde4f](https://github.com/EncryptionL/twico-ui/commit/60fde4f40b8a732ddc74efeb84e16147abed6241))
+* **datatable:** keyboard follow-ups — widget ArrowDown on popup triggers, Enter/Space on in-cell controls, activeCell jump ([#410](https://github.com/EncryptionL/twico-ui/issues/410), [#422](https://github.com/EncryptionL/twico-ui/issues/422), [#421](https://github.com/EncryptionL/twico-ui/issues/421)) ([aad8ed7](https://github.com/EncryptionL/twico-ui/commit/aad8ed7ba7fec46becd257d948cafdc4fa7e019b))
+* **sidebar,fileupload,avatarmenu,imageviewer:** footer edge, a11y, header/width, fit/ref/radius ([#417](https://github.com/EncryptionL/twico-ui/issues/417), [#415](https://github.com/EncryptionL/twico-ui/issues/415), [#416](https://github.com/EncryptionL/twico-ui/issues/416), [#414](https://github.com/EncryptionL/twico-ui/issues/414)) ([6b4c7c0](https://github.com/EncryptionL/twico-ui/commit/6b4c7c0b84cd00995c0f6876ea2426a3c9d060c2))
+
 # [1.39.0](https://github.com/EncryptionL/twico-ui/compare/v1.38.0...v1.39.0) (2026-09-22)
 
 
