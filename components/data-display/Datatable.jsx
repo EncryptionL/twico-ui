@@ -615,6 +615,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__act:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dt__act:active { transform: scale(0.88); }
 .twc-dt__act[data-danger="true"]:hover { background: var(--color-danger-subtle); color: var(--color-danger-subtle-fg); }
+/* #419: a disabled inline action reads as disabled (menu items already do). Pointer-blocking for the
+   aria-disabled (with-reason) case comes from the Tooltip wrap. */
+.twc-dt__act:disabled, .twc-dt__act[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; color: var(--color-text-subtle); }
 .twc-dt__act svg { width: 16px; height: 16px; }
 
 /* Batch (selection) toolbar overlay */
@@ -3031,15 +3034,19 @@ export function Datatable({
           // `disabledReason` (when given) as the tooltip. Non-link actions keep the native <button>.
           const href = !a.disabled ? safeHref(a.href) : undefined;
           const tip = a.disabled && a.disabledReason != null ? a.disabledReason : a.label;
+          // #419: a disabled action WITH a reason renders aria-disabled (not native disabled) so it stays in the
+          // tab order and its Tooltip reason is keyboard-reachable; click + Enter/Space are still blocked.
+          const soft = !!a.disabled && a.disabledReason != null;
           return (
             <Tooltip key={i} label={tip} placement="top">
               {href ? (
                 <a className="twc-dt__act" data-danger={a.danger || undefined} aria-label={a.label}
                   href={href} target={a.target} rel={a.rel}
-                  onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; e.stopPropagation(); a.onClick?.(row); }}>{a.icon}</a>
+                  onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; e.stopPropagation(); a.onClick?.(row, e); }}>{a.icon}</a>
               ) : (
                 <button type="button" className="twc-dt__act" data-danger={a.danger || undefined} aria-label={a.label}
-                  disabled={a.disabled} onClick={(e) => { e.stopPropagation(); a.onClick?.(row); }}>{a.icon}</button>
+                  disabled={a.disabled && !soft} aria-disabled={soft || undefined}
+                  onClick={(e) => { e.stopPropagation(); if (a.disabled) return; a.onClick?.(row, e); }}>{a.icon}</button>
               )}
             </Tooltip>
           );
@@ -4101,12 +4108,12 @@ export function Datatable({
             const done = () => { setRowMenu(null); closeRowMenu(); restoreTriggerFocus(); };
             return href ? (
               <a key={i} role="menuitem" className="twc-dt__mi" href={href} target={a.target} rel={a.rel} style={sty}
-                onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; a.onClick?.(rowMenu.row); done(); }}>
+                onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; a.onClick?.(rowMenu.row, e); done(); }}>
                 {inner}
               </a>
             ) : (
               <button type="button" key={i} role="menuitem" className="twc-dt__mi" disabled={a.disabled} style={sty}
-                onClick={() => { a.onClick?.(rowMenu.row); done(); }}>
+                onClick={(e) => { a.onClick?.(rowMenu.row, e); done(); }}>
                 {inner}
               </button>
             );

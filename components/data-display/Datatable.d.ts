@@ -654,9 +654,11 @@ export interface DatatableRowAction<T = any> {
   icon?: React.ReactNode;
   /** Accessible label / tooltip / menu text. */
   label: string;
-  /** Click handler, receives the row. Still runs for a plain left-click when `href` is set (so client-side
-   *  routing keeps working); modifier and middle clicks fall through to the browser. */
-  onClick?: (row: T) => void;
+  /** Click handler, receives the row and the click event. Still runs for a plain left-click when `href` is set
+   *  (so client-side routing keeps working); #419: call `e.preventDefault()` there to suppress the native
+   *  navigation before you route (otherwise the browser also follows `href` → a full page load). Modifier and
+   *  middle clicks fall through to the browser. */
+  onClick?: (row: T, e: React.MouseEvent) => void;
   /** #399: render this action as a link (`<a>`) — middle-click, open-in-new-tab and copy-address all work.
    *  The URL is scheme-sanitised (`javascript:`/`data:`/`vbscript:` are dropped). A `disabled` action never
    *  emits an href. */
@@ -671,8 +673,9 @@ export interface DatatableRowAction<T = any> {
   danger?: boolean;
   disabled?: boolean;
   /** #399: shown when `disabled` — as the tooltip for an inline action and as an inline hint in the ⋮ menu.
-   *  Reaching an inline disabled action's tooltip by hover/keyboard also needs `focusableWhenDisabled` on the
-   *  trigger (see #398); the menu hint is always reachable. */
+   *  #419: when set, the inline action renders `aria-disabled` (not native `disabled`) so it stays focusable and
+   *  the reason is reachable by hover AND keyboard; click and Enter/Space stay blocked. The menu hint is always
+   *  reachable. */
   disabledReason?: React.ReactNode;
 }
 

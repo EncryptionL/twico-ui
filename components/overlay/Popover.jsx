@@ -37,6 +37,7 @@ export function Popover({
   open: openProp,
   defaultOpen = false,
   onOpenChange,
+  "aria-describedby": ariaDescribedby,
   className = "",
   ...rest
 }) {
@@ -191,10 +192,12 @@ export function Popover({
         "aria-haspopup": "dialog",
         "aria-expanded": open,
         "aria-controls": open ? popId : undefined,
+        // #420: forward an incoming aria-describedby (e.g. from a wrapping Tooltip) to the focusable trigger.
+        "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || undefined,
       })
     : (
         <span role="button" tabIndex={0} aria-haspopup="dialog" aria-expanded={open}
-          aria-controls={open ? popId : undefined} onClick={toggle}
+          aria-controls={open ? popId : undefined} aria-describedby={ariaDescribedby} onClick={toggle}
           onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } }}>
           {trigger}
         </span>
