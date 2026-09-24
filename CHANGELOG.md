@@ -2,6 +2,18 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.42.0](https://github.com/EncryptionL/twico-ui/compare/v1.41.1...v1.42.0) (2026-09-24)
+
+
+### Bug Fixes
+
+* **datatable:** gate row-tree sub-rows in the batch write + document the 4-arg onBatchUpdate ([1cfb163](https://github.com/EncryptionL/twico-ui/commit/1cfb1638aca476b3234800fb547cbcd78662807d)), closes [#432](https://github.com/EncryptionL/twico-ui/issues/432) [#359](https://github.com/EncryptionL/twico-ui/issues/359) [#428](https://github.com/EncryptionL/twico-ui/issues/428) [#428](https://github.com/EncryptionL/twico-ui/issues/428)
+
+
+### Features
+
+* **datatable:** report rowPatches + skippedKeys from onBatchUpdate ([f15be7f](https://github.com/EncryptionL/twico-ui/commit/f15be7f6c9611d099f50df850acc47c3bb769bfa))
+
 ## [1.41.1](https://github.com/EncryptionL/twico-ui/compare/v1.41.0...v1.41.1) (2026-09-24)
 
 
