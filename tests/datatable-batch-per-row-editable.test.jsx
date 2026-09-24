@@ -178,6 +178,36 @@ describe("Datatable batch edit honours per-row editable (#428)", () => {
     expect(detail.rowPatches).toEqual([{ key: "r1", patch: { name: "N" } }]);
   });
 
+  // #432 review: a selected client row-tree sub-row isn't in the top-level `rows`, so it used to fall through
+  // to the "unloaded cross-page" branch and be pushed into selectedKeys with NO predicate test — reporting a
+  // locked cell as safe for a `keys × patch` write, and missing from the skipped accounting entirely.
+  it("does not report a predicate-locked row-tree sub-row as a safe key, and counts it as skipped", () => {
+    const spy = vi.fn();
+    const tcols = [
+      { field: "name", headerName: "Name" },
+      { field: "gated", headerName: "Gated", editable: (row) => row.kind === "open" },
+    ];
+    const parents = [{ id: "p1", name: "Parent", kind: "open", gated: "p" }];
+    const kids = { p1: [{ id: "c1", name: "Locked child", kind: "locked", gated: "c" }] };
+    const { container } = render(
+      <Datatable columns={tcols} rows={parents} rowKey={(r) => r.id} checkboxSelection
+        getRowCanExpand={(r) => !!kids[r.id]} getSubRows={(r) => kids[r.id] || []} onBatchUpdate={spy} />,
+    );
+    fireEvent.click(container.querySelector(".twc-dt__expand-btn")); // splice the child in as a real row
+    const boxes = container.querySelectorAll('[aria-label="Select row"]');
+    expect(boxes.length).toBe(2); // parent + child each have their own checkbox
+    fireEvent.click(boxes[0]); // parent — passes the predicate
+    fireEvent.click(boxes[1]); // locked child
+    fireEvent.click(editBtn(container));
+    openPicker(); pick("Gated");
+    fireEvent.change(beRows()[0].querySelector("input"), { target: { value: "G" } });
+    apply();
+    const [changedRows, , keys, detail] = spy.mock.calls[0];
+    expect(changedRows.map((r) => r.id)).toEqual(["p1"]);
+    expect(keys).toEqual(["p1"]); // the locked child is NOT advertised as safe for a whole-patch write
+    expect(detail.skippedKeys).toEqual(["c1"]); // and it IS honestly counted as skipped
+  });
+
   it("keeps a selected key that is off the loaded page (server-mode cross-page) for server-side apply", () => {
     const spy = vi.fn();
     const { container, rerender } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={spy} />);

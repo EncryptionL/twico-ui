@@ -608,7 +608,7 @@ function DatatableAllProps() {
       editMode={false}                          // true makes every column editable by default
       onRowUpdate={handleRowUpdate}             // (updatedRow, originalRow, field) after a single cell edit
       onRowsChange={handleRowsChange}           // full next rows array after a client-mode edit
-      onBatchUpdate={handleBatchUpdate}         // (changedRows, patch, selectedKeys) after the batch editor applies
+      onBatchUpdate={handleBatchUpdate}         // (changedRows, patch, selectedKeys, detail) after the batch editor applies
       /* ---- click selection (callbacks) ---- */
       selectionMode="cell"                      // "none" | "row" | "cell"
       onCellClick={(value, row, field) => {}}   // fires in "cell" mode
@@ -1219,7 +1219,7 @@ function ServerSideDemo() {
       editMode={false}                          // true makes every column editable by default
       onRowUpdate={(updated) => setRows((p) => p.map((r) => (r.id === updated.id ? updated : r)))}  // (updatedRow, originalRow, field)
       onRowsChange={(next) => setRows(next)}     // full next rows array after a client-mode edit
-      onBatchUpdate={(changed) => setRows((p) => p.map((r) => changed.find((c) => c.id === r.id) || r))}  // (changedRows, patch, selectedKeys)
+      onBatchUpdate={(changed) => setRows((p) => p.map((r) => changed.find((c) => c.id === r.id) || r))}  // (changedRows, patch, selectedKeys, detail)
       /* ---- click selection (callbacks) ---- */
       selectionMode="cell"                      // "none" | "row" | "cell"
       onCellClick={(value, row, field) => {}}   // fires in "cell" mode

@@ -18,7 +18,21 @@
   captured *before* the merge, aligned 1:1 with `changedRows`; `skippedKeys` is the loaded selection nothing applied
   to (off-page keys are excluded — they can't be predicate-tested client-side and stay in `selectedKeys`). Both were
   already computed inside `applyBatchEdit` and thrown away. New exported type `DatatableBatchUpdateDetail` (barrel +
-  `.d.ts`). `Datatable.jsx`/`.d.ts`, `src/index.ts`; `tests/datatable-batch-per-row-editable.test.jsx` (10). — ✓ fixed 2026-09-24
+  `.d.ts`).
+  **Adversarial-review follow-ups:** (a) a selected **client row-tree sub-row** (#359) isn't in the top-level `rows`,
+  so it fell through to the "unloaded cross-page" branch and was pushed into `selectedKeys` with **no predicate
+  test** — advertising a locked cell as safe for a `keys × patch` write (the #428 hazard, for tree children) and
+  leaving it out of the skipped accounting. Selected keys the grid *rendered* are now resolved through
+  `keyIndex`/`leafRows` and gated like a loaded row: only a fully-editable sub-row is a safe key, one nothing
+  applies to is reported in `skippedKeys`, and only genuinely unresolvable keys keep the unconditional push. Sub-rows
+  stay out of `changedRows`/`rowPatches` (–`onRowsChange` takes the top-level array and can't express a nested child,
+  so the grid can't apply them optimistically), which also preserves the documented 1:1 alignment. (b) **§4.1 miss** —
+  only this bug log had been updated; `docs/datatable.md` still documented the 3-arg signature in three places plus a
+  `changedRows` claim false since #428, as did `Datatable.prompt.md`, the `.d.ts` summary line, and two docs-site
+  variation comments. All corrected, and `docs/datatable.md` gained a **"Batch-edit callback payload"** section
+  covering `selectedKeys`/`rowPatches`/`skippedKeys` with the sub-row caveat.
+  `Datatable.jsx`/`.d.ts`, `src/index.ts`, `docs/datatable.md`, `Datatable.prompt.md`;
+  `tests/datatable-batch-per-row-editable.test.jsx` (11). — ✓ fixed 2026-09-24
 
 - [x] **[#428] per-row `editable` (#424) was not applied to the batch write** — the built-in batch editor filtered
   the optimistic rows (`onRowsChange`) by the per-row `editable` predicate, but `onBatchUpdate(changedRows, patch,

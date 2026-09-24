@@ -89,7 +89,7 @@ The exported function reuses the component's own `testFilter`, so the two can ne
 **Every write works in server mode too.** `editable` columns, the batch editor, `checkboxSelection`
 batch actions, and a per-row `actions` column are all independent of `serverMode`. The grid never
 mutates your `rows`; it only reports intent — `onRowUpdate(updatedRow, …)`,
-`onBatchUpdate(changedRows, patch, selectedKeys)`, a `batchActions` handler `(keys, rows, clear)`, and
+`onBatchUpdate(changedRows, patch, selectedKeys, detail)`, a `batchActions` handler `(keys, rows, clear)`, and
 an actions column's `getActions(row)` `onClick`. In server mode you handle each by writing to your
 backend and re-fetching the current page (re-run the last `onServerChange` query). The docs-site
 "Server-side data" variation demonstrates the full set against a simulated 300-row `DB`: inline edit,
@@ -735,11 +735,58 @@ mode; per-column `exportValue` still overrides the cell value.
 When **any column is `editable`** and `checkboxSelection` is on, selecting one or more rows adds a
 built-in **Edit** button to the selection toolbar (next to your `batchActions`). It opens a small
 popover where you **pick the columns to change and set a value for each**, and **Apply** writes them
-across every selected row at once. The grid fires **`onBatchUpdate(changedRows, patch, selectedKeys)`**
-— `patch` is the `{ field: value }` you chose, `changedRows` are the selected rows with that patch
-applied — so you persist it the same way you handle `onRowUpdate` for a single inline edit. This is a
+across every selected row at once. The grid fires **`onBatchUpdate(changedRows, patch, selectedKeys, detail)`**
+— `patch` is the `{ field: value }` you chose, and `changedRows` are the changed rows carrying **only the
+fields each one may change** (a per-row `editable` predicate is applied per cell, #424/#428), so a row the
+predicate locks out of every picked column isn't there at all — so you persist it the same way you handle
+`onRowUpdate` for a single inline edit. See [Batch-edit callback payload](#batch-edit-callback-payload)
+for `selectedKeys` and `detail`. This is a
 separate path from per-row `getActions` (inline action buttons + a `showInMenu` overflow menu) and
 from `batchActions` (your own toolbar buttons over the selection); a grid can use all three at once.
+
+### Batch-edit callback payload
+
+A per-row `editable` predicate (#424) means one batch can legitimately write different fields to
+different rows, which a single `(patch, keys)` pair can't express. So the callback reports four things:
+
+```ts
+onBatchUpdate(
+  changedRows,   // authoritative: each row merged with ONLY the fields it may change
+  patch,         // the column-uniform { field: value } you picked
+  selectedKeys,  // keys a `keys × patch` write can safely apply the WHOLE patch to
+  detail,        // DatatableBatchUpdateDetail — see below
+)
+
+interface DatatableBatchUpdateDetail {
+  rowPatches: Array<{ key: string | number; patch: Record<string, any> }>;
+  skippedKeys: Array<string | number>;
+}
+```
+
+- **`selectedKeys`** (#428) is *not* simply "everything selected". It is the rows on which **every**
+  picked column is editable — so a naive server-side `for (k of keys) write(k, patch)` can never touch a
+  locked cell — plus any selected key on an **unloaded** page, which can't be predicate-tested in the
+  browser and is yours to enforce server-side. A row editable on only *some* picked columns is therefore
+  in `changedRows` but **not** in `selectedKeys`.
+- **`detail.rowPatches`** (#432) is the exact field subset applied to each row, captured *before* it was
+  merged into the row, and aligned 1:1 with `changedRows` (`rowPatches[i]` describes `changedRows[i]`).
+  Use it for a cell-precise per-row write instead of diffing merged rows against their previous values —
+  which is ambiguous exactly when a row already held the value — or re-running every predicate yourself.
+- **`detail.skippedKeys`** (#432) is the rendered selected rows nothing was written to, because no picked
+  column was editable on them. They're in neither `changedRows` nor `selectedKeys`, so this is what lets
+  you report an honest **"Updated 3 rows · 9 skipped"** without shadowing the selection through
+  `onRowSelectionChange`. Unloaded cross-page keys are excluded (they stay in `selectedKeys`).
+
+```jsx
+onBatchUpdate={(changedRows, patch, keys, { rowPatches, skippedKeys }) => {
+  rowPatches.forEach(({ key, patch: p }) => persistRow(key, p)); // cell-precise
+  toast(`Updated ${changedRows.length} rows` + (skippedKeys.length ? ` · ${skippedKeys.length} skipped` : ""));
+}}
+```
+
+> A selected **client row-tree sub-row** (`getSubRows`) can appear in `skippedKeys` or `selectedKeys`, but
+> never in `changedRows`/`rowPatches`: `onRowsChange` receives the top-level array and cannot express a
+> nested child, so the grid can't apply the write optimistically (the same position an off-page key is in).
 
 ### Scaling + escape hatches (#244)
 
@@ -831,7 +878,7 @@ pre-fetching every value up front.
   unchanged.
 - **It's a separate hook from `renderEditCell` on purpose.** A batch clause has no single `row` and no
   `cancel`, and its **`commit(nextValue)` only *stages* the draft** — nothing is written until the user hits
-  **Apply**, which then fires `onBatchUpdate(changedRows, patch, selectedKeys)` as usual. Reusing the inline
+  **Apply**, which then fires `onBatchUpdate(changedRows, patch, selectedKeys, detail)` as usual. Reusing the inline
   signature would hand `row: null` to handlers that read `row`, so the grid doesn't silently fall back to
   `renderEditCell`; declare both when a column needs a rich control in both places.
 - **Portaled dropdowns are exempt from the editor's outside-click dismiss (#250).** twico's overlays
