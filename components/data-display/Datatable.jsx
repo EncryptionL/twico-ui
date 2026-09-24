@@ -35,6 +35,9 @@ const dtNaturalAlign = (c) => (c.type === "number" || c.type === "actions") ? "r
 // guarded elsewhere) and arrow-consuming widgets (listbox/slider/menu/radiogroup) that need arrows themselves.
 const DT_CELL_WIDGET_SEL = 'button:not(:disabled), a[href], [role="button"], [role="switch"], [role="checkbox"], [role="link"]';
 const dtCellWidgets = (td) => td ? Array.from(td.querySelectorAll(DT_CELL_WIDGET_SEL)).filter((el) => el.getAttribute("aria-hidden") !== "true" && el.getAttribute("aria-disabled") !== "true") : [];
+// #433: stable "nothing selected" result for the batch-edit selection scan, so the no-selection fast path keeps a
+// constant identity and the memo downstream of it doesn't recompute on every render.
+const EMPTY_BATCH_SEL = Object.freeze({ testable: Object.freeze([]), hasUntestable: false });
 
 const DT_CSS = `
 .twc-dt { display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--color-text);
@@ -2828,21 +2831,31 @@ export function Datatable({
   // holding a key neither can resolve — a server-mode cross-page selection — which cannot be predicate-tested in
   // the browser at all.
   const batchSel = React.useMemo(() => {
+    // `leafRows` is a fresh slice every render in the paginated path, so this memo effectively re-runs each time —
+    // bail out before walking the dataset in the case that dominates (nothing selected), returning a stable value
+    // so `batchEditableColsSel` below doesn't churn either.
+    if (!selected.size) return EMPTY_BATCH_SEL;
     const testable = [], resolved = new Set();
     const take = (r, i) => { const k = keyOf(r, i); if (selected.has(k) && !resolved.has(k)) { resolved.add(k); testable.push(r); } };
-    rows.forEach(take); leafRows.forEach(take);
+    for (let i = 0; i < rows.length && resolved.size < selected.size; i++) take(rows[i], i);
+    for (let i = 0; i < leafRows.length && resolved.size < selected.size; i++) take(leafRows[i], i);
+    // Only a grid that can have rows it hasn't loaded gets the "can't test it here — the host enforces it
+    // server-side" escape hatch. In client mode `rows` holds every page, so a key that resolves in neither array is
+    // a STALE selection (a row the host removed, or a row-tree child whose parent was collapsed) with no server
+    // behind it: treating that as untestable would silently disable the #428 guard and let a predicate-locked cell
+    // be reported as safe to write.
     let hasUntestable = false;
-    for (const k of selected) if (!resolved.has(k)) { hasUntestable = true; break; }
+    if (serverMode) for (const k of selected) if (!resolved.has(k)) { hasUntestable = true; break; }
     return { testable, hasUntestable };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rows, leafRows, selected]);
+  }, [rows, leafRows, selected, serverMode]);
   // #428: a per-row `editable` predicate column is offered to the batch editor only when at least one SELECTED
   // row passes it — a function is truthy, so `batchEditableCols` alone would list a clause that writes nothing.
   // Static (non-function) columns always qualify. Drives the "Add a column…" picker.
-  // #433: ...but an UNTESTABLE selection (server-mode, rows on an unloaded page) admits the column unconditionally.
-  // `applyBatchEdit` already forwards those keys for the host to enforce server-side, so withholding the column
-  // made the picker's contents depend on which page happened to be on screen — paging away silently dropped every
-  // function-`editable` column, and with it the ability to apply one.
+  // #433: ...but a SERVER-MODE selection holding rows on a page we haven't loaded admits the column unconditionally
+  // (see `batchSel` — client mode never sets that flag). `applyBatchEdit` already forwards those keys for the host
+  // to enforce server-side, so withholding the column made the picker's contents depend on which page happened to be
+  // on screen — paging away silently dropped every function-`editable` column, and with it the ability to apply one.
   const batchEditableColsSel = React.useMemo(
     () => batchEditableCols.filter((c) => typeof c.editable !== "function" || batchSel.hasUntestable || batchSel.testable.some((r) => c.editable(r, { field: c.field }))),
     [batchEditableCols, batchSel],
@@ -2934,7 +2947,11 @@ export function Datatable({
       if (loadedSel.has(k)) continue;
       const li = keyIndex.get(k);
       const sub = li == null ? null : leafRows[li];
-      if (!sub) { safeKeys.push(k); continue; } // genuinely unloaded (server-mode cross-page)
+      // #433: forward an unresolvable key only when the grid can actually HAVE unloaded rows. In server mode that
+      // is a cross-page selection the host will apply + enforce. In client mode `rows` holds every page, so a key
+      // resolving nowhere is a stale selection (row removed, or a row-tree child whose parent is collapsed) with no
+      // server behind it — declaring it safe would hand a `keys × patch` host a predicate-locked cell to write.
+      if (!sub) { if (serverMode) safeKeys.push(k); continue; }
       let allEditable = true, anyEditable = false;
       for (const c of active) {
         if (typeof c.editable !== "function" || c.editable(sub, { field: c.field })) anyEditable = true;

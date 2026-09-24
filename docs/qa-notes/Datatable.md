@@ -19,7 +19,20 @@
   when a selected key neither can resolve, which admits the predicate column unconditionally (matching the apply
   path). The `#428` guard is intact: a selection we *can* test that no row passes still hides the column. Note the
   naive fix (testing against `leafRows` alone) would have *introduced* this bug for client mode, where `rows` holds
-  every page. `Datatable.jsx`, `docs/datatable.md`; `tests/datatable-batch-per-row-editable.test.jsx` (13).
+  every page.
+  **Adversarial-review follow-up:** the first cut set `hasUntestable` from mere unresolvability, with no `serverMode`
+  check — so in **client** mode a *stale* selection (a row the host removed, or a row-tree child whose parent was
+  collapsed) flipped it, silently disabling the #428 guard; `applyBatchEdit`'s leftover loop then pushed that key
+  into `selectedKeys` untested, handing a `keys × patch` host a predicate-locked cell to write **with no server to
+  enforce anything**. The docs added in the same commit said "server-mode cross-page" while the code never checked
+  it. Now the escape hatch is `serverMode`-only on both sides (the picker flag *and* the leftover `safeKeys` push),
+  so a client-mode unresolvable key is neither offered nor declared safe. Also revealed a latent test flaw: the
+  paging-emulation tests (inherited from the #432 ones) swapped `rows` **without** `serverMode`, so they exercised
+  client mode while claiming "unloaded page" — all four now pass `serverMode rowCount`, plus new client-mode guards
+  (collapsed sub-row; paging away from a *failing* row, which pins the `rows` half of the union). Perf: the memo
+  short-circuits on an empty selection to a frozen constant and stops scanning once every key resolves — `leafRows`
+  is a fresh slice each render in the paginated path, so it was re-walking the whole dataset on every render.
+  `Datatable.jsx`, `docs/datatable.md`; `tests/datatable-batch-per-row-editable.test.jsx` (15).
   — ✓ fixed 2026-09-24
 
 - [x] **[#432] `onBatchUpdate` couldn't report skipped rows, and `changedRows` lost the per-row patch** — follow-up
