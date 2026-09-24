@@ -2,10 +2,11 @@
 
 - **Group:** buttons
 - **Status:** clean
-- **Reviewed:** 2026-09-23
+- **Reviewed:** 2026-09-24
 
 ## Open issues
 
+- [x] **[#430] neutral pressed tone invisible in dark mode** — ToggleGroup composes Button, so the fix landed there: the `tone="neutral"` pressed fill moved from `--color-surface-sunken` to `--color-border` (+ a `--color-text-subtle` edge) so the active item is legible on a dark surface panel. See [Button](Button.md). No ToggleGroup code change. — ✓ fixed 2026-09-24
 - [x] **[#411] one tone for the whole group; no per-option meaning colour** — ToggleGroupItem gains `tone`, the group tone widens to the full Tone scale (drives the pressed fill via Button pressedTone; the unpressed look stays ActionTone-safe). `ToggleGroup.jsx`/`.d.ts` — ✓ 2026-09-23
 
 - [x] **[#405] no toggle-button group (only a form RadioGroup or a Tabs tablist existed)** — added

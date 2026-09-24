@@ -1637,7 +1637,7 @@ Props:
 - `editMode` — `boolean` · default `false` — Makes all columns editable inline so users can change cell values directly; off by default.
 - `onRowUpdate` — `(updated,original,field)=>void` · default `-` — Fires when an inline cell edit is committed, receiving the updated row, the original row, and the edited field.
 - `onRowsChange` — `(rows)=>void` · default `-` — Fires with the full next array of rows after an edit, letting you persist the new dataset.
-- `onBatchUpdate` — `(rows,patch,keys)=>void` · default `-` — Fires when a batch edit is applied, receiving the affected rows, the patch object, and the selected keys.
+- `onBatchUpdate` — `(rows,patch,keys)=>void` · default `-` — Fires when a batch edit is applied: (changedRows, patch, selectedKeys). changedRows is authoritative (each row carries only the fields it may change); selectedKeys are the keys a keys×patch write can safely apply the whole patch to.
 - `showPageJumper` — `boolean` · default `true` — Shows a go-to-page input in the pagination footer for jumping directly to a page number; enabled by default.
 - `selectionMode` — `none|row|cell` · default `none` — Sets click-to-select granularity (none, row, or cell), controlling what gets highlighted on click, defaulting to none.
 - `onRowClick` — `(row,key)=>void` · default `-` — Fires with the clicked row and its key, useful for navigation or opening a detail view.

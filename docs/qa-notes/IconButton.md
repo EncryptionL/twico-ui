@@ -2,10 +2,11 @@
 
 - **Group:** buttons
 - **Status:** clean
-- **Reviewed:** 2026-09-23
+- **Reviewed:** 2026-09-24
 
 ## Open issues
 
+- [x] **[#430] neutral pressed tone invisible in dark mode** — mirrored the Button fix: the neutral pressed fill moved from `--color-surface-sunken` (invisible on a dark surface panel) to `--color-border`, with a `--color-text-subtle` edge. See [Button](Button.md) for the full rationale. `IconButton.jsx` — ✓ fixed 2026-09-24
 - [x] **[#418/#411] pressed hover + per-tone pressed fill** — matching-specificity pressed-hover rule + `pressedTone`. `IconButton.jsx`/`.d.ts` — ✓ 2026-09-23
 
 - [x] **[#405] no pressed (toggle) state** — added `pressed` (aria-pressed + soft tone fill), for a pin/unpin or bold/italic icon toggle. `tests/toggle-group.test.jsx`. `IconButton.jsx`/`.d.ts` — ✓ fixed 2026-09-22

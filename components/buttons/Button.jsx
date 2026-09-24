@@ -82,7 +82,11 @@ const CSS = `
 .twc-btn[aria-pressed="true"][data-pressed-tone="warning"] { --_accent: var(--color-warning); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
 .twc-btn[aria-pressed="true"][data-pressed-tone="info"] { --_accent: var(--color-info); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }
 .twc-btn[aria-pressed="true"][data-pressed-tone="danger"] { --_accent: var(--color-danger); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
-.twc-btn[aria-pressed="true"][data-pressed-tone="neutral"] { --_accent: var(--color-border-strong); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text); }
+/* #430: color-surface-sunken steps TOWARD the page background in dark mode (0b1222 under 0f172a), so a neutral
+   pressed fill was invisible on a surface panel. Fill with color-border instead — it steps AWAY from the
+   background in both themes (lighter in dark, darker in light) — and strengthen the edge with color-text-subtle
+   so the outline carries the "on" state too (neutral has no meaning-colour to recolour the label). */
+.twc-btn[aria-pressed="true"][data-pressed-tone="neutral"] { --_accent: var(--color-text-subtle); --_accent-subtle: var(--color-border); --_accent-subtle-fg: var(--color-text); }
 /* #418: keep the pressed look under the pointer — the variant hover rules (0,4,0) otherwise beat the base
    pressed rule (0,2,0). This matching-specificity rule, source-ordered after them, restores the fill/fg/border
    (resetting the text colour too, so solid stays legible — incl. tone="danger"). */

@@ -57,7 +57,10 @@ const ICONBTN_CSS = `
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="warning"] { --_accent: var(--color-warning); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="info"] { --_accent: var(--color-info); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="danger"] { --_accent: var(--color-danger); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
-.twc-iconbtn[aria-pressed="true"][data-pressed-tone="neutral"] { --_accent: var(--color-border-strong); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text); }
+/* #430: color-surface-sunken steps toward the page background in dark mode, so a neutral pressed fill was
+   invisible on a surface panel. Fill with color-border (steps away from the background in both themes) + a
+   stronger color-text-subtle edge so the outline also carries the "on" state. Mirrors Button. */
+.twc-iconbtn[aria-pressed="true"][data-pressed-tone="neutral"] { --_accent: var(--color-text-subtle); --_accent-subtle: var(--color-border); --_accent-subtle-fg: var(--color-text); }
 /* #418: keep the pressed look on hover (matching-specificity, after the variant hover rules). */
 .twc-iconbtn[aria-pressed="true"]:hover:not(:disabled) { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); filter: brightness(0.97); }
 .dark .twc-iconbtn[aria-pressed="true"]:hover:not(:disabled) { filter: brightness(1.25); }

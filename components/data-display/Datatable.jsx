@@ -1810,7 +1810,10 @@ export function Datatable({
   );
   const effectiveHidden = React.useMemo(() => (combineSources.size ? new Set([...hidden, ...combineSources]) : hidden), [hidden, combineSources]);
   const effectiveWrapped = React.useMemo(() => (stackCombineTargets.size ? new Set([...wrapped, ...stackCombineTargets]) : wrapped), [wrapped, stackCombineTargets]);
-  const visibleCols = cols.filter((c) => !effectiveHidden.has(c.field));
+  // #429: memoized — a plain `.filter()` returned a fresh array every render, which re-memoized `ordered` and
+  // thus handed `cellColIndex` (and every consumer of it — the active-cell reveal + jump effects) a new identity
+  // each render. Stable inputs (`cols`, `effectiveHidden` are both memoized) keep it stable across unrelated renders.
+  const visibleCols = React.useMemo(() => cols.filter((c) => !effectiveHidden.has(c.field)), [cols, effectiveHidden]);
   // #191: data-column field ids exposed to server mode for column projection. Exclude
   // synthetic/actions columns (e.g. the auto-added __pinactions__ gutter — it has a real
   // string field but no projectable data). Key the memo on CONTENT (a JSON string), not on
@@ -2670,12 +2673,26 @@ export function Datatable({
   const revealOn = !!scrollActiveCellIntoView;
   const revealBlock = (scrollActiveCellIntoView && typeof scrollActiveCellIntoView === "object" && scrollActiveCellIntoView.block === "center") ? "center" : "nearest";
   const revealInline = (scrollActiveCellIntoView && typeof scrollActiveCellIntoView === "object" && scrollActiveCellIntoView.inline === "center") ? "center" : "nearest";
+  // #429: resolve the target's row/column INDICES at render scope so the effect keys on those primitives instead
+  // of the `keyIndex`/`cellColIndex` object identities. The reveal then fires once per (activeCell, position)
+  // change — an unrelated host render, or a no-op refetch that leaves the row at the same ri/ci, no longer
+  // re-reveals and scrolls the user back; a server-mode page landing (ri undefined→number) or a column reorder
+  // (ci change) still re-reveals because the resolved index actually changes.
+  const revealRi = activeCellVal ? keyIndex.get(activeCellVal.key) : undefined;
+  const revealCi = activeCellVal ? cellColIndex(activeCellVal.field) : -1;
+  // #429: the virtualized pre-scroll below reads `offsets`/`keyIndexMid` through refs (kept fresh every render)
+  // rather than the effect deps — so its rAF retry loop CONVERGES on refined row measurements as the estimated
+  // landing band mounts and re-measures (a stale closure would pre-scroll to the estimate, miss the target, and
+  // spin forever), while the effect itself still keys only on the resolved-index primitives (no re-reveal on an
+  // unrelated render / no-op refetch).
+  const revealOffsetsRef = React.useRef(offsets); revealOffsetsRef.current = offsets;
+  const revealMidRef = React.useRef(keyIndexMid); revealMidRef.current = keyIndexMid;
   React.useEffect(() => {
     if (!revealOn || !activeCellVal) return undefined;
     const block = revealBlock, inline = revealInline;
-    const ri = keyIndex.get(activeCellVal.key), ci = cellColIndex(activeCellVal.field);
+    const ri = revealRi, ci = revealCi;
     if (ri == null || ci < 0) return undefined;
-    let raf = 0;
+    let raf = 0, tries = 0; // cap the pre-scroll retries so a target that never mounts can't spin the rAF forever
     const reveal = () => {
       const sc = scrollRef.current; if (!sc) return;
       const td = gridRef.current && gridRef.current.querySelector(`.twc-dt__td[data-r="${ri}"][data-c="${ci}"]`);
@@ -2692,17 +2709,20 @@ export function Datatable({
           else if (tR.left < scR.left + leftInset) sc.scrollLeft -= (scR.left + leftInset - tR.left);
           else if (tR.right > scR.right - rightInset) sc.scrollLeft += (tR.right - (scR.right - rightInset));
         }
-      } else if (virtualizing && offsets) { // target row not mounted yet — pre-scroll from the prefix-sum, then re-reveal
-        const mi = keyIndexMid.get(activeCellVal.key);
-        if (mi != null && offsets[mi] != null) { sc.scrollTop = Math.max(0, offsets[mi] - (block === "center" ? sc.clientHeight / 2 : headH)); raf = requestAnimationFrame(reveal); }
+      } else if (virtualizing && revealOffsetsRef.current) { // target row not mounted yet — pre-scroll from the prefix-sum, then re-reveal
+        const off = revealOffsetsRef.current; // read fresh each retry so refined measurements converge
+        const mi = revealMidRef.current.get(activeCellVal.key);
+        if (mi != null && off[mi] != null && tries < 30) { tries += 1; sc.scrollTop = Math.max(0, off[mi] - (block === "center" ? sc.clientHeight / 2 : headH)); raf = requestAnimationFrame(reveal); }
       }
     };
     reveal();
     return () => { if (raf) cancelAnimationFrame(raf); };
-    // #395/#421: key on the activeCell + option PRIMITIVES (not the object identities) so a controlled inline
-    // `activeCell={{…}}` / `scrollActiveCellIntoView={{…}}` doesn't re-run — and re-center — every parent render.
+    // #395/#421/#429: key on the activeCell + option + resolved-index PRIMITIVES (not the object identities) so a
+    // controlled inline `activeCell={{…}}` / `scrollActiveCellIntoView={{…}}`, an unrelated parent render, or a
+    // no-op refetch doesn't re-run — and re-center — the reveal. The virtualized pre-scroll reads offsets/keyIndexMid
+    // through refs (above) so its retry loop still converges on fresh measurements without re-keying the effect.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCellVal?.key, activeCellVal?.field, revealOn, revealBlock, revealInline, keyIndex, cellColIndex, virtualizing, offsets, keyIndexMid, headH]);
+  }, [activeCellVal?.key, activeCellVal?.field, revealOn, revealBlock, revealInline, revealRi, revealCi, virtualizing, headH]);
   // #421: a host-driven activeCell change (in any mode) collapses the selection to that cell and moves the roving
   // focus there, so a "jump to cell" doesn't extend a rectangle from the last-clicked anchor or leave arrow-nav
   // behind. Guarded by selfCellSigRef (don't clobber the grid's own click/arrow/Shift+Arrow updates) AND by
@@ -2801,6 +2821,13 @@ export function Datatable({
     },
     [cols, editMode, batchEditKey], // eslint-disable-line react-hooks/exhaustive-deps
   );
+  // #428: a per-row `editable` predicate column is offered to the batch editor only when at least one SELECTED
+  // row passes it — a function is truthy, so `batchEditableCols` alone would list a clause that writes nothing.
+  // Static (non-function) columns always qualify. Drives the "Add a column…" picker.
+  const batchEditableColsSel = React.useMemo(
+    () => batchEditableCols.filter((c) => typeof c.editable !== "function" || selectedRows.some((r) => c.editable(r, { field: c.field }))),
+    [batchEditableCols, selectedRows],
+  );
   // #249: the built-in editor is available on its own — it no longer needs a `batchActions` entry to exist.
   const hasBatchEditor = showBatchEdit && batchEditableCols.length > 0;
   const [batchEdit, setBatchEdit] = React.useState(null); // { fields: {field:true}, values: {field:val} }
@@ -2832,7 +2859,9 @@ export function Datatable({
 
   function applyBatchEdit() {
     if (!batchEdit) return;
-    const active = batchEditableCols.filter((c) => batchEdit.fields[c.field]);
+    // #428: build the patch from the selection-aware set so a picked-then-inapplicable predicate column (its
+    // selected rows changed after it was added) is dropped from `patch` rather than shipped as a dead field.
+    const active = batchEditableColsSel.filter((c) => batchEdit.fields[c.field]);
     if (!active.length) { setBatchEdit(null); closeBatchEdit(); return; }
     const patch = {};
     active.forEach((c) => {
@@ -2841,19 +2870,36 @@ export function Datatable({
       patch[c.field] = v;
     });
     const selKeys = new Set(selected);
-    const changedRows = [];
+    const loadedSel = new Set(); // selected keys present on the currently loaded page
+    const changedRows = []; // authoritative, per-cell: each row carries exactly the fields it may change
+    const safeKeys = []; // #428: keys a `keys × patch` write can safely apply the WHOLE patch to (see below)
     const nextAll = rows.map((r, i) => {
       const k = keyOf(r, i);
       if (!selKeys.has(k)) return r;
+      loadedSel.add(k);
       // #424: a function `editable` column only writes the rows it permits; a static column applies to all.
       const rowPatch = {};
-      for (const c of active) { if (typeof c.editable !== "function" || c.editable(r, { field: c.field })) rowPatch[c.field] = patch[c.field]; }
+      let allEditable = true;
+      for (const c of active) {
+        if (typeof c.editable !== "function" || c.editable(r, { field: c.field })) rowPatch[c.field] = patch[c.field];
+        else allEditable = false;
+      }
+      // #428: `patch` is column-uniform and `keys` is a flat list, so the (patch, keys) pair cannot express
+      // per-cell gating for a MIXED batch (a row editable on one picked column but not another). To keep a
+      // `keys × patch` write safe (never touching a locked cell), a loaded row is a safe key only when EVERY
+      // picked column is editable on it; rows editable on only some columns are still reported fully — per cell —
+      // through `changedRows` (which onRowsChange also gets). For a single picked column, or an all-static batch,
+      // this equals "every changed key" (the common case, incl. the #428 repro).
+      if (allEditable) safeKeys.push(k);
       if (!Object.keys(rowPatch).length) return r;
       const updated = { ...r, ...rowPatch };
       changedRows.push(updated);
       return updated;
     });
-    onBatchUpdate?.(changedRows, patch, [...selected]);
+    // #428: a selected key NOT on the loaded page can't be predicate-tested client-side, so it is kept (server-mode
+    // cross-page: the host applies + enforces the predicate server-side) — unchanged from before.
+    for (const k of selKeys) if (!loadedSel.has(k)) safeKeys.push(k);
+    onBatchUpdate?.(changedRows, patch, safeKeys);
     onRowsChange?.(nextAll);
     setBatchEdit(null); closeBatchEdit();
   }
@@ -3979,11 +4025,13 @@ export function Datatable({
       {batchEdit && batchEditPos ? (() => {
         // #244: pick the columns to change (searchable), then set a value for each — instead of
         // pre-rendering a row per editable column (unusable at ~90). Picked fields keep insertion order.
+        // #428: resolve against the selection-aware set so a picked predicate column drops out of the editor
+        // (rather than lingering as a silent no-op clause) once the selection narrows to rows it can't edit.
         const pickedCols = Object.keys(batchEdit.fields)
           .filter((f) => batchEdit.fields[f])
-          .map((f) => batchEditableCols.find((c) => c.field === f))
+          .map((f) => batchEditableColsSel.find((c) => c.field === f))
           .filter(Boolean);
-        const unpicked = batchEditableCols.filter((c) => !batchEdit.fields[c.field]);
+        const unpicked = batchEditableColsSel.filter((c) => !batchEdit.fields[c.field]); // #428: only offer columns editable on ≥1 selected row
         const addField = (f) => { if (f) setBatchEdit((b) => ({ ...b, fields: { ...b.fields, [f]: true }, values: { ...b.values, [f]: b.values[f] ?? "" } })); };
         const removeField = (f) => setBatchEdit((b) => {
           const fields = { ...b.fields }; delete fields[f];
@@ -4004,7 +4052,9 @@ export function Datatable({
             ) : null}
             <div className="twc-dt__cfg-list">
               {pickedCols.length === 0 ? (
-                <div className="twc-dt__be-empty">Pick a column to set its value on all selected rows.</div>
+                // #428: when a predicate leaves no column editable for the current selection, say so instead of
+                // inviting a pick that can't be made (the "Add a column…" picker is hidden when unpicked is empty).
+                <div className="twc-dt__be-empty">{unpicked.length ? "Pick a column to set its value on all selected rows." : "No columns are editable for the current selection."}</div>
               ) : pickedCols.map((c, i) => {
                 const opts = c.valueOptions ? c.valueOptions.map((o) => (typeof o === "string" ? { value: o, label: o } : o)) : null;
                 return (
