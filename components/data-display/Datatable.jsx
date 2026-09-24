@@ -1810,7 +1810,10 @@ export function Datatable({
   );
   const effectiveHidden = React.useMemo(() => (combineSources.size ? new Set([...hidden, ...combineSources]) : hidden), [hidden, combineSources]);
   const effectiveWrapped = React.useMemo(() => (stackCombineTargets.size ? new Set([...wrapped, ...stackCombineTargets]) : wrapped), [wrapped, stackCombineTargets]);
-  const visibleCols = cols.filter((c) => !effectiveHidden.has(c.field));
+  // #429: memoized — a plain `.filter()` returned a fresh array every render, which re-memoized `ordered` and
+  // thus handed `cellColIndex` (and every consumer of it — the active-cell reveal + jump effects) a new identity
+  // each render. Stable inputs (`cols`, `effectiveHidden` are both memoized) keep it stable across unrelated renders.
+  const visibleCols = React.useMemo(() => cols.filter((c) => !effectiveHidden.has(c.field)), [cols, effectiveHidden]);
   // #191: data-column field ids exposed to server mode for column projection. Exclude
   // synthetic/actions columns (e.g. the auto-added __pinactions__ gutter — it has a real
   // string field but no projectable data). Key the memo on CONTENT (a JSON string), not on
@@ -2670,10 +2673,17 @@ export function Datatable({
   const revealOn = !!scrollActiveCellIntoView;
   const revealBlock = (scrollActiveCellIntoView && typeof scrollActiveCellIntoView === "object" && scrollActiveCellIntoView.block === "center") ? "center" : "nearest";
   const revealInline = (scrollActiveCellIntoView && typeof scrollActiveCellIntoView === "object" && scrollActiveCellIntoView.inline === "center") ? "center" : "nearest";
+  // #429: resolve the target's row/column INDICES at render scope so the effect keys on those primitives instead
+  // of the `keyIndex`/`cellColIndex` object identities. The reveal then fires once per (activeCell, position)
+  // change — an unrelated host render, or a no-op refetch that leaves the row at the same ri/ci, no longer
+  // re-reveals and scrolls the user back; a server-mode page landing (ri undefined→number) or a column reorder
+  // (ci change) still re-reveals because the resolved index actually changes.
+  const revealRi = activeCellVal ? keyIndex.get(activeCellVal.key) : undefined;
+  const revealCi = activeCellVal ? cellColIndex(activeCellVal.field) : -1;
   React.useEffect(() => {
     if (!revealOn || !activeCellVal) return undefined;
     const block = revealBlock, inline = revealInline;
-    const ri = keyIndex.get(activeCellVal.key), ci = cellColIndex(activeCellVal.field);
+    const ri = revealRi, ci = revealCi;
     if (ri == null || ci < 0) return undefined;
     let raf = 0;
     const reveal = () => {
@@ -2699,10 +2709,13 @@ export function Datatable({
     };
     reveal();
     return () => { if (raf) cancelAnimationFrame(raf); };
-    // #395/#421: key on the activeCell + option PRIMITIVES (not the object identities) so a controlled inline
-    // `activeCell={{…}}` / `scrollActiveCellIntoView={{…}}` doesn't re-run — and re-center — every parent render.
+    // #395/#421/#429: key on the activeCell + option + resolved-index PRIMITIVES (not the object identities) so a
+    // controlled inline `activeCell={{…}}` / `scrollActiveCellIntoView={{…}}`, an unrelated parent render, or a
+    // no-op refetch doesn't re-run — and re-center — the reveal. `offsets`/`keyIndexMid` are read in the
+    // virtualized pre-scroll branch via closure; that branch only runs while resolving a not-yet-mounted target
+    // (which changes revealRi), so it always sees fresh values on the runs that matter.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCellVal?.key, activeCellVal?.field, revealOn, revealBlock, revealInline, keyIndex, cellColIndex, virtualizing, offsets, keyIndexMid, headH]);
+  }, [activeCellVal?.key, activeCellVal?.field, revealOn, revealBlock, revealInline, revealRi, revealCi, virtualizing, headH]);
   // #421: a host-driven activeCell change (in any mode) collapses the selection to that cell and moves the roving
   // focus there, so a "jump to cell" doesn't extend a rectangle from the last-clicked anchor or leave arrow-nav
   // behind. Guarded by selfCellSigRef (don't clobber the grid's own click/arrow/Shift+Arrow updates) AND by
@@ -2801,6 +2814,13 @@ export function Datatable({
     },
     [cols, editMode, batchEditKey], // eslint-disable-line react-hooks/exhaustive-deps
   );
+  // #428: a per-row `editable` predicate column is offered to the batch editor only when at least one SELECTED
+  // row passes it — a function is truthy, so `batchEditableCols` alone would list a clause that writes nothing.
+  // Static (non-function) columns always qualify. Drives the "Add a column…" picker.
+  const batchEditableColsSel = React.useMemo(
+    () => batchEditableCols.filter((c) => typeof c.editable !== "function" || selectedRows.some((r) => c.editable(r, { field: c.field }))),
+    [batchEditableCols, selectedRows],
+  );
   // #249: the built-in editor is available on its own — it no longer needs a `batchActions` entry to exist.
   const hasBatchEditor = showBatchEdit && batchEditableCols.length > 0;
   const [batchEdit, setBatchEdit] = React.useState(null); // { fields: {field:true}, values: {field:val} }
@@ -2841,19 +2861,29 @@ export function Datatable({
       patch[c.field] = v;
     });
     const selKeys = new Set(selected);
+    const loadedSel = new Set(); // selected keys present on the currently loaded page
     const changedRows = [];
+    const allowedKeys = []; // #428: selected keys the batch actually applies to (predicate-filtered)
     const nextAll = rows.map((r, i) => {
       const k = keyOf(r, i);
       if (!selKeys.has(k)) return r;
+      loadedSel.add(k);
       // #424: a function `editable` column only writes the rows it permits; a static column applies to all.
       const rowPatch = {};
       for (const c of active) { if (typeof c.editable !== "function" || c.editable(r, { field: c.field })) rowPatch[c.field] = patch[c.field]; }
       if (!Object.keys(rowPatch).length) return r;
       const updated = { ...r, ...rowPatch };
       changedRows.push(updated);
+      allowedKeys.push(k);
       return updated;
     });
-    onBatchUpdate?.(changedRows, patch, [...selected]);
+    // #428: pass the predicate-filtered keys, not every selected key — otherwise a server-backed host that
+    // persists the batch the natural way (`keys × patch`) writes the locked rows. A selected key NOT on the
+    // loaded page can't be predicate-tested client-side, so it is kept (server-mode cross-page: the host applies
+    // and enforces the predicate server-side, unchanged from before) — only loaded rows the predicate rejects
+    // are dropped.
+    for (const k of selKeys) if (!loadedSel.has(k)) allowedKeys.push(k);
+    onBatchUpdate?.(changedRows, patch, allowedKeys);
     onRowsChange?.(nextAll);
     setBatchEdit(null); closeBatchEdit();
   }
@@ -3983,7 +4013,7 @@ export function Datatable({
           .filter((f) => batchEdit.fields[f])
           .map((f) => batchEditableCols.find((c) => c.field === f))
           .filter(Boolean);
-        const unpicked = batchEditableCols.filter((c) => !batchEdit.fields[c.field]);
+        const unpicked = batchEditableColsSel.filter((c) => !batchEdit.fields[c.field]); // #428: only offer columns editable on ≥1 selected row
         const addField = (f) => { if (f) setBatchEdit((b) => ({ ...b, fields: { ...b.fields, [f]: true }, values: { ...b.values, [f]: b.values[f] ?? "" } })); };
         const removeField = (f) => setBatchEdit((b) => {
           const fields = { ...b.fields }; delete fields[f];

@@ -2,10 +2,33 @@
 
 - **Group:** data-display
 - **Status:** clean
-- **Reviewed:** 2026-09-23
+- **Reviewed:** 2026-09-24
 
 ## Open issues
 
+- [x] **[#428] per-row `editable` (#424) was not applied to the batch write** — the built-in batch editor filtered
+  the optimistic rows (`onRowsChange`) by the per-row `editable` predicate, but `onBatchUpdate(changedRows, patch,
+  keys)` still received the *whole* patch and *every* selected key — so a server-backed host persisting the batch
+  the natural way (`keys × patch`) wrote the locked rows. Now `applyBatchEdit` collects `allowedKeys`: a **loaded**
+  selected row the predicate rejects is dropped (mirrors what `onRowsChange` already gets), while a selected key
+  **not on the loaded page** is kept (it can't be predicate-tested client-side — the host applies + enforces it
+  server-side, unchanged; preserves the documented server-mode cross-page contract). Second edge: `batchEditableCols`
+  is truthy for a function `editable`, so a predicate column that no *selected* row passes was still offered in
+  "Add a column…" (a clause that silently did nothing) — a selection-aware `batchEditableColsSel` now drives the
+  picker (offered only when ≥1 selected row passes). Fill/drag-down: n/a (not implemented). `Datatable.jsx`/`.d.ts`;
+  `tests/datatable-batch-per-row-editable.test.jsx` (6). — ✓ fixed 2026-09-24
+- [x] **[#429] the #421 activeCell reveal re-ran on every render (and pulled a revealed cell back on each refetch)**
+  — the reveal effect keyed on `cellColIndex`/`keyIndex` object identities. `visibleCols` was a plain `.filter()`
+  (fresh array every render) → `ordered` re-memoized → `cellColIndex` got a new identity each render → the effect
+  re-ran, re-revealing and scrolling the user back on any host render, and on every refetch (new `rows` → new
+  `keyIndex`). Two fixes: (1) **memoize `visibleCols`** (`[cols, effectiveHidden]`, both memoized) — stabilises
+  `ordered`/`cellColIndex` for *every* consumer (the reveal + the #421 jump effect + the selection-rect memos);
+  (2) resolve the target's `ri`/`ci` at render scope and **key the reveal effect on those index primitives**, not
+  the callbacks — so it fires once per (activeCell, position) change: an unrelated render or a no-op refetch (row
+  still at the same index) no longer pulls the grid back, while a server-mode page landing (ri undefined→number)
+  or a column reorder (ci change) still re-reveals. The optional imperative `scrollToCell(rowKey, field)` from the
+  original issue is deferred (Datatable exposes no ref handle yet). `Datatable.jsx`;
+  `tests/datatable-active-cell-reveal.test.jsx` (2). — ✓ fixed 2026-09-24
 - [x] **[#408] column-menu "Filter" anchored the panel to the FIRST grid's Filters button** — a regression from
   the #386 fix: the ⋮ "Filter" item opened the panel via a document-wide
   `document.querySelector('[data-tbtn="filters"]')`, so with two Datatables (or a table inside a body-portaled

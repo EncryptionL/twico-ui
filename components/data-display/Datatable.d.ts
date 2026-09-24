@@ -213,9 +213,12 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   onRowsChange?: (rows: T[]) => void;
   /** Fired when the built-in batch editor applies columns across selected rows:
    *  (changedRows, patch, selectedKeys). The selection-toolbar "Edit" button appears
-   *  automatically when there are editable columns. Server-mode caveat: `changedRows`
-   *  resolves only rows on the currently loaded page; for cross-page selections use the
-   *  complete `selectedKeys` array and apply the `patch` server-side. */
+   *  automatically when there are editable columns. `selectedKeys` is filtered by any
+   *  per-row `editable` predicate (#428): a loaded row the predicate rejects is dropped,
+   *  so a `keys × patch` write never touches a locked row — mirroring the rows given to
+   *  `onRowsChange`. Server-mode caveat: `changedRows` resolves only rows on the currently
+   *  loaded page; a selected key on an unloaded page can't be predicate-tested client-side,
+   *  so it is kept in `selectedKeys` for you to apply — and enforce the predicate — server-side. */
   onBatchUpdate?: (changedRows: T[], patch: Record<string, any>, selectedKeys: Array<string | number>) => void;
   /** Render the built-in "Edit" button in the selection toolbar (the batch editor). Set `false` to
    *  suppress it and ship your own batch-edit action via `batchActions` — otherwise you'd get two

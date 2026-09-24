@@ -5622,7 +5622,7 @@ export const components = [
         "type": "(rows,patch,keys)=>void",
         "required": false,
         "default": "-",
-        "description": "Fires when a batch edit is applied, receiving the affected rows, the patch object, and the selected keys."
+        "description": "Fires when a batch edit is applied, receiving the changed rows, the patch object, and the selected keys (filtered by any per-row editable predicate, so a keys×patch write skips locked rows)."
       },
       {
         "prop": "showPageJumper",
