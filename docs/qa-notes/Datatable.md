@@ -6,6 +6,20 @@
 
 ## Open issues
 
+- [x] **[#432] `onBatchUpdate` couldn't report skipped rows, and `changedRows` lost the per-row patch** — follow-up
+  to #428. Two reporting gaps, both about what the callback *tells* the host: (1) a loaded selected row on which no
+  picked column is editable lands in neither `changedRows` nor `selectedKeys`, so `selectedKeys.length` is the count
+  *written*, not selected — a host reporting "Updated N rows" silently under-reports a mixed selection, and the only
+  workaround was shadowing the selection through `onRowSelectionChange` into a ref (a second source of truth that can
+  go stale); (2) `changedRows` entries are merged rows (`{...row, ...rowPatch}`), so the applied *subset* is gone —
+  recovering it means diffing each field against its previous value (ambiguous when the row already held the value)
+  or re-running every column's predicate. Fixed with an **additive 4th argument** (existing 3-arg handlers unaffected):
+  `detail: { rowPatches: Array<{ key, patch }>, skippedKeys: Array<key> }`. `rowPatches` is the exact per-row subset
+  captured *before* the merge, aligned 1:1 with `changedRows`; `skippedKeys` is the loaded selection nothing applied
+  to (off-page keys are excluded — they can't be predicate-tested client-side and stay in `selectedKeys`). Both were
+  already computed inside `applyBatchEdit` and thrown away. New exported type `DatatableBatchUpdateDetail` (barrel +
+  `.d.ts`). `Datatable.jsx`/`.d.ts`, `src/index.ts`; `tests/datatable-batch-per-row-editable.test.jsx` (10). — ✓ fixed 2026-09-24
+
 - [x] **[#428] per-row `editable` (#424) was not applied to the batch write** — the built-in batch editor filtered
   the optimistic rows (`onRowsChange`) by the per-row `editable` predicate, but `onBatchUpdate(changedRows, patch,
   keys)` still received the *whole* patch and *every* selected key — so a server-backed host persisting the batch
