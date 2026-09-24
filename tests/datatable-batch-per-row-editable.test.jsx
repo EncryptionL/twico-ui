@@ -208,6 +208,32 @@ describe("Datatable batch edit honours per-row editable (#428)", () => {
     expect(detail.skippedKeys).toEqual(["c1"]); // and it IS honestly counted as skipped
   });
 
+  // #433 — the picker tested predicates against the LOADED selected rows only, while applyBatchEdit forwards an
+  // unloaded selected key for the host to enforce. So in server mode, paging away from the selection silently
+  // dropped every function-`editable` column from "Add a column…" (and with it the ability to apply one). An
+  // untestable selection now admits the column, matching the apply path. The "no selected row passes" test above
+  // is the other half of this branch: a selection we CAN test and that fails still hides the column.
+  it("still offers a predicate column when the whole selection is on an unloaded page (#433)", () => {
+    const { container, rerender } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={() => {}} />);
+    selectRow(container, 0); selectRow(container, 1);
+    // page away — neither selected row is loaded, so neither can be predicate-tested client-side
+    rerender(<Datatable columns={cols} rows={[{ id: "r9", name: "Other", kind: "locked", gated: "z" }]} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={() => {}} />);
+    fireEvent.click(editBtn(container));
+    openPicker();
+    expect(pickerOptions().sort()).toEqual(["Gated", "Name"]); // not hidden just because of which page is on screen
+  });
+
+  it("offers a predicate column when only SOME of the selection is unloaded, even if the loaded part fails (#433)", () => {
+    const { container, rerender } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={() => {}} />);
+    selectRow(container, 0); // r0 — locked, fails the predicate
+    selectRow(container, 1); // r1 — open
+    // r1 drops off the loaded page: the testable part (r0) fails, but r1 is untestable, so the host decides
+    rerender(<Datatable columns={cols} rows={[rows[0]]} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={() => {}} />);
+    fireEvent.click(editBtn(container));
+    openPicker();
+    expect(pickerOptions().sort()).toEqual(["Gated", "Name"]);
+  });
+
   it("keeps a selected key that is off the loaded page (server-mode cross-page) for server-side apply", () => {
     const spy = vi.fn();
     const { container, rerender } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={spy} />);

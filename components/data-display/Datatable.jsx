@@ -2821,12 +2821,31 @@ export function Datatable({
     },
     [cols, editMode, batchEditKey], // eslint-disable-line react-hooks/exhaustive-deps
   );
+  // #433: which selected rows the predicate can actually be tested against — the same universe `applyBatchEdit`
+  // resolves. That is the union of the `rows` array (the whole dataset in client mode, the loaded page in server
+  // mode) and `leafRows` (what is rendered, which adds client row-tree children); testing against only one of the
+  // two would miss selected rows on another client page, or selected sub-rows. `hasUntestable` flags a selection
+  // holding a key neither can resolve — a server-mode cross-page selection — which cannot be predicate-tested in
+  // the browser at all.
+  const batchSel = React.useMemo(() => {
+    const testable = [], resolved = new Set();
+    const take = (r, i) => { const k = keyOf(r, i); if (selected.has(k) && !resolved.has(k)) { resolved.add(k); testable.push(r); } };
+    rows.forEach(take); leafRows.forEach(take);
+    let hasUntestable = false;
+    for (const k of selected) if (!resolved.has(k)) { hasUntestable = true; break; }
+    return { testable, hasUntestable };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rows, leafRows, selected]);
   // #428: a per-row `editable` predicate column is offered to the batch editor only when at least one SELECTED
   // row passes it — a function is truthy, so `batchEditableCols` alone would list a clause that writes nothing.
   // Static (non-function) columns always qualify. Drives the "Add a column…" picker.
+  // #433: ...but an UNTESTABLE selection (server-mode, rows on an unloaded page) admits the column unconditionally.
+  // `applyBatchEdit` already forwards those keys for the host to enforce server-side, so withholding the column
+  // made the picker's contents depend on which page happened to be on screen — paging away silently dropped every
+  // function-`editable` column, and with it the ability to apply one.
   const batchEditableColsSel = React.useMemo(
-    () => batchEditableCols.filter((c) => typeof c.editable !== "function" || selectedRows.some((r) => c.editable(r, { field: c.field }))),
-    [batchEditableCols, selectedRows],
+    () => batchEditableCols.filter((c) => typeof c.editable !== "function" || batchSel.hasUntestable || batchSel.testable.some((r) => c.editable(r, { field: c.field }))),
+    [batchEditableCols, batchSel],
   );
   // #249: the built-in editor is available on its own — it no longer needs a `batchActions` entry to exist.
   const hasBatchEditor = showBatchEdit && batchEditableCols.length > 0;

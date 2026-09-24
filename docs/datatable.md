@@ -797,6 +797,18 @@ its row (label + value input + a remove ✕) is appended; **Apply** is disabled 
 one. So the work is *search/pick*, not *scroll* — and the flow matches what the state already modelled
 (`fields` starts `{}`, i.e. "choose what to change").
 
+**Which columns the picker offers.** A column with a per-row `editable` predicate is only listed when it
+would actually write something — at least one **selected** row passes it (#428). Otherwise you could add a
+clause that silently applies to nothing. Two refinements make that test agree with what Apply does:
+
+- The predicate is tested against every selected row the grid can **resolve** — the `rows` array (the whole
+  dataset in client mode, the loaded page in server mode) plus the rendered rows, which adds client row-tree
+  children. So a selection spanning client pages, or one that includes a sub-row, is still tested properly.
+- If the selection holds a key that **can't** be resolved — a server-mode selection kept across pages — the
+  column is offered anyway (#433). Such a key can't be predicate-tested in the browser, and `applyBatchEdit`
+  already forwards it for you to enforce server-side; withholding the column would make the picker's contents
+  depend on which page happens to be on screen.
+
 - **`showBatchEdit`** (default `true`) — set `false` to suppress the built-in Edit button entirely, so
   you can ship your own batch-edit entry via `batchActions` without ending up with **two** "Edit"
   buttons. Needed when the generic editor can't know your controls (e.g. a master-backed combobox per

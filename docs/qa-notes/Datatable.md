@@ -6,6 +6,22 @@
 
 ## Open issues
 
+- [x] **[#433] the batch-edit picker hid per-row `editable` columns when the selection was on an unloaded page** —
+  the #428 picker filter tested each predicate against `selectedRows` (`rows.filter(...)`, i.e. the *loaded* page in
+  server mode), while `applyBatchEdit` keeps an *unloaded* selected key as eligible (it can't be predicate-tested
+  client-side, so the host enforces it server-side). The two disagreed: with a selection kept across pages, paging
+  away emptied `selectedRows`, so `.some()` was false and **every** function-`editable` column vanished from
+  "Add a column…" — and, since the same list drives `active`, could no longer be applied at all. The picker's
+  contents depended on which page was on screen, which a host can't reason about. Fixed with a `batchSel` memo that
+  (a) resolves the selection against the **union** of `rows` (whole dataset in client mode / loaded page in server
+  mode) and `leafRows` (what's rendered, adding row-tree children) — so a client-mode selection spanning pages, or a
+  selected sub-row, is still tested properly rather than being treated as unloaded — and (b) sets `hasUntestable`
+  when a selected key neither can resolve, which admits the predicate column unconditionally (matching the apply
+  path). The `#428` guard is intact: a selection we *can* test that no row passes still hides the column. Note the
+  naive fix (testing against `leafRows` alone) would have *introduced* this bug for client mode, where `rows` holds
+  every page. `Datatable.jsx`, `docs/datatable.md`; `tests/datatable-batch-per-row-editable.test.jsx` (13).
+  — ✓ fixed 2026-09-24
+
 - [x] **[#432] `onBatchUpdate` couldn't report skipped rows, and `changedRows` lost the per-row patch** — follow-up
   to #428. Two reporting gaps, both about what the callback *tells* the host: (1) a loaded selected row on which no
   picked column is editable lands in neither `changedRows` nor `selectedKeys`, so `selectedKeys.length` is the count
