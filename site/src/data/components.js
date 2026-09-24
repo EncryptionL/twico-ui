@@ -5619,10 +5619,10 @@ export const components = [
       },
       {
         "prop": "onBatchUpdate",
-        "type": "(rows,patch,keys)=>void",
+        "type": "(rows,patch,keys,detail)=>void",
         "required": false,
         "default": "-",
-        "description": "Fires when a batch edit is applied: (changedRows, patch, selectedKeys). changedRows is authoritative (each row carries only the fields it may change); selectedKeys are the keys a keys×patch write can safely apply the whole patch to."
+        "description": "Fires when a batch edit is applied: (changedRows, patch, selectedKeys, detail). changedRows is authoritative; detail gives rowPatches (exact per-row subset) and skippedKeys (selected rows nothing applied to)."
       },
       {
         "prop": "showPageJumper",

@@ -47,6 +47,22 @@ export interface DatatableDiff<T = any> {
   onClassified?: (summary: DiffSummary) => void;
 }
 
+/** Fourth argument to `onBatchUpdate` (#432) — what the merge into `changedRows` would otherwise lose. */
+export interface DatatableBatchUpdateDetail {
+  /** The exact field subset applied to each row, **before** it was merged into the row. Aligned 1:1 with
+   *  `changedRows`, so `rowPatches[i]` describes `changedRows[i]`. Use this for a cell-precise per-row write
+   *  instead of diffing merged rows against their previous values (ambiguous when a row already held the value)
+   *  or re-running every column's `editable` predicate. */
+  rowPatches: Array<{ key: string | number; patch: Record<string, any> }>;
+  /** Selected rows the grid rendered that nothing was written to — no picked column was editable on them.
+   *  They appear in neither `changedRows` nor `selectedKeys`, so this is how you report an honest
+   *  "Updated N rows · M skipped" without shadowing the selection. Excludes unloaded (cross-page) keys, which
+   *  can't be predicate-tested client-side and stay in `selectedKeys`. Includes a selected client row-tree
+   *  sub-row (`getSubRows`) that nothing applies to; note a sub-row is never in `changedRows`/`rowPatches`
+   *  because `onRowsChange` takes the top-level array and cannot express a nested child. */
+  skippedKeys: Array<string | number>;
+}
+
 export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLDivElement>, "rows"> {
   /** Column definitions. */
   columns: DatatableColumn<T>[];
@@ -212,7 +228,7 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   /** Controlled-rows callback: receives the full next rows array after an edit (client mode). */
   onRowsChange?: (rows: T[]) => void;
   /** Fired when the built-in batch editor applies columns across selected rows:
-   *  `(changedRows, patch, selectedKeys)`. The selection-toolbar "Edit" button appears
+   *  `(changedRows, patch, selectedKeys, detail)`. The selection-toolbar "Edit" button appears
    *  automatically when there are editable columns.
    *  - `changedRows` is **authoritative**: each row carries exactly the fields it may change
    *    (a per-row `editable` predicate (#424/#428) is applied per cell). Persist these for a
@@ -223,8 +239,18 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *    locked cell), plus any selected key on an **unloaded** page (which can't be predicate-
    *    tested client-side — you apply and enforce the predicate server-side). For a mixed
    *    batch where a row is editable on only some picked columns, that row is in `changedRows`
-   *    but not `selectedKeys`; use `changedRows` for the exact per-cell result. */
-  onBatchUpdate?: (changedRows: T[], patch: Record<string, any>, selectedKeys: Array<string | number>) => void;
+   *    but not `selectedKeys`; use `changedRows` for the exact per-cell result.
+   *  - `detail` (#432) carries what the merge would otherwise lose: `rowPatches` — the exact
+   *    field subset applied to each row, aligned 1:1 with `changedRows` (for a cell-precise
+   *    per-row write, with no need to diff against previous values or re-run the predicates) —
+   *    and `skippedKeys`, the loaded selected rows nothing applied to, so you can honestly
+   *    report "Updated N · M skipped" without shadowing the selection. */
+  onBatchUpdate?: (
+    changedRows: T[],
+    patch: Record<string, any>,
+    selectedKeys: Array<string | number>,
+    detail: DatatableBatchUpdateDetail,
+  ) => void;
   /** Render the built-in "Edit" button in the selection toolbar (the batch editor). Set `false` to
    *  suppress it and ship your own batch-edit action via `batchActions` — otherwise you'd get two
    *  "Edit" buttons. @default true */

@@ -123,6 +123,91 @@ describe("Datatable batch edit honours per-row editable (#428)", () => {
     expect(keys).toEqual(["r1"]);
   });
 
+  // #432 — the merge into changedRows loses the per-row subset, and a row nothing applied to appears in no list,
+  // so a host could neither do a cell-precise per-row write nor report "Updated N · M skipped". The additive 4th
+  // `detail` arg reports both (`rowPatches` aligned 1:1 with changedRows, `skippedKeys` for the loaded no-ops).
+  it("detail.rowPatches carries the exact per-row subset, aligned 1:1 with changedRows", () => {
+    const spy = vi.fn();
+    const { container } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={spy} />);
+    selectRow(container, 0); selectRow(container, 1);
+    fireEvent.click(editBtn(container));
+    openPicker(); pick("Name");   // static → applies to both
+    openPicker(); pick("Gated");  // predicate → only r1
+    const inputs = document.querySelectorAll(".twc-dt__be-row input");
+    fireEvent.change(inputs[0], { target: { value: "N" } });
+    fireEvent.change(inputs[1], { target: { value: "G" } });
+    apply();
+    const [changedRows, , , detail] = spy.mock.calls[0];
+    expect(detail.rowPatches).toEqual([
+      { key: "r0", patch: { name: "N" } },              // locked row: only the static field
+      { key: "r1", patch: { name: "N", gated: "G" } },  // open row: both
+    ]);
+    // aligned 1:1 with changedRows, so rowPatches[i] describes changedRows[i]
+    expect(detail.rowPatches.map((p) => p.key)).toEqual(changedRows.map((r) => r.id));
+  });
+
+  it("detail.skippedKeys names the loaded selected rows nothing applied to", () => {
+    const spy = vi.fn();
+    const { container } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={spy} />);
+    selectRow(container, 0); selectRow(container, 1);
+    fireEvent.click(editBtn(container));
+    openPicker(); pick("Gated"); // only r1 is editable → r0 is skipped entirely
+    fireEvent.change(beRows()[0].querySelector("input"), { target: { value: "G" } });
+    apply();
+    const [changedRows, , keys, detail] = spy.mock.calls[0];
+    expect(detail.skippedKeys).toEqual(["r0"]);
+    expect(changedRows.map((r) => r.id)).toEqual(["r1"]);
+    expect(keys).toEqual(["r1"]);
+    // the honest toast: "Updated 1 · 1 skipped" — no need to shadow the selection
+    expect(changedRows.length + detail.skippedKeys.length).toBe(2);
+  });
+
+  it("detail.skippedKeys is empty when every selected row is written, and excludes off-page keys", () => {
+    const spy = vi.fn();
+    const { container, rerender } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={spy} />);
+    selectRow(container, 0); selectRow(container, 1);
+    // drop r0 off the loaded page — it can't be predicate-tested, so it is NOT "skipped", it stays in keys
+    rerender(<Datatable columns={cols} rows={[rows[1]]} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={spy} />);
+    fireEvent.click(editBtn(container));
+    openPicker(); pick("Name");
+    fireEvent.change(beRows()[0].querySelector("input"), { target: { value: "N" } });
+    apply();
+    const [, , keys, detail] = spy.mock.calls[0];
+    expect(detail.skippedKeys).toEqual([]);          // nothing loaded was left unwritten
+    expect([...keys].sort()).toEqual(["r0", "r1"]);  // off-page r0 still reported for server-side apply
+    expect(detail.rowPatches).toEqual([{ key: "r1", patch: { name: "N" } }]);
+  });
+
+  // #432 review: a selected client row-tree sub-row isn't in the top-level `rows`, so it used to fall through
+  // to the "unloaded cross-page" branch and be pushed into selectedKeys with NO predicate test — reporting a
+  // locked cell as safe for a `keys × patch` write, and missing from the skipped accounting entirely.
+  it("does not report a predicate-locked row-tree sub-row as a safe key, and counts it as skipped", () => {
+    const spy = vi.fn();
+    const tcols = [
+      { field: "name", headerName: "Name" },
+      { field: "gated", headerName: "Gated", editable: (row) => row.kind === "open" },
+    ];
+    const parents = [{ id: "p1", name: "Parent", kind: "open", gated: "p" }];
+    const kids = { p1: [{ id: "c1", name: "Locked child", kind: "locked", gated: "c" }] };
+    const { container } = render(
+      <Datatable columns={tcols} rows={parents} rowKey={(r) => r.id} checkboxSelection
+        getRowCanExpand={(r) => !!kids[r.id]} getSubRows={(r) => kids[r.id] || []} onBatchUpdate={spy} />,
+    );
+    fireEvent.click(container.querySelector(".twc-dt__expand-btn")); // splice the child in as a real row
+    const boxes = container.querySelectorAll('[aria-label="Select row"]');
+    expect(boxes.length).toBe(2); // parent + child each have their own checkbox
+    fireEvent.click(boxes[0]); // parent — passes the predicate
+    fireEvent.click(boxes[1]); // locked child
+    fireEvent.click(editBtn(container));
+    openPicker(); pick("Gated");
+    fireEvent.change(beRows()[0].querySelector("input"), { target: { value: "G" } });
+    apply();
+    const [changedRows, , keys, detail] = spy.mock.calls[0];
+    expect(changedRows.map((r) => r.id)).toEqual(["p1"]);
+    expect(keys).toEqual(["p1"]); // the locked child is NOT advertised as safe for a whole-patch write
+    expect(detail.skippedKeys).toEqual(["c1"]); // and it IS honestly counted as skipped
+  });
+
   it("keeps a selected key that is off the loaded page (server-mode cross-page) for server-side apply", () => {
     const spy = vi.fn();
     const { container, rerender } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={spy} />);

@@ -2873,6 +2873,11 @@ export function Datatable({
     const loadedSel = new Set(); // selected keys present on the currently loaded page
     const changedRows = []; // authoritative, per-cell: each row carries exactly the fields it may change
     const safeKeys = []; // #428: keys a `keys × patch` write can safely apply the WHOLE patch to (see below)
+    // #432: the merge into `changedRows` loses the per-row SUBSET that was applied, and a row on which nothing
+    // was editable appears in no list at all — so a host can neither do a cell-precise per-row write nor tell the
+    // user how many of their selection were left alone. Both are already computed here; report them in `detail`.
+    const rowPatches = []; // { key, patch } — aligned 1:1 with changedRows
+    const skippedKeys = []; // selected + loaded, but NO picked column was editable → nothing written
     const nextAll = rows.map((r, i) => {
       const k = keyOf(r, i);
       if (!selKeys.has(k)) return r;
@@ -2891,15 +2896,38 @@ export function Datatable({
       // through `changedRows` (which onRowsChange also gets). For a single picked column, or an all-static batch,
       // this equals "every changed key" (the common case, incl. the #428 repro).
       if (allEditable) safeKeys.push(k);
-      if (!Object.keys(rowPatch).length) return r;
+      if (!Object.keys(rowPatch).length) { skippedKeys.push(k); return r; }
       const updated = { ...r, ...rowPatch };
       changedRows.push(updated);
+      rowPatches.push({ key: k, patch: rowPatch });
       return updated;
     });
     // #428: a selected key NOT on the loaded page can't be predicate-tested client-side, so it is kept (server-mode
-    // cross-page: the host applies + enforces the predicate server-side) — unchanged from before.
-    for (const k of selKeys) if (!loadedSel.has(k)) safeKeys.push(k);
-    onBatchUpdate?.(changedRows, patch, safeKeys);
+    // cross-page: the host applies + enforces the predicate server-side).
+    // #432: but a key the grid RENDERED while the top-level `rows` doesn't contain it — a client row-tree sub-row
+    // (#359), which carries its own select checkbox — IS testable, and blindly trusting it would report a
+    // predicate-locked cell as safe for a `keys × patch` write. Resolve those through keyIndex/leafRows and gate
+    // them like a loaded row: only a fully-editable sub-row is a safe key; one nothing applies to is reported as
+    // skipped. They stay out of changedRows/rowPatches — `onRowsChange` takes the top-level array and can't express
+    // a nested child, so the grid can't apply them optimistically (same as an off-page key) and the 1:1 alignment
+    // between rowPatches and changedRows holds.
+    for (const k of selKeys) {
+      if (loadedSel.has(k)) continue;
+      const li = keyIndex.get(k);
+      const sub = li == null ? null : leafRows[li];
+      if (!sub) { safeKeys.push(k); continue; } // genuinely unloaded (server-mode cross-page)
+      let allEditable = true, anyEditable = false;
+      for (const c of active) {
+        if (typeof c.editable !== "function" || c.editable(sub, { field: c.field })) anyEditable = true;
+        else allEditable = false;
+      }
+      if (allEditable) safeKeys.push(k);
+      if (!anyEditable) skippedKeys.push(k);
+    }
+    // #432: additive 4th arg — `rowPatches` (the exact per-row subset, before the merge into changedRows) and
+    // `skippedKeys` (loaded selection that nothing applied to, so a host can report "Updated N · M skipped"
+    // without shadowing the selection). Existing 3-arg handlers are unaffected.
+    onBatchUpdate?.(changedRows, patch, safeKeys, { rowPatches, skippedKeys });
     onRowsChange?.(nextAll);
     setBatchEdit(null); closeBatchEdit();
   }
