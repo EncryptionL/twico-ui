@@ -815,6 +815,27 @@ one. So the work is *search/pick*, not *scroll* — and the flow matches what th
   `batchActions` the condition is identical); a host that wants neither passes `showBatchEdit={false}` +
   `batchActions={[]}`.
 
+### Which columns the picker offers (#428, #433)
+
+A column with a per-row `editable` predicate is only listed when it would actually write something — at
+least one **selected** row passes it (#428). Otherwise you could add a clause that silently applies to
+nothing. Two details make that test agree with what **Apply** then does:
+
+- The predicate is tested against every selected row the grid can **resolve**: the `rows` array (the whole
+  dataset in client mode, the loaded page in server mode) *plus* the rendered rows, which adds client
+  row-tree children. So a selection spanning client pages, or one including a sub-row, is still tested
+  properly rather than mistaken for something unreachable.
+- In **server mode only**, if the selection holds a key that resolves in neither — rows on a page you
+  haven't loaded — the column is offered anyway (#433). Such a key can't be predicate-tested in the
+  browser, and `onBatchUpdate` already forwards it in `selectedKeys` for you to enforce server-side;
+  withholding the column would make the picker's contents depend on which page happens to be on screen.
+
+In **client mode** that escape hatch deliberately does not apply: `rows` already holds every page, so a key
+resolving nowhere is a *stale* selection — a row the host removed while it stayed selected, or a row-tree
+child whose parent was collapsed — and there is no server to enforce anything. Such a key is treated as
+untestable-and-unsafe: it neither unlocks the column in the picker nor appears in `selectedKeys`, so a
+`keys × patch` write can't touch it. (Clear the selection when you remove rows under it.)
+
 ### A batch action can anchor its own popover (#246)
 
 `showBatchEdit={false}` lets a host **replace** the built-in editor with its own `batchActions` entry —

@@ -6,6 +6,35 @@
 
 ## Open issues
 
+- [x] **[#433] the batch-edit picker hid per-row `editable` columns when the selection was on an unloaded page** —
+  the #428 picker filter tested each predicate against `selectedRows` (`rows.filter(...)`, i.e. the *loaded* page in
+  server mode), while `applyBatchEdit` keeps an *unloaded* selected key as eligible (it can't be predicate-tested
+  client-side, so the host enforces it server-side). The two disagreed: with a selection kept across pages, paging
+  away emptied `selectedRows`, so `.some()` was false and **every** function-`editable` column vanished from
+  "Add a column…" — and, since the same list drives `active`, could no longer be applied at all. The picker's
+  contents depended on which page was on screen, which a host can't reason about. Fixed with a `batchSel` memo that
+  (a) resolves the selection against the **union** of `rows` (whole dataset in client mode / loaded page in server
+  mode) and `leafRows` (what's rendered, adding row-tree children) — so a client-mode selection spanning pages, or a
+  selected sub-row, is still tested properly rather than being treated as unloaded — and (b) sets `hasUntestable`
+  when a selected key neither can resolve, which admits the predicate column unconditionally (matching the apply
+  path). The `#428` guard is intact: a selection we *can* test that no row passes still hides the column. Note the
+  naive fix (testing against `leafRows` alone) would have *introduced* this bug for client mode, where `rows` holds
+  every page.
+  **Adversarial-review follow-up:** the first cut set `hasUntestable` from mere unresolvability, with no `serverMode`
+  check — so in **client** mode a *stale* selection (a row the host removed, or a row-tree child whose parent was
+  collapsed) flipped it, silently disabling the #428 guard; `applyBatchEdit`'s leftover loop then pushed that key
+  into `selectedKeys` untested, handing a `keys × patch` host a predicate-locked cell to write **with no server to
+  enforce anything**. The docs added in the same commit said "server-mode cross-page" while the code never checked
+  it. Now the escape hatch is `serverMode`-only on both sides (the picker flag *and* the leftover `safeKeys` push),
+  so a client-mode unresolvable key is neither offered nor declared safe. Also revealed a latent test flaw: the
+  paging-emulation tests (inherited from the #432 ones) swapped `rows` **without** `serverMode`, so they exercised
+  client mode while claiming "unloaded page" — all four now pass `serverMode rowCount`, plus new client-mode guards
+  (collapsed sub-row; paging away from a *failing* row, which pins the `rows` half of the union). Perf: the memo
+  short-circuits on an empty selection to a frozen constant and stops scanning once every key resolves — `leafRows`
+  is a fresh slice each render in the paginated path, so it was re-walking the whole dataset on every render.
+  `Datatable.jsx`, `docs/datatable.md`; `tests/datatable-batch-per-row-editable.test.jsx` (15).
+  — ✓ fixed 2026-09-24
+
 - [x] **[#432] `onBatchUpdate` couldn't report skipped rows, and `changedRows` lost the per-row patch** — follow-up
   to #428. Two reporting gaps, both about what the callback *tells* the host: (1) a loaded selected row on which no
   picked column is editable lands in neither `changedRows` nor `selectedKeys`, so `selectedKeys.length` is the count

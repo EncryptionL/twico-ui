@@ -164,10 +164,10 @@ describe("Datatable batch edit honours per-row editable (#428)", () => {
 
   it("detail.skippedKeys is empty when every selected row is written, and excludes off-page keys", () => {
     const spy = vi.fn();
-    const { container, rerender } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={spy} />);
+    const { container, rerender } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection serverMode rowCount={2} onBatchUpdate={spy} />);
     selectRow(container, 0); selectRow(container, 1);
     // drop r0 off the loaded page — it can't be predicate-tested, so it is NOT "skipped", it stays in keys
-    rerender(<Datatable columns={cols} rows={[rows[1]]} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={spy} />);
+    rerender(<Datatable columns={cols} rows={[rows[1]]} rowKey={(r) => r.id} checkboxSelection serverMode rowCount={2} onBatchUpdate={spy} />);
     fireEvent.click(editBtn(container));
     openPicker(); pick("Name");
     fireEvent.change(beRows()[0].querySelector("input"), { target: { value: "N" } });
@@ -208,13 +208,83 @@ describe("Datatable batch edit honours per-row editable (#428)", () => {
     expect(detail.skippedKeys).toEqual(["c1"]); // and it IS honestly counted as skipped
   });
 
+  // #433 — the picker tested predicates against the LOADED selected rows only, while applyBatchEdit forwards an
+  // unloaded selected key for the host to enforce. So in server mode, paging away from the selection silently
+  // dropped every function-`editable` column from "Add a column…" (and with it the ability to apply one). An
+  // untestable selection now admits the column, matching the apply path. The "no selected row passes" test above
+  // is the other half of this branch: a selection we CAN test and that fails still hides the column.
+  it("still offers a predicate column when the whole selection is on an unloaded page (#433)", () => {
+    const { container, rerender } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection serverMode rowCount={2} onBatchUpdate={() => {}} />);
+    selectRow(container, 0); selectRow(container, 1);
+    // page away — neither selected row is loaded, so neither can be predicate-tested client-side
+    rerender(<Datatable columns={cols} rows={[{ id: "r9", name: "Other", kind: "locked", gated: "z" }]} rowKey={(r) => r.id} checkboxSelection serverMode rowCount={2} onBatchUpdate={() => {}} />);
+    fireEvent.click(editBtn(container));
+    openPicker();
+    expect(pickerOptions().sort()).toEqual(["Gated", "Name"]); // not hidden just because of which page is on screen
+  });
+
+  it("offers a predicate column when only SOME of the selection is unloaded, even if the loaded part fails (#433)", () => {
+    const { container, rerender } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection serverMode rowCount={2} onBatchUpdate={() => {}} />);
+    selectRow(container, 0); // r0 — locked, fails the predicate
+    selectRow(container, 1); // r1 — open
+    // r1 drops off the loaded page: the testable part (r0) fails, but r1 is untestable, so the host decides
+    rerender(<Datatable columns={cols} rows={[rows[0]]} rowKey={(r) => r.id} checkboxSelection serverMode rowCount={2} onBatchUpdate={() => {}} />);
+    fireEvent.click(editBtn(container));
+    openPicker();
+    expect(pickerOptions().sort()).toEqual(["Gated", "Name"]);
+  });
+
+  // #433 review: the "can't test it here, the host enforces it server-side" escape hatch must be limited to grids
+  // that can actually HAVE unloaded rows. In client mode `rows` holds every page, so a key resolving nowhere is a
+  // STALE selection with no server behind it — treating it as untestable would silently disable the #428 guard and
+  // then report a predicate-locked row as a safe `keys × patch` target.
+  it("client mode: a selected row-tree child whose parent is collapsed does NOT admit the column or become a safe key", () => {
+    const spy = vi.fn();
+    const tcols = [
+      { field: "name", headerName: "Name", editable: true },
+      { field: "gated", headerName: "Gated", editable: (row) => row.kind === "open" },
+    ];
+    const parents = [{ id: "p1", name: "Parent", kind: "open", gated: "p" }];
+    const kids = { p1: [{ id: "c1", name: "Locked child", kind: "locked", gated: "c" }] };
+    const { container } = render(
+      <Datatable columns={tcols} rows={parents} rowKey={(r) => r.id} checkboxSelection
+        getRowCanExpand={(r) => !!kids[r.id]} getSubRows={(r) => kids[r.id] || []} onBatchUpdate={spy} />,
+    );
+    fireEvent.click(container.querySelector(".twc-dt__expand-btn")); // expand
+    fireEvent.click(container.querySelectorAll('[aria-label="Select row"]')[1]); // tick the locked child only
+    fireEvent.click(container.querySelector(".twc-dt__expand-btn")); // collapse — c1 now resolves nowhere
+    fireEvent.click(editBtn(container));
+    openPicker();
+    expect(pickerOptions()).toEqual(["Name"]); // "Gated" stays withheld — no server to enforce it
+    pick("Name");
+    fireEvent.change(beRows()[0].querySelector("input"), { target: { value: "X" } });
+    apply();
+    const [changedRows, , keys] = spy.mock.calls[0];
+    expect(changedRows).toEqual([]);
+    expect(keys).toEqual([]); // the unresolvable client-mode key is NOT advertised as safe to write
+  });
+
+  // Pins the `rows` half of the union: in client mode `rows` spans every page, so a selected row that has scrolled
+  // off the rendered page is still predicate-testable. (Testing against the rendered rows alone would have
+  // re-introduced #433 here — the column would wrongly reappear.)
+  it("client mode: paging away from a FAILING selected row still withholds the predicate column", () => {
+    const { container } = render(
+      <Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection pageSize={1} onBatchUpdate={() => {}} />,
+    );
+    selectRow(container, 0); // r0 — locked, fails the predicate
+    fireEvent.click(container.querySelector('[aria-label="Next page"]')); // r0 is no longer rendered
+    fireEvent.click(editBtn(container));
+    openPicker();
+    expect(pickerOptions()).toEqual(["Name"]); // still testable via `rows`, still correctly hidden
+  });
+
   it("keeps a selected key that is off the loaded page (server-mode cross-page) for server-side apply", () => {
     const spy = vi.fn();
-    const { container, rerender } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={spy} />);
+    const { container, rerender } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection serverMode rowCount={2} onBatchUpdate={spy} />);
     selectRow(container, 0); // r0
     selectRow(container, 1); // r1
     // a server-mode page change drops r0 from the loaded rows while it stays selected
-    rerender(<Datatable columns={cols} rows={[rows[1]]} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={spy} />);
+    rerender(<Datatable columns={cols} rows={[rows[1]]} rowKey={(r) => r.id} checkboxSelection serverMode rowCount={2} onBatchUpdate={spy} />);
     fireEvent.click(editBtn(container));
     openPicker(); pick("Name"); // static column — no predicate to test the loaded row against
     fireEvent.change(beRows()[0].querySelector("input"), { target: { value: "Renamed" } });
