@@ -2,6 +2,15 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.41.1](https://github.com/EncryptionL/twico-ui/compare/v1.41.0...v1.41.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **button:** make the neutral pressed tone legible in dark mode ([7cd0cf0](https://github.com/EncryptionL/twico-ui/commit/7cd0cf019b44be2246b2dde870325fffc2c9228c)), closes [#411](https://github.com/EncryptionL/twico-ui/issues/411) [#0b1222](https://github.com/EncryptionL/twico-ui/issues/0b1222) [#0f172a](https://github.com/EncryptionL/twico-ui/issues/0f172a) [#411](https://github.com/EncryptionL/twico-ui/issues/411)
+* **datatable:** apply per-row editable to batch write ([#428](https://github.com/EncryptionL/twico-ui/issues/428)) + reveal once per activeCell ([#429](https://github.com/EncryptionL/twico-ui/issues/429)) ([363044f](https://github.com/EncryptionL/twico-ui/commit/363044f10c4dafcc90caf68b5d8464a7ccff7e41)), closes [#424](https://github.com/EncryptionL/twico-ui/issues/424)
+* **datatable:** make batch keys×patch safe for mixed columns ([#428](https://github.com/EncryptionL/twico-ui/issues/428)) + converge virtualized reveal ([#429](https://github.com/EncryptionL/twico-ui/issues/429)) ([394a79c](https://github.com/EncryptionL/twico-ui/commit/394a79caacc8136403fa6b5386a53cd6b1d64021))
+
 # [1.41.0](https://github.com/EncryptionL/twico-ui/compare/v1.40.0...v1.41.0) (2026-09-23)
 
 
