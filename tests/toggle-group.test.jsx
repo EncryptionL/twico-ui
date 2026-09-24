@@ -42,7 +42,29 @@ describe("Button/IconButton pressed hover + tone (#418, #411)", () => {
   it("pressedTone emits data-pressed-tone and defines the neutral mapping (#411)", () => {
     const { getByRole } = render(<Button pressed pressedTone="success">x</Button>);
     expect(getByRole("button").getAttribute("data-pressed-tone")).toBe("success");
-    expect(css()).toMatch(/\[data-pressed-tone="neutral"\]\s*\{[^}]*--_accent-subtle:\s*var\(--color-surface-sunken\)/);
+    // #430: the neutral pressed fill uses --color-border (not --color-surface-sunken, which was invisible in dark)
+    expect(css()).toMatch(/\[data-pressed-tone="neutral"\]\s*\{[^}]*--_accent-subtle:\s*var\(--color-border\)/);
+  });
+});
+
+// #430: the neutral pressed tone filled with --color-surface-sunken, which steps toward the page background in
+// dark mode (0b1222 under 0f172a) and was invisible on a surface panel. It now fills with --color-border (steps
+// away from the bg in both themes) and strengthens the edge with --color-text-subtle so the "on" state reads.
+describe("Button/IconButton neutral pressed tone legibility (#430)", () => {
+  const css = () => Array.from(document.querySelectorAll("style")).map((s) => s.textContent).join("\n");
+  it("Button neutral pressed fills with --color-border + a --color-text-subtle edge (never surface-sunken)", () => {
+    render(<Button pressed pressedTone="neutral">x</Button>);
+    const rule = css().match(/\.twc-btn\[aria-pressed="true"\]\[data-pressed-tone="neutral"\]\s*\{[^}]*\}/)[0];
+    expect(rule).toMatch(/--_accent-subtle:\s*var\(--color-border\)/);
+    expect(rule).toMatch(/--_accent:\s*var\(--color-text-subtle\)/);
+    expect(rule).not.toMatch(/surface-sunken/);
+  });
+  it("IconButton mirrors the same neutral pressed mapping", () => {
+    render(<IconButton aria-label="p" pressed pressedTone="neutral" icon={<i>p</i>} />);
+    const rule = css().match(/\.twc-iconbtn\[aria-pressed="true"\]\[data-pressed-tone="neutral"\]\s*\{[^}]*\}/)[0];
+    expect(rule).toMatch(/--_accent-subtle:\s*var\(--color-border\)/);
+    expect(rule).toMatch(/--_accent:\s*var\(--color-text-subtle\)/);
+    expect(rule).not.toMatch(/surface-sunken/);
   });
 });
 

@@ -2,9 +2,11 @@
 
 - **Group:** buttons
 - **Status:** clean
-- **Reviewed:** 2026-09-23
+- **Reviewed:** 2026-09-24
 
 ## Open issues
+
+- [x] **[#430] neutral pressed tone invisible in dark mode** — the #411 `pressedTone="neutral"` mapping filled with `--color-surface-sunken`, which in dark mode (`#0b1222`) steps *toward* the page background (`#0f172a`, ~1.05:1) — and neutral, unlike the meaning tones, doesn't recolour the label or border, so a pressed item was pixel-identical to its neighbours. Now fills with `--color-border` (steps *away* from the bg in both themes — darker on light, lighter on dark) and strengthens the edge to `--color-text-subtle` so the outline also carries the "on" state; ink stays `--color-text`. Mirrored on `IconButton` (composed by `ToggleGroup`). Fill lives in the per-component scoped CSS (no `styles/twico-ui.css` regen). `tests/toggle-group.test.jsx`. `Button.jsx`/`IconButton.jsx` — ✓ fixed 2026-09-24
 
 - [x] **[#418] a pressed button lost its look on hover; #411 pressed fill limited to primary/danger** — added a matching-specificity `[aria-pressed=true]:hover` rule and `pressedTone` (full status Tone scale). `Button.jsx`/`.d.ts` — ✓ 2026-09-23
 
