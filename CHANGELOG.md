@@ -2,6 +2,14 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.42.1](https://github.com/EncryptionL/twico-ui/compare/v1.42.0...v1.42.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **datatable:** limit the batch-picker escape hatch to server mode ([804d7cb](https://github.com/EncryptionL/twico-ui/commit/804d7cbd39b50190469a31b44477ee9755f07560)), closes [#428](https://github.com/EncryptionL/twico-ui/issues/428) [#433](https://github.com/EncryptionL/twico-ui/issues/433) [#432](https://github.com/EncryptionL/twico-ui/issues/432) [#244](https://github.com/EncryptionL/twico-ui/issues/244)
+* **datatable:** offer per-row editable columns when the selection is on an unloaded page ([33c8cc4](https://github.com/EncryptionL/twico-ui/commit/33c8cc4174bcc07410740b923b7221b26a887d4c)), closes [#428](https://github.com/EncryptionL/twico-ui/issues/428) [#428](https://github.com/EncryptionL/twico-ui/issues/428)
+
 # [1.42.0](https://github.com/EncryptionL/twico-ui/compare/v1.41.1...v1.42.0) (2026-09-24)
 
 
