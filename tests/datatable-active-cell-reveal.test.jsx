@@ -68,6 +68,24 @@ describe("Datatable controlled activeCell reveal fires once per change (#429)", 
     expect(sc.scrollTop).toBe(640);
   });
 
+  it("re-reveals when the active cell's column index changes (a leading column is removed)", () => {
+    const props = { rowKey: (r) => r.id, selectionMode: "cell", scrollActiveCellIntoView: true };
+    const { container, rerender } = render(<Datatable {...props} columns={cols} rows={rowsA} activeCell={{ key: 3, field: "age" }} />);
+    const sc = scroller(container);
+    expect(sc.scrollTop).toBe(640);
+    sc.scrollTop = 0; // user scrolls away
+    // remove the leading "name" column → "age" moves from index 1 to 0 → revealCi changes → the reveal re-runs
+    rerender(<Datatable {...props} columns={[cols[1]]} rows={rowsA} activeCell={{ key: 3, field: "age" }} />);
+    expect(sc.scrollTop).toBe(640);
+  });
+
+  it("block:'center' uses the centering math (a larger scroll than 'nearest')", () => {
+    const props = { rowKey: (r) => r.id, columns: cols, selectionMode: "cell", scrollActiveCellIntoView: { block: "center" } };
+    const { container } = render(<Datatable {...props} rows={rowsA} activeCell={{ key: 3, field: "age" }} />);
+    // mid = (scR.top 0 + headH 41 + scR.bottom 400) / 2 = 220.5; delta = (tR.top 1000 + tR.height/2 20) - 220.5
+    expect(scroller(container).scrollTop).toBeCloseTo(799.5, 1);
+  });
+
   it("re-reveals when the row moves to a different index (server-mode page landing / reorder)", () => {
     const props = { rowKey: (r) => r.id, columns: cols, selectionMode: "cell", scrollActiveCellIntoView: true };
     // start with the target row ABSENT (server page not loaded) — nothing to reveal yet

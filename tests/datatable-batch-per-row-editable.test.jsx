@@ -96,6 +96,33 @@ describe("Datatable batch edit honours per-row editable (#428)", () => {
     expect(pickerOptions().sort()).toEqual(["Gated", "Name"]);
   });
 
+  it("a MIXED static+predicate batch keeps a keys×patch write off locked cells (keys = fully-editable rows only)", () => {
+    // The hard case: one static column + one predicate column picked together. `patch` is column-uniform, so a
+    // `keys × patch` host would write the predicate field to a row allowed only for the static field — unless the
+    // key is excluded. changedRows stays per-cell exact; selectedKeys are only the rows editable on EVERY column.
+    const spy = vi.fn();
+    const { container } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={spy} />);
+    selectRow(container, 0); // locked
+    selectRow(container, 1); // open
+    fireEvent.click(editBtn(container));
+    openPicker(); pick("Name");   // static column
+    openPicker(); pick("Gated");  // predicate column (offered because r1 passes)
+    const inputs = document.querySelectorAll(".twc-dt__be-row input");
+    fireEvent.change(inputs[0], { target: { value: "N" } }); // Name clause
+    fireEvent.change(inputs[1], { target: { value: "G" } }); // Gated clause
+    apply();
+    const [changedRows, patch, keys] = spy.mock.calls[0];
+    expect(patch).toEqual({ name: "N", gated: "G" });
+    // changedRows is authoritative + per-cell: r0 gets only name (gated predicate rejected), r1 gets both
+    const r0 = changedRows.find((r) => r.id === "r0");
+    const r1 = changedRows.find((r) => r.id === "r1");
+    expect(r0).toMatchObject({ name: "N" });
+    expect(r0.gated).toBe("a"); // NOT written — the gated predicate rejects the locked row
+    expect(r1).toMatchObject({ name: "N", gated: "G" });
+    // keys × patch safety: only r1 (editable on BOTH columns) is a safe key — so `gated` never lands on r0
+    expect(keys).toEqual(["r1"]);
+  });
+
   it("keeps a selected key that is off the loaded page (server-mode cross-page) for server-side apply", () => {
     const spy = vi.fn();
     const { container, rerender } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection onBatchUpdate={spy} />);

@@ -15,8 +15,18 @@
   server-side, unchanged; preserves the documented server-mode cross-page contract). Second edge: `batchEditableCols`
   is truthy for a function `editable`, so a predicate column that no *selected* row passes was still offered in
   "Add a column…" (a clause that silently did nothing) — a selection-aware `batchEditableColsSel` now drives the
-  picker (offered only when ≥1 selected row passes). Fill/drag-down: n/a (not implemented). `Datatable.jsx`/`.d.ts`;
-  `tests/datatable-batch-per-row-editable.test.jsx` (6). — ✓ fixed 2026-09-24
+  picker + `pickedCols` + `active` (offered only when ≥1 selected row passes; a picked column drops out if the
+  selection later narrows to rows it can't edit). Fill/drag-down: n/a (not implemented).
+  **Adversarial-review follow-up:** `patch` is column-uniform and `keys` is a flat list, so `(patch, keys)` can't
+  express a **mixed** batch (a static + a predicate column) — a row editable on the static column but not the
+  predicate one would be re-admitted to the key list while `patch` still carried the predicate field, so a naive
+  `keys × patch` server write would touch a locked cell. Fix: `changedRows` is the **authoritative per-cell**
+  result (each row carries only the fields it may change), and `selectedKeys` are now the keys a `keys × patch`
+  write can safely apply the **whole** patch to — loaded rows where **every** picked column is editable (plus
+  off-page keys the host enforces server-side). For a single-column or all-static batch this equals "every changed
+  key" (the #428 repro is unchanged); for a mixed batch, a partially-editable row is in `changedRows` but not
+  `selectedKeys`. d.ts/site/qa-notes reworded to match (no more "never touches a locked row" over-claim).
+  `Datatable.jsx`/`.d.ts`; `tests/datatable-batch-per-row-editable.test.jsx` (7). — ✓ fixed 2026-09-24
 - [x] **[#429] the #421 activeCell reveal re-ran on every render (and pulled a revealed cell back on each refetch)**
   — the reveal effect keyed on `cellColIndex`/`keyIndex` object identities. `visibleCols` was a plain `.filter()`
   (fresh array every render) → `ordered` re-memoized → `cellColIndex` got a new identity each render → the effect

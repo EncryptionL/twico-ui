@@ -5622,7 +5622,7 @@ export const components = [
         "type": "(rows,patch,keys)=>void",
         "required": false,
         "default": "-",
-        "description": "Fires when a batch edit is applied, receiving the changed rows, the patch object, and the selected keys (filtered by any per-row editable predicate, so a keys×patch write skips locked rows)."
+        "description": "Fires when a batch edit is applied: (changedRows, patch, selectedKeys). changedRows is authoritative (each row carries only the fields it may change); selectedKeys are the keys a keys×patch write can safely apply the whole patch to."
       },
       {
         "prop": "showPageJumper",

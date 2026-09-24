@@ -212,13 +212,18 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   /** Controlled-rows callback: receives the full next rows array after an edit (client mode). */
   onRowsChange?: (rows: T[]) => void;
   /** Fired when the built-in batch editor applies columns across selected rows:
-   *  (changedRows, patch, selectedKeys). The selection-toolbar "Edit" button appears
-   *  automatically when there are editable columns. `selectedKeys` is filtered by any
-   *  per-row `editable` predicate (#428): a loaded row the predicate rejects is dropped,
-   *  so a `keys × patch` write never touches a locked row — mirroring the rows given to
-   *  `onRowsChange`. Server-mode caveat: `changedRows` resolves only rows on the currently
-   *  loaded page; a selected key on an unloaded page can't be predicate-tested client-side,
-   *  so it is kept in `selectedKeys` for you to apply — and enforce the predicate — server-side. */
+   *  `(changedRows, patch, selectedKeys)`. The selection-toolbar "Edit" button appears
+   *  automatically when there are editable columns.
+   *  - `changedRows` is **authoritative**: each row carries exactly the fields it may change
+   *    (a per-row `editable` predicate (#424/#428) is applied per cell). Persist these for a
+   *    complete, cell-precise write of the loaded page.
+   *  - `patch` is the column-uniform union of the picked field values.
+   *  - `selectedKeys` are the keys a `keys × patch` write can safely apply the **whole** patch
+   *    to — loaded rows on which **every** picked column is editable (so it never touches a
+   *    locked cell), plus any selected key on an **unloaded** page (which can't be predicate-
+   *    tested client-side — you apply and enforce the predicate server-side). For a mixed
+   *    batch where a row is editable on only some picked columns, that row is in `changedRows`
+   *    but not `selectedKeys`; use `changedRows` for the exact per-cell result. */
   onBatchUpdate?: (changedRows: T[], patch: Record<string, any>, selectedKeys: Array<string | number>) => void;
   /** Render the built-in "Edit" button in the selection toolbar (the batch editor). Set `false` to
    *  suppress it and ship your own batch-edit action via `batchActions` — otherwise you'd get two
