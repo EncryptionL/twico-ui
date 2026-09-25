@@ -86,7 +86,10 @@ The query also carries `visibleColumns`/`hiddenColumns` (field ids; the built-in
 source of truth), so a wide table can **project only the shown columns** server-side. For a change-only
 signal use `onColumnVisibilityChange={(visible) => …}` — it fires with the visible column `field`s whenever
 the menu toggles a column (not on mount), so you can drive projection off the built-in menu without adding a
-duplicate column picker.
+duplicate column picker. **Caveat (#436):** if any column uses a per-row `editable` predicate, keep the fields
+that predicate *reads* in the payload regardless of visibility — it runs client-side against the row you sent, so
+a projected-away source field reads `undefined` and the rule usually inverts to "editable on every row". Hiding
+the gated column too doesn't protect it: the batch editor lists all `columns`, not just the visible ones.
 
 **Controlled pagination** — drive the page (and page size) from your own state / external controls. Pass
 `page` (0-based) with `onPageChange`; supply `onPageSizeChange` to also control `pageSize`. Both follow the

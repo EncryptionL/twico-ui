@@ -462,7 +462,14 @@ export interface DatatableQuery {
   /** `field`s of the columns currently shown (in column order) — the built-in Columns menu
    *  is the source of truth. Use it to fetch/project only the visible columns server-side.
    *  Always populated by the grid in `onServerChange`; optional so a hand-built query passed
-   *  to `runDatatableQuery` (which ignores it) need not supply it. */
+   *  to `runDatatableQuery` (which ignores it) need not supply it.
+   *
+   *  **Don't project purely by this list if any column has a per-row `editable` predicate (#436).** Such a
+   *  predicate runs client-side against the row object you sent, and usually reads a *different* field from the
+   *  one it gates. Drop that source field from the payload and it reads `undefined`, which typically evaluates
+   *  truthy — so the rule silently stops holding and the column becomes editable on every row. Always include the
+   *  fields your predicates read, whatever the user has hidden. (Hiding the gated column too does not help: a
+   *  hidden column is still offered by the batch editor and still written.) */
   visibleColumns?: string[];
   /** `field`s of the columns currently hidden via the Columns menu. Always populated in
    *  `onServerChange`; optional for the same reason as `visibleColumns`. */
@@ -606,7 +613,17 @@ export interface DatatableColumn<T = any> {
   /** Make this column's cells editable (double-click to edit). Overrides the grid `editMode`. #424: pass a
    *  predicate `(row, { field }) => boolean` to make it editable only on the rows that satisfy it (like
    *  `cellStyle`/`cellClassName`). A `false` result behaves exactly like `editable: false` for that cell — no
-   *  editor on double-click/Enter/F2, and the cell is skipped by paste, cut and the batch editor. */
+   *  editor on double-click/Enter/F2, and the cell is skipped by paste, cut and the batch editor.
+   *
+   *  **With server-side column projection (#436):** the predicate runs against the row object the grid holds, so
+   *  every field it *reads* must survive projection. A predicate typically gates one column from another
+   *  (`{ field: "B", editable: (row) => !isLocked(row.A) }`); if you project by `visibleColumns` and `A` is not
+   *  sent, `row.A` is `undefined` and the predicate usually evaluates truthy — i.e. **editable on every row**.
+   *  Keep the fields a predicate reads in the payload unconditionally, regardless of visibility.
+   *
+   *  Note hiding the gated column does **not** protect it: a hidden column is still offered by the batch editor
+   *  (its list comes from all `columns`, not the visible ones) and is still written. That is deliberate — batch
+   *  -setting a column you keep off-screen is a supported use — so the projection is the thing to get right. */
   editable?: boolean | ((row: T, ctx: { field: string }) => boolean);
   /** Editor type. "select" (or any column with `valueOptions`) renders a dropdown; else a text/number input by column type. */
   editType?: "text" | "number" | "select";
