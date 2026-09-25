@@ -78,6 +78,26 @@ fired with the visible `field`s whenever the menu toggles a column (**not** on m
 keyed on the memoized visible-column list, guarded by a first-render ref so the initial state doesn't
 fire it.
 
+> **Projection vs. a per-row `editable` predicate (#436).** If any column uses
+> `editable: (row, { field }) => boolean`, the predicate runs **client-side against the row object you sent**,
+> so every field it *reads* must survive the projection. The trap is that a predicate usually gates one column
+> from **another**:
+>
+> ```ts
+> { field: "B", editable: (row) => !isLocked(row.A) }   // B's rule is read from A
+> ```
+>
+> Project by `visibleColumns` alone, hide **A**, and `row.A` is `undefined` on every row — `isLocked(undefined)`
+> is falsy, so the rule inverts and **B becomes editable everywhere**. Hiding **B** as well (the instinctive
+> "protect it" move) does **not** help: the batch editor builds its list from all `columns`, not the visible
+> ones, so a hidden column is still offered in "Add a column…" and still written — and Apply then reports those
+> rows in `selectedKeys`.
+>
+> That's deliberate — batch-setting a column you keep off-screen is a supported use — so the fix belongs in the
+> projection: **always include the fields your predicates read, regardless of visibility.** Every step here is
+> locally reasonable, which is exactly why it's hard to spot: nothing connects "I hid a column" to "a rule
+> stopped holding".
+
 To make a backend (or a fake one, or a test) return **exactly** what client mode would, the package
 exports **`runDatatableQuery(rows, query, { columns })`** — it applies the same quick-search, filter
 operators (`testFilter`), sort, and paging the grid uses internally, and returns `{ rows, total,

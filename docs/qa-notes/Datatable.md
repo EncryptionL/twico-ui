@@ -6,6 +6,24 @@
 
 ## Open issues
 
+- [x] **[#436] docs: a per-row `editable` predicate's source fields must survive column projection** — documentation
+  only; the reporter explicitly did **not** want a behaviour change. Two shipped features combine to silently void a
+  rule. Projection (#191) encourages sending only `visibleColumns`, while a predicate typically gates one column from
+  **another** (`{ field: "B", editable: (row) => !isLocked(row.A) }`) and runs client-side against the row object the
+  host sent. Hide **A** and it isn't projected, so `row.A` is `undefined`, `isLocked(undefined)` is falsy, and B
+  becomes editable on *every* row. The non-obvious part: hiding **B** as well — the instinctive "protect it" move —
+  doesn't help, because `batchEditableCols` filters the full `cols`, not `visibleCols`, so a hidden column is still
+  offered in "Add a column…" and still written (verified in source; `visibleCols` exists and is deliberately not used
+  there). Every step is locally reasonable, which is what makes it invisible. Documented on both sides of the
+  interaction — `DatatableColumn.editable` and `DatatableQuery.visibleColumns` in `.d.ts`, a blockquote in
+  `docs/datatable.md` under the #191 projection section, and a caveat in `Datatable.prompt.md` — the guidance being
+  *keep the fields a predicate reads in the payload regardless of visibility*. **Deliberately not changed:** excluding
+  hidden columns from the picker would break hosts that batch-set an off-screen column on purpose (a supported use),
+  which the reporter also argued against. Added a guard test pinning the documented behaviour (a hidden column is
+  still offered *and* written) so the docs can't go stale unnoticed.
+  `Datatable.d.ts`, `docs/datatable.md`, `Datatable.prompt.md`;
+  `tests/datatable-batch-per-row-editable.test.jsx` (16). — ✓ documented 2026-09-25
+
 - [x] **[#433] the batch-edit picker hid per-row `editable` columns when the selection was on an unloaded page** —
   the #428 picker filter tested each predicate against `selectedRows` (`rows.filter(...)`, i.e. the *loaded* page in
   server mode), while `applyBatchEdit` keeps an *unloaded* selected key as eligible (it can't be predicate-tested

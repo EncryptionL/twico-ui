@@ -278,6 +278,30 @@ describe("Datatable batch edit honours per-row editable (#428)", () => {
     expect(pickerOptions()).toEqual(["Name"]); // still testable via `rows`, still correctly hidden
   });
 
+  // #436 (docs) — pins the behaviour the docs now describe: a HIDDEN column is still offered by the batch editor
+  // (its list comes from all `columns`, not the visible ones) and is still written. That is deliberate —
+  // batch-setting an off-screen column is a supported use — and it is precisely why hiding a predicate-gated
+  // column does NOT protect it; the fix belongs in the server-side projection. Guards the doc from going stale.
+  it("still offers a HIDDEN column in the picker, and writes it (#436)", () => {
+    const spy = vi.fn();
+    const { container } = render(
+      <Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection
+        initialState={{ columnVisibility: { gated: false } }} onBatchUpdate={spy} />,
+    );
+    // the column really is hidden from the grid
+    expect(Array.from(container.querySelectorAll("thead th")).map((th) => th.textContent)).not.toContain("Gated");
+    selectRow(container, 1); // the "open" row — passes the predicate
+    fireEvent.click(editBtn(container));
+    openPicker();
+    expect(pickerOptions().sort()).toEqual(["Gated", "Name"]); // ...yet still offered
+    pick("Gated");
+    fireEvent.change(beRows()[0].querySelector("input"), { target: { value: "G" } });
+    apply();
+    const [changedRows, patch] = spy.mock.calls[0];
+    expect(patch).toEqual({ gated: "G" });
+    expect(changedRows.map((r) => r.id)).toEqual(["r1"]); // ...and written
+  });
+
   it("keeps a selected key that is off the loaded page (server-mode cross-page) for server-side apply", () => {
     const spy = vi.fn();
     const { container, rerender } = render(<Datatable columns={cols} rows={rows} rowKey={(r) => r.id} checkboxSelection serverMode rowCount={2} onBatchUpdate={spy} />);
