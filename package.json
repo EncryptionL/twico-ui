@@ -117,7 +117,7 @@
     "jsdom": "^30.0.1",
     "lucide-react": "^1.31.0",
     "semantic-release": "^25.0.9",
-    "size-limit": "^13.0.3",
+    "size-limit": "^14.0.0",
     "tsup": "^8.3.5",
     "typescript": "^5.9.3",
     "vitest": "^5.0.0"
