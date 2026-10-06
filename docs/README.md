@@ -21,6 +21,7 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 | [overlays.md](./overlays.md) | The shared modal-overlay pattern (Dialog/Drawer/CommandPalette), the `useFocusTrap` / `usePortal` hooks extracted into `components/_overlay.js` (#177), the dismissable-layer stack (#389), and disabled-trigger tooltips (#398). |
 | [tooltip.md](./tooltip.md) | Tooltip positioning — portal + fixed positioning, viewport clamp/flip, `width: max-content` (no near-edge collapse), and the trigger-tracking arrow. |
 | [colors.md](./colors.md) | The `twico-ui/colors` JS export, the primitive↔semantic split, the drift guards (`tests/colors.test.js` + `verify:palette`), and the MUI-style Color docs page. |
+| [fonts.md](./fonts.md) | Self-hosted OFL webfonts: the three variable faces, why they ship as WOFF2 (#450), regenerating them with `build:fonts`, and the CI guard. |
 | [icons.md](./icons.md) | The `twico-ui/icons` subpath — re-exporting Lucide via an optional `lucide-react` peer, the build wiring, and why the core stays zero-dependency. |
 | [tone-variant-system.md](./tone-variant-system.md) | The library-wide `tone` × `variant` model: the `--_accent` pattern, which components have which axis, and how to extend it. |
 | [prop-conventions.md](./prop-conventions.md) | The standard prop vocabulary (size/tone/variant/value/onChange/items/overlay/label/…) every component follows. |

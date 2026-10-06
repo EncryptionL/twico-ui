@@ -40,7 +40,7 @@ This one repo holds three things:
 | `src/index.ts` | Barrel re-exporting every component (value + types) + hooks. **Update it when you add/remove a component.** |
 | `tokens/*.css`, `base.css`, `styles.css` | Design tokens (colors, fonts, typography, spacing, radius, motion) + reset. `styles.css` is the dev entry (`@import`s the rest). |
 | `styles/twico-ui.css` | The concatenated, **shippable** stylesheet (`twico-ui/styles.css`). **Generated** by `scripts/build-css.mjs` from `tokens/*` + `base.css` — run `npm run build:css` after editing a token; CI's `build:css:check` fails on drift. |
-| `assets/fonts/` (source), `styles/fonts/` (shipped copy) | Self-hosted OFL fonts (Plus Jakarta Sans, JetBrains Mono variable `.ttf`). Duplicated on purpose — keep both in sync. |
+| `assets/fonts/` (source), `styles/fonts/` (shipped copy) | Self-hosted OFL fonts (Plus Jakarta Sans upright + italic, JetBrains Mono — three variable faces). `assets/` keeps the `.ttf` originals; `styles/` ships only the **generated `.woff2`** (#450). Run `npm run build:fonts` after changing a font — it converts and mirrors both dirs, and CI's `build:fonts:check` fails on drift (it also verifies every `url()` in `tokens/fonts.css` resolves, which nothing else catches: a 404 webfont is a silent fallback). See `docs/fonts.md`. |
 | `tsup.config.ts`, `tsconfig.json`, `scripts/add-use-client.mjs` | The build. |
 | `site/` | The docs website (own `package.json`, `private: true`). Generators live in `site/scripts/` (`gen-docs.mjs`, …). |
 | `examples/` | Runnable consumer apps that install `twico-ui` **from npm** (each own `package.json`, `private`). Repo-only — excluded from the tarball, the library build, and the root typecheck. See `docs/examples.md`. |
