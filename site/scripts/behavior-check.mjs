@@ -98,6 +98,12 @@ const CASES = {
     a(cur1 && cur1 !== cur0, `clicking a page moves aria-current (${cur0}→${cur1})`);
   },
   Tooltip: async (p, a) => {
+    // The harness navigates with waitUntil:"load", which fires before this hash-routed SPA has
+    // rendered its route. Playwright auto-waits on the selector, so a bare hover() lands on the
+    // wrapper the instant it first appears - mid-hydration - and React then re-renders it, dropping
+    // the hover and leaving data-show unset. Let the route settle before hovering.
+    await p.waitForSelector(".twc-tooltip-wrap");
+    await p.waitForTimeout(300);
     await p.hover(".twc-tooltip-wrap");
     await p.waitForTimeout(400);
     a(await p.$('.twc-tooltip[data-show="true"]') !== null, "hover shows the tooltip");

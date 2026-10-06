@@ -187,6 +187,20 @@ export const components = [
         "description": "Heading level wrapping each trigger button (document-outline semantics)."
       },
       {
+        "prop": "mountOnOpen",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Render each panel's content only after its first open, then keep it mounted - cuts the DOM and hook cost of a page full of collapsed panels."
+      },
+      {
+        "prop": "unmountOnClose",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Also unmount a panel's content when it closes, waiting out the collapse animation first. Implies mountOnOpen."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,
@@ -9283,7 +9297,7 @@ export const components = [
         "type": "React.ReactNode",
         "required": true,
         "default": "—",
-        "description": "Defines the clickable element that opens the menu, typically a Button or IconButton the dropdown anchors to."
+        "description": "Defines the clickable element that opens the menu, typically a Button or IconButton the dropdown anchors to. Pass a single focusable control (a Button/IconButton): the element is cloned to carry tabIndex/aria-expanded, which are only valid on a control, and wrapping the real button to overlay a badge gives two tab stops - put the decoration outside. A wrapping Tooltip goes outside this component."
       },
       {
         "prop": "items",
@@ -9957,7 +9971,7 @@ export const components = [
         "type": "React.ReactNode",
         "required": true,
         "default": "—",
-        "description": "The clickable element the panel anchors to; clicking it toggles the popover open and closed."
+        "description": "The clickable element the panel anchors to; clicking it toggles the popover open and closed. Pass a single focusable control (a Button/IconButton): the element is cloned to carry tabIndex/aria-expanded, which are only valid on a control, and wrapping the real button to overlay a badge gives two tab stops - put the decoration outside. A wrapping Tooltip goes outside this component."
       },
       {
         "prop": "title",

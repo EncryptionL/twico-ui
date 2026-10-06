@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"54bb00b4c693","components/buttons/IconButton.jsx":"22790903081f","components/buttons/ToggleGroup.jsx":"fe374dcc220f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"ec5f65bdfad1","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"facb19fc8c96","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"c1fe68414c67","components/data-display/ImageViewer.jsx":"7379ad3f27c6","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"1fc840f615e2","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"5706752240e2","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"21da33e87561","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"8e4d0341769e","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"a405fca979fc","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"73dc62deceda","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"1b441f7db7b4","components/overlay/Popover.jsx":"4a83df72084d","components/overlay/Tooltip.jsx":"c4f8042a77e8","components/typography/Code.jsx":"f6f1da463524","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"3001e004908a"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"54bb00b4c693","components/buttons/IconButton.jsx":"22790903081f","components/buttons/ToggleGroup.jsx":"fe374dcc220f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"ec5f65bdfad1","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"0d9a3872881b","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"c1fe68414c67","components/data-display/ImageViewer.jsx":"7379ad3f27c6","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"1fc840f615e2","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"5706752240e2","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"21da33e87561","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"8e4d0341769e","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"a405fca979fc","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"477e628a0223","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"8bc27431f179","components/overlay/Popover.jsx":"5bd84d62fcf5","components/overlay/Tooltip.jsx":"c4f8042a77e8","components/typography/Code.jsx":"f6f1da463524","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"3001e004908a"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -308,9 +308,39 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     ] });
   });
   VisuallyHidden.displayName = "VisuallyHidden";
+  var seen = /* @__PURE__ */ new Set();
+  function warnOnce(key, message) {
+    if (typeof process !== "undefined" && process.env && false) return;
+    if (seen.has(key)) return;
+    seen.add(key);
+    if (typeof console !== "undefined" && console.warn) console.warn(message);
+  }
   var canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
   var useIsoLayoutEffect = canUseDOM ? import_react.default.useLayoutEffect : import_react.default.useEffect;
   var FOCUSABLE = 'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
+  var CONTROL_TAGS = "|button|a|summary|input|select|textarea|";
+  function triggerIsControl(el) {
+    const p = el && el.props || {};
+    if (typeof p.role === "string" && p.role) return true;
+    const t = typeof el.type === "string" ? el.type : typeof p.as === "string" ? p.as : "";
+    return !t || CONTROL_TAGS.indexOf("|" + t + "|") >= 0;
+  }
+  var NATIVE_CONTROL = "button,a[href],summary,input,select,textarea";
+  function useTriggerAudit(ref, name) {
+    import_react.default.useEffect(() => {
+      const el = ref.current && ref.current.firstElementChild;
+      if (!el) return;
+      if (el.classList.contains("twc-tooltip-wrap")) {
+        warnOnce(name + ".trigger-tooltip", "twico-ui " + name + ": `trigger` is a <Tooltip>, so the injected tabIndex/aria-expanded land on the tooltip wrapper instead of your control, and the tooltip stops being announced on focus. Put Tooltip OUTSIDE: <Tooltip ...><" + name + " trigger={<IconButton .../>} /></Tooltip>.");
+      } else if (!el.matches(NATIVE_CONTROL)) {
+        if (el.querySelector(FOCUSABLE)) {
+          warnOnce(name + ".trigger-nested", "twico-ui " + name + ": `trigger` is a <" + el.tagName.toLowerCase() + "> wrapping a focusable control, which gives TWO tab stops for one control. Pass the control itself as `trigger` and move the wrapper (badge, positioning) outside " + name + ".");
+        } else if (!el.matches("[role]")) {
+          warnOnce(name + ".trigger-role", "twico-ui " + name + ": `trigger` renders <" + el.tagName.toLowerCase() + ">, not a button, so the injected aria-expanded is not valid on it. Pass a Button/IconButton, or set `role` yourself so the element owns its semantics.");
+        }
+      }
+    }, []);
+  }
   function useFocusTrap(ref, active = true, { restoreFocus = true, initialFocus } = {}) {
     import_react.default.useEffect(() => {
       if (!active || !canUseDOM) return void 0;
@@ -1140,6 +1170,8 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     open: openProp,
     onOpenChange,
     headingLevel = 3,
+    mountOnOpen = false,
+    unmountOnClose = false,
     className = "",
     onKeyDown: onKeyDownProp,
     ...rest
@@ -1149,6 +1181,29 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     const [internal, setInternal] = import_react.default.useState(() => new Set(defaultOpen));
     const open = openProp !== void 0 ? new Set(openProp) : internal;
     const baseId = import_react.default.useId();
+    const [ever, setEver] = import_react.default.useState(() => new Set(open));
+    const defer = mountOnOpen || unmountOnClose;
+    let mounted = ever;
+    if (defer) {
+      const add = [...open].filter((v) => !ever.has(v));
+      if (add.length) {
+        mounted = new Set(ever);
+        add.forEach((v) => mounted.add(v));
+        setEver(mounted);
+      }
+    }
+    const openKey = defer ? JSON.stringify([...open].sort()) : "";
+    import_react.default.useEffect(() => {
+      if (!unmountOnClose) return void 0;
+      const drop = [...ever].filter((v) => !open.has(v));
+      if (!drop.length) return void 0;
+      const t = setTimeout(() => setEver((p) => {
+        const n = new Set(p);
+        drop.forEach((v) => n.delete(v));
+        return n;
+      }), 240);
+      return () => clearTimeout(t);
+    }, [openKey, unmountOnClose]);
     function toggle(val) {
       const item = items.find((x) => x.value === val);
       if (item?.disabled) return;
@@ -1202,7 +1257,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
             /* @__PURE__ */ jsx("span", { className: "twc-accordion__label", children: it.label }),
             /* @__PURE__ */ jsx("span", { className: "twc-accordion__chevron", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m6 9 6 6 6-6" }) }) })
           ] }) }),
-          /* @__PURE__ */ jsx("div", { className: "twc-accordion__panel", id: panelId, role: "region", "aria-labelledby": triggerId, "data-open": isOpen || void 0, children: /* @__PURE__ */ jsx("div", { className: "twc-accordion__panel-inner", children: /* @__PURE__ */ jsx("div", { className: "twc-accordion__content", children: it.content }) }) })
+          /* @__PURE__ */ jsx("div", { className: "twc-accordion__panel", id: panelId, role: "region", "aria-labelledby": triggerId, "data-open": isOpen || void 0, children: /* @__PURE__ */ jsx("div", { className: "twc-accordion__panel-inner", children: /* @__PURE__ */ jsx("div", { className: "twc-accordion__content", children: defer && !mounted.has(it.value) ? null : it.content }) }) })
         ] }, it.value);
       })
     ] });
@@ -1420,6 +1475,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     const [pos, setPos] = import_react.default.useState(null);
     const [active, setActive] = import_react.default.useState(-1);
     const wrapRef = import_react.default.useRef(null);
+    useTriggerAudit(wrapRef, "Menu");
     const menuRef = import_react.default.useRef(null);
     const typeBufRef = import_react.default.useRef("");
     const typeTimerRef = import_react.default.useRef(null);
@@ -1602,6 +1658,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       }
     ) : null;
     const activeDescId = open && active >= 0 ? `${menuId}-item-${active}` : void 0;
+    const fix = import_react.default.isValidElement(trigger) && !triggerIsControl(trigger) ? { role: "button" } : null;
     const triggerEl = import_react.default.isValidElement(trigger) ? import_react.default.cloneElement(trigger, {
       onClick: (e) => {
         trigger.props.onClick?.(e);
@@ -1614,7 +1671,8 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       "aria-activedescendant": activeDescId,
       // #420: forward an incoming aria-describedby (e.g. from a wrapping Tooltip) to the focusable trigger,
       // not the wrapper span, so the description is announced on focus.
-      "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || void 0
+      "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || void 0,
+      ...fix
     }) : /* @__PURE__ */ jsx(
       "span",
       {
@@ -5879,13 +5937,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   function labelText7(label) {
     return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
-  var seen = /* @__PURE__ */ new Set();
-  function warnOnce(key, message) {
-    if (typeof process !== "undefined" && process.env && false) return;
-    if (seen.has(key)) return;
-    seen.add(key);
-    if (typeof console !== "undefined" && console.warn) console.warn(message);
-  }
   function Checkbox({
     label,
     description,
@@ -6925,7 +6976,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-cmdk__input { flex: 1; min-width: 0; border: none; outline: none; background: transparent; font-family: inherit; font-size: var(--text-lg); color: var(--color-text); }
 .twc-cmdk__input:focus, .twc-cmdk__input:focus-visible { outline: none; box-shadow: none; }
 .twc-cmdk__input::placeholder { color: var(--color-text-subtle); }
-.twc-cmdk__kbd { flex: none; font-family: var(--font-mono); font-size: 11px; color: var(--color-text-subtle); padding: 3px 7px; border-radius: var(--radius-sm); background: var(--color-surface-sunken); border: var(--border-thin) solid var(--color-border); }
+.twc-cmdk__kbd { flex: none; font-family: var(--font-mono); font-size: 11px; color: var(--color-text-muted); padding: 3px 7px; border-radius: var(--radius-sm); background: var(--color-surface-sunken); border: var(--border-thin) solid var(--color-border); }
 .twc-cmdk__list { flex: 1; overflow-y: auto; padding: var(--space-2); }
 .twc-cmdk__group-label { font-size: 10px; font-weight: var(--font-bold); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--color-text-subtle); padding: var(--space-3) var(--space-3) var(--space-1); }
 .twc-cmdk__item { display: flex; align-items: center; gap: var(--space-3); width: 100%; padding: 10px 12px; border: none; background: none; cursor: pointer;
@@ -8937,7 +8988,12 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 /* Narrow grid: collapse the toolbar to icon-only buttons (labels survive as
    hover tooltips via data-tip) and let the search flex so nothing wraps. */
 .twc-dt__toolbar[data-compact="true"] { flex-wrap: nowrap; gap: 4px; }
-.twc-dt__toolbar[data-compact="true"] .twc-dt__tlabel { display: none; }
+/* #448: visually hidden, NOT display:none. The label is each toolbar button's only text node, so
+   removing it from the a11y tree left Columns/Filters/Density/Aggregation/Pivot with an empty (or
+   badge-number-only) accessible name - an axe/Lighthouse button-name failure. Same declarations as
+   .twc-dt__sr below. Compact is driven by a ResizeObserver on the GRID width, not a media query, so
+   a narrow grid in a wide viewport hits this too. */
+.twc-dt__toolbar[data-compact="true"] .twc-dt__tlabel { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__tbtn { padding: 0 8px; gap: 0; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__tbtn .twc-dt__tbadge { margin-inline-start: 4px; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__export-main { padding: 0 9px; gap: 0; }
@@ -17512,6 +17568,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const [render, setRender] = import_react.default.useState(false);
     const [pos, setPos] = import_react.default.useState(null);
     const wrapRef = import_react.default.useRef(null);
+    useTriggerAudit(wrapRef, "Popover");
     const popRef = import_react.default.useRef(null);
     const popId = import_react.default.useId();
     const controlled = openProp !== void 0;
@@ -17643,6 +17700,18 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         ]
       }
     ) : null;
+    const fix = {};
+    if (import_react.default.isValidElement(trigger) && !triggerIsControl(trigger)) {
+      fix.role = "button";
+      fix.onKeyDown = (e) => {
+        trigger.props.onKeyDown?.(e);
+        if (e.defaultPrevented || e.target !== e.currentTarget) return;
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggle();
+        }
+      };
+    }
     const triggerEl = import_react.default.isValidElement(trigger) ? import_react.default.cloneElement(trigger, {
       onClick: (e) => {
         trigger.props.onClick?.(e);
@@ -17653,7 +17722,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       "aria-expanded": open,
       "aria-controls": open ? popId : void 0,
       // #420: forward an incoming aria-describedby (e.g. from a wrapping Tooltip) to the focusable trigger.
-      "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || void 0
+      "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || void 0,
+      ...fix
     }) : /* @__PURE__ */ jsx(
       "span",
       {

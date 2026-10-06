@@ -2671,6 +2671,8 @@ Props:
 - `open` — `string[]` — Controlled open panel values; pair with onOpenChange. When set, internal state is bypassed and defaultOpen is ignored.
 - `onOpenChange` — `(values: string[]) => void` — Called with the next open values whenever a panel trigger is toggled (fires in both controlled and uncontrolled modes).
 - `headingLevel` — `1 | 2 | 3 | 4 | 5 | 6` · default `3` — Heading level wrapping each trigger button (document-outline semantics).
+- `mountOnOpen` — `boolean` · default `false` — Render each panel's content only after its first open, then keep it mounted - cuts the DOM and hook cost of a page full of collapsed panels.
+- `unmountOnClose` — `boolean` · default `false` — Also unmount a panel's content when it closes, waiting out the collapse animation first. Implies mountOnOpen.
 
 ```jsx
 import { Accordion } from "twico-ui";
@@ -3018,7 +3020,7 @@ Menu is a portaled dropdown menu that takes a clickable trigger and an array of 
 `import { Menu } from "twico-ui"`
 
 Props:
-- `trigger` — `React.ReactNode` · **required** — Defines the clickable element that opens the menu, typically a Button or IconButton the dropdown anchors to.
+- `trigger` — `React.ReactNode` · **required** — Defines the clickable element that opens the menu, typically a Button or IconButton the dropdown anchors to. Pass a single focusable control (a Button/IconButton): the element is cloned to carry tabIndex/aria-expanded, which are only valid on a control, and wrapping the real button to overlay a badge gives two tab stops - put the decoration outside. A wrapping Tooltip goes outside this component.
 - `items` — `MenuItemDef[]` · **required** — Lists the menu entries, where each can be an action item, a separator, or a section heading.
 - `align` — `"start" | "end"` · default `"start"` — Aligns the menu horizontally to the trigger's start or end edge so it sits flush in tight layouts; defaults to start.
 - `header` — `React.ReactNode` — Renders an optional rich node above the items, handy for surfacing user info or context at the top of the menu.
@@ -3050,7 +3052,7 @@ Popover is a click-triggered floating panel anchored to a trigger element, rende
 `import { Popover } from "twico-ui"`
 
 Props:
-- `trigger` — `React.ReactNode` · **required** — The clickable element the panel anchors to; clicking it toggles the popover open and closed.
+- `trigger` — `React.ReactNode` · **required** — The clickable element the panel anchors to; clicking it toggles the popover open and closed. Pass a single focusable control (a Button/IconButton): the element is cloned to carry tabIndex/aria-expanded, which are only valid on a control, and wrapping the real button to overlay a badge gives two tab stops - put the decoration outside. A wrapping Tooltip goes outside this component.
 - `title` — `React.ReactNode` — Optional bold heading rendered at the top of the panel to introduce its interactive content.
 - `placement` — `"top" | "bottom" | "left" | "right"` · default `"bottom"` — Which side of the trigger the panel opens toward (top, bottom, left, or right), auto-flipping near viewport edges.
 - `align` — `"start" | "center" | "end"` · default `"center"` — Cross-axis alignment (start, center, or end) of the panel relative to the trigger for top and bottom placements.
