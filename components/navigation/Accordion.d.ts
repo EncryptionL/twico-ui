@@ -26,7 +26,9 @@ export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
   mountOnOpen?: boolean;
   /** #446: additionally unmount a panel's `content` again when it closes, trading the memory back
    *  for a slightly cheaper page. Implies `mountOnOpen`. The unmount waits out the collapse
-   *  transition (in lockstep with `--duration-base`), so the close animation still plays.
+   *  transition (in lockstep with `--duration-base`), so the close animation still plays. The wait is
+   *  a fixed 240 ms matching the DEFAULT `--duration-base` (220 ms); if you override that token to
+   *  something materially longer, the content is dropped before the panel finishes collapsing.
    *  @default false */
   unmountOnClose?: boolean;
 }

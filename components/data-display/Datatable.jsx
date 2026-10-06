@@ -119,6 +119,9 @@ const DT_CSS = `
 /* Narrow grid: collapse the toolbar to icon-only buttons (labels survive as
    hover tooltips via data-tip) and let the search flex so nothing wraps. */
 .twc-dt__toolbar[data-compact="true"] { flex-wrap: nowrap; gap: 4px; }
+/* #449: these labels sit on --color-surface-sunken, where --color-text-subtle only reaches 4.34:1
+   (the background moves with the text, so the token change could not lift it). --color-text-muted is
+   6.92:1 there and is what Kbd/CommandPalette use on the same background. */
 /* #448: visually hidden, NOT display:none. The label is each toolbar button's only text node, so
    removing it from the a11y tree left Columns/Filters/Density/Aggregation/Pivot with an empty (or
    badge-number-only) accessible name - an axe/Lighthouse button-name failure. Same declarations as
@@ -199,14 +202,14 @@ const DT_CSS = `
   font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 0; }
 .twc-dt__table tfoot td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
 .twc-dt__table tfoot td[data-pin] { z-index: 4; }
-.twc-dt__agg-label { color: var(--color-text-subtle); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); font-size: 10px; margin-inline-end: 5px; }
+.twc-dt__agg-label { color: var(--color-text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); font-size: 10px; margin-inline-end: 5px; }
 .twc-dt__agg-val { font-weight: var(--font-bold); }
 
 /* Row grouping */
 .twc-dt__groupbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 12px;
   border-bottom: var(--border-thin) solid var(--color-border); background: var(--color-surface-sunken); }
 .twc-dt__groupbar > svg { width: 15px; height: 15px; color: var(--color-text-subtle); }
-.twc-dt__groupbar-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--color-text-subtle); }
+.twc-dt__groupbar-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--color-text-muted); }
 .twc-dt__groupchip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 4px 3px 10px; height: 26px;
   background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: var(--font-semibold); }
 .twc-dt__groupchip-x { display: inline-grid; place-items: center; width: 18px; height: 18px; border: none; padding: 0; background: transparent; color: inherit; cursor: pointer; border-radius: var(--radius-full); opacity: 0.7; }
@@ -246,7 +249,7 @@ const DT_CSS = `
 .twc-dt__pivot-rowhead { min-width: 180px; }
 /* Corner (row-field label) */
 .twc-dt__pivot-corner { position: sticky; inset-inline-start: 0; top: 0; vertical-align: middle; text-align: center; background: var(--color-surface-sunken); z-index: 9 !important; border-inline-end: var(--border-medium) solid var(--color-border-strong); }
-.twc-dt__pivot-corner-label { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
+.twc-dt__pivot-corner-label { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-muted); }
 /* Column-group header levels (e.g. Status ▸ Plan) */
 .twc-dt__pivot-colgroup { text-align: center !important; border-inline-start: var(--border-medium) solid var(--color-border-strong);
   background: var(--color-surface-sunken); font-weight: var(--font-bold); color: var(--color-text); letter-spacing: var(--tracking-wide); }
@@ -261,7 +264,7 @@ const DT_CSS = `
 .twc-dt__pivot tfoot .twc-dt__pivot-rowhead[data-pin] { position: sticky; inset-inline-start: 0; z-index: 5; }
 .twc-dt__pivot-rowhead { font-weight: var(--font-semibold); color: var(--color-text); background: var(--color-surface); border-inline-end: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-rowhead { background: color-mix(in srgb, var(--color-surface-sunken) 45%, var(--color-surface)); }
-.twc-dt__pivot-rowcount { color: var(--color-text-subtle); font-weight: var(--font-normal); font-size: var(--text-xs); }
+.twc-dt__pivot-rowcount { color: var(--color-text-muted); font-weight: var(--font-normal); font-size: var(--text-xs); }
 /* Body value cells — centered under their header, with group separators */
 .twc-dt__pivot-cell { text-align: center !important; border-inline-start: var(--border-thin) solid var(--color-divider); font-variant-numeric: tabular-nums; }
 .twc-dt__pivot-cell[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-border-strong); }

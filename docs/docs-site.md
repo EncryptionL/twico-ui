@@ -182,6 +182,12 @@ npm run build     # -> site/dist  (must succeed; it also compiles the library so
   Dialog/Drawer open + trap focus + Escape, Menu/Popover/CommandPalette keyboard-nav, Slider/Rating/
   Pagination respond — 34 assertions across 18 components. (This is the gate that caught the
   Dialog/Drawer focus-on-open timing bug.)
+  Each case gets a fresh page navigated with `waitUntil: "load"`, which on this hash-routed SPA fires
+  BEFORE the route has rendered. Playwright auto-waits on a selector, so a bare `hover()`/`click()`
+  can land on an element the instant it first appears - mid-hydration - after which React re-renders
+  it and the interaction is lost. A case must therefore wait for its route (`waitForSelector` plus a
+  short settle) before interacting; the Tooltip case had been passing on timing luck until a batch of
+  extra effects tipped it over.
 - **CI enforcement:** `.github/workflows/interaction.yml` runs **all three** against a `vite preview`
   server on every push/PR to `dev`/`main` that touches the UI (and on manual dispatch), so the §8
   behavioral bar is automated, not just local. (`visual.yml` separately does Playwright pixel diffs.)

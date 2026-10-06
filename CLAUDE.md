@@ -93,7 +93,7 @@ relevant file under `docs/`. If a suitable doc doesn't exist, create one. Keep `
 **Never reference a third-party CDN** for fonts, icons, scripts, styles, or any asset in
 shipped code (`components/`, `src/`, `styles/`, `tokens/`, `base.css`) or the docs site
 (`site/`). CDNs cause `403`/blocked-asset failures for consumers behind firewalls or strict
-CSPs. Fonts are self-hosted `.ttf`; icons are **inline SVG**. CI fails the build if a CDN
+CSPs. Fonts are self-hosted `.woff2`; icons are **inline SVG**. CI fails the build if a CDN
 reference appears in shipped source (`ci.yml` → "Guard - no CDN references"). The only
 exception is the `*.card.html` / `ui_kits/*.html` **preview** files, which are never shipped
 and never part of the docs site.

@@ -34,7 +34,7 @@ doc is the engineering detail. `npm audit --omit=dev` must stay at **0**.
 
 ## No CDNs (self-host everything)
 
-Fonts are self-hosted `.ttf` (`styles/fonts/`); icons are inline SVG. **Nothing is fetched from a
+Fonts are self-hosted `.woff2` (`styles/fonts/`); icons are inline SVG. **Nothing is fetched from a
 third-party CDN at runtime**, so consumers behind firewalls or a strict Content-Security-Policy never
 hit `403`/blocked-asset failures.
 

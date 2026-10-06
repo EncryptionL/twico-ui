@@ -112,7 +112,7 @@ it carries no types).
 
 - `styles.css` (dev entry) `@import`s `tokens/*` + `base.css`.
 - `styles/twico-ui.css` is the **shippable** concatenation that consumers import as
-  `twico-ui/styles.css`; its `@font-face` rules point to `./fonts/*.ttf` (self-hosted).
+  `twico-ui/styles.css`; its `@font-face` rules point to `./fonts/*.woff2` (self-hosted; see [fonts.md](./fonts.md)).
 - **Dark mode** = `.dark` class on `<html>`; every `--color-*` token flips. Portaled overlays
   re-theme too because they read the same tokens.
 - **Reduced motion.** `base.css` has the standard blanket `@media (prefers-reduced-motion: reduce)`

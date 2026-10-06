@@ -54,12 +54,46 @@ describe("Popover trigger semantics (#447)", () => {
     expect(popTrigger(container).hasAttribute("role")).toBe(false);
   });
 
-  it("respects an explicit role and adds no keyboard handler of its own", () => {
+  it("preserves an explicit role but STILL activates on Enter (review fix)", () => {
+    // An explicit role is what the dev audit tells you to add, so it must not disable the keyboard
+    // fix - that was the backfire the adversarial review caught.
     const { container } = render(<Popover trigger={<div role="link">Open</div>}>body</Popover>);
     const t = popTrigger(container);
-    expect(t.getAttribute("role")).toBe("link");
+    expect(t.getAttribute("role")).toBe("link"); // not overwritten
     fireEvent.keyDown(t, { key: "Enter" });
+    expect(document.querySelector('[role="dialog"]')).toBeTruthy();
+  });
+
+  it("activates a component-rendered div trigger (the Box/Stack case a static check cannot see)", () => {
+    const Box = ({ children, ...p }) => <div {...p}>{children}</div>;
+    const { container } = render(<Popover trigger={<Box>Open</Box>}>body</Popover>);
+    fireEvent.keyDown(popTrigger(container), { key: "Enter" });
+    expect(document.querySelector('[role="dialog"]')).toBeTruthy();
+  });
+
+  it("activates an href-less <a> trigger, which is generic rather than a link", () => {
+    const { container } = render(<Popover trigger={<a>Open</a>}>body</Popover>);
+    const t = popTrigger(container);
+    expect(t.getAttribute("role")).toBe("button"); // a bare <a> is not a control
+    fireEvent.keyDown(t, { key: "Enter" });
+    expect(document.querySelector('[role="dialog"]')).toBeTruthy();
+  });
+
+  it("leaves a real <a href> trigger to its native activation (no role, no double toggle)", () => {
+    const { container } = render(<Popover trigger={<a href="#x">Open</a>}>body</Popover>);
+    const t = popTrigger(container);
+    expect(t.hasAttribute("role")).toBe(false);
+    fireEvent.keyDown(t, { key: "Enter" }); // native Enter fires a click, which jsdom does not synthesise
     expect(document.querySelector('[role="dialog"]')).toBeNull();
+    fireEvent.click(t);
+    expect(document.querySelector('[role="dialog"]')).toBeTruthy();
+  });
+
+  it("role=presentation does not count as a control", () => {
+    const { container } = render(<Popover trigger={<div role="presentation">Open</div>}>body</Popover>);
+    // presentation cannot own aria-expanded, so the fix must still apply
+    fireEvent.keyDown(popTrigger(container), { key: "Enter" });
+    expect(document.querySelector('[role="dialog"]')).toBeTruthy();
   });
 
   it("does not double-activate when a real control is nested in the trigger", () => {

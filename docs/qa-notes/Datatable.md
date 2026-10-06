@@ -23,6 +23,17 @@
   exercised by every Datatable unit test. `Datatable.jsx`; `tests/datatable-toolbar-labels.test.jsx` (5).
   - fixed 2026-10-06
 
+- [x] **[#449] four Datatable labels were the residual contrast failure the token change could not reach** -
+  found by adversarial review of #449, not in the original report. `.twc-dt__agg-label`,
+  `.twc-dt__groupbar-label`, `.twc-dt__pivot-corner-label` and `.twc-dt__pivot-rowcount` put
+  `--color-text-subtle` on `--color-surface-sunken`, the one pairing the ramp cannot fix (the background
+  moves with the text, so it sits at **4.34:1** in light whatever step is chosen). Measured in a real
+  browser on the docs site: `.twc-dt__agg-label` rendered 4.344:1. Switched to `--color-text-muted`
+  (**6.92:1**), matching `Kbd` and `CommandPalette`. The rule is now encoded in
+  `tests/tokens-a11y.test.js` - both halves, so text-subtle on sunken is asserted to be UNDER 4.5 and
+  text-muted on sunken to clear it - which makes a new text-subtle-on-sunken declaration fail the suite
+  rather than quietly fail an audit. `Datatable.jsx`; see [colors.md](../colors.md). - fixed 2026-10-06
+
 - [x] **[#436] docs: a per-row `editable` predicate's source fields must survive column projection** — documentation
   only; the reporter explicitly did **not** want a behaviour change. Two shipped features combine to silently void a
   rule. Projection (#191) encourages sending only `visibleColumns`, while a predicate typically gates one column from

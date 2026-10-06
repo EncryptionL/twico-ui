@@ -133,6 +133,22 @@ describe("token a11y - quiet text + soft tone foreground contrast (#449)", () =>
     it(`--color-text-subtle on --color-bg clears AA 4.5:1 (${scopeName})`, () => {
       expect(contrast(scope, "--color-text-subtle", "--color-bg")).toBeGreaterThanOrEqual(4.5);
     });
+    it(`--color-text-subtle on --color-surface-raised clears AA 4.5:1 (${scopeName})`, () => {
+      expect(contrast(scope, "--color-text-subtle", "--color-surface-raised")).toBeGreaterThanOrEqual(4.5);
+    });
+    // The one pairing the token change cannot lift: --color-surface-sunken moves WITH the text ramp, so
+    // text-subtle lands at 4.34:1 in light however the ramp shifts. The rule is therefore structural
+    // rather than numeric - quiet text ON A SUNKEN BACKGROUND must use --color-text-muted (6.92:1), as
+    // Kbd, CommandPalette and the Datatable labels do. These two assertions encode both halves so a new
+    // text-subtle-on-sunken declaration cannot be added without this file objecting.
+    it(`--color-text-subtle on --color-surface-sunken is NOT AA, which is why text-muted is required there (${scopeName})`, () => {
+      const r = contrast(scope, "--color-text-subtle", "--color-surface-sunken");
+      expect(r).toBeGreaterThanOrEqual(3); // still clears the SC 1.4.11 graphics floor
+      if (scopeName === "light") expect(r).toBeLessThan(4.5); // documents the constraint, not an aspiration
+    });
+    it(`--color-text-muted on --color-surface-sunken clears AA 4.5:1 (${scopeName})`, () => {
+      expect(contrast(scope, "--color-text-muted", "--color-surface-sunken")).toBeGreaterThanOrEqual(4.5);
+    });
     for (const tone of SOLID_TONES) {
       it(`${tone}-subtle-fg on ${tone}-subtle clears AA 4.5:1 (${scopeName})`, () => {
         // the dark -subtle values are translucent tints; contrast() composites them over the surface

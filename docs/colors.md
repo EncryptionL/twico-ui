@@ -106,6 +106,12 @@ silently regress below the a11y floors:
   and slate-500 in dark (3.75:1) - i.e. the quieter step on the lighter background both times, which
   fails in both. `--color-text` / `--color-text-muted` / `--color-text-subtle` remain three distinct
   steps, so "quiet" survives.
+- **Never put `--color-text-subtle` on `--color-surface-sunken` (#449).** That one pairing cannot be
+  fixed by moving the ramp, because the sunken background shifts with the text: it sits at 4.34:1 in
+  light whatever step you choose. Quiet text on a sunken background must use `--color-text-muted`
+  (6.92:1), which is what `Kbd`, `CommandPalette`'s shortcut caps and the Datatable aggregation /
+  group-bar / pivot labels do. `tests/tokens-a11y.test.js` asserts both halves of this, so a new
+  text-subtle-on-sunken declaration will fail the suite rather than quietly fail an audit.
 - **`*-subtle-fg` is the text-grade step on a tint (#449).** In light it is `-700` on the `-50` tint:
   primary 7.07:1, success 5.21:1, warning 4.84:1, danger 5.72:1, info 5.57:1. At `-600` the four
   non-primary tones measured 3.07-4.28:1 - failing on every soft Badge, and on every default Alert,

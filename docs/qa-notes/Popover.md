@@ -21,7 +21,20 @@
   nested inside the trigger keeps its own activation and nothing toggles twice. Note the report's ARIA list is two
   attributes too long: `aria-haspopup`, `aria-controls` and `aria-describedby` are global and legal on `generic`
   (just useless). Tooltip must still go OUTSIDE Popover - see [Tooltip](Tooltip.md).
-  `Popover.jsx`, `_overlay.js`; `tests/overlay-trigger-semantics.test.jsx` (11). - fixed 2026-10-06
+  **Adversarial-review follow-up:** the first cut gated the Enter/Space fix on the same static
+  `triggerIsControl` check used to decide the role - which meant it SKIPPED the very shapes #447 is about.
+  `triggerIsControl` returns true for an opaque component type, so `trigger={<Box>}` (the issue's own
+  repro, and the example in these docs) got `tabIndex` + `aria-expanded` with no role and no keyboard at
+  all; a bare `<a>` (generic, not a link) was waved through by tag name; and - worst - setting `role`
+  yourself, which the new dev warning explicitly recommends, *disabled* the fix, leaving an element that
+  advertises `role="button"` and does nothing. The two questions are now answered separately: the role is
+  still decided statically (it must not land on something that may render a real button), while keyboard
+  activation is decided at EVENT time against `e.currentTarget`, which sees through a component type and
+  through a consumer-set role. A native control is skipped there, since its own Enter/Space already fires
+  the click. `triggerIsControl` was also tightened: `a` counts only with an `href`, `summary` is dropped,
+  and only roles that can legally own `aria-expanded` count - `presentation`/`none`/`generic` no longer
+  suppress the fix. `Popover.jsx`, `_overlay.js`;
+  `tests/overlay-trigger-semantics.test.jsx` (16) + `tests/overlay-trigger-warn.test.jsx` (3). - fixed 2026-10-06
 
 - [x] **[#420] aria-describedby landed on the wrapper, not the trigger** — Popover forwards an incoming aria-describedby to the cloned trigger. `Popover.jsx` — ✓ 2026-09-23
 

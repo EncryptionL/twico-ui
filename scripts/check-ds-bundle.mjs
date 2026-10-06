@@ -17,7 +17,7 @@
 //   node scripts/check-ds-bundle.mjs --warn   # emit ::warning:: annotations, exit 0 (non-blocking CI)
 //
 // See issue tracking the regen + flipping CI to blocking once the bundle is fresh.
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 
 const WARN = process.argv.includes("--warn");
@@ -41,9 +41,17 @@ try {
   fail(`✗ Could not parse the @ds-bundle header JSON: ${e.message}`);
 }
 
+// #449/#447 review: the header only lists COMPONENT sources, but the bundle inlines the shared
+// internals those components import (components/_styles.js, _overlay.js, _warn.js, ...). A change
+// confined to one of those therefore left the bundle stale with nothing objecting. Union them in so
+// every file whose code actually ends up in the bundle is covered.
+const shared = readdirSync("components")
+  .filter((f) => f.startsWith("_") && f.endsWith(".js"))
+  .map((f) => "components/" + f);
 const inputs = new Set([
   ...Object.keys(meta.sourceHashes || {}),
   ...(meta.components || []).map((c) => c.sourcePath).filter(Boolean),
+  ...shared,
 ]);
 if (inputs.size === 0) fail(`✗ The @ds-bundle header lists no input files — cannot check drift.`);
 
