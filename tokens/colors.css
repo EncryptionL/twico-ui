@@ -115,7 +115,7 @@
   /* Text */
   --color-text:           var(--slate-900);
   --color-text-muted:     var(--slate-600);
-  --color-text-subtle:    var(--slate-400);
+  --color-text-subtle:    var(--slate-500);
   --color-text-inverted:  #ffffff;
 
   /* Data labels painted ON coloured chart marks (pie/donut slices, treemap tiles,
@@ -144,26 +144,26 @@
   --color-success:        var(--emerald-600);
   --color-success-fg:     #ffffff;
   --color-success-subtle:    var(--emerald-50);
-  --color-success-subtle-fg: var(--emerald-600);
+  --color-success-subtle-fg: var(--emerald-700);
 
   /* Warning */
   --color-warning:        var(--amber-500);
   --color-warning-fg:     var(--amber-950); /* dark ink on amber-500 = 6.97:1 (white was 2.15:1) */
   --color-warning-subtle:    var(--amber-50);
-  --color-warning-subtle-fg: var(--amber-600);
+  --color-warning-subtle-fg: var(--amber-700);
 
   /* Danger */
   --color-danger:         var(--rose-500);
   --color-danger-hover:   var(--rose-600);
   --color-danger-fg:      #ffffff;
   --color-danger-subtle:     var(--rose-50);
-  --color-danger-subtle-fg:  var(--rose-600);
+  --color-danger-subtle-fg:  var(--rose-700);
 
   /* Info */
   --color-info:           var(--sky-500);
   --color-info-fg:        var(--sky-950); /* dark ink on sky-500 (white was 2.77:1) */
   --color-info-subtle:       var(--sky-50);
-  --color-info-subtle-fg:    var(--sky-600);
+  --color-info-subtle-fg:    var(--sky-700);
 }
 
 /* ============================================================
@@ -186,7 +186,7 @@
 
   --color-text:           var(--slate-50);
   --color-text-muted:     var(--slate-300);
-  --color-text-subtle:    var(--slate-500);
+  --color-text-subtle:    var(--slate-400);
   --color-text-inverted:  var(--slate-900);
 
   --color-primary:         var(--brand-500);

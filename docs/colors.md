@@ -99,6 +99,20 @@ silently regress below the a11y floors:
   Solid `warning`/`info` use **dark ink** (`--amber-950` / `--sky-950`) on the amber/sky fill rather
   than white — white on a mid-value fill only reached ~2.15:1 / ~2.77:1. The fills are unchanged, so
   the chips still read as "warning"/"info".
+- **Quiet text owes 4.5:1, not 3:1 (#449).** `--color-text-subtle` is the quiet-TEXT token (Sidebar
+  section headings, input placeholders, chart axis ticks, empty states, timestamps, hints), so it is
+  held to the normal-text floor. Light and dark deliberately **trade ramp steps**: slate-500 on white
+  = **4.76:1**, slate-400 on the dark surface = **6.96:1**. It used to be slate-400 in light (2.56:1)
+  and slate-500 in dark (3.75:1) - i.e. the quieter step on the lighter background both times, which
+  fails in both. `--color-text` / `--color-text-muted` / `--color-text-subtle` remain three distinct
+  steps, so "quiet" survives.
+- **`*-subtle-fg` is the text-grade step on a tint (#449).** In light it is `-700` on the `-50` tint:
+  primary 7.07:1, success 5.21:1, warning 4.84:1, danger 5.72:1, info 5.57:1. At `-600` the four
+  non-primary tones measured 3.07-4.28:1 - failing on every soft Badge, and on every default Alert,
+  whose default variant IS `soft` and default tone `info`. In dark it is `-400` over a 15% tint, which
+  composites to 5.8-8.3:1 on the surface and was already fine. Note the test helper must composite
+  that alpha: reading `rgb(16 185 129 / 0.15)` as opaque (as it used to) measures a colour that is
+  never painted.
 - **The focus ring** (`--color-ring`) is a **solid** brand color (`--brand-500` light, `--brand-400`
   dark) so the 3px `box-shadow` ring clears SC 1.4.11 / 2.4.11 (3:1) against the surface — a
   translucent indigo alpha-composited to only ~1.8:1 on light.

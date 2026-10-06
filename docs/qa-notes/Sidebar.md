@@ -2,9 +2,22 @@
 
 - **Group:** navigation
 - **Status:** clean
-- **Reviewed:** 2026-09-23
+- **Reviewed:** 2026-10-06
 
 ## Open issues
+
+- [x] **[#449] section headings failed WCAG AA in BOTH themes** - `.twc-sidebar__section` is
+  `var(--color-text-subtle)` on the sidebar's `var(--color-surface)`, measuring **2.56:1** in light (slate-400 on
+  white) and **3.75:1** in dark. These are the group labels in the navigation rail, so they appear on every page
+  of a consuming app, and at 10px/700 uppercase they are nowhere near the large-text threshold - 4.5:1 applies.
+  Fixed in the token rather than in Sidebar: `--color-text-subtle` now takes one step toward the text in light
+  (slate-400 -> slate-500, **4.76:1**) and one step away in dark (slate-500 -> slate-400, **6.96:1**) - the two
+  themes simply trade ramp steps, so no new value enters the vocabulary and the text / text-muted / text-subtle
+  hierarchy stays three distinct steps. That also lifts ~30 other quiet-text uses (placeholders, chart axis ticks,
+  empty states, timestamps, hints) which shared the identical latent failure. One imprecision in the report: the
+  dark failure was slate-500, not slate-400 - the token is re-declared in the dark block. See
+  [colors.md](../colors.md) and [Badge](Badge.md). `tokens/colors.css`; `tests/tokens-a11y.test.js`.
+  - fixed 2026-10-06
 
 - [x] **[#417] footerInset={false} still left a gap below the row** — when the footer row is the foots last child, cancel the bottom padding too so it reaches the rails bottom edge. `Sidebar.jsx` — ✓ 2026-09-23
 

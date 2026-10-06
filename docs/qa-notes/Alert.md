@@ -2,9 +2,16 @@
 
 - **Group:** Feedback
 - **Status:** clean
-- **Reviewed:** 2026-06-17
+- **Reviewed:** 2026-10-06
 
 ## Open issues
+
+- [x] **[#449] the default `soft`/`info` combination failed WCAG AA in the light theme** - not named in the
+  report, but Alert consumes the same `--color-*-subtle-fg` tokens as Badge, and since `soft` is Alert's
+  **default** variant and `info` its default tone, the library's most-used tinted surface was the worst case at
+  **3.84:1**. Fixed by the four light tokens moving `-600` -> `-700` (info now **5.57:1**); no Alert code change.
+  See [Badge](Badge.md) and [colors.md](../colors.md). `tokens/colors.css`; `tests/tokens-a11y.test.js`.
+  - fixed 2026-10-06
 
 None identified.
 
