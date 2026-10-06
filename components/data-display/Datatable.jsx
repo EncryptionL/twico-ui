@@ -119,7 +119,12 @@ const DT_CSS = `
 /* Narrow grid: collapse the toolbar to icon-only buttons (labels survive as
    hover tooltips via data-tip) and let the search flex so nothing wraps. */
 .twc-dt__toolbar[data-compact="true"] { flex-wrap: nowrap; gap: 4px; }
-.twc-dt__toolbar[data-compact="true"] .twc-dt__tlabel { display: none; }
+/* #448: visually hidden, NOT display:none. The label is each toolbar button's only text node, so
+   removing it from the a11y tree left Columns/Filters/Density/Aggregation/Pivot with an empty (or
+   badge-number-only) accessible name - an axe/Lighthouse button-name failure. Same declarations as
+   .twc-dt__sr below. Compact is driven by a ResizeObserver on the GRID width, not a media query, so
+   a narrow grid in a wide viewport hits this too. */
+.twc-dt__toolbar[data-compact="true"] .twc-dt__tlabel { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__tbtn { padding: 0 8px; gap: 0; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__tbtn .twc-dt__tbadge { margin-inline-start: 4px; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__export-main { padding: 0 9px; gap: 0; }

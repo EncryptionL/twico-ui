@@ -2,9 +2,26 @@
 
 - **Group:** data-display
 - **Status:** clean
-- **Reviewed:** 2026-09-24
+- **Reviewed:** 2026-10-06
 
 ## Open issues
+
+- [x] **[#448] toolbar buttons lost their accessible name when the toolbar collapsed** - the toolbar hides each
+  button's label with `display: none` once it is narrow, and that span is the button's **only** text node, so the
+  accessible name went empty - or, where a badge renders, a bare number. axe/Lighthouse report `button-name`, and
+  a screen reader announces just "button". Fixed by *visually* hiding the label instead (the same declaration
+  list `.twc-dt__sr` already uses), so it stays in the a11y tree and the collapsed name is byte-identical to the
+  full-width one - no name/visible-label divergence, the badge count stays in the name, and no English strings are
+  added to a component with no i18n surface. Measured cost: +127 raw / **+6 bytes gzipped**, since the declaration
+  list compresses to a back-reference against `.twc-dt__sr`. Two corrections to the report: it affects **five**
+  buttons (Columns, Filters, Density, Aggregation, Pivot - the two Export buttons already carry `aria-label`), and
+  there is **no media query** - `compact` comes from a ResizeObserver on the *grid* width, so a narrow grid inside
+  a wide viewport hits it too and a media-query fix would not have worked. A permanent `aria-label` (the
+  reporter's suggestion) is worse here because it would override the badge-bearing text, and the suggested Tooltip
+  was rejected: it does not fix `button-name` at all (`aria-describedby` only, and only while shown) and
+  duplicates the `data-tip` hover hint that already exists. jsdom reports `clientWidth` 0, so this path is
+  exercised by every Datatable unit test. `Datatable.jsx`; `tests/datatable-toolbar-labels.test.jsx` (5).
+  - fixed 2026-10-06
 
 - [x] **[#436] docs: a per-row `editable` predicate's source fields must survive column projection** — documentation
   only; the reporter explicitly did **not** want a behaviour change. Two shipped features combine to silently void a
