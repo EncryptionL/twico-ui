@@ -1,10 +1,27 @@
 # QA notes — Popover
 
 - **Group:** overlay
-- **Reviewed:** 2026-09-23
+- **Reviewed:** 2026-10-06
 - **Status:** clean
 
 ## Open issues
+
+- [x] **[#447] a cloned non-button `trigger` received widget ARIA it cannot legally carry** - Popover clones the
+  trigger to inject `tabIndex`, `aria-expanded`, `aria-haspopup` and `aria-controls`. On a `div`/`Box`/`Stack`
+  those land on the implicit `role="generic"`, where **`aria-expanded` is prohibited** (axe `aria-allowed-attr`,
+  and it fires at rest because React serializes `aria-expanded="false"`), and the element becomes a nameless tab
+  stop - with a real button inside it also tabbable, i.e. two tab stops for one control. Worse, and contrary to
+  the report: **Popover** is the component with the keyboard gap. Its clone branch attached no `onKeyDown`, its
+  wrapper has none, and the only document listener handles Escape while open - so such a trigger was focusable but
+  could not be operated by keyboard at all. A cloned non-control trigger now also gets `role="button"` plus
+  Enter/Space activation, mirroring `DatePicker`. Detection lives in the shared `triggerIsControl`
+  (`components/_overlay.js`) so Menu pays for it once; an explicit consumer `role` wins (AvatarMenu's own
+  `span role="button"` is untouched) and a component type we cannot see through is trusted to render its own
+  control. The handler bails on `e.defaultPrevented` and on `e.target !== e.currentTarget`, so a real control
+  nested inside the trigger keeps its own activation and nothing toggles twice. Note the report's ARIA list is two
+  attributes too long: `aria-haspopup`, `aria-controls` and `aria-describedby` are global and legal on `generic`
+  (just useless). Tooltip must still go OUTSIDE Popover - see [Tooltip](Tooltip.md).
+  `Popover.jsx`, `_overlay.js`; `tests/overlay-trigger-semantics.test.jsx` (11). - fixed 2026-10-06
 
 - [x] **[#420] aria-describedby landed on the wrapper, not the trigger** — Popover forwards an incoming aria-describedby to the cloned trigger. `Popover.jsx` — ✓ 2026-09-23
 

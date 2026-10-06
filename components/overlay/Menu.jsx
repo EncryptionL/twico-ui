@@ -1,7 +1,7 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import { createPortal } from "react-dom";
-import { useLayer } from "../_overlay.js";
+import { useLayer, triggerIsControl, useTriggerAudit } from "../_overlay.js";
 
 const MENU_CSS = `
 .twc-menu-wrap { position: relative; display: inline-flex; }
@@ -72,6 +72,7 @@ export function Menu({
   const [pos, setPos] = React.useState(null);
   const [active, setActive] = React.useState(-1);
   const wrapRef = React.useRef(null);
+  useTriggerAudit(wrapRef, "Menu"); // #447: dev-only trigger contract check
   const menuRef = React.useRef(null);
   const typeBufRef = React.useRef("");
   const typeTimerRef = React.useRef(null);
@@ -239,6 +240,11 @@ export function Menu({
   // aria-activedescendant mirrors the highlighted item for screen readers while
   // DOM focus stays on the trigger.
   const activeDescId = open && active >= 0 ? `${menuId}-item-${active}` : undefined;
+  // #447: a cloned non-control trigger needs role="button" so the injected aria-expanded is legal
+  // (it is prohibited on a div's implicit role="generic"). Keyboard activation already works for
+  // every trigger shape - span.twc-menu-wrap below carries onKeyDown, which Enter/Space/ArrowDown
+  // bubble up to - so, unlike Popover, no handler is added here.
+  const fix = React.isValidElement(trigger) && !triggerIsControl(trigger) ? { role: "button" } : null;
   const triggerEl = React.isValidElement(trigger)
     ? React.cloneElement(trigger, {
         onClick: (e) => { trigger.props.onClick?.(e); toggle(); },
@@ -250,6 +256,7 @@ export function Menu({
         // #420: forward an incoming aria-describedby (e.g. from a wrapping Tooltip) to the focusable trigger,
         // not the wrapper span, so the description is announced on focus.
         "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || undefined,
+        ...fix,
       })
     : (
         <span role="button" tabIndex={0} aria-haspopup="menu" aria-expanded={open}

@@ -103,6 +103,59 @@ is still registered and its parent correctly yields). Wiring:
 Tested in `tests/overlay-layer-stack.test.jsx` (nested Dialog Escape hits only the inner; an open Select inside
 a Dialog closes the Select, not the Dialog; a lone Dialog still closes — no regression).
 
+## The `trigger` contract (#447)
+
+Popover and Menu **clone** the element you pass as `trigger` so a real `Button`/`IconButton` keeps its
+own semantics, and inject `tabIndex`, `aria-expanded`, `aria-haspopup`, `aria-controls` and the open
+handler onto it. **Pass a single focusable control.** Those attributes are only correct on something
+that already is one: `aria-expanded` is not a global ARIA attribute, so on a `div`'s implicit
+`role="generic"` it is *prohibited* (axe `aria-allowed-attr`, and it fires at rest because React
+serializes `aria-expanded="false"`), and the element becomes a tab stop that announces nothing.
+
+It is easy to hit, because wrapping is the natural way to overlay a badge on a button:
+
+```jsx
+/* two tab stops for one control, and an axe violation */
+<Popover trigger={<Box sx={{ position: "relative" }}><IconButton …/><Badge>{n}</Badge></Box>} />
+
+/* the control is the trigger; the decoration sits outside */
+<Box sx={{ position: "relative" }}>
+  <Popover trigger={<IconButton …/>} />
+  <Badge>{n}</Badge>
+</Box>
+```
+
+Since #447 the easy thing is at least *correct*: `triggerIsControl` (in `components/_overlay.js`)
+detects a cloned non-control trigger, and both components then add `role="button"` - Popover also adds
+Enter/Space activation, which its clone branch had never had, so such a trigger used to be focusable
+but impossible to operate by keyboard. (Menu needed no handler: `span.twc-menu-wrap` carries
+`onKeyDown` and Enter/Space/ArrowDown bubble to it.) An explicit `role` you set yourself always wins,
+which is how `AvatarMenu` keeps its own `span role="button"`. Popover's injected handler bails on
+`e.defaultPrevented` and when `e.target !== e.currentTarget`, so a real control nested inside the
+trigger keeps its own activation instead of toggling twice.
+
+A dev-only `useTriggerAudit` (also in `_overlay.js`) covers what static inspection cannot: a component
+type like `Box`/`Stack` renders a div but `triggerIsControl` cannot see through it, so no role is
+injected. In development it warns, naming the prop, when the trigger is a Tooltip, when it wraps a
+focusable control (two tab stops for one control), or when it is a role-less non-control. It stays quiet
+once the element carries a role - including the one this module injected - because by then there is
+nothing left to report. `warnOnce` dedupes by key and no-ops in production.
+
+### Tooltip goes OUTSIDE, not inside
+
+Tooltip composes the other way round: it clones its child only to merge `aria-describedby` and spreads
+everything else onto its own wrapper span. So `trigger={<Tooltip><IconButton/></Tooltip>}` *moves* the
+problem onto `span.twc-tooltip-wrap` rather than fixing it, and the tooltip text stops being announced
+on focus. Put Tooltip on the outside:
+
+```jsx
+<Tooltip label="Filters"><Popover trigger={<IconButton aria-label="Filters" …/>} …/></Tooltip>
+```
+
+That works because Popover/Menu forward a *received* `aria-describedby` to the cloned trigger (#420),
+and it is what the `.twc-tooltip-wrap :is(.twc-menu-wrap, .twc-popover-wrap)` CSS from #398/#420
+already assumes.
+
 ## Disabled triggers (#398)
 
 A native `disabled` control swallows the pointer events a `Tooltip` opens from, so a disabled button's "why it's

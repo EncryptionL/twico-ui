@@ -1,10 +1,28 @@
 # QA notes — Menu
 
 - **Group:** overlay
-- **Reviewed:** 2026-09-23
+- **Reviewed:** 2026-10-06
 - **Status:** open
 
 ## Open issues
+
+- [x] **[#447] a cloned non-button `trigger` received widget ARIA it cannot legally carry** - like Popover, Menu
+  clones the trigger to inject `tabIndex`/`aria-expanded`/`aria-haspopup`/`aria-controls`, and on a `div`/`Box`
+  those land on `role="generic"` where `aria-expanded` is prohibited. A cloned non-control trigger now also gets
+  `role="button"` via the shared `triggerIsControl` (`components/_overlay.js`); an explicit consumer `role` is
+  preserved, so AvatarMenu is untouched. Unlike Popover, **no keyboard handler was needed**: the report's claim
+  that a non-button Menu trigger cannot be opened from the keyboard is wrong - `span.twc-menu-wrap` carries
+  `onKeyDown`, Enter/Space/ArrowDown bubble up to it, and `tests/Menu.test.jsx` has been proving exactly that via
+  AvatarMenu (whose trigger is a `span role="button"`) all along. See [Popover](Popover.md) for the full
+  rationale. `Menu.jsx`, `_overlay.js`; `tests/overlay-trigger-semantics.test.jsx` (11). - fixed 2026-10-06
+
+- [ ] **[P2] `aria-activedescendant` is injected on the documented happy path** - found while fixing #447 and NOT
+  part of it. Menu injects `aria-activedescendant` into the cloned trigger whenever an item is highlighted. That
+  attribute is not global and is **not** allowed on `role="button"`, so `trigger={<Button>}` - the documented,
+  recommended usage - is an `aria-allowed-attr` violation as soon as the user arrows into the menu; adding
+  `role="button"` to a div does not make it legal either. This is a pre-existing deviation from the WAI-ARIA APG
+  menu-button pattern, which moves DOM focus into the items rather than roving via `aria-activedescendant` on the
+  button, so it wants its own issue and a considered fix rather than being folded into #447.
 
 - [x] **[#420/#410] Menu opened from a disabled trigger, and swallowed a parent-claimed key** — guard opening when the trigger is disabled/aria-disabled; bail onKeyDown on defaultPrevented; forward aria-describedby to the focusable trigger. `Menu.jsx` — ✓ 2026-09-23
 

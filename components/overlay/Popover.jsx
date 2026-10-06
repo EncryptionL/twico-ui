@@ -1,6 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
-import { useFocusTrap, useLayer } from "../_overlay.js";
+import { useFocusTrap, useLayer, triggerIsControl, useTriggerAudit } from "../_overlay.js";
 import { createPortal } from "react-dom";
 
 const POPOVER_CSS = `
@@ -47,6 +47,7 @@ export function Popover({
   const [render, setRender] = React.useState(false);
   const [pos, setPos] = React.useState(null);
   const wrapRef = React.useRef(null);
+  useTriggerAudit(wrapRef, "Popover"); // #447: dev-only trigger contract check
   const popRef = React.useRef(null);
   const popId = React.useId();
 
@@ -185,6 +186,18 @@ export function Popover({
   // popup + open state. Clone a passed element (so a <button>/IconButton keeps
   // its own semantics) or wrap a non-element trigger in a focusable
   // role="button" span with Enter/Space activation.
+  // #447: a cloned non-control trigger (a div/Box/Stack) also needs role="button" + Enter/Space,
+  // or aria-expanded is invalid on role="generic" and the tab stop does nothing. Mirrors DatePicker.
+  const fix = {};
+  if (React.isValidElement(trigger) && !triggerIsControl(trigger)) {
+    fix.role = "button";
+    fix.onKeyDown = (e) => {
+      trigger.props.onKeyDown?.(e);
+      // a real control nested inside the trigger owns its own activation - never toggle twice
+      if (e.defaultPrevented || e.target !== e.currentTarget) return;
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+    };
+  }
   const triggerEl = React.isValidElement(trigger)
     ? React.cloneElement(trigger, {
         onClick: (e) => { trigger.props.onClick?.(e); toggle(); },
@@ -194,6 +207,7 @@ export function Popover({
         "aria-controls": open ? popId : undefined,
         // #420: forward an incoming aria-describedby (e.g. from a wrapping Tooltip) to the focusable trigger.
         "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || undefined,
+        ...fix,
       })
     : (
         <span role="button" tabIndex={0} aria-haspopup="dialog" aria-expanded={open}
