@@ -32,6 +32,9 @@ hand-roll the fetch/paginate/sort/loading/empty loop. `CardGrid` is that missing
 
 - [x] **[#461] an out-of-range page was never clamped** - CardGrid reset to page 0 on quick-filter/sort/page-size/filters changes but not when `rows` itself shrank, so a refetch or a deletion stranded the page index: the slice came back empty and the empty state covered rows that DO match, with a footer reading `97-10 of 10`. It now clamps to the last real page, renders from the clamped page (re-slicing the query's `filtered` set, so a controlled host that ignores `onPageChange` still gets rows), and the footer range can no longer invert. `CardGrid.jsx:111-125` - fixed 2026-10-07
 
+- [x] **[#461 review] the clamp fired when the page was not KNOWABLY out of range** - in `serverMode` without `rowCount`, `total` falls back to `rows.length` (the size of the page the host happened to send), so totalPages is 1 and every page looks stranded: a restored page was reset to 0 before the data arrived, and the host stayed pinned there. The clamp now requires a knowable total and skips while `loading`. `CardGrid.jsx:121` - fixed 2026-10-07
+- [x] **[#461 review] the clamp overwrote the reset-to-page-0 that a `filters` change performs** - both are effects in the same commit, running in declaration order, and `pageVal` is still the pre-reset value when the clamp runs, so changing a filter landed the reader on the LAST page instead of the first. The clamp now skips the render on which `filtersKey` changed. (The sort / quick-filter / page-size resets call `commitPage(0)` inline from their handlers, so they are already settled and need no guard.) `CardGrid.jsx:128` - fixed 2026-10-07
+
 ## Verified OK
 
 - Client mode: one card per row capped to `pageSize`; pagination; quick search; controlled + built-in sort.

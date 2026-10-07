@@ -6,6 +6,10 @@ import { dirname, join } from "node:path";
 import { render, screen, act } from "@testing-library/react";
 import { Select } from "../components/inputs/Select.jsx";
 
+
+// #459: the Select trigger is the APG select-only combobox (role="combobox"), as MUI's Select also
+// is, so it is no longer exposed as a button - these queries ask for the combobox role.
+
 const INPUTS = join(dirname(fileURLToPath(import.meta.url)), "..", "components", "inputs");
 const options = [{ value: "a", label: "Apple" }, { value: "b", label: "Banana" }];
 
@@ -34,7 +38,7 @@ describe("Portaled dropdown tracks trigger resize", () => {
 
     it("re-measures the portaled menu width when the trigger resizes while open", () => {
       render(<Select options={options} searchable={false} />); // portal + matchTriggerWidth default on
-      const trigger = screen.getByRole("button");
+      const trigger = screen.getByRole("combobox");
       act(() => trigger.focus());
       act(() => trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true })));
       expect(document.querySelector(".twc-pop").style.width).toBe("150px"); // matched the trigger

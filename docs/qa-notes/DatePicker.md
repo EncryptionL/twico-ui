@@ -24,6 +24,8 @@
 
 - [x] **[#453] outside-month days were dimmed to 1.97:1** - `opacity: 0.5` over `--color-text-subtle`, on days that are clickable (they jump to the adjacent month), so WCAG's inactive-control exemption does not apply. The opacity is gone - `--color-text-subtle` alone clears AA and still reads as de-emphasised - while the `:disabled` rule keeps its own. `DatePicker.jsx:76` - fixed 2026-10-07
 
+- [x] **[#453 review] the first version of this fix landed on the one pairing the token rules forbid** - outside-month days kept `--color-text-subtle`, but `.twc-dp__day:hover` paints `--color-surface-sunken` underneath them, and text-subtle on sunken is **4.34:1** in light (the structural rule `tests/tokens-a11y.test.js` and `docs/colors.md` both already encode). They now use `--color-text-muted`, which clears AA on every background these cells can take (6.78:1 worst) and still reads a step quieter than an in-month day. The year cells two rules below had the same sunken hover and the same fix. `DatePicker.jsx:84,97` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled date (value/defaultValue/onChange)

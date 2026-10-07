@@ -150,14 +150,18 @@ export function Menu({
     if (el) el.focus();
   }, [open, render, active, menuId]);
 
+  const focusTrigger = React.useCallback(() => {
+    const t = wrapRef.current && wrapRef.current.querySelector('button, a[href], [role="button"], [tabindex]');
+    if (t) t.focus();
+  }, []);
+
   // ...and hand it back to the trigger on close, so Escape/Tab/activation never drop focus to <body>.
   React.useEffect(() => {
     if (open) return;
     const m = menuRef.current;
     if (!m || typeof document === "undefined" || !m.contains(document.activeElement)) return;
-    const t = wrapRef.current?.querySelector('button, a[href], [role="button"], [tabindex]');
-    if (t) t.focus();
-  }, [open]);
+    focusTrigger();
+  }, [open, focusTrigger]);
 
   // Keep the menu mounted through the close animation, then unmount.
   React.useEffect(() => {
@@ -182,7 +186,17 @@ export function Menu({
     if (e.key === "Escape") { e.preventDefault(); setOpen(false); return; }
     // APG: Tab closes the menu and lets focus move on naturally (the items stay out of the tab
     // order at tabIndex={-1}; the highlighted one is focused programmatically).
-    if (e.key === "Tab") { setOpen(false); return; }
+    if (e.key === "Tab") {
+      // #459 (review): restore focus to the trigger BEFORE this event reaches an ancestor focus trap.
+      // With focus parked on a portaled item, a Dialog/Drawer trap sees activeElement outside its own
+      // region and yanks focus to its FIRST focusable (_overlay.js useFocusTrap) - so tabbing out of a
+      // menu inside a dialog jumped to the top of the dialog instead of continuing past the trigger.
+      // React's handler runs before the trap's document-level listener, so restoring here leaves both
+      // the trap and the browser's native Tab to behave exactly as they did before the menu opened.
+      focusTrigger();
+      setOpen(false);
+      return;
+    }
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       e.preventDefault();
       const list = interactiveIdx;

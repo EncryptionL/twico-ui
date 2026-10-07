@@ -30,7 +30,7 @@ export type PolymorphicAs = React.ElementType;
  * style (and win over the component's base style, MUI-style); any nested object — a
  * selector key (`"&:hover"`, `":focus-visible"`, `"& > .child"`) or an at-rule
  * (`"@media (min-width: 600px)"`, `"@supports …"`, `"@container …"`) — is compiled to a
- * scoped stylesheet. Use design tokens for values, e.g. `color: "var(--color-primary)"`.
+ * scoped stylesheet. Use design tokens for values, e.g. `color: "var(--color-primary-subtle-fg)"`.
  * See docs/sx.md.
  */
 export type Sx = React.CSSProperties & {

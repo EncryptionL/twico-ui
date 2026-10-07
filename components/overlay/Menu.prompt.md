@@ -19,4 +19,7 @@ import { Menu } from "./Menu";
 Item fields: `label`, `icon`, `onClick`, `href` (+ `target`/`rel` — renders the item as a real,
 scheme-sanitized `<a role="menuitem">`), `shortcut`, `danger`, `disabled`, `separator`, `heading`.
 Extras: `header` (rich node above items), `width`, `align` (start/end), `aria-label` (names the
-`role="menu"` popup; a `header` labels it by default). Portaled + keyboard-navigable (↑/↓, Enter, Esc).
+`role="menu"` popup; a `header` labels it by default). Portaled + keyboard-navigable (↑/↓, Enter,
+**Space**, Esc, Home/End, PageUp/PageDown, and type-ahead on printable characters). Keyboard
+navigation moves real focus onto the highlighted item (the WAI-ARIA menu-button pattern) and hands
+it back to the trigger on close; hovering with a pointer moves the highlight without taking focus.

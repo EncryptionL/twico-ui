@@ -73,10 +73,15 @@ const DATEPICKER_CSS = `
   font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md);
   transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
 .twc-dp__day:hover:not(:disabled):not([data-selected="true"]) { background: var(--color-surface-sunken); }
-/* #453: no opacity here - these days are clickable (they jump to the adjacent month), so they are
-   NOT exempt from SC 1.4.3. color-text-subtle alone clears AA and still reads as de-emphasised;
-   the 0.5/0.45 multiplier dropped them to 1.83-1.97:1. Opacity stays only on the :disabled rules. */
-.twc-dp__day[data-outside="true"] { color: var(--color-text-subtle); }
+/* #453 (review): --color-text-MUTED, not text-subtle. These days get a surface-sunken hover
+   background (and, in the range picker, a primary-subtle in-range fill), and text-subtle on either
+   is 4.26-4.34:1 in light - the one pairing the token rules forbid (see docs/colors.md and
+   tests/tokens-a11y.test.js). text-muted clears AA on every background these days can take
+   (6.78:1 worst) and still reads a step quieter than an in-month day.
+   No opacity: these days are clickable (they jump to the adjacent month), so they are NOT exempt
+   from SC 1.4.3 - the old 0.5/0.45 multiplier put them at 1.83-1.97:1. Opacity stays only on the
+   :disabled rules. */
+.twc-dp__day[data-outside="true"] { color: var(--color-text-muted); }
 .twc-dp__day[data-today="true"] { font-weight: var(--font-bold); box-shadow: inset 0 0 0 1px var(--color-primary-border); }
 .twc-dp__day[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
 .twc-dp__day:disabled { color: var(--color-text-subtle); opacity: 0.4; cursor: not-allowed; }
@@ -89,7 +94,8 @@ const DATEPICKER_CSS = `
 .twc-dp__years { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
 .twc-dp__yr { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
 .twc-dp__yr:hover:not(:disabled) { background: var(--color-surface-sunken); }
-.twc-dp__yr[data-outside="true"] { color: var(--color-text-subtle); }
+/* #453 (review): same sunken-hover background as the day cells, so text-muted here too. */
+.twc-dp__yr[data-outside="true"] { color: var(--color-text-muted); }
 .twc-dp__yr[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
 .twc-dp__yr:disabled { opacity: 0.4; cursor: not-allowed; }
 [dir="rtl"] .twc-dp__nav svg { transform: scaleX(-1); }

@@ -115,6 +115,11 @@
      clears it in both themes (4.76:1 on white, 6.96:1 on the dark surface) without touching
      card/divider borders. */
   --color-control-border: var(--slate-500);
+  /* #454 (review): a Switch track is NOT the same problem as a checkbox border. Its white thumb is
+     what identifies the control - except in light mode, where a white thumb on a white surface is
+     invisible and the track has to carry it. So light needs a dark track (4.76:1 on the surface, and
+     4.76:1 against the thumb)... */
+  --color-control-track: var(--slate-500);
   --color-divider:        var(--slate-200);
 
   /* Text */
@@ -124,7 +129,10 @@
   --color-text-inverted:  #ffffff;
 
   /* Data labels painted ON coloured chart marks (pie/donut slices, treemap tiles,
-     funnel stages). The mark fills are fixed -500 primitives that DON'T flip with
+     funnel stages). #455 made the mark fills theme-aware (--color-chart-1..7), but these two stay
+     static on purpose: the fills still span a wide lightness range in BOTH themes, so a theme-aware
+     label colour would wash out on the light ones and invert on the dark ones. Historically the
+     comment here said the fills were fixed -500 primitives that DON'T flip with
      theme, so these must stay static too (they are intentionally NOT re-declared in
      .dark): a light fill + a translucent dark halo — applied via `paint-order:
      stroke` — keeps the text legible on any slice colour, including light ones like
@@ -213,6 +221,12 @@
   --color-border:         #25324a;
   --color-border-strong:  var(--slate-700);
   --color-control-border: var(--slate-400);
+  /* ...while dark must go the OTHER way: on a dark surface the white thumb already reads at 10.35:1
+     against this track and ~14:1 against the surface, so the control is unmistakable, and lightening
+     the track to match --color-control-border would have dropped thumb-vs-track to 2.56:1 - trading
+     one 1.4.11 failure for another. On/off is carried by thumb POSITION, so SC 1.4.1 is satisfied
+     without colour either way. */
+  --color-control-track: var(--slate-700);
   --color-divider:        #1c2840;
 
   --color-text:           var(--slate-50);
@@ -251,13 +265,18 @@
   --color-info-subtle:       rgb(14 165 233 / 0.15);
   --color-info-subtle-fg:    var(--sky-400);
 
-  /* #455: dark mode already clears 3:1 for every tone on slate-900 (6.4:1 and up), so the graphic
-     aliases simply track the tone here — no second set of values to keep in sync. */
-  --color-primary-graphic: var(--color-primary);
-  --color-success-graphic: var(--color-success);
-  --color-warning-graphic: var(--color-warning);
-  --color-danger-graphic:  var(--color-danger);
-  --color-info-graphic:    var(--color-info);
+  /* #455: dark already clears 3:1 for every tone on slate-900 (6.4:1 and up), so these are the tone
+     values themselves - but written as PRIMITIVES, not as var(--color-warning).
+     #455 (review): aliasing the tone here while light named a primitive made the family behave
+     differently per theme - a consumer overriding --color-warning saw the Progress bar follow in dark
+     and not in light. Naming primitives in both scopes puts -graphic on exactly the same footing as
+     -fg / -subtle / -subtle-fg / -border: one more member of the per-tone derivative family that a
+     re-skin overrides together (which is what the docs-site Theme builder demonstrates). */
+  --color-primary-graphic: var(--brand-500);
+  --color-success-graphic: var(--emerald-500);
+  --color-warning-graphic: var(--amber-500);
+  --color-danger-graphic:  var(--rose-500);
+  --color-info-graphic:    var(--sky-500);
 
   /* #455: dark keeps the ORIGINAL 500 steps. Dark mode never had the contrast problem (3.07:1 at
      worst against surface-raised, 6.4:1+ on the surface itself), and the on-slice data labels in

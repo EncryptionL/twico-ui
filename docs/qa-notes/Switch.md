@@ -10,6 +10,8 @@ None identified.
 
 - [x] **[#454] the off-state track was 1.49:1 against the surface** - now `--color-control-border` (see Checkbox). `Switch.jsx:35` - fixed 2026-10-07
 
+- [x] **[#454 review] the first version of this fix traded one 1.4.11 failure for another** - moving the track to `--color-control-border` fixed track-vs-surface but dropped the white thumb to **2.56:1** against the track in dark mode (from 10.35:1), and the thumb's position is what conveys on/off. The two constraints pull opposite ways, so the track now has its own token: `--color-control-track` is slate-500 in light (where a white thumb on a white surface is invisible, so the track must carry identification at 4.76:1) and stays slate-700 in dark (where the thumb already reads at 10.35:1 against the track and ~14:1 against the surface). `tests/tokens-a11y.test.js` now asserts BOTH halves so neither can be traded away again. `Switch.jsx:35` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled mode works (checked/defaultChecked/onChange)

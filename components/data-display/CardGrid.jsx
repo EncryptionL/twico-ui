@@ -114,7 +114,13 @@ export function CardGrid({
   // "97-10 of 10". Clamp to the last real page (Datatable has the same guard); unlike Datatable's
   // reset-to-0 this keeps the reader near where they were, which matters more in a card catalogue.
   const lastPage = totalPages - 1;
-  const shownPage = Math.min(pageVal, lastPage);
+  // #461 (review): the clamp must only fire when the page is KNOWABLY out of range.
+  //  - serverMode without `rowCount`: `total` falls back to rows.length, i.e. the size of the page the
+  //    host happened to send, so totalPages is 1 and every page looks out of range. Clamping there
+  //    reset a restored page to 0 before the data had even arrived, and kept the host pinned.
+  //  - `loading`: same thing one beat later - the rows for the current page are not in yet.
+  const pageKnowable = !(serverMode && rowCount == null) && !loading;
+  const shownPage = pageKnowable ? Math.min(pageVal, lastPage) : pageVal;
   // #461: render from the CLAMPED page, not the stranded one. Reporting the clamp through
   // onPageChange is not enough on its own - a controlled host that keeps feeding the old `page` would
   // still get an empty grid - and `filtered` is the full pre-paging set the query already built, so
@@ -125,7 +131,17 @@ export function CardGrid({
     : (paginated && shownPage !== pageVal
         ? client.filtered.slice(shownPage * sizeVal, shownPage * sizeVal + sizeVal)
         : client.rows);
-  React.useEffect(() => { if (pageVal > lastPage) commitPage(lastPage); }, [lastPage, pageVal]); // eslint-disable-line
+  // #461 (review): skipped on the render where `filters` changed, because the reset-to-page-0 effect
+  // above owns that render. Both effects run in the same commit in declaration order and `pageVal` is
+  // still the pre-reset value here, so without this guard the clamp ran second and overwrote the reset
+  // - changing a filter landed you on the LAST page instead of the first. The sort / quick-filter /
+  // page-size resets call commitPage(0) inline from their handlers, so they are already settled by the
+  // time this runs and need no guard.
+  const clampedFiltersKey = React.useRef(filtersKey);
+  React.useEffect(() => {
+    if (clampedFiltersKey.current !== filtersKey) { clampedFiltersKey.current = filtersKey; return; }
+    if (pageKnowable && pageVal > lastPage) commitPage(lastPage);
+  }, [lastPage, pageVal, pageKnowable, filtersKey]); // eslint-disable-line
 
   const onServerChangeRef = React.useRef(onServerChange);
   onServerChangeRef.current = onServerChange;

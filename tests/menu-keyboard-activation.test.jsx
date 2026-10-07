@@ -113,3 +113,47 @@ describe("Menu highlight is announced by focus, not by an illegal attribute (#45
     for (const el of items()) expect(el.getAttribute("tabindex")).toBe("-1");
   });
 });
+
+// #459 (review) - two mechanisms the focus model depends on, neither of which the tests above touch:
+// they fire on the wrapper, whereas a browser dispatches at document.activeElement - which, once the
+// highlight moves, is an element inside the PORTAL.
+describe("Menu keyboard works from the focused item inside the portal (#459 review)", () => {
+  const open3 = () => {
+    const r = render(
+      <Menu trigger={<button>T</button>} items={[{ label: "Alpha" }, { label: "Beta" }, { label: "Gamma" }]} />
+    );
+    fireEvent.click(r.container.querySelector("button"));
+    fireEvent.keyDown(wrap(r.container), { key: "ArrowDown" });
+    return r;
+  };
+
+  it("arrow keys dispatched on the portaled item still navigate", () => {
+    const { container } = open3();
+    expect(document.activeElement).toBe(items()[0]);
+    // React propagates through the REACT tree, not the DOM tree, and attaches to the portal
+    // container - so the wrapper's handler keeps receiving keys from inside the portal.
+    fireEvent.keyDown(document.activeElement, { key: "ArrowDown" });
+    expect(active()?.textContent).toContain("Beta");
+    expect(document.activeElement).toBe(items()[1]);
+    fireEvent.keyDown(document.activeElement, { key: "ArrowDown" });
+    expect(active()?.textContent).toContain("Gamma");
+  });
+
+  it("Escape dispatched on the portaled item closes the menu", () => {
+    const { container } = open3();
+    fireEvent.keyDown(document.activeElement, { key: "Escape" });
+    expect(trig(container).getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("Tab returns focus to the trigger before the event can reach an ancestor focus trap", () => {
+    const { container } = open3();
+    expect(document.activeElement).toBe(items()[0]);
+    fireEvent.keyDown(document.activeElement, { key: "Tab" });
+    expect(trig(container).getAttribute("aria-expanded")).toBe("false");
+    // Without this, a Dialog/Drawer trap sees activeElement outside its region and yanks focus to the
+    // dialog's FIRST focusable instead of letting Tab continue past the trigger. (The yank itself is
+    // not assertable here: useFocusTrap filters candidates by offsetParent, which jsdom always reports
+    // as null, so in jsdom the trap focuses the dialog node whatever we do - see docs/overlays.md.)
+    expect(document.activeElement).toBe(trig(container));
+  });
+});

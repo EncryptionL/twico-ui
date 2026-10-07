@@ -4,6 +4,10 @@ import { Select } from "../components/inputs/Select.jsx";
 import { Combobox } from "../components/inputs/Combobox.jsx";
 import { MultiSelect } from "../components/inputs/MultiSelect.jsx";
 
+
+// #459: the Select trigger is the APG select-only combobox (role="combobox"), as MUI's Select also
+// is, so it is no longer exposed as a button - these queries ask for the combobox role.
+
 const options = [
   { value: "a", label: "Apple" },
   { value: "b", label: "Banana", disabled: true },
@@ -11,7 +15,7 @@ const options = [
 ];
 
 function openSelect() {
-  const trigger = screen.getByRole("button", { name: /Pick|Apple|Banana|Cherry|Select/ }) || screen.getAllByRole("button")[0];
+  const trigger = screen.getByRole("combobox", { name: /Pick|Apple|Banana|Cherry|Select/ }) || screen.getAllByRole("combobox")[0];
   act(() => trigger.focus());
   act(() => trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true })));
   return trigger;

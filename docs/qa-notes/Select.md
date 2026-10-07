@@ -43,6 +43,8 @@
 - [x] **[#459] `aria-activedescendant` on a `<button>` trigger made arrow-key highlighting silent** - with 5 or fewer options no search field is rendered and the option rows are never focused, so the attribute was the ONLY announcement channel, and `role="button"` cannot own it. The trigger is now the APG select-only combobox (`role="combobox"`), and it claims `aria-activedescendant` only when it actually holds focus (i.e. when no search field is rendered). `Select.jsx:436` - fixed 2026-10-07
 - [x] **[#459] the search input and a live region were rendered inside the `role="listbox"` element** - the role sat on the popover wrapper, so it owned a nested `role="combobox"` and a `role="status"` region (neither is permitted list content) and the input's `aria-controls` resolved to its own ancestor. Moved onto `.twc-pop__list`, as MultiSelect already did. `Select.jsx:376,410,417` - fixed 2026-10-07
 
+- [x] **[#459 review] `role="combobox"` removed the trigger's accessible name when no `label` was given** - that role prohibits name-from-content, and as a plain `<button>` the trigger had been named by its own value text. It now falls back to naming itself after the `placeholder` (a better name than the current value, and the APG select-only combobox is named by its label while its CONTENTS are announced as the value); a consumer's `aria-label`/`aria-labelledby` still wins. The role change is also observable: the trigger is no longer exposed as a `button`, so four test files and the prompt doc were updated. `Select.jsx:436` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled mode works (value/defaultValue/onChange)

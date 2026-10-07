@@ -309,6 +309,12 @@ export function Select({
   const listboxId = `${fieldId}-listbox`;
   const optionId = (i) => `${fieldId}-opt-${i}`;
   const activeId = open && visible[active] ? optionId(active) : undefined;
+  // #459 (review): role="combobox" PROHIBITS name-from-content, and as a plain button the trigger was
+  // named by its own value text. Without a `label` it would now have no accessible name at all, so fall
+  // back to the placeholder - which is a better name than the current value anyway (the APG select-only
+  // combobox is named by its label and announces its contents as the VALUE). A consumer's own aria-label
+  // or aria-labelledby still wins, since `rest` is spread after this.
+  const fallbackName = !label && !rest["aria-label"] && !rest["aria-labelledby"] ? placeholder : undefined;
   const descId = `${fieldId}-desc`;
   const describedBy = error || hint ? descId : undefined;
 
@@ -435,6 +441,7 @@ export function Select({
           data-open={open || undefined} data-invalid={Boolean(error) || undefined} disabled={disabled}
           role="combobox" aria-haspopup="listbox" aria-expanded={open} aria-controls={open ? listboxId : undefined}
           aria-activedescendant={showSearch ? undefined : activeId}
+          aria-label={fallbackName}
           aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy}
           onClick={(e) => { onClick?.(e); if (!e.defaultPrevented) setOpen((o) => !o); }}
           onKeyDown={(e) => { onKeyDown?.(e); if (!e.defaultPrevented) handleKeyDown(e); }} {...rest}>

@@ -68,3 +68,19 @@ describe("Datatable controlled activeRow reveal (#460)", () => {
     expect(spy).not.toHaveBeenCalled();
   });
 });
+
+describe("Datatable reveal survives a loading pass (#460 review)", () => {
+  it("re-reveals once loading ends, because the skeleton rows replaced the real ones", () => {
+    const { rerender } = render(
+      <Datatable selectionMode="row" rows={rows} columns={columns} activeRowId="r1" height={240} />
+    );
+    const n = spy.mock.calls.length;
+    expect(n).toBeGreaterThanOrEqual(1);
+    // while loading, the body renders skeleton <tr>s - there is no [data-active] row to reveal
+    rerender(<Datatable selectionMode="row" rows={rows} columns={columns} activeRowId="r1" height={240} loading />);
+    expect(spy.mock.calls.length).toBe(n);
+    // ...and when it ends the real row is back, so the reveal has to land again
+    rerender(<Datatable selectionMode="row" rows={rows} columns={columns} activeRowId="r1" height={240} />);
+    expect(spy.mock.calls.length).toBe(n + 1);
+  });
+});

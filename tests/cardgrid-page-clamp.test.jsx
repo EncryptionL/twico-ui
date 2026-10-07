@@ -67,3 +67,49 @@ describe("CardGrid clamps an out-of-range page (#461)", () => {
     expect(count(container)).toBe("No results");
   });
 });
+
+// #461 (review) - the clamp must not fire when the page is not KNOWABLY out of range, and must not
+// fight the reset-to-page-0 that a filter change already performs.
+describe("CardGrid clamp guards (#461 review)", () => {
+  it("does not clamp in serverMode when the host has not supplied rowCount", () => {
+    const seen = [];
+    render(
+      <CardGrid serverMode rows={mk(12)} renderCard={card} pageSize={12} page={5}
+        onPageChange={(p) => seen.push(p)} />
+    );
+    // total falls back to rows.length (one page worth), so every page LOOKS out of range
+    expect(seen).toEqual([]);
+  });
+
+  it("still clamps in serverMode once rowCount says the page is past the end", () => {
+    const seen = [];
+    render(
+      <CardGrid serverMode rows={mk(10)} rowCount={10} renderCard={card} pageSize={12} page={5}
+        onPageChange={(p) => seen.push(p)} />
+    );
+    expect(seen).toContain(0);
+  });
+
+  it("does not clamp while loading", () => {
+    const seen = [];
+    render(
+      <CardGrid rows={[]} loading renderCard={card} pageSize={12} page={5}
+        onPageChange={(p) => seen.push(p)} />
+    );
+    expect(seen).toEqual([]);
+  });
+
+  it("lets a filter change reset to the FIRST page, not clamp to the last", () => {
+    const seen = [];
+    const base = {
+      rows: mk(100), renderCard: card, pageSize: 12,
+      columns: [{ field: "name" }],
+      onPageChange: (p) => seen.push(p),
+    };
+    const { rerender } = render(<CardGrid {...base} page={8} filters={[]} />);
+    seen.length = 0;
+    rerender(<CardGrid {...base} page={8} filters={[{ field: "name", op: "contains", value: "Row 1" }]} />);
+    // the reset owns this render; the clamp must not follow it with commitPage(lastPage)
+    expect(seen).toEqual([0]);
+  });
+});

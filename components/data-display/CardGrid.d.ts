@@ -56,10 +56,17 @@ export interface CardGridProps<Row = any> extends Omit<React.HTMLAttributes<HTML
   pageSize?: number;
   /** Options for the "per page" selector. @default [12, 24, 48, 96] */
   pageSizeOptions?: number[];
-  /** Controlled 0-based page. */
+  /**
+   * Controlled 0-based page. If it points past the last page of the current result set — a refetch or
+   * a deletion shrank `rows` — the grid clamps: it renders the last real page and reports the clamped
+   * index through `onPageChange` (#461). Keep it controlled only if you apply that callback, otherwise
+   * the grid and your state disagree. The clamp is skipped while `loading`, and in `serverMode`
+   * without `rowCount`, because the total is not knowable there.
+   */
   page?: number;
   /** Initial 0-based page when uncontrolled. @default 0 */
   defaultPage?: number;
+  /** Fires on user paging AND when the grid clamps an out-of-range page back into range (#461). */
   onPageChange?: (page: number) => void;
   onPageSizeChange?: (pageSize: number) => void;
   /** Show the "per page" selector in the footer. @default true */

@@ -10,7 +10,7 @@ import { useScopedStyles } from "./_styles.js";
 //
 //   <Box sx={{
 //     padding: 20,                               // flat  -> inline style
-//     "&:hover": { color: "var(--color-primary)" }, // nested -> scoped <style>
+//     "&:hover": { color: "var(--color-primary-subtle-fg)" }, // nested -> scoped <style>
 //     "@media (min-width: 600px)": { display: "none" },
 //   }} />
 //

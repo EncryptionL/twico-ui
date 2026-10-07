@@ -208,3 +208,28 @@ describe("token a11y - primary as text vs as fill (#451, #456)", () => {
     }
   }
 });
+
+// #454 (review) - a Switch has TWO contrast constraints that pull in opposite directions, and the
+// first version of the #454 fix satisfied one by breaking the other (dark thumb-vs-track fell from
+// 10.35:1 to 2.56:1). Both halves are asserted here so neither can be traded away again:
+//   (a) the control must be identifiable - in LIGHT the white thumb is invisible on a white surface,
+//       so the track itself has to clear 3:1 against the surface;
+//   (b) the thumb must be distinguishable from the track it sits on, in BOTH themes, because its
+//       position is what conveys on/off.
+describe("token a11y - Switch track vs thumb (#454)", () => {
+  for (const [scopeName, scope] of Object.entries(scopes)) {
+    it(`the thumb clears 3:1 against the off track (${scopeName})`, () => {
+      expect(contrast(scope, "--color-primary-fg", "--color-control-track")).toBeGreaterThanOrEqual(3);
+    });
+    it(`the thumb clears 3:1 against the ON track (${scopeName})`, () => {
+      expect(contrast(scope, "--color-primary-fg", "--color-primary")).toBeGreaterThanOrEqual(3);
+    });
+    for (const bg of ["--color-surface", "--color-surface-raised"]) {
+      it(`the control is identifiable on ${bg} - track or thumb clears 3:1 (${scopeName})`, () => {
+        const track = contrast(scope, "--color-control-track", bg, bg);
+        const thumb = contrast(scope, "--color-primary-fg", bg, bg);
+        expect(Math.max(track, thumb)).toBeGreaterThanOrEqual(3);
+      });
+    }
+  }
+});

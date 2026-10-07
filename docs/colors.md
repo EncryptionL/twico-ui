@@ -143,7 +143,7 @@ silently regress below the a11y floors:
   it): series 1 and 6 painted identically, 1.00:1, with two identical legend swatches, and the cycling
   `paletteAt` made the effective palette six colours rather than seven. As tokens they also flip per
   theme, so no series is ever below 3:1 on its own surface (light bottoms out at 4.08:1, dark at
-  4.90:1). WCAG contrast says nothing about whether two series can be told APART, so
+  3.07:1 against surface-raised). WCAG contrast says nothing about whether two series can be told APART, so
   `tests/chart-palette.test.js` additionally asserts a perceptual separation (CIE76 dE >= 15; the
   closest pair is 23.8 light / 21.7 dark) - that is the assertion that would have caught the duplicate.
 - **The focus ring** (`--color-ring`) is a **solid** brand color (`--brand-500` light, `--brand-400`

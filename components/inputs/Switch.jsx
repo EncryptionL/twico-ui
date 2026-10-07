@@ -32,7 +32,7 @@ export function Switch({
 .twc-switch__track {
   --_w: 44px; --_h: 24px; --_pad: 3px;
   position: relative; flex: none; width: var(--_w); height: var(--_h);
-  background: var(--color-control-border); border-radius: var(--radius-full);
+  background: var(--color-control-track); border-radius: var(--radius-full);
   transition: background-color var(--duration-base) var(--ease-standard);
 }
 .twc-switch[data-size="sm"] .twc-switch__track { --_w: 36px; --_h: 20px; }

@@ -503,9 +503,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__col-pins { display: inline-flex; gap: 2px; flex: none; }
 .twc-dt__col-pin { display: inline-grid; place-items: center; width: 24px; height: 24px; border: none; padding: 0; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm); transition: background-color var(--duration-fast), color var(--duration-fast); }
 .twc-dt__col-pin:hover { background: var(--color-surface); color: var(--color-text); }
-.twc-dt__col-pin[data-on="true"] { color: var(--color-primary); background: var(--color-primary-subtle); }
+/* #451 (review): this icon sits ON --color-primary-subtle, where plain primary is 2.76:1 in dark -
+   under the 3:1 graphics floor. Every other icon use of primary is on a plain surface (>=3.27:1). */
+.twc-dt__col-pin[data-on="true"] { color: var(--color-primary-subtle-fg); background: var(--color-primary-subtle); }
 .twc-dt__col-pin svg { width: 14px; height: 14px; }
-.twc-dt__sw { width: 32px; height: 18px; border-radius: var(--radius-full); background: var(--color-border-strong); position: relative; flex: none; cursor: pointer; transition: background-color var(--duration-base); }
+/* #454 (review): Datatable's own hand-rolled switch has the same off-track problem as Switch. */
+.twc-dt__sw { width: 32px; height: 18px; border-radius: var(--radius-full); background: var(--color-control-track); position: relative; flex: none; cursor: pointer; transition: background-color var(--duration-base); }
 .twc-dt__sw[aria-disabled="true"] { cursor: default; }
 .twc-dt__sw[data-on="true"] { background: var(--color-primary); }
 .twc-dt__sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: var(--radius-full); background: var(--color-primary-fg); box-shadow: var(--shadow-sm); transition: transform var(--duration-base) var(--ease-spring); }
@@ -2693,7 +2696,12 @@ export function Datatable({
     if (!activeRowControlled || !scrollActiveRowIntoView || activeRowId == null) return;
     const el = gridRef.current && gridRef.current.querySelector('.twc-dt__row[data-active="true"]');
     if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest" });
-  }, [activeRowId, activeRowControlled, scrollActiveRowIntoView, revealRowRi]);
+    // #460 (review): `loading` is a dep because the body renders SKELETON rows instead of the real
+    // ones while it is true, so no [data-active] row exists to reveal. revealRowRi is derived from
+    // keyIndex, which still holds the row, so it does not change when loading flips - without this
+    // the reveal was lost for good after any load that happened while activeRowId was set. (Keying on
+    // the Map identity used to mask that by re-running on every render.)
+  }, [activeRowId, activeRowControlled, scrollActiveRowIntoView, revealRowRi, loading]);
   // #395: reveal the controlled active cell inside the grid's OWN scroller (never scrollIntoView, which would
   // scroll the page). Works in any selectionMode, on both axes, honours the sticky header + pinned columns,
   // and re-runs when rows change so a server-mode page fetch — or a virtualized row mounting — lands on it.
@@ -4550,7 +4558,7 @@ export function Datatable({
             })}
           </div>
           <div className="twc-dt__f-add" style={{ padding: "6px 4px 2px" }}>
-            <button type="button" className="twc-dt__mi" style={{ color: "var(--color-primary)" }} onClick={() => addFilter(cols[0].field)}><Svg d={I.plus} style={{ color: "var(--color-primary)" }} /> Add filter</button>
+            <button type="button" className="twc-dt__mi" style={{ color: "var(--color-primary-subtle-fg)" }} onClick={() => addFilter(cols[0].field)}><Svg d={I.plus} style={{ color: "var(--color-primary-subtle-fg)" }} /> Add filter</button>
           </div>
           {resizableFilters ? (
             <span className="twc-dt__pop-grip" role="slider" tabIndex={0}

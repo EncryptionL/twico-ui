@@ -111,7 +111,9 @@ standardized 2026-06-18; this doc is the source of truth.)
   That one call is the documented opt-out. Spreading `...rest` after an internal handler instead lets
   a same-named prop silently delete it - `<Menu onKeyDown={log}>` used to lose every bit of keyboard
   navigation, `<Carousel onMouseEnter={log}>` its autoplay pause - with nothing warning. Components
-  with composed handlers today: Menu, Tooltip, TreeView, ToggleGroup, Carousel, Popover and Select.
+  with composed handlers via `compose()` today: Menu, Tooltip, TreeView, ToggleGroup and Carousel.
+  Popover and Select follow the same contract but inline it on a single handler each (they call the
+  consumer's handler and bail on `defaultPrevented`) rather than importing the helper.
   Note the asymmetry with the attribute rule above: non-handler entries in `...rest` still win, so a
   consumer can still override `role`/`aria-label`.
 
