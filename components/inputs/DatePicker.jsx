@@ -391,6 +391,11 @@ export function DatePicker({
               data-has-clear={clearable && selected && !disabled ? "true" : undefined}
               data-invalid={invalid || undefined}
               role="button" tabIndex={disabled ? -1 : 0} aria-haspopup="dialog" aria-expanded={open}
+              /* #467: a div has no native `disabled` to map from, so without this the control just
+                 vanished from the tab order while the a11y tree still reported an ordinary enabled
+                 "collapsed button" - a browse-mode user activated it and nothing happened.
+                 DateRangePicker and ColorPicker already set it on the identical construct. */
+              aria-disabled={disabled || undefined}
               aria-labelledby={label ? `${fieldId}-label` : undefined}
               aria-invalid={invalid || undefined} aria-describedby={error || hint ? descId : undefined}
               onClick={() => !disabled && setOpen((o) => !o)}

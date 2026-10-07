@@ -84,8 +84,11 @@ const RANGE_CSS = `
 .twc-drp__day[data-outside="true"] { color: var(--color-text-muted); }
 .twc-drp__day:hover:not(:disabled) { background: var(--color-surface-sunken); border-radius: var(--radius-md); }
 .twc-drp__day[data-in="true"] { background: var(--color-primary-subtle); border-radius: 0; }
-.twc-drp__day[data-edge="start"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: var(--radius-md) 0 0 var(--radius-md); font-weight: var(--font-bold); }
-.twc-drp__day[data-edge="end"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: 0 var(--radius-md) var(--radius-md) 0; font-weight: var(--font-bold); }
+/* #465: LOGICAL corner properties. The physical shorthand never mirrored, so under dir="rtl" -
+   where the grid mirrors and the range start sits at the RIGHT of its row - the pill was rounded on
+   its interior edge and squared off against the empty cell beside it, reading inside-out. */
+.twc-drp__day[data-edge="start"] { background: var(--color-primary); color: var(--color-primary-fg); border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); font-weight: var(--font-bold); }
+.twc-drp__day[data-edge="end"] { background: var(--color-primary); color: var(--color-primary-fg); border-start-end-radius: var(--radius-md); border-end-end-radius: var(--radius-md); font-weight: var(--font-bold); }
 .twc-drp__day[data-edge="both"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: var(--radius-md); font-weight: var(--font-bold); }
 .twc-drp__day:disabled { opacity: 0.3; cursor: not-allowed; }
 .twc-drp__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

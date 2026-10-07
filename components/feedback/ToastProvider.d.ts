@@ -1,5 +1,6 @@
 import * as React from "react";
 import type { ToastTone } from "../_types";
+import type { ToastViewportProps } from "./Toast";
 
 /** A single toast's options when pushed imperatively. */
 export interface ToastOptions {
@@ -42,7 +43,13 @@ export interface ToastApi {
 /** Access the imperative toast API. Must be under a <ToastProvider>. */
 export function useToast(): ToastApi;
 
-export interface ToastProviderProps {
+/**
+ * #469: extends the viewport's props because ToastProvider collects `...viewportProps` and spreads
+ * them onto the <ToastViewport> it renders. Declaring only children/limit/duration meant a TS
+ * consumer got TS2322 for `className` / `style` / `aria-label` - the usual way to re-position or
+ * restyle the toast stack - on props that have always worked at runtime.
+ */
+export interface ToastProviderProps extends Omit<ToastViewportProps, "limit" | "children"> {
   children?: React.ReactNode;
   /** Max toasts shown at once (most recent kept). @default 4 */
   limit?: number;

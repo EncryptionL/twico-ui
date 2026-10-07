@@ -89,7 +89,15 @@ export function Kanban({
       }
     } else if (grabbed && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
       e.preventDefault();
-      const next = (grab.targetIdx + (e.key === "ArrowRight" ? 1 : -1) + columns.length) % columns.length;
+      // #465: the board is a plain flex row, so under dir="rtl" the columns lay out right-to-left and
+      // index 0 is the RIGHTMOST. Mapping ArrowRight to next-by-index therefore moved the card LEFT
+      // for an RTL user - every move going the wrong way, with the announcement ("left and right
+      // arrow keys") then literally wrong. Reading the computed direction off the root keeps the
+      // mapping visual, which is what the announcement describes.
+      const rtl = typeof window !== "undefined" && rootRef.current
+        && window.getComputedStyle(rootRef.current).direction === "rtl";
+      const step = (e.key === "ArrowRight" ? 1 : -1) * (rtl ? -1 : 1);
+      const next = (grab.targetIdx + step + columns.length) % columns.length;
       setGrab({ id: card.id, targetIdx: next });
       setAnnounce(`Move ${cardTitle(card)} to ${colTitle(columns[next])}. Press Enter to drop.`);
     } else if (grabbed && e.key === "Escape") {

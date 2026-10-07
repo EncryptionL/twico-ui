@@ -7,6 +7,12 @@
 ## Open issues
 - [ ] **[P2] RTL / alignment API** — `align` is forwarded straight to `textAlign`, and the docs-site demo uses the physical value `align="center"` (fine) but the public guidance leaves the door open to `"left"`/`"right"`. Like Heading, an author who picks physical values gets LTR-locked alignment under `dir="rtl"`. Severity is low because the only demoed value is `"center"` (mirror-safe) (`Text.jsx:48`, `TextVariations.jsx:76`). _Fix:_ document in the `.d.ts`/prompt that `align` accepts the logical keywords `"start"`/`"end"` and prefer them in examples for RTL safety. `components/typography/Text.d.ts:13`
 
+- [x] **[#473] `align` had no doc comment** - it was one of the only two props in the Heading/Text
+  interfaces without JSDoc, so nothing pointed consumers at the logical `start`/`end` keywords in a
+  library that is otherwise logical-property based. Now documented. The demo half of the older note
+  in this file is stale: `TextVariations.jsx` already uses `align="start"`; it was HeadingVariations
+  that still taught `left`/`right`, and that is fixed too. `Text.d.ts:15` - fixed 2026-10-07
+
 ## Verified OK
 - The `TONE` map covers every tone listed in the `.d.ts` union (`default/muted/subtle/primary/success/warning/danger/info/neutral`) with a `|| TONE.default` fallback, so an invalid/unknown tone degrades to the default color rather than producing `var(undefined)` (`Text.jsx:3-15`, `Text.jsx:46`).
 - `warning`/`info` deliberately use the readable `-subtle-fg` (text-grade) tokens instead of the too-light base hue, and all referenced tokens exist in both light and dark blocks (`tokens/colors.css:143,156,200,211`) — so warning/info text keeps contrast and dark mode flips correctly (`Text.jsx:11-13`).

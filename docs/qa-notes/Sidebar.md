@@ -29,6 +29,8 @@
 - [ ] **[deferred] Items render as `<a>` even with no href** — Items without `href` still emit an anchor pointing at `"#"`; see P1 for the consequence.
 - [ ] **[deferred] index-as-key on items/sections** — `items.map((it, i) => … key={i})` uses the array index for both section headings and links; inserting/removing items can desync. `components/navigation/Sidebar.jsx:80-95`.
 
+- [x] **[#465] the collapse chevron was not mirrored in RTL** - the rail's own edge is logical (`border-inline-end`), so under `dir="rtl"` it sits on the right of the page, but the chevron still pointed left: away from the edge it collapses toward, and into the page when expanding. The file's only RTL rule was for the overlay variant. Added the scoped `scaleX(-1)` (plus the collapsed `scaleX(-1) rotate(180deg)`) that CLAUDE.md prescribes for a nav chevron and that Breadcrumb and the DateRangePicker nav already use. Purely visual. `Sidebar.jsx:72` - fixed 2026-10-07
+
 ## Verified OK
 
 - **safeHref sanitization:** `javascript:`/`data:`/`vbscript:` (incl. control-char obfuscation) stripped before the DOM href. `components/navigation/Sidebar.jsx:70-74`.

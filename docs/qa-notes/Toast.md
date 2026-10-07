@@ -14,6 +14,8 @@
 
 - [x] **[#455] the 4px tone stripe and the status icon missed the 3:1 graphic floor in light mode** - 2.15:1 (warning) and 2.77:1 (info) on the raised surface. Both now use the `--color-*-graphic` aliases. `Toast.jsx:32-38` - fixed 2026-10-07
 
+- [x] **[#469] ToastProvider forwarded viewport props at runtime but its type contract rejected them** - `ToastProvider` collects `...viewportProps` and spreads them onto the `<ToastViewport>` it renders, yet `ToastProviderProps` declared only `children`/`limit`/`duration` with no extends clause. `<ToastProvider className="my-toasts" style={{ zIndex: 9999 }}>` - the usual way to re-position or restyle the stack - raised TS2322 on props that have always worked. It now extends `Omit<ToastViewportProps, "limit" | "children">`. Closes the publish-audit 'Minor typing: ToastProvider viewportProps' item. `ToastProvider.d.ts:44` - fixed 2026-10-07
+
 ## Verified OK
 
 - **Accessibility:** `role="status"` allows screen readers to announce toast updates. Icon has `aria-hidden="true"`. Close button has `aria-label="Dismiss"`.

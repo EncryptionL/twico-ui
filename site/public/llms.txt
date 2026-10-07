@@ -234,6 +234,8 @@ Props:
 - `type` — `"button" | "submit" | "reset"` · default `"button"` — Native button type — use "submit" to submit a surrounding form.
 - `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
 - `autoFocus` — `boolean` · default `false` — Focus the element automatically when it mounts.
+- `id` — `string` — Id applied to <button>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <button> after the component's own.
 
 ```jsx
 import { Button } from "twico-ui";
@@ -268,6 +270,8 @@ Props:
 - `type` — `"button" | "submit" | "reset"` · default `"button"` — Native button type — use "submit" to submit a surrounding form.
 - `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
 - `autoFocus` — `boolean` · default `false` — Focus the element automatically when it mounts.
+- `id` — `string` — Id applied to <button>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <button> after the component's own.
 
 ```jsx
 import { IconButton } from "twico-ui";
@@ -581,6 +585,7 @@ Props:
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `required` — `boolean` · default `false` — Marks the field required for native form validation.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { Checkbox } from "twico-ui";
@@ -665,6 +670,8 @@ Props:
 - `name` — `string` — Form field name submitted with the value.
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `id` — `string` — Id applied to <input>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { Combobox } from "twico-ui";
@@ -715,6 +722,8 @@ Props:
 - `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `id` — `string` — Id applied to <input>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { Currency } from "twico-ui";
@@ -753,6 +762,8 @@ Props:
 - `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `id` — `string` — Id applied to <input>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { CurrencyField } from "twico-ui";
@@ -1030,6 +1041,8 @@ Props:
 - `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `id` — `string` — Id applied to <input>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { Input } from "twico-ui";
@@ -1079,6 +1092,8 @@ Props:
 - `name` — `string` — Form field name submitted with the value.
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `id` — `string` — Id applied to <input>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { MultiSelect } from "twico-ui";
@@ -1119,6 +1134,8 @@ Props:
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `required` — `boolean` · default `false` — Marks the field required for native form validation.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `id` — `string` — Id applied to <input>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { Radio } from "twico-ui";
@@ -1288,6 +1305,8 @@ Props:
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `required` — `boolean` · default `false` — Marks the field required for native form validation.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `id` — `string` — Id applied to <input>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { Switch } from "twico-ui";
@@ -1326,6 +1345,8 @@ Props:
 - `rows` — `number` — Visible number of text rows.
 - `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
+- `id` — `string` — Id applied to <textarea>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <textarea> after the component's own.
 
 ```jsx
 import { Textarea } from "twico-ui";
@@ -3386,10 +3407,10 @@ export function useKeyPress( key: string | string[], handler: (event: KeyboardEv
 
 ### useLocalStorage
 
-State persisted to localStorage (JSON-serialized), SSR-safe.
+State persisted to localStorage (JSON-serialized), SSR-safe: returns `initialValue` on the server AND on the first client render, then reads storage in a layout effect before paint (#466).
 
 ```ts
-export function useLocalStorage<T>( key: string, initialValue: T ): [T, (value: T | ((prev: T) => T)) => void];
+export function useLocalStorage<T>( key: string, initialValue: T, options?: UseLocalStorageOptions ): [T, (value: T | ((prev: T) => T)) => void];
 ```
 
 ### useCopyToClipboard
@@ -3434,10 +3455,10 @@ export function useTimeout(callback: () => void, delay: number | null): void;
 
 ### useWindowSize
 
-The current window dimensions (0×0 on the server).
+The current window dimensions. 0×0 on the server AND on the first client render, then measured in a layout effect before paint (#466) — so hydration never mismatches.
 
 ```ts
-export function useWindowSize(): { width: number; height: number };
+export function useWindowSize(options?: UseWindowSizeOptions): { width: number; height: number };
 ```
 
 ### useHover

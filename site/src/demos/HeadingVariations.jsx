@@ -46,15 +46,15 @@ const variations = [
   },
   {
     title: "Alignment",
-    description: "Use `align` to control text alignment.",
-    code: `<Heading level={3} align="left">Left aligned</Heading>
+    description: "Use `align` to control text alignment. Prefer the logical `start`/`end` over `left`/`right` so it mirrors under `dir=\"rtl\"`.",
+    code: `<Heading level={3} align="start">Start aligned</Heading>
 <Heading level={3} align="center">Center aligned</Heading>
-<Heading level={3} align="right">Right aligned</Heading>`,
+<Heading level={3} align="end">End aligned</Heading>`,
     render: () => (
       <div style={{ display: "grid", gap: 8, width: 340, maxWidth: "100%" }}>
-        <Heading level={3} align="left">Left aligned</Heading>
+        <Heading level={3} align="start">Start aligned</Heading>
         <Heading level={3} align="center">Center aligned</Heading>
-        <Heading level={3} align="right">Right aligned</Heading>
+        <Heading level={3} align="end">End aligned</Heading>
       </div>
     ),
   },

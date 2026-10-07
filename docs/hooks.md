@@ -26,11 +26,20 @@ package root (`import { useMediaQuery } from "twico-ui"`).
 ## Conventions
 
 - **SSR-safe, no hydration mismatch:** every hook guards `window`/`document` access and returns
-  sensible server defaults (`useWindowSize` → `0×0`). `useMediaQuery(query, options?)` returns
-  `defaultValue` (default `false`) on the server **and the first client render**, then syncs the real
-  value in a layout effect before paint — so the hydrated markup matches (React 19 no longer warns).
-  A client-only app can opt into an eager read with `{ initializeWithValue: true }`.
-  `usePrefersReducedMotion` inherits this. Never touch the DOM at module scope.
+  sensible server defaults (`useWindowSize` → `0×0`). The rule is stronger than "guard `window`": a
+  hook must return its server default on the server **and on the first client render**, because the
+  lazy `useState` initializer runs during hydration too — reading the real value there is exactly what
+  makes the server HTML and render #1 disagree. So `useMediaQuery(query, options?)` returns
+  `defaultValue` (default `false`) in both, then syncs the real value in a layout effect before paint
+  — the hydrated markup matches (React 19 no longer warns). `usePrefersReducedMotion` inherits this.
+  **`useWindowSize`, `useLocalStorage` and `useColorScheme` did NOT follow it** until #466: they read
+  the viewport / storage / `prefers-color-scheme` in their initializer, so SSR emitted one thing and
+  hydration rendered another (`width < 768 ? <MobileNav/> : <DesktopNav/>` flipped, a stored dark theme
+  rendered a light-theme toggle). All three now take the `useMediaQuery` shape, and all four accept
+  `{ initializeWithValue: true }` for a client-only app that wants the eager read back. Note what
+  `ColorSchemeScript` does and does not buy you: it keeps the `.dark` class on `<html>` from flashing,
+  but it cannot align React's own state — that needed the hook change. Never touch the DOM at module
+  scope, and never in a `useState` initializer either.
 - **Idiomatic ref params:** the ref-taking hooks (`useHover`, `useClickOutside`,
   `useIntersectionObserver`, `useEventListener`) type their ref as `RefObject<T | null>`, so the
   standard `useRef<T>(null)` is assignable with no cast under React 19's `@types/react`.

@@ -92,8 +92,36 @@ for (const c of comps) {
   const cat = categorize(mm && mm[1]);
   if (!cat) continue;
   const present = new Set((c.propsRows || []).map((r) => r.prop));
-  const inherited = CATS[cat]().filter((r) => !present.has(r.prop));
-  let rows = (c.propsRows || []).filter((r) => r.prop !== "...rest").concat(inherited);
+  // #471: `id` and `style` were hardcoded to "the root element" for EVERY category, while the sibling
+  // ...rest row below correctly interpolates ELEMENT_LABEL[cat]. For the input family the root is the
+  // field wrapper <div class="twc-field"> but `id` and the whole {...rest} (which carries `style`) land
+  // on the inner control - so the published table told consumers that `<Combobox style={{width:320}}/>`
+  // would size the field, when it sizes the bare <input> inside it. Make the two element-aware.
+  const el = ELEMENT_LABEL[cat];
+  const inherited = CATS[cat]()
+    .filter((r) => !present.has(r.prop))
+    .map((r) =>
+      r.prop === "id"
+        ? { ...r, description: `Id applied to ${el}, handy for labels and aria wiring.` }
+        : r.prop === "style"
+          ? { ...r, description: `Inline styles merged onto ${el} after the component's own.` }
+          : r
+    );
+  // This script is additive - it only appends rows that are MISSING - so an id/style row written by an
+  // earlier run keeps its old description forever. Refresh those two in place as well, but only when
+  // the text still matches something this script generated, so a hand-written description survives.
+  const GENERATED_ID = /^Id applied to .+, handy for labels and aria wiring\.$/;
+  const GENERATED_STYLE = /^Inline styles merged onto .+ after the component's own\.$/;
+  let rows = (c.propsRows || [])
+    .filter((r) => r.prop !== "...rest")
+    .map((r) =>
+      r.prop === "id" && GENERATED_ID.test(r.description || "")
+        ? { ...r, description: `Id applied to ${el}, handy for labels and aria wiring.` }
+        : r.prop === "style" && GENERATED_STYLE.test(r.description || "")
+          ? { ...r, description: `Inline styles merged onto ${el} after the component's own.` }
+          : r
+    )
+    .concat(inherited);
   rows.push({
     prop: "...rest", type: REST_TYPE[cat], required: false, default: "—",
     description: `Every other standard prop for ${ELEMENT_LABEL[cat]} — remaining event handlers, plus \`data-*\` and \`aria-*\` attributes — is forwarded to it.`,

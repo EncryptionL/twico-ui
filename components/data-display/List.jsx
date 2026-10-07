@@ -19,7 +19,11 @@ const LIST_CSS = `
 .twc-list__main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
 .twc-list__title { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .twc-list__desc { font-size: var(--text-xs); color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.twc-list__trail { flex: none; display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text-subtle); font-size: var(--text-sm); }
+/* #462: text-MUTED, not text-subtle. A hover/active rule swaps --color-surface-sunken (or
+   --color-primary-subtle) in under this text without changing its colour, and text-subtle on
+   either is 4.34:1 / 4.26:1 in light - the pairing the token rules forbid (docs/colors.md). It
+   passes at rest on --color-surface and fails only while hovered, which is why it survived. */
+.twc-list__trail { flex: none; display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text-muted); font-size: var(--text-sm); }
 .twc-list__empty { padding: 30px 12px; text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
 `;
 

@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0f644cb478db","components/buttons/IconButton.jsx":"22790903081f","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"724cf4b45ecc","components/data-display/AvatarMenu.jsx":"ec5f65bdfad1","components/data-display/Badge.jsx":"69e6aff0081a","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"10a3da4c4835","components/data-display/Carousel.jsx":"900b31f49262","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"635e3de5c90c","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"c1fe68414c67","components/data-display/ImageViewer.jsx":"7379ad3f27c6","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"92e0de3c6efe","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"9a58f8174004","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"456f691e9b3c","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6f79dde2a65e","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"2717da0c25ba","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"00cdbdac01df","components/inputs/DateRangePicker.jsx":"74284df8dfa7","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"272cedcebedf","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"21da33e87561","components/inputs/Radio.jsx":"eba7572baaa1","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"d8eca75390b3","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"0691804177e5","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"6bfdfb315281","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"7fb1f2629199","components/navigation/Sidebar.jsx":"a405fca979fc","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"95154a884c47","components/navigation/TreeView.jsx":"894b6e46f10b","components/overlay/CommandPalette.jsx":"477e628a0223","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"011317826f64","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"e2de1e0866af","components/typography/Code.jsx":"f6f1da463524","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"3001e004908a"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0f644cb478db","components/buttons/IconButton.jsx":"22790903081f","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"724cf4b45ecc","components/data-display/AvatarMenu.jsx":"14b280842168","components/data-display/Badge.jsx":"69e6aff0081a","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"10a3da4c4835","components/data-display/Carousel.jsx":"4c0981ca4ea9","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"d59183961b66","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"c1fe68414c67","components/data-display/ImageViewer.jsx":"7379ad3f27c6","components/data-display/Kanban.jsx":"389caa2e45d2","components/data-display/List.jsx":"89e1b0ef9c72","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"92e0de3c6efe","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"9a58f8174004","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"456f691e9b3c","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6f79dde2a65e","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"9e39dfcbef00","components/inputs/Currency.jsx":"99f09bce93c2","components/inputs/CurrencyField.jsx":"1ef838506fda","components/inputs/DatePicker.jsx":"10535122b2d6","components/inputs/DateRangePicker.jsx":"b3ec4d8da4b8","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"272cedcebedf","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"cfccf4cadc55","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"c19b6715ddae","components/inputs/Radio.jsx":"eba7572baaa1","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"deda58a2aef1","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"0691804177e5","components/inputs/Textarea.jsx":"ea3db0a154e9","components/inputs/TimePicker.jsx":"66405a4b56da","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"6bfdfb315281","components/navigation/Breadcrumb.jsx":"bbbef6c9957f","components/navigation/Navbar.jsx":"7fb1f2629199","components/navigation/Sidebar.jsx":"e87e28eef508","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"95154a884c47","components/navigation/TreeView.jsx":"894b6e46f10b","components/overlay/CommandPalette.jsx":"f364f77a0f25","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"011317826f64","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"e2de1e0866af","components/typography/Code.jsx":"f6f1da463524","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"3001e004908a"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -1739,7 +1739,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-avatar-menu:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-avatar-menu__text { display: flex; flex-direction: column; align-items: flex-start; gap: 0; min-width: 0; line-height: 1.2; }
 .twc-avatar-menu__name { font-size: var(--text-sm); font-weight: var(--font-semibold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
-.twc-avatar-menu__sub { font-size: var(--text-xs); color: var(--color-text-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+/* #462: text-MUTED, not text-subtle. A hover/active rule swaps --color-surface-sunken (or
+   --color-primary-subtle) in under this text without changing its colour, and text-subtle on
+   either is 4.34:1 / 4.26:1 in light - the pairing the token rules forbid (docs/colors.md). It
+   passes at rest on --color-surface and fails only while hovered, which is why it survived. */
+.twc-avatar-menu__sub { font-size: var(--text-xs); color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
 .twc-avatar-menu__chev { color: var(--color-text-subtle); display: inline-flex; flex: none; margin-inline-end: 2px; transition: transform var(--duration-base) var(--ease-spring); }
 .twc-avatar-menu__chev svg { width: 15px; height: 15px; }
 /* #402: fullWidth \u2014 the trigger (and its Menu wrap) stretch, the text column grows, and the chevron is pinned
@@ -1866,7 +1870,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-breadcrumb__item svg { width: 15px; height: 15px; flex: none; }
 .twc-breadcrumb__sep { display: inline-flex; align-items: center; color: var(--color-text-subtle); pointer-events: none; }
 .twc-breadcrumb__sep svg { width: 15px; height: 15px; }
-[dir="rtl"] .twc-breadcrumb__sep svg { transform: scaleX(-1); }
+/* #465: scoped to the BUILT-IN chevron. Unscoped, this flipped a consumer-supplied SVG separator
+   that was already non-directional or pre-mirrored, while giving a text separator (separator="/")
+   no RTL treatment at all. A custom separator now owns its own mirroring - see Breadcrumb.prompt.md. */
+[dir="rtl"] .twc-breadcrumb__sep[data-default-sep] svg { transform: scaleX(-1); }
 .twc-breadcrumb__ellipsis { border: none; background: transparent; cursor: pointer; color: var(--color-text-subtle); padding: 3px 7px; border-radius: var(--radius-sm); font: inherit; }
 .twc-breadcrumb__ellipsis:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 `;
@@ -1922,7 +1929,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
               it.label
             ] })
           ),
-          !last ? /* @__PURE__ */ jsx("span", { className: "twc-breadcrumb__sep", "aria-hidden": "true", children: sep }) : null
+          !last ? /* @__PURE__ */ jsx("span", { className: "twc-breadcrumb__sep", "data-default-sep": separator ? void 0 : "true", "aria-hidden": "true", children: sep }) : null
         ] }, i);
       })
     ] });
@@ -2454,7 +2461,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       onIndexChange?.(i);
     }, [indexProp, onIndexChange]);
     const go = import_react.default.useCallback((i) => {
-      setIndex(loop ? (i + count) % count : Math.min(Math.max(i, 0), count - 1));
+      if (count <= 0) return;
+      setIndex(loop ? (i % count + count) % count : Math.min(Math.max(i, 0), count - 1));
     }, [count, loop, setIndex]);
     const autoRotating = autoPlay && !paused && !userPaused && !prefersReduced && count > 1;
     import_react.default.useEffect(() => {
@@ -6690,7 +6698,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       return { rows: rows2, totalH: off };
     }, [virtualized, fGroups, rowH]);
     const nextEnabled = (from, dir) => {
-      let i = from + dir;
+      let i = from >= visible.length ? dir > 0 ? visible.length - 1 : 0 : from + dir;
       while (i >= 0 && i < visible.length) {
         if (!visible[i]?.disabled) return i;
         i += dir;
@@ -6743,6 +6751,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     import_react.default.useEffect(() => {
       setActive(0);
     }, [query]);
+    import_react.default.useEffect(() => {
+      setActive((a) => a < 0 ? a : Math.min(a, visible.length - 1));
+    }, [visible.length]);
     const onOpenChangeRef = import_react.default.useRef(onOpenChange);
     onOpenChangeRef.current = onOpenChange;
     const prevOpenRef = import_react.default.useRef(open);
@@ -6882,10 +6893,17 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       "Loading\u2026"
     ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
       vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
-      vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderRow(r2.o, r2.idx)),
+      vShown.map((r2) => r2.kind === "group" ? (
+        /* #468: role="presentation" - a listbox owns option/group only, and these bare label divs
+           were neither, so a screen reader walked them as list content. Wrapping each
+           group in a real role="group" + aria-labelledby (as CommandPalette now does)
+           is the fuller fix, but the virtualized path renders a FLAT row list with no
+           nesting to hang it on - deferred, see docs/qa-notes. */
+        /* @__PURE__ */ jsx("div", { className: "twc-pop__group", role: "presentation", children: r2.label }, `g${r2.gi}`)
+      ) : renderRow(r2.o, r2.idx)),
       vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
     ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
-      g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
+      g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", role: "presentation", children: g.group }) : null,
       g.options.map((o) => {
         counter += 1;
         const idx = counter;
@@ -7155,37 +7173,44 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           ),
           /* @__PURE__ */ jsx("span", { className: "twc-cmdk__kbd", children: "esc" })
         ] }),
-        /* @__PURE__ */ jsx("div", { className: "twc-cmdk__list", id: listId, role: "listbox", ref: listRef, children: flat.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-cmdk__empty", children: emptyText }) : groups.map((g) => /* @__PURE__ */ jsxs("div", { role: "group", children: [
-          g.key ? /* @__PURE__ */ jsx("div", { className: "twc-cmdk__group-label", children: g.key }) : null,
-          g.items.map((c) => {
-            idx += 1;
-            const i = idx;
-            return /* @__PURE__ */ jsxs(
-              "button",
-              {
-                id: optionId(i),
-                type: "button",
-                className: "twc-cmdk__item",
-                role: "option",
-                "aria-selected": i === active,
-                tabIndex: -1,
-                "data-active": i === active || void 0,
-                onMouseEnter: () => setActive(i),
-                onMouseDown: (e) => e.preventDefault(),
-                onClick: () => run(c),
-                children: [
-                  c.icon ? /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-ic", "aria-hidden": "true", children: c.icon }) : null,
-                  /* @__PURE__ */ jsxs("span", { className: "twc-cmdk__item-main", children: [
-                    /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-label", children: c.label }),
-                    c.description ? /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-desc", children: c.description }) : null
-                  ] }),
-                  c.shortcut ? /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-sc", children: c.shortcut }) : null
-                ]
-              },
-              c.id || i
-            );
-          })
-        ] }, g.key || "_")) })
+        /* @__PURE__ */ jsx("div", { className: "twc-cmdk__list", id: listId, role: "listbox", "aria-label": searchLabel, ref: listRef, children: flat.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-cmdk__empty", children: emptyText }) : groups.map((g, gi) => (
+          // #468: a role="group" with no name announced as a bare "grouping", so arrowing across a
+          // category boundary never told the user which category they had entered - the visible
+          // heading was the only cue, and it is sighted-only. It is also not a permitted child of a
+          // listbox (option/group only), hence role="presentation" on it now that the group is
+          // labelled by it. The APG listbox pattern requires every group to carry a label.
+          /* @__PURE__ */ jsxs("div", { role: "group", "aria-labelledby": g.key ? `${baseId}-grp-${gi}` : void 0, children: [
+            g.key ? /* @__PURE__ */ jsx("div", { id: `${baseId}-grp-${gi}`, className: "twc-cmdk__group-label", role: "presentation", children: g.key }) : null,
+            g.items.map((c) => {
+              idx += 1;
+              const i = idx;
+              return /* @__PURE__ */ jsxs(
+                "button",
+                {
+                  id: optionId(i),
+                  type: "button",
+                  className: "twc-cmdk__item",
+                  role: "option",
+                  "aria-selected": i === active,
+                  tabIndex: -1,
+                  "data-active": i === active || void 0,
+                  onMouseEnter: () => setActive(i),
+                  onMouseDown: (e) => e.preventDefault(),
+                  onClick: () => run(c),
+                  children: [
+                    c.icon ? /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-ic", "aria-hidden": "true", children: c.icon }) : null,
+                    /* @__PURE__ */ jsxs("span", { className: "twc-cmdk__item-main", children: [
+                      /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-label", children: c.label }),
+                      c.description ? /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-desc", children: c.description }) : null
+                    ] }),
+                    c.shortcut ? /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-sc", children: c.shortcut }) : null
+                  ]
+                },
+                c.id || i
+              );
+            })
+          ] }, g.key || "_")
+        )) })
       ] })
     ] });
     return renderPortal(overlay);
@@ -7265,6 +7290,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 }
 .twc-cur__el:focus, .twc-cur__el:focus-visible { outline: none; box-shadow: none; }
 .twc-cur__el::placeholder { color: var(--color-text-subtle); }
+/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
+   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
+   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
+   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
+   showing its placeholder is the reachable case. The affix beside it carries icons, so it clears
+   its own 3:1 graphics floor and stays. */
+.twc-cur[data-readonly="true"] .twc-cur__el::placeholder { color: var(--color-text-muted); }
 .twc-cur__el::-webkit-outer-spin-button, .twc-cur__el::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 `;
   function Currency({
@@ -7307,6 +7339,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         onValueChange?.(shown === "" || Number.isNaN(n) ? null : n, shown);
       }
     }, [controlled, shown, value]);
+    import_react.default.useEffect(() => {
+      if (controlled) return;
+      const next = clampPrecision(internal, prec);
+      if (next === internal) return;
+      setInternal(next);
+      const n = Number(next);
+      onValueChange?.(next === "" || Number.isNaN(n) ? null : n, next);
+    }, [prec]);
     const descId = `${fieldId}-desc`;
     const describedBy = [error || hint ? descId : null, rest["aria-describedby"]].filter(Boolean).join(" ") || void 0;
     const ariaInvalid = invalid ? true : rest["aria-invalid"] ?? void 0;
@@ -7552,7 +7592,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     }, [virtualized, fGroups, rowH]);
     const selected = flat.find((o) => o.value === current);
     const nextEnabled = (from, dir) => {
-      let i = from + dir;
+      let i = from >= visible.length ? dir > 0 ? visible.length - 1 : 0 : from + dir;
       while (i >= 0 && i < visible.length) {
         if (!visible[i]?.disabled) return i;
         i += dir;
@@ -7597,7 +7637,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       if (!open) return;
       const idx = flat.findIndex((o) => o.value === current);
       setActive(idx >= 0 ? idx : 0);
-      setQuery("");
       if (showSearch) {
         setTimeout(() => searchRef.current?.focus(), 20);
       }
@@ -7612,6 +7651,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     import_react.default.useEffect(() => {
       setActive(0);
     }, [query]);
+    import_react.default.useEffect(() => {
+      setActive((a) => a < 0 ? a : Math.min(a, visible.length - 1));
+    }, [visible.length]);
     import_react.default.useEffect(() => {
       if (!open || !virtualized) return;
       const el = listRef.current;
@@ -7639,6 +7681,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         setRender(true);
         return;
       }
+      setQuery("");
       const t = setTimeout(() => setRender(false), 170);
       return () => clearTimeout(t);
     }, [open]);
@@ -7786,10 +7829,17 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         "Loading\u2026"
       ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
         vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
-        vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderRow(r2.o, r2.idx)),
+        vShown.map((r2) => r2.kind === "group" ? (
+          /* #468: role="presentation" - a listbox owns option/group only, and these bare label divs
+           were neither, so a screen reader walked them as list content. Wrapping each
+           group in a real role="group" + aria-labelledby (as CommandPalette now does)
+           is the fuller fix, but the virtualized path renders a FLAT row list with no
+           nesting to hang it on - deferred, see docs/qa-notes. */
+          /* @__PURE__ */ jsx("div", { className: "twc-pop__group", role: "presentation", children: r2.label }, `g${r2.gi}`)
+        ) : renderRow(r2.o, r2.idx)),
         vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
       ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
-        g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
+        g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", role: "presentation", children: g.group }) : null,
         g.options.map((o) => {
           counter += 1;
           const idx = counter;
@@ -7914,6 +7964,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 }
 .twc-cur__el:focus, .twc-cur__el:focus-visible { outline: none; box-shadow: none; }
 .twc-cur__el::placeholder { color: var(--color-text-subtle); }
+/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
+   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
+   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
+   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
+   showing its placeholder is the reachable case. The affix beside it carries icons, so it clears
+   its own 3:1 graphics floor and stays. */
+.twc-cur[data-readonly="true"] .twc-cur__el::placeholder { color: var(--color-text-muted); }
 .twc-cur__el::-webkit-outer-spin-button, .twc-cur__el::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .twc-curf__pick { flex: none; display: flex; align-items: stretch; border-inline-end: var(--border-thin) solid var(--color-border); }
 .twc-curf__pick .twc-field { width: 132px; }
@@ -8089,6 +8146,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 }
 .twc-input__el:focus, .twc-input__el:focus-visible { outline: none; box-shadow: none; }
 .twc-input__el::placeholder { color: var(--color-text-subtle); }
+/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
+   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
+   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
+   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
+   showing its placeholder is the reachable case. The affix beside it carries icons, so it clears
+   its own 3:1 graphics floor and stays. */
+.twc-input[data-readonly] .twc-input__el::placeholder { color: var(--color-text-muted); }
 .twc-input__el:disabled { cursor: not-allowed; }
 .twc-input__affix { display: inline-flex; color: var(--color-text-subtle); flex: none; }
 .twc-input__reveal { display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: none;
@@ -8432,7 +8496,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const capReached = max != null && (value !== void 0 ? value : internal).length >= max;
     const isOptDisabled = (o) => o.disabled || capReached && !(value !== void 0 ? value : internal).includes(o.value);
     const nextEnabled = (from, dir) => {
-      let i = from + dir;
+      let i = from >= visible.length ? dir > 0 ? visible.length - 1 : 0 : from + dir;
       while (i >= 0 && i < visible.length) {
         if (!isOptDisabled(visible[i])) return i;
         i += dir;
@@ -8486,6 +8550,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     import_react.default.useEffect(() => {
       setActive(0);
     }, [query]);
+    import_react.default.useEffect(() => {
+      setActive((a) => a < 0 ? a : Math.min(a, visible.length - 1));
+    }, [visible.length]);
     import_react.default.useEffect(() => {
       if (!open || !virtualized) return;
       const el = listRef.current;
@@ -8606,10 +8673,17 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           "Loading\u2026"
         ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
           vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
-          vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderRow(r2.o, r2.idx)),
+          vShown.map((r2) => r2.kind === "group" ? (
+            /* #468: role="presentation" - a listbox owns option/group only, and these bare label divs
+               were neither, so a screen reader walked them as list content. Wrapping each
+               group in a real role="group" + aria-labelledby (as CommandPalette now does)
+               is the fuller fix, but the virtualized path renders a FLAT row list with no
+               nesting to hang it on - deferred, see docs/qa-notes. */
+            /* @__PURE__ */ jsx("div", { className: "twc-pop__group", role: "presentation", children: r2.label }, `g${r2.gi}`)
+          ) : renderRow(r2.o, r2.idx)),
           vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
         ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
-          g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
+          g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", role: "presentation", children: g.group }) : null,
           g.options.map((o) => {
             counter += 1;
             const idx = counter;
@@ -9309,10 +9383,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__combine-apply { border: none; background: var(--color-primary); color: var(--color-primary-fg); font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold); padding: 6px 14px; border-radius: var(--radius-md); cursor: pointer; }
 .twc-dt__combine-apply:hover { opacity: 0.9; }
 .twc-dt__combine-apply:focus-visible { outline: none; box-shadow: var(--ring); }
-.twc-dt__col-combined { color: var(--color-text-subtle); font-size: var(--text-xs); font-style: italic; }
+/* #462: text-MUTED, not text-subtle. A hover/active rule swaps --color-surface-sunken (or
+   --color-primary-subtle) in under this text without changing its colour, and text-subtle on
+   either is 4.34:1 / 4.26:1 in light - the pairing the token rules forbid (docs/colors.md). It
+   passes at rest on --color-surface and fails only while hovered, which is why it survived. */
+.twc-dt__col-combined { color: var(--color-text-muted); font-size: var(--text-xs); font-style: italic; }
 .twc-dt__td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
 /* Auto row-number gutter (rowNumbers) \u2014 a sticky-left ordinal column. */
-.twc-dt__rownum { text-align: end; font-variant-numeric: tabular-nums; color: var(--color-text-subtle);
+.twc-dt__rownum { text-align: end; font-variant-numeric: tabular-nums; color: var(--color-text-muted);
   font-size: var(--text-xs); }
 td.twc-dt__rownum { padding-inline: 8px; }
 th.twc-dt__rownum { color: var(--color-text-muted); }
@@ -9383,7 +9461,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__mi { text-decoration: none; } /* #399: link (<a role="menuitem">) variant */
 .twc-dt__mi:hover { background: var(--color-surface-sunken); }
 .twc-dt__mi:disabled { color: var(--color-text-subtle); opacity: 0.5; cursor: default; pointer-events: none; }
-.twc-dt__mi-hint { margin-inline-start: auto; padding-inline-start: 12px; color: var(--color-text-subtle); font-size: var(--text-xs); font-weight: var(--font-normal); } /* #399: disabledReason */
+.twc-dt__mi-hint { margin-inline-start: auto; padding-inline-start: 12px; color: var(--color-text-muted); font-size: var(--text-xs); font-weight: var(--font-normal); } /* #399: disabledReason */
 .twc-dt__mi svg { width: 16px; height: 16px; color: var(--color-text-subtle); flex: none; }
 .twc-dt__mi[data-active="true"] { color: var(--color-primary-subtle-fg); }
 .twc-dt__mi[data-active="true"] svg { color: var(--color-primary-subtle-fg); }
@@ -15063,6 +15141,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             tabIndex: disabled ? -1 : 0,
             "aria-haspopup": "dialog",
             "aria-expanded": open,
+            "aria-disabled": disabled || void 0,
             "aria-labelledby": label ? `${fieldId}-label` : void 0,
             "aria-invalid": invalid || void 0,
             "aria-describedby": error || hint ? descId : void 0,
@@ -15264,8 +15343,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-drp__day[data-outside="true"] { color: var(--color-text-muted); }
 .twc-drp__day:hover:not(:disabled) { background: var(--color-surface-sunken); border-radius: var(--radius-md); }
 .twc-drp__day[data-in="true"] { background: var(--color-primary-subtle); border-radius: 0; }
-.twc-drp__day[data-edge="start"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: var(--radius-md) 0 0 var(--radius-md); font-weight: var(--font-bold); }
-.twc-drp__day[data-edge="end"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: 0 var(--radius-md) var(--radius-md) 0; font-weight: var(--font-bold); }
+/* #465: LOGICAL corner properties. The physical shorthand never mirrored, so under dir="rtl" -
+   where the grid mirrors and the range start sits at the RIGHT of its row - the pill was rounded on
+   its interior edge and squared off against the empty cell beside it, reading inside-out. */
+.twc-drp__day[data-edge="start"] { background: var(--color-primary); color: var(--color-primary-fg); border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); font-weight: var(--font-bold); }
+.twc-drp__day[data-edge="end"] { background: var(--color-primary); color: var(--color-primary-fg); border-start-end-radius: var(--radius-md); border-end-end-radius: var(--radius-md); font-weight: var(--font-bold); }
 .twc-drp__day[data-edge="both"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: var(--radius-md); font-weight: var(--font-bold); }
 .twc-drp__day:disabled { opacity: 0.3; cursor: not-allowed; }
 .twc-drp__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
@@ -16195,6 +16277,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             tabIndex: disabled ? -1 : 0,
             "aria-haspopup": "dialog",
             "aria-expanded": open,
+            "aria-disabled": disabled || void 0,
             "aria-labelledby": label ? `${fieldId}-label` : void 0,
             "aria-invalid": invalid || void 0,
             "aria-describedby": error || hint ? descId : void 0,
@@ -17378,7 +17461,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         }
       } else if (grabbed && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
         e.preventDefault();
-        const next = (grab.targetIdx + (e.key === "ArrowRight" ? 1 : -1) + columns.length) % columns.length;
+        const rtl = typeof window !== "undefined" && rootRef.current && window.getComputedStyle(rootRef.current).direction === "rtl";
+        const step = (e.key === "ArrowRight" ? 1 : -1) * (rtl ? -1 : 1);
+        const next = (grab.targetIdx + step + columns.length) % columns.length;
         setGrab({ id: card.id, targetIdx: next });
         setAnnounce(`Move ${cardTitle(card)} to ${colTitle(columns[next])}. Press Enter to drop.`);
       } else if (grabbed && e.key === "Escape") {
@@ -17480,7 +17565,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-list__main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
 .twc-list__title { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .twc-list__desc { font-size: var(--text-xs); color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.twc-list__trail { flex: none; display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text-subtle); font-size: var(--text-sm); }
+/* #462: text-MUTED, not text-subtle. A hover/active rule swaps --color-surface-sunken (or
+   --color-primary-subtle) in under this text without changing its colour, and text-subtle on
+   either is 4.34:1 / 4.26:1 in light - the pairing the token rules forbid (docs/colors.md). It
+   passes at rest on --color-surface and fails only while hovered, which is why it survived. */
+.twc-list__trail { flex: none; display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text-muted); font-size: var(--text-sm); }
 .twc-list__empty { padding: 30px 12px; text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
 `;
   function List({ items, plain = false, emptyMessage, className = "", ...rest }) {
@@ -18321,6 +18410,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-sidebar__collapse:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-sidebar__collapse svg { width: 18px; height: 18px; flex: none; transition: transform var(--duration-base) var(--ease-spring); }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse svg { transform: rotate(180deg); }
+/* #465: the rail's own edge is logical (border-inline-end), so under dir="rtl" it sits on the right
+   of the page - but the chevron still pointed left, away from the edge it collapses toward. The
+   library convention for a nav chevron (CLAUDE.md; Breadcrumb and the DateRangePicker nav do it). */
+[dir="rtl"] .twc-sidebar__collapse svg { transform: scaleX(-1); }
+[dir="rtl"] .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse svg { transform: scaleX(-1) rotate(180deg); }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot { display: flex; flex-direction: column; align-items: center; padding: var(--space-2) 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse { width: auto; padding: 11px; gap: 0; margin: 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse span { display: none; }
@@ -19546,6 +19640,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-textarea__el[data-size="sm"] { padding: var(--space-2) var(--space-2-5); }
 .twc-textarea__el[data-size="lg"] { padding: var(--space-3) var(--space-4); }
 .twc-textarea__el::placeholder { color: var(--color-text-subtle); }
+/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
+   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
+   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
+   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
+   showing its placeholder is the reachable case. The affix beside it carries icons, so it clears
+   its own 3:1 graphics floor and stays. */
+.twc-textarea__el[data-readonly]::placeholder { color: var(--color-text-muted); }
 .twc-textarea__el:hover:not(:focus):not(:disabled) { border-color: var(--color-border-strong); }
 /* tone \u2192 focus/open accent (default primary; reproduces current look). */
 .twc-textarea__el { --_accent: var(--color-primary); --_ring: var(--ring); }
@@ -20641,7 +20742,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   function usePrefersReducedMotion() {
     return useMediaQuery("(prefers-reduced-motion: reduce)");
   }
-  function useColorScheme({ storageKey = "twico-theme", attribute = "class", element, disableTransitionsOnChange = true } = {}) {
+  function useColorScheme({ storageKey = "twico-theme", attribute = "class", element, disableTransitionsOnChange = true, initializeWithValue = false } = {}) {
     const getTarget = () => element || (canUseDOM2 ? document.documentElement : null);
     const firstApply = import_react.default.useRef(true);
     const read = () => {
@@ -20653,7 +20754,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       }
       return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     };
-    const [theme, setThemeState] = import_react.default.useState(read);
+    const [theme, setThemeState] = import_react.default.useState(initializeWithValue ? read : "light");
     const apply = import_react.default.useCallback(
       (t) => {
         const target = getTarget();
@@ -20677,7 +20778,17 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       },
       [attribute, element, disableTransitionsOnChange]
     );
+    const resolved = import_react.default.useRef(false);
     useIsomorphicLayoutEffect(() => {
+      if (!resolved.current) {
+        resolved.current = true;
+        const real = read();
+        if (real !== theme) {
+          setThemeState(real);
+          apply(real);
+          return;
+        }
+      }
       apply(theme);
     }, [theme, apply]);
     const themeRef = import_react.default.useRef(theme);
@@ -20760,7 +20871,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       handler(e);
     });
   }
-  function useLocalStorage(key, initialValue) {
+  function useLocalStorage(key, initialValue, { initializeWithValue = false } = {}) {
     const read = () => {
       if (!canUseDOM2) return initialValue;
       try {
@@ -20770,7 +20881,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         return initialValue;
       }
     };
-    const [stored, setStored] = import_react.default.useState(read);
+    const [stored, setStored] = import_react.default.useState(initializeWithValue ? read : initialValue);
+    useIsomorphicLayoutEffect(() => {
+      if (!canUseDOM2) return;
+      setStored(read());
+    }, [key]);
     const setValue = import_react.default.useCallback(
       (value) => {
         setStored((prev) => {
@@ -20811,6 +20926,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }
   function useCopyToClipboard(timeout = 1500) {
     const [copied, setCopied] = import_react.default.useState(false);
+    const [copyTick, setCopyTick] = import_react.default.useState(0);
     const copy = import_react.default.useCallback(async (text) => {
       if (!canUseDOM2) {
         setCopied(false);
@@ -20820,19 +20936,21 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         try {
           await navigator.clipboard.writeText(text);
           setCopied(true);
+          setCopyTick((t) => t + 1);
           return true;
         } catch {
         }
       }
       const ok = legacyCopy(String(text ?? ""));
       setCopied(ok);
+      if (ok) setCopyTick((t) => t + 1);
       return ok;
     }, []);
     import_react.default.useEffect(() => {
       if (!copied) return void 0;
       const t = setTimeout(() => setCopied(false), timeout);
       return () => clearTimeout(t);
-    }, [copied, timeout]);
+    }, [copied, copyTick, timeout]);
     return { copied, copy };
   }
   function useDebouncedValue(value, delay = 200) {
@@ -20882,12 +21000,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       return () => clearTimeout(id);
     }, [delay]);
   }
-  function useWindowSize() {
-    const [size, setSize] = import_react.default.useState(() => ({
+  function useWindowSize({ initializeWithValue = false } = {}) {
+    const get = () => ({
       width: canUseDOM2 ? window.innerWidth : 0,
       height: canUseDOM2 ? window.innerHeight : 0
-    }));
-    import_react.default.useEffect(() => {
+    });
+    const [size, setSize] = import_react.default.useState(initializeWithValue ? get : { width: 0, height: 0 });
+    useIsomorphicLayoutEffect(() => {
       if (!canUseDOM2) return void 0;
       const onResize = () => setSize({ width: window.innerWidth, height: window.innerHeight });
       onResize();

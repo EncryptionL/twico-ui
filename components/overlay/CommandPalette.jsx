@@ -142,11 +142,16 @@ export function CommandPalette({
             onChange={(e) => setQuery(e.target.value)} onKeyDown={onKeyDown} />
           <span className="twc-cmdk__kbd">esc</span>
         </div>
-        <div className="twc-cmdk__list" id={listId} role="listbox" ref={listRef}>
+        <div className="twc-cmdk__list" id={listId} role="listbox" aria-label={searchLabel} ref={listRef}>
           {flat.length === 0 ? <div className="twc-cmdk__empty">{emptyText}</div> :
-            groups.map((g) => (
-              <div key={g.key || "_"} role="group">
-                {g.key ? <div className="twc-cmdk__group-label">{g.key}</div> : null}
+            groups.map((g, gi) => (
+              // #468: a role="group" with no name announced as a bare "grouping", so arrowing across a
+              // category boundary never told the user which category they had entered - the visible
+              // heading was the only cue, and it is sighted-only. It is also not a permitted child of a
+              // listbox (option/group only), hence role="presentation" on it now that the group is
+              // labelled by it. The APG listbox pattern requires every group to carry a label.
+              <div key={g.key || "_"} role="group" aria-labelledby={g.key ? `${baseId}-grp-${gi}` : undefined}>
+                {g.key ? <div id={`${baseId}-grp-${gi}`} className="twc-cmdk__group-label" role="presentation">{g.key}</div> : null}
                 {g.items.map((c) => {
                   idx += 1; const i = idx;
                   return (

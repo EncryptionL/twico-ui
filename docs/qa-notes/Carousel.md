@@ -10,6 +10,8 @@
 
 - [x] **[#452] a consumer `onMouseEnter` killed the autoplay hover-pause** - `{...rest}` was spread after the internal pointer/key handlers, so any same-named consumer prop replaced them. Composed via `components/_compose.js`. `Carousel.jsx:134` - fixed 2026-10-07
 
+- [x] **[#464] keyboard navigation produced NaN - and emitted it - with no slides** - `go` computes `loop ? (i + count) % count : ...` and `loop` defaults to **true**, so at `count === 0` that is `NaN % 0`. The arrows and dots are gated on `count > 1`, but the key handler sits on the always-rendered `role="region"` wrapper and the viewport is `tabIndex={0}`, so `<Carousel>{[]}</Carousel>` (or an async slide list that has not arrived) is reachable: `onIndexChange(NaN)` reached the consumer and the track rendered `translateX(-NaN%)`. `go` now bails at `count <= 0`; the non-loop branch had the same hole with a different symptom, clamping to `-1`. The double modulo also hardens a negative index. `Carousel.jsx:89` - fixed 2026-10-07
+
 ## Verified OK
 
 - **Index math (loop vs no-loop):** Loop wraps correctly via (i + count) % count. No-loop clamps to [0, count-1].

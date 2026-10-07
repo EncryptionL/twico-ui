@@ -12,6 +12,8 @@
 
 (none)
 
+- [x] **[#462] `.twc-avatar-menu__sub` (the email/role line) fails while the trigger is hovered** - same hover-swaps-the-background pattern as List: 4.34:1 on sunken at 12px. Now `--color-text-muted`. `AvatarMenu.jsx:14` - fixed 2026-10-07
+
 ## Verified OK
 
 - **Keyboard operable trigger:** Enter/Space on the span[role="button"] correctly calls .click() to open the portaled Menu.

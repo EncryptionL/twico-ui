@@ -785,6 +785,8 @@
 - [x] **[#454 review] the hand-rolled config switch had the same off-track problem as Switch** - `.twc-dt__sw` used `--color-border-strong` (1.48:1 in light), so in light the off state had no visible edge at all. Now `--color-control-track`. `Datatable.jsx:508` - fixed 2026-10-07
 - [x] **[#460 review] the index-keyed reveal effect could lose the reveal permanently** - while `loading` is true the body renders SKELETON rows instead of the real ones, so no `[data-active]` row exists; `revealRowRi` is derived from `keyIndex`, which still holds the row, so it does not change when `loading` flips and the effect never re-ran. `loading` is now a dependency. (Keying on the Map identity used to mask this by re-running on every render - the very churn #460 removed.) `Datatable.jsx:2696` - fixed 2026-10-07
 
+- [x] **[#462] three more subtle-on-sunken sites, each reached by a hover rule** - `.twc-dt__rownum` and `.twc-dt__col-combined` under `.twc-dt__row:hover .twc-dt__td`, and `.twc-dt__mi-hint` (the #399 disabledReason, which also shows on ENABLED items) under `.twc-dt__mi:hover`. All three now `--color-text-muted`, matching the four labels already fixed under #449. `Datatable.jsx:400,404,474` - fixed 2026-10-07
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.

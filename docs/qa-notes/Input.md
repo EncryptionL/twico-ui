@@ -31,6 +31,8 @@
   `ref` intact (React 19 ref-as-prop) instead of clobbering it. 5 tests in `tests/input-clearable.test.jsx`.
   — added 2026-08-04
 
+- [x] **[#462] the readonly placeholder is 4.34:1, and readonly gets NO SC 1.4.3 exemption** - `[data-readonly]` fills with `--color-surface-sunken` while the placeholder stays `--color-text-subtle`. The classification is the whole point: the sibling `:disabled` rule IS exempt (inactive control) and additionally dims the wrapper, but a readonly field is operable, focusable and copyable - and the readonly rules deliberately apply no opacity, which is exactly why the ratio lands on the failing value. An empty readonly field showing its placeholder is the reachable case. The placeholder is now scoped to `--color-text-muted` on the readonly fill. The affix beside it carries icons, so it clears its own 3:1 floor and stays. `Input.jsx:54` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled input works with value/defaultValue/onChange

@@ -12,6 +12,7 @@ import { Breadcrumb } from "./Breadcrumb";
 <Breadcrumb maxItems={3} items={longTrail} />   // collapses middle into …
 ```
 
-Items: `{ label, href?, icon?, onClick? }`. Props: `separator`, `maxItems`. A crumb with `href` renders an
+Items: `{ label, href?, icon?, onClick? }`. Props: `separator`, `maxItems`. The default chevron
+mirrors under `dir="rtl"`; a custom `separator` is rendered as given and owns its own mirroring. A crumb with `href` renders an
 `<a>`, with `onClick` (no href) a `<button>`, and with neither an inert plain-text `<span>` (no fake
 `href="#"`) — so intermediate non-navigable labels aren't announced as broken links.

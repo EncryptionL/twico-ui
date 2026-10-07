@@ -29,6 +29,8 @@
 
 - [x] **[#453 review] same as DatePicker, plus the in-range fill** - outside-month days also take a `--color-primary-subtle` background when inside the selected range, where text-subtle is 4.26:1. Now `--color-text-muted` (6.78:1 worst). `DateRangePicker.jsx:83,69` - fixed 2026-10-07
 
+- [x] **[#465] the range-edge corner radii were physical, so they rounded the wrong side in RTL** - the only RTL rule in the file was the nav-chevron flip, so the day radii were never mirrored. Under `dir="rtl"` the grid mirrors and the range start sits at the RIGHT of its row, yet it stayed rounded on its left corners and square on its right: the selected pill read inside-out, rounded on its interior edge and squared against the empty cell beside it. Now `border-start-start-radius` / `border-end-end-radius` and friends, which mirror with no extra selector. Closes the publish-audit 'RTL polish: DateRangePicker corner radii' item. `DateRangePicker.jsx:87` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled date range (value/defaultValue/onChange)

@@ -32,6 +32,9 @@ None identified.
   checkable option list to the visible slice for long lists; aria-activedescendant / keyboard indexing
   spans the full list and nav scrolls unrendered options into view. Off by default. — added 2026-07-04
 
+- [x] **[#463] the active option index was never clamped** - see Select: `nextEnabled` now re-enters the list from its nearest end when `from` is out of range, plus a `[visible.length]` clamp effect. `MultiSelect.jsx:181` - fixed 2026-10-07
+- [x] **[#468] group label divs are `role="presentation"`** - see Select. `MultiSelect.jsx:334,341` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled multi-select (value/defaultValue/onChange)

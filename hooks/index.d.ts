@@ -60,6 +60,11 @@ export interface UseColorSchemeOptions {
   element?: HTMLElement | null;
   /** Disable CSS transitions during the switch so the UI re-themes instantly. @default true */
   disableTransitionsOnChange?: boolean;
+  /**
+   * Read the stored theme eagerly in the initializer. Client-only apps with no SSR; under SSR this
+   * reintroduces the hydration mismatch #466 fixed. @default false
+   */
+  initializeWithValue?: boolean;
 }
 
 /** Light/dark theme state synced to `<html>` and persisted to localStorage. */
@@ -100,10 +105,22 @@ export function useKeyPress(
   options?: UseKeyPressOptions
 ): void;
 
-/** State persisted to localStorage (JSON-serialized), SSR-safe. */
+export interface UseLocalStorageOptions {
+  /**
+   * Read storage eagerly in the initializer. Client-only apps with no SSR; under SSR this
+   * reintroduces the hydration mismatch #466 fixed. @default false
+   */
+  initializeWithValue?: boolean;
+}
+
+/**
+ * State persisted to localStorage (JSON-serialized), SSR-safe: returns `initialValue` on the server
+ * AND on the first client render, then reads storage in a layout effect before paint (#466).
+ */
 export function useLocalStorage<T>(
   key: string,
-  initialValue: T
+  initialValue: T,
+  options?: UseLocalStorageOptions
 ): [T, (value: T | ((prev: T) => T)) => void];
 
 /** Copy text to the clipboard with a `copied` flag that auto-resets. Uses the async Clipboard API in a
@@ -129,8 +146,19 @@ export function useInterval(callback: () => void, delay: number | null): void;
 /** Run `callback` once after `delay` ms; pass `delay = null` to cancel. */
 export function useTimeout(callback: () => void, delay: number | null): void;
 
-/** The current window dimensions (0×0 on the server). */
-export function useWindowSize(): { width: number; height: number };
+export interface UseWindowSizeOptions {
+  /**
+   * Measure eagerly in the initializer. Client-only apps with no SSR; under SSR this reintroduces
+   * the hydration mismatch #466 fixed. @default false
+   */
+  initializeWithValue?: boolean;
+}
+
+/**
+ * The current window dimensions. 0×0 on the server AND on the first client render, then measured in
+ * a layout effect before paint (#466) — so hydration never mismatches.
+ */
+export function useWindowSize(options?: UseWindowSizeOptions): { width: number; height: number };
 
 /** `true` while the pointer is over the element referenced by `ref`. */
 export function useHover<T extends HTMLElement = HTMLElement>(ref: React.RefObject<T | null>): boolean;

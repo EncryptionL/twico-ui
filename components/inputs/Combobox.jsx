@@ -167,7 +167,13 @@ export function Combobox({
 
   // #90: next non-disabled option index (no wrap), else stay.
   const nextEnabled = (from, dir) => {
-    let i = from + dir;
+    // #463: self-healing from an OUT-OF-RANGE `from`. `active` is only reset by the [query] (and
+    // [open]) effects, so an `options` prop that shrinks while the list is open - the documented
+    // server-ranked pattern does this on every refetch - leaves `active` past the end of `visible`.
+    // Starting at `from + dir` then made the guard false immediately, so this returned `from`
+    // unchanged in BOTH directions: arrows dead, Enter a no-op, and aria-activedescendant undefined
+    // until the user typed or reopened. Re-enter the list from its nearest end instead.
+    let i = from >= visible.length ? (dir > 0 ? visible.length - 1 : 0) : from + dir;
     while (i >= 0 && i < visible.length) { if (!visible[i]?.disabled) return i; i += dir; }
     return from;
   };
@@ -211,6 +217,13 @@ export function Combobox({
     return () => document.removeEventListener("mousedown", onDown);
   }, [open]);
   React.useEffect(() => { setActive(0); }, [query]);
+  // #463: belt and braces alongside the nextEnabled self-heal - clamp `active` as soon as the list
+  // shrinks, so `visible[active]` (Enter) and aria-activedescendant recover without the user having
+  // to press an arrow key first. Collapses to -1 on an empty list and leaves an already-negative
+  // active alone.
+  React.useEffect(() => {
+    setActive((a) => (a < 0 ? a : Math.min(a, visible.length - 1)));
+  }, [visible.length]);
   // #425: fire onOpenChange on every open↔close transition (an effect catches every path — openMenu, typing,
   // close(), chevron), so a host staging the typed query as a cell-editor draft can withdraw it when close()
   // silently resets the query. Skips the mount (no spurious `false`).
@@ -329,14 +342,19 @@ export function Combobox({
           <>
             {vTop > 0 ? <div aria-hidden="true" style={{ height: vTop }} /> : null}
             {vShown.map((r) => r.kind === "group"
-              ? <div key={`g${r.gi}`} className="twc-pop__group">{r.label}</div>
+              ? /* #468: role="presentation" - a listbox owns option/group only, and these bare label divs
+                   were neither, so a screen reader walked them as list content. Wrapping each
+                   group in a real role="group" + aria-labelledby (as CommandPalette now does)
+                   is the fuller fix, but the virtualized path renders a FLAT row list with no
+                   nesting to hang it on - deferred, see docs/qa-notes. */
+                  <div key={`g${r.gi}`} className="twc-pop__group" role="presentation">{r.label}</div>
               : renderRow(r.o, r.idx))}
             {vBottom > 0 ? <div aria-hidden="true" style={{ height: vBottom }} /> : null}
           </>
         ) :
         fGroups.map((g, gi) => (
           <React.Fragment key={gi}>
-            {g.group ? <div className="twc-pop__group">{g.group}</div> : null}
+            {g.group ? <div className="twc-pop__group" role="presentation">{g.group}</div> : null}
             {g.options.map((o) => {
               counter += 1; const idx = counter;
               return renderRow(o, idx);

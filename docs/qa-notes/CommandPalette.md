@@ -19,6 +19,8 @@
 
 - [x] **[P2] Body scroll not locked while open** — The overlay is a fixed full-viewport scrim, but `<body>` is not scroll-locked, so the page behind the palette can still scroll (wheel after the pointer leaves the panel; iOS body scroll). _Fix:_ set `body { overflow: hidden }` on open / restore on unmount (SSR-guarded), or document as consumer responsibility. `CommandPalette.jsx:64-70` — ✓ fixed 2026-06-17
 
+- [x] **[#468] the listbox groups had no accessible name, and the heading was an unallowed listbox child** - each category rendered as `<div role="group">` with no label, so arrowing across a boundary announced a bare 'grouping' and the user never heard which category they had entered; the visible heading was the only cue and it is sighted-only. ARIA also wants a listbox to own `option`/`group` only, and the heading div was neither. The group is now `aria-labelledby` its heading, the heading is `role="presentation"`, and the listbox itself carries `aria-label`. The APG listbox pattern requires every group to carry a label. This file previously recorded the group wiring as 'correct'. `CommandPalette.jsx:148` - fixed 2026-10-07
+
 ## Verified OK
 
 - Portals to `document.body`, so the fixed scrim escapes a transformed / `backdrop-filter` ancestor (e.g. a sticky navbar) (`CommandPalette.jsx:190-193`).

@@ -87,7 +87,13 @@ export function Carousel({
   }, [indexProp, onIndexChange]);
 
   const go = React.useCallback((i) => {
-    setIndex(loop ? (i + count) % count : Math.min(Math.max(i, 0), count - 1));
+    // #464: with no slides, `(i + 0) % 0` is NaN - and the key handler IS reachable when empty,
+    // because it sits on the always-rendered role="region" wrapper and the viewport is tabbable
+    // (only the arrows and dots are gated on count > 1). A controlled consumer was handed
+    // onIndexChange(NaN) and the track rendered translateX(-NaN%). The double modulo also hardens
+    // a negative index, which a plain `% count` leaves negative.
+    if (count <= 0) return;
+    setIndex(loop ? ((i % count) + count) % count : Math.min(Math.max(i, 0), count - 1));
   }, [count, loop, setIndex]);
 
   // Autoplay is suppressed on hover/focus, when the user pauses, and under

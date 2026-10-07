@@ -174,7 +174,13 @@ export function Select({
 
   // #90: find the next non-disabled option index in a direction (no wrap), else stay.
   const nextEnabled = (from, dir) => {
-    let i = from + dir;
+    // #463: self-healing from an OUT-OF-RANGE `from`. `active` is only reset by the [query] (and
+    // [open]) effects, so an `options` prop that shrinks while the list is open - the documented
+    // server-ranked pattern does this on every refetch - leaves `active` past the end of `visible`.
+    // Starting at `from + dir` then made the guard false immediately, so this returned `from`
+    // unchanged in BOTH directions: arrows dead, Enter a no-op, and aria-activedescendant undefined
+    // until the user typed or reopened. Re-enter the list from its nearest end instead.
+    let i = from >= visible.length ? (dir > 0 ? visible.length - 1 : 0) : from + dir;
     while (i >= 0 && i < visible.length) { if (!visible[i]?.disabled) return i; i += dir; }
     return from;
   };
@@ -217,7 +223,12 @@ export function Select({
     if (!open) return;
     const idx = flat.findIndex((o) => o.value === current);
     setActive(idx >= 0 ? idx : 0);
-    setQuery("");
+    // #463: the query is cleared on CLOSE, not here. Clearing it here meant that in the commit where
+    // `open` flips true the [query] effect still saw the OLD query (so it did not run), React then
+    // re-rendered with query === "", and THAT commit ran it and called setActive(0) - clobbering the
+    // highlight this line just set. So "on open, highlight the selected option" worked only on the
+    // very first open, and after any prior search the list opened at the top instead of at the
+    // selection. Combobox fixed the same ordering hazard under #425.
     if (showSearch) { setTimeout(() => searchRef.current?.focus(), 20); }
     const onDown = (e) => {
       if (wrapRef.current && wrapRef.current.contains(e.target)) return;
@@ -229,6 +240,13 @@ export function Select({
   }, [open]);
 
   React.useEffect(() => { setActive(0); }, [query]);
+  // #463: belt and braces alongside the nextEnabled self-heal - clamp `active` as soon as the list
+  // shrinks, so `visible[active]` (Enter) and aria-activedescendant recover without the user having
+  // to press an arrow key first. Collapses to -1 on an empty list and leaves an already-negative
+  // active alone.
+  React.useEffect(() => {
+    setActive((a) => (a < 0 ? a : Math.min(a, visible.length - 1)));
+  }, [visible.length]);
 
   // Measure the list viewport height for the virtualization window (falls back to the
   // 260px max-height when layout is unavailable, e.g. before paint / in jsdom).
@@ -256,6 +274,7 @@ export function Select({
   // Keep the listbox mounted through the close animation, then unmount.
   React.useEffect(() => {
     if (open) { setRender(true); return; }
+    setQuery(""); // #463: reset the search here, one commit before the next open reads it
     const t = setTimeout(() => setRender(false), 170);
     return () => clearTimeout(t);
   }, [open]);
@@ -387,14 +406,19 @@ export function Select({
             <>
               {vTop > 0 ? <div aria-hidden="true" style={{ height: vTop }} /> : null}
               {vShown.map((r) => r.kind === "group"
-                ? <div key={`g${r.gi}`} className="twc-pop__group">{r.label}</div>
+                ? /* #468: role="presentation" - a listbox owns option/group only, and these bare label divs
+                   were neither, so a screen reader walked them as list content. Wrapping each
+                   group in a real role="group" + aria-labelledby (as CommandPalette now does)
+                   is the fuller fix, but the virtualized path renders a FLAT row list with no
+                   nesting to hang it on - deferred, see docs/qa-notes. */
+                  <div key={`g${r.gi}`} className="twc-pop__group" role="presentation">{r.label}</div>
                 : renderRow(r.o, r.idx))}
               {vBottom > 0 ? <div aria-hidden="true" style={{ height: vBottom }} /> : null}
             </>
           ) :
           fGroups.map((g, gi) => (
             <React.Fragment key={gi}>
-              {g.group ? <div className="twc-pop__group">{g.group}</div> : null}
+              {g.group ? <div className="twc-pop__group" role="presentation">{g.group}</div> : null}
               {g.options.map((o) => {
                 counter += 1; const idx = counter;
                 return renderRow(o, idx);

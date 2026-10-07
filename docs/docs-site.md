@@ -80,7 +80,14 @@ site/
   informative sentence (~12–22 words) — what the prop does plus its effect or when to use it. Beyond
   the component-specific props, the table also lists the common **inherited DOM props** each component
   forwards via `...rest` (e.g. `onClick`, `id`, `style`), appended by `enrich-props.mjs` from the
-  component's `.d.ts` root element, then a final `...rest` catch-all row.
+  component's `.d.ts` root element, then a final `...rest` catch-all row. Those descriptions are
+  **element-aware** (#471): they name the element the prop actually lands on — `<input>`,
+  `<textarea>`, `<button>`, `<a>` or "the root element" — because for the input family the root is the
+  field wrapper while `id` and the whole `{...rest}` (which carries `style`) go to the inner control.
+  Saying "the root element" there told readers that `<Combobox style={{ width: 320 }} />` would size
+  the field, when it sizes the bare `<input>`. Note the script is **additive** — it only appends rows
+  that are missing — so changing a generated description also has to refresh it in place; it does that
+  behind a pattern match, so a hand-written description is never clobbered.
 - Code is highlighted with `prism-react-renderer` (bundled, not a CDN).
 - Each code block has a toolbar: a **JS / TS** toggle (shared, persisted via `useLocalStorage` —
   `CodeLang.jsx`) that switches highlighting (`jsx`↔`tsx`), setup file extensions (`.jsx`↔`.tsx`), the

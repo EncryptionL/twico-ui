@@ -1241,14 +1241,14 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Id applied to the root element, handy for labels and aria wiring."
+        "description": "Id applied to <button>, handy for labels and aria wiring."
       },
       {
         "prop": "style",
         "type": "React.CSSProperties",
         "required": false,
         "default": "—",
-        "description": "Inline styles merged onto the root element after the component's own."
+        "description": "Inline styles merged onto <button> after the component's own."
       },
       {
         "prop": "...rest",
@@ -4246,7 +4246,7 @@ export const components = [
         "type": "React.CSSProperties",
         "required": false,
         "default": "—",
-        "description": "Inline styles merged onto the root element after the component's own."
+        "description": "Inline styles merged onto <input> after the component's own."
       },
       {
         "prop": "...rest",
@@ -4790,14 +4790,14 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Id applied to the root element, handy for labels and aria wiring."
+        "description": "Id applied to <input>, handy for labels and aria wiring."
       },
       {
         "prop": "style",
         "type": "React.CSSProperties",
         "required": false,
         "default": "—",
-        "description": "Inline styles merged onto the root element after the component's own."
+        "description": "Inline styles merged onto <input> after the component's own."
       },
       {
         "prop": "...rest",
@@ -5194,14 +5194,14 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Id applied to the root element, handy for labels and aria wiring."
+        "description": "Id applied to <input>, handy for labels and aria wiring."
       },
       {
         "prop": "style",
         "type": "React.CSSProperties",
         "required": false,
         "default": "—",
-        "description": "Inline styles merged onto the root element after the component's own."
+        "description": "Inline styles merged onto <input> after the component's own."
       },
       {
         "prop": "...rest",
@@ -5380,14 +5380,14 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Id applied to the root element, handy for labels and aria wiring."
+        "description": "Id applied to <input>, handy for labels and aria wiring."
       },
       {
         "prop": "style",
         "type": "React.CSSProperties",
         "required": false,
         "default": "—",
-        "description": "Inline styles merged onto the root element after the component's own."
+        "description": "Inline styles merged onto <input> after the component's own."
       },
       {
         "prop": "...rest",
@@ -8629,14 +8629,14 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Id applied to the root element, handy for labels and aria wiring."
+        "description": "Id applied to <button>, handy for labels and aria wiring."
       },
       {
         "prop": "style",
         "type": "React.CSSProperties",
         "required": false,
         "default": "—",
-        "description": "Inline styles merged onto the root element after the component's own."
+        "description": "Inline styles merged onto <button> after the component's own."
       },
       {
         "prop": "...rest",
@@ -9054,14 +9054,14 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Id applied to the root element, handy for labels and aria wiring."
+        "description": "Id applied to <input>, handy for labels and aria wiring."
       },
       {
         "prop": "style",
         "type": "React.CSSProperties",
         "required": false,
         "default": "—",
-        "description": "Inline styles merged onto the root element after the component's own."
+        "description": "Inline styles merged onto <input> after the component's own."
       },
       {
         "prop": "...rest",
@@ -9644,14 +9644,14 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Id applied to the root element, handy for labels and aria wiring."
+        "description": "Id applied to <input>, handy for labels and aria wiring."
       },
       {
         "prop": "style",
         "type": "React.CSSProperties",
         "required": false,
         "default": "—",
-        "description": "Inline styles merged onto the root element after the component's own."
+        "description": "Inline styles merged onto <input> after the component's own."
       },
       {
         "prop": "...rest",
@@ -10336,14 +10336,14 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Id applied to the root element, handy for labels and aria wiring."
+        "description": "Id applied to <input>, handy for labels and aria wiring."
       },
       {
         "prop": "style",
         "type": "React.CSSProperties",
         "required": false,
         "default": "—",
-        "description": "Inline styles merged onto the root element after the component's own."
+        "description": "Inline styles merged onto <input> after the component's own."
       },
       {
         "prop": "...rest",
@@ -11853,14 +11853,14 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Id applied to the root element, handy for labels and aria wiring."
+        "description": "Id applied to <input>, handy for labels and aria wiring."
       },
       {
         "prop": "style",
         "type": "React.CSSProperties",
         "required": false,
         "default": "—",
-        "description": "Inline styles merged onto the root element after the component's own."
+        "description": "Inline styles merged onto <input> after the component's own."
       },
       {
         "prop": "...rest",
@@ -12615,14 +12615,14 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Id applied to the root element, handy for labels and aria wiring."
+        "description": "Id applied to <textarea>, handy for labels and aria wiring."
       },
       {
         "prop": "style",
         "type": "React.CSSProperties",
         "required": false,
         "default": "—",
-        "description": "Inline styles merged onto the root element after the component's own."
+        "description": "Inline styles merged onto <textarea> after the component's own."
       },
       {
         "prop": "...rest",
