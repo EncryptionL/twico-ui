@@ -21,7 +21,7 @@ export default function SparklineDemo() {
     <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
       <div style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 520 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <span style={{ fontSize: 14, color: "var(--color-fg-muted)" }}>
+          <span style={{ fontSize: 14, color: "var(--color-text-muted)" }}>
             Revenue
           </span>
           <Sparkline
@@ -47,7 +47,7 @@ export default function SparklineDemo() {
       </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        <span style={{ fontSize: 14, color: "var(--color-fg-muted)" }}>
+        <span style={{ fontSize: 14, color: "var(--color-text-muted)" }}>
           Signups
         </span>
         <Sparkline
@@ -63,7 +63,7 @@ export default function SparklineDemo() {
         />
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        <span style={{ fontSize: 14, color: "var(--color-fg-muted)" }}>
+        <span style={{ fontSize: 14, color: "var(--color-text-muted)" }}>
           Sessions
         </span>
         <Sparkline type="bar" height={28} data={[4, 6, 2, 8, 5, 7, 3, 9]} />

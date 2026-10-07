@@ -33,7 +33,7 @@ export function Checkbox({
   --_sz: 20px;
   flex: none; width: var(--_sz); height: var(--_sz); margin-top: 1px;
   display: grid; place-items: center;
-  border: var(--border-medium) solid var(--color-border-strong);
+  border: var(--border-medium) solid var(--color-control-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
   color: var(--_accent-fg);

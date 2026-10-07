@@ -29,14 +29,14 @@ const variations = [
   {
     title: "Label alignment",
     description: "Align the label to the left, center, or right.",
-    code: `<Divider align="left">LEFT</Divider>
+    code: `<Divider align="start">START</Divider>
 <Divider align="center">CENTER</Divider>
-<Divider align="right">RIGHT</Divider>`,
+<Divider align="end">END</Divider>`,
     render: () => (
       <div style={{ width: 340, maxWidth: "100%" }}>
-        <Divider align="left">LEFT</Divider>
+        <Divider align="start">START</Divider>
         <Divider align="center">CENTER</Divider>
-        <Divider align="right">RIGHT</Divider>
+        <Divider align="end">END</Divider>
       </div>
     ),
   },

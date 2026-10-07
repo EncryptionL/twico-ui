@@ -25,6 +25,8 @@ column in `hourCycle={12}` mode.
   API, portal-to-`<body>` + fixed positioning + flip, `useFocusTrap`, outside-click/Esc close. Typed
   entry (`editable`) parses `HH:MM[:SS] [am/pm]` via a built-in matcher (overridable with `parse`).
 
+- [x] **[#467] same as DatePicker** - the `role="button"` trigger had no `aria-disabled` anywhere in the file, so two of the four pickers announced the state and two did not. Fixed in the same change so the family is uniform. `TimePicker.jsx:325` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled (`value`/`defaultValue`/`onChange`); emits a `Date` with the picked time.

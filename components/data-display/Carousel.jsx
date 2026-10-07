@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { compose } from "../_compose.js";
 
 const CAROUSEL_CSS = `
 .twc-carousel { position: relative; font-family: var(--font-sans); }
@@ -86,7 +87,13 @@ export function Carousel({
   }, [indexProp, onIndexChange]);
 
   const go = React.useCallback((i) => {
-    setIndex(loop ? (i + count) % count : Math.min(Math.max(i, 0), count - 1));
+    // #464: with no slides, `(i + 0) % 0` is NaN - and the key handler IS reachable when empty,
+    // because it sits on the always-rendered role="region" wrapper and the viewport is tabbable
+    // (only the arrows and dots are gated on count > 1). A controlled consumer was handed
+    // onIndexChange(NaN) and the track rendered translateX(-NaN%). The double modulo also hardens
+    // a negative index, which a plain `% count` leaves negative.
+    if (count <= 0) return;
+    setIndex(loop ? ((i % count) + count) % count : Math.min(Math.max(i, 0), count - 1));
   }, [count, loop, setIndex]);
 
   // Autoplay is suppressed on hover/focus, when the user pauses, and under
@@ -127,11 +134,11 @@ export function Carousel({
 
   return (
     <div className={`twc-carousel ${className}`}
-      onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)} onBlurCapture={() => setPaused(false)}
-      onKeyDown={handleKeyDown}
       role="region" aria-roledescription="carousel"
-      aria-label={ariaLabel} aria-labelledby={ariaLabelledbyProp} {...rest}>
+      aria-label={ariaLabel} aria-labelledby={ariaLabelledbyProp} {...rest}
+      onMouseEnter={compose(rest.onMouseEnter, () => setPaused(true))} onMouseLeave={compose(rest.onMouseLeave, () => setPaused(false))}
+      onFocusCapture={compose(rest.onFocusCapture, () => setPaused(true))} onBlurCapture={compose(rest.onBlurCapture, () => setPaused(false))}
+      onKeyDown={compose(rest.onKeyDown, handleKeyDown)}>
       {__twcStyles}
       <div className="twc-carousel__viewport" tabIndex={0}>
         <div className="twc-carousel__track" style={{ transform: `translateX(-${index * 100}%)` }}>

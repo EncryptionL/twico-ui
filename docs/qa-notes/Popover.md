@@ -1,10 +1,40 @@
 # QA notes — Popover
 
 - **Group:** overlay
-- **Reviewed:** 2026-09-23
+- **Reviewed:** 2026-10-06
 - **Status:** clean
 
 ## Open issues
+
+- [x] **[#447] a cloned non-button `trigger` received widget ARIA it cannot legally carry** - Popover clones the
+  trigger to inject `tabIndex`, `aria-expanded`, `aria-haspopup` and `aria-controls`. On a `div`/`Box`/`Stack`
+  those land on the implicit `role="generic"`, where **`aria-expanded` is prohibited** (axe `aria-allowed-attr`,
+  and it fires at rest because React serializes `aria-expanded="false"`), and the element becomes a nameless tab
+  stop - with a real button inside it also tabbable, i.e. two tab stops for one control. Worse, and contrary to
+  the report: **Popover** is the component with the keyboard gap. Its clone branch attached no `onKeyDown`, its
+  wrapper has none, and the only document listener handles Escape while open - so such a trigger was focusable but
+  could not be operated by keyboard at all. A cloned non-control trigger now also gets `role="button"` plus
+  Enter/Space activation, mirroring `DatePicker`. Detection lives in the shared `triggerIsControl`
+  (`components/_overlay.js`) so Menu pays for it once; an explicit consumer `role` wins (AvatarMenu's own
+  `span role="button"` is untouched) and a component type we cannot see through is trusted to render its own
+  control. The handler bails on `e.defaultPrevented` and on `e.target !== e.currentTarget`, so a real control
+  nested inside the trigger keeps its own activation and nothing toggles twice. Note the report's ARIA list is two
+  attributes too long: `aria-haspopup`, `aria-controls` and `aria-describedby` are global and legal on `generic`
+  (just useless). Tooltip must still go OUTSIDE Popover - see [Tooltip](Tooltip.md).
+  **Adversarial-review follow-up:** the first cut gated the Enter/Space fix on the same static
+  `triggerIsControl` check used to decide the role - which meant it SKIPPED the very shapes #447 is about.
+  `triggerIsControl` returns true for an opaque component type, so `trigger={<Box>}` (the issue's own
+  repro, and the example in these docs) got `tabIndex` + `aria-expanded` with no role and no keyboard at
+  all; a bare `<a>` (generic, not a link) was waved through by tag name; and - worst - setting `role`
+  yourself, which the new dev warning explicitly recommends, *disabled* the fix, leaving an element that
+  advertises `role="button"` and does nothing. The two questions are now answered separately: the role is
+  still decided statically (it must not land on something that may render a real button), while keyboard
+  activation is decided at EVENT time against `e.currentTarget`, which sees through a component type and
+  through a consumer-set role. A native control is skipped there, since its own Enter/Space already fires
+  the click. `triggerIsControl` was also tightened: `a` counts only with an `href`, `summary` is dropped,
+  and only roles that can legally own `aria-expanded` count - `presentation`/`none`/`generic` no longer
+  suppress the fix. `Popover.jsx`, `_overlay.js`;
+  `tests/overlay-trigger-semantics.test.jsx` (16) + `tests/overlay-trigger-warn.test.jsx` (3). - fixed 2026-10-06
 
 - [x] **[#420] aria-describedby landed on the wrapper, not the trigger** — Popover forwards an incoming aria-describedby to the cloned trigger. `Popover.jsx` — ✓ 2026-09-23
 

@@ -29,12 +29,14 @@ const TOAST_CSS = `
 }
 /* #209: visually-hidden persistent live-region announcers (rendered by ToastProvider). */
 .twc-toast-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
-.twc-toast::before { content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 4px; background: var(--_accent, var(--color-primary)); }
-.twc-toast[data-tone="success"] { --_accent: var(--color-success); }
-.twc-toast[data-tone="warning"] { --_accent: var(--color-warning); }
-.twc-toast[data-tone="danger"]  { --_accent: var(--color-danger); }
-.twc-toast[data-tone="info"]    { --_accent: var(--color-info); }
-.twc-toast__icon { flex: none; margin-top: 1px; color: var(--_accent, var(--color-primary)); }
+/* #455: the 4px edge stripe and the status icon are non-text carriers of the tone (SC 1.4.11, 3:1),
+   and the plain light-mode tones sat at 2.15:1 (warning) / 2.77:1 (info) on the raised surface. */
+.twc-toast::before { content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 4px; background: var(--_accent, var(--color-primary-graphic)); }
+.twc-toast[data-tone="success"] { --_accent: var(--color-success-graphic); }
+.twc-toast[data-tone="warning"] { --_accent: var(--color-warning-graphic); }
+.twc-toast[data-tone="danger"]  { --_accent: var(--color-danger-graphic); }
+.twc-toast[data-tone="info"]    { --_accent: var(--color-info-graphic); }
+.twc-toast__icon { flex: none; margin-top: 1px; color: var(--_accent, var(--color-primary-graphic)); }
 .twc-toast__icon svg { width: 20px; height: 20px; }
 .twc-toast__body { flex: 1; min-width: 0; }
 .twc-toast__title { font-weight: var(--font-bold); font-size: var(--text-sm); }

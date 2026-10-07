@@ -80,6 +80,13 @@ const CUR_CSS = `
 }
 .twc-cur__el:focus, .twc-cur__el:focus-visible { outline: none; box-shadow: none; }
 .twc-cur__el::placeholder { color: var(--color-text-subtle); }
+/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
+   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
+   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
+   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
+   showing its placeholder is the reachable case. The affix beside it carries icons, so it clears
+   its own 3:1 graphics floor and stays. */
+.twc-cur[data-readonly="true"] .twc-cur__el::placeholder { color: var(--color-text-muted); }
 .twc-cur__el::-webkit-outer-spin-button, .twc-cur__el::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 `;
 
@@ -119,6 +126,21 @@ export function Currency({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [controlled, shown, value]);
+
+  // #470: the UNCONTROLLED half of #65. `shown` re-clamps on every render only in the controlled
+  // branch; uncontrolled returns `internal` verbatim, and `internal` is clamped at init and on
+  // change/blur only. So flipping `currency` from USD (precision 2) to JPY (precision 0) left
+  // "123.45" on screen beside the yen symbol - not a representable amount - and never re-emitted,
+  // so the host's parsed number stayed 123.45 too. It self-corrected only once the user typed.
+  React.useEffect(() => {
+    if (controlled) return;
+    const next = clampPrecision(internal, prec);
+    if (next === internal) return;
+    setInternal(next);
+    const n = Number(next);
+    onValueChange?.(next === "" || Number.isNaN(n) ? null : n, next);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prec]);
 
   // #72: single `${id}-desc` id (unified with Input/Textarea/Field), merged with any
   // consumer-supplied aria-describedby. aria-invalid forced true on error.

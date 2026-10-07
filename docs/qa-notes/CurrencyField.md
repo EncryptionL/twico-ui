@@ -8,6 +8,8 @@
 
 None identified.
 
+- [x] **[#462] readonly placeholder at 4.34:1** - same as Input; scoped to `--color-text-muted`. `CurrencyField.jsx:45` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled currency (currency/defaultCurrency/onCurrencyChange)

@@ -1,5 +1,6 @@
 import React from "react";
 import { createPortal } from "react-dom";
+import { warnOnce } from "./_warn.js";
 
 // Shared modal-overlay primitives, hand-rolled by Dialog/Drawer/CommandPalette
 // before this existed. Re-exported publicly as useFocusTrap / usePortal from
@@ -13,6 +14,59 @@ const useIsoLayoutEffect = canUseDOM ? React.useLayoutEffect : React.useEffect;
 // stricter form, a no-op for Dialog/Drawer). Single source of truth for all overlays.
 const FOCUSABLE =
   'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
+
+// #447: Popover/Menu clone their `trigger` to inject widget semantics (tabIndex, aria-expanded,
+// aria-haspopup, aria-controls). Those are only correct on something already interactive:
+// aria-expanded is not a global ARIA attribute, so on a div's implicit role="generic" it is
+// disallowed (axe aria-allowed-attr) and the element becomes a nameless tab stop.
+//
+// Two SEPARATE questions, deliberately answered by different means:
+//   1. does the clone need role="button"?  -> triggerIsControl, statically, below. It must not put a
+//      role on something that may already render a real button, and a component type is opaque, so an
+//      unknown type is trusted. That is why the dev audit exists to catch Box/Stack at runtime.
+//   2. does it need Enter/Space?           -> decided at EVENT time against the real DOM node (see
+//      Popover), which CAN see through a component type. A static gate here was wrong: it skipped
+//      <Box>, an href-less <a>, and - worst - any element whose role the consumer set themselves,
+//      which is exactly what the audit tells them to do.
+// Only a role that can legally own aria-expanded counts; "presentation"/"none"/"generic" must not
+// suppress the fix. `a` counts only with an href (a bare <a> is generic and unfocusable), and
+// `summary` is dropped - role="button" on a stray one is harmless.
+const CONTROL_TAGS = "|button|input|select|textarea|";
+const ROLE_OK = "|button|link|menuitem|menuitemcheckbox|menuitemradio|combobox|tab|treeitem|checkbox|switch|option|";
+export function triggerIsControl(el) {
+  const p = (el && el.props) || {};
+  if (typeof p.role === "string" && ROLE_OK.indexOf("|" + p.role + "|") >= 0) return true;
+  const t = typeof el.type === "string" ? el.type : (typeof p.as === "string" ? p.as : "");
+  if (!t) return true; // opaque component type - assume it renders its own control (Button/IconButton)
+  if (t === "a") return typeof p.href === "string" && !!p.href;
+  return CONTROL_TAGS.indexOf("|" + t + "|") >= 0;
+}
+
+// The elements that already activate on Enter/Space natively. Used both by the runtime keyboard guard
+// and by the dev audit, so the two cannot drift apart.
+export const NATIVE_CONTROL = "button,a[href],summary,input,select,textarea";
+
+// #447: dev-only runtime check on the trigger contract. Static inspection cannot see through a
+// component type, so `<Box>`/`<Stack>` (which render a div) slip past triggerIsControl. Note the role
+// this module injects is ALREADY on the element by the time this runs, so the useful signals are:
+// a Tooltip used as the trigger, a focusable control nested inside it (two tab stops for one control),
+// and an element that is neither a native control nor carrying any role at all.
+export function useTriggerAudit(ref, name) {
+  React.useEffect(() => {
+    const el = ref.current && ref.current.firstElementChild;
+    if (!el) return;
+    if (el.classList.contains("twc-tooltip-wrap")) {
+      warnOnce(name + ".trigger-tooltip", "twico-ui " + name + ": `trigger` is a <Tooltip>, so the injected tabIndex/aria-expanded land on the tooltip wrapper instead of your control, and the tooltip stops being announced on focus. Put Tooltip OUTSIDE: <Tooltip ...><" + name + " trigger={<IconButton .../>} /></Tooltip>.");
+    } else if (!el.matches(NATIVE_CONTROL)) {
+      if (el.querySelector(FOCUSABLE)) {
+        warnOnce(name + ".trigger-nested", "twico-ui " + name + ": `trigger` is a <" + el.tagName.toLowerCase() + "> wrapping a focusable control, which gives TWO tab stops for one control. Pass the control itself as `trigger` and move the wrapper (badge, positioning) outside " + name + ".");
+      } else if (!el.matches('[role]:not([role="presentation"]):not([role="none"]):not([role="generic"])')) {
+        warnOnce(name + ".trigger-role", "twico-ui " + name + ": `trigger` renders <" + el.tagName.toLowerCase() + ">, not a button, so the injected aria-expanded is not valid on it. Pass a Button/IconButton, or set `role` yourself so the element owns its semantics.");
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+}
 
 /**
  * Focus management for a modal region referenced by `ref`. While `active`, move

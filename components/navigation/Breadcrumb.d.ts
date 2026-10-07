@@ -20,7 +20,11 @@ export interface BreadcrumbItem {
 export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
   /** Ordered trail; the last item renders as the current page. */
   items: BreadcrumbItem[];
-  /** Custom separator node (defaults to a chevron). */
+  /**
+   * Custom separator node (defaults to a chevron). The built-in chevron mirrors itself under
+   * `dir="rtl"`; a custom separator does NOT (#465) — it is rendered as given, so supply a
+   * direction-neutral glyph or handle the mirroring yourself.
+   */
   separator?: React.ReactNode;
   /** Collapse to first + last items past this count (0 = never). @default 0 */
   maxItems?: number;

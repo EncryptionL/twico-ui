@@ -15,6 +15,15 @@ This is the contract behind the library-wide "every component can take a color a
 | **Color** | `tone` | *which* semantic color | `primary · success · warning · danger · info · neutral` |
 | **Fill** | `variant` | *how* the color is applied | depends on the component (e.g. `solid · soft · outline · ghost`) |
 
+Each tone family gained a **`-graphic`** member in #455 — `--color-primary-graphic` and friends — for a
+fill or stroke that IS the information (a Progress bar, a Toast edge stripe, an Avatar status dot).
+Those owe 3:1 under SC 1.4.11 and the plain light-mode tones missed it, so they are the same hue at a
+step that clears it; use the plain tone for a fill that carries `--color-*-fg` text on top. Note the
+family is incomplete by design: there is no `--color-neutral-graphic`, because `neutral` maps to the
+slate/text tokens rather than to a `--color-neutral*` family. The two **control** tokens
+(`--color-control-border`, `--color-control-track`, plus the static `--color-control-thumb`) sit
+outside the tone system entirely — an unchecked control has no tone. See `docs/colors.md`.
+
 The six tones map 1:1 to the semantic token families: `primary`→`--color-primary*`,
 `success`→`--color-success*`, `warning`→`--color-warning*`, `danger`→`--color-danger*`,
 `info`→`--color-info*`, and `neutral`→ the slate/text tokens. There is no `secondary`

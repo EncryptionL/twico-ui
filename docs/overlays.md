@@ -103,6 +103,59 @@ is still registered and its parent correctly yields). Wiring:
 Tested in `tests/overlay-layer-stack.test.jsx` (nested Dialog Escape hits only the inner; an open Select inside
 a Dialog closes the Select, not the Dialog; a lone Dialog still closes — no regression).
 
+## The `trigger` contract (#447)
+
+Popover and Menu **clone** the element you pass as `trigger` so a real `Button`/`IconButton` keeps its
+own semantics, and inject `tabIndex`, `aria-expanded`, `aria-haspopup`, `aria-controls` and the open
+handler onto it. **Pass a single focusable control.** Those attributes are only correct on something
+that already is one: `aria-expanded` is not a global ARIA attribute, so on a `div`'s implicit
+`role="generic"` it is *prohibited* (axe `aria-allowed-attr`, and it fires at rest because React
+serializes `aria-expanded="false"`), and the element becomes a tab stop that announces nothing.
+
+It is easy to hit, because wrapping is the natural way to overlay a badge on a button:
+
+```jsx
+/* two tab stops for one control, and an axe violation */
+<Popover trigger={<Box sx={{ position: "relative" }}><IconButton …/><Badge>{n}</Badge></Box>} />
+
+/* the control is the trigger; the decoration sits outside */
+<Box sx={{ position: "relative" }}>
+  <Popover trigger={<IconButton …/>} />
+  <Badge>{n}</Badge>
+</Box>
+```
+
+Since #447 the easy thing is at least *correct*: `triggerIsControl` (in `components/_overlay.js`)
+detects a cloned non-control trigger, and both components then add `role="button"` - Popover also adds
+Enter/Space activation, which its clone branch had never had, so such a trigger used to be focusable
+but impossible to operate by keyboard. (Menu needed no handler: `span.twc-menu-wrap` carries
+`onKeyDown` and Enter/Space/ArrowDown bubble to it.) An explicit `role` you set yourself always wins,
+which is how `AvatarMenu` keeps its own `span role="button"`. Popover's injected handler bails on
+`e.defaultPrevented` and when `e.target !== e.currentTarget`, so a real control nested inside the
+trigger keeps its own activation instead of toggling twice.
+
+A dev-only `useTriggerAudit` (also in `_overlay.js`) covers what static inspection cannot: a component
+type like `Box`/`Stack` renders a div but `triggerIsControl` cannot see through it, so no role is
+injected. In development it warns, naming the prop, when the trigger is a Tooltip, when it wraps a
+focusable control (two tab stops for one control), or when it is a role-less non-control. It stays quiet
+once the element carries a role - including the one this module injected - because by then there is
+nothing left to report. `warnOnce` dedupes by key and no-ops in production.
+
+### Tooltip goes OUTSIDE, not inside
+
+Tooltip composes the other way round: it clones its child only to merge `aria-describedby` and spreads
+everything else onto its own wrapper span. So `trigger={<Tooltip><IconButton/></Tooltip>}` *moves* the
+problem onto `span.twc-tooltip-wrap` rather than fixing it, and the tooltip text stops being announced
+on focus. Put Tooltip on the outside:
+
+```jsx
+<Tooltip label="Filters"><Popover trigger={<IconButton aria-label="Filters" …/>} …/></Tooltip>
+```
+
+That works because Popover/Menu forward a *received* `aria-describedby` to the cloned trigger (#420),
+and it is what the `.twc-tooltip-wrap :is(.twc-menu-wrap, .twc-popover-wrap)` CSS from #398/#420
+already assumes.
+
 ## Disabled triggers (#398)
 
 A native `disabled` control swallows the pointer events a `Tooltip` opens from, so a disabled button's "why it's
@@ -111,12 +164,74 @@ child of `.twc-tooltip-wrap` (hover reaches the wrap) with a `not-allowed` curso
 `focusableWhenDisabled`, which renders `aria-disabled` instead of native `disabled` so the trigger stays
 focusable (tooltip reachable by keyboard) while click + `Enter`/`Space` stay blocked.
 
+## Handler composition: `{...rest}` must not delete an internal handler (#452)
+
+Five components attached their own handler to the element they also spread `{...rest}` onto, with the spread
+placed **after** the handler. Prop order wins in JSX, so a consumer passing the same-named prop silently replaced
+the component's handler and the component stopped working with no warning at all:
+
+| Component | Consumer prop | What it deleted |
+| --- | --- | --- |
+| `Menu` | `onKeyDown` | every bit of keyboard navigation (arrows, type-ahead, Escape, activation) |
+| `TreeView` | `onKeyDown` | the whole WAI-ARIA tree keyboard pattern |
+| `ToggleGroup` | `onKeyDown` | roving focus |
+| `Carousel` | `onMouseEnter` | the autoplay hover-pause |
+| `Tooltip` | `onMouseEnter` / `onFocus` | hover- and focus-open — the tooltip never appeared |
+
+The fix is `compose(theirs, ours)` in `components/_compose.js`, with the composed handler wired **after** the
+spread: the consumer's handler runs first, ours runs next unless they called `preventDefault()`, and the other
+entries in `rest` still override our attributes exactly as before. Same contract as the Popover trigger
+composition from #447. `tests/rest-spread-handler-composition.test.jsx` covers all three halves per component
+(internal behaviour survives, consumer handler is called, `preventDefault` opts out).
+
+## Menu follows the APG focus model, not roving activedescendant (#459)
+
+`Menu` used to keep DOM focus on the trigger and advertise the highlighted item with `aria-activedescendant` on
+it. That attribute is **not permitted on `role="button"`** — AT discards it — so for a keyboard user the
+highlight was announced by nothing at all, and `aria-allowed-attr` fired as soon as they arrowed in. There is no
+role that fixes it in place (`combobox` would allow the attribute but cannot carry `aria-haspopup="menu"`), so
+`Menu` moves real DOM focus onto the highlighted item instead, as the APG menu-button pattern prescribes:
+
+- focus follows **keyboard-driven** highlight changes only (an internal `kbdRef` flag), so hovering the menu
+  with a pointer moves the highlight without stealing focus;
+- items stay at `tabIndex={-1}`, so `Tab` still leaves the menu rather than walking the items;
+- focus returns to the trigger on close, so `Escape`, `Tab` and activation never drop focus to `<body>`;
+- the keydown handler stays on the wrapper — React portal events propagate up the React tree, not the DOM tree,
+  so it keeps receiving keys once focus is inside the portaled menu.
+
+`Select`'s trigger took the other route available to it: it is now the APG **select-only combobox**
+(`role="combobox"`), a role that legally owns `aria-expanded`/`aria-controls`/`aria-activedescendant`, and it
+claims `aria-activedescendant` only while it actually holds focus (i.e. when no search field is rendered).
+
+That role prohibits **name-from-content**, so a `Select` with no `label` would have had no accessible name at
+all (as a plain `<button>` it was named by its own value text). The fallback cannot simply be stamped: accname
+resolves `aria-label` (step 2C) before a host-language `<label>` (step 2D) and these are labelable elements, so
+an unconditional `aria-label` **overrode** a real `<label htmlFor>` or wrapping `<label>` — a WCAG 2.5.3 Label
+in Name failure that broke call sites inside this repo. `components/_name.js` therefore asks the DOM
+(`el.labels`, which knows both association forms *and* that a wrapping `<label>` labels only its FIRST
+labelable descendant) and re-asks on every commit, because a one-shot probe went stale the moment a label
+mounted later. `MultiSelect` uses the same hook: its input is a `role="combobox"` whose only name source is a
+placeholder that blanks as soon as a chip exists, and its chip remove-buttons precede the input, so a wrapping
+`<label>` genuinely labels a chip rather than the combobox.
+
 ## Tests
 
 - `tests/useFocusTrap.test.jsx` — focus-in, restore (and `restoreFocus:false`), and
   `Tab`/`Shift+Tab` wrapping (jsdom reports `offsetParent` as `null`, so the wrap test
   fakes it).
 - `tests/usePortal.test.jsx` — portals to `<body>`, stable callback identity.
+- `tests/rest-spread-handler-composition.test.jsx` — a consumer handler never deletes an internal one (#452).
+- `tests/menu-keyboard-activation.test.jsx` — Space activates the highlighted item (#457); the trigger carries
+  no `aria-activedescendant`, focus follows the keyboard highlight, hover does not steal it, focus returns to
+  the trigger on close, arrow keys and Escape still work when dispatched on the PORTALED item (React propagates
+  through the React tree), and neither the keyboard intent nor the highlight survives a close into a controlled
+  reopen (#459).
+- `tests/select-combobox-aria.test.jsx` — the trigger's combobox role and `aria-activedescendant` ownership,
+  that the listbox owns only options, and the full name precedence: the component's `label`, a consumer
+  `aria-label`, a `label htmlFor`, a wrapping `<label>`, one that mounts *later*, one that goes away again, and
+  the MultiSelect chip case where the wrapping label moves to a chip (#459).
+- `tests/select-combobox-aria.test.jsx` — the trigger's combobox role + activedescendant ownership, and that the
+  listbox owns only options (#459).
 - `tests/overlays.test.jsx` — each overlay still portals, moves focus inside, closes
   on `Escape`/backdrop, and (CommandPalette) keeps Arrow/Enter navigation.
 - `tests/Sidebar.test.jsx` — `overlay` mode renders a labelled `role="dialog"`, moves

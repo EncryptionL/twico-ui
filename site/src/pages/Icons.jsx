@@ -33,7 +33,7 @@ const LUCIDE_SAMPLE = [
   ["CreditCardIcon", CreditCardIcon], ["ZapIcon", ZapIcon],
 ];
 
-const linkStyle = { color: "var(--color-primary)", fontWeight: "var(--font-semibold)", textDecoration: "none" };
+const linkStyle = { color: "var(--color-primary-subtle-fg)", fontWeight: "var(--font-semibold)", textDecoration: "none" };
 
 const cellReset = {
   border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", background: "var(--color-surface)",

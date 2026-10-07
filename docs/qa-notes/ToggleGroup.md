@@ -21,3 +21,5 @@
 
 - Deliberately NOT a `RadioGroup` (no roving-selection) nor `Tabs` (no tabpanels) — it is a set of independent
   toggle buttons. For a single pressed button, use `<Button pressed>` / `<IconButton pressed>` directly.
+
+- [x] **[#452] a consumer `onKeyDown` killed roving focus** - `{...rest}` was spread after the internal `onKeyDown`. Composed via `components/_compose.js`. `ToggleGroup.jsx:85` - fixed 2026-10-07

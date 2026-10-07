@@ -16,7 +16,7 @@ Include reproduction steps and affected versions. We aim to acknowledge within 7
 ## Security posture
 
 - **Zero runtime dependencies.** The published tarball ships only `dist/` + `styles/`; `react`/`react-dom` are peer dependencies. `npm audit --omit=dev` reports **0 vulnerabilities**, so the install surface for consumers is minimal.
-- **No CDNs.** Fonts are self-hosted (OFL `.ttf` files shipped under `styles/fonts/`) and icons are inline SVG. Nothing is fetched from a third-party CDN at runtime, so consumers behind strict networks, firewalls, or a tight Content-Security-Policy are unaffected (no 403/blocked-asset failures). A CI guard fails the build if a CDN reference is introduced into shipped source.
+- **No CDNs.** Fonts are self-hosted (OFL `.woff2` files shipped under `styles/fonts/`) and icons are inline SVG. Nothing is fetched from a third-party CDN at runtime, so consumers behind strict networks, firewalls, or a tight Content-Security-Policy are unaffected (no 403/blocked-asset failures). A CI guard fails the build if a CDN reference is introduced into shipped source.
 - **URL sanitization.** Navigation components (`Breadcrumb`, `Navbar`, `Sidebar`, `List`) strip `javascript:` / `data:` / `vbscript:` schemes (including whitespace/control-char obfuscation) before a consumer-supplied `href` reaches the DOM. Even so, treat any `href` you pass from untrusted/user-influenced data as a trust boundary.
 - **SSR-safe.** No `window`/`document` access at module or render scope; all browser access is inside effects/handlers.
 - **Least-privilege CI.** Each workflow declares minimal `GITHUB_TOKEN` permissions. Releases publish with npm provenance.

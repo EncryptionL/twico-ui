@@ -61,7 +61,7 @@ const COMBO_CSS = `
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-opt:hover, .twc-opt[data-active="true"] { background: var(--color-surface-sunken); }
-.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary); font-weight: var(--font-semibold); }
+.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary-subtle-fg); font-weight: var(--font-semibold); }
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -167,7 +167,13 @@ export function Combobox({
 
   // #90: next non-disabled option index (no wrap), else stay.
   const nextEnabled = (from, dir) => {
-    let i = from + dir;
+    // #463: self-healing from an OUT-OF-RANGE `from`. `active` is only reset by the [query] (and
+    // [open]) effects, so an `options` prop that shrinks while the list is open - the documented
+    // server-ranked pattern does this on every refetch - leaves `active` past the end of `visible`.
+    // Starting at `from + dir` then made the guard false immediately, so this returned `from`
+    // unchanged in BOTH directions: arrows dead, Enter a no-op, and aria-activedescendant undefined
+    // until the user typed or reopened. Re-enter the list from its nearest end instead.
+    let i = from >= visible.length ? (dir > 0 ? visible.length - 1 : 0) : from + dir;
     while (i >= 0 && i < visible.length) { if (!visible[i]?.disabled) return i; i += dir; }
     return from;
   };
@@ -211,6 +217,22 @@ export function Combobox({
     return () => document.removeEventListener("mousedown", onDown);
   }, [open]);
   React.useEffect(() => { setActive(0); }, [query]);
+  // #463: belt and braces alongside the nextEnabled self-heal - clamp `active` as soon as the list
+  // shrinks, so `visible[active]` (Enter) and aria-activedescendant recover without the user having
+  // to press an arrow key first. (It deliberately does NOT touch an empty list - see below.)
+  React.useEffect(() => {
+    // #463 (review): SKIP an empty list. The first version clamped unconditionally, so on an empty
+    // list Math.min(a, -1) drove `active` to -1 and the `a < 0 ? a` guard then kept it there for the
+    // life of the component - the list refilling could not recover it. That strands every async path
+    // the library itself documents: a MultiSelect whose options arrive after mount (Datatable's own
+    // AsyncFilterValue starts at []) never highlighted anything again, and a Combobox whose host
+    // blanks `options` while a fetch is in flight lost Enter-to-accept for as long as it stayed open.
+    // Leaving `active` alone while there is nothing to point at is both safe (no option renders, so
+    // nothing is announced) and recoverable (the next non-empty render clamps it into range).
+    // Math.min already preserves a deliberate -1, so no separate negative branch is needed.
+    if (visible.length === 0) return;
+    setActive((a) => Math.min(a, visible.length - 1));
+  }, [visible.length]);
   // #425: fire onOpenChange on every open↔close transition (an effect catches every path — openMenu, typing,
   // close(), chevron), so a host staging the typed query as a cell-editor draft can withdraw it when close()
   // silently resets the query. Skips the mount (no spurious `false`).
@@ -317,8 +339,11 @@ export function Combobox({
   }
 
   let counter = -1;
+  // #459: the listbox role sits on the options list itself, not on the popover wrapper - so the
+  // input's aria-controls names the element it genuinely controls (on the wrapper it resolved to a
+  // plain container) and the listbox owns only list content. Matches Select and MultiSelect.
   const popInner = (
-    <div className="twc-pop__list" ref={listRef} onScroll={virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined}>
+    <div className="twc-pop__list" id={listboxId} role="listbox" ref={listRef} onScroll={virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined}>
       {loading ? (
         <div className="twc-pop__loading" role="status"><span className="twc-pop__spinner" aria-hidden="true" />Loading…</div>
       ) : visible.length === 0 ? <div className="twc-pop__empty">{emptyText}</div> :
@@ -326,14 +351,19 @@ export function Combobox({
           <>
             {vTop > 0 ? <div aria-hidden="true" style={{ height: vTop }} /> : null}
             {vShown.map((r) => r.kind === "group"
-              ? <div key={`g${r.gi}`} className="twc-pop__group">{r.label}</div>
+              ? /* #468: role="presentation" - a listbox owns option/group only, and these bare label divs
+                   were neither, so a screen reader walked them as list content. Wrapping each
+                   group in a real role="group" + aria-labelledby (as CommandPalette now does)
+                   is the fuller fix, but the virtualized path renders a FLAT row list with no
+                   nesting to hang it on - deferred, see docs/qa-notes. */
+                  <div key={`g${r.gi}`} className="twc-pop__group" role="presentation">{r.label}</div>
               : renderRow(r.o, r.idx))}
             {vBottom > 0 ? <div aria-hidden="true" style={{ height: vBottom }} /> : null}
           </>
         ) :
         fGroups.map((g, gi) => (
           <React.Fragment key={gi}>
-            {g.group ? <div className="twc-pop__group">{g.group}</div> : null}
+            {g.group ? <div className="twc-pop__group" role="presentation">{g.group}</div> : null}
             {g.options.map((o) => {
               counter += 1; const idx = counter;
               return renderRow(o, idx);
@@ -350,14 +380,14 @@ export function Combobox({
   if (open) {
     if (canPortal && coords) {
       popEl = RD.createPortal(
-        <div className="twc-pop twc-pop--portal" id={listboxId} role="listbox" ref={popRef}
+        <div className="twc-pop twc-pop--portal" ref={popRef}
           data-placement={coords.flip ? "top" : "bottom"}
           style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, right: "auto", zIndex: "var(--z-floating)" }}>
           {popInner}
         </div>, document.body);
     } else if (!portal) {
       popEl = (
-        <div className="twc-pop" id={listboxId} role="listbox" ref={popRef} data-placement={placement === "top" ? "top" : undefined}>
+        <div className="twc-pop" ref={popRef} data-placement={placement === "top" ? "top" : undefined}>
           {popInner}
         </div>
       );

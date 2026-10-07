@@ -33,8 +33,11 @@ const UPLOAD_CSS = `
   background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); margin-bottom: 4px; }
 .twc-upload__icon svg { width: 24px; height: 24px; }
 .twc-upload__title { font-size: var(--text-sm); color: var(--color-text); font-weight: var(--font-semibold); }
-.twc-upload__title em { color: var(--color-primary); font-style: normal; }
-.twc-upload__hint { font-size: var(--text-xs); color: var(--color-text-subtle); }
+.twc-upload__title em { color: var(--color-primary-subtle-fg); font-style: normal; }
+/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
+   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
+   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+.twc-upload__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-upload__input { display: none; } /* #415: out of the tab order + a11y tree; inputRef.click() still works */
 .twc-upload__list { display: flex; flex-direction: column; gap: 8px; }
 .twc-upload__file { display: flex; align-items: center; gap: var(--space-3); padding: 9px 12px;

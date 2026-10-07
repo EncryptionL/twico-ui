@@ -2,6 +2,10 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen, act } from "@testing-library/react";
 import { Select } from "../components/inputs/Select.jsx";
 
+
+// #459: the Select trigger is the APG select-only combobox (role="combobox"), as MUI's Select also
+// is, so it is no longer exposed as a button - these queries ask for the combobox role.
+
 const options = [
   { value: "a", label: "Apple" },
   { value: "b", label: "Banana" },
@@ -16,7 +20,7 @@ describe("Select keyboard navigation", () => {
 
   it("opens on ArrowDown and exposes a listbox", () => {
     render(<Select options={options} searchable={false} placeholder="Pick" />);
-    const trigger = screen.getByRole("button");
+    const trigger = screen.getByRole("combobox");
     open(trigger);
     expect(screen.getByRole("listbox")).toBeInTheDocument();
     expect(screen.getAllByRole("option")).toHaveLength(3);
@@ -29,7 +33,7 @@ describe("Select keyboard navigation", () => {
       { value: "c", label: <span>Custom node</span> },
     ];
     render(<Select options={longOpts} searchable={false} />);
-    open(screen.getByRole("button"));
+    open(screen.getByRole("combobox"));
     const opts = screen.getAllByRole("option");
     expect(opts[0].getAttribute("title")).toBe("Grommet backing column — long name");
     expect(opts[1].getAttribute("title")).toBe("Part removal note");
@@ -39,7 +43,7 @@ describe("Select keyboard navigation", () => {
   it("Arrow + Enter selects an option and fires onChange with its value", () => {
     const onChange = vi.fn();
     render(<Select options={options} searchable={false} onChange={onChange} />);
-    const trigger = screen.getByRole("button");
+    const trigger = screen.getByRole("combobox");
     open(trigger);
     act(() => trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true })));
     act(() => trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true })));
@@ -48,10 +52,12 @@ describe("Select keyboard navigation", () => {
 
   it("Escape begins closing the listbox (exit animation)", () => {
     render(<Select options={options} searchable={false} />);
-    const trigger = screen.getByRole("button");
+    const trigger = screen.getByRole("combobox");
     open(trigger);
-    const listbox = screen.getByRole("listbox");
-    expect(listbox).toHaveAttribute("data-state", "open");
+    // #459: role="listbox" moved onto the inner options list; data-state stays on the .twc-pop
+    // wrapper that actually animates, so read the open/closed state from there.
+    expect(screen.getByRole("listbox")).toBeInTheDocument();
+    expect(document.querySelector(".twc-pop")).toHaveAttribute("data-state", "open");
     act(() => trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })));
     // The popover stays mounted briefly for its exit animation, marked data-state="closed".
     expect(document.querySelector(".twc-pop")).toHaveAttribute("data-state", "closed");

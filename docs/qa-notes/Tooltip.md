@@ -1,10 +1,19 @@
 # QA notes — Tooltip
 
 - **Group:** overlay
-- **Reviewed:** 2026-09-23
+- **Reviewed:** 2026-10-06
 - **Status:** clean
 
 ## Open issues
+
+- [x] **[#447] documented that Tooltip composes OUTSIDE Popover/Menu, not inside** - Tooltip clones its child only
+  to merge `aria-describedby` and spreads everything else onto its own wrapper span. So
+  `Popover trigger={<Tooltip><IconButton/></Tooltip>}` moves the injected `tabIndex`/`aria-expanded` onto
+  `span.twc-tooltip-wrap` rather than removing the problem, and the tooltip text stops being announced on focus.
+  The correct nesting is Tooltip on the OUTSIDE, wrapping the overlay - which works because Popover/Menu forward a
+  received `aria-describedby` to the cloned trigger (#420), and which the `.twc-tooltip-wrap :is(.twc-menu-wrap,
+  .twc-popover-wrap)` CSS from #398/#420 already assumes. No code change. See [Popover](Popover.md) and
+  `docs/overlays.md`. - documented 2026-10-06
 
 - [x] **[#420] a disabled trigger wrapped by a Menu/Popover still blocked hover** — the pass-through CSS is widened to a Menu/Popover-wrapped disabled grandchild. `Tooltip.jsx` — ✓ 2026-09-23
 
@@ -44,6 +53,8 @@
   `pointer-events: auto` override; the bubble's now-dead `onMouseEnter`/`onMouseLeave` (`cancelClose`/`close`)
   handlers removed. A tooltip is purely presentational (use `Popover` for interactive content), matching
   MUI/Radix. Guarded by `tests/Tooltip.test.jsx` (CSS + source). — ✓ fixed 2026-08-11
+
+- [x] **[#452] a consumer `onMouseEnter`/`onFocus` stopped the tooltip opening** - `{...rest}` was spread after the internal hover/focus handlers. All four are now composed via `components/_compose.js`. `Tooltip.jsx:189-192` - fixed 2026-10-07
 
 ## Verified OK
 

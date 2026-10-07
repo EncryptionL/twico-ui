@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"54bb00b4c693","components/buttons/IconButton.jsx":"22790903081f","components/buttons/ToggleGroup.jsx":"fe374dcc220f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"ec5f65bdfad1","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"facb19fc8c96","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"c1fe68414c67","components/data-display/ImageViewer.jsx":"7379ad3f27c6","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"1fc840f615e2","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"5706752240e2","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"21da33e87561","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"8e4d0341769e","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"dd86386eae86","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"a405fca979fc","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"73dc62deceda","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"1b441f7db7b4","components/overlay/Popover.jsx":"4a83df72084d","components/overlay/Tooltip.jsx":"c4f8042a77e8","components/typography/Code.jsx":"f6f1da463524","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"3001e004908a"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0f644cb478db","components/buttons/IconButton.jsx":"22790903081f","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"724cf4b45ecc","components/data-display/AvatarMenu.jsx":"14b280842168","components/data-display/Badge.jsx":"69e6aff0081a","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"10a3da4c4835","components/data-display/Carousel.jsx":"4c0981ca4ea9","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"cf3fddf5caa4","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"c1fe68414c67","components/data-display/ImageViewer.jsx":"7379ad3f27c6","components/data-display/Kanban.jsx":"389caa2e45d2","components/data-display/List.jsx":"89e1b0ef9c72","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"38b0431624b9","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"92e0de3c6efe","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"9a58f8174004","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"456f691e9b3c","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6f79dde2a65e","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"b89ce06dab60","components/inputs/Currency.jsx":"99f09bce93c2","components/inputs/CurrencyField.jsx":"1ef838506fda","components/inputs/DatePicker.jsx":"10535122b2d6","components/inputs/DateRangePicker.jsx":"b3ec4d8da4b8","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"82d7691de1a1","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"54dfb8751acf","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"f5a3a7d85e81","components/inputs/Radio.jsx":"eba7572baaa1","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"8c215a392ad7","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"39d0de978341","components/inputs/Textarea.jsx":"ea3db0a154e9","components/inputs/TimePicker.jsx":"66405a4b56da","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"6bfdfb315281","components/navigation/Breadcrumb.jsx":"bbbef6c9957f","components/navigation/Navbar.jsx":"7fb1f2629199","components/navigation/Sidebar.jsx":"e87e28eef508","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"95154a884c47","components/navigation/TreeView.jsx":"72f08e1f44c8","components/overlay/CommandPalette.jsx":"39bb3dbe155e","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"c68a9c904738","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"e2de1e0866af","components/typography/Code.jsx":"f6f1da463524","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"3001e004908a"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -181,7 +181,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useToggle: () => useToggle,
     useWindowSize: () => useWindowSize
   });
-  var React53 = __toESM(require_react(), 1);
+  var React54 = __toESM(require_react(), 1);
   var import_react = __toESM(require_react(), 1);
 
   // rg:react/jsx-runtime
@@ -199,11 +199,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 
   // dist/index.mjs
   var import_react_dom = __toESM(require_react_dom(), 1);
-  var SUPPORTS_STYLE_HOIST = parseInt(String(React53.version), 10) >= 19;
-  var NonceContext = React53.createContext(void 0);
+  var SUPPORTS_STYLE_HOIST = parseInt(String(React54.version), 10) >= 19;
+  var NonceContext = React54.createContext(void 0);
   function useScopedStyles(id, css) {
-    const nonce = React53.useContext(NonceContext);
-    React53.useInsertionEffect(() => {
+    const nonce = React54.useContext(NonceContext);
+    React54.useInsertionEffect(() => {
       if (SUPPORTS_STYLE_HOIST) return;
       if (typeof document === "undefined") return;
       if (!css) return;
@@ -219,7 +219,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       }
       if (el.textContent !== css) el.textContent = css;
     }, [id, css, nonce]);
-    return SUPPORTS_STYLE_HOIST && css ? React53.createElement("style", { href: id, precedence: "twc-ui" }, css) : null;
+    return SUPPORTS_STYLE_HOIST && css ? React54.createElement("style", { href: id, precedence: "twc-ui" }, css) : null;
   }
   function TwicoProvider({ nonce, children }) {
     return import_react.default.createElement(NonceContext.Provider, { value: nonce }, children);
@@ -308,9 +308,42 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     ] });
   });
   VisuallyHidden.displayName = "VisuallyHidden";
+  var seen = /* @__PURE__ */ new Set();
+  function warnOnce(key, message) {
+    if (typeof process !== "undefined" && process.env && false) return;
+    if (seen.has(key)) return;
+    seen.add(key);
+    if (typeof console !== "undefined" && console.warn) console.warn(message);
+  }
   var canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
   var useIsoLayoutEffect = canUseDOM ? import_react.default.useLayoutEffect : import_react.default.useEffect;
   var FOCUSABLE = 'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
+  var CONTROL_TAGS = "|button|input|select|textarea|";
+  var ROLE_OK = "|button|link|menuitem|menuitemcheckbox|menuitemradio|combobox|tab|treeitem|checkbox|switch|option|";
+  function triggerIsControl(el) {
+    const p = el && el.props || {};
+    if (typeof p.role === "string" && ROLE_OK.indexOf("|" + p.role + "|") >= 0) return true;
+    const t = typeof el.type === "string" ? el.type : typeof p.as === "string" ? p.as : "";
+    if (!t) return true;
+    if (t === "a") return typeof p.href === "string" && !!p.href;
+    return CONTROL_TAGS.indexOf("|" + t + "|") >= 0;
+  }
+  var NATIVE_CONTROL = "button,a[href],summary,input,select,textarea";
+  function useTriggerAudit(ref, name) {
+    import_react.default.useEffect(() => {
+      const el = ref.current && ref.current.firstElementChild;
+      if (!el) return;
+      if (el.classList.contains("twc-tooltip-wrap")) {
+        warnOnce(name + ".trigger-tooltip", "twico-ui " + name + ": `trigger` is a <Tooltip>, so the injected tabIndex/aria-expanded land on the tooltip wrapper instead of your control, and the tooltip stops being announced on focus. Put Tooltip OUTSIDE: <Tooltip ...><" + name + " trigger={<IconButton .../>} /></Tooltip>.");
+      } else if (!el.matches(NATIVE_CONTROL)) {
+        if (el.querySelector(FOCUSABLE)) {
+          warnOnce(name + ".trigger-nested", "twico-ui " + name + ": `trigger` is a <" + el.tagName.toLowerCase() + "> wrapping a focusable control, which gives TWO tab stops for one control. Pass the control itself as `trigger` and move the wrapper (badge, positioning) outside " + name + ".");
+        } else if (!el.matches('[role]:not([role="presentation"]):not([role="none"]):not([role="generic"])')) {
+          warnOnce(name + ".trigger-role", "twico-ui " + name + ": `trigger` renders <" + el.tagName.toLowerCase() + ">, not a button, so the injected aria-expanded is not valid on it. Pass a Button/IconButton, or set `role` yourself so the element owns its semantics.");
+        }
+      }
+    }, []);
+  }
   function useFocusTrap(ref, active = true, { restoreFocus = true, initialFocus } = {}) {
     import_react.default.useEffect(() => {
       if (!active || !canUseDOM) return void 0;
@@ -458,7 +491,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   });
   Pre.displayName = "Pre";
   var ANCHOR_CSS = `
-.twc-anchor { color: var(--color-primary); text-decoration: none; border-radius: var(--radius-sm);
+.twc-anchor { color: var(--color-primary-subtle-fg); text-decoration: none; border-radius: var(--radius-sm);
   transition: color var(--duration-fast) var(--ease-standard); }
 .twc-anchor:hover { text-decoration: underline; color: var(--color-primary-hover, var(--color-primary)); }
 .twc-anchor:focus-visible { outline: none; box-shadow: var(--ring); }
@@ -670,6 +703,14 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       }
     );
   }
+  function compose(theirs, ours) {
+    if (typeof theirs !== "function") return ours;
+    if (typeof ours !== "function") return theirs;
+    return (e) => {
+      theirs(e);
+      if (!e || !e.defaultPrevented) ours(e);
+    };
+  }
   var TOOLTIP_CSS = `
 .twc-tooltip-wrap { display: inline-flex; }
 /* #398: a native disabled control swallows the pointer events the tooltip opens from (browser-dependent),
@@ -858,11 +899,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       {
         ref: wrapRef,
         className: `twc-tooltip-wrap ${className}`,
-        onMouseEnter: open,
-        onMouseLeave: close,
-        onFocus: open,
-        onBlur: close,
         ...rest,
+        onMouseEnter: compose(rest.onMouseEnter, open),
+        onMouseLeave: compose(rest.onMouseLeave, close),
+        onFocus: compose(rest.onFocus, open),
+        onBlur: compose(rest.onBlur, close),
         children: [
           __twcStyles,
           trigger,
@@ -1140,6 +1181,8 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     open: openProp,
     onOpenChange,
     headingLevel = 3,
+    mountOnOpen = false,
+    unmountOnClose = false,
     className = "",
     onKeyDown: onKeyDownProp,
     ...rest
@@ -1149,6 +1192,29 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     const [internal, setInternal] = import_react.default.useState(() => new Set(defaultOpen));
     const open = openProp !== void 0 ? new Set(openProp) : internal;
     const baseId = import_react.default.useId();
+    const [ever, setEver] = import_react.default.useState(() => new Set(open));
+    const defer = mountOnOpen || unmountOnClose;
+    let mounted = ever;
+    if (defer) {
+      const add = [...open].filter((v) => !ever.has(v));
+      if (add.length) {
+        mounted = new Set(ever);
+        add.forEach((v) => mounted.add(v));
+        setEver(mounted);
+      }
+    }
+    const openKey = defer ? JSON.stringify([...open].sort()) : "";
+    import_react.default.useEffect(() => {
+      if (!unmountOnClose) return void 0;
+      const drop = [...ever].filter((v) => !open.has(v));
+      if (!drop.length) return void 0;
+      const t = setTimeout(() => setEver((p) => {
+        const n = new Set(p);
+        drop.forEach((v) => n.delete(v));
+        return n;
+      }), 240);
+      return () => clearTimeout(t);
+    }, [openKey, unmountOnClose]);
     function toggle(val) {
       const item = items.find((x) => x.value === val);
       if (item?.disabled) return;
@@ -1202,7 +1268,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
             /* @__PURE__ */ jsx("span", { className: "twc-accordion__label", children: it.label }),
             /* @__PURE__ */ jsx("span", { className: "twc-accordion__chevron", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "m6 9 6 6 6-6" }) }) })
           ] }) }),
-          /* @__PURE__ */ jsx("div", { className: "twc-accordion__panel", id: panelId, role: "region", "aria-labelledby": triggerId, "data-open": isOpen || void 0, children: /* @__PURE__ */ jsx("div", { className: "twc-accordion__panel-inner", children: /* @__PURE__ */ jsx("div", { className: "twc-accordion__content", children: it.content }) }) })
+          /* @__PURE__ */ jsx("div", { className: "twc-accordion__panel", id: panelId, role: "region", "aria-labelledby": triggerId, "data-open": isOpen || void 0, children: /* @__PURE__ */ jsx("div", { className: "twc-accordion__panel-inner", children: /* @__PURE__ */ jsx("div", { className: "twc-accordion__content", children: defer && !mounted.has(it.value) ? null : it.content }) }) })
         ] }, it.value);
       })
     ] });
@@ -1227,7 +1293,9 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-alert[data-variant="soft"]    { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: color-mix(in srgb, var(--_accent) 30%, transparent); }
 .twc-alert[data-variant="solid"]   { background: var(--_accent); color: var(--_accent-fg); border-color: transparent; }
 .twc-alert[data-variant="outline"] { background: transparent; color: var(--_accent-subtle-fg); border-color: var(--_accent); }
-.twc-alert[data-variant="solid"] .twc-alert__desc { color: var(--_accent-fg); opacity: 0.92; }
+/* #453: full-strength accent-fg - the 0.92 multiplier put the solid description at 3.31:1, under the
+   4.5:1 SC 1.4.3 floor for body text. The title/description hierarchy is carried by font-weight. */
+.twc-alert[data-variant="solid"] .twc-alert__desc { color: var(--_accent-fg); }
 
 .twc-alert__icon { flex: none; margin-top: 1px; }
 .twc-alert__icon svg { width: 20px; height: 20px; }
@@ -1236,10 +1304,13 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-alert__desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-snug); }
 .twc-alert__close {
   flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px;
-  border: none; background: transparent; color: currentColor; opacity: 0.6; cursor: pointer;
-  border-radius: var(--radius-sm); transition: opacity var(--duration-fast), background-color var(--duration-fast);
+  border: none; background: transparent; color: currentColor; cursor: pointer;
+  border-radius: var(--radius-sm); transition: background-color var(--duration-fast);
 }
-.twc-alert__close:hover { opacity: 1; background: color-mix(in srgb, currentColor 12%, transparent); }
+/* #453: the dismiss glyph is a non-text control, so SC 1.4.11 wants 3:1 - the old opacity: 0.6 left it
+   at 2.14-3.00:1 across the tones. It now inherits the alert's own foreground (already token-guaranteed)
+   and the hover affordance comes from the background tint alone, not from an opacity ramp. */
+.twc-alert__close:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
 .twc-alert__close svg { width: 15px; height: 15px; }
 `;
   var ICONS = {
@@ -1301,9 +1372,13 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   width: 28%; height: 28%; min-width: 8px; min-height: 8px;
   border-radius: var(--radius-full); border: 2px solid var(--color-surface);
 }
-.twc-avatar__status[data-status="online"] { background: var(--color-success); }
-.twc-avatar__status[data-status="busy"] { background: var(--color-danger); }
-.twc-avatar__status[data-status="away"] { background: var(--color-warning); }
+/* #455 (review): the dot's fill is the ONLY carrier of the status - nothing sits on top of it and the
+   2px ring is the surface colour - so SC 1.4.11's 3:1 applies and the -graphic aliases are the right
+   tones. "away" on the plain warning tone was 2.15:1 in light. (Badge/Timeline/Stepper keep the plain
+   tones: their fills carry --color-*-fg content, so they are backgrounds, not standalone graphics.) */
+.twc-avatar__status[data-status="online"] { background: var(--color-success-graphic); }
+.twc-avatar__status[data-status="busy"] { background: var(--color-danger-graphic); }
+.twc-avatar__status[data-status="away"] { background: var(--color-warning-graphic); }
 .twc-avatar__status[data-status="offline"] { background: var(--color-text-subtle); }
 `;
   function initials(name) {
@@ -1390,7 +1465,10 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-menu__item[data-danger="true"]:hover:not(:disabled), .twc-menu__item[data-danger="true"][data-active="true"]:not(:disabled) { background: var(--color-danger-subtle); }
 .twc-menu__item svg { width: 16px; height: 16px; flex: none; }
 .twc-menu__item-label { flex: 1 1 auto; min-width: 0; }
-.twc-menu__shortcut { margin-inline-start: auto; padding-inline-start: var(--space-3); font-size: var(--text-xs); color: var(--color-text-subtle); font-family: var(--font-mono); }
+/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
+   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
+   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+.twc-menu__shortcut { margin-inline-start: auto; padding-inline-start: var(--space-3); font-size: var(--text-xs); color: var(--color-text-muted); font-family: var(--font-mono); }
 `;
   var safeHref3 = (url) => {
     if (url == null) return void 0;
@@ -1420,6 +1498,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     const [pos, setPos] = import_react.default.useState(null);
     const [active, setActive] = import_react.default.useState(-1);
     const wrapRef = import_react.default.useRef(null);
+    useTriggerAudit(wrapRef, "Menu");
     const menuRef = import_react.default.useRef(null);
     const typeBufRef = import_react.default.useRef("");
     const typeTimerRef = import_react.default.useRef(null);
@@ -1476,6 +1555,25 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         document.removeEventListener("mousedown", onDown);
       };
     }, [open, place, isTop]);
+    const kbdRef = import_react.default.useRef(false);
+    import_react.default.useEffect(() => {
+      if (!open || !render || active < 0 || !kbdRef.current) return;
+      kbdRef.current = false;
+      const el = document.getElementById(`${menuId}-item-${active}`);
+      if (el) el.focus();
+    }, [open, render, active, menuId]);
+    const focusTrigger = import_react.default.useCallback(() => {
+      const t = wrapRef.current && wrapRef.current.querySelector('button, a[href], [role="button"], [tabindex]');
+      if (t) t.focus();
+    }, []);
+    import_react.default.useEffect(() => {
+      if (open) return;
+      kbdRef.current = false;
+      setActive(-1);
+      const m = menuRef.current;
+      if (!m || typeof document === "undefined" || !m.contains(document.activeElement)) return;
+      focusTrigger();
+    }, [open, focusTrigger]);
     import_react.default.useEffect(() => {
       if (open) {
         setRender(true);
@@ -1489,7 +1587,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       setOpen((o) => !o);
       setActive(-1);
     };
+    const NAV_KEYS = "|Enter| |ArrowDown|ArrowUp|Home|End|PageDown|PageUp|";
     function onKeyDown(e) {
+      if (NAV_KEYS.indexOf("|" + e.key + "|") >= 0 || e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        kbdRef.current = true;
+      }
       if (e.defaultPrevented) return;
       if (!open) {
         if (triggerDisabled) return;
@@ -1506,6 +1608,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         return;
       }
       if (e.key === "Tab") {
+        focusTrigger();
         setOpen(false);
         return;
       }
@@ -1525,7 +1628,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
           const next = Math.min(list.length - 1, Math.max(0, curPos + (e.key === "PageDown" ? 5 : -5)));
           setActive(list[next]);
         }
-      } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      } else if (e.key.length === 1 && e.key !== " " && !e.ctrlKey && !e.metaKey && !e.altKey) {
         typeBufRef.current += e.key.toLowerCase();
         clearTimeout(typeTimerRef.current);
         typeTimerRef.current = setTimeout(() => {
@@ -1583,7 +1686,10 @@ var TwicoUiDesignSystem_f2f16a = (() => {
                 tabIndex: -1,
                 "data-danger": it.danger || void 0,
                 "data-active": active === i || void 0,
-                onMouseEnter: () => setActive(i),
+                onMouseEnter: () => {
+                  kbdRef.current = false;
+                  setActive(i);
+                },
                 onClick: () => {
                   it.onClick?.();
                   setOpen(false);
@@ -1601,7 +1707,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         ]
       }
     ) : null;
-    const activeDescId = open && active >= 0 ? `${menuId}-item-${active}` : void 0;
+    const fix = import_react.default.isValidElement(trigger) && !triggerIsControl(trigger) ? { role: "button" } : null;
     const triggerEl = import_react.default.isValidElement(trigger) ? import_react.default.cloneElement(trigger, {
       onClick: (e) => {
         trigger.props.onClick?.(e);
@@ -1611,10 +1717,10 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       "aria-haspopup": "menu",
       "aria-expanded": open,
       "aria-controls": open ? menuId : void 0,
-      "aria-activedescendant": activeDescId,
       // #420: forward an incoming aria-describedby (e.g. from a wrapping Tooltip) to the focusable trigger,
       // not the wrapper span, so the description is announced on focus.
-      "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || void 0
+      "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || void 0,
+      ...fix
     }) : /* @__PURE__ */ jsx(
       "span",
       {
@@ -1623,13 +1729,12 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         "aria-haspopup": "menu",
         "aria-expanded": open,
         "aria-controls": open ? menuId : void 0,
-        "aria-activedescendant": activeDescId,
         "aria-describedby": ariaDescribedby,
         onClick: toggle,
         children: trigger
       }
     );
-    return /* @__PURE__ */ jsxs("span", { className: `twc-menu-wrap ${className}`, ref: wrapRef, onKeyDown, ...rest, children: [
+    return /* @__PURE__ */ jsxs("span", { className: `twc-menu-wrap ${className}`, ref: wrapRef, ...rest, onKeyDown: compose(rest.onKeyDown, onKeyDown), children: [
       triggerEl,
       menu && RD && RD.createPortal ? RD.createPortal(menu, document.body) : menu
     ] });
@@ -1642,7 +1747,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-avatar-menu:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-avatar-menu__text { display: flex; flex-direction: column; align-items: flex-start; gap: 0; min-width: 0; line-height: 1.2; }
 .twc-avatar-menu__name { font-size: var(--text-sm); font-weight: var(--font-semibold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
-.twc-avatar-menu__sub { font-size: var(--text-xs); color: var(--color-text-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+/* #462: text-MUTED, not text-subtle. A hover/active rule swaps --color-surface-sunken (or
+   --color-primary-subtle) in under this text without changing its colour, and text-subtle on
+   either is 4.34:1 / 4.26:1 in light - the pairing the token rules forbid (docs/colors.md). It
+   passes at rest on --color-surface and fails only while hovered, which is why it survived. */
+.twc-avatar-menu__sub { font-size: var(--text-xs); color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
 .twc-avatar-menu__chev { color: var(--color-text-subtle); display: inline-flex; flex: none; margin-inline-end: 2px; transition: transform var(--duration-base) var(--ease-spring); }
 .twc-avatar-menu__chev svg { width: 15px; height: 15px; }
 /* #402: fullWidth \u2014 the trigger (and its Menu wrap) stretch, the text column grows, and the chevron is pinned
@@ -1737,7 +1846,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 
 /* outline */
 .twc-badge[data-variant="outline"] { background: transparent; }
-.twc-badge[data-variant="outline"][data-tone="primary"] { color: var(--color-primary); border-color: var(--color-primary-border); }
+.twc-badge[data-variant="outline"][data-tone="primary"] { color: var(--color-primary-subtle-fg); border-color: var(--color-primary-border); }
 .twc-badge[data-variant="outline"][data-tone="success"] { color: var(--color-success-subtle-fg); border-color: var(--color-success); }
 .twc-badge[data-variant="outline"][data-tone="warning"] { color: var(--color-warning-subtle-fg); border-color: var(--color-warning); }
 .twc-badge[data-variant="outline"][data-tone="danger"]  { color: var(--color-danger-subtle-fg); border-color: var(--color-danger); }
@@ -1769,7 +1878,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-breadcrumb__item svg { width: 15px; height: 15px; flex: none; }
 .twc-breadcrumb__sep { display: inline-flex; align-items: center; color: var(--color-text-subtle); pointer-events: none; }
 .twc-breadcrumb__sep svg { width: 15px; height: 15px; }
-[dir="rtl"] .twc-breadcrumb__sep svg { transform: scaleX(-1); }
+/* #465: scoped to the BUILT-IN chevron. Unscoped, this flipped a consumer-supplied SVG separator
+   that was already non-directional or pre-mirrored, while giving a text separator (separator="/")
+   no RTL treatment at all. A custom separator now owns its own mirroring - see Breadcrumb.prompt.md. */
+[dir="rtl"] .twc-breadcrumb__sep[data-default-sep] svg { transform: scaleX(-1); }
 .twc-breadcrumb__ellipsis { border: none; background: transparent; cursor: pointer; color: var(--color-text-subtle); padding: 3px 7px; border-radius: var(--radius-sm); font: inherit; }
 .twc-breadcrumb__ellipsis:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 `;
@@ -1825,7 +1937,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
               it.label
             ] })
           ),
-          !last ? /* @__PURE__ */ jsx("span", { className: "twc-breadcrumb__sep", "aria-hidden": "true", children: sep }) : null
+          !last ? /* @__PURE__ */ jsx("span", { className: "twc-breadcrumb__sep", "data-default-sep": separator ? void 0 : "true", "aria-hidden": "true", children: sep }) : null
         ] }, i);
       })
     ] });
@@ -1899,10 +2011,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .dark .twc-btn[data-variant="soft"]:hover:not(:disabled) { filter: brightness(1.25); }
 /* outline \u2014 neutral at rest, accent on hover */
 .twc-btn[data-variant="outline"] { background: transparent; color: var(--color-text); border-color: var(--color-border-strong); }
-.twc-btn[data-variant="outline"]:hover:not(:disabled) { background: var(--color-surface-sunken); border-color: var(--_accent); color: var(--_accent); }
+.twc-btn[data-variant="outline"]:hover:not(:disabled) { background: var(--color-surface-sunken); border-color: var(--_accent-subtle-fg); color: var(--_accent-subtle-fg); }
 /* ghost \u2014 neutral at rest, accent on hover */
 .twc-btn[data-variant="ghost"] { background: transparent; color: var(--color-text-muted); }
-.twc-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
+.twc-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent-subtle-fg); }
 /* #405: toggle "on" state (aria-pressed) \u2014 a soft tone fill + tone border, variant-agnostic (works over any variant). */
 .twc-btn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
 /* #411: pressed "on" fill can carry any status Tone (not just the ActionTone), so a toggle option shows its own
@@ -2357,7 +2469,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       onIndexChange?.(i);
     }, [indexProp, onIndexChange]);
     const go = import_react.default.useCallback((i) => {
-      setIndex(loop ? (i + count) % count : Math.min(Math.max(i, 0), count - 1));
+      if (count <= 0) return;
+      setIndex(loop ? (i % count + count) % count : Math.min(Math.max(i, 0), count - 1));
     }, [count, loop, setIndex]);
     const autoRotating = autoPlay && !paused && !userPaused && !prefersReduced && count > 1;
     import_react.default.useEffect(() => {
@@ -2397,16 +2510,16 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       "div",
       {
         className: `twc-carousel ${className}`,
-        onMouseEnter: () => setPaused(true),
-        onMouseLeave: () => setPaused(false),
-        onFocusCapture: () => setPaused(true),
-        onBlurCapture: () => setPaused(false),
-        onKeyDown: handleKeyDown,
         role: "region",
         "aria-roledescription": "carousel",
         "aria-label": ariaLabel,
         "aria-labelledby": ariaLabelledbyProp,
         ...rest,
+        onMouseEnter: compose(rest.onMouseEnter, () => setPaused(true)),
+        onMouseLeave: compose(rest.onMouseLeave, () => setPaused(false)),
+        onFocusCapture: compose(rest.onFocusCapture, () => setPaused(true)),
+        onBlurCapture: compose(rest.onBlurCapture, () => setPaused(false)),
+        onKeyDown: compose(rest.onKeyDown, handleKeyDown),
         children: [
           __twcStyles,
           /* @__PURE__ */ jsx("div", { className: "twc-carousel__viewport", tabIndex: 0, children: /* @__PURE__ */ jsx("div", { className: "twc-carousel__track", style: { transform: `translateX(-${index * 100}%)` }, children: slides.map((s, i) => /* @__PURE__ */ jsx("div", { className: "twc-carousel__slide", role: "group", "aria-roledescription": "slide", "aria-label": `${i + 1} of ${count}`, "aria-hidden": i !== index || void 0, inert: i !== index || void 0, children: s }, i)) }) }),
@@ -2422,13 +2535,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     );
   }
   var CHART_PALETTE = [
-    "var(--brand-500)",
-    "var(--sky-500)",
-    "var(--emerald-500)",
-    "var(--amber-500)",
-    "var(--rose-500)",
-    "var(--indigo-500)",
-    "var(--slate-500)"
+    "var(--color-chart-1)",
+    "var(--color-chart-2)",
+    "var(--color-chart-3)",
+    "var(--color-chart-4)",
+    "var(--color-chart-5)",
+    "var(--color-chart-6)",
+    "var(--color-chart-7)"
   ];
   function paletteAt(colors, i) {
     const p = colors && colors.length ? colors : CHART_PALETTE;
@@ -2544,10 +2657,15 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-chart svg text { fill: var(--color-text-subtle); }
 .twc-chart__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .twc-chart__legend { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); font-size: var(--text-xs); color: var(--color-text-muted); }
-.twc-chart__leg { display: inline-flex; align-items: center; gap: 6px; transition: opacity var(--duration-fast) var(--ease-standard); }
+.twc-chart__leg { display: inline-flex; align-items: center; gap: 6px; transition: color var(--duration-fast) var(--ease-standard); }
 .twc-chart__leg[data-toggle="true"] { cursor: pointer; user-select: none; }
 .twc-chart__leg[data-toggle="true"]:hover { color: var(--color-text); }
-.twc-chart__leg[data-off="true"] { opacity: 0.4; }
+/* #453: a toggled-off legend entry is still an enabled role="button" with tabIndex 0, so it is not
+   exempt from SC 1.4.3 - opacity: 0.4 over text-muted left the label at 1.93:1. Say "hidden" with a
+   subtle-but-AA colour plus a line-through (also a non-colour cue, SC 1.4.1) and fade only the swatch,
+   which merely repeats the series name the label already carries. */
+.twc-chart__leg[data-off="true"] { color: var(--color-text-subtle); text-decoration: line-through; }
+.twc-chart__leg[data-off="true"] .twc-chart__leg-sw { opacity: 0.45; }
 .twc-chart__leg-sw { width: 10px; height: 10px; border-radius: 3px; flex: none; }
 
 /* Floating tooltip \u2014 a styled card that follows the pointer (ApexCharts / MUI X style).
@@ -5879,13 +5997,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   function labelText7(label) {
     return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
-  var seen = /* @__PURE__ */ new Set();
-  function warnOnce(key, message) {
-    if (typeof process !== "undefined" && process.env && false) return;
-    if (seen.has(key)) return;
-    seen.add(key);
-    if (typeof console !== "undefined" && console.warn) console.warn(message);
-  }
   function Checkbox({
     label,
     description,
@@ -5917,7 +6028,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   --_sz: 20px;
   flex: none; width: var(--_sz); height: var(--_sz); margin-top: 1px;
   display: grid; place-items: center;
-  border: var(--border-medium) solid var(--color-border-strong);
+  border: var(--border-medium) solid var(--color-control-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
   color: var(--_accent-fg);
@@ -6462,7 +6573,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-opt:hover, .twc-opt[data-active="true"] { background: var(--color-surface-sunken); }
-.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary); font-weight: var(--font-semibold); }
+.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary-subtle-fg); font-weight: var(--font-semibold); }
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -6595,7 +6706,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       return { rows: rows2, totalH: off };
     }, [virtualized, fGroups, rowH]);
     const nextEnabled = (from, dir) => {
-      let i = from + dir;
+      let i = from >= visible.length ? dir > 0 ? visible.length - 1 : 0 : from + dir;
       while (i >= 0 && i < visible.length) {
         if (!visible[i]?.disabled) return i;
         i += dir;
@@ -6648,6 +6759,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     import_react.default.useEffect(() => {
       setActive(0);
     }, [query]);
+    import_react.default.useEffect(() => {
+      if (visible.length === 0) return;
+      setActive((a) => Math.min(a, visible.length - 1));
+    }, [visible.length]);
     const onOpenChangeRef = import_react.default.useRef(onOpenChange);
     onOpenChangeRef.current = onOpenChange;
     const prevOpenRef = import_react.default.useRef(open);
@@ -6782,15 +6897,22 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       vBottom = vShown.length ? totalH - (vShown[vShown.length - 1].top + vShown[vShown.length - 1].h) : totalH;
     }
     let counter = -1;
-    const popInner = /* @__PURE__ */ jsx("div", { className: "twc-pop__list", ref: listRef, onScroll: virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
+    const popInner = /* @__PURE__ */ jsx("div", { className: "twc-pop__list", id: listboxId, role: "listbox", ref: listRef, onScroll: virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
       /* @__PURE__ */ jsx("span", { className: "twc-pop__spinner", "aria-hidden": "true" }),
       "Loading\u2026"
     ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
       vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
-      vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderRow(r2.o, r2.idx)),
+      vShown.map((r2) => r2.kind === "group" ? (
+        /* #468: role="presentation" - a listbox owns option/group only, and these bare label divs
+           were neither, so a screen reader walked them as list content. Wrapping each
+           group in a real role="group" + aria-labelledby (as CommandPalette now does)
+           is the fuller fix, but the virtualized path renders a FLAT row list with no
+           nesting to hang it on - deferred, see docs/qa-notes. */
+        /* @__PURE__ */ jsx("div", { className: "twc-pop__group", role: "presentation", children: r2.label }, `g${r2.gi}`)
+      ) : renderRow(r2.o, r2.idx)),
       vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
     ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
-      g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
+      g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", role: "presentation", children: g.group }) : null,
       g.options.map((o) => {
         counter += 1;
         const idx = counter;
@@ -6807,8 +6929,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             "div",
             {
               className: "twc-pop twc-pop--portal",
-              id: listboxId,
-              role: "listbox",
               ref: popRef,
               "data-placement": coords.flip ? "top" : "bottom",
               style: { position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, right: "auto", zIndex: "var(--z-floating)" },
@@ -6818,7 +6938,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           document.body
         );
       } else if (!portal) {
-        popEl = /* @__PURE__ */ jsx("div", { className: "twc-pop", id: listboxId, role: "listbox", ref: popRef, "data-placement": placement === "top" ? "top" : void 0, children: popInner });
+        popEl = /* @__PURE__ */ jsx("div", { className: "twc-pop", ref: popRef, "data-placement": placement === "top" ? "top" : void 0, children: popInner });
       }
     }
     return /* @__PURE__ */ jsxs("div", { className: `twc-field ${className}`, ref: wrapRef, children: [
@@ -6925,7 +7045,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-cmdk__input { flex: 1; min-width: 0; border: none; outline: none; background: transparent; font-family: inherit; font-size: var(--text-lg); color: var(--color-text); }
 .twc-cmdk__input:focus, .twc-cmdk__input:focus-visible { outline: none; box-shadow: none; }
 .twc-cmdk__input::placeholder { color: var(--color-text-subtle); }
-.twc-cmdk__kbd { flex: none; font-family: var(--font-mono); font-size: 11px; color: var(--color-text-subtle); padding: 3px 7px; border-radius: var(--radius-sm); background: var(--color-surface-sunken); border: var(--border-thin) solid var(--color-border); }
+.twc-cmdk__kbd { flex: none; font-family: var(--font-mono); font-size: 11px; color: var(--color-text-muted); padding: 3px 7px; border-radius: var(--radius-sm); background: var(--color-surface-sunken); border: var(--border-thin) solid var(--color-border); }
 .twc-cmdk__list { flex: 1; overflow-y: auto; padding: var(--space-2); }
 .twc-cmdk__group-label { font-size: 10px; font-weight: var(--font-bold); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--color-text-subtle); padding: var(--space-3) var(--space-3) var(--space-1); }
 .twc-cmdk__item { display: flex; align-items: center; gap: var(--space-3); width: 100%; padding: 10px 12px; border: none; background: none; cursor: pointer;
@@ -6936,8 +7056,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-cmdk__item-ic svg { width: 18px; height: 18px; }
 .twc-cmdk__item-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
 .twc-cmdk__item-label { font-weight: var(--font-medium); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.twc-cmdk__item-desc { font-size: var(--text-xs); color: var(--color-text-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.twc-cmdk__item-sc { flex: none; font-family: var(--font-mono); font-size: 11px; color: var(--color-text-subtle); }
+/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
+   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
+   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+.twc-cmdk__item-desc { font-size: var(--text-xs); color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.twc-cmdk__item-sc { flex: none; font-family: var(--font-mono); font-size: 11px; color: var(--color-text-muted); }
 .twc-cmdk__empty { padding: var(--space-8); text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
 `;
   function CommandPalette({
@@ -7062,37 +7185,44 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           ),
           /* @__PURE__ */ jsx("span", { className: "twc-cmdk__kbd", children: "esc" })
         ] }),
-        /* @__PURE__ */ jsx("div", { className: "twc-cmdk__list", id: listId, role: "listbox", ref: listRef, children: flat.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-cmdk__empty", children: emptyText }) : groups.map((g) => /* @__PURE__ */ jsxs("div", { role: "group", children: [
-          g.key ? /* @__PURE__ */ jsx("div", { className: "twc-cmdk__group-label", children: g.key }) : null,
-          g.items.map((c) => {
-            idx += 1;
-            const i = idx;
-            return /* @__PURE__ */ jsxs(
-              "button",
-              {
-                id: optionId(i),
-                type: "button",
-                className: "twc-cmdk__item",
-                role: "option",
-                "aria-selected": i === active,
-                tabIndex: -1,
-                "data-active": i === active || void 0,
-                onMouseEnter: () => setActive(i),
-                onMouseDown: (e) => e.preventDefault(),
-                onClick: () => run(c),
-                children: [
-                  c.icon ? /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-ic", "aria-hidden": "true", children: c.icon }) : null,
-                  /* @__PURE__ */ jsxs("span", { className: "twc-cmdk__item-main", children: [
-                    /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-label", children: c.label }),
-                    c.description ? /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-desc", children: c.description }) : null
-                  ] }),
-                  c.shortcut ? /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-sc", children: c.shortcut }) : null
-                ]
-              },
-              c.id || i
-            );
-          })
-        ] }, g.key || "_")) })
+        /* @__PURE__ */ jsx("div", { className: "twc-cmdk__list", id: listId, role: "listbox", "aria-label": searchLabel, ref: listRef, children: flat.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-cmdk__empty", children: emptyText }) : groups.map((g, gi) => (
+          // #468: a role="group" with no name announced as a bare "grouping", so arrowing across a
+          // category boundary never told the user which category they had entered - the visible
+          // heading was the only cue, and it is sighted-only. It is also not a permitted child of a
+          // listbox (option/group only), hence role="presentation" on it now that the group is
+          // labelled by it. The APG listbox pattern requires every group to carry a label.
+          /* @__PURE__ */ jsxs("div", { role: "group", "aria-labelledby": g.key ? `${baseId}-grp-${gi}` : void 0, children: [
+            g.key ? /* @__PURE__ */ jsx("div", { id: `${baseId}-grp-${gi}`, className: "twc-cmdk__group-label", role: "presentation", children: g.key }) : null,
+            g.items.map((c) => {
+              idx += 1;
+              const i = idx;
+              return /* @__PURE__ */ jsxs(
+                "button",
+                {
+                  id: optionId(i),
+                  type: "button",
+                  className: "twc-cmdk__item",
+                  role: "option",
+                  "aria-selected": i === active,
+                  tabIndex: -1,
+                  "data-active": i === active || void 0,
+                  onMouseEnter: () => setActive(i),
+                  onMouseDown: (e) => e.preventDefault(),
+                  onClick: () => run(c),
+                  children: [
+                    c.icon ? /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-ic", "aria-hidden": "true", children: c.icon }) : null,
+                    /* @__PURE__ */ jsxs("span", { className: "twc-cmdk__item-main", children: [
+                      /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-label", children: c.label }),
+                      c.description ? /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-desc", children: c.description }) : null
+                    ] }),
+                    c.shortcut ? /* @__PURE__ */ jsx("span", { className: "twc-cmdk__item-sc", children: c.shortcut }) : null
+                  ]
+                },
+                c.id || i
+              );
+            })
+          ] }, g.key || "_")
+        )) })
       ] })
     ] });
     return renderPortal(overlay);
@@ -7172,6 +7302,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 }
 .twc-cur__el:focus, .twc-cur__el:focus-visible { outline: none; box-shadow: none; }
 .twc-cur__el::placeholder { color: var(--color-text-subtle); }
+/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
+   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
+   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
+   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
+   showing its placeholder is the reachable case. The affix beside it carries icons, so it clears
+   its own 3:1 graphics floor and stays. */
+.twc-cur[data-readonly="true"] .twc-cur__el::placeholder { color: var(--color-text-muted); }
 .twc-cur__el::-webkit-outer-spin-button, .twc-cur__el::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 `;
   function Currency({
@@ -7214,6 +7351,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         onValueChange?.(shown === "" || Number.isNaN(n) ? null : n, shown);
       }
     }, [controlled, shown, value]);
+    import_react.default.useEffect(() => {
+      if (controlled) return;
+      const next = clampPrecision(internal, prec);
+      if (next === internal) return;
+      setInternal(next);
+      const n = Number(next);
+      onValueChange?.(next === "" || Number.isNaN(n) ? null : n, next);
+    }, [prec]);
     const descId = `${fieldId}-desc`;
     const describedBy = [error || hint ? descId : null, rest["aria-describedby"]].filter(Boolean).join(" ") || void 0;
     const ariaInvalid = invalid ? true : rest["aria-invalid"] ?? void 0;
@@ -7264,6 +7409,26 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : hint ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__hint", children: hint }) : null
     ] });
   }
+  function useFallbackName(ref, hasOwnName) {
+    const [needsFallback, setNeedsFallback] = import_react.default.useState(false);
+    const useIso3 = typeof document !== "undefined" ? import_react.default.useLayoutEffect : import_react.default.useEffect;
+    useIso3(() => {
+      if (hasOwnName) {
+        setNeedsFallback(false);
+        return;
+      }
+      const el = ref.current;
+      if (!el || typeof document === "undefined") return;
+      if (el.labels) {
+        setNeedsFallback(el.labels.length === 0);
+        return;
+      }
+      const byFor = el.id ? Array.prototype.some.call(document.querySelectorAll("label[for]"), (l) => l.getAttribute("for") === el.id) : false;
+      setNeedsFallback(!byFor && !el.closest("label"));
+    });
+    return !hasOwnName && needsFallback;
+  }
+  typeof document !== "undefined" ? import_react.default.useLayoutEffect : import_react.default.useEffect;
   var SELECT_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
@@ -7329,7 +7494,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-opt:hover, .twc-opt[data-active="true"] { background: var(--color-surface-sunken); }
-.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary); font-weight: var(--font-semibold); }
+.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary-subtle-fg); font-weight: var(--font-semibold); }
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -7431,11 +7596,16 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const activeRef = import_react.default.useRef(null);
     const searchRef = import_react.default.useRef(null);
     const showSearch = searchable === void 0 ? flat.length > 5 : searchable;
-    const fGroups = import_react.default.useMemo(() => {
+    const fGroupsLive = import_react.default.useMemo(() => {
       const q = query.trim().toLowerCase();
       if (!q) return groups;
       return groups.map((g) => ({ group: g.group, options: g.options.filter((o) => o.label.toLowerCase().includes(q) || o.description && o.description.toLowerCase().includes(q)) })).filter((g) => g.options.length);
     }, [groups, query]);
+    const fGroupsFrozen = import_react.default.useRef(fGroupsLive);
+    import_react.default.useEffect(() => {
+      if (open) fGroupsFrozen.current = fGroupsLive;
+    }, [open, fGroupsLive]);
+    const fGroups = open ? fGroupsLive : fGroupsFrozen.current;
     const visible = import_react.default.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
     const rowH = import_react.default.useMemo(() => visible.some((o) => o.description) ? 48 : 36, [visible]);
     const GROUP_H = 30;
@@ -7459,7 +7629,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     }, [virtualized, fGroups, rowH]);
     const selected = flat.find((o) => o.value === current);
     const nextEnabled = (from, dir) => {
-      let i = from + dir;
+      let i = from >= visible.length ? dir > 0 ? visible.length - 1 : 0 : from + dir;
       while (i >= 0 && i < visible.length) {
         if (!visible[i]?.disabled) return i;
         i += dir;
@@ -7504,7 +7674,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       if (!open) return;
       const idx = flat.findIndex((o) => o.value === current);
       setActive(idx >= 0 ? idx : 0);
-      setQuery("");
       if (showSearch) {
         setTimeout(() => searchRef.current?.focus(), 20);
       }
@@ -7519,6 +7688,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     import_react.default.useEffect(() => {
       setActive(0);
     }, [query]);
+    import_react.default.useEffect(() => {
+      if (visible.length === 0) return;
+      setActive((a) => Math.min(a, visible.length - 1));
+    }, [visible.length]);
     import_react.default.useEffect(() => {
       if (!open || !virtualized) return;
       const el = listRef.current;
@@ -7546,6 +7719,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         setRender(true);
         return;
       }
+      setQuery("");
       const t = setTimeout(() => setRender(false), 170);
       return () => clearTimeout(t);
     }, [open]);
@@ -7614,6 +7788,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const listboxId = `${fieldId}-listbox`;
     const optionId = (i) => `${fieldId}-opt-${i}`;
     const activeId = open && visible[active] ? optionId(active) : void 0;
+    const hasOwnName = Boolean(label || rest["aria-label"] || rest["aria-labelledby"]);
+    const fallbackName = useFallbackName(triggerRef, hasOwnName) ? placeholder : void 0;
     const descId = `${fieldId}-desc`;
     const describedBy = error || hint ? descId : void 0;
     const renderRow = (o, idx) => {
@@ -7678,7 +7854,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             "aria-label": "Search options",
             role: "combobox",
             "aria-expanded": open,
-            "aria-controls": listboxId,
+            "aria-controls": open ? listboxId : void 0,
             "aria-activedescendant": activeId
           }
         ),
@@ -7687,15 +7863,22 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           searchRef.current?.focus();
         }, children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) }) }) : null
       ] }) : null,
-      /* @__PURE__ */ jsx("div", { className: "twc-pop__list", ref: listRef, onScroll: virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
+      /* @__PURE__ */ jsx("div", { className: "twc-pop__list", id: listboxId, role: "listbox", ref: listRef, onScroll: virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
         /* @__PURE__ */ jsx("span", { className: "twc-pop__spinner", "aria-hidden": "true" }),
         "Loading\u2026"
       ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
         vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
-        vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderRow(r2.o, r2.idx)),
+        vShown.map((r2) => r2.kind === "group" ? (
+          /* #468: role="presentation" - a listbox owns option/group only, and these bare label divs
+           were neither, so a screen reader walked them as list content. Wrapping each
+           group in a real role="group" + aria-labelledby (as CommandPalette now does)
+           is the fuller fix, but the virtualized path renders a FLAT row list with no
+           nesting to hang it on - deferred, see docs/qa-notes. */
+          /* @__PURE__ */ jsx("div", { className: "twc-pop__group", role: "presentation", children: r2.label }, `g${r2.gi}`)
+        ) : renderRow(r2.o, r2.idx)),
         vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
       ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
-        g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
+        g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", role: "presentation", children: g.group }) : null,
         g.options.map((o) => {
           counter += 1;
           const idx = counter;
@@ -7715,8 +7898,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             "div",
             {
               className: "twc-pop twc-pop--portal",
-              id: listboxId,
-              role: "listbox",
               ref: popRef,
               "data-state": popState,
               "data-placement": coords.flip ? "top" : "bottom",
@@ -7727,7 +7908,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           document.body
         );
       } else if (!portal) {
-        popEl = /* @__PURE__ */ jsx("div", { className: "twc-pop", id: listboxId, role: "listbox", ref: popRef, "data-state": popState, "data-placement": placement === "top" ? "top" : "bottom", children: popInner });
+        popEl = /* @__PURE__ */ jsx("div", { className: "twc-pop", ref: popRef, "data-state": popState, "data-placement": placement === "top" ? "top" : "bottom", children: popInner });
       }
     }
     return /* @__PURE__ */ jsxs("div", { className: `twc-field ${className}`, ref: wrapRef, children: [
@@ -7750,10 +7931,12 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             "data-open": open || void 0,
             "data-invalid": Boolean(error) || void 0,
             disabled,
+            role: "combobox",
             "aria-haspopup": "listbox",
             "aria-expanded": open,
             "aria-controls": open ? listboxId : void 0,
-            "aria-activedescendant": activeId,
+            "aria-activedescendant": showSearch ? void 0 : activeId,
+            "aria-label": fallbackName,
             "aria-invalid": Boolean(error) || void 0,
             "aria-describedby": describedBy,
             onClick: (e) => {
@@ -7820,6 +8003,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 }
 .twc-cur__el:focus, .twc-cur__el:focus-visible { outline: none; box-shadow: none; }
 .twc-cur__el::placeholder { color: var(--color-text-subtle); }
+/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
+   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
+   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
+   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
+   showing its placeholder is the reachable case. The affix beside it carries icons, so it clears
+   its own 3:1 graphics floor and stays. */
+.twc-cur[data-readonly="true"] .twc-cur__el::placeholder { color: var(--color-text-muted); }
 .twc-cur__el::-webkit-outer-spin-button, .twc-cur__el::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .twc-curf__pick { flex: none; display: flex; align-items: stretch; border-inline-end: var(--border-thin) solid var(--color-border); }
 .twc-curf__pick .twc-field { width: 132px; }
@@ -7995,8 +8185,18 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 }
 .twc-input__el:focus, .twc-input__el:focus-visible { outline: none; box-shadow: none; }
 .twc-input__el::placeholder { color: var(--color-text-subtle); }
+/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
+   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
+   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
+   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
+   showing its placeholder is the reachable case.
+   (Review correction: an earlier version of this comment claimed the affix beside it only carries
+   icons and so needed nothing. It does not - the canonical example in site/src/demos/InputDemo.jsx
+   passes rightIcon={<span>USD</span>}, i.e. TEXT, which owes 4.5:1. The affix moved to text-muted
+   too; .twc-input__addon one rule below had already solved the same problem correctly.) */
+.twc-input[data-readonly] .twc-input__el::placeholder { color: var(--color-text-muted); }
 .twc-input__el:disabled { cursor: not-allowed; }
-.twc-input__affix { display: inline-flex; color: var(--color-text-subtle); flex: none; }
+.twc-input__affix { display: inline-flex; color: var(--color-text-muted); flex: none; }
 .twc-input__reveal { display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: none;
   background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm);
   transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
@@ -8338,7 +8538,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const capReached = max != null && (value !== void 0 ? value : internal).length >= max;
     const isOptDisabled = (o) => o.disabled || capReached && !(value !== void 0 ? value : internal).includes(o.value);
     const nextEnabled = (from, dir) => {
-      let i = from + dir;
+      let i = from >= visible.length ? dir > 0 ? visible.length - 1 : 0 : from + dir;
       while (i >= 0 && i < visible.length) {
         if (!isOptDisabled(visible[i])) return i;
         i += dir;
@@ -8392,6 +8592,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     import_react.default.useEffect(() => {
       setActive(0);
     }, [query]);
+    import_react.default.useEffect(() => {
+      if (visible.length === 0) return;
+      setActive((a) => Math.min(a, visible.length - 1));
+    }, [visible.length]);
     import_react.default.useEffect(() => {
       if (!open || !virtualized) return;
       const el = listRef.current;
@@ -8512,10 +8716,17 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           "Loading\u2026"
         ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
           vTop > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vTop } }) : null,
-          vShown.map((r2) => r2.kind === "group" ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: r2.label }, `g${r2.gi}`) : renderRow(r2.o, r2.idx)),
+          vShown.map((r2) => r2.kind === "group" ? (
+            /* #468: role="presentation" - a listbox owns option/group only, and these bare label divs
+               were neither, so a screen reader walked them as list content. Wrapping each
+               group in a real role="group" + aria-labelledby (as CommandPalette now does)
+               is the fuller fix, but the virtualized path renders a FLAT row list with no
+               nesting to hang it on - deferred, see docs/qa-notes. */
+            /* @__PURE__ */ jsx("div", { className: "twc-pop__group", role: "presentation", children: r2.label }, `g${r2.gi}`)
+          ) : renderRow(r2.o, r2.idx)),
           vBottom > 0 ? /* @__PURE__ */ jsx("div", { "aria-hidden": "true", style: { height: vBottom } }) : null
         ] }) : fGroups.map((g, gi) => /* @__PURE__ */ jsxs(import_react.default.Fragment, { children: [
-          g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", children: g.group }) : null,
+          g.group ? /* @__PURE__ */ jsx("div", { className: "twc-pop__group", role: "presentation", children: g.group }) : null,
           g.options.map((o) => {
             counter += 1;
             const idx = counter;
@@ -8546,6 +8757,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         popEl = /* @__PURE__ */ jsx("div", { className: "twc-pop", ref: popRef, "data-placement": placement === "top" ? "top" : void 0, children: popInner });
       }
     }
+    const msFallbackName = useFallbackName(inputRef, Boolean(label || rest["aria-label"] || rest["aria-labelledby"])) ? placeholder : void 0;
     return /* @__PURE__ */ jsxs("div", { className: `twc-field ${className}`, ref: wrapRef, children: [
       __twcStyles,
       name ? selected.map((v, i) => /* @__PURE__ */ jsx("input", { type: "hidden", name, value: v }, i)) : null,
@@ -8599,6 +8811,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
                   placeholder: selectedOpts.length ? "" : placeholder,
                   value: query,
                   disabled,
+                  "aria-label": msFallbackName,
                   onFocus: (e) => {
                     onFocus?.(e);
                     setOpen(true);
@@ -8937,7 +9150,15 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 /* Narrow grid: collapse the toolbar to icon-only buttons (labels survive as
    hover tooltips via data-tip) and let the search flex so nothing wraps. */
 .twc-dt__toolbar[data-compact="true"] { flex-wrap: nowrap; gap: 4px; }
-.twc-dt__toolbar[data-compact="true"] .twc-dt__tlabel { display: none; }
+/* #449: these labels sit on --color-surface-sunken, where --color-text-subtle only reaches 4.34:1
+   (the background moves with the text, so the token change could not lift it). --color-text-muted is
+   6.92:1 there and is what Kbd/CommandPalette use on the same background. */
+/* #448: visually hidden, NOT display:none. The label is each toolbar button's only text node, so
+   removing it from the a11y tree left Columns/Filters/Density/Aggregation/Pivot with an empty (or
+   badge-number-only) accessible name - an axe/Lighthouse button-name failure. Same declarations as
+   .twc-dt__sr below. Compact is driven by a ResizeObserver on the GRID width, not a media query, so
+   a narrow grid in a wide viewport hits this too. */
+.twc-dt__toolbar[data-compact="true"] .twc-dt__tlabel { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__tbtn { padding: 0 8px; gap: 0; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__tbtn .twc-dt__tbadge { margin-inline-start: 4px; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__export-main { padding: 0 9px; gap: 0; }
@@ -9012,14 +9233,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 0; }
 .twc-dt__table tfoot td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
 .twc-dt__table tfoot td[data-pin] { z-index: 4; }
-.twc-dt__agg-label { color: var(--color-text-subtle); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); font-size: 10px; margin-inline-end: 5px; }
+.twc-dt__agg-label { color: var(--color-text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); font-size: 10px; margin-inline-end: 5px; }
 .twc-dt__agg-val { font-weight: var(--font-bold); }
 
 /* Row grouping */
 .twc-dt__groupbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 12px;
   border-bottom: var(--border-thin) solid var(--color-border); background: var(--color-surface-sunken); }
 .twc-dt__groupbar > svg { width: 15px; height: 15px; color: var(--color-text-subtle); }
-.twc-dt__groupbar-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--color-text-subtle); }
+.twc-dt__groupbar-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--color-text-muted); }
 .twc-dt__groupchip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 4px 3px 10px; height: 26px;
   background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: var(--font-semibold); }
 .twc-dt__groupchip-x { display: inline-grid; place-items: center; width: 18px; height: 18px; border: none; padding: 0; background: transparent; color: inherit; cursor: pointer; border-radius: var(--radius-full); opacity: 0.7; }
@@ -9059,7 +9280,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__pivot-rowhead { min-width: 180px; }
 /* Corner (row-field label) */
 .twc-dt__pivot-corner { position: sticky; inset-inline-start: 0; top: 0; vertical-align: middle; text-align: center; background: var(--color-surface-sunken); z-index: 9 !important; border-inline-end: var(--border-medium) solid var(--color-border-strong); }
-.twc-dt__pivot-corner-label { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
+.twc-dt__pivot-corner-label { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-muted); }
 /* Column-group header levels (e.g. Status \u25B8 Plan) */
 .twc-dt__pivot-colgroup { text-align: center !important; border-inline-start: var(--border-medium) solid var(--color-border-strong);
   background: var(--color-surface-sunken); font-weight: var(--font-bold); color: var(--color-text); letter-spacing: var(--tracking-wide); }
@@ -9068,24 +9289,26 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__pivot-vhcell[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__pivot-vh { display: inline-flex; flex-direction: column; align-items: center; gap: 1px; line-height: 1.15; }
 .twc-dt__pivot-vh-label { font-weight: var(--font-bold); color: var(--color-text); text-transform: none; letter-spacing: 0; }
-.twc-dt__pivot-vh-agg { font-size: 10px; font-weight: var(--font-semibold); color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.04em; }
+.twc-dt__pivot-vh-agg { font-size: 10px; font-weight: var(--font-semibold); color: var(--color-primary-subtle-fg); text-transform: uppercase; letter-spacing: 0.04em; }
 /* Row headers + record counts (must outrank .twc-dt__row > .twc-dt__td:first-child = (0,3,0)) */
 .twc-dt__pivot tbody .twc-dt__pivot-rowhead[data-pin],
 .twc-dt__pivot tfoot .twc-dt__pivot-rowhead[data-pin] { position: sticky; inset-inline-start: 0; z-index: 5; }
 .twc-dt__pivot-rowhead { font-weight: var(--font-semibold); color: var(--color-text); background: var(--color-surface); border-inline-end: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-rowhead { background: color-mix(in srgb, var(--color-surface-sunken) 45%, var(--color-surface)); }
-.twc-dt__pivot-rowcount { color: var(--color-text-subtle); font-weight: var(--font-normal); font-size: var(--text-xs); }
+.twc-dt__pivot-rowcount { color: var(--color-text-muted); font-weight: var(--font-normal); font-size: var(--text-xs); }
 /* Body value cells \u2014 centered under their header, with group separators */
 .twc-dt__pivot-cell { text-align: center !important; border-inline-start: var(--border-thin) solid var(--color-divider); font-variant-numeric: tabular-nums; }
 .twc-dt__pivot-cell[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-cell { background: color-mix(in srgb, var(--color-surface-sunken) 45%, transparent); }
-.twc-dt__pivot td[data-empty] { color: var(--color-text-subtle); }
+/* #462 (review 2): text-MUTED. The row underneath takes a sunken hover fill and the hover rule sets
+   no colour, so this text stays put at 4.34:1 in light. */
+.twc-dt__pivot td[data-empty] { color: var(--color-text-muted); }
 /* Total column group (right) */
 .twc-dt__pivot-total-h:not(.twc-dt__pivot-vhcell) { text-align: center !important; vertical-align: middle; }
 .twc-dt__pivot-total, .twc-dt__pivot-total-h { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); font-weight: var(--font-bold); }
 .twc-dt__pivot-total[data-group-start], .twc-dt__pivot-total-h[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-primary) !important; }
 .twc-dt__pivot-total-h .twc-dt__pivot-vh-label { color: var(--color-primary-subtle-fg); }
-.twc-dt__pivot-total-h .twc-dt__pivot-vh-agg { color: var(--color-primary); }
+.twc-dt__pivot-total-h .twc-dt__pivot-vh-agg { color: var(--color-primary-subtle-fg); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-total { background: var(--color-primary-subtle); }
 /* Grand-total footer row */
 .twc-dt__pivot tfoot td, .twc-dt__pivot tfoot th { position: sticky; bottom: 0; background: var(--color-surface-sunken); font-weight: var(--font-bold); border-top: var(--border-medium) solid var(--color-border-strong); }
@@ -9159,7 +9382,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__row[data-op="removed"] > .twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-danger) 7%, var(--color-surface)); }
 .twc-dt__row[data-op="modified"] > .twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-warning) 6%, var(--color-surface)); }
 .twc-dt__diff-change { display: inline-flex; align-items: center; gap: 4px; min-width: 0; max-width: 100%; }
-.twc-dt__diff-old { text-decoration: line-through; color: var(--color-text-subtle); }
+/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
+   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
+   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+.twc-dt__diff-old { text-decoration: line-through; color: var(--color-text-muted); }
 .twc-dt__diff-new { color: var(--color-success-subtle-fg); font-weight: var(--font-medium); }
 .twc-dt__diff-arrow { color: var(--color-text-subtle); flex: none; }
 [dir="rtl"] .twc-dt__diff-arrow { transform: scaleX(-1); display: inline-block; }
@@ -9207,10 +9433,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__combine-apply { border: none; background: var(--color-primary); color: var(--color-primary-fg); font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold); padding: 6px 14px; border-radius: var(--radius-md); cursor: pointer; }
 .twc-dt__combine-apply:hover { opacity: 0.9; }
 .twc-dt__combine-apply:focus-visible { outline: none; box-shadow: var(--ring); }
-.twc-dt__col-combined { color: var(--color-text-subtle); font-size: var(--text-xs); font-style: italic; }
+/* #462: text-MUTED, not text-subtle. A hover/active rule swaps --color-surface-sunken (or
+   --color-primary-subtle) in under this text without changing its colour, and text-subtle on
+   either is 4.34:1 / 4.26:1 in light - the pairing the token rules forbid (docs/colors.md). It
+   passes at rest on --color-surface and fails only while hovered, which is why it survived. */
+.twc-dt__col-combined { color: var(--color-text-muted); font-size: var(--text-xs); font-style: italic; }
 .twc-dt__td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
 /* Auto row-number gutter (rowNumbers) \u2014 a sticky-left ordinal column. */
-.twc-dt__rownum { text-align: end; font-variant-numeric: tabular-nums; color: var(--color-text-subtle);
+.twc-dt__rownum { text-align: end; font-variant-numeric: tabular-nums; color: var(--color-text-muted);
   font-size: var(--text-xs); }
 td.twc-dt__rownum { padding-inline: 8px; }
 th.twc-dt__rownum { color: var(--color-text-muted); }
@@ -9281,10 +9511,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__mi { text-decoration: none; } /* #399: link (<a role="menuitem">) variant */
 .twc-dt__mi:hover { background: var(--color-surface-sunken); }
 .twc-dt__mi:disabled { color: var(--color-text-subtle); opacity: 0.5; cursor: default; pointer-events: none; }
-.twc-dt__mi-hint { margin-inline-start: auto; padding-inline-start: 12px; color: var(--color-text-subtle); font-size: var(--text-xs); font-weight: var(--font-normal); } /* #399: disabledReason */
+.twc-dt__mi-hint { margin-inline-start: auto; padding-inline-start: 12px; color: var(--color-text-muted); font-size: var(--text-xs); font-weight: var(--font-normal); } /* #399: disabledReason */
 .twc-dt__mi svg { width: 16px; height: 16px; color: var(--color-text-subtle); flex: none; }
-.twc-dt__mi[data-active="true"] { color: var(--color-primary); }
-.twc-dt__mi[data-active="true"] svg { color: var(--color-primary); }
+.twc-dt__mi[data-active="true"] { color: var(--color-primary-subtle-fg); }
+.twc-dt__mi[data-active="true"] svg { color: var(--color-primary-subtle-fg); }
 .twc-dt__sep { height: 1px; background: var(--color-divider); margin: 5px 4px; }
 
 /* Columns panel */
@@ -9313,18 +9543,21 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__col-pins { display: inline-flex; gap: 2px; flex: none; }
 .twc-dt__col-pin { display: inline-grid; place-items: center; width: 24px; height: 24px; border: none; padding: 0; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm); transition: background-color var(--duration-fast), color var(--duration-fast); }
 .twc-dt__col-pin:hover { background: var(--color-surface); color: var(--color-text); }
-.twc-dt__col-pin[data-on="true"] { color: var(--color-primary); background: var(--color-primary-subtle); }
+/* #451 (review): this icon sits ON --color-primary-subtle, where plain primary is 2.76:1 in dark -
+   under the 3:1 graphics floor. Every other icon use of primary is on a plain surface (>=3.27:1). */
+.twc-dt__col-pin[data-on="true"] { color: var(--color-primary-subtle-fg); background: var(--color-primary-subtle); }
 .twc-dt__col-pin svg { width: 14px; height: 14px; }
-.twc-dt__sw { width: 32px; height: 18px; border-radius: var(--radius-full); background: var(--color-border-strong); position: relative; flex: none; cursor: pointer; transition: background-color var(--duration-base); }
+/* #454 (review): Datatable's own hand-rolled switch has the same off-track problem as Switch. */
+.twc-dt__sw { width: 32px; height: 18px; border-radius: var(--radius-full); background: var(--color-control-track); position: relative; flex: none; cursor: pointer; transition: background-color var(--duration-base); }
 .twc-dt__sw[aria-disabled="true"] { cursor: default; }
 .twc-dt__sw[data-on="true"] { background: var(--color-primary); }
-.twc-dt__sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: var(--radius-full); background: var(--color-primary-fg); box-shadow: var(--shadow-sm); transition: transform var(--duration-base) var(--ease-spring); }
+.twc-dt__sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: var(--radius-full); background: var(--color-control-thumb); box-shadow: var(--shadow-sm); transition: transform var(--duration-base) var(--ease-spring); }
 .twc-dt__sw:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-dt__sw[data-on="true"]::after { transform: translateX(14px); }
 .twc-dt__panel-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px 8px; }
 .twc-dt__panel-title { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
 .twc-dt__panel-count { font-weight: 600; color: var(--color-text-muted); text-transform: none; letter-spacing: 0; margin-inline-start: 6px; font-variant-numeric: tabular-nums; }
-.twc-dt__link { border: none; background: transparent; color: var(--color-primary); font-family: inherit; font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 4px; border-radius: var(--radius-sm); }
+.twc-dt__link { border: none; background: transparent; color: var(--color-primary-subtle-fg); font-family: inherit; font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 4px; border-radius: var(--radius-sm); }
 .twc-dt__link:hover { background: var(--color-primary-subtle); }
 /* #330: MUI DataGrid-style per-row And/Or connector. Row 1 shows a static "Where"; the first connector
    row (row 2) hosts an editable And/Or Select bound to the single filterLogic; rows 3+ echo it as static
@@ -9454,7 +9687,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface);
   color: var(--color-text); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold); cursor: pointer;
   transition: border-color var(--duration-fast), color var(--duration-fast), background-color var(--duration-fast); }
-.twc-dt__batch-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.twc-dt__batch-btn:hover { border-color: var(--color-primary-subtle-fg); color: var(--color-primary-subtle-fg); }
 .twc-dt__batch-btn[data-danger="true"]:hover { border-color: var(--color-danger); color: var(--color-danger-subtle-fg); background: var(--color-danger-subtle); }
 .twc-dt__batch-btn svg { width: 15px; height: 15px; }
 `;
@@ -10139,7 +10372,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     }, [columns, rowPinning, userCombine, defaultColumn]);
     const _autoKey = import_react.default.useRef();
     if (!_autoKey.current) _autoKey.current = { map: /* @__PURE__ */ new WeakMap(), n: 0 };
-    const keyOf = rowKey || ((r2, i) => {
+    const keyOf = import_react.default.useCallback(rowKey || ((r2, i) => {
       if (r2 != null && r2.id != null) return r2.id;
       if (r2 != null && typeof r2 === "object") {
         const m = _autoKey.current.map;
@@ -10151,7 +10384,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         return k;
       }
       return i;
-    });
+    }), [rowKey]);
     const [sort, setSort] = import_react.default.useState(null);
     const [filters, setFilters] = import_react.default.useState([]);
     const filterLogicControlled = filterLogicProp !== void 0;
@@ -10755,7 +10988,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const serverTotal = rowCount == null ? processed.length : rowCount;
     const totalRows = serverMode ? serverTotal : processed.length;
     const totalPages = paginated ? Math.max(1, Math.ceil(totalRows / sizeVal)) : 1;
-    const paged = !paginated || serverMode ? processed : processed.slice(pageVal * sizeVal, pageVal * sizeVal + sizeVal);
+    const paged = import_react.default.useMemo(
+      () => !paginated || serverMode ? processed : processed.slice(pageVal * sizeVal, pageVal * sizeVal + sizeVal),
+      [processed, paginated, serverMode, pageVal, sizeVal]
+    );
     import_react.default.useEffect(() => {
       if (pageVal > totalPages - 1) commitPage(0);
     }, [totalPages]);
@@ -10843,7 +11079,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       };
       return build(paged, 0, "");
     }, [activeGroupBy, collapsedSet, paged, ordered, aggOn]);
-    const leafRows = displayItems ? displayItems.filter((i) => i.kind === "leaf").map((i) => i.row) : treeRows ? treeRows.map((t) => t.row) : paged;
+    const leafRows = import_react.default.useMemo(
+      () => displayItems ? displayItems.filter((i) => i.kind === "leaf").map((i) => i.row) : treeRows ? treeRows.map((t) => t.row) : paged,
+      [displayItems, treeRows, paged]
+    );
     function toggleGroup(key) {
       if (collapsedControlled) {
         const n = new Set(collapsedSet);
@@ -11509,7 +11748,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         });
         td.tabIndex = active && ws.length === 0 ? 0 : -1;
       });
-    }, [cellNavigation, focus.r, focus.c, leafRows, ordered, pageVal, interacting, hidden, pins, scrollTop]);
+    }, [cellNavigation, focus.r, focus.c, leafRows, ordered, pageVal, interacting, hidden, pins, scrollTop, loading, measureTick, viewportH, pinnedRows]);
     const selectedRows = import_react.default.useMemo(() => rows.filter((r2, i) => selected.has(keyOf(r2, i))), [rows, selected]);
     const selKeys = import_react.default.useMemo(() => [...selected], [selected]);
     const onRowSelRef = import_react.default.useRef(onRowSelectionChange);
@@ -11523,11 +11762,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       prevRowSelSigRef.current = sig;
       cb(selKeys, selectedRows);
     }, [selKeys, selectedRows]);
+    const revealRowRi = activeRowVal != null ? keyIndex.get(activeRowVal) : void 0;
     import_react.default.useEffect(() => {
       if (!activeRowControlled || !scrollActiveRowIntoView || activeRowId == null) return;
       const el = gridRef.current && gridRef.current.querySelector('.twc-dt__row[data-active="true"]');
       if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest" });
-    }, [activeRowId, activeRowControlled, scrollActiveRowIntoView, keyIndex]);
+    }, [activeRowId, activeRowControlled, scrollActiveRowIntoView, revealRowRi, loading]);
     const revealOn = !!scrollActiveCellIntoView;
     const revealBlock = scrollActiveCellIntoView && typeof scrollActiveCellIntoView === "object" && scrollActiveCellIntoView.block === "center" ? "center" : "nearest";
     const revealInline = scrollActiveCellIntoView && typeof scrollActiveCellIntoView === "object" && scrollActiveCellIntoView.inline === "center" ? "center" : "nearest";
@@ -11582,7 +11822,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       return () => {
         if (raf) cancelAnimationFrame(raf);
       };
-    }, [activeCellVal?.key, activeCellVal?.field, revealOn, revealBlock, revealInline, revealRi, revealCi, virtualizing, headH]);
+    }, [activeCellVal?.key, activeCellVal?.field, revealOn, revealBlock, revealInline, revealRi, revealCi, virtualizing, headH, loading]);
     import_react.default.useEffect(() => {
       if (!activeCellControlled || !activeCellVal) {
         jumpAppliedRef.current = null;
@@ -14133,8 +14373,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                 /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__frm-x", "aria-label": "Remove filter", onClick: () => setFilters((arr) => arr.filter((x) => x.id !== f.id)), children: /* @__PURE__ */ jsx(Svg, { d: I.x }) })
               ] }, f.id);
             }) }),
-            /* @__PURE__ */ jsx("div", { className: "twc-dt__f-add", style: { padding: "6px 4px 2px" }, children: /* @__PURE__ */ jsxs("button", { type: "button", className: "twc-dt__mi", style: { color: "var(--color-primary)" }, onClick: () => addFilter(cols[0].field), children: [
-              /* @__PURE__ */ jsx(Svg, { d: I.plus, style: { color: "var(--color-primary)" } }),
+            /* @__PURE__ */ jsx("div", { className: "twc-dt__f-add", style: { padding: "6px 4px 2px" }, children: /* @__PURE__ */ jsxs("button", { type: "button", className: "twc-dt__mi", style: { color: "var(--color-primary-subtle-fg)" }, onClick: () => addFilter(cols[0].field), children: [
+              /* @__PURE__ */ jsx(Svg, { d: I.plus, style: { color: "var(--color-primary-subtle-fg)" } }),
               " Add filter"
             ] }) }),
             resizableFilters ? /* @__PURE__ */ jsx(
@@ -14349,9 +14589,20 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const query = { page: pageVal, pageSize: paginated ? sizeVal : 0, sort: sortVal, filters, quickFilter: String(quickVal || "").trim() };
     const queryCols = sortOptions ? sortOptions.map((o) => ({ field: o.field, type: o.type })) : columns;
     const client = serverMode ? null : runDatatableQuery(rows, query, { columns: queryCols, searchFields });
-    const pageRows = serverMode ? rows : client.rows;
     const total = serverMode ? rowCount == null ? rows.length : rowCount : client.total;
     const totalPages = Math.max(1, paginated ? Math.ceil(total / sizeVal) : 1);
+    const lastPage = totalPages - 1;
+    const pageKnowable = !(serverMode && rowCount == null) && !loading;
+    const shownPage = pageKnowable ? Math.min(pageVal, lastPage) : pageVal;
+    const pageRows = serverMode ? rows : paginated && shownPage !== pageVal ? client.filtered.slice(shownPage * sizeVal, shownPage * sizeVal + sizeVal) : client.rows;
+    const clampedFiltersKey = import_react.default.useRef(filtersKey);
+    import_react.default.useEffect(() => {
+      if (clampedFiltersKey.current !== filtersKey) {
+        clampedFiltersKey.current = filtersKey;
+        return;
+      }
+      if (pageKnowable && pageVal > lastPage) commitPage(lastPage);
+    }, [lastPage, pageVal, pageKnowable, filtersKey]);
     const onServerChangeRef = import_react.default.useRef(onServerChange);
     onServerChangeRef.current = onServerChange;
     const queryKey = JSON.stringify(query);
@@ -14361,8 +14612,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       return () => clearTimeout(t);
     }, [serverMode, queryKey]);
     const keyOf = typeof rowKey === "function" ? rowKey : (r2) => r2 && r2[rowKey];
-    const from = total === 0 ? 0 : pageVal * sizeVal + 1;
-    const to = paginated ? Math.min((pageVal + 1) * sizeVal, total) : total;
+    const from = total === 0 ? 0 : Math.min(shownPage * sizeVal + 1, total);
+    const to = paginated ? Math.min((shownPage + 1) * sizeVal, total) : total;
     const rppOptions = Array.from(new Set([...pageSizeOptions || [], pageSize].filter((n) => n > 0))).sort((a, b) => a - b).map((n) => ({ value: String(n), label: String(n) }));
     const sortSelectOptions = sortOptions ? [{ value: "", label: "Sort by\u2026" }, ...sortOptions.map((o) => ({ value: o.field, label: o.label || o.field }))] : null;
     const sortAutoWidth = sortSelectOptions ? Math.min(300, Math.max(120, Math.ceil(Math.max(...sortSelectOptions.map((o) => String(o.label).length)) * 7.2) + 46)) : void 0;
@@ -14434,7 +14685,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           Pagination,
           {
             size: "sm",
-            page: pageVal + 1,
+            page: shownPage + 1,
             total: totalPages,
             boundaries: 1,
             siblings: 1,
@@ -14573,7 +14824,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md);
   transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
 .twc-dp__day:hover:not(:disabled):not([data-selected="true"]) { background: var(--color-surface-sunken); }
-.twc-dp__day[data-outside="true"] { color: var(--color-text-subtle); opacity: 0.5; }
+/* #453 (review): --color-text-MUTED, not text-subtle. These days get a surface-sunken hover
+   background (and, in the range picker, a primary-subtle in-range fill), and text-subtle on either
+   is 4.26-4.34:1 in light - the one pairing the token rules forbid (see docs/colors.md and
+   tests/tokens-a11y.test.js). text-muted clears AA on every background these days can take
+   (6.78:1 worst) and still reads a step quieter than an in-month day.
+   No opacity: these days are clickable (they jump to the adjacent month), so they are NOT exempt
+   from SC 1.4.3 - the old 0.5/0.45 multiplier put them at 1.83-1.97:1. Opacity stays only on the
+   :disabled rules. */
+.twc-dp__day[data-outside="true"] { color: var(--color-text-muted); }
 .twc-dp__day[data-today="true"] { font-weight: var(--font-bold); box-shadow: inset 0 0 0 1px var(--color-primary-border); }
 .twc-dp__day[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
 .twc-dp__day:disabled { color: var(--color-text-subtle); opacity: 0.4; cursor: not-allowed; }
@@ -14586,7 +14845,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dp__years { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
 .twc-dp__yr { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
 .twc-dp__yr:hover:not(:disabled) { background: var(--color-surface-sunken); }
-.twc-dp__yr[data-outside="true"] { color: var(--color-text-subtle); }
+/* #453 (review): same sunken-hover background as the day cells, so text-muted here too. */
+.twc-dp__yr[data-outside="true"] { color: var(--color-text-muted); }
 .twc-dp__yr[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
 .twc-dp__yr:disabled { opacity: 0.4; cursor: not-allowed; }
 [dir="rtl"] .twc-dp__nav svg { transform: scaleX(-1); }
@@ -14931,6 +15191,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             tabIndex: disabled ? -1 : 0,
             "aria-haspopup": "dialog",
             "aria-expanded": open,
+            "aria-disabled": disabled || void 0,
             "aria-labelledby": label ? `${fieldId}-label` : void 0,
             "aria-invalid": invalid || void 0,
             "aria-describedby": error || hint ? descId : void 0,
@@ -15114,17 +15375,29 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-drp__months, .twc-drp__years { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
 .twc-drp__mo, .twc-drp__yr { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
 .twc-drp__mo:hover:not(:disabled), .twc-drp__yr:hover:not(:disabled) { background: var(--color-surface-sunken); }
-.twc-drp__yr[data-outside="true"] { color: var(--color-text-subtle); }
+/* #453 (review): same sunken-hover background as the day cells, so text-muted here too. */
+.twc-drp__yr[data-outside="true"] { color: var(--color-text-muted); }
 .twc-drp__mo[data-selected="true"], .twc-drp__yr[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
 .twc-drp__mo:disabled, .twc-drp__yr:disabled { opacity: 0.4; cursor: not-allowed; }
 .twc-drp__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; }
 .twc-drp__dow { text-align: center; font-size: 11px; font-weight: var(--font-bold); color: var(--color-text-subtle); padding: 4px 0; }
 .twc-drp__day { aspect-ratio: 1; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); display: grid; place-items: center; position: relative; }
-.twc-drp__day[data-outside="true"] { color: var(--color-text-subtle); opacity: 0.45; }
+/* #453 (review): --color-text-MUTED, not text-subtle. These days get a surface-sunken hover
+   background (and, in the range picker, a primary-subtle in-range fill), and text-subtle on either
+   is 4.26-4.34:1 in light - the one pairing the token rules forbid (see docs/colors.md and
+   tests/tokens-a11y.test.js). text-muted clears AA on every background these days can take
+   (6.78:1 worst) and still reads a step quieter than an in-month day.
+   No opacity: these days are clickable (they jump to the adjacent month), so they are NOT exempt
+   from SC 1.4.3 - the old 0.5/0.45 multiplier put them at 1.83-1.97:1. Opacity stays only on the
+   :disabled rules. */
+.twc-drp__day[data-outside="true"] { color: var(--color-text-muted); }
 .twc-drp__day:hover:not(:disabled) { background: var(--color-surface-sunken); border-radius: var(--radius-md); }
 .twc-drp__day[data-in="true"] { background: var(--color-primary-subtle); border-radius: 0; }
-.twc-drp__day[data-edge="start"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: var(--radius-md) 0 0 var(--radius-md); font-weight: var(--font-bold); }
-.twc-drp__day[data-edge="end"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: 0 var(--radius-md) var(--radius-md) 0; font-weight: var(--font-bold); }
+/* #465: LOGICAL corner properties. The physical shorthand never mirrored, so under dir="rtl" -
+   where the grid mirrors and the range start sits at the RIGHT of its row - the pill was rounded on
+   its interior edge and squared off against the empty cell beside it, reading inside-out. */
+.twc-drp__day[data-edge="start"] { background: var(--color-primary); color: var(--color-primary-fg); border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); font-weight: var(--font-bold); }
+.twc-drp__day[data-edge="end"] { background: var(--color-primary); color: var(--color-primary-fg); border-start-end-radius: var(--radius-md); border-end-end-radius: var(--radius-md); font-weight: var(--font-bold); }
 .twc-drp__day[data-edge="both"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: var(--radius-md); font-weight: var(--font-bold); }
 .twc-drp__day:disabled { opacity: 0.3; cursor: not-allowed; }
 .twc-drp__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
@@ -16054,6 +16327,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             tabIndex: disabled ? -1 : 0,
             "aria-haspopup": "dialog",
             "aria-expanded": open,
+            "aria-disabled": disabled || void 0,
             "aria-labelledby": label ? `${fieldId}-label` : void 0,
             "aria-invalid": invalid || void 0,
             "aria-describedby": error || hint ? descId : void 0,
@@ -16853,8 +17127,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); margin-bottom: 4px; }
 .twc-upload__icon svg { width: 24px; height: 24px; }
 .twc-upload__title { font-size: var(--text-sm); color: var(--color-text); font-weight: var(--font-semibold); }
-.twc-upload__title em { color: var(--color-primary); font-style: normal; }
-.twc-upload__hint { font-size: var(--text-xs); color: var(--color-text-subtle); }
+.twc-upload__title em { color: var(--color-primary-subtle-fg); font-style: normal; }
+/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
+   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
+   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+.twc-upload__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-upload__input { display: none; } /* #415: out of the tab order + a11y tree; inputRef.click() still works */
 .twc-upload__list { display: flex; flex-direction: column; gap: 8px; }
 .twc-upload__file { display: flex; align-items: center; gap: var(--space-3); padding: 9px 12px;
@@ -17126,8 +17403,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         "aria-label": ariaLabel,
         "data-orientation": orientation === "vertical" ? "vertical" : void 0,
         "aria-orientation": roving && orientation === "vertical" ? "vertical" : void 0,
-        onKeyDown: roving ? onKeyDown : void 0,
         ...rest,
+        onKeyDown: compose(rest.onKeyDown, roving ? onKeyDown : void 0),
         children: [
           __twcStyles,
           items.map((it, i) => /* @__PURE__ */ jsx(
@@ -17237,7 +17514,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         }
       } else if (grabbed && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
         e.preventDefault();
-        const next = (grab.targetIdx + (e.key === "ArrowRight" ? 1 : -1) + columns.length) % columns.length;
+        const rtl = typeof window !== "undefined" && rootRef.current && window.getComputedStyle(rootRef.current).direction === "rtl";
+        const step = (e.key === "ArrowRight" ? 1 : -1) * (rtl ? -1 : 1);
+        const next = (grab.targetIdx + step + columns.length) % columns.length;
         setGrab({ id: card.id, targetIdx: next });
         setAnnounce(`Move ${cardTitle(card)} to ${colTitle(columns[next])}. Press Enter to drop.`);
       } else if (grabbed && e.key === "Escape") {
@@ -17339,7 +17618,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-list__main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
 .twc-list__title { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .twc-list__desc { font-size: var(--text-xs); color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.twc-list__trail { flex: none; display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text-subtle); font-size: var(--text-sm); }
+/* #462: text-MUTED, not text-subtle. A hover/active rule swaps --color-surface-sunken (or
+   --color-primary-subtle) in under this text without changing its colour, and text-subtle on
+   either is 4.34:1 / 4.26:1 in light - the pairing the token rules forbid (docs/colors.md). It
+   passes at rest on --color-surface and fails only while hovered, which is why it survived. */
+.twc-list__trail { flex: none; display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text-muted); font-size: var(--text-sm); }
 .twc-list__empty { padding: 30px 12px; text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
 `;
   function List({ items, plain = false, emptyMessage, className = "", ...rest }) {
@@ -17398,7 +17681,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-muted); text-decoration: none; cursor: pointer;
   background: none; border: none; font-family: inherit; transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
 .twc-navbar__link:hover { background: var(--color-surface-sunken); color: var(--color-text); }
-.twc-navbar__link[data-active="true"] { color: var(--color-primary); background: var(--color-primary-subtle); }
+.twc-navbar__link[data-active="true"] { color: var(--color-primary-subtle-fg); background: var(--color-primary-subtle); }
 .twc-navbar__link svg { width: 16px; height: 16px; }
 .twc-navbar__spacer { flex: 1; }
 .twc-navbar__actions { display: flex; align-items: center; gap: var(--space-2); flex: none; }
@@ -17512,6 +17795,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const [render, setRender] = import_react.default.useState(false);
     const [pos, setPos] = import_react.default.useState(null);
     const wrapRef = import_react.default.useRef(null);
+    useTriggerAudit(wrapRef, "Popover");
     const popRef = import_react.default.useRef(null);
     const popId = import_react.default.useId();
     const controlled = openProp !== void 0;
@@ -17643,6 +17927,19 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         ]
       }
     ) : null;
+    const fix = {};
+    if (import_react.default.isValidElement(trigger)) {
+      if (!triggerIsControl(trigger)) fix.role = "button";
+      fix.onKeyDown = (e) => {
+        trigger.props.onKeyDown?.(e);
+        if (e.defaultPrevented || e.target !== e.currentTarget) return;
+        if (e.currentTarget.matches(NATIVE_CONTROL)) return;
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggle();
+        }
+      };
+    }
     const triggerEl = import_react.default.isValidElement(trigger) ? import_react.default.cloneElement(trigger, {
       onClick: (e) => {
         trigger.props.onClick?.(e);
@@ -17653,7 +17950,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       "aria-expanded": open,
       "aria-controls": open ? popId : void 0,
       // #420: forward an incoming aria-describedby (e.g. from a wrapping Tooltip) to the focusable trigger.
-      "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || void 0
+      "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || void 0,
+      ...fix
     }) : /* @__PURE__ */ jsx(
       "span",
       {
@@ -17702,13 +18000,16 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-progress[data-size="lg"] { --_h: 12px; }
 .twc-progress__bar {
   height: 100%; border-radius: var(--radius-full);
-  background: var(--_c, var(--color-primary));
+  background: var(--_c, var(--color-primary-graphic));
   transition: width var(--duration-slow) var(--ease-out);
 }
-.twc-progress[data-tone="info"]    .twc-progress__bar { --_c: var(--color-info); }
-.twc-progress[data-tone="success"] .twc-progress__bar { --_c: var(--color-success); }
-.twc-progress[data-tone="warning"] .twc-progress__bar { --_c: var(--color-warning); }
-.twc-progress[data-tone="danger"]  .twc-progress__bar { --_c: var(--color-danger); }
+/* #455: the bar is the ONLY rendering of the progressbar's value, so SC 1.4.11's 3:1 applies against
+   the sunken track - which the plain tones missed in light mode (warning 1.96:1, info 2.53:1). The
+   -graphic aliases are the same hues at a step that clears it. */
+.twc-progress[data-tone="info"]    .twc-progress__bar { --_c: var(--color-info-graphic); }
+.twc-progress[data-tone="success"] .twc-progress__bar { --_c: var(--color-success-graphic); }
+.twc-progress[data-tone="warning"] .twc-progress__bar { --_c: var(--color-warning-graphic); }
+.twc-progress[data-tone="danger"]  .twc-progress__bar { --_c: var(--color-danger-graphic); }
 .twc-progress[data-indeterminate="true"] .twc-progress__bar {
   position: absolute; width: 40%; animation: twc-progress-indeterminate 1.3s var(--ease-standard) infinite;
 }
@@ -17789,7 +18090,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   --_sz: 20px;
   flex: none; width: var(--_sz); height: var(--_sz); margin-top: 1px;
   display: grid; place-items: center;
-  border: var(--border-medium) solid var(--color-border-strong);
+  border: var(--border-medium) solid var(--color-control-border);
   border-radius: var(--radius-full);
   background: var(--color-surface);
   transition: border-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
@@ -18162,6 +18463,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-sidebar__collapse:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-sidebar__collapse svg { width: 18px; height: 18px; flex: none; transition: transform var(--duration-base) var(--ease-spring); }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse svg { transform: rotate(180deg); }
+/* #465: the rail's own edge is logical (border-inline-end), so under dir="rtl" it sits on the right
+   of the page - but the chevron still pointed left, away from the edge it collapses toward. The
+   library convention for a nav chevron (CLAUDE.md; Breadcrumb and the DateRangePicker nav do it). */
+[dir="rtl"] .twc-sidebar__collapse svg { transform: scaleX(-1); }
+[dir="rtl"] .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse svg { transform: scaleX(-1) rotate(180deg); }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot { display: flex; flex-direction: column; align-items: center; padding: var(--space-2) 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse { width: auto; padding: 11px; gap: 0; margin: 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse span { display: none; }
@@ -18914,7 +19220,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-switch__track {
   --_w: 44px; --_h: 24px; --_pad: 3px;
   position: relative; flex: none; width: var(--_w); height: var(--_h);
-  background: var(--color-border-strong); border-radius: var(--radius-full);
+  background: var(--color-control-track); border-radius: var(--radius-full);
   transition: background-color var(--duration-base) var(--ease-standard);
 }
 .twc-switch[data-size="sm"] .twc-switch__track { --_w: 36px; --_h: 20px; }
@@ -18922,14 +19228,28 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-switch__thumb {
   position: absolute; top: var(--_pad); inset-inline-start: var(--_pad);
   width: calc(var(--_h) - var(--_pad) * 2); height: calc(var(--_h) - var(--_pad) * 2);
-  background: var(--_accent-fg); border-radius: var(--radius-full); box-shadow: var(--shadow-sm);
-  transition: transform var(--duration-base) var(--ease-spring);
+  background: var(--color-control-thumb); border-radius: var(--radius-full); box-shadow: var(--shadow-sm);
+  /* #454 (review 2): background-color is transitioned because the thumb's colour now CHANGES between
+     off and on (static thumb -> tone ink). With only a transform transition it snapped at the end of the
+     220ms slide, so for most of every toggle the moving thumb was still painted the old colour. */
+  transition: transform var(--duration-base) var(--ease-spring),
+              background-color var(--duration-base) var(--ease-standard);
 }
 .twc-switch__input:checked + .twc-switch__track { background: var(--_accent); }
+/* #454 (review): the tone ink applies only ON, where it is paired with its own fill. */
+.twc-switch__input:checked + .twc-switch__track .twc-switch__thumb { background: var(--_accent-fg); }
 .twc-switch__input:checked + .twc-switch__track .twc-switch__thumb { transform: translateX(calc((var(--_w) - var(--_h)) * var(--_tx))); }
 .twc-switch__input:focus-visible + .twc-switch__track { box-shadow: var(--ring); }
 .twc-switch__input:active + .twc-switch__track .twc-switch__thumb { width: calc(var(--_h) - var(--_pad) * 2 + 4px); }
 .twc-switch[data-invalid="true"] .twc-switch__track { box-shadow: inset 0 0 0 var(--border-medium) var(--color-danger); }
+/* Pre-existing, found while reviewing #454: the rule above and the :focus-visible rule both set
+   box-shadow at (0,3,0) and this one is later, so an invalid Switch lost its focus ring entirely - a
+   keyboard user in a form with an error could not see which control held focus (SC 2.4.7). Checkbox
+   and Radio paint their invalid state with border-color, so only Switch was affected. Both shadows
+   are composited here, at a specificity that beats either rule alone. */
+.twc-switch[data-invalid="true"] .twc-switch__input:focus-visible + .twc-switch__track {
+  box-shadow: var(--ring), inset 0 0 0 var(--border-medium) var(--color-danger);
+}
 .twc-switch__text { display: flex; flex-direction: column; gap: 2px; }
 .twc-switch__label { font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); line-height: 1.3; }
 .twc-field__req { color: var(--color-danger); }
@@ -19010,7 +19330,9 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-table[data-size="lg"] tbody td { padding: var(--space-4) var(--space-5); font-size: var(--text-base); }
 .twc-table[data-sticky="true"] thead th { position: sticky; top: 0; z-index: 2; background: var(--color-surface); box-shadow: inset 0 calc(-1 * var(--border-thin)) 0 0 var(--color-border); }
 .twc-table__caption { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-.twc-table__empty { padding: 30px 12px; text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
+/* #462 (review 2): text-MUTED. The row underneath takes a sunken hover fill and the hover rule sets
+   no colour, so this text stays put at 4.34:1 in light. */
+.twc-table__empty { padding: 30px 12px; text-align: center; color: var(--color-text-muted); font-size: var(--text-sm); }
 .twc-table__sk { display: inline-block; height: 12px; border-radius: var(--radius-sm); background: var(--color-surface-sunken);
   position: relative; overflow: hidden; width: var(--_w, 70%); }
 .twc-table__sk::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%);
@@ -19237,6 +19559,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     }
     const activeItem = items.find((i) => i.value === active);
     const panelRendered = activeItem != null && activeItem.content !== void 0;
+    const tabStop = activeIndex >= 0 && !items[activeIndex].disabled ? activeIndex : items.findIndex((it) => !it.disabled);
     function onListKeyDown(e) {
       const prevKey = vertical ? "ArrowUp" : "ArrowLeft";
       const nextKey = vertical ? "ArrowDown" : "ArrowRight";
@@ -19245,7 +19568,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       const n = items.length;
       if (!n || items.every((it2) => it2.disabled)) return;
       e.preventDefault();
-      let i = activeIndex < 0 ? 0 : activeIndex;
+      let i = tabStop < 0 ? 0 : tabStop;
       if (e.key === "Home") i = items.findIndex((it2) => !it2.disabled);
       else if (e.key === "End") {
         for (let k = n - 1; k >= 0; k--) {
@@ -19284,7 +19607,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
             "aria-disabled": it.disabled || void 0,
             disabled: it.disabled || void 0,
             "aria-controls": it.value === active && panelRendered ? panelId : void 0,
-            tabIndex: it.value === active && !it.disabled ? 0 : -1,
+            tabIndex: i === tabStop ? 0 : -1,
             "data-active": it.value === active || void 0,
             onClick: () => {
               if (!it.disabled) select(it.value);
@@ -19367,7 +19690,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       }, "aria-label": _removeLabel, type: "button", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) }) }) : null
     ] });
   }
-  var useIso = typeof document !== "undefined" ? import_react.default.useLayoutEffect : import_react.default.useEffect;
+  var useIso2 = typeof document !== "undefined" ? import_react.default.useLayoutEffect : import_react.default.useEffect;
   var TEXTAREA_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
@@ -19386,6 +19709,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-textarea__el[data-size="sm"] { padding: var(--space-2) var(--space-2-5); }
 .twc-textarea__el[data-size="lg"] { padding: var(--space-3) var(--space-4); }
 .twc-textarea__el::placeholder { color: var(--color-text-subtle); }
+/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
+   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
+   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
+   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
+   showing its placeholder is the reachable case. The affix beside it carries icons, so it clears
+   its own 3:1 graphics floor and stays. */
+.twc-textarea__el[data-readonly]::placeholder { color: var(--color-text-muted); }
 .twc-textarea__el:hover:not(:focus):not(:disabled) { border-color: var(--color-border-strong); }
 /* tone \u2192 focus/open accent (default primary; reproduces current look). */
 .twc-textarea__el { --_accent: var(--color-primary); --_ring: var(--ring); }
@@ -19459,7 +19789,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       el.style.height = `${next}px`;
       el.style.overflowY = el.scrollHeight + vBorder > maxH ? "auto" : "hidden";
     };
-    useIso(() => {
+    useIso2(() => {
       if (autosize && innerRef.current) resize();
     }, [autosize, rest.value, minRows, maxRows, rows]);
     const handleInput = (e) => {
@@ -19595,12 +19925,14 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 }
 /* #209: visually-hidden persistent live-region announcers (rendered by ToastProvider). */
 .twc-toast-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
-.twc-toast::before { content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 4px; background: var(--_accent, var(--color-primary)); }
-.twc-toast[data-tone="success"] { --_accent: var(--color-success); }
-.twc-toast[data-tone="warning"] { --_accent: var(--color-warning); }
-.twc-toast[data-tone="danger"]  { --_accent: var(--color-danger); }
-.twc-toast[data-tone="info"]    { --_accent: var(--color-info); }
-.twc-toast__icon { flex: none; margin-top: 1px; color: var(--_accent, var(--color-primary)); }
+/* #455: the 4px edge stripe and the status icon are non-text carriers of the tone (SC 1.4.11, 3:1),
+   and the plain light-mode tones sat at 2.15:1 (warning) / 2.77:1 (info) on the raised surface. */
+.twc-toast::before { content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 4px; background: var(--_accent, var(--color-primary-graphic)); }
+.twc-toast[data-tone="success"] { --_accent: var(--color-success-graphic); }
+.twc-toast[data-tone="warning"] { --_accent: var(--color-warning-graphic); }
+.twc-toast[data-tone="danger"]  { --_accent: var(--color-danger-graphic); }
+.twc-toast[data-tone="info"]    { --_accent: var(--color-info-graphic); }
+.twc-toast__icon { flex: none; margin-top: 1px; color: var(--_accent, var(--color-primary-graphic)); }
 .twc-toast__icon svg { width: 20px; height: 20px; }
 .twc-toast__body { flex: 1; min-width: 0; }
 .twc-toast__title { font-weight: var(--font-bold); font-size: var(--text-sm); }
@@ -19790,7 +20122,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-tree__ic svg { width: 16px; height: 16px; }
 .twc-tree__row[data-selected="true"] .twc-tree__ic { color: var(--color-primary); }
 .twc-tree__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.twc-tree__badge { flex: none; font-size: 11px; color: var(--color-text-subtle); }
+/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
+   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
+   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+.twc-tree__badge { flex: none; font-size: 11px; color: var(--color-text-muted); }
 `;
   function Node({ node, depth, posInSet, setSize, expanded, selectedId, tabbableId, rowRefs, onToggle, onSelect, onRowFocus }) {
     const hasChildren = Array.isArray(node.children) && node.children.length > 0;
@@ -19944,7 +20279,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       e.preventDefault();
       if (next != null) focusRow(next);
     };
-    return /* @__PURE__ */ jsxs("div", { className: `twc-tree ${className}`, role: "tree", onKeyDown, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { className: `twc-tree ${className}`, role: "tree", ...rest, onKeyDown: compose(rest.onKeyDown, onKeyDown), children: [
       __twcStyles,
       /* @__PURE__ */ jsx("ul", { className: "twc-tree__group", role: "none", children: nodes.map((n, i) => /* @__PURE__ */ jsx(
         Node,
@@ -20479,7 +20814,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   function usePrefersReducedMotion() {
     return useMediaQuery("(prefers-reduced-motion: reduce)");
   }
-  function useColorScheme({ storageKey = "twico-theme", attribute = "class", element, disableTransitionsOnChange = true } = {}) {
+  function useColorScheme({ storageKey = "twico-theme", attribute = "class", element, disableTransitionsOnChange = true, initializeWithValue = false } = {}) {
     const getTarget = () => element || (canUseDOM2 ? document.documentElement : null);
     const firstApply = import_react.default.useRef(true);
     const read = () => {
@@ -20491,7 +20826,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       }
       return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     };
-    const [theme, setThemeState] = import_react.default.useState(read);
+    const [theme, setThemeState] = import_react.default.useState(initializeWithValue ? read : "light");
     const apply = import_react.default.useCallback(
       (t) => {
         const target = getTarget();
@@ -20515,7 +20850,17 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       },
       [attribute, element, disableTransitionsOnChange]
     );
+    const resolved = import_react.default.useRef(false);
     useIsomorphicLayoutEffect(() => {
+      if (!resolved.current) {
+        resolved.current = true;
+        const real = read();
+        if (real !== theme) {
+          setThemeState(real);
+          apply(real);
+          return;
+        }
+      }
       apply(theme);
     }, [theme, apply]);
     const themeRef = import_react.default.useRef(theme);
@@ -20598,7 +20943,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       handler(e);
     });
   }
-  function useLocalStorage(key, initialValue) {
+  function useLocalStorage(key, initialValue, { initializeWithValue = false } = {}) {
     const read = () => {
       if (!canUseDOM2) return initialValue;
       try {
@@ -20608,7 +20953,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         return initialValue;
       }
     };
-    const [stored, setStored] = import_react.default.useState(read);
+    const [stored, setStored] = import_react.default.useState(initializeWithValue ? read : initialValue);
+    useIsomorphicLayoutEffect(() => {
+      if (!canUseDOM2) return;
+      setStored(read());
+    }, [key]);
     const setValue = import_react.default.useCallback(
       (value) => {
         setStored((prev) => {
@@ -20649,6 +20998,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }
   function useCopyToClipboard(timeout = 1500) {
     const [copied, setCopied] = import_react.default.useState(false);
+    const [copyTick, setCopyTick] = import_react.default.useState(0);
     const copy = import_react.default.useCallback(async (text) => {
       if (!canUseDOM2) {
         setCopied(false);
@@ -20658,19 +21008,21 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         try {
           await navigator.clipboard.writeText(text);
           setCopied(true);
+          setCopyTick((t) => t + 1);
           return true;
         } catch {
         }
       }
       const ok = legacyCopy(String(text ?? ""));
       setCopied(ok);
+      if (ok) setCopyTick((t) => t + 1);
       return ok;
     }, []);
     import_react.default.useEffect(() => {
       if (!copied) return void 0;
       const t = setTimeout(() => setCopied(false), timeout);
       return () => clearTimeout(t);
-    }, [copied, timeout]);
+    }, [copied, copyTick, timeout]);
     return { copied, copy };
   }
   function useDebouncedValue(value, delay = 200) {
@@ -20720,12 +21072,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       return () => clearTimeout(id);
     }, [delay]);
   }
-  function useWindowSize() {
-    const [size, setSize] = import_react.default.useState(() => ({
+  function useWindowSize({ initializeWithValue = false } = {}) {
+    const get = () => ({
       width: canUseDOM2 ? window.innerWidth : 0,
       height: canUseDOM2 ? window.innerHeight : 0
-    }));
-    import_react.default.useEffect(() => {
+    });
+    const [size, setSize] = import_react.default.useState(initializeWithValue ? get : { width: 0, height: 0 });
+    useIsomorphicLayoutEffect(() => {
       if (!canUseDOM2) return void 0;
       const onResize = () => setSize({ width: window.innerWidth, height: window.innerHeight });
       onResize();

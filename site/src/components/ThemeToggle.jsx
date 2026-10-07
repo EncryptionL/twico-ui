@@ -6,7 +6,9 @@ import { SunIcon, MoonIcon } from "twico-ui/icons";
 // manages that class + localStorage persistence, and every component (portaled
 // overlays included) re-themes off it.
 export default function ThemeToggle() {
-  const { isDark, toggle } = useColorScheme();
+  // #466: the docs site is a client-only SPA (no SSR), so the eager read is correct here - without
+  // it a dark-theme visitor sees the light glyph and its aria-label for one frame on every load.
+  const { isDark, toggle } = useColorScheme({ initializeWithValue: true });
   return (
     <IconButton
       variant="ghost"

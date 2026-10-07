@@ -22,7 +22,7 @@ const COMMAND_CSS = `
 .twc-cmdk__input { flex: 1; min-width: 0; border: none; outline: none; background: transparent; font-family: inherit; font-size: var(--text-lg); color: var(--color-text); }
 .twc-cmdk__input:focus, .twc-cmdk__input:focus-visible { outline: none; box-shadow: none; }
 .twc-cmdk__input::placeholder { color: var(--color-text-subtle); }
-.twc-cmdk__kbd { flex: none; font-family: var(--font-mono); font-size: 11px; color: var(--color-text-subtle); padding: 3px 7px; border-radius: var(--radius-sm); background: var(--color-surface-sunken); border: var(--border-thin) solid var(--color-border); }
+.twc-cmdk__kbd { flex: none; font-family: var(--font-mono); font-size: 11px; color: var(--color-text-muted); padding: 3px 7px; border-radius: var(--radius-sm); background: var(--color-surface-sunken); border: var(--border-thin) solid var(--color-border); }
 .twc-cmdk__list { flex: 1; overflow-y: auto; padding: var(--space-2); }
 .twc-cmdk__group-label { font-size: 10px; font-weight: var(--font-bold); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--color-text-subtle); padding: var(--space-3) var(--space-3) var(--space-1); }
 .twc-cmdk__item { display: flex; align-items: center; gap: var(--space-3); width: 100%; padding: 10px 12px; border: none; background: none; cursor: pointer;
@@ -33,8 +33,11 @@ const COMMAND_CSS = `
 .twc-cmdk__item-ic svg { width: 18px; height: 18px; }
 .twc-cmdk__item-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
 .twc-cmdk__item-label { font-weight: var(--font-medium); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.twc-cmdk__item-desc { font-size: var(--text-xs); color: var(--color-text-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.twc-cmdk__item-sc { flex: none; font-family: var(--font-mono); font-size: 11px; color: var(--color-text-subtle); }
+/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
+   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
+   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+.twc-cmdk__item-desc { font-size: var(--text-xs); color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.twc-cmdk__item-sc { flex: none; font-family: var(--font-mono); font-size: 11px; color: var(--color-text-muted); }
 .twc-cmdk__empty { padding: var(--space-8); text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
 `;
 
@@ -142,11 +145,16 @@ export function CommandPalette({
             onChange={(e) => setQuery(e.target.value)} onKeyDown={onKeyDown} />
           <span className="twc-cmdk__kbd">esc</span>
         </div>
-        <div className="twc-cmdk__list" id={listId} role="listbox" ref={listRef}>
+        <div className="twc-cmdk__list" id={listId} role="listbox" aria-label={searchLabel} ref={listRef}>
           {flat.length === 0 ? <div className="twc-cmdk__empty">{emptyText}</div> :
-            groups.map((g) => (
-              <div key={g.key || "_"} role="group">
-                {g.key ? <div className="twc-cmdk__group-label">{g.key}</div> : null}
+            groups.map((g, gi) => (
+              // #468: a role="group" with no name announced as a bare "grouping", so arrowing across a
+              // category boundary never told the user which category they had entered - the visible
+              // heading was the only cue, and it is sighted-only. It is also not a permitted child of a
+              // listbox (option/group only), hence role="presentation" on it now that the group is
+              // labelled by it. The APG listbox pattern requires every group to carry a label.
+              <div key={g.key || "_"} role="group" aria-labelledby={g.key ? `${baseId}-grp-${gi}` : undefined}>
+                {g.key ? <div id={`${baseId}-grp-${gi}`} className="twc-cmdk__group-label" role="presentation">{g.key}</div> : null}
                 {g.items.map((c) => {
                   idx += 1; const i = idx;
                   return (

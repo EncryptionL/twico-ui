@@ -8,6 +8,8 @@
 
 - [ ] **[P2] Custom non-icon separator is not announced and may mis-flip in RTL** — The RTL mirror rule targets `[dir="rtl"] .twc-breadcrumb__sep svg` only, so it applies to the default chevron and any SVG a consumer passes as `separator`, but a text separator (e.g. `/` or `›`) gets no RTL handling. Conversely, a directional SVG separator the consumer intends to keep fixed will be force-flipped. The separator wrapper is `aria-hidden` (correct), so this is purely visual. _Fix:_ document that custom separators should be RTL-neutral, or scope the flip to the built-in chevron only (e.g. a `data-default-sep` marker). `components/navigation/Breadcrumb.jsx:11,83`.
 
+- [x] **[#465] the RTL rule flipped any SVG separator and ignored text separators** - `[dir="rtl"] .twc-breadcrumb__sep svg` applied to whatever the consumer passed, so a deliberately non-directional or pre-mirrored custom SVG was force-flipped while `separator="/"` got no treatment at all. Now scoped to `[data-default-sep]`, set only when `separator` is not supplied, and the `.d.ts` plus prompt doc state that a custom separator owns its own mirroring. The wrapper is `aria-hidden`, so this was always cosmetic. `Breadcrumb.jsx:13` - fixed 2026-10-07
+
 ## Verified OK
 
 - **Current page semantics:** the last item renders as a non-link `<span aria-current="page">` (cursor:default, no hover), earlier items as `<a>`. Root is `<nav aria-label="Breadcrumb">`. `components/navigation/Breadcrumb.jsx:57,64-72`.

@@ -2,6 +2,10 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { CurrencyField } from "../components/inputs/CurrencyField.jsx";
 
+
+// #459: the Select trigger is the APG select-only combobox (role="combobox"), as MUI's Select also
+// is, so it is no longer exposed as a button - these queries ask for the combobox role.
+
 describe("CurrencyField onValueChange never emits NaN (#63)", () => {
   it("emits null for a transient '-' and the currency code as the third arg", () => {
     const onValueChange = vi.fn();
@@ -45,11 +49,11 @@ describe("CurrencyField embedded picker accessible name (#73)", () => {
   it("names the currency picker after the field label", () => {
     render(<CurrencyField label="Price" />);
     // The Select trigger is a <button aria-haspopup="listbox"> named by aria-label.
-    expect(screen.getByRole("button", { name: "Price currency" })).toBeInTheDocument();
+    expect(screen.getByRole("combobox", { name: "Price currency" })).toBeInTheDocument();
   });
   it("falls back to 'Currency' with no label", () => {
     render(<CurrencyField />);
-    expect(screen.getByRole("button", { name: "Currency" })).toBeInTheDocument();
+    expect(screen.getByRole("combobox", { name: "Currency" })).toBeInTheDocument();
   });
 });
 

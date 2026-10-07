@@ -22,6 +22,13 @@ const TEXTAREA_CSS = `
 .twc-textarea__el[data-size="sm"] { padding: var(--space-2) var(--space-2-5); }
 .twc-textarea__el[data-size="lg"] { padding: var(--space-3) var(--space-4); }
 .twc-textarea__el::placeholder { color: var(--color-text-subtle); }
+/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
+   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
+   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
+   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
+   showing its placeholder is the reachable case. The affix beside it carries icons, so it clears
+   its own 3:1 graphics floor and stays. */
+.twc-textarea__el[data-readonly]::placeholder { color: var(--color-text-muted); }
 .twc-textarea__el:hover:not(:focus):not(:disabled) { border-color: var(--color-border-strong); }
 /* tone → focus/open accent (default primary; reproduces current look). */
 .twc-textarea__el { --_accent: var(--color-primary); --_ring: var(--ring); }

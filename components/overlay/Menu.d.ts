@@ -33,7 +33,14 @@ export interface MenuItemDef {
  * @startingPoint section="Overlay" subtitle="Dropdown menu with headings & shortcuts" viewport="700x360"
  */
 export interface MenuProps extends React.HTMLAttributes<HTMLSpanElement> {
-  /** Clickable trigger (e.g. a Button or IconButton). */
+  /** Clickable trigger (e.g. a Button or IconButton). **Pass a single focusable control** (a `Button`/`IconButton`, or any element
+   *  that is already a button/link). A passed element is CLONED to carry `tabIndex`, `aria-expanded`,
+   *  `aria-haspopup`, `aria-controls` and the open handler, and those are only valid on a control:
+   *  `aria-expanded` is prohibited on a plain `div`'s implicit `role="generic"` (#447). A non-control
+   *  element still works - it is given `role="button"` and Enter/Space - but wrapping the real button in
+   *  a `Box`/`Stack` to overlay a badge produces TWO tab stops for one control, so put the decoration
+   *  outside the trigger instead. An explicit `role` you set is always preserved. A wrapping `Tooltip`
+   *  must go OUTSIDE this component, not inside `trigger` - see docs/overlays.md. */
   trigger: React.ReactNode;
   items: MenuItemDef[];
   /** Horizontal alignment to the trigger. @default "start" */

@@ -42,6 +42,8 @@ export function Accordion({
   open: openProp,
   onOpenChange,
   headingLevel = 3,
+  mountOnOpen = false,
+  unmountOnClose = false,
   className = "",
   onKeyDown: onKeyDownProp,
   ...rest
@@ -52,6 +54,33 @@ export function Accordion({
   const [internal, setInternal] = React.useState(() => new Set(defaultOpen));
   const open = openProp !== undefined ? new Set(openProp) : internal;
   const baseId = React.useId();
+
+  // #446: a collapsed panel used to mount its whole subtree (hooks, effects and all) just to hide it
+  // with grid-template-rows: 0fr. `mountOnOpen` renders an item's content only once it has first been
+  // opened, then keeps it mounted so the CLOSE animation still has something to interpolate against
+  // (0fr -> 1fr resolves from the row's real content, so an emptied panel collapses instantly).
+  // `ever` is seeded from the already-derived `open`, which covers a restored "these were open last
+  // time" set - otherwise those panels would paint open-but-blank.
+  const [ever, setEver] = React.useState(() => new Set(open));
+  const defer = mountOnOpen || unmountOnClose;
+  let mounted = ever;
+  if (defer) {
+    const add = [...open].filter((v) => !ever.has(v));
+    // Adjusting state during render (React's sanctioned pattern): content and data-open="true" land
+    // in the SAME commit, so there is no blank frame and the open transition still runs.
+    if (add.length) { mounted = new Set(ever); add.forEach((v) => mounted.add(v)); setEver(mounted); }
+  }
+  // `open` is a fresh Set every render, so key the unmount effect on a stable signature.
+  const openKey = defer ? JSON.stringify([...open].sort()) : "";
+  React.useEffect(() => {
+    if (!unmountOnClose) return undefined;
+    const drop = [...ever].filter((v) => !open.has(v));
+    if (!drop.length) return undefined;
+    // Stay mounted through the collapse, then drop it. In lockstep with --duration-base (220ms).
+    const t = setTimeout(() => setEver((p) => { const n = new Set(p); drop.forEach((v) => n.delete(v)); return n; }), 240);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openKey, unmountOnClose]);
 
   function toggle(val) {
     const item = items.find((x) => x.value === val);
@@ -106,7 +135,7 @@ export function Accordion({
             </Heading>
             <div className="twc-accordion__panel" id={panelId} role="region" aria-labelledby={triggerId} data-open={isOpen || undefined}>
               <div className="twc-accordion__panel-inner">
-                <div className="twc-accordion__content">{it.content}</div>
+                <div className="twc-accordion__content">{defer && !mounted.has(it.value) ? null : it.content}</div>
               </div>
             </div>
           </div>

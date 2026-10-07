@@ -43,7 +43,7 @@ export default function Accessibility() {
       </Stack>
 
       <Text style={{ marginTop: "var(--space-4)", fontWeight: "var(--font-semibold)" }}>
-        Next: <Link to="/components" style={{ color: "var(--color-primary)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>All components →</Link>
+        Next: <Link to="/components" style={{ color: "var(--color-primary-subtle-fg)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>All components →</Link>
       </Text>
     </Stack>
   );

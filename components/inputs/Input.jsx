@@ -52,8 +52,18 @@ const INPUT_EXTRA_CSS = `
 }
 .twc-input__el:focus, .twc-input__el:focus-visible { outline: none; box-shadow: none; }
 .twc-input__el::placeholder { color: var(--color-text-subtle); }
+/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
+   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
+   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
+   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
+   showing its placeholder is the reachable case.
+   (Review correction: an earlier version of this comment claimed the affix beside it only carries
+   icons and so needed nothing. It does not - the canonical example in site/src/demos/InputDemo.jsx
+   passes rightIcon={<span>USD</span>}, i.e. TEXT, which owes 4.5:1. The affix moved to text-muted
+   too; .twc-input__addon one rule below had already solved the same problem correctly.) */
+.twc-input[data-readonly] .twc-input__el::placeholder { color: var(--color-text-muted); }
 .twc-input__el:disabled { cursor: not-allowed; }
-.twc-input__affix { display: inline-flex; color: var(--color-text-subtle); flex: none; }
+.twc-input__affix { display: inline-flex; color: var(--color-text-muted); flex: none; }
 .twc-input__reveal { display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: none;
   background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm);
   transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }

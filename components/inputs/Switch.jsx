@@ -32,7 +32,7 @@ export function Switch({
 .twc-switch__track {
   --_w: 44px; --_h: 24px; --_pad: 3px;
   position: relative; flex: none; width: var(--_w); height: var(--_h);
-  background: var(--color-border-strong); border-radius: var(--radius-full);
+  background: var(--color-control-track); border-radius: var(--radius-full);
   transition: background-color var(--duration-base) var(--ease-standard);
 }
 .twc-switch[data-size="sm"] .twc-switch__track { --_w: 36px; --_h: 20px; }
@@ -40,14 +40,28 @@ export function Switch({
 .twc-switch__thumb {
   position: absolute; top: var(--_pad); inset-inline-start: var(--_pad);
   width: calc(var(--_h) - var(--_pad) * 2); height: calc(var(--_h) - var(--_pad) * 2);
-  background: var(--_accent-fg); border-radius: var(--radius-full); box-shadow: var(--shadow-sm);
-  transition: transform var(--duration-base) var(--ease-spring);
+  background: var(--color-control-thumb); border-radius: var(--radius-full); box-shadow: var(--shadow-sm);
+  /* #454 (review 2): background-color is transitioned because the thumb's colour now CHANGES between
+     off and on (static thumb -> tone ink). With only a transform transition it snapped at the end of the
+     220ms slide, so for most of every toggle the moving thumb was still painted the old colour. */
+  transition: transform var(--duration-base) var(--ease-spring),
+              background-color var(--duration-base) var(--ease-standard);
 }
 .twc-switch__input:checked + .twc-switch__track { background: var(--_accent); }
+/* #454 (review): the tone ink applies only ON, where it is paired with its own fill. */
+.twc-switch__input:checked + .twc-switch__track .twc-switch__thumb { background: var(--_accent-fg); }
 .twc-switch__input:checked + .twc-switch__track .twc-switch__thumb { transform: translateX(calc((var(--_w) - var(--_h)) * var(--_tx))); }
 .twc-switch__input:focus-visible + .twc-switch__track { box-shadow: var(--ring); }
 .twc-switch__input:active + .twc-switch__track .twc-switch__thumb { width: calc(var(--_h) - var(--_pad) * 2 + 4px); }
 .twc-switch[data-invalid="true"] .twc-switch__track { box-shadow: inset 0 0 0 var(--border-medium) var(--color-danger); }
+/* Pre-existing, found while reviewing #454: the rule above and the :focus-visible rule both set
+   box-shadow at (0,3,0) and this one is later, so an invalid Switch lost its focus ring entirely - a
+   keyboard user in a form with an error could not see which control held focus (SC 2.4.7). Checkbox
+   and Radio paint their invalid state with border-color, so only Switch was affected. Both shadows
+   are composited here, at a specificity that beats either rule alone. */
+.twc-switch[data-invalid="true"] .twc-switch__input:focus-visible + .twc-switch__track {
+  box-shadow: var(--ring), inset 0 0 0 var(--border-medium) var(--color-danger);
+}
 .twc-switch__text { display: flex; flex-direction: column; gap: 2px; }
 .twc-switch__label { font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); line-height: 1.3; }
 .twc-field__req { color: var(--color-danger); }

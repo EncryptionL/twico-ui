@@ -70,10 +70,10 @@ const CSS = `
 .dark .twc-btn[data-variant="soft"]:hover:not(:disabled) { filter: brightness(1.25); }
 /* outline — neutral at rest, accent on hover */
 .twc-btn[data-variant="outline"] { background: transparent; color: var(--color-text); border-color: var(--color-border-strong); }
-.twc-btn[data-variant="outline"]:hover:not(:disabled) { background: var(--color-surface-sunken); border-color: var(--_accent); color: var(--_accent); }
+.twc-btn[data-variant="outline"]:hover:not(:disabled) { background: var(--color-surface-sunken); border-color: var(--_accent-subtle-fg); color: var(--_accent-subtle-fg); }
 /* ghost — neutral at rest, accent on hover */
 .twc-btn[data-variant="ghost"] { background: transparent; color: var(--color-text-muted); }
-.twc-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
+.twc-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent-subtle-fg); }
 /* #405: toggle "on" state (aria-pressed) — a soft tone fill + tone border, variant-agnostic (works over any variant). */
 .twc-btn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
 /* #411: pressed "on" fill can carry any status Tone (not just the ActionTone), so a toggle option shows its own

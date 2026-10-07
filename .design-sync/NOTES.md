@@ -32,7 +32,7 @@ Repo-specific gotchas for future re-syncs. Append a bullet whenever you learn so
   selection / upload can proceed.
 
 - **CSS:** `styles/twico-ui.css` is the concatenated shippable stylesheet (tokens + base reset +
-  `@font-face`). Fonts live at `styles/fonts/*.ttf`, referenced as `./fonts/...` — the scrape resolves
+  `@font-face`). Fonts live at `styles/fonts/*.woff2`, referenced as `./fonts/...` — the scrape resolves
   them relative to the css entry. No `extraFonts` needed.
 
 - **[FONT_MISSING] "Cascadia Code"** is non-blocking and expected: it's only a *fallback* family in the

@@ -66,17 +66,29 @@ const RANGE_CSS = `
 .twc-drp__months, .twc-drp__years { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
 .twc-drp__mo, .twc-drp__yr { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
 .twc-drp__mo:hover:not(:disabled), .twc-drp__yr:hover:not(:disabled) { background: var(--color-surface-sunken); }
-.twc-drp__yr[data-outside="true"] { color: var(--color-text-subtle); }
+/* #453 (review): same sunken-hover background as the day cells, so text-muted here too. */
+.twc-drp__yr[data-outside="true"] { color: var(--color-text-muted); }
 .twc-drp__mo[data-selected="true"], .twc-drp__yr[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
 .twc-drp__mo:disabled, .twc-drp__yr:disabled { opacity: 0.4; cursor: not-allowed; }
 .twc-drp__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; }
 .twc-drp__dow { text-align: center; font-size: 11px; font-weight: var(--font-bold); color: var(--color-text-subtle); padding: 4px 0; }
 .twc-drp__day { aspect-ratio: 1; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); display: grid; place-items: center; position: relative; }
-.twc-drp__day[data-outside="true"] { color: var(--color-text-subtle); opacity: 0.45; }
+/* #453 (review): --color-text-MUTED, not text-subtle. These days get a surface-sunken hover
+   background (and, in the range picker, a primary-subtle in-range fill), and text-subtle on either
+   is 4.26-4.34:1 in light - the one pairing the token rules forbid (see docs/colors.md and
+   tests/tokens-a11y.test.js). text-muted clears AA on every background these days can take
+   (6.78:1 worst) and still reads a step quieter than an in-month day.
+   No opacity: these days are clickable (they jump to the adjacent month), so they are NOT exempt
+   from SC 1.4.3 - the old 0.5/0.45 multiplier put them at 1.83-1.97:1. Opacity stays only on the
+   :disabled rules. */
+.twc-drp__day[data-outside="true"] { color: var(--color-text-muted); }
 .twc-drp__day:hover:not(:disabled) { background: var(--color-surface-sunken); border-radius: var(--radius-md); }
 .twc-drp__day[data-in="true"] { background: var(--color-primary-subtle); border-radius: 0; }
-.twc-drp__day[data-edge="start"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: var(--radius-md) 0 0 var(--radius-md); font-weight: var(--font-bold); }
-.twc-drp__day[data-edge="end"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: 0 var(--radius-md) var(--radius-md) 0; font-weight: var(--font-bold); }
+/* #465: LOGICAL corner properties. The physical shorthand never mirrored, so under dir="rtl" -
+   where the grid mirrors and the range start sits at the RIGHT of its row - the pill was rounded on
+   its interior edge and squared off against the empty cell beside it, reading inside-out. */
+.twc-drp__day[data-edge="start"] { background: var(--color-primary); color: var(--color-primary-fg); border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); font-weight: var(--font-bold); }
+.twc-drp__day[data-edge="end"] { background: var(--color-primary); color: var(--color-primary-fg); border-start-end-radius: var(--radius-md); border-end-end-radius: var(--radius-md); font-weight: var(--font-bold); }
 .twc-drp__day[data-edge="both"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: var(--radius-md); font-weight: var(--font-bold); }
 .twc-drp__day:disabled { opacity: 0.3; cursor: not-allowed; }
 .twc-drp__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

@@ -10,7 +10,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-breadcrumb__item svg { width: 15px; height: 15px; flex: none; }
 .twc-breadcrumb__sep { display: inline-flex; align-items: center; color: var(--color-text-subtle); pointer-events: none; }
 .twc-breadcrumb__sep svg { width: 15px; height: 15px; }
-[dir="rtl"] .twc-breadcrumb__sep svg { transform: scaleX(-1); }
+/* #465: scoped to the BUILT-IN chevron. Unscoped, this flipped a consumer-supplied SVG separator
+   that was already non-directional or pre-mirrored, while giving a text separator (separator="/")
+   no RTL treatment at all. A custom separator now owns its own mirroring - see Breadcrumb.prompt.md. */
+[dir="rtl"] .twc-breadcrumb__sep[data-default-sep] svg { transform: scaleX(-1); }
 .twc-breadcrumb__ellipsis { border: none; background: transparent; cursor: pointer; color: var(--color-text-subtle); padding: 3px 7px; border-radius: var(--radius-sm); font: inherit; }
 .twc-breadcrumb__ellipsis:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 `;
@@ -83,7 +86,7 @@ export function Breadcrumb({
                 {it.label}
               </span>
             )}
-            {!last ? <span className="twc-breadcrumb__sep" aria-hidden="true">{sep}</span> : null}
+            {!last ? <span className="twc-breadcrumb__sep" data-default-sep={separator ? undefined : "true"} aria-hidden="true">{sep}</span> : null}
           </React.Fragment>
         );
       })}

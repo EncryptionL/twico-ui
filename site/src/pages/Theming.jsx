@@ -56,7 +56,7 @@ export default function Theming() {
       </Stack>
 
       <Text style={{ marginTop: "var(--space-4)", fontWeight: "var(--font-semibold)" }}>
-        Next: <Link to="/docs/dark-mode" style={{ color: "var(--color-primary)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>Dark mode →</Link>
+        Next: <Link to="/docs/dark-mode" style={{ color: "var(--color-primary-subtle-fg)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>Dark mode →</Link>
       </Text>
     </Stack>
   );

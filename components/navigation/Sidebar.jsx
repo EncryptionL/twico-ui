@@ -70,6 +70,11 @@ const SIDEBAR_CSS = `
 .twc-sidebar__collapse:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-sidebar__collapse svg { width: 18px; height: 18px; flex: none; transition: transform var(--duration-base) var(--ease-spring); }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse svg { transform: rotate(180deg); }
+/* #465: the rail's own edge is logical (border-inline-end), so under dir="rtl" it sits on the right
+   of the page - but the chevron still pointed left, away from the edge it collapses toward. The
+   library convention for a nav chevron (CLAUDE.md; Breadcrumb and the DateRangePicker nav do it). */
+[dir="rtl"] .twc-sidebar__collapse svg { transform: scaleX(-1); }
+[dir="rtl"] .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse svg { transform: scaleX(-1) rotate(180deg); }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot { display: flex; flex-direction: column; align-items: center; padding: var(--space-2) 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse { width: auto; padding: 11px; gap: 0; margin: 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse span { display: none; }

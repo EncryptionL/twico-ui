@@ -11,7 +11,11 @@ const AVATARMENU_CSS = `
 .twc-avatar-menu:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-avatar-menu__text { display: flex; flex-direction: column; align-items: flex-start; gap: 0; min-width: 0; line-height: 1.2; }
 .twc-avatar-menu__name { font-size: var(--text-sm); font-weight: var(--font-semibold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
-.twc-avatar-menu__sub { font-size: var(--text-xs); color: var(--color-text-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+/* #462: text-MUTED, not text-subtle. A hover/active rule swaps --color-surface-sunken (or
+   --color-primary-subtle) in under this text without changing its colour, and text-subtle on
+   either is 4.34:1 / 4.26:1 in light - the pairing the token rules forbid (docs/colors.md). It
+   passes at rest on --color-surface and fails only while hovered, which is why it survived. */
+.twc-avatar-menu__sub { font-size: var(--text-xs); color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
 .twc-avatar-menu__chev { color: var(--color-text-subtle); display: inline-flex; flex: none; margin-inline-end: 2px; transition: transform var(--duration-base) var(--ease-spring); }
 .twc-avatar-menu__chev svg { width: 15px; height: 15px; }
 /* #402: fullWidth — the trigger (and its Menu wrap) stretch, the text column grows, and the chevron is pinned

@@ -34,8 +34,12 @@ Each component is a self-contained React function:
 
 - Imports only `react` (and `react-dom` for portals, plus the shared internal helpers
   `components/_styles.js` for scoped CSS, `components/_warn.js` for dev-only, deduped
-  `warnOnce` notices — no-ops in production — and `components/_overlay.js` for the modal
-  focus-trap/portal primitives). **No other runtime dependencies.** Components never import the
+  `warnOnce` notices — no-ops in production, `components/_overlay.js` for the modal
+  focus-trap/portal primitives, `components/_compose.js` to compose a consumer's event handler with
+  the component's own instead of letting `{...rest}` delete it (#452), and `components/_name.js` to
+  decide whether a `role="combobox"` control needs a fallback accessible name — it asks the DOM, via
+  `el.labels`, so the fallback can never override a consumer's own `<label>` (#459)).
+  **No other runtime dependencies.** Components never import the
   public `hooks/` barrel; shared hook logic lives in an internal `_*.js` helper that `hooks/index.js`
   re-exports (e.g. `useFocusTrap`/`usePortal` from `_overlay.js`). The only other internal imports are
   composite components reusing siblings (`AvatarMenu` → `Menu`, `Datatable` →
@@ -112,7 +116,7 @@ it carries no types).
 
 - `styles.css` (dev entry) `@import`s `tokens/*` + `base.css`.
 - `styles/twico-ui.css` is the **shippable** concatenation that consumers import as
-  `twico-ui/styles.css`; its `@font-face` rules point to `./fonts/*.ttf` (self-hosted).
+  `twico-ui/styles.css`; its `@font-face` rules point to `./fonts/*.woff2` (self-hosted; see [fonts.md](./fonts.md)).
 - **Dark mode** = `.dark` class on `<html>`; every `--color-*` token flips. Portaled overlays
   re-theme too because they read the same tokens.
 - **Reduced motion.** `base.css` has the standard blanket `@media (prefers-reduced-motion: reduce)`

@@ -2,11 +2,25 @@
 
 - **Group:** navigation
 - **Status:** clean
-- **Reviewed:** 2026-06-17
+- **Reviewed:** 2026-10-06
 
 ## Open issues
 
-(none)
+- [x] **[#446] collapsed panels always mounted their content; no way to defer or unmount** - a collapsed panel is
+  hidden purely in CSS (`grid-template-rows: 0fr` + delayed `visibility`), so its whole subtree still mounted, ran
+  its hooks and effects, and re-rendered with the parent. The reporter measured ~218 DOM elements / 36 React
+  components per collapsed item, taking a 10-item page from ~1,100 to ~3,590 elements - past the 1,400 Lighthouse
+  flags as excessive. Added two opt-in props (default behaviour unchanged): **`mountOnOpen`** renders content only
+  once the item has first been opened and then KEEPS it mounted, because `0fr -> 1fr` interpolates from the row's
+  real content contribution - an emptied panel collapses instantly, which is exactly why the naive consumer-side
+  gate regresses the close animation. **`unmountOnClose`** drops it again after waiting out the collapse (240 ms,
+  in lockstep with `--duration-base` 220 ms) and implies `mountOnOpen`. The ever-opened set is seeded from the
+  already-derived `open`, so it is automatically correct for a controlled `open`, for `defaultOpen`, and for a
+  restored "these were open last time" set - otherwise those panels would paint open-but-blank. The set is
+  adjusted during render (React's sanctioned pattern) so the content and `data-open="true"` land in the SAME
+  commit: no blank frame, and the open transition still runs. Only the item content is deferred - the
+  panel/inner/content elements stay mounted, so `aria-controls` never dangles. No CSS change.
+  `Accordion.jsx`/`.d.ts`; `tests/accordion-mount-on-open.test.jsx` (9). - fixed 2026-10-06
 
 ## Verified OK
 

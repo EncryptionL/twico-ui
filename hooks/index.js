@@ -107,7 +107,7 @@ export function usePrefersReducedMotion() {
  * Light/dark theme state synced to a class (default `.dark`) on `<html>` and
  * persisted to localStorage — the contract Twico UI's tokens key off.
  */
-export function useColorScheme({ storageKey = "twico-theme", attribute = "class", element, disableTransitionsOnChange = true } = {}) {
+export function useColorScheme({ storageKey = "twico-theme", attribute = "class", element, disableTransitionsOnChange = true, initializeWithValue = false } = {}) {
   const getTarget = () => element || (canUseDOM ? document.documentElement : null);
   const firstApply = React.useRef(true);
   const read = () => {
@@ -118,7 +118,14 @@ export function useColorScheme({ storageKey = "twico-theme", attribute = "class"
     } catch (e) {}
     return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   };
-  const [theme, setThemeState] = React.useState(read);
+  // #466: "light" on the server AND on the first client render, then resolved in the layout effect
+  // below. `useState(read)` ran the localStorage / prefers-color-scheme read during hydration, so a
+  // returning visitor stored as "dark" had server HTML built from "light" and a first client render of
+  // "dark" - anything driven off the returned value (a toggle's sun/moon glyph, its aria-label, a
+  // conditional logo) mismatched and React warned. ColorSchemeScript keeps the .dark CLASS from
+  // flashing but cannot align React's own state, which is what this fixes. `initializeWithValue` opts
+  // a client-only app back into the eager read.
+  const [theme, setThemeState] = React.useState(initializeWithValue ? read : "light");
   const apply = React.useCallback(
     (t) => {
       const target = getTarget();
@@ -146,8 +153,17 @@ export function useColorScheme({ storageKey = "twico-theme", attribute = "class"
     },
     [attribute, element, disableTransitionsOnChange]
   );
+  // Resolve the real theme once mounted, then keep <html> in step with it. Both live in the same
+  // layout effect so the resolve happens before paint (#466).
+  const resolved = React.useRef(false);
   useIsomorphicLayoutEffect(() => {
+    if (!resolved.current) {
+      resolved.current = true;
+      const real = read();
+      if (real !== theme) { setThemeState(real); apply(real); return; }
+    }
     apply(theme);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [theme, apply]);
   const themeRef = React.useRef(theme);
   useIsomorphicLayoutEffect(() => {
@@ -241,8 +257,15 @@ export function useKeyPress(key, handler, options = {}) {
   });
 }
 
-/** State persisted to localStorage (JSON-serialized), SSR-safe. */
-export function useLocalStorage(key, initialValue) {
+/**
+ * State persisted to localStorage (JSON-serialized), SSR-safe.
+ *
+ * #466: returns `initialValue` on the server AND on the first client render, then reads storage in a
+ * layout effect before paint. `useState(read)` used to run the read during hydration, so a returning
+ * visitor's stored value disagreed with the server HTML and React reported a mismatch. Pass
+ * `{ initializeWithValue: true }` in a client-only app to read eagerly.
+ */
+export function useLocalStorage(key, initialValue, { initializeWithValue = false } = {}) {
   const read = () => {
     if (!canUseDOM) return initialValue;
     try {
@@ -252,7 +275,13 @@ export function useLocalStorage(key, initialValue) {
       return initialValue;
     }
   };
-  const [stored, setStored] = React.useState(read);
+  const [stored, setStored] = React.useState(initializeWithValue ? read : initialValue);
+  // Hydrate from storage after the first render so server and client agree on render #1.
+  useIsomorphicLayoutEffect(() => {
+    if (!canUseDOM) return;
+    setStored(read());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
   const setValue = React.useCallback(
     (value) => {
       setStored((prev) => {
@@ -297,6 +326,11 @@ function legacyCopy(text) {
 
 export function useCopyToClipboard(timeout = 1500) {
   const [copied, setCopied] = React.useState(false);
+  // #472: a second copy while `copied` is already true sets the same value, so React bails out of the
+  // re-render, the reset effect never re-runs, and the FIRST deadline still applies - copy at t=0 and
+  // again at t=1400 and the indicator vanished at t=1500. This counter gives each copy a distinct
+  // identity so the window restarts. (The docs-site CodeBlock copy buttons hit this.)
+  const [copyTick, setCopyTick] = React.useState(0);
   const copy = React.useCallback(async (text) => {
     // SSR / no DOM at all → report failure rather than a false success.
     if (!canUseDOM) { setCopied(false); return false; }
@@ -304,7 +338,7 @@ export function useCopyToClipboard(timeout = 1500) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       try {
         await navigator.clipboard.writeText(text);
-        setCopied(true);
+        setCopied(true); setCopyTick((t) => t + 1);
         return true;
       } catch {
         // Permission denied / transient failure → fall through to the legacy path.
@@ -313,13 +347,14 @@ export function useCopyToClipboard(timeout = 1500) {
     // Fallback for insecure (HTTP-on-IP) contexts + older browsers.
     const ok = legacyCopy(String(text ?? ""));
     setCopied(ok);
+    if (ok) setCopyTick((t) => t + 1);
     return ok;
   }, []);
   React.useEffect(() => {
     if (!copied) return undefined;
     const t = setTimeout(() => setCopied(false), timeout);
     return () => clearTimeout(t);
-  }, [copied, timeout]);
+  }, [copied, copyTick, timeout]);
   return { copied, copy };
 }
 
@@ -378,13 +413,23 @@ export function useTimeout(callback, delay) {
   }, [delay]);
 }
 
-/** The current window dimensions (0×0 on the server). */
-export function useWindowSize() {
-  const [size, setSize] = React.useState(() => ({
+/**
+ * The current window dimensions. Returns 0×0 on the server AND on the first client render, then
+ * measures in a layout effect before paint — the `useMediaQuery` contract, so hydration never
+ * mismatches. Pass `{ initializeWithValue: true }` in a client-only app to measure eagerly.
+ *
+ * #466: the lazy initializer used to read window.innerWidth whenever `canUseDOM`, which includes the
+ * client's hydration render — so `width < 768 ? <MobileNav/> : <DesktopNav/>` emitted MobileNav on the
+ * server (width 0) and DesktopNav on hydration, and React discarded the server markup for that
+ * subtree. The measurement also moved to a LAYOUT effect, so it lands before paint rather than after.
+ */
+export function useWindowSize({ initializeWithValue = false } = {}) {
+  const get = () => ({
     width: canUseDOM ? window.innerWidth : 0,
     height: canUseDOM ? window.innerHeight : 0,
-  }));
-  React.useEffect(() => {
+  });
+  const [size, setSize] = React.useState(initializeWithValue ? get : { width: 0, height: 0 });
+  useIsomorphicLayoutEffect(() => {
     if (!canUseDOM) return undefined;
     const onResize = () => setSize({ width: window.innerWidth, height: window.innerHeight });
     onResize();

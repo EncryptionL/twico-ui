@@ -18,6 +18,8 @@ None identified.
   `.twc-textarea__wrap` positioning context; `ref` forwarding to the inner `<textarea>` is unchanged.
   2 tests in `tests/input-clearable.test.jsx`. — added 2026-08-04
 
+- [x] **[#462] readonly placeholder at 4.34:1** - same as Input; scoped to `--color-text-muted` on the readonly fill. `Textarea.jsx:24` - fixed 2026-10-07
+
 ## Verified OK
 
 - All tone variants apply to focus border and ring (lines 40-45)

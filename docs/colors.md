@@ -41,7 +41,7 @@ colors.rose[600];   // "#e11d48"
 
 ## 3. Drift guards
 
-There are **two** hand-maintained copies of the token values, each with its own guard:
+There are **three** hand-maintained copies of the token values, each with its own guard:
 
 ### 3a. `src/colors.ts` ↔ `tokens/colors.css` (primitives)
 `src/colors.ts` (JS) and `tokens/colors.css` (CSS) are two hand-maintained copies of the same
@@ -56,10 +56,27 @@ every primitive step **and** every `--color-*` semantic alias (light *and* dark)
 without loading the stylesheet — which means it silently drifts whenever a token changes.
 **`scripts/verify-palette.mjs`** (`npm run verify:palette`, guarded in `ci.yml`) re-resolves every
 token in `tokens/colors.css` — following the full `var()` chain for both `:root` and `.dark` — and
-compares it against the values baked into `palette.html` (140 values: 6 primitive scales + the
-semantic aliases × light/dark). It is read-only and fails CI on any mismatch; it mirrors the
+compares it against the values baked into `palette.html` (174 values: 6 primitive scales + the
+semantic aliases × light/dark, including the `-graphic`, `control` and `chart` families added by
+#454/#455). It is read-only and fails CI on any mismatch; it mirrors the
 `build:css:check` pattern. (It strips CSS comments before parsing, because the colors.css header
 comment mentions `.dark`, which would otherwise hijack the dark-block match.)
+
+### 3c. `_ds_manifest.json` ↔ the token CSS (every token, both scopes)
+The third copy, and the one that had no guard at all until a review found it **17 values behind**.
+`_ds_manifest.json` is generated out of band by the `twico-ui-design` skill and committed; its
+`tokens` array is what AI design tooling reads to learn the system's values. `check:ds-bundle` only
+checks the *bundle's* freshness against git history, so the manifest's own values rotted silently —
+it was still serving `--color-text-subtle` with light and dark **inverted** (the failing pair #449
+fixed), the translucent `--color-ring` #178 replaced, four `*-subtle-fg` at their pre-#449 `-600`
+steps, `--color-warning-fg`/`--color-info-fg` as white (2.15:1, which #176 replaced with dark ink),
+`--z-toast`/`--z-tooltip` swapped, and three dark shadows missing their ring layer — plus two tokens
+(`--duration-exit`, `--z-floating`) it never listed. In other words every token-level a11y fix of the
+last several releases was invisible to the tooling consuming this file.
+**`tests/ds-manifest-tokens.test.js`** now asserts that every manifest token carries its current
+value, that none is stale or missing, that the manifest lists everything the CSS declares (so a new
+token cannot stay invisible), and that `kind`/`annotation` match the `/* @kind */` markers. It runs in
+`npm test`, so it is CI-blocking with no extra workflow wiring.
 
 ## 4. The Color docs page (`site/src/pages/Colors.jsx`)
 
@@ -99,6 +116,67 @@ silently regress below the a11y floors:
   Solid `warning`/`info` use **dark ink** (`--amber-950` / `--sky-950`) on the amber/sky fill rather
   than white — white on a mid-value fill only reached ~2.15:1 / ~2.77:1. The fills are unchanged, so
   the chips still read as "warning"/"info".
+- **Quiet text owes 4.5:1, not 3:1 (#449).** `--color-text-subtle` is the quiet-TEXT token (Sidebar
+  section headings, input placeholders, chart axis ticks, empty states, timestamps, hints), so it is
+  held to the normal-text floor. Light and dark deliberately **trade ramp steps**: slate-500 on white
+  = **4.76:1**, slate-400 on the dark surface = **6.96:1**. It used to be slate-400 in light (2.56:1)
+  and slate-500 in dark (3.75:1) - i.e. the quieter step on the lighter background both times, which
+  fails in both. `--color-text` / `--color-text-muted` / `--color-text-subtle` remain three distinct
+  steps, so "quiet" survives.
+- **Never put `--color-text-subtle` on `--color-surface-sunken` (#449).** That one pairing cannot be
+  fixed by moving the ramp, because the sunken background shifts with the text: it sits at 4.34:1 in
+  light whatever step you choose. Quiet text on a sunken background must use `--color-text-muted`
+  (6.92:1), which is what `Kbd`, `CommandPalette`'s shortcut caps and the Datatable aggregation /
+  group-bar / pivot labels do. `tests/tokens-a11y.test.js` asserts both halves of this, so a new
+  text-subtle-on-sunken declaration will fail the suite rather than quietly fail an audit.
+- **`*-subtle-fg` is the text-grade step on a tint (#449).** In light it is `-700` on the `-50` tint:
+  primary 7.07:1, success 5.21:1, warning 4.84:1, danger 5.72:1, info 5.57:1. At `-600` the four
+  non-primary tones measured 3.07-4.28:1 - failing on every soft Badge, and on every default Alert,
+  whose default variant IS `soft` and default tone `info`. In dark it is `-400` over a 15% tint, which
+  composites to 5.8-8.3:1 on the surface and was already fine. Note the test helper must composite
+  that alpha: reading `rgb(16 185 129 / 0.15)` as opaque (as it used to) measures a colour that is
+  never painted.
+- **`--color-primary` is a FILL token, never a text token (#451, #456).** brand-500 as text measures
+  4.00-4.47:1 in light and 3.27:1 on the dark raised surface, so 13 declarations that used it for link
+  / active-label / hover text were under the AA floor. They all moved to `--color-primary-subtle-fg`.
+  Uses where the colour is a border, an icon or a fill only owe 3:1 and were deliberately left alone.
+  `tests/tokens-a11y.test.js` asserts both halves - the replacement clears 4.5:1, and `--color-primary`
+  does not - with one measured exception: on the dark page background (slate-950) brand-500 scrapes
+  4.52:1. Components paint on surfaces, not on the page background, so the rule stands where it counts.
+- **`--color-control-border` is the boundary of an unchecked Checkbox or Radio (#454).** That border is
+  the ONLY thing saying the control exists, so SC 1.4.11 asks 3:1 of it - and `--color-border-strong`,
+  tuned for card and divider edges, delivered 1.49:1. This step clears it in both themes (slate-500 =
+  4.76:1 on white, slate-400 = 6.96:1 on the dark surface) without touching any card/divider border.
+- **A Switch needs two tokens, not that one, because its constraints pull in opposite directions
+  (#454).** `--color-control-track` is the off track and `--color-control-thumb` the off thumb, and the
+  pairing has to satisfy BOTH "the control is identifiable against the surface" and "the thumb is
+  distinguishable from the track it sits on" - the thumb's POSITION is what conveys on/off. In light a
+  white thumb is invisible on a white surface, so the track carries identification (slate-500, 4.76:1);
+  in dark the thumb carries it (white on slate-900, ~17.9:1) and the track can stay dark (slate-700),
+  which it must, because lightening it to match `--color-control-border` drops thumb-vs-track to
+  2.56:1. The first attempt at #454 used one token for both controls and did exactly that.
+  The thumb is **static white in both themes, and deliberately not the tone's `--_accent-fg`**: that
+  token is the ON-state ink, paired with the tone FILL, and for five of the six tones it is near-black
+  (success `#052e1d`, info sky-950, warning amber-950, danger's dark variant, and neutral, which maps
+  to `--color-surface`). Painting the OFF thumb with it left nothing in the control above 3:1 on the
+  dark track - an unchecked `tone="success"` Switch simply vanished. The ON thumb keeps `--_accent-fg`.
+  `tests/tokens-a11y.test.js` asserts both halves for **every tone**; the first version of that guard
+  named `--color-primary-fg` and so passed while 5 of 6 tones failed.
+- **`--color-*-graphic` is the tone for a fill that IS the information (#455).** A Progress bar, a Toast
+  edge stripe, a status icon: nothing but the colour conveys the value, so SC 1.4.11's 3:1 applies, and
+  the light-mode tones missed it (amber-500 = 1.96:1 on surface-sunken, sky-500 = 2.53:1). The five
+  `-graphic` aliases are the same hues at a step that clears 3:1 on surface, surface-raised AND
+  surface-sunken - 4.1:1 at worst - and sit at a consistent lightness so switching tone does not change
+  the weight of the control. Dark mode already cleared it, so there the aliases just track the tone.
+  Keep using the plain tone for a fill that carries text on top (those are paired with `--color-*-fg`).
+- **`--color-chart-1...7` is the chart series ramp (#455).** It used to be seven primitives inlined in
+  `components/data-display/_chart.js`, where slots 1 and 6 were BOTH indigo-500 (`--brand-500` aliases
+  it): series 1 and 6 painted identically, 1.00:1, with two identical legend swatches, and the cycling
+  `paletteAt` made the effective palette six colours rather than seven. As tokens they also flip per
+  theme, so no series is ever below 3:1 on its own surface (light bottoms out at 4.08:1, dark at
+  3.07:1 against surface-raised). WCAG contrast says nothing about whether two series can be told APART, so
+  `tests/chart-palette.test.js` additionally asserts a perceptual separation (CIE76 dE >= 15; the
+  closest pair is 23.8 light / 21.7 dark) - that is the assertion that would have caught the duplicate.
 - **The focus ring** (`--color-ring`) is a **solid** brand color (`--brand-500` light, `--brand-400`
   dark) so the 3px `box-shadow` ring clears SC 1.4.11 / 2.4.11 (3:1) against the surface — a
   translucent indigo alpha-composited to only ~1.8:1 on light.

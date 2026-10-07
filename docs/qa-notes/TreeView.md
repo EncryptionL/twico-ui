@@ -9,6 +9,8 @@
 - [x] **[P1] Indentation uses physical `paddingLeft` — broken in RTL** — Each row's depth indent is applied via an inline `style={{ paddingLeft: 8 + depth * 18 }}`. `paddingLeft` is a physical property, so under `dir="rtl"` the hierarchy indents from the left edge while the text flows from the right, producing an upside-down/visually broken tree (deep children look shallower than parents on the start side). _Fix:_ set `paddingInlineStart` instead of `paddingLeft` in the inline style. `components/navigation/TreeView.jsx:40`. — ✓ fixed 2026-06-17
 - [x] **[P2] Caret chevron does not flip in RTL** — The caret is a right-pointing chevron (`m9 18 6-6-6-6`) rotated 90° when open. In RTL a collapsed caret should point left (toward the start edge). Unlike Breadcrumb (which has a `[dir="rtl"] … { transform: scaleX(-1) }` rule), the tree caret has no RTL mirror, so collapsed rows point the wrong way under `dir="rtl"`. _Fix:_ add `[dir="rtl"] .twc-tree__caret:not([data-open="true"]) { transform: scaleX(-1); }` (and mirror the open rotation accordingly). `components/navigation/TreeView.jsx:13-16,46`. — ✓ fixed 2026-06-17
 
+- [x] **[#452] a consumer `onKeyDown` killed all tree keyboard navigation** - `{...rest}` was spread after the internal `onKeyDown`. Composed via `components/_compose.js`. `TreeView.jsx:162` - fixed 2026-10-07
+
 ## Verified OK
 
 - **WAI-ARIA tree pattern:** root `role="tree"`; rows are `role="treeitem"` with `aria-level`, `aria-selected`, and `aria-expanded` (only when the node has children); child lists are `role="group"`. `components/navigation/TreeView.jsx:30-53`.

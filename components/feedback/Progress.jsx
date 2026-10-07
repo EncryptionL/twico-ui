@@ -26,13 +26,16 @@ export function Progress({
 .twc-progress[data-size="lg"] { --_h: 12px; }
 .twc-progress__bar {
   height: 100%; border-radius: var(--radius-full);
-  background: var(--_c, var(--color-primary));
+  background: var(--_c, var(--color-primary-graphic));
   transition: width var(--duration-slow) var(--ease-out);
 }
-.twc-progress[data-tone="info"]    .twc-progress__bar { --_c: var(--color-info); }
-.twc-progress[data-tone="success"] .twc-progress__bar { --_c: var(--color-success); }
-.twc-progress[data-tone="warning"] .twc-progress__bar { --_c: var(--color-warning); }
-.twc-progress[data-tone="danger"]  .twc-progress__bar { --_c: var(--color-danger); }
+/* #455: the bar is the ONLY rendering of the progressbar's value, so SC 1.4.11's 3:1 applies against
+   the sunken track - which the plain tones missed in light mode (warning 1.96:1, info 2.53:1). The
+   -graphic aliases are the same hues at a step that clears it. */
+.twc-progress[data-tone="info"]    .twc-progress__bar { --_c: var(--color-info-graphic); }
+.twc-progress[data-tone="success"] .twc-progress__bar { --_c: var(--color-success-graphic); }
+.twc-progress[data-tone="warning"] .twc-progress__bar { --_c: var(--color-warning-graphic); }
+.twc-progress[data-tone="danger"]  .twc-progress__bar { --_c: var(--color-danger-graphic); }
 .twc-progress[data-indeterminate="true"] .twc-progress__bar {
   position: absolute; width: 40%; animation: twc-progress-indeterminate 1.3s var(--ease-standard) infinite;
 }

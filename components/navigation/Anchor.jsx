@@ -2,7 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 
 const ANCHOR_CSS = `
-.twc-anchor { color: var(--color-primary); text-decoration: none; border-radius: var(--radius-sm);
+.twc-anchor { color: var(--color-primary-subtle-fg); text-decoration: none; border-radius: var(--radius-sm);
   transition: color var(--duration-fast) var(--ease-standard); }
 .twc-anchor:hover { text-decoration: underline; color: var(--color-primary-hover, var(--color-primary)); }
 .twc-anchor:focus-visible { outline: none; box-shadow: var(--ring); }

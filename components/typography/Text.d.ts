@@ -12,6 +12,10 @@ export interface TextOwnProps {
   tone?: TextTone;
   /** Font-weight token suffix (e.g. "medium", "semibold", "bold"). */
   weight?: "medium" | "semibold" | "bold" | string;
+  /**
+   * CSS `text-align`. Prefer the LOGICAL keywords `"start"` / `"end"` over `"left"` / `"right"` so the
+   * text mirrors under `dir="rtl"` like the rest of the library (#473); the physical values pin it.
+   */
   align?: React.CSSProperties["textAlign"];
   /** Single-line ellipsis truncation (adds min-width:0 so it shrinks in a flex parent). @default false */
   truncate?: boolean;

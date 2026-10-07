@@ -234,6 +234,8 @@ Props:
 - `type` — `"button" | "submit" | "reset"` · default `"button"` — Native button type — use "submit" to submit a surrounding form.
 - `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
 - `autoFocus` — `boolean` · default `false` — Focus the element automatically when it mounts.
+- `id` — `string` — Id applied to <button>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <button> after the component's own.
 
 ```jsx
 import { Button } from "twico-ui";
@@ -268,6 +270,8 @@ Props:
 - `type` — `"button" | "submit" | "reset"` · default `"button"` — Native button type — use "submit" to submit a surrounding form.
 - `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
 - `autoFocus` — `boolean` · default `false` — Focus the element automatically when it mounts.
+- `id` — `string` — Id applied to <button>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <button> after the component's own.
 
 ```jsx
 import { IconButton } from "twico-ui";
@@ -424,7 +428,7 @@ Divider is a thin separator rule that visually splits content, either horizontal
 Props:
 - `orientation` — `"horizontal" | "vertical"` · default `"horizontal"` — Direction of the separator rule, either horizontal (default) to split stacked content or vertical for inline items.
 - `inset` — `boolean` · default `false` — Indents the start of a horizontal rule to align it with inset content like list item text.
-- `align` — `"left" | "center" | "right" | "start" | "end"` · default `"center"` — Label alignment when children are provided; logical start/end now accepted and map to left/right (additive — existing left/center/right unchanged).
+- `align` — `"left" | "center" | "right" | "start" | "end"` · default `"center"` — Label alignment when children are provided; prefer the logical "start"/"end" so the label mirrors under dir="rtl" ("left"/"right" still accepted).
 - `children` — `React.ReactNode` — Optional label text rendered within the rule, such as "OR", to break content with a caption.
 
 ```jsx
@@ -523,7 +527,7 @@ Heading (h1–h6) with consistent token typography. Use it instead of bare headi
 Props:
 - `level` — `1 | 2 | 3 | 4 | 5 | 6` · default `2` — Chooses which h1-h6 tag renders and its default token size, keeping document hierarchy and typography consistent.
 - `size` — `string` — Overrides the font-size token suffix (e.g. "3xl") to decouple visual scale from the semantic heading level.
-- `align` — `string` — Sets the CSS text-align value, letting you left-align, center, or right-align the heading text.
+- `align` — `string` — Sets the CSS text-align value; prefer the logical "start"/"end" over "left"/"right" so the heading mirrors under dir="rtl".
 - `as` — `ElementType` — Renders a different tag while preserving the level's size, useful when semantics and visual weight should differ.
 - `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
@@ -544,7 +548,7 @@ Props:
 - `size` — `"xs" | "sm" | "base" | "lg" | "xl"` · default `"base"` — Picks the font-size token from xs to xl, scaling the body text to fit its context, base by default.
 - `tone` — `"default" | "muted" | "subtle" | "primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"default"` — Sets the text color — neutral roles (default, muted, subtle) plus the six semantic color intents.
 - `weight` — `string` — Sets the font-weight token suffix like semibold to adjust how heavy the text appears.
-- `align` — `string` — Sets the text-align value, controlling whether the text reads left, center, right, or justified.
+- `align` — `string` — Sets the text-align value: "start", "center", "end" or "justify" — prefer the logical start/end so the text mirrors under dir="rtl".
 - `as` — `ElementType` · default `"p"` — Chooses the element or tag rendered, defaulting to p so you can swap in span or other tags.
 - `sx` — `Sx` — Style escape hatch: flat CSS goes inline (wins over base); nested selectors/at-rules like "&:hover" or "@media …" compile to a scoped stylesheet.
 
@@ -581,6 +585,7 @@ Props:
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `required` — `boolean` · default `false` — Marks the field required for native form validation.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { Checkbox } from "twico-ui";
@@ -665,6 +670,8 @@ Props:
 - `name` — `string` — Form field name submitted with the value.
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `id` — `string` — Id applied to <input>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { Combobox } from "twico-ui";
@@ -715,6 +722,8 @@ Props:
 - `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `id` — `string` — Id applied to <input>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { Currency } from "twico-ui";
@@ -753,6 +762,8 @@ Props:
 - `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `id` — `string` — Id applied to <input>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { CurrencyField } from "twico-ui";
@@ -1030,6 +1041,8 @@ Props:
 - `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `id` — `string` — Id applied to <input>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { Input } from "twico-ui";
@@ -1079,6 +1092,8 @@ Props:
 - `name` — `string` — Form field name submitted with the value.
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `id` — `string` — Id applied to <input>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { MultiSelect } from "twico-ui";
@@ -1119,6 +1134,8 @@ Props:
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `required` — `boolean` · default `false` — Marks the field required for native form validation.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `id` — `string` — Id applied to <input>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { Radio } from "twico-ui";
@@ -1169,7 +1186,7 @@ const [r, setR] = React.useState(0);
 
 #### Select
 
-A custom select that replaces the native browser dropdown with a rounded, keyboard-navigable popover, supporting grouped options and two-line (title + subtitle) options. Use it when you need a styled single-select with optional in-popover search, grouping, or descriptions.
+A custom select that replaces the native browser dropdown with a rounded, keyboard-navigable popover, supporting grouped options and two-line (title + subtitle) options. Use it when you need a styled single-select with optional in-popover search, grouping, or descriptions. Its trigger is exposed as the WAI-ARIA select-only combobox (role="combobox" with aria-haspopup="listbox"), as MUI's Select also is, so query it by the combobox role rather than by button — and give it a label, since that role takes its name from the label rather than from the selected value.
 
 `import { Select } from "twico-ui"`
 
@@ -1288,6 +1305,8 @@ Props:
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
 - `required` — `boolean` · default `false` — Marks the field required for native form validation.
 - `autoComplete` — `string` — Browser autocomplete hint (e.g. "email", "off").
+- `id` — `string` — Id applied to <input>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <input> after the component's own.
 
 ```jsx
 import { Switch } from "twico-ui";
@@ -1326,6 +1345,8 @@ Props:
 - `rows` — `number` — Visible number of text rows.
 - `disabled` — `boolean` · default `false` — Disables the control — no interaction and a dimmed appearance.
 - `readOnly` — `boolean` · default `false` — Makes the field non-editable while still focusable/selectable.
+- `id` — `string` — Id applied to <textarea>, handy for labels and aria wiring.
+- `style` — `React.CSSProperties` — Inline styles merged onto <textarea> after the component's own.
 
 ```jsx
 import { Textarea } from "twico-ui";
@@ -2671,6 +2692,8 @@ Props:
 - `open` — `string[]` — Controlled open panel values; pair with onOpenChange. When set, internal state is bypassed and defaultOpen is ignored.
 - `onOpenChange` — `(values: string[]) => void` — Called with the next open values whenever a panel trigger is toggled (fires in both controlled and uncontrolled modes).
 - `headingLevel` — `1 | 2 | 3 | 4 | 5 | 6` · default `3` — Heading level wrapping each trigger button (document-outline semantics).
+- `mountOnOpen` — `boolean` · default `false` — Render each panel's content only after its first open, then keep it mounted - cuts the DOM and hook cost of a page full of collapsed panels.
+- `unmountOnClose` — `boolean` · default `false` — Also unmount a panel's content when it closes, waiting out the collapse animation first. Implies mountOnOpen.
 
 ```jsx
 import { Accordion } from "twico-ui";
@@ -2741,7 +2764,7 @@ Props:
 import { Navbar } from "twico-ui";
 
 <Navbar
-  brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
+  brand={<>Twico <span style={{ color: "var(--color-primary-subtle-fg)" }}>UI</span></>}
   links={[
     { label: "Dashboard", active: true },
     { label: "Projects" },
@@ -2779,7 +2802,7 @@ const MailIcon = () => (<svg width="18" height="18" viewBox="0 0 24 24" fill="no
 const CogIcon = () => (<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="3" /><path d="M12 3v3M12 18v3M3 12h3M18 12h3" /></svg>);
 
 <Sidebar
-  brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
+  brand={<>Twico <span style={{ color: "var(--color-primary-subtle-fg)" }}>UI</span></>}
   items={[
     { section: "Main" },
     { label: "Dashboard", icon: <HomeIcon />, active: true },
@@ -3018,7 +3041,7 @@ Menu is a portaled dropdown menu that takes a clickable trigger and an array of 
 `import { Menu } from "twico-ui"`
 
 Props:
-- `trigger` — `React.ReactNode` · **required** — Defines the clickable element that opens the menu, typically a Button or IconButton the dropdown anchors to.
+- `trigger` — `React.ReactNode` · **required** — Defines the clickable element that opens the menu, typically a Button or IconButton the dropdown anchors to. Pass a single focusable control (a Button/IconButton): the element is cloned to carry tabIndex/aria-expanded, which are only valid on a control, and wrapping the real button to overlay a badge gives two tab stops - put the decoration outside. A wrapping Tooltip goes outside this component.
 - `items` — `MenuItemDef[]` · **required** — Lists the menu entries, where each can be an action item, a separator, or a section heading.
 - `align` — `"start" | "end"` · default `"start"` — Aligns the menu horizontally to the trigger's start or end edge so it sits flush in tight layouts; defaults to start.
 - `header` — `React.ReactNode` — Renders an optional rich node above the items, handy for surfacing user info or context at the top of the menu.
@@ -3050,7 +3073,7 @@ Popover is a click-triggered floating panel anchored to a trigger element, rende
 `import { Popover } from "twico-ui"`
 
 Props:
-- `trigger` — `React.ReactNode` · **required** — The clickable element the panel anchors to; clicking it toggles the popover open and closed.
+- `trigger` — `React.ReactNode` · **required** — The clickable element the panel anchors to; clicking it toggles the popover open and closed. Pass a single focusable control (a Button/IconButton): the element is cloned to carry tabIndex/aria-expanded, which are only valid on a control, and wrapping the real button to overlay a badge gives two tab stops - put the decoration outside. A wrapping Tooltip goes outside this component.
 - `title` — `React.ReactNode` — Optional bold heading rendered at the top of the panel to introduce its interactive content.
 - `placement` — `"top" | "bottom" | "left" | "right"` · default `"bottom"` — Which side of the trigger the panel opens toward (top, bottom, left, or right), auto-flipping near viewport edges.
 - `align` — `"start" | "center" | "end"` · default `"center"` — Cross-axis alignment (start, center, or end) of the panel relative to the trigger for top and bottom placements.
@@ -3384,10 +3407,10 @@ export function useKeyPress( key: string | string[], handler: (event: KeyboardEv
 
 ### useLocalStorage
 
-State persisted to localStorage (JSON-serialized), SSR-safe.
+State persisted to localStorage (JSON-serialized), SSR-safe: returns `initialValue` on the server AND on the first client render, then reads storage in a layout effect before paint (#466).
 
 ```ts
-export function useLocalStorage<T>( key: string, initialValue: T ): [T, (value: T | ((prev: T) => T)) => void];
+export function useLocalStorage<T>( key: string, initialValue: T, options?: UseLocalStorageOptions ): [T, (value: T | ((prev: T) => T)) => void];
 ```
 
 ### useCopyToClipboard
@@ -3432,10 +3455,10 @@ export function useTimeout(callback: () => void, delay: number | null): void;
 
 ### useWindowSize
 
-The current window dimensions (0×0 on the server).
+The current window dimensions. 0×0 on the server AND on the first client render, then measured in a layout effect before paint (#466) — so hydration never mismatches.
 
 ```ts
-export function useWindowSize(): { width: number; height: number };
+export function useWindowSize(options?: UseWindowSizeOptions): { width: number; height: number };
 ```
 
 ### useHover

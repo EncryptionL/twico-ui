@@ -18,6 +18,10 @@ export interface HeadingOwnProps {
   size?: HeadingSize;
   /** Convenience: render at the display size (`var(--text-display)`) regardless of level. @default false */
   display?: boolean;
+  /**
+   * CSS `text-align`. Prefer the LOGICAL keywords `"start"` / `"end"` over `"left"` / `"right"` so the
+   * text mirrors under `dir="rtl"` like the rest of the library (#473); the physical values pin it.
+   */
   align?: React.CSSProperties["textAlign"];
   /** Single-line ellipsis truncation (adds min-width:0 so it shrinks in a flex parent). @default false */
   truncate?: boolean;

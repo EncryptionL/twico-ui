@@ -707,6 +707,28 @@ empty even though the group-header rows should still render. The empty check the
 shows full option labels instead of truncating to `Ava Cr…`. The two `openPanel(…, "left", 580)` call
 sites (the Filters toolbar button and the column-menu **Filter** item) match the panel width.
 
+### Collapsed toolbar buttons keep their name (#448)
+
+The toolbar collapses to icon-only when the **grid** is narrower than 720px. That is a `ResizeObserver`
+on the grid's own `clientWidth`, surfaced as `data-compact="true"` on the toolbar - **not** a media
+query - so a narrow grid inside a wide viewport collapses too, and a viewport-based fix would miss it.
+
+The label span is each button's only text node, so hiding it with `display: none` removed the button's
+accessible name entirely - or, where a badge renders, reduced it to a bare number like `"7"`. That is an
+axe/Lighthouse `button-name` failure on five buttons (Columns, Filters, Density, Aggregation, Pivot; the
+two Export buttons already carry their own `aria-label`), and it affects every Datatable in a consuming
+app. The label is now **visually hidden** instead - the same declaration list `.twc-dt__sr` uses - so it
+stays in the accessibility tree and the collapsed name is byte-identical to the full-width one.
+
+A permanent `aria-label` would have been worse: it overrides the text node, so the badge count would
+drop out of the name, and it would add hardcoded English strings to a component that otherwise has no
+i18n surface. A `Tooltip` would not have fixed it at all - that contributes `aria-describedby`, and only
+while shown - and the existing `data-tip` hover hint already covers the mouse case.
+
+Because jsdom reports `clientWidth` as 0, `data-compact` is **true in every unit test**, so this path is
+exercised by the whole Datatable suite with no layout mocking (see
+`tests/datatable-toolbar-labels.test.jsx`).
+
 ### Toolbar tooltip stacking and clipping
 
 The toolbar buttons show their label as a CSS `::after` tooltip that hangs **below** the bar

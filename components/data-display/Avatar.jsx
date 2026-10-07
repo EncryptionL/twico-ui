@@ -24,9 +24,13 @@ const AVATAR_CSS = `
   width: 28%; height: 28%; min-width: 8px; min-height: 8px;
   border-radius: var(--radius-full); border: 2px solid var(--color-surface);
 }
-.twc-avatar__status[data-status="online"] { background: var(--color-success); }
-.twc-avatar__status[data-status="busy"] { background: var(--color-danger); }
-.twc-avatar__status[data-status="away"] { background: var(--color-warning); }
+/* #455 (review): the dot's fill is the ONLY carrier of the status - nothing sits on top of it and the
+   2px ring is the surface colour - so SC 1.4.11's 3:1 applies and the -graphic aliases are the right
+   tones. "away" on the plain warning tone was 2.15:1 in light. (Badge/Timeline/Stepper keep the plain
+   tones: their fills carry --color-*-fg content, so they are backgrounds, not standalone graphics.) */
+.twc-avatar__status[data-status="online"] { background: var(--color-success-graphic); }
+.twc-avatar__status[data-status="busy"] { background: var(--color-danger-graphic); }
+.twc-avatar__status[data-status="away"] { background: var(--color-warning-graphic); }
 .twc-avatar__status[data-status="offline"] { background: var(--color-text-subtle); }
 `;
 

@@ -2,9 +2,37 @@
 
 - **Group:** data-display
 - **Status:** clean
-- **Reviewed:** 2026-09-24
+- **Reviewed:** 2026-10-06
 
 ## Open issues
+
+- [x] **[#448] toolbar buttons lost their accessible name when the toolbar collapsed** - the toolbar hides each
+  button's label with `display: none` once it is narrow, and that span is the button's **only** text node, so the
+  accessible name went empty - or, where a badge renders, a bare number. axe/Lighthouse report `button-name`, and
+  a screen reader announces just "button". Fixed by *visually* hiding the label instead (the same declaration
+  list `.twc-dt__sr` already uses), so it stays in the a11y tree and the collapsed name is byte-identical to the
+  full-width one - no name/visible-label divergence, the badge count stays in the name, and no English strings are
+  added to a component with no i18n surface. Measured cost: +127 raw / **+6 bytes gzipped**, since the declaration
+  list compresses to a back-reference against `.twc-dt__sr`. Two corrections to the report: it affects **five**
+  buttons (Columns, Filters, Density, Aggregation, Pivot - the two Export buttons already carry `aria-label`), and
+  there is **no media query** - `compact` comes from a ResizeObserver on the *grid* width, so a narrow grid inside
+  a wide viewport hits it too and a media-query fix would not have worked. A permanent `aria-label` (the
+  reporter's suggestion) is worse here because it would override the badge-bearing text, and the suggested Tooltip
+  was rejected: it does not fix `button-name` at all (`aria-describedby` only, and only while shown) and
+  duplicates the `data-tip` hover hint that already exists. jsdom reports `clientWidth` 0, so this path is
+  exercised by every Datatable unit test. `Datatable.jsx`; `tests/datatable-toolbar-labels.test.jsx` (5).
+  - fixed 2026-10-06
+
+- [x] **[#449] four Datatable labels were the residual contrast failure the token change could not reach** -
+  found by adversarial review of #449, not in the original report. `.twc-dt__agg-label`,
+  `.twc-dt__groupbar-label`, `.twc-dt__pivot-corner-label` and `.twc-dt__pivot-rowcount` put
+  `--color-text-subtle` on `--color-surface-sunken`, the one pairing the ramp cannot fix (the background
+  moves with the text, so it sits at **4.34:1** in light whatever step is chosen). Measured in a real
+  browser on the docs site: `.twc-dt__agg-label` rendered 4.344:1. Switched to `--color-text-muted`
+  (**6.92:1**), matching `Kbd` and `CommandPalette`. The rule is now encoded in
+  `tests/tokens-a11y.test.js` - both halves, so text-subtle on sunken is asserted to be UNDER 4.5 and
+  text-muted on sunken to clear it - which makes a new text-subtle-on-sunken declaration fail the suite
+  rather than quietly fail an audit. `Datatable.jsx`; see [colors.md](../colors.md). - fixed 2026-10-06
 
 - [x] **[#436] docs: a per-row `editable` predicate's source fields must survive column projection** — documentation
   only; the reporter explicitly did **not** want a behaviour change. Two shipped features combine to silently void a
@@ -747,6 +775,24 @@
   scrolls the controlled row into view on change (`block: "nearest"` → minimal, instant, no page jump). The
   checkbox-selection analogue is #322's `onRowSelectionChange`. 3 tests in
   `tests/datatable-controlled-active-row.test.jsx`. — added 2026-08-03
+
+- [x] **[#460] the controlled `activeRowId` reveal effect re-ran on every render** - the same defect class as #429, which had only been fixed on the cell path. `paged` was a bare `processed.slice()`, so `leafRows` -> `keyIndex` were rebuilt every render and the effect (keyed on the `keyIndex` Map identity) fired continuously: any unrelated re-render dragged a scrolled-away grid back to the active row, and `scrollIntoView` walked up and scrolled the host page with it. `paged`/`leafRows` are memoized, `keyOf` is a `useCallback`, and the effect keys on the resolved row index. `Datatable.jsx:1952,2032,1292,2690` - fixed 2026-10-07
+- [x] **[#451] `--color-primary` used as text colour in six declarations** - brand-500 as text measures 4.00-4.47:1 light / 3.27:1 dark-raised. Switched to `--color-primary-subtle-fg` (pivot aggregate, active menu item, link button, batch-button hover). `Datatable.jsx` - fixed 2026-10-07
+- [x] **[housekeeping] a raw NUL byte in the source made git treat the whole file as binary** - `batchEditFields.join(...)` held a literal U+0000 rather than the escape, so `git diff` reported only "Binary files differ" (hiding real changes from review) and `grep` bailed mid-file. Replaced with the two-character `\u0000` escape; identical at runtime. `Datatable.jsx:2827` - fixed 2026-10-07
+
+- [x] **[#451 review] an inline `style={{ color: "var(--color-primary)" }}` on the Filters panel's "Add filter" button survived the sweep** - the sweep only rewrote declarations inside the scoped-CSS template literals, so a style object in the very same file was missed: 4.47:1 idle / 4.08:1 on hover in light, 3.27:1 in dark. `tests/primary-is-fill-only.test.js` is a new SOURCE guard (the token-level assertions could not fail without the fix, since they only read `tokens/colors.css`) and it fails on the pre-fix blob. `Datatable.jsx:4554` - fixed 2026-10-07
+- [x] **[#451 review] `.twc-dt__col-pin[data-on="true"]`'s icon sits on `--color-primary-subtle`, not on a plain surface** - 2.76:1 in dark, under the 3:1 graphics floor. Every other icon use of plain primary is on a plain surface (>=3.27:1), so this one moved to `--color-primary-subtle-fg`. `Datatable.jsx:507` - fixed 2026-10-07
+- [x] **[#454 review] the hand-rolled config switch had the same off-track problem as Switch** - `.twc-dt__sw` used `--color-border-strong` (1.48:1 in light), so in light the off state had no visible edge at all. Now `--color-control-track`. `Datatable.jsx:508` - fixed 2026-10-07
+- [x] **[#460 review] the index-keyed reveal effect could lose the reveal permanently** - while `loading` is true the body renders SKELETON rows instead of the real ones, so no `[data-active]` row exists; `revealRowRi` is derived from `keyIndex`, which still holds the row, so it does not change when `loading` flips and the effect never re-ran. `loading` is now a dependency. (Keying on the Map identity used to mask this by re-running on every render - the very churn #460 removed.) `Datatable.jsx:2696` - fixed 2026-10-07
+
+- [x] **[#462] three more subtle-on-sunken sites, each reached by a hover rule** - `.twc-dt__rownum` and `.twc-dt__col-combined` under `.twc-dt__row:hover .twc-dt__td`, and `.twc-dt__mi-hint` (the #399 disabledReason, which also shows on ENABLED items) under `.twc-dt__mi:hover`. All three now `--color-text-muted`, matching the four labels already fixed under #449. `Datatable.jsx:400,404,474` - fixed 2026-10-07
+
+- [x] **[#460 review 2] the widget-mode roving-tabindex pass stopped being reapplied after a loading pass** - a regression of the #460 memoization itself. The skeleton `<td>`s carry no `data-r`, so the pass matches nothing while loading; when it ends React mounts fresh `<tr>`s whose widgets all carry their default (tabbable) tabIndex and whose `<td>`s all carry -1. Before #460, `leafRows` was a fresh slice every render so this layout effect re-ran constantly and papered over it; memoizing it made the gap reachable. Result: every action button in every rendered row became a Tab stop, and a widget-less roving cell could not be tabbed to at all - breaking #392's single-Tab-stop contract. `loading` added to the deps, alongside the `scrollTop` dep that documents the same failure mode for the virtualized case. `Datatable.jsx:2684` - fixed 2026-10-07
+- [x] **[#454 review 2] the hand-rolled config switch took the same thumb fix** - its `::after` thumb used `--color-primary-fg`; now `--color-control-thumb`. `Datatable.jsx:521` - fixed 2026-10-07
+- [x] **[#462 review 2] the pivot no-value placeholder is text on a hovered row** - `.twc-dt__pivot td[data-empty]` renders a visible, non-aria-hidden em dash from `fmt()`, and the row hover fill beat the cell's own background, leaving it at 4.34:1. Now text-muted. `Datatable.jsx:272` - fixed 2026-10-07
+
+- [x] **[#460 review 2] the activeCell reveal had the identical `loading` hole and was not patched** - with `virtualized` falsy, `virtualizing` is permanently false, `headH` only moves under `rowPinning`, and `revealRi` comes from a `keyIndex` built on an unchanged `rows` reference - so NOTHING in its deps changed across a loading pass. Meanwhile the skeleton body collapses the scroller's content height and the browser clamps `scrollTop` to 0, so a controlled `activeCell` reveal was lost for good. `loading` added, matching the row reveal. `Datatable.jsx:2778` - fixed 2026-10-07
+- [x] **[#392 review 2] the roving-tabindex pass named only one of the four signals that move the virtual window** - `vWindow` is memoized on `[virtualizing, offsets, middleRows.length, vh, scrollTop, overscan]`, but the effect listed only `scrollTop`, and its comment claimed that covered 'a virtualized grid mounts new rows'. `measureTick` (the post-paint real-row-height measurement, which widens the window on first paint) and `viewportH` (a container resize) both mount rows that then kept their default, tabbable widget tabIndex. `pinnedRows` remounts rows into the pinned sections for the same reason. All three added. `Datatable.jsx:2686` - fixed 2026-10-07
 
 ## Verified OK
 

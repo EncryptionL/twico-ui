@@ -31,7 +31,7 @@ const BADGE_CSS = `
 
 /* outline */
 .twc-badge[data-variant="outline"] { background: transparent; }
-.twc-badge[data-variant="outline"][data-tone="primary"] { color: var(--color-primary); border-color: var(--color-primary-border); }
+.twc-badge[data-variant="outline"][data-tone="primary"] { color: var(--color-primary-subtle-fg); border-color: var(--color-primary-border); }
 .twc-badge[data-variant="outline"][data-tone="success"] { color: var(--color-success-subtle-fg); border-color: var(--color-success); }
 .twc-badge[data-variant="outline"][data-tone="warning"] { color: var(--color-warning-subtle-fg); border-color: var(--color-warning); }
 .twc-badge[data-variant="outline"][data-tone="danger"]  { color: var(--color-danger-subtle-fg); border-color: var(--color-danger); }

@@ -37,8 +37,17 @@ An **internal** helper module (not exported from the barrel; the same pattern as
 `_overlay.js`). Every chart imports the pure helpers from here instead of re-deriving them, which is
 what keeps the family visually and behaviourally consistent:
 
-- **Palette** — `CHART_PALETTE` (7 theme token colours: brand / sky / emerald / amber / rose / indigo /
-  slate) + `paletteAt(colors, i)` (cycles, honours a caller palette).
+- **Palette** — `CHART_PALETTE` (the 7 `--color-chart-1…7` tokens) + `paletteAt(colors, i)` (cycles,
+  honours a caller palette). The slots were primitives until #455, where slots 1 and 6 turned out to be
+  **the same colour** (`--brand-500` aliases `--indigo-500`), so series 1 and 6 painted identically at
+  1.00:1 with two identical legend swatches — and the cycling made the effective palette six colours,
+  not seven. As tokens the ramp also flips per theme, which is what let light mode move off the `-500`
+  steps: as graphics on a white surface those measured 1.96–2.77:1, under the SC 1.4.11 3:1 floor.
+  Light is now `indigo-500 / sky-700 / emerald-700 / amber-700 / rose-600 / indigo-900 / slate-500`
+  (4.08:1 at worst); dark **keeps the original `-500` steps** — it never had the contrast problem — with
+  only slot 6 moving to `indigo-300` to break the duplicate. `tests/chart-palette.test.js` guards both
+  properties, including a perceptual separation (CIE76 ΔE ≥ 15), because a contrast ratio alone cannot
+  tell you whether two series are distinguishable — which is exactly how the duplicate survived.
 - **Scales / numbers** — `niceScale(min, max, maxTicks)` → `{min, max, step, ticks[]}`, `niceCeil`,
   `shortNum` (1.2k / 3M), `fmtNumber`, `sum`, `r` (terse SVG rounding).
 - **Geometry** — `polarDeg(cx, cy, r, deg)` (0° = 12 o'clock, clockwise), `arcPath` (pie wedge or donut
@@ -65,13 +74,18 @@ what keeps the family visually and behaviourally consistent:
 ## Data-label legibility (text on coloured marks)
 
 Some charts print a value/percent **on top of a coloured mark** (pie/donut slice %, treemap
-tile label + value, funnel stage caption, heatmap cell value). The mark fills are fixed `-500`
-palette primitives that **don't flip with the theme**, so a theme-aware text colour
+tile label + value, funnel stage caption, heatmap cell value). The mark fills span a wide lightness
+range and are chosen for separation from the surface and from each other, not for carrying text, so a
+theme-aware text colour
 (`--color-surface` / `--color-text-inverted`) washed out on light slices like `amber-500` and
 inverted the wrong way in dark mode. The fix is a **static light fill + a translucent dark halo**,
 applied with SVG `paint-order: stroke` (the fill paints over the stroke, so the stroke reads as an
 outline) so the label stays legible on **any** slice colour in **either** theme:
 
+- This is also why the #455 palette change kept dark on its original `-500` fills: the halo strategy was
+  tuned against those, and lightening them would have weakened white-on-slice for no contrast gain
+  (dark already cleared 3:1). In light the fills got **darker** (`-700`/`-600`), so white-on-slice
+  improved there — white on `amber-700` is 5.02:1, where on `amber-500` it was 2.15:1.
 - Two static tokens (in `tokens/colors.css`, intentionally **not** re-declared under `.dark`):
   `--color-chart-on-fill` (white) and `--color-chart-on-fill-halo` (`slate-900 @ 55%`). Mirror
   them in `palette.html` or `verify:palette` fails.

@@ -80,7 +80,14 @@ site/
   informative sentence (~12–22 words) — what the prop does plus its effect or when to use it. Beyond
   the component-specific props, the table also lists the common **inherited DOM props** each component
   forwards via `...rest` (e.g. `onClick`, `id`, `style`), appended by `enrich-props.mjs` from the
-  component's `.d.ts` root element, then a final `...rest` catch-all row.
+  component's `.d.ts` root element, then a final `...rest` catch-all row. Those descriptions are
+  **element-aware** (#471): they name the element the prop actually lands on — `<input>`,
+  `<textarea>`, `<button>`, `<a>` or "the root element" — because for the input family the root is the
+  field wrapper while `id` and the whole `{...rest}` (which carries `style`) go to the inner control.
+  Saying "the root element" there told readers that `<Combobox style={{ width: 320 }} />` would size
+  the field, when it sizes the bare `<input>`. Note the script is **additive** — it only appends rows
+  that are missing — so changing a generated description also has to refresh it in place; it does that
+  behind a pattern match, so a hand-written description is never clobbered.
 - Code is highlighted with `prism-react-renderer` (bundled, not a CDN).
 - Each code block has a toolbar: a **JS / TS** toggle (shared, persisted via `useLocalStorage` —
   `CodeLang.jsx`) that switches highlighting (`jsx`↔`tsx`), setup file extensions (`.jsx`↔`.tsx`), the
@@ -182,6 +189,12 @@ npm run build     # -> site/dist  (must succeed; it also compiles the library so
   Dialog/Drawer open + trap focus + Escape, Menu/Popover/CommandPalette keyboard-nav, Slider/Rating/
   Pagination respond — 34 assertions across 18 components. (This is the gate that caught the
   Dialog/Drawer focus-on-open timing bug.)
+  Each case gets a fresh page navigated with `waitUntil: "load"`, which on this hash-routed SPA fires
+  BEFORE the route has rendered. Playwright auto-waits on a selector, so a bare `hover()`/`click()`
+  can land on an element the instant it first appears - mid-hydration - after which React re-renders
+  it and the interaction is lost. A case must therefore wait for its route (`waitForSelector` plus a
+  short settle) before interacting; the Tooltip case had been passing on timing luck until a batch of
+  extra effects tipped it over.
 - **CI enforcement:** `.github/workflows/interaction.yml` runs **all three** against a `vite preview`
   server on every push/PR to `dev`/`main` that touches the UI (and on manual dispatch), so the §8
   behavioral bar is automated, not just local. (`visual.yml` separately does Playwright pixel diffs.)

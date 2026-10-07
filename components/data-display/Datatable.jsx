@@ -119,7 +119,15 @@ const DT_CSS = `
 /* Narrow grid: collapse the toolbar to icon-only buttons (labels survive as
    hover tooltips via data-tip) and let the search flex so nothing wraps. */
 .twc-dt__toolbar[data-compact="true"] { flex-wrap: nowrap; gap: 4px; }
-.twc-dt__toolbar[data-compact="true"] .twc-dt__tlabel { display: none; }
+/* #449: these labels sit on --color-surface-sunken, where --color-text-subtle only reaches 4.34:1
+   (the background moves with the text, so the token change could not lift it). --color-text-muted is
+   6.92:1 there and is what Kbd/CommandPalette use on the same background. */
+/* #448: visually hidden, NOT display:none. The label is each toolbar button's only text node, so
+   removing it from the a11y tree left Columns/Filters/Density/Aggregation/Pivot with an empty (or
+   badge-number-only) accessible name - an axe/Lighthouse button-name failure. Same declarations as
+   .twc-dt__sr below. Compact is driven by a ResizeObserver on the GRID width, not a media query, so
+   a narrow grid in a wide viewport hits this too. */
+.twc-dt__toolbar[data-compact="true"] .twc-dt__tlabel { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__tbtn { padding: 0 8px; gap: 0; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__tbtn .twc-dt__tbadge { margin-inline-start: 4px; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__export-main { padding: 0 9px; gap: 0; }
@@ -194,14 +202,14 @@ const DT_CSS = `
   font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 0; }
 .twc-dt__table tfoot td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
 .twc-dt__table tfoot td[data-pin] { z-index: 4; }
-.twc-dt__agg-label { color: var(--color-text-subtle); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); font-size: 10px; margin-inline-end: 5px; }
+.twc-dt__agg-label { color: var(--color-text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); font-size: 10px; margin-inline-end: 5px; }
 .twc-dt__agg-val { font-weight: var(--font-bold); }
 
 /* Row grouping */
 .twc-dt__groupbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 12px;
   border-bottom: var(--border-thin) solid var(--color-border); background: var(--color-surface-sunken); }
 .twc-dt__groupbar > svg { width: 15px; height: 15px; color: var(--color-text-subtle); }
-.twc-dt__groupbar-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--color-text-subtle); }
+.twc-dt__groupbar-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--color-text-muted); }
 .twc-dt__groupchip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 4px 3px 10px; height: 26px;
   background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: var(--font-semibold); }
 .twc-dt__groupchip-x { display: inline-grid; place-items: center; width: 18px; height: 18px; border: none; padding: 0; background: transparent; color: inherit; cursor: pointer; border-radius: var(--radius-full); opacity: 0.7; }
@@ -241,7 +249,7 @@ const DT_CSS = `
 .twc-dt__pivot-rowhead { min-width: 180px; }
 /* Corner (row-field label) */
 .twc-dt__pivot-corner { position: sticky; inset-inline-start: 0; top: 0; vertical-align: middle; text-align: center; background: var(--color-surface-sunken); z-index: 9 !important; border-inline-end: var(--border-medium) solid var(--color-border-strong); }
-.twc-dt__pivot-corner-label { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
+.twc-dt__pivot-corner-label { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-muted); }
 /* Column-group header levels (e.g. Status ▸ Plan) */
 .twc-dt__pivot-colgroup { text-align: center !important; border-inline-start: var(--border-medium) solid var(--color-border-strong);
   background: var(--color-surface-sunken); font-weight: var(--font-bold); color: var(--color-text); letter-spacing: var(--tracking-wide); }
@@ -250,24 +258,26 @@ const DT_CSS = `
 .twc-dt__pivot-vhcell[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__pivot-vh { display: inline-flex; flex-direction: column; align-items: center; gap: 1px; line-height: 1.15; }
 .twc-dt__pivot-vh-label { font-weight: var(--font-bold); color: var(--color-text); text-transform: none; letter-spacing: 0; }
-.twc-dt__pivot-vh-agg { font-size: 10px; font-weight: var(--font-semibold); color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.04em; }
+.twc-dt__pivot-vh-agg { font-size: 10px; font-weight: var(--font-semibold); color: var(--color-primary-subtle-fg); text-transform: uppercase; letter-spacing: 0.04em; }
 /* Row headers + record counts (must outrank .twc-dt__row > .twc-dt__td:first-child = (0,3,0)) */
 .twc-dt__pivot tbody .twc-dt__pivot-rowhead[data-pin],
 .twc-dt__pivot tfoot .twc-dt__pivot-rowhead[data-pin] { position: sticky; inset-inline-start: 0; z-index: 5; }
 .twc-dt__pivot-rowhead { font-weight: var(--font-semibold); color: var(--color-text); background: var(--color-surface); border-inline-end: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-rowhead { background: color-mix(in srgb, var(--color-surface-sunken) 45%, var(--color-surface)); }
-.twc-dt__pivot-rowcount { color: var(--color-text-subtle); font-weight: var(--font-normal); font-size: var(--text-xs); }
+.twc-dt__pivot-rowcount { color: var(--color-text-muted); font-weight: var(--font-normal); font-size: var(--text-xs); }
 /* Body value cells — centered under their header, with group separators */
 .twc-dt__pivot-cell { text-align: center !important; border-inline-start: var(--border-thin) solid var(--color-divider); font-variant-numeric: tabular-nums; }
 .twc-dt__pivot-cell[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-cell { background: color-mix(in srgb, var(--color-surface-sunken) 45%, transparent); }
-.twc-dt__pivot td[data-empty] { color: var(--color-text-subtle); }
+/* #462 (review 2): text-MUTED. The row underneath takes a sunken hover fill and the hover rule sets
+   no colour, so this text stays put at 4.34:1 in light. */
+.twc-dt__pivot td[data-empty] { color: var(--color-text-muted); }
 /* Total column group (right) */
 .twc-dt__pivot-total-h:not(.twc-dt__pivot-vhcell) { text-align: center !important; vertical-align: middle; }
 .twc-dt__pivot-total, .twc-dt__pivot-total-h { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); font-weight: var(--font-bold); }
 .twc-dt__pivot-total[data-group-start], .twc-dt__pivot-total-h[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-primary) !important; }
 .twc-dt__pivot-total-h .twc-dt__pivot-vh-label { color: var(--color-primary-subtle-fg); }
-.twc-dt__pivot-total-h .twc-dt__pivot-vh-agg { color: var(--color-primary); }
+.twc-dt__pivot-total-h .twc-dt__pivot-vh-agg { color: var(--color-primary-subtle-fg); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-total { background: var(--color-primary-subtle); }
 /* Grand-total footer row */
 .twc-dt__pivot tfoot td, .twc-dt__pivot tfoot th { position: sticky; bottom: 0; background: var(--color-surface-sunken); font-weight: var(--font-bold); border-top: var(--border-medium) solid var(--color-border-strong); }
@@ -341,7 +351,10 @@ const DT_CSS = `
 .twc-dt__row[data-op="removed"] > .twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-danger) 7%, var(--color-surface)); }
 .twc-dt__row[data-op="modified"] > .twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-warning) 6%, var(--color-surface)); }
 .twc-dt__diff-change { display: inline-flex; align-items: center; gap: 4px; min-width: 0; max-width: 100%; }
-.twc-dt__diff-old { text-decoration: line-through; color: var(--color-text-subtle); }
+/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
+   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
+   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+.twc-dt__diff-old { text-decoration: line-through; color: var(--color-text-muted); }
 .twc-dt__diff-new { color: var(--color-success-subtle-fg); font-weight: var(--font-medium); }
 .twc-dt__diff-arrow { color: var(--color-text-subtle); flex: none; }
 [dir="rtl"] .twc-dt__diff-arrow { transform: scaleX(-1); display: inline-block; }
@@ -389,10 +402,14 @@ const DT_CSS = `
 .twc-dt__combine-apply { border: none; background: var(--color-primary); color: var(--color-primary-fg); font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold); padding: 6px 14px; border-radius: var(--radius-md); cursor: pointer; }
 .twc-dt__combine-apply:hover { opacity: 0.9; }
 .twc-dt__combine-apply:focus-visible { outline: none; box-shadow: var(--ring); }
-.twc-dt__col-combined { color: var(--color-text-subtle); font-size: var(--text-xs); font-style: italic; }
+/* #462: text-MUTED, not text-subtle. A hover/active rule swaps --color-surface-sunken (or
+   --color-primary-subtle) in under this text without changing its colour, and text-subtle on
+   either is 4.34:1 / 4.26:1 in light - the pairing the token rules forbid (docs/colors.md). It
+   passes at rest on --color-surface and fails only while hovered, which is why it survived. */
+.twc-dt__col-combined { color: var(--color-text-muted); font-size: var(--text-xs); font-style: italic; }
 .twc-dt__td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
 /* Auto row-number gutter (rowNumbers) — a sticky-left ordinal column. */
-.twc-dt__rownum { text-align: end; font-variant-numeric: tabular-nums; color: var(--color-text-subtle);
+.twc-dt__rownum { text-align: end; font-variant-numeric: tabular-nums; color: var(--color-text-muted);
   font-size: var(--text-xs); }
 td.twc-dt__rownum { padding-inline: 8px; }
 th.twc-dt__rownum { color: var(--color-text-muted); }
@@ -463,10 +480,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__mi { text-decoration: none; } /* #399: link (<a role="menuitem">) variant */
 .twc-dt__mi:hover { background: var(--color-surface-sunken); }
 .twc-dt__mi:disabled { color: var(--color-text-subtle); opacity: 0.5; cursor: default; pointer-events: none; }
-.twc-dt__mi-hint { margin-inline-start: auto; padding-inline-start: 12px; color: var(--color-text-subtle); font-size: var(--text-xs); font-weight: var(--font-normal); } /* #399: disabledReason */
+.twc-dt__mi-hint { margin-inline-start: auto; padding-inline-start: 12px; color: var(--color-text-muted); font-size: var(--text-xs); font-weight: var(--font-normal); } /* #399: disabledReason */
 .twc-dt__mi svg { width: 16px; height: 16px; color: var(--color-text-subtle); flex: none; }
-.twc-dt__mi[data-active="true"] { color: var(--color-primary); }
-.twc-dt__mi[data-active="true"] svg { color: var(--color-primary); }
+.twc-dt__mi[data-active="true"] { color: var(--color-primary-subtle-fg); }
+.twc-dt__mi[data-active="true"] svg { color: var(--color-primary-subtle-fg); }
 .twc-dt__sep { height: 1px; background: var(--color-divider); margin: 5px 4px; }
 
 /* Columns panel */
@@ -495,18 +512,21 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__col-pins { display: inline-flex; gap: 2px; flex: none; }
 .twc-dt__col-pin { display: inline-grid; place-items: center; width: 24px; height: 24px; border: none; padding: 0; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm); transition: background-color var(--duration-fast), color var(--duration-fast); }
 .twc-dt__col-pin:hover { background: var(--color-surface); color: var(--color-text); }
-.twc-dt__col-pin[data-on="true"] { color: var(--color-primary); background: var(--color-primary-subtle); }
+/* #451 (review): this icon sits ON --color-primary-subtle, where plain primary is 2.76:1 in dark -
+   under the 3:1 graphics floor. Every other icon use of primary is on a plain surface (>=3.27:1). */
+.twc-dt__col-pin[data-on="true"] { color: var(--color-primary-subtle-fg); background: var(--color-primary-subtle); }
 .twc-dt__col-pin svg { width: 14px; height: 14px; }
-.twc-dt__sw { width: 32px; height: 18px; border-radius: var(--radius-full); background: var(--color-border-strong); position: relative; flex: none; cursor: pointer; transition: background-color var(--duration-base); }
+/* #454 (review): Datatable's own hand-rolled switch has the same off-track problem as Switch. */
+.twc-dt__sw { width: 32px; height: 18px; border-radius: var(--radius-full); background: var(--color-control-track); position: relative; flex: none; cursor: pointer; transition: background-color var(--duration-base); }
 .twc-dt__sw[aria-disabled="true"] { cursor: default; }
 .twc-dt__sw[data-on="true"] { background: var(--color-primary); }
-.twc-dt__sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: var(--radius-full); background: var(--color-primary-fg); box-shadow: var(--shadow-sm); transition: transform var(--duration-base) var(--ease-spring); }
+.twc-dt__sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: var(--radius-full); background: var(--color-control-thumb); box-shadow: var(--shadow-sm); transition: transform var(--duration-base) var(--ease-spring); }
 .twc-dt__sw:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-dt__sw[data-on="true"]::after { transform: translateX(14px); }
 .twc-dt__panel-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px 8px; }
 .twc-dt__panel-title { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
 .twc-dt__panel-count { font-weight: 600; color: var(--color-text-muted); text-transform: none; letter-spacing: 0; margin-inline-start: 6px; font-variant-numeric: tabular-nums; }
-.twc-dt__link { border: none; background: transparent; color: var(--color-primary); font-family: inherit; font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 4px; border-radius: var(--radius-sm); }
+.twc-dt__link { border: none; background: transparent; color: var(--color-primary-subtle-fg); font-family: inherit; font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 4px; border-radius: var(--radius-sm); }
 .twc-dt__link:hover { background: var(--color-primary-subtle); }
 /* #330: MUI DataGrid-style per-row And/Or connector. Row 1 shows a static "Where"; the first connector
    row (row 2) hosts an editable And/Or Select bound to the single filterLogic; rows 3+ echo it as static
@@ -636,7 +656,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface);
   color: var(--color-text); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold); cursor: pointer;
   transition: border-color var(--duration-fast), color var(--duration-fast), background-color var(--duration-fast); }
-.twc-dt__batch-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.twc-dt__batch-btn:hover { border-color: var(--color-primary-subtle-fg); color: var(--color-primary-subtle-fg); }
 .twc-dt__batch-btn[data-danger="true"]:hover { border-color: var(--color-danger); color: var(--color-danger-subtle-fg); background: var(--color-danger-subtle); }
 .twc-dt__batch-btn svg { width: 15px; height: 15px; }
 `;
@@ -1281,7 +1301,10 @@ export function Datatable({
   // mis-target selection, inline-edit commits and "select all" for id-less rows.
   const _autoKey = React.useRef();
   if (!_autoKey.current) _autoKey.current = { map: new WeakMap(), n: 0 };
-  const keyOf = rowKey || ((r, i) => {
+  // #460: memoized - an unstable keyOf invalidated the treeRows/depthByKey/treeSeqByKey memos that
+  // list it in their deps, so they recomputed on every render. The auto-key WeakMap lives in a ref,
+  // so the only real dependency is the caller's rowKey.
+  const keyOf = React.useCallback(rowKey || ((r, i) => {
     if (r != null && r.id != null) return r.id;
     if (r != null && typeof r === "object") {
       const m = _autoKey.current.map;
@@ -1290,7 +1313,7 @@ export function Datatable({
       return k;
     }
     return i;
-  });
+  }), [rowKey]);
   const [sort, setSort] = React.useState(null);
   const [filters, setFilters] = React.useState([]);
   // #303/#330: how the filter clauses combine — "and" (all must match, default) or "or" (any). A set-wide
@@ -1938,7 +1961,12 @@ export function Datatable({
   const serverTotal = rowCount == null ? processed.length : rowCount;
   const totalRows = serverMode ? serverTotal : processed.length;
   const totalPages = paginated ? Math.max(1, Math.ceil(totalRows / sizeVal)) : 1;
-  const paged = !paginated || serverMode ? processed : processed.slice(pageVal * sizeVal, pageVal * sizeVal + sizeVal);
+  // #460: memoized. As a bare slice this was a new array identity on every render, which rippled
+  // through leafRows -> keyIndex -> the effects keyed on them (see the reveal effect below).
+  const paged = React.useMemo(
+    () => (!paginated || serverMode ? processed : processed.slice(pageVal * sizeVal, pageVal * sizeVal + sizeVal)),
+    [processed, paginated, serverMode, pageVal, sizeVal]
+  );
   React.useEffect(() => { if (pageVal > totalPages - 1) commitPage(0); }, [totalPages]);
 
   // #359: client-mode lazy row-tree — when `getSubRows` is provided (and not serverMode), flatten each
@@ -2021,7 +2049,12 @@ export function Datatable({
     };
     return build(paged, 0, "");
   }, [activeGroupBy, collapsedSet, paged, ordered, aggOn]);
-  const leafRows = displayItems ? displayItems.filter((i) => i.kind === "leaf").map((i) => i.row) : (treeRows ? treeRows.map((t) => t.row) : paged); // #359: client tree flatten
+  // #359: client tree flatten. #460: memoized - in group/tree mode the filter+map produced a fresh
+  // array every render even though displayItems/treeRows were already memoized.
+  const leafRows = React.useMemo(
+    () => (displayItems ? displayItems.filter((i) => i.kind === "leaf").map((i) => i.row) : (treeRows ? treeRows.map((t) => t.row) : paged)),
+    [displayItems, treeRows, paged]
+  );
   // #393: controlled/uncontrolled toggle — always report via onCollapsedGroupsChange; only self-update when uncontrolled.
   // #393 (review): uncontrolled toggles use the functional updater so two synchronous toggles both apply
   // (a render-snapshot copy would coalesce to only the last). Controlled mode reports the next set + defers to the host.
@@ -2644,7 +2677,19 @@ export function Datatable({
     });
     // `scrollTop` dep: a virtualized grid mounts new rows on scroll (leafRows is a stable ref), so re-run the
     // roving pass or scrolled-in widgets keep their default (tabbable) tabIndex — breaking the single-Tab-stop.
-  }, [cellNavigation, focus.r, focus.c, leafRows, ordered, pageVal, interacting, hidden, pins, scrollTop]);
+    // `loading` dep (#460 review): the SAME failure, via the loading pass. The skeleton <td>s carry no
+    // data-r, so this pass matches nothing while loading; when it ends React mounts fresh <tr>s whose
+    // widgets all carry their default (tabbable) tabIndex and whose <td>s all carry -1. Nothing else in
+    // these deps moves - `leafRows` is memoized off unchanged rows since #460, which is exactly what
+    // stopped this effect re-running on every render and made the gap reachable - so every action button
+    // in every row became a Tab stop and a widget-less roving cell could not be tabbed to at all.
+    // #392 (review 2): `vWindow` is memoized on [virtualizing, offsets, middleRows.length, vh,
+    // scrollTop, overscan], so the MOUNTED row set moves on more than scrollTop alone. `measureTick`
+    // (the post-paint real-row-height measurement, which widens the window on first paint) and
+    // `viewportH` (a container resize) both change it, and neither was listed - so rows that mounted
+    // for those reasons kept their default, tabbable widget tabIndex. `pinnedRows` remounts rows into
+    // the pinned sections for the same reason.
+  }, [cellNavigation, focus.r, focus.c, leafRows, ordered, pageVal, interacting, hidden, pins, scrollTop, loading, measureTick, viewportH, pinnedRows]);
 
   const selectedRows = React.useMemo(() => rows.filter((r, i) => selected.has(keyOf(r, i))), [rows, selected]);
   const selKeys = React.useMemo(() => [...selected], [selected]); // #322: stable keys array for predicates/callback
@@ -2661,12 +2706,23 @@ export function Datatable({
   }, [selKeys, selectedRows]);
   // #324: scroll the controlled active row into view when it changes (block: "nearest" → minimal scroll,
   // no page jump; instant, so no motion for reduced-motion users). Only when controlled + enabled + non-null.
+  // #460: resolve the active row to an index at render scope and key the effect on that primitive -
+  // the #429 fix, which had only been applied to the cell path. Keyed on the `keyIndex` Map identity
+  // this effect re-ran on EVERY render (the Map was rebuilt each time), so any unrelated re-render -
+  // an overflow tooltip opening, a parent state change - yanked a scrolled-away grid back to the
+  // active row, and scrollIntoView walked up and scrolled the host page with it. The primitive still
+  // changes when a server-mode page fetch mounts the row, which is what #395 needed.
+  const revealRowRi = activeRowVal != null ? keyIndex.get(activeRowVal) : undefined;
   React.useEffect(() => {
     if (!activeRowControlled || !scrollActiveRowIntoView || activeRowId == null) return;
     const el = gridRef.current && gridRef.current.querySelector('.twc-dt__row[data-active="true"]');
     if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest" });
-    // #395: `keyIndex` in the deps so the scroll re-applies once a server-mode page fetch mounts the row.
-  }, [activeRowId, activeRowControlled, scrollActiveRowIntoView, keyIndex]);
+    // #460 (review): `loading` is a dep because the body renders SKELETON rows instead of the real
+    // ones while it is true, so no [data-active] row exists to reveal. revealRowRi is derived from
+    // keyIndex, which still holds the row, so it does not change when loading flips - without this
+    // the reveal was lost for good after any load that happened while activeRowId was set. (Keying on
+    // the Map identity used to mask that by re-running on every render.)
+  }, [activeRowId, activeRowControlled, scrollActiveRowIntoView, revealRowRi, loading]);
   // #395: reveal the controlled active cell inside the grid's OWN scroller (never scrollIntoView, which would
   // scroll the page). Works in any selectionMode, on both axes, honours the sticky header + pinned columns,
   // and re-runs when rows change so a server-mode page fetch — or a virtualized row mounting — lands on it.
@@ -2725,7 +2781,12 @@ export function Datatable({
     // no-op refetch doesn't re-run — and re-center — the reveal. The virtualized pre-scroll reads offsets/keyIndexMid
     // through refs (above) so its retry loop still converges on fresh measurements without re-keying the effect.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCellVal?.key, activeCellVal?.field, revealOn, revealBlock, revealInline, revealRi, revealCi, virtualizing, headH]);
+    // #460 (review 2): `loading` for the same reason as the row reveal. While loading, the tbody holds
+    // at most 8 skeleton rows, so the scroller's content height collapses and the browser clamps its
+    // scrollTop to 0; when the real rows remount with an unchanged `rows` reference, nothing else in
+    // these deps has moved (revealRi comes from keyIndex, virtualizing is false unless `virtualized`,
+    // headH only changes under rowPinning), so the reveal never re-ran and the grid stayed at the top.
+  }, [activeCellVal?.key, activeCellVal?.field, revealOn, revealBlock, revealInline, revealRi, revealCi, virtualizing, headH, loading]);
   // #421: a host-driven activeCell change (in any mode) collapses the selection to that cell and moves the roving
   // focus there, so a "jump to cell" doesn't extend a rectangle from the last-clicked anchor or leave arrow-nav
   // behind. Guarded by selfCellSigRef (don't clobber the grid's own click/arrow/Shift+Arrow updates) AND by
@@ -2816,7 +2877,7 @@ export function Datatable({
   // ---- Batch edit: update one or more columns across all selected rows at once ----
   // #244: `batchEditFields` allow-lists which columns the built-in editor offers (independent of
   // `editable`, so trimming the editor never disables inline cell editing).
-  const batchEditKey = batchEditFields ? batchEditFields.join(" ") : "";
+  const batchEditKey = batchEditFields ? batchEditFields.join("\u0000") : "";
   const batchEditableCols = React.useMemo(
     () => {
       const base = cols.filter((c) => c.type !== "actions" && (c.editable ?? (editMode && c.editable !== false)));
@@ -4523,7 +4584,7 @@ export function Datatable({
             })}
           </div>
           <div className="twc-dt__f-add" style={{ padding: "6px 4px 2px" }}>
-            <button type="button" className="twc-dt__mi" style={{ color: "var(--color-primary)" }} onClick={() => addFilter(cols[0].field)}><Svg d={I.plus} style={{ color: "var(--color-primary)" }} /> Add filter</button>
+            <button type="button" className="twc-dt__mi" style={{ color: "var(--color-primary-subtle-fg)" }} onClick={() => addFilter(cols[0].field)}><Svg d={I.plus} style={{ color: "var(--color-primary-subtle-fg)" }} /> Add filter</button>
           </div>
           {resizableFilters ? (
             <span className="twc-dt__pop-grip" role="slider" tabIndex={0}

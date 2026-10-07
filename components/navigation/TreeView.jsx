@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { compose } from "../_compose.js";
 
 const TREE_CSS = `
 .twc-tree { font-family: var(--font-sans); font-size: var(--text-sm); user-select: none; }
@@ -22,7 +23,10 @@ const TREE_CSS = `
 .twc-tree__ic svg { width: 16px; height: 16px; }
 .twc-tree__row[data-selected="true"] .twc-tree__ic { color: var(--color-primary); }
 .twc-tree__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.twc-tree__badge { flex: none; font-size: 11px; color: var(--color-text-subtle); }
+/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
+   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
+   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+.twc-tree__badge { flex: none; font-size: 11px; color: var(--color-text-muted); }
 `;
 
 function Node({ node, depth, posInSet, setSize, expanded, selectedId, tabbableId, rowRefs, onToggle, onSelect, onRowFocus }) {
@@ -158,7 +162,7 @@ export function TreeView({
   };
 
   return (
-    <div className={`twc-tree ${className}`} role="tree" onKeyDown={onKeyDown} {...rest}>
+    <div className={`twc-tree ${className}`} role="tree" {...rest} onKeyDown={compose(rest.onKeyDown, onKeyDown)}>
       {__twcStyles}
       <ul className="twc-tree__group" role="none">
         {nodes.map((n, i) => (

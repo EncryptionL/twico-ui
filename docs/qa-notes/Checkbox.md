@@ -8,6 +8,8 @@
 
 None identified.
 
+- [x] **[#454] the unchecked box border was 1.49:1** - the boundary is the only indication the control exists, so SC 1.4.11 asks 3:1 of it, and `--color-border-strong` (tuned for card/divider edges) did not deliver. Added `--color-control-border` (4.76:1 on white, 6.96:1 on the dark surface) and used it here. `Checkbox.jsx:36` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled dual mode works correctly (checked + defaultChecked + onChange)

@@ -83,7 +83,7 @@ function SegToggle({ lang, setLang }) {
           padding: "5px 14px",
           borderRadius: "var(--radius-sm)",
           background: active ? "var(--color-primary)" : "transparent",
-          color: active ? "var(--color-primary-fg)" : "var(--color-text-subtle)",
+          color: active ? "var(--color-primary-fg)" : "var(--color-text-muted)", // #449: the pill sits on surface-sunken, where text-subtle is only 4.34:1
           boxShadow: active ? "var(--shadow-sm)" : "none",
           transition: "background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard)",
         }}

@@ -2,9 +2,22 @@
 
 - **Group:** navigation
 - **Status:** clean
-- **Reviewed:** 2026-09-23
+- **Reviewed:** 2026-10-06
 
 ## Open issues
+
+- [x] **[#449] section headings failed WCAG AA in BOTH themes** - `.twc-sidebar__section` is
+  `var(--color-text-subtle)` on the sidebar's `var(--color-surface)`, measuring **2.56:1** in light (slate-400 on
+  white) and **3.75:1** in dark. These are the group labels in the navigation rail, so they appear on every page
+  of a consuming app, and at 10px/700 uppercase they are nowhere near the large-text threshold - 4.5:1 applies.
+  Fixed in the token rather than in Sidebar: `--color-text-subtle` now takes one step toward the text in light
+  (slate-400 -> slate-500, **4.76:1**) and one step away in dark (slate-500 -> slate-400, **6.96:1**) - the two
+  themes simply trade ramp steps, so no new value enters the vocabulary and the text / text-muted / text-subtle
+  hierarchy stays three distinct steps. That also lifts ~30 other quiet-text uses (placeholders, chart axis ticks,
+  empty states, timestamps, hints) which shared the identical latent failure. One imprecision in the report: the
+  dark failure was slate-500, not slate-400 - the token is re-declared in the dark block. See
+  [colors.md](../colors.md) and [Badge](Badge.md). `tokens/colors.css`; `tests/tokens-a11y.test.js`.
+  - fixed 2026-10-06
 
 - [x] **[#417] footerInset={false} still left a gap below the row** — when the footer row is the foots last child, cancel the bottom padding too so it reaches the rails bottom edge. `Sidebar.jsx` — ✓ 2026-09-23
 
@@ -15,6 +28,8 @@
 - [x] **[P2] Collapsed labels are visually hidden but stay in the a11y tree** — In collapsed mode `.twc-sidebar__label`/`__badge` are hidden with `display: none` (good, fully removes them), but the row's accessible name then falls back to the first-letter "initial" span which is `aria-hidden="true"`, leaving the link with **no accessible name** for screen readers when there is no icon-with-label. The native `title` is set only when collapsed AND label is a string, which helps sighted hover but `title` is not a reliable accessible name. _Fix:_ keep an `aria-label={typeof it.label === "string" ? it.label : undefined}` on the anchor so the collapsed icon-only link is still announced. `components/navigation/Sidebar.jsx:84-92`. — ✓ fixed 2026-06-17
 - [ ] **[deferred] Items render as `<a>` even with no href** — Items without `href` still emit an anchor pointing at `"#"`; see P1 for the consequence.
 - [ ] **[deferred] index-as-key on items/sections** — `items.map((it, i) => … key={i})` uses the array index for both section headings and links; inserting/removing items can desync. `components/navigation/Sidebar.jsx:80-95`.
+
+- [x] **[#465] the collapse chevron was not mirrored in RTL** - the rail's own edge is logical (`border-inline-end`), so under `dir="rtl"` it sits on the right of the page, but the chevron still pointed left: away from the edge it collapses toward, and into the page when expanding. The file's only RTL rule was for the overlay variant. Added the scoped `scaleX(-1)` (plus the collapsed `scaleX(-1) rotate(180deg)`) that CLAUDE.md prescribes for a nav chevron and that Breadcrumb and the DateRangePicker nav already use. Purely visual. `Sidebar.jsx:72` - fixed 2026-10-07
 
 ## Verified OK
 

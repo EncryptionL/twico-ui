@@ -1,5 +1,10 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useFallbackName } from "../_name.js";
+
+// Layout effect on the client, plain effect on the server - avoids React's SSR useLayoutEffect
+// warning. Same guard as Textarea.jsx and _overlay.js.
+const useIso = typeof document !== "undefined" ? React.useLayoutEffect : React.useEffect;
 import { warnOnce } from "../_warn.js";
 import { createPortal } from "react-dom";
 
@@ -68,7 +73,7 @@ const SELECT_CSS = `
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-opt:hover, .twc-opt[data-active="true"] { background: var(--color-surface-sunken); }
-.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary); font-weight: var(--font-semibold); }
+.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary-subtle-fg); font-weight: var(--font-semibold); }
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -146,13 +151,26 @@ export function Select({
 
   // Auto-enable search for longer lists unless the caller forces it on/off.
   const showSearch = searchable === undefined ? flat.length > 5 : searchable;
-  const fGroups = React.useMemo(() => {
+  const fGroupsLive = React.useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return groups;
     return groups
       .map((g) => ({ group: g.group, options: g.options.filter((o) => o.label.toLowerCase().includes(q) || (o.description && o.description.toLowerCase().includes(q))) }))
       .filter((g) => g.options.length);
   }, [groups, query]);
+  // #463 (review): the popover stays mounted for ~170ms after close for its exit animation, so
+  // clearing the search on close recomputed this mid-fade - the rows jumped from the filtered set to
+  // the full one at its 260px max-height, and the role="status" region announced the full count
+  // ("50 results") straight after the user had chosen something. Freeze the filtered set at whatever
+  // was last shown while open; the next open recomputes from the (now empty) query. Clearing on close
+  // itself has to stay: that is what stops the [query] reset clobbering the on-open highlight one
+  // commit later, which is the actual #463 bug.
+  // The snapshot is taken in an effect rather than written during render: a render-phase ref write is
+  // a documented React smell (and under concurrent rendering a discarded render could write it), while
+  // an effect gives exactly what is wanted here - the last COMMITTED open content.
+  const fGroupsFrozen = React.useRef(fGroupsLive);
+  React.useEffect(() => { if (open) fGroupsFrozen.current = fGroupsLive; }, [open, fGroupsLive]);
+  const fGroups = open ? fGroupsLive : fGroupsFrozen.current;
   const visible = React.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
 
   // #92: option-list virtualization (opt-in). Build a flat row model (group headers +
@@ -174,7 +192,13 @@ export function Select({
 
   // #90: find the next non-disabled option index in a direction (no wrap), else stay.
   const nextEnabled = (from, dir) => {
-    let i = from + dir;
+    // #463: self-healing from an OUT-OF-RANGE `from`. `active` is only reset by the [query] (and
+    // [open]) effects, so an `options` prop that shrinks while the list is open - the documented
+    // server-ranked pattern does this on every refetch - leaves `active` past the end of `visible`.
+    // Starting at `from + dir` then made the guard false immediately, so this returned `from`
+    // unchanged in BOTH directions: arrows dead, Enter a no-op, and aria-activedescendant undefined
+    // until the user typed or reopened. Re-enter the list from its nearest end instead.
+    let i = from >= visible.length ? (dir > 0 ? visible.length - 1 : 0) : from + dir;
     while (i >= 0 && i < visible.length) { if (!visible[i]?.disabled) return i; i += dir; }
     return from;
   };
@@ -217,7 +241,12 @@ export function Select({
     if (!open) return;
     const idx = flat.findIndex((o) => o.value === current);
     setActive(idx >= 0 ? idx : 0);
-    setQuery("");
+    // #463: the query is cleared on CLOSE, not here. Clearing it here meant that in the commit where
+    // `open` flips true the [query] effect still saw the OLD query (so it did not run), React then
+    // re-rendered with query === "", and THAT commit ran it and called setActive(0) - clobbering the
+    // highlight this line just set. So "on open, highlight the selected option" worked only on the
+    // very first open, and after any prior search the list opened at the top instead of at the
+    // selection. Combobox fixed the same ordering hazard under #425.
     if (showSearch) { setTimeout(() => searchRef.current?.focus(), 20); }
     const onDown = (e) => {
       if (wrapRef.current && wrapRef.current.contains(e.target)) return;
@@ -229,6 +258,22 @@ export function Select({
   }, [open]);
 
   React.useEffect(() => { setActive(0); }, [query]);
+  // #463: belt and braces alongside the nextEnabled self-heal - clamp `active` as soon as the list
+  // shrinks, so `visible[active]` (Enter) and aria-activedescendant recover without the user having
+  // to press an arrow key first. (It deliberately does NOT touch an empty list - see below.)
+  React.useEffect(() => {
+    // #463 (review): SKIP an empty list. The first version clamped unconditionally, so on an empty
+    // list Math.min(a, -1) drove `active` to -1 and the `a < 0 ? a` guard then kept it there for the
+    // life of the component - the list refilling could not recover it. That strands every async path
+    // the library itself documents: a MultiSelect whose options arrive after mount (Datatable's own
+    // AsyncFilterValue starts at []) never highlighted anything again, and a Combobox whose host
+    // blanks `options` while a fetch is in flight lost Enter-to-accept for as long as it stayed open.
+    // Leaving `active` alone while there is nothing to point at is both safe (no option renders, so
+    // nothing is announced) and recoverable (the next non-empty render clamps it into range).
+    // Math.min already preserves a deliberate -1, so no separate negative branch is needed.
+    if (visible.length === 0) return;
+    setActive((a) => Math.min(a, visible.length - 1));
+  }, [visible.length]);
 
   // Measure the list viewport height for the virtualization window (falls back to the
   // 260px max-height when layout is unavailable, e.g. before paint / in jsdom).
@@ -256,6 +301,13 @@ export function Select({
   // Keep the listbox mounted through the close animation, then unmount.
   React.useEffect(() => {
     if (open) { setRender(true); return; }
+    // #463: the search resets on CLOSE rather than on open, so the [query] effect cannot clobber the
+    // on-open highlight one commit later.
+    // The reset stays on the close COMMIT, not on the unmount timeout: a close-and-reopen inside
+    // those 170ms would otherwise reopen with the stale query still in place, and the [query] effect
+    // would then fire mid-session and clobber the highlight - the bug this was fixing. The mid-fade
+    // repaint it used to cause is handled by freezing the filtered set instead (see fGroupsFrozen).
+    setQuery("");
     const t = setTimeout(() => setRender(false), 170);
     return () => clearTimeout(t);
   }, [open]);
@@ -309,6 +361,21 @@ export function Select({
   const listboxId = `${fieldId}-listbox`;
   const optionId = (i) => `${fieldId}-opt-${i}`;
   const activeId = open && visible[active] ? optionId(active) : undefined;
+  // #459: role="combobox" PROHIBITS name-from-content, and as a plain button the trigger was named by
+  // its own value text - so without a `label` it would have no accessible name at all, and we fall back
+  // to the placeholder (a better name than the current value: the APG select-only combobox is named by
+  // its label and announces its CONTENTS as the value).
+  //
+  // #459 (review): but that fallback MUST NOT be stamped blindly. accname resolves aria-label (step 2C)
+  // BEFORE a host-language <label> (step 2D), and <button> is labelable - so an aria-label here beat a
+  // perfectly good <label htmlFor> or wrapping <label>, renaming a correctly-labelled control to
+  // "Select...". That is a WCAG 2.5.3 Label in Name failure and it broke an in-repo call site:
+  // Datatable's Combine panel wraps its Select in <label><span>Layout</span>...</label>, whose name went
+  // from "Layout" to "Select...". The props cannot see a host label, so the fallback is decided AFTER
+  // mount by asking the DOM, and only when the consumer supplied no name of their own. The first render
+  // stamps nothing, which also keeps SSR and hydration identical.
+  const hasOwnName = Boolean(label || rest["aria-label"] || rest["aria-labelledby"]);
+  const fallbackName = useFallbackName(triggerRef, hasOwnName) ? placeholder : undefined;
   const descId = `${fieldId}-desc`;
   const describedBy = error || hint ? descId : undefined;
 
@@ -361,7 +428,7 @@ export function Select({
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           <input ref={searchRef} value={query} placeholder={searchPlaceholder} onKeyDown={handleKeyDown}
             onChange={(e) => setQuery(e.target.value)} aria-label="Search options"
-            role="combobox" aria-expanded={open} aria-controls={listboxId} aria-activedescendant={activeId} />
+            role="combobox" aria-expanded={open} aria-controls={open ? listboxId : undefined} aria-activedescendant={activeId} />
           {query ? (
             <button type="button" className="twc-pop__search-clear" aria-label="Clear search" onClick={() => { setQuery(""); searchRef.current?.focus(); }}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
@@ -369,7 +436,11 @@ export function Select({
           ) : null}
         </div>
       ) : null}
-      <div className="twc-pop__list" ref={listRef} onScroll={virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined}>
+      {/* #459: the listbox role lives on the options list, not on the popover wrapper. On the wrapper it
+          owned the search field (itself a role="combobox") and a role="status" live region - neither is a
+          permitted child of a listbox - and the input's aria-controls resolved to its own ancestor.
+          MultiSelect.jsx already places it this way. */}
+      <div className="twc-pop__list" id={listboxId} role="listbox" ref={listRef} onScroll={virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined}>
         {loading ? (
           <div className="twc-pop__loading" role="status"><span className="twc-pop__spinner" aria-hidden="true" />Loading…</div>
         ) : visible.length === 0 ? <div className="twc-pop__empty">{emptyText}</div> :
@@ -377,14 +448,19 @@ export function Select({
             <>
               {vTop > 0 ? <div aria-hidden="true" style={{ height: vTop }} /> : null}
               {vShown.map((r) => r.kind === "group"
-                ? <div key={`g${r.gi}`} className="twc-pop__group">{r.label}</div>
+                ? /* #468: role="presentation" - a listbox owns option/group only, and these bare label divs
+                   were neither, so a screen reader walked them as list content. Wrapping each
+                   group in a real role="group" + aria-labelledby (as CommandPalette now does)
+                   is the fuller fix, but the virtualized path renders a FLAT row list with no
+                   nesting to hang it on - deferred, see docs/qa-notes. */
+                  <div key={`g${r.gi}`} className="twc-pop__group" role="presentation">{r.label}</div>
                 : renderRow(r.o, r.idx))}
               {vBottom > 0 ? <div aria-hidden="true" style={{ height: vBottom }} /> : null}
             </>
           ) :
           fGroups.map((g, gi) => (
             <React.Fragment key={gi}>
-              {g.group ? <div className="twc-pop__group">{g.group}</div> : null}
+              {g.group ? <div className="twc-pop__group" role="presentation">{g.group}</div> : null}
               {g.options.map((o) => {
                 counter += 1; const idx = counter;
                 return renderRow(o, idx);
@@ -407,14 +483,14 @@ export function Select({
   if (render) {
     if (canPortal && coords) {
       popEl = RD.createPortal(
-        <div className="twc-pop twc-pop--portal" id={listboxId} role="listbox" ref={popRef}
+        <div className="twc-pop twc-pop--portal" ref={popRef}
           data-state={popState} data-placement={coords.flip ? "top" : "bottom"}
           style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, minWidth: coords.minWidth, maxWidth: coords.maxWidth, right: "auto", zIndex: "var(--z-floating)" }}>
           {popInner}
         </div>, document.body);
     } else if (!portal) {
       popEl = (
-        <div className="twc-pop" id={listboxId} role="listbox" ref={popRef} data-state={popState} data-placement={placement === "top" ? "top" : "bottom"}>
+        <div className="twc-pop" ref={popRef} data-state={popState} data-placement={placement === "top" ? "top" : "bottom"}>
           {popInner}
         </div>
       );
@@ -429,7 +505,9 @@ export function Select({
       <div className="twc-sel">
         <button type="button" id={fieldId} ref={triggerRef} className="twc-sel__trigger" data-size={size} data-tone={tone}
           data-open={open || undefined} data-invalid={Boolean(error) || undefined} disabled={disabled}
-          aria-haspopup="listbox" aria-expanded={open} aria-controls={open ? listboxId : undefined} aria-activedescendant={activeId}
+          role="combobox" aria-haspopup="listbox" aria-expanded={open} aria-controls={open ? listboxId : undefined}
+          aria-activedescendant={showSearch ? undefined : activeId}
+          aria-label={fallbackName}
           aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy}
           onClick={(e) => { onClick?.(e); if (!e.defaultPrevented) setOpen((o) => !o); }}
           onKeyDown={(e) => { onKeyDown?.(e); if (!e.defaultPrevented) handleKeyDown(e); }} {...rest}>

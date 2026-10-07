@@ -6,7 +6,9 @@ import { useLocalStorage } from "twico-ui";
 const CodeLangContext = React.createContext({ lang: "ts", setLang: () => {} });
 
 export function CodeLangProvider({ children }) {
-  const [lang, setLang] = useLocalStorage("twico-code-lang", "ts");
+  // #466: client-only SPA, so read storage eagerly - otherwise every code block renders as TS for one
+  // frame before flipping to a reader's stored JS preference. (See ThemeToggle.jsx.)
+  const [lang, setLang] = useLocalStorage("twico-code-lang", "ts", { initializeWithValue: true });
   const value = React.useMemo(() => ({ lang: lang === "js" ? "js" : "ts", setLang }), [lang, setLang]);
   return <CodeLangContext.Provider value={value}>{children}</CodeLangContext.Provider>;
 }

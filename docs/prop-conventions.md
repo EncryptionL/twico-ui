@@ -98,12 +98,29 @@ standardized 2026-06-18; this doc is the source of truth.)
   provider) keeps its own tone-derived `alert`/`status` role.
 
 ## Passthrough & polymorphism
-- All components spread `...rest` to their root and accept `className` + `style`. Inline `style` and
-  `className` never override component-controlled `data-*`/`aria-*` (those are placed after the spread).
+- Every component spreads `...rest` and accepts `className` + `style`, but **`...rest` does not always
+  land on the ROOT** (#471). For the input family the root is the field wrapper (`.twc-field` / `.twc-input`
+  / `.twc-cur`) while `id` and the whole `{...rest}` - `style` included - go to the inner control, so
+  `<Combobox style={{ width: 320 }} />` sizes the `<input>`, not the field. `className` does go to the
+  root. The docs site states the real target per component in its prop table, generated from the
+  component category by `site/scripts/enrich-props.mjs`. Inline `style` and `className` never override
+  component-controlled `data-*`/`aria-*` (those are placed after the spread).
 - Polymorphic components take **`as`** (`Box`, `Stack`, `Container`, `Grid`, `Text`, `Heading`, `Code`),
   typed as the exported **`PolymorphicAs`** (`React.ElementType`) so it accepts both a tag name
   (`as="section"`) and a React component (`as={Link}`), whose props flow through `{...rest}`.
   `Button.as` is restricted to `"button" | "a"` because only those two are supported.
+- **A consumer handler COMPOSES with the internal one, it does not replace it (#452).** Where a
+  component attaches its own `onKeyDown`/`onMouseEnter`/... to the same element it spreads `...rest`
+  onto, the handler is wired **after** the spread through `compose()` (`components/_compose.js`): the
+  consumer's handler runs first, then the component's, unless the consumer calls `preventDefault()`.
+  That one call is the documented opt-out. Spreading `...rest` after an internal handler instead lets
+  a same-named prop silently delete it - `<Menu onKeyDown={log}>` used to lose every bit of keyboard
+  navigation, `<Carousel onMouseEnter={log}>` its autoplay pause - with nothing warning. Components
+  with composed handlers via `compose()` today: Menu, Tooltip, TreeView, ToggleGroup and Carousel.
+  Popover and Select follow the same contract but inline it on a single handler each (they call the
+  consumer's handler and bail on `defaultPrevented`) rather than importing the helper.
+  Note the asymmetry with the attribute rule above: non-handler entries in `...rest` still win, so a
+  consumer can still override `role`/`aria-label`.
 
 ## Deprecation policy
 - A superseded prop is marked `@deprecated since <minor>, removed in <major> — use ``X``` in its

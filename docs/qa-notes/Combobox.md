@@ -50,6 +50,11 @@
   `tests/combobox-wrap-options.test.jsx`. Not (yet) mirrored on Select/MultiSelect (same `.twc-opt` markup,
   could be added if requested). — added 2026-07-30
 
+- [x] **[#459] `role="listbox"` sat on the popover wrapper rather than the options list** - same placement problem as Select: the input's `aria-controls` named a plain container instead of the element it controls. Moved onto `.twc-pop__list`. `Combobox.jsx:320,353,360` - fixed 2026-10-07
+
+- [x] **[#463] the active option index was never clamped** - see Select: same `nextEnabled` self-heal and `[visible.length]` clamp effect. `Combobox.jsx:169` - fixed 2026-10-07
+- [x] **[#468] group label divs are `role="presentation"`** - see Select. `Combobox.jsx:345,352` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled single-select (value/defaultValue/onChange)
