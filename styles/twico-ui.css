@@ -154,6 +154,11 @@
   /* Borders & dividers */
   --color-border:         var(--slate-200);
   --color-border-strong:  var(--slate-300);
+  /* #454: the unchecked boundary of Checkbox/Radio/Switch is the ONLY indication the control
+     exists, so SC 1.4.11 requires 3:1 against the surface. border-strong is 1.49:1. This step
+     clears it in both themes (4.76:1 on white, 6.96:1 on the dark surface) without touching
+     card/divider borders. */
+  --color-control-border: var(--slate-500);
   --color-divider:        var(--slate-200);
 
   /* Text */
@@ -208,6 +213,31 @@
   --color-info-fg:        var(--sky-950); /* dark ink on sky-500 (white was 2.77:1) */
   --color-info-subtle:       var(--sky-50);
   --color-info-subtle-fg:    var(--sky-700);
+
+  /* #455: GRAPHIC tone colours — for a fill or stroke that is itself the information (a Progress
+     bar, a Toast edge stripe, a status icon). SC 1.4.11 wants 3:1 for those, and the light-mode
+     tone colours miss it: amber-500 is 1.96:1 on surface-sunken and sky-500 2.53:1. These steps
+     clear 3:1 on BOTH --color-surface (#fff) and --color-surface-sunken (slate-100) with margin
+     — 4.1:1 at worst — and keep the five tones at a consistent lightness so a tone switch does
+     not change the weight of the control. Use the plain tone for fills that carry text on top
+     (they are paired with --color-*-fg); use these when the colour stands alone. */
+  --color-primary-graphic: var(--brand-500);    /* 4.47 / 4.08 — unchanged, listed for symmetry */
+  --color-success-graphic: var(--emerald-700);  /* 5.48 / 5.01 */
+  --color-warning-graphic: var(--amber-700);    /* 5.02 / 4.58 */
+  --color-danger-graphic:  var(--rose-600);     /* 4.70 / 4.29 */
+  --color-info-graphic:    var(--sky-600);      /* 4.10 / 3.74 */
+
+  /* #455: the chart series ramp. Was seven primitives inlined in _chart.js, where slots 1 and 6
+     were BOTH indigo-500 (--brand-500 aliases it) — two series rendered identically, 1.00:1. As
+     tokens they also flip per theme, so a series fill is never below 3:1 on its own surface:
+     light bottoms out at 4.08:1, and the closest pair is 23.8 ΔE76 apart. */
+  --color-chart-1: var(--indigo-500);
+  --color-chart-2: var(--sky-700);
+  --color-chart-3: var(--emerald-700);
+  --color-chart-4: var(--amber-700);
+  --color-chart-5: var(--rose-600);
+  --color-chart-6: var(--indigo-900);
+  --color-chart-7: var(--slate-500);
 }
 
 /* ============================================================
@@ -226,6 +256,7 @@
 
   --color-border:         #25324a;
   --color-border-strong:  var(--slate-700);
+  --color-control-border: var(--slate-400);
   --color-divider:        #1c2840;
 
   --color-text:           var(--slate-50);
@@ -263,6 +294,28 @@
   --color-info-fg:        #04212f;
   --color-info-subtle:       rgb(14 165 233 / 0.15);
   --color-info-subtle-fg:    var(--sky-400);
+
+  /* #455: dark mode already clears 3:1 for every tone on slate-900 (6.4:1 and up), so the graphic
+     aliases simply track the tone here — no second set of values to keep in sync. */
+  --color-primary-graphic: var(--color-primary);
+  --color-success-graphic: var(--color-success);
+  --color-warning-graphic: var(--color-warning);
+  --color-danger-graphic:  var(--color-danger);
+  --color-info-graphic:    var(--color-info);
+
+  /* #455: dark keeps the ORIGINAL 500 steps. Dark mode never had the contrast problem (3.07:1 at
+     worst against surface-raised, 6.4:1+ on the surface itself), and the on-slice data labels in
+     PieChart/DonutChart/Treemap/FunnelChart are a static white fill + dark halo tuned against these
+     exact fills (see docs/charts.md) - lightening them would weaken that for no gain. Only slot 6
+     changes, from the indigo-500 that duplicated slot 1 to indigo-300: 25.7 ΔE76 from slot 1, and a
+     white-on-slice ratio in line with the amber-500 slice the label design already handles. */
+  --color-chart-1: var(--indigo-500);
+  --color-chart-2: var(--sky-500);
+  --color-chart-3: var(--emerald-500);
+  --color-chart-4: var(--amber-500);
+  --color-chart-5: var(--rose-500);
+  --color-chart-6: var(--indigo-300);
+  --color-chart-7: var(--slate-500);
 }
 
 /* ===== tokens/typography.css ===== */
@@ -554,7 +607,7 @@ h1, h2, h3, h4, h5, h6 {
 p { margin: 0; }
 
 a {
-  color: var(--color-primary);
+  color: var(--color-primary-subtle-fg);
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-standard);
 }

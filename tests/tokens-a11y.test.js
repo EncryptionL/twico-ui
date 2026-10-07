@@ -157,3 +157,54 @@ describe("token a11y - quiet text + soft tone foreground contrast (#449)", () =>
     }
   }
 });
+
+// #454 — the unchecked boundary of a Checkbox/Radio/Switch is the ONLY thing that says the control is
+// there, so SC 1.4.11 asks 3:1 of it. --color-border-strong (the old value) was 1.49:1.
+describe("token a11y - control boundary contrast (#454)", () => {
+  for (const [scopeName, scope] of Object.entries(scopes)) {
+    for (const bg of ["--color-surface", "--color-bg", "--color-surface-raised"]) {
+      it(`--color-control-border on ${bg} clears the 3:1 non-text floor (${scopeName})`, () => {
+        expect(contrast(scope, "--color-control-border", bg, bg)).toBeGreaterThanOrEqual(3);
+      });
+    }
+  }
+});
+
+// #455 — a fill or stroke that IS the information (a Progress bar, a Toast stripe, a status icon) owes
+// 3:1 under SC 1.4.11. The plain light-mode tones missed it: amber-500 was 1.96:1 on surface-sunken.
+describe("token a11y - graphic tone contrast (#455)", () => {
+  const TONES = ["primary", "success", "warning", "danger", "info"];
+  for (const [scopeName, scope] of Object.entries(scopes)) {
+    for (const tone of TONES) {
+      for (const bg of ["--color-surface", "--color-surface-raised", "--color-surface-sunken"]) {
+        it(`--color-${tone}-graphic on ${bg} clears 3:1 (${scopeName})`, () => {
+          expect(contrast(scope, `--color-${tone}-graphic`, bg, bg)).toBeGreaterThanOrEqual(3);
+        });
+      }
+    }
+  }
+});
+
+// #451/#456 — --color-primary is a FILL colour (brand-500), not a text colour: as text it measures
+// 4.00-4.47:1 in light and 3.27:1 on the dark raised surface, so the 13 declarations that used it for
+// link/label/hover text all missed SC 1.4.3. They now use --color-primary-subtle-fg. These assertions
+// encode both halves of that rule - the replacement clears AA, and the original cannot - so a new
+// `color: var(--color-primary)` text declaration has a test to answer to.
+describe("token a11y - primary as text vs as fill (#451, #456)", () => {
+  for (const [scopeName, scope] of Object.entries(scopes)) {
+    for (const bg of ["--color-surface", "--color-bg", "--color-surface-sunken"]) {
+      it(`--color-primary-subtle-fg on ${bg} clears AA 4.5:1 (${scopeName})`, () => {
+        expect(contrast(scope, "--color-primary-subtle-fg", bg, bg)).toBeGreaterThanOrEqual(4.5);
+      });
+      // The exception, measured not assumed: on the DARK page background (slate-950) brand-500 scrapes
+      // 4.52:1. Components paint on surfaces, not on the page background, so the rule still holds where
+      // it matters - and a token that passes only against the single darkest backdrop in the system is
+      // not a text colour.
+      if (bg !== "--color-bg" || scopeName === "light") {
+        it(`--color-primary on ${bg} does NOT clear AA, which is why it is fill-only (${scopeName})`, () => {
+          expect(contrast(scope, "--color-primary", bg, bg)).toBeLessThan(4.5);
+        });
+      }
+    }
+  }
+});

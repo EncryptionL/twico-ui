@@ -68,7 +68,7 @@ const SELECT_CSS = `
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-opt:hover, .twc-opt[data-active="true"] { background: var(--color-surface-sunken); }
-.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary); font-weight: var(--font-semibold); }
+.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary-subtle-fg); font-weight: var(--font-semibold); }
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -361,7 +361,7 @@ export function Select({
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           <input ref={searchRef} value={query} placeholder={searchPlaceholder} onKeyDown={handleKeyDown}
             onChange={(e) => setQuery(e.target.value)} aria-label="Search options"
-            role="combobox" aria-expanded={open} aria-controls={listboxId} aria-activedescendant={activeId} />
+            role="combobox" aria-expanded={open} aria-controls={open ? listboxId : undefined} aria-activedescendant={activeId} />
           {query ? (
             <button type="button" className="twc-pop__search-clear" aria-label="Clear search" onClick={() => { setQuery(""); searchRef.current?.focus(); }}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
@@ -369,7 +369,11 @@ export function Select({
           ) : null}
         </div>
       ) : null}
-      <div className="twc-pop__list" ref={listRef} onScroll={virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined}>
+      {/* #459: the listbox role lives on the options list, not on the popover wrapper. On the wrapper it
+          owned the search field (itself a role="combobox") and a role="status" live region - neither is a
+          permitted child of a listbox - and the input's aria-controls resolved to its own ancestor.
+          MultiSelect.jsx already places it this way. */}
+      <div className="twc-pop__list" id={listboxId} role="listbox" ref={listRef} onScroll={virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined}>
         {loading ? (
           <div className="twc-pop__loading" role="status"><span className="twc-pop__spinner" aria-hidden="true" />Loading…</div>
         ) : visible.length === 0 ? <div className="twc-pop__empty">{emptyText}</div> :
@@ -407,14 +411,14 @@ export function Select({
   if (render) {
     if (canPortal && coords) {
       popEl = RD.createPortal(
-        <div className="twc-pop twc-pop--portal" id={listboxId} role="listbox" ref={popRef}
+        <div className="twc-pop twc-pop--portal" ref={popRef}
           data-state={popState} data-placement={coords.flip ? "top" : "bottom"}
           style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, minWidth: coords.minWidth, maxWidth: coords.maxWidth, right: "auto", zIndex: "var(--z-floating)" }}>
           {popInner}
         </div>, document.body);
     } else if (!portal) {
       popEl = (
-        <div className="twc-pop" id={listboxId} role="listbox" ref={popRef} data-state={popState} data-placement={placement === "top" ? "top" : "bottom"}>
+        <div className="twc-pop" ref={popRef} data-state={popState} data-placement={placement === "top" ? "top" : "bottom"}>
           {popInner}
         </div>
       );
@@ -429,7 +433,8 @@ export function Select({
       <div className="twc-sel">
         <button type="button" id={fieldId} ref={triggerRef} className="twc-sel__trigger" data-size={size} data-tone={tone}
           data-open={open || undefined} data-invalid={Boolean(error) || undefined} disabled={disabled}
-          aria-haspopup="listbox" aria-expanded={open} aria-controls={open ? listboxId : undefined} aria-activedescendant={activeId}
+          role="combobox" aria-haspopup="listbox" aria-expanded={open} aria-controls={open ? listboxId : undefined}
+          aria-activedescendant={showSearch ? undefined : activeId}
           aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy}
           onClick={(e) => { onClick?.(e); if (!e.defaultPrevented) setOpen((o) => !o); }}
           onKeyDown={(e) => { onKeyDown?.(e); if (!e.defaultPrevented) handleKeyDown(e); }} {...rest}>

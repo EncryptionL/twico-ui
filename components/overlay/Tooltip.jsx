@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { compose } from "../_compose.js";
 import { createPortal } from "react-dom";
 
 const TOOLTIP_CSS = `
@@ -188,8 +189,9 @@ export function Tooltip({
     <span
       ref={wrapRef}
       className={`twc-tooltip-wrap ${className}`}
-      onMouseEnter={open} onMouseLeave={close} onFocus={open} onBlur={close}
       {...rest}
+      onMouseEnter={compose(rest.onMouseEnter, open)} onMouseLeave={compose(rest.onMouseLeave, close)}
+      onFocus={compose(rest.onFocus, open)} onBlur={compose(rest.onBlur, close)}
     >
       {__twcStyles}
       {trigger}

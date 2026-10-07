@@ -776,6 +776,10 @@
   checkbox-selection analogue is #322's `onRowSelectionChange`. 3 tests in
   `tests/datatable-controlled-active-row.test.jsx`. — added 2026-08-03
 
+- [x] **[#460] the controlled `activeRowId` reveal effect re-ran on every render** - the same defect class as #429, which had only been fixed on the cell path. `paged` was a bare `processed.slice()`, so `leafRows` -> `keyIndex` were rebuilt every render and the effect (keyed on the `keyIndex` Map identity) fired continuously: any unrelated re-render dragged a scrolled-away grid back to the active row, and `scrollIntoView` walked up and scrolled the host page with it. `paged`/`leafRows` are memoized, `keyOf` is a `useCallback`, and the effect keys on the resolved row index. `Datatable.jsx:1952,2032,1292,2690` - fixed 2026-10-07
+- [x] **[#451] `--color-primary` used as text colour in six declarations** - brand-500 as text measures 4.00-4.47:1 light / 3.27:1 dark-raised. Switched to `--color-primary-subtle-fg` (pivot aggregate, active menu item, link button, batch-button hover). `Datatable.jsx` - fixed 2026-10-07
+- [x] **[housekeeping] a raw NUL byte in the source made git treat the whole file as binary** - `batchEditFields.join(...)` held a literal U+0000 rather than the escape, so `git diff` reported only "Binary files differ" (hiding real changes from review) and `grep` bailed mid-file. Replaced with the two-character `\u0000` escape; identical at runtime. `Datatable.jsx:2827` - fixed 2026-10-07
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.

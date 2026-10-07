@@ -54,6 +54,8 @@
   handlers removed. A tooltip is purely presentational (use `Popover` for interactive content), matching
   MUI/Radix. Guarded by `tests/Tooltip.test.jsx` (CSS + source). — ✓ fixed 2026-08-11
 
+- [x] **[#452] a consumer `onMouseEnter`/`onFocus` stopped the tooltip opening** - `{...rest}` was spread after the internal hover/focus handlers. All four are now composed via `components/_compose.js`. `Tooltip.jsx:189-192` - fixed 2026-10-07
+
 ## Verified OK
 
 - Portaled to `document.body` with fixed positioning, so it is never clipped by an overflow/scroll ancestor (`Tooltip.jsx:108`, `Tooltip.jsx:52-54`).

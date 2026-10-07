@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"54bb00b4c693","components/buttons/IconButton.jsx":"22790903081f","components/buttons/ToggleGroup.jsx":"fe374dcc220f","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"ec5f65bdfad1","components/data-display/Badge.jsx":"3a7e4bd2acd7","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"1253b1ba31eb","components/data-display/Carousel.jsx":"de6fdea8917a","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"c77624bd603c","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"c1fe68414c67","components/data-display/ImageViewer.jsx":"7379ad3f27c6","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"1bd624ad4054","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"849230072e69","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"b38b5a89b215","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6942d1012a6f","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"1fc840f615e2","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"e110be9170b9","components/inputs/DateRangePicker.jsx":"f61bde231213","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"5706752240e2","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"21da33e87561","components/inputs/Radio.jsx":"1662e4525f66","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"8e4d0341769e","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a0a989374c97","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"9b6faf2e9bdd","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"42043506fee9","components/navigation/Sidebar.jsx":"a405fca979fc","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"464fea87a96a","components/navigation/TreeView.jsx":"d4e3bbf994e3","components/overlay/CommandPalette.jsx":"477e628a0223","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"8bc27431f179","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"c4f8042a77e8","components/typography/Code.jsx":"f6f1da463524","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"3001e004908a"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0f644cb478db","components/buttons/IconButton.jsx":"22790903081f","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"557d6b86982b","components/data-display/AvatarMenu.jsx":"ec5f65bdfad1","components/data-display/Badge.jsx":"69e6aff0081a","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"360cd36367bf","components/data-display/Carousel.jsx":"900b31f49262","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"5c07365206cb","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"c1fe68414c67","components/data-display/ImageViewer.jsx":"7379ad3f27c6","components/data-display/Kanban.jsx":"6a6204e3a838","components/data-display/List.jsx":"1cf2d0f7fe7e","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"1a5f36da0cef","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"92e0de3c6efe","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"9a58f8174004","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"456f691e9b3c","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6f79dde2a65e","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"2717da0c25ba","components/inputs/Currency.jsx":"8e6cdfd08596","components/inputs/CurrencyField.jsx":"dce9a9864a10","components/inputs/DatePicker.jsx":"48e5874096a3","components/inputs/DateRangePicker.jsx":"895faedd2391","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"272cedcebedf","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"658a8b176300","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"21da33e87561","components/inputs/Radio.jsx":"eba7572baaa1","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"0ed1a236d175","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"6ef39cf7400d","components/inputs/Textarea.jsx":"a7113d769b0e","components/inputs/TimePicker.jsx":"0a80ce59d98a","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"6bfdfb315281","components/navigation/Breadcrumb.jsx":"94bd78df0547","components/navigation/Navbar.jsx":"7fb1f2629199","components/navigation/Sidebar.jsx":"a405fca979fc","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"95154a884c47","components/navigation/TreeView.jsx":"894b6e46f10b","components/overlay/CommandPalette.jsx":"477e628a0223","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"c2f39f5f58a1","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"e2de1e0866af","components/typography/Code.jsx":"f6f1da463524","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"3001e004908a"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -491,7 +491,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   });
   Pre.displayName = "Pre";
   var ANCHOR_CSS = `
-.twc-anchor { color: var(--color-primary); text-decoration: none; border-radius: var(--radius-sm);
+.twc-anchor { color: var(--color-primary-subtle-fg); text-decoration: none; border-radius: var(--radius-sm);
   transition: color var(--duration-fast) var(--ease-standard); }
 .twc-anchor:hover { text-decoration: underline; color: var(--color-primary-hover, var(--color-primary)); }
 .twc-anchor:focus-visible { outline: none; box-shadow: var(--ring); }
@@ -703,6 +703,14 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       }
     );
   }
+  function compose(theirs, ours) {
+    if (typeof theirs !== "function") return ours;
+    if (typeof ours !== "function") return theirs;
+    return (e) => {
+      theirs(e);
+      if (!e || !e.defaultPrevented) ours(e);
+    };
+  }
   var TOOLTIP_CSS = `
 .twc-tooltip-wrap { display: inline-flex; }
 /* #398: a native disabled control swallows the pointer events the tooltip opens from (browser-dependent),
@@ -891,11 +899,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       {
         ref: wrapRef,
         className: `twc-tooltip-wrap ${className}`,
-        onMouseEnter: open,
-        onMouseLeave: close,
-        onFocus: open,
-        onBlur: close,
         ...rest,
+        onMouseEnter: compose(rest.onMouseEnter, open),
+        onMouseLeave: compose(rest.onMouseLeave, close),
+        onFocus: compose(rest.onFocus, open),
+        onBlur: compose(rest.onBlur, close),
         children: [
           __twcStyles,
           trigger,
@@ -1285,7 +1293,9 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-alert[data-variant="soft"]    { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: color-mix(in srgb, var(--_accent) 30%, transparent); }
 .twc-alert[data-variant="solid"]   { background: var(--_accent); color: var(--_accent-fg); border-color: transparent; }
 .twc-alert[data-variant="outline"] { background: transparent; color: var(--_accent-subtle-fg); border-color: var(--_accent); }
-.twc-alert[data-variant="solid"] .twc-alert__desc { color: var(--_accent-fg); opacity: 0.92; }
+/* #453: full-strength accent-fg - the 0.92 multiplier put the solid description at 3.31:1, under the
+   4.5:1 SC 1.4.3 floor for body text. The title/description hierarchy is carried by font-weight. */
+.twc-alert[data-variant="solid"] .twc-alert__desc { color: var(--_accent-fg); }
 
 .twc-alert__icon { flex: none; margin-top: 1px; }
 .twc-alert__icon svg { width: 20px; height: 20px; }
@@ -1294,10 +1304,13 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-alert__desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-snug); }
 .twc-alert__close {
   flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px;
-  border: none; background: transparent; color: currentColor; opacity: 0.6; cursor: pointer;
-  border-radius: var(--radius-sm); transition: opacity var(--duration-fast), background-color var(--duration-fast);
+  border: none; background: transparent; color: currentColor; cursor: pointer;
+  border-radius: var(--radius-sm); transition: background-color var(--duration-fast);
 }
-.twc-alert__close:hover { opacity: 1; background: color-mix(in srgb, currentColor 12%, transparent); }
+/* #453: the dismiss glyph is a non-text control, so SC 1.4.11 wants 3:1 - the old opacity: 0.6 left it
+   at 2.14-3.00:1 across the tones. It now inherits the alert's own foreground (already token-guaranteed)
+   and the hover affordance comes from the background tint alone, not from an opacity ramp. */
+.twc-alert__close:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
 .twc-alert__close svg { width: 15px; height: 15px; }
 `;
   var ICONS = {
@@ -1535,6 +1548,20 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         document.removeEventListener("mousedown", onDown);
       };
     }, [open, place, isTop]);
+    const kbdRef = import_react.default.useRef(false);
+    import_react.default.useEffect(() => {
+      if (!open || !render || active < 0 || !kbdRef.current) return;
+      kbdRef.current = false;
+      const el = document.getElementById(`${menuId}-item-${active}`);
+      if (el) el.focus();
+    }, [open, render, active, menuId]);
+    import_react.default.useEffect(() => {
+      if (open) return;
+      const m = menuRef.current;
+      if (!m || typeof document === "undefined" || !m.contains(document.activeElement)) return;
+      const t = wrapRef.current?.querySelector('button, a[href], [role="button"], [tabindex]');
+      if (t) t.focus();
+    }, [open]);
     import_react.default.useEffect(() => {
       if (open) {
         setRender(true);
@@ -1549,6 +1576,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       setActive(-1);
     };
     function onKeyDown(e) {
+      kbdRef.current = true;
       if (e.defaultPrevented) return;
       if (!open) {
         if (triggerDisabled) return;
@@ -1584,7 +1612,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
           const next = Math.min(list.length - 1, Math.max(0, curPos + (e.key === "PageDown" ? 5 : -5)));
           setActive(list[next]);
         }
-      } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      } else if (e.key.length === 1 && e.key !== " " && !e.ctrlKey && !e.metaKey && !e.altKey) {
         typeBufRef.current += e.key.toLowerCase();
         clearTimeout(typeTimerRef.current);
         typeTimerRef.current = setTimeout(() => {
@@ -1642,7 +1670,10 @@ var TwicoUiDesignSystem_f2f16a = (() => {
                 tabIndex: -1,
                 "data-danger": it.danger || void 0,
                 "data-active": active === i || void 0,
-                onMouseEnter: () => setActive(i),
+                onMouseEnter: () => {
+                  kbdRef.current = false;
+                  setActive(i);
+                },
                 onClick: () => {
                   it.onClick?.();
                   setOpen(false);
@@ -1660,7 +1691,6 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         ]
       }
     ) : null;
-    const activeDescId = open && active >= 0 ? `${menuId}-item-${active}` : void 0;
     const fix = import_react.default.isValidElement(trigger) && !triggerIsControl(trigger) ? { role: "button" } : null;
     const triggerEl = import_react.default.isValidElement(trigger) ? import_react.default.cloneElement(trigger, {
       onClick: (e) => {
@@ -1671,7 +1701,6 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       "aria-haspopup": "menu",
       "aria-expanded": open,
       "aria-controls": open ? menuId : void 0,
-      "aria-activedescendant": activeDescId,
       // #420: forward an incoming aria-describedby (e.g. from a wrapping Tooltip) to the focusable trigger,
       // not the wrapper span, so the description is announced on focus.
       "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || void 0,
@@ -1684,13 +1713,12 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         "aria-haspopup": "menu",
         "aria-expanded": open,
         "aria-controls": open ? menuId : void 0,
-        "aria-activedescendant": activeDescId,
         "aria-describedby": ariaDescribedby,
         onClick: toggle,
         children: trigger
       }
     );
-    return /* @__PURE__ */ jsxs("span", { className: `twc-menu-wrap ${className}`, ref: wrapRef, onKeyDown, ...rest, children: [
+    return /* @__PURE__ */ jsxs("span", { className: `twc-menu-wrap ${className}`, ref: wrapRef, ...rest, onKeyDown: compose(rest.onKeyDown, onKeyDown), children: [
       triggerEl,
       menu && RD && RD.createPortal ? RD.createPortal(menu, document.body) : menu
     ] });
@@ -1798,7 +1826,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 
 /* outline */
 .twc-badge[data-variant="outline"] { background: transparent; }
-.twc-badge[data-variant="outline"][data-tone="primary"] { color: var(--color-primary); border-color: var(--color-primary-border); }
+.twc-badge[data-variant="outline"][data-tone="primary"] { color: var(--color-primary-subtle-fg); border-color: var(--color-primary-border); }
 .twc-badge[data-variant="outline"][data-tone="success"] { color: var(--color-success-subtle-fg); border-color: var(--color-success); }
 .twc-badge[data-variant="outline"][data-tone="warning"] { color: var(--color-warning-subtle-fg); border-color: var(--color-warning); }
 .twc-badge[data-variant="outline"][data-tone="danger"]  { color: var(--color-danger-subtle-fg); border-color: var(--color-danger); }
@@ -1960,10 +1988,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .dark .twc-btn[data-variant="soft"]:hover:not(:disabled) { filter: brightness(1.25); }
 /* outline \u2014 neutral at rest, accent on hover */
 .twc-btn[data-variant="outline"] { background: transparent; color: var(--color-text); border-color: var(--color-border-strong); }
-.twc-btn[data-variant="outline"]:hover:not(:disabled) { background: var(--color-surface-sunken); border-color: var(--_accent); color: var(--_accent); }
+.twc-btn[data-variant="outline"]:hover:not(:disabled) { background: var(--color-surface-sunken); border-color: var(--_accent-subtle-fg); color: var(--_accent-subtle-fg); }
 /* ghost \u2014 neutral at rest, accent on hover */
 .twc-btn[data-variant="ghost"] { background: transparent; color: var(--color-text-muted); }
-.twc-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
+.twc-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent-subtle-fg); }
 /* #405: toggle "on" state (aria-pressed) \u2014 a soft tone fill + tone border, variant-agnostic (works over any variant). */
 .twc-btn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
 /* #411: pressed "on" fill can carry any status Tone (not just the ActionTone), so a toggle option shows its own
@@ -2458,16 +2486,16 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       "div",
       {
         className: `twc-carousel ${className}`,
-        onMouseEnter: () => setPaused(true),
-        onMouseLeave: () => setPaused(false),
-        onFocusCapture: () => setPaused(true),
-        onBlurCapture: () => setPaused(false),
-        onKeyDown: handleKeyDown,
         role: "region",
         "aria-roledescription": "carousel",
         "aria-label": ariaLabel,
         "aria-labelledby": ariaLabelledbyProp,
         ...rest,
+        onMouseEnter: compose(rest.onMouseEnter, () => setPaused(true)),
+        onMouseLeave: compose(rest.onMouseLeave, () => setPaused(false)),
+        onFocusCapture: compose(rest.onFocusCapture, () => setPaused(true)),
+        onBlurCapture: compose(rest.onBlurCapture, () => setPaused(false)),
+        onKeyDown: compose(rest.onKeyDown, handleKeyDown),
         children: [
           __twcStyles,
           /* @__PURE__ */ jsx("div", { className: "twc-carousel__viewport", tabIndex: 0, children: /* @__PURE__ */ jsx("div", { className: "twc-carousel__track", style: { transform: `translateX(-${index * 100}%)` }, children: slides.map((s, i) => /* @__PURE__ */ jsx("div", { className: "twc-carousel__slide", role: "group", "aria-roledescription": "slide", "aria-label": `${i + 1} of ${count}`, "aria-hidden": i !== index || void 0, inert: i !== index || void 0, children: s }, i)) }) }),
@@ -2483,13 +2511,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     );
   }
   var CHART_PALETTE = [
-    "var(--brand-500)",
-    "var(--sky-500)",
-    "var(--emerald-500)",
-    "var(--amber-500)",
-    "var(--rose-500)",
-    "var(--indigo-500)",
-    "var(--slate-500)"
+    "var(--color-chart-1)",
+    "var(--color-chart-2)",
+    "var(--color-chart-3)",
+    "var(--color-chart-4)",
+    "var(--color-chart-5)",
+    "var(--color-chart-6)",
+    "var(--color-chart-7)"
   ];
   function paletteAt(colors, i) {
     const p = colors && colors.length ? colors : CHART_PALETTE;
@@ -2605,10 +2633,15 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-chart svg text { fill: var(--color-text-subtle); }
 .twc-chart__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .twc-chart__legend { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); font-size: var(--text-xs); color: var(--color-text-muted); }
-.twc-chart__leg { display: inline-flex; align-items: center; gap: 6px; transition: opacity var(--duration-fast) var(--ease-standard); }
+.twc-chart__leg { display: inline-flex; align-items: center; gap: 6px; transition: color var(--duration-fast) var(--ease-standard); }
 .twc-chart__leg[data-toggle="true"] { cursor: pointer; user-select: none; }
 .twc-chart__leg[data-toggle="true"]:hover { color: var(--color-text); }
-.twc-chart__leg[data-off="true"] { opacity: 0.4; }
+/* #453: a toggled-off legend entry is still an enabled role="button" with tabIndex 0, so it is not
+   exempt from SC 1.4.3 - opacity: 0.4 over text-muted left the label at 1.93:1. Say "hidden" with a
+   subtle-but-AA colour plus a line-through (also a non-colour cue, SC 1.4.1) and fade only the swatch,
+   which merely repeats the series name the label already carries. */
+.twc-chart__leg[data-off="true"] { color: var(--color-text-subtle); text-decoration: line-through; }
+.twc-chart__leg[data-off="true"] .twc-chart__leg-sw { opacity: 0.45; }
 .twc-chart__leg-sw { width: 10px; height: 10px; border-radius: 3px; flex: none; }
 
 /* Floating tooltip \u2014 a styled card that follows the pointer (ApexCharts / MUI X style).
@@ -5971,7 +6004,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   --_sz: 20px;
   flex: none; width: var(--_sz); height: var(--_sz); margin-top: 1px;
   display: grid; place-items: center;
-  border: var(--border-medium) solid var(--color-border-strong);
+  border: var(--border-medium) solid var(--color-control-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
   color: var(--_accent-fg);
@@ -6516,7 +6549,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-opt:hover, .twc-opt[data-active="true"] { background: var(--color-surface-sunken); }
-.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary); font-weight: var(--font-semibold); }
+.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary-subtle-fg); font-weight: var(--font-semibold); }
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -6836,7 +6869,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
       vBottom = vShown.length ? totalH - (vShown[vShown.length - 1].top + vShown[vShown.length - 1].h) : totalH;
     }
     let counter = -1;
-    const popInner = /* @__PURE__ */ jsx("div", { className: "twc-pop__list", ref: listRef, onScroll: virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
+    const popInner = /* @__PURE__ */ jsx("div", { className: "twc-pop__list", id: listboxId, role: "listbox", ref: listRef, onScroll: virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
       /* @__PURE__ */ jsx("span", { className: "twc-pop__spinner", "aria-hidden": "true" }),
       "Loading\u2026"
     ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -6861,8 +6894,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             "div",
             {
               className: "twc-pop twc-pop--portal",
-              id: listboxId,
-              role: "listbox",
               ref: popRef,
               "data-placement": coords.flip ? "top" : "bottom",
               style: { position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, right: "auto", zIndex: "var(--z-floating)" },
@@ -6872,7 +6903,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           document.body
         );
       } else if (!portal) {
-        popEl = /* @__PURE__ */ jsx("div", { className: "twc-pop", id: listboxId, role: "listbox", ref: popRef, "data-placement": placement === "top" ? "top" : void 0, children: popInner });
+        popEl = /* @__PURE__ */ jsx("div", { className: "twc-pop", ref: popRef, "data-placement": placement === "top" ? "top" : void 0, children: popInner });
       }
     }
     return /* @__PURE__ */ jsxs("div", { className: `twc-field ${className}`, ref: wrapRef, children: [
@@ -7383,7 +7414,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-opt:hover, .twc-opt[data-active="true"] { background: var(--color-surface-sunken); }
-.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary); font-weight: var(--font-semibold); }
+.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary-subtle-fg); font-weight: var(--font-semibold); }
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -7732,7 +7763,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             "aria-label": "Search options",
             role: "combobox",
             "aria-expanded": open,
-            "aria-controls": listboxId,
+            "aria-controls": open ? listboxId : void 0,
             "aria-activedescendant": activeId
           }
         ),
@@ -7741,7 +7772,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           searchRef.current?.focus();
         }, children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) }) }) : null
       ] }) : null,
-      /* @__PURE__ */ jsx("div", { className: "twc-pop__list", ref: listRef, onScroll: virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
+      /* @__PURE__ */ jsx("div", { className: "twc-pop__list", id: listboxId, role: "listbox", ref: listRef, onScroll: virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0, children: loading ? /* @__PURE__ */ jsxs("div", { className: "twc-pop__loading", role: "status", children: [
         /* @__PURE__ */ jsx("span", { className: "twc-pop__spinner", "aria-hidden": "true" }),
         "Loading\u2026"
       ] }) : visible.length === 0 ? /* @__PURE__ */ jsx("div", { className: "twc-pop__empty", children: emptyText }) : virtualized ? /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -7769,8 +7800,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             "div",
             {
               className: "twc-pop twc-pop--portal",
-              id: listboxId,
-              role: "listbox",
               ref: popRef,
               "data-state": popState,
               "data-placement": coords.flip ? "top" : "bottom",
@@ -7781,7 +7810,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
           document.body
         );
       } else if (!portal) {
-        popEl = /* @__PURE__ */ jsx("div", { className: "twc-pop", id: listboxId, role: "listbox", ref: popRef, "data-state": popState, "data-placement": placement === "top" ? "top" : "bottom", children: popInner });
+        popEl = /* @__PURE__ */ jsx("div", { className: "twc-pop", ref: popRef, "data-state": popState, "data-placement": placement === "top" ? "top" : "bottom", children: popInner });
       }
     }
     return /* @__PURE__ */ jsxs("div", { className: `twc-field ${className}`, ref: wrapRef, children: [
@@ -7804,10 +7833,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
             "data-open": open || void 0,
             "data-invalid": Boolean(error) || void 0,
             disabled,
+            role: "combobox",
             "aria-haspopup": "listbox",
             "aria-expanded": open,
             "aria-controls": open ? listboxId : void 0,
-            "aria-activedescendant": activeId,
+            "aria-activedescendant": showSearch ? void 0 : activeId,
             "aria-invalid": Boolean(error) || void 0,
             "aria-describedby": describedBy,
             onClick: (e) => {
@@ -8991,6 +9021,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 /* Narrow grid: collapse the toolbar to icon-only buttons (labels survive as
    hover tooltips via data-tip) and let the search flex so nothing wraps. */
 .twc-dt__toolbar[data-compact="true"] { flex-wrap: nowrap; gap: 4px; }
+/* #449: these labels sit on --color-surface-sunken, where --color-text-subtle only reaches 4.34:1
+   (the background moves with the text, so the token change could not lift it). --color-text-muted is
+   6.92:1 there and is what Kbd/CommandPalette use on the same background. */
 /* #448: visually hidden, NOT display:none. The label is each toolbar button's only text node, so
    removing it from the a11y tree left Columns/Filters/Density/Aggregation/Pivot with an empty (or
    badge-number-only) accessible name - an axe/Lighthouse button-name failure. Same declarations as
@@ -9071,14 +9104,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 0; }
 .twc-dt__table tfoot td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
 .twc-dt__table tfoot td[data-pin] { z-index: 4; }
-.twc-dt__agg-label { color: var(--color-text-subtle); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); font-size: 10px; margin-inline-end: 5px; }
+.twc-dt__agg-label { color: var(--color-text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); font-size: 10px; margin-inline-end: 5px; }
 .twc-dt__agg-val { font-weight: var(--font-bold); }
 
 /* Row grouping */
 .twc-dt__groupbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 12px;
   border-bottom: var(--border-thin) solid var(--color-border); background: var(--color-surface-sunken); }
 .twc-dt__groupbar > svg { width: 15px; height: 15px; color: var(--color-text-subtle); }
-.twc-dt__groupbar-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--color-text-subtle); }
+.twc-dt__groupbar-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--color-text-muted); }
 .twc-dt__groupchip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 4px 3px 10px; height: 26px;
   background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: var(--font-semibold); }
 .twc-dt__groupchip-x { display: inline-grid; place-items: center; width: 18px; height: 18px; border: none; padding: 0; background: transparent; color: inherit; cursor: pointer; border-radius: var(--radius-full); opacity: 0.7; }
@@ -9118,7 +9151,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__pivot-rowhead { min-width: 180px; }
 /* Corner (row-field label) */
 .twc-dt__pivot-corner { position: sticky; inset-inline-start: 0; top: 0; vertical-align: middle; text-align: center; background: var(--color-surface-sunken); z-index: 9 !important; border-inline-end: var(--border-medium) solid var(--color-border-strong); }
-.twc-dt__pivot-corner-label { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
+.twc-dt__pivot-corner-label { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-muted); }
 /* Column-group header levels (e.g. Status \u25B8 Plan) */
 .twc-dt__pivot-colgroup { text-align: center !important; border-inline-start: var(--border-medium) solid var(--color-border-strong);
   background: var(--color-surface-sunken); font-weight: var(--font-bold); color: var(--color-text); letter-spacing: var(--tracking-wide); }
@@ -9127,13 +9160,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__pivot-vhcell[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__pivot-vh { display: inline-flex; flex-direction: column; align-items: center; gap: 1px; line-height: 1.15; }
 .twc-dt__pivot-vh-label { font-weight: var(--font-bold); color: var(--color-text); text-transform: none; letter-spacing: 0; }
-.twc-dt__pivot-vh-agg { font-size: 10px; font-weight: var(--font-semibold); color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.04em; }
+.twc-dt__pivot-vh-agg { font-size: 10px; font-weight: var(--font-semibold); color: var(--color-primary-subtle-fg); text-transform: uppercase; letter-spacing: 0.04em; }
 /* Row headers + record counts (must outrank .twc-dt__row > .twc-dt__td:first-child = (0,3,0)) */
 .twc-dt__pivot tbody .twc-dt__pivot-rowhead[data-pin],
 .twc-dt__pivot tfoot .twc-dt__pivot-rowhead[data-pin] { position: sticky; inset-inline-start: 0; z-index: 5; }
 .twc-dt__pivot-rowhead { font-weight: var(--font-semibold); color: var(--color-text); background: var(--color-surface); border-inline-end: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-rowhead { background: color-mix(in srgb, var(--color-surface-sunken) 45%, var(--color-surface)); }
-.twc-dt__pivot-rowcount { color: var(--color-text-subtle); font-weight: var(--font-normal); font-size: var(--text-xs); }
+.twc-dt__pivot-rowcount { color: var(--color-text-muted); font-weight: var(--font-normal); font-size: var(--text-xs); }
 /* Body value cells \u2014 centered under their header, with group separators */
 .twc-dt__pivot-cell { text-align: center !important; border-inline-start: var(--border-thin) solid var(--color-divider); font-variant-numeric: tabular-nums; }
 .twc-dt__pivot-cell[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-border-strong); }
@@ -9144,7 +9177,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__pivot-total, .twc-dt__pivot-total-h { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); font-weight: var(--font-bold); }
 .twc-dt__pivot-total[data-group-start], .twc-dt__pivot-total-h[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-primary) !important; }
 .twc-dt__pivot-total-h .twc-dt__pivot-vh-label { color: var(--color-primary-subtle-fg); }
-.twc-dt__pivot-total-h .twc-dt__pivot-vh-agg { color: var(--color-primary); }
+.twc-dt__pivot-total-h .twc-dt__pivot-vh-agg { color: var(--color-primary-subtle-fg); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-total { background: var(--color-primary-subtle); }
 /* Grand-total footer row */
 .twc-dt__pivot tfoot td, .twc-dt__pivot tfoot th { position: sticky; bottom: 0; background: var(--color-surface-sunken); font-weight: var(--font-bold); border-top: var(--border-medium) solid var(--color-border-strong); }
@@ -9342,8 +9375,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__mi:disabled { color: var(--color-text-subtle); opacity: 0.5; cursor: default; pointer-events: none; }
 .twc-dt__mi-hint { margin-inline-start: auto; padding-inline-start: 12px; color: var(--color-text-subtle); font-size: var(--text-xs); font-weight: var(--font-normal); } /* #399: disabledReason */
 .twc-dt__mi svg { width: 16px; height: 16px; color: var(--color-text-subtle); flex: none; }
-.twc-dt__mi[data-active="true"] { color: var(--color-primary); }
-.twc-dt__mi[data-active="true"] svg { color: var(--color-primary); }
+.twc-dt__mi[data-active="true"] { color: var(--color-primary-subtle-fg); }
+.twc-dt__mi[data-active="true"] svg { color: var(--color-primary-subtle-fg); }
 .twc-dt__sep { height: 1px; background: var(--color-divider); margin: 5px 4px; }
 
 /* Columns panel */
@@ -9383,7 +9416,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__panel-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px 8px; }
 .twc-dt__panel-title { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
 .twc-dt__panel-count { font-weight: 600; color: var(--color-text-muted); text-transform: none; letter-spacing: 0; margin-inline-start: 6px; font-variant-numeric: tabular-nums; }
-.twc-dt__link { border: none; background: transparent; color: var(--color-primary); font-family: inherit; font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 4px; border-radius: var(--radius-sm); }
+.twc-dt__link { border: none; background: transparent; color: var(--color-primary-subtle-fg); font-family: inherit; font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 4px; border-radius: var(--radius-sm); }
 .twc-dt__link:hover { background: var(--color-primary-subtle); }
 /* #330: MUI DataGrid-style per-row And/Or connector. Row 1 shows a static "Where"; the first connector
    row (row 2) hosts an editable And/Or Select bound to the single filterLogic; rows 3+ echo it as static
@@ -9513,7 +9546,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface);
   color: var(--color-text); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold); cursor: pointer;
   transition: border-color var(--duration-fast), color var(--duration-fast), background-color var(--duration-fast); }
-.twc-dt__batch-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.twc-dt__batch-btn:hover { border-color: var(--color-primary-subtle-fg); color: var(--color-primary-subtle-fg); }
 .twc-dt__batch-btn[data-danger="true"]:hover { border-color: var(--color-danger); color: var(--color-danger-subtle-fg); background: var(--color-danger-subtle); }
 .twc-dt__batch-btn svg { width: 15px; height: 15px; }
 `;
@@ -10198,7 +10231,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     }, [columns, rowPinning, userCombine, defaultColumn]);
     const _autoKey = import_react.default.useRef();
     if (!_autoKey.current) _autoKey.current = { map: /* @__PURE__ */ new WeakMap(), n: 0 };
-    const keyOf = rowKey || ((r2, i) => {
+    const keyOf = import_react.default.useCallback(rowKey || ((r2, i) => {
       if (r2 != null && r2.id != null) return r2.id;
       if (r2 != null && typeof r2 === "object") {
         const m = _autoKey.current.map;
@@ -10210,7 +10243,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         return k;
       }
       return i;
-    });
+    }), [rowKey]);
     const [sort, setSort] = import_react.default.useState(null);
     const [filters, setFilters] = import_react.default.useState([]);
     const filterLogicControlled = filterLogicProp !== void 0;
@@ -10814,7 +10847,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const serverTotal = rowCount == null ? processed.length : rowCount;
     const totalRows = serverMode ? serverTotal : processed.length;
     const totalPages = paginated ? Math.max(1, Math.ceil(totalRows / sizeVal)) : 1;
-    const paged = !paginated || serverMode ? processed : processed.slice(pageVal * sizeVal, pageVal * sizeVal + sizeVal);
+    const paged = import_react.default.useMemo(
+      () => !paginated || serverMode ? processed : processed.slice(pageVal * sizeVal, pageVal * sizeVal + sizeVal),
+      [processed, paginated, serverMode, pageVal, sizeVal]
+    );
     import_react.default.useEffect(() => {
       if (pageVal > totalPages - 1) commitPage(0);
     }, [totalPages]);
@@ -10902,7 +10938,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       };
       return build(paged, 0, "");
     }, [activeGroupBy, collapsedSet, paged, ordered, aggOn]);
-    const leafRows = displayItems ? displayItems.filter((i) => i.kind === "leaf").map((i) => i.row) : treeRows ? treeRows.map((t) => t.row) : paged;
+    const leafRows = import_react.default.useMemo(
+      () => displayItems ? displayItems.filter((i) => i.kind === "leaf").map((i) => i.row) : treeRows ? treeRows.map((t) => t.row) : paged,
+      [displayItems, treeRows, paged]
+    );
     function toggleGroup(key) {
       if (collapsedControlled) {
         const n = new Set(collapsedSet);
@@ -11582,11 +11621,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       prevRowSelSigRef.current = sig;
       cb(selKeys, selectedRows);
     }, [selKeys, selectedRows]);
+    const revealRowRi = activeRowVal != null ? keyIndex.get(activeRowVal) : void 0;
     import_react.default.useEffect(() => {
       if (!activeRowControlled || !scrollActiveRowIntoView || activeRowId == null) return;
       const el = gridRef.current && gridRef.current.querySelector('.twc-dt__row[data-active="true"]');
       if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest" });
-    }, [activeRowId, activeRowControlled, scrollActiveRowIntoView, keyIndex]);
+    }, [activeRowId, activeRowControlled, scrollActiveRowIntoView, revealRowRi]);
     const revealOn = !!scrollActiveCellIntoView;
     const revealBlock = scrollActiveCellIntoView && typeof scrollActiveCellIntoView === "object" && scrollActiveCellIntoView.block === "center" ? "center" : "nearest";
     const revealInline = scrollActiveCellIntoView && typeof scrollActiveCellIntoView === "object" && scrollActiveCellIntoView.inline === "center" ? "center" : "nearest";
@@ -14408,9 +14448,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const query = { page: pageVal, pageSize: paginated ? sizeVal : 0, sort: sortVal, filters, quickFilter: String(quickVal || "").trim() };
     const queryCols = sortOptions ? sortOptions.map((o) => ({ field: o.field, type: o.type })) : columns;
     const client = serverMode ? null : runDatatableQuery(rows, query, { columns: queryCols, searchFields });
-    const pageRows = serverMode ? rows : client.rows;
     const total = serverMode ? rowCount == null ? rows.length : rowCount : client.total;
     const totalPages = Math.max(1, paginated ? Math.ceil(total / sizeVal) : 1);
+    const lastPage = totalPages - 1;
+    const shownPage = Math.min(pageVal, lastPage);
+    const pageRows = serverMode ? rows : paginated && shownPage !== pageVal ? client.filtered.slice(shownPage * sizeVal, shownPage * sizeVal + sizeVal) : client.rows;
+    import_react.default.useEffect(() => {
+      if (pageVal > lastPage) commitPage(lastPage);
+    }, [lastPage, pageVal]);
     const onServerChangeRef = import_react.default.useRef(onServerChange);
     onServerChangeRef.current = onServerChange;
     const queryKey = JSON.stringify(query);
@@ -14420,8 +14465,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       return () => clearTimeout(t);
     }, [serverMode, queryKey]);
     const keyOf = typeof rowKey === "function" ? rowKey : (r2) => r2 && r2[rowKey];
-    const from = total === 0 ? 0 : pageVal * sizeVal + 1;
-    const to = paginated ? Math.min((pageVal + 1) * sizeVal, total) : total;
+    const from = total === 0 ? 0 : Math.min(shownPage * sizeVal + 1, total);
+    const to = paginated ? Math.min((shownPage + 1) * sizeVal, total) : total;
     const rppOptions = Array.from(new Set([...pageSizeOptions || [], pageSize].filter((n) => n > 0))).sort((a, b) => a - b).map((n) => ({ value: String(n), label: String(n) }));
     const sortSelectOptions = sortOptions ? [{ value: "", label: "Sort by\u2026" }, ...sortOptions.map((o) => ({ value: o.field, label: o.label || o.field }))] : null;
     const sortAutoWidth = sortSelectOptions ? Math.min(300, Math.max(120, Math.ceil(Math.max(...sortSelectOptions.map((o) => String(o.label).length)) * 7.2) + 46)) : void 0;
@@ -14493,7 +14538,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           Pagination,
           {
             size: "sm",
-            page: pageVal + 1,
+            page: shownPage + 1,
             total: totalPages,
             boundaries: 1,
             siblings: 1,
@@ -14632,7 +14677,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md);
   transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
 .twc-dp__day:hover:not(:disabled):not([data-selected="true"]) { background: var(--color-surface-sunken); }
-.twc-dp__day[data-outside="true"] { color: var(--color-text-subtle); opacity: 0.5; }
+/* #453: no opacity here - these days are clickable (they jump to the adjacent month), so they are
+   NOT exempt from SC 1.4.3. color-text-subtle alone clears AA and still reads as de-emphasised;
+   the 0.5/0.45 multiplier dropped them to 1.83-1.97:1. Opacity stays only on the :disabled rules. */
+.twc-dp__day[data-outside="true"] { color: var(--color-text-subtle); }
 .twc-dp__day[data-today="true"] { font-weight: var(--font-bold); box-shadow: inset 0 0 0 1px var(--color-primary-border); }
 .twc-dp__day[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
 .twc-dp__day:disabled { color: var(--color-text-subtle); opacity: 0.4; cursor: not-allowed; }
@@ -15179,7 +15227,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-drp__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; }
 .twc-drp__dow { text-align: center; font-size: 11px; font-weight: var(--font-bold); color: var(--color-text-subtle); padding: 4px 0; }
 .twc-drp__day { aspect-ratio: 1; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); display: grid; place-items: center; position: relative; }
-.twc-drp__day[data-outside="true"] { color: var(--color-text-subtle); opacity: 0.45; }
+/* #453: no opacity here - these days are clickable (they jump to the adjacent month), so they are
+   NOT exempt from SC 1.4.3. color-text-subtle alone clears AA and still reads as de-emphasised;
+   the 0.5/0.45 multiplier dropped them to 1.83-1.97:1. Opacity stays only on the :disabled rules. */
+.twc-drp__day[data-outside="true"] { color: var(--color-text-subtle); }
 .twc-drp__day:hover:not(:disabled) { background: var(--color-surface-sunken); border-radius: var(--radius-md); }
 .twc-drp__day[data-in="true"] { background: var(--color-primary-subtle); border-radius: 0; }
 .twc-drp__day[data-edge="start"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: var(--radius-md) 0 0 var(--radius-md); font-weight: var(--font-bold); }
@@ -16912,7 +16963,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); margin-bottom: 4px; }
 .twc-upload__icon svg { width: 24px; height: 24px; }
 .twc-upload__title { font-size: var(--text-sm); color: var(--color-text); font-weight: var(--font-semibold); }
-.twc-upload__title em { color: var(--color-primary); font-style: normal; }
+.twc-upload__title em { color: var(--color-primary-subtle-fg); font-style: normal; }
 .twc-upload__hint { font-size: var(--text-xs); color: var(--color-text-subtle); }
 .twc-upload__input { display: none; } /* #415: out of the tab order + a11y tree; inputRef.click() still works */
 .twc-upload__list { display: flex; flex-direction: column; gap: 8px; }
@@ -17185,8 +17236,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         "aria-label": ariaLabel,
         "data-orientation": orientation === "vertical" ? "vertical" : void 0,
         "aria-orientation": roving && orientation === "vertical" ? "vertical" : void 0,
-        onKeyDown: roving ? onKeyDown : void 0,
         ...rest,
+        onKeyDown: compose(rest.onKeyDown, roving ? onKeyDown : void 0),
         children: [
           __twcStyles,
           items.map((it, i) => /* @__PURE__ */ jsx(
@@ -17457,7 +17508,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-muted); text-decoration: none; cursor: pointer;
   background: none; border: none; font-family: inherit; transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
 .twc-navbar__link:hover { background: var(--color-surface-sunken); color: var(--color-text); }
-.twc-navbar__link[data-active="true"] { color: var(--color-primary); background: var(--color-primary-subtle); }
+.twc-navbar__link[data-active="true"] { color: var(--color-primary-subtle-fg); background: var(--color-primary-subtle); }
 .twc-navbar__link svg { width: 16px; height: 16px; }
 .twc-navbar__spacer { flex: 1; }
 .twc-navbar__actions { display: flex; align-items: center; gap: var(--space-2); flex: none; }
@@ -17776,13 +17827,16 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-progress[data-size="lg"] { --_h: 12px; }
 .twc-progress__bar {
   height: 100%; border-radius: var(--radius-full);
-  background: var(--_c, var(--color-primary));
+  background: var(--_c, var(--color-primary-graphic));
   transition: width var(--duration-slow) var(--ease-out);
 }
-.twc-progress[data-tone="info"]    .twc-progress__bar { --_c: var(--color-info); }
-.twc-progress[data-tone="success"] .twc-progress__bar { --_c: var(--color-success); }
-.twc-progress[data-tone="warning"] .twc-progress__bar { --_c: var(--color-warning); }
-.twc-progress[data-tone="danger"]  .twc-progress__bar { --_c: var(--color-danger); }
+/* #455: the bar is the ONLY rendering of the progressbar's value, so SC 1.4.11's 3:1 applies against
+   the sunken track - which the plain tones missed in light mode (warning 1.96:1, info 2.53:1). The
+   -graphic aliases are the same hues at a step that clears it. */
+.twc-progress[data-tone="info"]    .twc-progress__bar { --_c: var(--color-info-graphic); }
+.twc-progress[data-tone="success"] .twc-progress__bar { --_c: var(--color-success-graphic); }
+.twc-progress[data-tone="warning"] .twc-progress__bar { --_c: var(--color-warning-graphic); }
+.twc-progress[data-tone="danger"]  .twc-progress__bar { --_c: var(--color-danger-graphic); }
 .twc-progress[data-indeterminate="true"] .twc-progress__bar {
   position: absolute; width: 40%; animation: twc-progress-indeterminate 1.3s var(--ease-standard) infinite;
 }
@@ -17863,7 +17917,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   --_sz: 20px;
   flex: none; width: var(--_sz); height: var(--_sz); margin-top: 1px;
   display: grid; place-items: center;
-  border: var(--border-medium) solid var(--color-border-strong);
+  border: var(--border-medium) solid var(--color-control-border);
   border-radius: var(--radius-full);
   background: var(--color-surface);
   transition: border-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
@@ -18988,7 +19042,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-switch__track {
   --_w: 44px; --_h: 24px; --_pad: 3px;
   position: relative; flex: none; width: var(--_w); height: var(--_h);
-  background: var(--color-border-strong); border-radius: var(--radius-full);
+  background: var(--color-control-border); border-radius: var(--radius-full);
   transition: background-color var(--duration-base) var(--ease-standard);
 }
 .twc-switch[data-size="sm"] .twc-switch__track { --_w: 36px; --_h: 20px; }
@@ -19311,6 +19365,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     }
     const activeItem = items.find((i) => i.value === active);
     const panelRendered = activeItem != null && activeItem.content !== void 0;
+    const tabStop = activeIndex >= 0 && !items[activeIndex].disabled ? activeIndex : items.findIndex((it) => !it.disabled);
     function onListKeyDown(e) {
       const prevKey = vertical ? "ArrowUp" : "ArrowLeft";
       const nextKey = vertical ? "ArrowDown" : "ArrowRight";
@@ -19319,7 +19374,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       const n = items.length;
       if (!n || items.every((it2) => it2.disabled)) return;
       e.preventDefault();
-      let i = activeIndex < 0 ? 0 : activeIndex;
+      let i = tabStop < 0 ? 0 : tabStop;
       if (e.key === "Home") i = items.findIndex((it2) => !it2.disabled);
       else if (e.key === "End") {
         for (let k = n - 1; k >= 0; k--) {
@@ -19358,7 +19413,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
             "aria-disabled": it.disabled || void 0,
             disabled: it.disabled || void 0,
             "aria-controls": it.value === active && panelRendered ? panelId : void 0,
-            tabIndex: it.value === active && !it.disabled ? 0 : -1,
+            tabIndex: i === tabStop ? 0 : -1,
             "data-active": it.value === active || void 0,
             onClick: () => {
               if (!it.disabled) select(it.value);
@@ -19669,12 +19724,14 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 }
 /* #209: visually-hidden persistent live-region announcers (rendered by ToastProvider). */
 .twc-toast-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
-.twc-toast::before { content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 4px; background: var(--_accent, var(--color-primary)); }
-.twc-toast[data-tone="success"] { --_accent: var(--color-success); }
-.twc-toast[data-tone="warning"] { --_accent: var(--color-warning); }
-.twc-toast[data-tone="danger"]  { --_accent: var(--color-danger); }
-.twc-toast[data-tone="info"]    { --_accent: var(--color-info); }
-.twc-toast__icon { flex: none; margin-top: 1px; color: var(--_accent, var(--color-primary)); }
+/* #455: the 4px edge stripe and the status icon are non-text carriers of the tone (SC 1.4.11, 3:1),
+   and the plain light-mode tones sat at 2.15:1 (warning) / 2.77:1 (info) on the raised surface. */
+.twc-toast::before { content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 4px; background: var(--_accent, var(--color-primary-graphic)); }
+.twc-toast[data-tone="success"] { --_accent: var(--color-success-graphic); }
+.twc-toast[data-tone="warning"] { --_accent: var(--color-warning-graphic); }
+.twc-toast[data-tone="danger"]  { --_accent: var(--color-danger-graphic); }
+.twc-toast[data-tone="info"]    { --_accent: var(--color-info-graphic); }
+.twc-toast__icon { flex: none; margin-top: 1px; color: var(--_accent, var(--color-primary-graphic)); }
 .twc-toast__icon svg { width: 20px; height: 20px; }
 .twc-toast__body { flex: 1; min-width: 0; }
 .twc-toast__title { font-weight: var(--font-bold); font-size: var(--text-sm); }
@@ -20018,7 +20075,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       e.preventDefault();
       if (next != null) focusRow(next);
     };
-    return /* @__PURE__ */ jsxs("div", { className: `twc-tree ${className}`, role: "tree", onKeyDown, ...rest, children: [
+    return /* @__PURE__ */ jsxs("div", { className: `twc-tree ${className}`, role: "tree", ...rest, onKeyDown: compose(rest.onKeyDown, onKeyDown), children: [
       __twcStyles,
       /* @__PURE__ */ jsx("ul", { className: "twc-tree__group", role: "none", children: nodes.map((n, i) => /* @__PURE__ */ jsx(
         Node,

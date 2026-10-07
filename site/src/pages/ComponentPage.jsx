@@ -80,7 +80,7 @@ export default function ComponentPage() {
       <Stack as="article" gap={5}>
         <Heading level={1}>Not found</Heading>
         <Text tone="muted">No component matches “{slug}”.</Text>
-        <Link to="/components" style={{ color: "var(--color-primary)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>← All components</Link>
+        <Link to="/components" style={{ color: "var(--color-primary-subtle-fg)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>← All components</Link>
       </Stack>
     );
   }

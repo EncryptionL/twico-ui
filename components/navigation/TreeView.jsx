@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { compose } from "../_compose.js";
 
 const TREE_CSS = `
 .twc-tree { font-family: var(--font-sans); font-size: var(--text-sm); user-select: none; }
@@ -158,7 +159,7 @@ export function TreeView({
   };
 
   return (
-    <div className={`twc-tree ${className}`} role="tree" onKeyDown={onKeyDown} {...rest}>
+    <div className={`twc-tree ${className}`} role="tree" {...rest} onKeyDown={compose(rest.onKeyDown, onKeyDown)}>
       {__twcStyles}
       <ul className="twc-tree__group" role="none">
         {nodes.map((n, i) => (

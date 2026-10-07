@@ -40,6 +40,9 @@
   still spans the full list, and keyboard nav scrolls an unrendered active option into view by its
   computed offset. Off by default (small/grouped lists render byte-identically). — added 2026-07-04
 
+- [x] **[#459] `aria-activedescendant` on a `<button>` trigger made arrow-key highlighting silent** - with 5 or fewer options no search field is rendered and the option rows are never focused, so the attribute was the ONLY announcement channel, and `role="button"` cannot own it. The trigger is now the APG select-only combobox (`role="combobox"`), and it claims `aria-activedescendant` only when it actually holds focus (i.e. when no search field is rendered). `Select.jsx:436` - fixed 2026-10-07
+- [x] **[#459] the search input and a live region were rendered inside the `role="listbox"` element** - the role sat on the popover wrapper, so it owned a nested `role="combobox"` and a `role="status"` region (neither is permitted list content) and the input's `aria-controls` resolved to its own ancestor. Moved onto `.twc-pop__list`, as MultiSelect already did. `Select.jsx:376,410,417` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled mode works (value/defaultValue/onChange)
@@ -50,7 +53,7 @@
 - Grouped options with descriptions render properly (lines 229-248)
 - Selected item shows checkmark icon (line 243)
 - Clearable mode with Delete/Backspace on closed trigger (line 201)
-- aria-haspopup, aria-expanded, aria-activedescendant correctly wired (lines 281-282)
+- aria-haspopup + aria-expanded correctly wired; `aria-controls` is open-guarded. **Correction (#459):** this line previously claimed `aria-activedescendant` was correctly wired too. It was not - it sat on a `<button>`, a role that cannot own it, so AT discarded it and the highlight was announced to nobody. The trigger is now `role="combobox"` (the APG select-only pattern) and only claims the attribute while it holds focus.
 - Focus management: search input auto-focused when menu opens (line 170)
 - Visible options list scrolls to keep active option in view (line 182)
 - aria-invalid, aria-describedby wired for error/hint (line 282)

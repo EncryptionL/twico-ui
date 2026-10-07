@@ -73,7 +73,7 @@ if (saved === "dark" || (!saved && prefersDark)) {
       </Stack>
 
       <Text style={{ marginTop: "var(--space-4)", fontWeight: "var(--font-semibold)" }}>
-        Next: <Link to="/docs/accessibility" style={{ color: "var(--color-primary)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>Accessibility →</Link>
+        Next: <Link to="/docs/accessibility" style={{ color: "var(--color-primary-subtle-fg)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>Accessibility →</Link>
       </Text>
     </Stack>
   );

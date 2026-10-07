@@ -11,6 +11,8 @@
 - [ ] **[deferred] Links render as `<a>` even with no href** — Items without an `href` still emit an anchor (`href="#"`), so semantically they are links pointing nowhere. Deferred per review scope; see P1 above for the user-visible consequence.
 - [ ] **[deferred] index-as-key on links** — `links.map((l, i) => <a key={i} …>)` uses the array index; reordering/filtering links can desync state. Low impact for a typically-static nav. `components/navigation/Navbar.jsx:64`.
 
+- [x] **[#451] the active link used `--color-primary` as text** - now `--color-primary-subtle-fg`. `Navbar.jsx:18` - fixed 2026-10-07
+
 ## Verified OK
 
 - **safeHref sanitization:** `javascript:`/`data:`/`vbscript:` schemes (including `\x00-\x20` whitespace/control-char obfuscation) are stripped before reaching the DOM href. `components/navigation/Navbar.jsx:32-36`.

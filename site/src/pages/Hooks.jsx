@@ -261,7 +261,7 @@ export default function Hooks() {
 
       <Text style={{ marginTop: "var(--space-4)", fontWeight: "var(--font-semibold)" }}>
         Next:{" "}
-        <Link to="/components" style={{ color: "var(--color-primary)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>
+        <Link to="/components" style={{ color: "var(--color-primary-subtle-fg)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>
           Browse all components →
         </Link>
       </Text>

@@ -12,14 +12,18 @@ import React from "react";
 // ---------------------------------------------------------------------------
 
 /** Theme-aware series palette (token colors), cycled for multi-series charts. */
+// #455: these were primitives, and slots 1 and 6 were both indigo-500 (--brand-500 aliases it), so
+// series 1 and 6 painted identically - 1.00:1, indistinguishable in the chart AND in the legend. The
+// --color-chart-* tokens are a per-theme ramp: seven distinct hues, each >=3:1 on its own surface.
+// See tokens/colors.css and tests/chart-palette.test.js, which guards both properties.
 export const CHART_PALETTE = [
-  "var(--brand-500)",
-  "var(--sky-500)",
-  "var(--emerald-500)",
-  "var(--amber-500)",
-  "var(--rose-500)",
-  "var(--indigo-500)",
-  "var(--slate-500)",
+  "var(--color-chart-1)",
+  "var(--color-chart-2)",
+  "var(--color-chart-3)",
+  "var(--color-chart-4)",
+  "var(--color-chart-5)",
+  "var(--color-chart-6)",
+  "var(--color-chart-7)",
 ];
 
 /** Pick series color `i` from a custom palette (falls back to CHART_PALETTE, cycled). */
@@ -184,10 +188,15 @@ export const CHART_BASE_CSS = `
 .twc-chart svg text { fill: var(--color-text-subtle); }
 .twc-chart__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .twc-chart__legend { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); font-size: var(--text-xs); color: var(--color-text-muted); }
-.twc-chart__leg { display: inline-flex; align-items: center; gap: 6px; transition: opacity var(--duration-fast) var(--ease-standard); }
+.twc-chart__leg { display: inline-flex; align-items: center; gap: 6px; transition: color var(--duration-fast) var(--ease-standard); }
 .twc-chart__leg[data-toggle="true"] { cursor: pointer; user-select: none; }
 .twc-chart__leg[data-toggle="true"]:hover { color: var(--color-text); }
-.twc-chart__leg[data-off="true"] { opacity: 0.4; }
+/* #453: a toggled-off legend entry is still an enabled role="button" with tabIndex 0, so it is not
+   exempt from SC 1.4.3 - opacity: 0.4 over text-muted left the label at 1.93:1. Say "hidden" with a
+   subtle-but-AA colour plus a line-through (also a non-colour cue, SC 1.4.1) and fade only the swatch,
+   which merely repeats the series name the label already carries. */
+.twc-chart__leg[data-off="true"] { color: var(--color-text-subtle); text-decoration: line-through; }
+.twc-chart__leg[data-off="true"] .twc-chart__leg-sw { opacity: 0.45; }
 .twc-chart__leg-sw { width: 10px; height: 10px; border-radius: 3px; flex: none; }
 
 /* Floating tooltip — a styled card that follows the pointer (ApexCharts / MUI X style).

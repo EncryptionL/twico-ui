@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { compose } from "../_compose.js";
 import { Button } from "./Button.jsx";
 
 // #405: a set of toggle buttons (aria-pressed) — a tool/mode switch, a segmented control, a formatting bar.
@@ -81,8 +82,8 @@ export function ToggleGroup({
       aria-label={ariaLabel}
       data-orientation={orientation === "vertical" ? "vertical" : undefined}
       aria-orientation={roving && orientation === "vertical" ? "vertical" : undefined}
-      onKeyDown={roving ? onKeyDown : undefined}
       {...rest}
+      onKeyDown={compose(rest.onKeyDown, roving ? onKeyDown : undefined)}
     >
       {__twcStyles}
       {items.map((it, i) => (

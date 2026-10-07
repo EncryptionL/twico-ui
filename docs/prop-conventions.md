@@ -104,6 +104,16 @@ standardized 2026-06-18; this doc is the source of truth.)
   typed as the exported **`PolymorphicAs`** (`React.ElementType`) so it accepts both a tag name
   (`as="section"`) and a React component (`as={Link}`), whose props flow through `{...rest}`.
   `Button.as` is restricted to `"button" | "a"` because only those two are supported.
+- **A consumer handler COMPOSES with the internal one, it does not replace it (#452).** Where a
+  component attaches its own `onKeyDown`/`onMouseEnter`/... to the same element it spreads `...rest`
+  onto, the handler is wired **after** the spread through `compose()` (`components/_compose.js`): the
+  consumer's handler runs first, then the component's, unless the consumer calls `preventDefault()`.
+  That one call is the documented opt-out. Spreading `...rest` after an internal handler instead lets
+  a same-named prop silently delete it - `<Menu onKeyDown={log}>` used to lose every bit of keyboard
+  navigation, `<Carousel onMouseEnter={log}>` its autoplay pause - with nothing warning. Components
+  with composed handlers today: Menu, Tooltip, TreeView, ToggleGroup, Carousel, Popover and Select.
+  Note the asymmetry with the attribute rule above: non-handler entries in `...rest` still win, so a
+  consumer can still override `role`/`aria-label`.
 
 ## Deprecation policy
 - A superseded prop is marked `@deprecated since <minor>, removed in <major> — use ``X``` in its

@@ -129,6 +129,11 @@ export function Tabs({
 
   const activeItem = items.find((i) => i.value === active);
   const panelRendered = activeItem != null && activeItem.content !== undefined;
+  // #458: the roving tab stop has to land somewhere. Keying it to the active tab alone left the whole
+  // tablist unreachable by keyboard whenever that tab was disabled - or whenever `value` matched no
+  // item - because every button then got tabIndex={-1}. Fall back to the first enabled tab so the
+  // tablist always exposes exactly one stop (APG). -1 only when every tab is disabled: nothing to focus.
+  const tabStop = activeIndex >= 0 && !items[activeIndex].disabled ? activeIndex : items.findIndex((it) => !it.disabled);
 
   // WAI-ARIA tabs keyboard pattern: arrows/Home/End move selection + focus
   // between tabs (roving tabindex keeps only the active tab in the tab order).
@@ -142,7 +147,8 @@ export function Tabs({
     const n = items.length;
     if (!n || items.every((it) => it.disabled)) return;
     e.preventDefault();
-    let i = activeIndex < 0 ? 0 : activeIndex;
+    // Navigate from the tab stop, which is where focus actually is - not from a disabled active tab.
+    let i = tabStop < 0 ? 0 : tabStop;
     if (e.key === "Home") i = items.findIndex((it) => !it.disabled);
     else if (e.key === "End") { for (let k = n - 1; k >= 0; k--) { if (!items[k].disabled) { i = k; break; } } }
     else {
@@ -172,7 +178,7 @@ export function Tabs({
             aria-disabled={it.disabled || undefined}
             disabled={it.disabled || undefined}
             aria-controls={it.value === active && panelRendered ? panelId : undefined}
-            tabIndex={it.value === active && !it.disabled ? 0 : -1}
+            tabIndex={i === tabStop ? 0 : -1}
             data-active={it.value === active || undefined}
             onClick={() => { if (!it.disabled) select(it.value); }}
           >

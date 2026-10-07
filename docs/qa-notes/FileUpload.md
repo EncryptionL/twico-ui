@@ -21,6 +21,8 @@ None identified.
   files stay listed, read-only) and `remove()` early-returns on `disabled`. Tests in
   `tests/disabled-clear-affordance.test.jsx`. — fixed 2026-08-11
 
+- [x] **[#451] the drop-zone title's emphasis used `--color-primary` as text** - now `--color-primary-subtle-fg`. `FileUpload.jsx:36` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled file list (value/defaultValue/onChange)

@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { compose } from "../_compose.js";
 import { createPortal } from "react-dom";
 import { useLayer, triggerIsControl, useTriggerAudit } from "../_overlay.js";
 
@@ -136,6 +137,28 @@ export function Menu({
     };
   }, [open, place, isTop]);
 
+  // #459: aria-activedescendant is not a permitted attribute on role="button", so the highlight the
+  // trigger used to advertise was discarded by assistive tech - for a keyboard user the active item
+  // was announced not at all. Follow the APG instead and move real DOM focus onto the highlighted
+  // item. Only for keyboard-driven changes (kbdRef): hovering the menu must not steal focus, which
+  // is why the highlight and the focus are tracked separately.
+  const kbdRef = React.useRef(false);
+  React.useEffect(() => {
+    if (!open || !render || active < 0 || !kbdRef.current) return;
+    kbdRef.current = false;
+    const el = document.getElementById(`${menuId}-item-${active}`);
+    if (el) el.focus();
+  }, [open, render, active, menuId]);
+
+  // ...and hand it back to the trigger on close, so Escape/Tab/activation never drop focus to <body>.
+  React.useEffect(() => {
+    if (open) return;
+    const m = menuRef.current;
+    if (!m || typeof document === "undefined" || !m.contains(document.activeElement)) return;
+    const t = wrapRef.current?.querySelector('button, a[href], [role="button"], [tabindex]');
+    if (t) t.focus();
+  }, [open]);
+
   // Keep the menu mounted through the close animation, then unmount.
   React.useEffect(() => {
     if (open) { setRender(true); return; }
@@ -146,6 +169,7 @@ export function Menu({
   const toggle = () => { if (triggerDisabled && !open) return; setOpen((o) => !o); setActive(-1); }; // #420: no open from a disabled trigger
 
   function onKeyDown(e) {
+    kbdRef.current = true; // #459: this highlight change came from a key, so focus should follow it
     // #410: a parent (e.g. a Datatable widget-nav cell) may claim this key in the capture phase and
     // preventDefault it — respect that and don't also open the menu (mirrors Select's trigger guard).
     if (e.defaultPrevented) return;
@@ -156,8 +180,8 @@ export function Menu({
       return;
     }
     if (e.key === "Escape") { e.preventDefault(); setOpen(false); return; }
-    // APG: Tab closes the menu and lets focus move on naturally (the items are not in
-    // the tab order — focus is managed via aria-activedescendant on the trigger).
+    // APG: Tab closes the menu and lets focus move on naturally (the items stay out of the tab
+    // order at tabIndex={-1}; the highlighted one is focused programmatically).
     if (e.key === "Tab") { setOpen(false); return; }
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       e.preventDefault();
@@ -175,7 +199,10 @@ export function Menu({
         const next = Math.min(list.length - 1, Math.max(0, curPos + (e.key === "PageDown" ? 5 : -5)));
         setActive(list[next]);
       }
-    } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      // #457: space is EXCLUDED from type-ahead. It satisfies length === 1, and this branch precedes
+      // the activation branch below, so Space was swallowed here and could never activate the
+      // highlighted item - which the WAI-ARIA APG lists alongside Enter for a menuitem.
+    } else if (e.key.length === 1 && e.key !== " " && !e.ctrlKey && !e.metaKey && !e.altKey) {
       // #118: type-ahead — jump to the next interactive item whose label starts with the buffer.
       typeBufRef.current += e.key.toLowerCase();
       clearTimeout(typeTimerRef.current);
@@ -192,8 +219,9 @@ export function Menu({
       e.preventDefault();
       const it = items[active];
       if (it && !it.disabled) {
-        // Focus stays on the trigger (roving via aria-activedescendant), so a link item
-        // never gets a native key event — click it so navigation + its onClick both run.
+        // Activate explicitly rather than leaning on the native key behaviour: the highlight can
+        // have been set by hover (no DOM focus on the item at all), and preventDefault above has
+        // already suppressed the browser's own Enter/Space click, so this is the single activation.
         const el = typeof document !== "undefined" ? document.getElementById(`${menuId}-item-${active}`) : null;
         if (el && el.tagName === "A") el.click();
         else { it.onClick?.(); setOpen(false); }
@@ -221,7 +249,7 @@ export function Menu({
             tabIndex={-1}
             data-danger={it.danger || undefined}
             data-active={active === i || undefined}
-            onMouseEnter={() => setActive(i)}
+            onMouseEnter={() => { kbdRef.current = false; setActive(i); }}
             onClick={() => { it.onClick?.(); setOpen(false); }}
             {...(Tag === "button" ? { type: "button", disabled: it.disabled } : { href, target: it.target, rel: it.rel })}
           >
@@ -237,9 +265,8 @@ export function Menu({
   // Make the trigger a proper, focusable menu button that announces its popup +
   // open state. Clone a passed element (so a <button>/IconButton keeps its own
   // semantics) or wrap a non-element trigger in a focusable role="button" span.
-  // aria-activedescendant mirrors the highlighted item for screen readers while
-  // DOM focus stays on the trigger.
-  const activeDescId = open && active >= 0 ? `${menuId}-item-${active}` : undefined;
+  // #459: the trigger no longer carries aria-activedescendant - the attribute is illegal on
+  // role="button" and the highlight is announced by real focus on the item instead.
   // #447: a cloned non-control trigger needs role="button" so the injected aria-expanded is legal
   // (it is prohibited on a div's implicit role="generic"). Keyboard activation already works for
   // every trigger shape - span.twc-menu-wrap below carries onKeyDown, which Enter/Space/ArrowDown
@@ -252,7 +279,6 @@ export function Menu({
         "aria-haspopup": "menu",
         "aria-expanded": open,
         "aria-controls": open ? menuId : undefined,
-        "aria-activedescendant": activeDescId,
         // #420: forward an incoming aria-describedby (e.g. from a wrapping Tooltip) to the focusable trigger,
         // not the wrapper span, so the description is announced on focus.
         "aria-describedby": [trigger.props["aria-describedby"], ariaDescribedby].filter(Boolean).join(" ") || undefined,
@@ -260,13 +286,13 @@ export function Menu({
       })
     : (
         <span role="button" tabIndex={0} aria-haspopup="menu" aria-expanded={open}
-          aria-controls={open ? menuId : undefined} aria-activedescendant={activeDescId} aria-describedby={ariaDescribedby} onClick={toggle}>
+          aria-controls={open ? menuId : undefined} aria-describedby={ariaDescribedby} onClick={toggle}>
           {trigger}
         </span>
       );
 
   return (
-    <span className={`twc-menu-wrap ${className}`} ref={wrapRef} onKeyDown={onKeyDown} {...rest}>
+    <span className={`twc-menu-wrap ${className}`} ref={wrapRef} {...rest} onKeyDown={compose(rest.onKeyDown, onKeyDown)}>
       {triggerEl}
       {menu && RD && RD.createPortal ? RD.createPortal(menu, document.body) : menu}
     </span>

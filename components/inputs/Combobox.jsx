@@ -61,7 +61,7 @@ const COMBO_CSS = `
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-opt:hover, .twc-opt[data-active="true"] { background: var(--color-surface-sunken); }
-.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary); font-weight: var(--font-semibold); }
+.twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary-subtle-fg); font-weight: var(--font-semibold); }
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -317,8 +317,11 @@ export function Combobox({
   }
 
   let counter = -1;
+  // #459: the listbox role sits on the options list itself, not on the popover wrapper - so the
+  // input's aria-controls names the element it genuinely controls (on the wrapper it resolved to a
+  // plain container) and the listbox owns only list content. Matches Select and MultiSelect.
   const popInner = (
-    <div className="twc-pop__list" ref={listRef} onScroll={virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined}>
+    <div className="twc-pop__list" id={listboxId} role="listbox" ref={listRef} onScroll={virtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined}>
       {loading ? (
         <div className="twc-pop__loading" role="status"><span className="twc-pop__spinner" aria-hidden="true" />Loading…</div>
       ) : visible.length === 0 ? <div className="twc-pop__empty">{emptyText}</div> :
@@ -350,14 +353,14 @@ export function Combobox({
   if (open) {
     if (canPortal && coords) {
       popEl = RD.createPortal(
-        <div className="twc-pop twc-pop--portal" id={listboxId} role="listbox" ref={popRef}
+        <div className="twc-pop twc-pop--portal" ref={popRef}
           data-placement={coords.flip ? "top" : "bottom"}
           style={{ position: "fixed", left: coords.left, top: coords.top, bottom: coords.bottom, width: coords.width, right: "auto", zIndex: "var(--z-floating)" }}>
           {popInner}
         </div>, document.body);
     } else if (!portal) {
       popEl = (
-        <div className="twc-pop" id={listboxId} role="listbox" ref={popRef} data-placement={placement === "top" ? "top" : undefined}>
+        <div className="twc-pop" ref={popRef} data-placement={placement === "top" ? "top" : undefined}>
           {popInner}
         </div>
       );

@@ -164,12 +164,57 @@ child of `.twc-tooltip-wrap` (hover reaches the wrap) with a `not-allowed` curso
 `focusableWhenDisabled`, which renders `aria-disabled` instead of native `disabled` so the trigger stays
 focusable (tooltip reachable by keyboard) while click + `Enter`/`Space` stay blocked.
 
+## Handler composition: `{...rest}` must not delete an internal handler (#452)
+
+Five components attached their own handler to the element they also spread `{...rest}` onto, with the spread
+placed **after** the handler. Prop order wins in JSX, so a consumer passing the same-named prop silently replaced
+the component's handler and the component stopped working with no warning at all:
+
+| Component | Consumer prop | What it deleted |
+| --- | --- | --- |
+| `Menu` | `onKeyDown` | every bit of keyboard navigation (arrows, type-ahead, Escape, activation) |
+| `TreeView` | `onKeyDown` | the whole WAI-ARIA tree keyboard pattern |
+| `ToggleGroup` | `onKeyDown` | roving focus |
+| `Carousel` | `onMouseEnter` | the autoplay hover-pause |
+| `Tooltip` | `onMouseEnter` / `onFocus` | hover- and focus-open — the tooltip never appeared |
+
+The fix is `compose(theirs, ours)` in `components/_compose.js`, with the composed handler wired **after** the
+spread: the consumer's handler runs first, ours runs next unless they called `preventDefault()`, and the other
+entries in `rest` still override our attributes exactly as before. Same contract as the Popover trigger
+composition from #447. `tests/rest-spread-handler-composition.test.jsx` covers all three halves per component
+(internal behaviour survives, consumer handler is called, `preventDefault` opts out).
+
+## Menu follows the APG focus model, not roving activedescendant (#459)
+
+`Menu` used to keep DOM focus on the trigger and advertise the highlighted item with `aria-activedescendant` on
+it. That attribute is **not permitted on `role="button"`** — AT discards it — so for a keyboard user the
+highlight was announced by nothing at all, and `aria-allowed-attr` fired as soon as they arrowed in. There is no
+role that fixes it in place (`combobox` would allow the attribute but cannot carry `aria-haspopup="menu"`), so
+`Menu` moves real DOM focus onto the highlighted item instead, as the APG menu-button pattern prescribes:
+
+- focus follows **keyboard-driven** highlight changes only (an internal `kbdRef` flag), so hovering the menu
+  with a pointer moves the highlight without stealing focus;
+- items stay at `tabIndex={-1}`, so `Tab` still leaves the menu rather than walking the items;
+- focus returns to the trigger on close, so `Escape`, `Tab` and activation never drop focus to `<body>`;
+- the keydown handler stays on the wrapper — React portal events propagate up the React tree, not the DOM tree,
+  so it keeps receiving keys once focus is inside the portaled menu.
+
+`Select`'s trigger took the other route available to it: it is now the APG **select-only combobox**
+(`role="combobox"`), a role that legally owns `aria-expanded`/`aria-controls`/`aria-activedescendant`, and it
+claims `aria-activedescendant` only while it actually holds focus (i.e. when no search field is rendered).
+
 ## Tests
 
 - `tests/useFocusTrap.test.jsx` — focus-in, restore (and `restoreFocus:false`), and
   `Tab`/`Shift+Tab` wrapping (jsdom reports `offsetParent` as `null`, so the wrap test
   fakes it).
 - `tests/usePortal.test.jsx` — portals to `<body>`, stable callback identity.
+- `tests/rest-spread-handler-composition.test.jsx` — a consumer handler never deletes an internal one (#452).
+- `tests/menu-keyboard-activation.test.jsx` — Space activates the highlighted item (#457); the trigger carries
+  no `aria-activedescendant`, focus follows the keyboard highlight, hover does not steal it, and focus returns
+  to the trigger on close (#459).
+- `tests/select-combobox-aria.test.jsx` — the trigger's combobox role + activedescendant ownership, and that the
+  listbox owns only options (#459).
 - `tests/overlays.test.jsx` — each overlay still portals, moves focus inside, closes
   on `Escape`/backdrop, and (CommandPalette) keeps Arrow/Enter navigation.
 - `tests/Sidebar.test.jsx` — `overlay` mode renders a labelled `role="dialog"`, moves

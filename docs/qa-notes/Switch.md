@@ -8,6 +8,8 @@
 
 None identified.
 
+- [x] **[#454] the off-state track was 1.49:1 against the surface** - now `--color-control-border` (see Checkbox). `Switch.jsx:35` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled mode works (checked/defaultChecked/onChange)

@@ -258,7 +258,7 @@ const DT_CSS = `
 .twc-dt__pivot-vhcell[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__pivot-vh { display: inline-flex; flex-direction: column; align-items: center; gap: 1px; line-height: 1.15; }
 .twc-dt__pivot-vh-label { font-weight: var(--font-bold); color: var(--color-text); text-transform: none; letter-spacing: 0; }
-.twc-dt__pivot-vh-agg { font-size: 10px; font-weight: var(--font-semibold); color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.04em; }
+.twc-dt__pivot-vh-agg { font-size: 10px; font-weight: var(--font-semibold); color: var(--color-primary-subtle-fg); text-transform: uppercase; letter-spacing: 0.04em; }
 /* Row headers + record counts (must outrank .twc-dt__row > .twc-dt__td:first-child = (0,3,0)) */
 .twc-dt__pivot tbody .twc-dt__pivot-rowhead[data-pin],
 .twc-dt__pivot tfoot .twc-dt__pivot-rowhead[data-pin] { position: sticky; inset-inline-start: 0; z-index: 5; }
@@ -275,7 +275,7 @@ const DT_CSS = `
 .twc-dt__pivot-total, .twc-dt__pivot-total-h { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); font-weight: var(--font-bold); }
 .twc-dt__pivot-total[data-group-start], .twc-dt__pivot-total-h[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-primary) !important; }
 .twc-dt__pivot-total-h .twc-dt__pivot-vh-label { color: var(--color-primary-subtle-fg); }
-.twc-dt__pivot-total-h .twc-dt__pivot-vh-agg { color: var(--color-primary); }
+.twc-dt__pivot-total-h .twc-dt__pivot-vh-agg { color: var(--color-primary-subtle-fg); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-total { background: var(--color-primary-subtle); }
 /* Grand-total footer row */
 .twc-dt__pivot tfoot td, .twc-dt__pivot tfoot th { position: sticky; bottom: 0; background: var(--color-surface-sunken); font-weight: var(--font-bold); border-top: var(--border-medium) solid var(--color-border-strong); }
@@ -473,8 +473,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__mi:disabled { color: var(--color-text-subtle); opacity: 0.5; cursor: default; pointer-events: none; }
 .twc-dt__mi-hint { margin-inline-start: auto; padding-inline-start: 12px; color: var(--color-text-subtle); font-size: var(--text-xs); font-weight: var(--font-normal); } /* #399: disabledReason */
 .twc-dt__mi svg { width: 16px; height: 16px; color: var(--color-text-subtle); flex: none; }
-.twc-dt__mi[data-active="true"] { color: var(--color-primary); }
-.twc-dt__mi[data-active="true"] svg { color: var(--color-primary); }
+.twc-dt__mi[data-active="true"] { color: var(--color-primary-subtle-fg); }
+.twc-dt__mi[data-active="true"] svg { color: var(--color-primary-subtle-fg); }
 .twc-dt__sep { height: 1px; background: var(--color-divider); margin: 5px 4px; }
 
 /* Columns panel */
@@ -514,7 +514,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__panel-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px 8px; }
 .twc-dt__panel-title { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
 .twc-dt__panel-count { font-weight: 600; color: var(--color-text-muted); text-transform: none; letter-spacing: 0; margin-inline-start: 6px; font-variant-numeric: tabular-nums; }
-.twc-dt__link { border: none; background: transparent; color: var(--color-primary); font-family: inherit; font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 4px; border-radius: var(--radius-sm); }
+.twc-dt__link { border: none; background: transparent; color: var(--color-primary-subtle-fg); font-family: inherit; font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 4px; border-radius: var(--radius-sm); }
 .twc-dt__link:hover { background: var(--color-primary-subtle); }
 /* #330: MUI DataGrid-style per-row And/Or connector. Row 1 shows a static "Where"; the first connector
    row (row 2) hosts an editable And/Or Select bound to the single filterLogic; rows 3+ echo it as static
@@ -644,7 +644,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface);
   color: var(--color-text); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold); cursor: pointer;
   transition: border-color var(--duration-fast), color var(--duration-fast), background-color var(--duration-fast); }
-.twc-dt__batch-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.twc-dt__batch-btn:hover { border-color: var(--color-primary-subtle-fg); color: var(--color-primary-subtle-fg); }
 .twc-dt__batch-btn[data-danger="true"]:hover { border-color: var(--color-danger); color: var(--color-danger-subtle-fg); background: var(--color-danger-subtle); }
 .twc-dt__batch-btn svg { width: 15px; height: 15px; }
 `;
@@ -1289,7 +1289,10 @@ export function Datatable({
   // mis-target selection, inline-edit commits and "select all" for id-less rows.
   const _autoKey = React.useRef();
   if (!_autoKey.current) _autoKey.current = { map: new WeakMap(), n: 0 };
-  const keyOf = rowKey || ((r, i) => {
+  // #460: memoized - an unstable keyOf invalidated the treeRows/depthByKey/treeSeqByKey memos that
+  // list it in their deps, so they recomputed on every render. The auto-key WeakMap lives in a ref,
+  // so the only real dependency is the caller's rowKey.
+  const keyOf = React.useCallback(rowKey || ((r, i) => {
     if (r != null && r.id != null) return r.id;
     if (r != null && typeof r === "object") {
       const m = _autoKey.current.map;
@@ -1298,7 +1301,7 @@ export function Datatable({
       return k;
     }
     return i;
-  });
+  }), [rowKey]);
   const [sort, setSort] = React.useState(null);
   const [filters, setFilters] = React.useState([]);
   // #303/#330: how the filter clauses combine — "and" (all must match, default) or "or" (any). A set-wide
@@ -1946,7 +1949,12 @@ export function Datatable({
   const serverTotal = rowCount == null ? processed.length : rowCount;
   const totalRows = serverMode ? serverTotal : processed.length;
   const totalPages = paginated ? Math.max(1, Math.ceil(totalRows / sizeVal)) : 1;
-  const paged = !paginated || serverMode ? processed : processed.slice(pageVal * sizeVal, pageVal * sizeVal + sizeVal);
+  // #460: memoized. As a bare slice this was a new array identity on every render, which rippled
+  // through leafRows -> keyIndex -> the effects keyed on them (see the reveal effect below).
+  const paged = React.useMemo(
+    () => (!paginated || serverMode ? processed : processed.slice(pageVal * sizeVal, pageVal * sizeVal + sizeVal)),
+    [processed, paginated, serverMode, pageVal, sizeVal]
+  );
   React.useEffect(() => { if (pageVal > totalPages - 1) commitPage(0); }, [totalPages]);
 
   // #359: client-mode lazy row-tree — when `getSubRows` is provided (and not serverMode), flatten each
@@ -2029,7 +2037,12 @@ export function Datatable({
     };
     return build(paged, 0, "");
   }, [activeGroupBy, collapsedSet, paged, ordered, aggOn]);
-  const leafRows = displayItems ? displayItems.filter((i) => i.kind === "leaf").map((i) => i.row) : (treeRows ? treeRows.map((t) => t.row) : paged); // #359: client tree flatten
+  // #359: client tree flatten. #460: memoized - in group/tree mode the filter+map produced a fresh
+  // array every render even though displayItems/treeRows were already memoized.
+  const leafRows = React.useMemo(
+    () => (displayItems ? displayItems.filter((i) => i.kind === "leaf").map((i) => i.row) : (treeRows ? treeRows.map((t) => t.row) : paged)),
+    [displayItems, treeRows, paged]
+  );
   // #393: controlled/uncontrolled toggle — always report via onCollapsedGroupsChange; only self-update when uncontrolled.
   // #393 (review): uncontrolled toggles use the functional updater so two synchronous toggles both apply
   // (a render-snapshot copy would coalesce to only the last). Controlled mode reports the next set + defers to the host.
@@ -2669,12 +2682,18 @@ export function Datatable({
   }, [selKeys, selectedRows]);
   // #324: scroll the controlled active row into view when it changes (block: "nearest" → minimal scroll,
   // no page jump; instant, so no motion for reduced-motion users). Only when controlled + enabled + non-null.
+  // #460: resolve the active row to an index at render scope and key the effect on that primitive -
+  // the #429 fix, which had only been applied to the cell path. Keyed on the `keyIndex` Map identity
+  // this effect re-ran on EVERY render (the Map was rebuilt each time), so any unrelated re-render -
+  // an overflow tooltip opening, a parent state change - yanked a scrolled-away grid back to the
+  // active row, and scrollIntoView walked up and scrolled the host page with it. The primitive still
+  // changes when a server-mode page fetch mounts the row, which is what #395 needed.
+  const revealRowRi = activeRowVal != null ? keyIndex.get(activeRowVal) : undefined;
   React.useEffect(() => {
     if (!activeRowControlled || !scrollActiveRowIntoView || activeRowId == null) return;
     const el = gridRef.current && gridRef.current.querySelector('.twc-dt__row[data-active="true"]');
     if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest" });
-    // #395: `keyIndex` in the deps so the scroll re-applies once a server-mode page fetch mounts the row.
-  }, [activeRowId, activeRowControlled, scrollActiveRowIntoView, keyIndex]);
+  }, [activeRowId, activeRowControlled, scrollActiveRowIntoView, revealRowRi]);
   // #395: reveal the controlled active cell inside the grid's OWN scroller (never scrollIntoView, which would
   // scroll the page). Works in any selectionMode, on both axes, honours the sticky header + pinned columns,
   // and re-runs when rows change so a server-mode page fetch — or a virtualized row mounting — lands on it.
@@ -2824,7 +2843,7 @@ export function Datatable({
   // ---- Batch edit: update one or more columns across all selected rows at once ----
   // #244: `batchEditFields` allow-lists which columns the built-in editor offers (independent of
   // `editable`, so trimming the editor never disables inline cell editing).
-  const batchEditKey = batchEditFields ? batchEditFields.join(" ") : "";
+  const batchEditKey = batchEditFields ? batchEditFields.join("\u0000") : "";
   const batchEditableCols = React.useMemo(
     () => {
       const base = cols.filter((c) => c.type !== "actions" && (c.editable ?? (editMode && c.editable !== false)));

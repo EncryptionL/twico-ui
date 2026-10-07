@@ -106,9 +106,26 @@ export function CardGrid({
   // can toggle between Datatable and CardGrid with one query model.
   const queryCols = sortOptions ? sortOptions.map((o) => ({ field: o.field, type: o.type })) : columns;
   const client = serverMode ? null : runDatatableQuery(rows, query, { columns: queryCols, searchFields });
-  const pageRows = serverMode ? rows : client.rows;
   const total = serverMode ? (rowCount == null ? rows.length : rowCount) : client.total;
   const totalPages = Math.max(1, paginated ? Math.ceil(total / sizeVal) : 1);
+  // #461: CardGrid resets to page 0 on quick-filter / sort / page-size / filters changes, but nothing
+  // caught `rows` itself shrinking - so a refetch or a deletion could leave pageVal past the end. The
+  // slice then returns [] and the empty state covers rows that DO match, with a footer reading
+  // "97-10 of 10". Clamp to the last real page (Datatable has the same guard); unlike Datatable's
+  // reset-to-0 this keeps the reader near where they were, which matters more in a card catalogue.
+  const lastPage = totalPages - 1;
+  const shownPage = Math.min(pageVal, lastPage);
+  // #461: render from the CLAMPED page, not the stranded one. Reporting the clamp through
+  // onPageChange is not enough on its own - a controlled host that keeps feeding the old `page` would
+  // still get an empty grid - and `filtered` is the full pre-paging set the query already built, so
+  // re-slicing costs nothing and only happens when the index really is out of range. In serverMode the
+  // host owns the slice, so there the clamp callback plus the clamped footer is all we can do.
+  const pageRows = serverMode
+    ? rows
+    : (paginated && shownPage !== pageVal
+        ? client.filtered.slice(shownPage * sizeVal, shownPage * sizeVal + sizeVal)
+        : client.rows);
+  React.useEffect(() => { if (pageVal > lastPage) commitPage(lastPage); }, [lastPage, pageVal]); // eslint-disable-line
 
   const onServerChangeRef = React.useRef(onServerChange);
   onServerChangeRef.current = onServerChange;
@@ -120,8 +137,10 @@ export function CardGrid({
   }, [serverMode, queryKey]);
 
   const keyOf = typeof rowKey === "function" ? rowKey : (r) => r && r[rowKey];
-  const from = total === 0 ? 0 : pageVal * sizeVal + 1;
-  const to = paginated ? Math.min((pageVal + 1) * sizeVal, total) : total;
+  // #461: clamped so `from` can never exceed `to` - covers the frame before the clamp effect lands,
+  // and the controlled case where the host keeps passing the stale page.
+  const from = total === 0 ? 0 : Math.min(shownPage * sizeVal + 1, total);
+  const to = paginated ? Math.min((shownPage + 1) * sizeVal, total) : total;
   const rppOptions = Array.from(new Set([...(pageSizeOptions || []), pageSize].filter((n) => n > 0))).sort((a, b) => a - b).map((n) => ({ value: String(n), label: String(n) }));
   const sortSelectOptions = sortOptions ? [{ value: "", label: "Sort by…" }, ...sortOptions.map((o) => ({ value: o.field, label: o.label || o.field }))] : null;
   // #226: size the sort trigger to its widest label so long option labels aren't clipped
@@ -180,7 +199,7 @@ export function CardGrid({
       {paginated && totalPages > 0 ? (
         <div className="twc-cardgrid__footer">
           <span className="twc-cardgrid__count">{total === 0 ? "No results" : `${from}–${to} of ${total}`}</span>
-          <Pagination size="sm" page={pageVal + 1} total={totalPages} boundaries={1} siblings={1}
+          <Pagination size="sm" page={shownPage + 1} total={totalPages} boundaries={1} siblings={1}
             showPageJumper={totalPages > 7} onChange={(p) => commitPage(p - 1)} />
           {showPageSize ? (
             <label className="twc-cardgrid__perpage">

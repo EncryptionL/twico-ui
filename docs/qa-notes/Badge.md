@@ -17,6 +17,8 @@
   default tone `info`, i.e. the library's most-used tinted surface was the worst case. See
   [colors.md](../colors.md). `tokens/colors.css`; `tests/tokens-a11y.test.js`. - fixed 2026-10-06
 
+- [x] **[#451] the outline/primary label used `--color-primary` as text** - 4.00-4.47:1 light / 3.27:1 dark-raised. Now `--color-primary-subtle-fg`. `Badge.jsx:34` - fixed 2026-10-07
+
 ## Verified OK
 
 - **Tone × variant matrix:** 6 tones × 3 variants (soft/solid/outline) implemented via data attributes + CSS custom properties. All combinations present and render correctly.

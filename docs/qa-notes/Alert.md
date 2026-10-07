@@ -15,6 +15,9 @@
 
 None identified.
 
+- [x] **[#453] the close button was de-emphasised with `opacity: 0.6`** - 2.14-3.00:1 across the tones, on an enabled control (SC 1.4.11 wants 3:1). It now inherits the alert's own foreground, and the hover affordance comes from the background tint alone. `Alert.jsx:33` - fixed 2026-10-07
+- [x] **[#453] the solid-variant description ran at `opacity: 0.92`** - 3.31:1, under the 4.5:1 floor for body text. Full strength now; the title/description hierarchy is carried by `font-weight`. `Alert.jsx:24` - fixed 2026-10-07
+
 ## Verified OK
 
 - **Accessibility:** `role="alert"` correctly applied; icon `aria-hidden="true"`; close button has `aria-label="Dismiss"`. Semantic messaging role properly announces updates to screen readers.

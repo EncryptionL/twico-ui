@@ -8,6 +8,8 @@
 
 - [ ] **[P2] Controlled/uncontrolled state clash** — If a parent switches between controlled (`index={page}`) and uncontrolled (no index prop), the carousel will lose internal state. When `indexProp` changes from a value to undefined (or vice versa), React won't preserve the state manager's intent, causing jumps or stalls. _Fix:_ Document that the component must remain either fully controlled or fully uncontrolled; warn in dev if the prop type changes. `Carousel.jsx:53–56`
 
+- [x] **[#452] a consumer `onMouseEnter` killed the autoplay hover-pause** - `{...rest}` was spread after the internal pointer/key handlers, so any same-named consumer prop replaced them. Composed via `components/_compose.js`. `Carousel.jsx:134` - fixed 2026-10-07
+
 ## Verified OK
 
 - **Index math (loop vs no-loop):** Loop wraps correctly via (i + count) % count. No-loop clamps to [0, count-1].

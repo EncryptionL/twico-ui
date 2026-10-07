@@ -15,7 +15,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-muted); text-decoration: none; cursor: pointer;
   background: none; border: none; font-family: inherit; transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
 .twc-navbar__link:hover { background: var(--color-surface-sunken); color: var(--color-text); }
-.twc-navbar__link[data-active="true"] { color: var(--color-primary); background: var(--color-primary-subtle); }
+.twc-navbar__link[data-active="true"] { color: var(--color-primary-subtle-fg); background: var(--color-primary-subtle); }
 .twc-navbar__link svg { width: 16px; height: 16px; }
 .twc-navbar__spacer { flex: 1; }
 .twc-navbar__actions { display: flex; align-items: center; gap: var(--space-2); flex: none; }

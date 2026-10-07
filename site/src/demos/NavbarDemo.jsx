@@ -6,7 +6,7 @@ export default function NavbarDemo() {
   const items = ["Dashboard", "Projects", "Team"];
   return (
     <Navbar
-      brand={<>Twico <span style={{ color: "var(--color-primary)" }}>UI</span></>}
+      brand={<>Twico <span style={{ color: "var(--color-primary-subtle-fg)" }}>UI</span></>}
       links={items.map((label) => ({
         label,
         active: active === label,

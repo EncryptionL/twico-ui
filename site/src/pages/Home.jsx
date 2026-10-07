@@ -17,7 +17,7 @@ const FEATURES = [
   { title: "Truly free", body: "MIT licensed, no paid tiers, no premium add-ons. Use it anywhere, commercial or not." },
 ];
 
-const docsLinkStyle = { color: "var(--color-primary)", fontWeight: "var(--font-semibold)", textDecoration: "none" };
+const docsLinkStyle = { color: "var(--color-primary-subtle-fg)", fontWeight: "var(--font-semibold)", textDecoration: "none" };
 const footerLink = { color: "var(--color-text-muted)", fontSize: "var(--text-sm)", fontWeight: "var(--font-medium)", textDecoration: "none" };
 const eyebrow = { textTransform: "uppercase", letterSpacing: "0.08em" };
 
@@ -29,7 +29,7 @@ export default function Home() {
         <Badge>Free &amp; open source · MIT</Badge>
         <Heading level={1} align="center" style={{ fontSize: "clamp(2.2rem, 6vw, 3.6rem)", lineHeight: 1.05, maxWidth: 760 }}>
           The free React component library
-          <br /> that themes to <span style={{ color: "var(--color-primary)" }}>your</span> brand.
+          <br /> that themes to <span style={{ color: "var(--color-primary-subtle-fg)" }}>your</span> brand.
         </Heading>
         <Text size="lg" tone="muted" align="center" style={{ maxWidth: 600 }}>
           A modern, themeable component library with dark mode, lively motion, and accessibility built

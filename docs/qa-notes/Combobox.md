@@ -50,6 +50,8 @@
   `tests/combobox-wrap-options.test.jsx`. Not (yet) mirrored on Select/MultiSelect (same `.twc-opt` markup,
   could be added if requested). — added 2026-07-30
 
+- [x] **[#459] `role="listbox"` sat on the popover wrapper rather than the options list** - same placement problem as Select: the input's `aria-controls` named a plain container instead of the element it controls. Moved onto `.twc-pop__list`. `Combobox.jsx:320,353,360` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled single-select (value/defaultValue/onChange)

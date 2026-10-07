@@ -72,7 +72,10 @@ const RANGE_CSS = `
 .twc-drp__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; }
 .twc-drp__dow { text-align: center; font-size: 11px; font-weight: var(--font-bold); color: var(--color-text-subtle); padding: 4px 0; }
 .twc-drp__day { aspect-ratio: 1; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); display: grid; place-items: center; position: relative; }
-.twc-drp__day[data-outside="true"] { color: var(--color-text-subtle); opacity: 0.45; }
+/* #453: no opacity here - these days are clickable (they jump to the adjacent month), so they are
+   NOT exempt from SC 1.4.3. color-text-subtle alone clears AA and still reads as de-emphasised;
+   the 0.5/0.45 multiplier dropped them to 1.83-1.97:1. Opacity stays only on the :disabled rules. */
+.twc-drp__day[data-outside="true"] { color: var(--color-text-subtle); }
 .twc-drp__day:hover:not(:disabled) { background: var(--color-surface-sunken); border-radius: var(--radius-md); }
 .twc-drp__day[data-in="true"] { background: var(--color-primary-subtle); border-radius: 0; }
 .twc-drp__day[data-edge="start"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: var(--radius-md) 0 0 var(--radius-md); font-weight: var(--font-bold); }

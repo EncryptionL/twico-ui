@@ -8,6 +8,8 @@
 
 - [x] **[P2] RTL animation** — The indeterminate progress animation used physical `left` and `right` keyframe properties, which did not respond to `dir="rtl"`. _Fixed:_ `Progress.jsx` now injects its own component-scoped `twc-progress-indeterminate` keyframe using logical properties (`inset-inline-start` / `inset-inline-end`), so the bar follows document direction. `components/feedback/Progress.jsx`
 
+- [x] **[#455] the bar missed the 3:1 graphic floor in light mode** - the bar is the only rendering of a `role="progressbar"`'s value, so SC 1.4.11 applies, and against the sunken track `--color-warning` was 1.96:1 and `--color-info` 2.53:1. Now uses the `--color-*-graphic` aliases. `Progress.jsx:28-37` - fixed 2026-10-07
+
 ## Verified OK
 
 - **Accessibility:** `role="progressbar"` on the inner track; `aria-valuenow` (when determinate), `aria-valuemin="0"`, `aria-valuemax="100"` correctly set. Screen readers can announce progress percentage.

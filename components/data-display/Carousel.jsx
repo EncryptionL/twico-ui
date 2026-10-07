@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { compose } from "../_compose.js";
 
 const CAROUSEL_CSS = `
 .twc-carousel { position: relative; font-family: var(--font-sans); }
@@ -127,11 +128,11 @@ export function Carousel({
 
   return (
     <div className={`twc-carousel ${className}`}
-      onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)} onBlurCapture={() => setPaused(false)}
-      onKeyDown={handleKeyDown}
       role="region" aria-roledescription="carousel"
-      aria-label={ariaLabel} aria-labelledby={ariaLabelledbyProp} {...rest}>
+      aria-label={ariaLabel} aria-labelledby={ariaLabelledbyProp} {...rest}
+      onMouseEnter={compose(rest.onMouseEnter, () => setPaused(true))} onMouseLeave={compose(rest.onMouseLeave, () => setPaused(false))}
+      onFocusCapture={compose(rest.onFocusCapture, () => setPaused(true))} onBlurCapture={compose(rest.onBlurCapture, () => setPaused(false))}
+      onKeyDown={compose(rest.onKeyDown, handleKeyDown)}>
       {__twcStyles}
       <div className="twc-carousel__viewport" tabIndex={0}>
         <div className="twc-carousel__track" style={{ transform: `translateX(-${index * 100}%)` }}>

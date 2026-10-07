@@ -8,6 +8,8 @@
 
 None identified.
 
+- [x] **[#454] the unchecked radio border was 1.49:1** - now `--color-control-border` (see Checkbox). `Radio.jsx:37` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled with value/name/defaultChecked/onChange

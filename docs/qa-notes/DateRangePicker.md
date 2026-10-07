@@ -25,6 +25,8 @@
   both grids are arrow-key navigable via roving tabindex (`onMonthsKeyDown`/`onYearsKeyDown`). Min/max
   bounds gray out fully out-of-range months/years. — added 2026-07-10
 
+- [x] **[#453] outside-month days were dimmed to 1.83:1** - same as DatePicker: `opacity: 0.45` on clickable days. Removed; the `:disabled` rule keeps its opacity. `DateRangePicker.jsx:75` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled date range (value/defaultValue/onChange)

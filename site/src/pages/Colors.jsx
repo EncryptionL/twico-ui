@@ -158,7 +158,7 @@ const color = indigo[500]; // "#6366f1"`}
         <Heading level={2} id="semantic">Semantic tokens</Heading>
         <Text>
           For application UI, prefer the <strong>semantic aliases</strong> over raw scales — they
-          carry intent and automatically flip under <Link to="/docs/dark-mode" style={{ color: "var(--color-primary)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>dark mode</Link>.
+          carry intent and automatically flip under <Link to="/docs/dark-mode" style={{ color: "var(--color-primary-subtle-fg)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>dark mode</Link>.
           The JS primitives above are static; these are not. The swatches here are live — toggle the
           theme to watch them re-theme.
         </Text>
@@ -201,7 +201,7 @@ const color = indigo[500]; // "#6366f1"`}
         />
         <Text tone="muted" size="sm">
           The full token reference (every alias, light &amp; dark) lives on the
-          {" "}<Link to="/docs/theming" style={{ color: "var(--color-primary)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>Theming</Link> page.
+          {" "}<Link to="/docs/theming" style={{ color: "var(--color-primary-subtle-fg)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>Theming</Link> page.
         </Text>
       </Stack>
 
@@ -218,7 +218,7 @@ const color = indigo[500]; // "#6366f1"`}
       </Stack>
 
       <Text style={{ marginTop: "var(--space-4)", fontWeight: "var(--font-semibold)" }}>
-        Next: <Link to="/docs/theming" style={{ color: "var(--color-primary)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>Theming →</Link>
+        Next: <Link to="/docs/theming" style={{ color: "var(--color-primary-subtle-fg)", fontWeight: "var(--font-semibold)", textDecoration: "none" }}>Theming →</Link>
       </Text>
     </Stack>
   );

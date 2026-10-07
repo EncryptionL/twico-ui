@@ -33,7 +33,7 @@ const UPLOAD_CSS = `
   background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); margin-bottom: 4px; }
 .twc-upload__icon svg { width: 24px; height: 24px; }
 .twc-upload__title { font-size: var(--text-sm); color: var(--color-text); font-weight: var(--font-semibold); }
-.twc-upload__title em { color: var(--color-primary); font-style: normal; }
+.twc-upload__title em { color: var(--color-primary-subtle-fg); font-style: normal; }
 .twc-upload__hint { font-size: var(--text-xs); color: var(--color-text-subtle); }
 .twc-upload__input { display: none; } /* #415: out of the tab order + a11y tree; inputRef.click() still works */
 .twc-upload__list { display: flex; flex-direction: column; gap: 8px; }

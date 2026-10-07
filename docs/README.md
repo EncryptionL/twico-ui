@@ -18,13 +18,13 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 | [security.md](./security.md) | Security standards: URL sanitization, the no-CDN rule, dependency auditing, CodeQL, Dependabot. |
 | [docs-site.md](./docs-site.md) | How the documentation website works, regenerating it, deploying to GitHub Pages, the render-check. |
 | [hooks.md](./hooks.md) | The exported React hooks API — where it lives, the full set, conventions, how to add one. |
-| [overlays.md](./overlays.md) | The shared modal-overlay pattern (Dialog/Drawer/CommandPalette), the `useFocusTrap` / `usePortal` hooks extracted into `components/_overlay.js` (#177), the dismissable-layer stack (#389), and disabled-trigger tooltips (#398). Includes the `trigger` contract (#447) and why Tooltip composes outside. |
+| [overlays.md](./overlays.md) | The shared modal-overlay pattern (Dialog/Drawer/CommandPalette), the `useFocusTrap` / `usePortal` hooks extracted into `components/_overlay.js` (#177), the dismissable-layer stack (#389), and disabled-trigger tooltips (#398). Includes the `trigger` contract (#447), the `{...rest}` handler-composition rule (#452), and why Menu moved to the APG focus model (#459). |
 | [tooltip.md](./tooltip.md) | Tooltip positioning — portal + fixed positioning, viewport clamp/flip, `width: max-content` (no near-edge collapse), and the trigger-tracking arrow. |
 | [colors.md](./colors.md) | The `twico-ui/colors` JS export, the primitive↔semantic split, the drift guards (`tests/colors.test.js` + `verify:palette`), and the MUI-style Color docs page. |
 | [fonts.md](./fonts.md) | Self-hosted OFL webfonts: the three variable faces, why they ship as WOFF2 (#450), regenerating them with `build:fonts`, and the CI guard. |
 | [icons.md](./icons.md) | The `twico-ui/icons` subpath — re-exporting Lucide via an optional `lucide-react` peer, the build wiring, and why the core stays zero-dependency. |
 | [tone-variant-system.md](./tone-variant-system.md) | The library-wide `tone` × `variant` model: the `--_accent` pattern, which components have which axis, and how to extend it. |
-| [prop-conventions.md](./prop-conventions.md) | The standard prop vocabulary (size/tone/variant/value/onChange/items/overlay/label/…) every component follows. |
+| [prop-conventions.md](./prop-conventions.md) | The standard prop vocabulary (size/tone/variant/value/onChange/items/overlay/label/…) every component follows, and how a consumer handler composes with an internal one rather than replacing it (#452). |
 | [polymorphic-types.md](./polymorphic-types.md) | The `as`-driven polymorphic type kit (Box/Stack/Grid/Container/Text/Heading) — props + `ref` inferred from `as`, and why it uses two call signatures. |
 | [sx.md](./sx.md) | The `sx` style-prop escape hatch — flat CSS inline + nested selectors/at-rules compiled to a scoped stylesheet (pseudo-classes, media queries under the no-className policy). |
 | [datatable.md](./datatable.md) | Datatable advanced features — opt-in row virtualization, keyboard row reorder, ARIA menu semantics, and server-mode column projection. |

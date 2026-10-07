@@ -22,6 +22,8 @@
   ("Previous/Next decade|year|month"). Each grid has roving-tabindex arrow-key nav (`onYearsKeyDown`,
   ±1 horizontal / ±3 vertical / Home–End to the decade edges). — added 2026-07-10
 
+- [x] **[#453] outside-month days were dimmed to 1.97:1** - `opacity: 0.5` over `--color-text-subtle`, on days that are clickable (they jump to the adjacent month), so WCAG's inactive-control exemption does not apply. The opacity is gone - `--color-text-subtle` alone clears AA and still reads as de-emphasised - while the `:disabled` rule keeps its own. `DatePicker.jsx:76` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled date (value/defaultValue/onChange)

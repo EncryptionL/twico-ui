@@ -21,7 +21,9 @@ const ALERT_CSS = `
 .twc-alert[data-variant="soft"]    { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: color-mix(in srgb, var(--_accent) 30%, transparent); }
 .twc-alert[data-variant="solid"]   { background: var(--_accent); color: var(--_accent-fg); border-color: transparent; }
 .twc-alert[data-variant="outline"] { background: transparent; color: var(--_accent-subtle-fg); border-color: var(--_accent); }
-.twc-alert[data-variant="solid"] .twc-alert__desc { color: var(--_accent-fg); opacity: 0.92; }
+/* #453: full-strength accent-fg - the 0.92 multiplier put the solid description at 3.31:1, under the
+   4.5:1 SC 1.4.3 floor for body text. The title/description hierarchy is carried by font-weight. */
+.twc-alert[data-variant="solid"] .twc-alert__desc { color: var(--_accent-fg); }
 
 .twc-alert__icon { flex: none; margin-top: 1px; }
 .twc-alert__icon svg { width: 20px; height: 20px; }
@@ -30,10 +32,13 @@ const ALERT_CSS = `
 .twc-alert__desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-snug); }
 .twc-alert__close {
   flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px;
-  border: none; background: transparent; color: currentColor; opacity: 0.6; cursor: pointer;
-  border-radius: var(--radius-sm); transition: opacity var(--duration-fast), background-color var(--duration-fast);
+  border: none; background: transparent; color: currentColor; cursor: pointer;
+  border-radius: var(--radius-sm); transition: background-color var(--duration-fast);
 }
-.twc-alert__close:hover { opacity: 1; background: color-mix(in srgb, currentColor 12%, transparent); }
+/* #453: the dismiss glyph is a non-text control, so SC 1.4.11 wants 3:1 - the old opacity: 0.6 left it
+   at 2.14-3.00:1 across the tones. It now inherits the alert's own foreground (already token-guaranteed)
+   and the hover affordance comes from the background tint alone, not from an opacity ramp. */
+.twc-alert__close:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
 .twc-alert__close svg { width: 15px; height: 15px; }
 `;
 

@@ -30,6 +30,8 @@ hand-roll the fetch/paginate/sort/loading/empty loop. `CardGrid` is that missing
 - **States** — a dim + centered CSS spinner overlay while `loading`; a customizable `emptyState`.
   Cards render as `role="listitem"` inside a `role="list"` Grid.
 
+- [x] **[#461] an out-of-range page was never clamped** - CardGrid reset to page 0 on quick-filter/sort/page-size/filters changes but not when `rows` itself shrank, so a refetch or a deletion stranded the page index: the slice came back empty and the empty state covered rows that DO match, with a footer reading `97-10 of 10`. It now clamps to the last real page, renders from the clamped page (re-slicing the query's `filtered` set, so a controlled host that ignores `onPageChange` still gets rows), and the footer range can no longer invert. `CardGrid.jsx:111-125` - fixed 2026-10-07
+
 ## Verified OK
 
 - Client mode: one card per row capped to `pageSize`; pagination; quick search; controlled + built-in sort.

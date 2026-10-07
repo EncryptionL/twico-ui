@@ -119,6 +119,33 @@ silently regress below the a11y floors:
   composites to 5.8-8.3:1 on the surface and was already fine. Note the test helper must composite
   that alpha: reading `rgb(16 185 129 / 0.15)` as opaque (as it used to) measures a colour that is
   never painted.
+- **`--color-primary` is a FILL token, never a text token (#451, #456).** brand-500 as text measures
+  4.00-4.47:1 in light and 3.27:1 on the dark raised surface, so 13 declarations that used it for link
+  / active-label / hover text were under the AA floor. They all moved to `--color-primary-subtle-fg`.
+  Uses where the colour is a border, an icon or a fill only owe 3:1 and were deliberately left alone.
+  `tests/tokens-a11y.test.js` asserts both halves - the replacement clears 4.5:1, and `--color-primary`
+  does not - with one measured exception: on the dark page background (slate-950) brand-500 scrapes
+  4.52:1. Components paint on surfaces, not on the page background, so the rule stands where it counts.
+- **`--color-control-border` is the boundary of an unchecked control (#454).** For a Checkbox, Radio or
+  Switch in its off state the border/track is the ONLY thing saying the control exists, so SC 1.4.11
+  asks 3:1 of it - and `--color-border-strong`, tuned for card and divider edges, delivered 1.49:1.
+  This step clears it in both themes (slate-500 = 4.76:1 on white, slate-400 = 6.96:1 on the dark
+  surface) without touching any card/divider border.
+- **`--color-*-graphic` is the tone for a fill that IS the information (#455).** A Progress bar, a Toast
+  edge stripe, a status icon: nothing but the colour conveys the value, so SC 1.4.11's 3:1 applies, and
+  the light-mode tones missed it (amber-500 = 1.96:1 on surface-sunken, sky-500 = 2.53:1). The five
+  `-graphic` aliases are the same hues at a step that clears 3:1 on surface, surface-raised AND
+  surface-sunken - 4.1:1 at worst - and sit at a consistent lightness so switching tone does not change
+  the weight of the control. Dark mode already cleared it, so there the aliases just track the tone.
+  Keep using the plain tone for a fill that carries text on top (those are paired with `--color-*-fg`).
+- **`--color-chart-1...7` is the chart series ramp (#455).** It used to be seven primitives inlined in
+  `components/data-display/_chart.js`, where slots 1 and 6 were BOTH indigo-500 (`--brand-500` aliases
+  it): series 1 and 6 painted identically, 1.00:1, with two identical legend swatches, and the cycling
+  `paletteAt` made the effective palette six colours rather than seven. As tokens they also flip per
+  theme, so no series is ever below 3:1 on its own surface (light bottoms out at 4.08:1, dark at
+  4.90:1). WCAG contrast says nothing about whether two series can be told APART, so
+  `tests/chart-palette.test.js` additionally asserts a perceptual separation (CIE76 dE >= 15; the
+  closest pair is 23.8 light / 21.7 dark) - that is the assertion that would have caught the duplicate.
 - **The focus ring** (`--color-ring`) is a **solid** brand color (`--brand-500` light, `--brand-400`
   dark) so the 3px `box-shadow` ring clears SC 1.4.11 / 2.4.11 (3:1) against the surface — a
   translucent indigo alpha-composited to only ~1.8:1 on light.

@@ -34,7 +34,7 @@ export function Radio({
   --_sz: 20px;
   flex: none; width: var(--_sz); height: var(--_sz); margin-top: 1px;
   display: grid; place-items: center;
-  border: var(--border-medium) solid var(--color-border-strong);
+  border: var(--border-medium) solid var(--color-control-border);
   border-radius: var(--radius-full);
   background: var(--color-surface);
   transition: border-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
