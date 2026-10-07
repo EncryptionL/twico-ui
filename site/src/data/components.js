@@ -7751,7 +7751,7 @@ export const components = [
         "type": "\"left\" | \"center\" | \"right\" | \"start\" | \"end\"",
         "required": false,
         "default": "\"center\"",
-        "description": "Label alignment when children are provided; logical start/end now accepted and map to left/right (additive — existing left/center/right unchanged)."
+        "description": "Label alignment when children are provided; prefer the logical \"start\"/\"end\" so the label mirrors under dir=\"rtl\" (\"left\"/\"right\" still accepted)."
       },
       {
         "prop": "children",
@@ -8422,7 +8422,7 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Sets the CSS text-align value, letting you left-align, center, or right-align the heading text."
+        "description": "Sets the CSS text-align value; prefer the logical \"start\"/\"end\" over \"left\"/\"right\" so the heading mirrors under dir=\"rtl\"."
       },
       {
         "prop": "as",
@@ -12380,7 +12380,7 @@ export const components = [
         "type": "string",
         "required": false,
         "default": "—",
-        "description": "Sets the text-align value, controlling whether the text reads left, center, right, or justified."
+        "description": "Sets the text-align value: \"start\", \"center\", \"end\" or \"justify\" — prefer the logical start/end so the text mirrors under dir=\"rtl\"."
       },
       {
         "prop": "as",

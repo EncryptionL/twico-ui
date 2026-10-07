@@ -245,7 +245,17 @@ export function Select({
   // to press an arrow key first. Collapses to -1 on an empty list and leaves an already-negative
   // active alone.
   React.useEffect(() => {
-    setActive((a) => (a < 0 ? a : Math.min(a, visible.length - 1)));
+    // #463 (review): SKIP an empty list. The first version clamped unconditionally, so on an empty
+    // list Math.min(a, -1) drove `active` to -1 and the `a < 0 ? a` guard then kept it there for the
+    // life of the component - the list refilling could not recover it. That strands every async path
+    // the library itself documents: a MultiSelect whose options arrive after mount (Datatable's own
+    // AsyncFilterValue starts at []) never highlighted anything again, and a Combobox whose host
+    // blanks `options` while a fetch is in flight lost Enter-to-accept for as long as it stayed open.
+    // Leaving `active` alone while there is nothing to point at is both safe (no option renders, so
+    // nothing is announced) and recoverable (the next non-empty render clamps it into range).
+    // Math.min already preserves a deliberate -1, so no separate negative branch is needed.
+    if (visible.length === 0) return;
+    setActive((a) => Math.min(a, visible.length - 1));
   }, [visible.length]);
 
   // Measure the list viewport height for the virtualization window (falls back to the

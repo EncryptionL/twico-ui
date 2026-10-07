@@ -349,7 +349,10 @@ const DT_CSS = `
 .twc-dt__row[data-op="removed"] > .twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-danger) 7%, var(--color-surface)); }
 .twc-dt__row[data-op="modified"] > .twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-warning) 6%, var(--color-surface)); }
 .twc-dt__diff-change { display: inline-flex; align-items: center; gap: 4px; min-width: 0; max-width: 100%; }
-.twc-dt__diff-old { text-decoration: line-through; color: var(--color-text-subtle); }
+/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
+   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
+   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+.twc-dt__diff-old { text-decoration: line-through; color: var(--color-text-muted); }
 .twc-dt__diff-new { color: var(--color-success-subtle-fg); font-weight: var(--font-medium); }
 .twc-dt__diff-arrow { color: var(--color-text-subtle); flex: none; }
 [dir="rtl"] .twc-dt__diff-arrow { transform: scaleX(-1); display: inline-block; }

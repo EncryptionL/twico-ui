@@ -5,7 +5,9 @@ import CodeBlock from "../components/CodeBlock.jsx";
 import LiveExample from "../components/LiveExample.jsx";
 
 function DarkDemo() {
-  const { isDark, toggle } = useColorScheme();
+  // #466: client-only SPA, so read the stored theme eagerly (see ThemeToggle.jsx). The snippet
+  // shown further down deliberately keeps the default, which is the right thing to teach under SSR.
+  const { isDark, toggle } = useColorScheme({ initializeWithValue: true });
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}>
       <Button onClick={toggle}>{isDark ? "Switch to light" : "Switch to dark"}</Button>

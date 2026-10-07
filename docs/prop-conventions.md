@@ -98,8 +98,13 @@ standardized 2026-06-18; this doc is the source of truth.)
   provider) keeps its own tone-derived `alert`/`status` role.
 
 ## Passthrough & polymorphism
-- All components spread `...rest` to their root and accept `className` + `style`. Inline `style` and
-  `className` never override component-controlled `data-*`/`aria-*` (those are placed after the spread).
+- Every component spreads `...rest` and accepts `className` + `style`, but **`...rest` does not always
+  land on the ROOT** (#471). For the input family the root is the field wrapper (`.twc-field` / `.twc-input`
+  / `.twc-cur`) while `id` and the whole `{...rest}` - `style` included - go to the inner control, so
+  `<Combobox style={{ width: 320 }} />` sizes the `<input>`, not the field. `className` does go to the
+  root. The docs site states the real target per component in its prop table, generated from the
+  component category by `site/scripts/enrich-props.mjs`. Inline `style` and `className` never override
+  component-controlled `data-*`/`aria-*` (those are placed after the spread).
 - Polymorphic components take **`as`** (`Box`, `Stack`, `Container`, `Grid`, `Text`, `Heading`, `Code`),
   typed as the exported **`PolymorphicAs`** (`React.ElementType`) so it accepts both a tag name
   (`as="section"`) and a React component (`as={Link}`), whose props flow through `{...rest}`.

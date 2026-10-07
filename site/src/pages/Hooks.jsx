@@ -35,8 +35,8 @@ const GROUPS = [
 }`,
       },
       {
-        sig: "useLocalStorage(key, initial)",
-        desc: "State persisted to localStorage (JSON-serialized), SSR-safe — same API as useState.",
+        sig: "useLocalStorage(key, initial, options?)",
+        desc: "State persisted to localStorage (JSON-serialized) — same API as useState. Returns `initial` on the server AND on the first client render, then reads storage before paint, so hydration never mismatches; pass { initializeWithValue: true } in a client-only app to read eagerly.",
         example: `const [name, setName] = useLocalStorage("name", "");
 
 <Input value={name} onChange={(e) => setName(e.target.value)} />`,
@@ -69,7 +69,7 @@ return isDesktop ? <Sidebar items={nav} /> : <Drawer>{/* … */}</Drawer>;`,
       },
       {
         sig: "useColorScheme(options?)",
-        desc: "Light/dark theme synced to .dark on <html> and persisted — { theme, setTheme, toggle, isDark }.",
+        desc: "Light/dark theme synced to .dark on <html> and persisted — { theme, setTheme, toggle, isDark }. Returns \"light\" on the server AND on the first client render, then resolves the stored/system theme before paint; pass { initializeWithValue: true } in a client-only app to read it eagerly.",
         example: `const { isDark, toggle } = useColorScheme();
 
 <Button variant="ghost" onClick={toggle}>
@@ -77,8 +77,8 @@ return isDesktop ? <Sidebar items={nav} /> : <Drawer>{/* … */}</Drawer>;`,
 </Button>`,
       },
       {
-        sig: "useWindowSize()",
-        desc: "The current window { width, height } (0×0 on the server).",
+        sig: "useWindowSize(options?)",
+        desc: "The current window { width, height }. 0×0 on the server AND on the first client render, then measured before paint, so hydration never mismatches; pass { initializeWithValue: true } in a client-only app to measure eagerly.",
         example: `const { width } = useWindowSize();
 
 <Text tone="muted">Viewport is {width}px wide</Text>`,

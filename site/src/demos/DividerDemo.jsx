@@ -9,7 +9,7 @@ export default function DividerDemo() {
       <Text>Section two</Text>
       <Divider>OR</Divider>
       <Text>Section three</Text>
-      <Divider align="left">LEFT</Divider>
+      <Divider align="start">START</Divider>
       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
         <Text as="span">A</Text>
         <Divider orientation="vertical" />

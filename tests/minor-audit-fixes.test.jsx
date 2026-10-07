@@ -252,3 +252,43 @@ describe("hooks return their server default on the FIRST client render (#466)", 
     window.localStorage.removeItem("twc-test-key");
   });
 });
+
+// #463 (review) - the first version of the clamp drove `active` to -1 on an empty list and then kept
+// it there, which strands exactly the async paths this library documents.
+describe("the option clamp recovers from an empty list (#463 review)", () => {
+  const three = [{ value: "a", label: "Alpha" }, { value: "b", label: "Beta" }, { value: "c", label: "Gamma" }];
+
+  it("MultiSelect still highlights once options arrive after mounting empty", () => {
+    const { container, rerender } = render(<MultiSelect label="X" options={[]} />);
+    const input = container.querySelector("input");
+    fireEvent.focus(input);
+    rerender(<MultiSelect label="X" options={three} />);
+    const id = input.getAttribute("aria-activedescendant");
+    expect(id, "activedescendant must come back once there is something to point at").toBeTruthy();
+    expect(document.getElementById(id)).not.toBe(null);
+  });
+
+  it("Combobox recovers when an open list transiently empties mid-fetch", () => {
+    const { container, rerender } = render(<Combobox label="X" options={three} filter={false} />);
+    const input = container.querySelector("input");
+    fireEvent.focus(input);
+    fireEvent.change(input, { target: { value: "ab" } });
+    rerender(<Combobox label="X" options={[]} filter={false} loading />);   // fetch in flight
+    rerender(<Combobox label="X" options={three} filter={false} />);        // results land
+    const id = input.getAttribute("aria-activedescendant");
+    expect(id).toBeTruthy();
+    expect(document.getElementById(id)).not.toBe(null);
+  });
+
+  it("still clamps a too-large index when the list shrinks but stays non-empty", () => {
+    const long = Array.from({ length: 12 }, (_, i) => ({ value: `o${i}`, label: `Option ${i}` }));
+    const { container, rerender } = render(<Select label="X" options={long} searchable={false} />);
+    const trigger = container.querySelector(".twc-sel__trigger");
+    fireEvent.click(trigger);
+    for (let i = 0; i < 9; i++) fireEvent.keyDown(trigger, { key: "ArrowDown" });
+    rerender(<Select label="X" options={long.slice(0, 3)} searchable={false} />);
+    const el = document.getElementById(trigger.getAttribute("aria-activedescendant"));
+    expect(el).not.toBe(null);
+    expect(el.textContent).toContain("Option 2");  // clamped to the last surviving option
+  });
+});

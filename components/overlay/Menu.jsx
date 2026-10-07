@@ -38,7 +38,10 @@ const MENU_CSS = `
 .twc-menu__item[data-danger="true"]:hover:not(:disabled), .twc-menu__item[data-danger="true"][data-active="true"]:not(:disabled) { background: var(--color-danger-subtle); }
 .twc-menu__item svg { width: 16px; height: 16px; flex: none; }
 .twc-menu__item-label { flex: 1 1 auto; min-width: 0; }
-.twc-menu__shortcut { margin-inline-start: auto; padding-inline-start: var(--space-3); font-size: var(--text-xs); color: var(--color-text-subtle); font-family: var(--font-mono); }
+/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
+   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
+   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+.twc-menu__shortcut { margin-inline-start: auto; padding-inline-start: var(--space-3); font-size: var(--text-xs); color: var(--color-text-muted); font-family: var(--font-mono); }
 `;
 
 // Block javascript:/data:/vbscript: URLs from reaching an anchor href (consumer hrefs are untrusted).
