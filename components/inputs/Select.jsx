@@ -164,8 +164,11 @@ export function Select({
   // was last shown while open; the next open recomputes from the (now empty) query. Clearing on close
   // itself has to stay: that is what stops the [query] reset clobbering the on-open highlight one
   // commit later, which is the actual #463 bug.
+  // The snapshot is taken in an effect rather than written during render: a render-phase ref write is
+  // a documented React smell (and under concurrent rendering a discarded render could write it), while
+  // an effect gives exactly what is wanted here - the last COMMITTED open content.
   const fGroupsFrozen = React.useRef(fGroupsLive);
-  if (open) fGroupsFrozen.current = fGroupsLive;
+  React.useEffect(() => { if (open) fGroupsFrozen.current = fGroupsLive; }, [open, fGroupsLive]);
   const fGroups = open ? fGroupsLive : fGroupsFrozen.current;
   const visible = React.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
 
