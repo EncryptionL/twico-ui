@@ -120,6 +120,12 @@ What's left is documentation-accuracy and minor typing polish, none of which aff
   with the same defect in `useWindowSize` and `useLocalStorage`: all three read browser state in their
   `useState` initializer, which runs during hydration, so render #1 disagreed with the server HTML.
 
+> **Ledger note (2026-10-07).** The entries above and the verification block below are the record of the
+> ORIGINAL pre-publish audit. They have not been re-run since; four of the "Remaining" items were closed by
+> the #451-#474 series (see the strike-throughs) and the numbers in the block below are from that earlier
+> snapshot — the suite is now 163 files / ~1350 tests and the render-check sweeps 91 routes. Treat this file as
+> history, and `docs/qa-notes/<Component>.md` as current.
+
 ## Verification (all green)
 
 - Library: `npm run build`, `typecheck`, `check:exports`, `build:css:check` all exit 0; **96/96 vitest pass**.

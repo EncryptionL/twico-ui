@@ -167,6 +167,11 @@ export function Menu({
     // somewhere else (<Menu open={o}> driven by another button) then satisfied the focus effect
     // immediately and yanked focus to that stale item instead of leaving it on the trigger.
     kbdRef.current = false;
+    // #459 (review 2): and drop the highlight. `toggle()` resets it, but a CONTROLLED close (the host
+    // setting open=false, or Escape/Tab/activation) left `active` pointing at the old index - so a
+    // controlled reopen from elsewhere came up with an item already highlighted, which Enter would
+    // then activate. Opening by keyboard sets it again; opening by mouse should start at -1.
+    setActive(-1);
     const m = menuRef.current;
     if (!m || typeof document === "undefined" || !m.contains(document.activeElement)) return;
     focusTrigger();
@@ -181,8 +186,16 @@ export function Menu({
 
   const toggle = () => { if (triggerDisabled && !open) return; setOpen((o) => !o); setActive(-1); }; // #420: no open from a disabled trigger
 
+  const NAV_KEYS = "|Enter| |ArrowDown|ArrowUp|Home|End|PageDown|PageUp|";
   function onKeyDown(e) {
-    kbdRef.current = true; // #459: this highlight change came from a key, so focus should follow it
+    // #459 (review 2): armed only for keys that actually move or open the highlight, plus the
+    // type-ahead characters. Arming it on EVERY keydown meant a stray keystroke on a CLOSED trigger
+    // (Shift while tabbing through, a modifier, a parent's shortcut) left it true, so the next
+    // highlight change - even one driven by the mouse - pulled focus. The flag means "focus should
+    // follow this highlight", so only the keys that cause one may set it.
+    if (NAV_KEYS.indexOf("|" + e.key + "|") >= 0 || (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey)) {
+      kbdRef.current = true;
+    }
     // #410: a parent (e.g. a Datatable widget-nav cell) may claim this key in the capture phase and
     // preventDefault it — respect that and don't also open the menu (mirrors Select's trigger guard).
     if (e.defaultPrevented) return;

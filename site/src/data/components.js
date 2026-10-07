@@ -9805,7 +9805,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Navbar } from \"twico-ui\";\n\n<Navbar\n  brand={<>Twico <span style={{ color: \"var(--color-primary)\" }}>UI</span></>}\n  links={[\n    { label: \"Dashboard\", active: true },\n    { label: \"Projects\" },\n    { label: \"Team\" },\n  ]}\n  actions={<button>Sign in</button>}\n/>",
+    "snippet": "import { Navbar } from \"twico-ui\";\n\n<Navbar\n  brand={<>Twico <span style={{ color: \"var(--color-primary-subtle-fg)\" }}>UI</span></>}\n  links={[\n    { label: \"Dashboard\", active: true },\n    { label: \"Projects\" },\n    { label: \"Team\" },\n  ]}\n  actions={<button>Sign in</button>}\n/>",
     "tagline": "Sticky top app bar with brand and actions"
   },
   {
@@ -10525,7 +10525,7 @@ export const components = [
     "name": "Select",
     "slug": "select",
     "group": "Inputs",
-    "summary": "A custom select that replaces the native browser dropdown with a rounded, keyboard-navigable popover, supporting grouped options and two-line (title + subtitle) options. Use it when you need a styled single-select with optional in-popover search, grouping, or descriptions.",
+    "summary": "A custom select that replaces the native browser dropdown with a rounded, keyboard-navigable popover, supporting grouped options and two-line (title + subtitle) options. Use it when you need a styled single-select with optional in-popover search, grouping, or descriptions. Its trigger is exposed as the WAI-ARIA select-only combobox (role=\"combobox\" with aria-haspopup=\"listbox\"), as MUI's Select also is, so query it by the combobox role rather than by button — and give it a label, since that role takes its name from the label rather than from the selected value.",
     "importName": "Select",
     "propsRows": [
       {
@@ -10925,7 +10925,7 @@ export const components = [
         "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
       }
     ],
-    "snippet": "import { Sidebar } from \"twico-ui\";\n\nconst HomeIcon = () => (<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><path d=\"M3 11l9-8 9 8M5 10v10h14V10\" /></svg>);\nconst MailIcon = () => (<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\" /><path d=\"m3 7 9 6 9-6\" /></svg>);\nconst CogIcon = () => (<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><circle cx=\"12\" cy=\"12\" r=\"3\" /><path d=\"M12 3v3M12 18v3M3 12h3M18 12h3\" /></svg>);\n\n<Sidebar\n  brand={<>Twico <span style={{ color: \"var(--color-primary)\" }}>UI</span></>}\n  items={[\n    { section: \"Main\" },\n    { label: \"Dashboard\", icon: <HomeIcon />, active: true },\n    { label: \"Inbox\", icon: <MailIcon />, badge: 4 },\n    { section: \"Account\" },\n    { label: \"Settings\", icon: <CogIcon /> },\n  ]}\n  footer={<span style={{ fontSize: \"var(--text-xs)\", color: \"var(--color-text-muted)\" }}>v1.0.0</span>}\n  defaultCollapsed={false}\n/>",
+    "snippet": "import { Sidebar } from \"twico-ui\";\n\nconst HomeIcon = () => (<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><path d=\"M3 11l9-8 9 8M5 10v10h14V10\" /></svg>);\nconst MailIcon = () => (<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\" /><path d=\"m3 7 9 6 9-6\" /></svg>);\nconst CogIcon = () => (<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><circle cx=\"12\" cy=\"12\" r=\"3\" /><path d=\"M12 3v3M12 18v3M3 12h3M18 12h3\" /></svg>);\n\n<Sidebar\n  brand={<>Twico <span style={{ color: \"var(--color-primary-subtle-fg)\" }}>UI</span></>}\n  items={[\n    { section: \"Main\" },\n    { label: \"Dashboard\", icon: <HomeIcon />, active: true },\n    { label: \"Inbox\", icon: <MailIcon />, badge: 4 },\n    { section: \"Account\" },\n    { label: \"Settings\", icon: <CogIcon /> },\n  ]}\n  footer={<span style={{ fontSize: \"var(--text-xs)\", color: \"var(--color-text-muted)\" }}>v1.0.0</span>}\n  defaultCollapsed={false}\n/>",
     "tagline": "Collapsible side navigation with grouped items"
   },
   {

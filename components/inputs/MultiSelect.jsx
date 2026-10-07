@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useFallbackName } from "../_name.js";
 import { warnOnce } from "../_warn.js";
 import { createPortal } from "react-dom";
 
@@ -383,6 +384,13 @@ export function MultiSelect({
     }
   }
 
+  // #459 (review 2): the placeholder is the input's ONLY name source (HTML-AAM: label -> title ->
+  // placeholder), and it is blanked as soon as one chip exists - so a MultiSelect without a `label`
+  // became unnamed the moment it had a value. In-repo: Datatable's pivot panel captions are plain
+  // <span>s, not <label>s. Falls back to the placeholder text, and only when nothing else names it.
+  const msFallbackName = useFallbackName(inputRef, Boolean(label || rest["aria-label"] || rest["aria-labelledby"]))
+    ? placeholder
+    : undefined;
   return (
     <div className={`twc-field ${className}`} ref={wrapRef}>
       {__twcStyles}
@@ -409,6 +417,7 @@ export function MultiSelect({
                  aria-controls={open ? listboxId : undefined} aria-activedescendant={activeId}
                  aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy}
                  placeholder={selectedOpts.length ? "" : placeholder} value={query} disabled={disabled}
+                 aria-label={msFallbackName}
                  onFocus={(e) => { onFocus?.(e); setOpen(true); }}
                  onChange={(e) => { setQuery(e.target.value); setOpen(true); onInputChange?.(e.target.value); }}
                  onKeyDown={(e) => { onKeyDown?.(e); if (!e.defaultPrevented) handleKeyDown(e); }} {...rest} />

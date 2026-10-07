@@ -9,7 +9,7 @@ supports queries. The `sx` prop (#53) fills that gap on the layout & typography 
   sx={{
     padding: 20,                                   // flat  → inline style
     color: "var(--color-text)",                    // use tokens for values
-    "&:hover": { color: "var(--color-primary)" },  // nested selector → scoped stylesheet
+    "&:hover": { color: "var(--color-primary-subtle-fg)" }, // nested selector → scoped stylesheet
     "&::placeholder": { color: "var(--color-text-subtle)" },
     "@media (min-width: 600px)": { display: "none" },
   }}

@@ -35,6 +35,8 @@ None identified.
 - [x] **[#463] the active option index was never clamped** - see Select: `nextEnabled` now re-enters the list from its nearest end when `from` is out of range, plus a `[visible.length]` clamp effect. `MultiSelect.jsx:181` - fixed 2026-10-07
 - [x] **[#468] group label divs are `role="presentation"`** - see Select. `MultiSelect.jsx:334,341` - fixed 2026-10-07
 
+- [x] **[#459 review 2] the sibling case was left standing: the combobox lost its name as soon as it had a value** - the input is a `role="combobox"` whose only name source is its placeholder (HTML-AAM: label -> title -> placeholder), and `placeholder={selectedOpts.length ? "" : placeholder}` blanks it the moment one chip exists. In-repo failure: Datatable's pivot panel captions are plain `<span>`s, not `<label>`s, so "Add row fields" / "Add column fields" / "Any of..." all went unnamed once used. It now uses the shared `useFallbackName` hook. Note the chip remove-buttons precede the input, so a consumer's wrapping `<label>` genuinely labels a CHIP rather than the combobox - which is exactly when the fallback has to step in, and why `el.labels` is the right test rather than `closest("label")`. `MultiSelect.jsx:411` - fixed 2026-10-07
+
 ## Verified OK
 
 - Controlled/uncontrolled multi-select (value/defaultValue/onChange)

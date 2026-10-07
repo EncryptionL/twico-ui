@@ -2,6 +2,7 @@ import React from "react";
 import { describe, it, expect, afterEach } from "vitest";
 import { render, fireEvent, cleanup, screen } from "@testing-library/react";
 import { Select } from "../components/inputs/Select.jsx";
+import { MultiSelect } from "../components/inputs/MultiSelect.jsx";
 
 // #459 — two ARIA defects on Select's default path.
 //
@@ -144,8 +145,94 @@ describe("Select accessible name never overrides a consumer's own (#459 review)"
     expect(screen.getByRole("combobox", { name: /Size/ })).toBeInTheDocument();
   });
 
+  it("picks up a <label> that mounts AFTER the Select (the one-shot-probe bug)", () => {
+    function Host({ withLabel }) {
+      return (
+        <>
+          {withLabel ? <label htmlFor="country">Country</label> : null}
+          <Select id="country" options={THREE} placeholder="Choose" />
+        </>
+      );
+    }
+    const { container, rerender } = render(<Host withLabel={false} />);
+    const trigger = container.querySelector(".twc-sel__trigger");
+    expect(trigger.getAttribute("aria-label")).toBe("Choose");   // nothing names it yet
+    rerender(<Host withLabel />);                                // a server-driven schema arrives
+    expect(trigger.hasAttribute("aria-label"), "the fallback must stand down for the real label").toBe(false);
+    expect(screen.getByRole("combobox", { name: /Country/ })).toBeInTheDocument();
+  });
+
+  it("re-arms the fallback if the label goes away again", () => {
+    function Host({ withLabel }) {
+      return (
+        <>
+          {withLabel ? <label htmlFor="country">Country</label> : null}
+          <Select id="country" options={THREE} placeholder="Choose" />
+        </>
+      );
+    }
+    const { container, rerender } = render(<Host withLabel />);
+    const trigger = container.querySelector(".twc-sel__trigger");
+    expect(trigger.hasAttribute("aria-label")).toBe(false);
+    rerender(<Host withLabel={false} />);
+    expect(trigger.getAttribute("aria-label")).toBe("Choose");
+  });
+
   it("lets a consumer aria-label win", () => {
     const { container } = render(<Select options={THREE} aria-label="Pick one" placeholder="Choose" />);
     expect(container.querySelector(".twc-sel__trigger").getAttribute("aria-label")).toBe("Pick one");
+  });
+});
+
+// #459 (review 2) - the sibling case. MultiSelect's input is a role="combobox" whose ONLY name source
+// is its placeholder, and the placeholder is blanked the moment a chip exists. In-repo failure:
+// Datatable's pivot panel captions are plain <span>s, so those pickers went unnamed once used.
+describe("MultiSelect keeps an accessible name once it has a value (#459 review 2)", () => {
+  const OPTS = [{ value: "a", label: "Alpha" }, { value: "b", label: "Beta" }];
+
+  it("is named even after a selection blanks the placeholder", () => {
+    const { container } = render(<MultiSelect options={OPTS} value={["a"]} placeholder="Add row fields" />);
+    const input = container.querySelector(".twc-ms__input");
+    expect(input.getAttribute("placeholder")).toBe("");       // the chip blanked it
+    expect(input.getAttribute("aria-label")).toBe("Add row fields");
+  });
+
+  it("defers to the component's own label", () => {
+    render(<MultiSelect label="Row fields" options={OPTS} value={["a"]} placeholder="Add row fields" />);
+    expect(screen.getByRole("combobox", { name: /Row fields/ })).toBeInTheDocument();
+  });
+
+  it("defers to a consumer aria-label", () => {
+    const { container } = render(
+      <MultiSelect options={OPTS} value={["a"]} placeholder="Add" aria-label="Pick fields" />
+    );
+    expect(container.querySelector(".twc-ms__input").getAttribute("aria-label")).toBe("Pick fields");
+  });
+
+  it("defers to a wrapping <label> while that label still labels the input", () => {
+    // With no chips the input is the first labelable descendant, so the <label> names it.
+    render(
+      <label>
+        <span>Rows</span>
+        <MultiSelect options={OPTS} placeholder="Add" />
+      </label>
+    );
+    expect(screen.getByRole("combobox", { name: /Rows/ })).toBeInTheDocument();
+  });
+
+  it("falls back once a chip button becomes the wrapping label's target", () => {
+    // A wrapping <label> labels only its FIRST labelable descendant. MultiSelect renders chip
+    // remove-buttons before the input, so with a selection the label names a CHIP and the combobox
+    // would otherwise be left unnamed - which is exactly when the fallback has to step in. This is
+    // why the probe asks el.labels rather than hand-rolling a closest("label") check.
+    const { container } = render(
+      <label>
+        <span>Rows</span>
+        <MultiSelect options={OPTS} value={["a"]} placeholder="Add" />
+      </label>
+    );
+    const input = container.querySelector(".twc-ms__input");
+    expect(input.labels.length, "the label has moved to the chip").toBe(0);
+    expect(input.getAttribute("aria-label")).toBe("Add");
   });
 });

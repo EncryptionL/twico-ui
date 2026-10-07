@@ -41,7 +41,7 @@ colors.rose[600];   // "#e11d48"
 
 ## 3. Drift guards
 
-There are **two** hand-maintained copies of the token values, each with its own guard:
+There are **three** hand-maintained copies of the token values, each with its own guard:
 
 ### 3a. `src/colors.ts` ↔ `tokens/colors.css` (primitives)
 `src/colors.ts` (JS) and `tokens/colors.css` (CSS) are two hand-maintained copies of the same
@@ -56,10 +56,27 @@ every primitive step **and** every `--color-*` semantic alias (light *and* dark)
 without loading the stylesheet — which means it silently drifts whenever a token changes.
 **`scripts/verify-palette.mjs`** (`npm run verify:palette`, guarded in `ci.yml`) re-resolves every
 token in `tokens/colors.css` — following the full `var()` chain for both `:root` and `.dark` — and
-compares it against the values baked into `palette.html` (140 values: 6 primitive scales + the
-semantic aliases × light/dark). It is read-only and fails CI on any mismatch; it mirrors the
+compares it against the values baked into `palette.html` (174 values: 6 primitive scales + the
+semantic aliases × light/dark, including the `-graphic`, `control` and `chart` families added by
+#454/#455). It is read-only and fails CI on any mismatch; it mirrors the
 `build:css:check` pattern. (It strips CSS comments before parsing, because the colors.css header
 comment mentions `.dark`, which would otherwise hijack the dark-block match.)
+
+### 3c. `_ds_manifest.json` ↔ the token CSS (every token, both scopes)
+The third copy, and the one that had no guard at all until a review found it **17 values behind**.
+`_ds_manifest.json` is generated out of band by the `twico-ui-design` skill and committed; its
+`tokens` array is what AI design tooling reads to learn the system's values. `check:ds-bundle` only
+checks the *bundle's* freshness against git history, so the manifest's own values rotted silently —
+it was still serving `--color-text-subtle` with light and dark **inverted** (the failing pair #449
+fixed), the translucent `--color-ring` #178 replaced, four `*-subtle-fg` at their pre-#449 `-600`
+steps, `--color-warning-fg`/`--color-info-fg` as white (2.15:1, which #176 replaced with dark ink),
+`--z-toast`/`--z-tooltip` swapped, and three dark shadows missing their ring layer — plus two tokens
+(`--duration-exit`, `--z-floating`) it never listed. In other words every token-level a11y fix of the
+last several releases was invisible to the tooling consuming this file.
+**`tests/ds-manifest-tokens.test.js`** now asserts that every manifest token carries its current
+value, that none is stale or missing, that the manifest lists everything the CSS declares (so a new
+token cannot stay invisible), and that `kind`/`annotation` match the `/* @kind */` markers. It runs in
+`npm test`, so it is CI-blocking with no extra workflow wiring.
 
 ## 4. The Color docs page (`site/src/pages/Colors.jsx`)
 

@@ -791,6 +791,9 @@
 - [x] **[#454 review 2] the hand-rolled config switch took the same thumb fix** - its `::after` thumb used `--color-primary-fg`; now `--color-control-thumb`. `Datatable.jsx:521` - fixed 2026-10-07
 - [x] **[#462 review 2] the pivot no-value placeholder is text on a hovered row** - `.twc-dt__pivot td[data-empty]` renders a visible, non-aria-hidden em dash from `fmt()`, and the row hover fill beat the cell's own background, leaving it at 4.34:1. Now text-muted. `Datatable.jsx:272` - fixed 2026-10-07
 
+- [x] **[#460 review 2] the activeCell reveal had the identical `loading` hole and was not patched** - with `virtualized` falsy, `virtualizing` is permanently false, `headH` only moves under `rowPinning`, and `revealRi` comes from a `keyIndex` built on an unchanged `rows` reference - so NOTHING in its deps changed across a loading pass. Meanwhile the skeleton body collapses the scroller's content height and the browser clamps `scrollTop` to 0, so a controlled `activeCell` reveal was lost for good. `loading` added, matching the row reveal. `Datatable.jsx:2778` - fixed 2026-10-07
+- [x] **[#392 review 2] the roving-tabindex pass named only one of the four signals that move the virtual window** - `vWindow` is memoized on `[virtualizing, offsets, middleRows.length, vh, scrollTop, overscan]`, but the effect listed only `scrollTop`, and its comment claimed that covered 'a virtualized grid mounts new rows'. `measureTick` (the post-paint real-row-height measurement, which widens the window on first paint) and `viewportH` (a container resize) both mount rows that then kept their default, tabbable widget tabIndex. `pinnedRows` remounts rows into the pinned sections for the same reason. All three added. `Datatable.jsx:2686` - fixed 2026-10-07
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.

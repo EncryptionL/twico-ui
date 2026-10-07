@@ -203,6 +203,17 @@ role that fixes it in place (`combobox` would allow the attribute but cannot car
 (`role="combobox"`), a role that legally owns `aria-expanded`/`aria-controls`/`aria-activedescendant`, and it
 claims `aria-activedescendant` only while it actually holds focus (i.e. when no search field is rendered).
 
+That role prohibits **name-from-content**, so a `Select` with no `label` would have had no accessible name at
+all (as a plain `<button>` it was named by its own value text). The fallback cannot simply be stamped: accname
+resolves `aria-label` (step 2C) before a host-language `<label>` (step 2D) and these are labelable elements, so
+an unconditional `aria-label` **overrode** a real `<label htmlFor>` or wrapping `<label>` — a WCAG 2.5.3 Label
+in Name failure that broke call sites inside this repo. `components/_name.js` therefore asks the DOM
+(`el.labels`, which knows both association forms *and* that a wrapping `<label>` labels only its FIRST
+labelable descendant) and re-asks on every commit, because a one-shot probe went stale the moment a label
+mounted later. `MultiSelect` uses the same hook: its input is a `role="combobox"` whose only name source is a
+placeholder that blanks as soon as a chip exists, and its chip remove-buttons precede the input, so a wrapping
+`<label>` genuinely labels a chip rather than the combobox.
+
 ## Tests
 
 - `tests/useFocusTrap.test.jsx` — focus-in, restore (and `restoreFocus:false`), and
@@ -211,8 +222,14 @@ claims `aria-activedescendant` only while it actually holds focus (i.e. when no 
 - `tests/usePortal.test.jsx` — portals to `<body>`, stable callback identity.
 - `tests/rest-spread-handler-composition.test.jsx` — a consumer handler never deletes an internal one (#452).
 - `tests/menu-keyboard-activation.test.jsx` — Space activates the highlighted item (#457); the trigger carries
-  no `aria-activedescendant`, focus follows the keyboard highlight, hover does not steal it, and focus returns
-  to the trigger on close (#459).
+  no `aria-activedescendant`, focus follows the keyboard highlight, hover does not steal it, focus returns to
+  the trigger on close, arrow keys and Escape still work when dispatched on the PORTALED item (React propagates
+  through the React tree), and neither the keyboard intent nor the highlight survives a close into a controlled
+  reopen (#459).
+- `tests/select-combobox-aria.test.jsx` — the trigger's combobox role and `aria-activedescendant` ownership,
+  that the listbox owns only options, and the full name precedence: the component's `label`, a consumer
+  `aria-label`, a `label htmlFor`, a wrapping `<label>`, one that mounts *later*, one that goes away again, and
+  the MultiSelect chip case where the wrapping label moves to a chip (#459).
 - `tests/select-combobox-aria.test.jsx` — the trigger's combobox role + activedescendant ownership, and that the
   listbox owns only options (#459).
 - `tests/overlays.test.jsx` — each overlay still portals, moves focus inside, closes

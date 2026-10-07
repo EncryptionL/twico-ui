@@ -85,6 +85,10 @@ function brandTokens(hex, isDark) {
       "--color-primary-fg": "#ffffff",
       "--color-primary-subtle": `color-mix(in srgb, ${hex} 18%, transparent)`,
       "--color-primary-subtle-fg": `color-mix(in srgb, ${hex} 70%, white)`,
+      // #455: the -graphic member. A fill that IS the information (a Progress bar, a Toast stripe, an
+      // Avatar status dot) reads this, not --color-primary, so a re-skin that omits it leaves those
+      // painted in the stock brand. In dark it equals the tone, exactly as tokens/colors.css has it.
+      "--color-primary-graphic": hex,
       "--color-primary-border": `color-mix(in srgb, ${hex} 38%, transparent)`,
       "--color-ring": `color-mix(in srgb, ${hex} 55%, transparent)`,
     };
@@ -96,6 +100,7 @@ function brandTokens(hex, isDark) {
     "--color-primary-fg": "#ffffff",
     "--color-primary-subtle": `color-mix(in srgb, ${hex} 12%, white)`,
     "--color-primary-subtle-fg": `color-mix(in srgb, ${hex} 78%, black)`,
+    "--color-primary-graphic": hex,   // #455: see the dark branch
     "--color-primary-border": `color-mix(in srgb, ${hex} 32%, white)`,
     "--color-ring": `color-mix(in srgb, ${hex} 45%, transparent)`,
   };
@@ -123,6 +128,11 @@ function buildCss({ brand, radius, fontBase }) {
   --color-primary-hover:   color-mix(in srgb, ${brand} 88%, black);
   --color-primary-active:  color-mix(in srgb, ${brand} 76%, black);
   --color-primary-subtle:  color-mix(in srgb, ${brand} 12%, white);
+  /* #451/#455: these two were missing, so the copied CSS stopped matching the live preview above -
+     -subtle-fg is what paints link/active-label/hover TEXT (--color-primary is fill-only), and
+     -graphic is what paints a Progress bar, a Toast stripe and an Avatar status dot. */
+  --color-primary-subtle-fg: color-mix(in srgb, ${brand} 78%, black);
+  --color-primary-graphic: ${brand};
   --color-primary-border:  color-mix(in srgb, ${brand} 32%, white);
   --color-ring:            color-mix(in srgb, ${brand} 45%, transparent);
 

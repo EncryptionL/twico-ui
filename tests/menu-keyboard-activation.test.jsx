@@ -157,3 +157,43 @@ describe("Menu keyboard works from the focused item inside the portal (#459 revi
     expect(document.activeElement).toBe(trig(container));
   });
 });
+
+// #459 (review 2) - the kbdRef fix shipped with no test, and two holes remained around it.
+describe("Menu does not carry keyboard focus intent across a close (#459 review 2)", () => {
+  const ITEMS3 = [{ label: "Alpha" }, { label: "Beta" }, { label: "Gamma" }];
+
+  function Controlled() {
+    const [o, setO] = React.useState(false);
+    return (
+      <>
+        <button data-testid="outside" onClick={() => setO(true)}>Open menu</button>
+        <Menu open={o} onOpenChange={setO} trigger={<button>T</button>} items={ITEMS3} />
+      </>
+    );
+  }
+
+  it("a controlled reopen does not pre-highlight the item the keyboard left behind", () => {
+    const { container } = render(<Controlled />);
+    const outside = container.querySelector('[data-testid="outside"]');
+    fireEvent.click(outside);
+    fireEvent.keyDown(wrap(container), { key: "ArrowDown" });   // highlight + focus Alpha
+    expect(active()?.textContent).toContain("Alpha");
+    fireEvent.keyDown(wrap(container), { key: "Escape" });      // controlled close
+    fireEvent.click(outside);                                    // reopened from elsewhere
+    expect(active(), "no item should be highlighted on a fresh mouse-driven open").toBe(null);
+    // Escape correctly returned focus to the trigger; the point is that reopening must not pull it
+    // back into the portaled menu onto the item the previous keyboard session left highlighted.
+    expect(items().includes(document.activeElement), "focus must not be yanked into the menu").toBe(false);
+  });
+
+  it("a stray keystroke on a closed trigger does not arm focus-follows-highlight", () => {
+    const { container } = render(<Menu trigger={<button>T</button>} items={ITEMS3} />);
+    // Shift (or any non-navigating key) while tabbing past the closed trigger
+    fireEvent.keyDown(wrap(container), { key: "Shift" });
+    fireEvent.click(container.querySelector("button"));          // mouse-open
+    const before = document.activeElement;
+    fireEvent.mouseEnter(items()[1]);
+    expect(active()?.textContent).toContain("Beta");
+    expect(document.activeElement, "hover must not steal focus").toBe(before);
+  });
+});

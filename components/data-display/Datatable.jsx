@@ -2683,7 +2683,13 @@ export function Datatable({
     // these deps moves - `leafRows` is memoized off unchanged rows since #460, which is exactly what
     // stopped this effect re-running on every render and made the gap reachable - so every action button
     // in every row became a Tab stop and a widget-less roving cell could not be tabbed to at all.
-  }, [cellNavigation, focus.r, focus.c, leafRows, ordered, pageVal, interacting, hidden, pins, scrollTop, loading]);
+    // #392 (review 2): `vWindow` is memoized on [virtualizing, offsets, middleRows.length, vh,
+    // scrollTop, overscan], so the MOUNTED row set moves on more than scrollTop alone. `measureTick`
+    // (the post-paint real-row-height measurement, which widens the window on first paint) and
+    // `viewportH` (a container resize) both change it, and neither was listed - so rows that mounted
+    // for those reasons kept their default, tabbable widget tabIndex. `pinnedRows` remounts rows into
+    // the pinned sections for the same reason.
+  }, [cellNavigation, focus.r, focus.c, leafRows, ordered, pageVal, interacting, hidden, pins, scrollTop, loading, measureTick, viewportH, pinnedRows]);
 
   const selectedRows = React.useMemo(() => rows.filter((r, i) => selected.has(keyOf(r, i))), [rows, selected]);
   const selKeys = React.useMemo(() => [...selected], [selected]); // #322: stable keys array for predicates/callback
@@ -2775,7 +2781,12 @@ export function Datatable({
     // no-op refetch doesn't re-run — and re-center — the reveal. The virtualized pre-scroll reads offsets/keyIndexMid
     // through refs (above) so its retry loop still converges on fresh measurements without re-keying the effect.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCellVal?.key, activeCellVal?.field, revealOn, revealBlock, revealInline, revealRi, revealCi, virtualizing, headH]);
+    // #460 (review 2): `loading` for the same reason as the row reveal. While loading, the tbody holds
+    // at most 8 skeleton rows, so the scroller's content height collapses and the browser clamps its
+    // scrollTop to 0; when the real rows remount with an unchanged `rows` reference, nothing else in
+    // these deps has moved (revealRi comes from keyIndex, virtualizing is false unless `virtualized`,
+    // headH only changes under rowPinning), so the reveal never re-ran and the grid stayed at the top.
+  }, [activeCellVal?.key, activeCellVal?.field, revealOn, revealBlock, revealInline, revealRi, revealCi, virtualizing, headH, loading]);
   // #421: a host-driven activeCell change (in any mode) collapses the selection to that cell and moves the roving
   // focus there, so a "jump to cell" doesn't extend a rectangle from the last-clicked anchor or leave arrow-nav
   // behind. Guarded by selfCellSigRef (don't clobber the grid's own click/arrow/Shift+Arrow updates) AND by

@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useFallbackName } from "../_name.js";
 
 // Layout effect on the client, plain effect on the server - avoids React's SSR useLayoutEffect
 // warning. Same guard as Textarea.jsx and _overlay.js.
@@ -374,19 +375,7 @@ export function Select({
   // mount by asking the DOM, and only when the consumer supplied no name of their own. The first render
   // stamps nothing, which also keeps SSR and hydration identical.
   const hasOwnName = Boolean(label || rest["aria-label"] || rest["aria-labelledby"]);
-  const [needsFallbackName, setNeedsFallbackName] = React.useState(false);
-  useIso(() => {
-    if (hasOwnName) { setNeedsFallbackName(false); return; }
-    const el = triggerRef.current;
-    if (!el) return;
-    // Compared by attribute rather than through a `label[for="..."]` selector, so an id containing a
-    // quote or a backslash needs no escaping (consumers can pass their own `id`).
-    const labelled = typeof document !== "undefined" && el.id
-      ? Array.prototype.some.call(document.querySelectorAll("label[for]"), (l) => l.getAttribute("for") === el.id)
-      : false;
-    setNeedsFallbackName(!labelled && !el.closest("label"));
-  }, [hasOwnName, fieldId]);
-  const fallbackName = !hasOwnName && needsFallbackName ? placeholder : undefined;
+  const fallbackName = useFallbackName(triggerRef, hasOwnName) ? placeholder : undefined;
   const descId = `${fieldId}-desc`;
   const describedBy = error || hint ? descId : undefined;
 

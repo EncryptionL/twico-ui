@@ -43,6 +43,9 @@
 
 - [x] **[#459 review 2] `kbdRef` was never cleared on close** - it is set unconditionally at the top of `onKeyDown`, and Escape/Tab/Enter all close the menu before the focus effect reaches its own clear, so it was left true with `active` still pointing at the old index. A controlled reopen from elsewhere (`<Menu open={o}>` driven by a second button) then satisfied the focus effect immediately and yanked focus onto that stale item instead of leaving it on the trigger. Cleared in the close path. `Menu.jsx:179` - fixed 2026-10-07
 
+- [x] **[#459 review 2] `kbdRef` was armed by EVERY keydown, so the focus-yank was still reachable** - it was set unconditionally at the top of `onKeyDown`, so a stray keystroke on a CLOSED trigger (Shift while tabbing past, a modifier, a parent's shortcut) left it true and the next highlight change - even a mouse-driven one - pulled focus. It is now armed only for the keys that actually move or open the highlight, plus the type-ahead characters. `Menu.jsx:183` - fixed 2026-10-07
+- [x] **[#459 review 2] `active` survived a close, so a controlled reopen came up pre-highlighted** - `toggle()` resets it, but a controlled close (the host setting `open=false`, or Escape/Tab/activation) left it pointing at the old index, so reopening from elsewhere showed an item already highlighted that Enter would activate. Reset on close. Both holes now have tests; the original `kbdRef` fix had shipped with none. `Menu.jsx:169` - fixed 2026-10-07
+
 ## Verified OK
 
 - Portals to `document.body`, so the fixed menu escapes transformed / `backdrop-filter` ancestors; positioned from the trigger's `getBoundingClientRect()` (`Menu.jsx:88-100`, `Menu.jsx:208`).
