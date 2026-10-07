@@ -1,6 +1,6 @@
 import React from "react";
 import { describe, it, expect, afterEach } from "vitest";
-import { render, fireEvent, cleanup } from "@testing-library/react";
+import { render, fireEvent, cleanup, screen } from "@testing-library/react";
 import { Select } from "../components/inputs/Select.jsx";
 
 // #459 — two ARIA defects on Select's default path.
@@ -105,5 +105,47 @@ describe("Select listbox containment (#459)", () => {
     open(container);
     const roles = [...listbox().querySelectorAll("[role]")].map((el) => el.getAttribute("role"));
     expect(new Set(roles)).toEqual(new Set(["option"]));
+  });
+});
+
+// #459 (review) - the accessible-name fallback must never OUTRANK a name the consumer already gave.
+// accname resolves aria-label (2C) before a host-language <label> (2D), and <button> is labelable, so
+// stamping aria-label unconditionally renamed correctly-labelled controls to the placeholder - a WCAG
+// 2.5.3 Label in Name failure. It broke a real call site: Datatable's Combine panel wraps its Select
+// in <label><span>Layout</span>...</label>.
+describe("Select accessible name never overrides a consumer's own (#459 review)", () => {
+  it("keeps the name from a wrapping <label>", () => {
+    render(
+      <label>
+        <span>Layout</span>
+        <Select options={THREE} />
+      </label>
+    );
+    expect(screen.getByRole("combobox", { name: /Layout/ })).toBeInTheDocument();
+  });
+
+  it("keeps the name from a <label htmlFor>", () => {
+    render(
+      <>
+        <label htmlFor="ship">Ship date</label>
+        <Select id="ship" options={THREE} />
+      </>
+    );
+    expect(screen.getByRole("combobox", { name: /Ship date/ })).toBeInTheDocument();
+  });
+
+  it("still falls back to the placeholder when nothing names it", () => {
+    const { container } = render(<Select options={THREE} placeholder="Choose a size" />);
+    expect(container.querySelector(".twc-sel__trigger").getAttribute("aria-label")).toBe("Choose a size");
+  });
+
+  it("prefers the component's own label prop over the fallback", () => {
+    render(<Select label="Size" options={THREE} />);
+    expect(screen.getByRole("combobox", { name: /Size/ })).toBeInTheDocument();
+  });
+
+  it("lets a consumer aria-label win", () => {
+    const { container } = render(<Select options={THREE} aria-label="Pick one" placeholder="Choose" />);
+    expect(container.querySelector(".twc-sel__trigger").getAttribute("aria-label")).toBe("Pick one");
   });
 });

@@ -31,7 +31,9 @@ const TABLE_CSS = `
 .twc-table[data-size="lg"] tbody td { padding: var(--space-4) var(--space-5); font-size: var(--text-base); }
 .twc-table[data-sticky="true"] thead th { position: sticky; top: 0; z-index: 2; background: var(--color-surface); box-shadow: inset 0 calc(-1 * var(--border-thin)) 0 0 var(--color-border); }
 .twc-table__caption { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-.twc-table__empty { padding: 30px 12px; text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
+/* #462 (review 2): text-MUTED. The row underneath takes a sunken hover fill and the hover rule sets
+   no colour, so this text stays put at 4.34:1 in light. */
+.twc-table__empty { padding: 30px 12px; text-align: center; color: var(--color-text-muted); font-size: var(--text-sm); }
 .twc-table__sk { display: inline-block; height: 12px; border-radius: var(--radius-sm); background: var(--color-surface-sunken);
   position: relative; overflow: hidden; width: var(--_w, 70%); }
 .twc-table__sk::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%);

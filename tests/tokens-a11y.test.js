@@ -216,18 +216,41 @@ describe("token a11y - primary as text vs as fill (#451, #456)", () => {
 //       so the track itself has to clear 3:1 against the surface;
 //   (b) the thumb must be distinguishable from the track it sits on, in BOTH themes, because its
 //       position is what conveys on/off.
+// The first version of this block named --color-primary-fg as "the thumb" and so measured exactly one
+// of the six tones. Switch.jsx paints the thumb from --_accent-fg, which is six different tokens, and
+// five of them are near-black ON-state inks - so the block passed at 10.35:1 while the real
+// success/warning/danger/info/neutral thumbs sat at 1.43-1.78:1 on the dark track and the control
+// vanished. A guard that names one variant of a per-variant value is not a guard. Every tone is
+// enumerated here, including neutral's mapping to --color-surface.
+const SWITCH_TONES = [
+  ["primary", "--color-primary", "--color-primary-fg"],
+  ["success", "--color-success", "--color-success-fg"],
+  ["warning", "--color-warning", "--color-warning-fg"],
+  ["danger", "--color-danger", "--color-danger-fg"],
+  ["info", "--color-info", "--color-info-fg"],
+  ["neutral", "--color-text", "--color-surface"],
+];
+
 describe("token a11y - Switch track vs thumb (#454)", () => {
   for (const [scopeName, scope] of Object.entries(scopes)) {
-    it(`the thumb clears 3:1 against the off track (${scopeName})`, () => {
-      expect(contrast(scope, "--color-primary-fg", "--color-control-track")).toBeGreaterThanOrEqual(3);
+    // OFF is tone-independent by design: the thumb is a static token, so one assertion covers all six.
+    it(`the OFF thumb clears 3:1 against the off track (${scopeName})`, () => {
+      expect(contrast(scope, "--color-control-thumb", "--color-control-track")).toBeGreaterThanOrEqual(3);
     });
-    it(`the thumb clears 3:1 against the ON track (${scopeName})`, () => {
-      expect(contrast(scope, "--color-primary-fg", "--color-primary")).toBeGreaterThanOrEqual(3);
-    });
-    for (const bg of ["--color-surface", "--color-surface-raised"]) {
-      it(`the control is identifiable on ${bg} - track or thumb clears 3:1 (${scopeName})`, () => {
+
+    for (const [tone, accent, accentFg] of SWITCH_TONES) {
+      it(`the ON thumb clears 3:1 against the ON track - tone=${tone} (${scopeName})`, () => {
+        expect(contrast(scope, accentFg, accent)).toBeGreaterThanOrEqual(3);
+      });
+    }
+
+    // Identifiability: in light the white thumb is invisible on a white surface so the TRACK must
+    // carry it; in dark the thumb does. Either is fine, but one of them has to clear 3:1 - on every
+    // surface a Switch can sit on, sunken included (a Switch inside a well or a Datatable panel).
+    for (const bg of ["--color-surface", "--color-surface-raised", "--color-surface-sunken"]) {
+      it(`the OFF control is identifiable on ${bg} (${scopeName})`, () => {
         const track = contrast(scope, "--color-control-track", bg, bg);
-        const thumb = contrast(scope, "--color-primary-fg", bg, bg);
+        const thumb = contrast(scope, "--color-control-thumb", bg, bg);
         expect(Math.max(track, thumb)).toBeGreaterThanOrEqual(3);
       });
     }

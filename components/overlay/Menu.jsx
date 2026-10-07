@@ -161,6 +161,12 @@ export function Menu({
   // ...and hand it back to the trigger on close, so Escape/Tab/activation never drop focus to <body>.
   React.useEffect(() => {
     if (open) return;
+    // #459 (review): clear the keyboard flag on close. It is set unconditionally at the top of
+    // onKeyDown, and Escape/Tab/Enter all close the menu BEFORE the focus effect reaches its clear -
+    // so it was left true with `active` still pointing at the old index. A controlled reopen from
+    // somewhere else (<Menu open={o}> driven by another button) then satisfied the focus effect
+    // immediately and yanked focus to that stale item instead of leaving it on the trigger.
+    kbdRef.current = false;
     const m = menuRef.current;
     if (!m || typeof document === "undefined" || !m.contains(document.activeElement)) return;
     focusTrigger();

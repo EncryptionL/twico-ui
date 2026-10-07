@@ -86,4 +86,26 @@ describe("_ds_manifest.json token values match the token CSS", () => {
     }
     expect(absent, "token CSS declares tokens the manifest never lists - add them").toEqual([]);
   });
+
+  // The token CSS carries `/* @kind <word> */` markers, and the generator copies that word into BOTH
+  // `kind` and `annotation`. A hand-added entry misses them silently: --z-floating was added with the
+  // file-based default kind "spacing" and no annotation, so spacing.css read 28 spacing / 8 other in the
+  // manifest where the CSS says 27 / 9 — and tooling that groups by `kind` to decide which tokens are
+  // LENGTHS would have treated a z-index as one. Nothing above can see that, so it is checked here.
+  it("classifies every annotated token the way its @kind marker says", () => {
+    const wrong = [];
+    for (const file of SOURCES) {
+      const src = readFileSync(resolve(ROOT, file), "utf8").replace(/\r\n/g, "\n");
+      for (const line of src.split("\n")) {
+        const m = line.match(/^\s*(--[\w-]+)\s*:\s*[^;]+;\s*\/\*\s*@kind\s+([a-z]+)\b/);
+        if (!m) continue;
+        const [, name, want] = m;
+        for (const t of manifest.tokens.filter((t) => t.definedIn === file && t.name === name)) {
+          if (t.kind !== want) wrong.push(`${name}: kind "${t.kind}" but @kind says "${want}"`);
+          if (t.annotation !== want) wrong.push(`${name}: annotation "${t.annotation}" but @kind says "${want}"`);
+        }
+      }
+    }
+    expect(wrong, "manifest kind/annotation disagrees with the @kind markers").toEqual([]);
+  });
 });

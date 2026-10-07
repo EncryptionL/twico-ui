@@ -1,5 +1,9 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+
+// Layout effect on the client, plain effect on the server - avoids React's SSR useLayoutEffect
+// warning. Same guard as Textarea.jsx and _overlay.js.
+const useIso = typeof document !== "undefined" ? React.useLayoutEffect : React.useEffect;
 import { warnOnce } from "../_warn.js";
 import { createPortal } from "react-dom";
 
@@ -146,13 +150,23 @@ export function Select({
 
   // Auto-enable search for longer lists unless the caller forces it on/off.
   const showSearch = searchable === undefined ? flat.length > 5 : searchable;
-  const fGroups = React.useMemo(() => {
+  const fGroupsLive = React.useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return groups;
     return groups
       .map((g) => ({ group: g.group, options: g.options.filter((o) => o.label.toLowerCase().includes(q) || (o.description && o.description.toLowerCase().includes(q))) }))
       .filter((g) => g.options.length);
   }, [groups, query]);
+  // #463 (review): the popover stays mounted for ~170ms after close for its exit animation, so
+  // clearing the search on close recomputed this mid-fade - the rows jumped from the filtered set to
+  // the full one at its 260px max-height, and the role="status" region announced the full count
+  // ("50 results") straight after the user had chosen something. Freeze the filtered set at whatever
+  // was last shown while open; the next open recomputes from the (now empty) query. Clearing on close
+  // itself has to stay: that is what stops the [query] reset clobbering the on-open highlight one
+  // commit later, which is the actual #463 bug.
+  const fGroupsFrozen = React.useRef(fGroupsLive);
+  if (open) fGroupsFrozen.current = fGroupsLive;
+  const fGroups = open ? fGroupsLive : fGroupsFrozen.current;
   const visible = React.useMemo(() => fGroups.flatMap((g) => g.options), [fGroups]);
 
   // #92: option-list virtualization (opt-in). Build a flat row model (group headers +
@@ -242,8 +256,7 @@ export function Select({
   React.useEffect(() => { setActive(0); }, [query]);
   // #463: belt and braces alongside the nextEnabled self-heal - clamp `active` as soon as the list
   // shrinks, so `visible[active]` (Enter) and aria-activedescendant recover without the user having
-  // to press an arrow key first. Collapses to -1 on an empty list and leaves an already-negative
-  // active alone.
+  // to press an arrow key first. (It deliberately does NOT touch an empty list - see below.)
   React.useEffect(() => {
     // #463 (review): SKIP an empty list. The first version clamped unconditionally, so on an empty
     // list Math.min(a, -1) drove `active` to -1 and the `a < 0 ? a` guard then kept it there for the
@@ -284,7 +297,13 @@ export function Select({
   // Keep the listbox mounted through the close animation, then unmount.
   React.useEffect(() => {
     if (open) { setRender(true); return; }
-    setQuery(""); // #463: reset the search here, one commit before the next open reads it
+    // #463: the search resets on CLOSE rather than on open, so the [query] effect cannot clobber the
+    // on-open highlight one commit later.
+    // The reset stays on the close COMMIT, not on the unmount timeout: a close-and-reopen inside
+    // those 170ms would otherwise reopen with the stale query still in place, and the [query] effect
+    // would then fire mid-session and clobber the highlight - the bug this was fixing. The mid-fade
+    // repaint it used to cause is handled by freezing the filtered set instead (see fGroupsFrozen).
+    setQuery("");
     const t = setTimeout(() => setRender(false), 170);
     return () => clearTimeout(t);
   }, [open]);
@@ -338,12 +357,33 @@ export function Select({
   const listboxId = `${fieldId}-listbox`;
   const optionId = (i) => `${fieldId}-opt-${i}`;
   const activeId = open && visible[active] ? optionId(active) : undefined;
-  // #459 (review): role="combobox" PROHIBITS name-from-content, and as a plain button the trigger was
-  // named by its own value text. Without a `label` it would now have no accessible name at all, so fall
-  // back to the placeholder - which is a better name than the current value anyway (the APG select-only
-  // combobox is named by its label and announces its contents as the VALUE). A consumer's own aria-label
-  // or aria-labelledby still wins, since `rest` is spread after this.
-  const fallbackName = !label && !rest["aria-label"] && !rest["aria-labelledby"] ? placeholder : undefined;
+  // #459: role="combobox" PROHIBITS name-from-content, and as a plain button the trigger was named by
+  // its own value text - so without a `label` it would have no accessible name at all, and we fall back
+  // to the placeholder (a better name than the current value: the APG select-only combobox is named by
+  // its label and announces its CONTENTS as the value).
+  //
+  // #459 (review): but that fallback MUST NOT be stamped blindly. accname resolves aria-label (step 2C)
+  // BEFORE a host-language <label> (step 2D), and <button> is labelable - so an aria-label here beat a
+  // perfectly good <label htmlFor> or wrapping <label>, renaming a correctly-labelled control to
+  // "Select...". That is a WCAG 2.5.3 Label in Name failure and it broke an in-repo call site:
+  // Datatable's Combine panel wraps its Select in <label><span>Layout</span>...</label>, whose name went
+  // from "Layout" to "Select...". The props cannot see a host label, so the fallback is decided AFTER
+  // mount by asking the DOM, and only when the consumer supplied no name of their own. The first render
+  // stamps nothing, which also keeps SSR and hydration identical.
+  const hasOwnName = Boolean(label || rest["aria-label"] || rest["aria-labelledby"]);
+  const [needsFallbackName, setNeedsFallbackName] = React.useState(false);
+  useIso(() => {
+    if (hasOwnName) { setNeedsFallbackName(false); return; }
+    const el = triggerRef.current;
+    if (!el) return;
+    // Compared by attribute rather than through a `label[for="..."]` selector, so an id containing a
+    // quote or a backslash needs no escaping (consumers can pass their own `id`).
+    const labelled = typeof document !== "undefined" && el.id
+      ? Array.prototype.some.call(document.querySelectorAll("label[for]"), (l) => l.getAttribute("for") === el.id)
+      : false;
+    setNeedsFallbackName(!labelled && !el.closest("label"));
+  }, [hasOwnName, fieldId]);
+  const fallbackName = !hasOwnName && needsFallbackName ? placeholder : undefined;
   const descId = `${fieldId}-desc`;
   const describedBy = error || hint ? descId : undefined;
 

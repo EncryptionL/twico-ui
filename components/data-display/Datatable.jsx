@@ -269,7 +269,9 @@ const DT_CSS = `
 .twc-dt__pivot-cell { text-align: center !important; border-inline-start: var(--border-thin) solid var(--color-divider); font-variant-numeric: tabular-nums; }
 .twc-dt__pivot-cell[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-cell { background: color-mix(in srgb, var(--color-surface-sunken) 45%, transparent); }
-.twc-dt__pivot td[data-empty] { color: var(--color-text-subtle); }
+/* #462 (review 2): text-MUTED. The row underneath takes a sunken hover fill and the hover rule sets
+   no colour, so this text stays put at 4.34:1 in light. */
+.twc-dt__pivot td[data-empty] { color: var(--color-text-muted); }
 /* Total column group (right) */
 .twc-dt__pivot-total-h:not(.twc-dt__pivot-vhcell) { text-align: center !important; vertical-align: middle; }
 .twc-dt__pivot-total, .twc-dt__pivot-total-h { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); font-weight: var(--font-bold); }
@@ -518,7 +520,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__sw { width: 32px; height: 18px; border-radius: var(--radius-full); background: var(--color-control-track); position: relative; flex: none; cursor: pointer; transition: background-color var(--duration-base); }
 .twc-dt__sw[aria-disabled="true"] { cursor: default; }
 .twc-dt__sw[data-on="true"] { background: var(--color-primary); }
-.twc-dt__sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: var(--radius-full); background: var(--color-primary-fg); box-shadow: var(--shadow-sm); transition: transform var(--duration-base) var(--ease-spring); }
+.twc-dt__sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: var(--radius-full); background: var(--color-control-thumb); box-shadow: var(--shadow-sm); transition: transform var(--duration-base) var(--ease-spring); }
 .twc-dt__sw:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-dt__sw[data-on="true"]::after { transform: translateX(14px); }
 .twc-dt__panel-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px 8px; }
@@ -2675,7 +2677,13 @@ export function Datatable({
     });
     // `scrollTop` dep: a virtualized grid mounts new rows on scroll (leafRows is a stable ref), so re-run the
     // roving pass or scrolled-in widgets keep their default (tabbable) tabIndex — breaking the single-Tab-stop.
-  }, [cellNavigation, focus.r, focus.c, leafRows, ordered, pageVal, interacting, hidden, pins, scrollTop]);
+    // `loading` dep (#460 review): the SAME failure, via the loading pass. The skeleton <td>s carry no
+    // data-r, so this pass matches nothing while loading; when it ends React mounts fresh <tr>s whose
+    // widgets all carry their default (tabbable) tabIndex and whose <td>s all carry -1. Nothing else in
+    // these deps moves - `leafRows` is memoized off unchanged rows since #460, which is exactly what
+    // stopped this effect re-running on every render and made the gap reachable - so every action button
+    // in every row became a Tab stop and a widget-less roving cell could not be tabbed to at all.
+  }, [cellNavigation, focus.r, focus.c, leafRows, ordered, pageVal, interacting, hidden, pins, scrollTop, loading]);
 
   const selectedRows = React.useMemo(() => rows.filter((r, i) => selected.has(keyOf(r, i))), [rows, selected]);
   const selKeys = React.useMemo(() => [...selected], [selected]); // #322: stable keys array for predicates/callback

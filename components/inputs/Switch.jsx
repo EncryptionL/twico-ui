@@ -40,10 +40,12 @@ export function Switch({
 .twc-switch__thumb {
   position: absolute; top: var(--_pad); inset-inline-start: var(--_pad);
   width: calc(var(--_h) - var(--_pad) * 2); height: calc(var(--_h) - var(--_pad) * 2);
-  background: var(--_accent-fg); border-radius: var(--radius-full); box-shadow: var(--shadow-sm);
+  background: var(--color-control-thumb); border-radius: var(--radius-full); box-shadow: var(--shadow-sm);
   transition: transform var(--duration-base) var(--ease-spring);
 }
 .twc-switch__input:checked + .twc-switch__track { background: var(--_accent); }
+/* #454 (review): the tone ink applies only ON, where it is paired with its own fill. */
+.twc-switch__input:checked + .twc-switch__track .twc-switch__thumb { background: var(--_accent-fg); }
 .twc-switch__input:checked + .twc-switch__track .twc-switch__thumb { transform: translateX(calc((var(--_w) - var(--_h)) * var(--_tx))); }
 .twc-switch__input:focus-visible + .twc-switch__track { box-shadow: var(--ring); }
 .twc-switch__input:active + .twc-switch__track .twc-switch__thumb { width: calc(var(--_h) - var(--_pad) * 2 + 4px); }

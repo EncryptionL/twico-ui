@@ -44,6 +44,8 @@ const QUIET_TEXT_ON_FILLS = [
   ["components/navigation/TreeView.jsx", ".twc-tree__badge", '.twc-tree__row:hover / [data-selected]'],
   ["components/inputs/FileUpload.jsx", ".twc-upload__hint", '.twc-upload__zone:hover / [data-drag]'],
   ["components/inputs/Input.jsx", ".twc-input__affix", ".twc-input[data-readonly]"],
+  ["components/data-display/Table.jsx", ".twc-table__empty", '.twc-table[data-hover="true"] tbody tr:hover (hover defaults to TRUE)'],
+  ["components/data-display/Datatable.jsx", ".twc-dt__pivot td[data-empty]", ".twc-dt__row:hover .twc-dt__td"],
   ["components/inputs/DatePicker.jsx", '.twc-dp__day[data-outside="true"]', ".twc-dp__day:hover"],
   ["components/inputs/DatePicker.jsx", '.twc-dp__yr[data-outside="true"]', ".twc-dp__yr:hover"],
   ["components/inputs/DateRangePicker.jsx", '.twc-drp__day[data-outside="true"]', '.twc-drp__day:hover / [data-in]'],

@@ -126,11 +126,25 @@ silently regress below the a11y floors:
   `tests/tokens-a11y.test.js` asserts both halves - the replacement clears 4.5:1, and `--color-primary`
   does not - with one measured exception: on the dark page background (slate-950) brand-500 scrapes
   4.52:1. Components paint on surfaces, not on the page background, so the rule stands where it counts.
-- **`--color-control-border` is the boundary of an unchecked control (#454).** For a Checkbox, Radio or
-  Switch in its off state the border/track is the ONLY thing saying the control exists, so SC 1.4.11
-  asks 3:1 of it - and `--color-border-strong`, tuned for card and divider edges, delivered 1.49:1.
-  This step clears it in both themes (slate-500 = 4.76:1 on white, slate-400 = 6.96:1 on the dark
-  surface) without touching any card/divider border.
+- **`--color-control-border` is the boundary of an unchecked Checkbox or Radio (#454).** That border is
+  the ONLY thing saying the control exists, so SC 1.4.11 asks 3:1 of it - and `--color-border-strong`,
+  tuned for card and divider edges, delivered 1.49:1. This step clears it in both themes (slate-500 =
+  4.76:1 on white, slate-400 = 6.96:1 on the dark surface) without touching any card/divider border.
+- **A Switch needs two tokens, not that one, because its constraints pull in opposite directions
+  (#454).** `--color-control-track` is the off track and `--color-control-thumb` the off thumb, and the
+  pairing has to satisfy BOTH "the control is identifiable against the surface" and "the thumb is
+  distinguishable from the track it sits on" - the thumb's POSITION is what conveys on/off. In light a
+  white thumb is invisible on a white surface, so the track carries identification (slate-500, 4.76:1);
+  in dark the thumb carries it (white on slate-900, ~17.9:1) and the track can stay dark (slate-700),
+  which it must, because lightening it to match `--color-control-border` drops thumb-vs-track to
+  2.56:1. The first attempt at #454 used one token for both controls and did exactly that.
+  The thumb is **static white in both themes, and deliberately not the tone's `--_accent-fg`**: that
+  token is the ON-state ink, paired with the tone FILL, and for five of the six tones it is near-black
+  (success `#052e1d`, info sky-950, warning amber-950, danger's dark variant, and neutral, which maps
+  to `--color-surface`). Painting the OFF thumb with it left nothing in the control above 3:1 on the
+  dark track - an unchecked `tone="success"` Switch simply vanished. The ON thumb keeps `--_accent-fg`.
+  `tests/tokens-a11y.test.js` asserts both halves for **every tone**; the first version of that guard
+  named `--color-primary-fg` and so passed while 5 of 6 tones failed.
 - **`--color-*-graphic` is the tone for a fill that IS the information (#455).** A Progress bar, a Toast
   edge stripe, a status icon: nothing but the colour conveys the value, so SC 1.4.11's 3:1 applies, and
   the light-mode tones missed it (amber-500 = 1.96:1 on surface-sunken, sky-500 = 2.53:1). The five

@@ -292,3 +292,37 @@ describe("the option clamp recovers from an empty list (#463 review)", () => {
     expect(el.textContent).toContain("Option 2");  // clamped to the last surviving option
   });
 });
+
+// #463 (review) - the search reset happens on the close COMMIT, while the popover is still mounted for
+// its exit animation, so the closing list must not repaint from the cleared query.
+describe("Select's closing popover keeps what it was showing (#463 review)", () => {
+  const fifty = Array.from({ length: 50 }, (_, i) => ({ value: `o${i}`, label: `Option ${i}` }));
+
+  it("does not expand the filtered list, or re-announce the full count, mid-fade", () => {
+    const { container } = render(<Select label="X" options={fifty} />);
+    const trigger = container.querySelector(".twc-sel__trigger");
+    fireEvent.click(trigger);
+    const search = document.querySelector(".twc-pop__search input");
+    fireEvent.change(search, { target: { value: "Option 7" } });
+    const filtered = document.querySelectorAll(".twc-opt").length;
+    expect(filtered).toBeGreaterThan(0);
+    expect(filtered).toBeLessThan(50);
+    const status = document.querySelector('[role="status"]').textContent;
+
+    fireEvent.keyDown(trigger, { key: "Escape" });   // closing: still mounted, data-state="closed"
+    expect(document.querySelector(".twc-pop")).toHaveAttribute("data-state", "closed");
+    expect(document.querySelectorAll(".twc-opt").length, "the fading list must not grow").toBe(filtered);
+    expect(document.querySelector('[role="status"]').textContent, "no stale recount").toBe(status);
+  });
+
+  it("still reopens with a cleared search, even immediately after closing", () => {
+    const { container } = render(<Select label="X" options={fifty} />);
+    const trigger = container.querySelector(".twc-sel__trigger");
+    fireEvent.click(trigger);
+    fireEvent.change(document.querySelector(".twc-pop__search input"), { target: { value: "Option 7" } });
+    fireEvent.keyDown(trigger, { key: "Escape" });
+    fireEvent.click(trigger);                        // reopen inside the 170ms exit window
+    expect(document.querySelector(".twc-pop__search input").value).toBe("");
+    expect(document.querySelectorAll(".twc-opt").length).toBe(50);
+  });
+});

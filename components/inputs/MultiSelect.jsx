@@ -231,8 +231,7 @@ export function MultiSelect({
   React.useEffect(() => { setActive(0); }, [query]);
   // #463: belt and braces alongside the nextEnabled self-heal - clamp `active` as soon as the list
   // shrinks, so `visible[active]` (Enter) and aria-activedescendant recover without the user having
-  // to press an arrow key first. Collapses to -1 on an empty list and leaves an already-negative
-  // active alone.
+  // to press an arrow key first. (It deliberately does NOT touch an empty list - see below.)
   React.useEffect(() => {
     // #463 (review): SKIP an empty list. The first version clamped unconditionally, so on an empty
     // list Math.min(a, -1) drove `active` to -1 and the `a < 0 ? a` guard then kept it there for the

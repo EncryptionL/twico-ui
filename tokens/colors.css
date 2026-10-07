@@ -120,6 +120,15 @@
      invisible and the track has to carry it. So light needs a dark track (4.76:1 on the surface, and
      4.76:1 against the thumb)... */
   --color-control-track: var(--slate-500);
+  /* #454 (review): the OFF thumb, deliberately STATIC in both themes (like --color-chart-on-fill).
+     It used to be --_accent-fg, i.e. the tone's ON-state ink - which is designed to sit on the tone
+     FILL, not on a neutral track. For five of the six tones that ink is near-black (success #052e1d,
+     info sky-950, warning amber-950, danger's dark variant, and neutral = --color-surface), so on the
+     dark track nothing in the control cleared 3:1 and an unchecked success Switch simply vanished -
+     the very SC 1.4.11 failure #454 was filed for, reintroduced for 5/6 tones while fixing primary.
+     A fixed light thumb resolves against BOTH tracks (4.76:1 on slate-500, 10.35:1 on slate-700) for
+     every tone, and the ON state keeps --_accent-fg, which is token-paired with its own fill. */
+  --color-control-thumb: #ffffff;
   --color-divider:        var(--slate-200);
 
   /* Text */
@@ -227,6 +236,7 @@
      one 1.4.11 failure for another. On/off is carried by thumb POSITION, so SC 1.4.1 is satisfied
      without colour either way. */
   --color-control-track: var(--slate-700);
+  --color-control-thumb: #ffffff;   /* static: see the :root note */
   --color-divider:        #1c2840;
 
   --color-text:           var(--slate-50);

@@ -787,6 +787,10 @@
 
 - [x] **[#462] three more subtle-on-sunken sites, each reached by a hover rule** - `.twc-dt__rownum` and `.twc-dt__col-combined` under `.twc-dt__row:hover .twc-dt__td`, and `.twc-dt__mi-hint` (the #399 disabledReason, which also shows on ENABLED items) under `.twc-dt__mi:hover`. All three now `--color-text-muted`, matching the four labels already fixed under #449. `Datatable.jsx:400,404,474` - fixed 2026-10-07
 
+- [x] **[#460 review 2] the widget-mode roving-tabindex pass stopped being reapplied after a loading pass** - a regression of the #460 memoization itself. The skeleton `<td>`s carry no `data-r`, so the pass matches nothing while loading; when it ends React mounts fresh `<tr>`s whose widgets all carry their default (tabbable) tabIndex and whose `<td>`s all carry -1. Before #460, `leafRows` was a fresh slice every render so this layout effect re-ran constantly and papered over it; memoizing it made the gap reachable. Result: every action button in every rendered row became a Tab stop, and a widget-less roving cell could not be tabbed to at all - breaking #392's single-Tab-stop contract. `loading` added to the deps, alongside the `scrollTop` dep that documents the same failure mode for the virtualized case. `Datatable.jsx:2684` - fixed 2026-10-07
+- [x] **[#454 review 2] the hand-rolled config switch took the same thumb fix** - its `::after` thumb used `--color-primary-fg`; now `--color-control-thumb`. `Datatable.jsx:521` - fixed 2026-10-07
+- [x] **[#462 review 2] the pivot no-value placeholder is text on a hovered row** - `.twc-dt__pivot td[data-empty]` renders a visible, non-aria-hidden em dash from `fmt()`, and the row hover fill beat the cell's own background, leaving it at 4.34:1. Now text-muted. `Datatable.jsx:272` - fixed 2026-10-07
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.
