@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.44.0](https://github.com/EncryptionL/twico-ui/compare/v1.43.0...v1.44.0) (2026-10-16)
+
+
+### Features
+
+* **cardgrid,datatable:** selection + batch actions on CardGrid, disabledReason on batch actions ([dac8b30](https://github.com/EncryptionL/twico-ui/commit/dac8b30a36ad3387e09678435803dfaf474e02dd)), closes [#478](https://github.com/EncryptionL/twico-ui/issues/478) [#479](https://github.com/EncryptionL/twico-ui/issues/479) [#322](https://github.com/EncryptionL/twico-ui/issues/322) [399/#419](https://github.com/EncryptionL/twico-ui/issues/419) [pre-#460](https://github.com/pre-/issues/460)
+
 # [1.43.0](https://github.com/EncryptionL/twico-ui/compare/v1.42.1...v1.43.0) (2026-10-07)
 
 
