@@ -2,6 +2,18 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.45.0](https://github.com/EncryptionL/twico-ui/compare/v1.44.0...v1.45.0) (2026-10-16)
+
+
+### Bug Fixes
+
+* **datatable:** lift getRowStyle's background off the <tr> instead of copying it ([e54165e](https://github.com/EncryptionL/twico-ui/commit/e54165e918dad9d8f0f819890ebb718684bdfc07)), closes [#242](https://github.com/EncryptionL/twico-ui/issues/242) [#481](https://github.com/EncryptionL/twico-ui/issues/481)
+
+
+### Features
+
+* **datatable:** getRowStyle / getRowClassName — row-level style hooks ([56a80e8](https://github.com/EncryptionL/twico-ui/commit/56a80e8c7adeb293923b5f2e490cf62234df3a3a)), closes [#345](https://github.com/EncryptionL/twico-ui/issues/345) [#242](https://github.com/EncryptionL/twico-ui/issues/242)
+
 # [1.44.0](https://github.com/EncryptionL/twico-ui/compare/v1.43.0...v1.44.0) (2026-10-16)
 
 
