@@ -1559,6 +1559,13 @@ Props:
 - `toolbar` — `React.ReactNode` — Extra node rendered in the toolbar row, before the sort control.
 - `emptyState` — `React.ReactNode` · default `"No results."` — Content shown when there are no rows and the grid is not loading.
 - `label` — `React.ReactNode` — Optional heading rendered above the grid and associated with it for accessibility.
+- `checkboxSelection` — `boolean` · default `false` — Shows a selection checkbox on each card and a batch toolbar once anything is picked — the same prop as Datatable.
+- `batchActions` — `CardGridBatchAction<Row>[]` · default `[]` — Actions for the selection toolbar; disabled, hidden and disabledReason may each be predicates over the current selection.
+- `onRowSelectionChange` — `(keys: Array<string | number>, rows: Row[]) => void` — Fires when the selection changes, receiving the complete keys and the row objects that could be resolved.
+- `selectionPlacement` — `"top-start" | "top-end" | "bottom-start" | "bottom-end" | "none"` · default `"top-start"` — Which corner the grid draws its checkbox in; none suppresses the overlay so you can place it yourself.
+- `selectionLabel` — `(row: Row, index: number) => string` — Per-card aria-label for the checkbox — worth setting, since a card's content is not announced with the control.
+- `showSelectAll` — `boolean` · default `true` — Shows the page-scoped select-all control, which goes indeterminate when only some cards on the page are picked.
+- `retainSelectedRows` — `boolean | number` · default `false` — Keeps off-page row objects so a multi-page selection resolves rows, not just keys; bounded at 1000 or your number.
 
 ```jsx
 import { CardGrid, Card, Heading, Text } from "twico-ui";

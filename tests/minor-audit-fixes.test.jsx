@@ -1,6 +1,6 @@
 import React from "react";
 import { describe, it, expect, afterEach, vi } from "vitest";
-import { render, fireEvent, cleanup, act, screen } from "@testing-library/react";
+import { render, fireEvent, cleanup, act } from "@testing-library/react";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { Carousel } from "../components/data-display/Carousel.jsx";

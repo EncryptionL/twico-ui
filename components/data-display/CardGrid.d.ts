@@ -42,8 +42,19 @@ export interface CardGridSortOption {
 export interface CardGridProps<Row = any> extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** The rows: the full set in client mode, or the current page in `serverMode`. */
   rows?: Row[];
-  /** Render one card for a row. Required. */
-  renderCard: (row: Row, index: number) => React.ReactNode;
+  /**
+   * Render one card for a row. Required.
+   *
+   * #478: with `checkboxSelection`, the third argument carries that card's selection state so a
+   * consumer can put the control inside their own layout (set `selectionPlacement="none"` to drop the
+   * grid's overlay) without re-implementing any selection state. It is `undefined` when
+   * `checkboxSelection` is off.
+   */
+  renderCard: (
+    row: Row,
+    index: number,
+    selection?: { selected: boolean; toggle: () => void },
+  ) => React.ReactNode;
   /** Stable key per row: a field name or an accessor. @default "id" */
   rowKey?: string | ((row: Row) => React.Key);
   /** Min card width for the responsive auto-fill grid (Grid `minChildWidth`). @default "18rem" */
@@ -106,6 +117,86 @@ export interface CardGridProps<Row = any> extends Omit<React.HTMLAttributes<HTML
   emptyState?: React.ReactNode;
   /** Optional heading above the grid. */
   label?: React.ReactNode;
+
+  /**
+   * #478: show a selection checkbox on each card and a selection toolbar when anything is picked —
+   * the same prop name, and the same behaviour, as `Datatable`. A card grid is what you reach for
+   * when the rows are visual (assets, previews, renders), where "pick several and do one thing to
+   * them" is most of the point.
+   * @default false
+   */
+  checkboxSelection?: boolean;
+  /**
+   * Actions shown in the selection toolbar, with the same shape as `DatatableBatchAction` — including
+   * `disabled` / `hidden` / `disabledReason` as predicates over the current selection (#479), and
+   * `ctx.anchorEl` so an action can anchor a popover to its own button.
+   */
+  batchActions?: CardGridBatchAction<Row>[];
+  /** Fired when the selection changes — `(keys, rows)`, matching `Datatable.onRowSelectionChange`. */
+  onRowSelectionChange?: (keys: Array<string | number>, rows: Row[]) => void;
+  /**
+   * Where the grid draws its checkbox over each card. `"none"` suppresses the overlay entirely for
+   * consumers who render the control themselves from `renderCard`'s third argument.
+   * @default "top-start"
+   */
+  selectionPlacement?: "top-start" | "top-end" | "bottom-start" | "bottom-end" | "none";
+  /**
+   * Per-card `aria-label` for the checkbox. Worth setting: unlike a table row, a card's own content is
+   * not necessarily announced with the control, so the default `"Select item"` is the same for every
+   * card. @default (row, index) => "Select item"
+   */
+  selectionLabel?: (row: Row, index: number) => string;
+  /** Show the page-scoped "Select all on this page" control. @default true */
+  showSelectAll?: boolean;
+  /**
+   * Retain the row OBJECTS of off-page selections so `batchActions` and `onRowSelectionChange` receive
+   * them for a selection spanning several pages. `keys` is always the authoritative cross-page
+   * selection (as in `Datatable`); this exists because the grid only renders one page, which is the
+   * `Map<id, row>` consumers were otherwise hand-rolling.
+   *
+   * Opt-in because it holds references the host may expect to be released, and **bounded**: `true`
+   * retains up to 1000 rows, or pass a number for your own cap. Past the cap it stops retaining and
+   * those keys simply resolve to nothing in `rows`, so re-fetch by key.
+   * @default false
+   */
+  retainSelectedRows?: boolean | number;
+}
+
+/** Extra context handed to a CardGrid batch action's `onClick`. */
+export interface CardGridBatchActionContext {
+  /** The toolbar button that was clicked — anchor a popover or panel to it. */
+  anchorEl: HTMLElement;
+}
+
+/** A batch action shown in CardGrid's selection toolbar. Mirrors `DatatableBatchAction`. */
+export interface CardGridBatchAction<Row = any> {
+  /** Button label. */
+  label: string;
+  /** Leading icon node. */
+  icon?: React.ReactNode;
+  /** Handler: `(selectedKeys, selectedRows, clearSelection, ctx)`. */
+  onClick?: (
+    keys: Array<string | number>,
+    rows: Row[],
+    clearSelection: () => void,
+    ctx: CardGridBatchActionContext,
+  ) => void;
+  /** Render in danger color. */
+  danger?: boolean;
+  /** Disable the action — a static boolean, or a predicate over the current selection. */
+  disabled?: boolean | ((keys: Array<string | number>, rows: Row[]) => boolean);
+  /** Hide the action entirely — a static boolean, or a predicate over the current selection. */
+  hidden?: boolean | ((keys: Array<string | number>, rows: Row[]) => boolean);
+  /**
+   * Why the action is disabled, shown as the button's tooltip (#479). May be a predicate over the
+   * selection, because that is usually where the answer lives ("that selection is 5.1 GB; the limit is
+   * 4 GB"). With a reason present the button renders `aria-disabled` rather than native `disabled`, so
+   * it stays focusable and the reason is keyboard-reachable; without one it stays natively disabled and
+   * out of the tab order.
+   */
+  disabledReason?:
+    | React.ReactNode
+    | ((keys: Array<string | number>, rows: Row[]) => React.ReactNode);
 }
 
 export function CardGrid<Row = any>(props: CardGridProps<Row>): React.JSX.Element;

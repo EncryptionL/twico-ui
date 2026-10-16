@@ -308,8 +308,18 @@ export const VARIATIONS = [
   },
   {
     "component": "CardGrid",
-    "title": "Empty state",
+    "title": "Selection and batch actions",
     "i": 3
+  },
+  {
+    "component": "CardGrid",
+    "title": "Selection control inside your own card",
+    "i": 4
+  },
+  {
+    "component": "CardGrid",
+    "title": "Empty state",
+    "i": 5
   },
   {
     "component": "Card",

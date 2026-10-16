@@ -760,6 +760,20 @@ export interface DatatableBatchAction<T = any> {
   /** #322: hide the action entirely when the predicate returns true (e.g. `(_, rows) => rows.every(r => r.isGroup)`
    *  drops "Mark as new thread" when only group rows are selected). A static `true` always hides it. */
   hidden?: boolean | ((keys: Array<string | number>, rows: T[]) => boolean);
+  /** #479: why the action is disabled, shown as the button's tooltip — the batch mirror of the row-action
+   *  `disabledReason` (#399/#419). It may be a **predicate over the selection**, because that is where the
+   *  answer usually lives: a batch is refused for selection-dependent reasons ("that selection is 5.1 GB; the
+   *  limit is 4 GB", "at most 50 items per batch") that the label cannot carry and the user cannot infer from
+   *  a greyed-out button.
+   *
+   *  When a reason is present the button renders `aria-disabled` rather than native `disabled`, so it stays in
+   *  the tab order and the reason is reachable by hover AND keyboard; click and Enter/Space stay blocked. With
+   *  no reason the tooltip would only repeat the label, so the button stays natively disabled and out of the
+   *  tab order — the same rule as the row-action path. There is deliberately no `hiddenReason`: a hidden
+   *  action explains nothing. */
+  disabledReason?:
+    | React.ReactNode
+    | ((keys: Array<string | number>, rows: T[]) => React.ReactNode);
 }
 
 export function Datatable<T = any>(props: DatatableProps<T>): React.JSX.Element;
