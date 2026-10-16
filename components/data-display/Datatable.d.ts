@@ -87,6 +87,65 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  This prop is the initial state — when enabled, users can hide/show the column from the toolbar's
    *  **Columns** panel ("Row number"). @default false */
   rowNumbers?: boolean;
+  /**
+   * #481: style a whole row from its own state — the row-level counterpart to a column's `cellStyle`.
+   * Without it, marking a row meant assigning `cellStyle` to **every** column: O(columns) for a
+   * row-level fact, hand-composed against whatever else already used `cellStyle`, and with no fixed
+   * column list to decorate at all when the columns come from a schema.
+   *
+   * Called `(row, index)`, the same shape as `rowKey`. **`index` is the row's 0-based position among
+   * the rows currently rendered** — after sorting and filtering, and **within the current page**. It is
+   * therefore *not* the number the `rowNumbers` column shows, which continues across pages; if you need
+   * an absolute position, read it off `row` rather than from this argument.
+   *
+   * A `background` (or `backgroundColor`) is forwarded to the row's CELLS through the `--twc-dt-row-bg`
+   * custom property, because `.twc-dt__td` paints an opaque surface of its own — without that it would
+   * be invisible — and is **removed** from what reaches the `<tr>`, since a row box paints below its
+   * cells and a leftover copy there would composite with the tint rather than hide behind it. Every
+   * other declaration lands on the `<tr>`, except `border` (ignored on row boxes under
+   * `border-collapse: separate`) and `backgroundImage` (painted under the cells' opaque surface) — both
+   * need {@link getRowClassName} and a `… .twc-dt__td` rule. Sticky positioning and measured row height
+   * are applied after yours, so a hook cannot break row pinning or row resizing.
+   *
+   * **Layering — one rule, not a bespoke order:** the row tint is the **bottom** layer above the
+   * cell's plain surface, and **every** built-in state background covers it. The base `.twc-dt__td`
+   * rule is the lowest-specificity background in the component, so hover, row selection,
+   * `activeRowId`, a pinned row, a grabbed row, the diff add/remove/modify washes, cell
+   * selection/active and inline editing all outrank it — and an inline per-cell `cellStyle` outranks
+   * those. A row tint is a *data-derived* wash; nothing data-derived should be able to hide an
+   * interaction state. So selection still reads on a tinted row, hover feedback is never lost, and a
+   * per-cell state wins with nothing to compose on your side.
+   *
+   * Need a tint that survives hover? Use {@link getRowClassName} with a rule outranking `(0,3,0)` —
+   * note `.twc-dt__row.my-row .twc-dt__td` is itself `(0,3,0)`, a tie decided by source order, so add
+   * an element: `tr.twc-dt__row.my-row .twc-dt__td` is `(0,3,1)`, and `… .twc-dt__td[data-pin]` is
+   * `(0,4,1)` for the pinned-column twins. You are then choosing to cover the hover cue on those rows.
+   *
+   * **Stripes:** there are none to layer against. Datatable does not zebra-stripe its data rows —
+   * the only `data-zebra` rules in the component style the PIVOT grid's cells, and the hook does not
+   * apply to pivot rows. So a row tint never has to compete with a stripe.
+   *
+   * **Which rows:** every data row. That includes rows pinned with the row ⋮ menu (the hook runs and
+   * the class/non-background declarations apply, though the pinned-row highlight covers a background
+   * tint for as long as the row is pinned, exactly like selection), and cells in a pinned COLUMN pick
+   * the tint up, so a tinted row shows no hole where a frozen column scrolls over it. NOT group-header
+   * rows or the pivot grid's aggregate rows: those have no `row` object to pass. Skeleton rows shown
+   * while `loading` are untouched.
+   */
+  getRowStyle?: (row: T, index: number) => React.CSSProperties | undefined;
+  /**
+   * #481: a class on the row's `<tr>`, appended to `twc-dt__row` (never replacing it). Same
+   * `(row, index)` signature as {@link getRowStyle}.
+   *
+   * **Which to reach for.** `getRowStyle` is the default: its *background* does not land inline on the
+   * cells — it is routed through `--twc-dt-row-bg` and read by the `(0,1,0)` base rule, so it is the
+   * **lowest** layer and every built-in state covers it, which is almost always what a row tint should
+   * do. (Its *non-background* declarations — opacity, font-weight, text-decoration — are ordinary
+   * inline styles on the `<tr>` and do win.) Reach for `getRowClassName` when you deliberately want the
+   * tint to **outrank** those cues, since your own rule picks its specificity: beat `(0,3,0)`, e.g.
+   * `tr.twc-dt__row.my-row .twc-dt__td`. You are then choosing to cover the hover cue on those rows.
+   */
+  getRowClassName?: (row: T, index: number) => string | undefined;
   /** Restrict the toolbar quick-search to these column `field`s (client mode); defaults to every
    *  visible column. Mirrors `runDatatableQuery`'s `options.searchFields`. */
   searchFields?: string[];

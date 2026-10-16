@@ -383,8 +383,22 @@ const DT_CSS = `
 .twc-dt__row:hover .twc-dt__row-resizer::after { background: var(--color-border-strong); }
 .twc-dt__row-resizer:hover::after { background: var(--color-primary); }
 
+/* #481: the cell background reads --twc-dt-row-bg, which getRowStyle sets on the <tr>. It has to come
+   through a custom property rather than straight off the row, because this rule paints an OPAQUE
+   --color-surface on every cell: a background set on the <tr> would sit behind it and never show,
+   which would make the commonest use of a row-style hook silently do nothing. Cells in a pinned
+   COLUMN inherit it too, so a tinted row does not develop a hole where a sticky column scrolls over
+   it.
+   Layering: this rule is (0,1,0), the LOWEST specificity of any background in this sheet, so the
+   row tint is the bottom layer above the plain surface and every built-in state covers it - hover,
+   row selection, data-active, data-pinned-row, data-row-grabbed, the diff data-op washes, cell
+   selection/active, inline editing (each (0,3,0), (0,4,0) for the pinned-column twins, or (0,2,0)
+   for the cell-level ones) - and an inline per-cell cellStyle
+   covers them all. That is the intended rule, not an accident of ordering: a row tint is a
+   data-derived wash, and no data wash should be able to hide an interaction state. Consumers who
+   need a tint that outranks those use getRowClassName and a rule of their own. */
 .twc-dt__td { padding: 0 12px; height: var(--_rowh, 44px); border-bottom: var(--border-thin) solid var(--color-divider);
-  font-size: var(--text-sm); color: var(--color-text); background: var(--color-surface);
+  font-size: var(--text-sm); color: var(--color-text); background: var(--twc-dt-row-bg, var(--color-surface));
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 0; }
 /* Wrap-text columns: content flows onto multiple lines (the row grows down) instead of
    clipping to one line. height stays a per-row minimum, so single-line cells are unchanged. */
@@ -1141,6 +1155,7 @@ export function Datatable({
   density: densityProp = "comfortable", pageSize = 10, pageSizeOptions = [5, 10, 25, 50],
   page, onPageChange, onPageSizeChange,
   height = 440, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [], onRowSelectionChange,
+  getRowStyle, getRowClassName,
   showExport = false, showDensity = false, showPivot = false, showColumns, showFilters, exportFilename = "export", aggregationValues = null,
   disableColumnReorder = false, disableColumnResize = false, defaultColumn,
   columnCombining = false,
@@ -3557,7 +3572,35 @@ export function Datatable({
     const rowActive = selectionMode === "row" && activeRowVal === k;
     const stickyStyle = pinSide === "top" ? { position: "sticky", top: headH, zIndex: 5 } : pinSide === "bottom" ? { position: "sticky", bottom: 0, zIndex: 5 } : undefined;
     const h = rowHeights[k];
-    const rowStyle = { ...(stickyStyle || {}), ...(h ? { height: h } : {}) };
+    // #481: a row-level style/class hook. Without it, marking a row by its state meant assigning
+    // cellStyle to EVERY column - O(columns) for a row-level fact, with the consumer hand-composing
+    // against whatever else already used cellStyle, and no fixed column list to decorate at all when
+    // the columns come from a schema.
+    const userRowStyle = getRowStyle ? getRowStyle(row, ri) : undefined;
+    const userRowClass = getRowClassName ? getRowClassName(row, ri) : undefined;
+    // A background belongs on the CELLS (see the --twc-dt-row-bg note in the CSS); everything else
+    // stays on the <tr>. The component's own sticky/height declarations are applied last so a hook
+    // cannot break row pinning or row resizing.
+    //
+    // The two background keys are REMOVED from what reaches the <tr>, not merely copied into the
+    // custom property. A row box paints BELOW its cells, so a leftover background on the <tr> is a
+    // second coat of the same colour under every cell: a translucent tint then composites with itself
+    // (rgba(.2) renders at .36), and - worse - any state wash that is itself translucent stops
+    // covering the tint, because what it composites over is no longer the plain surface. Dark mode's
+    // --color-primary-subtle is 16% alpha, so a selected tinted row would have shown 84% tint and lost
+    // its selection cue; and in diff mode the deliberately translucent [data-op] washes would no
+    // longer match their opaque [data-pin] twins, re-opening the #242 seam at the frozen column.
+    const { background: _rowBgShorthand, backgroundColor: _rowBgColor, ...restRowStyle } = userRowStyle || {};
+    // Only a non-empty string can serve as the custom property's value; anything else is dropped
+    // rather than left on the <tr>, so the row never double-paints whatever it was.
+    const usable = (v) => (typeof v === "string" && v.trim() !== "" ? v : undefined);
+    const rowBg = usable(_rowBgShorthand) ?? usable(_rowBgColor);
+    const rowStyle = {
+      ...restRowStyle,
+      ...(rowBg != null ? { "--twc-dt-row-bg": rowBg } : {}),
+      ...(stickyStyle || {}),
+      ...(h ? { height: h } : {}),
+    };
     const reorderable = canReorderRows && !pinSide;
     const grabbed = rowGrab && rowGrab.key === k;
     // The grabbed row's live target slot lights up the row currently occupying that index.
@@ -3565,7 +3608,7 @@ export function Datatable({
       ? (rowGrab.index >= keyIndexMid.get(rowGrab.key) ? "after" : "before") : undefined;
     return (
       <React.Fragment key={(pinSide ? "p-" : "") + k}>
-      <tr className="twc-dt__row" role="row" aria-rowindex={treeSeqByKey ? treeSeqByKey.get(k) + 2 : (paginated && !serverMode ? pageVal * sizeVal : 0) + ri + 2}
+      <tr className={userRowClass ? `twc-dt__row ${userRowClass}` : "twc-dt__row"} role="row" aria-rowindex={treeSeqByKey ? treeSeqByKey.get(k) + 2 : (paginated && !serverMode ? pageVal * sizeVal : 0) + ri + 2}
         aria-selected={(checkboxSelection ? sel : rowActive) || undefined}
         data-op={row.__diffop || undefined}
         data-selected={sel || undefined} data-active={rowActive || undefined}

@@ -43,10 +43,36 @@ describe("versioned docs manifest (CLAUDE.md §7)", () => {
 
   it("Latest is not behind the released package version", () => {
     // The case that actually went wrong: 1.44.0 shipped while the switcher still said v1.43.
+    //
+    // Equality is the steady state but NOT the only correct one, and the first version of this guard
+    // asserted it outright — which would have forced the roll to happen AFTER the release, the very
+    // ordering that produced the v1.44 bug. §7 says to roll as part of the release PR, and at that
+    // moment package.json still holds the OLD version (semantic-release bumps it only after the
+    // merge), so Latest legitimately runs ahead until the release lands. The docs deploy fires on
+    // that merge and reads whatever manifest the commit carries, so rolling late means shipping a
+    // stale switcher for at least one deploy.
+    //
+    // Behind is always wrong. Ahead is only right if the roll was done properly — which means the
+    // currently-released minor has become a snapshot.
+    const parse = (v) => minorOf(v).split(".").map(Number);
+    const [lMaj, lMin] = parse(latest.version);
+    const [pMaj, pMin] = parse(pkg.version);
+    const delta = lMaj !== pMaj ? lMaj - pMaj : lMin - pMin;
     expect(
-      minorOf(latest.version),
+      delta,
       `versions.json says Latest is ${latest.version} but package.json is ${pkg.version} — roll the manifest`
-    ).toBe(minorOf(pkg.version));
+    ).toBeGreaterThanOrEqual(0);
+    if (delta > 0) {
+      expect(
+        lMaj === pMaj ? delta : 1,
+        `Latest (${latest.version}) is more than one release ahead of package.json (${pkg.version})`
+      ).toBe(1);
+      expect(
+        snapshots.map((s) => minorOf(s.label)),
+        `Latest is pre-rolled to ${latest.version} for the release PR, so the released minor ` +
+          `${minorOf(pkg.version)} must already be listed as a snapshot`
+      ).toContain(minorOf(pkg.version));
+    }
   });
 
   it("DOC_SNAPSHOTS matches the snapshot entries exactly", () => {

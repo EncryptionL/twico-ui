@@ -6,10 +6,17 @@ name: Release
 # publishes to npm, tags vX.Y.Z, updates CHANGELOG.md + package.json, and
 # creates a GitHub Release. No manual version bumps. If no release-worthy
 # commits are present, it does nothing.
+# A manual trigger as well, because the push trigger is the single point of failure for the whole
+# release: if GitHub does not create a run for the merge commit (it silently created none for the
+# v1.45 release push - workflow_dispatch worked throughout, push and pull_request did not), main ends
+# up ahead of the last tag with nothing published and no way to retry short of another commit.
+# Dispatching this on main does exactly what the push would have: semantic-release reads the
+# Conventional Commits since the last tag and is a no-op when there are none.
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 concurrency:
   group: release

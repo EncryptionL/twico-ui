@@ -27,7 +27,7 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 | [prop-conventions.md](./prop-conventions.md) | The standard prop vocabulary (size/tone/variant/value/onChange/items/overlay/label/…) every component follows, and how a consumer handler composes with an internal one rather than replacing it (#452). |
 | [polymorphic-types.md](./polymorphic-types.md) | The `as`-driven polymorphic type kit (Box/Stack/Grid/Container/Text/Heading) — props + `ref` inferred from `as`, and why it uses two call signatures. |
 | [sx.md](./sx.md) | The `sx` style-prop escape hatch — flat CSS inline + nested selectors/at-rules compiled to a scoped stylesheet (pseudo-classes, media queries under the no-className policy). |
-| [datatable.md](./datatable.md) | Datatable advanced features — opt-in row virtualization, keyboard row reorder, ARIA menu semantics, and server-mode column projection. |
+| [datatable.md](./datatable.md) | Datatable advanced features — opt-in row virtualization, keyboard row reorder, ARIA menu semantics, row-level style hooks, and server-mode column projection. |
 | [appshell.md](./appshell.md) | AppShell layout notes — the skip link and the `tabindex="-1"` content region's focus-ring suppression. |
 | [charts.md](./charts.md) | The dependency-free SVG chart family — the `_chart.js` foundation, the hybrid `Chart` + dedicated-component model, the shared a11y/token conventions, and how to add a chart type. |
 | [ai-guide.md](./ai-guide.md) | `llms.txt` — the generated AI usage guide for consumers; how it's built from the component/hook API, where it ships, and the drift guard. |
