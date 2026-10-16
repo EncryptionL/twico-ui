@@ -1,6 +1,6 @@
 import React from "react";
-import { describe, it, expect, afterEach, vi } from "vitest";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { describe, it, expect, afterEach } from "vitest";
+import { render, cleanup } from "@testing-library/react";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { Datatable } from "../components/data-display/Datatable.jsx";
