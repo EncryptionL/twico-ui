@@ -128,7 +128,7 @@ describe("Menu keyboard works from the focused item inside the portal (#459 revi
   };
 
   it("arrow keys dispatched on the portaled item still navigate", () => {
-    const { container } = open3();
+    open3();
     expect(document.activeElement).toBe(items()[0]);
     // React propagates through the REACT tree, not the DOM tree, and attaches to the portal
     // container - so the wrapper's handler keeps receiving keys from inside the portal.

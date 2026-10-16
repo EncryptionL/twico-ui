@@ -3824,14 +3824,27 @@ export function Datatable({
                 const isHidden = typeof a.hidden === "function" ? a.hidden(selKeys, selectedRows) : !!a.hidden;
                 if (isHidden) return null;
                 const isDisabled = typeof a.disabled === "function" ? a.disabled(selKeys, selectedRows) : !!a.disabled;
-                return (
-                <button type="button" key={i} className="twc-dt__batch-btn" data-danger={a.danger || undefined} disabled={isDisabled}
+                // #479: mirror the row-action contract (#399/#419) for the batch path. `disabledReason` may be
+                // a predicate over the SELECTION, because that is where the answer lives - a batch is refused
+                // for selection-dependent reasons ("that selection is 5.1 GB; the limit is 4 GB") that the
+                // label cannot carry and the user cannot infer. A reason present means the button renders
+                // aria-disabled rather than natively disabled, so it stays in the tab order and the Tooltip is
+                // keyboard-reachable; with no reason the tooltip would only repeat the label, so the button
+                // stays natively disabled and out of the tab order.
+                const reason = isDisabled && a.disabledReason != null
+                  ? (typeof a.disabledReason === "function" ? a.disabledReason(selKeys, selectedRows) : a.disabledReason)
+                  : null;
+                const soft = isDisabled && reason != null;
+                const btn = (
+                <button type="button" key={i} className="twc-dt__batch-btn" data-danger={a.danger || undefined}
+                  disabled={isDisabled && !soft} aria-disabled={soft || undefined}
                   /* `anchorEl` is this very button, so an action can anchor a popover to it exactly like the
                      built-in batch editor does — without it a custom action could only open a centered modal. */
-                  onClick={(e) => a.onClick?.(selKeys, selectedRows, clearSelection, { anchorEl: e.currentTarget })}>
+                  onClick={(e) => { if (isDisabled) return; a.onClick?.(selKeys, selectedRows, clearSelection, { anchorEl: e.currentTarget }); }}>
                   {a.icon}{a.label}
                 </button>
                 );
+                return reason != null ? <Tooltip key={i} label={reason} placement="top">{btn}</Tooltip> : btn;
               })}
             </div>
           </div>

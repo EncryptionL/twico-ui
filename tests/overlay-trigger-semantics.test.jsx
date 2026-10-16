@@ -5,7 +5,6 @@ import { Popover } from "../components/overlay/Popover.jsx";
 import { Menu } from "../components/overlay/Menu.jsx";
 import { Button } from "../components/buttons/Button.jsx";
 import { AvatarMenu } from "../components/data-display/AvatarMenu.jsx";
-import { Tooltip } from "../components/overlay/Tooltip.jsx";
 
 // #447 — Popover/Menu clone their `trigger` to inject tabIndex + aria-expanded + aria-haspopup.
 // On a non-control element (a div/Box/Stack) those landed on role="generic", where aria-expanded is

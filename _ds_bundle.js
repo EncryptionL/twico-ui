@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0f644cb478db","components/buttons/IconButton.jsx":"22790903081f","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"724cf4b45ecc","components/data-display/AvatarMenu.jsx":"14b280842168","components/data-display/Badge.jsx":"69e6aff0081a","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"10a3da4c4835","components/data-display/Carousel.jsx":"4c0981ca4ea9","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"cf3fddf5caa4","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"c1fe68414c67","components/data-display/ImageViewer.jsx":"7379ad3f27c6","components/data-display/Kanban.jsx":"389caa2e45d2","components/data-display/List.jsx":"89e1b0ef9c72","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"38b0431624b9","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"92e0de3c6efe","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"9a58f8174004","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"456f691e9b3c","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6f79dde2a65e","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"b89ce06dab60","components/inputs/Currency.jsx":"99f09bce93c2","components/inputs/CurrencyField.jsx":"1ef838506fda","components/inputs/DatePicker.jsx":"10535122b2d6","components/inputs/DateRangePicker.jsx":"b3ec4d8da4b8","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"82d7691de1a1","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"54dfb8751acf","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"f5a3a7d85e81","components/inputs/Radio.jsx":"eba7572baaa1","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"8c215a392ad7","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"39d0de978341","components/inputs/Textarea.jsx":"ea3db0a154e9","components/inputs/TimePicker.jsx":"66405a4b56da","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"6bfdfb315281","components/navigation/Breadcrumb.jsx":"bbbef6c9957f","components/navigation/Navbar.jsx":"7fb1f2629199","components/navigation/Sidebar.jsx":"e87e28eef508","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"95154a884c47","components/navigation/TreeView.jsx":"72f08e1f44c8","components/overlay/CommandPalette.jsx":"39bb3dbe155e","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"c68a9c904738","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"e2de1e0866af","components/typography/Code.jsx":"f6f1da463524","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"3001e004908a"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"0f644cb478db","components/buttons/IconButton.jsx":"22790903081f","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"724cf4b45ecc","components/data-display/AvatarMenu.jsx":"14b280842168","components/data-display/Badge.jsx":"69e6aff0081a","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"80c6c7e0f00a","components/data-display/Carousel.jsx":"4c0981ca4ea9","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"3c8a1d8e88bf","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"c1fe68414c67","components/data-display/ImageViewer.jsx":"7379ad3f27c6","components/data-display/Kanban.jsx":"389caa2e45d2","components/data-display/List.jsx":"89e1b0ef9c72","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"38b0431624b9","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"92e0de3c6efe","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"9a58f8174004","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"456f691e9b3c","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"6f79dde2a65e","components/inputs/ColorPicker.jsx":"d9722cb152fd","components/inputs/Combobox.jsx":"b89ce06dab60","components/inputs/Currency.jsx":"99f09bce93c2","components/inputs/CurrencyField.jsx":"1ef838506fda","components/inputs/DatePicker.jsx":"10535122b2d6","components/inputs/DateRangePicker.jsx":"b3ec4d8da4b8","components/inputs/DateTimePicker.jsx":"da5803b8cab9","components/inputs/Field.jsx":"09ddde8e862a","components/inputs/FileUpload.jsx":"82d7691de1a1","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"13f6f95e8805","components/inputs/Input.jsx":"54dfb8751acf","components/inputs/Label.jsx":"fc3eadcf0509","components/inputs/MultiSelect.jsx":"f5a3a7d85e81","components/inputs/Radio.jsx":"eba7572baaa1","components/inputs/RadioGroup.jsx":"79df542c4221","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"8b039e976a16","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"39d0de978341","components/inputs/Textarea.jsx":"ea3db0a154e9","components/inputs/TimePicker.jsx":"66405a4b56da","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"4363a7fa2b29","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"dac99f7f0915","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"c314fdcab4fe","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"e81938dedde9","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"d712a14c4a60","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"6bfdfb315281","components/navigation/Breadcrumb.jsx":"bbbef6c9957f","components/navigation/Navbar.jsx":"7fb1f2629199","components/navigation/Sidebar.jsx":"e87e28eef508","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"95154a884c47","components/navigation/TreeView.jsx":"72f08e1f44c8","components/overlay/CommandPalette.jsx":"39bb3dbe155e","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"c68a9c904738","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"e2de1e0866af","components/typography/Code.jsx":"f6f1da463524","components/typography/Heading.jsx":"a841b9e43386","components/typography/Kbd.jsx":"e17896f6697f","components/typography/Pre.jsx":"2ff3aa868e85","components/typography/Text.jsx":"c0bff5f2ee87","src/index.ts":"666d49f710d5"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -7411,8 +7411,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   }
   function useFallbackName(ref, hasOwnName) {
     const [needsFallback, setNeedsFallback] = import_react.default.useState(false);
-    const useIso3 = typeof document !== "undefined" ? import_react.default.useLayoutEffect : import_react.default.useEffect;
-    useIso3(() => {
+    const useIso2 = typeof document !== "undefined" ? import_react.default.useLayoutEffect : import_react.default.useEffect;
+    useIso2(() => {
       if (hasOwnName) {
         setNeedsFallback(false);
         return;
@@ -7428,7 +7428,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     });
     return !hasOwnName && needsFallback;
   }
-  typeof document !== "undefined" ? import_react.default.useLayoutEffect : import_react.default.useEffect;
   var SELECT_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
@@ -13055,14 +13054,20 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
               const isHidden = typeof a.hidden === "function" ? a.hidden(selKeys, selectedRows) : !!a.hidden;
               if (isHidden) return null;
               const isDisabled = typeof a.disabled === "function" ? a.disabled(selKeys, selectedRows) : !!a.disabled;
-              return /* @__PURE__ */ jsxs(
+              const reason = isDisabled && a.disabledReason != null ? typeof a.disabledReason === "function" ? a.disabledReason(selKeys, selectedRows) : a.disabledReason : null;
+              const soft = isDisabled && reason != null;
+              const btn = /* @__PURE__ */ jsxs(
                 "button",
                 {
                   type: "button",
                   className: "twc-dt__batch-btn",
                   "data-danger": a.danger || void 0,
-                  disabled: isDisabled,
-                  onClick: (e) => a.onClick?.(selKeys, selectedRows, clearSelection, { anchorEl: e.currentTarget }),
+                  disabled: isDisabled && !soft,
+                  "aria-disabled": soft || void 0,
+                  onClick: (e) => {
+                    if (isDisabled) return;
+                    a.onClick?.(selKeys, selectedRows, clearSelection, { anchorEl: e.currentTarget });
+                  },
                   children: [
                     a.icon,
                     a.label
@@ -13070,6 +13075,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                 },
                 i
               );
+              return reason != null ? /* @__PURE__ */ jsx(Tooltip, { label: reason, placement: "top", children: btn }, i) : btn;
             })
           ] })
         ] }) : null,
@@ -14500,6 +14506,42 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-cardgrid__footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2); }
 .twc-cardgrid__count { font-size: var(--text-sm); color: var(--color-text-muted); }
 .twc-cardgrid__perpage { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--color-text-muted); }
+
+/* #478: selection. The card's selected state is a RING, not a background tint: a card is usually a
+   full-bleed thumbnail, so a tint is invisible behind the image. The ring is drawn with box-shadow on
+   a wrapper so it never participates in layout (no reflow when a card becomes selected) and it reads
+   in both themes, --color-primary clearing 3:1 against both surfaces as a non-text indicator. */
+.twc-cardgrid__item { position: relative; border-radius: var(--radius-lg); transition: box-shadow var(--duration-fast) var(--ease-standard); }
+.twc-cardgrid__item[data-selected="true"] { box-shadow: 0 0 0 var(--border-medium) var(--color-primary); }
+/* The overlay is the GRID's checkbox, not the card's: renderCard owns the whole body, so a
+   consumer-rendered checkbox would compete with the card's own click target and have to be positioned
+   against a thumbnail whose size only the consumer knows. Placement is configurable, and a consumer who
+   wants it inline instead uses the third renderCard argument and sets selectionPlacement="none". */
+.twc-cardgrid__pick { position: absolute; z-index: 2; display: inline-flex; padding: var(--space-1);
+  background: color-mix(in srgb, var(--color-surface) 82%, transparent); border-radius: var(--radius-md);
+  backdrop-filter: blur(4px); }
+.twc-cardgrid__item[data-place="top-start"] .twc-cardgrid__pick { top: var(--space-2); inset-inline-start: var(--space-2); }
+.twc-cardgrid__item[data-place="top-end"] .twc-cardgrid__pick { top: var(--space-2); inset-inline-end: var(--space-2); }
+.twc-cardgrid__item[data-place="bottom-start"] .twc-cardgrid__pick { bottom: var(--space-2); inset-inline-start: var(--space-2); }
+.twc-cardgrid__item[data-place="bottom-end"] .twc-cardgrid__pick { bottom: var(--space-2); inset-inline-end: var(--space-2); }
+.twc-cardgrid__batch { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-3); border: var(--border-thin) solid var(--color-primary-border);
+  background: var(--color-primary-subtle); border-radius: var(--radius-md); }
+.twc-cardgrid__batch-count { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-primary-subtle-fg); }
+.twc-cardgrid__batch-actions { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-inline-start: auto; }
+.twc-cardgrid__batch-btn { display: inline-flex; align-items: center; gap: var(--space-2); height: var(--control-h-sm);
+  padding-inline: var(--space-3); border: var(--border-thin) solid var(--color-border); background: var(--color-surface);
+  color: var(--color-text); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold);
+  border-radius: var(--radius-md); cursor: pointer; }
+.twc-cardgrid__batch-btn:hover:not(:disabled):not([aria-disabled="true"]) { border-color: var(--color-primary-subtle-fg); color: var(--color-primary-subtle-fg); }
+.twc-cardgrid__batch-btn:disabled, .twc-cardgrid__batch-btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
+.twc-cardgrid__batch-btn[data-danger="true"] { color: var(--color-danger-subtle-fg); }
+.twc-cardgrid__batch-btn svg { width: 15px; height: 15px; }
+.twc-cardgrid__batch-x { display: inline-grid; place-items: center; width: 26px; height: 26px; flex: none;
+  border: none; background: transparent; color: var(--color-primary-subtle-fg); cursor: pointer; border-radius: var(--radius-sm); }
+.twc-cardgrid__batch-x:hover { background: color-mix(in srgb, var(--color-primary) 14%, transparent); }
+.twc-cardgrid__batch-x svg { width: 15px; height: 15px; }
+.twc-cardgrid__selall { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--color-text-muted); }
 `;
   function CardGrid({
     rows = [],
@@ -14536,6 +14578,16 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     sortMinWidth,
     // slots / states
     toolbar,
+    // #478: selection + batch actions, deliberately the SAME vocabulary as Datatable rather than a new
+    // one - a card grid is the surface where "pick several of these and do one thing to them" is close to
+    // the whole point, and it was the only Datatable affordance CardGrid lacked.
+    checkboxSelection = false,
+    batchActions = [],
+    onRowSelectionChange,
+    selectionPlacement = "top-start",
+    selectionLabel,
+    showSelectAll = true,
+    retainSelectedRows = false,
     emptyState = "No results.",
     label,
     id,
@@ -14612,6 +14664,62 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       return () => clearTimeout(t);
     }, [serverMode, queryKey]);
     const keyOf = typeof rowKey === "function" ? rowKey : (r2) => r2 && r2[rowKey];
+    const [selected, setSelected] = import_react.default.useState(() => /* @__PURE__ */ new Set());
+    const retainCap = retainSelectedRows === true ? 1e3 : retainSelectedRows || 0;
+    const retainedRef = import_react.default.useRef(/* @__PURE__ */ new Map());
+    const selKeys = import_react.default.useMemo(() => [...selected], [selected]);
+    const selectedRows = import_react.default.useMemo(() => {
+      const onPage = new Map(pageRows.map((r2, i) => [keyOf(r2, i), r2]));
+      return selKeys.map((k) => onPage.get(k) ?? retainedRef.current.get(k)).filter((r2) => r2 !== void 0);
+    }, [selKeys, pageRows]);
+    const clearSelection = import_react.default.useCallback(() => {
+      retainedRef.current.clear();
+      setSelected(/* @__PURE__ */ new Set());
+    }, []);
+    const toggleKey = import_react.default.useCallback((key, row) => {
+      setSelected((prev) => {
+        const next = new Set(prev);
+        if (next.has(key)) {
+          next.delete(key);
+          retainedRef.current.delete(key);
+        } else {
+          next.add(key);
+          if (retainCap > 0 && row !== void 0 && retainedRef.current.size < retainCap) retainedRef.current.set(key, row);
+        }
+        return next;
+      });
+    }, [retainCap]);
+    const pageKeys = pageRows.map((r2, i) => keyOf(r2, i));
+    const pageSelectedCount = pageKeys.filter((k) => selected.has(k)).length;
+    const allPageSelected = pageKeys.length > 0 && pageSelectedCount === pageKeys.length;
+    const somePageSelected = pageSelectedCount > 0 && !allPageSelected;
+    const togglePage = () => {
+      setSelected((prev) => {
+        const next = new Set(prev);
+        pageRows.forEach((r2, i) => {
+          const k = keyOf(r2, i);
+          if (allPageSelected) {
+            next.delete(k);
+            retainedRef.current.delete(k);
+          } else {
+            next.add(k);
+            if (retainCap > 0 && retainedRef.current.size < retainCap) retainedRef.current.set(k, r2);
+          }
+        });
+        return next;
+      });
+    };
+    const onSelRef = import_react.default.useRef(onRowSelectionChange);
+    onSelRef.current = onRowSelectionChange;
+    const prevSelSigRef = import_react.default.useRef(null);
+    import_react.default.useEffect(() => {
+      const cb = onSelRef.current;
+      if (!cb) return;
+      const sig = selKeys.join(",");
+      if (sig === prevSelSigRef.current) return;
+      prevSelSigRef.current = sig;
+      cb(selKeys, selectedRows);
+    }, [selKeys, selectedRows]);
     const from = total === 0 ? 0 : Math.min(shownPage * sizeVal + 1, total);
     const to = paginated ? Math.min((shownPage + 1) * sizeVal, total) : total;
     const rppOptions = Array.from(new Set([...pageSizeOptions || [], pageSize].filter((n) => n > 0))).sort((a, b) => a - b).map((n) => ({ value: String(n), label: String(n) }));
@@ -14664,6 +14772,64 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           )
         ] }) : null
       ] }) : null,
+      checkboxSelection && showSelectAll && pageRows.length > 0 && selected.size === 0 ? /* @__PURE__ */ jsxs("label", { className: "twc-cardgrid__selall", children: [
+        /* @__PURE__ */ jsx(
+          Checkbox,
+          {
+            checked: allPageSelected,
+            indeterminate: somePageSelected,
+            onChange: togglePage,
+            "aria-label": "Select all on this page"
+          }
+        ),
+        "Select all on this page"
+      ] }) : null,
+      checkboxSelection && selected.size > 0 ? /* @__PURE__ */ jsxs("div", { className: "twc-cardgrid__batch", children: [
+        /* @__PURE__ */ jsx("button", { type: "button", className: "twc-cardgrid__batch-x", onClick: clearSelection, "aria-label": "Clear selection", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) }) }),
+        /* @__PURE__ */ jsxs("span", { className: "twc-cardgrid__batch-count", children: [
+          selected.size,
+          " selected"
+        ] }),
+        showSelectAll && pageRows.length > 0 ? /* @__PURE__ */ jsxs("label", { className: "twc-cardgrid__selall", children: [
+          /* @__PURE__ */ jsx(
+            Checkbox,
+            {
+              checked: allPageSelected,
+              indeterminate: somePageSelected,
+              onChange: togglePage,
+              "aria-label": "Select all on this page"
+            }
+          ),
+          "This page"
+        ] }) : null,
+        /* @__PURE__ */ jsx("div", { className: "twc-cardgrid__batch-actions", children: batchActions.map((a, i) => {
+          const isHidden = typeof a.hidden === "function" ? a.hidden(selKeys, selectedRows) : !!a.hidden;
+          if (isHidden) return null;
+          const isDisabled = typeof a.disabled === "function" ? a.disabled(selKeys, selectedRows) : !!a.disabled;
+          const reason = isDisabled && a.disabledReason != null ? typeof a.disabledReason === "function" ? a.disabledReason(selKeys, selectedRows) : a.disabledReason : null;
+          const soft = isDisabled && reason != null;
+          const btn = /* @__PURE__ */ jsxs(
+            "button",
+            {
+              type: "button",
+              className: "twc-cardgrid__batch-btn",
+              "data-danger": a.danger || void 0,
+              disabled: isDisabled && !soft,
+              "aria-disabled": soft || void 0,
+              onClick: (e) => {
+                if (isDisabled) return;
+                a.onClick?.(selKeys, selectedRows, clearSelection, { anchorEl: e.currentTarget });
+              },
+              children: [
+                a.icon,
+                a.label
+              ]
+            },
+            i
+          );
+          return reason != null ? /* @__PURE__ */ jsx(Tooltip, { label: reason, placement: "top", children: btn }, i) : btn;
+        }) })
+      ] }) : null,
       /* @__PURE__ */ jsxs("div", { className: "twc-cardgrid__body", "data-loading": loading || void 0, "aria-busy": loading || void 0, children: [
         loading ? /* @__PURE__ */ jsx("div", { className: "twc-cardgrid__overlay", children: /* @__PURE__ */ jsx("div", { className: "twc-cardgrid__spinner", role: "status", "aria-label": "Loading" }) }) : null,
         pageRows.length === 0 && !loading ? /* @__PURE__ */ jsx("div", { className: "twc-cardgrid__empty", children: emptyState }) : /* @__PURE__ */ jsx(
@@ -14675,7 +14841,31 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
             gap,
             role: "list",
             "aria-labelledby": label ? `${fieldId}-label` : void 0,
-            children: pageRows.map((row, i) => /* @__PURE__ */ jsx("div", { role: "listitem", children: renderCard(row, i) }, keyOf(row, i) ?? i))
+            children: pageRows.map((row, i) => {
+              const k = keyOf(row, i);
+              const isSel = checkboxSelection && selected.has(k);
+              return /* @__PURE__ */ jsxs(
+                "div",
+                {
+                  role: "listitem",
+                  className: "twc-cardgrid__item",
+                  "data-selected": isSel || void 0,
+                  "data-place": checkboxSelection ? selectionPlacement : void 0,
+                  children: [
+                    checkboxSelection && selectionPlacement !== "none" ? /* @__PURE__ */ jsx("span", { className: "twc-cardgrid__pick", children: /* @__PURE__ */ jsx(
+                      Checkbox,
+                      {
+                        checked: isSel,
+                        onChange: () => toggleKey(k, row),
+                        "aria-label": selectionLabel ? selectionLabel(row, i) : "Select item"
+                      }
+                    ) }) : null,
+                    renderCard(row, i, checkboxSelection ? { selected: isSel, toggle: () => toggleKey(k, row) } : void 0)
+                  ]
+                },
+                k ?? i
+              );
+            })
           }
         )
       ] }),
@@ -19690,7 +19880,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       }, "aria-label": _removeLabel, type: "button", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M18 6 6 18M6 6l12 12" }) }) }) : null
     ] });
   }
-  var useIso2 = typeof document !== "undefined" ? import_react.default.useLayoutEffect : import_react.default.useEffect;
+  var useIso = typeof document !== "undefined" ? import_react.default.useLayoutEffect : import_react.default.useEffect;
   var TEXTAREA_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
@@ -19789,7 +19979,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       el.style.height = `${next}px`;
       el.style.overflowY = el.scrollHeight + vBorder > maxH ? "auto" : "hidden";
     };
-    useIso2(() => {
+    useIso(() => {
       if (autosize && innerRef.current) resize();
     }, [autosize, rest.value, minRows, maxRows, rows]);
     const handleInput = (e) => {

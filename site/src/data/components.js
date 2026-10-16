@@ -6294,6 +6294,55 @@ export const components = [
         "description": "Optional heading rendered above the grid and associated with it for accessibility."
       },
       {
+        "prop": "checkboxSelection",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Shows a selection checkbox on each card and a batch toolbar once anything is picked — the same prop as Datatable."
+      },
+      {
+        "prop": "batchActions",
+        "type": "CardGridBatchAction<Row>[]",
+        "required": false,
+        "default": "[]",
+        "description": "Actions for the selection toolbar; disabled, hidden and disabledReason may each be predicates over the current selection."
+      },
+      {
+        "prop": "onRowSelectionChange",
+        "type": "(keys: Array<string | number>, rows: Row[]) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the selection changes, receiving the complete keys and the row objects that could be resolved."
+      },
+      {
+        "prop": "selectionPlacement",
+        "type": "\"top-start\" | \"top-end\" | \"bottom-start\" | \"bottom-end\" | \"none\"",
+        "required": false,
+        "default": "\"top-start\"",
+        "description": "Which corner the grid draws its checkbox in; none suppresses the overlay so you can place it yourself."
+      },
+      {
+        "prop": "selectionLabel",
+        "type": "(row: Row, index: number) => string",
+        "required": false,
+        "default": "—",
+        "description": "Per-card aria-label for the checkbox — worth setting, since a card's content is not announced with the control."
+      },
+      {
+        "prop": "showSelectAll",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Shows the page-scoped select-all control, which goes indeterminate when only some cards on the page are picked."
+      },
+      {
+        "prop": "retainSelectedRows",
+        "type": "boolean | number",
+        "required": false,
+        "default": "false",
+        "description": "Keeps off-page row objects so a multi-page selection resolves rows, not just keys; bounded at 1000 or your number."
+      },
+      {
         "prop": "onClick",
         "type": "(e: React.MouseEvent) => void",
         "required": false,

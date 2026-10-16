@@ -30,7 +30,13 @@ Everything here is **additive**: with the relevant prop off, the table renders e
 > **Card layouts:** [`CardGrid`](../components/data-display/CardGrid.jsx) (#204, see
 > [qa-notes/CardGrid.md](./qa-notes/CardGrid.md)) is the **card analogue** of Datatable's `serverMode`.
 > It reuses `runDatatableQuery` and emits the **same** query shape (`{ page, pageSize, sort, filters,
-> quickFilter }`), so a page can toggle table ⇄ card views on one query model.
+> quickFilter }`), so a page can toggle table ⇄ card views on one query model. Since #478 that parity
+> extends to **selection**: `checkboxSelection`, `batchActions` and `onRowSelectionChange` are the same
+> props with the same behaviour, so the two views share a selection model as well as a query model.
+> Three things differ because a card is not a row — the grid draws the checkbox as an overlay (a
+> `renderCard` body owns its own click target), a selected card gets a ring rather than a tint (most of
+> a card is an image), and `retainSelectedRows` can carry off-page row objects, which Datatable
+> deliberately does not do. See [qa-notes/CardGrid.md](./qa-notes/CardGrid.md).
 
 ## Toolbar tools are opt-in; default density is comfortable
 

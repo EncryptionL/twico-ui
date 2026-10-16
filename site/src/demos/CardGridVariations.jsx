@@ -1,5 +1,5 @@
 import React from "react";
-import { CardGrid, Card, Heading, Text, Badge, runDatatableQuery } from "twico-ui";
+import { CardGrid, Card, Checkbox, Heading, Text, Badge, runDatatableQuery } from "twico-ui";
 
 const DATA = Array.from({ length: 40 }, (_, i) => ({
   id: i + 1,
@@ -96,6 +96,65 @@ const variations = [
   );
 }`,
     render: () => <ServerCardGrid />,
+  },
+  {
+    title: "Selection and batch actions",
+    description:
+      "`checkboxSelection` is the same prop as on Datatable. The grid draws the checkbox over each card (`selectionPlacement`), marks a selected card with a ring rather than a tint — a background tint is invisible behind a thumbnail — and shows a toolbar with your `batchActions` once anything is picked. Select-all is page-scoped, and a batch action's `disabled`/`disabledReason` can be predicates over the selection.",
+    code: `<CardGrid
+  rows={products} rowKey="id" pageSize={8}
+  checkboxSelection
+  onRowSelectionChange={(keys, rows) => console.log(keys, rows)}
+  batchActions={[
+    { label: "Compare", onClick: (keys, rows, clear) => { compare(rows); clear(); } },
+    {
+      label: "Download as ZIP",
+      disabled: (keys, rows) => rows.length > 3,
+      disabledReason: (keys, rows) => \`\${rows.length} items selected; at most 3 per archive\`,
+      onClick: (keys) => download(keys),
+    },
+  ]}
+  renderCard={(p) => <ProductCard {...p} />} />`,
+    render: () => (
+      <CardGrid
+        rows={DATA} rowKey="id" minChildWidth="14rem" pageSize={8}
+        checkboxSelection
+        batchActions={[
+          { label: "Compare", onClick: (keys, rows, clear) => clear() },
+          {
+            label: "Download as ZIP",
+            disabled: (keys, rows) => rows.length > 3,
+            disabledReason: (keys, rows) => `${rows.length} items selected; at most 3 per archive`,
+            onClick: () => {},
+          },
+        ]}
+        renderCard={ProductCard}
+      />
+    ),
+  },
+  {
+    title: "Selection control inside your own card",
+    description:
+      "With `selectionPlacement=\"none\"` the grid draws no overlay and hands `renderCard` a third argument — `{ selected, toggle }` — so the control can live inside your layout without you re-implementing any selection state.",
+    code: `<CardGrid
+  rows={products} rowKey="id" pageSize={8}
+  checkboxSelection selectionPlacement="none"
+  renderCard={(p, i, { selected, toggle }) => (
+    <Card>
+      <Checkbox checked={selected} onChange={toggle} label={p.name} />
+    </Card>
+  )} />`,
+    render: () => (
+      <CardGrid
+        rows={DATA.slice(0, 8)} rowKey="id" minChildWidth="14rem" pageSize={8} showPageSize={false}
+        checkboxSelection selectionPlacement="none"
+        renderCard={(p, i, sel) => (
+          <Card style={{ padding: "var(--space-3)" }}>
+            <Checkbox checked={sel.selected} onChange={sel.toggle} label={p.name} />
+          </Card>
+        )}
+      />
+    ),
   },
   {
     title: "Empty state",

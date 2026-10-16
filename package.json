@@ -129,19 +129,19 @@
     {
       "name": "ESM (full barrel)",
       "path": "dist/index.mjs",
-      "limit": "132 kB"
+      "limit": "140 kB"
     },
     {
       "name": "Button only (tree-shaken)",
       "path": "dist/index.mjs",
       "import": "{ Button }",
-      "limit": "12 kB"
+      "limit": "13 kB"
     },
     {
       "name": "Card only (tree-shaken)",
       "path": "dist/index.mjs",
       "import": "{ Card }",
-      "limit": "10 kB"
+      "limit": "11 kB"
     }
   ],
   "engines": {

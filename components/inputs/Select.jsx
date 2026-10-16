@@ -1,10 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import { useFallbackName } from "../_name.js";
-
-// Layout effect on the client, plain effect on the server - avoids React's SSR useLayoutEffect
-// warning. Same guard as Textarea.jsx and _overlay.js.
-const useIso = typeof document !== "undefined" ? React.useLayoutEffect : React.useEffect;
 import { warnOnce } from "../_warn.js";
 import { createPortal } from "react-dom";
 

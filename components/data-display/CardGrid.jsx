@@ -4,6 +4,8 @@ import { Grid } from "../layout/Grid.jsx";
 import { Pagination } from "./Pagination.jsx";
 import { Select } from "../inputs/Select.jsx";
 import { Input } from "../inputs/Input.jsx";
+import { Checkbox } from "../inputs/Checkbox.jsx";
+import { Tooltip } from "../overlay/Tooltip.jsx";
 import { runDatatableQuery } from "./Datatable.jsx";
 
 const CARDGRID_CSS = `
@@ -27,6 +29,42 @@ const CARDGRID_CSS = `
 .twc-cardgrid__footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2); }
 .twc-cardgrid__count { font-size: var(--text-sm); color: var(--color-text-muted); }
 .twc-cardgrid__perpage { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--color-text-muted); }
+
+/* #478: selection. The card's selected state is a RING, not a background tint: a card is usually a
+   full-bleed thumbnail, so a tint is invisible behind the image. The ring is drawn with box-shadow on
+   a wrapper so it never participates in layout (no reflow when a card becomes selected) and it reads
+   in both themes, --color-primary clearing 3:1 against both surfaces as a non-text indicator. */
+.twc-cardgrid__item { position: relative; border-radius: var(--radius-lg); transition: box-shadow var(--duration-fast) var(--ease-standard); }
+.twc-cardgrid__item[data-selected="true"] { box-shadow: 0 0 0 var(--border-medium) var(--color-primary); }
+/* The overlay is the GRID's checkbox, not the card's: renderCard owns the whole body, so a
+   consumer-rendered checkbox would compete with the card's own click target and have to be positioned
+   against a thumbnail whose size only the consumer knows. Placement is configurable, and a consumer who
+   wants it inline instead uses the third renderCard argument and sets selectionPlacement="none". */
+.twc-cardgrid__pick { position: absolute; z-index: 2; display: inline-flex; padding: var(--space-1);
+  background: color-mix(in srgb, var(--color-surface) 82%, transparent); border-radius: var(--radius-md);
+  backdrop-filter: blur(4px); }
+.twc-cardgrid__item[data-place="top-start"] .twc-cardgrid__pick { top: var(--space-2); inset-inline-start: var(--space-2); }
+.twc-cardgrid__item[data-place="top-end"] .twc-cardgrid__pick { top: var(--space-2); inset-inline-end: var(--space-2); }
+.twc-cardgrid__item[data-place="bottom-start"] .twc-cardgrid__pick { bottom: var(--space-2); inset-inline-start: var(--space-2); }
+.twc-cardgrid__item[data-place="bottom-end"] .twc-cardgrid__pick { bottom: var(--space-2); inset-inline-end: var(--space-2); }
+.twc-cardgrid__batch { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-3); border: var(--border-thin) solid var(--color-primary-border);
+  background: var(--color-primary-subtle); border-radius: var(--radius-md); }
+.twc-cardgrid__batch-count { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-primary-subtle-fg); }
+.twc-cardgrid__batch-actions { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-inline-start: auto; }
+.twc-cardgrid__batch-btn { display: inline-flex; align-items: center; gap: var(--space-2); height: var(--control-h-sm);
+  padding-inline: var(--space-3); border: var(--border-thin) solid var(--color-border); background: var(--color-surface);
+  color: var(--color-text); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold);
+  border-radius: var(--radius-md); cursor: pointer; }
+.twc-cardgrid__batch-btn:hover:not(:disabled):not([aria-disabled="true"]) { border-color: var(--color-primary-subtle-fg); color: var(--color-primary-subtle-fg); }
+.twc-cardgrid__batch-btn:disabled, .twc-cardgrid__batch-btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
+.twc-cardgrid__batch-btn[data-danger="true"] { color: var(--color-danger-subtle-fg); }
+.twc-cardgrid__batch-btn svg { width: 15px; height: 15px; }
+.twc-cardgrid__batch-x { display: inline-grid; place-items: center; width: 26px; height: 26px; flex: none;
+  border: none; background: transparent; color: var(--color-primary-subtle-fg); cursor: pointer; border-radius: var(--radius-sm); }
+.twc-cardgrid__batch-x:hover { background: color-mix(in srgb, var(--color-primary) 14%, transparent); }
+.twc-cardgrid__batch-x svg { width: 15px; height: 15px; }
+.twc-cardgrid__selall { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--color-text-muted); }
 `;
 
 export function CardGrid({
@@ -64,6 +102,16 @@ export function CardGrid({
   sortMinWidth,
   // slots / states
   toolbar,
+  // #478: selection + batch actions, deliberately the SAME vocabulary as Datatable rather than a new
+  // one - a card grid is the surface where "pick several of these and do one thing to them" is close to
+  // the whole point, and it was the only Datatable affordance CardGrid lacked.
+  checkboxSelection = false,
+  batchActions = [],
+  onRowSelectionChange,
+  selectionPlacement = "top-start",
+  selectionLabel,
+  showSelectAll = true,
+  retainSelectedRows = false,
   emptyState = "No results.",
   label,
   id,
@@ -153,6 +201,69 @@ export function CardGrid({
   }, [serverMode, queryKey]);
 
   const keyOf = typeof rowKey === "function" ? rowKey : (r) => r && r[rowKey];
+
+  // ── #478 selection ────────────────────────────────────────────────────────────────────────────
+  const [selected, setSelected] = React.useState(() => new Set());
+  // Off-page row objects. `keys` is the authoritative cross-page selection (as in Datatable), but a
+  // batch action over a multi-page selection also wants the ROWS, and the grid only renders one page -
+  // which is exactly the Map<id,row> consumers were hand-rolling. Opt-in because it holds references
+  // the host may expect to be released, and BOUNDED so a select-all over 100k rows cannot grow without
+  // limit: past the cap it stops retaining and the caller falls back to re-fetching by key.
+  const retainCap = retainSelectedRows === true ? 1000 : (retainSelectedRows || 0);
+  const retainedRef = React.useRef(new Map());
+  const selKeys = React.useMemo(() => [...selected], [selected]);
+  const selectedRows = React.useMemo(() => {
+    const onPage = new Map(pageRows.map((r, i) => [keyOf(r, i), r]));
+    return selKeys.map((k) => onPage.get(k) ?? retainedRef.current.get(k)).filter((r) => r !== undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selKeys, pageRows]);
+  const clearSelection = React.useCallback(() => { retainedRef.current.clear(); setSelected(new Set()); }, []);
+  const toggleKey = React.useCallback((key, row) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) { next.delete(key); retainedRef.current.delete(key); }
+      else {
+        next.add(key);
+        if (retainCap > 0 && row !== undefined && retainedRef.current.size < retainCap) retainedRef.current.set(key, row);
+      }
+      return next;
+    });
+  }, [retainCap]);
+
+  const pageKeys = pageRows.map((r, i) => keyOf(r, i));
+  const pageSelectedCount = pageKeys.filter((k) => selected.has(k)).length;
+  const allPageSelected = pageKeys.length > 0 && pageSelectedCount === pageKeys.length;
+  const somePageSelected = pageSelectedCount > 0 && !allPageSelected;
+  // Page-scoped, like Datatable's header checkbox: it must never silently select rows the user cannot
+  // see, and in serverMode it could not anyway.
+  const togglePage = () => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      pageRows.forEach((r, i) => {
+        const k = keyOf(r, i);
+        if (allPageSelected) { next.delete(k); retainedRef.current.delete(k); }
+        else {
+          next.add(k);
+          if (retainCap > 0 && retainedRef.current.size < retainCap) retainedRef.current.set(k, r);
+        }
+      });
+      return next;
+    });
+  };
+
+  // Report the selection, guarded on a signature so an unrelated re-render cannot re-fire it (the
+  // #322 pattern from Datatable).
+  const onSelRef = React.useRef(onRowSelectionChange);
+  onSelRef.current = onRowSelectionChange;
+  const prevSelSigRef = React.useRef(null);
+  React.useEffect(() => {
+    const cb = onSelRef.current;
+    if (!cb) return;
+    const sig = selKeys.join(",");
+    if (sig === prevSelSigRef.current) return;
+    prevSelSigRef.current = sig;
+    cb(selKeys, selectedRows);
+  }, [selKeys, selectedRows]);
   // #461: clamped so `from` can never exceed `to` - covers the frame before the clamp effect lands,
   // and the controlled case where the host keeps passing the stale page.
   const from = total === 0 ? 0 : Math.min(shownPage * sizeVal + 1, total);
@@ -198,6 +309,51 @@ export function CardGrid({
         </div>
       ) : null}
 
+      {checkboxSelection && showSelectAll && pageRows.length > 0 && selected.size === 0 ? (
+        <label className="twc-cardgrid__selall">
+          <Checkbox checked={allPageSelected} indeterminate={somePageSelected} onChange={togglePage}
+            aria-label="Select all on this page" />
+          Select all on this page
+        </label>
+      ) : null}
+
+      {checkboxSelection && selected.size > 0 ? (
+        <div className="twc-cardgrid__batch">
+          <button type="button" className="twc-cardgrid__batch-x" onClick={clearSelection} aria-label="Clear selection">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+          <span className="twc-cardgrid__batch-count">{selected.size} selected</span>
+          {showSelectAll && pageRows.length > 0 ? (
+            <label className="twc-cardgrid__selall">
+              <Checkbox checked={allPageSelected} indeterminate={somePageSelected} onChange={togglePage}
+                aria-label="Select all on this page" />
+              This page
+            </label>
+          ) : null}
+          <div className="twc-cardgrid__batch-actions">
+            {batchActions.map((a, i) => {
+              // Same contract as Datatable's batch actions, #479's disabledReason included: `disabled`,
+              // `hidden` and `disabledReason` may all be predicates over the current selection.
+              const isHidden = typeof a.hidden === "function" ? a.hidden(selKeys, selectedRows) : !!a.hidden;
+              if (isHidden) return null;
+              const isDisabled = typeof a.disabled === "function" ? a.disabled(selKeys, selectedRows) : !!a.disabled;
+              const reason = isDisabled && a.disabledReason != null
+                ? (typeof a.disabledReason === "function" ? a.disabledReason(selKeys, selectedRows) : a.disabledReason)
+                : null;
+              const soft = isDisabled && reason != null;
+              const btn = (
+                <button type="button" key={i} className="twc-cardgrid__batch-btn" data-danger={a.danger || undefined}
+                  disabled={isDisabled && !soft} aria-disabled={soft || undefined}
+                  onClick={(e) => { if (isDisabled) return; a.onClick?.(selKeys, selectedRows, clearSelection, { anchorEl: e.currentTarget }); }}>
+                  {a.icon}{a.label}
+                </button>
+              );
+              return reason != null ? <Tooltip key={i} label={reason} placement="top">{btn}</Tooltip> : btn;
+            })}
+          </div>
+        </div>
+      ) : null}
+
       <div className="twc-cardgrid__body" data-loading={loading || undefined} aria-busy={loading || undefined}>
         {loading ? <div className="twc-cardgrid__overlay"><div className="twc-cardgrid__spinner" role="status" aria-label="Loading" /></div> : null}
         {pageRows.length === 0 && !loading ? (
@@ -205,9 +361,28 @@ export function CardGrid({
         ) : (
           <Grid className="twc-cardgrid__grid" minChildWidth={minChildWidth} columns={columns} gap={gap}
             role="list" aria-labelledby={label ? `${fieldId}-label` : undefined}>
-            {pageRows.map((row, i) => (
-              <div role="listitem" key={keyOf(row, i) ?? i}>{renderCard(row, i)}</div>
-            ))}
+            {pageRows.map((row, i) => {
+              const k = keyOf(row, i);
+              const isSel = checkboxSelection && selected.has(k);
+              return (
+                <div role="listitem" key={k ?? i} className="twc-cardgrid__item"
+                  data-selected={isSel || undefined}
+                  data-place={checkboxSelection ? selectionPlacement : undefined}>
+                  {checkboxSelection && selectionPlacement !== "none" ? (
+                    <span className="twc-cardgrid__pick">
+                      <Checkbox checked={isSel} onChange={() => toggleKey(k, row)}
+                        aria-label={selectionLabel ? selectionLabel(row, i) : "Select item"} />
+                    </span>
+                  ) : null}
+                  {/* #478: the third argument lets a consumer put the control inside their own card
+                      layout instead (with selectionPlacement="none"), without re-implementing any of
+                      the selection state. */}
+                  {renderCard(row, i, checkboxSelection
+                    ? { selected: isSel, toggle: () => toggleKey(k, row) }
+                    : undefined)}
+                </div>
+              );
+            })}
           </Grid>
         )}
       </div>
