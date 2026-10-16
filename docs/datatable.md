@@ -314,6 +314,113 @@ is why every feature is inherited without touching those code paths. A **toolbar
   falls back to `field`, and its single-arg `rowKey` is forwarded as `diff.rowKey`). Existing `DiffTable`
   callers change nothing and get the better layout automatically.
 
+## Row-level styling hooks — `getRowStyle` / `getRowClassName` (#481)
+
+#345 gave a **column** `cellStyle`/`cellClassName`. There was no **row** equivalent, so tinting a row by
+its own state meant assigning `cellStyle` to *every* column: O(columns) of boilerplate for a row-level
+fact, hand-composed against whatever else already used `cellStyle`, and with no fixed column list to
+decorate at all when the columns come from a schema. The alternative — hanging CSS off `.twc-dt__row` /
+`.twc-dt__td` from outside — reaches into exactly the internals a component library exists to hide.
+
+```jsx
+getRowStyle?:     (row: T, index: number) => React.CSSProperties | undefined
+getRowClassName?: (row: T, index: number) => string | undefined
+```
+
+Both are called with `(row, index)`, the same shape as `rowKey`, from the single data-row render path
+(`renderLeaf` in `Datatable.jsx`) — so pinned, middle and virtualized rows are all covered by one call site.
+
+### The `--twc-dt-row-bg` channel — why a background cannot just go on the `<tr>`
+
+`.twc-dt__td` paints an **opaque** `--color-surface` of its own (it has to: sticky cells scroll over other
+rows, and the #242 defect was exactly a translucent one letting them bleed through). A `background` set on
+the `<tr>` therefore sits *behind* every cell and is never seen — which would make the single commonest use
+of a row-style hook silently do nothing.
+
+So the row render pulls `background` / `backgroundColor` out of whatever `getRowStyle` returned and
+re-publishes it as a custom property on the `<tr>`:
+
+```css
+.twc-dt__td { … background: var(--twc-dt-row-bg, var(--color-surface)); }
+```
+
+Every cell inherits the property from its row and paints the tint itself. Pinned cells inherit it too, so a
+tinted row develops no hole where a frozen column scrolls over it. Every **other** declaration the hook
+returns (opacity, font-weight, text-decoration, a border…) stays on the `<tr>` as an ordinary inline style.
+
+Keep the value **opaque** (`color-mix(… , var(--color-surface))`, not a bare `rgb(… / .12)`) for the same
+reason `cellStyle` must on a pinned column.
+
+### Layering — decided, not incidental
+
+**One rule: the row tint is the bottom layer above the cell's plain surface, and every built-in state
+background covers it.** Not a bespoke per-state ordering — it falls out of the base rule being the
+lowest-specificity background in the component, which is deliberate:
+
+| specificity | background | covers the tint |
+| --- | --- | --- |
+| inline | the column's `cellStyle` | yes |
+| `(0,4,0)` | the pinned-**column** twins of the row states — `[data-pinned-row] > .twc-dt__td[data-pin]`, `[data-op=…] > .twc-dt__td[data-pin]`, `[data-active="true"] .twc-dt__td[data-pin]` | yes |
+| `(0,3,0)` | `.twc-dt__row:hover .twc-dt__td` | yes |
+| `(0,3,0)` | `[data-selected="true"]`, `[data-active="true"]` (`activeRowId`) | yes |
+| `(0,3,0)` | `[data-pinned-row]`, `[data-row-grabbed]` | yes |
+| `(0,3,0)` | the diff washes — `[data-op="added" \| "removed" \| "modified"]` | yes |
+| `(0,2,0)` | `.twc-dt__td[data-cell-selected]`, `[data-cell-active]`, `[data-editing]` | yes |
+| **`(0,1,0)`** | **`.twc-dt__td` — `var(--twc-dt-row-bg, var(--color-surface))`** | **the tint itself** |
+
+(Those figures are not reasoned out once and left to rot: `tests/datatable-row-tint-layering.test.js`
+re-derives them from the component's own stylesheet and fails if the base rule stops being the lowest,
+if any state rule drops to its level, or if the numbers quoted here go stale.)
+
+The principle behind it: a row tint is a **data-derived** wash, and nothing data-derived should be able to
+hide an **interaction** state. So a selected tinted row still reads as selected; hover feedback is never
+lost on precisely the rows a user is most likely to point at; a pinned or grabbed row still looks pinned or
+grabbed; and a `cellStyle` wins over the row tint **with the consumer composing nothing** — the per-cell
+value is an inline style on the `<td>`, while the tint only reaches that cell through a custom property the
+stylesheet reads.
+
+Two consequences worth stating plainly:
+
+- **A row pinned with the row ⋮ menu loses its background tint while pinned** — `[data-pinned-row]` paints
+  `--color-primary-subtle` over it, exactly as selection does. The hook still runs for that row and its
+  class and non-background declarations still apply.
+- **If you want a tint that survives hover**, use `getRowClassName` with a rule that outranks `(0,3,0)`.
+  Note that the obvious `.twc-dt__row.my-row .twc-dt__td` is itself `(0,3,0)` — a *tie*, decided by
+  source order, which is not something to rely on. Add an element to break it:
+
+  ```css
+  tr.twc-dt__row.my-row .twc-dt__td            { background: … }  /* (0,3,1) — beats hover/selection  */
+  tr.twc-dt__row.my-row .twc-dt__td[data-pin]  { background: … }  /* (0,4,1) — and the pinned-column
+                                                                     twins, needed in diff mode too  */
+  ```
+
+  You are then choosing to cover the hover cue on those rows — a legitimate choice, just not the default.
+
+Separately, **the component's own declarations are applied last** in the composed style object — sticky
+positioning for a pinned row, and the measured row height — so a hook cannot unstick a pinned row or fight
+a resize, whatever it returns.
+
+**Stripes:** the issue asked where the tint sits relative to them, and the honest answer is that there is
+nothing to sit against — Datatable does **not** zebra-stripe its data rows. The only `data-zebra` rules in
+the component target the **pivot** grid's cells (`.twc-dt__pivot-rowhead` / `-cell` / `-total`), and the
+hook is not applied to pivot rows. So a row tint never competes with a stripe.
+
+### Which rows
+
+**Every data row, pinned ones included** — a pinned row is still a row. **Not** group-header rows and
+**not** the pivot grid's aggregate rows: neither has a `row` object to pass, and inventing one would hand
+the consumer a shape that is not in `T`. Skeleton rows during `loading` are likewise untouched.
+
+### `getRowStyle` vs `getRowClassName`
+
+`getRowStyle` is inline, so it wins outright over anything but `!important` — simplest, no stylesheet.
+Prefer `getRowClassName` when the tint must coexist with the built-in hover/selection cues, since your own
+rule chooses its specificity. The class is **appended** to `twc-dt__row`, never replaces it.
+
+10 tests in `tests/datatable-row-style-hook.test.jsx`; site variation "Row-level tint — getRowStyle /
+getRowClassName" in `DatatableVariations.jsx`.
+
+
 ## Controlled pagination (#45)
 
 Page and page size are **uncontrolled by default** but can be driven externally, following the

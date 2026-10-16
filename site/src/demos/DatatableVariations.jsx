@@ -681,6 +681,38 @@ function CellHighlightDemo() {
   return <Datatable columns={columns} rows={BUDGET_ROWS} rowKey={(r) => r.id} pageSize={0} />;
 }
 
+// #481: row-level getRowStyle / getRowClassName — the row-level counterpart to a column's cellStyle.
+// Without them, tinting a row by its own state meant assigning cellStyle to EVERY column.
+const SHIPMENT_ROWS = [
+  { id: "SH-1041", ref: "Consignment 1041", carrier: "Northwind Freight", eta: "Tue 14:00", value: 18400, state: "delivered" },
+  { id: "SH-1042", ref: "Consignment 1042", carrier: "Harbour Line", eta: "Wed 09:30", value: 6250, state: "on track" },
+  { id: "SH-1043", ref: "Consignment 1043", carrier: "Northwind Freight", eta: "overdue 2d", value: 31200, state: "overdue" },
+  { id: "SH-1044", ref: "Consignment 1044", carrier: "Alpine Cargo", eta: "Thu 16:45", value: 980, state: "on track" },
+  { id: "SH-1045", ref: "Consignment 1045", carrier: "Harbour Line", eta: "today 23:50", value: 14750, state: "at risk" },
+];
+const SHIPMENT_TONE = { overdue: "danger", "at risk": "warning", delivered: "success" };
+// Composite over --color-surface (opaque) for the same reason a pinned cellStyle must: the tint reaches
+// the CELLS through the --twc-dt-row-bg custom property, and a sticky cell scrolls over other rows — a
+// translucent background there would let them bleed through.
+const shipmentRowTint = (row) => {
+  const tone = SHIPMENT_TONE[row.state];
+  return tone ? { background: `color-mix(in srgb, var(--color-${tone}) 12%, var(--color-surface))` } : undefined;
+};
+function RowTintDemo() {
+  const columns = [
+    { field: "ref", headerName: "Shipment", width: 180, pinned: "left" },
+    { field: "carrier", headerName: "Carrier", width: 180 },
+    { field: "eta", headerName: "ETA", width: 140 },
+    { field: "value", headerName: "Value", type: "number", width: 130, valueFormatter: usd },
+    { field: "state", headerName: "State", width: 130,
+      renderCell: (v) => <Badge variant="soft" size="sm" tone={SHIPMENT_TONE[v] || "neutral"}>{v}</Badge> },
+  ];
+  return (
+    <Datatable columns={columns} rows={SHIPMENT_ROWS} rowKey={(r) => r.id} pageSize={0}
+      checkboxSelection getRowStyle={shipmentRowTint} />
+  );
+}
+
 // #350: expandable/collapsible rows — renderRowDetail(row) returns the panel shown beneath an expanded row.
 const DETAIL_PEOPLE = makePeople(6);
 function RowDetailDemo() {
@@ -1302,6 +1334,54 @@ const columns = [
 
 <Datatable columns={columns} rows={rows} rowKey={(r) => r.id} pageSize={0} />`,
     render: () => <CellHighlightDemo />,
+  },
+  {
+    title: "Row-level tint — getRowStyle / getRowClassName",
+    description:
+      "Style a WHOLE row from its own state — the row-level counterpart to a column's cellStyle, so marking a row no longer means repeating cellStyle on every column (and works when the columns come from a schema). A background reaches the cells through the --twc-dt-row-bg custom property, because each cell paints its own opaque surface. Layering, bottom to top: cell surface → row tint → hover → selection → cellStyle. Applies to every data row, pinned ones included; not to group headers or pivot aggregate rows.",
+    code: `// getRowStyle(row, index)     => React.CSSProperties | undefined   (inline, on the <tr>)
+// getRowClassName(row, index) => string | undefined                (appended to twc-dt__row)
+//
+// A background (or backgroundColor) is forwarded to the row's CELLS through the --twc-dt-row-bg
+// custom property: .twc-dt__td paints an opaque surface of its own, so a background left on the
+// <tr> would sit behind it and show nothing. Every other declaration lands on the <tr>. Sticky
+// positioning and measured row height are applied AFTER yours, so a hook cannot break row pinning
+// or row resizing.
+//
+// Layering is ONE rule: the tint is the bottom layer above the cell's plain surface, and every
+// built-in state covers it — hover, selection, activeRowId, a pinned or grabbed row, the diff
+// washes, cell selection/editing, and an inline cellStyle over all of them. A row tint is a
+// data-derived wash; nothing data-derived should hide an interaction state. So selection stays
+// legible on a tinted row, hover feedback is never lost, and a per-cell state wins with nothing
+// to compose on your side. If you need a tint that outranks hover, use getRowClassName with a
+// rule beating (0,3,0) - note .twc-dt__row.my-row .twc-dt__td IS (0,3,0), a tie decided by source
+// order, so add an element: tr.twc-dt__row.my-row .twc-dt__td is (0,3,1).
+// Scope: every data row. Cells in a pinned COLUMN pick the tint up, so a tinted row shows no hole
+// where a frozen column scrolls over it; a row pinned from the ⋮ menu keeps its class but loses
+// the background tint while pinned, like a selected one. Not group headers or pivot aggregates.
+// (No stripe in that list: Datatable does not zebra-stripe data rows — only the pivot grid does,
+// and the hook is not applied to pivot rows — so a tint never competes with one.)
+const TONE = { overdue: "danger", "at risk": "warning", delivered: "success" };
+
+<Datatable
+  columns={columns}
+  rows={shipments}
+  rowKey={(r) => r.id}
+  checkboxSelection
+  getRowStyle={(row) => {
+    const tone = TONE[row.state];
+    // Composite over --color-surface (opaque): the tint reaches pinned cells too, and a translucent
+    // background on a sticky cell would let scrolled-under rows bleed through it.
+    return tone ? { background: \`color-mix(in srgb, var(--color-\${tone}) 12%, var(--color-surface))\` } : undefined;
+  }}
+/>
+
+// Class form — prefer it when the tint must coexist with the built-in hover/selection cues, since
+// your own rule chooses its specificity; getRowStyle is an inline style and so wins outright over
+// anything but !important. (Code-only here: the docs site ships no stylesheet of its own.)
+//   getRowClassName={(row) => (row.state === "overdue" ? "row-overdue" : undefined)}
+//   .row-overdue .twc-dt__td { font-weight: 600 }`,
+    render: () => <RowTintDemo />,
   },
   {
     title: "Expandable / collapsible rows",

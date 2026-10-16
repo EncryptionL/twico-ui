@@ -723,18 +723,23 @@ export const VARIATIONS = [
   },
   {
     "component": "Datatable",
-    "title": "Expandable / collapsible rows",
+    "title": "Row-level tint — getRowStyle / getRowClassName",
     "i": 15
   },
   {
     "component": "Datatable",
-    "title": "Lazy row-tree (expandable parent rows)",
+    "title": "Expandable / collapsible rows",
     "i": 16
   },
   {
     "component": "Datatable",
-    "title": "Custom column header (renderHeader)",
+    "title": "Lazy row-tree (expandable parent rows)",
     "i": 17
+  },
+  {
+    "component": "Datatable",
+    "title": "Custom column header (renderHeader)",
+    "i": 18
   },
   {
     "component": "DatePicker",

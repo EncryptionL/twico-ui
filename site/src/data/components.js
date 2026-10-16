@@ -5870,6 +5870,20 @@ export const components = [
         "description": "Render a leading auto-numbered row column (1, 2, 3…). The number reflects each row's position in the current sorted/filtered order and continues across pages (page 2 starts where page 1 ended; in server mode it uses the current page × pageSize). Sits after the checkbox column, sticky-left. This prop is the initial state — when enabled, users can hide/show the column from the toolbar's **Columns** panel (\"Row number\")."
       },
       {
+        "prop": "getRowStyle",
+        "type": "(row: T, index: number) => React.CSSProperties | undefined",
+        "required": false,
+        "default": "—",
+        "description": "Inline style for a WHOLE row from its own state — the row-level counterpart to a column's cellStyle, so marking a row no longer means repeating cellStyle on every column. A background (or backgroundColor) reaches the row's cells through the --twc-dt-row-bg custom property, since each cell paints its own opaque surface; every other declaration lands on the <tr>. Sticky positioning and measured row height are applied after yours, so it cannot break row pinning or row resizing. Layering is one rule: the tint is the bottom layer above the cell's plain surface and every built-in state covers it — hover, selection, activeRowId, a pinned or grabbed row, the diff washes, cell selection/editing, and an inline cellStyle over all of them — because a data-derived wash should never hide an interaction state. (So a row pinned from the ⋮ menu loses its background tint while pinned, like a selected one; use getRowClassName with a rule outranking (0,3,0) if you need a tint that beats hover — and note .twc-dt__row.my-row .twc-dt__td is itself (0,3,0), a tie, so add an element: tr.twc-dt__row.my-row .twc-dt__td.) Applies to every data row, pinned ones included — not to group-header or pivot aggregate rows, which have no row to pass. No stripe in that stack: Datatable does not zebra-stripe data rows at all, only the pivot grid does."
+      },
+      {
+        "prop": "getRowClassName",
+        "type": "(row: T, index: number) => string | undefined",
+        "required": false,
+        "default": "—",
+        "description": "Class appended to the row's twc-dt__row, called (row, index) like getRowStyle. Prefer it when the tint must coexist with the built-in hover/selection cues, since your own rule chooses its specificity — getRowStyle is an inline style and so wins outright over anything but !important. Same scope: every data row, pinned ones included; not group headers or pivot aggregates."
+      },
+      {
         "prop": "searchFields",
         "type": "string[]",
         "required": false,
