@@ -3581,9 +3581,22 @@ export function Datatable({
     // A background belongs on the CELLS (see the --twc-dt-row-bg note in the CSS); everything else
     // stays on the <tr>. The component's own sticky/height declarations are applied last so a hook
     // cannot break row pinning or row resizing.
-    const rowBg = userRowStyle ? (userRowStyle.background ?? userRowStyle.backgroundColor) : undefined;
+    //
+    // The two background keys are REMOVED from what reaches the <tr>, not merely copied into the
+    // custom property. A row box paints BELOW its cells, so a leftover background on the <tr> is a
+    // second coat of the same colour under every cell: a translucent tint then composites with itself
+    // (rgba(.2) renders at .36), and - worse - any state wash that is itself translucent stops
+    // covering the tint, because what it composites over is no longer the plain surface. Dark mode's
+    // --color-primary-subtle is 16% alpha, so a selected tinted row would have shown 84% tint and lost
+    // its selection cue; and in diff mode the deliberately translucent [data-op] washes would no
+    // longer match their opaque [data-pin] twins, re-opening the #242 seam at the frozen column.
+    const { background: _rowBgShorthand, backgroundColor: _rowBgColor, ...restRowStyle } = userRowStyle || {};
+    // Only a non-empty string can serve as the custom property's value; anything else is dropped
+    // rather than left on the <tr>, so the row never double-paints whatever it was.
+    const usable = (v) => (typeof v === "string" && v.trim() !== "" ? v : undefined);
+    const rowBg = usable(_rowBgShorthand) ?? usable(_rowBgColor);
     const rowStyle = {
-      ...(userRowStyle || {}),
+      ...restRowStyle,
       ...(rowBg != null ? { "--twc-dt-row-bg": rowBg } : {}),
       ...(stickyStyle || {}),
       ...(h ? { height: h } : {}),

@@ -1376,9 +1376,11 @@ const TONE = { overdue: "danger", "at risk": "warning", delivered: "success" };
   }}
 />
 
-// Class form — prefer it when the tint must coexist with the built-in hover/selection cues, since
-// your own rule chooses its specificity; getRowStyle is an inline style and so wins outright over
-// anything but !important. (Code-only here: the docs site ships no stylesheet of its own.)
+// Class form — the escape hatch, for when you deliberately want the tint to OUTRANK hover/selection.
+// Note it is not the heavy hammer "inline wins" would suggest the other way round: getRowStyle's
+// background is routed through --twc-dt-row-bg and read by the (0,1,0) base rule, so it is the LOWEST
+// layer; a class rule of your own can beat (0,3,0) and sit above the cues instead.
+// (Code-only here: the docs site ships no stylesheet of its own.)
 //   getRowClassName={(row) => (row.state === "overdue" ? "row-overdue" : undefined)}
 //   .row-overdue .twc-dt__td { font-weight: 600 }`,
     render: () => <RowTintDemo />,

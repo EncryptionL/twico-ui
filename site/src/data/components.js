@@ -5881,7 +5881,7 @@ export const components = [
         "type": "(row: T, index: number) => string | undefined",
         "required": false,
         "default": "—",
-        "description": "Class appended to the row's twc-dt__row, called (row, index) like getRowStyle. Prefer it when the tint must coexist with the built-in hover/selection cues, since your own rule chooses its specificity — getRowStyle is an inline style and so wins outright over anything but !important. Same scope: every data row, pinned ones included; not group headers or pivot aggregates."
+        "description": "Class appended to the row's twc-dt__row (never replacing it), called (row, index) like getRowStyle. Which to reach for: getRowStyle is the default, because its background is routed through --twc-dt-row-bg and read by the (0,1,0) base rule, making it the LOWEST layer that every built-in state covers — the reverse of what \"inline wins\" would suggest. Use getRowClassName when you deliberately want the tint to outrank hover/selection, since your own rule picks its specificity (beat (0,3,0), e.g. tr.twc-dt__row.my-row .twc-dt__td). Same scope: every data row, pinned ones included; not group headers or pivot aggregates."
       },
       {
         "prop": "searchFields",

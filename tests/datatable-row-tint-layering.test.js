@@ -28,6 +28,13 @@ function specificity(sel) {
     else if (t.startsWith("#")) a++;
     else if (t.startsWith("::")) c++;
     else if (t.startsWith(".") || t.startsWith("[")) b++;
+    else if (/^:where\(/.test(t)) continue;                 // :where() contributes ZERO - the one
+    else if (/^:(not|is|has)\(/.test(t)) {                  // construct that could tie with the base
+      // :not()/:is()/:has() take the specificity of their most specific argument, not 1.
+      const inner = t.slice(t.indexOf("(") + 1, -1);
+      const best = inner.split(",").map((x) => specificity(x)).sort(cmp).pop() || [0, 0, 0];
+      a += best[0]; b += best[1]; c += best[2];
+    }
     else if (t.startsWith(":")) b++;
     else c++;
   }
@@ -44,7 +51,9 @@ function cellBackgroundRules() {
   for (const m of css.matchAll(/([^{}`;]+)\{([^{}]*)\}/g)) {
     const selectors = m[1].trim();
     const body = m[2];
-    if (!/(^|[;\s])background\s*:/.test(body)) continue;
+    // `background-color` as well as `background`: a state rule written with the longhand paints a
+    // cell just the same, and matching only the shorthand would let it slip past this guard.
+    if (!/(^|[;\s])background(-color)?\s*:/.test(body)) continue;
     for (const sel of selectors.split(",").map((s) => s.trim()).filter(Boolean)) {
       // only rules that can match a BODY data cell
       if (!/\.twc-dt__td(\b|[.[:])/.test(sel)) continue;

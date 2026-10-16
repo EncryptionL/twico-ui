@@ -93,11 +93,19 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    * row-level fact, hand-composed against whatever else already used `cellStyle`, and with no fixed
    * column list to decorate at all when the columns come from a schema.
    *
-   * Called `(row, index)`, the same shape as `rowKey`. A `background` (or `backgroundColor`) is
-   * forwarded to the row's CELLS through the `--twc-dt-row-bg` custom property, because
-   * `.twc-dt__td` paints an opaque surface of its own — without that it would be invisible. Every
-   * other declaration lands on the `<tr>`. Sticky positioning and measured row height are applied
-   * after yours, so a hook cannot break row pinning or row resizing.
+   * Called `(row, index)`, the same shape as `rowKey`. **`index` is the row's 0-based position among
+   * the rows currently rendered** — after sorting and filtering, and **within the current page**. It is
+   * therefore *not* the number the `rowNumbers` column shows, which continues across pages; if you need
+   * an absolute position, read it off `row` rather than from this argument.
+   *
+   * A `background` (or `backgroundColor`) is forwarded to the row's CELLS through the `--twc-dt-row-bg`
+   * custom property, because `.twc-dt__td` paints an opaque surface of its own — without that it would
+   * be invisible — and is **removed** from what reaches the `<tr>`, since a row box paints below its
+   * cells and a leftover copy there would composite with the tint rather than hide behind it. Every
+   * other declaration lands on the `<tr>`, except `border` (ignored on row boxes under
+   * `border-collapse: separate`) and `backgroundImage` (painted under the cells' opaque surface) — both
+   * need {@link getRowClassName} and a `… .twc-dt__td` rule. Sticky positioning and measured row height
+   * are applied after yours, so a hook cannot break row pinning or row resizing.
    *
    * **Layering — one rule, not a bespoke order:** the row tint is the **bottom** layer above the
    * cell's plain surface, and **every** built-in state background covers it. The base `.twc-dt__td`
@@ -126,10 +134,16 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    */
   getRowStyle?: (row: T, index: number) => React.CSSProperties | undefined;
   /**
-   * #481: a class on the row's `<tr>`, appended to `twc-dt__row`. Prefer this over `getRowStyle` when
-   * the tint must coexist with the built-in hover / selection cues, since your own rule can choose its
-   * specificity; `getRowStyle` is an inline style and therefore wins outright over anything but
-   * `!important`. Same `(row, index)` signature.
+   * #481: a class on the row's `<tr>`, appended to `twc-dt__row` (never replacing it). Same
+   * `(row, index)` signature as {@link getRowStyle}.
+   *
+   * **Which to reach for.** `getRowStyle` is the default: its *background* does not land inline on the
+   * cells — it is routed through `--twc-dt-row-bg` and read by the `(0,1,0)` base rule, so it is the
+   * **lowest** layer and every built-in state covers it, which is almost always what a row tint should
+   * do. (Its *non-background* declarations — opacity, font-weight, text-decoration — are ordinary
+   * inline styles on the `<tr>` and do win.) Reach for `getRowClassName` when you deliberately want the
+   * tint to **outrank** those cues, since your own rule picks its specificity: beat `(0,3,0)`, e.g.
+   * `tr.twc-dt__row.my-row .twc-dt__td`. You are then choosing to cover the hover cue on those rows.
    */
   getRowClassName?: (row: T, index: number) => string | undefined;
   /** Restrict the toolbar quick-search to these column `field`s (client mode); defaults to every

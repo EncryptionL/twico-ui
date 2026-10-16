@@ -330,6 +330,12 @@ getRowClassName?: (row: T, index: number) => string | undefined
 Both are called with `(row, index)`, the same shape as `rowKey`, from the single data-row render path
 (`renderLeaf` in `Datatable.jsx`) — so pinned, middle and virtualized rows are all covered by one call site.
 
+**`index` is page-relative.** It is the row's 0-based position among the rows currently rendered — after
+sorting and filtering, and within the current page (it comes from `keyIndex`, built over `leafRows`, which
+derives from `paged`). It is deliberately *not* the number the `rowNumbers` column shows, which continues
+across pages and in server mode is computed from `page × pageSize`. If you need an absolute position, read
+it off the `row` rather than from this argument.
+
 ### The `--twc-dt-row-bg` channel — why a background cannot just go on the `<tr>`
 
 `.twc-dt__td` paints an **opaque** `--color-surface` of its own (it has to: sticky cells scroll over other
@@ -346,7 +352,19 @@ re-publishes it as a custom property on the `<tr>`:
 
 Every cell inherits the property from its row and paints the tint itself. Pinned cells inherit it too, so a
 tinted row develops no hole where a frozen column scrolls over it. Every **other** declaration the hook
-returns (opacity, font-weight, text-decoration, a border…) stays on the `<tr>` as an ordinary inline style.
+returns (opacity, font-weight, text-decoration…) stays on the `<tr>` as an ordinary inline style — and the
+two background keys are **removed** from it rather than copied, because a row box paints *below* its cells
+and a second coat there would composite with the tint instead of being hidden by it.
+
+Two declarations cannot work from a `<tr>` here, whatever you pass:
+
+- **`border`** — the grid is `border-collapse: separate`, and in the separated-borders model user agents
+  ignore borders on row boxes. Nothing renders, in every browser, with no warning.
+- **`backgroundImage`** — only `background` and `backgroundColor` are routed into `--twc-dt-row-bg`, and a
+  row's image layer paints under the cells' opaque surface.
+
+Both need `getRowClassName` and a rule targeting `… .twc-dt__td` instead. (`outline` and `boxShadow` *do*
+work from the `<tr>`, if a border is what you were after.)
 
 Keep the value **opaque** (`color-mix(… , var(--color-surface))`, not a bare `rgb(… / .12)`) for the same
 reason `cellStyle` must on a pinned column.
@@ -413,9 +431,20 @@ the consumer a shape that is not in `T`. Skeleton rows during `loading` are like
 
 ### `getRowStyle` vs `getRowClassName`
 
-`getRowStyle` is inline, so it wins outright over anything but `!important` — simplest, no stylesheet.
-Prefer `getRowClassName` when the tint must coexist with the built-in hover/selection cues, since your own
-rule chooses its specificity. The class is **appended** to `twc-dt__row`, never replaces it.
+It is tempting to reason "inline wins, so `getRowStyle` is the heavy hammer". For a **background** that is
+backwards, and worth being explicit about:
+
+- **`getRowStyle` is the default.** Its background never lands inline on a cell — it travels through
+  `--twc-dt-row-bg` and is read by the `(0,1,0)` base rule, so it is the **lowest** layer and every
+  built-in state covers it. That is what a row tint should almost always do. Its *non-background*
+  declarations (opacity, font-weight, text-decoration) are ordinary inline styles on the `<tr>` and do
+  win outright.
+- **`getRowClassName` is the escape hatch**, for when you deliberately want the tint to **outrank** the
+  hover/selection cues — your own rule picks its specificity (see the recipe above). The class is
+  **appended** to `twc-dt__row`, never replaces it.
+
+So: tint under the cues → `getRowStyle`. Tint over them → `getRowClassName`. The reverse of what "inline
+wins" would suggest, because the background is deliberately routed out of the inline style.
 
 10 tests in `tests/datatable-row-style-hook.test.jsx`; site variation "Row-level tint — getRowStyle /
 getRowClassName" in `DatatableVariations.jsx`.
