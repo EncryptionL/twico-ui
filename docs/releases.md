@@ -19,6 +19,34 @@ follow [Semantic Versioning](https://semver.org/). **No one bumps the version by
 
 A push to `main` with no release-worthy commits does nothing.
 
+### If the merge produced no release run
+
+`release.yml` also has a **`workflow_dispatch`** trigger, and dispatching it on `main` does exactly
+what the push would have: semantic-release reads the Conventional Commits since the last tag, and is a
+no-op if there are none.
+
+```bash
+gh workflow run release.yml --ref main
+```
+
+It exists because the push trigger is the single point of failure for the entire release. During the
+v1.45 release, GitHub silently created **no run at all** for pushes to `dev` and for a `pull_request`
+into `main` — no workflow run, no check suite, nothing queued — while `workflow_dispatch` worked
+normally throughout and the service status page reported Actions operational. Every workflow was
+`active`, the YAML was valid, and the repo was public and not disabled. Without a manual trigger the
+only recovery is to push another commit to `main` and hope, which leaves `main` ahead of the last tag
+with nothing published in the meantime.
+
+Check for that state with:
+
+```bash
+gh api "repos/EncryptionL/twico-ui/commits/<sha>/check-suites" --jq .total_count   # 0 == none created
+```
+
+`interaction.yml`, `visual.yml` and `deploy-docs.yml` already had `workflow_dispatch`; `ci.yml` still
+does not, so a missing CI run has to be verified locally (`npm run build && npm run typecheck &&
+npm run test:run && …`, per CLAUDE.md §8) rather than re-triggered.
+
 ## Version bumps (from commit types)
 
 | Commit | Bump |
