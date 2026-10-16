@@ -143,8 +143,25 @@ navbar. The model is **frozen snapshots**, Docusaurus-style:
   `/twico-ui/versions.json` and navigates by base URL, preserving the in-page hash route.
 
 **Single source of truth:** `site/public/versions.json` (`{ items: [{ label, base, latest? }] }`).
-**To publish docs for a new minor:** add an entry to `versions.json` (newest first, after `Latest`)
-**and** a `"<minor>=<tag>"` pair to `DOC_SNAPSHOTS` in `deploy-docs.yml`. No code changes needed.
+**To publish docs for a new minor:** bump the `Latest` entry's `version`, add the *previous* minor as a
+snapshot entry (newest first, after `Latest`), drop the oldest if there are already three, **and** add a
+matching `"<minor>=<tag>"` pair to `DOC_SNAPSHOTS` in `deploy-docs.yml`. No code changes needed.
+
+### Roll it in the release PR, not after
+
+**Do the roll on `dev`, in the same PR that cuts the minor — before the merge, not after.**
+`deploy-docs.yml` fires on the push to `main` and reads whatever manifest *that commit* carries, and
+semantic-release's follow-up `chore(release): x.y.z` commit is `[skip ci]`, so it does not redeploy. Roll
+late and the site serves the new version behind a switcher still naming the old one until someone pushes
+again — which is exactly what happened at v1.44 (the switcher read "v1.43 · latest" over a v1.44 site) and
+at every minor from v1.23 to v1.29.
+
+This means the manifest is deliberately **one minor ahead of `package.json`** between the roll and the
+release landing, because semantic-release bumps `package.json` only after the merge.
+`tests/versioned-docs-manifest.test.js` is written for that: it fails if `Latest` is *behind* the released
+version, fails if it is more than one release ahead, and when it is one ahead it additionally requires the
+currently-released minor to have become a snapshot — so a half-done roll cannot pass either. (The first
+version of that guard asserted plain equality, which would have forced the broken late-roll ordering.)
 
 ## Regenerating the component reference
 
