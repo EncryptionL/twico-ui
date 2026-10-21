@@ -122,6 +122,46 @@ standardized 2026-06-18; this doc is the source of truth.)
   Note the asymmetry with the attribute rule above: non-handler entries in `...rest` still win, so a
   consumer can still override `role`/`aria-label`.
 
+### `ref` — forward it with `forwardRef`, never off `...rest` (#488)
+
+A component that honours a caller's `ref` must be a **`React.forwardRef`**, and its `.d.ts` must say so:
+
+```ts
+export declare const Input: React.ForwardRefExoticComponent<
+  InputProps & React.RefAttributes<HTMLInputElement>
+>;
+```
+
+**Do not read `rest.ref`.** React 19 passes `ref` through as an ordinary prop, so it *looks* like it
+works; React 18 strips it out of props for a plain function component, so the same code is a silent
+no-op there and React logs *"Function components cannot be given refs"*. With peers at `react >= 18`
+that is half the supported range. This is exactly how #488 happened: `Input` merged `rest.ref` with its
+internal `clearable` ref, which read as deliberate, while the type could not express `ref` at all — so
+`<Input ref={…} />` was `error TS2322` on every React version, and would have done nothing on React 18
+even if it had compiled.
+
+Where the component also keeps an **internal** ref (`Input` needs one for `clearable`'s native value
+setter), merge rather than choose:
+
+```jsx
+const inputRef = React.useRef(null);
+const setRef = React.useCallback((node) => {
+  inputRef.current = node;
+  if (typeof ref === "function") ref(node);
+  else if (ref && typeof ref === "object") ref.current = node;
+}, [ref]);
+```
+
+Components that forward a ref today: `Anchor`, `FileUpload`, `Form`, `Image`, `ImageViewer`, `Input`,
+`Kbd`, `Label`, `Pre`, `Textarea`, `VisuallyHidden`, plus the polymorphic `Box`, `Container`, `Grid`,
+`Stack`, `Heading`, `Text` — whose `PolymorphicComponent<Own, D>` type already carries
+`ref?: PolymorphicRef<D>`, so they need no separate `RefAttributes`.
+
+Everything else accepts no ref **and** types none, which is honest and needs no change. The defect to
+look for is only the mismatched pair: a runtime that takes a ref and a type that denies it (or the
+reverse). Both directions are guarded by `tests/input-ref-forwarding.test.jsx`, and the compile-time
+contract by the fixtures in `tests/types/` (`input-ref.tsx`, `textarea-ref.tsx`).
+
 ## Deprecation policy
 - A superseded prop is marked `@deprecated since <minor>, removed in <major> — use ``X``` in its
   `.d.ts`, keeps working until that major, and the canonical (non-deprecated) name always wins when

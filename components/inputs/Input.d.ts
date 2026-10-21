@@ -37,4 +37,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   clearable?: boolean;
 }
 
-export function Input(props: InputProps): React.JSX.Element;
+/** Forwards `ref` to the inner `<input>` (merged with the internal one `clearable` uses). */
+export declare const Input: React.ForwardRefExoticComponent<
+  InputProps & React.RefAttributes<HTMLInputElement>
+>;

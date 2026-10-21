@@ -85,7 +85,7 @@ const INPUT_EXTRA_CSS = `
 .twc-field__count[data-danger="true"] { color: var(--color-danger-subtle-fg); }
 `;
 
-export function Input({
+export const Input = React.forwardRef(function Input({
   label,
   hint,
   error,
@@ -103,7 +103,7 @@ export function Input({
   id,
   className = "",
   ...rest
-}) {
+}, ref) {
   const __twcStyles = useScopedStyles("twc-field-styles", FIELD_CSS);
   const __twcExtra = useScopedStyles("twc-input-extra-styles", INPUT_EXTRA_CSS);
   const autoId = React.useId();
@@ -124,14 +124,18 @@ export function Input({
   // #328: clear (X). Native value-setter + dispatched input event so React fires onChange with "" for
   // controlled AND uncontrolled callers; then refocus. Shown only when non-empty and interactive.
   const inputRef = React.useRef(null);
-  // Merge our internal ref with any consumer-supplied `ref` (React 19 passes it via `...rest`) so
-  // clearable never clobbers a caller's ref — this stays a no-op on React 18 (ref is stripped).
-  const userRef = rest.ref;
+  // #488: merge our internal ref with the caller's, so `clearable` never clobbers it.
+  //
+  // This used to read `rest.ref`, which only works on React 19 — React 18 strips `ref` out of props
+  // for a plain function component, so the merge was a silent no-op there and `<Input ref={...} />`
+  // logged "Function components cannot be given refs". With peers at `react >= 18` that is half the
+  // supported range. forwardRef works on both, and is what the sibling Textarea already does; the
+  // type could not express `ref` either way while Input stayed a plain function.
   const setRef = React.useCallback((node) => {
     inputRef.current = node;
-    if (typeof userRef === "function") userRef(node);
-    else if (userRef && typeof userRef === "object") userRef.current = node;
-  }, [userRef]);
+    if (typeof ref === "function") ref(node);
+    else if (ref && typeof ref === "object") ref.current = node;
+  }, [ref]);
   const clearField = () => {
     const el = inputRef.current; if (!el) return;
     const setter = typeof HTMLInputElement !== "undefined" && Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
@@ -208,4 +212,4 @@ export function Input({
       ) : null}
     </div>
   );
-}
+});
