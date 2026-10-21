@@ -9,7 +9,7 @@ const LABEL_CSS = `
 `;
 
 /** A form label matching the built-in field label look; pass `required` for the asterisk. */
-export const Label = React.forwardRef(function Label({ htmlFor, required = false, size = "md", className = "", children, ...rest }, ref) {
+export const Label = /*#__PURE__*/ React.forwardRef(function Label({ htmlFor, required = false, size = "md", className = "", children, ...rest }, ref) {
   const __twcStyles = useScopedStyles("twc-label-styles", LABEL_CSS);
   return (
     <label ref={ref} htmlFor={htmlFor} className={`twc-label ${className}`.trim()} data-size={size} {...rest}>
@@ -19,4 +19,3 @@ export const Label = React.forwardRef(function Label({ htmlFor, required = false
     </label>
   );
 });
-Label.displayName = "Label";

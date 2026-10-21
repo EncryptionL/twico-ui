@@ -124,7 +124,7 @@ function safeHref(url) {
   return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
 }
 
-export function Button({
+export const Button = /*#__PURE__*/ React.forwardRef(function Button({
   children,
   variant = "solid",
   tone = "primary",
@@ -142,7 +142,7 @@ export function Button({
   className = "",
   onClick,
   ...rest
-}) {
+}, ref) {
   const __twcStyles = useScopedStyles("twc-btn-styles", CSS);
   const [ripples, setRipples] = React.useState([]);
   const Tag = as;
@@ -171,6 +171,7 @@ export function Button({
 
   return (
     <Tag
+      ref={ref}
       className={`twc-btn ${className}`}
       data-variant={variant}
       data-tone={tone}
@@ -204,4 +205,4 @@ export function Button({
       ))}
     </Tag>
   );
-}
+});

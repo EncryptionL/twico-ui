@@ -30,7 +30,7 @@ function safeHref(url) {
 }
 
 /** Generic, token-styled element — the building block for non-flex layout. */
-export const Box = React.forwardRef(function Box({
+export const Box = /*#__PURE__*/ React.forwardRef(function Box({
   as: Tag = "div",
   p, px, py, pt, pr, pb, pl,
   m, mx, my, mt, mr, mb, ml,
@@ -73,4 +73,3 @@ export const Box = React.forwardRef(function Box({
     </Tag>
   );
 });
-Box.displayName = "Box";

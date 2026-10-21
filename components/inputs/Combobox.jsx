@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useMergedRef } from "../_ref.js";
 import { warnOnce } from "../_warn.js";
 import { createPortal } from "react-dom";
 
@@ -106,14 +107,14 @@ function ensureVisible(list, el) {
   else if (bottom > list.scrollTop + list.clientHeight) list.scrollTop = bottom - list.clientHeight + 4;
 }
 
-export function Combobox({
+export const Combobox = /*#__PURE__*/ React.forwardRef(function Combobox({
   label, hint, error, required = false, size = "md", tone = "primary",
   placeholder = "Select…", options, value, defaultValue = null, defaultQuery,
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
   onInputChange, onOpenChange, filter, loading = false, emptyText = "No results found", name,
   virtualized: virtualizedProp = false, overscan = 8, wrapOptions = false, renderOption,
   id, className = "", onFocus, onKeyDown, ...rest
-}) {
+}, ref) {
   const __twcStyles = useScopedStyles("twc-combo-styles", COMBO_CSS);
   // #300/#326: wrapped OR custom-rendered option rows are variable-height, which the fixed-row-height
   // virtualization can't measure — so both take precedence over virtualized (and we flag the conflict in dev).
@@ -137,6 +138,8 @@ export function Combobox({
   const wrapRef = React.useRef(null);
   const controlRef = React.useRef(null);
   const inputRef = React.useRef(null);
+  // #490: inputRef drives focus and caret handling; merge rather than displace it.
+  const setInputRef = useMergedRef(inputRef, ref);
   const popRef = React.useRef(null);
   const listRef = React.useRef(null);
   const activeRef = React.useRef(null);
@@ -403,7 +406,7 @@ export function Combobox({
         <div className="twc-cb__control" ref={controlRef} data-size={size} data-tone={tone} data-open={open || undefined} data-invalid={Boolean(error) || undefined} data-disabled={disabled || undefined}
              onClick={() => { if (!disabled) { inputRef.current?.focus(); if (!open) openMenu(); } }}>
           <input
-            ref={inputRef} id={fieldId} className="twc-cb__input" role="combobox" aria-expanded={open} aria-autocomplete="list"
+            ref={setInputRef} id={fieldId} className="twc-cb__input" role="combobox" aria-expanded={open} aria-autocomplete="list"
             aria-controls={open ? listboxId : undefined} aria-activedescendant={activeId}
             aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy}
             placeholder={selected && !open ? selected.label : placeholder}
@@ -429,4 +432,4 @@ export function Combobox({
       {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
-}
+});

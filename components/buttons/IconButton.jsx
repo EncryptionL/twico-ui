@@ -74,7 +74,7 @@ function safeHref(url) {
   return s.startsWith("javascript:") || s.startsWith("data:") || s.startsWith("vbscript:") ? undefined : url;
 }
 
-export function IconButton({
+export const IconButton = /*#__PURE__*/ React.forwardRef(function IconButton({
   children,
   icon,
   variant = "ghost",
@@ -91,7 +91,7 @@ export function IconButton({
   "aria-label": ariaLabel,
   onClick,
   ...rest
-}) {
+}, ref) {
   const __twcStyles = useScopedStyles("twc-iconbtn-styles", ICONBTN_CSS);
   // #342: render as an anchor for an icon LINK (GitHub icon, external nav, …) — navigation should be a real
   // link, not a button. `target`/`rel` flow through `...rest`. An inert (disabled) anchor drops its href.
@@ -103,6 +103,7 @@ export function IconButton({
 
   return (
     <Tag
+      ref={ref}
       className={`twc-iconbtn ${className}`}
       data-variant={variant}
       data-tone={tone}
@@ -123,4 +124,4 @@ export function IconButton({
       {icon || children}
     </Tag>
   );
-}
+});

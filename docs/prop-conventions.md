@@ -152,12 +152,18 @@ const setRef = React.useCallback((node) => {
 }, [ref]);
 ```
 
-Components that forward a ref today: `Anchor`, `FileUpload`, `Form`, `Image`, `ImageViewer`, `Input`,
-`Kbd`, `Label`, `Pre`, `Textarea`, `VisuallyHidden`, plus the polymorphic `Box`, `Container`, `Grid`,
+Where the forwarded ref and an internal ref want the **same** element — `Checkbox`'s input, `Select`'s
+trigger, `Combobox`'s and `MultiSelect`'s input, `Code`'s root — use **`useMergedRef`**
+(`components/_ref.js`) rather than picking one. It also handles the React 19 cleanup-callback
+protocol and releases the internal handles, which is the part that is easy to get wrong by hand.
+
+Components that forward a ref today: `Anchor`, `Button`, `Checkbox`, `Code`, `Combobox`, `FileUpload`,
+`Form`, `IconButton`, `Image`, `ImageViewer`, `Input`, `Kbd`, `Label`, `MultiSelect`, `Pre`, `Radio`,
+`Select`, `Switch`, `Textarea`, `VisuallyHidden`, plus the polymorphic `Box`, `Container`, `Grid`,
 `Stack`, `Heading`, `Text` — whose `PolymorphicComponent<Own, D>` type already carries
 `ref?: PolymorphicRef<D>`, so they need no separate `RefAttributes`.
 
-**Every other component is in a half-state, and it is worth being precise about it rather than
+**The remaining ~54 are in a half-state, and it is worth being precise about it rather than
 claiming they are clean.** On React 19 `ref` is an ordinary prop, so a plain function component that
 spreads `{...rest}` onto a host element forwards a ref *implicitly* without ever naming it —
 `<Button ref={r} />` really does land on the `<button>`, and `<Checkbox ref={r} />` on the `<input>`.
@@ -172,11 +178,34 @@ of the library.
 
 Nothing is broken today that was not broken before, so this is not a regression — but a component
 that is *meant* to take a ref should be a `forwardRef` with the matching declaration, not left to
-React 19's implicit pass-through.
+React 19's implicit pass-through. #490 converted the nine with a realistic imperative use case
+(`Button`, `IconButton`, `Select`, `Checkbox`, `Switch`, `Radio`, `Combobox`, `MultiSelect`, and
+`Code`, whose missing declaration was an oversight); the rest are deliberately left, since each one
+is a permanent addition to the public API and most have no reason to expose their DOM node.
 
 Guards: `tests/input-ref-forwarding.test.jsx` covers the runtime contract in both directions and pins
 the implicit-forwarding behaviour above so a future React change cannot move it silently; the
 compile-time contract lives in the `tests/types/` fixtures (`input-ref.tsx`, `textarea-ref.tsx`).
+
+**Two side-effect rules come with `forwardRef`, and both cost real bytes (#489).** A component that is
+a `const` bound to a call expression is only tree-shakeable if the call is annotated, and a
+module-scope property assignment pins it regardless:
+
+```js
+export const Thing = /*#__PURE__*/ React.forwardRef(function Thing(props, ref) { … });
+// and NO `Thing.displayName = "Thing"` — the named render function already names it for DevTools
+```
+
+`export function Thing()` is a function *declaration*, which bundlers drop unconditionally;
+`export const Thing = React.forwardRef(…)` is a *call*, which they cannot prove is side-effect-free.
+Converting one to the other without the annotation silently pins it into every consumer bundle — that
+is how #488 cost 1.16 kB while CI stayed green. Measured over the whole library: the 15 missing
+annotations were worth ~1.45 kB per single-component entry, and the 14 stray `displayName`
+assignments ~6 kB more. Button-only went 11.01 → 3.39 kB and Card-only 9.42 → 2.72 kB brotli.
+
+`npm run size` does **not** catch either on the commit that introduces it — it only fails once some
+later change tips a budget over. `tests/forwardref-pure-annotation.test.js` is the guard that does,
+and it also checks the annotation survives into both built bundles.
 
 ## Deprecation policy
 - A superseded prop is marked `@deprecated since <minor>, removed in <major> — use ``X``` in its

@@ -11,7 +11,7 @@ const FORM_CSS = `
  * runs after `preventDefault()` (unless `preventDefault={false}`); `loading`/`disabled`
  * wrap children in a `<fieldset disabled>` so every control disables at once.
  */
-export const Form = React.forwardRef(function Form({
+export const Form = /*#__PURE__*/ React.forwardRef(function Form({
   onSubmit, preventDefault = true, loading = false, disabled = false, gap, className = "", style, children, ...rest
 }, ref) {
   const __twcStyles = useScopedStyles("twc-form-styles", FORM_CSS);
@@ -31,4 +31,3 @@ export const Form = React.forwardRef(function Form({
     </form>
   );
 });
-Form.displayName = "Form";

@@ -17,7 +17,7 @@ function safeHref(url) {
 }
 
 /** A styled, safe link. `external` opens a new, `noopener` tab; `as` can wrap a router Link. */
-export const Anchor = React.forwardRef(function Anchor({ as: Tag = "a", href, external = false, className = "", children, ...rest }, ref) {
+export const Anchor = /*#__PURE__*/ React.forwardRef(function Anchor({ as: Tag = "a", href, external = false, className = "", children, ...rest }, ref) {
   const __twcStyles = useScopedStyles("twc-anchor-styles", ANCHOR_CSS);
   const extra = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
   return (
@@ -28,4 +28,3 @@ export const Anchor = React.forwardRef(function Anchor({ as: Tag = "a", href, ex
     </Tag>
   );
 });
-Anchor.displayName = "Anchor";

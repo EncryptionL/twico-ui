@@ -12,7 +12,7 @@ function safeHref(url) {
 }
 
 /** Heading (h1–h6) with token typography. `level` sets the tag + default size. */
-export const Heading = React.forwardRef(function Heading({
+export const Heading = /*#__PURE__*/ React.forwardRef(function Heading({
   as,
   level = 2,
   size,
@@ -62,4 +62,3 @@ export const Heading = React.forwardRef(function Heading({
     </Tag>
   );
 });
-Heading.displayName = "Heading";

@@ -21,4 +21,14 @@ export interface CodeProps extends React.HTMLAttributes<HTMLElement> {
   rel?: string;
 }
 
-export function Code(props: CodeProps): React.JSX.Element;
+/**
+ * #490: forwards `ref` to the rendered root (`<code>`, or `<pre>` when `block`, or whatever `as` names), merged with the
+ * internal ref used to read the text for the copy button.
+ *
+ * Declared rather than left to React 19's implicit pass-through: on React 19 `ref` is an ordinary
+ * prop, so `{...rest}` would land one on the element anyway, but React 18 strips it and the type
+ * denied it on both. `forwardRef` works on both majors — see #488.
+ */
+export declare const Code: React.ForwardRefExoticComponent<
+  CodeProps & React.RefAttributes<HTMLElement>
+>;

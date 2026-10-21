@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useMergedRef } from "../_ref.js";
 import { useFallbackName } from "../_name.js";
 import { warnOnce } from "../_warn.js";
 import { createPortal } from "react-dom";
@@ -109,7 +110,7 @@ function ensureVisible(list, el) {
   else if (bottom > list.scrollTop + list.clientHeight) list.scrollTop = bottom - list.clientHeight + 4;
 }
 
-export function Select({
+export const Select = /*#__PURE__*/ React.forwardRef(function Select({
   label, hint, error, required = false, size = "md", tone = "primary",
   placeholder = "Select…", searchPlaceholder = "Search…", searchable, options, value, defaultValue = null,
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
@@ -117,7 +118,7 @@ export function Select({
   virtualized: virtualizedProp = false, overscan = 8, renderOption,
   id, className = "",
   onClick, onKeyDown, ...rest
-}) {
+}, ref) {
   const __twcStyles = useScopedStyles("twc-select-styles", SELECT_CSS);
   // #326: custom-rendered rows are variable-height, which the fixed-row-height virtualization can't measure.
   if (virtualizedProp && renderOption) warnOnce("select-renderoption-virtualized", "twico-ui Select: `renderOption` disables `virtualized` — custom rows aren't a fixed height.");
@@ -140,6 +141,8 @@ export function Select({
   const [listH, setListH] = React.useState(260);
   const wrapRef = React.useRef(null);
   const triggerRef = React.useRef(null);
+  // #490: triggerRef drives focus-return and the accessible-name probe; merge rather than displace it.
+  const setTriggerRef = useMergedRef(triggerRef, ref);
   const popRef = React.useRef(null);
   const listRef = React.useRef(null);
   const activeRef = React.useRef(null);
@@ -499,7 +502,7 @@ export function Select({
       {name ? <input type="hidden" name={name} value={current ?? ""} /> : null}
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
       <div className="twc-sel">
-        <button type="button" id={fieldId} ref={triggerRef} className="twc-sel__trigger" data-size={size} data-tone={tone}
+        <button type="button" id={fieldId} ref={setTriggerRef} className="twc-sel__trigger" data-size={size} data-tone={tone}
           data-open={open || undefined} data-invalid={Boolean(error) || undefined} disabled={disabled}
           role="combobox" aria-haspopup="listbox" aria-expanded={open} aria-controls={open ? listboxId : undefined}
           aria-activedescendant={showSearch ? undefined : activeId}
@@ -522,4 +525,4 @@ export function Select({
       {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
-}
+});

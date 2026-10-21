@@ -2,7 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import { warnOnce } from "../_warn.js";
 
-export function Radio({
+export const Radio = /*#__PURE__*/ React.forwardRef(function Radio({
   label,
   description,
   error,
@@ -18,7 +18,7 @@ export function Radio({
   className = "",
   onChange,
   ...rest
-}) {
+}, ref) {
   const __twcStyles = useScopedStyles("twc-radio-styles", `
 .twc-radio { display: inline-flex; align-items: flex-start; gap: var(--space-2-5); cursor: pointer; font-family: var(--font-sans); }
 /* tone → accent set (default primary). Mirrors Button's --_accent model; Badge's tone vocabulary. */
@@ -75,6 +75,7 @@ export function Radio({
     <label className={`twc-radio ${className}`} data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined} htmlFor={fieldId}>
       {__twcStyles}
       <input
+        ref={ref}
         id={fieldId}
         type="radio"
         className="twc-radio__input"
@@ -107,4 +108,4 @@ export function Radio({
       <span id={errId} className="twc-field__error">{error}</span>
     </div>
   );
-}
+});

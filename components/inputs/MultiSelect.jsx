@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useMergedRef } from "../_ref.js";
 import { useFallbackName } from "../_name.js";
 import { warnOnce } from "../_warn.js";
 import { createPortal } from "react-dom";
@@ -115,7 +116,7 @@ function ensureVisible(list, el) {
   else if (bottom > list.scrollTop + list.clientHeight) list.scrollTop = bottom - list.clientHeight + 4;
 }
 
-export function MultiSelect({
+export const MultiSelect = /*#__PURE__*/ React.forwardRef(function MultiSelect({
   label, hint, error, required = false, size = "md", tone = "primary",
   placeholder = "Select…", options, value, defaultValue = [],
   onChange, clearable = false, disabled = false, placement = "bottom", portal = true, minWidth = 0,
@@ -123,7 +124,7 @@ export function MultiSelect({
   filter, onInputChange,
   virtualized: virtualizedProp = false, overscan = 8, renderOption,
   id, className = "", onFocus, onKeyDown, ...rest
-}) {
+}, ref) {
   const __twcStyles = useScopedStyles("twc-ms-styles", MULTI_CSS);
   // #326: custom-rendered rows are variable-height, which the fixed-row-height virtualization can't measure.
   if (virtualizedProp && renderOption) warnOnce("multiselect-renderoption-virtualized", "twico-ui MultiSelect: `renderOption` disables `virtualized` — custom rows aren't a fixed height.");
@@ -145,6 +146,8 @@ export function MultiSelect({
   const wrapRef = React.useRef(null);
   const controlRef = React.useRef(null);
   const inputRef = React.useRef(null);
+  // #490: inputRef drives focus and the token-removal keyboard path; merge rather than displace it.
+  const setInputRef = useMergedRef(inputRef, ref);
   const popRef = React.useRef(null);
   const listRef = React.useRef(null);
   const activeRef = React.useRef(null);
@@ -413,7 +416,7 @@ export function MultiSelect({
           {maxTagCount != null && selectedOpts.length > maxTagCount ? (
             <span className="twc-ms__more" title={selectedOpts.slice(maxTagCount).map((o) => o.label).join(", ")}>+{selectedOpts.length - maxTagCount} more</span>
           ) : null}
-          <input ref={inputRef} id={fieldId} className="twc-ms__input" role="combobox" aria-expanded={open} aria-autocomplete="list"
+          <input ref={setInputRef} id={fieldId} className="twc-ms__input" role="combobox" aria-expanded={open} aria-autocomplete="list"
                  aria-controls={open ? listboxId : undefined} aria-activedescendant={activeId}
                  aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy}
                  placeholder={selectedOpts.length ? "" : placeholder} value={query} disabled={disabled}
@@ -437,4 +440,4 @@ export function MultiSelect({
       {error ? <span id={descId} className="twc-field__error">{error}</span> : hint ? <span id={descId} className="twc-field__hint">{hint}</span> : null}
     </div>
   );
-}
+});

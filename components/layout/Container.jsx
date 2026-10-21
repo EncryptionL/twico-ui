@@ -12,7 +12,7 @@ function safeHref(url) {
 }
 
 /** Centered, max-width content wrapper with responsive horizontal padding. */
-export const Container = React.forwardRef(function Container({
+export const Container = /*#__PURE__*/ React.forwardRef(function Container({
   as: Tag = "div",
   size = "lg",
   padded = true,
@@ -47,4 +47,3 @@ export const Container = React.forwardRef(function Container({
     </Tag>
   );
 });
-Container.displayName = "Container";

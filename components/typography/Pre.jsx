@@ -10,7 +10,7 @@ const PRE_CSS = `
 `;
 
 /** A scrollable, token-styled monospace block for preformatted text. */
-export const Pre = React.forwardRef(function Pre({ className = "", children, ...rest }, ref) {
+export const Pre = /*#__PURE__*/ React.forwardRef(function Pre({ className = "", children, ...rest }, ref) {
   const __twcStyles = useScopedStyles("twc-pre-styles", PRE_CSS);
   return (
     <pre ref={ref} className={`twc-pre ${className}`.trim()} {...rest}>
@@ -19,4 +19,3 @@ export const Pre = React.forwardRef(function Pre({ className = "", children, ...
     </pre>
   );
 });
-Pre.displayName = "Pre";

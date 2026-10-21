@@ -17,7 +17,7 @@ function safeHref(url) {
 }
 
 /** Flex layout primitive — rows or columns with token-based gaps. */
-export const Stack = React.forwardRef(function Stack({
+export const Stack = /*#__PURE__*/ React.forwardRef(function Stack({
   as: Tag = "div",
   direction = "column",
   gap = 4,
@@ -67,4 +67,3 @@ export const Stack = React.forwardRef(function Stack({
     </Tag>
   );
 });
-Stack.displayName = "Stack";

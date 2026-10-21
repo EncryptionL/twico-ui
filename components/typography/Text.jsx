@@ -26,7 +26,7 @@ function safeHref(url) {
 }
 
 /** Body text with token sizes and semantic color tones. Renders <p> by default. */
-export const Text = React.forwardRef(function Text({
+export const Text = /*#__PURE__*/ React.forwardRef(function Text({
   as: Tag = "p",
   size = "base",
   tone = "default",
@@ -74,4 +74,3 @@ export const Text = React.forwardRef(function Text({
     </Tag>
   );
 });
-Text.displayName = "Text";

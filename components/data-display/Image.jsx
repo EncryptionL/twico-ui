@@ -10,7 +10,7 @@ const IMAGE_CSS = `
  * An `<img>` with typed `src`/`alt` (alt required), lazy loading by default, `fit`
  * (object-fit), `radius`, and an optional `fallback` swapped in on error.
  */
-export const Image = React.forwardRef(function Image({
+export const Image = /*#__PURE__*/ React.forwardRef(function Image({
   src, alt, fit, radius, aspectRatio, fallback, loading = "lazy", className = "", style, onError, width, height, ...rest
 }, ref) {
   const __twcStyles = useScopedStyles("twc-image-styles", IMAGE_CSS);
@@ -49,4 +49,3 @@ export const Image = React.forwardRef(function Image({
     </>
   );
 });
-Image.displayName = "Image";

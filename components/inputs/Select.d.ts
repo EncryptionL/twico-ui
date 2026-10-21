@@ -68,4 +68,13 @@ export type SelectOption = Option;
 /** Alias of the shared {@link OptionGroup} type (kept for backward-compatible imports). */
 export type SelectGroup = OptionGroup;
 
-export function Select(props: SelectProps): React.JSX.Element;
+/**
+ * #490: forwards `ref` to the trigger `<button>`, merged with the internal ref used for focus return.
+ *
+ * Declared rather than left to React 19's implicit pass-through: on React 19 `ref` is an ordinary
+ * prop, so `{...rest}` would land one on the element anyway, but React 18 strips it and the type
+ * denied it on both. `forwardRef` works on both majors — see #488.
+ */
+export declare const Select: React.ForwardRefExoticComponent<
+  SelectProps & React.RefAttributes<HTMLButtonElement>
+>;

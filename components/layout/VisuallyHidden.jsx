@@ -6,7 +6,7 @@ const VH_CSS = `
 `;
 
 /** Visually hide content while keeping it available to assistive technology. */
-export const VisuallyHidden = React.forwardRef(function VisuallyHidden({ as: Tag = "span", className = "", children, ...rest }, ref) {
+export const VisuallyHidden = /*#__PURE__*/ React.forwardRef(function VisuallyHidden({ as: Tag = "span", className = "", children, ...rest }, ref) {
   const __twcStyles = useScopedStyles("twc-visually-hidden-styles", VH_CSS);
   return (
     <Tag ref={ref} className={`twc-visually-hidden ${className}`.trim()} {...rest}>
@@ -15,4 +15,3 @@ export const VisuallyHidden = React.forwardRef(function VisuallyHidden({ as: Tag
     </Tag>
   );
 });
-VisuallyHidden.displayName = "VisuallyHidden";
