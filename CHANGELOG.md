@@ -2,6 +2,19 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.45.1](https://github.com/EncryptionL/twico-ui/compare/v1.45.0...v1.45.1) (2026-10-21)
+
+
+### Bug Fixes
+
+* **input:** forward ref to the inner <input>, matching Textarea ([be39c72](https://github.com/EncryptionL/twico-ui/commit/be39c729a29961acd7987efd80732a9531c96546))
+* **input:** keep Input tree-shakeable and honour React 19 cleanup refs ([5c04961](https://github.com/EncryptionL/twico-ui/commit/5c049610b62817f3e0e122c7998e78a8c20b1a4b)), closes [#414](https://github.com/EncryptionL/twico-ui/issues/414) [#488](https://github.com/EncryptionL/twico-ui/issues/488)
+
+
+### Performance Improvements
+
+* **components:** make every forwardRef tree-shakeable, and forward refs from nine more ([3e22dd7](https://github.com/EncryptionL/twico-ui/commit/3e22dd73a1e9191d2a87ae801af0ca6a1fc3cd90)), closes [#489](https://github.com/EncryptionL/twico-ui/issues/489) [#414](https://github.com/EncryptionL/twico-ui/issues/414) [#490](https://github.com/EncryptionL/twico-ui/issues/490) [#488](https://github.com/EncryptionL/twico-ui/issues/488) [#488](https://github.com/EncryptionL/twico-ui/issues/488) [#490](https://github.com/EncryptionL/twico-ui/issues/490)
+
 # [1.45.0](https://github.com/EncryptionL/twico-ui/compare/v1.44.0...v1.45.0) (2026-10-16)
 
 
