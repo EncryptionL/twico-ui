@@ -85,7 +85,12 @@ const INPUT_EXTRA_CSS = `
 .twc-field__count[data-danger="true"] { color: var(--color-danger-subtle-fg); }
 `;
 
-export const Input = React.forwardRef(function Input({
+// /*#__PURE__*/ is load-bearing, not decoration: a module-scope CALL is not provably side-effect
+// free, so without it every consumer who imports anything from the barrel also ships Input. The
+// plain `export function Input` this replaced was a declaration, which bundlers drop unconditionally
+// - so converting to forwardRef silently pinned Input into every tree-shaken bundle. Same #414
+// hazard the ImageViewer NOTE describes for a stray displayName assignment.
+export const Input = /*#__PURE__*/ React.forwardRef(function Input({
   label,
   hint,
   error,
@@ -131,10 +136,23 @@ export const Input = React.forwardRef(function Input({
   // logged "Function components cannot be given refs". With peers at `react >= 18` that is half the
   // supported range. forwardRef works on both, and is what the sibling Textarea already does; the
   // type could not express `ref` either way while Input stayed a plain function.
+  //
+  // React 19 lets a ref callback return a cleanup, and `RefAttributes` — which the new declaration
+  // intersects in — types that return value, so the contract now promises it. React decides which
+  // protocol to use from what OUR callback returns: return nothing and it falls back to calling us
+  // again with null, which would drop the caller's cleanup on the floor. So pass it through, and
+  // release the internal handle from inside it, since React will NOT call us with null once a
+  // cleanup exists. A caller that returns nothing keeps the legacy null-call path unchanged, which
+  // is also exactly what React 18 does with the returned function: ignore it.
   const setRef = React.useCallback((node) => {
     inputRef.current = node;
-    if (typeof ref === "function") ref(node);
-    else if (ref && typeof ref === "object") ref.current = node;
+    if (typeof ref === "function") {
+      const cleanup = ref(node);
+      if (typeof cleanup === "function") return () => { inputRef.current = null; cleanup(); };
+    } else if (ref && typeof ref === "object") {
+      ref.current = node;
+    }
+    return undefined;
   }, [ref]);
   const clearField = () => {
     const el = inputRef.current; if (!el) return;

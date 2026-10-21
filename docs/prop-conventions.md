@@ -157,10 +157,26 @@ Components that forward a ref today: `Anchor`, `FileUpload`, `Form`, `Image`, `I
 `Stack`, `Heading`, `Text` — whose `PolymorphicComponent<Own, D>` type already carries
 `ref?: PolymorphicRef<D>`, so they need no separate `RefAttributes`.
 
-Everything else accepts no ref **and** types none, which is honest and needs no change. The defect to
-look for is only the mismatched pair: a runtime that takes a ref and a type that denies it (or the
-reverse). Both directions are guarded by `tests/input-ref-forwarding.test.jsx`, and the compile-time
-contract by the fixtures in `tests/types/` (`input-ref.tsx`, `textarea-ref.tsx`).
+**Every other component is in a half-state, and it is worth being precise about it rather than
+claiming they are clean.** On React 19 `ref` is an ordinary prop, so a plain function component that
+spreads `{...rest}` onto a host element forwards a ref *implicitly* without ever naming it —
+`<Button ref={r} />` really does land on the `<button>`, and `<Checkbox ref={r} />` on the `<input>`.
+On React 18 the same code forwards nothing and React logs *"Function components cannot be given
+refs"*. Their types deny `ref` in both cases. So they are not "honest", they are **#488 again in
+implicit form**: works on one supported major, silent on the other, denied by the type on both.
+
+Note the detector that matters. Grepping for `rest.ref` finds only the *explicit* case — it is what
+`Input` happened to do, and auditing by that string alone will report a clean surface that is not
+clean. The behavioural question is **"does `{...rest}` reach a host element?"**, which is true of most
+of the library.
+
+Nothing is broken today that was not broken before, so this is not a regression — but a component
+that is *meant* to take a ref should be a `forwardRef` with the matching declaration, not left to
+React 19's implicit pass-through.
+
+Guards: `tests/input-ref-forwarding.test.jsx` covers the runtime contract in both directions and pins
+the implicit-forwarding behaviour above so a future React change cannot move it silently; the
+compile-time contract lives in the `tests/types/` fixtures (`input-ref.tsx`, `textarea-ref.tsx`).
 
 ## Deprecation policy
 - A superseded prop is marked `@deprecated since <minor>, removed in <major> — use ``X``` in its
