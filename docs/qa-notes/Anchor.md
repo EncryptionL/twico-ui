@@ -20,5 +20,5 @@
 - Underline is applied on hover only (`text-decoration: none` at rest), so the resting link is distinguished from body text by colour alone. That is acceptable here because the component is for in-prose links where the surrounding text supplies the contrast cue, but it is the reason `base.css` keeps the global `a` rule in step.
 - Focus-visible shows the shared `--ring` box-shadow and clears the native outline; the ring token is a solid brand colour, so it clears 3:1 against the surface.
 - RTL-safe: the external-link glyph uses `margin-inline-start`, and nothing else sets a physical offset.
-- Forwards a ref (`React.forwardRef` + `displayName`), so it composes with router links and focus management.
+- Forwards a ref (`React.forwardRef`), so it composes with router links and focus management. The `displayName` assignment it used to carry was dropped in #489 — a module-scope property assignment is a side effect that pins the component into every tree-shaken bundle, and the named render function already names it for DevTools.
 - SSR-safe: no `window`/`document` access; styling goes through `useScopedStyles`.

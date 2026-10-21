@@ -215,3 +215,7 @@ export const ImageViewer = /*#__PURE__*/ React.forwardRef(function ImageViewer({
 // NOTE: intentionally NO `ImageViewer.displayName = …` — a top-level property assignment is a side effect that
 // pins this component (and its IconButton + Tooltip imports, ~5 kB) into EVERY tree-shaken bundle, breaking the
 // per-component size budgets (#414 regression). The named render function above already gives DevTools a name.
+// #489: this is now the rule for every component, not a carve-out for this one. Fourteen components still
+// carried the assignment and were costing far more than the missing /*#__PURE__*/ annotations: dropping them
+// took Button-only from 9.55 to 3.39 kB and Card-only from 7.98 to 2.72 kB brotli. Guarded by
+// tests/forwardref-pure-annotation.test.js.

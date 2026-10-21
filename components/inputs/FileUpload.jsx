@@ -59,7 +59,7 @@ function fmtSize(bytes) {
   return (bytes / (1024 * 1024)).toFixed(1) + " MB";
 }
 
-export const FileUpload = React.forwardRef(function FileUpload({
+export const FileUpload = /*#__PURE__*/ React.forwardRef(function FileUpload({
   accept,
   multiple = false,
   disabled = false,
@@ -205,4 +205,3 @@ export const FileUpload = React.forwardRef(function FileUpload({
     </div>
   );
 });
-FileUpload.displayName = "FileUpload";

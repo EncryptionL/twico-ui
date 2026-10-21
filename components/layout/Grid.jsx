@@ -26,7 +26,7 @@ function safeHref(url) {
  * CSS grid primitive. Pass `minChildWidth` for a responsive auto-fill grid, or
  * `columns` for a fixed column count.
  */
-export const Grid = React.forwardRef(function Grid({
+export const Grid = /*#__PURE__*/ React.forwardRef(function Grid({
   as: Tag = "div",
   columns,
   minChildWidth,
@@ -97,4 +97,3 @@ export const Grid = React.forwardRef(function Grid({
     </Tag>
   );
 });
-Grid.displayName = "Grid";

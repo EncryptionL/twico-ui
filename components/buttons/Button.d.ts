@@ -46,4 +46,14 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   children?: React.ReactNode;
 }
 
-export function Button(props: ButtonProps): React.JSX.Element;
+/**
+ * #490: forwards `ref` to the `<button>` (or the `<a>` when `as="a"` — `ButtonProps` already commits to
+ * `ButtonHTMLAttributes<HTMLButtonElement>`, so the declared element type follows it).
+ *
+ * Declared rather than left to React 19's implicit pass-through: on React 19 `ref` is an ordinary
+ * prop, so `{...rest}` would land one on the element anyway, but React 18 strips it and the type
+ * denied it on both. `forwardRef` works on both majors — see #488.
+ */
+export declare const Button: React.ForwardRefExoticComponent<
+  ButtonProps & React.RefAttributes<HTMLButtonElement>
+>;

@@ -9,7 +9,7 @@ const KBD_CSS = `
 `;
 
 /** A keyboard key cap, e.g. <Kbd>⌘</Kbd> <Kbd>K</Kbd>. */
-export const Kbd = React.forwardRef(function Kbd({ className = "", children, ...rest }, ref) {
+export const Kbd = /*#__PURE__*/ React.forwardRef(function Kbd({ className = "", children, ...rest }, ref) {
   const __twcStyles = useScopedStyles("twc-kbd-styles", KBD_CSS);
   return (
     <kbd ref={ref} className={`twc-kbd ${className}`.trim()} {...rest}>
@@ -18,4 +18,3 @@ export const Kbd = React.forwardRef(function Kbd({ className = "", children, ...
     </kbd>
   );
 });
-Kbd.displayName = "Kbd";

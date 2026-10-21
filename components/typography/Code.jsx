@@ -1,5 +1,6 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useMergedRef } from "../_ref.js";
 
 const CODE_CSS = `
 .twc-code {
@@ -34,7 +35,7 @@ function safeHref(url) {
 }
 
 /** Inline code, or a scrollable multi-line block with an optional copy button. */
-export function Code({
+export const Code = /*#__PURE__*/ React.forwardRef(function Code({
   as,
   block = false,
   copyable = false,
@@ -43,7 +44,7 @@ export function Code({
   className = "",
   children,
   ...rest
-}) {
+}, ref) {
   const __twcStyles = useScopedStyles("twc-code-styles", CODE_CSS);
   const Tag = as ?? (block ? "pre" : "code");
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
@@ -51,6 +52,8 @@ export function Code({
   // Self-contained copy affordance (components don't import hooks/): a self-resetting
   // `copied` flag, guarded for SSR/older browsers.
   const rootRef = React.useRef(null);
+  // #490: rootRef is used to read the rendered text for copy; merge rather than displace it.
+  const setRootRef = useMergedRef(rootRef, ref);
   const [copied, setCopied] = React.useState(false);
   const timerRef = React.useRef(null);
   React.useEffect(() => () => clearTimeout(timerRef.current), []);
@@ -83,7 +86,7 @@ export function Code({
   };
 
   return (
-    <Tag ref={rootRef} className={`twc-code ${className}`.trim()} data-block={block || undefined} {...rest}>
+    <Tag ref={setRootRef} className={`twc-code ${className}`.trim()} data-block={block || undefined} {...rest}>
       {__twcStyles}
       {copyable ? (
         <button type="button" className="twc-code__copy" aria-label={copied ? copiedLabel : copyLabel} onClick={doCopy}>
@@ -97,4 +100,4 @@ export function Code({
       {children}
     </Tag>
   );
-}
+});

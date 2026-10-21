@@ -1,8 +1,9 @@
 import React from "react";
 import { useScopedStyles } from "../_styles.js";
+import { useMergedRef } from "../_ref.js";
 import { warnOnce } from "../_warn.js";
 
-export function Checkbox({
+export const Checkbox = /*#__PURE__*/ React.forwardRef(function Checkbox({
   label,
   description,
   error,
@@ -17,7 +18,7 @@ export function Checkbox({
   className = "",
   onChange,
   ...rest
-}) {
+}, forwardedRef) {
   const __twcStyles = useScopedStyles("twc-checkbox-styles", `
 .twc-check { display: inline-flex; align-items: flex-start; gap: var(--space-2-5); cursor: pointer; font-family: var(--font-sans); }
 /* tone → accent set (default primary). Mirrors Button's --_accent model; Badge's tone vocabulary. */
@@ -64,6 +65,8 @@ export function Checkbox({
   const errId = `${fieldId}-error`;
   const invalid = Boolean(error);
   const ref = React.useRef(null);
+  // #490: the internal ref drives the indeterminate property; merge rather than displace it.
+  const setRef = useMergedRef(ref, forwardedRef);
   // #85: keep the DOM indeterminate property in sync with BOTH props — checked wins, so the
   // partial→all "select all" flip clears the mixed state (effect re-runs on `checked` too).
   const mixed = indeterminate && !checked;
@@ -80,7 +83,7 @@ export function Checkbox({
     <label className={`twc-check ${className}`} data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined} htmlFor={fieldId}>
       {__twcStyles}
       <input
-        ref={ref}
+        ref={setRef}
         id={fieldId}
         type="checkbox"
         className="twc-check__input"
@@ -116,4 +119,4 @@ export function Checkbox({
       <span id={errId} className="twc-field__error">{error}</span>
     </div>
   );
-}
+});

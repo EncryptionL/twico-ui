@@ -2,7 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 import { warnOnce } from "../_warn.js";
 
-export function Switch({
+export const Switch = /*#__PURE__*/ React.forwardRef(function Switch({
   label,
   description,
   error,
@@ -16,7 +16,7 @@ export function Switch({
   className = "",
   onChange,
   ...rest
-}) {
+}, ref) {
   const __twcStyles = useScopedStyles("twc-switch-styles", `
 /* tone → accent set (default primary). Mirrors Button's --_accent model; Badge's tone vocabulary. */
 .twc-switch { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); --_accent-border: var(--color-primary-border); }
@@ -86,6 +86,7 @@ export function Switch({
     <label className={`twc-switch ${className}`} data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined} htmlFor={fieldId}>
       {__twcStyles}
       <input
+        ref={ref}
         id={fieldId}
         type="checkbox"
         role="switch"
@@ -119,4 +120,4 @@ export function Switch({
       <span id={errId} className="twc-field__error">{error}</span>
     </div>
   );
-}
+});

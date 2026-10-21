@@ -53,7 +53,7 @@ const TEXTAREA_CSS = `
 .twc-field__count[data-danger="true"] { color: var(--color-danger-subtle-fg); }
 `;
 
-export const Textarea = React.forwardRef(function Textarea({
+export const Textarea = /*#__PURE__*/ React.forwardRef(function Textarea({
   label,
   hint,
   error,
