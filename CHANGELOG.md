@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.46.0](https://github.com/EncryptionL/twico-ui/compare/v1.45.1...v1.46.0) (2026-10-21)
+
+
+### Features
+
+* **datatable,cardgrid:** selectionSummary slot, and move toolbarActions after the built-ins ([8ddbad9](https://github.com/EncryptionL/twico-ui/commit/8ddbad9c3d3321e585d895115ed4bb0b1a9c0c27)), closes [#492](https://github.com/EncryptionL/twico-ui/issues/492) [#478](https://github.com/EncryptionL/twico-ui/issues/478) [#286](https://github.com/EncryptionL/twico-ui/issues/286)
+
 ## [1.45.1](https://github.com/EncryptionL/twico-ui/compare/v1.45.0...v1.45.1) (2026-10-21)
 
 
