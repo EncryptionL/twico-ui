@@ -51,6 +51,11 @@ const CARDGRID_CSS = `
   padding: var(--space-2) var(--space-3); border: var(--border-thin) solid var(--color-primary-border);
   background: var(--color-primary-subtle); border-radius: var(--radius-md); }
 .twc-cardgrid__batch-count { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-primary-subtle-fg); }
+/* #492: same slot, same contract as Datatable. Weight, not a lighter token - this bar is
+   --color-primary-subtle, where --color-text-subtle is 4.26:1 and fails normal-text contrast. */
+.twc-cardgrid__batch-summary { display: inline-flex; align-items: center; gap: var(--space-2);
+  font-size: var(--text-sm); color: var(--color-primary-subtle-fg); }
+.twc-cardgrid__batch-summary::before { content: ""; width: var(--border-thin); height: 14px; background: currentColor; opacity: 0.35; }
 .twc-cardgrid__batch-actions { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-inline-start: auto; }
 .twc-cardgrid__batch-btn { display: inline-flex; align-items: center; gap: var(--space-2); height: var(--control-h-sm);
   padding-inline: var(--space-3); border: var(--border-thin) solid var(--color-border); background: var(--color-surface);
@@ -107,6 +112,7 @@ export function CardGrid({
   // the whole point, and it was the only Datatable affordance CardGrid lacked.
   checkboxSelection = false,
   batchActions = [],
+  selectionSummary,
   onRowSelectionChange,
   selectionPlacement = "top-start",
   selectionLabel,
@@ -323,6 +329,13 @@ export function CardGrid({
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
           <span className="twc-cardgrid__batch-count">{selected.size} selected</span>
+          {/* #492: parity with Datatable - see the note there. Placed next to the count it qualifies,
+              before the page toggle, so "12 selected - 2.4 GB" reads as one phrase. */}
+          {selectionSummary != null ? (
+            <span className="twc-cardgrid__batch-summary">
+              {typeof selectionSummary === "function" ? selectionSummary(selKeys, selectedRows) : selectionSummary}
+            </span>
+          ) : null}
           {showSelectAll && pageRows.length > 0 ? (
             <label className="twc-cardgrid__selall">
               <Checkbox checked={allPageSelected} indeterminate={somePageSelected} onChange={togglePage}

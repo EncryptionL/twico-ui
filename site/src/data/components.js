@@ -5450,6 +5450,13 @@ export const components = [
         "description": "Actions in the selection toolbar that operate on the selected rows; each action's disabled/hidden can be a predicate (keys, rows) => boolean evaluated against the current selection."
       },
       {
+        "prop": "selectionSummary",
+        "type": "React.ReactNode | ((keys: Array<string | number>, rows: T[]) => React.ReactNode)",
+        "required": false,
+        "default": "—",
+        "description": "Extra node in the SELECTION toolbar, beside the \"N selected\" count and before the batch actions — for the number the count does not carry. A batch capped by total size refuses on gigabytes, not on items, so \"12 selected\" is not the number the user needs and \"12 selected · 2.4 GB\" is. Prefer the function form: it receives the same (keys, rows) the batch actions get, so you supply one pure function and keep no selection state of your own. Complements disabledReason, which explains the refusal once a cap is exceeded — this is the running total before that point."
+      },
+      {
         "prop": "onRowSelectionChange",
         "type": "(keys,rows)=>void",
         "required": false,
@@ -5937,7 +5944,7 @@ export const components = [
         "type": "React.ReactNode",
         "required": false,
         "default": "—",
-        "description": "Custom node rendered in a leading toolbar slot, before the built-in Columns/Filters cluster — for host controls like an \"Add row\" button or bulk actions. Mirrors CardGrid's toolbar prop, so no internal-class or absolute-position hacks are needed."
+        "description": "Custom node rendered in the toolbar after the built-in cluster (Columns, Filters, Density, Aggregation, Pivot, Export) and before the search box — for host controls like an \"Add row\" button or bulk actions. Host buttons therefore read as an extension of the built-in ones rather than displacing them, and the search keeps the right-hand edge. Mirrors CardGrid's toolbar prop, so no internal-class or absolute-position hacks are needed."
       },
       {
         "prop": "resizableFilters",
@@ -6320,6 +6327,13 @@ export const components = [
         "required": false,
         "default": "[]",
         "description": "Actions for the selection toolbar; disabled, hidden and disabledReason may each be predicates over the current selection."
+      },
+      {
+        "prop": "selectionSummary",
+        "type": "React.ReactNode | ((keys: Array<string | number>, rows: Row[]) => React.ReactNode)",
+        "required": false,
+        "default": "—",
+        "description": "Extra node in the SELECTION toolbar, beside the \"N selected\" count and before the batch actions — for the number the count does not carry. A batch capped by total size refuses on gigabytes, not on items, so \"12 selected\" is not the number the user needs and \"12 selected · 2.4 GB\" is. Prefer the function form: it receives the same (keys, rows) the batch actions get, so you supply one pure function and keep no selection state of your own. Complements disabledReason, which explains the refusal once a cap is exceeded — this is the running total before that point."
       },
       {
         "prop": "onRowSelectionChange",
