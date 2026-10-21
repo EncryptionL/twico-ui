@@ -451,6 +451,9 @@ function ActionsBatchDemo() {
       // Inline edit persists single-cell changes; batch edit persists the popover.
       onRowUpdate={(updated) => setRows((d) => d.map((r) => (r.id === updated.id ? updated : r)))}
       onBatchUpdate={(changed) => setRows((d) => d.map((r) => changed.find((c) => c.id === r.id) || r))}
+      // #492: the running total that the count cannot carry. The function form gets exactly what the
+      // batch actions get, so nothing about the selection is mirrored into component state here.
+      selectionSummary={(keys, sel) => usd(sel.reduce((n, r) => n + r.mrr, 0)) + " MRR"}
       batchActions={[
         { icon: <DownloadIcon />, label: "Export selected", onClick: (keys, rs, clear) => clear() },
         { icon: <MailIcon />, label: "Email", onClick: (keys, rs, clear) => clear() },
@@ -993,7 +996,7 @@ function ServerSideDemo() {
   {
     title: "Actions column, batch actions & batch edit",
     description:
-      "Three selection patterns at once. A per-row actions column adds inline icon buttons plus an overflow (⋮) menu (showInMenu). Ticking rows swaps the toolbar for your batchActions (export / email / delete). And because some columns are editable, the grid adds a built-in Edit button to that toolbar — pick a column and a value to write it across every selected row in one go (onBatchUpdate); double-clicking a single cell edits just that one (onRowUpdate).",
+      "Three selection patterns at once. A per-row actions column adds inline icon buttons plus an overflow (⋮) menu (showInMenu). Ticking rows swaps the toolbar for your batchActions (export / email / delete). And because some columns are editable, the grid adds a built-in Edit button to that toolbar — pick a column and a value to write it across every selected row in one go (onBatchUpdate); double-clicking a single cell edits just that one (onRowUpdate). selectionSummary adds the number the count cannot carry — here a running MRR total beside \"N selected\" — for batches bounded by size, cost or duration rather than by item count.",
     code: `function Example() {
   const [rows, setRows] = useState(() => makePeople(10));
 
@@ -1009,6 +1012,10 @@ function ServerSideDemo() {
       onRowUpdate={(updated) =>
         setRows((d) => d.map((r) => (r.id === updated.id ? updated : r)))
       }
+      // #492: the number the count cannot carry, beside it in the SELECTION toolbar. Gets exactly
+      // what batchActions get, so no part of the selection is mirrored into your own state.
+      // Pairs with disabledReason: this is the running total BEFORE a cap refuses the batch.
+      selectionSummary={(keys, sel) => usd(sel.reduce((n, r) => n + r.mrr, 0)) + " MRR"}
       // actions shown in the toolbar while >=1 row is selected
       batchActions={[
         { icon: <DownloadIcon />, label: "Export selected", onClick: (keys, rs, clear) => clear() },

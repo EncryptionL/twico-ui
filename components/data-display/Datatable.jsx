@@ -665,6 +665,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__batch-x:hover { background: color-mix(in srgb, var(--color-primary) 20%, transparent); }
 .twc-dt__batch-x svg { width: 16px; height: 16px; }
 .twc-dt__batch-count { font-size: var(--text-sm); font-weight: var(--font-bold); color: var(--color-primary-subtle-fg); white-space: nowrap; }
+/* #492: the host's running total, sitting with the count it qualifies. Same colour as the count,
+   differentiated by WEIGHT rather than by a lighter token: this bar is --color-primary-subtle, and
+   --color-text-subtle on that is 4.26:1, under the 4.5:1 needed for normal text. */
+.twc-dt__batch-summary { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-sm);
+  color: var(--color-primary-subtle-fg); white-space: nowrap; }
+.twc-dt__batch-summary::before { content: ""; width: var(--border-thin); height: 14px; background: currentColor; opacity: 0.35; }
 .twc-dt__batch-actions { margin-inline-start: auto; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .twc-dt__batch-btn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px;
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface);
@@ -1155,6 +1161,7 @@ export function Datatable({
   density: densityProp = "comfortable", pageSize = 10, pageSizeOptions = [5, 10, 25, 50],
   page, onPageChange, onPageSizeChange,
   height = 440, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [], onRowSelectionChange,
+  selectionSummary,
   getRowStyle, getRowClassName,
   showExport = false, showDensity = false, showPivot = false, showColumns, showFilters, exportFilename = "export", aggregationValues = null,
   disableColumnReorder = false, disableColumnResize = false, defaultColumn,
@@ -3843,9 +3850,6 @@ export function Datatable({
       {/* PIVOT_RENDER_ANCHOR */}
       {/* Toolbar */}
       <div className="twc-dt__toolbar" data-compact={compact || undefined}>
-        {/* #286: leading slot for host controls (e.g. an "Add row" button), before the built-in
-            Columns/Filters cluster — mirrors CardGrid's `toolbar` prop, no internal-class hacks. */}
-        {toolbarActions != null ? <div className="twc-dt__toolbar-actions">{toolbarActions}</div> : null}
         {/* #249: the built-in editor keeps the selection toolbar alive on its own — it used to require at
             least one `batchActions` entry, which made `showBatchEdit` silently inert (a host whose actions
             are permission-gated to [] lost batch edit entirely, and had to invent a dummy action). The
@@ -3855,6 +3859,17 @@ export function Datatable({
           <div className="twc-dt__batch">
             <button type="button" className="twc-dt__batch-x" onClick={clearSelection} aria-label="Clear selection"><Svg d={I.x} /></button>
             <span className="twc-dt__batch-count">{selected.size} selected</span>
+            {/* #492: the count is not always the number that decides anything - a batch capped by total
+                SIZE refuses on gigabytes, not on items - and there was nowhere to put the one that is.
+                Hosts had to lift it into the main toolbar behind their own selected.length > 0 guard,
+                which put it in a different row from the count it qualifies and made them mirror a
+                selection the component already tracks. The function form is the point: with it the host
+                supplies one pure function of (keys, rows) and keeps no state of its own. */}
+            {selectionSummary != null ? (
+              <span className="twc-dt__batch-summary">
+                {typeof selectionSummary === "function" ? selectionSummary(selKeys, selectedRows) : selectionSummary}
+              </span>
+            ) : null}
             <div className="twc-dt__batch-actions">
               {hasBatchEditor ? (
                 <button type="button" className="twc-dt__batch-btn" onClick={(e) => openBatchEditor(e.currentTarget)}>
@@ -3948,6 +3963,16 @@ export function Datatable({
             </button>
           </span>
         ) : null}
+        {/* #286: slot for host controls (e.g. an "Add row" button). Placed AFTER the built-in
+            Columns / Filters / Density / Aggregation / Pivot / Export cluster and BEFORE the search
+            box, so the host's buttons read as an extension of the built-in ones rather than
+            displacing them, and the search box keeps its position on the right.
+            It sits before the search in the DOM rather than after it because `.twc-dt__search` is
+            pushed right by `margin-inline-start: auto`: anything rendered after it would land on the
+            far side of the box, and in `data-compact` mode the search flexes to fill the row, which
+            would squeeze a trailing slot to nothing. Tab order follows the DOM, so this also keeps
+            host controls reachable before the search field. */}
+        {toolbarActions != null ? <div className="twc-dt__toolbar-actions">{toolbarActions}</div> : null}
         {searchable ? (
           <div className="twc-dt__search">
             <Svg d={I.search} />

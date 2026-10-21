@@ -154,11 +154,30 @@ from the current `rows`; selection does not span pages in server mode.
   value controlled, so a host can render its own `<Input type="search">` and still drive client filtering
   **and** the `onServerChange` query (`quickFilter` in the emitted query). Useful when the built-in box
   doesn't fit a host's layout (or to work around a host-CSS clash). Uncontrolled unless `quickFilter` is set.
-- **`toolbarActions` (#286)** injects a host node into a **leading slot** of the toolbar row (a
-  `.twc-dt__toolbar-actions` inline-flex cluster, before the built-in Columns/Filters) — for controls like an
-  "Add row" button or bulk actions — mirroring `CardGrid`'s `toolbar` prop. Previously hosts had to pad the
-  internal `.twc-dt__toolbar` class and absolutely position a button over it; this removes that hack. The slot
-  renders only when the prop is passed.
+- **`toolbarActions` (#286)** injects a host node into a `.twc-dt__toolbar-actions` inline-flex cluster — for
+  controls like an "Add row" button or bulk actions — mirroring `CardGrid`'s `toolbar` prop. Previously hosts
+  had to pad the internal `.twc-dt__toolbar` class and absolutely position a button over it; this removes that
+  hack. The slot renders only when the prop is passed.
+
+  **Placement:** *after* the built-in cluster (Columns, Filters, Density, Aggregation, Pivot, Export) and
+  *before* the search box. Host controls therefore read as an extension of the built-in ones rather than
+  displacing them, and the search keeps the right-hand edge. It is before the search in the DOM rather than
+  after it because `.twc-dt__search` is pushed right by `margin-inline-start: auto`: anything rendered after
+  it would land on the far side of the box, and under `data-density`-driven `data-compact` the search flexes
+  to fill the row and would squeeze a trailing slot to nothing. Tab order follows the DOM, so host controls
+  also stay reachable before the search field. (It used to be the *leading* slot, before Columns/Filters.)
+- **`selectionSummary` (#492)** puts a host node in the **selection** toolbar, beside the "N selected" count
+  and before the batch actions — for the number the count does not carry. A batch capped by total *size*
+  refuses on gigabytes, not on items, so "12 selected" is not the number that decides anything and
+  "12 selected · 2.4 GB" is. Without the slot a host had to lift that total into the **main** toolbar behind
+  its own `selected.length > 0` guard: a different row from the count it qualifies, and it forced the host to
+  mirror a selection the component already tracks. Takes a node, or a function
+  `(keys, rows) => ReactNode` — prefer the function, which receives exactly what the batch actions receive,
+  so the host supplies one pure function and keeps no selection state. (`retainSelectedRows` makes the
+  off-page rows resolve too; without it only the rendered page's rows do.) `CardGrid` takes the same prop with
+  the same contract. It complements `disabledReason` (#479), which explains the *refusal* once a cap is
+  exceeded: this is the running total **before** that point, which is what lets someone stop at the right
+  number instead of discovering the cap by hitting it.
 - **`column.filterType` (#270)** decouples a column's **filter** operators + value comparison from its edit
   `type`. A value+unit measurement (e.g. `"0.5 MM"`, edited via a custom `renderEditCell`) must edit as
   `type: "string"` — a `type: "number"` column coerces its inline-edit commit with `Number()`, which turns

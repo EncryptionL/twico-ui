@@ -132,6 +132,26 @@ export interface CardGridProps<Row = any> extends Omit<React.HTMLAttributes<HTML
    * `ctx.anchorEl` so an action can anchor a popover to its own button.
    */
   batchActions?: CardGridBatchAction<Row>[];
+  /**
+   * #492: extra node in the **selection** toolbar, rendered beside the "N selected" count and before
+   * the batch actions — for the number the count does not carry.
+   *
+   * The count is not always what decides anything. A batch capped by total **size** refuses on
+   * gigabytes, not on items: "12 selected" is not the number the user needs, "12 selected · 2.4 GB"
+   * is. Before this there was nowhere to put it, so hosts lifted it into the main toolbar behind
+   * their own `selected.length > 0` guard — putting it in a different row from the count it
+   * qualifies, and re-deriving a selection this component already tracks.
+   *
+   * Prefer the **function form**: it receives the same `(keys, rows)` the batch actions get, so the
+   * host supplies one pure function and keeps no selection state of its own. (With `retainSelectedRows`
+   * the off-page rows resolve too; without it only the rows currently rendered do.) Pass a plain
+   * node when the summary does not depend on the selection.
+   *
+   * Complements `disabledReason` (#479), which explains the refusal once a cap is exceeded: this is
+   * the running total *before* that point, which is what lets someone stop at the right number
+   * instead of discovering the cap by hitting it.
+   */
+  selectionSummary?: React.ReactNode | ((keys: Array<string | number>, rows: Row[]) => React.ReactNode);
   /** Fired when the selection changes — `(keys, rows)`, matching `Datatable.onRowSelectionChange`. */
   onRowSelectionChange?: (keys: Array<string | number>, rows: Row[]) => void;
   /**
