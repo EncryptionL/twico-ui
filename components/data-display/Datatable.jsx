@@ -401,9 +401,20 @@ const DT_CSS = `
   font-size: var(--text-sm); color: var(--color-text); background: var(--twc-dt-row-bg, var(--color-surface));
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 0; }
 /* Wrap-text columns: content flows onto multiple lines (the row grows down) instead of
-   clipping to one line. height stays a per-row minimum, so single-line cells are unchanged. */
+   clipping to one line. height stays a per-row minimum, so single-line cells are unchanged.
+   The top alignment here is only a DEFAULT for wrapped cells - an explicit verticalAlign at any
+   level resolves to data-valign below, which is more specific and wins. Before that existed, a row
+   mixing a wrapped column with normal ones was silently inconsistent: the wrapped cell sat top and
+   its neighbours sat middle, with no way to say otherwise. */
 .twc-dt__td[data-wrap="true"] { white-space: normal; overflow: hidden; text-overflow: clip;
   word-break: break-word; overflow-wrap: anywhere; vertical-align: top; padding-block: 10px; line-height: 1.45; }
+/* Vertical alignment. One attribute, already resolved: column > row > table default, computed in
+   renderLeaf rather than left to three competing selectors, so the precedence is readable in the
+   code and cannot be reordered by an unrelated CSS edit. Matters whenever rows vary in height -
+   wrapText, a multi-line renderCell, or a drag-resized row. */
+.twc-dt__td[data-valign="top"] { vertical-align: top; }
+.twc-dt__td[data-valign="middle"] { vertical-align: middle; }
+.twc-dt__td[data-valign="bottom"] { vertical-align: bottom; }
 /* #338: "combined" column cell — one column showing several source columns' values. */
 .twc-dt__combine--stack { display: flex; flex-direction: column; gap: 1px; }
 .twc-dt__combine-sep { color: var(--color-text-subtle); padding-inline: 3px; }
@@ -1162,6 +1173,7 @@ export function Datatable({
   page, onPageChange, onPageSizeChange,
   height = 440, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [], onRowSelectionChange,
   selectionSummary,
+  verticalAlign, getRowVerticalAlign,
   getRowStyle, getRowClassName,
   showExport = false, showDensity = false, showPivot = false, showColumns, showFilters, exportFilename = "export", aggregationValues = null,
   disableColumnReorder = false, disableColumnResize = false, defaultColumn,
@@ -3585,6 +3597,9 @@ export function Datatable({
     // the columns come from a schema.
     const userRowStyle = getRowStyle ? getRowStyle(row, ri) : undefined;
     const userRowClass = getRowClassName ? getRowClassName(row, ri) : undefined;
+    // Vertical alignment for this row, resolved once here; the per-column value (if any) still
+    // takes precedence on its own cell - see dtValign at the cell render.
+    const rowValign = getRowVerticalAlign ? getRowVerticalAlign(row, ri) : undefined;
     // A background belongs on the CELLS (see the --twc-dt-row-bg note in the CSS); everything else
     // stays on the <tr>. The component's own sticky/height declarations are applied last so a hook
     // cannot break row pinning or row resizing.
@@ -3686,6 +3701,7 @@ export function Datatable({
               tabIndex={cellNavigation === "widget" ? -1 : (focus.r === ri && focus.c === ci ? 0 : -1)}
               aria-selected={cellSelected || undefined}
               data-num={c.type === "number" || undefined} data-actions={isActions || undefined} data-align={c.align !== dtNaturalAlign(c) ? c.align : undefined}
+              data-valign={c.verticalAlign ?? rowValign ?? verticalAlign}
               data-editable={editable && !isEditing || undefined} data-editing={isEditing || undefined}
               data-cell-active={cellActive || undefined} data-cell-selected={cellSelected || undefined} data-copied={cellFlash || undefined} data-wrap={effectiveWrapped.has(c.field) || undefined}
               data-pin={st.pin} data-pin-edge={st.edge}

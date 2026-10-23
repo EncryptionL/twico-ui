@@ -716,6 +716,27 @@ function RowTintDemo() {
   );
 }
 
+// Alignment: horizontal is a column property (align, already there); vertical has three levels and
+// only shows up once rows vary in height - here the Notes column wraps, so the rows are tall.
+const ALIGN_ROWS = [
+  { id: 1, ref: "A-1001", notes: "Short note.", status: "open", amount: 1200 },
+  { id: 2, ref: "A-1002", notes: "A much longer note that wraps onto several lines, which is what makes the row tall enough for vertical alignment to be visible at all.", status: "blocked", amount: 450 },
+  { id: 3, ref: "A-1003", notes: "Two lines worth of text, enough to grow the row a little.", status: "open", amount: 8900 },
+];
+function AlignmentDemo() {
+  const columns = [
+    { field: "ref", headerName: "Ref", width: 110 },
+    { field: "notes", headerName: "Notes", width: 320, wrapText: true },
+    { field: "status", headerName: "Status", width: 120, align: "center",
+      renderCell: (v) => <Badge variant="soft" size="sm" tone={v === "blocked" ? "danger" : "success"}>{v}</Badge> },
+    { field: "amount", headerName: "Amount", type: "number", width: 130, valueFormatter: usd },
+  ];
+  return (
+    <Datatable columns={columns} rows={ALIGN_ROWS} rowKey={(r) => r.id} pageSize={0}
+      verticalAlign="top" />
+  );
+}
+
 // #350: expandable/collapsible rows — renderRowDetail(row) returns the panel shown beneath an expanded row.
 const DETAIL_PEOPLE = makePeople(6);
 function RowDetailDemo() {
@@ -1341,6 +1362,35 @@ const columns = [
 
 <Datatable columns={columns} rows={rows} rowKey={(r) => r.id} pageSize={0} />`,
     render: () => <CellHighlightDemo />,
+  },
+  {
+    title: "Alignment — horizontal per column, vertical at three levels",
+    description:
+      "Horizontal alignment is a column property: align (\"left\" | \"center\" | \"right\"), with headerAlign when the header should differ; number and actions columns default to right. Vertical alignment is its transpose — where content sits down the row's height — and only becomes visible once rows vary in height, as they do here because Notes wraps. Three levels resolve lowest-first: verticalAlign on the table, then getRowVerticalAlign(row, index), then the column's own verticalAlign. The column wins because a per-column value describes that column's content type — an actions column or a status badge that should stay centred however tall the row gets — so it survives a row-wide sweep.",
+    code: `// Horizontal: a column property, unchanged.
+//   align?: "left" | "center" | "right"      headerAlign?: same, when the header differs
+//   number and actions columns default to "right"
+
+// Vertical: resolved lowest-first, table -> row -> column.
+<Datatable
+  columns={columns}
+  rows={rows}
+  verticalAlign="top"                        // every cell, unless something below overrides
+  getRowVerticalAlign={(row) =>              // one row; undefined falls through to the table value
+    row.expanded ? "top" : undefined}
+/>
+
+const columns = [
+  { field: "notes", wrapText: true },                              // tall cells
+  { field: "status", align: "center" },                            // horizontal
+  { field: "amount", type: "number" },                             // right by default
+  { field: "actions", type: "actions", verticalAlign: "middle" },  // stays centred regardless
+];
+
+// Resolved in JS and emitted as one data-valign on the cell, not three competing CSS rules -
+// so the precedence is readable in the code and an unrelated stylesheet edit cannot reorder it.
+// wrapText cells still default to "top"; an explicit verticalAlign beats it.`,
+    render: () => <AlignmentDemo />,
   },
   {
     title: "Row-level tint — getRowStyle / getRowClassName",

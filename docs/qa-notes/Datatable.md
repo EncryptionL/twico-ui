@@ -814,6 +814,16 @@
 
 - [x] **[#286 follow-up] `toolbarActions` moved from the leading slot to after the built-in cluster** - requested: host controls now render after Columns / Filters / Density / Aggregation / Pivot / Export and before the search, so they read as an extension of the built-in buttons rather than displacing them. Before the search in the DOM, not after: `.twc-dt__search` is pushed right by `margin-inline-start: auto`, so anything after it lands on the far side of the box, and in compact mode the search flexes to fill the row and would squeeze a trailing slot to nothing. Tab order follows the DOM, so host controls stay reachable before the search field. This is a visible layout change for every existing `toolbarActions` consumer. `Datatable.jsx` - changed 2026-10-21
 
+- [x] **[request] vertical alignment at three levels; horizontal already existed** - the ask was "column horizontal alignment (left/center/right)" and "row vertical alignment (top/middle/bottom)". The horizontal half was already shipped and working: `column.align` plus `column.headerAlign`, emitted as `data-align`, with number and actions columns defaulting to right - verified by probe before writing anything, so nothing was built there.
+
+  Vertical was the real gap, and it also closed a quiet inconsistency: `wrapText` cells were hard-coded `vertical-align: top` while their neighbours kept the browser's `middle`, so a row mixing a wrapped column with normal ones was already misaligned with no way to say otherwise. That top is now only the DEFAULT for wrapped cells; an explicit value beats it.
+
+  Three levels, resolved lowest-first: `verticalAlign` (table) -> `getRowVerticalAlign(row, index)` -> `column.verticalAlign`. **The column wins over the row on purpose:** a per-column value describes that column's content type - an actions column or a status badge that should stay centred however tall the row gets - so it survives a row-wide sweep. Both orders have a surprising case; this one makes the common exemption work, and to move every cell in a row you leave the columns' values unset.
+
+  **Resolved in JS, not as three competing selectors.** One `data-valign` is computed on the cell and three flat CSS rules read it. Three selectors racing on specificity would be reorderable by an unrelated stylesheet edit while the precedence tests still passed - the test asserts the resolve expression AND that no row-level or table-level `data-valign` selector exists.
+
+  12 tests in `tests/datatable-vertical-align.test.jsx`; site variation "Alignment - horizontal per column, vertical at three levels". Browser-verified rather than inferred: a 56px row renders all four cells with computed `vertical-align: top` and content flush to the top. `Datatable.jsx` - added 2026-10-23
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.

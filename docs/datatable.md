@@ -178,6 +178,42 @@ from the current `rows`; selection does not span pages in server mode.
   the same contract. It complements `disabledReason` (#479), which explains the *refusal* once a cap is
   exceeded: this is the running total **before** that point, which is what lets someone stop at the right
   number instead of discovering the cap by hitting it.
+- **Alignment — horizontal is a column property, vertical has three levels.** `column.align`
+  (`"left" | "center" | "right"`, with `column.headerAlign` when the header should differ) has always
+  decided where content sits across a column's width; number and actions columns default to `right`.
+  Its transpose is **vertical** alignment — where content sits down the row's height — which only
+  becomes visible once rows vary in height: a `wrapText` column, a multi-line `renderCell`, or a
+  drag-resized row.
+
+  Three levels, **resolved lowest-first: `verticalAlign` (table) → `getRowVerticalAlign(row, index)`
+  → `column.verticalAlign`.**
+
+  ```jsx
+  <Datatable
+    verticalAlign="top"                                   // every cell, unless overridden
+    getRowVerticalAlign={(r) => r.expanded ? "top" : undefined}   // one row; undefined falls through
+    columns={[
+      { field: "notes", wrapText: true },
+      { field: "actions", type: "actions", verticalAlign: "middle" },  // stays centred regardless
+    ]}
+  />
+  ```
+
+  **Why the column wins over the row:** a per-column value is a statement about that column's
+  *content type* — an actions column or a status badge that should stay centred however tall the row
+  gets — so it survives a row-wide sweep. To move every cell in a row, leave the columns' values
+  unset. Both orders have a surprising case; this one makes the common exemption work.
+
+  It is resolved **in JavaScript** and emitted as a single `data-valign` on the `<td>`, not as three
+  competing CSS rules. Three selectors racing on specificity would be reorderable by an unrelated
+  stylesheet edit while the precedence tests still passed; one resolved attribute cannot be.
+  `tests/datatable-vertical-align.test.jsx` asserts the chain and that no row- or table-level
+  `data-valign` selector exists.
+
+  This also closes a quiet inconsistency: `wrapText` cells were hard-coded to `vertical-align: top`
+  while their neighbours kept the browser's `middle`, so a row mixing a wrapped column with normal
+  ones was already misaligned with no way to say otherwise. That top is now only the *default* for
+  wrapped cells — an explicit `verticalAlign` at any level is more specific and wins.
 - **`column.filterType` (#270)** decouples a column's **filter** operators + value comparison from its edit
   `type`. A value+unit measurement (e.g. `"0.5 MM"`, edited via a custom `renderEditCell`) must edit as
   `type: "string"` — a `type: "number"` column coerces its inline-edit commit with `Number()`, which turns

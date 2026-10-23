@@ -146,6 +146,31 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    * `tr.twc-dt__row.my-row .twc-dt__td`. You are then choosing to cover the hover cue on those rows.
    */
   getRowClassName?: (row: T, index: number) => string | undefined;
+  /**
+   * Default vertical alignment for every body cell, as `data-valign`. Only visible once rows vary
+   * in height - a `wrapText` column, a multi-line `renderCell`, or a drag-resized row; with
+   * single-line rows every value looks the same.
+   *
+   * **Precedence, lowest first: this → {@link getRowVerticalAlign} → the column's
+   * `verticalAlign`.** It is resolved in one place and emitted as a single `data-valign` on the
+   * cell, rather than as three competing CSS rules, so the order is readable in the code and an
+   * unrelated stylesheet edit cannot reorder it.
+   *
+   * @default unset — cells keep the browser's `middle`, except `wrapText` cells, which sit `top`
+   */
+  verticalAlign?: "top" | "middle" | "bottom";
+  /**
+   * Vertical alignment for one row's cells, called `(row, index)` like {@link getRowStyle}. Return
+   * `undefined` to leave a row on the table default.
+   *
+   * Overrides {@link verticalAlign} but **not** a column's own `verticalAlign`: an explicit column
+   * value is a property of that column's content type and is almost always a deliberate exemption
+   * (the actions column stays centred while the rest of the row moves). If you need a row to move
+   * every cell, leave the columns' values unset.
+   *
+   * `index` is page-relative, the same as {@link getRowStyle}.
+   */
+  getRowVerticalAlign?: (row: T, index: number) => "top" | "middle" | "bottom" | undefined;
   /** Restrict the toolbar quick-search to these column `field`s (client mode); defaults to every
    *  visible column. Mirrors `runDatatableQuery`'s `options.searchFields`. */
   searchFields?: string[];
@@ -665,6 +690,20 @@ export interface DatatableColumn<T = any> {
   align?: "left" | "center" | "right";
   /** Header-cell alignment, when it should differ from the body `align`. @default the column's `align` */
   headerAlign?: "left" | "center" | "right";
+  /**
+   * Vertical alignment of this column's body cells, as `data-valign`. The transpose of `align`:
+   * `align` decides where content sits across the column's width, this decides where it sits down
+   * the row's height. Only visible once rows vary in height - a `wrapText` column, a multi-line
+   * `renderCell`, or a drag-resized row.
+   *
+   * **Wins over the row and table values.** A per-column setting is a statement about this column's
+   * content type - an actions column or a status badge that should stay centred however tall the
+   * row gets - so it survives a row-level or table-wide sweep. To move a whole row including this
+   * column, leave the column's value unset.
+   *
+   * @default `"top"` for `wrapText` columns, otherwise the table's `verticalAlign`
+   */
+  verticalAlign?: "top" | "middle" | "bottom";
   /** Allow sorting this column. @default true */
   sortable?: boolean;
   /** Allow filtering this column. @default true */
