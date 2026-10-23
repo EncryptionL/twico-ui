@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.48.0](https://github.com/EncryptionL/twico-ui/compare/v1.47.0...v1.48.0) (2026-10-23)
+
+
+### Features
+
+* **datatable:** vertical alignment at three levels — table, row, column ([221978b](https://github.com/EncryptionL/twico-ui/commit/221978b1db3527d97b93335a9b36b9274d2c8b10))
+
 # [1.47.0](https://github.com/EncryptionL/twico-ui/compare/v1.46.0...v1.47.0) (2026-10-23)
 
 
