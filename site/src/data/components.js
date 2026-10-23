@@ -5912,6 +5912,20 @@ export const components = [
         "description": "Inline style for a WHOLE row from its own state — the row-level counterpart to a column's cellStyle, so marking a row no longer means repeating cellStyle on every column. A background (or backgroundColor) reaches the row's cells through the --twc-dt-row-bg custom property, since each cell paints its own opaque surface; every other declaration lands on the <tr>. Sticky positioning and measured row height are applied after yours, so it cannot break row pinning or row resizing. Layering is one rule: the tint is the bottom layer above the cell's plain surface and every built-in state covers it — hover, selection, activeRowId, a pinned or grabbed row, the diff washes, cell selection/editing, and an inline cellStyle over all of them — because a data-derived wash should never hide an interaction state. (So a row pinned from the ⋮ menu loses its background tint while pinned, like a selected one; use getRowClassName with a rule outranking (0,3,0) if you need a tint that beats hover — and note .twc-dt__row.my-row .twc-dt__td is itself (0,3,0), a tie, so add an element: tr.twc-dt__row.my-row .twc-dt__td.) Applies to every data row, pinned ones included — not to group-header or pivot aggregate rows, which have no row to pass. No stripe in that stack: Datatable does not zebra-stripe data rows at all, only the pivot grid does."
       },
       {
+        "prop": "verticalAlign",
+        "type": "\"top\" | \"middle\" | \"bottom\"",
+        "required": false,
+        "default": "—",
+        "description": "Default vertical alignment for every body cell. The transpose of a column's align: align decides where content sits across the column's width, this decides where it sits down the row's height. Only visible once rows vary in height — a wrapText column, a multi-line renderCell, or a drag-resized row. Precedence, lowest first: this → getRowVerticalAlign → the column's verticalAlign. Resolved in one place and emitted as a single data-valign on the cell rather than as three competing CSS rules, so the order cannot be changed by an unrelated stylesheet edit."
+      },
+      {
+        "prop": "getRowVerticalAlign",
+        "type": "(row: T, index: number) => \"top\" | \"middle\" | \"bottom\" | undefined",
+        "required": false,
+        "default": "—",
+        "description": "Vertical alignment for one row's cells, called (row, index) like getRowStyle; return undefined to leave a row on the table default. Overrides verticalAlign but NOT a column's own verticalAlign — an explicit column value is a property of that column's content type and is almost always a deliberate exemption (the actions column stays centred while the rest of the row moves). To move every cell in a row, leave the columns' values unset. index is page-relative, like getRowStyle."
+      },
+      {
         "prop": "getRowClassName",
         "type": "(row: T, index: number) => string | undefined",
         "required": false,
@@ -12194,6 +12208,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Inline style applied to the whole cell (.twc-dt__td, pinned included) — the simplest full-cell tint from value/row; wins over hover/selection/diff backgrounds (use cellClassName if those cues must stay visible), pin positioning preserved. On a pinned column keep the background opaque (composite over var(--color-surface))."
+      },
+      {
+        "prop": "verticalAlign (column)",
+        "type": "\"top\" | \"middle\" | \"bottom\"",
+        "required": false,
+        "default": "—",
+        "description": "Vertical alignment of this column's body cells. Wins over the row and table values: a per-column setting is a statement about the column's content type — an actions column or a status badge that should stay centred however tall the row gets — so it survives a row-level or table-wide sweep. To move a whole row including this column, leave this unset. Defaults to top for wrapText columns, otherwise to the table's verticalAlign."
       },
       {
         "prop": "onClick",
