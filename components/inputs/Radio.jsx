@@ -56,6 +56,17 @@ export const Radio = /*#__PURE__*/ React.forwardRef(function Radio({
 .twc-field__req { color: var(--color-danger); }
 .twc-radio__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
+   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
+   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
+   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
+   The lane is held open by generated content rather than a fixed height so it matches the real
+   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
+   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
+   whether a footer is already there, so no component has to report it. */
+.twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
+[data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
+  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
 `);
 

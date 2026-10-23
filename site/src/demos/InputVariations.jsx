@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "twico-ui";
+import { Input, Select, Stack } from "twico-ui";
 
 const SearchIcon = () => (
   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -39,6 +39,41 @@ function InputAllProps() {
         onChange={(e) => setValue(e.target.value)}
       />
     </div>
+  );
+}
+
+// #494: a row of fields where ONE has a hint. Without reserveFooter the hinted field grows a footer
+// and its neighbours do not, so align="flex-end" lines the row up by the bottoms and the hinted
+// control sits a footer higher - the caption moves a DIFFERENT control. data-reserve-footer on the
+// row holds the lane open in every field inside, so one prop fixes the whole row.
+const FILTERS = [{ label: "Material", value: "material" }, { label: "Description", value: "desc" }];
+const COMPARISONS = [{ label: "Contains", value: "contains" }, { label: "Exact match", value: "exact" }];
+
+function FieldRowDemo() {
+  const row = { width: "100%", maxWidth: 620 };
+  return (
+    <Stack direction="column" gap={5} style={{ width: "100%" }}>
+      <div>
+        <div style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)", marginBlockEnd: "var(--space-2)" }}>
+          Without — the hint on the middle field lifts it above its neighbours
+        </div>
+        <Stack direction="row" gap={3} align="flex-end" wrap style={row}>
+          <div style={{ flex: 1, minWidth: 140 }}><Select label="Filter" options={FILTERS} defaultValue="material" /></div>
+          <div style={{ flex: 1, minWidth: 140 }}><Select label="Comparison" options={COMPARISONS} defaultValue="contains" hint="Matches anywhere in the value." /></div>
+          <div style={{ flex: 1, minWidth: 140 }}><Input label="Value" defaultValue="leather" /></div>
+        </Stack>
+      </div>
+      <div data-reserve-footer>
+        <div style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)", marginBlockEnd: "var(--space-2)" }}>
+          With <code>data-reserve-footer</code> on the row — every field keeps a footer lane, so the controls line up
+        </div>
+        <Stack direction="row" gap={3} align="flex-end" wrap style={row}>
+          <div style={{ flex: 1, minWidth: 140 }}><Select label="Filter" options={FILTERS} defaultValue="material" /></div>
+          <div style={{ flex: 1, minWidth: 140 }}><Select label="Comparison" options={COMPARISONS} defaultValue="contains" hint="Matches anywhere in the value." /></div>
+          <div style={{ flex: 1, minWidth: 140 }}><Input label="Value" defaultValue="leather" /></div>
+        </Stack>
+      </div>
+    </Stack>
   );
 }
 
@@ -156,6 +191,26 @@ const variations = [
   onChange={(e) => setValue(e.target.value)}
 />`,
     render: () => <InputAllProps />,
+  },
+  {
+    title: "A row of fields — reserveFooter",
+    description:
+      "A hint on ONE field in a row makes that field taller, so align=\"flex-end\" lines the row up by the bottoms and the hinted control ends up sitting a footer's height above its neighbours — the caption moves a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. reserveFooter keeps the footer lane open even when empty. Set it per field, or once on any ancestor as data-reserve-footer, which is the safer habit in a row: with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back. error behaves the same way, and a validation message that appears conditionally is a row that jumps out of alignment conditionally.",
+    code: `// One attribute on the row, and every field inside keeps a footer lane.
+<Stack direction="row" gap={3} align="flex-end" wrap data-reserve-footer>
+  <div style={{ flex: 1 }}><Select label="Filter" options={filters} /></div>
+  <div style={{ flex: 1 }}><Select label="Comparison" options={comparisons}
+                             hint="Matches anywhere in the value." /></div>
+  <div style={{ flex: 1 }}><Input label="Value" /></div>
+</Stack>
+
+// ...or per field, when only some of them belong to the row:
+<Select label="Filter" options={filters} reserveFooter />
+
+// The lane is held open by generated content, so it matches the real footer by
+// construction - same font metrics, same flex gap - and adds no text for a screen
+// reader. A field that already has a hint, an error or a counter is left alone.`,
+    render: () => <FieldRowDemo />,
   },
 ];
 

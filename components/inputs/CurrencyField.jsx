@@ -66,7 +66,7 @@ export function CurrencyField({
   label, hint, error, required = false, size = "md", tone = "primary",
   currency, defaultCurrency = "USD", onCurrencyChange, currencies,
   value, defaultValue = "", onChange, onValueChange,
-  disabled = false, id, placeholder = "0.00", className = "", ...rest
+  disabled = false, id, placeholder = "0.00", className = "", reserveFooter = false, ...rest
 }) {
   const __twcStyles = useScopedStyles("twc-curf-styles", CURF_CSS);
   const autoId = React.useId();
@@ -149,7 +149,7 @@ export function CurrencyField({
   const curLabel = typeof label === "string" && label ? `${label} currency` : "Currency";
 
   return (
-    <div className={`twc-field ${className}`}>
+    <div className={`twc-field ${className}`} data-reserve-footer={reserveFooter || undefined}>
       {__twcStyles}
       {label ? (<label className="twc-field__label" htmlFor={fieldId}>{label}{required ? <span className="twc-field__req">*</span> : null}</label>) : null}
       <div className="twc-cur" data-size={size} data-tone={tone} data-invalid={invalid || undefined} data-disabled={disabled || undefined} data-readonly={rest.readOnly || undefined}>
