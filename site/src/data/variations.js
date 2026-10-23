@@ -1242,6 +1242,11 @@ export const VARIATIONS = [
     "i": 6
   },
   {
+    "component": "Input",
+    "title": "A row of fields — reserveFooter",
+    "i": 7
+  },
+  {
     "component": "Kanban",
     "title": "Basic board",
     "i": 0

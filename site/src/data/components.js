@@ -4460,6 +4460,13 @@ export const components = [
         "description": "Helper text shown below when there is no error."
       },
       {
+        "prop": "reserveFooter",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align=\"flex-end\" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back."
+      },
+      {
         "prop": "error",
         "type": "React.ReactNode",
         "required": false,
@@ -4574,6 +4581,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Shows helper text below the field to guide input, displayed only while no error message is present."
+      },
+      {
+        "prop": "reserveFooter",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align=\"flex-end\" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back."
       },
       {
         "prop": "error",
@@ -5050,6 +5064,13 @@ export const components = [
         "description": "Shows helper text below the input to guide entry, displayed only when no error is present."
       },
       {
+        "prop": "reserveFooter",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align=\"flex-end\" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back."
+      },
+      {
         "prop": "error",
         "type": "React.ReactNode",
         "required": false,
@@ -5234,6 +5255,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Shows helper text below the field to guide entry, displayed only when no error message is present."
+      },
+      {
+        "prop": "reserveFooter",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align=\"flex-end\" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back."
       },
       {
         "prop": "error",
@@ -6708,6 +6736,13 @@ export const components = [
         "description": "Helper text shown below when there is no error."
       },
       {
+        "prop": "reserveFooter",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align=\"flex-end\" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back."
+      },
+      {
         "prop": "error",
         "type": "React.ReactNode",
         "required": false,
@@ -6901,6 +6936,13 @@ export const components = [
         "description": "Helper text shown below when there is no error."
       },
       {
+        "prop": "reserveFooter",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align=\"flex-end\" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back."
+      },
+      {
         "prop": "error",
         "type": "React.ReactNode",
         "required": false,
@@ -7050,6 +7092,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Helper text shown below the control when there is no error message set."
+      },
+      {
+        "prop": "reserveFooter",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align=\"flex-end\" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back."
       },
       {
         "prop": "error",
@@ -7285,6 +7334,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Helper text shown below the controls when there is no error message set."
+      },
+      {
+        "prop": "reserveFooter",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align=\"flex-end\" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back."
       },
       {
         "prop": "error",
@@ -8994,6 +9050,13 @@ export const components = [
         "description": "Shows helper text below the input to guide entry; it is hidden once an error message is present."
       },
       {
+        "prop": "reserveFooter",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align=\"flex-end\" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back."
+      },
+      {
         "prop": "error",
         "type": "React.ReactNode",
         "required": false,
@@ -9519,6 +9582,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Shows helper text below the control to guide selection; it is hidden once an error message is present."
+      },
+      {
+        "prop": "reserveFooter",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align=\"flex-end\" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back."
       },
       {
         "prop": "error",
@@ -10618,6 +10688,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Shows helper text below the trigger to guide selection, automatically hidden once an error message is set."
+      },
+      {
+        "prop": "reserveFooter",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align=\"flex-end\" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back."
       },
       {
         "prop": "error",
@@ -12562,6 +12639,13 @@ export const components = [
         "description": "Shows helper text below the textarea to guide input, hidden whenever an error message is present."
       },
       {
+        "prop": "reserveFooter",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align=\"flex-end\" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back."
+      },
+      {
         "prop": "error",
         "type": "React.ReactNode",
         "required": false,
@@ -13190,6 +13274,13 @@ export const components = [
         "required": false,
         "default": "—",
         "description": "Helper text shown below when there is no error."
+      },
+      {
+        "prop": "reserveFooter",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align=\"flex-end\" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back."
       },
       {
         "prop": "error",

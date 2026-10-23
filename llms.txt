@@ -615,6 +615,7 @@ Props:
 - `onChange` — `(hex: string) => void` — Fires with the new hex string whenever the user adjusts saturation, hue, the text field, or picks a preset.
 - `disabled` — `boolean` · default `false` — Disable all interaction (the popover cannot be opened).
 - `hint` — `React.ReactNode` — Helper text shown below when there is no error.
+- `reserveFooter` — `boolean` · default `false` — Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align="flex-end" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back.
 - `error` — `React.ReactNode` — Error message — turns the field red and replaces the hint.
 - `alpha` — `boolean` · default `false` — Show an alpha slider and emit 8-digit `#RRGGBBAA`; the hex input then accepts 3/6/8-digit hex.
 - `size` — `"sm" | "md" | "lg"` · default `"md"` — Control size.
@@ -643,6 +644,7 @@ Combobox is a searchable single-select dropdown (MUI-Autocomplete style) where y
 Props:
 - `label` — `React.ReactNode` — Renders a caption above the control to identify the field and improve accessibility for the searchable select.
 - `hint` — `React.ReactNode` — Shows helper text below the field to guide input, displayed only while no error message is present.
+- `reserveFooter` — `boolean` · default `false` — Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align="flex-end" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back.
 - `error` — `React.ReactNode` — Displays an error message, marks the field invalid, and replaces the hint to flag a failed validation.
 - `virtualized` — `boolean` · default `false` — Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast.
 - `overscan` — `number` · default `8` — Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling.
@@ -705,6 +707,7 @@ Currency is a text input for monetary amounts with a fixed currency defined in c
 Props:
 - `label` — `React.ReactNode` — Renders a label above the input describing the monetary field, accepting any ReactNode for icons or rich text.
 - `hint` — `React.ReactNode` — Shows helper text below the input to guide entry, displayed only when no error is present.
+- `reserveFooter` — `boolean` · default `false` — Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align="flex-end" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back.
 - `error` — `React.ReactNode` — Displays an error message below the input and marks the field invalid, overriding any hint while set.
 - `required` — `boolean` · default `false` — Marks the field as required and renders an asterisk beside the label; off by default.
 - `size` — `"sm" | "md" | "lg"` · default `"md"` — Sets the input height and padding (sm, md, or lg) to match the surrounding form's density, defaulting to "md".
@@ -745,6 +748,7 @@ CurrencyField is a currency amount input where the user picks the currency from 
 Props:
 - `label` — `React.ReactNode` — Renders a label above the field describing the amount, accepting any ReactNode for icons or formatted text.
 - `hint` — `React.ReactNode` — Shows helper text below the field to guide entry, displayed only when no error message is present.
+- `reserveFooter` — `boolean` · default `false` — Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align="flex-end" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back.
 - `error` — `React.ReactNode` — Displays an error message and marks the field invalid when set, taking visual precedence over the hint.
 - `required` — `boolean` · default `false` — Marks the field as required and renders an asterisk beside the label; off by default.
 - `size` — `"sm" | "md" | "lg"` · default `"md"` — Sets the input and dropdown height (sm, md, or lg) to match the surrounding form's density, defaulting to "md".
@@ -804,6 +808,7 @@ Props:
 - `weekStartsOn` — `0 | 1 | 2 | 3 | 4 | 5 | 6` · default `0` — Widened from 0|1 to any weekday; controls which day the calendar grid + weekday header start on (0 = Sunday).
 - `onChange` — `(date: Date | null) => void` — Fires with the newly selected Date, or null when the value is cleared, so you can update state.
 - `hint` — `React.ReactNode` — Helper text shown below when there is no error.
+- `reserveFooter` — `boolean` · default `false` — Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align="flex-end" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back.
 - `error` — `React.ReactNode` — Error message — turns the field red and replaces the hint.
 - `required` — `boolean` · default `false` — Marks the field required (adds an asterisk to the label).
 - `locale` — `string` — BCP-47 locale for Intl-derived month/weekday names and date formatting; omit for the runtime default.
@@ -843,6 +848,7 @@ Props:
 - `onChange` — `(range: DateRange) => void` — Fires with the updated { start, end } range whenever the selection changes so you can update state.
 - `disabled` — `boolean` · default `false` — Disable all interaction (the popover cannot be opened).
 - `hint` — `React.ReactNode` — Helper text shown below when there is no error.
+- `reserveFooter` — `boolean` · default `false` — Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align="flex-end" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back.
 - `error` — `React.ReactNode` — Error message — turns the field red and replaces the hint.
 - `required` — `boolean` · default `false` — Marks the field required (adds an asterisk to the label).
 - `locale` — `string` — BCP-47 locale for Intl-derived month/weekday names and date formatting; omit for the runtime default.
@@ -875,6 +881,7 @@ DateTimePicker combines a calendar and a time-column popover over a single Date 
 Props:
 - `label` — `React.ReactNode` — Optional field label rendered above the date/time pair to name and associate it.
 - `hint` — `React.ReactNode` — Helper text shown below the controls when there is no error message set.
+- `reserveFooter` — `boolean` · default `false` — Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align="flex-end" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back.
 - `error` — `React.ReactNode` — Error message that recolors both controls red and replaces the hint, shown once on the wrapper.
 - `required` — `boolean` · default `false` — Marks the field required, adding an asterisk to the label as a validation cue.
 - `value` — `Date | null` — Controlled selected date-time as a Date; pair with onChange to own the value in state.
@@ -921,6 +928,7 @@ Field is the reusable form-field wrapper that supplies the label, required aster
 Props:
 - `label` — `React.ReactNode` — Field label rendered above the control.
 - `hint` — `React.ReactNode` — Helper text shown below when there is no error.
+- `reserveFooter` — `boolean` · default `false` — Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align="flex-end" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back.
 - `error` — `React.ReactNode` — Error message — replaces the hint and renders in the danger color.
 - `required` — `boolean` · default `false` — Marks the field required, adding an asterisk after the label.
 - `htmlFor` — `string` — Id of the control the <label> binds to (sets the label's htmlFor).
@@ -1025,6 +1033,7 @@ A text input with optional label, hint text, error/validation state, and inline 
 Props:
 - `label` — `React.ReactNode` — Renders a label node above the control so the field has an accessible, visible name for the user.
 - `hint` — `React.ReactNode` — Shows helper text below the input to guide entry; it is hidden once an error message is present.
+- `reserveFooter` — `boolean` · default `false` — Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align="flex-end" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back.
 - `error` — `React.ReactNode` — Displays a validation error below the field, switches the control to its red invalid state, and replaces the hint.
 - `required` — `boolean` · default `false` — Marks the field as required and appends an asterisk to the label to signal mandatory input; defaults to false.
 - `size` — `"sm" | "md" | "lg"` · default `"md"` — Sets the control height and padding (sm, md, or lg) to match the density of the surrounding form.
@@ -1067,6 +1076,7 @@ Props:
 - `options` — `Array<string | MultiSelectOption | MultiSelectGroup>` · **required** — Supplies the selectable options as plain strings, {value,label,description} objects, or {group,options} grouped sections.
 - `label` — `React.ReactNode` — Renders a label node above the control so the multi-select has an accessible, visible name for the user.
 - `hint` — `React.ReactNode` — Shows helper text below the control to guide selection; it is hidden once an error message is present.
+- `reserveFooter` — `boolean` · default `false` — Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align="flex-end" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back.
 - `error` — `React.ReactNode` — Displays a validation error below the control and styles it as invalid to flag a selection problem.
 - `virtualized` — `boolean` · default `false` — Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast.
 - `overscan` — `number` · default `8` — Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling.
@@ -1193,6 +1203,7 @@ A custom select that replaces the native browser dropdown with a rounded, keyboa
 Props:
 - `label` — `React.ReactNode` — Renders a field label above the trigger to identify what the select controls within a form.
 - `hint` — `React.ReactNode` — Shows helper text below the trigger to guide selection, automatically hidden once an error message is set.
+- `reserveFooter` — `boolean` · default `false` — Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align="flex-end" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back.
 - `error` — `React.ReactNode` — Displays an error message and marks the field invalid, replacing the hint to flag failed validation.
 - `virtualized` — `boolean` · default `false` — Virtualize the option list — render only the visible slice (plus overscan) so long lists open fast.
 - `overscan` — `number` · default `8` — Extra option rows rendered above/below the viewport when virtualized, smoothing fast scrolling.
@@ -1330,6 +1341,7 @@ Textarea is a multi-line text input with an optional label, hint text, and error
 Props:
 - `label` — `React.ReactNode` — Renders a field label above the textarea, identifying what longer-form input the control collects.
 - `hint` — `React.ReactNode` — Shows helper text below the textarea to guide input, hidden whenever an error message is present.
+- `reserveFooter` — `boolean` · default `false` — Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align="flex-end" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back.
 - `error` — `React.ReactNode` — Displays an error message and marks the field invalid when set, replacing the hint text below.
 - `required` — `boolean` · default `false` — Adds a required asterisk beside the label when true, signaling that the field must be filled in.
 - `size` — `"sm" | "md" | "lg"` · default `"md"` — Control size — same padding steps as Input.
@@ -1368,6 +1380,7 @@ TimePicker is a time-of-day input with a column-spinner popover: scrollable hour
 Props:
 - `label` — `React.ReactNode` — Optional field label rendered above the control to name it and associate it for accessibility.
 - `hint` — `React.ReactNode` — Helper text shown below the control when there is no error message set.
+- `reserveFooter` — `boolean` · default `false` — Always render the footer lane, empty when there is nothing to say, so this field is the same height as one that has a hint, an error or a counter. A row of fields aligned with align="flex-end" splits onto two lines the moment ONE of them has a hint — that field grows a footer and the others do not, so the caption ends up moving a different control. align cannot fix it: flex-start lines up the labels instead, so the controls part company as soon as one label wraps. Set it per field, or once on any ancestor (data-reserve-footer) for everything inside — the safer habit in a row, since with a per-field prop alone, adding a field later and forgetting it brings the misalignment straight back.
 - `error` — `React.ReactNode` — Error message that turns the control red and replaces the hint text below it.
 - `required` — `boolean` · default `false` — Marks the field required, adding an asterisk to the label as a validation cue.
 - `value` — `Date | null` — Controlled selected time as a Date; pair with onChange to own the value in state.

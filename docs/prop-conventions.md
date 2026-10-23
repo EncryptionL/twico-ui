@@ -85,6 +85,53 @@ standardized 2026-06-18; this doc is the source of truth.)
   the control) across *every* labeled control — including the toggles Checkbox/Radio/Switch (#219), which
   previously only set `aria-required`. No asterisk is drawn when there is no visible `label`.
 
+### A row of fields — `reserveFooter` (#494)
+
+A field grows a footer lane (`.twc-field__footer`, or a bare `.twc-field__hint` / `.twc-field__error`)
+only when it has something to say. In a **column** that is invisible. In a **row** it is a trap:
+
+```jsx
+<Stack direction="row" gap={2} align="flex-end" wrap>
+  <Select label="Filter" … />
+  <Select label="Comparison" hint="Matches anywhere in the value." … />   {/* taller than its siblings */}
+  <Input  label="Value" … />
+</Stack>
+```
+
+`align="flex-end"` lines the three up by their **bottoms**, so the hinted field's control sits a
+footer's height above its neighbours — measured at **25 px** in the shipped demo. Nothing in the JSX
+suggests it: the hint is a caption, and it moves a *different* control.
+
+`align` is not the escape hatch. `flex-end` is correct while the children are the same height, which is
+the normal case; `flex-start` lines up the **labels** instead, so the controls part company as soon as
+one label wraps at a narrow width — which `wrap` makes likely.
+
+**`reserveFooter` keeps the lane open even when empty.** Set it per field, or once on any ancestor:
+
+```jsx
+<Stack direction="row" align="flex-end" wrap data-reserve-footer>   {/* ← whole row */}
+<Select label="Filter" reserveFooter />                             {/* ← one field */}
+```
+
+Prefer the ancestor form in a row. With a per-field prop alone, adding a field later and forgetting it
+brings the misalignment straight back — which is the footgun, not the pixels.
+
+Two implementation notes worth keeping:
+
+- The lane is held open by **generated content** (`::after { content: "\00a0" }`), so it matches the
+  real footer by construction — same font metrics, same flex `gap` — rather than by a height that
+  drifts when `--text-xs` or `--space-1-5` changes. Whitespace-only generated content is not announced,
+  so it adds nothing to the accessibility tree.
+- `:has()` decides whether a footer is already present, so **no component has to report it**. That is
+  why this is one CSS rule plus a prop, rather than a `data-has-footer` threaded through 14 components.
+- In the source the escape must be written `\\00a0`: the CSS lives in a JS template literal, where
+  `\00a0` is a legacy octal escape (esbuild rejects it) and `\0` would embed a real NUL byte — which
+  has made a file in this repo unreadable as text before. Guarded by `tests/reserve-footer.test.jsx`.
+
+`error` has the same effect as `hint`, and a validation message that appears conditionally is a row
+that jumps out of alignment conditionally — worse than one that never aligns. Reserve the lane on any
+row whose fields can show an error.
+
 ## Reduced motion & AT state
 - Every animated component collapses its motion under `@media (prefers-reduced-motion: reduce)` (WCAG
   2.3.3) — including Button's ripple, the Tabs indicator, Accordion panels, the Carousel track, and Toast
