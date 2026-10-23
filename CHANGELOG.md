@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.47.0](https://github.com/EncryptionL/twico-ui/compare/v1.46.0...v1.47.0) (2026-10-23)
+
+
+### Features
+
+* **inputs:** reserveFooter — keep a field's footer lane open so rows stay aligned ([223ef88](https://github.com/EncryptionL/twico-ui/commit/223ef8841b41b8fc10e6224530c392ceda2b9a98)), closes [#471](https://github.com/EncryptionL/twico-ui/issues/471)
+
 # [1.46.0](https://github.com/EncryptionL/twico-ui/compare/v1.45.1...v1.46.0) (2026-10-21)
 
 
