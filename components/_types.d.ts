@@ -7,7 +7,11 @@ import * as React from "react";
 /** The canonical six-value color/intent scale used by status & control components. */
 export type Tone = "primary" | "success" | "warning" | "danger" | "info" | "neutral";
 
-/** Action controls (Button, IconButton) — brand or destructive only. */
+/**
+ * The two intents most actions want. Button and IconButton accepted ONLY these until #504; they now
+ * take the full {@link Tone} scale, so this is a convenience alias for the common pair rather than a
+ * ceiling. Still exported, still accurate for anything that genuinely is brand-or-destructive.
+ */
 export type ActionTone = "primary" | "danger";
 
 /** Text roles, the full color scale, and `"inherit"` (adopt the parent color) — Text. */

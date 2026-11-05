@@ -89,8 +89,8 @@ every component's `.d.ts` references one (source: `components/_types.d.ts`):
 
 | Type | Members | Used by |
 | --- | --- | --- |
-| `Tone` | `primary · success · warning · danger · info · neutral` | Badge, Tag, Alert + the field/selection/nav controls (Checkbox, Radio, Switch, Slider, Input, Textarea, Select, Combobox, MultiSelect, Currency, CurrencyField, DatePicker, DateRangePicker, FileUpload, ColorPicker, Rating, Tabs, Stepper) |
-| `ActionTone` | `primary · danger` | Button, IconButton |
+| `Tone` | `primary · success · warning · danger · info · neutral` | **Button, IconButton (#504)**, Badge, Tag, Alert + the field/selection/nav controls (Checkbox, Radio, Switch, Slider, Input, Textarea, Select, Combobox, MultiSelect, Currency, CurrencyField, DatePicker, DateRangePicker, FileUpload, ColorPicker, Rating, Tabs, Stepper) |
+| `ActionTone` | `primary · danger` | *(no component — a convenience alias since #504)* |
 | `TextTone` | `default · muted · subtle` + `Tone` | Text |
 | `ToastTone` | `default · neutral · success · warning · danger · info` | Toast, ToastProvider |
 | `BarTone` | `Tone` minus `neutral` | Progress, Timeline |
@@ -98,6 +98,63 @@ every component's `.d.ts` references one (source: `components/_types.d.ts`):
 `Spinner.color` / `.tone` are `"current" | Tone | "white"`. These are a **non-breaking naming pass**:
 each alias resolves to the exact members already accepted, so no consumer breaks. Unifying
 `default`↔`neutral` or adding a neutral bar state is a separate design decision, deliberately not done here.
+
+### 3b. Why `ActionTone` stopped being a ceiling (#504)
+
+Button and IconButton accepted only `primary | danger` until #504. The case that broke it: a
+row-level confirm sitting beside a `danger` sibling, reading as "yes / no". Semantically the yes is
+a **success** action, but it came out the same blue as every neutral action on the page — exactly
+the distinction the colour was carrying. `Text`, `Badge` and `Tag` all took the full scale, so the
+only workarounds were to drop the button affordance or drop the colour.
+
+`ActionTone` is still exported and still names the two intents most actions want. It is no longer
+the type of any component prop.
+
+**The step rule is "move away from the ink", not "light darker, dark lighter".** `primary` and
+`danger` carry white ink, so their hover darkens in light mode. `warning` and `info` carry **dark**
+ink (`--color-warning-fg` is `amber-950`, `--color-info-fg` is `sky-950`), so darkening moves the
+background *towards* the ink and cuts contrast — the first cut of #504 did exactly that and put
+light `info` `solid:active` at **2.34:1**. Their light-mode steps go *lighter* instead.
+
+`neutral` has no accent ramp anywhere — there is no `--color-neutral`. It follows Badge's existing
+mapping: `--color-text` on `--color-surface` for `solid`, `--color-surface-sunken` with
+`--color-text-muted` for `soft`, and a `color-mix` hover since there is no `--color-text-hover` to
+point at. `variant="ghost"` and `variant="outline"` already express a quiet action, so those remain
+the first thing to reach for.
+
+### 3c. The plain tones now clear their own ink (#505)
+
+Measuring #504's new pairs surfaced six that had been failing all along — not introduced by it, and
+shipping through every solid Badge and Tag:
+
+| pair | was | now |
+| --- | --- | --- |
+| light `primary` solid | 4.47:1 | **6.29:1** |
+| light `success` solid | 3.77:1 | **5.48:1** |
+| light `danger` solid | 3.67:1 | **4.70:1** |
+| dark `primary` solid / hover / active | 4.47 / 2.98 / 1.99:1 | **5.36 / 8.02 / 10.72:1** |
+
+They were breaking the rule stated two sections up — the plain tone is the one designated for *fills
+that carry text on top* — so this was a broken contract rather than a trade-off.
+
+**Light** needed the fill one step darker, same hue, because the ink is white: `primary`
+`brand-500`→`brand-600`, `success` `emerald-600`→`emerald-700`, `danger` `rose-500`→`rose-600`.
+
+**Dark `primary` needed the opposite.** It was the only tone in that theme still carrying white ink —
+`success`, `warning`, `danger` and `info` all use dark ink on a bright fill — and its steps went
+*lighter*, towards the ink, which is where 1.99:1 came from. Darkening it would have cleared the text
+bar and failed a different one: `brand-600` is only **2.84:1** against the slate-900 page, below the
+3:1 a fill needs to be distinguishable at all, and worse than the 4.00 it had. Joining the existing
+dark-ink pattern clears both — **5.36** text, **5.98** fill.
+
+Every tone × variant pair in both themes now clears 4.5:1, worst case **4.58:1**, enforced by
+`tests/tone-accent-contrast.test.js`. Its `KNOWN_PREEXISTING` allow-list is deliberately empty, and a
+companion test fails if an entry is added that no longer corresponds to a real failure.
+
+One knock-on: `tests/tokens-a11y.test.js` used to assert `--color-primary` does **not** clear AA as
+text, as the evidence for the fill-only rule. That is now false in both themes. The convention stands
+— `--color-primary-subtle-fg` is still the text token — but it is a style choice now, not an
+accessibility necessity, and the test records the new measurement instead.
 
 ## 4. Adding tone to a new component
 
