@@ -89,8 +89,8 @@ every component's `.d.ts` references one (source: `components/_types.d.ts`):
 
 | Type | Members | Used by |
 | --- | --- | --- |
-| `Tone` | `primary · success · warning · danger · info · neutral` | Badge, Tag, Alert + the field/selection/nav controls (Checkbox, Radio, Switch, Slider, Input, Textarea, Select, Combobox, MultiSelect, Currency, CurrencyField, DatePicker, DateRangePicker, FileUpload, ColorPicker, Rating, Tabs, Stepper) |
-| `ActionTone` | `primary · danger` | Button, IconButton |
+| `Tone` | `primary · success · warning · danger · info · neutral` | **Button, IconButton (#504)**, Badge, Tag, Alert + the field/selection/nav controls (Checkbox, Radio, Switch, Slider, Input, Textarea, Select, Combobox, MultiSelect, Currency, CurrencyField, DatePicker, DateRangePicker, FileUpload, ColorPicker, Rating, Tabs, Stepper) |
+| `ActionTone` | `primary · danger` | *(no component — a convenience alias since #504)* |
 | `TextTone` | `default · muted · subtle` + `Tone` | Text |
 | `ToastTone` | `default · neutral · success · warning · danger · info` | Toast, ToastProvider |
 | `BarTone` | `Tone` minus `neutral` | Progress, Timeline |
@@ -98,6 +98,44 @@ every component's `.d.ts` references one (source: `components/_types.d.ts`):
 `Spinner.color` / `.tone` are `"current" | Tone | "white"`. These are a **non-breaking naming pass**:
 each alias resolves to the exact members already accepted, so no consumer breaks. Unifying
 `default`↔`neutral` or adding a neutral bar state is a separate design decision, deliberately not done here.
+
+### 3b. Why `ActionTone` stopped being a ceiling (#504)
+
+Button and IconButton accepted only `primary | danger` until #504. The case that broke it: a
+row-level confirm sitting beside a `danger` sibling, reading as "yes / no". Semantically the yes is
+a **success** action, but it came out the same blue as every neutral action on the page — exactly
+the distinction the colour was carrying. `Text`, `Badge` and `Tag` all took the full scale, so the
+only workarounds were to drop the button affordance or drop the colour.
+
+`ActionTone` is still exported and still names the two intents most actions want. It is no longer
+the type of any component prop.
+
+**The step rule is "move away from the ink", not "light darker, dark lighter".** `primary` and
+`danger` carry white ink, so their hover darkens in light mode. `warning` and `info` carry **dark**
+ink (`--color-warning-fg` is `amber-950`, `--color-info-fg` is `sky-950`), so darkening moves the
+background *towards* the ink and cuts contrast — the first cut of #504 did exactly that and put
+light `info` `solid:active` at **2.34:1**. Their light-mode steps go *lighter* instead.
+
+`neutral` has no accent ramp anywhere — there is no `--color-neutral`. It follows Badge's existing
+mapping: `--color-text` on `--color-surface` for `solid`, `--color-surface-sunken` with
+`--color-text-muted` for `soft`, and a `color-mix` hover since there is no `--color-text-hover` to
+point at. `variant="ghost"` and `variant="outline"` already express a quiet action, so those remain
+the first thing to reach for.
+
+**Known pre-existing contrast debt**, measured while adding these and *not* introduced by #504 —
+every one of these pairs already ships through Badge/Tag with the same tokens:
+
+| pair | ratio |
+| --- | --- |
+| light `primary` solid | 4.47:1 |
+| light `success` solid | 3.77:1 |
+| light `danger` solid | 3.67:1 |
+| dark `primary` solid / hover / active | 4.47 / 2.98 / 1.99:1 |
+
+`tests/tone-accent-contrast.test.js` enumerates them explicitly rather than lowering its threshold,
+asserts everything else clears 4.5:1, and fails if one of them is ever fixed without the exemption
+being removed. Fixing them means changing brand and semantic colours library-wide, which is a design
+decision rather than a side effect of adding tones.
 
 ## 4. Adding tone to a new component
 

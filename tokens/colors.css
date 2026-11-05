@@ -164,12 +164,16 @@
 
   /* Success */
   --color-success:        var(--emerald-600);
+  --color-success-hover:  var(--emerald-700);
+  --color-success-active: var(--emerald-800);
   --color-success-fg:     #ffffff;
   --color-success-subtle:    var(--emerald-50);
   --color-success-subtle-fg: var(--emerald-700);
 
   /* Warning */
   --color-warning:        var(--amber-500);
+  --color-warning-hover:  var(--amber-400);
+  --color-warning-active: var(--amber-300);
   --color-warning-fg:     var(--amber-950); /* dark ink on amber-500 = 6.97:1 (white was 2.15:1) */
   --color-warning-subtle:    var(--amber-50);
   --color-warning-subtle-fg: var(--amber-700);
@@ -177,12 +181,15 @@
   /* Danger */
   --color-danger:         var(--rose-500);
   --color-danger-hover:   var(--rose-600);
+  --color-danger-active:  var(--rose-700);
   --color-danger-fg:      #ffffff;
   --color-danger-subtle:     var(--rose-50);
   --color-danger-subtle-fg:  var(--rose-700);
 
   /* Info */
   --color-info:           var(--sky-500);
+  --color-info-hover:     var(--sky-400);
+  --color-info-active:    var(--sky-300);
   --color-info-fg:        var(--sky-950); /* dark ink on sky-500 (white was 2.77:1) */
   --color-info-subtle:       var(--sky-50);
   --color-info-subtle-fg:    var(--sky-700);
@@ -255,22 +262,29 @@
   --color-ring: var(--brand-400); /* solid brand-400 ≈ 5.7:1 on slate-900 (translucent was ~2.7:1) */
 
   --color-success:        var(--emerald-500);
+  --color-success-hover:  var(--emerald-400);
+  --color-success-active: var(--emerald-300);
   --color-success-fg:     #052e1d;
   --color-success-subtle:    rgb(16 185 129 / 0.15);
   --color-success-subtle-fg: var(--emerald-400);
 
   --color-warning:        var(--amber-500);
+  --color-warning-hover:  var(--amber-400);
+  --color-warning-active: var(--amber-300);
   --color-warning-fg:     #2c1701;
   --color-warning-subtle:    rgb(245 158 11 / 0.15);
   --color-warning-subtle-fg: var(--amber-400);
 
   --color-danger:         var(--rose-500);
   --color-danger-hover:   var(--rose-400);
+  --color-danger-active:  var(--rose-300);
   --color-danger-fg:      #2c0610;
   --color-danger-subtle:     rgb(244 63 94 / 0.15);
   --color-danger-subtle-fg:  var(--rose-400);
 
   --color-info:           var(--sky-500);
+  --color-info-hover:     var(--sky-400);
+  --color-info-active:    var(--sky-300);
   --color-info-fg:        #04212f;
   --color-info-subtle:       rgb(14 165 233 / 0.15);
   --color-info-subtle-fg:    var(--sky-400);

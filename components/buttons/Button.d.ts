@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { ActionTone, Tone } from "../_types";
+import type { Tone } from "../_types";
 
 /**
  * Primary action button with a solid / soft / outline / ghost **variant** (fill style) crossed with a
@@ -12,8 +12,20 @@ import type { ActionTone, Tone } from "../_types";
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Fill style. @default "solid" */
   variant?: "solid" | "soft" | "outline" | "ghost";
-  /** Color/intent, orthogonal to `variant`. @default "primary" */
-  tone?: ActionTone;
+  /**
+   * Color/intent, orthogonal to `variant`. @default "primary"
+   *
+   * #504: the full {@link Tone} scale, widened from `ActionTone` (`primary | danger`). A standalone
+   * affirmative action — a row-level confirm sitting beside a `danger` sibling, reading as
+   * "yes / no" — could not be green, so the colour carrying that distinction came out the same blue
+   * as every neutral action on the page. `ActionTone` is still exported and still describes the two
+   * intents most actions want; it is no longer the ceiling.
+   *
+   * `neutral` follows Badge's mapping rather than an accent ramp of its own: `--color-text` on
+   * `--color-surface` for `solid`, `--color-surface-sunken` for `soft`. Note `variant="ghost"` and
+   * `variant="outline"` already express a quiet action, so reach for those first.
+   */
+  tone?: Tone;
   /** Control size; "xs" (~26px) is smaller than "sm". @default "md" */
   size?: "xs" | "sm" | "md" | "lg";
   /** Icon node rendered before the label. */
@@ -31,9 +43,10 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   /** #405: toggle "on" state — sets `aria-pressed` and shows a soft fill + border in the current `tone`
    *  (works with any `variant`). Omit for a plain (non-toggle) button. @default undefined */
   pressed?: boolean;
-  /** #411: tone of the pressed ("on") fill — the full status `Tone` scale, so a toggle can carry its own
-   *  selected-state meaning (e.g. success/warning/info/neutral) while `tone` stays `ActionTone` for the
-   *  unpressed action look. Defaults to `tone`. @default undefined */
+  /** #411: tone of the pressed ("on") fill, so a toggle can carry a different selected-state meaning
+   *  from its unpressed look. Both are the full `Tone` scale since #504 — before that `tone` was
+   *  `ActionTone` and this was the only way to reach the other four. Defaults to `tone`.
+   *  @default undefined */
   pressedTone?: Tone;
   /** Render as a different element (e.g. "a"). @default "button" */
   as?: "button" | "a";

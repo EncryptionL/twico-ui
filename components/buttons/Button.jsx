@@ -60,6 +60,31 @@ const CSS = `
   --_accent: var(--color-danger); --_accent-hover: var(--color-danger-hover); --_accent-active: var(--color-danger-hover);
   --_accent-fg: var(--color-danger-fg); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg);
 }
+/* #504: the full Tone scale, not just primary|danger. A standalone affirmative action - a row-level
+   confirm sitting next to a danger sibling, reading as "yes / no" - could not be green, so the colour
+   that carried the distinction came out the same blue as every neutral action on the page.
+   success/warning/info now have real -hover/-active tokens (added in tokens/colors.css on the same
+   step rule as primary and danger: light goes darker, dark goes lighter), so hover always moves AWAY
+   from the ink and contrast only improves. neutral has no accent tokens anywhere and is mapped the way
+   Badge already maps it - --color-text on --color-surface solid, --color-surface-sunken soft - with its
+   hover mixed from currentColor, since there is no --color-text-hover to point at. */
+.twc-btn[data-tone="success"] {
+  --_accent: var(--color-success); --_accent-hover: var(--color-success-hover); --_accent-active: var(--color-success-active);
+  --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg);
+}
+.twc-btn[data-tone="warning"] {
+  --_accent: var(--color-warning); --_accent-hover: var(--color-warning-hover); --_accent-active: var(--color-warning-active);
+  --_accent-fg: var(--color-warning-fg); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg);
+}
+.twc-btn[data-tone="info"] {
+  --_accent: var(--color-info); --_accent-hover: var(--color-info-hover); --_accent-active: var(--color-info-active);
+  --_accent-fg: var(--color-info-fg); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg);
+}
+.twc-btn[data-tone="neutral"] {
+  --_accent: var(--color-text); --_accent-hover: color-mix(in srgb, var(--color-text) 88%, var(--color-surface));
+  --_accent-active: color-mix(in srgb, var(--color-text) 78%, var(--color-surface));
+  --_accent-fg: var(--color-surface); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text-muted);
+}
 /* solid */
 .twc-btn[data-variant="solid"] { background: var(--_accent); color: var(--_accent-fg); }
 .twc-btn[data-variant="solid"]:hover:not(:disabled) { background: var(--_accent-hover); box-shadow: var(--shadow-brand); }

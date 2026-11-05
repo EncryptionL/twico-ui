@@ -1119,10 +1119,10 @@ export const components = [
       },
       {
         "prop": "tone",
-        "type": "\"primary\" | \"danger\"",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
         "required": false,
         "default": "\"primary\"",
-        "description": "Color/intent, orthogonal to variant — primary by default; tone=\"danger\" makes a destructive button in any variant."
+        "description": "Color/intent, orthogonal to variant. Widened in #504 from ActionTone (primary | danger) to the full Tone scale, so a standalone affirmative action can be green — a row-level confirm beside a danger sibling reads as \"yes / no\", and before this the yes came out the same blue as every neutral action. ActionTone is still exported as a convenience alias for the two intents most actions want. neutral follows Badge's mapping rather than an accent ramp of its own (--color-text on --color-surface for solid); variant=\"ghost\" and variant=\"outline\" already express a quiet action, so reach for those first."
       },
       {
         "prop": "size",
@@ -8675,10 +8675,10 @@ export const components = [
       },
       {
         "prop": "tone",
-        "type": "\"primary\" | \"danger\"",
+        "type": "\"primary\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\"",
         "required": false,
         "default": "\"primary\"",
-        "description": "Color/intent, orthogonal to variant (mirrors Button) — primary by default; tone=\"danger\" makes an icon-only destructive button in any variant."
+        "description": "Color/intent, orthogonal to variant. Widened in #504 from ActionTone (primary | danger) to the full Tone scale, so a standalone affirmative action can be green — a row-level confirm beside a danger sibling reads as \"yes / no\", and before this the yes came out the same blue as every neutral action. ActionTone is still exported as a convenience alias for the two intents most actions want. neutral follows Badge's mapping rather than an accent ramp of its own (--color-text on --color-surface for solid); variant=\"ghost\" and variant=\"outline\" already express a quiet action, so reach for those first."
       },
       {
         "prop": "size",

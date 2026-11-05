@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { ActionTone, Tone } from "../_types";
+import type { Tone } from "../_types";
 
 /**
  * Square (or circular) button for a single icon. Always provide an aria-label.
@@ -11,9 +11,16 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
   icon?: React.ReactNode;
   /** Fill style (same axes as Button). @default "ghost" */
   variant?: "solid" | "soft" | "outline" | "ghost";
-  /** Color/intent, orthogonal to `variant` (mirrors Button). A destructive icon button is
-   *  `tone="danger"` with any variant. @default "primary" */
-  tone?: ActionTone;
+  /**
+   * Color/intent, orthogonal to `variant` (mirrors Button). A destructive icon button is
+   * `tone="danger"` with any variant. @default "primary"
+   *
+   * #504: the full {@link Tone} scale, widened from `ActionTone` (`primary | danger`), so an
+   * affirmative icon action can be green beside a destructive one. `ActionTone` is still exported
+   * and still names the two intents most actions want; it is no longer the ceiling. `neutral`
+   * follows Badge's mapping rather than an accent ramp of its own.
+   */
+  tone?: Tone;
   /** Control size; "xs" (~26px) is smaller than "sm". @default "md" */
   size?: "xs" | "sm" | "md" | "lg";
   /** Fully rounded (circular). @default false */
@@ -25,8 +32,9 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
   /** #405: toggle "on" state — sets `aria-pressed` and shows a soft fill + border in the current `tone`
    *  (works with any `variant`), e.g. a pin/unpin or bold/italic icon toggle. @default undefined */
   pressed?: boolean;
-  /** #411: tone of the pressed ("on") fill — the full status `Tone` scale, so a toggle can carry its own
-   *  selected-state meaning while `tone` stays `ActionTone` for the unpressed look. Defaults to `tone`. @default undefined */
+  /** #411: tone of the pressed ("on") fill, so a toggle can carry a different selected-state meaning
+   *  from its unpressed look. Both are the full `Tone` scale since #504. Defaults to `tone`.
+   *  @default undefined */
   pressedTone?: Tone;
   /** #342: render as a different element — use `"a"` for an icon **link** (GitHub icon, external nav, …) so
    *  navigation is a real link, not a button. @default "button" */

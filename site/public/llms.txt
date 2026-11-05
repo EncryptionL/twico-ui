@@ -219,7 +219,7 @@ Button is a primary action button with solid, soft, outline, and ghost variants 
 
 Props:
 - `variant` — `"solid" | "soft" | "outline" | "ghost"` · default `"solid"` — Fill style: solid (primary CTA), soft (tinted), outline, or ghost. Cross with `tone` for color.
-- `tone` — `"primary" | "danger"` · default `"primary"` — Color/intent, orthogonal to variant — primary by default; tone="danger" makes a destructive button in any variant.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Color/intent, orthogonal to variant. Widened in #504 from ActionTone (primary | danger) to the full Tone scale, so a standalone affirmative action can be green — a row-level confirm beside a danger sibling reads as "yes / no", and before this the yes came out the same blue as every neutral action. ActionTone is still exported as a convenience alias for the two intents most actions want. neutral follows Badge's mapping rather than an accent ramp of its own (--color-text on --color-surface for solid); variant="ghost" and variant="outline" already express a quiet action, so reach for those first.
 - `size` — `"xs" | "sm" | "md" | "lg"` · default `"md"` — Adds a new "xs" size (~26px tall, smaller than "sm") to the existing union; sm/md/lg are unchanged. xs height is composed locally from space tokens (no global control-h-xs token).
 - `leftIcon` — `React.ReactNode` — Renders an icon node before the label, commonly used to reinforce the action with a leading visual cue.
 - `rightIcon` — `React.ReactNode` — Renders an icon node after the label, often a chevron or arrow signaling navigation or progression.
@@ -258,7 +258,7 @@ IconButton is a square or circular button that renders a single icon and always 
 Props:
 - `icon` — `React.ReactNode` — Supplies the single icon node to render, such as a Lucide SVG, falling back to children when omitted.
 - `variant` — `"solid" | "soft" | "outline" | "ghost"` · default `"ghost"` — Fill style (same axes as Button): solid, soft, outline, or ghost; ghost by default. Cross with `tone` for color.
-- `tone` — `"primary" | "danger"` · default `"primary"` — Color/intent, orthogonal to variant (mirrors Button) — primary by default; tone="danger" makes an icon-only destructive button in any variant.
+- `tone` — `"primary" | "success" | "warning" | "danger" | "info" | "neutral"` · default `"primary"` — Color/intent, orthogonal to variant. Widened in #504 from ActionTone (primary | danger) to the full Tone scale, so a standalone affirmative action can be green — a row-level confirm beside a danger sibling reads as "yes / no", and before this the yes came out the same blue as every neutral action. ActionTone is still exported as a convenience alias for the two intents most actions want. neutral follows Badge's mapping rather than an accent ramp of its own (--color-text on --color-surface for solid); variant="ghost" and variant="outline" already express a quiet action, so reach for those first.
 - `size` — `"xs" | "sm" | "md" | "lg"` · default `"md"` — Adds a new "xs" size (~26px square, smaller than "sm") to the existing union; sm/md/lg are unchanged.
 - `round` — `boolean` · default `false` — Renders a fully rounded circular button when true instead of the default squared shape with rounded corners.
 - `as` — `"button" | "a"` · default `"button"` — Render as an "a" anchor for an icon link (a GitHub/repo icon, external nav) so navigation is a real link, not a button.
