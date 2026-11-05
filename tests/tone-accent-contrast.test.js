@@ -53,12 +53,12 @@ const ratio = (f, b) => +(((Math.max(lum(f), lum(b)) + 0.05) / (Math.min(lum(f),
 // this list must pass. Fixing them means changing brand/semantic colours library-wide, which is a
 // design decision, not a side effect of adding tones.
 const KNOWN_PREEXISTING = new Set([
-  "light primary solid",        // 4.47 — white on brand-500, ships on every primary Badge today
-  "light success solid",        // 3.77 — white on emerald-600, ships on every success Badge today
-  "light danger solid",         // 3.67 — white on rose-500, ships on every danger Badge today
-  "dark primary solid",         // 4.47
-  "dark primary solid:hover",   // 2.98 — dark-mode primary steps LIGHTER into its light ink
-  "dark primary solid:active",  // 1.99
+  // Empty, and that is the point. This list held six pairs that shipped below 4.5:1 through
+  // Badge/Tag long before #504 — light primary/success/danger solid, and dark primary at rest,
+  // hovered and active. They were fixed alongside #504 rather than left exempt: the plain tones are
+  // the ones the system designates for "fills that carry text on top", so failing their own ink was
+  // a broken contract, not a trade-off. The "no stale entries" test below is what forced this list
+  // to be emptied instead of quietly granting cover to a regression.
 ]);
 
 const TONES = ["primary", "success", "warning", "danger", "info"];

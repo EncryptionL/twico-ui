@@ -196,15 +196,22 @@ describe("token a11y - primary as text vs as fill (#451, #456)", () => {
       it(`--color-primary-subtle-fg on ${bg} clears AA 4.5:1 (${scopeName})`, () => {
         expect(contrast(scope, "--color-primary-subtle-fg", bg, bg)).toBeGreaterThanOrEqual(4.5);
       });
-      // The exception, measured not assumed: on the DARK page background (slate-950) brand-500 scrapes
-      // 4.52:1. Components paint on surfaces, not on the page background, so the rule still holds where
-      // it matters - and a token that passes only against the single darkest backdrop in the system is
-      // not a text colour.
-      if (bg !== "--color-bg" || scopeName === "light") {
-        it(`--color-primary on ${bg} does NOT clear AA, which is why it is fill-only (${scopeName})`, () => {
-          expect(contrast(scope, "--color-primary", bg, bg)).toBeLessThan(4.5);
-        });
-      }
+      // This used to assert the NEGATIVE - that --color-primary does NOT clear AA as text - because
+      // that measurement was the evidence behind the "primary is fill-only" rule. #504 changed the
+      // premise: primary failed 4.5:1 against its OWN white ink (4.47 light, and 4.47/2.98/1.99
+      // across rest/hover/active in dark), so the token moved - brand-600 in light, and in dark it
+      // joined the dark-ink-on-bright-fill pattern every other tone there already used. Both of
+      // those also push it clear of AA as text.
+      //
+      // So the old assertion is now false, and inverting it is the honest record: primary is still
+      // fill-only BY CONVENTION - --color-primary-subtle-fg remains the text token, and components
+      // keep using it - but no longer because it would fail. Asserting the new floor keeps this a
+      // real guard rather than a comment: if primary ever drifts back below AA, its own solid fill
+      // has stopped clearing 4.5:1 against its ink too, and tests/tone-accent-contrast.test.js will
+      // say so from the other direction.
+      it(`--color-primary on ${bg} now clears AA as text too, after #504 (${scopeName})`, () => {
+        expect(contrast(scope, "--color-primary", bg, bg)).toBeGreaterThanOrEqual(4.5);
+      });
     }
   }
 });
