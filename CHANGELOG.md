@@ -2,6 +2,18 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.49.0](https://github.com/EncryptionL/twico-ui/compare/v1.48.0...v1.49.0) (2026-11-05)
+
+
+### Bug Fixes
+
+* **tokens:** make the plain tones clear 4.5:1 against their own ink ([78a727d](https://github.com/EncryptionL/twico-ui/commit/78a727d193010a717405ee14af038e39f1baf65b)), closes [#455](https://github.com/EncryptionL/twico-ui/issues/455) [#504](https://github.com/EncryptionL/twico-ui/issues/504) [#504](https://github.com/EncryptionL/twico-ui/issues/504) [#1e1b4b](https://github.com/EncryptionL/twico-ui/issues/1e1b4b) [#e11d48](https://github.com/EncryptionL/twico-ui/issues/e11d48) [#1e1b4b](https://github.com/EncryptionL/twico-ui/issues/1e1b4b) [#818cf8](https://github.com/EncryptionL/twico-ui/issues/818cf8) [#052e1d](https://github.com/EncryptionL/twico-ui/issues/052e1d) [#10b981](https://github.com/EncryptionL/twico-ui/issues/10b981) [#2c0610](https://github.com/EncryptionL/twico-ui/issues/2c0610) [#f43f5e](https://github.com/EncryptionL/twico-ui/issues/f43f5e)
+
+
+### Features
+
+* **button:** widen tone to the full Tone scale, not just primary|danger ([ec640c3](https://github.com/EncryptionL/twico-ui/commit/ec640c3f4c0faa5c19b6cab4b73a8a5758628864)), closes [#451a03](https://github.com/EncryptionL/twico-ui/issues/451a03) [#082f49](https://github.com/EncryptionL/twico-ui/issues/082f49)
+
 # [1.48.0](https://github.com/EncryptionL/twico-ui/compare/v1.47.0...v1.48.0) (2026-10-23)
 
 
