@@ -12,7 +12,6 @@ import { Button, IconButton } from "../src/index.ts";
 // as a convenience alias for the two intents most actions want.
 
 const TONES = ["primary", "success", "warning", "danger", "info", "neutral"];
-const VARIANTS = ["solid", "soft", "outline", "ghost"];
 
 afterEach(cleanup);
 
