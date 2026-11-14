@@ -116,7 +116,7 @@
     "@testing-library/user-event": "^14.6.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
-    "jsdom": "^30.0.1",
+    "jsdom": "^31.0.0",
     "lucide-react": "^1.31.0",
     "semantic-release": "^25.0.9",
     "size-limit": "^14.0.0",
