@@ -13410,7 +13410,7 @@ export const components = [
     "group": "Inputs",
     "importName": "FieldRow",
     "tagline": "A row of fields and controls aligned by their control box",
-    "summary": "FieldRow lays out a row of form controls so they line up by their CONTROL box rather than their outer box, with one shared footer lane beneath. A hint or error on one field makes that field taller, so a plain flex row with align=\"flex-end\" lifts its control above its neighbours — reserveFooter (#494) fixed that between fields, but a non-field control in the same row (a Menu trigger, a Button, an IconButton) has no footer to reserve and still rode up. An \"insert at the cursor\" button beside the box it writes into, or a remove button at the end of a condition row, make that shape at least as common as a row of fields alone. FieldRow owns the row instead of asking every child to opt in, so \"field vs button\" stops being something you have to know: children need no props, fields share the width and plain controls keep their natural size, which also absorbs the flex:1 wrappers such a row would otherwise need. The lane is built the way reserveFooter builds it — generated content at --text-xs after the same gap — so it matches a real footer by construction rather than by a length that drifts when a token changes, and a field that already has a hint or error keeps its own footer and gets no extra lane.",
+    "summary": "FieldRow lays out a row of form controls so they line up by their CONTROL box rather than their outer box, with one shared footer lane beneath. A hint or error on one field makes that field taller, so a plain flex row with align=\"flex-end\" lifts its control above its neighbours — reserveFooter (#494) fixed that between fields, but a non-field control in the same row (a Menu trigger, a Button, an IconButton) has no footer to reserve and still rode up. An \"insert at the cursor\" button beside the box it writes into, or a remove button at the end of a condition row, make that shape at least as common as a row of fields alone. FieldRow owns the row instead of asking every child to opt in, so \"field vs button\" stops being something you have to know: children need no props. There is exactly one lane and one place it comes from — the cell — and the test is \"does anything in here already end in a footer?\", asked at any depth, so a field behind a Tooltip or your own wrapper div is seen (#519 fixed an earlier version that asked a direct-child question and gave such a field two lanes). Width works the same way round: every cell stretches by default and only an inline-level control keeps its natural size, which means an unknown child — your wrapper, a third-party control, a component added later — lands on the right answer with no list to maintain, and a Checkbox growing a field root when it gains an error can no longer re-flow the row. The lane is generated content at --text-xs after the same --space-1-5 gap, so it matches a real footer by construction rather than by a length that drifts when a token changes.",
     "propsRows": [
       {
         "prop": "children",
@@ -13432,6 +13432,20 @@ export const components = [
         "required": false,
         "default": "false",
         "description": "Allow children to wrap onto more lines when the row runs out of width."
+      },
+      {
+        "prop": "minChildWidth",
+        "type": "number | string",
+        "required": false,
+        "default": "\"10rem\"",
+        "description": "Minimum width a stretching cell may shrink to before wrap breaks the line — a number is px, a string passes through, same as Grid's prop of this name. Only meaningful with wrap."
+      },
+      {
+        "prop": "footerLines",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": "How many lines of footer the shared lane holds open. A hint that wraps past this still lifts its control, which FieldRow cannot equalise — see the note in Usage."
       },
       {
         "prop": "className",

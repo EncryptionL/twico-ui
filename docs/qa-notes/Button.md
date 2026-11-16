@@ -39,3 +39,18 @@
 - RTL-safe: uses logical `padding-inline` for horizontal padding (line 14); `leftIcon`/`rightIcon` placement mirrors with `dir="rtl"` since order follows source/flex direction.
 - tone × variant axes are orthogonal and complete (solid/soft/outline/ghost × primary/danger); danger reusing its hover for `:active` is intentional (lines 55-57).
 - `:focus-visible` ring via `box-shadow: var(--ring)` with `outline:none` is correct (line 33); disabled buttons drop to `opacity:0.5` + `cursor:not-allowed` and the `:active` transform is gated `:not(:disabled)`.
+
+- **#522 (2026-11-16):** `pressedTone` is typed as the full `Tone` scale, but there was no
+  `[data-pressed-tone="primary"]` rule in either `Button.jsx` or `IconButton.jsx`, so
+  `pressedTone="primary"` selected nothing and was silently inert. The #509 note recorded this as
+  harmless on the grounds that primary "falls through to the base defaults" — true only when `tone`
+  is *also* primary. With any other tone, the pressed state kept resolving from the
+  `.twc-btn[data-tone="…"]` block (0,2,0) and painted that colour instead: `<Button tone="danger"
+  pressed pressedTone="primary">` was red, and `<ToggleGroup tone="danger" items={[{tone:"primary"},
+  …]}/>` lost #411's per-item meaning colour for exactly that one member, because `ToggleGroup.jsx:96`
+  passes an item's tone straight through as `pressedTone`. Worse, `tone="neutral"` with
+  `pressedTone="primary"` still reproduced the 17.85:1 border #509 had just removed — so *omitting*
+  the prop beat asking for primary. Added the missing rule to both components; specificity is
+  1 class + 2 attributes = **(0,3,0)**, which outranks the (0,2,0) `data-tone` blocks exactly as the
+  other four pressed rules do. The #509 test that asserted the gap was "by design" now asserts the
+  rule exists and sets the primary trio, in both components.

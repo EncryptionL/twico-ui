@@ -1,5 +1,5 @@
 import React from "react";
-import { FieldRow, Input, Select, Button, IconButton, Stack, Field } from "twico-ui";
+import { FieldRow, Input, Select, Button, IconButton, Stack, Field, Tooltip, Checkbox } from "twico-ui";
 
 const FIELDS = [
   { label: "Material", value: "material" },
@@ -21,6 +21,23 @@ const TrashIcon = (
 const box = { width: "100%", maxWidth: 560 };
 
 // Hooks live in a component, never in a `render` callback — Variations calls render() inline.
+function CheckboxErrorExample() {
+  const [err, setErr] = React.useState(true);
+  return (
+    <div style={box}>
+      <FieldRow>
+        <Input label="Email" defaultValue="someone@example.com" />
+        <Checkbox label="Subscribe" error={err ? "Required" : undefined} />
+      </FieldRow>
+      <div style={{ marginBlockStart: "var(--space-3)" }}>
+        <Button size="sm" variant="ghost" onClick={() => setErr((v) => !v)}>
+          {err ? "Clear the error" : "Show the error"}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 function ConditionalFieldExample() {
   const [op, setOp] = React.useState("empty");
   return (
@@ -136,6 +153,37 @@ const variations = [
   );
 }`,
     render: () => <ConditionalFieldExample />,
+  },
+  {
+    title: "A wrapped field still shares the row",
+    description:
+      "The cell asks \"is there already a footer in here?\" at any depth, so a field behind a Tooltip — or your own wrapper div — gets one lane, not two, and still stretches. An earlier version asked a direct-child question and gave such a field a 24px ride-up (#519).",
+    code: `<FieldRow>
+  <Tooltip label="Matched anywhere in the value"><Input label="Value" /></Tooltip>
+  <Input label="Other" error="Too long." />
+  <Button size="sm" variant="outline">Insert</Button>
+</FieldRow>`,
+    render: () => (
+      <div style={box}>
+        <FieldRow>
+          <Tooltip label="Matched anywhere in the value" placement="bottom">
+            <Input label="Value" defaultValue="leather" />
+          </Tooltip>
+          <Input label="Other" defaultValue="a value that is too long" error="Too long." />
+          <Button size="sm" variant="outline">Insert</Button>
+        </FieldRow>
+      </div>
+    ),
+  },
+  {
+    title: "A validation error does not re-flow the row",
+    description:
+      "Checkbox, Switch and Radio only grow a field root when they have an error to show. Width is keyed on the control instead, so the text field keeps its width whether or not the message is there — it used to lose 202px of 600 the moment the error appeared (#519).",
+    code: `<FieldRow>
+  <Input label="Email" />
+  <Checkbox label="Subscribe" error={err} />
+</FieldRow>`,
+    render: () => <CheckboxErrorExample />,
   },
   {
     title: "All props",

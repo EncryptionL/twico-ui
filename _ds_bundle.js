@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"760128e05089","components/buttons/IconButton.jsx":"fda8e991d4c9","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"724cf4b45ecc","components/data-display/AvatarMenu.jsx":"14b280842168","components/data-display/Badge.jsx":"69e6aff0081a","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"e1985980f3d8","components/data-display/Carousel.jsx":"4c0981ca4ea9","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"92beac84bace","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"79c72470804e","components/data-display/ImageViewer.jsx":"51561e515465","components/data-display/Kanban.jsx":"389caa2e45d2","components/data-display/List.jsx":"89e1b0ef9c72","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"38b0431624b9","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"92e0de3c6efe","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"9a58f8174004","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"456f691e9b3c","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"52c1c5a0ca83","components/inputs/ColorPicker.jsx":"1efc64d10bf0","components/inputs/Combobox.jsx":"f0e2302a782d","components/inputs/Currency.jsx":"9e0a15b51ef1","components/inputs/CurrencyField.jsx":"6117a20400b6","components/inputs/DatePicker.jsx":"03c9789765bb","components/inputs/DateRangePicker.jsx":"6ecea0ba13b5","components/inputs/DateTimePicker.jsx":"d3d54cf176a5","components/inputs/Field.jsx":"e4c5ba6b0455","components/inputs/FieldRow.jsx":"68adbbc35e41","components/inputs/FileUpload.jsx":"ff8d288c9063","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"cd71f1e096d1","components/inputs/Input.jsx":"0a5b231c716d","components/inputs/Label.jsx":"dfdad32670fd","components/inputs/MultiSelect.jsx":"597e989dbf2a","components/inputs/Radio.jsx":"3dcda0eaacb0","components/inputs/RadioGroup.jsx":"224928157fc4","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5ef91a521869","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a09dc2f23ff0","components/inputs/Textarea.jsx":"086de8befb61","components/inputs/TimePicker.jsx":"122ef8fd0ced","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"724003a42299","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"baa21c063fe4","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"cac42c569080","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"b0045c78a736","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"57ea77870c8d","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"e5c9a898a0d7","components/navigation/Breadcrumb.jsx":"bbbef6c9957f","components/navigation/Navbar.jsx":"7fb1f2629199","components/navigation/Sidebar.jsx":"e87e28eef508","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"95154a884c47","components/navigation/TreeView.jsx":"72f08e1f44c8","components/overlay/CommandPalette.jsx":"39bb3dbe155e","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"c68a9c904738","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"e2de1e0866af","components/typography/Code.jsx":"a6a74f93cb2b","components/typography/Heading.jsx":"e98181d4d72f","components/typography/Kbd.jsx":"ff96e9dbdbe0","components/typography/Pre.jsx":"97379158f0ce","components/typography/Text.jsx":"642a06610251","src/index.ts":"9475e47b39e5"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"08c8a9da5fee","components/buttons/IconButton.jsx":"9625cb6f6231","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"724cf4b45ecc","components/data-display/AvatarMenu.jsx":"14b280842168","components/data-display/Badge.jsx":"69e6aff0081a","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"e1985980f3d8","components/data-display/Carousel.jsx":"4c0981ca4ea9","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"0074c3619a19","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"79c72470804e","components/data-display/ImageViewer.jsx":"51561e515465","components/data-display/Kanban.jsx":"389caa2e45d2","components/data-display/List.jsx":"89e1b0ef9c72","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"38b0431624b9","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"92e0de3c6efe","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"9a58f8174004","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"456f691e9b3c","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"52c1c5a0ca83","components/inputs/ColorPicker.jsx":"1efc64d10bf0","components/inputs/Combobox.jsx":"f0e2302a782d","components/inputs/Currency.jsx":"9e0a15b51ef1","components/inputs/CurrencyField.jsx":"6117a20400b6","components/inputs/DatePicker.jsx":"03c9789765bb","components/inputs/DateRangePicker.jsx":"6ecea0ba13b5","components/inputs/DateTimePicker.jsx":"d3d54cf176a5","components/inputs/Field.jsx":"e4c5ba6b0455","components/inputs/FieldRow.jsx":"728f405dee74","components/inputs/FileUpload.jsx":"ff8d288c9063","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"cd71f1e096d1","components/inputs/Input.jsx":"0a5b231c716d","components/inputs/Label.jsx":"dfdad32670fd","components/inputs/MultiSelect.jsx":"597e989dbf2a","components/inputs/Radio.jsx":"3dcda0eaacb0","components/inputs/RadioGroup.jsx":"224928157fc4","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5ef91a521869","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a09dc2f23ff0","components/inputs/Textarea.jsx":"086de8befb61","components/inputs/TimePicker.jsx":"122ef8fd0ced","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"724003a42299","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"baa21c063fe4","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"cac42c569080","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"b0045c78a736","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"57ea77870c8d","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"e5c9a898a0d7","components/navigation/Breadcrumb.jsx":"bbbef6c9957f","components/navigation/Navbar.jsx":"7fb1f2629199","components/navigation/Sidebar.jsx":"e87e28eef508","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"95154a884c47","components/navigation/TreeView.jsx":"72f08e1f44c8","components/overlay/CommandPalette.jsx":"39bb3dbe155e","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"c68a9c904738","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"e2de1e0866af","components/typography/Code.jsx":"a6a74f93cb2b","components/typography/Heading.jsx":"e98181d4d72f","components/typography/Kbd.jsx":"ff96e9dbdbe0","components/typography/Pre.jsx":"97379158f0ce","components/typography/Text.jsx":"642a06610251","src/index.ts":"9475e47b39e5"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -649,6 +649,13 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 /* #405: toggle "on" state (aria-pressed) \u2014 a soft tone fill + tone border, works over any variant. */
 .twc-iconbtn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
 /* #411: pressed fill can carry any status Tone. */
+/* #522: the missing member of the Tone scale. Without this, pressedTone="primary" selected
+   NOTHING, so a pressed <Button tone="danger" pressedTone="primary"> kept resolving its accent
+   trio from .twc-iconbtn[data-tone="danger"] (0,2,0) and painted red - and ToggleGroup, which
+   passes an item's tone straight through as pressedTone (ToggleGroup.jsx:96), lost the
+   per-item meaning colour from #411 for exactly this one tone. 1 class + 2 attributes =
+   (0,3,0), which outranks the (0,2,0) data-tone blocks just as the four rules below it do. */
+.twc-iconbtn[aria-pressed="true"][data-pressed-tone="primary"] { --_accent: var(--color-primary); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); }
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="success"] { --_accent: var(--color-success); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); }
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="warning"] { --_accent: var(--color-warning); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="info"] { --_accent: var(--color-info); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }
@@ -1244,20 +1251,20 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       const triggers = Array.from(rootRef.current.querySelectorAll(".twc-accordion__trigger")).filter((b) => !b.disabled);
       const i = triggers.indexOf(e.target);
       if (i < 0) return;
-      const len2 = triggers.length;
+      const len3 = triggers.length;
       let next;
       switch (e.key) {
         case "ArrowDown":
-          next = (i + 1) % len2;
+          next = (i + 1) % len3;
           break;
         case "ArrowUp":
-          next = (i - 1 + len2) % len2;
+          next = (i - 1 + len3) % len3;
           break;
         case "Home":
           next = 0;
           break;
         case "End":
-          next = len2 - 1;
+          next = len3 - 1;
           break;
         default:
           return;
@@ -2055,6 +2062,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-btn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
 /* #411: pressed "on" fill can carry any status Tone (not just the ActionTone), so a toggle option shows its own
    meaning colour \u2014 success/warning/info/neutral; only the pressed fill props are remapped. */
+/* #522: the missing member of the Tone scale. Without this, pressedTone="primary" selected
+   NOTHING, so a pressed <Button tone="danger" pressedTone="primary"> kept resolving its accent
+   trio from .twc-btn[data-tone="danger"] (0,2,0) and painted red - and ToggleGroup, which
+   passes an item's tone straight through as pressedTone (ToggleGroup.jsx:96), lost the
+   per-item meaning colour from #411 for exactly this one tone. 1 class + 2 attributes =
+   (0,3,0), which outranks the (0,2,0) data-tone blocks just as the four rules below it do. */
+.twc-btn[aria-pressed="true"][data-pressed-tone="primary"] { --_accent: var(--color-primary); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); }
 .twc-btn[aria-pressed="true"][data-pressed-tone="success"] { --_accent: var(--color-success); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); }
 .twc-btn[aria-pressed="true"][data-pressed-tone="warning"] { --_accent: var(--color-warning); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
 .twc-btn[aria-pressed="true"][data-pressed-tone="info"] { --_accent: var(--color-info); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }
@@ -3091,9 +3105,9 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         const bw = slot / Math.max(1, keys.length);
         return keys.map((k, si) => {
           const v = Number(d[k]) || 0;
-          const len2 = vPix(v);
+          const len3 = vPix(v);
           const key = `${gi}:${k}`;
-          return horizontal ? /* @__PURE__ */ jsx("rect", { ...barCommon(k, key), x: padL, y: gStart + si * bw + 0.5, width: Math.max(0, len2), height: Math.max(1, bw - 1) }, key) : /* @__PURE__ */ jsx("rect", { ...barCommon(k, key), x: gStart + si * bw + 0.5, y: padT + innerH - len2, width: Math.max(1, bw - 1), height: Math.max(0, len2) }, key);
+          return horizontal ? /* @__PURE__ */ jsx("rect", { ...barCommon(k, key), x: padL, y: gStart + si * bw + 0.5, width: Math.max(0, len3), height: Math.max(1, bw - 1) }, key) : /* @__PURE__ */ jsx("rect", { ...barCommon(k, key), x: gStart + si * bw + 0.5, y: padT + innerH - len3, width: Math.max(1, bw - 1), height: Math.max(0, len3) }, key);
         });
       });
     };
@@ -8373,8 +8387,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     const countId = `${fieldId}-count`;
     const invalid = Boolean(error);
     const countControlled = rest.value !== void 0;
-    const [len2, setLen] = import_react.default.useState(() => String(rest.defaultValue ?? "").length);
-    const count = countControlled ? String(rest.value ?? "").length : len2;
+    const [len3, setLen] = import_react.default.useState(() => String(rest.defaultValue ?? "").length);
+    const count = countControlled ? String(rest.value ?? "").length : len3;
     const max = rest.maxLength;
     const showCounter = showCount && max != null;
     const near = showCounter && count >= Math.floor(max * 0.9);
@@ -10070,7 +10084,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     let out = Array.isArray(rows) ? rows : [];
     const quick = String(q.quickFilter || "").trim().toLowerCase();
     if (quick) out = out.filter((r2) => searchFields.some((f) => String(gv(f, r2) ?? "").toLowerCase().includes(quick)));
-    const qF = (q.filters || []).map((f) => [cols.find((c) => c.field === f.field), f]).filter(([fc]) => fc);
+    const qF = (q.filters || []).map((f) => [cols.find((c) => c.field === f.field), f]).filter(([fc]) => fc && fc.filterable !== false);
     if (qF.length) {
       if (q.filterLogic === "or") out = out.filter((r2) => qF.some(([fc, f]) => testFilter(gv(f.field, r2), f.op, f.value, filterTypeOf(fc))));
       else for (const [fc, f] of qF) out = out.filter((r2) => testFilter(gv(f.field, r2), f.op, f.value, filterTypeOf(fc)));
@@ -10740,7 +10754,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     const applyState = (s) => {
       if (!s || typeof s !== "object") return;
       const known = new Set(cols.map((c) => c.field).filter(Boolean));
-      if (Array.isArray(s.filters)) setFilters(s.filters.filter((f) => f && known.has(f.field)).map((f, i) => ({ id: Date.now() + Math.random() + i, field: f.field, op: f.op, value: f.value })));
+      const knownFilterable = new Set(cols.filter((c) => c.field && c.filterable !== false).map((c) => c.field));
+      if (Array.isArray(s.filters)) setFilters(s.filters.filter((f) => f && knownFilterable.has(f.field)).map((f, i) => ({ id: Date.now() + Math.random() + i, field: f.field, op: f.op, value: f.value })));
       if ((s.filterLogic === "or" || s.filterLogic === "and") && !filterLogicControlled) setFilterLogicInternal(s.filterLogic);
       if ("sort" in s) setSort(s.sort && known.has(s.sort.field) ? { field: s.sort.field, dir: s.sort.dir === "desc" ? "desc" : "asc" } : null);
       if (typeof s.quickFilter === "string" && quickFilter === void 0) setInternalQuick(s.quickFilter);
@@ -11145,7 +11160,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         const searchCols = searchFields && searchFields.length ? searchFields.map((f) => colByField[f] || { field: f }) : visibleCols;
         out = out.filter((r2) => searchCols.some((c) => String(getColVal(c, r2) ?? "").toLowerCase().includes(q)));
       }
-      const activeF = filters.map((f) => [colByField[f.field], f]).filter(([col]) => col);
+      const activeF = filters.map((f) => [colByField[f.field], f]).filter(([col]) => col && col.filterable !== false);
       if (activeF.length) {
         if (filterLogic === "or") {
           out = out.filter((r2) => activeF.some(([col, f]) => testFilter(getColVal(col, r2), f.op, f.value, filterTypeOf(col))));
@@ -11521,7 +11536,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
           page: pageVal,
           pageSize: sizeVal,
           sort,
-          filters: filters.map(({ id, ...f }) => f),
+          // #523: do not ask the server to apply a clause the UI cannot show or remove.
+          filters: filters.filter((f) => {
+            const c = colByField[f.field];
+            return c && c.filterable !== false;
+          }).map(({ id, ...f }) => f),
           filterLogic,
           // #303: "and" (default) | "or" — the server groups its WHERE accordingly
           quickFilter: quick.trim(),
@@ -17540,39 +17559,155 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     return v;
   }
   var FIELDROW_CSS = `
-/* #508: a row of fields PLUS one control - an "insert at the cursor" button beside the box it writes
-   into, a remove button at the end of a condition row - which is arguably the more common shape than
-   a row of fields alone. #494's reserveFooter closed the field-vs-field half, but its selector is
-   .twc-field, and a trailing button's root is .twc-btn, so the button still rode up by a footer's
-   height the moment a sibling field grew one.
+/* #508: a row of fields PLUS one plain control - an "insert at the cursor" button beside the box it
+   writes into, a remove button at the end of a condition row - which is arguably the more common
+   shape than a row of fields alone. #494's reserveFooter closed the field-vs-field half, but its
+   selector is .twc-field and a trailing button's root is .twc-btn, so the button still rode up by a
+   footer's height the moment a sibling field grew one.
 
-   This owns the row instead of asking every child to opt in. Each child sits in a cell that is a flex
-   COLUMN ending in a footer lane, so everything aligns by its control box rather than by its outer
-   box, whatever the child is:
+   ONE LANE, ONE PLACE IT CAN COME FROM (#519).
+   The first cut of this component ran TWO lane mechanisms at once: the row carried
+   data-reserve-footer, switching on #494's ancestor rule ([data-reserve-footer] .twc-field, a
+   DESCENDANT selector that reaches every field root at any depth - including the Select inside a
+   CurrencyField and both pickers inside a DateTimePicker), AND each cell drew its own ::after
+   whenever :has(> .twc-field) failed - a DIRECT-CHILD test. The two disagreed on exactly the cases
+   that matter: a field behind a Tooltip or a host div satisfies the descendant rule and fails the
+   child test, so it got BOTH lanes and rode up 24px - #508 again, in the other direction.
+   So the row no longer sets data-reserve-footer at all. The lane is drawn by the CELL, never by the
+   child, and there is exactly one rule that can draw it.
 
-     - a .twc-field child reserves its own lane through #494's ancestor selector, which this row
-       turns on by carrying data-reserve-footer;
-     - a cell holding anything else gets the lane from the cell itself, built the same way #494
-       builds it - generated content at --text-xs after the same --space-1-5 gap - so it matches the
-       real footer by construction rather than by a length that drifts when a token changes.
-
-   A field that already has a hint/error keeps its own footer and no lane is added; :has() decides,
-   exactly as in #494, so no child has to report anything. */
-.twc-fieldrow { display: flex; align-items: flex-end; }
+   The geometry is identical either way, which is why dropping the inner lane costs nothing: a
+   field's own hint sits var(--space-1-5) below its control box INSIDE .twc-field, and this cell's
+   ::after sits var(--space-1-5) below the whole child. Both put the control box 6px + one
+   --text-xs line (18px at --leading-normal) above the cell's bottom edge, and align-items:flex-end
+   lines those bottoms up. Generated content rather than a height, so the lane keeps matching a real
+   footer when a token changes. font-family is pinned on the row because --leading-normal is a
+   NUMBER: were a host to set line-height:normal on a form container, the lane and a real footer
+   would otherwise differ by the two fonts' metric gap. */
+.twc-fieldrow { display: flex; align-items: flex-end; font-family: var(--font-sans); }
 .twc-fieldrow[data-wrap="true"] { flex-wrap: wrap; }
-.twc-fieldrow__cell { display: flex; flex-direction: column; gap: var(--space-1-5); min-width: 0; }
-/* Fields share the row's width; a plain control keeps its natural size. This is what absorbs the
-   <Box sx={{ flex: 1 }}> wrappers a host would otherwise write around every field. */
-.twc-fieldrow__cell:has(> .twc-field) { flex: 1 1 0; }
-.twc-fieldrow__cell:not(:has(> .twc-field)) { flex: 0 0 auto; }
-/* The lane for a non-field cell. A button's own ::after would land INSIDE its box and simply make the
-   button taller, so the lane belongs to the cell around it. */
-.twc-fieldrow__cell:not(:has(> .twc-field))::after {
+
+/* Every cell shares the row's width and may be squeezed rather than overflow it. See the natural
+   rule below for why STRETCH is the default rather than the thing we test for. */
+.twc-fieldrow__cell { display: flex; flex-direction: column; gap: var(--space-1-5); flex: 1 1 0; min-inline-size: 0; }
+
+/* wrap (#520, #524). flex-basis:0 made every field cell's hypothetical main size 0, so the flex
+   line could never overflow and no break was ever taken - the fields were squeezed to 4px instead,
+   which is the one thing this prop exists to prevent. A floor on the hypothetical size restores the
+   break without giving up equal widths (basis stays 0, so cells on a line still share it evenly).
+   min(100%, ...) keeps a row narrower than the floor from overflowing.
+   The floor is load-bearing rather than decorative - a host sizing a condition row for a 1366px
+   laptop needs to say where it breaks - and it was unexpressible before #524: minWidth on the FIELD
+   is overridden by the cell's own min-inline-size, and a wrapper div is what FieldRow exists to
+   remove. So it is the minChildWidth prop (same name and semantics as Grid's), landing on the
+   CELL, which is the flex item. --twc-fieldrow-min stays settable for a host that would rather push
+   it through CSS. */
+:where(.twc-fieldrow[data-wrap="true"]) > .twc-fieldrow__cell { min-inline-size: min(100%, var(--twc-fieldrow-min, 10rem)); }
+
+/* NATURAL ROOTS - a cell that holds one of these keeps the child's own size instead of sharing the
+   row's width. The list is not curated: it is every single-class .twc-* rule in this library that
+   declares display:inline-flex, minus the three overlay wrappers below, i.e. every root that is an
+   inline-level control. tests/fieldrow-natural-roots.test.jsx re-derives it from components/ and
+   fails on drift, so a new inline-flex control cannot silently start stretching.
+   The polarity is the point. With STRETCH as the default, every child this list does NOT name - a
+   host's wrapper div, a third-party control, a component added later, Slider/FileUpload/FilterBar/
+   Form, which fill their width without ever being a .twc-field - lands on the answer that is right
+   for it, so the open-ended "every wrapper a host might write" list disappears and the one list
+   that remains only ever names boxes this library itself ships.
+   Depth <= 2 is what makes it immune to the two shapes that moved the old test: Checkbox/Switch/
+   Radio grow a bare div.twc-field root only when they have an error (Checkbox.jsx:126), and
+   Menu trigger= / Tooltip put a *-wrap span in between. Both now answer "natural" whether the
+   message is there or not, so a validation error no longer re-flows the row (#519). It stops at 2
+   deliberately: .twc-radio sits at depth 3 inside a RadioGroup, which fills. */
+.twc-fieldrow__cell:has(> :is(.twc-avatar-menu, .twc-badge, .twc-btn, .twc-check, .twc-iconbtn, .twc-kbd, .twc-label, .twc-pagination, .twc-radio, .twc-rating, .twc-switch, .twc-tab, .twc-tag, .twc-togglegroup),
+                       > * > :is(.twc-avatar-menu, .twc-badge, .twc-btn, .twc-check, .twc-iconbtn, .twc-kbd, .twc-label, .twc-pagination, .twc-radio, .twc-rating, .twc-switch, .twc-tab, .twc-tag, .twc-togglegroup)) {
+  flex: 0 1 auto; min-inline-size: auto; }
+/* END NATURAL ROOTS */
+
+/* Tooltip/Menu/Popover are transparent wrappers: inline-flex spans holding exactly one in-flow
+   child, because their bubble/panel portals to document.body. Blockified as a flex item they stretch
+   to the cell, but their own ROW direction then shrink-wraps the trigger, so a tooltipped field
+   would still not fill the cell it is sharing. One column flips that at any nesting depth without
+   naming the trigger - the same three names, no new list. */
+.twc-fieldrow__cell :is(.twc-menu-wrap, .twc-popover-wrap, .twc-tooltip-wrap) { flex-direction: column; align-items: stretch; }
+
+/* #525: a child COMPONENT that returns a fragment renders SEVERAL elements into one cell. Nothing
+   can see through a render, so toCells cannot split it - React.Children only ever sees the one
+   component element. A cell is a COLUMN, so those fields stacked vertically: not a subtle
+   misalignment but a different layout, and extracting a repeated field PAIR into a component is the
+   natural way to write these rows.
+   :has(> * + *) identifies it exactly, because toCells gives every other cell exactly one child.
+   Such a cell lays out as a row instead, and each field inside takes #494's own lane so the parts
+   still line up by their control box - the cell's single lane would otherwise sit BESIDE them as
+   another row item. gap is inherited from the row, so a fragment pair spaces like real siblings. */
+.twc-fieldrow__cell:has(> * + *) { flex-direction: row; align-items: flex-end; gap: inherit; }
+.twc-fieldrow__cell:has(> * + *) > * { flex: 1 1 0; min-inline-size: 0; }
+.twc-fieldrow__cell:has(> * + *) > :is(.twc-avatar-menu, .twc-badge, .twc-btn, .twc-check, .twc-iconbtn, .twc-kbd, .twc-label, .twc-pagination, .twc-radio, .twc-rating, .twc-switch, .twc-tab, .twc-tag, .twc-togglegroup) { flex: 0 1 auto; min-inline-size: auto; }
+.twc-fieldrow__cell:has(> * + *) > .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
   content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+
+/* THE LANE - the only one. A cell gets it unless something inside it already ends in a footer:
+     - the three message classes #494 tests for (Field.jsx:17). They also catch the two footers no
+       .twc-field test can see, because both wrap one of them: Slider's .twc-slider__msgs and
+       FileUpload's bare error under a non-field root;
+     - a nested FieldRow, whose own cells already end in a lane;
+     - a child opting into #494 by hand with reserveFooter, which draws its lane inside .twc-field -
+       the attribute is visible to :has() even though the generated content is not, so the two
+       mechanisms compose instead of doubling.
+   Unlike the old test this looks at ANY depth, which is the whole point: a field behind a Tooltip,
+   a host div, or a Form's fieldset is seen. */
+.twc-fieldrow__cell:not(:has(> * + *)):not(:has(.twc-field__footer, .twc-field__hint, .twc-field__error, .twc-fieldrow, [data-reserve-footer]))::after {
+  content: "\\00a0"; font-size: var(--text-xs); user-select: none;
+  /* #526: the lane reserves ONE line, so a sibling whose REAL footer wraps to two is a line taller
+     and align-items:flex-end lifts its control by 18px - the #494 symptom, inside the component
+     built to prevent it. It depends on the cell's rendered width, not the markup, so the same row
+     aligns wide and breaks narrow. Equalising footers across the row is not solvable here: it needs
+     each cell to contribute a control part and a footer part as separate grid items, and a field's
+     footer lives INSIDE the single .twc-field element, so no row-level selector can hoist it out -
+     see the Field restructure issue. What IS expressible is the reserve: footerLines tells the row
+     how many lines to hold open, so a host with a known two-line hint can match it. */
+  min-block-size: calc(var(--twc-fieldrow-footer-lines, 1) * var(--text-xs) * var(--leading-normal, 1.5)); }
+
+/* FOOTER OFFSET. Two of the library's own controls put their message at a different offset than the
+   field family's var(--space-1-5), so even with the lane correct they sat out of line in a row:
+   Slider's .twc-slider__msgs adds margin-top: var(--space-2) (8px, Slider.jsx:13) and FileUpload's
+   root gap is var(--space-3) (12px, FileUpload.jsx:6) above its bare .twc-field__error. Measured,
+   that is 2px and 6px - far better than the 25px/29px the double lane used to cost, but
+   "aligned by control box" has to be literally true, not nearly.
+   Normalised only INSIDE a cell, so nothing outside a FieldRow changes. FileUpload gets a negative
+   compensation rather than a smaller gap, because its gap also spaces the zone from the file list
+   and that spacing should stay as designed. */
+.twc-fieldrow__cell .twc-slider__msgs { margin-block-start: var(--space-1-5); }
+.twc-fieldrow__cell .twc-upload > .twc-field__error { margin-block-start: calc(var(--space-1-5) - var(--space-3)); }
+
+/* SUPPRESSION. The row sets no data-reserve-footer, but a HOST may have put #494's attribute on an
+   ancestor above this row - prop-conventions.md documents that ancestor use as a first-class
+   pattern - and #494's rule is a descendant selector, so it would reach every field in here and
+   stack its lane under the cell's. Kill the inner one; the cell already owns the lane. A field that
+   opted in FOR ITSELF keeps its own (that is the :not), and the cell rule above skips such a cell,
+   so the pair always yields exactly one lane. (0,4,1) against #494's (0,3,1), so this wins.
+   It deliberately skips a fragment-row cell (#525): there the inner field lanes are the mechanism,
+   and this rule outranked them - leaving the pair with no lane while a trailing button's cell kept
+   one, 24px out. */
+.twc-fieldrow .twc-fieldrow__cell:not(:has(> * + *)) .twc-field:not([data-reserve-footer])::after { content: none; }
 `;
+  function toCells(children, out, prefix) {
+    import_react.default.Children.toArray(children).forEach((child, i) => {
+      if (!child) return;
+      const key = prefix + (child.key == null ? i : child.key);
+      if (child.type === import_react.default.Fragment) toCells(child.props.children, out, key + "/");
+      else out.push({ key, child });
+    });
+    return out;
+  }
+  function len2(v) {
+    return typeof v === "number" ? `${v}px` : v;
+  }
   var FieldRow = /* @__PURE__ */ import_react.default.forwardRef(function FieldRow2({
     gap = 3,
     wrap = false,
+    minChildWidth,
+    footerLines,
     className = "",
     style,
     children,
@@ -17585,19 +17720,18 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         ref,
         className: `twc-fieldrow ${className}`.trim(),
         "data-wrap": wrap || void 0,
-        "data-reserve-footer": "",
-        style: { gap: space2(gap), ...style },
+        style: {
+          gap: space2(gap),
+          // #524: the wrap floor, on the cell via a custom property because the cell is the flex item
+          // and a consumer cannot reach it. #526: how many footer lines the lane holds open.
+          ...minChildWidth != null ? { "--twc-fieldrow-min": len2(minChildWidth) } : null,
+          ...footerLines != null ? { "--twc-fieldrow-footer-lines": footerLines } : null,
+          ...style
+        },
         ...rest,
         children: [
           __twcStyles,
-          import_react.default.Children.map(
-            children,
-            (child) => (
-              // null/false children would otherwise get an empty cell that still draws a lane and takes
-              // part in the gap, leaving a hole where a conditionally-rendered field is hidden.
-              child == null || child === false ? null : /* @__PURE__ */ jsx("div", { className: "twc-fieldrow__cell", children: child })
-            )
-          )
+          toCells(children, [], "").map(({ key, child }) => /* @__PURE__ */ jsx("div", { className: "twc-fieldrow__cell", children: child }, key))
         ]
       }
     );
@@ -20353,8 +20487,8 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       else if (ref) ref.current = el;
     };
     const countControlled = rest.value !== void 0;
-    const [len2, setLen] = import_react.default.useState(() => String(rest.defaultValue ?? "").length);
-    const count = countControlled ? String(rest.value ?? "").length : len2;
+    const [len3, setLen] = import_react.default.useState(() => String(rest.defaultValue ?? "").length);
+    const count = countControlled ? String(rest.value ?? "").length : len3;
     const max = rest.maxLength;
     const showCounter = showCount && max != null;
     const near = showCounter && count >= Math.floor(max * 0.9);

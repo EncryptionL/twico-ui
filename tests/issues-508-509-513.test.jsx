@@ -101,7 +101,23 @@ describe("pressedTone defaults to tone (#509)", () => {
         expect(val(pressed), `${tone} ${prop} differs between pressed and unpressed`).toBe(val(unpressed));
       }
     }
-    expect(btn, "primary has no pressed rule, by design").not.toContain('data-pressed-tone="primary"');
+    // #522 made primary a real rule. It was the one member of the Tone scale that selected nothing,
+    // so pressedTone="primary" was inert: a pressed <Button tone="danger" pressedTone="primary">
+    // kept resolving from .twc-btn[data-tone="danger"] (0,2,0) and painted red, and ToggleGroup -
+    // which passes an item's tone through as pressedTone (ToggleGroup.jsx:96) - lost #411's
+    // per-item colour for primary alone.
+    // It is asserted separately from the loop above because primary has NO unpressed
+    // .twc-btn[data-tone="primary"] block to compare against: primary IS the base default, which is
+    // exactly why the gap was invisible until a non-primary `tone` was paired with it.
+    for (const file of [btn, readFileSync(resolve(process.cwd(), "components/buttons/IconButton.jsx"), "utf8")]) {
+      const root = file === btn ? "twc-btn" : "twc-iconbtn";
+      const i = file.indexOf(`.${root}[aria-pressed="true"][data-pressed-tone="primary"]`);
+      expect(i, `#522: ${root} must have a pressed rule for primary like every other tone`).toBeGreaterThan(-1);
+      const rule = file.slice(i, file.indexOf("}", i));
+      expect(rule).toContain("--_accent: var(--color-primary)");
+      expect(rule).toContain("--_accent-subtle: var(--color-primary-subtle)");
+      expect(rule).toContain("--_accent-subtle-fg: var(--color-primary-subtle-fg)");
+    }
   });
 
   it("neutral is the one tone whose pressed rule deliberately differs (#430)", () => {
@@ -128,11 +144,13 @@ describe("FieldRow (#508)", () => {
     expect(cells(container)[1].querySelector(".twc-btn")).not.toBe(null);
   });
 
-  it("turns on #494's ancestor reserve for every field inside, with no per-field prop", () => {
+  it("#519: does NOT broadcast #494's ancestor attribute", () => {
+    // The first cut set data-reserve-footer on the row, which switched on #494's DESCENDANT rule and
+    // therefore reached every nested field root too - a CurrencyField's picker Select, a
+    // DateTimePicker's two pickers, each of a FilterBar's filters - stacking a second lane under the
+    // one the cell already draws. One mechanism only: the cell owns the lane.
     const { container } = render(<FieldRow><Input label="A" /></FieldRow>);
-    const row = container.querySelector(".twc-fieldrow");
-    expect(row.hasAttribute("data-reserve-footer")).toBe(true);
-    // the field itself needs nothing
+    expect(container.querySelector(".twc-fieldrow").hasAttribute("data-reserve-footer")).toBe(false);
     expect(container.querySelector(".twc-field").hasAttribute("data-reserve-footer")).toBe(false);
   });
 
@@ -172,11 +190,22 @@ describe("FieldRow (#508)", () => {
     expect(ref.current.style.marginTop).toBe("4px");
   });
 
-  it("gives the lane to non-field cells and the flex share to field cells", () => {
+  it("#519: stretches by default and tests the FOOTER at any depth, not the field root", () => {
     const src = readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.jsx"), "utf8");
-    expect(src).toContain(".twc-fieldrow__cell:has(> .twc-field) { flex: 1 1 0; }");
-    expect(src).toContain(".twc-fieldrow__cell:not(:has(> .twc-field)) { flex: 0 0 auto; }");
-    expect(src).toContain('.twc-fieldrow__cell:not(:has(> .twc-field))::after');
+    // The direct-child tests are gone. They were the defect: a field behind a Tooltip or a host div
+    // satisfied #494's descendant rule and failed `:has(> .twc-field)`, so it drew BOTH lanes.
+    expect(src, "the direct-child field test must be gone as a RULE (the comment may still cite it)")
+      .not.toMatch(/^\s*\.twc-fieldrow__cell:(not\(:)?has\(>\s*\.twc-field\)/m);
+    expect(src, "stretch is the default, so an unknown child cannot be mis-sized").toContain("flex: 1 1 0;");
+    // The lane asks "is there already a footer in here?", which also catches the two footers no
+    // .twc-field test can see: Slider wraps one in .twc-slider__msgs, FileUpload puts a bare error
+    // under .twc-upload.
+    expect(src).toContain(
+      ".twc-fieldrow__cell:not(:has(> * + *)):not(:has(.twc-field__footer, .twc-field__hint, .twc-field__error, .twc-fieldrow, [data-reserve-footer]))::after");
+    // ...and the suppression rule, so a host's data-reserve-footer on an ANCESTOR of the row (a
+    // documented pattern) cannot reach the fields inside and stack a lane under the cell's.
+    expect(src).toContain(
+      ".twc-fieldrow .twc-fieldrow__cell:not(:has(> * + *)) .twc-field:not([data-reserve-footer])::after { content: none; }");
   });
 
   it("builds the lane the way #494 does rather than as a length", () => {
@@ -187,6 +216,106 @@ describe("FieldRow (#508)", () => {
     expect(src).toContain(`content: "${BS}${BS}00a0"; font-size: var(--text-xs)`);
     expect(src).toContain("gap: var(--space-1-5)");
     expect(src.includes("\u0000"), "a raw NUL would make this file unreadable as text").toBe(false);
+  });
+
+  // ------------------------------------------------------------------------------------- #521
+  it("#521: drops every falsy child, not just null", () => {
+    // React.Children.map already normalises undefined/true/false to null, so the old `=== false`
+    // clause was unreachable - while "" and 0, which the {cond && <X/>} idiom actually produces,
+    // survived and each got a cell that drew a lane and consumed a gap: a blank column where a
+    // conditionally-rendered field is hidden. Measured 3.3px wide, shifting the first real field by
+    // 15.3px; the `0` case additionally rendered the literal text "0".
+    const empty = "";
+    const zero = 0;
+    const { container } = render(
+      <FieldRow>{empty && <Input label="X" />}{zero && <Input label="Y" />}<Input label="A" /><Input label="B" /></FieldRow>
+    );
+    expect(container.querySelectorAll(".twc-fieldrow__cell")).toHaveLength(2);
+    // and nothing leaked out unwrapped either - a bare text run would become an anonymous flex item
+    expect(container.querySelector(".twc-fieldrow").textContent).not.toContain("0");
+  });
+
+  it("#521: flattens a fragment into separate cells", () => {
+    // Children.map does not descend into a fragment, so both fields landed in ONE cell - and a cell
+    // is a flex COLUMN, so they stacked 97px apart instead of forming a row.
+    const { container } = render(
+      <FieldRow><><Input label="First" /><Input label="Last" /></><Button>Go</Button></FieldRow>
+    );
+    const cells = [...container.querySelectorAll(".twc-fieldrow__cell")];
+    expect(cells).toHaveLength(3);
+    expect(cells[0].querySelectorAll(".twc-field")).toHaveLength(1);
+    expect(cells[1].querySelectorAll(".twc-field")).toHaveLength(1);
+    expect(cells[2].querySelector(".twc-btn")).not.toBe(null);
+  });
+
+  it("#521: a component returning a fragment stays one cell, by design", () => {
+    // Nothing can see through a render, so this is a documented limit rather than a bug.
+    const NameFields = () => (<><Input label="First" /><Input label="Last" /></>);
+    const { container } = render(<FieldRow><NameFields /><Button>Go</Button></FieldRow>);
+    expect(container.querySelectorAll(".twc-fieldrow__cell")).toHaveLength(2);
+  });
+
+  it("#519: normalises the two controls whose own footer offset differs", () => {
+    // Slider puts its message under margin-top: var(--space-2) (8px) and FileUpload's root gap is
+    // var(--space-3) (12px), against the field family's var(--space-1-5). Measured in Chromium that
+    // left them 2px and 6px out of line even with the lane correct, so a cell normalises just the
+    // footer offset - FileUpload by compensation, because its gap also spaces the file list.
+    const src = readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.jsx"), "utf8");
+    expect(src).toContain(".twc-fieldrow__cell .twc-slider__msgs { margin-block-start: var(--space-1-5); }");
+    expect(src).toContain(
+      ".twc-fieldrow__cell .twc-upload > .twc-field__error { margin-block-start: calc(var(--space-1-5) - var(--space-3)); }");
+  });
+
+  // ------------------------------------------------------------------- #524, #525, #526
+  it("#524: minChildWidth sets the wrap floor on the cell, which hosts cannot reach", () => {
+    // The floor is load-bearing - a condition row sized for a 1366px laptop has to say where it
+    // breaks - and it was unexpressible: minWidth on the FIELD is overridden by the cell's own
+    // min-inline-size, and a wrapper div is the thing FieldRow exists to remove. Same name and
+    // semantics as Grid's prop.
+    const { container } = render(<FieldRow wrap minChildWidth="11rem"><Input label="A" /></FieldRow>);
+    expect(container.querySelector(".twc-fieldrow").style.getPropertyValue("--twc-fieldrow-min")).toBe("11rem");
+    cleanup();
+    const { container: c2 } = render(<FieldRow wrap minChildWidth={176}><Input label="A" /></FieldRow>);
+    expect(c2.querySelector(".twc-fieldrow").style.getPropertyValue("--twc-fieldrow-min")).toBe("176px");
+    cleanup();
+    // absent by default, so the stylesheet's own 10rem fallback applies
+    const { container: c3 } = render(<FieldRow wrap><Input label="A" /></FieldRow>);
+    expect(c3.querySelector(".twc-fieldrow").style.getPropertyValue("--twc-fieldrow-min")).toBe("");
+  });
+
+  it("#525: a component returning a fragment gets a ROW cell with per-field lanes", () => {
+    // Nothing can see through a render, so toCells cannot split it - React.Children only ever sees
+    // the one component element. A cell is a COLUMN, so the pair stacked vertically: not a subtle
+    // misalignment but a different layout. `:has(> * + *)` identifies it exactly, because every
+    // other cell has exactly one child.
+    const Pair = () => (<><Input label="First" /><Input label="Last" /></>);
+    const { container } = render(<FieldRow><Pair /><Button>Add</Button></FieldRow>);
+    const cells = [...container.querySelectorAll(".twc-fieldrow__cell")];
+    expect(cells).toHaveLength(2);
+    expect(cells[0].children).toHaveLength(2); // the fragment's two fields, in one cell
+    const src = readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.jsx"), "utf8");
+    expect(src).toContain(".twc-fieldrow__cell:has(> * + *) { flex-direction: row;");
+    // the cell's own lane would sit BESIDE the fields as another row item, so it is suppressed and
+    // each inner field carries #494's lane instead...
+    expect(src).toContain(".twc-fieldrow__cell:has(> * + *) > .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after");
+    // ...which only works because the suppression rule skips such a cell: at (0,4,1) it was
+    // outranking those lanes, leaving the pair with none while the button's cell kept one, 24px out.
+    expect(src).toContain(".twc-fieldrow__cell:not(:has(> * + *)) .twc-field:not([data-reserve-footer])::after");
+  });
+
+  it("#526: footerLines makes the reserve expressible, and the constraint is documented", () => {
+    // The lane reserves whole LINES, so a field whose real hint wraps to two is a line taller and
+    // its control lifts by 18px. Measured: the same row is 0px out with a one-line hint and 54px out
+    // when it wraps to four. FieldRow cannot equalise that - it needs each cell to contribute a
+    // control part and a footer part as separate grid items, and a field's footer lives INSIDE the
+    // single .twc-field element - so the reserve is settable and the limit is written down.
+    const { container } = render(<FieldRow footerLines={2}><Input label="A" /><Button>Go</Button></FieldRow>);
+    expect(container.querySelector(".twc-fieldrow").style.getPropertyValue("--twc-fieldrow-footer-lines")).toBe("2");
+    const src = readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.jsx"), "utf8");
+    expect(src).toContain("--twc-fieldrow-footer-lines");
+    const dts = readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.d.ts"), "utf8");
+    expect(dts, "the wrapping-footer limit must be stated in the props contract").toContain("#526");
+    expect(dts).toContain("footerLines?: number;");
   });
 
   it("the Field wrapper still works, for a row the host lays out itself", () => {

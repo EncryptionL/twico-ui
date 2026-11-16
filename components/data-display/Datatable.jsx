@@ -914,7 +914,11 @@ export function runDatatableQuery(rows, query, options = {}) {
   // #303: mirror the client engine's AND/OR — "or" keeps a row matching ANY clause, "and" (default) narrows by all.
   // Drop clauses on unknown fields (parity with the client `processed` engine): under OR a stray unknown-field
   // clause could match every row (e.g. isEmpty on a missing field) and wrongly broaden the result.
-  const qF = (q.filters || []).map((f) => [cols.find((c) => c.field === f.field), f]).filter(([fc]) => fc);
+  // #523: also drop a clause whose column OPTED OUT of filtering. `filterable !== false` rather
+  // than a truthy test on purpose: `cols` here is the caller's raw column defs, which never ran
+  // the component's defaultColumn merge, so `filterable` is normally undefined and a truthy
+  // test would discard every filter a consumer passes.
+  const qF = (q.filters || []).map((f) => [cols.find((c) => c.field === f.field), f]).filter(([fc]) => fc && fc.filterable !== false);
   if (qF.length) {
     if (q.filterLogic === "or") out = out.filter((r) => qF.some(([fc, f]) => testFilter(gv(f.field, r), f.op, f.value, filterTypeOf(fc))));
     else for (const [fc, f] of qF) out = out.filter((r) => testFilter(gv(f.field, r), f.op, f.value, filterTypeOf(fc)));
@@ -1537,7 +1541,12 @@ export function Datatable({
   const applyState = (s) => {
     if (!s || typeof s !== "object") return;
     const known = new Set(cols.map((c) => c.field).filter(Boolean));
-    if (Array.isArray(s.filters)) setFilters(s.filters.filter((f) => f && known.has(f.field)).map((f, i) => ({ id: Date.now() + Math.random() + i, field: f.field, op: f.op, value: f.value })));
+    // #523: a filter clause has to name a column the condition row's Select can OFFER, which is the
+    // filterable ones. Restoring one on a filterable:false column (a stateKey snapshot written
+    // before the column was locked down, or an initialState built by hand) used to filter the grid
+    // from a row whose Select showed only its placeholder. `sort` keeps the wider `known` set.
+    const knownFilterable = new Set(cols.filter((c) => c.field && c.filterable !== false).map((c) => c.field));
+    if (Array.isArray(s.filters)) setFilters(s.filters.filter((f) => f && knownFilterable.has(f.field)).map((f, i) => ({ id: Date.now() + Math.random() + i, field: f.field, op: f.op, value: f.value })));
     if ((s.filterLogic === "or" || s.filterLogic === "and") && !filterLogicControlled) setFilterLogicInternal(s.filterLogic); // #303: default "and" when absent (back-compat); skip when controlled (parent owns it)
     if ("sort" in s) setSort(s.sort && known.has(s.sort.field) ? { field: s.sort.field, dir: s.sort.dir === "desc" ? "desc" : "asc" } : null);
     if (typeof s.quickFilter === "string" && quickFilter === undefined) setInternalQuick(s.quickFilter);
@@ -1967,7 +1976,10 @@ export function Datatable({
     }
     // #303: AND (default) narrows clause-by-clause; OR keeps a row that matches ANY clause. Resolve
     // each clause's column once; skip unknown fields. With no clauses, neither branch narrows.
-    const activeF = filters.map((f) => [colByField[f.field], f]).filter(([col]) => col);
+    // #523: skip unknown fields AND fields whose column is not filterable, so a clause that
+    // survived in state (or arrived via a controlled `filters` prop) cannot narrow the grid
+    // invisibly - the Filters panel would not be able to show which column it names.
+    const activeF = filters.map((f) => [colByField[f.field], f]).filter(([col]) => col && col.filterable !== false);
     if (activeF.length) {
       if (filterLogic === "or") {
         out = out.filter((r) => activeF.some(([col, f]) => testFilter(getColVal(col, r), f.op, f.value, filterTypeOf(col))));
@@ -2308,7 +2320,8 @@ export function Datatable({
     const t = setTimeout(() => {
       onServerChangeRef.current?.({
         page: pageVal, pageSize: sizeVal, sort,
-        filters: filters.map(({ id, ...f }) => f),
+        // #523: do not ask the server to apply a clause the UI cannot show or remove.
+        filters: filters.filter((f) => { const c = colByField[f.field]; return c && c.filterable !== false; }).map(({ id, ...f }) => f),
         filterLogic, // #303: "and" (default) | "or" — the server groups its WHERE accordingly
         quickFilter: quick.trim(),
         visibleColumns, hiddenColumns,   // #191: server can project only the visible columns

@@ -69,6 +69,13 @@ const ICONBTN_CSS = `
 /* #405: toggle "on" state (aria-pressed) — a soft tone fill + tone border, works over any variant. */
 .twc-iconbtn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
 /* #411: pressed fill can carry any status Tone. */
+/* #522: the missing member of the Tone scale. Without this, pressedTone="primary" selected
+   NOTHING, so a pressed <Button tone="danger" pressedTone="primary"> kept resolving its accent
+   trio from .twc-iconbtn[data-tone="danger"] (0,2,0) and painted red - and ToggleGroup, which
+   passes an item's tone straight through as pressedTone (ToggleGroup.jsx:96), lost the
+   per-item meaning colour from #411 for exactly this one tone. 1 class + 2 attributes =
+   (0,3,0), which outranks the (0,2,0) data-tone blocks just as the four rules below it do. */
+.twc-iconbtn[aria-pressed="true"][data-pressed-tone="primary"] { --_accent: var(--color-primary); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); }
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="success"] { --_accent: var(--color-success); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); }
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="warning"] { --_accent: var(--color-warning); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="info"] { --_accent: var(--color-info); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }

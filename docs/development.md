@@ -63,6 +63,22 @@ feat!: rename Datatable column props  # major (breaking)
 docs: …  chore: …  ci: …  refactor: … # no release
 ```
 
+### Do not assert on serialized CSS in tests
+
+A jsdom major bump changes how a `CSSStyleDeclaration` serializes, so a test that string-matches
+`getAttribute("style")` or `style.transform` can fail while the component is unchanged. jsdom 31
+(#516) broke two tests this way:
+
+| assertion | jsdom 30 | jsdom 31 |
+| --- | --- | --- |
+| `style.transform` contains `translate(0px, 0px)` | `translate(0px, 0px) scale(1)` | `translate(0px) scale(1)` — a redundant zero second argument is dropped, per spec |
+| `getAttribute("style")` matches `/left:\s*892px/` | `left: 892px; …` | `inset: auto auto 408px 892px` — the physical offset longhands collapse into the shorthand |
+
+In both cases the fix was to assert what the test *means* rather than how it prints: read the
+longhand back off the declaration (`el.style.left`, `el.style.getPropertyValue("--x")`) or parse the
+value out (`imgOffset()` in `tests/image-viewer.test.jsx`). Both forms pass on jsdom 30 **and** 31,
+so the assertion does not have to be retargeted at each bump.
+
 ## Dependency updates (Dependabot auto-merge)
 
 Dependency bumps are hands-off. [`.github/dependabot.yml`](../.github/dependabot.yml) opens **weekly**
