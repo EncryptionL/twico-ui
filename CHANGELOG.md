@@ -2,6 +2,18 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.51.0](https://github.com/EncryptionL/twico-ui/compare/v1.50.0...v1.51.0) (2026-11-16)
+
+
+### Bug Fixes
+
+* **inputs:** draw FieldRow's lane in one place, stretch by default, honour pressedTone="primary" ([4ccaa31](https://github.com/EncryptionL/twico-ui/commit/4ccaa31d91b94df4efb738a857539d40204435df)), closes [#519](https://github.com/EncryptionL/twico-ui/issues/519) [#508](https://github.com/EncryptionL/twico-ui/issues/508) [#520](https://github.com/EncryptionL/twico-ui/issues/520) [#521](https://github.com/EncryptionL/twico-ui/issues/521) [#522](https://github.com/EncryptionL/twico-ui/issues/522) [#509](https://github.com/EncryptionL/twico-ui/issues/509) [#509](https://github.com/EncryptionL/twico-ui/issues/509) [#523](https://github.com/EncryptionL/twico-ui/issues/523) [#513](https://github.com/EncryptionL/twico-ui/issues/513)
+
+
+### Features
+
+* **inputs:** add FieldRow minChildWidth + footerLines, and row-lay-out a fragment child ([c18559b](https://github.com/EncryptionL/twico-ui/commit/c18559be6f8fb9aaeabdcf132f178899282690bf)), closes [#524](https://github.com/EncryptionL/twico-ui/issues/524) [#525](https://github.com/EncryptionL/twico-ui/issues/525) [#526](https://github.com/EncryptionL/twico-ui/issues/526) [post-#519](https://github.com/post-/issues/519) [#524](https://github.com/EncryptionL/twico-ui/issues/524) [#520](https://github.com/EncryptionL/twico-ui/issues/520) [#525](https://github.com/EncryptionL/twico-ui/issues/525) [#521](https://github.com/EncryptionL/twico-ui/issues/521) [#519](https://github.com/EncryptionL/twico-ui/issues/519) [#526](https://github.com/EncryptionL/twico-ui/issues/526) [#519](https://github.com/EncryptionL/twico-ui/issues/519)
+
 # [1.50.0](https://github.com/EncryptionL/twico-ui/compare/v1.49.0...v1.50.0) (2026-11-16)
 
 
