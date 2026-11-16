@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.50.0](https://github.com/EncryptionL/twico-ui/compare/v1.49.0...v1.50.0) (2026-11-16)
+
+
+### Features
+
+* **inputs:** add FieldRow, default pressedTone to tone, seed filters from a filterable column ([d76565d](https://github.com/EncryptionL/twico-ui/commit/d76565d350f6f1414185c5f87c8dfb220298d1c4)), closes [#508](https://github.com/EncryptionL/twico-ui/issues/508) [#494](https://github.com/EncryptionL/twico-ui/issues/494) [#494](https://github.com/EncryptionL/twico-ui/issues/494) [#509](https://github.com/EncryptionL/twico-ui/issues/509) [#430](https://github.com/EncryptionL/twico-ui/issues/430) [#513](https://github.com/EncryptionL/twico-ui/issues/513) [#517](https://github.com/EncryptionL/twico-ui/issues/517)
+
 # [1.49.0](https://github.com/EncryptionL/twico-ui/compare/v1.48.0...v1.49.0) (2026-11-05)
 
 
