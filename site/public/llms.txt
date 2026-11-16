@@ -207,7 +207,7 @@ in the examples.
 
 ---
 
-## Component reference (83 components)
+## Component reference (84 components)
 
 ### Buttons & actions
 
@@ -948,6 +948,34 @@ import { Field } from "twico-ui";
 <Field label="Token" id="tok" error="That token is invalid." htmlFor="tok">
   <input id="tok" aria-invalid aria-describedby="tok-desc" />
 </Field>
+```
+
+#### FieldRow
+
+FieldRow lays out a row of form controls so they line up by their CONTROL box rather than their outer box, with one shared footer lane beneath. A hint or error on one field makes that field taller, so a plain flex row with align="flex-end" lifts its control above its neighbours — reserveFooter (#494) fixed that between fields, but a non-field control in the same row (a Menu trigger, a Button, an IconButton) has no footer to reserve and still rode up. An "insert at the cursor" button beside the box it writes into, or a remove button at the end of a condition row, make that shape at least as common as a row of fields alone. FieldRow owns the row instead of asking every child to opt in, so "field vs button" stops being something you have to know: children need no props, fields share the width and plain controls keep their natural size, which also absorbs the flex:1 wrappers such a row would otherwise need. The lane is built the way reserveFooter builds it — generated content at --text-xs after the same gap — so it matches a real footer by construction rather than by a length that drifts when a token changes, and a field that already has a hint or error keeps its own footer and gets no extra lane.
+
+`import { FieldRow } from "twico-ui"`
+
+Props:
+- `children` — `React.ReactNode` — The row's controls. Each is wrapped in a cell that supplies the shared footer lane; null and false children are dropped rather than left as an empty cell that would still draw a lane and take part in the gap.
+- `gap` — `number | string` · default `3` — Gap between children — a spacing step (3 becomes var(--space-3)) or any CSS length, matching Stack's gap semantics.
+- `wrap` — `boolean` · default `false` — Allow children to wrap onto more lines when the row runs out of width.
+- `className` — `string` — Appended to the row's own class, never replacing it.
+- `style` — `React.CSSProperties` — Merged onto the row after its own gap, so an inline gap wins over the prop.
+
+```jsx
+import { FieldRow, Input, Button, Menu } from "twico-ui";
+
+// Children need no props: the row gives every field a footer lane and every non-field
+// control a matching one, so the Input and the Button line up by their control box even
+// when only one of them has an error to show.
+<FieldRow>
+  <Input label="…to this value" error={tooLong ? "28 characters; the limit is 24." : undefined} />
+  <Menu items={items} trigger={<Button size="sm" variant="outline">Insert</Button>} />
+</FieldRow>
+
+// For a row you already lay out yourself, reserveFooter on each field still works.
+<Stack direction="row" align="flex-end" data-reserve-footer>…</Stack>
 ```
 
 #### FileUpload

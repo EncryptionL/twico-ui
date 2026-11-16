@@ -132,6 +132,43 @@ Two implementation notes worth keeping:
 that jumps out of alignment conditionally — worse than one that never aligns. Reserve the lane on any
 row whose fields can show an error.
 
+#### Where `reserveFooter` stops, and `FieldRow` (#508)
+
+`reserveFooter`'s selector is `.twc-field`. A **non-field control in the same row** — a `Menu`
+trigger, a `Button`, an `IconButton` — has no footer to reserve and no `.twc-field` root, so it still
+rides up by a footer's height the moment a sibling field grows one. An "insert at the cursor" button
+beside the box it writes into, or a remove button at the end of a condition row, make *a row of
+fields plus one control* at least as common as a row of fields alone — so #494 as shipped could not
+be adopted by either of the rows that prompted it.
+
+**`FieldRow` owns the row** instead of asking every child to opt in:
+
+```jsx
+<FieldRow>
+  <Input label="…to this value" error={tooLong ? "28 characters; the limit is 24." : undefined} />
+  <Menu items={items} trigger={<Button size="sm" variant="outline">Insert</Button>} />
+</FieldRow>
+```
+
+Each child sits in a cell that is a flex column ending in a footer lane, so everything aligns by its
+*control* box whatever the child is. A `.twc-field` child reserves its own lane through the ancestor
+selector above (the row carries `data-reserve-footer`); a cell holding anything else gets the lane
+from the cell. Both are built the same way — generated content at `--text-xs` after the same
+`--space-1-5` gap — so they match a real footer by construction. `:has()` decides per child, so a
+field that already has a `hint` or `error` keeps its own footer and gets no extra lane.
+
+Fields get `flex: 1` and plain controls `flex: 0 0 auto`, which absorbs the `<Box sx={{ flex: 1 }}>`
+wrappers such a row would otherwise need. `null`/`false` children are dropped rather than left as an
+empty cell that would still draw a lane and take part in the gap.
+
+**Why not just widen the CSS to `.twc-btn`?** A button's `::after` lands *inside* its box and simply
+makes the button taller; offsetting it would need `margin-block-end` with the lane expressed as a
+computed length — the pixel guess #494 deliberately avoided, moved into the library. The cell keeps
+the lane content-derived.
+
+For a row the host already lays out itself, `<Field reserveFooter>` around the control still works
+and gives a real lane with identical metrics.
+
 ## Reduced motion & AT state
 - Every animated component collapses its motion under `@media (prefers-reduced-motion: reduce)` (WCAG
   2.3.3) — including Button's ripple, the Tabs indicator, Accordion panels, the Carousel track, and Toast

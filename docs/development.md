@@ -23,6 +23,27 @@ npm run build        # -> site/dist
 npm run preview      # serve the production build locally
 ```
 
+### Running the tests on Windows: use an uppercase drive letter
+
+```bash
+cd /D/Github/twico-ui && npx vitest run     # 177 files, 1532 tests
+```
+
+From a Git Bash cwd with a **lowercase** drive letter (`/d/Github/twico-ui`), every suite fails
+before a single test runs:
+
+```
+Error: Vitest failed to find the current suite.
+ ❯ tests/setup.js:6:1   afterEach(() => cleanup());
+```
+
+Vitest reports its root as `D:/Github/twico-ui` regardless, so under a `d:/…` cwd it resolves its own
+module twice and `setup.js`'s top-level `afterEach` registers against a different instance than the
+runner's. `cd /D/…` and the same tree passes. Reproduced on vitest 5.0.5 and 5.1.0, Node 24.11 and
+24.22; `rm -rf node_modules && npm ci`, the pool setting, the environment and the Node version all
+make no difference, so it is easy to mistake for a broken install. CI runs on Ubuntu and has never
+been affected — a red local suite with a green CI is this, not a platform bug worth chasing.
+
 ## Branch flow
 
 - **`dev`** — integration branch. Do day-to-day work here, or on `feat/*` / `fix/*` branches that

@@ -2338,7 +2338,18 @@ export function Datatable({
     setSort((s) => !s || s.field !== field ? { field, dir: "asc" } : s.dir === "asc" ? { field, dir: "desc" } : null);
   }
   function addFilter(field) {
-    const col = colByField[field] || cols[0];
+    // #513: the condition row's column Select is offered only the FILTERABLE columns, so the seed
+    // has to be one of those or `selected` is undefined and the row opens on its placeholder - a
+    // blank state reachable no other way, which reads as a bug in the host app. Falling back to
+    // cols[0] was wrong whenever the first column is filterable: false, which is a legitimate and
+    // common shape (a computed column, derived from child rows rather than a field on the row,
+    // is often the one a reader wants first because it says what the row is about).
+    //
+    // Resolved here rather than only at the "Add filter" button so the invariant holds for every
+    // caller, including a field that exists but is not filterable.
+    const asked = colByField[field];
+    const col = (asked && asked.filterable !== false ? asked : null) || filterableCols[0] || cols[0];
+    if (!col) return;
     setFilters((f) => [...f, { id: Date.now() + Math.random(), field: col.field, op: opsFor(filterTypeOf(col))[0].value, value: "" }]);
   }
   function setPin(field, side) {
@@ -4681,7 +4692,9 @@ export function Datatable({
             })}
           </div>
           <div className="twc-dt__f-add" style={{ padding: "6px 4px 2px" }}>
-            <button type="button" className="twc-dt__mi" style={{ color: "var(--color-primary-subtle-fg)" }} onClick={() => addFilter(cols[0].field)}><Svg d={I.plus} style={{ color: "var(--color-primary-subtle-fg)" }} /> Add filter</button>
+            <button type="button" className="twc-dt__mi" style={{ color: "var(--color-primary-subtle-fg)" }}
+              disabled={filterableCols.length === 0}
+              onClick={() => addFilter(filterableCols[0]?.field)}><Svg d={I.plus} style={{ color: "var(--color-primary-subtle-fg)" }} /> Add filter</button>
           </div>
           {resizableFilters ? (
             <span className="twc-dt__pop-grip" role="slider" tabIndex={0}

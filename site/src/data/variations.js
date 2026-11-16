@@ -992,6 +992,41 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "FieldRow",
+    "title": "A field and a control, aligned",
+    "i": 0
+  },
+  {
+    "component": "FieldRow",
+    "title": "A condition row",
+    "i": 1
+  },
+  {
+    "component": "FieldRow",
+    "title": "A field that already has a footer keeps it",
+    "i": 2
+  },
+  {
+    "component": "FieldRow",
+    "title": "Gap and wrap",
+    "i": 3
+  },
+  {
+    "component": "FieldRow",
+    "title": "Null children leave no hole",
+    "i": 4
+  },
+  {
+    "component": "FieldRow",
+    "title": "All props",
+    "i": 5
+  },
+  {
+    "component": "FieldRow",
+    "title": "The per-field escape hatch",
+    "i": 6
+  },
+  {
     "component": "Field",
     "title": "Label, hint & required",
     "i": 0
