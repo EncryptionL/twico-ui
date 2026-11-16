@@ -11,6 +11,17 @@ afterEach(() => { Element.prototype.getBoundingClientRect = origRect; cleanup();
 
 const stageOf = (c) => c.querySelector(".twc-iv__stage");
 const imgTransform = (c) => c.querySelector(".twc-iv__img").style.transform;
+// The pan offset, parsed out of the transform rather than string-matched (#516). jsdom 31
+// serializes `translate(0px, 0px)` the way the CSS spec says to - a redundant zero second argument
+// is dropped, giving `translate(0px)` - so asserting the literal text failed on the jsdom major
+// bump even though ImageViewer.jsx:208 still writes both axes. What these tests mean is "the offset
+// is (0,0)", so read the numbers and compare those; this holds on jsdom 30 and 31 alike.
+const imgOffset = (c) => {
+  const m = /translate\(([^)]*)\)/.exec(imgTransform(c));
+  if (!m) return null;
+  const n = m[1].split(",").map((v) => parseFloat(v) || 0);
+  return [n[0] || 0, n.length > 1 ? n[1] : 0];
+};
 
 describe("ImageViewer zoom (#407)", () => {
   it("wheel zooms in about the pointer and clamps to maxZoom", () => {
@@ -18,7 +29,7 @@ describe("ImageViewer zoom (#407)", () => {
     const stage = stageOf(container);
     fireEvent.wheel(stage, { deltaY: -100, clientX: 250, clientY: 200 }); // at center → offset stays 0
     expect(imgTransform(container)).toContain("scale(1.25)");
-    expect(imgTransform(container)).toContain("translate(0px, 0px)");
+    expect(imgOffset(container)).toEqual([0, 0]);
     // keep zooming past the max → clamps
     for (let i = 0; i < 20; i++) fireEvent.wheel(stage, { deltaY: -100, clientX: 250, clientY: 200 });
     expect(imgTransform(container)).toContain("scale(2)");
@@ -36,7 +47,7 @@ describe("ImageViewer zoom (#407)", () => {
     fireEvent.keyDown(stage, { key: "+" });
     fireEvent.keyDown(stage, { key: "0" }); // reset
     expect(imgTransform(container)).toContain("scale(1)");
-    expect(imgTransform(container)).toContain("translate(0px, 0px)");
+    expect(imgOffset(container)).toEqual([0, 0]);
   });
 
   it("ignores a pure-horizontal wheel (deltaY===0) — no accidental zoom-out (review fix)", () => {

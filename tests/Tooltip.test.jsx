@@ -54,10 +54,14 @@ describe("Tooltip width + dynamic arrow", () => {
     try {
       const { container } = render(<Tooltip label="A fairly long tooltip label goes here"><button>x</button></Tooltip>);
       await openTip(container);
-      const style = document.querySelector(".twc-tooltip").getAttribute("style") || "";
+      // Read the declaration rather than regexing the style ATTRIBUTE (#516): jsdom 31 collapses
+      // the physical offset longhands into the `inset` shorthand when it serializes cssText
+      // ("inset: auto auto 408px 892px"), so /left:\s*892px/ stopped matching even though the
+      // declaration is unchanged. The longhand property still reads back the clamped value.
+      const tip = document.querySelector(".twc-tooltip");
       // cx=970; centre clamp -> min(max(970,108),892)=892; arrowX = clamp(970-(892-100),12,188)=178
-      expect(style).toMatch(/left:\s*892px/);
-      expect(style).toMatch(/--_tw-arrow-x:\s*178px/);
+      expect(tip.style.left).toBe("892px");
+      expect(tip.style.getPropertyValue("--_tw-arrow-x").trim()).toBe("178px");
     } finally { restore(); }
   });
 
