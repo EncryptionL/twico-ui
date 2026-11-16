@@ -57,6 +57,33 @@ export interface FieldRowProps extends React.HTMLAttributes<HTMLDivElement> {
   gap?: number | string;
   /** Allow children to wrap onto more lines when the row runs out of width. @default false */
   wrap?: boolean;
+  /**
+   * Minimum width a stretching cell may shrink to before `wrap` breaks the line — a number is `px`,
+   * a string passes through, the same semantics as `Grid`'s prop of this name. It lands on the
+   * **cell**, which is the flex item, so it is not something a consumer can set from the outside
+   * (#524): `minWidth` on the field is overridden by the cell's own `min-inline-size`, and a wrapper
+   * div is the thing `FieldRow` exists to remove.
+   *
+   * Only meaningful with `wrap`. Equal widths are preserved — `flex-basis` stays `0`, so cells that
+   * share a line still share it evenly. @default "10rem"
+   */
+  minChildWidth?: number | string;
+  /**
+   * How many lines of footer the shared lane holds open. @default 1
+   *
+   * **A wrapping footer re-breaks the row (#526).** The lane reserves whole lines, so a field whose
+   * real `hint` or `error` wraps to two lines is one line taller than its siblings and
+   * `align-items: flex-end` lifts its control by that much — the very symptom `reserveFooter` exists
+   * to prevent. It depends on the cell's *rendered width*, not on the markup, so a row can align at
+   * desktop width and break when a dialog narrows, when a translation runs longer, or when one more
+   * field joins the row.
+   *
+   * `FieldRow` cannot equalise this on its own: that needs every cell to contribute a control part
+   * and a footer part as separate grid items, and a field's footer lives *inside* the single
+   * `.twc-field` element, so no row-level selector can hoist it out. Either keep row hints to one
+   * line and put longer help beneath the row, or set `footerLines` to the number you know you need.
+   */
+  footerLines?: number;
 }
 
 export declare const FieldRow: React.ForwardRefExoticComponent<

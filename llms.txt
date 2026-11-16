@@ -960,6 +960,8 @@ Props:
 - `children` — `React.ReactNode` — The row's controls. Each is wrapped in a cell that supplies the shared footer lane; null and false children are dropped rather than left as an empty cell that would still draw a lane and take part in the gap.
 - `gap` — `number | string` · default `3` — Gap between children — a spacing step (3 becomes var(--space-3)) or any CSS length, matching Stack's gap semantics.
 - `wrap` — `boolean` · default `false` — Allow children to wrap onto more lines when the row runs out of width.
+- `minChildWidth` — `number | string` · default `"10rem"` — Minimum width a stretching cell may shrink to before wrap breaks the line — a number is px, a string passes through, same as Grid's prop of this name. Only meaningful with wrap.
+- `footerLines` — `number` · default `1` — How many lines of footer the shared lane holds open. A hint that wraps past this still lifts its control, which FieldRow cannot equalise — see the note in Usage.
 - `className` — `string` — Appended to the row's own class, never replacing it.
 - `style` — `React.CSSProperties` — Merged onto the row after its own gap, so an inline gap wins over the prop.
 

@@ -41,12 +41,17 @@ const FIELDROW_CSS = `
    rule below for why STRETCH is the default rather than the thing we test for. */
 .twc-fieldrow__cell { display: flex; flex-direction: column; gap: var(--space-1-5); flex: 1 1 0; min-inline-size: 0; }
 
-/* wrap (#520). flex-basis:0 made every field cell's hypothetical main size 0, so the flex line
-   could never overflow and no break was ever taken - the fields were squeezed to 4px instead, which
-   is the one thing this prop exists to prevent. A floor on the hypothetical size restores the break
-   without giving up equal widths (basis stays 0, so cells on a line still share it evenly).
-   min(100%, ...) keeps a row narrower than the floor from overflowing. Tune with
-   --twc-fieldrow-min. */
+/* wrap (#520, #524). flex-basis:0 made every field cell's hypothetical main size 0, so the flex
+   line could never overflow and no break was ever taken - the fields were squeezed to 4px instead,
+   which is the one thing this prop exists to prevent. A floor on the hypothetical size restores the
+   break without giving up equal widths (basis stays 0, so cells on a line still share it evenly).
+   min(100%, ...) keeps a row narrower than the floor from overflowing.
+   The floor is load-bearing rather than decorative - a host sizing a condition row for a 1366px
+   laptop needs to say where it breaks - and it was unexpressible before #524: minWidth on the FIELD
+   is overridden by the cell's own min-inline-size, and a wrapper div is what FieldRow exists to
+   remove. So it is the minChildWidth prop (same name and semantics as Grid's), landing on the
+   CELL, which is the flex item. --twc-fieldrow-min stays settable for a host that would rather push
+   it through CSS. */
 :where(.twc-fieldrow[data-wrap="true"]) > .twc-fieldrow__cell { min-inline-size: min(100%, var(--twc-fieldrow-min, 10rem)); }
 
 /* NATURAL ROOTS - a cell that holds one of these keeps the child's own size instead of sharing the
@@ -76,6 +81,21 @@ const FIELDROW_CSS = `
    naming the trigger - the same three names, no new list. */
 .twc-fieldrow__cell :is(.twc-menu-wrap, .twc-popover-wrap, .twc-tooltip-wrap) { flex-direction: column; align-items: stretch; }
 
+/* #525: a child COMPONENT that returns a fragment renders SEVERAL elements into one cell. Nothing
+   can see through a render, so toCells cannot split it - React.Children only ever sees the one
+   component element. A cell is a COLUMN, so those fields stacked vertically: not a subtle
+   misalignment but a different layout, and extracting a repeated field PAIR into a component is the
+   natural way to write these rows.
+   :has(> * + *) identifies it exactly, because toCells gives every other cell exactly one child.
+   Such a cell lays out as a row instead, and each field inside takes #494's own lane so the parts
+   still line up by their control box - the cell's single lane would otherwise sit BESIDE them as
+   another row item. gap is inherited from the row, so a fragment pair spaces like real siblings. */
+.twc-fieldrow__cell:has(> * + *) { flex-direction: row; align-items: flex-end; gap: inherit; }
+.twc-fieldrow__cell:has(> * + *) > * { flex: 1 1 0; min-inline-size: 0; }
+.twc-fieldrow__cell:has(> * + *) > :is(.twc-avatar-menu, .twc-badge, .twc-btn, .twc-check, .twc-iconbtn, .twc-kbd, .twc-label, .twc-pagination, .twc-radio, .twc-rating, .twc-switch, .twc-tab, .twc-tag, .twc-togglegroup) { flex: 0 1 auto; min-inline-size: auto; }
+.twc-fieldrow__cell:has(> * + *) > .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
+  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+
 /* THE LANE - the only one. A cell gets it unless something inside it already ends in a footer:
      - the three message classes #494 tests for (Field.jsx:17). They also catch the two footers no
        .twc-field test can see, because both wrap one of them: Slider's .twc-slider__msgs and
@@ -86,8 +106,17 @@ const FIELDROW_CSS = `
        mechanisms compose instead of doubling.
    Unlike the old test this looks at ANY depth, which is the whole point: a field behind a Tooltip,
    a host div, or a Form's fieldset is seen. */
-.twc-fieldrow__cell:not(:has(.twc-field__footer, .twc-field__hint, .twc-field__error, .twc-fieldrow, [data-reserve-footer]))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+.twc-fieldrow__cell:not(:has(> * + *)):not(:has(.twc-field__footer, .twc-field__hint, .twc-field__error, .twc-fieldrow, [data-reserve-footer]))::after {
+  content: "\\00a0"; font-size: var(--text-xs); user-select: none;
+  /* #526: the lane reserves ONE line, so a sibling whose REAL footer wraps to two is a line taller
+     and align-items:flex-end lifts its control by 18px - the #494 symptom, inside the component
+     built to prevent it. It depends on the cell's rendered width, not the markup, so the same row
+     aligns wide and breaks narrow. Equalising footers across the row is not solvable here: it needs
+     each cell to contribute a control part and a footer part as separate grid items, and a field's
+     footer lives INSIDE the single .twc-field element, so no row-level selector can hoist it out -
+     see the Field restructure issue. What IS expressible is the reserve: footerLines tells the row
+     how many lines to hold open, so a host with a known two-line hint can match it. */
+  min-block-size: calc(var(--twc-fieldrow-footer-lines, 1) * var(--text-xs) * var(--leading-normal, 1.5)); }
 
 /* FOOTER OFFSET. Two of the library's own controls put their message at a different offset than the
    field family's var(--space-1-5), so even with the lane correct they sat out of line in a row:
@@ -106,8 +135,11 @@ const FIELDROW_CSS = `
    pattern - and #494's rule is a descendant selector, so it would reach every field in here and
    stack its lane under the cell's. Kill the inner one; the cell already owns the lane. A field that
    opted in FOR ITSELF keeps its own (that is the :not), and the cell rule above skips such a cell,
-   so the pair always yields exactly one lane. (0,4,1) against #494's (0,3,1), so this wins. */
-.twc-fieldrow .twc-fieldrow__cell .twc-field:not([data-reserve-footer])::after { content: none; }
+   so the pair always yields exactly one lane. (0,4,1) against #494's (0,3,1), so this wins.
+   It deliberately skips a fragment-row cell (#525): there the inner field lanes are the mechanism,
+   and this rule outranked them - leaving the pair with no lane while a trailing button's cell kept
+   one, 24px out. */
+.twc-fieldrow .twc-fieldrow__cell:not(:has(> * + *)) .twc-field:not([data-reserve-footer])::after { content: none; }
 `;
 
 // Flattens one child list into the cells the row renders. Two things React.Children.map does not do
@@ -131,9 +163,16 @@ function toCells(children, out, prefix) {
   return out;
 }
 
+// Grid's helper, same semantics: a number is px, a string passes through.
+function len(v) {
+  return typeof v === "number" ? `${v}px` : v;
+}
+
 export const FieldRow = /*#__PURE__*/ React.forwardRef(function FieldRow({
   gap = 3,
   wrap = false,
+  minChildWidth,
+  footerLines,
   className = "",
   style,
   children,
@@ -149,7 +188,14 @@ export const FieldRow = /*#__PURE__*/ React.forwardRef(function FieldRow({
          so it would reach every nested field root as well (a CurrencyField's picker Select, a
          DateTimePicker's two pickers, each of a FilterBar's filters) and stack a second lane under
          the one the cell already owns. The cell lane covers a direct field and a wrapped one alike. */
-      style={{ gap: space(gap), ...style }}
+      style={{
+        gap: space(gap),
+        // #524: the wrap floor, on the cell via a custom property because the cell is the flex item
+        // and a consumer cannot reach it. #526: how many footer lines the lane holds open.
+        ...(minChildWidth != null ? { "--twc-fieldrow-min": len(minChildWidth) } : null),
+        ...(footerLines != null ? { "--twc-fieldrow-footer-lines": footerLines } : null),
+        ...style,
+      }}
       {...rest}
     >
       {__twcStyles}

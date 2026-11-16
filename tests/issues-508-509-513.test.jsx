@@ -201,11 +201,11 @@ describe("FieldRow (#508)", () => {
     // .twc-field test can see: Slider wraps one in .twc-slider__msgs, FileUpload puts a bare error
     // under .twc-upload.
     expect(src).toContain(
-      ".twc-fieldrow__cell:not(:has(.twc-field__footer, .twc-field__hint, .twc-field__error, .twc-fieldrow, [data-reserve-footer]))::after");
+      ".twc-fieldrow__cell:not(:has(> * + *)):not(:has(.twc-field__footer, .twc-field__hint, .twc-field__error, .twc-fieldrow, [data-reserve-footer]))::after");
     // ...and the suppression rule, so a host's data-reserve-footer on an ANCESTOR of the row (a
     // documented pattern) cannot reach the fields inside and stack a lane under the cell's.
     expect(src).toContain(
-      ".twc-fieldrow .twc-fieldrow__cell .twc-field:not([data-reserve-footer])::after { content: none; }");
+      ".twc-fieldrow .twc-fieldrow__cell:not(:has(> * + *)) .twc-field:not([data-reserve-footer])::after { content: none; }");
   });
 
   it("builds the lane the way #494 does rather than as a length", () => {
@@ -264,6 +264,58 @@ describe("FieldRow (#508)", () => {
     expect(src).toContain(".twc-fieldrow__cell .twc-slider__msgs { margin-block-start: var(--space-1-5); }");
     expect(src).toContain(
       ".twc-fieldrow__cell .twc-upload > .twc-field__error { margin-block-start: calc(var(--space-1-5) - var(--space-3)); }");
+  });
+
+  // ------------------------------------------------------------------- #524, #525, #526
+  it("#524: minChildWidth sets the wrap floor on the cell, which hosts cannot reach", () => {
+    // The floor is load-bearing - a condition row sized for a 1366px laptop has to say where it
+    // breaks - and it was unexpressible: minWidth on the FIELD is overridden by the cell's own
+    // min-inline-size, and a wrapper div is the thing FieldRow exists to remove. Same name and
+    // semantics as Grid's prop.
+    const { container } = render(<FieldRow wrap minChildWidth="11rem"><Input label="A" /></FieldRow>);
+    expect(container.querySelector(".twc-fieldrow").style.getPropertyValue("--twc-fieldrow-min")).toBe("11rem");
+    cleanup();
+    const { container: c2 } = render(<FieldRow wrap minChildWidth={176}><Input label="A" /></FieldRow>);
+    expect(c2.querySelector(".twc-fieldrow").style.getPropertyValue("--twc-fieldrow-min")).toBe("176px");
+    cleanup();
+    // absent by default, so the stylesheet's own 10rem fallback applies
+    const { container: c3 } = render(<FieldRow wrap><Input label="A" /></FieldRow>);
+    expect(c3.querySelector(".twc-fieldrow").style.getPropertyValue("--twc-fieldrow-min")).toBe("");
+  });
+
+  it("#525: a component returning a fragment gets a ROW cell with per-field lanes", () => {
+    // Nothing can see through a render, so toCells cannot split it - React.Children only ever sees
+    // the one component element. A cell is a COLUMN, so the pair stacked vertically: not a subtle
+    // misalignment but a different layout. `:has(> * + *)` identifies it exactly, because every
+    // other cell has exactly one child.
+    const Pair = () => (<><Input label="First" /><Input label="Last" /></>);
+    const { container } = render(<FieldRow><Pair /><Button>Add</Button></FieldRow>);
+    const cells = [...container.querySelectorAll(".twc-fieldrow__cell")];
+    expect(cells).toHaveLength(2);
+    expect(cells[0].children).toHaveLength(2); // the fragment's two fields, in one cell
+    const src = readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.jsx"), "utf8");
+    expect(src).toContain(".twc-fieldrow__cell:has(> * + *) { flex-direction: row;");
+    // the cell's own lane would sit BESIDE the fields as another row item, so it is suppressed and
+    // each inner field carries #494's lane instead...
+    expect(src).toContain(".twc-fieldrow__cell:has(> * + *) > .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after");
+    // ...which only works because the suppression rule skips such a cell: at (0,4,1) it was
+    // outranking those lanes, leaving the pair with none while the button's cell kept one, 24px out.
+    expect(src).toContain(".twc-fieldrow__cell:not(:has(> * + *)) .twc-field:not([data-reserve-footer])::after");
+  });
+
+  it("#526: footerLines makes the reserve expressible, and the constraint is documented", () => {
+    // The lane reserves whole LINES, so a field whose real hint wraps to two is a line taller and
+    // its control lifts by 18px. Measured: the same row is 0px out with a one-line hint and 54px out
+    // when it wraps to four. FieldRow cannot equalise that - it needs each cell to contribute a
+    // control part and a footer part as separate grid items, and a field's footer lives INSIDE the
+    // single .twc-field element - so the reserve is settable and the limit is written down.
+    const { container } = render(<FieldRow footerLines={2}><Input label="A" /><Button>Go</Button></FieldRow>);
+    expect(container.querySelector(".twc-fieldrow").style.getPropertyValue("--twc-fieldrow-footer-lines")).toBe("2");
+    const src = readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.jsx"), "utf8");
+    expect(src).toContain("--twc-fieldrow-footer-lines");
+    const dts = readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.d.ts"), "utf8");
+    expect(dts, "the wrapping-footer limit must be stated in the props contract").toContain("#526");
+    expect(dts).toContain("footerLines?: number;");
   });
 
   it("the Field wrapper still works, for a row the host lays out itself", () => {

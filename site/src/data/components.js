@@ -13434,6 +13434,20 @@ export const components = [
         "description": "Allow children to wrap onto more lines when the row runs out of width."
       },
       {
+        "prop": "minChildWidth",
+        "type": "number | string",
+        "required": false,
+        "default": "\"10rem\"",
+        "description": "Minimum width a stretching cell may shrink to before wrap breaks the line — a number is px, a string passes through, same as Grid's prop of this name. Only meaningful with wrap."
+      },
+      {
+        "prop": "footerLines",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": "How many lines of footer the shared lane holds open. A hint that wraps past this still lifts its control, which FieldRow cannot equalise — see the note in Usage."
+      },
+      {
         "prop": "className",
         "type": "string",
         "required": false,
