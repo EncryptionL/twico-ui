@@ -51,3 +51,9 @@ import { FieldRow, Select, Input, Button, IconButton } from "twico-ui";
   compose: a field opting in for itself keeps its own lane and its cell draws none, and a
   `FieldRow` placed *inside* a `data-reserve-footer` ancestor suppresses the inherited lane —
   either way there is exactly one.
+- **A wrapping hint no longer re-breaks the row (#527).** A non-wrapping row is a three-track grid
+  — label / control / footer — with the footer track sized to the tallest footer in the row, so a
+  hint that wraps makes the row taller instead of lifting its own control. `footerLines` is that
+  track's floor rather than a per-cell reserve. `Slider`, `FileUpload`, a `Field` holding two
+  controls and a fragment cell with a plain control in it keep their previous behaviour; a
+  **wrapping** row keeps the flex path entirely.

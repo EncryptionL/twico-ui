@@ -13445,7 +13445,7 @@ export const components = [
         "type": "number",
         "required": false,
         "default": "1",
-        "description": "How many lines of footer the shared lane holds open. A hint that wraps past this still lifts its control, which FieldRow cannot equalise — see the note in Usage."
+        "description": "How many lines of footer the shared band holds open — its FLOOR, not a per-cell reserve. A non-wrapping row is a three-track grid (label / control / footer) whose footer track sizes to the tallest footer in the row, so a hint that wraps makes the row taller instead of lifting its own control."
       },
       {
         "prop": "className",
