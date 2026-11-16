@@ -169,6 +169,24 @@ the lane content-derived.
 For a row the host already lays out itself, `<Field reserveFooter>` around the control still works
 and gives a real lane with identical metrics.
 
+
+> **Reworked in #519.** The first cut of `FieldRow` ran *two* lane mechanisms: it set
+> `data-reserve-footer` on the row (switching on the **descendant** rule above) *and* had each cell
+> draw its own `::after` when `:has(> .twc-field)` — a **direct-child** test — failed. Those two
+> disagree for a field behind a `Tooltip` or a host `<div>`, which satisfies the first and fails the
+> second, so it drew **both** lanes and rode up 24px: #508 again, from the other direction.
+> `FieldRow` now sets no attribute and the cell owns the only lane, tested at any depth. If a host
+> sets `data-reserve-footer` on an ancestor *above* a `FieldRow` — the pattern documented here — the
+> row suppresses the inherited lane with
+> `.twc-fieldrow .twc-fieldrow__cell .twc-field:not([data-reserve-footer])::after { content: none; }`
+> at (0,4,1), so the two compose to exactly one lane instead of two. A field that opts in *for
+> itself* keeps its own, and its cell draws none.
+>
+> Note for anyone editing the lane: the `[data-reserve-footer] .twc-field` rule is duplicated
+> **verbatim in sixteen** scoped stylesheets, because each component ships its own CSS and several
+> re-declare the whole `.twc-field` family. Change all sixteen or none — a partial edit means two
+> fields in the same row disagree about their footer by 18px. `tests/fieldrow-natural-roots.test.jsx`
+> asserts they stay byte-identical, and pins the count.
 ## Reduced motion & AT state
 - Every animated component collapses its motion under `@media (prefers-reduced-motion: reduce)` (WCAG
   2.3.3) — including Button's ripple, the Tabs indicator, Accordion panels, the Carousel track, and Toast

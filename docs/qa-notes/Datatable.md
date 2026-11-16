@@ -843,3 +843,18 @@
 - **Virtualization:** Enabled when pageSize=0 + virtualized=true + no grouping. Rows measured & cached by key.
 - **Keyboard a11y:** Grid role, column menu accessible via keyboard, edit mode Enter/Escape, selection via Shift+Click or Ctrl+Click.
 
+
+- **#523 (2026-11-16):** #513 made `addFilter` resolve its seed to a filterable column, so a *newly
+  created* condition row could not name a `filterable: false` column — but nothing validated a
+  filter that **already existed**. A clause restored from `initialState` or a `stateKey` snapshot
+  (or surviving a runtime flip of `filterable` after a permissions fetch) still filtered the grid
+  while its column `Select`, whose options are `filterableCols`, rendered only its placeholder — the
+  same invisible-filter state #513 was filed about, reached from the other side. The runtime-flip
+  case was worse: once no column was filterable, `filtersShown` (`:3297`) went false, so the Filters
+  button and its badge disappeared while the clause kept applying, leaving no UI to reach "Clear
+  all". Gated the **apply** in all four paths rather than only guarding creation — `applyState`'s
+  restore, the client engine, the `serverMode` emit, and the exported `runDatatableQuery` — so such
+  a clause can never narrow rows. Every predicate is `filterable !== false`, **not** a truthy test:
+  `runDatatableQuery` reads the caller's *raw* `options.columns` and never runs the `defaultColumn`
+  merge that supplies `filterable`, so a truthy test there would discard every filter an ordinary
+  consumer passes. A proposed fix did exactly that, and two independent reviewers caught it.

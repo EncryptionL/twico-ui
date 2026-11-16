@@ -1018,13 +1018,23 @@ export const VARIATIONS = [
   },
   {
     "component": "FieldRow",
-    "title": "All props",
+    "title": "A wrapped field still shares the row",
     "i": 5
   },
   {
     "component": "FieldRow",
-    "title": "The per-field escape hatch",
+    "title": "A validation error does not re-flow the row",
     "i": 6
+  },
+  {
+    "component": "FieldRow",
+    "title": "All props",
+    "i": 7
+  },
+  {
+    "component": "FieldRow",
+    "title": "The per-field escape hatch",
+    "i": 8
   },
   {
     "component": "Field",
