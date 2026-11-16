@@ -130,7 +130,15 @@ export const IconButton = /*#__PURE__*/ React.forwardRef(function IconButton({
       href={Tag === "a" && !inert ? safeHref(href) : undefined}
       aria-disabled={inert || softDisabled || undefined}
       aria-pressed={pressed}
-      data-pressed-tone={pressedTone || undefined}
+      /* #509: default to `tone`, which is what the prop has always been documented to do. It held for
+         five of six: every other tone's pressed rule sets the same accent trio as its unpressed one,
+         so the default was invisible. neutral is the exception and the reason this matters - #430
+         deliberately gives it a DIFFERENT pressed fill (--color-border / --color-text-subtle, which
+         step away from the page in dark mode) - so with the attribute absent a pressed neutral button
+         fell through to its unpressed --color-text border: 17.85:1 against the surface, roughly three
+         times its neighbours, reading as the loudest button in the row when it means "not yet".
+         Only emitted for an actual toggle, so a plain button gains no attribute. */
+      data-pressed-tone={pressedTone ?? (pressed !== undefined ? tone : undefined)}
       tabIndex={inert ? -1 : undefined}
       aria-label={ariaLabel}
       onClick={softDisabled ? (e) => e.preventDefault() : onClick}

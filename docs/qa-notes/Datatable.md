@@ -824,6 +824,8 @@
 
   12 tests in `tests/datatable-vertical-align.test.jsx`; site variation "Alignment - horizontal per column, vertical at three levels". Browser-verified rather than inferred: a 56px row renders all four cells with computed `vertical-align: top` and content flush to the top. `Datatable.jsx` - added 2026-10-23
 
+- [x] **[#513] "Add filter" seeded the condition from `cols[0]` even when that column is `filterable: false`** - the condition row's column `Select` is offered only the filterable columns, so the seeded field was not among its options, `selected` was undefined and the row opened on its placeholder: a blank state reachable no other way, which reads as a bug in the host app. The shape that triggers it is legitimate and hard to avoid - a computed column, derived from child rows rather than a field on the row, genuinely cannot be filtered and is often the one a reader wants FIRST because it says what the row is about. Cosmetic only (the seed has `value: ""` and `testFilter` passes an empty target), which is the other reason to fix it upstream rather than route around it: both host workarounds are worse, since marking such a column filterable empties the table and reordering means laying out the grid around a popover's seed. Fixed in `addFilter` rather than only at the button, so the invariant - the seed is a column the Select can offer - holds for every caller; the button also disables when nothing is filterable, since a condition row can then express nothing. `Datatable.jsx:2340` - fixed 2026-11-16
+
 ## Verified OK
 
 - **Toolbar:** Collapse to icon-only when compact (data-compact="true"), search flex-shrinks intelligently.

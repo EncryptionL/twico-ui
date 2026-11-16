@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"2b365bbb60ae","components/buttons/IconButton.jsx":"23e191076c61","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"724cf4b45ecc","components/data-display/AvatarMenu.jsx":"14b280842168","components/data-display/Badge.jsx":"69e6aff0081a","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"e1985980f3d8","components/data-display/Carousel.jsx":"4c0981ca4ea9","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"9526a133c51c","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"79c72470804e","components/data-display/ImageViewer.jsx":"51561e515465","components/data-display/Kanban.jsx":"389caa2e45d2","components/data-display/List.jsx":"89e1b0ef9c72","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"38b0431624b9","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"92e0de3c6efe","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"9a58f8174004","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"456f691e9b3c","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"52c1c5a0ca83","components/inputs/ColorPicker.jsx":"1efc64d10bf0","components/inputs/Combobox.jsx":"f0e2302a782d","components/inputs/Currency.jsx":"9e0a15b51ef1","components/inputs/CurrencyField.jsx":"6117a20400b6","components/inputs/DatePicker.jsx":"03c9789765bb","components/inputs/DateRangePicker.jsx":"6ecea0ba13b5","components/inputs/DateTimePicker.jsx":"d3d54cf176a5","components/inputs/Field.jsx":"e4c5ba6b0455","components/inputs/FileUpload.jsx":"ff8d288c9063","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"cd71f1e096d1","components/inputs/Input.jsx":"0a5b231c716d","components/inputs/Label.jsx":"dfdad32670fd","components/inputs/MultiSelect.jsx":"597e989dbf2a","components/inputs/Radio.jsx":"3dcda0eaacb0","components/inputs/RadioGroup.jsx":"224928157fc4","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5ef91a521869","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a09dc2f23ff0","components/inputs/Textarea.jsx":"086de8befb61","components/inputs/TimePicker.jsx":"122ef8fd0ced","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"724003a42299","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"baa21c063fe4","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"cac42c569080","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"b0045c78a736","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"57ea77870c8d","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"e5c9a898a0d7","components/navigation/Breadcrumb.jsx":"bbbef6c9957f","components/navigation/Navbar.jsx":"7fb1f2629199","components/navigation/Sidebar.jsx":"e87e28eef508","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"95154a884c47","components/navigation/TreeView.jsx":"72f08e1f44c8","components/overlay/CommandPalette.jsx":"39bb3dbe155e","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"c68a9c904738","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"e2de1e0866af","components/typography/Code.jsx":"a6a74f93cb2b","components/typography/Heading.jsx":"e98181d4d72f","components/typography/Kbd.jsx":"ff96e9dbdbe0","components/typography/Pre.jsx":"97379158f0ce","components/typography/Text.jsx":"642a06610251","src/index.ts":"666d49f710d5"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"760128e05089","components/buttons/IconButton.jsx":"fda8e991d4c9","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"724cf4b45ecc","components/data-display/AvatarMenu.jsx":"14b280842168","components/data-display/Badge.jsx":"69e6aff0081a","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"e1985980f3d8","components/data-display/Carousel.jsx":"4c0981ca4ea9","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"92beac84bace","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"79c72470804e","components/data-display/ImageViewer.jsx":"51561e515465","components/data-display/Kanban.jsx":"389caa2e45d2","components/data-display/List.jsx":"89e1b0ef9c72","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"38b0431624b9","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"92e0de3c6efe","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"9a58f8174004","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"456f691e9b3c","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"52c1c5a0ca83","components/inputs/ColorPicker.jsx":"1efc64d10bf0","components/inputs/Combobox.jsx":"f0e2302a782d","components/inputs/Currency.jsx":"9e0a15b51ef1","components/inputs/CurrencyField.jsx":"6117a20400b6","components/inputs/DatePicker.jsx":"03c9789765bb","components/inputs/DateRangePicker.jsx":"6ecea0ba13b5","components/inputs/DateTimePicker.jsx":"d3d54cf176a5","components/inputs/Field.jsx":"e4c5ba6b0455","components/inputs/FieldRow.jsx":"68adbbc35e41","components/inputs/FileUpload.jsx":"ff8d288c9063","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"cd71f1e096d1","components/inputs/Input.jsx":"0a5b231c716d","components/inputs/Label.jsx":"dfdad32670fd","components/inputs/MultiSelect.jsx":"597e989dbf2a","components/inputs/Radio.jsx":"3dcda0eaacb0","components/inputs/RadioGroup.jsx":"224928157fc4","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5ef91a521869","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a09dc2f23ff0","components/inputs/Textarea.jsx":"086de8befb61","components/inputs/TimePicker.jsx":"122ef8fd0ced","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"724003a42299","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"baa21c063fe4","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"cac42c569080","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"b0045c78a736","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"57ea77870c8d","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"e5c9a898a0d7","components/navigation/Breadcrumb.jsx":"bbbef6c9957f","components/navigation/Navbar.jsx":"7fb1f2629199","components/navigation/Sidebar.jsx":"e87e28eef508","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"95154a884c47","components/navigation/TreeView.jsx":"72f08e1f44c8","components/overlay/CommandPalette.jsx":"39bb3dbe155e","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"c68a9c904738","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"e2de1e0866af","components/typography/Code.jsx":"a6a74f93cb2b","components/typography/Heading.jsx":"e98181d4d72f","components/typography/Kbd.jsx":"ff96e9dbdbe0","components/typography/Pre.jsx":"97379158f0ce","components/typography/Text.jsx":"642a06610251","src/index.ts":"9475e47b39e5"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -91,6 +91,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     Drawer: () => Drawer,
     EmptyState: () => EmptyState,
     Field: () => Field,
+    FieldRow: () => FieldRow,
     FileUpload: () => FileUpload,
     FilterBar: () => FilterBar,
     Form: () => Form,
@@ -701,7 +702,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
         href: Tag2 === "a" && !inert ? safeHref2(href) : void 0,
         "aria-disabled": inert || softDisabled || void 0,
         "aria-pressed": pressed,
-        "data-pressed-tone": pressedTone || void 0,
+        "data-pressed-tone": pressedTone ?? (pressed !== void 0 ? tone : void 0),
         tabIndex: inert ? -1 : void 0,
         "aria-label": ariaLabel,
         onClick: softDisabled ? (e) => e.preventDefault() : onClick,
@@ -2150,7 +2151,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
         href: inert ? void 0 : safeHref5(href),
         "aria-disabled": inert || softDisabled || void 0,
         "aria-pressed": pressed,
-        "data-pressed-tone": pressedTone || void 0,
+        "data-pressed-tone": pressedTone ?? (pressed !== void 0 ? tone : void 0),
         tabIndex: inert ? -1 : void 0,
         "aria-busy": loading || void 0,
         onClick: handleClick,
@@ -11550,7 +11551,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       setSort((s) => !s || s.field !== field ? { field, dir: "asc" } : s.dir === "asc" ? { field, dir: "desc" } : null);
     }
     function addFilter(field) {
-      const col = colByField[field] || cols[0];
+      const asked = colByField[field];
+      const col = (asked && asked.filterable !== false ? asked : null) || filterableCols[0] || cols[0];
+      if (!col) return;
       setFilters((f) => [...f, { id: Date.now() + Math.random(), field: col.field, op: opsFor(filterTypeOf(col))[0].value, value: "" }]);
     }
     function setPin(field, side) {
@@ -14577,10 +14580,20 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
                 /* @__PURE__ */ jsx("button", { type: "button", className: "twc-dt__frm-x", "aria-label": "Remove filter", onClick: () => setFilters((arr) => arr.filter((x) => x.id !== f.id)), children: /* @__PURE__ */ jsx(Svg, { d: I.x }) })
               ] }, f.id);
             }) }),
-            /* @__PURE__ */ jsx("div", { className: "twc-dt__f-add", style: { padding: "6px 4px 2px" }, children: /* @__PURE__ */ jsxs("button", { type: "button", className: "twc-dt__mi", style: { color: "var(--color-primary-subtle-fg)" }, onClick: () => addFilter(cols[0].field), children: [
-              /* @__PURE__ */ jsx(Svg, { d: I.plus, style: { color: "var(--color-primary-subtle-fg)" } }),
-              " Add filter"
-            ] }) }),
+            /* @__PURE__ */ jsx("div", { className: "twc-dt__f-add", style: { padding: "6px 4px 2px" }, children: /* @__PURE__ */ jsxs(
+              "button",
+              {
+                type: "button",
+                className: "twc-dt__mi",
+                style: { color: "var(--color-primary-subtle-fg)" },
+                disabled: filterableCols.length === 0,
+                onClick: () => addFilter(filterableCols[0]?.field),
+                children: [
+                  /* @__PURE__ */ jsx(Svg, { d: I.plus, style: { color: "var(--color-primary-subtle-fg)" } }),
+                  " Add filter"
+                ]
+              }
+            ) }),
             resizableFilters ? /* @__PURE__ */ jsx(
               "span",
               {
@@ -17521,6 +17534,74 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
       error ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__error", children: error }) : hint ? /* @__PURE__ */ jsx("span", { id: descId, className: "twc-field__hint", children: hint }) : null
     ] });
   }
+  function space2(v) {
+    if (v == null) return void 0;
+    if (typeof v === "number") return `var(--space-${String(v).replace(".", "-")})`;
+    return v;
+  }
+  var FIELDROW_CSS = `
+/* #508: a row of fields PLUS one control - an "insert at the cursor" button beside the box it writes
+   into, a remove button at the end of a condition row - which is arguably the more common shape than
+   a row of fields alone. #494's reserveFooter closed the field-vs-field half, but its selector is
+   .twc-field, and a trailing button's root is .twc-btn, so the button still rode up by a footer's
+   height the moment a sibling field grew one.
+
+   This owns the row instead of asking every child to opt in. Each child sits in a cell that is a flex
+   COLUMN ending in a footer lane, so everything aligns by its control box rather than by its outer
+   box, whatever the child is:
+
+     - a .twc-field child reserves its own lane through #494's ancestor selector, which this row
+       turns on by carrying data-reserve-footer;
+     - a cell holding anything else gets the lane from the cell itself, built the same way #494
+       builds it - generated content at --text-xs after the same --space-1-5 gap - so it matches the
+       real footer by construction rather than by a length that drifts when a token changes.
+
+   A field that already has a hint/error keeps its own footer and no lane is added; :has() decides,
+   exactly as in #494, so no child has to report anything. */
+.twc-fieldrow { display: flex; align-items: flex-end; }
+.twc-fieldrow[data-wrap="true"] { flex-wrap: wrap; }
+.twc-fieldrow__cell { display: flex; flex-direction: column; gap: var(--space-1-5); min-width: 0; }
+/* Fields share the row's width; a plain control keeps its natural size. This is what absorbs the
+   <Box sx={{ flex: 1 }}> wrappers a host would otherwise write around every field. */
+.twc-fieldrow__cell:has(> .twc-field) { flex: 1 1 0; }
+.twc-fieldrow__cell:not(:has(> .twc-field)) { flex: 0 0 auto; }
+/* The lane for a non-field cell. A button's own ::after would land INSIDE its box and simply make the
+   button taller, so the lane belongs to the cell around it. */
+.twc-fieldrow__cell:not(:has(> .twc-field))::after {
+  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+`;
+  var FieldRow = /* @__PURE__ */ import_react.default.forwardRef(function FieldRow2({
+    gap = 3,
+    wrap = false,
+    className = "",
+    style,
+    children,
+    ...rest
+  }, ref) {
+    const __twcStyles = useScopedStyles("twc-fieldrow-styles", FIELDROW_CSS);
+    return /* @__PURE__ */ jsxs(
+      "div",
+      {
+        ref,
+        className: `twc-fieldrow ${className}`.trim(),
+        "data-wrap": wrap || void 0,
+        "data-reserve-footer": "",
+        style: { gap: space2(gap), ...style },
+        ...rest,
+        children: [
+          __twcStyles,
+          import_react.default.Children.map(
+            children,
+            (child) => (
+              // null/false children would otherwise get an empty cell that still draws a lane and takes
+              // part in the gap, leaving a hole where a conditionally-rendered field is hidden.
+              child == null || child === false ? null : /* @__PURE__ */ jsx("div", { className: "twc-fieldrow__cell", children: child })
+            )
+          )
+        ]
+      }
+    );
+  });
   function matchesAccept(file, accept) {
     if (!accept) return true;
     const toks = accept.split(",").map((t) => t.trim().toLowerCase()).filter(Boolean);
@@ -20968,7 +21049,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
       }
     );
   });
-  function space2(v) {
+  function space3(v) {
     if (v == null) return void 0;
     if (typeof v === "number") return `var(--space-${String(v).replace(".", "-")})`;
     return v;
@@ -21012,14 +21093,14 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
         style: {
           display: inline ? "inline-flex" : "flex",
           flexDirection: direction,
-          gap: space2(gap),
+          gap: space3(gap),
           alignItems: align,
           justifyContent: justify,
           flexWrap: wrap ? "wrap" : void 0,
-          paddingTop: space2(pt ?? py ?? p),
-          paddingRight: space2(pr ?? px ?? p),
-          paddingBottom: space2(pb ?? py ?? p),
-          paddingLeft: space2(pl ?? px ?? p),
+          paddingTop: space3(pt ?? py ?? p),
+          paddingRight: space3(pr ?? px ?? p),
+          paddingBottom: space3(pb ?? py ?? p),
+          paddingLeft: space3(pl ?? px ?? p),
           minWidth: 0,
           ...style,
           ...flatStyle

@@ -13405,6 +13405,108 @@ export const components = [
     "snippet": "import { Field } from \"twico-ui\";\n\n// Wrap any control for the shared label/hint/error chrome. Give Field an id and set\n// the control's aria-describedby to that id followed by -desc to announce hint/error.\n<Field label=\"Email\" id=\"email\" hint=\"We'll never share it.\" required htmlFor=\"email\">\n  <input id=\"email\" type=\"email\" aria-describedby=\"email-desc\" />\n</Field>\n\n<Field label=\"Token\" id=\"tok\" error=\"That token is invalid.\" htmlFor=\"tok\">\n  <input id=\"tok\" aria-invalid aria-describedby=\"tok-desc\" />\n</Field>"
   },
   {
+    "name": "FieldRow",
+    "slug": "fieldrow",
+    "group": "Inputs",
+    "importName": "FieldRow",
+    "tagline": "A row of fields and controls aligned by their control box",
+    "summary": "FieldRow lays out a row of form controls so they line up by their CONTROL box rather than their outer box, with one shared footer lane beneath. A hint or error on one field makes that field taller, so a plain flex row with align=\"flex-end\" lifts its control above its neighbours — reserveFooter (#494) fixed that between fields, but a non-field control in the same row (a Menu trigger, a Button, an IconButton) has no footer to reserve and still rode up. An \"insert at the cursor\" button beside the box it writes into, or a remove button at the end of a condition row, make that shape at least as common as a row of fields alone. FieldRow owns the row instead of asking every child to opt in, so \"field vs button\" stops being something you have to know: children need no props, fields share the width and plain controls keep their natural size, which also absorbs the flex:1 wrappers such a row would otherwise need. The lane is built the way reserveFooter builds it — generated content at --text-xs after the same gap — so it matches a real footer by construction rather than by a length that drifts when a token changes, and a field that already has a hint or error keeps its own footer and gets no extra lane.",
+    "propsRows": [
+      {
+        "prop": "children",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "—",
+        "description": "The row's controls. Each is wrapped in a cell that supplies the shared footer lane; null and false children are dropped rather than left as an empty cell that would still draw a lane and take part in the gap."
+      },
+      {
+        "prop": "gap",
+        "type": "number | string",
+        "required": false,
+        "default": "3",
+        "description": "Gap between children — a spacing step (3 becomes var(--space-3)) or any CSS length, matching Stack's gap semantics."
+      },
+      {
+        "prop": "wrap",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Allow children to wrap onto more lines when the row runs out of width."
+      },
+      {
+        "prop": "className",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Appended to the row's own class, never replacing it."
+      },
+      {
+        "prop": "style",
+        "type": "React.CSSProperties",
+        "required": false,
+        "default": "—",
+        "description": "Merged onto the row after its own gap, so an inline gap wins over the prop."
+      },
+      {
+        "prop": "onClick",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Click handler — fires when the element is clicked or tapped."
+      },
+      {
+        "prop": "onMouseEnter",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer enters the element (e.g. to open a hovercard)."
+      },
+      {
+        "prop": "onMouseLeave",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the pointer leaves the element."
+      },
+      {
+        "prop": "onFocus",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element receives keyboard or pointer focus."
+      },
+      {
+        "prop": "onBlur",
+        "type": "(e: React.FocusEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires when the element loses focus."
+      },
+      {
+        "prop": "onKeyDown",
+        "type": "(e: React.KeyboardEvent) => void",
+        "required": false,
+        "default": "—",
+        "description": "Key-down handler on the element, for custom keyboard shortcuts."
+      },
+      {
+        "prop": "id",
+        "type": "string",
+        "required": false,
+        "default": "—",
+        "description": "Id applied to the root element, handy for labels and aria wiring."
+      },
+      {
+        "prop": "...rest",
+        "type": "React.HTMLAttributes<HTMLElement>",
+        "required": false,
+        "default": "—",
+        "description": "Every other standard prop for the root element — remaining event handlers, plus `data-*` and `aria-*` attributes — is forwarded to it."
+      }
+    ],
+    "snippet": "import { FieldRow, Input, Button, Menu } from \"twico-ui\";\n\n// Children need no props: the row gives every field a footer lane and every non-field\n// control a matching one, so the Input and the Button line up by their control box even\n// when only one of them has an error to show.\n<FieldRow>\n  <Input label=\"…to this value\" error={tooLong ? \"28 characters; the limit is 24.\" : undefined} />\n  <Menu items={items} trigger={<Button size=\"sm\" variant=\"outline\">Insert</Button>} />\n</FieldRow>\n\n// For a row you already lay out yourself, reserveFooter on each field still works.\n<Stack direction=\"row\" align=\"flex-end\" data-reserve-footer>…</Stack>"
+  },
+  {
     "name": "ToastProvider",
     "slug": "toast-provider",
     "group": "Feedback",
