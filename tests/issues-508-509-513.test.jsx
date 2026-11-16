@@ -1,6 +1,6 @@
 import React from "react";
 import { describe, it, expect, afterEach } from "vitest";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { Datatable, Button, IconButton, FieldRow, Input, Field } from "../src/index.ts";
