@@ -22,7 +22,13 @@ const ROW = '.twc-fieldrow:not([data-wrap="true"])';   // a band row; a wrapping
 const CELL = ROW + " > .twc-fieldrow__cell";
 const SOLO = CELL + ":not(:has(> * + *))";             // ...holding exactly one child
 const FRAG = CELL + ":has(> * + *)";                   // #525's fragment cell
-const FRAG_FIELDS = FRAG + ":not(:has(> :is(" + NATURAL_ROOTS + ")))";
+// #533: depth <= 2, like the cell test and like #530 gate - NOT depth 1. Checkbox/Switch/Radio
+// grow a bare div.twc-field root only for an error, so a depth-1 test saw .twc-check when clean
+// and .twc-field when errored: the cell was banded as "all fields" in one state and kept on flex
+// in the other, which measured the errored control at 189px against 100.4px clean. Showing a
+// validation message must not change the cell layout MODE - #519, one level further in.
+const FRAG_NAT = ":has(> :is(" + NATURAL_ROOTS + "), > * > :is(" + NATURAL_ROOTS + "))";
+const FRAG_FIELDS = FRAG + ":not(" + FRAG_NAT + ")";
 // A transparent wrapper is ONE box around ONE field. Without this gate the chain rule also matches a
 // host div holding TWO fields, turning the cell's vertical stack into two grid COLUMNS and putting a
 // stray non-field sibling beside the field in the label band.
@@ -145,7 +151,21 @@ const FIELDROW_CSS = `
    another row item. gap is inherited from the row, so a fragment pair spaces like real siblings. */
 .twc-fieldrow__cell:has(> * + *) { flex-direction: row; align-items: flex-end; gap: inherit; }
 .twc-fieldrow__cell:has(> * + *) > * { flex: 1 1 0; min-inline-size: 0; }
-.twc-fieldrow__cell:has(> * + *) > :is(${NATURAL_ROOTS}) { flex: 0 1 auto; min-inline-size: auto; }
+/* #533: depth <= 2, the same as the cell test above and for the same reason. This rule used to test
+   depth 1 only, so it saw Checkbox/Switch/Radio by their .twc-check root when clean and by the bare
+   div.twc-field they grow for an error (Checkbox.jsx:126) - and the two fell on opposite sides of
+   it. Measured in a fragment cell at 520px: clean, the direct child is label.twc-check and hugs at
+   100.4px; errored, it is div.twc-field, misses this rule, takes flex: 1 1 0 from the rule above and
+   stretches to 189px. Showing a validation message nearly doubled the control and changed its layout
+   mode - #519's own "a validation error must not re-flow the row", which was fixed for the CELL at
+   depth 2 and never given to the children inside a fragment cell.
+   Spelled as a second selector with "> :has(> :is(...))" rather than one "> * >" arm, because here
+   the SUBJECT is the child itself, not the cell: the thing that must hug is the wrapper, so the
+   natural root has to be matched relative to it. Still two relative selectors, never a :has() inside
+   a :has(). A wrapper holding a FIELD does not match - it contains no natural root - so a tooltipped
+   field keeps filling its share, which is what the transparent-wrapper rule below relies on. */
+.twc-fieldrow__cell:has(> * + *) > :is(${NATURAL_ROOTS}),
+.twc-fieldrow__cell:has(> * + *) > :has(> :is(${NATURAL_ROOTS})) { flex: 0 1 auto; min-inline-size: auto; }
 .twc-fieldrow__cell:has(> * + *) > .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
   content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 
@@ -348,7 +368,7 @@ ${SOLO} > :not(.twc-field):not(${SOLO_WRAP}):not(.twc-fieldrow):not(${HAS_FOOTER
    of the row. With a natural child among them it stays FLEX, because a cell's implicit columns are
    all sized alike and the button inside would stop hugging. */
 ${FRAG_FIELDS} { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); column-gap: inherit; }
-${FRAG}:has(> :is(${NATURAL_ROOTS})) { display: flex; grid-row: 1 / -1; align-self: end; }
+${FRAG}${FRAG_NAT} { display: flex; grid-row: 1 / -1; align-self: end; }
 
 /* NO GENERATED LANE IN BAND MODE. The band IS the lane. Not merely redundant: in a subgrid an
    ::after is a grid item, and left to auto-place it lands in the LABEL band. So this kills the

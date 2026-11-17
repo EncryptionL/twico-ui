@@ -174,11 +174,11 @@ the spelling.
 
 ---
 
-## #530 / #531 / #532 — the wrap path, and two defects found while fixing it
+## #530 / #531 / #532 / #533 — the wrap path, and three defects found while fixing it
 
-#530 was reported against 1.51.1 with measurements. Reproducing it surfaced two more in the same
-rule block, each filed separately (#531, #532) and fixed in the same commit, plus one filed and
-deliberately **not** fixed (#533).
+#530 was reported against 1.51.1 with measurements. Reproducing it surfaced three more in the same
+rule block — #531, #532 and #533 — each filed separately and then fixed. #530–#532 shipped together;
+#533 followed, once measuring it showed the cause was three rules rather than the one reported.
 
 ### #530 — `minChildWidth` could not reach the fields inside a fragment cell
 
@@ -266,12 +266,38 @@ stayed an unplaced grid item, and auto-placed into row 1 — the label track.
 It must stay flex (grid has no `flex-wrap`), so it gets what every undecomposable child gets: all
 three tracks, bottom edge. Only this pairing is affected — a wrapping parent has no band.
 
-### #533 — filed, not fixed
+### #533 — a validation error changed the cell's layout mode
 
-An `error` on a `Checkbox` inside a fragment cell flips it hug → stretch (100.4px → 189px), because
-the per-child hug rule tests depth 1 while the cell test tests depth ≤ 2. It stays **aligned** in
-both states, so it is a reflow rather than a misalignment — and the rule at fault is shared by both
-paths, so changing it needs the band measured too. Left for its own change.
+Reported as one rule testing depth 1; it was **three**, and the band half mattered more than the
+per-child half.
+
+`Checkbox`/`Switch`/`Radio` grow a bare `div.twc-field` root **only when they have an `error`**
+(`Checkbox.jsx:126`). Three fragment-cell tests looked at depth 1 only, so each saw `.twc-check` when
+clean and `.twc-field` when errored, and the two states fell on opposite sides:
+
+| rule | what it decides | was |
+| --- | --- | --- |
+| the per-child hug | does this child hug or stretch | depth 1 |
+| `FRAG_FIELDS` | is this an all-field cell, i.e. **bandable** | depth 1 |
+| the band's keep-on-flex rule | or does it stay flex | depth 1 |
+
+while the **cell** test has tested depth ≤ 2 since #519, precisely so "a validation error no longer
+re-flows the row".
+
+So in the clean state the cell stayed flex and the control hugged at **100.4px**; in the errored
+state `FRAG_FIELDS` matched, the cell was banded as an all-field cell and gridded into
+`minmax(0, 1fr)` columns, and the control became **189px**. All three tests are now depth ≤ 2, from
+one interpolated `FRAG_NAT` constant rather than three hand-written copies.
+
+| state | direct child | `flex` | width before | width after |
+| --- | --- | --- | --- | --- |
+| clean | `label.twc-check` | `0 1 auto` | 100.4px | 100.4px |
+| `error` | `div.twc-field` | `0 1 auto` | **189px** | **100.4px** |
+
+**Why no within-case check could catch it.** Each state is internally consistent and 0px out — the
+defect is that the two states *disagree*. It only appears when the same shape is measured twice and
+the results compared, so the probe now has a cross-case section for exactly this. Validated by
+reverting both halves: `100.4px → 189px` returns.
 
 ### Two process notes worth keeping
 

@@ -3,7 +3,7 @@ import { describe, it, expect, afterEach } from "vitest";
 import { render, cleanup } from "@testing-library/react";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { Datatable, Button, IconButton, FieldRow, Input, Field } from "../src/index.ts";
+import { Datatable, Button, IconButton, FieldRow, Input, Field, Checkbox } from "../src/index.ts";
 
 afterEach(cleanup);
 
@@ -451,6 +451,38 @@ describe("FieldRow (#508)", () => {
     const arr = () => [<Input key="a" label="A" />, <Input key="b" label="B" />];
     const { container: c2 } = render(<FieldRow wrap>{arr()}</FieldRow>);
     expect(c2.querySelectorAll(".twc-fieldrow__cell"), "...and so is an array").toHaveLength(2);
+  });
+
+  // ------------------------------------------------------------------------------------- #533
+  it("#533: a validation error does not change a fragment cell's layout mode", () => {
+    // Checkbox/Switch/Radio grow a bare div.twc-field root ONLY when they have an error
+    // (Checkbox.jsx:126), and THREE rules tested depth 1 only - the per-child hug, FRAG_FIELDS, and
+    // the band's keep-this-cell-on-flex rule - so each saw .twc-check when clean and .twc-field when
+    // errored and fell on opposite sides. Measured in a fragment cell at 520px: the control hugged
+    // at 100.4px clean, and the errored state banded the cell as "all fields", gridding it into
+    // equal columns at 189px. Both are internally consistent and 0px out, which is why no
+    // within-case check could see it - the two STATES disagreed. All three now test depth <= 2, like
+    // the cell test, so the control measures 100.4px either way: #519's "a validation error must not
+    // re-flow the row", one level further in.
+    const Pair = ({ err }) => (<><Input label="Value" /><Checkbox label="Active" error={err} /></>);
+    const { container } = render(<FieldRow><Pair /></FieldRow>);
+    expect(container.querySelector(".twc-fieldrow__cell").children).toHaveLength(2);
+    expect(container.querySelector(".twc-check"), "clean: the checkbox root IS the direct child").toBeTruthy();
+    cleanup();
+    const { container: c2 } = render(<FieldRow><Pair err="Required." /></FieldRow>);
+    const kids = [...c2.querySelector(".twc-fieldrow__cell").children];
+    expect(kids).toHaveLength(2);
+    expect(kids[1].className, "errored: Checkbox grows a .twc-field wrapper").toContain("twc-field");
+    expect(kids[1].querySelector(".twc-check"), "...with the root now at depth 2").toBeTruthy();
+
+    const src = readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.jsx"), "utf8");
+    // ONE depth-2 test, interpolated into both band rules that used to carry a depth-1 copy
+    expect(src).toContain('const FRAG_NAT = ":has(> :is(" + NATURAL_ROOTS + "), > * > :is(" + NATURAL_ROOTS + "))";');
+    expect(src).toContain('const FRAG_FIELDS = FRAG + ":not(" + FRAG_NAT + ")";');
+    expect(src).toContain("${FRAG}${FRAG_NAT} { display: flex;");
+    // and the per-child hug gets its own depth-2 arm - spelled relative to the CHILD, because here
+    // the subject is the wrapper rather than the cell
+    expect(src).toContain(".twc-fieldrow__cell:has(> * + *) > :has(> :is(${NATURAL_ROOTS})) { flex: 0 1 auto; min-inline-size: auto; }");
   });
 
   it("the Field wrapper still works, for a row the host lays out itself", () => {

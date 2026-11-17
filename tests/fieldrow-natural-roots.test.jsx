@@ -113,6 +113,19 @@ describe("FieldRow natural-roots list is derived, not curated (#519)", () => {
     // unpredictable floor LARGER than zero in exactly the case where the host asked for nothing.
     expect(src).not.toMatch(/var\(--twc-fieldrow-min\)/);
 
+    // #533: every fragment-cell test must be depth <= 2, like the cell test - never depth 1. A
+    // depth-1 test sees Checkbox/Switch/Radio by .twc-check when clean and by the div.twc-field they
+    // grow for an error, so a validation message flips which side of the rule the control lands on.
+    // Measured before: the control hugged at 100.4px clean and the errored cell was banded into
+    // equal columns at 189px.
+    expect(src).toContain('const FRAG_NAT = ":has(> :is(" + NATURAL_ROOTS + "), > * > :is(" + NATURAL_ROOTS + "))";');
+    expect(src, "FRAG_FIELDS must be the complement of the depth-2 test, not a depth-1 copy")
+      .toContain('const FRAG_FIELDS = FRAG + ":not(" + FRAG_NAT + ")";');
+    // no depth-1-only fragment test may survive anywhere in the sheet
+    expect(src, "a depth-1 fragment natural test re-arms the #519 validation reflow")
+      .not.toContain(':has(> :is(" + NATURAL_ROOTS + ")))');
+    expect(src).not.toContain("${FRAG}:has(> :is(${NATURAL_ROOTS}))");
+
     // #531: a fragment child that cannot take an ::after lane gets the lane's HEIGHT as margin.
     // Pinned because the expression has to stay token-built and one line: a literal length would
     // drift from the lane when a token changes, and footer-lines would not match the sibling lanes.
