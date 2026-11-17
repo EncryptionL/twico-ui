@@ -140,7 +140,11 @@ function dropComments(text) {
  *  CSS tokens together. Harmless in `{ ${rules} }`, fatal in `margin: ${top} ${left}` (10px10px) or
  *  across `${BAND_COLS}\n${CELL}` if either side stops ending in a brace. This was shipped wrong
  *  once and caught by diffing the normalised bundles, not by a test. */
-function squeeze(text) {
+function squeeze(input) {
+  // Line-ending agnostic, so the bundle is byte-identical built from a CRLF working copy and from
+  // the LF checkout CI uses. A line ending in a space then a CR hides that space from a $-anchored
+  // strip, which is exactly how the sibling stylesheet generator came to differ only on CI.
+  const text = input.split(CR).join("");
   const lead = /^[ \t\n]+/.exec(text);
   const trail = /[ \t\n]+$/.exec(text);
   const core = text.slice(lead ? lead[0].length : 0, trail ? text.length - trail[0].length : text.length);
@@ -183,3 +187,5 @@ export function stripCssCommentsPlugin() {
     },
   };
 }
+
+const CR = String.fromCharCode(13);

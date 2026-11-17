@@ -64,7 +64,13 @@ async function generate() {
  * url(//host/path) is a protocol-relative URL rather than a line comment. Getting that wrong
  * silently truncates a stylesheet instead of failing the build.
  */
-function stripComments(css) {
+function stripComments(input) {
+  // Normalise to LF FIRST. Without this the generator is not deterministic across checkouts: with
+  // core.autocrlf=true a source line reads "color-scheme: light; /* ... */", so after the comment
+  // goes the line ends "; " and a trailing-whitespace strip anchored with $ cannot see the space
+  // before the . The file then differed between a CRLF working copy and the LF checkout CI uses,
+  // and build:css:check - which compares after its own CRLF normalisation - failed only on CI.
+  const css = input.split(CR).join("");
   let out = "";
   let i = 0;
   const n = css.length;
@@ -95,6 +101,7 @@ function stripComments(css) {
     .join(NL);
 }
 
+const CR = String.fromCharCode(13);
 const DQ = String.fromCharCode(34);
 const SQ = String.fromCharCode(39);
 const BS = String.fromCharCode(92);

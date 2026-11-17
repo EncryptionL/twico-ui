@@ -35,7 +35,7 @@
 
 /* ===== tokens/colors.css ===== */
 :root {
-  color-scheme: light; 
+  color-scheme: light;
 
   --indigo-50:  #eef2ff;
   --indigo-100: #e0e7ff;
@@ -121,19 +121,19 @@
   --sky-900: #0c4a6e;
   --sky-950: #082f49;
 
-  --color-bg:             var(--slate-50);    
-  --color-surface:        #ffffff;            
-  --color-surface-raised: #ffffff;            
-  --color-surface-sunken: var(--slate-100);   
-  --color-overlay:        rgb(15 23 42 / 0.45); 
+  --color-bg:             var(--slate-50);
+  --color-surface:        #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-surface-sunken: var(--slate-100);
+  --color-overlay:        rgb(15 23 42 / 0.45);
 
   --color-border:         var(--slate-200);
   --color-border-strong:  var(--slate-300);
-  
+
   --color-control-border: var(--slate-500);
-  
+
   --color-control-track: var(--slate-500);
-  
+
   --color-control-thumb: #ffffff;
   --color-divider:        var(--slate-200);
 
@@ -143,9 +143,9 @@
   --color-text-inverted:  #ffffff;
 
   --color-chart-on-fill:      #ffffff;
-  --color-chart-on-fill-halo: rgb(15 23 42 / 0.55); 
+  --color-chart-on-fill-halo: rgb(15 23 42 / 0.55);
 
-  --color-primary:         var(--brand-600);  
+  --color-primary:         var(--brand-600);
   --color-primary-hover:   var(--brand-700);
   --color-primary-active:  var(--brand-800);
   --color-primary-fg:      #ffffff;
@@ -155,7 +155,7 @@
 
   --color-ring: var(--brand-500);
 
-  --color-success:        var(--emerald-700);  
+  --color-success:        var(--emerald-700);
   --color-success-hover:  var(--emerald-800);
   --color-success-active: var(--emerald-900);
   --color-success-fg:     #ffffff;
@@ -165,11 +165,11 @@
   --color-warning:        var(--amber-500);
   --color-warning-hover:  var(--amber-400);
   --color-warning-active: var(--amber-300);
-  --color-warning-fg:     var(--amber-950); 
+  --color-warning-fg:     var(--amber-950);
   --color-warning-subtle:    var(--amber-50);
   --color-warning-subtle-fg: var(--amber-700);
 
-  --color-danger:         var(--rose-600);  
+  --color-danger:         var(--rose-600);
   --color-danger-hover:   var(--rose-700);
   --color-danger-active:  var(--rose-800);
   --color-danger-fg:      #ffffff;
@@ -179,15 +179,15 @@
   --color-info:           var(--sky-500);
   --color-info-hover:     var(--sky-400);
   --color-info-active:    var(--sky-300);
-  --color-info-fg:        var(--sky-950); 
+  --color-info-fg:        var(--sky-950);
   --color-info-subtle:       var(--sky-50);
   --color-info-subtle-fg:    var(--sky-700);
 
-  --color-primary-graphic: var(--brand-500);    
-  --color-success-graphic: var(--emerald-700);  
-  --color-warning-graphic: var(--amber-700);    
-  --color-danger-graphic:  var(--rose-600);     
-  --color-info-graphic:    var(--sky-600);      
+  --color-primary-graphic: var(--brand-500);
+  --color-success-graphic: var(--emerald-700);
+  --color-warning-graphic: var(--amber-700);
+  --color-danger-graphic:  var(--rose-600);
+  --color-info-graphic:    var(--sky-600);
 
   --color-chart-1: var(--indigo-500);
   --color-chart-2: var(--sky-700);
@@ -210,9 +210,9 @@
   --color-border:         #25324a;
   --color-border-strong:  var(--slate-700);
   --color-control-border: var(--slate-400);
-  
+
   --color-control-track: var(--slate-700);
-  --color-control-thumb: #ffffff;   
+  --color-control-thumb: #ffffff;
   --color-divider:        #1c2840;
 
   --color-text:           var(--slate-50);
@@ -228,7 +228,7 @@
   --color-primary-subtle-fg:   var(--brand-300);
   --color-primary-border:      rgb(99 102 241 / 0.35);
 
-  --color-ring: var(--brand-400); 
+  --color-ring: var(--brand-400);
 
   --color-success:        var(--emerald-500);
   --color-success-hover:  var(--emerald-400);
@@ -275,23 +275,23 @@
 
 /* ===== tokens/typography.css ===== */
 :root {
-  
+
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system,
                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Code",
                Menlo, Consolas, monospace;
 
-  --text-xs:   0.75rem;   
-  --text-sm:   0.875rem;  
-  --text-base: 1rem;      
-  --text-lg:   1.125rem;  
-  --text-xl:   1.25rem;   
-  --text-2xl:  1.5rem;    
-  --text-3xl:  1.875rem;  
-  --text-4xl:  2.25rem;   
-  --text-5xl:  3rem;      
-  --text-6xl:  3.75rem;   
-  --text-7xl:  4.5rem;    
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+  --text-6xl:  3.75rem;
+  --text-7xl:  4.5rem;
 
   --font-normal:    400;
   --font-medium:    500;
@@ -305,11 +305,11 @@
   --leading-normal:  1.5;
   --leading-relaxed: 1.65;
 
-  --tracking-tighter: -0.03em;  
-  --tracking-tight:   -0.015em; 
+  --tracking-tighter: -0.03em;
+  --tracking-tight:   -0.015em;
   --tracking-normal:  0em;
   --tracking-wide:    0.02em;
-  --tracking-wider:   0.06em;   
+  --tracking-wider:   0.06em;
 
   --text-display:   var(--text-6xl);
   --text-h1:        var(--text-4xl);
@@ -325,27 +325,27 @@
 :root {
   --space-0:   0;
   --space-px:  1px;
-  --space-0-5: 0.125rem; 
-  --space-1:   0.25rem;  
-  --space-1-5: 0.375rem; 
-  --space-2:   0.5rem;   
-  --space-2-5: 0.625rem; 
-  --space-3:   0.75rem;  
-  --space-4:   1rem;     
-  --space-5:   1.25rem;  
-  --space-6:   1.5rem;   
-  --space-7:   1.75rem;  
-  --space-8:   2rem;     
-  --space-10:  2.5rem;   
-  --space-12:  3rem;     
-  --space-16:  4rem;     
-  --space-20:  5rem;     
-  --space-24:  6rem;     
-  --space-32:  8rem;     
+  --space-0-5: 0.125rem;
+  --space-1:   0.25rem;
+  --space-1-5: 0.375rem;
+  --space-2:   0.5rem;
+  --space-2-5: 0.625rem;
+  --space-3:   0.75rem;
+  --space-4:   1rem;
+  --space-5:   1.25rem;
+  --space-6:   1.5rem;
+  --space-7:   1.75rem;
+  --space-8:   2rem;
+  --space-10:  2.5rem;
+  --space-12:  3rem;
+  --space-16:  4rem;
+  --space-20:  5rem;
+  --space-24:  6rem;
+  --space-32:  8rem;
 
-  --control-h-sm: 2rem;     
-  --control-h-md: 2.5rem;   
-  --control-h-lg: 3rem;     
+  --control-h-sm: 2rem;
+  --control-h-md: 2.5rem;
+  --control-h-lg: 3rem;
 
   --container-sm:  640px;
   --container-md:  768px;
@@ -353,29 +353,29 @@
   --container-xl:  1280px;
   --container-2xl: 1440px;
 
-  --z-base:     0;    
-  --z-dropdown: 1000; 
-  --z-sticky:   1100; 
-  --z-overlay:  1200; 
-  --z-modal:    1300; 
-  --z-popover:  1400; 
-  
-  --z-tooltip:  1500; 
-  --z-toast:    1600; 
-  
-  --z-floating: 1700; 
+  --z-base:     0;
+  --z-dropdown: 1000;
+  --z-sticky:   1100;
+  --z-overlay:  1200;
+  --z-modal:    1300;
+  --z-popover:  1400;
+
+  --z-tooltip:  1500;
+  --z-toast:    1600;
+
+  --z-floating: 1700;
 }
 
 /* ===== tokens/radius.css ===== */
 :root {
-  
+
   --radius-xs:   4px;
   --radius-sm:   6px;
-  --radius-md:   10px;   
-  --radius-lg:   14px;   
-  --radius-xl:   18px;   
-  --radius-2xl:  24px;   
-  --radius-full: 9999px; 
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-xl:   18px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
 
   --border-thin:   1px;
   --border-medium: 1.5px;
@@ -406,21 +406,21 @@
 
 /* ===== tokens/motion.css ===== */
 :root {
-  
-  --duration-instant: 80ms;  
-  --duration-fast:    140ms; 
-  --duration-base:    220ms; 
-  --duration-slow:    320ms; 
-  --duration-slower:  480ms; 
-  --duration-exit:    150ms; 
 
-  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);   
-  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);  
-  --ease-in:       cubic-bezier(0.4, 0, 1, 1);     
-  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1); 
-  --ease-emphasis: cubic-bezier(0.2, 0.8, 0.2, 1); 
+  --duration-instant: 80ms;
+  --duration-fast:    140ms;
+  --duration-base:    220ms;
+  --duration-slow:    320ms;
+  --duration-slower:  480ms;
+  --duration-exit:    150ms;
 
-  --press-scale: 0.96; 
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:       cubic-bezier(0.4, 0, 1, 1);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-emphasis: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --press-scale: 0.96;
 }
 
 @keyframes twico-fade-in {
@@ -487,7 +487,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  font-feature-settings: "cv05" 1; 
+  font-feature-settings: "cv05" 1;
 }
 
 body {
@@ -550,14 +550,14 @@ select:focus-visible {
 }
 
 [data-density="compact"] {
-  --control-h-sm: 1.75rem;  
-  --control-h-md: 2.125rem; 
-  --control-h-lg: 2.5rem;   
+  --control-h-sm: 1.75rem;
+  --control-h-md: 2.125rem;
+  --control-h-lg: 2.5rem;
 }
 [data-density="comfortable"] {
-  --control-h-sm: 2.25rem;  
-  --control-h-md: 2.75rem;  
-  --control-h-lg: 3.25rem;  
+  --control-h-sm: 2.25rem;
+  --control-h-md: 2.75rem;
+  --control-h-lg: 3.25rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -569,7 +569,7 @@ select:focus-visible {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  
+
   .twc-spinner {
     animation-duration: 0.65s !important;
     animation-iteration-count: infinite !important;

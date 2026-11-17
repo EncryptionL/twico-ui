@@ -118,11 +118,32 @@ A first attempt at this comparison normalised both bundles with a naive
 code string `"/*"` in `_upload.js` and swallowed real CSS after it. The same trap the lexer exists to
 avoid, in the script written to validate the lexer.
 
+### The one CI caught and the local run could not
+
+`build:css:check` passed locally and **failed on CI**. With `core.autocrlf=true` this working copy is
+CRLF while the Linux runner checks out LF, and a token source line like
+
+```css
+  color-scheme: light; /* a note */
+```
+
+ends in a carriage return. Once the comment is removed the line ends in a **space followed by that
+CR** — and a trailing-whitespace strip anchored at end-of-string cannot see the space, because the CR
+is last. The generated stylesheet therefore differed between the two checkouts, and the guard — which
+compares after its *own* CRLF normalisation — still saw a real structural difference.
+
+Both strippers now drop CR before splitting lines, so the artifact is byte-identical either way
+(verified by regenerating from an LF copy of every source: 15,954 bytes both sides). Four tests pin
+it, including the exact line shape that broke.
+
+The pre-existing generator was immune because it only concatenated; the comment stripper is what
+introduced the sensitivity.
+
 ### Guards
 
-- `tests/strip-css-comments.test.js` — 16 tests: the delimiter-in-a-string case, `url(//…)`, escaped
+- `tests/strip-css-comments.test.js` — 20 tests: the delimiter-in-a-string case, `url(//…)`, escaped
   sequences, interpolations, a literal nested inside an interpolation, idempotence, the three
   boundary rules, and a sweep asserting every one of the 80+ component sources stays brace-balanced
-  with every interpolation intact.
+  with every interpolation intact, plus four for line-ending determinism.
 - `npm run size` at 126 kB, which fails if the comments return.
 - `npm run build:css:check`, which fails if `styles/twico-ui.css` drifts from a stripped regeneration.

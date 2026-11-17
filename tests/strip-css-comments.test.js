@@ -139,3 +139,39 @@ describe("strip-css-comments: interpolation boundaries (#534)", () => {
     expect(out).toContain("${B}");
   });
 });
+
+describe("strip-css-comments: line-ending determinism (#534)", () => {
+  const strip = (x) => collapseCssWhitespace(stripCssComments(x));
+  const BT3 = String.fromCharCode(96);
+  const CR3 = String.fromCharCode(13);
+  const NL3 = String.fromCharCode(10);
+
+  // The bug CI caught and the local run could not. With core.autocrlf=true a token source line ends
+  // in a carriage return, so once the comment is removed the line ends in a SPACE followed by that
+  // CR - and a trailing-whitespace strip anchored at end-of-string cannot see the space, because the
+  // CR is last. The generated artifact then differed between a CRLF working copy and the LF checkout
+  // CI builds from, and build:css:check failed only on CI. Both strippers now drop CR first.
+  it("produces identical output from CRLF and LF input", () => {
+    const lf = "const C = " + BT3 + NL3 + "/* note */" + NL3 + "  .a { color: red; }" + NL3 + "  .b { color: blue; }" + NL3 + BT3 + ";";
+    const crlf = lf.split(NL3).join(CR3 + NL3);
+    expect(strip(crlf)).toBe(strip(lf));
+  });
+
+  it("leaves no carriage return behind", () => {
+    const crlf = "const C = " + BT3 + CR3 + NL3 + "/* x */" + CR3 + NL3 + "  .a { color: red; }" + CR3 + NL3 + BT3 + ";";
+    expect(strip(crlf)).not.toContain(CR3);
+  });
+
+  it("strips a trailing space that sat before a carriage return", () => {
+    // the exact shape from tokens/colors.css that broke CI
+    const crlf = "const C = " + BT3 + CR3 + NL3 + "  color-scheme: light; /* a note */" + CR3 + NL3 + BT3 + ";";
+    const out = strip(crlf);
+    expect(out).toContain("color-scheme: light;");
+    expect(out, "a space before the CR survived an end-anchored strip").not.toContain("light; ");
+  });
+
+  it("the shipped stylesheet generator is line-ending agnostic too", () => {
+    const src = readFileSync(resolve(process.cwd(), "scripts/build-css.mjs"), "utf8");
+    expect(src, "build-css must drop CR before splitting lines").toContain("input.split(CR).join(");
+  });
+});
