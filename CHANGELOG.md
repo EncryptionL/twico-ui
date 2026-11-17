@@ -2,6 +2,20 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.51.2](https://github.com/EncryptionL/twico-ui/compare/v1.51.1...v1.51.2) (2026-11-17)
+
+
+### Bug Fixes
+
+* **build:** make the CSS comment strippers line-ending agnostic, so the stylesheet is deterministic ([164c626](https://github.com/EncryptionL/twico-ui/commit/164c626250a22275963d005a68d122d2ed675df0)), closes [pre-#534](https://github.com/pre-/issues/534)
+* **inputs:** let the wrap floor reach a fragment cell's fields, and give that cell's non-field child a lane ([e8c2c82](https://github.com/EncryptionL/twico-ui/commit/e8c2c8204843e17a5cdf1e1505bd346deecb9f57)), closes [#530](https://github.com/EncryptionL/twico-ui/issues/530) [#524](https://github.com/EncryptionL/twico-ui/issues/524) [#531](https://github.com/EncryptionL/twico-ui/issues/531) [#532](https://github.com/EncryptionL/twico-ui/issues/532) [#527](https://github.com/EncryptionL/twico-ui/issues/527) [#533](https://github.com/EncryptionL/twico-ui/issues/533) [#527](https://github.com/EncryptionL/twico-ui/issues/527) [#531](https://github.com/EncryptionL/twico-ui/issues/531) [#530](https://github.com/EncryptionL/twico-ui/issues/530) [#531](https://github.com/EncryptionL/twico-ui/issues/531) [#532](https://github.com/EncryptionL/twico-ui/issues/532)
+* **inputs:** make every fragment-cell test depth <= 2, so a validation error stops re-flowing the row ([88199f5](https://github.com/EncryptionL/twico-ui/commit/88199f54ed34d352411ace4c4cbaeb57b0868138)), closes [#533](https://github.com/EncryptionL/twico-ui/issues/533) [#519](https://github.com/EncryptionL/twico-ui/issues/519) [#534](https://github.com/EncryptionL/twico-ui/issues/534)
+
+
+### Performance Improvements
+
+* **build:** stop shipping the scoped-style CSS comments, cutting 20.26 kB (14.5%) off the bundle ([f2876e4](https://github.com/EncryptionL/twico-ui/commit/f2876e49d4bc12bd989b5324c1474f0f74eea79c))
+
 ## [1.51.1](https://github.com/EncryptionL/twico-ui/compare/v1.51.0...v1.51.1) (2026-11-17)
 
 
