@@ -2,6 +2,13 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.51.1](https://github.com/EncryptionL/twico-ui/compare/v1.51.0...v1.51.1) (2026-11-17)
+
+
+### Bug Fixes
+
+* **inputs:** give FieldRow a shared footer band, so a wrapping hint stops re-breaking the row ([62dfb97](https://github.com/EncryptionL/twico-ui/commit/62dfb979035d0bfd9b203ce1727369e21c829723)), closes [#526](https://github.com/EncryptionL/twico-ui/issues/526) [#527](https://github.com/EncryptionL/twico-ui/issues/527) [519-#525](https://github.com/519-/issues/525)
+
 # [1.51.0](https://github.com/EncryptionL/twico-ui/compare/v1.50.0...v1.51.0) (2026-11-16)
 
 
