@@ -22,7 +22,13 @@ const ROW = '.twc-fieldrow:not([data-wrap="true"])';   // a band row; a wrapping
 const CELL = ROW + " > .twc-fieldrow__cell";
 const SOLO = CELL + ":not(:has(> * + *))";             // ...holding exactly one child
 const FRAG = CELL + ":has(> * + *)";                   // #525's fragment cell
-const FRAG_FIELDS = FRAG + ":not(:has(> :is(" + NATURAL_ROOTS + ")))";
+// #533: depth <= 2, like the cell test and like #530 gate - NOT depth 1. Checkbox/Switch/Radio
+// grow a bare div.twc-field root only for an error, so a depth-1 test saw .twc-check when clean
+// and .twc-field when errored: the cell was banded as "all fields" in one state and kept on flex
+// in the other, which measured the errored control at 189px against 100.4px clean. Showing a
+// validation message must not change the cell layout MODE - #519, one level further in.
+const FRAG_NAT = ":has(> :is(" + NATURAL_ROOTS + "), > * > :is(" + NATURAL_ROOTS + "))";
+const FRAG_FIELDS = FRAG + ":not(" + FRAG_NAT + ")";
 // A transparent wrapper is ONE box around ONE field. Without this gate the chain rule also matches a
 // host div holding TWO fields, turning the cell's vertical stack into two grid COLUMNS and putting a
 // stray non-field sibling beside the field in the label band.
@@ -145,9 +151,84 @@ const FIELDROW_CSS = `
    another row item. gap is inherited from the row, so a fragment pair spaces like real siblings. */
 .twc-fieldrow__cell:has(> * + *) { flex-direction: row; align-items: flex-end; gap: inherit; }
 .twc-fieldrow__cell:has(> * + *) > * { flex: 1 1 0; min-inline-size: 0; }
-.twc-fieldrow__cell:has(> * + *) > :is(${NATURAL_ROOTS}) { flex: 0 1 auto; min-inline-size: auto; }
+/* #533: depth <= 2, the same as the cell test above and for the same reason. This rule used to test
+   depth 1 only, so it saw Checkbox/Switch/Radio by their .twc-check root when clean and by the bare
+   div.twc-field they grow for an error (Checkbox.jsx:126) - and the two fell on opposite sides of
+   it. Measured in a fragment cell at 520px: clean, the direct child is label.twc-check and hugs at
+   100.4px; errored, it is div.twc-field, misses this rule, takes flex: 1 1 0 from the rule above and
+   stretches to 189px. Showing a validation message nearly doubled the control and changed its layout
+   mode - #519's own "a validation error must not re-flow the row", which was fixed for the CELL at
+   depth 2 and never given to the children inside a fragment cell.
+   Spelled as a second selector with "> :has(> :is(...))" rather than one "> * >" arm, because here
+   the SUBJECT is the child itself, not the cell: the thing that must hug is the wrapper, so the
+   natural root has to be matched relative to it. Still two relative selectors, never a :has() inside
+   a :has(). A wrapper holding a FIELD does not match - it contains no natural root - so a tooltipped
+   field keeps filling its share, which is what the transparent-wrapper rule below relies on. */
+.twc-fieldrow__cell:has(> * + *) > :is(${NATURAL_ROOTS}),
+.twc-fieldrow__cell:has(> * + *) > :has(> :is(${NATURAL_ROOTS})) { flex: 0 1 auto; min-inline-size: auto; }
 .twc-fieldrow__cell:has(> * + *) > .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
   content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+
+/* #531: ...and a fragment child that is NOT a field needs the same offset by a different mechanism.
+   The rule above can only give a lane to a .twc-field, because a field is a COLUMN flex container
+   so its ::after lands BELOW its control. A .twc-btn is inline-flex - a ROW - so an ::after on it
+   would become a flex item INSIDE the button, printing the nbsp beside the label. The cell cannot
+   draw one either: the cell is a row, so a cell-level ::after sits BESIDE the children rather than
+   beneath them (see the #525 note above). So the lane-less child gets the lane HEIGHT as margin
+   instead - geometrically identical, built from the same two tokens, and it touches nothing inside
+   the child.
+   Without it, align-items:flex-end bottom-aligned a 40px button against two 91px fields and put its
+   control box a full lane (6px + one --text-xs line = 24px) BELOW theirs: #508 own symptom, inside
+   the component built to prevent it. It showed in BOTH paths - a wrapping row is pure flex by
+   design, and a non-wrapping one keeps such a cell on flex too (see the FRAG natural-root rule in
+   the band section) - and #527 recorded it as a shape that kept "today behaviour", which was true
+   and the wrong test: base was already 24px out.
+   Same DESCENDANT footer test as THE LANE below, not a direct-child one (#519): a field behind a
+   Tooltip or a host div is the flex item here, so the margin lands on the wrapper and lifts the
+   whole thing. One line, not var(--twc-fieldrow-footer-lines): it has to match the sibling lanes it
+   aligns against, and those are single-line. */
+.twc-fieldrow__cell:has(> * + *) > *:not(.twc-field):not(:has(.twc-field__footer, .twc-field__hint, .twc-field__error, .twc-fieldrow, [data-reserve-footer])) {
+  margin-block-end: calc(var(--space-1-5) + var(--text-xs) * var(--leading-normal, 1.5)); }
+
+/* #530: the WRAP FLOOR, for the fields inside a fragment cell. #524 put the floor on the CELL,
+   because the cell is the flex item - and when every field in a row comes from ONE fragment-
+   returning component, that cell IS the whole row: one flex item, nothing to break against, so the
+   row never wraps and the fields squash to a third of it each. Measured at 1.51.1 with
+   minChildWidth="15rem" (240px): a 520px container gave [168,168,168] on one line where the
+   hand-laid equivalent gives [256,256,520] on two, and 360px gave [114.7,114.7,114.7]. Squashing
+   below a readable width is the one thing this floor exists to prevent. A host cannot reach past the
+   cell either, which is the same reason the floor became a prop: the cell is created BETWEEN the row
+   and the child, so --twc-fieldrow-min cannot be set low enough in the tree to reach the fields.
+   So the cell lets the row floor through to its own children and becomes a wrap container. The two
+   declarations MUST be gated by the same selector: a floor with nowrap makes the cell min-content
+   (3 x 240 + gaps) wider than the row, and it would overflow horizontally instead of breaking -
+   strictly worse than the squash it replaces.
+   The fields then behave as the row own cells do - basis 0 from the rule above, so fields sharing a
+   line still share it evenly, and min(100%, floor) so a cell narrower than the floor does not
+   overflow - with one difference that cannot be designed away: their line box is the CELL, not the
+   row. Two levels of line breaking are not one flat context, so in a MIXED row the group breaks
+   against its share of the row rather than the row full width. For the reported shape, where the
+   group is the row only child, the cell IS the row width and the two are identical.
+   Why the cell wraps rather than dissolving into row items: that needs display:contents, and a
+   contents box draws no lane (#519 puts the lane on the cell) while its generated content would
+   become another row item - the stray lane beside the pair that the #525 note describes - and in
+   band mode the row track LIST is computed in JS from cells.length, so the 2nd and 3rd field would
+   land in implicit tracks. A cell is always exactly one row item.
+   Gated to a wrapping row by the attribute here, and the band gates itself with the complementary
+   :not([data-wrap="true"]) - the JSX writes wrap || undefined, so the two partition every row. Not
+   merely unnecessary in band mode but wrong: a non-wrapping fragment cell is a grid with
+   grid-auto-flow:column and minmax(0,1fr) tracks, where a floor overflows the track instead of
+   breaking a line.
+   align-content mirrors the band row align-content:end below: inert while the cell is content-sized
+   by align-items:flex-end, and what keeps the inner lines on the bottom edge if a host stretches it.
+   The third rule is the depth-2 mirror of the NATURAL ROOTS test, wrap-only. The rule above tests
+   depth 1 only, so without it the new floor reaches a Menu or Tooltip wrapper around a Button - the
+   shape in this component own d.ts example - and stretches that button to a whole inner line. Two
+   :has() in one complex selector is legal; only NESTING one inside another is not. */
+:where(.twc-fieldrow[data-wrap="true"]) > .twc-fieldrow__cell:has(> * + *):not(:has(> :is(${NATURAL_ROOTS}), > * > :is(${NATURAL_ROOTS}))) {
+  flex-wrap: wrap; align-content: flex-end; }
+:where(.twc-fieldrow[data-wrap="true"]) > .twc-fieldrow__cell:has(> * + *):not(:has(> :is(${NATURAL_ROOTS}), > * > :is(${NATURAL_ROOTS}))) > * {
+  min-inline-size: min(100%, var(--twc-fieldrow-min, 10rem)); }
 
 /* THE LANE - the only one. A cell gets it unless something inside it already ends in a footer:
      - the three message classes #494 tests for (Field.jsx:17). They also catch the two footers no
@@ -264,6 +345,20 @@ ${BANDED} > ${CTRL} { grid-row: 2; align-self: end; }
    needs a wrapper inside another component. */
 ${SOLO} > :not(.twc-field):not(${SOLO_WRAP}):not(.twc-fieldrow)${HAS_FOOTER},
 ${SOLO} > ${MANY} { grid-row: 1 / -1; align-self: end; }
+
+/* #532: ...and a nested WRAPPING row, which until now was placed by NOTHING. The chain rule above
+   reaches a nested row through ${ROW}, which carries :not([data-wrap="true"]) - so it matches only a
+   non-wrapping inner row - and both fallbacks here carry :not(.twc-fieldrow), which excludes every
+   nested row. A wrapping one therefore fell through all three, stayed an unplaced grid item, and
+   AUTO-PLACED into row 1: the label track. Measured at a 760px container, the outer template went
+   from "27px 40px 24px" to "190px 40px 24px" - the inner row's whole height became the label band -
+   and a sibling field's control was pushed 163px down. Only this one pairing is affected, because a
+   wrapping PARENT has no band at all.
+   It has to stay flex (grid has no flex-wrap, which is why the band is scoped away from it), so it
+   gets what every other undecomposable child gets: all three tracks, bottom edge. Its own cells draw
+   their own lane, so its last line's control boxes land on the parent's control band exactly as the
+   rule above intends. */
+${SOLO} > .twc-fieldrow[data-wrap="true"] { grid-row: 1 / -1; align-self: end; }
 /* ...and a plain control - a Button, a Menu trigger, a Checkbox with no error - sits in the control
    band, which is what makes #508's shape line up with no lane at all. */
 ${SOLO} > :not(.twc-field):not(${SOLO_WRAP}):not(.twc-fieldrow):not(${HAS_FOOTER}) {
@@ -273,7 +368,7 @@ ${SOLO} > :not(.twc-field):not(${SOLO_WRAP}):not(.twc-fieldrow):not(${HAS_FOOTER
    of the row. With a natural child among them it stays FLEX, because a cell's implicit columns are
    all sized alike and the button inside would stop hugging. */
 ${FRAG_FIELDS} { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); column-gap: inherit; }
-${FRAG}:has(> :is(${NATURAL_ROOTS})) { display: flex; grid-row: 1 / -1; align-self: end; }
+${FRAG}${FRAG_NAT} { display: flex; grid-row: 1 / -1; align-self: end; }
 
 /* NO GENERATED LANE IN BAND MODE. The band IS the lane. Not merely redundant: in a subgrid an
    ::after is a grid item, and left to auto-place it lands in the LABEL band. So this kills the

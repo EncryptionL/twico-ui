@@ -49,10 +49,65 @@ async function generate() {
       // Dev sources reference ../assets/fonts/; the package ships fonts in ./fonts/.
       css = css.replace(/\.\.\/assets\/fonts\//g, "./fonts/");
     }
-    parts.push(`\n/* ===== ${rel} ===== */\n${css.trimEnd()}\n`);
+    parts.push(`\n/* ===== ${rel} ===== */\n${stripComments(css).trimEnd()}\n`);
   }
   return parts.join("");
 }
+
+/**
+ * Drops the token layers' own comments from the SHIPPED stylesheet (#534). Measured: 29,244 bytes
+ * down to 16,149, or 7.41 kB to 3.16 kB brotli - a 4.25 kB saving on a file every consumer imports.
+ * The comments stay in tokens/*.css and base.css, which is where they are read; the HEADER above
+ * survives, so the shipped file still says what it is and points at its source.
+ *
+ * String-aware, not a bare regex. A CSS string may legally contain the comment delimiter, and
+ * url(//host/path) is a protocol-relative URL rather than a line comment. Getting that wrong
+ * silently truncates a stylesheet instead of failing the build.
+ */
+function stripComments(input) {
+  // Normalise to LF FIRST. Without this the generator is not deterministic across checkouts: with
+  // core.autocrlf=true a source line reads "color-scheme: light; /* ... */", so after the comment
+  // goes the line ends "; " and a trailing-whitespace strip anchored with $ cannot see the space
+  // before the . The file then differed between a CRLF working copy and the LF checkout CI uses,
+  // and build:css:check - which compares after its own CRLF normalisation - failed only on CI.
+  const css = input.split(CR).join("");
+  let out = "";
+  let i = 0;
+  const n = css.length;
+  while (i < n) {
+    const c = css[i], c2 = css[i + 1];
+    if (c === DQ || c === SQ) {
+      const q = c;
+      out += c; i++;
+      while (i < n) {
+        if (css[i] === BS) { out += css[i] + (css[i + 1] ?? ""); i += 2; continue; }
+        out += css[i];
+        if (css[i] === q) { i++; break; }
+        i++;
+      }
+      continue;
+    }
+    if (c === "/" && c2 === "*") {
+      const end = css.indexOf("*/", i + 2);
+      i = end === -1 ? n : end + 2;
+      continue;
+    }
+    out += c; i++;
+  }
+  return out
+    .split(NL)
+    .map((l) => l.replace(TRAIL, ""))
+    .filter((l, idx, a) => l.trim() !== "" || (idx > 0 && a[idx - 1].trim() !== ""))
+    .join(NL);
+}
+
+const CR = String.fromCharCode(13);
+const DQ = String.fromCharCode(34);
+const SQ = String.fromCharCode(39);
+const BS = String.fromCharCode(92);
+const NL = String.fromCharCode(10);
+const TRAIL = new RegExp("[ " + String.fromCharCode(92, 116) + "]+$");
+
 
 const next = await generate();
 const check = process.argv.includes("--check");

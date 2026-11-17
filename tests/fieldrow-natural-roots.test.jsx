@@ -90,6 +90,50 @@ describe("FieldRow natural-roots list is derived, not curated (#519)", () => {
     const cols = src.slice(src.indexOf("const BAND_COLS ="), src.indexOf("const FIELDROW_CSS"));
     expect(cols).toContain('") > * > :is(" + NATURAL_ROOTS +');
     expect(cols, ":has() must not be nested inside :has() here").not.toContain("WRAP");
+
+    // #530: the wrap-path fragment-cell gate is a THIRD hand-maintained copy of the same depth-2
+    // structure, and the two slices above do not cover it. It is the complement of the cell test:
+    // the two #530 rules must reach a fragment cell holding ONLY fields, and must not reach one
+    // holding an inline-level control at depth 1 OR depth 2. Measured when the depth-2 arm is
+    // missing: a fragment cell with a Tooltip-wrapped Button stays 480px wide and breaks into three
+    // 480px lines, where gated it is one untouched line. Both arms are pinned here because the
+    // failure is silent - an unforgiving :has() list drops the whole rule and the cell simply stops
+    // being excluded.
+    const SCOPE = ':where(.twc-fieldrow[data-wrap="true"])';
+    const gate = '.twc-fieldrow__cell:has(> * + *):not(:has(> :is(${NATURAL_ROOTS}), > * > :is(${NATURAL_ROOTS})))';
+    const wrapRules = src.split(gate).length - 1;
+    expect(wrapRules, "#530's two rules must both carry the full depth-2 gate").toBe(2);
+    // ...and both must be scoped to a WRAPPING row, or they would reach the band, where a fragment
+    // cell is a grid with minmax(0, 1fr) tracks and a floor overflows the track instead of breaking.
+    const scoped = SCOPE + ' > ' + gate;
+    expect(src.split(scoped).length - 1, "#530: both rules must carry the wrap scope").toBe(2);
+    // The floor MUST carry a real length fallback. Without one, min(100%, var(--twc-fieldrow-min))
+    // is invalid at computed-value time when the prop is unset, and because min-inline-size is not
+    // inherited, IACVT drops it to the INITIAL value `auto` - a content-based minimum, i.e. an
+    // unpredictable floor LARGER than zero in exactly the case where the host asked for nothing.
+    expect(src).not.toMatch(/var\(--twc-fieldrow-min\)/);
+
+    // #533: every fragment-cell test must be depth <= 2, like the cell test - never depth 1. A
+    // depth-1 test sees Checkbox/Switch/Radio by .twc-check when clean and by the div.twc-field they
+    // grow for an error, so a validation message flips which side of the rule the control lands on.
+    // Measured before: the control hugged at 100.4px clean and the errored cell was banded into
+    // equal columns at 189px.
+    expect(src).toContain('const FRAG_NAT = ":has(> :is(" + NATURAL_ROOTS + "), > * > :is(" + NATURAL_ROOTS + "))";');
+    expect(src, "FRAG_FIELDS must be the complement of the depth-2 test, not a depth-1 copy")
+      .toContain('const FRAG_FIELDS = FRAG + ":not(" + FRAG_NAT + ")";');
+    // no depth-1-only fragment test may survive anywhere in the sheet
+    expect(src, "a depth-1 fragment natural test re-arms the #519 validation reflow")
+      .not.toContain(':has(> :is(" + NATURAL_ROOTS + ")))');
+    expect(src).not.toContain("${FRAG}:has(> :is(${NATURAL_ROOTS}))");
+
+    // #531: a fragment child that cannot take an ::after lane gets the lane's HEIGHT as margin.
+    // Pinned because the expression has to stay token-built and one line: a literal length would
+    // drift from the lane when a token changes, and footer-lines would not match the sibling lanes.
+    expect(src).toContain("margin-block-end: calc(var(--space-1-5) + var(--text-xs) * var(--leading-normal, 1.5)); }");
+    // #532: a nested WRAPPING row must be placed explicitly - it matches neither the chain rule
+    // (${ROW} excludes it) nor the two fallbacks (both carry :not(.twc-fieldrow)), so without this
+    // it auto-places into the LABEL track and inflated it from 27px to 190px.
+    expect(src).toContain('${SOLO} > .twc-fieldrow[data-wrap="true"] { grid-row: 1 / -1; align-self: end; }');
   });
 
   it("the three overlay wrappers are handled as transparent, not as natural", () => {

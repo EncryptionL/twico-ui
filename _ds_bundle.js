@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"08c8a9da5fee","components/buttons/IconButton.jsx":"9625cb6f6231","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"724cf4b45ecc","components/data-display/AvatarMenu.jsx":"14b280842168","components/data-display/Badge.jsx":"69e6aff0081a","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"e1985980f3d8","components/data-display/Carousel.jsx":"4c0981ca4ea9","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"0074c3619a19","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"79c72470804e","components/data-display/ImageViewer.jsx":"51561e515465","components/data-display/Kanban.jsx":"389caa2e45d2","components/data-display/List.jsx":"89e1b0ef9c72","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"38b0431624b9","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"92e0de3c6efe","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"9a58f8174004","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"456f691e9b3c","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"52c1c5a0ca83","components/inputs/ColorPicker.jsx":"1efc64d10bf0","components/inputs/Combobox.jsx":"f0e2302a782d","components/inputs/Currency.jsx":"9e0a15b51ef1","components/inputs/CurrencyField.jsx":"6117a20400b6","components/inputs/DatePicker.jsx":"03c9789765bb","components/inputs/DateRangePicker.jsx":"6ecea0ba13b5","components/inputs/DateTimePicker.jsx":"d3d54cf176a5","components/inputs/Field.jsx":"e4c5ba6b0455","components/inputs/FieldRow.jsx":"9d5c1ddba320","components/inputs/FileUpload.jsx":"ff8d288c9063","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"cd71f1e096d1","components/inputs/Input.jsx":"0a5b231c716d","components/inputs/Label.jsx":"dfdad32670fd","components/inputs/MultiSelect.jsx":"597e989dbf2a","components/inputs/Radio.jsx":"3dcda0eaacb0","components/inputs/RadioGroup.jsx":"224928157fc4","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5ef91a521869","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a09dc2f23ff0","components/inputs/Textarea.jsx":"086de8befb61","components/inputs/TimePicker.jsx":"122ef8fd0ced","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"724003a42299","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"baa21c063fe4","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"cac42c569080","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"b0045c78a736","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"57ea77870c8d","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"e5c9a898a0d7","components/navigation/Breadcrumb.jsx":"bbbef6c9957f","components/navigation/Navbar.jsx":"7fb1f2629199","components/navigation/Sidebar.jsx":"e87e28eef508","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"95154a884c47","components/navigation/TreeView.jsx":"72f08e1f44c8","components/overlay/CommandPalette.jsx":"39bb3dbe155e","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"c68a9c904738","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"e2de1e0866af","components/typography/Code.jsx":"a6a74f93cb2b","components/typography/Heading.jsx":"e98181d4d72f","components/typography/Kbd.jsx":"ff96e9dbdbe0","components/typography/Pre.jsx":"97379158f0ce","components/typography/Text.jsx":"642a06610251","src/index.ts":"9475e47b39e5"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"08c8a9da5fee","components/buttons/IconButton.jsx":"9625cb6f6231","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"724cf4b45ecc","components/data-display/AvatarMenu.jsx":"14b280842168","components/data-display/Badge.jsx":"69e6aff0081a","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"e1985980f3d8","components/data-display/Carousel.jsx":"4c0981ca4ea9","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"0074c3619a19","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"79c72470804e","components/data-display/ImageViewer.jsx":"51561e515465","components/data-display/Kanban.jsx":"389caa2e45d2","components/data-display/List.jsx":"89e1b0ef9c72","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"38b0431624b9","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"92e0de3c6efe","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"9a58f8174004","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"456f691e9b3c","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"52c1c5a0ca83","components/inputs/ColorPicker.jsx":"1efc64d10bf0","components/inputs/Combobox.jsx":"f0e2302a782d","components/inputs/Currency.jsx":"9e0a15b51ef1","components/inputs/CurrencyField.jsx":"6117a20400b6","components/inputs/DatePicker.jsx":"03c9789765bb","components/inputs/DateRangePicker.jsx":"6ecea0ba13b5","components/inputs/DateTimePicker.jsx":"d3d54cf176a5","components/inputs/Field.jsx":"e4c5ba6b0455","components/inputs/FieldRow.jsx":"7728a563248c","components/inputs/FileUpload.jsx":"ff8d288c9063","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"cd71f1e096d1","components/inputs/Input.jsx":"0a5b231c716d","components/inputs/Label.jsx":"dfdad32670fd","components/inputs/MultiSelect.jsx":"597e989dbf2a","components/inputs/Radio.jsx":"3dcda0eaacb0","components/inputs/RadioGroup.jsx":"224928157fc4","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5ef91a521869","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a09dc2f23ff0","components/inputs/Textarea.jsx":"086de8befb61","components/inputs/TimePicker.jsx":"122ef8fd0ced","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"724003a42299","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"baa21c063fe4","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"cac42c569080","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"b0045c78a736","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"57ea77870c8d","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"e5c9a898a0d7","components/navigation/Breadcrumb.jsx":"bbbef6c9957f","components/navigation/Navbar.jsx":"7fb1f2629199","components/navigation/Sidebar.jsx":"e87e28eef508","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"95154a884c47","components/navigation/TreeView.jsx":"72f08e1f44c8","components/overlay/CommandPalette.jsx":"39bb3dbe155e","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"c68a9c904738","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"e2de1e0866af","components/typography/Code.jsx":"a6a74f93cb2b","components/typography/Heading.jsx":"e98181d4d72f","components/typography/Kbd.jsx":"ff96e9dbdbe0","components/typography/Pre.jsx":"97379158f0ce","components/typography/Text.jsx":"642a06610251","src/index.ts":"9475e47b39e5"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -462,9 +462,9 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   }
   var KBD_CSS = `
 .twc-kbd { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; padding: 2px 6px;
-  font-family: var(--font-mono); font-size: 11px; font-weight: var(--font-semibold); line-height: 1; color: var(--color-text-muted);
-  background: var(--color-surface-sunken); border: var(--border-thin) solid var(--color-border);
-  border-bottom-width: 2px; border-radius: var(--radius-sm); }
+font-family: var(--font-mono); font-size: 11px; font-weight: var(--font-semibold); line-height: 1; color: var(--color-text-muted);
+background: var(--color-surface-sunken); border: var(--border-thin) solid var(--color-border);
+border-bottom-width: 2px; border-radius: var(--radius-sm); }
 `;
   var Kbd = /* @__PURE__ */ import_react.default.forwardRef(function Kbd2({ className = "", children, ...rest }, ref) {
     const __twcStyles = useScopedStyles("twc-kbd-styles", KBD_CSS);
@@ -475,10 +475,10 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   });
   var PRE_CSS = `
 .twc-pre { margin: 0; padding: var(--space-4); overflow-x: auto; max-width: 100%;
-  font-family: var(--font-mono); font-size: var(--text-sm); line-height: var(--leading-normal);
-  color: var(--color-text); background: var(--color-surface-sunken);
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
-  white-space: pre; -webkit-overflow-scrolling: touch; }
+font-family: var(--font-mono); font-size: var(--text-sm); line-height: var(--leading-normal);
+color: var(--color-text); background: var(--color-surface-sunken);
+border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
+white-space: pre; -webkit-overflow-scrolling: touch; }
 `;
   var Pre = /* @__PURE__ */ import_react.default.forwardRef(function Pre2({ className = "", children, ...rest }, ref) {
     const __twcStyles = useScopedStyles("twc-pre-styles", PRE_CSS);
@@ -489,7 +489,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   });
   var ANCHOR_CSS = `
 .twc-anchor { color: var(--color-primary-subtle-fg); text-decoration: none; border-radius: var(--radius-sm);
-  transition: color var(--duration-fast) var(--ease-standard); }
+transition: color var(--duration-fast) var(--ease-standard); }
 .twc-anchor:hover { text-decoration: underline; color: var(--color-primary-hover, var(--color-primary)); }
 .twc-anchor:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-anchor__ext { display: inline-block; margin-inline-start: 3px; font-size: 0.85em; vertical-align: baseline; }
@@ -583,60 +583,51 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   });
   var ICONBTN_CSS = `
 .twc-iconbtn {
-  --_sz: var(--control-h-md);
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--_sz);
-  height: var(--_sz);
-  padding: 0;
-  border: var(--border-thin) solid transparent;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  color: var(--color-text-muted);
-  background: transparent;
-  overflow: hidden;
-  transition: background-color var(--duration-fast) var(--ease-standard),
-              color var(--duration-fast) var(--ease-standard),
-              border-color var(--duration-fast) var(--ease-standard),
-              box-shadow var(--duration-fast) var(--ease-standard),
-              transform var(--duration-fast) var(--ease-spring);
+--_sz: var(--control-h-md);
+position: relative;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: var(--_sz);
+height: var(--_sz);
+padding: 0;
+border: var(--border-thin) solid transparent;
+border-radius: var(--radius-md);
+cursor: pointer;
+color: var(--color-text-muted);
+background: transparent;
+overflow: hidden;
+transition: background-color var(--duration-fast) var(--ease-standard),
+color var(--duration-fast) var(--ease-standard),
+border-color var(--duration-fast) var(--ease-standard),
+box-shadow var(--duration-fast) var(--ease-standard),
+transform var(--duration-fast) var(--ease-spring);
 }
 .twc-iconbtn[data-round="true"] { border-radius: var(--radius-full); }
-/* xs: ~26px square \u2014 composed from space tokens (no global control-h-xs token). */
+
 .twc-iconbtn[data-size="xs"] { --_sz: calc(var(--space-6) + var(--space-0-5)); }
 .twc-iconbtn[data-size="sm"] { --_sz: var(--control-h-sm); }
 .twc-iconbtn[data-size="lg"] { --_sz: var(--control-h-lg); }
 .twc-iconbtn:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-iconbtn:active:not(:disabled) { transform: scale(var(--press-scale)); }
 .twc-iconbtn:disabled { opacity: 0.5; cursor: not-allowed; }
-/* #342: disabled state for the anchor form (as="a") \u2014 :disabled doesn't apply to <a>. */
+
 .twc-iconbtn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
 .twc-iconbtn svg { width: 1.25em; height: 1.25em; }
 
-/* tone supplies the accent set; variant decides how it's applied \u2014 mirrors Button. Default tone
-   primary; danger reuses its (active-less) hover for the pressed state. */
 .twc-iconbtn { --_accent: var(--color-primary); --_accent-hover: var(--color-primary-hover);
-  --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); }
+--_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); }
 .twc-iconbtn[data-tone="danger"] { --_accent: var(--color-danger); --_accent-hover: var(--color-danger-hover);
-  --_accent-fg: var(--color-danger-fg); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
-/* #504: the full Tone scale, not just primary|danger. A standalone affirmative action - a row-level
-   confirm sitting next to a danger sibling, reading as "yes / no" - could not be green, so the colour
-   that carried the distinction came out the same blue as every neutral action on the page.
-   success/warning/info now have real -hover/-active tokens (added in tokens/colors.css on the same
-   step rule as primary and danger: light goes darker, dark goes lighter), so hover always moves AWAY
-   from the ink and contrast only improves. neutral has no accent tokens anywhere and is mapped the way
-   Badge already maps it - --color-text on --color-surface solid, --color-surface-sunken soft - with its
-   hover mixed from currentColor, since there is no --color-text-hover to point at. */
+--_accent-fg: var(--color-danger-fg); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
+
 .twc-iconbtn[data-tone="success"] { --_accent: var(--color-success); --_accent-hover: var(--color-success-hover);
-  --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); }
+--_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); }
 .twc-iconbtn[data-tone="warning"] { --_accent: var(--color-warning); --_accent-hover: var(--color-warning-hover);
-  --_accent-fg: var(--color-warning-fg); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
+--_accent-fg: var(--color-warning-fg); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
 .twc-iconbtn[data-tone="info"] { --_accent: var(--color-info); --_accent-hover: var(--color-info-hover);
-  --_accent-fg: var(--color-info-fg); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }
+--_accent-fg: var(--color-info-fg); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }
 .twc-iconbtn[data-tone="neutral"] { --_accent: var(--color-text); --_accent-hover: color-mix(in srgb, var(--color-text) 88%, var(--color-surface));
-  --_accent-fg: var(--color-surface); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text-muted); }
+--_accent-fg: var(--color-surface); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text-muted); }
 .twc-iconbtn[data-variant="solid"] { background: var(--_accent); color: var(--_accent-fg); }
 .twc-iconbtn[data-variant="solid"]:hover:not(:disabled) { background: var(--_accent-hover); box-shadow: var(--shadow-brand); }
 .twc-iconbtn[data-variant="solid"]:active:not(:disabled) { filter: brightness(0.92); }
@@ -646,25 +637,17 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-iconbtn[data-variant="outline"] { border-color: var(--color-border-strong); color: var(--color-text); }
 .twc-iconbtn[data-variant="outline"]:hover:not(:disabled) { border-color: var(--_accent); color: var(--_accent); background: var(--color-surface-sunken); }
 .twc-iconbtn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent); }
-/* #405: toggle "on" state (aria-pressed) \u2014 a soft tone fill + tone border, works over any variant. */
+
 .twc-iconbtn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
-/* #411: pressed fill can carry any status Tone. */
-/* #522: the missing member of the Tone scale. Without this, pressedTone="primary" selected
-   NOTHING, so a pressed <Button tone="danger" pressedTone="primary"> kept resolving its accent
-   trio from .twc-iconbtn[data-tone="danger"] (0,2,0) and painted red - and ToggleGroup, which
-   passes an item's tone straight through as pressedTone (ToggleGroup.jsx:96), lost the
-   per-item meaning colour from #411 for exactly this one tone. 1 class + 2 attributes =
-   (0,3,0), which outranks the (0,2,0) data-tone blocks just as the four rules below it do. */
+
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="primary"] { --_accent: var(--color-primary); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); }
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="success"] { --_accent: var(--color-success); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); }
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="warning"] { --_accent: var(--color-warning); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="info"] { --_accent: var(--color-info); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="danger"] { --_accent: var(--color-danger); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
-/* #430: color-surface-sunken steps toward the page background in dark mode, so a neutral pressed fill was
-   invisible on a surface panel. Fill with color-border (steps away from the background in both themes) + a
-   stronger color-text-subtle edge so the outline also carries the "on" state. Mirrors Button. */
+
 .twc-iconbtn[aria-pressed="true"][data-pressed-tone="neutral"] { --_accent: var(--color-text-subtle); --_accent-subtle: var(--color-border); --_accent-subtle-fg: var(--color-text); }
-/* #418: keep the pressed look on hover (matching-specificity, after the variant hover rules). */
+
 .twc-iconbtn[aria-pressed="true"]:hover:not(:disabled) { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); filter: brightness(0.97); }
 .dark .twc-iconbtn[aria-pressed="true"]:hover:not(:disabled) { filter: brightness(1.25); }
 `;
@@ -731,34 +714,26 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   }
   var TOOLTIP_CSS = `
 .twc-tooltip-wrap { display: inline-flex; }
-/* #398: a native disabled control swallows the pointer events the tooltip opens from (browser-dependent),
-   so a disabled trigger often never shows its tooltip on hover. Let the pointer fall through to the wrap,
-   which owns onMouseEnter, and keep the not-allowed cursor hint. */
+
 .twc-tooltip-wrap > :disabled, .twc-tooltip-wrap > [aria-disabled="true"] { pointer-events: none; }
 .twc-tooltip-wrap:has(> :disabled), .twc-tooltip-wrap:has(> [aria-disabled="true"]) { cursor: not-allowed; }
-/* #420: the trigger is often wrapped by a Menu/Popover span, so the disabled control is a grandchild \u2014 reach it. */
+
 .twc-tooltip-wrap :is(.twc-menu-wrap, .twc-popover-wrap) > :disabled,
 .twc-tooltip-wrap :is(.twc-menu-wrap, .twc-popover-wrap) > [aria-disabled="true"] { pointer-events: none; }
 .twc-tooltip-wrap:has(:is(.twc-menu-wrap, .twc-popover-wrap) > :is(:disabled, [aria-disabled="true"])) { cursor: not-allowed; }
 .twc-tooltip {
-  position: fixed; z-index: var(--z-tooltip);
-  /* #348: purely presentational \u2014 the bubble must NEVER intercept the pointer, so neither a hidden
-     (opacity:0) nor a shown bubble can block neighbouring cells/buttons (matches MUI/Radix tooltips). */
-  pointer-events: none;
-  padding: 6px 10px; border-radius: var(--radius-md);
-  /* #385: capture the ink as the bubble bg via a private var BEFORE the content wrapper re-scopes
-     --color-text, so a token-driven child (Text/Heading) reads the bubble's fg \u2014 not the page ink,
-     which is this very background \u2014 and the re-scope can't feed back into the bg. */
-  --_tt-bg: var(--color-text); --_tt-fg: var(--color-surface);
-  background: var(--_tt-bg); color: var(--_tt-fg);
-  font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-medium);
-  line-height: 1.3; white-space: normal;
-  /* Grow horizontally to max-width, then wrap. max-content sizes to the content (capped by
-     max-width) and \u2014 unlike shrink-to-fit width:auto \u2014 is NOT constrained by the space between
-     the fixed left edge and the viewport edge, so a tooltip near the right edge no longer
-     collapses to ~1 word per line and stretch vertically. */
-  width: max-content; max-width: var(--_tw-maxw, 320px); box-shadow: var(--shadow-md);
-  opacity: 0; transform: scale(0.9); transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-spring);
+position: fixed; z-index: var(--z-tooltip);
+
+pointer-events: none;
+padding: 6px 10px; border-radius: var(--radius-md);
+
+--_tt-bg: var(--color-text); --_tt-fg: var(--color-surface);
+background: var(--_tt-bg); color: var(--_tt-fg);
+font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-medium);
+line-height: 1.3; white-space: normal;
+
+width: max-content; max-width: var(--_tw-maxw, 320px); box-shadow: var(--shadow-md);
+opacity: 0; transform: scale(0.9); transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-spring);
 }
 .twc-tooltip[data-show="true"] { opacity: 1; transform: scale(1); }
 .twc-tooltip[data-place="top"]    { transform-origin: bottom center; translate: -50% 0; }
@@ -767,15 +742,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-tooltip[data-place="right"]  { transform-origin: left center; translate: 0 -50%; }
 .twc-tooltip[data-show="true"][data-place="top"], .twc-tooltip[data-show="true"][data-place="bottom"] { transform: scale(1); }
 .twc-tooltip__arrow { position: absolute; width: 7px; height: 7px; background: var(--_tt-bg); transform: rotate(45deg); }
-/* #385: re-scope token ink for the label subtree so Text/Heading (which set --color-text as an inline
-   style) render in the bubble's fg instead of the page ink. display:contents adds no box, so the label's
-   own flex/block layout is unchanged; custom properties still inherit through it. */
+
 .twc-tooltip__content { display: contents; --color-text: var(--_tt-fg);
-  --color-text-muted: color-mix(in srgb, var(--_tt-fg) 72%, var(--_tt-bg));
-  --color-text-subtle: color-mix(in srgb, var(--_tt-fg) 55%, var(--_tt-bg)); }
-/* Arrow tracks the trigger via --_tw-arrow-x/y (px from the tooltip edge) instead of being
-   locked to the centre, so it still points at the trigger when the bubble is clamped near a
-   viewport edge. Falls back to 50% before measurement / SSR. */
+--color-text-muted: color-mix(in srgb, var(--_tt-fg) 72%, var(--_tt-bg));
+--color-text-subtle: color-mix(in srgb, var(--_tt-fg) 55%, var(--_tt-bg)); }
+
 .twc-tooltip[data-place="top"] .twc-tooltip__arrow    { bottom: -3px; left: var(--_tw-arrow-x, 50%); margin-left: -3.5px; }
 .twc-tooltip[data-place="bottom"] .twc-tooltip__arrow { top: -3px; left: var(--_tw-arrow-x, 50%); margin-left: -3.5px; }
 .twc-tooltip[data-place="left"] .twc-tooltip__arrow   { right: -3px; top: var(--_tw-arrow-y, 50%); margin-top: -3.5px; }
@@ -933,17 +904,17 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   var IV_CSS = `
 .twc-iv { position: relative; display: block; width: 100%; font-family: var(--font-sans); }
 .twc-iv__stage { position: relative; overflow: hidden; width: 100%; height: 100%; min-height: 200px; touch-action: none;
-  /* #414: styleable via --twc-iv-bg / --twc-iv-radius (or the radius prop) \u2014 current values as the fallback. */
-  background: var(--twc-iv-bg, var(--color-surface-sunken)); border-radius: var(--twc-iv-radius, var(--radius-lg)); }
+
+background: var(--twc-iv-bg, var(--color-surface-sunken)); border-radius: var(--twc-iv-radius, var(--radius-lg)); }
 .twc-iv__stage:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-iv__stage[data-zoomed="true"] { cursor: grab; }
 .twc-iv__stage[data-dragging="true"] { cursor: grabbing; }
 .twc-iv__img { display: block; width: 100%; height: 100%; transform-origin: center center; user-select: none; -webkit-user-drag: none;
-  transition: transform var(--duration-fast) var(--ease-standard); }
+transition: transform var(--duration-fast) var(--ease-standard); }
 .twc-iv__stage[data-dragging="true"] .twc-iv__img { transition: none; }
 @media (prefers-reduced-motion: reduce) { .twc-iv__img { transition: none; } }
 .twc-iv__controls { position: absolute; inset-block-end: var(--space-2); inset-inline-end: var(--space-2); display: flex; gap: var(--space-1);
-  background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-full); padding: 3px; box-shadow: var(--shadow-md); }
+background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-full); padding: 3px; box-shadow: var(--shadow-md); }
 `;
   var clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
   var IcoPlus = /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
@@ -1161,15 +1132,15 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   });
   var ACCORDION_CSS = `
 .twc-accordion { display: flex; flex-direction: column; font-family: var(--font-sans);
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-surface); }
+border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-surface); }
 .twc-accordion__item { border-bottom: var(--border-thin) solid var(--color-divider); }
 .twc-accordion__item:last-child { border-bottom: none; }
 .twc-accordion__trigger {
-  display: flex; align-items: center; gap: var(--space-3); width: 100%;
-  padding: var(--space-4); border: none; background: transparent; cursor: pointer;
-  font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold);
-  color: var(--color-text); text-align: start;
-  transition: background-color var(--duration-fast) var(--ease-standard);
+display: flex; align-items: center; gap: var(--space-3); width: 100%;
+padding: var(--space-4); border: none; background: transparent; cursor: pointer;
+font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold);
+color: var(--color-text); text-align: start;
+transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-accordion__heading { margin: 0; font: inherit; }
 .twc-accordion__trigger:hover:not(:disabled) { background: var(--color-surface-sunken); }
@@ -1180,16 +1151,15 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-accordion__chevron svg { width: 18px; height: 18px; display: block; }
 .twc-accordion__trigger[data-open="true"] .twc-accordion__chevron { transform: rotate(180deg); color: var(--color-primary); }
 .twc-accordion__panel { display: grid; grid-template-rows: 0fr; visibility: hidden;
-  transition: grid-template-rows var(--duration-base) var(--ease-standard), visibility 0s var(--duration-base); }
+transition: grid-template-rows var(--duration-base) var(--ease-standard), visibility 0s var(--duration-base); }
 .twc-accordion__panel[data-open="true"] { grid-template-rows: 1fr; visibility: visible;
-  transition: grid-template-rows var(--duration-base) var(--ease-standard), visibility 0s; }
+transition: grid-template-rows var(--duration-base) var(--ease-standard), visibility 0s; }
 .twc-accordion__panel-inner { overflow: hidden; }
 .twc-accordion__content { padding: 0 var(--space-4) var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-normal); }
-/* WCAG 2.3.3: panels expand/collapse (and the chevron rotates) instantly under reduced motion
-   \u2014 visibility still toggles, so open/closed state is unchanged. */
+
 @media (prefers-reduced-motion: reduce) {
-  .twc-accordion__panel, .twc-accordion__panel[data-open="true"] { transition: none; }
-  .twc-accordion__chevron { transition: none; }
+.twc-accordion__panel, .twc-accordion__panel[data-open="true"] { transition: none; }
+.twc-accordion__chevron { transition: none; }
 }
 `;
   function Accordion({
@@ -1293,13 +1263,13 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   }
   var ALERT_CSS = `
 .twc-alert {
-  display: flex; gap: var(--space-3); align-items: flex-start;
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-lg); font-family: var(--font-sans);
-  border: var(--border-thin) solid transparent;
-  animation: twico-slide-down var(--duration-base) var(--ease-out);
+display: flex; gap: var(--space-3); align-items: flex-start;
+padding: var(--space-3) var(--space-4);
+border-radius: var(--radius-lg); font-family: var(--font-sans);
+border: var(--border-thin) solid transparent;
+animation: twico-slide-down var(--duration-base) var(--ease-out);
 }
-/* tone \u2192 accent set (default info). Mirrors Button's --_accent model + Badge's tones. */
+
 .twc-alert { --_accent: var(--color-info); --_accent-fg: var(--color-info-fg); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }
 .twc-alert[data-tone="success"] { --_accent: var(--color-success); --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); }
 .twc-alert[data-tone="warning"] { --_accent: var(--color-warning); --_accent-fg: var(--color-warning-fg); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
@@ -1307,12 +1277,10 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-alert[data-tone="primary"] { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); }
 .twc-alert[data-tone="neutral"] { --_accent: var(--color-text); --_accent-fg: var(--color-surface); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text); }
 
-/* variant = fill (soft default reproduces the original tinted alert) */
 .twc-alert[data-variant="soft"]    { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: color-mix(in srgb, var(--_accent) 30%, transparent); }
 .twc-alert[data-variant="solid"]   { background: var(--_accent); color: var(--_accent-fg); border-color: transparent; }
 .twc-alert[data-variant="outline"] { background: transparent; color: var(--_accent-subtle-fg); border-color: var(--_accent); }
-/* #453: full-strength accent-fg - the 0.92 multiplier put the solid description at 3.31:1, under the
-   4.5:1 SC 1.4.3 floor for body text. The title/description hierarchy is carried by font-weight. */
+
 .twc-alert[data-variant="solid"] .twc-alert__desc { color: var(--_accent-fg); }
 
 .twc-alert__icon { flex: none; margin-top: 1px; }
@@ -1321,13 +1289,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-alert__title { font-weight: var(--font-bold); font-size: var(--text-sm); margin-bottom: 2px; }
 .twc-alert__desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-snug); }
 .twc-alert__close {
-  flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px;
-  border: none; background: transparent; color: currentColor; cursor: pointer;
-  border-radius: var(--radius-sm); transition: background-color var(--duration-fast);
+flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px;
+border: none; background: transparent; color: currentColor; cursor: pointer;
+border-radius: var(--radius-sm); transition: background-color var(--duration-fast);
 }
-/* #453: the dismiss glyph is a non-text control, so SC 1.4.11 wants 3:1 - the old opacity: 0.6 left it
-   at 2.14-3.00:1 across the tones. It now inherits the alert's own foreground (already token-guaranteed)
-   and the hover affordance comes from the background tint alone, not from an opacity ramp. */
+
 .twc-alert__close:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
 .twc-alert__close svg { width: 15px; height: 15px; }
 `;
@@ -1369,14 +1335,14 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   }
   var AVATAR_CSS = `
 .twc-avatar {
-  --_sz: 40px;
-  position: relative; flex: none; display: inline-grid; place-items: center;
-  width: var(--_sz); height: var(--_sz);
-  border-radius: var(--radius-full);
-  background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg);
-  font-family: var(--font-sans); font-weight: var(--font-semibold);
-  font-size: calc(var(--_sz) * 0.4); line-height: 1;
-  overflow: visible; user-select: none;
+--_sz: 40px;
+position: relative; flex: none; display: inline-grid; place-items: center;
+width: var(--_sz); height: var(--_sz);
+border-radius: var(--radius-full);
+background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg);
+font-family: var(--font-sans); font-weight: var(--font-semibold);
+font-size: calc(var(--_sz) * 0.4); line-height: 1;
+overflow: visible; user-select: none;
 }
 .twc-avatar[data-size="xs"] { --_sz: 24px; }
 .twc-avatar[data-size="sm"] { --_sz: 32px; }
@@ -1386,14 +1352,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-avatar[data-square="true"], .twc-avatar[data-square="true"] .twc-avatar__img { border-radius: var(--radius-md); }
 .twc-avatar__ring { box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-primary); }
 .twc-avatar__status {
-  position: absolute; inset-inline-end: 0; bottom: 0;
-  width: 28%; height: 28%; min-width: 8px; min-height: 8px;
-  border-radius: var(--radius-full); border: 2px solid var(--color-surface);
+position: absolute; inset-inline-end: 0; bottom: 0;
+width: 28%; height: 28%; min-width: 8px; min-height: 8px;
+border-radius: var(--radius-full); border: 2px solid var(--color-surface);
 }
-/* #455 (review): the dot's fill is the ONLY carrier of the status - nothing sits on top of it and the
-   2px ring is the surface colour - so SC 1.4.11's 3:1 applies and the -graphic aliases are the right
-   tones. "away" on the plain warning tone was 2.15:1 in light. (Badge/Timeline/Stepper keep the plain
-   tones: their fills carry --color-*-fg content, so they are backgrounds, not standalone graphics.) */
+
 .twc-avatar__status[data-status="online"] { background: var(--color-success-graphic); }
 .twc-avatar__status[data-status="busy"] { background: var(--color-danger-graphic); }
 .twc-avatar__status[data-status="away"] { background: var(--color-warning-graphic); }
@@ -1452,11 +1415,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   var MENU_CSS = `
 .twc-menu-wrap { position: relative; display: inline-flex; }
 .twc-menu {
-  position: fixed; z-index: var(--z-popover); min-width: 200px;
-  padding: var(--space-1-5); background: var(--color-surface-raised);
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg); font-family: var(--font-sans);
-  transform-origin: top; overflow-y: auto;
+position: fixed; z-index: var(--z-popover); min-width: 200px;
+padding: var(--space-1-5); background: var(--color-surface-raised);
+border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
+box-shadow: var(--shadow-lg); font-family: var(--font-sans);
+transform-origin: top; overflow-y: auto;
 }
 .twc-menu[data-state="open"] { animation: twico-scale-in var(--duration-fast) var(--ease-spring); }
 .twc-menu[data-state="closed"] { animation: twc-menu-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
@@ -1470,11 +1433,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-menu__label { padding: 6px 10px 4px; font-size: var(--text-xs); font-weight: var(--font-semibold); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
 .twc-menu__sep { height: 1px; background: var(--color-divider); margin: var(--space-1-5) 0; }
 .twc-menu__item {
-  display: flex; align-items: center; gap: var(--space-2-5); width: 100%;
-  padding: 8px 10px; border: none; background: transparent; cursor: pointer;
-  font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-medium);
-  color: var(--color-text); text-align: start; border-radius: var(--radius-md);
-  transition: background-color var(--duration-fast) var(--ease-standard);
+display: flex; align-items: center; gap: var(--space-2-5); width: 100%;
+padding: 8px 10px; border: none; background: transparent; cursor: pointer;
+font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-medium);
+color: var(--color-text); text-align: start; border-radius: var(--radius-md);
+transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-menu__item:hover:not(:disabled), .twc-menu__item[data-active="true"]:not(:disabled) { background: var(--color-surface-sunken); }
 .twc-menu__item:focus-visible { outline: none; box-shadow: var(--ring); }
@@ -1483,9 +1446,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-menu__item[data-danger="true"]:hover:not(:disabled), .twc-menu__item[data-danger="true"][data-active="true"]:not(:disabled) { background: var(--color-danger-subtle); }
 .twc-menu__item svg { width: 16px; height: 16px; flex: none; }
 .twc-menu__item-label { flex: 1 1 auto; min-width: 0; }
-/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
-   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
-   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+
 .twc-menu__shortcut { margin-inline-start: auto; padding-inline-start: var(--space-3); font-size: var(--text-xs); color: var(--color-text-muted); font-family: var(--font-mono); }
 `;
   var safeHref3 = (url) => {
@@ -1759,27 +1720,22 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   }
   var AVATARMENU_CSS = `
 .twc-avatar-menu { display: inline-flex; align-items: center; gap: var(--space-2); padding: 3px 4px 3px 3px; border: none; background: transparent;
-  cursor: pointer; border-radius: var(--radius-full); font-family: var(--font-sans); color: var(--color-text);
-  transition: background-color var(--duration-fast) var(--ease-standard); }
+cursor: pointer; border-radius: var(--radius-full); font-family: var(--font-sans); color: var(--color-text);
+transition: background-color var(--duration-fast) var(--ease-standard); }
 .twc-avatar-menu:hover { background: var(--color-surface-sunken); }
 .twc-avatar-menu:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-avatar-menu__text { display: flex; flex-direction: column; align-items: flex-start; gap: 0; min-width: 0; line-height: 1.2; }
 .twc-avatar-menu__name { font-size: var(--text-sm); font-weight: var(--font-semibold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
-/* #462: text-MUTED, not text-subtle. A hover/active rule swaps --color-surface-sunken (or
-   --color-primary-subtle) in under this text without changing its colour, and text-subtle on
-   either is 4.34:1 / 4.26:1 in light - the pairing the token rules forbid (docs/colors.md). It
-   passes at rest on --color-surface and fails only while hovered, which is why it survived. */
+
 .twc-avatar-menu__sub { font-size: var(--text-xs); color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
 .twc-avatar-menu__chev { color: var(--color-text-subtle); display: inline-flex; flex: none; margin-inline-end: 2px; transition: transform var(--duration-base) var(--ease-spring); }
 .twc-avatar-menu__chev svg { width: 15px; height: 15px; }
-/* #402: fullWidth \u2014 the trigger (and its Menu wrap) stretch, the text column grows, and the chevron is pinned
-   to the inline-end, so a sidebar footer account row fills the rail. The compound .--block.twc-menu-wrap beats
-   Menu's own .twc-menu-wrap rule regardless of scoped-stylesheet order. */
+
 .twc-avatar-menu--block.twc-menu-wrap { display: flex; width: 100%; }
-.twc-avatar-menu--block .twc-avatar-menu { display: flex; width: 100%; border-radius: var(--radius-md); } /* #416: square-ish full-bleed row, not a pill */
+.twc-avatar-menu--block .twc-avatar-menu { display: flex; width: 100%; border-radius: var(--radius-md); }
 .twc-avatar-menu--block .twc-avatar-menu__text { flex: 1 1 auto; }
 .twc-avatar-menu--block .twc-avatar-menu__name, .twc-avatar-menu--block .twc-avatar-menu__sub { max-width: none; }
-/* #416: rotate the chevron while the menu is open (existing transition on __chev animates it). */
+
 .twc-avatar-menu[aria-expanded="true"] .twc-avatar-menu__chev { transform: rotate(180deg); }
 `;
   function AvatarMenu({
@@ -1836,17 +1792,16 @@ var TwicoUiDesignSystem_f2f16a = (() => {
   }
   var BADGE_CSS = `
 .twc-badge {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 2px 9px; height: 22px;
-  font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-semibold);
-  line-height: 1; letter-spacing: 0.01em; border-radius: var(--radius-full);
-  border: var(--border-thin) solid transparent; white-space: nowrap;
+display: inline-flex; align-items: center; gap: 5px;
+padding: 2px 9px; height: 22px;
+font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-semibold);
+line-height: 1; letter-spacing: 0.01em; border-radius: var(--radius-full);
+border: var(--border-thin) solid transparent; white-space: nowrap;
 }
 .twc-badge[data-size="sm"] { height: 18px; gap: 4px; font-size: var(--text-xs); padding: 1px 7px; }
 .twc-badge[data-size="lg"] { height: 26px; font-size: var(--text-sm); padding: 3px 12px; }
 .twc-badge__dot { width: 6px; height: 6px; border-radius: var(--radius-full); background: currentColor; }
 
-/* soft (default) */
 .twc-badge[data-variant="soft"][data-tone="primary"] { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); }
 .twc-badge[data-variant="soft"][data-tone="success"] { background: var(--color-success-subtle); color: var(--color-success-subtle-fg); }
 .twc-badge[data-variant="soft"][data-tone="warning"] { background: var(--color-warning-subtle); color: var(--color-warning-subtle-fg); }
@@ -1854,7 +1809,6 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-badge[data-variant="soft"][data-tone="info"]    { background: var(--color-info-subtle); color: var(--color-info-subtle-fg); }
 .twc-badge[data-variant="soft"][data-tone="neutral"] { background: var(--color-surface-sunken); color: var(--color-text-muted); }
 
-/* solid */
 .twc-badge[data-variant="solid"][data-tone="primary"] { background: var(--color-primary); color: var(--color-primary-fg); }
 .twc-badge[data-variant="solid"][data-tone="success"] { background: var(--color-success); color: var(--color-success-fg); }
 .twc-badge[data-variant="solid"][data-tone="warning"] { background: var(--color-warning); color: var(--color-warning-fg); }
@@ -1862,7 +1816,6 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 .twc-badge[data-variant="solid"][data-tone="info"]    { background: var(--color-info); color: var(--color-info-fg); }
 .twc-badge[data-variant="solid"][data-tone="neutral"] { background: var(--color-text); color: var(--color-surface); }
 
-/* outline */
 .twc-badge[data-variant="outline"] { background: transparent; }
 .twc-badge[data-variant="outline"][data-tone="primary"] { color: var(--color-primary-subtle-fg); border-color: var(--color-primary-border); }
 .twc-badge[data-variant="outline"][data-tone="success"] { color: var(--color-success-subtle-fg); border-color: var(--color-success); }
@@ -1896,9 +1849,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-breadcrumb__item svg { width: 15px; height: 15px; flex: none; }
 .twc-breadcrumb__sep { display: inline-flex; align-items: center; color: var(--color-text-subtle); pointer-events: none; }
 .twc-breadcrumb__sep svg { width: 15px; height: 15px; }
-/* #465: scoped to the BUILT-IN chevron. Unscoped, this flipped a consumer-supplied SVG separator
-   that was already non-directional or pre-mirrored, while giving a text separator (separator="/")
-   no RTL treatment at all. A custom separator now owns its own mirroring - see Breadcrumb.prompt.md. */
+
 [dir="rtl"] .twc-breadcrumb__sep[data-default-sep] svg { transform: scaleX(-1); }
 .twc-breadcrumb__ellipsis { border: none; background: transparent; cursor: pointer; color: var(--color-text-subtle); padding: 3px 7px; border-radius: var(--radius-sm); font: inherit; }
 .twc-breadcrumb__ellipsis:hover { background: var(--color-surface-sunken); color: var(--color-text); }
@@ -1962,148 +1913,122 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   }
   var CSS2 = `
 .twc-btn {
-  --_h: var(--control-h-md);
-  --_px: var(--space-4);
-  --_fs: var(--text-sm);
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  height: var(--_h);
-  padding-inline: var(--_px);
-  font-family: var(--font-sans);
-  font-size: var(--_fs);
-  font-weight: var(--font-semibold);
-  line-height: 1;
-  letter-spacing: -0.01em;
-  border: var(--border-thin) solid transparent;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  user-select: none;
-  white-space: nowrap;
-  overflow: hidden;
-  text-decoration: none;
-  transition: background-color var(--duration-fast) var(--ease-standard),
-              border-color var(--duration-fast) var(--ease-standard),
-              color var(--duration-fast) var(--ease-standard),
-              box-shadow var(--duration-fast) var(--ease-standard),
-              transform var(--duration-fast) var(--ease-spring);
+--_h: var(--control-h-md);
+--_px: var(--space-4);
+--_fs: var(--text-sm);
+position: relative;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: var(--space-2);
+height: var(--_h);
+padding-inline: var(--_px);
+font-family: var(--font-sans);
+font-size: var(--_fs);
+font-weight: var(--font-semibold);
+line-height: 1;
+letter-spacing: -0.01em;
+border: var(--border-thin) solid transparent;
+border-radius: var(--radius-md);
+cursor: pointer;
+user-select: none;
+white-space: nowrap;
+overflow: hidden;
+text-decoration: none;
+transition: background-color var(--duration-fast) var(--ease-standard),
+border-color var(--duration-fast) var(--ease-standard),
+color var(--duration-fast) var(--ease-standard),
+box-shadow var(--duration-fast) var(--ease-standard),
+transform var(--duration-fast) var(--ease-spring);
 }
 .twc-btn:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-btn:active:not(:disabled) { transform: scale(var(--press-scale)); }
 .twc-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-/* #398: focusableWhenDisabled renders aria-disabled instead of native disabled \u2014 same look, pointer blocked
-   (so :hover:not(:disabled) never fires), but the button stays focusable for a keyboard-reachable tooltip. */
+
 .twc-btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
-/* Hide the label/icons under the centered spinner via visibility on the content
-   span \u2014 variant rules set \`color\` later in this sheet, so a color-based hide
-   would lose the specificity tie and leave the label showing through. */
+
 .twc-btn[data-loading="true"] { cursor: progress; }
 .twc-btn[data-loading="true"] .twc-btn__content { visibility: hidden; }
 .twc-btn[data-block="true"] { width: 100%; }
 .twc-btn__content { display: inline-flex; align-items: center; gap: var(--space-2); min-width: 0; }
 
-/* xs: ~26px tall \u2014 composed from space tokens (no global control-h-xs token). */
 .twc-btn[data-size="xs"] { --_h: calc(var(--space-6) + var(--space-0-5)); --_px: var(--space-2-5); --_fs: var(--text-xs); }
 .twc-btn[data-size="sm"] { --_h: var(--control-h-sm); --_px: var(--space-3); --_fs: var(--text-xs); }
 .twc-btn[data-size="lg"] { --_h: var(--control-h-lg); --_px: var(--space-6); --_fs: var(--text-base); }
 
-/* tone supplies the accent color set; variant decides how it's applied. Default tone is primary;
-   danger reuses its (active-less) hover for the pressed state. */
 .twc-btn {
-  --_accent: var(--color-primary); --_accent-hover: var(--color-primary-hover); --_accent-active: var(--color-primary-active);
-  --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg);
+--_accent: var(--color-primary); --_accent-hover: var(--color-primary-hover); --_accent-active: var(--color-primary-active);
+--_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg);
 }
 .twc-btn[data-tone="danger"] {
-  --_accent: var(--color-danger); --_accent-hover: var(--color-danger-hover); --_accent-active: var(--color-danger-hover);
-  --_accent-fg: var(--color-danger-fg); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg);
+--_accent: var(--color-danger); --_accent-hover: var(--color-danger-hover); --_accent-active: var(--color-danger-hover);
+--_accent-fg: var(--color-danger-fg); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg);
 }
-/* #504: the full Tone scale, not just primary|danger. A standalone affirmative action - a row-level
-   confirm sitting next to a danger sibling, reading as "yes / no" - could not be green, so the colour
-   that carried the distinction came out the same blue as every neutral action on the page.
-   success/warning/info now have real -hover/-active tokens (added in tokens/colors.css on the same
-   step rule as primary and danger: light goes darker, dark goes lighter), so hover always moves AWAY
-   from the ink and contrast only improves. neutral has no accent tokens anywhere and is mapped the way
-   Badge already maps it - --color-text on --color-surface solid, --color-surface-sunken soft - with its
-   hover mixed from currentColor, since there is no --color-text-hover to point at. */
+
 .twc-btn[data-tone="success"] {
-  --_accent: var(--color-success); --_accent-hover: var(--color-success-hover); --_accent-active: var(--color-success-active);
-  --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg);
+--_accent: var(--color-success); --_accent-hover: var(--color-success-hover); --_accent-active: var(--color-success-active);
+--_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg);
 }
 .twc-btn[data-tone="warning"] {
-  --_accent: var(--color-warning); --_accent-hover: var(--color-warning-hover); --_accent-active: var(--color-warning-active);
-  --_accent-fg: var(--color-warning-fg); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg);
+--_accent: var(--color-warning); --_accent-hover: var(--color-warning-hover); --_accent-active: var(--color-warning-active);
+--_accent-fg: var(--color-warning-fg); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg);
 }
 .twc-btn[data-tone="info"] {
-  --_accent: var(--color-info); --_accent-hover: var(--color-info-hover); --_accent-active: var(--color-info-active);
-  --_accent-fg: var(--color-info-fg); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg);
+--_accent: var(--color-info); --_accent-hover: var(--color-info-hover); --_accent-active: var(--color-info-active);
+--_accent-fg: var(--color-info-fg); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg);
 }
 .twc-btn[data-tone="neutral"] {
-  --_accent: var(--color-text); --_accent-hover: color-mix(in srgb, var(--color-text) 88%, var(--color-surface));
-  --_accent-active: color-mix(in srgb, var(--color-text) 78%, var(--color-surface));
-  --_accent-fg: var(--color-surface); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text-muted);
+--_accent: var(--color-text); --_accent-hover: color-mix(in srgb, var(--color-text) 88%, var(--color-surface));
+--_accent-active: color-mix(in srgb, var(--color-text) 78%, var(--color-surface));
+--_accent-fg: var(--color-surface); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text-muted);
 }
-/* solid */
+
 .twc-btn[data-variant="solid"] { background: var(--_accent); color: var(--_accent-fg); }
 .twc-btn[data-variant="solid"]:hover:not(:disabled) { background: var(--_accent-hover); box-shadow: var(--shadow-brand); }
 .twc-btn[data-variant="solid"]:active:not(:disabled) { background: var(--_accent-active); }
-/* soft */
+
 .twc-btn[data-variant="soft"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); }
 .twc-btn[data-variant="soft"]:hover:not(:disabled) { background: var(--_accent-subtle); filter: brightness(0.97); }
 .dark .twc-btn[data-variant="soft"]:hover:not(:disabled) { filter: brightness(1.25); }
-/* outline \u2014 neutral at rest, accent on hover */
+
 .twc-btn[data-variant="outline"] { background: transparent; color: var(--color-text); border-color: var(--color-border-strong); }
 .twc-btn[data-variant="outline"]:hover:not(:disabled) { background: var(--color-surface-sunken); border-color: var(--_accent-subtle-fg); color: var(--_accent-subtle-fg); }
-/* ghost \u2014 neutral at rest, accent on hover */
+
 .twc-btn[data-variant="ghost"] { background: transparent; color: var(--color-text-muted); }
 .twc-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--_accent-subtle-fg); }
-/* #405: toggle "on" state (aria-pressed) \u2014 a soft tone fill + tone border, variant-agnostic (works over any variant). */
+
 .twc-btn[aria-pressed="true"] { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); }
-/* #411: pressed "on" fill can carry any status Tone (not just the ActionTone), so a toggle option shows its own
-   meaning colour \u2014 success/warning/info/neutral; only the pressed fill props are remapped. */
-/* #522: the missing member of the Tone scale. Without this, pressedTone="primary" selected
-   NOTHING, so a pressed <Button tone="danger" pressedTone="primary"> kept resolving its accent
-   trio from .twc-btn[data-tone="danger"] (0,2,0) and painted red - and ToggleGroup, which
-   passes an item's tone straight through as pressedTone (ToggleGroup.jsx:96), lost the
-   per-item meaning colour from #411 for exactly this one tone. 1 class + 2 attributes =
-   (0,3,0), which outranks the (0,2,0) data-tone blocks just as the four rules below it do. */
+
 .twc-btn[aria-pressed="true"][data-pressed-tone="primary"] { --_accent: var(--color-primary); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); }
 .twc-btn[aria-pressed="true"][data-pressed-tone="success"] { --_accent: var(--color-success); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); }
 .twc-btn[aria-pressed="true"][data-pressed-tone="warning"] { --_accent: var(--color-warning); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
 .twc-btn[aria-pressed="true"][data-pressed-tone="info"] { --_accent: var(--color-info); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); }
 .twc-btn[aria-pressed="true"][data-pressed-tone="danger"] { --_accent: var(--color-danger); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); }
-/* #430: color-surface-sunken steps TOWARD the page background in dark mode (0b1222 under 0f172a), so a neutral
-   pressed fill was invisible on a surface panel. Fill with color-border instead \u2014 it steps AWAY from the
-   background in both themes (lighter in dark, darker in light) \u2014 and strengthen the edge with color-text-subtle
-   so the outline carries the "on" state too (neutral has no meaning-colour to recolour the label). */
+
 .twc-btn[aria-pressed="true"][data-pressed-tone="neutral"] { --_accent: var(--color-text-subtle); --_accent-subtle: var(--color-border); --_accent-subtle-fg: var(--color-text); }
-/* #418: keep the pressed look under the pointer \u2014 the variant hover rules (0,4,0) otherwise beat the base
-   pressed rule (0,2,0). This matching-specificity rule, source-ordered after them, restores the fill/fg/border
-   (resetting the text colour too, so solid stays legible \u2014 incl. tone="danger"). */
+
 .twc-btn[aria-pressed="true"]:hover:not(:disabled) { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); border-color: var(--_accent); filter: brightness(0.97); }
 .dark .twc-btn[aria-pressed="true"]:hover:not(:disabled) { filter: brightness(1.25); }
 
 .twc-btn__spinner {
-  position: absolute; inset: 0; margin: auto;
-  width: 1.1em; height: 1.1em;
-  border: 2px solid currentColor; border-right-color: transparent;
-  border-radius: var(--radius-full);
-  color: var(--_accent-fg);
-  animation: twico-spin 0.6s linear infinite;
+position: absolute; inset: 0; margin: auto;
+width: 1.1em; height: 1.1em;
+border: 2px solid currentColor; border-right-color: transparent;
+border-radius: var(--radius-full);
+color: var(--_accent-fg);
+animation: twico-spin 0.6s linear infinite;
 }
 .twc-btn[data-variant="soft"] .twc-btn__spinner,
 .twc-btn[data-variant="outline"] .twc-btn__spinner,
 .twc-btn[data-variant="ghost"] .twc-btn__spinner { color: var(--_accent); }
 
 .twc-ripple {
-  position: absolute; border-radius: var(--radius-full);
-  background: currentColor; opacity: 0.3;
-  transform: scale(0); pointer-events: none;
-  animation: twico-ripple var(--duration-slow) var(--ease-out) forwards;
+position: absolute; border-radius: var(--radius-full);
+background: currentColor; opacity: 0.3;
+transform: scale(0); pointer-events: none;
+animation: twico-ripple var(--duration-slow) var(--ease-out) forwards;
 }
-/* WCAG 2.3.3: suppress the click ripple entirely under reduced motion (display:none, not
-   animation:none, so no static scale(0) dot lingers for the 600ms cleanup window). */
+
 @media (prefers-reduced-motion: reduce) { .twc-ripple { display: none; } }
 `;
   function safeHref5(url) {
@@ -2370,21 +2295,21 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   }
   var CARD_CSS = `
 .twc-card {
-  display: flex; flex-direction: column;
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  font-family: var(--font-sans); color: var(--color-text);
-  overflow: hidden;
-  transition: box-shadow var(--duration-base) var(--ease-standard),
-              transform var(--duration-base) var(--ease-spring),
-              border-color var(--duration-base) var(--ease-standard);
+display: flex; flex-direction: column;
+background: var(--color-surface);
+border-radius: var(--radius-lg);
+font-family: var(--font-sans); color: var(--color-text);
+overflow: hidden;
+transition: box-shadow var(--duration-base) var(--ease-standard),
+transform var(--duration-base) var(--ease-spring),
+border-color var(--duration-base) var(--ease-standard);
 }
 .twc-card[data-variant="elevated"] { box-shadow: var(--shadow-md); border: var(--border-thin) solid transparent; }
 .twc-card[data-variant="outline"] { border: var(--border-thin) solid var(--color-border); }
 .twc-card[data-variant="soft"] { background: var(--color-surface-sunken); border: var(--border-thin) solid transparent; }
 .twc-card[data-interactive="true"] { cursor: pointer; }
 .twc-card[data-interactive="true"]:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--color-primary-border); }
-/* Fill the parent cell \u2014 equal-height cards in a grid/flex row. */
+
 .twc-card[data-full="true"] { height: 100%; }
 .twc-card[data-pad="md"] { padding: var(--space-5); }
 .twc-card[data-pad="lg"] { padding: var(--space-6); }
@@ -2447,10 +2372,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-carousel__track { display: flex; transition: transform var(--duration-slow) var(--ease-emphasis); }
 .twc-carousel__slide { flex: 0 0 100%; min-width: 0; }
 .twc-carousel__arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
-  display: grid; place-items: center; width: 38px; height: 38px; border-radius: var(--radius-full);
-  background: color-mix(in srgb, var(--color-surface) 88%, transparent); color: var(--color-text);
-  border: var(--border-thin) solid var(--color-border); box-shadow: var(--shadow-md); cursor: pointer; backdrop-filter: blur(6px);
-  transition: background-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring); }
+display: grid; place-items: center; width: 38px; height: 38px; border-radius: var(--radius-full);
+background: color-mix(in srgb, var(--color-surface) 88%, transparent); color: var(--color-text);
+border: var(--border-thin) solid var(--color-border); box-shadow: var(--shadow-md); cursor: pointer; backdrop-filter: blur(6px);
+transition: background-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring); }
 .twc-carousel__arrow:hover { background: var(--color-surface); }
 .twc-carousel__arrow:active { transform: translateY(-50%) scale(0.9); }
 .twc-carousel__arrow:disabled { opacity: 0; pointer-events: none; }
@@ -2460,23 +2385,22 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 [dir="rtl"] .twc-carousel__arrow svg { transform: scaleX(-1); }
 .twc-carousel__dots { display: flex; justify-content: center; gap: 7px; margin-top: var(--space-3); }
 .twc-carousel__dot { width: 8px; height: 8px; border-radius: var(--radius-full); border: none; padding: 0; cursor: pointer;
-  background: var(--color-border-strong); transition: width var(--duration-base) var(--ease-spring), background-color var(--duration-fast); }
+background: var(--color-border-strong); transition: width var(--duration-base) var(--ease-spring), background-color var(--duration-fast); }
 .twc-carousel__dot[data-active="true"] { width: 22px; background: var(--color-primary); }
 .twc-carousel__pause { position: absolute; top: 12px; inset-inline-end: 12px; z-index: 2;
-  display: grid; place-items: center; width: 34px; height: 34px; border-radius: var(--radius-full);
-  background: color-mix(in srgb, var(--color-surface) 88%, transparent); color: var(--color-text);
-  border: var(--border-thin) solid var(--color-border); box-shadow: var(--shadow-sm); cursor: pointer;
-  backdrop-filter: blur(6px); transition: background-color var(--duration-fast) var(--ease-standard); }
+display: grid; place-items: center; width: 34px; height: 34px; border-radius: var(--radius-full);
+background: color-mix(in srgb, var(--color-surface) 88%, transparent); color: var(--color-text);
+border: var(--border-thin) solid var(--color-border); box-shadow: var(--shadow-sm); cursor: pointer;
+backdrop-filter: blur(6px); transition: background-color var(--duration-fast) var(--ease-standard); }
 .twc-carousel__pause:hover { background: var(--color-surface); }
 .twc-carousel__pause svg { width: 15px; height: 15px; display: block; }
 .twc-carousel__live { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
-/* WCAG 2.3.3: no slide/dot/arrow motion when the user asks for reduced motion \u2014 the index
-   still changes, it just jumps rather than tweening. */
+overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+
 @media (prefers-reduced-motion: reduce) {
-  .twc-carousel__track { transition: none; }
-  .twc-carousel__dot { transition: none; }
-  .twc-carousel__arrow { transition: none; }
+.twc-carousel__track { transition: none; }
+.twc-carousel__dot { transition: none; }
+.twc-carousel__arrow { transition: none; }
 }
 `;
   function Carousel({
@@ -2711,24 +2635,18 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-chart__leg { display: inline-flex; align-items: center; gap: 6px; transition: color var(--duration-fast) var(--ease-standard); }
 .twc-chart__leg[data-toggle="true"] { cursor: pointer; user-select: none; }
 .twc-chart__leg[data-toggle="true"]:hover { color: var(--color-text); }
-/* #453: a toggled-off legend entry is still an enabled role="button" with tabIndex 0, so it is not
-   exempt from SC 1.4.3 - opacity: 0.4 over text-muted left the label at 1.93:1. Say "hidden" with a
-   subtle-but-AA colour plus a line-through (also a non-colour cue, SC 1.4.1) and fade only the swatch,
-   which merely repeats the series name the label already carries. */
+
 .twc-chart__leg[data-off="true"] { color: var(--color-text-subtle); text-decoration: line-through; }
 .twc-chart__leg[data-off="true"] .twc-chart__leg-sw { opacity: 0.45; }
 .twc-chart__leg-sw { width: 10px; height: 10px; border-radius: 3px; flex: none; }
 
-/* Floating tooltip \u2014 a styled card that follows the pointer (ApexCharts / MUI X style).
-   Positioned inline by <ChartTooltip> (which flips below / clamps to the container so it
-   never clips); only the opacity fades in here so it can't fight the inline transform. */
 .twc-chart__tip {
-  position: absolute; z-index: 3; top: 0; left: 0; pointer-events: none; will-change: transform;
-  min-width: 88px; max-width: 240px; padding: 7px 9px;
-  background: var(--color-surface-raised); color: var(--color-text);
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg); font-size: var(--text-xs); line-height: 1.4;
-  opacity: 0; animation: twc-chart-tip-in var(--duration-fast) var(--ease-standard) forwards;
+position: absolute; z-index: 3; top: 0; left: 0; pointer-events: none; will-change: transform;
+min-width: 88px; max-width: 240px; padding: 7px 9px;
+background: var(--color-surface-raised); color: var(--color-text);
+border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
+box-shadow: var(--shadow-lg); font-size: var(--text-xs); line-height: 1.4;
+opacity: 0; animation: twc-chart-tip-in var(--duration-fast) var(--ease-standard) forwards;
 }
 .twc-chart__tip-title { font-weight: var(--font-bold); color: var(--color-text); margin-bottom: 4px; white-space: nowrap; }
 .twc-chart__tip-row { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
@@ -2738,36 +2656,31 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-chart__tip-val { font-weight: var(--font-semibold); color: var(--color-text); font-variant-numeric: tabular-nums; }
 @keyframes twc-chart-tip-in { from { opacity: 0; } to { opacity: 1; } }
 
-/* Hover emphasis: when the chart marks itself hovered, fade every mark except the active one. */
 .twc-chart[data-hovering="true"] [data-mark] { opacity: 0.3; transition: opacity var(--duration-base) var(--ease-standard); }
 .twc-chart[data-hovering="true"] [data-mark][data-active="true"] { opacity: 1; }
 [data-mark] { transition: opacity var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-spring); cursor: default; }
 
-/* Click-to-select: a soft accent ring + glow on the chosen mark (not a heavy outline). */
 [data-mark][data-selected="true"] { stroke: var(--color-text); stroke-width: 1.5; stroke-opacity: 0.5; paint-order: stroke; filter: drop-shadow(0 0 3px color-mix(in srgb, var(--color-text) 22%, transparent)); }
-/* Click-to-focus: a persistent selection also dims the other marks (focus mode), on every chart. */
+
 .twc-chart[data-has-selection="true"] [data-mark]:not([data-selected="true"]) { opacity: 0.4; }
 .twc-chart[data-clickable="true"] [data-mark], .twc-chart__overlay[data-clickable="true"] { cursor: pointer; }
 
-/* Crosshair + full-plot event overlay (cartesian shared-axis interactions). */
 .twc-chart__overlay, .twc-chart__zone { fill: transparent; }
 .twc-chart__crosshair { stroke: var(--color-border-strong); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.7; pointer-events: none; }
 
-/* Drag-to-zoom affordances: a crosshair cursor over the zoom overlay + a bordered band. */
 .twc-chart__overlay[data-zoom="true"] { cursor: crosshair; }
 .twc-chart__overlay[data-zoom="true"][data-panning="true"] { cursor: grabbing; }
 .twc-chart__zoomband { fill: var(--color-primary); opacity: 0.14; stroke: var(--color-primary); stroke-opacity: 0.5; stroke-width: 1; pointer-events: none; }
 .twc-chart__zoom-reset {
-  position: absolute; top: 6px; inset-inline-end: 8px; z-index: 2;
-  display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px;
-  font-family: var(--font-sans); font-size: var(--text-xs); color: var(--color-text-muted);
-  background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
-  border-radius: var(--radius-md); box-shadow: var(--shadow-sm); cursor: pointer;
+position: absolute; top: 6px; inset-inline-end: 8px; z-index: 2;
+display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px;
+font-family: var(--font-sans); font-size: var(--text-xs); color: var(--color-text-muted);
+background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
+border-radius: var(--radius-md); box-shadow: var(--shadow-sm); cursor: pointer;
 }
 .twc-chart__zoom-reset:hover { color: var(--color-text); border-color: var(--color-border-strong); }
 .twc-chart__zoom-reset svg { width: 12px; height: 12px; }
 
-/* Entrance animations (respect reduced motion, below). */
 @keyframes twc-chart-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes twc-chart-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes twc-chart-draw { to { stroke-dashoffset: 0; } }
@@ -2780,7 +2693,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-chart__anim-arc { transform-box: fill-box; transform-origin: center; animation: twc-chart-fade var(--duration-base) var(--ease-standard) both; }
 
 @media (prefers-reduced-motion: reduce) {
-  .twc-chart svg *, .twc-chart__tip, .twc-chart [class*="__anim"] { animation: none !important; stroke-dashoffset: 0 !important; opacity: 1 !important; transform: none !important; }
+.twc-chart svg *, .twc-chart__tip, .twc-chart [class*="__anim"] { animation: none !important; stroke-dashoffset: 0 !important; opacity: 1 !important; transform: none !important; }
 }
 `;
   function ChartTable({ id, caption, columns, rows }) {
@@ -4881,8 +4794,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-funnel__label { fill: var(--color-chart-on-fill); paint-order: stroke; stroke: var(--color-chart-on-fill-halo); stroke-width: 3px; stroke-linejoin: round; vector-effect: non-scaling-stroke; font-family: var(--font-sans); pointer-events: none; }
 .twc-funnel__name { font-size: 12px; font-weight: 600; }
 .twc-funnel__value { font-size: 11px; fill-opacity: 0.9; }
-/* Explode: nudge the selected stage shape outward so it separates from the funnel
-   (eases via the shared [data-mark] transform transition in _chart.js). */
+
 .twc-chart--funnel [data-mark][data-selected="true"] { transform: translateX(14px); }
 .twc-chart--funnel[data-orientation="horizontal"] [data-mark][data-selected="true"] { transform: translateY(-14px); }
 `;
@@ -6084,7 +5996,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   }, forwardedRef) {
     const __twcStyles = useScopedStyles("twc-checkbox-styles", `
 .twc-check { display: inline-flex; align-items: flex-start; gap: var(--space-2-5); cursor: pointer; font-family: var(--font-sans); }
-/* tone \u2192 accent set (default primary). Mirrors Button's --_accent model; Badge's tone vocabulary. */
+
 .twc-check { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); --_accent-border: var(--color-primary-border); }
 .twc-check[data-tone="success"] { --_accent: var(--color-success); --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); --_accent-border: var(--color-success); }
 .twc-check[data-tone="warning"] { --_accent: var(--color-warning); --_accent-fg: var(--color-warning-fg); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); --_accent-border: var(--color-warning); }
@@ -6094,16 +6006,16 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-check[data-disabled="true"] { cursor: not-allowed; opacity: 0.55; }
 .twc-check__input { position: absolute; opacity: 0; width: 0; height: 0; }
 .twc-check__box {
-  --_sz: 20px;
-  flex: none; width: var(--_sz); height: var(--_sz); margin-top: 1px;
-  display: grid; place-items: center;
-  border: var(--border-medium) solid var(--color-control-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-surface);
-  color: var(--_accent-fg);
-  transition: background-color var(--duration-fast) var(--ease-standard),
-              border-color var(--duration-fast) var(--ease-standard),
-              transform var(--duration-fast) var(--ease-spring);
+--_sz: 20px;
+flex: none; width: var(--_sz); height: var(--_sz); margin-top: 1px;
+display: grid; place-items: center;
+border: var(--border-medium) solid var(--color-control-border);
+border-radius: var(--radius-sm);
+background: var(--color-surface);
+color: var(--_accent-fg);
+transition: background-color var(--duration-fast) var(--ease-standard),
+border-color var(--duration-fast) var(--ease-standard),
+transform var(--duration-fast) var(--ease-spring);
 }
 .twc-check[data-size="sm"] .twc-check__box { --_sz: 16px; }
 .twc-check[data-size="lg"] .twc-check__box { --_sz: 24px; }
@@ -6120,17 +6032,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-field__req { color: var(--color-danger); }
 .twc-check__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
 `);
     const autoId = import_react.default.useId();
@@ -6185,17 +6090,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   });
   var FIELD_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
@@ -6205,8 +6103,8 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-cp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-cp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
 .twc-cp__trigger { display: flex; align-items: center; gap: var(--space-2-5); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-2) 0 var(--space-2);
-  background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;
-  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
+background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;
+transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
 .twc-cp__trigger[data-size="sm"] { --_h: var(--control-h-sm); }
 .twc-cp__trigger[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-cp__trigger:hover:not([data-open="true"]):not([data-disabled="true"]) { border-color: var(--color-border-strong); }
@@ -6219,24 +6117,24 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-cp__chev { flex: none; color: var(--color-text-subtle); display: inline-flex; }
 .twc-cp__chev svg { width: 16px; height: 16px; }
 .twc-cp__pop { position: fixed; z-index: var(--z-popover); width: 240px;
-  background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg); padding: var(--space-3); animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top; }
+background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
+box-shadow: var(--shadow-lg); padding: var(--space-3); animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top; }
 .twc-cp__area { position: relative; width: 100%; height: 140px; border-radius: var(--radius-md); cursor: crosshair; overflow: hidden; touch-action: none; }
 .twc-cp__area:focus-visible, .twc-cp__hue:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-cp__area-sat { position: absolute; inset: 0; background: linear-gradient(to right, #fff, hsl(var(--_h,0), 100%, 50%)); }
 .twc-cp__area-val { position: absolute; inset: 0; background: linear-gradient(to top, #000, transparent); }
 .twc-cp__area-knob { position: absolute; width: 14px; height: 14px; border-radius: var(--radius-full); border: 2px solid #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.3); transform: translate(-50%, -50%); pointer-events: none; }
 .twc-cp__hue { position: relative; height: 12px; margin-top: var(--space-3); border-radius: var(--radius-full); cursor: pointer; touch-action: none;
-  background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%); }
+background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%); }
 .twc-cp__hue-knob { position: absolute; top: 50%; width: 16px; height: 16px; border-radius: var(--radius-full); background: #fff; box-shadow: var(--shadow-sm), inset 0 0 0 1px rgb(0 0 0 / 0.2); transform: translate(-50%, -50%); pointer-events: none; }
 .twc-cp__alpha { position: relative; height: 12px; margin-top: var(--space-2); border-radius: var(--radius-full); cursor: pointer; touch-action: none;
-  background-image: linear-gradient(to right, transparent, var(--_solid, #000)), conic-gradient(#c8c8c8 0 25%, #fff 0 50%, #c8c8c8 0 75%, #fff 0);
-  background-size: 100% 100%, 10px 10px; }
+background-image: linear-gradient(to right, transparent, var(--_solid, #000)), conic-gradient(#c8c8c8 0 25%, #fff 0 50%, #c8c8c8 0 75%, #fff 0);
+background-size: 100% 100%, 10px 10px; }
 .twc-cp__alpha:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-cp__foot { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); }
 .twc-cp__hex { flex: 1; min-width: 0; height: 32px; padding: 0 8px; font-family: var(--font-mono); font-size: var(--text-xs); text-transform: uppercase;
-  color: var(--color-text); background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-sm); outline: none; }
-/* tone \u2192 focus/open accent (default primary; reproduces current look). */
+color: var(--color-text); background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-sm); outline: none; }
+
 .twc-cp__hex { --_accent: var(--color-primary); --_ring: var(--ring); }
 .twc-cp__hex[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-cp__hex[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
@@ -6247,7 +6145,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-cp__hex[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-cp__presets { display: flex; flex-wrap: wrap; gap: 5px; margin-top: var(--space-3); }
 .twc-cp__preset { width: 22px; height: 22px; border-radius: var(--radius-sm); border: none; cursor: pointer; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12); padding: 0;
-  transition: transform var(--duration-fast) var(--ease-spring); }
+transition: transform var(--duration-fast) var(--ease-spring); }
 .twc-cp__preset:hover { transform: scale(1.15); }
 .twc-cp__preset[data-active="true"] { box-shadow: 0 0 0 2px var(--color-surface-raised), 0 0 0 4px var(--color-primary); }
 `;
@@ -6610,17 +6508,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   }
   var COMBO_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
@@ -6628,17 +6519,17 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 
 .twc-cb { position: relative; font-family: var(--font-sans); }
 .twc-cb__control {
-  --_h: var(--control-h-md);
-  display: flex; align-items: center; gap: var(--space-2); width: 100%;
-  min-height: var(--_h); padding: 0 var(--space-3);
-  background: var(--color-surface);
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
-  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+--_h: var(--control-h-md);
+display: flex; align-items: center; gap: var(--space-2); width: 100%;
+min-height: var(--_h); padding: 0 var(--space-3);
+background: var(--color-surface);
+border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
+transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .twc-cb__control[data-size="sm"] { --_h: var(--control-h-sm); }
 .twc-cb__control[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-cb__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
-/* tone \u2192 focus/open accent (default primary; reproduces current look). */
+
 .twc-cb__control { --_accent: var(--color-primary); --_ring: var(--ring); }
 .twc-cb__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-cb__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
@@ -6661,32 +6552,31 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-cb__chev svg { width: 16px; height: 16px; }
 
 .twc-pop {
-  position: absolute; z-index: var(--z-dropdown); top: calc(100% + 6px); inset-inline-start: 0; inset-inline-end: 0;
-  background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
-  border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
-  transform-origin: top; animation: twico-scale-in var(--duration-fast) var(--ease-spring);
+position: absolute; z-index: var(--z-dropdown); top: calc(100% + 6px); inset-inline-start: 0; inset-inline-end: 0;
+background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
+border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
+transform-origin: top; animation: twico-scale-in var(--duration-fast) var(--ease-spring);
 }
 .twc-pop[data-placement="top"] { top: auto; bottom: calc(100% + 6px); transform-origin: bottom; }
 .twc-pop__list { max-height: 260px; overflow-y: auto; padding: var(--space-1-5); }
 .twc-pop__group { padding: 8px 10px 4px; font-size: var(--text-xs); font-weight: var(--font-bold); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
 .twc-pop__group:not(:first-child) { margin-top: 4px; border-top: var(--border-thin) solid var(--color-divider); padding-top: 10px; }
 .twc-opt {
-  display: flex; align-items: center; gap: var(--space-2-5); width: 100%; padding: 8px 10px;
-  border: none; background: transparent; cursor: pointer; text-align: start;
-  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md);
-  transition: background-color var(--duration-fast) var(--ease-standard);
+display: flex; align-items: center; gap: var(--space-2-5); width: 100%; padding: 8px 10px;
+border: none; background: transparent; cursor: pointer; text-align: start;
+font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md);
+transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-opt:hover, .twc-opt[data-active="true"] { background: var(--color-surface-sunken); }
 .twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary-subtle-fg); font-weight: var(--font-semibold); }
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-/* #326: optional leading icon/swatch + trailing (right-aligned) hint on an option. */
+
 .twc-opt__icon { flex: none; display: inline-flex; align-items: center; color: var(--color-text-muted); }
 .twc-opt__icon svg { width: 16px; height: 16px; }
 .twc-opt__hint { flex: none; margin-inline-start: auto; padding-inline-start: var(--space-2); color: var(--color-text-muted); font-size: var(--text-xs); white-space: nowrap; }
-/* #300: wrapOptions \u2014 let long labels/descriptions wrap onto multiple lines instead of truncating.
-   overflow-wrap: anywhere also breaks a single very long token so it can't overflow the popover edge. */
+
 .twc-opt[data-wrap="true"] { align-items: flex-start; }
 .twc-opt[data-wrap="true"] .twc-opt__label, .twc-opt[data-wrap="true"] .twc-opt__desc { overflow: visible; text-overflow: clip; white-space: normal; overflow-wrap: anywhere; }
 .twc-opt__check { flex: none; color: var(--color-primary); display: inline-flex; }
@@ -7133,18 +7023,18 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   });
   var COMMAND_CSS = `
 .twc-cmdk__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(3px);
-  display: flex; align-items: flex-start; justify-content: center; padding-top: 12vh; }
+display: flex; align-items: flex-start; justify-content: center; padding-top: 12vh; }
 .twc-cmdk__overlay[data-state="open"] { animation: twico-fade-in var(--duration-base) var(--ease-out); }
 .twc-cmdk__overlay[data-state="closed"] { animation: twc-cmdk-fade-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
 .twc-cmdk { width: 100%; max-width: 560px; max-height: 60vh; display: flex; flex-direction: column; overflow: hidden;
-  background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-xl); font-family: var(--font-sans); }
+background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-2xl);
+box-shadow: var(--shadow-xl); font-family: var(--font-sans); }
 .twc-cmdk[data-state="open"] { animation: twico-pop-in var(--duration-base) var(--ease-spring); }
 .twc-cmdk[data-state="closed"] { animation: twc-cmdk-pop-out var(--duration-exit) var(--ease-in) forwards; }
 @keyframes twc-cmdk-fade-out { from { opacity: 1; } to { opacity: 0; } }
 @keyframes twc-cmdk-pop-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(-8px) scale(0.985); } }
 @media (prefers-reduced-motion: reduce) {
-  .twc-cmdk__overlay[data-state], .twc-cmdk[data-state] { animation-duration: 1ms; }
+.twc-cmdk__overlay[data-state], .twc-cmdk[data-state] { animation-duration: 1ms; }
 }
 .twc-cmdk__search { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-5); border-bottom: var(--border-thin) solid var(--color-divider); }
 .twc-cmdk__search svg { width: 20px; height: 20px; color: var(--color-text-subtle); flex: none; }
@@ -7155,16 +7045,14 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-cmdk__list { flex: 1; overflow-y: auto; padding: var(--space-2); }
 .twc-cmdk__group-label { font-size: 10px; font-weight: var(--font-bold); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--color-text-subtle); padding: var(--space-3) var(--space-3) var(--space-1); }
 .twc-cmdk__item { display: flex; align-items: center; gap: var(--space-3); width: 100%; padding: 10px 12px; border: none; background: none; cursor: pointer;
-  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); text-align: start; border-radius: var(--radius-md); }
+font-family: inherit; font-size: var(--text-sm); color: var(--color-text); text-align: start; border-radius: var(--radius-md); }
 .twc-cmdk__item[data-active="true"] { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); }
 .twc-cmdk__item-ic { flex: none; display: inline-flex; color: var(--color-text-muted); }
 .twc-cmdk__item[data-active="true"] .twc-cmdk__item-ic { color: var(--color-primary); }
 .twc-cmdk__item-ic svg { width: 18px; height: 18px; }
 .twc-cmdk__item-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
 .twc-cmdk__item-label { font-weight: var(--font-medium); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
-   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
-   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+
 .twc-cmdk__item-desc { font-size: var(--text-xs); color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .twc-cmdk__item-sc { flex: none; font-family: var(--font-mono); font-size: 11px; color: var(--color-text-muted); }
 .twc-cmdk__empty { padding: var(--space-8); text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
@@ -7367,32 +7255,25 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   }
   var CUR_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
 .twc-cur {
-  --_h: var(--control-h-md);
-  display: flex; align-items: stretch; height: var(--_h);
-  background: var(--color-surface); border: var(--border-thin) solid var(--color-border);
-  border-radius: var(--radius-md); overflow: hidden;
-  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+--_h: var(--control-h-md);
+display: flex; align-items: stretch; height: var(--_h);
+background: var(--color-surface); border: var(--border-thin) solid var(--color-border);
+border-radius: var(--radius-md); overflow: hidden;
+transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .twc-cur[data-size="sm"] { --_h: var(--control-h-sm); }
 .twc-cur[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-cur:hover:not(:focus-within) { border-color: var(--color-border-strong); }
-/* tone \u2192 focus/open accent (default primary; reproduces current look). */
+
 .twc-cur { --_accent: var(--color-primary); --_ring: var(--ring); }
 .twc-cur[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-cur[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
@@ -7406,25 +7287,20 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-cur[data-readonly="true"] { background: var(--color-surface-sunken); }
 .twc-cur__el:disabled { cursor: not-allowed; }
 .twc-cur__sym, .twc-cur__code {
-  display: inline-flex; align-items: center; padding: 0 var(--space-3);
-  background: var(--color-surface-sunken); color: var(--color-text-muted);
-  font-size: var(--text-sm); font-weight: var(--font-semibold); white-space: nowrap; flex: none;
+display: inline-flex; align-items: center; padding: 0 var(--space-3);
+background: var(--color-surface-sunken); color: var(--color-text-muted);
+font-size: var(--text-sm); font-weight: var(--font-semibold); white-space: nowrap; flex: none;
 }
 .twc-cur__sym { border-inline-end: var(--border-thin) solid var(--color-border); }
 .twc-cur__code { border-inline-start: var(--border-thin) solid var(--color-border); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
 .twc-cur__el {
-  flex: 1; min-width: 0; border: none; outline: none; background: transparent;
-  font-family: inherit; font-size: var(--text-sm); color: var(--color-text);
-  text-align: end; padding: 0 var(--space-3); font-variant-numeric: tabular-nums;
+flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+font-family: inherit; font-size: var(--text-sm); color: var(--color-text);
+text-align: end; padding: 0 var(--space-3); font-variant-numeric: tabular-nums;
 }
 .twc-cur__el:focus, .twc-cur__el:focus-visible { outline: none; box-shadow: none; }
 .twc-cur__el::placeholder { color: var(--color-text-subtle); }
-/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
-   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
-   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
-   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
-   showing its placeholder is the reachable case. The affix beside it carries icons, so it clears
-   its own 3:1 graphics floor and stays. */
+
 .twc-cur[data-readonly="true"] .twc-cur__el::placeholder { color: var(--color-text-muted); }
 .twc-cur__el::-webkit-outer-spin-button, .twc-cur__el::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 `;
@@ -7548,17 +7424,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   }
   var SELECT_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
@@ -7566,18 +7435,18 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 
 .twc-sel { position: relative; font-family: var(--font-sans); }
 .twc-sel__trigger {
-  --_h: var(--control-h-md);
-  display: flex; align-items: center; gap: var(--space-2); width: 100%;
-  min-height: var(--_h); padding: 0 var(--space-3); cursor: pointer;
-  background: var(--color-surface); color: var(--color-text); text-align: start;
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
-  font-family: inherit; font-size: var(--text-sm);
-  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+--_h: var(--control-h-md);
+display: flex; align-items: center; gap: var(--space-2); width: 100%;
+min-height: var(--_h); padding: 0 var(--space-3); cursor: pointer;
+background: var(--color-surface); color: var(--color-text); text-align: start;
+border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
+font-family: inherit; font-size: var(--text-sm);
+transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .twc-sel__trigger[data-size="sm"] { --_h: var(--control-h-sm); }
 .twc-sel__trigger[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-sel__trigger:hover:not([data-open="true"]):not(:disabled) { border-color: var(--color-border-strong); }
-/* tone \u2192 focus/open accent (default primary; reproduces current look). */
+
 .twc-sel__trigger { --_accent: var(--color-primary); --_ring: var(--ring); }
 .twc-sel__trigger[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-sel__trigger[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
@@ -7597,10 +7466,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-sel__clear svg { width: 14px; height: 14px; }
 
 .twc-pop {
-  position: absolute; z-index: var(--z-dropdown); top: calc(100% + 6px); inset-inline-start: 0; inset-inline-end: 0;
-  background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
-  border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
-  transform-origin: top;
+position: absolute; z-index: var(--z-dropdown); top: calc(100% + 6px); inset-inline-start: 0; inset-inline-end: 0;
+background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
+border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
+transform-origin: top;
 }
 .twc-pop[data-state="open"] { animation: twico-scale-in var(--duration-fast) var(--ease-spring); }
 .twc-pop[data-state="closed"] { animation: twc-select-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
@@ -7616,17 +7485,17 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-pop__group { padding: 8px 10px 4px; font-size: var(--text-xs); font-weight: var(--font-bold); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
 .twc-pop__group:not(:first-child) { margin-top: 4px; border-top: var(--border-thin) solid var(--color-divider); padding-top: 10px; }
 .twc-opt {
-  display: flex; align-items: center; gap: var(--space-2-5); width: 100%; padding: 8px 10px;
-  border: none; background: transparent; cursor: pointer; text-align: start;
-  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md);
-  transition: background-color var(--duration-fast) var(--ease-standard);
+display: flex; align-items: center; gap: var(--space-2-5); width: 100%; padding: 8px 10px;
+border: none; background: transparent; cursor: pointer; text-align: start;
+font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md);
+transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-opt:hover, .twc-opt[data-active="true"] { background: var(--color-surface-sunken); }
 .twc-opt[data-selected="true"] .twc-opt__label { color: var(--color-primary-subtle-fg); font-weight: var(--font-semibold); }
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-/* #326: optional leading icon/swatch + trailing (right-aligned) hint on an option. */
+
 .twc-opt__icon { flex: none; display: inline-flex; align-items: center; color: var(--color-text-muted); }
 .twc-opt__icon svg { width: 16px; height: 16px; }
 .twc-opt__hint { flex: none; margin-inline-start: auto; padding-inline-start: var(--space-2); color: var(--color-text-muted); font-size: var(--text-xs); white-space: nowrap; }
@@ -8094,19 +7963,17 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
     ] });
   });
   var CURF_CSS = `
-/* Shared input shell (self-contained \u2014 CurrencyField must not depend on the
-   Currency component being rendered on the same page to get these styles). */
 .twc-cur {
-  --_h: var(--control-h-md);
-  display: flex; align-items: stretch; height: var(--_h);
-  background: var(--color-surface); border: var(--border-thin) solid var(--color-border);
-  border-radius: var(--radius-md); overflow: hidden;
-  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+--_h: var(--control-h-md);
+display: flex; align-items: stretch; height: var(--_h);
+background: var(--color-surface); border: var(--border-thin) solid var(--color-border);
+border-radius: var(--radius-md); overflow: hidden;
+transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .twc-cur[data-size="sm"] { --_h: var(--control-h-sm); }
 .twc-cur[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-cur:hover:not(:focus-within) { border-color: var(--color-border-strong); }
-/* tone \u2192 focus/open accent (default primary; reproduces current look). */
+
 .twc-cur { --_accent: var(--color-primary); --_ring: var(--ring); }
 .twc-cur[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-cur[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
@@ -8120,25 +7987,20 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-cur[data-readonly="true"] { background: var(--color-surface-sunken); }
 .twc-cur__el:disabled { cursor: not-allowed; }
 .twc-cur__sym, .twc-cur__code {
-  display: inline-flex; align-items: center; padding: 0 var(--space-3);
-  background: var(--color-surface-sunken); color: var(--color-text-muted);
-  font-size: var(--text-sm); font-weight: var(--font-semibold); white-space: nowrap; flex: none;
+display: inline-flex; align-items: center; padding: 0 var(--space-3);
+background: var(--color-surface-sunken); color: var(--color-text-muted);
+font-size: var(--text-sm); font-weight: var(--font-semibold); white-space: nowrap; flex: none;
 }
 .twc-cur__sym { border-inline-end: var(--border-thin) solid var(--color-border); }
 .twc-cur__code { border-inline-start: var(--border-thin) solid var(--color-border); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
 .twc-cur__el {
-  flex: 1; min-width: 0; border: none; outline: none; background: transparent;
-  font-family: inherit; font-size: var(--text-sm); color: var(--color-text);
-  text-align: end; padding: 0 var(--space-3); font-variant-numeric: tabular-nums;
+flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+font-family: inherit; font-size: var(--text-sm); color: var(--color-text);
+text-align: end; padding: 0 var(--space-3); font-variant-numeric: tabular-nums;
 }
 .twc-cur__el:focus, .twc-cur__el:focus-visible { outline: none; box-shadow: none; }
 .twc-cur__el::placeholder { color: var(--color-text-subtle); }
-/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
-   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
-   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
-   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
-   showing its placeholder is the reachable case. The affix beside it carries icons, so it clears
-   its own 3:1 graphics floor and stays. */
+
 .twc-cur[data-readonly="true"] .twc-cur__el::placeholder { color: var(--color-text-muted); }
 .twc-cur__el::-webkit-outer-spin-button, .twc-cur__el::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .twc-curf__pick { flex: none; display: flex; align-items: stretch; border-inline-end: var(--border-thin) solid var(--color-border); }
@@ -8276,17 +8138,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   }
   var FIELD_CSS2 = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
@@ -8294,22 +8149,22 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 `;
   var INPUT_EXTRA_CSS = `
 .twc-input {
-  --_h: var(--control-h-md);
-  display: flex; align-items: center; gap: var(--space-2);
-  height: var(--_h);
-  padding-inline: var(--space-3);
-  background: var(--color-surface);
-  border: var(--border-thin) solid var(--color-border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  transition: border-color var(--duration-fast) var(--ease-standard),
-              box-shadow var(--duration-fast) var(--ease-standard),
-              background-color var(--duration-fast) var(--ease-standard);
+--_h: var(--control-h-md);
+display: flex; align-items: center; gap: var(--space-2);
+height: var(--_h);
+padding-inline: var(--space-3);
+background: var(--color-surface);
+border: var(--border-thin) solid var(--color-border);
+border-radius: var(--radius-md);
+overflow: hidden;
+transition: border-color var(--duration-fast) var(--ease-standard),
+box-shadow var(--duration-fast) var(--ease-standard),
+background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-input[data-size="sm"] { --_h: var(--control-h-sm); padding-inline: var(--space-2-5); }
 .twc-input[data-size="lg"] { --_h: var(--control-h-lg); padding-inline: var(--space-4); }
 .twc-input:hover:not([data-disabled]):not(:focus-within) { border-color: var(--color-border-strong); }
-/* tone \u2192 focus/open accent (default primary; reproduces current look). */
+
 .twc-input { --_accent: var(--color-primary); --_ring: var(--ring); }
 .twc-input[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-input[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
@@ -8322,37 +8177,29 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-input[data-disabled] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
 .twc-input[data-readonly] { background: var(--color-surface-sunken); }
 .twc-input__el {
-  flex: 1; min-width: 0; border: none; outline: none; background: transparent;
-  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); height: 100%;
+flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+font-family: inherit; font-size: var(--text-sm); color: var(--color-text); height: 100%;
 }
 .twc-input__el:focus, .twc-input__el:focus-visible { outline: none; box-shadow: none; }
 .twc-input__el::placeholder { color: var(--color-text-subtle); }
-/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
-   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
-   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
-   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
-   showing its placeholder is the reachable case.
-   (Review correction: an earlier version of this comment claimed the affix beside it only carries
-   icons and so needed nothing. It does not - the canonical example in site/src/demos/InputDemo.jsx
-   passes rightIcon={<span>USD</span>}, i.e. TEXT, which owes 4.5:1. The affix moved to text-muted
-   too; .twc-input__addon one rule below had already solved the same problem correctly.) */
+
 .twc-input[data-readonly] .twc-input__el::placeholder { color: var(--color-text-muted); }
 .twc-input__el:disabled { cursor: not-allowed; }
 .twc-input__affix { display: inline-flex; color: var(--color-text-muted); flex: none; }
 .twc-input__reveal { display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: none;
-  background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm);
-  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm);
+transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
 .twc-input__reveal:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-input__reveal:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-input__reveal svg { width: 17px; height: 17px; }
-/* #328: trailing clear (X) button \u2014 mirrors the reveal toggle; sits alongside rightIcon / the password eye. */
+
 .twc-input__clear { display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm); flex: none; transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
 .twc-input__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-input__clear:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-input__clear svg { width: 15px; height: 15px; }
 .twc-input__addon { align-self: stretch; display: inline-flex; align-items: center; padding-inline: var(--space-3);
-  background: var(--color-surface-sunken); color: var(--color-text-muted); font-size: var(--text-sm);
-  font-weight: var(--font-semibold); white-space: nowrap; flex: none; }
+background: var(--color-surface-sunken); color: var(--color-text-muted); font-size: var(--text-sm);
+font-weight: var(--font-semibold); white-space: nowrap; flex: none; }
 .twc-input__addon--start { border-inline-end: var(--border-thin) solid var(--color-border); margin-inline-start: calc(-1 * var(--space-3)); }
 .twc-input__addon--end { border-inline-start: var(--border-thin) solid var(--color-border); margin-inline-end: calc(-1 * var(--space-3)); }
 .twc-field__footer { display: flex; align-items: center; gap: var(--space-2); }
@@ -8491,17 +8338,10 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   });
   var MULTI_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
@@ -8509,16 +8349,16 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 
 .twc-ms { position: relative; font-family: var(--font-sans); }
 .twc-ms__control {
-  --_h: var(--control-h-md);
-  display: flex; align-items: center; flex-wrap: wrap; gap: 5px; width: 100%;
-  min-height: var(--_h); padding: 5px var(--space-3); cursor: text;
-  background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
-  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+--_h: var(--control-h-md);
+display: flex; align-items: center; flex-wrap: wrap; gap: 5px; width: 100%;
+min-height: var(--_h); padding: 5px var(--space-3); cursor: text;
+background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
+transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .twc-ms__control[data-size="sm"] { --_h: var(--control-h-sm); }
 .twc-ms__control[data-size="lg"] { --_h: var(--control-h-lg); }
 .twc-ms__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
-/* tone \u2192 focus/open accent + selected-chip color (default primary; reproduces current look). */
+
 .twc-ms__control { --_accent: var(--color-primary); --_ring: var(--ring); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); }
 .twc-ms__control[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); }
 .twc-ms__control[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); }
@@ -8529,11 +8369,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-ms__control[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-ms__control[data-disabled="true"] { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
 .twc-ms__chip {
-  display: inline-flex; align-items: center; gap: 5px; padding: 2px 4px 2px 9px; height: 24px;
-  background: var(--_accent-subtle); color: var(--_accent-subtle-fg);
-  border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: var(--font-semibold);
+display: inline-flex; align-items: center; gap: 5px; padding: 2px 4px 2px 9px; height: 24px;
+background: var(--_accent-subtle); color: var(--_accent-subtle-fg);
+border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: var(--font-semibold);
 }
-.twc-ms__control[data-disabled="true"] .twc-ms__chip { padding-inline-end: 9px; } /* #342: no \u2715 \u2192 symmetric pad */
+.twc-ms__control[data-disabled="true"] .twc-ms__chip { padding-inline-end: 9px; }
 .twc-ms__chip-x { display: inline-grid; place-items: center; width: 16px; height: 16px; border: none; padding: 0; background: transparent; color: inherit; cursor: pointer; border-radius: var(--radius-full); opacity: 0.7; }
 .twc-ms__chip-x:hover { opacity: 1; background: color-mix(in srgb, currentColor 18%, transparent); }
 .twc-ms__chip-x svg { width: 12px; height: 12px; }
@@ -8548,26 +8388,26 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-ms__clear svg { width: 14px; height: 14px; }
 
 .twc-pop {
-  position: absolute; z-index: var(--z-dropdown); top: calc(100% + 6px); inset-inline-start: 0; inset-inline-end: 0;
-  background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
-  border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
-  transform-origin: top; animation: twico-scale-in var(--duration-fast) var(--ease-spring);
+position: absolute; z-index: var(--z-dropdown); top: calc(100% + 6px); inset-inline-start: 0; inset-inline-end: 0;
+background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
+border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
+transform-origin: top; animation: twico-scale-in var(--duration-fast) var(--ease-spring);
 }
 .twc-pop[data-placement="top"] { top: auto; bottom: calc(100% + 6px); transform-origin: bottom; }
 .twc-pop__list { max-height: 260px; overflow-y: auto; padding: var(--space-1-5); }
 .twc-pop__group { padding: 8px 10px 4px; font-size: var(--text-xs); font-weight: var(--font-bold); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-subtle); }
 .twc-pop__group:not(:first-child) { margin-top: 4px; border-top: var(--border-thin) solid var(--color-divider); padding-top: 10px; }
 .twc-opt {
-  display: flex; align-items: center; gap: var(--space-2-5); width: 100%; padding: 8px 10px;
-  border: none; background: transparent; cursor: pointer; text-align: start;
-  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md);
-  transition: background-color var(--duration-fast) var(--ease-standard);
+display: flex; align-items: center; gap: var(--space-2-5); width: 100%; padding: 8px 10px;
+border: none; background: transparent; cursor: pointer; text-align: start;
+font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md);
+transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-opt:hover, .twc-opt[data-active="true"] { background: var(--color-surface-sunken); }
 .twc-opt__box {
-  flex: none; width: 18px; height: 18px; display: grid; place-items: center;
-  border: var(--border-medium) solid var(--color-border-strong); border-radius: var(--radius-sm);
-  color: var(--color-primary-fg); transition: background-color var(--duration-fast), border-color var(--duration-fast);
+flex: none; width: 18px; height: 18px; display: grid; place-items: center;
+border: var(--border-medium) solid var(--color-border-strong); border-radius: var(--radius-sm);
+color: var(--color-primary-fg); transition: background-color var(--duration-fast), border-color var(--duration-fast);
 }
 .twc-opt[data-selected="true"] .twc-opt__box { background: var(--color-primary); border-color: var(--color-primary); }
 .twc-opt__box svg { width: 12px; height: 12px; opacity: 0; }
@@ -8575,7 +8415,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-opt__main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
 .twc-opt__label { line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-opt__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-/* #326: optional leading icon/swatch + trailing (right-aligned) hint on an option. */
+
 .twc-opt__icon { flex: none; display: inline-flex; align-items: center; color: var(--color-text-muted); }
 .twc-opt__icon svg { width: 16px; height: 16px; }
 .twc-opt__hint { flex: none; margin-inline-start: auto; padding-inline-start: var(--space-2); color: var(--color-text-muted); font-size: var(--text-xs); white-space: nowrap; }
@@ -9024,11 +8864,11 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   var PAGINATION_CSS = `
 .twc-pagination { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-sans); }
 .twc-page {
-  display: inline-grid; place-items: center; min-width: 36px; height: 36px; padding: 0 8px;
-  font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text-muted);
-  background: transparent; border: var(--border-thin) solid transparent; border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
+display: inline-grid; place-items: center; min-width: 36px; height: 36px; padding: 0 8px;
+font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text-muted);
+background: transparent; border: var(--border-thin) solid transparent; border-radius: var(--radius-md);
+cursor: pointer;
+transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
 }
 .twc-page:hover:not(:disabled):not([data-active="true"]) { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-page:active:not(:disabled) { transform: scale(0.9); }
@@ -9042,13 +8882,13 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-page[data-size="lg"] { min-width: 42px; height: 42px; font-size: var(--text-base); }
 .twc-page[data-size="lg"] svg { width: 20px; height: 20px; }
 .twc-pagination__jump { display: inline-flex; align-items: center; gap: 7px; margin-inline-start: 8px;
-  font-size: var(--text-sm); color: var(--color-text-muted); white-space: nowrap; }
+font-size: var(--text-sm); color: var(--color-text-muted); white-space: nowrap; }
 .twc-pagination__jump input {
-  width: 56px; height: 34px; text-align: center; box-sizing: border-box;
-  font-family: inherit; font-size: var(--text-sm); color: var(--color-text);
-  background: var(--color-surface); border: var(--border-thin) solid var(--color-border);
-  border-radius: var(--radius-md); outline: none; -moz-appearance: textfield;
-  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+width: 56px; height: 34px; text-align: center; box-sizing: border-box;
+font-family: inherit; font-size: var(--text-sm); color: var(--color-text);
+background: var(--color-surface); border: var(--border-thin) solid var(--color-border);
+border-radius: var(--radius-md); outline: none; -moz-appearance: textfield;
+transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .twc-pagination__jump input::-webkit-outer-spin-button,
 .twc-pagination__jump input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
@@ -9235,54 +9075,44 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
   var EMPTY_BATCH_SEL = Object.freeze({ testable: Object.freeze([]), hasUntestable: false });
   var DT_CSS = `
 .twc-dt { display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--color-text);
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
-  background: var(--color-surface); overflow: hidden;
-  /* Stay inside the parent even in a flex/grid container: min-width:0 lets a wide
-     grid shrink (default min-width:auto would force it to its content width and
-     overflow), so the internal __scroll handles horizontal scrolling. */
-  width: 100%; min-width: 0; max-width: 100%; position: relative; }
-/* #320: visible clipboard feedback \u2014 a transient in-grid toast + a brief flash on the copied/pasted cells,
-   alongside the SR-only aria-live message (position: relative on the root anchors the toast; it does NOT
-   create a containing block for the position: fixed popovers, so those stay viewport-anchored). */
+border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
+background: var(--color-surface); overflow: hidden;
+
+width: 100%; min-width: 0; max-width: 100%; position: relative; }
+
 .twc-dt__clip-toast { position: absolute; inset-block-end: 12px; inset-inline-end: 12px; z-index: 6; background: var(--color-text); color: var(--color-surface); font-size: var(--text-xs); font-weight: var(--font-semibold); padding: 6px 12px; border-radius: var(--radius-md); box-shadow: var(--shadow-md); pointer-events: none; }
 @keyframes twc-dt-copyflash { from { box-shadow: inset 0 0 0 2px var(--color-primary); } to { box-shadow: inset 0 0 0 2px transparent; } }
 .twc-dt__td[data-copied="true"] { animation: twc-dt-copyflash 1.3s var(--ease-standard); }
 @media (prefers-reduced-motion: reduce) { .twc-dt__td[data-copied="true"] { animation: none; } }
 
-/* Toolbar */
 .twc-dt__toolbar { position: relative; z-index: 10; display: flex; align-items: center; gap: 6px; padding: 8px 10px;
-  border-bottom: var(--border-thin) solid var(--color-divider); flex-wrap: wrap; }
-/* #286: host-supplied leading toolbar slot \u2014 a flex cluster so multiple buttons align with the built-ins. */
+border-bottom: var(--border-thin) solid var(--color-divider); flex-wrap: wrap; }
+
 .twc-dt__toolbar-actions { display: inline-flex; align-items: center; gap: 6px; }
-/* z-index above the scroll area's sticky header (z:3) so a toolbar button's
-   hover tooltip (a ::after that hangs below the bar) paints over the table
-   instead of being covered by the header/first rows. */
+
 .twc-dt__tbtn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px;
-  border: var(--border-thin) solid transparent; border-radius: var(--radius-md); background: transparent;
-  font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold); color: var(--color-text-muted);
-  cursor: pointer; transition: background-color var(--duration-fast), color var(--duration-fast); }
+border: var(--border-thin) solid transparent; border-radius: var(--radius-md); background: transparent;
+font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold); color: var(--color-text-muted);
+cursor: pointer; transition: background-color var(--duration-fast), color var(--duration-fast); }
 .twc-dt__tbtn:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dt__tbtn[data-tip], .twc-dt__export-toggle[data-tip], .twc-dt__export-main[data-tip] { position: relative; }
 .twc-dt__tbtn[data-tip]::after, .twc-dt__export-toggle[data-tip]::after, .twc-dt__export-main[data-tip]::after {
-  content: attr(data-tip); position: absolute; top: calc(100% + 8px); inset-inline-start: 0;
-  transform: translateY(2px); transform-origin: top center;
-  background: var(--color-text); color: var(--color-surface);
-  font-size: var(--text-xs); font-weight: var(--font-medium); letter-spacing: 0;
-  padding: 5px 9px; border-radius: var(--radius-md); white-space: nowrap;
-  box-shadow: var(--shadow-md); opacity: 0; pointer-events: none; z-index: var(--z-tooltip);
-  transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring); }
-/* The toolbar tool buttons sit at the grid's start edge: anchor their tooltip to the button's
-   start so it grows inward (over the table) and is never clipped by .twc-dt's overflow:hidden left
-   border. The export split-button sits at the end edge, so anchor its tooltip to the end instead.
-   inset-inline-* keeps both correct under RTL. */
+content: attr(data-tip); position: absolute; top: calc(100% + 8px); inset-inline-start: 0;
+transform: translateY(2px); transform-origin: top center;
+background: var(--color-text); color: var(--color-surface);
+font-size: var(--text-xs); font-weight: var(--font-medium); letter-spacing: 0;
+padding: 5px 9px; border-radius: var(--radius-md); white-space: nowrap;
+box-shadow: var(--shadow-md); opacity: 0; pointer-events: none; z-index: var(--z-tooltip);
+transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring); }
+
 .twc-dt__export-toggle[data-tip]::after, .twc-dt__export-main[data-tip]::after { inset-inline-start: auto; inset-inline-end: 0; }
 .twc-dt__tbtn[data-tip]:hover::after, .twc-dt__export-toggle[data-tip]:hover::after, .twc-dt__export-main[data-tip]:hover::after {
-  opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
 .twc-dt__tbtn[data-active="true"] { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); }
 .twc-dt__tbtn svg { width: 16px; height: 16px; }
 .twc-dt__export { display: inline-flex; align-items: stretch; border-radius: var(--radius-md); box-shadow: var(--shadow-xs); }
 .twc-dt__export-main, .twc-dt__export-toggle { height: 32px; border: none; appearance: none; -webkit-appearance: none; background: var(--color-primary); color: var(--color-primary-fg);
-  font-family: inherit; font-weight: var(--font-semibold); cursor: pointer; display: inline-flex; align-items: center; transition: background-color var(--duration-fast); }
+font-family: inherit; font-weight: var(--font-semibold); cursor: pointer; display: inline-flex; align-items: center; transition: background-color var(--duration-fast); }
 .twc-dt__export-main { gap: 6px; padding: 0 12px; font-size: var(--text-xs); border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); }
 .twc-dt__export-main svg { width: 16px; height: 16px; }
 .twc-dt__export-toggle { padding: 0 7px; gap: 0; border-start-end-radius: var(--radius-md); border-end-end-radius: var(--radius-md); border-inline-start: var(--border-thin) solid color-mix(in srgb, var(--color-primary-fg) 28%, var(--color-primary)); }
@@ -9291,36 +9121,28 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__export-toggle[aria-expanded="true"] { background: var(--color-primary-active); }
 .twc-dt__export-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
 .twc-dt__tbadge { min-width: 16px; height: 16px; padding: 0 4px; border-radius: var(--radius-full);
-  background: var(--color-primary); color: var(--color-primary-fg); font-size: 10px; font-weight: 700;
-  display: inline-grid; place-items: center; }
+background: var(--color-primary); color: var(--color-primary-fg); font-size: 10px; font-weight: 700;
+display: inline-grid; place-items: center; }
 .twc-dt__tdot { width: 8px; height: 8px; padding: 0; border-radius: var(--radius-full); background: var(--color-primary);
-  display: inline-block; flex: none; align-self: center; }
+display: inline-block; flex: none; align-self: center; }
 .twc-dt__search { margin-inline-start: auto; display: flex; align-items: center; gap: 7px; height: 32px; padding: 0 10px;
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface);
-  transition: border-color var(--duration-fast), box-shadow var(--duration-fast); }
+border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface);
+transition: border-color var(--duration-fast), box-shadow var(--duration-fast); }
 .twc-dt__search:focus-within { border-color: var(--color-primary); box-shadow: var(--ring); }
 .twc-dt__search svg { width: 15px; height: 15px; color: var(--color-text-subtle); flex: none; }
 .twc-dt__search input { border: none; outline: none; background: transparent; font-family: inherit;
-  font-size: var(--text-sm); color: var(--color-text); width: 150px; }
+font-size: var(--text-sm); color: var(--color-text); width: 150px; }
 .twc-dt__search input:focus, .twc-dt__search input:focus-visible { outline: none; box-shadow: none; }
 .twc-dt__search input::placeholder { color: var(--color-text-subtle); }
-/* #327: trailing clear (X) for the built-in search inputs (quick-search + column-menu search). */
+
 .twc-dt__search-clear { border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; display: inline-grid; place-items: center; width: 20px; height: 20px; padding: 0; border-radius: var(--radius-sm); flex: none; }
 .twc-dt__search-clear:hover { color: var(--color-text); background: var(--color-surface-sunken); }
 .twc-dt__search-clear:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-dt__search-clear svg { width: 14px; height: 14px; }
 .twc-dt__tlabel { display: inline; }
-/* Narrow grid: collapse the toolbar to icon-only buttons (labels survive as
-   hover tooltips via data-tip) and let the search flex so nothing wraps. */
+
 .twc-dt__toolbar[data-compact="true"] { flex-wrap: nowrap; gap: 4px; }
-/* #449: these labels sit on --color-surface-sunken, where --color-text-subtle only reaches 4.34:1
-   (the background moves with the text, so the token change could not lift it). --color-text-muted is
-   6.92:1 there and is what Kbd/CommandPalette use on the same background. */
-/* #448: visually hidden, NOT display:none. The label is each toolbar button's only text node, so
-   removing it from the a11y tree left Columns/Filters/Density/Aggregation/Pivot with an empty (or
-   badge-number-only) accessible name - an axe/Lighthouse button-name failure. Same declarations as
-   .twc-dt__sr below. Compact is driven by a ResizeObserver on the GRID width, not a media query, so
-   a narrow grid in a wide viewport hits this too. */
+
 .twc-dt__toolbar[data-compact="true"] .twc-dt__tlabel { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__tbtn { padding: 0 8px; gap: 0; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__tbtn .twc-dt__tbadge { margin-inline-start: 4px; }
@@ -9328,28 +9150,22 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__toolbar[data-compact="true"] .twc-dt__search { flex: 1 1 64px; min-width: 0; margin-inline-start: 6px; padding: 0 8px; }
 .twc-dt__toolbar[data-compact="true"] .twc-dt__search input { width: 100%; min-width: 0; }
 
-/* Scroll area + table */
 .twc-dt__scroll { overflow: auto; position: relative; }
 .twc-dt__table { border-collapse: separate; border-spacing: 0; min-width: 100%; table-layout: fixed; }
 .twc-dt__th, .twc-dt__td { box-sizing: border-box; text-align: start; }
 .twc-dt__th { position: sticky; top: 0; z-index: 3; background: var(--color-surface-sunken);
-  border-bottom: var(--border-thin) solid var(--color-border); padding: 0; height: 44px;
-  font-size: var(--text-xs); font-weight: var(--font-bold);
-  color: var(--color-text-muted); white-space: nowrap; }
-/* #400: the upper-case + letter-spacing live on a text-only span, not the whole cell, so a renderHeader
-   node starts from neutral type (a <span>/Text no longer renders UPPER-CASE while a <button> \u2014 which UA
-   styles reset to text-transform:none \u2014 does not). The default headerName keeps the styled look + ellipsis. */
+border-bottom: var(--border-thin) solid var(--color-border); padding: 0; height: 44px;
+font-size: var(--text-xs); font-weight: var(--font-bold);
+color: var(--color-text-muted); white-space: nowrap; }
+
 .twc-dt__th-text { text-transform: uppercase; letter-spacing: var(--tracking-wide); overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .twc-dt__th-inner { display: flex; align-items: center; gap: 6px; height: 100%; padding: 0 12px; }
 .twc-dt__th[data-num="true"] .twc-dt__th-inner { flex-direction: row-reverse; }
 .twc-dt__th-label { user-select: none; flex: 1; overflow: hidden; text-overflow: ellipsis;
-  display: inline-flex; align-items: center; gap: 5px; }
-.twc-dt__th-label[role="button"] { cursor: pointer; } /* #400: pointer only when the header is sortable */
+display: inline-flex; align-items: center; gap: 5px; }
+.twc-dt__th-label[role="button"] { cursor: pointer; }
 .twc-dt__th[data-num="true"] .twc-dt__th-label { flex-direction: row-reverse; }
-/* #397: per-column alignment OVERRIDE (emitted only when it differs from the type default). The .twc-dt__table
-   prefix raises specificity above the data-num text-align so an explicit align wins regardless of source order;
-   the header resets the data-num row-reverse and drives alignment via justify-content (so number headers keep
-   their default arrow-left row-reverse when NOT overridden). */
+
 .twc-dt__table .twc-dt__td[data-align="left"], .twc-dt__table tfoot td[data-align="left"] { text-align: start; }
 .twc-dt__table .twc-dt__td[data-align="center"], .twc-dt__table tfoot td[data-align="center"] { text-align: center; }
 .twc-dt__table .twc-dt__td[data-align="right"], .twc-dt__table tfoot td[data-align="right"] { text-align: end; }
@@ -9364,13 +9180,12 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__th:hover .twc-dt__sort { opacity: 0.4; }
 .twc-dt__filterdot { width: 6px; height: 6px; border-radius: var(--radius-full); background: var(--color-primary); flex: none; }
 .twc-dt__menu-btn { display: inline-grid; place-items: center; width: 24px; height: 24px; border: none;
-  background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm);
-  opacity: 0; transition: opacity var(--duration-fast), background-color var(--duration-fast); flex: none; }
+background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm);
+opacity: 0; transition: opacity var(--duration-fast), background-color var(--duration-fast); flex: none; }
 .twc-dt__th:hover .twc-dt__menu-btn { opacity: 1; }
 .twc-dt__menu-btn:hover { background: var(--color-surface); color: var(--color-text); }
 .twc-dt__menu-btn svg { width: 16px; height: 16px; }
 
-/* Column resize handle */
 .twc-dt__resizer { position: absolute; top: 0; inset-inline-end: 0; width: 8px; height: 100%; cursor: col-resize; z-index: 6; touch-action: none; }
 .twc-dt__resizer::after { content: ""; position: absolute; top: 22%; right: 2px; width: 2px; height: 56%; background: transparent; border-radius: 2px; transition: background-color var(--duration-fast); }
 .twc-dt__th:hover .twc-dt__resizer::after { background: var(--color-border-strong); }
@@ -9379,9 +9194,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__resizer:focus-visible::after { background: var(--color-primary); }
 .twc-dt[data-resizing="true"] { cursor: col-resize; user-select: none; }
 
-/* Column reorder (drag) \u2014 the grab affordance lives on the header grip only (#267, the column analog
-   of #263), not the whole header, so a plain hover to read/sort/open the \u22EE menu isn't shown as
-   draggable (the header stays a drag source for the mouse). */
 .twc-dt__th[data-dragging="true"] { opacity: 0.45; }
 .twc-dt__th[data-dropbefore="true"] .twc-dt__th-inner { box-shadow: inset 3px 0 0 var(--color-primary); }
 .twc-dt__th[data-dropafter="true"] .twc-dt__th-inner { box-shadow: inset -3px 0 0 var(--color-primary); }
@@ -9390,22 +9202,20 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__th:hover .twc-dt__grip { opacity: 0.5; }
 .twc-dt__grip:active, .twc-dt__th[data-dragging="true"] .twc-dt__grip { cursor: grabbing; }
 
-/* Summary / aggregation footer row */
 .twc-dt__table tfoot td { position: sticky; bottom: 0; z-index: 3; background: var(--color-surface-sunken);
-  border-top: var(--border-thin) solid var(--color-border); height: 42px; padding: 0 12px; box-sizing: border-box;
-  font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 0; }
+border-top: var(--border-thin) solid var(--color-border); height: 42px; padding: 0 12px; box-sizing: border-box;
+font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 0; }
 .twc-dt__table tfoot td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
 .twc-dt__table tfoot td[data-pin] { z-index: 4; }
 .twc-dt__agg-label { color: var(--color-text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); font-size: 10px; margin-inline-end: 5px; }
 .twc-dt__agg-val { font-weight: var(--font-bold); }
 
-/* Row grouping */
 .twc-dt__groupbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 12px;
-  border-bottom: var(--border-thin) solid var(--color-border); background: var(--color-surface-sunken); }
+border-bottom: var(--border-thin) solid var(--color-border); background: var(--color-surface-sunken); }
 .twc-dt__groupbar > svg { width: 15px; height: 15px; color: var(--color-text-subtle); }
 .twc-dt__groupbar-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--color-text-muted); }
 .twc-dt__groupchip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 4px 3px 10px; height: 26px;
-  background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: var(--font-semibold); }
+background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: var(--font-semibold); }
 .twc-dt__groupchip-x { display: inline-grid; place-items: center; width: 18px; height: 18px; border: none; padding: 0; background: transparent; color: inherit; cursor: pointer; border-radius: var(--radius-full); opacity: 0.7; }
 .twc-dt__groupchip-x:hover { opacity: 1; background: color-mix(in srgb, currentColor 18%, transparent); }
 .twc-dt__groupchip-x svg { width: 12px; height: 12px; }
@@ -9414,7 +9224,7 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__group-row td { background: var(--color-surface-sunken); border-bottom: var(--border-thin) solid var(--color-border); }
 .twc-dt__group-cell { padding: 0 12px !important; height: var(--_rowh, 44px); }
 .twc-dt__group-toggle { display: inline-flex; align-items: center; gap: 7px; border: none; background: transparent; cursor: pointer;
-  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); padding: 6px 4px; border-radius: var(--radius-sm); }
+font-family: inherit; font-size: var(--text-sm); color: var(--color-text); padding: 6px 4px; border-radius: var(--radius-sm); }
 .twc-dt__group-toggle:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-dt__group-chev { display: inline-flex; color: var(--color-text-subtle); transform: rotate(-90deg); transition: transform var(--duration-base) var(--ease-spring); }
 .twc-dt__group-chev[data-open] { transform: rotate(0deg); color: var(--color-primary); }
@@ -9426,7 +9236,6 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__group-sub span { font-variant-numeric: tabular-nums; }
 .twc-dt__group-sub span b { color: var(--color-text); }
 
-/* #350: expandable row detail (renderRowDetail) \u2014 leading chevron column + full-width detail row */
 .twc-dt__expand-cell { text-align: center; padding-inline: 0; }
 .twc-dt__expand-btn { display: inline-grid; place-items: center; width: 24px; height: 24px; border: none; padding: 0; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm); }
 .twc-dt__expand-btn:hover { color: var(--color-text); background: color-mix(in srgb, currentColor 12%, transparent); }
@@ -9436,61 +9245,58 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__expand-chev svg { width: 16px; height: 16px; }
 .twc-dt__detail-cell { box-sizing: border-box; background: var(--color-surface-sunken); border-bottom: var(--border-thin) solid var(--color-divider); padding: 12px 16px; }
 
-/* Pivot view */
 .twc-dt__pivot { table-layout: auto; width: 100%; }
 .twc-dt__pivot th, .twc-dt__pivot td { white-space: nowrap; }
 .twc-dt__pivot-vhcell, .twc-dt__pivot-cell { min-width: 104px; }
 .twc-dt__pivot-rowhead { min-width: 180px; }
-/* Corner (row-field label) */
+
 .twc-dt__pivot-corner { position: sticky; inset-inline-start: 0; top: 0; vertical-align: middle; text-align: center; background: var(--color-surface-sunken); z-index: 9 !important; border-inline-end: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__pivot-corner-label { font-size: var(--text-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--color-text-muted); }
-/* Column-group header levels (e.g. Status \u25B8 Plan) */
+
 .twc-dt__pivot-colgroup { text-align: center !important; border-inline-start: var(--border-medium) solid var(--color-border-strong);
-  background: var(--color-surface-sunken); font-weight: var(--font-bold); color: var(--color-text); letter-spacing: var(--tracking-wide); }
-/* Value sub-header (field + aggregation), centered to sit over its column */
+background: var(--color-surface-sunken); font-weight: var(--font-bold); color: var(--color-text); letter-spacing: var(--tracking-wide); }
+
 .twc-dt__pivot-vhcell { vertical-align: bottom; text-align: center !important; border-inline-start: var(--border-thin) solid var(--color-divider); padding-top: 6px; padding-bottom: 6px; }
 .twc-dt__pivot-vhcell[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__pivot-vh { display: inline-flex; flex-direction: column; align-items: center; gap: 1px; line-height: 1.15; }
 .twc-dt__pivot-vh-label { font-weight: var(--font-bold); color: var(--color-text); text-transform: none; letter-spacing: 0; }
 .twc-dt__pivot-vh-agg { font-size: 10px; font-weight: var(--font-semibold); color: var(--color-primary-subtle-fg); text-transform: uppercase; letter-spacing: 0.04em; }
-/* Row headers + record counts (must outrank .twc-dt__row > .twc-dt__td:first-child = (0,3,0)) */
+
 .twc-dt__pivot tbody .twc-dt__pivot-rowhead[data-pin],
 .twc-dt__pivot tfoot .twc-dt__pivot-rowhead[data-pin] { position: sticky; inset-inline-start: 0; z-index: 5; }
 .twc-dt__pivot-rowhead { font-weight: var(--font-semibold); color: var(--color-text); background: var(--color-surface); border-inline-end: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-rowhead { background: color-mix(in srgb, var(--color-surface-sunken) 45%, var(--color-surface)); }
 .twc-dt__pivot-rowcount { color: var(--color-text-muted); font-weight: var(--font-normal); font-size: var(--text-xs); }
-/* Body value cells \u2014 centered under their header, with group separators */
+
 .twc-dt__pivot-cell { text-align: center !important; border-inline-start: var(--border-thin) solid var(--color-divider); font-variant-numeric: tabular-nums; }
 .twc-dt__pivot-cell[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-cell { background: color-mix(in srgb, var(--color-surface-sunken) 45%, transparent); }
-/* #462 (review 2): text-MUTED. The row underneath takes a sunken hover fill and the hover rule sets
-   no colour, so this text stays put at 4.34:1 in light. */
+
 .twc-dt__pivot td[data-empty] { color: var(--color-text-muted); }
-/* Total column group (right) */
+
 .twc-dt__pivot-total-h:not(.twc-dt__pivot-vhcell) { text-align: center !important; vertical-align: middle; }
 .twc-dt__pivot-total, .twc-dt__pivot-total-h { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); font-weight: var(--font-bold); }
 .twc-dt__pivot-total[data-group-start], .twc-dt__pivot-total-h[data-group-start] { border-inline-start: var(--border-medium) solid var(--color-primary) !important; }
 .twc-dt__pivot-total-h .twc-dt__pivot-vh-label { color: var(--color-primary-subtle-fg); }
 .twc-dt__pivot-total-h .twc-dt__pivot-vh-agg { color: var(--color-primary-subtle-fg); }
 .twc-dt__row[data-zebra] .twc-dt__pivot-total { background: var(--color-primary-subtle); }
-/* Grand-total footer row */
+
 .twc-dt__pivot tfoot td, .twc-dt__pivot tfoot th { position: sticky; bottom: 0; background: var(--color-surface-sunken); font-weight: var(--font-bold); border-top: var(--border-medium) solid var(--color-border-strong); }
 .twc-dt__pivot tfoot .twc-dt__pivot-rowhead { z-index: 6; }
 .twc-dt__pivot-grand { background: var(--color-surface-sunken); }
 .twc-dt__pivot tfoot .twc-dt__pivot-total { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); }
 
-/* Config panels (aggregation / pivot) */
 .twc-dt__cfg { padding: 0; }
 .twc-dt__cfg-toggle { display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  padding: 10px 12px; font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text);
-  border-bottom: var(--border-thin) solid var(--color-divider); }
+padding: 10px 12px; font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text);
+border-bottom: var(--border-thin) solid var(--color-divider); }
 .twc-dt__cfg-list { max-height: 280px; overflow-y: auto; padding: 6px; }
 .twc-dt__cfg-row { display: flex; align-items: center; gap: 8px; padding: 4px 6px; }
 .twc-dt__cfg-name { flex: 1; min-width: 0; font-size: var(--text-sm); color: var(--color-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .twc-dt__cfg-ctl { width: 120px; flex: none; }
 .twc-dt__cfg-x { flex: none; display: inline-grid; place-items: center; width: 28px; height: 28px; border: none;
-  background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md);
-  transition: background-color var(--duration-fast), color var(--duration-fast); }
+background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md);
+transition: background-color var(--duration-fast), color var(--duration-fast); }
 .twc-dt__cfg-x:hover { background: var(--color-danger-subtle); color: var(--color-danger-subtle-fg); }
 .twc-dt__cfg-x svg { width: 15px; height: 15px; }
 .twc-dt__cfg-section { padding: 10px 12px; border-bottom: var(--border-thin) solid var(--color-divider); display: flex; flex-direction: column; gap: 7px; }
@@ -9502,52 +9308,44 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__cfg-head { padding: 10px 12px; font-size: var(--text-sm); font-weight: var(--font-bold); color: var(--color-text); border-bottom: var(--border-thin) solid var(--color-divider); }
 .twc-dt__cfg-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 10px 12px; border-top: var(--border-thin) solid var(--color-divider); }
 .twc-dt__cfg-btn { height: 32px; padding: 0 14px; border: var(--border-thin) solid var(--color-border-strong); border-radius: var(--radius-md);
-  background: var(--color-surface); color: var(--color-text); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold);
-  cursor: pointer; transition: background-color var(--duration-fast), border-color var(--duration-fast), color var(--duration-fast); }
+background: var(--color-surface); color: var(--color-text); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold);
+cursor: pointer; transition: background-color var(--duration-fast), border-color var(--duration-fast), color var(--duration-fast); }
 .twc-dt__cfg-btn:hover { background: var(--color-surface-sunken); }
 .twc-dt__cfg-btn[data-primary="true"] { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-primary-fg); }
 .twc-dt__cfg-btn[data-primary="true"]:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); }
-/* #244: batch editor = pick columns (searchable), then set a value for each. */
+
 .twc-dt__be-add { padding: 6px 6px 8px; border-bottom: var(--border-thin) solid var(--color-divider); }
 .twc-dt__be-row { display: flex; align-items: center; gap: 8px; padding: 5px 6px; }
-/* #341: cap width at min(260, row \u2212 160px) so the value control keeps ~120px (+ gaps + remove) and never
-   collapses \u2014 panel-width-aware in pure CSS, so it also grows if the (resizable) panel is widened. */
+
 .twc-dt__be-name { position: relative; flex: none; width: clamp(88px, var(--twc-dt-be-name-usr, 108px), min(260px, 100% - 160px)); font-size: var(--text-sm); color: var(--color-text); }
-/* #341: ellipsis lives on the inner text span so the outer field can host the (edge-overhanging) resize handle without clipping it. */
+
 .twc-dt__be-name-txt { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-/* #341: reveal the batch-name resize handle (reused .twc-dt__f-rz) on row hover, like the filter fields. */
+
 .twc-dt__be-row:hover .twc-dt__f-rz { opacity: 1; }
 .twc-dt__be-ctl { flex: 1; min-width: 0; }
 .twc-dt__be-x { flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: none;
-  background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm);
-  transition: background-color var(--duration-fast), color var(--duration-fast); }
+background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm);
+transition: background-color var(--duration-fast), color var(--duration-fast); }
 .twc-dt__be-x:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dt__be-x svg { width: 14px; height: 14px; }
 .twc-dt__be-empty { padding: 14px 8px; font-size: var(--text-xs); color: var(--color-text-muted); text-align: center; }
 
-/* Pinned rows */
 .twc-dt__row[data-pinned-row] > .twc-dt__td { background: var(--color-primary-subtle); }
 .twc-dt__row[data-pinned-row] > .twc-dt__td[data-pin] { background: var(--color-primary-subtle); }
 .twc-dt__row[data-pinned-row="top"] > .twc-dt__td { border-bottom: var(--border-medium) solid var(--color-primary-border); box-shadow: 0 1px 0 var(--color-primary-border); }
 .twc-dt__row[data-pinned-row="bottom"] > .twc-dt__td { border-top: var(--border-medium) solid var(--color-primary-border); }
 
-/* Row reordering \u2014 the grab affordance lives on the drag handle only (#263), not the whole row, so
-   hovering a normal data cell isn't presented as draggable (the row stays a drag source for the mouse). */
 .twc-dt__row[data-row-dragging] { opacity: 0.4; }
-/* #239 diff mode: row op tint + before\u2192after cells (single-line, clipped by the td's own overflow). */
+
 .twc-dt__row[data-op="added"] > .twc-dt__td { background: color-mix(in srgb, var(--color-success) 7%, transparent); }
 .twc-dt__row[data-op="removed"] > .twc-dt__td { background: color-mix(in srgb, var(--color-danger) 7%, transparent); }
 .twc-dt__row[data-op="modified"] > .twc-dt__td { background: color-mix(in srgb, var(--color-warning) 6%, transparent); }
-/* #242: pinned cells in a diff row must stay OPAQUE (composite the tint over the surface, not over
-   transparent) or the cells scrolling under a sticky column bleed through. Specificity (0,4,0) wins
-   over the (0,3,0) tint above and matches the non-pinned cells' effective color (tint over surface). */
+
 .twc-dt__row[data-op="added"] > .twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-success) 7%, var(--color-surface)); }
 .twc-dt__row[data-op="removed"] > .twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-danger) 7%, var(--color-surface)); }
 .twc-dt__row[data-op="modified"] > .twc-dt__td[data-pin] { background: color-mix(in srgb, var(--color-warning) 6%, var(--color-surface)); }
 .twc-dt__diff-change { display: inline-flex; align-items: center; gap: 4px; min-width: 0; max-width: 100%; }
-/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
-   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
-   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+
 .twc-dt__diff-old { text-decoration: line-through; color: var(--color-text-muted); }
 .twc-dt__diff-new { color: var(--color-success-subtle-fg); font-weight: var(--font-medium); }
 .twc-dt__diff-arrow { color: var(--color-text-subtle); flex: none; }
@@ -9557,63 +9355,41 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__diff-toggle input { width: 15px; height: 15px; accent-color: var(--color-primary); cursor: pointer; margin: 0; }
 .twc-dt__row[data-row-dropbefore] > .twc-dt__td { box-shadow: inset 0 3px 0 var(--color-primary); }
 .twc-dt__row[data-row-dropafter] > .twc-dt__td { box-shadow: inset 0 -3px 0 var(--color-primary); }
-/* Keyboard row reorder (grabbed) */
+
 .twc-dt__row[data-row-grabbed] > .twc-dt__td { background: var(--color-primary-subtle); box-shadow: inset 0 0 0 2px var(--color-primary); }
 .twc-dt__row[data-row-grabtarget] > .twc-dt__td { box-shadow: inset 0 3px 0 var(--color-primary); }
 .twc-dt__row[data-row-grabtarget="after"] > .twc-dt__td { box-shadow: inset 0 -3px 0 var(--color-primary); }
 .twc-dt__row-handle { display: inline-flex; align-items: center; justify-content: center; color: var(--color-text-subtle);
-  background: transparent; border: none; padding: 0; margin: 0; cursor: grab; border-radius: var(--radius-sm); opacity: 0; transition: opacity var(--duration-fast), color var(--duration-fast); }
+background: transparent; border: none; padding: 0; margin: 0; cursor: grab; border-radius: var(--radius-sm); opacity: 0; transition: opacity var(--duration-fast), color var(--duration-fast); }
 .twc-dt__row:hover .twc-dt__row-handle, .twc-dt__row-handle:focus-visible { opacity: 0.7; }
 .twc-dt__row-handle:focus-visible { outline: none; box-shadow: var(--ring); color: var(--color-primary); }
 .twc-dt__row-handle[data-grabbed="true"] { opacity: 1; color: var(--color-primary); }
 .twc-dt__row-handle:active, .twc-dt__row-handle[data-grabbed="true"] { cursor: grabbing; }
 .twc-dt__row-handle svg { width: 14px; height: 14px; }
-/* Visually-hidden aria-live region for reorder announcements */
+
 .twc-dt__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-/* Row resizing \u2014 must not steal positioning from a pinned first column (checkbox/select) */
+
 .twc-dt__row > .twc-dt__td:first-child:not([data-pin]) { position: relative; }
 .twc-dt__row-resizer { position: absolute; left: 0; right: 0; bottom: -3px; height: 7px; cursor: row-resize; z-index: 6; touch-action: none; }
 .twc-dt__row-resizer::after { content: ""; position: absolute; left: 6px; right: 6px; bottom: 3px; height: 2px; border-radius: 2px; background: transparent; transition: background-color var(--duration-fast); }
 .twc-dt__row:hover .twc-dt__row-resizer::after { background: var(--color-border-strong); }
 .twc-dt__row-resizer:hover::after { background: var(--color-primary); }
 
-/* #481: the cell background reads --twc-dt-row-bg, which getRowStyle sets on the <tr>. It has to come
-   through a custom property rather than straight off the row, because this rule paints an OPAQUE
-   --color-surface on every cell: a background set on the <tr> would sit behind it and never show,
-   which would make the commonest use of a row-style hook silently do nothing. Cells in a pinned
-   COLUMN inherit it too, so a tinted row does not develop a hole where a sticky column scrolls over
-   it.
-   Layering: this rule is (0,1,0), the LOWEST specificity of any background in this sheet, so the
-   row tint is the bottom layer above the plain surface and every built-in state covers it - hover,
-   row selection, data-active, data-pinned-row, data-row-grabbed, the diff data-op washes, cell
-   selection/active, inline editing (each (0,3,0), (0,4,0) for the pinned-column twins, or (0,2,0)
-   for the cell-level ones) - and an inline per-cell cellStyle
-   covers them all. That is the intended rule, not an accident of ordering: a row tint is a
-   data-derived wash, and no data wash should be able to hide an interaction state. Consumers who
-   need a tint that outranks those use getRowClassName and a rule of their own. */
 .twc-dt__td { padding: 0 12px; height: var(--_rowh, 44px); border-bottom: var(--border-thin) solid var(--color-divider);
-  font-size: var(--text-sm); color: var(--color-text); background: var(--twc-dt-row-bg, var(--color-surface));
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 0; }
-/* Wrap-text columns: content flows onto multiple lines (the row grows down) instead of
-   clipping to one line. height stays a per-row minimum, so single-line cells are unchanged.
-   The top alignment here is only a DEFAULT for wrapped cells - an explicit verticalAlign at any
-   level resolves to data-valign below, which is more specific and wins. Before that existed, a row
-   mixing a wrapped column with normal ones was silently inconsistent: the wrapped cell sat top and
-   its neighbours sat middle, with no way to say otherwise. */
+font-size: var(--text-sm); color: var(--color-text); background: var(--twc-dt-row-bg, var(--color-surface));
+white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 0; }
+
 .twc-dt__td[data-wrap="true"] { white-space: normal; overflow: hidden; text-overflow: clip;
-  word-break: break-word; overflow-wrap: anywhere; vertical-align: top; padding-block: 10px; line-height: 1.45; }
-/* Vertical alignment. One attribute, already resolved: column > row > table default, computed in
-   renderLeaf rather than left to three competing selectors, so the precedence is readable in the
-   code and cannot be reordered by an unrelated CSS edit. Matters whenever rows vary in height -
-   wrapText, a multi-line renderCell, or a drag-resized row. */
+word-break: break-word; overflow-wrap: anywhere; vertical-align: top; padding-block: 10px; line-height: 1.45; }
+
 .twc-dt__td[data-valign="top"] { vertical-align: top; }
 .twc-dt__td[data-valign="middle"] { vertical-align: middle; }
 .twc-dt__td[data-valign="bottom"] { vertical-align: bottom; }
-/* #338: "combined" column cell \u2014 one column showing several source columns' values. */
+
 .twc-dt__combine--stack { display: flex; flex-direction: column; gap: 1px; }
 .twc-dt__combine-sep { color: var(--color-text-subtle); padding-inline: 3px; }
 .twc-dt__combine-label { color: var(--color-text-muted); font-weight: var(--font-medium); }
-/* #339: the runtime combine-columns editor panel. */
+
 .twc-dt__combine-hint { padding: 2px 12px 8px; font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-dt__combine-opts { padding: 8px 12px; border-top: var(--border-thin) solid var(--color-divider); display: flex; flex-direction: column; gap: 8px; }
 .twc-dt__combine-opt { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: var(--text-sm); color: var(--color-text); }
@@ -9621,18 +9397,15 @@ a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--c
 .twc-dt__combine-apply { border: none; background: var(--color-primary); color: var(--color-primary-fg); font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold); padding: 6px 14px; border-radius: var(--radius-md); cursor: pointer; }
 .twc-dt__combine-apply:hover { opacity: 0.9; }
 .twc-dt__combine-apply:focus-visible { outline: none; box-shadow: var(--ring); }
-/* #462: text-MUTED, not text-subtle. A hover/active rule swaps --color-surface-sunken (or
-   --color-primary-subtle) in under this text without changing its colour, and text-subtle on
-   either is 4.34:1 / 4.26:1 in light - the pairing the token rules forbid (docs/colors.md). It
-   passes at rest on --color-surface and fails only while hovered, which is why it survived. */
+
 .twc-dt__col-combined { color: var(--color-text-muted); font-size: var(--text-xs); font-style: italic; }
 .twc-dt__td[data-num="true"] { text-align: end; font-variant-numeric: tabular-nums; }
-/* Auto row-number gutter (rowNumbers) \u2014 a sticky-left ordinal column. */
+
 .twc-dt__rownum { text-align: end; font-variant-numeric: tabular-nums; color: var(--color-text-muted);
-  font-size: var(--text-xs); }
+font-size: var(--text-xs); }
 td.twc-dt__rownum { padding-inline: 8px; }
 th.twc-dt__rownum { color: var(--color-text-muted); }
-/* Tighten the narrow gutter header so the # label and its \u22EE menu button fit without overflowing. */
+
 th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-content: space-between; }
 .twc-dt[data-density="compact"] .twc-dt__td { --_rowh: 36px; }
 .twc-dt[data-density="comfortable"] .twc-dt__td { --_rowh: 56px; }
@@ -9641,19 +9414,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__row[data-selectable="true"] { cursor: pointer; }
 .twc-dt__row[data-active="true"] .twc-dt__td { background: var(--color-primary-subtle); box-shadow: inset 0 0 0 9999px transparent; }
 .twc-dt__row[data-active="true"] .twc-dt__td[data-pin] { background: var(--color-primary-subtle); }
-/* #317: data-cell-selected fills the range rectangle; data-cell-active keeps the ring on the moving corner. */
+
 .twc-dt__td[data-cell-selected="true"] { background: var(--color-primary-subtle); }
 .twc-dt__td[data-cell-active="true"] { box-shadow: inset 0 0 0 2px var(--color-primary); background: var(--color-primary-subtle); }
 .twc-dt__row:last-child .twc-dt__td { border-bottom: none; }
 
-/* Pinning */
 .twc-dt__th[data-pin], .twc-dt__td[data-pin] { position: sticky; z-index: 2; }
-/* Pinned header cells must outrank every pinned BODY cell (z:2) \u2014 including a selected/active
-   row's opaque primary-subtle pinned cell \u2014 so a selected row's background can never bleed up
-   over the sticky header in the pinned (corner) zone. z:5 keeps a clear margin above z:2. */
+
 .twc-dt__th[data-pin] { z-index: 5; }
-/* Pinned-edge separator shadow. box-shadow has no logical form, so --_pin-sx carries
-   the x-direction and flips under RTL (left-pinned sits at the inline-start = right edge). */
+
 .twc-dt__th[data-pin-edge], .twc-dt__td[data-pin-edge] { --_pin-sx: 6px; }
 [dir="rtl"] .twc-dt__th[data-pin-edge], [dir="rtl"] .twc-dt__td[data-pin-edge] { --_pin-sx: -6px; }
 .twc-dt__th[data-pin-edge="left"], .twc-dt__td[data-pin-edge="left"] { box-shadow: var(--_pin-sx) 0 8px -6px rgb(15 23 42 / 0.18); }
@@ -9661,23 +9430,20 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .dark .twc-dt__th[data-pin-edge="left"], .dark .twc-dt__td[data-pin-edge="left"] { box-shadow: var(--_pin-sx) 0 10px -6px rgb(0 0 0 / 0.5); }
 .dark .twc-dt__th[data-pin-edge="right"], .dark .twc-dt__td[data-pin-edge="right"] { box-shadow: calc(-1 * var(--_pin-sx)) 0 10px -6px rgb(0 0 0 / 0.5); }
 
-/* Checkbox column */
 .twc-dt__check { width: 20px; height: 20px; display: grid; place-items: center; border: var(--border-medium) solid var(--color-border-strong);
-  border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-primary-fg); cursor: pointer; transition: background-color var(--duration-fast), border-color var(--duration-fast); }
+border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-primary-fg); cursor: pointer; transition: background-color var(--duration-fast), border-color var(--duration-fast); }
 .twc-dt__check[data-checked="true"], .twc-dt__check[data-indeterminate="true"] { background: var(--color-primary); border-color: var(--color-primary); }
 .twc-dt__check svg { width: 13px; height: 13px; opacity: 0; }
 .twc-dt__check[data-checked="true"] svg, .twc-dt__check[data-indeterminate="true"] svg { opacity: 1; }
 
-/* Skeleton */
 .twc-dt__sk { display: inline-block; height: 12px; border-radius: var(--radius-sm); background: var(--color-surface-sunken);
-  position: relative; overflow: hidden; width: var(--_w, 70%); }
+position: relative; overflow: hidden; width: var(--_w, 70%); }
 .twc-dt__sk::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-text) 8%, transparent), transparent);
-  animation: twico-shimmer 1.4s infinite; }
+background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-text) 8%, transparent), transparent);
+animation: twico-shimmer 1.4s infinite; }
 
-/* Footer */
 .twc-dt__footer { display: flex; flex-direction: column; align-items: stretch; gap: 8px; padding: 10px 12px;
-  border-top: var(--border-thin) solid var(--color-divider); font-size: var(--text-xs); color: var(--color-text-muted); }
+border-top: var(--border-thin) solid var(--color-divider); font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-dt__footer-row { display: flex; align-items: center; gap: 10px 18px; flex-wrap: wrap; }
 .twc-dt__footer-row[data-bottom="true"] { justify-content: space-between; }
 .twc-dt__footer-row[data-pager="true"] { justify-content: flex-end; }
@@ -9686,30 +9452,28 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__rpp-label { white-space: nowrap; }
 .twc-dt__status b { color: var(--color-text); font-weight: var(--font-semibold); }
 
-/* Floating panels & menus */
 .twc-dt__pop { position: fixed; z-index: var(--z-popover); min-width: 220px; background: var(--color-surface-raised);
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
-  padding: 6px; animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top; }
+border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+padding: 6px; animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top; }
 .twc-dt__caret { position: absolute; top: -6px; width: 11px; height: 11px; background: var(--color-surface-raised);
-  border-left: var(--border-thin) solid var(--color-border); border-top: var(--border-thin) solid var(--color-border);
-  border-radius: 3px 0 0 0; transform: rotate(45deg); }
+border-left: var(--border-thin) solid var(--color-border); border-top: var(--border-thin) solid var(--color-border);
+border-radius: 3px 0 0 0; transform: rotate(45deg); }
 .twc-dt__mi { display: flex; align-items: center; gap: 10px; width: 100%; padding: 8px 10px; border: none; background: transparent;
-  font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); text-align: start;
-  border-radius: var(--radius-md); cursor: pointer; transition: background-color var(--duration-fast); }
-.twc-dt__mi { text-decoration: none; } /* #399: link (<a role="menuitem">) variant */
+font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); text-align: start;
+border-radius: var(--radius-md); cursor: pointer; transition: background-color var(--duration-fast); }
+.twc-dt__mi { text-decoration: none; }
 .twc-dt__mi:hover { background: var(--color-surface-sunken); }
 .twc-dt__mi:disabled { color: var(--color-text-subtle); opacity: 0.5; cursor: default; pointer-events: none; }
-.twc-dt__mi-hint { margin-inline-start: auto; padding-inline-start: 12px; color: var(--color-text-muted); font-size: var(--text-xs); font-weight: var(--font-normal); } /* #399: disabledReason */
+.twc-dt__mi-hint { margin-inline-start: auto; padding-inline-start: 12px; color: var(--color-text-muted); font-size: var(--text-xs); font-weight: var(--font-normal); }
 .twc-dt__mi svg { width: 16px; height: 16px; color: var(--color-text-subtle); flex: none; }
 .twc-dt__mi[data-active="true"] { color: var(--color-primary-subtle-fg); }
 .twc-dt__mi[data-active="true"] svg { color: var(--color-primary-subtle-fg); }
 .twc-dt__sep { height: 1px; background: var(--color-divider); margin: 5px 4px; }
 
-/* Columns panel */
 .twc-dt__cols { width: 268px; }
 .twc-dt__col-search { display: flex; align-items: center; gap: 7px; height: 34px; margin: 2px 4px 6px; padding: 0 10px;
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface);
-  transition: border-color var(--duration-fast), box-shadow var(--duration-fast); }
+border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface);
+transition: border-color var(--duration-fast), box-shadow var(--duration-fast); }
 .twc-dt__col-search:focus-within { border-color: var(--color-primary); box-shadow: var(--ring); }
 .twc-dt__col-search svg { width: 15px; height: 15px; color: var(--color-text-subtle); flex: none; }
 .twc-dt__col-search input { border: none; outline: none; background: transparent; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); width: 100%; }
@@ -9718,8 +9482,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__col-list { max-height: 230px; overflow-y: auto; }
 .twc-dt__col-row { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: var(--radius-md); cursor: pointer; }
 .twc-dt__col-row:hover { background: var(--color-surface-sunken); }
-/* #271 (columns-panel analog of #263/#267): grab lives on the grip only, not the whole row \u2014 the row
-   keeps its 'cursor: pointer' (toggles visibility) and stays a drag source for the mouse. */
+
 .twc-dt__col-row[data-dragging="true"] { opacity: 0.5; }
 .twc-dt__col-row[data-dropbefore="true"] { box-shadow: inset 0 3px 0 var(--color-primary); }
 .twc-dt__col-row[data-dropafter="true"] { box-shadow: inset 0 -3px 0 var(--color-primary); }
@@ -9731,11 +9494,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__col-pins { display: inline-flex; gap: 2px; flex: none; }
 .twc-dt__col-pin { display: inline-grid; place-items: center; width: 24px; height: 24px; border: none; padding: 0; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm); transition: background-color var(--duration-fast), color var(--duration-fast); }
 .twc-dt__col-pin:hover { background: var(--color-surface); color: var(--color-text); }
-/* #451 (review): this icon sits ON --color-primary-subtle, where plain primary is 2.76:1 in dark -
-   under the 3:1 graphics floor. Every other icon use of primary is on a plain surface (>=3.27:1). */
+
 .twc-dt__col-pin[data-on="true"] { color: var(--color-primary-subtle-fg); background: var(--color-primary-subtle); }
 .twc-dt__col-pin svg { width: 14px; height: 14px; }
-/* #454 (review): Datatable's own hand-rolled switch has the same off-track problem as Switch. */
+
 .twc-dt__sw { width: 32px; height: 18px; border-radius: var(--radius-full); background: var(--color-control-track); position: relative; flex: none; cursor: pointer; transition: background-color var(--duration-base); }
 .twc-dt__sw[aria-disabled="true"] { cursor: default; }
 .twc-dt__sw[data-on="true"] { background: var(--color-primary); }
@@ -9747,140 +9509,112 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__panel-count { font-weight: 600; color: var(--color-text-muted); text-transform: none; letter-spacing: 0; margin-inline-start: 6px; font-variant-numeric: tabular-nums; }
 .twc-dt__link { border: none; background: transparent; color: var(--color-primary-subtle-fg); font-family: inherit; font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 4px; border-radius: var(--radius-sm); }
 .twc-dt__link:hover { background: var(--color-primary-subtle); }
-/* #330: MUI DataGrid-style per-row And/Or connector. Row 1 shows a static "Where"; the first connector
-   row (row 2) hosts an editable And/Or Select bound to the single filterLogic; rows 3+ echo it as static
-   text. Leading cell aligns the Column/Operator/Value cells across rows. It is a first-class resizable
-   filter field like col/op: auto-fit to its content (-fit, from the #289 measurer) with a user drag tier
-   (-usr) winning in the clamp cascade, so it no longer truncates and the width can be adjusted manually. */
+
 .twc-dt__f-logic { position: relative; flex: none; min-width: 84px;
-  width: clamp(84px, var(--twc-dt-flogic-usr, var(--twc-dt-flogic-fit, 84px)), var(--twc-dt-flogic-cap, 180px)); }
+width: clamp(84px, var(--twc-dt-flogic-usr, var(--twc-dt-flogic-fit, 84px)), var(--twc-dt-flogic-cap, 180px)); }
 .twc-dt__f-where { display: inline-flex; align-items: center; height: 38px; padding-inline: 6px; color: var(--color-text-muted); font-size: var(--text-sm); font-weight: var(--font-medium); }
 
-/* Filter panel \u2014 user-resizable (#292): panel size + per-field widths resolve through a two-tier CSS var
-   cascade \u2014 user drag (-usr) > #289 measured auto-fit (-fit) > 118px fallback \u2014 entirely in clamp(), so
-   neither writer reads the other (reset = remove the -usr var and auto-fit instantly re-wins). */
 .twc-dt__filters {
-  /* #294: do NOT set 'position' here \u2014 this element also carries .twc-dt__pop (position: fixed), and an
-     equal-specificity 'position: relative' defined later would clobber it, dropping the popover into normal
-     flow below the table. The panel stays position: fixed, which already anchors the absolutely-positioned
-     .twc-dt__pop-grip; per-field handles anchor to their own position: relative .twc-dt__f-* fields. */
-  width: var(--twc-dt-panel-w, 620px); max-width: calc(100vw - 32px);
-  height: var(--twc-dt-panel-h, auto); max-height: calc(100vh - 32px);
-  display: flex; flex-direction: column;
+
+width: var(--twc-dt-panel-w, 620px); max-width: calc(100vw - 32px);
+height: var(--twc-dt-panel-h, auto); max-height: calc(100vh - 32px);
+display: flex; flex-direction: column;
 }
-/* Rows list scrolls only once the user pins a height; Add-filter stays sticky. Safe because the filter
-   Selects portal to <body> \u2014 an inline (non-portaled) menu would be clipped by this scroll box. */
+
 .twc-dt__frows { min-height: 0; }
 .twc-dt__filters[data-panel-sized] .twc-dt__frows { flex: 1 1 auto; overflow-y: auto; }
 .twc-dt__filters[data-panel-sized] .twc-dt__f-add { position: sticky; bottom: 0; background: var(--color-surface-raised); padding-inline-end: 20px; }
-/* #289: wrap is a safety net \u2014 a beyond-cap label or the narrow responsive panel drops the value input
-   to its own line instead of clipping the remove button; no effect in the normal (capped) case. */
+
 .twc-dt__frow { display: flex; align-items: center; gap: 6px; padding: 5px 4px; flex-wrap: wrap; }
-/* col/op: user > measured (-fit, written by the #289 measurer) > 118px, clamped to a drag cap that
-   filterFieldMaxWidth can raise. Position:relative hosts the resize handle. */
+
 .twc-dt__f-col { position: relative; flex: none; min-width: 118px;
-  width: clamp(118px, var(--twc-dt-fcol-usr, var(--twc-dt-fcol-fit, 118px)), var(--twc-dt-fcol-cap, 360px)); }
+width: clamp(118px, var(--twc-dt-fcol-usr, var(--twc-dt-fcol-fit, 118px)), var(--twc-dt-fcol-cap, 360px)); }
 .twc-dt__f-op { position: relative; flex: none; min-width: 118px;
-  width: clamp(118px, var(--twc-dt-fop-usr, var(--twc-dt-fop-fit, 118px)), var(--twc-dt-fop-cap, 260px)); }
-/* value: the flex shock-absorber by default; the first drag flips it to a fixed width (data-val-fixed). */
+width: clamp(118px, var(--twc-dt-fop-usr, var(--twc-dt-fop-fit, 118px)), var(--twc-dt-fop-cap, 260px)); }
+
 .twc-dt__f-val { position: relative; flex: 1 1 140px; min-width: 140px; }
 .twc-dt__filters[data-val-fixed] .twc-dt__f-val { flex: 0 0 clamp(140px, var(--twc-dt-fval-usr, 240px), 640px); }
-/* #303: each row now has two .twc-dt__frm-x (the add-condition "+" then remove "x"); put the auto margin
-   only on the first so the pair hugs the row end together (two auto margins would split the free space). */
+
 .twc-dt__filters[data-val-fixed] .twc-dt__frm-x:first-of-type { margin-inline-start: auto; }
 .twc-dt__frm-x { display: inline-grid; place-items: center; width: 30px; height: 38px; border: none; background: transparent; color: var(--color-text-subtle); border-radius: var(--radius-md); cursor: pointer; flex: none; align-self: flex-start; }
 .twc-dt__frm-x:hover { background: var(--color-danger-subtle); color: var(--color-danger-subtle-fg); }
 .twc-dt__frm-x svg { width: 15px; height: 15px; }
-/* per-field resize handle \u2014 cloned from the grid's .twc-dt__resizer; always-on baseline opacity so it's
-   discoverable/hittable on touch (no hover there), with a non-color-only focus ring. */
+
 .twc-dt__f-rz { position: absolute; top: 0; inset-inline-end: -3px; width: 8px; height: 100%; cursor: col-resize; touch-action: none; z-index: 6; opacity: 0.28; transition: opacity var(--duration-fast); }
 .twc-dt__f-rz::after { content: ""; position: absolute; top: 22%; inset-inline-end: 2px; width: 2px; height: 56%; background: var(--color-border-strong); border-radius: 2px; transition: width var(--duration-fast), background-color var(--duration-fast); }
 .twc-dt__frow:hover .twc-dt__f-rz, .twc-dt__f-rz:focus-visible, .twc-dt__f-rz[data-active="true"] { opacity: 1; }
 .twc-dt__f-rz:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--color-primary); border-radius: 2px; }
 .twc-dt__f-rz:focus-visible::after, .twc-dt__f-rz[data-active="true"]::after { width: 3px; background: var(--color-primary); }
-/* panel corner grip (2-axis) at the bottom-inline-end. */
+
 .twc-dt__pop-grip { position: absolute; inset-block-end: 2px; inset-inline-end: 2px; width: 14px; height: 14px; cursor: nwse-resize; touch-action: none; z-index: 8; opacity: 0.5; border-radius: 3px; background: linear-gradient(135deg, transparent 0 55%, var(--color-border-strong) 55% 64%, transparent 64% 73%, var(--color-border-strong) 73% 82%, transparent 82%); transition: opacity var(--duration-fast); }
 .twc-dt__pop-grip:hover, .twc-dt__pop-grip:focus-visible, .twc-dt__pop-grip[data-active="true"] { opacity: 1; }
 .twc-dt__pop-grip:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
 [dir="rtl"] .twc-dt__pop-grip { cursor: nesw-resize; }
-/* #316: a second grip in the bottom-inline-start corner grows a right-anchored panel toward the empty side (right edge pinned). */
+
 .twc-dt__pop-grip[data-side="start"] { inset-inline-start: 2px; inset-inline-end: auto; cursor: nesw-resize; background: linear-gradient(225deg, transparent 0 55%, var(--color-border-strong) 55% 64%, transparent 64% 73%, var(--color-border-strong) 73% 82%, transparent 82%); }
 [dir="rtl"] .twc-dt__pop-grip[data-side="start"] { cursor: nwse-resize; }
 @media (pointer: coarse) {
-  .twc-dt__f-rz { width: 16px; inset-inline-end: -6px; opacity: 0.4; }
-  .twc-dt__pop-grip { width: 20px; height: 20px; opacity: 0.6; }
+.twc-dt__f-rz { width: 16px; inset-inline-end: -6px; opacity: 0.4; }
+.twc-dt__pop-grip { width: 20px; height: 20px; opacity: 0.6; }
 }
-/* #304: generic resizable popovers. When the grip commits a size, the panel carries data-pop-sized +
-   --twc-dt-pop-w/-h; the width override beats each panel default (incl. inline widths) and the inner
-   scroll list drops its max-height and flexes to fill the taller panel. The panel keeps its base
-   position: fixed (the absolute grip anchors to it) \u2014 do NOT set position here (see #294). Filters keep
-   their own data-panel-sized system (untouched). */
+
 .twc-dt__pop[data-pop-sized] { display: flex; flex-direction: column; width: var(--twc-dt-pop-w) !important; height: var(--twc-dt-pop-h); max-width: calc(100vw - 32px); max-height: calc(100vh - 32px); }
 .twc-dt__pop[data-pop-sized] .twc-dt__col-list, .twc-dt__pop[data-pop-sized] .twc-dt__cfg-list, .twc-dt__pop[data-pop-sized] .twc-dt__pivot-body { max-height: none; flex: 1 1 auto; overflow-y: auto; }
 .twc-dt__empty { padding: 30px 12px; text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
 
-/* Action cell */
 .twc-dt__th[data-actions-col="true"], .twc-dt__td[data-actions="true"] { border-inline-start: var(--border-thin) solid var(--color-border); }
 .twc-dt__td[data-actions="true"] { overflow: visible; }
 .twc-dt__actions { display: inline-flex; align-items: center; gap: 2px; width: 100%; }
 
-/* Editable cells */
 .twc-dt__td[data-editable="true"] { position: relative; cursor: text; padding-inline-end: 30px; }
-/* A pinned cell must stay position:sticky to line up with its (also sticky) header. The rule above
-   sets position:relative at equal specificity, so an editable AND pinned column's body cells would
-   un-stick and drift out of alignment. Re-assert sticky for that combination (sticky still anchors
-   the absolutely-positioned edit hint). */
+
 .twc-dt__td[data-pin][data-editable="true"] { position: sticky; }
 .twc-dt__td[data-editable="true"]:hover { box-shadow: inset 0 0 0 1px var(--color-border-strong); }
 .twc-dt__edit-hint { position: absolute; inset-inline-end: 8px; top: 50%; transform: translateY(-50%); display: none;
-  align-items: center; justify-content: center; color: var(--color-primary); pointer-events: none; }
+align-items: center; justify-content: center; color: var(--color-primary); pointer-events: none; }
 .twc-dt__edit-hint svg { width: 13px; height: 13px; }
 .twc-dt__td[data-editable="true"]:hover .twc-dt__edit-hint { display: inline-flex; }
-/* Editing state \u2014 the cell becomes a transparent shell; the editor itself is the rounded control */
+
 .twc-dt__td[data-editing="true"] { padding: 0 6px; overflow: visible; box-shadow: none; background: var(--color-surface); }
 .twc-dt__editor-wrap { width: 100%; }
 .twc-dt__editor {
-  width: 100%; height: 32px; box-sizing: border-box; padding: 0 10px;
-  font-family: inherit; font-size: var(--text-sm); color: var(--color-text);
-  background: var(--color-surface); border: var(--border-medium) solid var(--color-primary);
-  border-radius: var(--radius-md); outline: none; box-shadow: var(--ring);
+width: 100%; height: 32px; box-sizing: border-box; padding: 0 10px;
+font-family: inherit; font-size: var(--text-sm); color: var(--color-text);
+background: var(--color-surface); border: var(--border-medium) solid var(--color-primary);
+border-radius: var(--radius-md); outline: none; box-shadow: var(--ring);
 }
 .twc-dt__td[data-num="true"] .twc-dt__editor { text-align: end; }
-/* Keyboard focus (roving tabindex) */
+
 .twc-dt__td:focus { outline: none; }
 .twc-dt__td:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--color-primary); border-radius: 2px; }
 .twc-dt__check:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-dt__th-label:focus-visible { outline: none; box-shadow: var(--ring); border-radius: var(--radius-sm); }
 .twc-dt__act { display: inline-grid; place-items: center; width: 30px; height: 30px; border: none; background: transparent;
-  color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); text-decoration: none; /* #399: link (<a>) variant */
-  transition: background-color var(--duration-fast), color var(--duration-fast), transform var(--duration-fast) var(--ease-spring); }
+color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); text-decoration: none;
+transition: background-color var(--duration-fast), color var(--duration-fast), transform var(--duration-fast) var(--ease-spring); }
 .twc-dt__act:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dt__act:active { transform: scale(0.88); }
 .twc-dt__act[data-danger="true"]:hover { background: var(--color-danger-subtle); color: var(--color-danger-subtle-fg); }
-/* #419: a disabled inline action reads as disabled (menu items already do). Pointer-blocking for the
-   aria-disabled (with-reason) case comes from the Tooltip wrap. */
+
 .twc-dt__act:disabled, .twc-dt__act[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; color: var(--color-text-subtle); }
 .twc-dt__act svg { width: 16px; height: 16px; }
 
-/* Batch (selection) toolbar overlay */
 .twc-dt__batch { position: absolute; inset: 0; z-index: 6; display: flex; align-items: center; gap: 10px;
-  padding: 8px 10px; background: var(--color-primary-subtle); animation: twico-slide-down var(--duration-fast) var(--ease-out); }
+padding: 8px 10px; background: var(--color-primary-subtle); animation: twico-slide-down var(--duration-fast) var(--ease-out); }
 .twc-dt__batch-x { display: inline-grid; place-items: center; width: 28px; height: 28px; border: none; background: transparent;
-  color: var(--color-primary-subtle-fg); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast); flex: none; }
+color: var(--color-primary-subtle-fg); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast); flex: none; }
 .twc-dt__batch-x:hover { background: color-mix(in srgb, var(--color-primary) 20%, transparent); }
 .twc-dt__batch-x svg { width: 16px; height: 16px; }
 .twc-dt__batch-count { font-size: var(--text-sm); font-weight: var(--font-bold); color: var(--color-primary-subtle-fg); white-space: nowrap; }
-/* #492: the host's running total, sitting with the count it qualifies. Same colour as the count,
-   differentiated by WEIGHT rather than by a lighter token: this bar is --color-primary-subtle, and
-   --color-text-subtle on that is 4.26:1, under the 4.5:1 needed for normal text. */
+
 .twc-dt__batch-summary { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-sm);
-  color: var(--color-primary-subtle-fg); white-space: nowrap; }
+color: var(--color-primary-subtle-fg); white-space: nowrap; }
 .twc-dt__batch-summary::before { content: ""; width: var(--border-thin); height: 14px; background: currentColor; opacity: 0.35; }
 .twc-dt__batch-actions { margin-inline-start: auto; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .twc-dt__batch-btn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px;
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface);
-  color: var(--color-text); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold); cursor: pointer;
-  transition: border-color var(--duration-fast), color var(--duration-fast), background-color var(--duration-fast); }
+border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface);
+color: var(--color-text); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold); cursor: pointer;
+transition: border-color var(--duration-fast), color var(--duration-fast), background-color var(--duration-fast); }
 .twc-dt__batch-btn:hover { border-color: var(--color-primary-subtle-fg); color: var(--color-primary-subtle-fg); }
 .twc-dt__batch-btn[data-danger="true"]:hover { border-color: var(--color-danger); color: var(--color-danger-subtle-fg); background: var(--color-danger-subtle); }
 .twc-dt__batch-btn svg { width: 15px; height: 15px; }
@@ -14736,43 +14470,35 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-cardgrid__count { font-size: var(--text-sm); color: var(--color-text-muted); }
 .twc-cardgrid__perpage { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--color-text-muted); }
 
-/* #478: selection. The card's selected state is a RING, not a background tint: a card is usually a
-   full-bleed thumbnail, so a tint is invisible behind the image. The ring is drawn with box-shadow on
-   a wrapper so it never participates in layout (no reflow when a card becomes selected) and it reads
-   in both themes, --color-primary clearing 3:1 against both surfaces as a non-text indicator. */
 .twc-cardgrid__item { position: relative; border-radius: var(--radius-lg); transition: box-shadow var(--duration-fast) var(--ease-standard); }
 .twc-cardgrid__item[data-selected="true"] { box-shadow: 0 0 0 var(--border-medium) var(--color-primary); }
-/* The overlay is the GRID's checkbox, not the card's: renderCard owns the whole body, so a
-   consumer-rendered checkbox would compete with the card's own click target and have to be positioned
-   against a thumbnail whose size only the consumer knows. Placement is configurable, and a consumer who
-   wants it inline instead uses the third renderCard argument and sets selectionPlacement="none". */
+
 .twc-cardgrid__pick { position: absolute; z-index: 2; display: inline-flex; padding: var(--space-1);
-  background: color-mix(in srgb, var(--color-surface) 82%, transparent); border-radius: var(--radius-md);
-  backdrop-filter: blur(4px); }
+background: color-mix(in srgb, var(--color-surface) 82%, transparent); border-radius: var(--radius-md);
+backdrop-filter: blur(4px); }
 .twc-cardgrid__item[data-place="top-start"] .twc-cardgrid__pick { top: var(--space-2); inset-inline-start: var(--space-2); }
 .twc-cardgrid__item[data-place="top-end"] .twc-cardgrid__pick { top: var(--space-2); inset-inline-end: var(--space-2); }
 .twc-cardgrid__item[data-place="bottom-start"] .twc-cardgrid__pick { bottom: var(--space-2); inset-inline-start: var(--space-2); }
 .twc-cardgrid__item[data-place="bottom-end"] .twc-cardgrid__pick { bottom: var(--space-2); inset-inline-end: var(--space-2); }
 .twc-cardgrid__batch { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2);
-  padding: var(--space-2) var(--space-3); border: var(--border-thin) solid var(--color-primary-border);
-  background: var(--color-primary-subtle); border-radius: var(--radius-md); }
+padding: var(--space-2) var(--space-3); border: var(--border-thin) solid var(--color-primary-border);
+background: var(--color-primary-subtle); border-radius: var(--radius-md); }
 .twc-cardgrid__batch-count { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-primary-subtle-fg); }
-/* #492: same slot, same contract as Datatable. Weight, not a lighter token - this bar is
-   --color-primary-subtle, where --color-text-subtle is 4.26:1 and fails normal-text contrast. */
+
 .twc-cardgrid__batch-summary { display: inline-flex; align-items: center; gap: var(--space-2);
-  font-size: var(--text-sm); color: var(--color-primary-subtle-fg); }
+font-size: var(--text-sm); color: var(--color-primary-subtle-fg); }
 .twc-cardgrid__batch-summary::before { content: ""; width: var(--border-thin); height: 14px; background: currentColor; opacity: 0.35; }
 .twc-cardgrid__batch-actions { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-inline-start: auto; }
 .twc-cardgrid__batch-btn { display: inline-flex; align-items: center; gap: var(--space-2); height: var(--control-h-sm);
-  padding-inline: var(--space-3); border: var(--border-thin) solid var(--color-border); background: var(--color-surface);
-  color: var(--color-text); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold);
-  border-radius: var(--radius-md); cursor: pointer; }
+padding-inline: var(--space-3); border: var(--border-thin) solid var(--color-border); background: var(--color-surface);
+color: var(--color-text); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold);
+border-radius: var(--radius-md); cursor: pointer; }
 .twc-cardgrid__batch-btn:hover:not(:disabled):not([aria-disabled="true"]) { border-color: var(--color-primary-subtle-fg); color: var(--color-primary-subtle-fg); }
 .twc-cardgrid__batch-btn:disabled, .twc-cardgrid__batch-btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
 .twc-cardgrid__batch-btn[data-danger="true"] { color: var(--color-danger-subtle-fg); }
 .twc-cardgrid__batch-btn svg { width: 15px; height: 15px; }
 .twc-cardgrid__batch-x { display: inline-grid; place-items: center; width: 26px; height: 26px; flex: none;
-  border: none; background: transparent; color: var(--color-primary-subtle-fg); cursor: pointer; border-radius: var(--radius-sm); }
+border: none; background: transparent; color: var(--color-primary-subtle-fg); cursor: pointer; border-radius: var(--radius-sm); }
 .twc-cardgrid__batch-x:hover { background: color-mix(in srgb, var(--color-primary) 14%, transparent); }
 .twc-cardgrid__batch-x svg { width: 15px; height: 15px; }
 .twc-cardgrid__selall { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--color-text-muted); }
@@ -15183,17 +14909,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   }
   var FIELD_CSS3 = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
@@ -15203,12 +14922,12 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-dp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
 .twc-dp__control {
-  display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
-  background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
-  cursor: pointer; transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
+background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
+cursor: pointer; transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .twc-dp__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
-/* tone \u2192 focus/open accent (default primary; reproduces current look). */
+
 .twc-dp__control { --_accent: var(--color-primary); --_ring: var(--ring); }
 .twc-dp__control[data-size="sm"] { --_h: var(--control-h-sm); }
 .twc-dp__control[data-size="lg"] { --_h: var(--control-h-lg); }
@@ -15230,24 +14949,24 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dp__clear { position: absolute; inset-inline-end: 10px; top: 50%; transform: translateY(-50%); display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
 .twc-dp__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dp__clear svg { width: 14px; height: 14px; }
-/* #105: editable (typed entry) variant \u2014 the control wraps a real text input + a trailing toggle. */
+
 .twc-dp__control--editable { cursor: text; gap: 0; padding-inline-end: var(--space-1); }
 .twc-dp__input { flex: 1; min-width: 0; height: 100%; border: none; background: transparent; outline: none; padding: 0;
-  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); }
+font-family: inherit; font-size: var(--text-sm); color: var(--color-text); }
 .twc-dp__input::placeholder { color: var(--color-text-subtle); }
 .twc-dp__input:disabled { cursor: not-allowed; }
 .twc-dp__clear--inline { position: static; transform: none; flex: none; }
 .twc-dp__toggle { flex: none; display: inline-grid; place-items: center; width: 26px; height: 26px; border: none; background: transparent;
-  color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast), color var(--duration-fast); }
+color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast), color var(--duration-fast); }
 .twc-dp__toggle:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dp__toggle:disabled { cursor: not-allowed; }
 .twc-dp__toggle svg { width: 17px; height: 17px; }
 
 .twc-dp__pop {
-  position: fixed; z-index: var(--z-popover); width: 280px;
-  background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
-  border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: var(--space-3);
-  animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top;
+position: fixed; z-index: var(--z-popover); width: 280px;
+background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
+border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: var(--space-3);
+animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top;
 }
 .twc-dp__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2); }
 .twc-dp__nav { display: inline-grid; place-items: center; width: 30px; height: 30px; border: none; background: transparent; color: var(--color-text-muted); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast); }
@@ -15258,17 +14977,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dp__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
 .twc-dp__dow { text-align: center; font-size: 11px; font-weight: var(--font-bold); color: var(--color-text-subtle); padding: 4px 0; text-transform: uppercase; }
 .twc-dp__day { aspect-ratio: 1; display: grid; place-items: center; border: none; background: transparent; cursor: pointer;
-  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md);
-  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md);
+transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
 .twc-dp__day:hover:not(:disabled):not([data-selected="true"]) { background: var(--color-surface-sunken); }
-/* #453 (review): --color-text-MUTED, not text-subtle. These days get a surface-sunken hover
-   background (and, in the range picker, a primary-subtle in-range fill), and text-subtle on either
-   is 4.26-4.34:1 in light - the one pairing the token rules forbid (see docs/colors.md and
-   tests/tokens-a11y.test.js). text-muted clears AA on every background these days can take
-   (6.78:1 worst) and still reads a step quieter than an in-month day.
-   No opacity: these days are clickable (they jump to the adjacent month), so they are NOT exempt
-   from SC 1.4.3 - the old 0.5/0.45 multiplier put them at 1.83-1.97:1. Opacity stays only on the
-   :disabled rules. */
+
 .twc-dp__day[data-outside="true"] { color: var(--color-text-muted); }
 .twc-dp__day[data-today="true"] { font-weight: var(--font-bold); box-shadow: inset 0 0 0 1px var(--color-primary-border); }
 .twc-dp__day[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
@@ -15282,7 +14994,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dp__years { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
 .twc-dp__yr { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
 .twc-dp__yr:hover:not(:disabled) { background: var(--color-surface-sunken); }
-/* #453 (review): same sunken-hover background as the day cells, so text-muted here too. */
+
 .twc-dp__yr[data-outside="true"] { color: var(--color-text-muted); }
 .twc-dp__yr[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
 .twc-dp__yr:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -15753,17 +15465,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   }
   var FIELD_CSS4 = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
@@ -15773,10 +15478,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-drp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-drp__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
 .twc-drp__control { display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
-  background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;
-  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
+background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;
+transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
 .twc-drp__control:hover:not([data-open="true"]):not([data-disabled="true"]) { border-color: var(--color-border-strong); }
-/* tone \u2192 focus/open accent (default primary; reproduces current look). */
+
 .twc-drp__control { --_accent: var(--color-primary); --_ring: var(--ring); }
 .twc-drp__control[data-size="sm"] { --_h: var(--control-h-sm); }
 .twc-drp__control[data-size="lg"] { --_h: var(--control-h-lg); }
@@ -15796,23 +15501,23 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-drp__clear { flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; border: none; padding: 0; background: transparent; color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-full); }
 .twc-drp__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-drp__clear svg { width: 14px; height: 14px; }
-/* #105: editable (typed entry) variant. */
+
 .twc-drp__control--editable { cursor: text; gap: 0; padding-inline-end: var(--space-1); }
 .twc-drp__input { flex: 1; min-width: 0; height: 100%; border: none; background: transparent; outline: none; padding: 0;
-  font-family: inherit; font-size: var(--text-sm); color: var(--color-text); }
+font-family: inherit; font-size: var(--text-sm); color: var(--color-text); }
 .twc-drp__input::placeholder { color: var(--color-text-subtle); }
 .twc-drp__input:disabled { cursor: not-allowed; }
 .twc-drp__toggle { flex: none; display: inline-grid; place-items: center; width: 26px; height: 26px; border: none; background: transparent;
-  color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast), color var(--duration-fast); }
+color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast), color var(--duration-fast); }
 .twc-drp__toggle:hover:not(:disabled) { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-drp__toggle:disabled { cursor: not-allowed; }
 .twc-drp__toggle svg { width: 17px; height: 17px; }
 .twc-drp__pop { position: fixed; z-index: var(--z-popover); display: flex;
-  background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg); animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top; }
+background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
+box-shadow: var(--shadow-lg); animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top; }
 .twc-drp__presets { display: flex; flex-direction: column; gap: 2px; padding: var(--space-3); border-inline-end: var(--border-thin) solid var(--color-divider); min-width: 130px; }
 .twc-drp__preset { border: none; background: none; text-align: start; font-family: inherit; font-size: var(--text-sm); color: var(--color-text);
-  padding: 7px 10px; border-radius: var(--radius-md); cursor: pointer; white-space: nowrap; }
+padding: 7px 10px; border-radius: var(--radius-md); cursor: pointer; white-space: nowrap; }
 .twc-drp__preset:hover { background: var(--color-surface-sunken); }
 .twc-drp__cal { padding: var(--space-3); width: 268px; }
 .twc-drp__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2); }
@@ -15824,27 +15529,18 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-drp__months, .twc-drp__years { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
 .twc-drp__mo, .twc-drp__yr { padding: 10px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-md); }
 .twc-drp__mo:hover:not(:disabled), .twc-drp__yr:hover:not(:disabled) { background: var(--color-surface-sunken); }
-/* #453 (review): same sunken-hover background as the day cells, so text-muted here too. */
+
 .twc-drp__yr[data-outside="true"] { color: var(--color-text-muted); }
 .twc-drp__mo[data-selected="true"], .twc-drp__yr[data-selected="true"] { background: var(--color-primary); color: var(--color-primary-fg); font-weight: var(--font-bold); }
 .twc-drp__mo:disabled, .twc-drp__yr:disabled { opacity: 0.4; cursor: not-allowed; }
 .twc-drp__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; }
 .twc-drp__dow { text-align: center; font-size: 11px; font-weight: var(--font-bold); color: var(--color-text-subtle); padding: 4px 0; }
 .twc-drp__day { aspect-ratio: 1; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: var(--text-sm); color: var(--color-text); display: grid; place-items: center; position: relative; }
-/* #453 (review): --color-text-MUTED, not text-subtle. These days get a surface-sunken hover
-   background (and, in the range picker, a primary-subtle in-range fill), and text-subtle on either
-   is 4.26-4.34:1 in light - the one pairing the token rules forbid (see docs/colors.md and
-   tests/tokens-a11y.test.js). text-muted clears AA on every background these days can take
-   (6.78:1 worst) and still reads a step quieter than an in-month day.
-   No opacity: these days are clickable (they jump to the adjacent month), so they are NOT exempt
-   from SC 1.4.3 - the old 0.5/0.45 multiplier put them at 1.83-1.97:1. Opacity stays only on the
-   :disabled rules. */
+
 .twc-drp__day[data-outside="true"] { color: var(--color-text-muted); }
 .twc-drp__day:hover:not(:disabled) { background: var(--color-surface-sunken); border-radius: var(--radius-md); }
 .twc-drp__day[data-in="true"] { background: var(--color-primary-subtle); border-radius: 0; }
-/* #465: LOGICAL corner properties. The physical shorthand never mirrored, so under dir="rtl" -
-   where the grid mirrors and the range start sits at the RIGHT of its row - the pill was rounded on
-   its interior edge and squared off against the empty cell beside it, reading inside-out. */
+
 .twc-drp__day[data-edge="start"] { background: var(--color-primary); color: var(--color-primary-fg); border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); font-weight: var(--font-bold); }
 .twc-drp__day[data-edge="end"] { background: var(--color-primary); color: var(--color-primary-fg); border-start-end-radius: var(--radius-md); border-end-end-radius: var(--radius-md); font-weight: var(--font-bold); }
 .twc-drp__day[data-edge="both"] { background: var(--color-primary); color: var(--color-primary-fg); border-radius: var(--radius-md); font-weight: var(--font-bold); }
@@ -16372,17 +16068,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   }
   var FIELD_CSS5 = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
@@ -16391,9 +16080,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   var TIMEPICKER_CSS = `
 .twc-tp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-tp__control {
-  display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
-  background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
-  cursor: pointer; transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
+background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
+cursor: pointer; transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .twc-tp__control:hover:not([data-open="true"]) { border-color: var(--color-border-strong); }
 .twc-tp__control { --_accent: var(--color-primary); --_ring: var(--ring); }
@@ -16428,10 +16117,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-tp__toggle svg { width: 17px; height: 17px; }
 
 .twc-tp__pop {
-  position: fixed; z-index: var(--z-popover);
-  background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
-  border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: var(--space-2);
-  animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top;
+position: fixed; z-index: var(--z-popover);
+background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
+border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: var(--space-2);
+animation: twico-scale-in var(--duration-fast) var(--ease-spring); transform-origin: top;
 }
 .twc-tp__cols { display: flex; gap: var(--space-1); max-height: 232px; }
 .twc-tp__col { display: flex; flex-direction: column; gap: 2px; overflow-y: auto; scrollbar-width: thin; padding-inline: 2px; scroll-behavior: smooth; }
@@ -16853,17 +16542,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   }
   var FIELD_CSS6 = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
@@ -17174,38 +16856,38 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   }
   var DIALOG_CSS = `
 .twc-dialog__overlay {
-  position: fixed; inset: 0; z-index: var(--z-modal);
-  display: grid; place-items: center; padding: var(--space-4);
-  background: var(--color-overlay); backdrop-filter: blur(3px);
+position: fixed; inset: 0; z-index: var(--z-modal);
+display: grid; place-items: center; padding: var(--space-4);
+background: var(--color-overlay); backdrop-filter: blur(3px);
 }
 .twc-dialog__overlay[data-state="open"] { animation: twico-fade-in var(--duration-base) var(--ease-out); }
 .twc-dialog__overlay[data-state="closed"] { animation: twc-dialog-fade-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
 .twc-dialog {
-  position: relative; width: 100%; max-width: var(--_mw, 480px);
-  max-height: calc(100vh - 48px); overflow: auto;
-  background: var(--color-surface); color: var(--color-text);
-  border: var(--border-thin) solid var(--color-border);
-  border-radius: var(--radius-2xl); box-shadow: var(--shadow-xl);
-  font-family: var(--font-sans);
+position: relative; width: 100%; max-width: var(--_mw, 480px);
+max-height: calc(100vh - 48px); overflow: auto;
+background: var(--color-surface); color: var(--color-text);
+border: var(--border-thin) solid var(--color-border);
+border-radius: var(--radius-2xl); box-shadow: var(--shadow-xl);
+font-family: var(--font-sans);
 }
 .twc-dialog[data-state="open"] { animation: twico-pop-in var(--duration-base) var(--ease-spring); }
 .twc-dialog[data-state="closed"] { animation: twc-dialog-pop-out var(--duration-exit) var(--ease-in) forwards; }
 @keyframes twc-dialog-fade-out { from { opacity: 1; } to { opacity: 0; } }
 @keyframes twc-dialog-pop-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(8px) scale(0.985); } }
 @media (prefers-reduced-motion: reduce) {
-  .twc-dialog__overlay[data-state], .twc-dialog[data-state] { animation-duration: 1ms; }
+.twc-dialog__overlay[data-state], .twc-dialog[data-state] { animation-duration: 1ms; }
 }
 .twc-dialog[data-size="sm"] { --_mw: 380px; }
 .twc-dialog[data-size="lg"] { --_mw: 640px; }
-/* Near-fullscreen: fill the overlay's padded area (overlay already pads --space-4 each side). */
+
 .twc-dialog[data-size="full"] {
-  --_mw: none;
-  width: calc(100vw - var(--space-8));
-  height: calc(100vh - var(--space-8));
-  max-height: calc(100vh - var(--space-8));
-  border-radius: var(--radius-2xl);
+--_mw: none;
+width: calc(100vw - var(--space-8));
+height: calc(100vh - var(--space-8));
+max-height: calc(100vh - var(--space-8));
+border-radius: var(--radius-2xl);
 }
-/* Scroll-body: header + footer stay fixed, only the body scrolls. */
+
 .twc-dialog[data-scroll-body="true"] { display: flex; flex-direction: column; overflow: hidden; }
 .twc-dialog[data-scroll-body="true"] .twc-dialog__header { flex: none; }
 .twc-dialog[data-scroll-body="true"] .twc-dialog__body { flex: 1 1 auto; min-height: 0; overflow: auto; }
@@ -17215,16 +16897,15 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dialog__title { font-size: var(--text-xl); font-weight: var(--font-bold); letter-spacing: -0.01em; }
 .twc-dialog__desc { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: 4px; line-height: var(--leading-snug); }
 .twc-dialog__close {
-  flex: none; display: inline-grid; place-items: center; width: 32px; height: 32px;
-  border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer;
-  border-radius: var(--radius-md); transition: background-color var(--duration-fast), color var(--duration-fast);
+flex: none; display: inline-grid; place-items: center; width: 32px; height: 32px;
+border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer;
+border-radius: var(--radius-md); transition: background-color var(--duration-fast), color var(--duration-fast);
 }
 .twc-dialog__close:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-dialog__close svg { width: 18px; height: 18px; }
 .twc-dialog__body { padding: var(--space-4) var(--space-5); font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-normal); }
 .twc-dialog__footer { display: flex; gap: var(--space-2); justify-content: flex-end; padding: 0 var(--space-5) var(--space-5); }
-/* #372: header/body and body/footer rules (on by default). Per-region data-divider so the rule is
-   suppressed when the region is empty (no footer; a header with only a close button and no title/description). */
+
 .twc-dialog__header[data-divider="true"] { padding-bottom: var(--space-4); border-bottom: var(--border-thin) solid var(--color-divider); }
 .twc-dialog__footer[data-divider="true"] { padding-top: var(--space-4); border-top: var(--border-thin) solid var(--color-divider); }
 `;
@@ -17298,15 +16979,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-divider[data-orientation="horizontal"] { width: 100%; height: 1px; margin: var(--space-4) 0; }
 .twc-divider[data-orientation="vertical"] { width: 1px; align-self: stretch; min-height: 1em; margin: 0 var(--space-3); }
 .twc-divider[data-inset="true"][data-orientation="horizontal"] { margin-inline-start: var(--space-4); }
-/* Labeled divider */
+
 .twc-divider-label { display: flex; align-items: center; gap: var(--space-3); margin: var(--space-4) 0; font-family: var(--font-sans); color: var(--color-text-muted); font-size: var(--text-xs); font-weight: var(--font-semibold); letter-spacing: var(--tracking-wide); text-transform: uppercase; }
 .twc-divider-label::before, .twc-divider-label::after { content: ""; height: 1px; background: var(--color-divider); flex: 1; }
-/* Logical align: the short segment sits on the inline-start (start) or inline-end (end).
-   Because the label is a flex row, an rtl direction reverses the main axis automatically,
-   so ::before/::after land on the correct inline edge under RTL \u2014 no physical override needed. */
+
 .twc-divider-label[data-align="start"]::before { flex: 0 0 var(--space-6); }
 .twc-divider-label[data-align="end"]::after { flex: 0 0 var(--space-6); }
-/* Vertical labeled divider: stack the two segments above/below the label. */
+
 .twc-divider-label[data-orientation="vertical"] { flex-direction: column; align-self: stretch; min-height: 1em; margin: 0 var(--space-3); }
 .twc-divider-label[data-orientation="vertical"]::before,
 .twc-divider-label[data-orientation="vertical"]::after { width: 1px; height: auto; flex: 1; }
@@ -17348,14 +17027,14 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-drawer__overlay[data-state="closed"] { animation: twc-drawer-fade-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
 @keyframes twc-drawer-fade-out { from { opacity: 1; } to { opacity: 0; } }
 .twc-drawer {
-  position: fixed; z-index: var(--z-modal); background: var(--color-surface); color: var(--color-text);
-  display: flex; flex-direction: column; box-shadow: var(--shadow-xl); font-family: var(--font-sans);
+position: fixed; z-index: var(--z-modal); background: var(--color-surface); color: var(--color-text);
+display: flex; flex-direction: column; box-shadow: var(--shadow-xl); font-family: var(--font-sans);
 }
 .twc-drawer[data-side="right"] { top: 0; right: 0; height: 100%; width: var(--_w, 380px); max-width: 92vw; border-left: var(--border-thin) solid var(--color-border); border-top-left-radius: var(--radius-2xl); border-bottom-left-radius: var(--radius-2xl); }
 .twc-drawer[data-side="left"] { top: 0; left: 0; height: 100%; width: var(--_w, 380px); max-width: 92vw; border-right: var(--border-thin) solid var(--color-border); border-top-right-radius: var(--radius-2xl); border-bottom-right-radius: var(--radius-2xl); }
 .twc-drawer[data-side="bottom"] { left: 0; right: 0; bottom: 0; width: 100%; max-height: 88vh; height: var(--_h, auto); border-top: var(--border-thin) solid var(--color-border); border-top-left-radius: var(--radius-2xl); border-top-right-radius: var(--radius-2xl); }
 .twc-drawer[data-side="top"] { left: 0; right: 0; top: 0; width: 100%; max-height: 88vh; height: var(--_h, auto); border-bottom: var(--border-thin) solid var(--color-border); border-bottom-left-radius: var(--radius-2xl); border-bottom-right-radius: var(--radius-2xl); }
-/* Logical sides \u2014 mirror under dir="rtl". --_off carries the off-screen slide direction. */
+
 .twc-drawer[data-side="end"]   { top: 0; height: 100%; inset-inline-end: 0; width: var(--_w, 380px); max-width: 92vw; border-inline-start: var(--border-thin) solid var(--color-border); border-start-start-radius: var(--radius-2xl); border-end-start-radius: var(--radius-2xl); --_off: 100%; }
 .twc-drawer[data-side="start"] { top: 0; height: 100%; inset-inline-start: 0; width: var(--_w, 380px); max-width: 92vw; border-inline-end: var(--border-thin) solid var(--color-border); border-start-end-radius: var(--radius-2xl); border-end-end-radius: var(--radius-2xl); --_off: -100%; }
 [dir="rtl"] .twc-drawer[data-side="end"]   { --_off: -100%; }
@@ -17389,12 +17068,11 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-drawer__close svg { width: 18px; height: 18px; }
 .twc-drawer__body { flex: 1; overflow-y: auto; padding: var(--space-2) var(--space-5) var(--space-5); font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-normal); }
 .twc-drawer__footer { display: flex; gap: var(--space-2); justify-content: flex-end; padding: var(--space-4) var(--space-5); }
-/* #372: header/footer rules (on by default), consistent with Dialog. Per-region data-divider so an empty
-   region grows no stray line (no footer; a header with only a close button and no title/description). */
+
 .twc-drawer__header[data-divider="true"] { border-bottom: var(--border-thin) solid var(--color-divider); }
 .twc-drawer__footer[data-divider="true"] { border-top: var(--border-thin) solid var(--color-divider); }
 @media (prefers-reduced-motion: reduce) {
-  .twc-drawer__overlay[data-state], .twc-drawer[data-state] { animation-duration: 1ms; }
+.twc-drawer__overlay[data-state], .twc-drawer[data-state] { animation-duration: 1ms; }
 }
 `;
   var DRAWER_SIZES = { sm: "320px", md: "380px", lg: "480px" };
@@ -17471,9 +17149,9 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   }
   var EMPTY_CSS = `
 .twc-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-3);
-  padding: var(--space-10) var(--space-6); font-family: var(--font-sans); }
+padding: var(--space-10) var(--space-6); font-family: var(--font-sans); }
 .twc-empty__icon { display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: var(--radius-2xl);
-  background: var(--color-surface-sunken); color: var(--color-text-subtle); margin-bottom: var(--space-1); }
+background: var(--color-surface-sunken); color: var(--color-text-subtle); margin-bottom: var(--space-1); }
 .twc-empty__icon svg { width: 30px; height: 30px; }
 .twc-empty__title { font-size: var(--text-lg); font-weight: var(--font-bold); color: var(--color-text); }
 .twc-empty__desc { font-size: var(--text-sm); color: var(--color-text-muted); max-width: 380px; line-height: var(--leading-normal); }
@@ -17505,17 +17183,10 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   }
   var FIELD_CSS7 = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
@@ -17563,7 +17234,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   var CELL = ROW + " > .twc-fieldrow__cell";
   var SOLO = CELL + ":not(:has(> * + *))";
   var FRAG = CELL + ":has(> * + *)";
-  var FRAG_FIELDS = FRAG + ":not(:has(> :is(" + NATURAL_ROOTS + ")))";
+  var FRAG_NAT = ":has(> :is(" + NATURAL_ROOTS + "), > * > :is(" + NATURAL_ROOTS + "))";
+  var FRAG_FIELDS = FRAG + ":not(" + FRAG_NAT + ")";
   var WRAP = ":not(:has(> * + *))";
   var SOLO_WRAP = WRAP + ":has(> .twc-field)";
   var CTRL = ':not(.twc-field__label):not(.twc-field__footer):not(.twc-field__hint):not(.twc-field__error):not([type="hidden"])';
@@ -17575,228 +17247,94 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
   var SEP = String.fromCharCode(10);
   var BAND_COLS = Array.from({ length: 12 }, (_, i) => i + 1).map((n) => ROW + ":has(> .twc-fieldrow__cell:nth-of-type(" + n + ") > :is(" + NATURAL_ROOTS + "), > .twc-fieldrow__cell:nth-of-type(" + n + ") > * > :is(" + NATURAL_ROOTS + ")) { --twc-fieldrow-c" + n + ": auto; }").join(SEP);
   var FIELDROW_CSS = `
-/* #508: a row of fields PLUS one plain control - an "insert at the cursor" button beside the box it
-   writes into, a remove button at the end of a condition row - which is arguably the more common
-   shape than a row of fields alone. #494's reserveFooter closed the field-vs-field half, but its
-   selector is .twc-field and a trailing button's root is .twc-btn, so the button still rode up by a
-   footer's height the moment a sibling field grew one.
-
-   ONE LANE, ONE PLACE IT CAN COME FROM (#519).
-   The first cut of this component ran TWO lane mechanisms at once: the row carried
-   data-reserve-footer, switching on #494's ancestor rule ([data-reserve-footer] .twc-field, a
-   DESCENDANT selector that reaches every field root at any depth - including the Select inside a
-   CurrencyField and both pickers inside a DateTimePicker), AND each cell drew its own ::after
-   whenever :has(> .twc-field) failed - a DIRECT-CHILD test. The two disagreed on exactly the cases
-   that matter: a field behind a Tooltip or a host div satisfies the descendant rule and fails the
-   child test, so it got BOTH lanes and rode up 24px - #508 again, in the other direction.
-   So the row no longer sets data-reserve-footer at all. The lane is drawn by the CELL, never by the
-   child, and there is exactly one rule that can draw it.
-
-   The geometry is identical either way, which is why dropping the inner lane costs nothing: a
-   field's own hint sits var(--space-1-5) below its control box INSIDE .twc-field, and this cell's
-   ::after sits var(--space-1-5) below the whole child. Both put the control box 6px + one
-   --text-xs line (18px at --leading-normal) above the cell's bottom edge, and align-items:flex-end
-   lines those bottoms up. Generated content rather than a height, so the lane keeps matching a real
-   footer when a token changes. font-family is pinned on the row because --leading-normal is a
-   NUMBER: were a host to set line-height:normal on a form container, the lane and a real footer
-   would otherwise differ by the two fonts' metric gap. */
 .twc-fieldrow { display: flex; align-items: flex-end; font-family: var(--font-sans); }
 .twc-fieldrow[data-wrap="true"] { flex-wrap: wrap; }
 
-/* Every cell shares the row's width and may be squeezed rather than overflow it. See the natural
-   rule below for why STRETCH is the default rather than the thing we test for. */
 .twc-fieldrow__cell { display: flex; flex-direction: column; gap: var(--space-1-5); flex: 1 1 0; min-inline-size: 0; }
 
-/* wrap (#520, #524). flex-basis:0 made every field cell's hypothetical main size 0, so the flex
-   line could never overflow and no break was ever taken - the fields were squeezed to 4px instead,
-   which is the one thing this prop exists to prevent. A floor on the hypothetical size restores the
-   break without giving up equal widths (basis stays 0, so cells on a line still share it evenly).
-   min(100%, ...) keeps a row narrower than the floor from overflowing.
-   The floor is load-bearing rather than decorative - a host sizing a condition row for a 1366px
-   laptop needs to say where it breaks - and it was unexpressible before #524: minWidth on the FIELD
-   is overridden by the cell's own min-inline-size, and a wrapper div is what FieldRow exists to
-   remove. So it is the minChildWidth prop (same name and semantics as Grid's), landing on the
-   CELL, which is the flex item. --twc-fieldrow-min stays settable for a host that would rather push
-   it through CSS. */
 :where(.twc-fieldrow[data-wrap="true"]) > .twc-fieldrow__cell { min-inline-size: min(100%, var(--twc-fieldrow-min, 10rem)); }
 
-/* NATURAL ROOTS - a cell that holds one of these keeps the child's own size instead of sharing the
-   row's width. The list is not curated: it is every single-class .twc-* rule in this library that
-   declares display:inline-flex, minus the three overlay wrappers below, i.e. every root that is an
-   inline-level control. tests/fieldrow-natural-roots.test.jsx re-derives it from components/ and
-   fails on drift, so a new inline-flex control cannot silently start stretching.
-   The polarity is the point. With STRETCH as the default, every child this list does NOT name - a
-   host's wrapper div, a third-party control, a component added later, Slider/FileUpload/FilterBar/
-   Form, which fill their width without ever being a .twc-field - lands on the answer that is right
-   for it, so the open-ended "every wrapper a host might write" list disappears and the one list
-   that remains only ever names boxes this library itself ships.
-   Depth <= 2 is what makes it immune to the two shapes that moved the old test: Checkbox/Switch/
-   Radio grow a bare div.twc-field root only when they have an error (Checkbox.jsx:126), and
-   Menu trigger= / Tooltip put a *-wrap span in between. Both now answer "natural" whether the
-   message is there or not, so a validation error no longer re-flows the row (#519). It stops at 2
-   deliberately: .twc-radio sits at depth 3 inside a RadioGroup, which fills. */
 .twc-fieldrow__cell:has(> :is(${NATURAL_ROOTS}),
-                       > * > :is(${NATURAL_ROOTS})) {
-  flex: 0 1 auto; min-inline-size: auto; }
-/* END NATURAL ROOTS */
+> * > :is(${NATURAL_ROOTS})) {
+flex: 0 1 auto; min-inline-size: auto; }
 
-/* Tooltip/Menu/Popover are transparent wrappers: inline-flex spans holding exactly one in-flow
-   child, because their bubble/panel portals to document.body. Blockified as a flex item they stretch
-   to the cell, but their own ROW direction then shrink-wraps the trigger, so a tooltipped field
-   would still not fill the cell it is sharing. One column flips that at any nesting depth without
-   naming the trigger - the same three names, no new list. */
 .twc-fieldrow__cell :is(.twc-menu-wrap, .twc-popover-wrap, .twc-tooltip-wrap) { flex-direction: column; align-items: stretch; }
 
-/* #525: a child COMPONENT that returns a fragment renders SEVERAL elements into one cell. Nothing
-   can see through a render, so toCells cannot split it - React.Children only ever sees the one
-   component element. A cell is a COLUMN, so those fields stacked vertically: not a subtle
-   misalignment but a different layout, and extracting a repeated field PAIR into a component is the
-   natural way to write these rows.
-   :has(> * + *) identifies it exactly, because toCells gives every other cell exactly one child.
-   Such a cell lays out as a row instead, and each field inside takes #494's own lane so the parts
-   still line up by their control box - the cell's single lane would otherwise sit BESIDE them as
-   another row item. gap is inherited from the row, so a fragment pair spaces like real siblings. */
 .twc-fieldrow__cell:has(> * + *) { flex-direction: row; align-items: flex-end; gap: inherit; }
 .twc-fieldrow__cell:has(> * + *) > * { flex: 1 1 0; min-inline-size: 0; }
-.twc-fieldrow__cell:has(> * + *) > :is(${NATURAL_ROOTS}) { flex: 0 1 auto; min-inline-size: auto; }
+
+.twc-fieldrow__cell:has(> * + *) > :is(${NATURAL_ROOTS}),
+.twc-fieldrow__cell:has(> * + *) > :has(> :is(${NATURAL_ROOTS})) { flex: 0 1 auto; min-inline-size: auto; }
 .twc-fieldrow__cell:has(> * + *) > .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 
-/* THE LANE - the only one. A cell gets it unless something inside it already ends in a footer:
-     - the three message classes #494 tests for (Field.jsx:17). They also catch the two footers no
-       .twc-field test can see, because both wrap one of them: Slider's .twc-slider__msgs and
-       FileUpload's bare error under a non-field root;
-     - a nested FieldRow, whose own cells already end in a lane;
-     - a child opting into #494 by hand with reserveFooter, which draws its lane inside .twc-field -
-       the attribute is visible to :has() even though the generated content is not, so the two
-       mechanisms compose instead of doubling.
-   Unlike the old test this looks at ANY depth, which is the whole point: a field behind a Tooltip,
-   a host div, or a Form's fieldset is seen. */
+.twc-fieldrow__cell:has(> * + *) > *:not(.twc-field):not(:has(.twc-field__footer, .twc-field__hint, .twc-field__error, .twc-fieldrow, [data-reserve-footer])) {
+margin-block-end: calc(var(--space-1-5) + var(--text-xs) * var(--leading-normal, 1.5)); }
+
+:where(.twc-fieldrow[data-wrap="true"]) > .twc-fieldrow__cell:has(> * + *):not(:has(> :is(${NATURAL_ROOTS}), > * > :is(${NATURAL_ROOTS}))) {
+flex-wrap: wrap; align-content: flex-end; }
+:where(.twc-fieldrow[data-wrap="true"]) > .twc-fieldrow__cell:has(> * + *):not(:has(> :is(${NATURAL_ROOTS}), > * > :is(${NATURAL_ROOTS}))) > * {
+min-inline-size: min(100%, var(--twc-fieldrow-min, 10rem)); }
+
 .twc-fieldrow__cell:not(:has(> * + *)):not(:has(.twc-field__footer, .twc-field__hint, .twc-field__error, .twc-fieldrow, [data-reserve-footer]))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none;
-  /* #526: the lane reserves ONE line, so a sibling whose REAL footer wraps to two is a line taller
-     and align-items:flex-end lifts its control by 18px - the #494 symptom, inside the component
-     built to prevent it. It depends on the cell's rendered width, not the markup, so the same row
-     aligns wide and breaks narrow. Equalising footers across the row is not solvable here: it needs
-     each cell to contribute a control part and a footer part as separate grid items, and a field's
-     footer lives INSIDE the single .twc-field element, so no row-level selector can hoist it out -
-     see the Field restructure issue. What IS expressible is the reserve: footerLines tells the row
-     how many lines to hold open, so a host with a known two-line hint can match it. */
-  min-block-size: calc(var(--twc-fieldrow-footer-lines, 1) * var(--text-xs) * var(--leading-normal, 1.5)); }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none;
 
-/* FOOTER OFFSET. Two of the library's own controls put their message at a different offset than the
-   field family's var(--space-1-5), so even with the lane correct they sat out of line in a row:
-   Slider's .twc-slider__msgs adds margin-top: var(--space-2) (8px, Slider.jsx:13) and FileUpload's
-   root gap is var(--space-3) (12px, FileUpload.jsx:6) above its bare .twc-field__error. Measured,
-   that is 2px and 6px - far better than the 25px/29px the double lane used to cost, but
-   "aligned by control box" has to be literally true, not nearly.
-   Normalised only INSIDE a cell, so nothing outside a FieldRow changes. FileUpload gets a negative
-   compensation rather than a smaller gap, because its gap also spaces the zone from the file list
-   and that spacing should stay as designed. */
+min-block-size: calc(var(--twc-fieldrow-footer-lines, 1) * var(--text-xs) * var(--leading-normal, 1.5)); }
+
 .twc-fieldrow__cell .twc-slider__msgs { margin-block-start: var(--space-1-5); }
 .twc-fieldrow__cell .twc-upload > .twc-field__error { margin-block-start: calc(var(--space-1-5) - var(--space-3)); }
 
-/* SUPPRESSION. The row sets no data-reserve-footer, but a HOST may have put #494's attribute on an
-   ancestor above this row - prop-conventions.md documents that ancestor use as a first-class
-   pattern - and #494's rule is a descendant selector, so it would reach every field in here and
-   stack its lane under the cell's. Kill the inner one; the cell already owns the lane. A field that
-   opted in FOR ITSELF keeps its own (that is the :not), and the cell rule above skips such a cell,
-   so the pair always yields exactly one lane. (0,4,1) against #494's (0,3,1), so this wins.
-   It deliberately skips a fragment-row cell (#525): there the inner field lanes are the mechanism,
-   and this rule outranked them - leaving the pair with no lane while a trailing button's cell kept
-   one, 24px out. */
 .twc-fieldrow .twc-fieldrow__cell:not(:has(> * + *)) .twc-field:not([data-reserve-footer])::after { content: none; }
-
-/* ==================== THE FOOTER BAND (#527, the real fix for #526) ====================
-   The lane above reserves a whole number of LINES, so a field whose real hint wraps to more than
-   that is taller than its siblings and align-items:flex-end lifts its control by the difference -
-   #494's own symptom, inside the component built to prevent it. Measured on one row at one width,
-   changing only the hint's length: control bottoms [272,272,272,272] with one line and
-   [141,87,141,141] when it wrapped to four. It depends on the cell's RENDERED width, not on the
-   markup, so a row aligns at desktop width and breaks when a dialog narrows or a translation runs
-   longer. No per-cell reserve can fix that, because no cell knows what the widest footer in the row
-   costs. A shared BAND can: three row tracks - label, control, footer - each sized to its tallest
-   member, so every control bottom lands on one line by construction and a footer that wraps makes
-   the ROW taller instead of moving a control.
-   That needs the parts to be separate grid items, and a field's footer is a child INSIDE the single
-   .twc-field element. SUBGRID is what reaches it: the cell subgrids the row's three tracks, the
-   .twc-field inside it subgrids the cell's, and each part is pinned to its track - so the band is
-   assembled from HERE, with no change to Field.jsx, to the 16 stylesheets that re-declare the
-   .twc-field family, or to the 17 JSX returns that build that markup inline.
-   Scoped to :not([data-wrap="true"]) deliberately: grid has no flex-wrap, and minChildWidth is a
-   flex-basis floor that only means anything with wrap. A wrapping row keeps the flex path above,
-   byte for byte, lane included.
-   Subgrid is Baseline newly available Sept 2023 - EARLIER than the :has() this file already
-   requires (Dec 2023) - so the band costs no browser support and no fallback question arises.
-   Row gaps are pinned to 0 at all three levels and the 6px lives on the label's margin-block-end
-   and the footer's margin-block-start instead: a gap is charged between tracks even when they
-   collapse to 0, so a row with no labels would otherwise gain 6px at the top. */
 ${ROW} {
-  display: grid;
-  /* At least the lane it replaces, so a row's HEIGHT does not move until a footer actually needs
-     more: footerLines keeps working, now as the band's floor rather than a per-cell reserve. */
-  grid-template-rows: auto auto minmax(calc(var(--space-1-5) + var(--twc-fieldrow-footer-lines, 1) * var(--text-xs) * var(--leading-normal, 1.5)), auto);
-  row-gap: 0;
-  /* start: auto tracks must not share leftover space, or a row of plain controls would spread out.
-     end: a row given more height than it needs keeps its contents on its bottom edge, which is what
-     align-items:flex-end does on the flex path. */
-  justify-content: start;
-  align-content: end; }
-${BAND_COLS}
+display: grid;
 
-/* The cell spans all three tracks and re-exposes them to its child. The --twc-fieldrow-cN reset
-   stops a nested row's column flips inheriting out of it. */
+grid-template-rows: auto auto minmax(calc(var(--space-1-5) + var(--twc-fieldrow-footer-lines, 1) * var(--text-xs) * var(--leading-normal, 1.5)), auto);
+row-gap: 0;
+
+justify-content: start;
+align-content: end; }
+${BAND_COLS}
 ${CELL} { display: grid; grid-template-rows: subgrid; row-gap: 0; grid-row: 1 / -1;
-  --twc-fieldrow-c1: initial; --twc-fieldrow-c2: initial; --twc-fieldrow-c3: initial;
-  --twc-fieldrow-c4: initial; --twc-fieldrow-c5: initial; --twc-fieldrow-c6: initial;
-  --twc-fieldrow-c7: initial; --twc-fieldrow-c8: initial; --twc-fieldrow-c9: initial;
-  --twc-fieldrow-c10: initial; --twc-fieldrow-c11: initial; --twc-fieldrow-c12: initial; }
+--twc-fieldrow-c1: initial; --twc-fieldrow-c2: initial; --twc-fieldrow-c3: initial;
+--twc-fieldrow-c4: initial; --twc-fieldrow-c5: initial; --twc-fieldrow-c6: initial;
+--twc-fieldrow-c7: initial; --twc-fieldrow-c8: initial; --twc-fieldrow-c9: initial;
+--twc-fieldrow-c10: initial; --twc-fieldrow-c11: initial; --twc-fieldrow-c12: initial; }
 
 /* What chains the subgrid one level further: a one-control field, that field behind one transparent
-   wrapper (a Tooltip's span, a host div), the same inside a fragment cell, and a nested FieldRow,
-   whose own fields then share this row's bands. The wrapper gates are ${WRAP} - exactly one child -
-   because without them a host div holding TWO fields becomes two grid COLUMNS. */
+wrapper (a Tooltip's span, a host div), the same inside a fragment cell, and a nested FieldRow,
+whose own fields then share this row's bands. The wrapper gates are ${WRAP} - exactly one child -
+because without them a host div holding TWO fields becomes two grid COLUMNS. */
 ${SOLO} > ${ONE},
 ${SOLO} > ${SOLO_WRAP},
 ${SOLO} > ${WRAP} > ${ONE},
 ${SOLO} > ${ROW},
 ${FRAG_FIELDS} > ${ONE} { display: grid; grid-template-rows: subgrid; row-gap: 0; grid-row: 1 / -1; }
-
-/* The parts, pinned to their track. This also wins over the five pickers, which put .twc-dp /
-   .twc-tp / .twc-cp / .twc-drp / .twc-dtp on the SAME element as .twc-field and re-declare the same
-   flex column there: those tie .twc-field at (0,1,0) and are settled today by mount order, i.e. by
-   nothing in the source. */
 ${BANDED} > .twc-field__label { grid-row: 1; align-self: end; margin-block-end: var(--space-1-5); }
 ${BANDED} > ${FOOTER} { grid-row: 3; align-self: start; margin-block-start: var(--space-1-5); }
 ${BANDED} > ${CTRL} { grid-row: 2; align-self: end; }
-
-/* A cell child the band cannot take apart - Slider (head + track + msgs), FileUpload (label + zone
-   + list + error), a Field holding two controls, any host subtree with a footer somewhere inside -
-   keeps its own layout and is bottom-aligned across all three tracks, which is what
-   align-items:flex-end gave it before. Those are the shapes this does not improve; banding them
-   needs a wrapper inside another component. */
 ${SOLO} > :not(.twc-field):not(${SOLO_WRAP}):not(.twc-fieldrow)${HAS_FOOTER},
 ${SOLO} > ${MANY} { grid-row: 1 / -1; align-self: end; }
-/* ...and a plain control - a Button, a Menu trigger, a Checkbox with no error - sits in the control
-   band, which is what makes #508's shape line up with no lane at all. */
+
+/* #532: ...and a nested WRAPPING row, which until now was placed by NOTHING. The chain rule above
+reaches a nested row through ${ROW}, which carries :not([data-wrap="true"]) - so it matches only a
+non-wrapping inner row - and both fallbacks here carry :not(.twc-fieldrow), which excludes every
+nested row. A wrapping one therefore fell through all three, stayed an unplaced grid item, and
+AUTO-PLACED into row 1: the label track. Measured at a 760px container, the outer template went
+from "27px 40px 24px" to "190px 40px 24px" - the inner row's whole height became the label band -
+and a sibling field's control was pushed 163px down. Only this one pairing is affected, because a
+wrapping PARENT has no band at all.
+It has to stay flex (grid has no flex-wrap, which is why the band is scoped away from it), so it
+gets what every other undecomposable child gets: all three tracks, bottom edge. Its own cells draw
+their own lane, so its last line's control boxes land on the parent's control band exactly as the
+rule above intends. */
+${SOLO} > .twc-fieldrow[data-wrap="true"] { grid-row: 1 / -1; align-self: end; }
 ${SOLO} > :not(.twc-field):not(${SOLO_WRAP}):not(.twc-fieldrow):not(${HAS_FOOTER}) {
-  grid-row: 2; align-self: end; }
-
-/* #525's fragment cell, when every child is a field: banded too, so the pair lines up with the rest
-   of the row. With a natural child among them it stays FLEX, because a cell's implicit columns are
-   all sized alike and the button inside would stop hugging. */
+grid-row: 2; align-self: end; }
 ${FRAG_FIELDS} { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); column-gap: inherit; }
-${FRAG}:has(> :is(${NATURAL_ROOTS})) { display: flex; grid-row: 1 / -1; align-self: end; }
-
-/* NO GENERATED LANE IN BAND MODE. The band IS the lane. Not merely redundant: in a subgrid an
-   ::after is a grid item, and left to auto-place it lands in the LABEL band. So this kills the
-   cell's lane and #494's, however a host switched the latter on - on the field itself, or on an
-   ancestor above the row. A fragment cell that stayed on flex keeps its inner lanes, because there
-   they are the mechanism. */
+${FRAG}${FRAG_NAT} { display: flex; grid-row: 1 / -1; align-self: end; }
 ${SOLO}::after,
 ${ROW} .twc-fieldrow__cell:not(:has(> * + *)) .twc-field::after,
 ${FRAG_FIELDS} .twc-field::after { content: none; }
-
 `;
   function toCells(children, out, prefix) {
     import_react.default.Children.toArray(children).forEach((child, i) => {
@@ -17897,14 +17435,14 @@ ${FRAG_FIELDS} .twc-field::after { content: none; }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
 .twc-upload__zone[data-invalid="true"] { border-color: var(--color-danger); }
 .twc-upload__zone {
-  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-  gap: 6px; padding: var(--_pad-y, var(--space-8)) var(--_pad-x, var(--space-6)); cursor: pointer;
-  border: var(--border-medium) dashed var(--color-border-strong); border-radius: var(--radius-xl);
-  background: var(--color-surface); color: var(--color-text-muted);
-  transition: border-color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard);
+display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+gap: 6px; padding: var(--_pad-y, var(--space-8)) var(--_pad-x, var(--space-6)); cursor: pointer;
+border: var(--border-medium) dashed var(--color-border-strong); border-radius: var(--radius-xl);
+background: var(--color-surface); color: var(--color-text-muted);
+transition: border-color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-upload__zone:hover { border-color: var(--color-primary); background: var(--color-surface-sunken); }
-/* tone \u2192 focus/open accent (default primary; reproduces current look). */
+
 .twc-upload__zone { --_accent: var(--color-primary); --_ring: var(--ring); }
 .twc-upload__zone[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-upload__zone[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
@@ -17915,20 +17453,18 @@ ${FRAG_FIELDS} .twc-field::after { content: none; }
 .twc-upload__zone[data-disabled="true"] { opacity: 0.6; cursor: not-allowed; }
 .twc-upload__zone:focus-visible { outline: none; box-shadow: var(--_ring); }
 .twc-upload__icon { display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: var(--radius-lg);
-  background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); margin-bottom: 4px; }
+background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); margin-bottom: 4px; }
 .twc-upload__icon svg { width: 24px; height: 24px; }
 .twc-upload__title { font-size: var(--text-sm); color: var(--color-text); font-weight: var(--font-semibold); }
 .twc-upload__title em { color: var(--color-primary-subtle-fg); font-style: normal; }
-/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
-   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
-   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+
 .twc-upload__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
-.twc-upload__input { display: none; } /* #415: out of the tab order + a11y tree; inputRef.click() still works */
+.twc-upload__input { display: none; }
 .twc-upload__list { display: flex; flex-direction: column; gap: 8px; }
 .twc-upload__file { display: flex; align-items: center; gap: var(--space-3); padding: 9px 12px;
-  background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); }
+background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); }
 .twc-upload__file-ic { flex: none; display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: var(--radius-sm);
-  background: var(--color-surface-sunken); color: var(--color-text-muted); }
+background: var(--color-surface-sunken); color: var(--color-text-muted); }
 .twc-upload__file-ic svg { width: 16px; height: 16px; }
 .twc-upload__file-main { flex: 1; min-width: 0; }
 .twc-upload__file-name { font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -18222,7 +17758,7 @@ ${FRAG_FIELDS} .twc-field::after { content: none; }
   var KANBAN_CSS = `
 .twc-kanban { display: flex; gap: var(--space-4); font-family: var(--font-sans); overflow-x: auto; padding-bottom: var(--space-2); align-items: flex-start; }
 .twc-kanban__col { flex: 0 0 280px; display: flex; flex-direction: column; max-height: 100%;
-  background: var(--color-surface-sunken); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-xl); }
+background: var(--color-surface-sunken); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-xl); }
 .twc-kanban__col[data-over="true"] { box-shadow: inset 0 0 0 2px var(--color-primary); background: var(--color-primary-subtle); }
 .twc-kanban__col-h { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); }
 .twc-kanban__dot { width: 9px; height: 9px; border-radius: var(--radius-full); flex: none; background: var(--_c, var(--color-text-subtle)); }
@@ -18230,7 +17766,7 @@ ${FRAG_FIELDS} .twc-field::after { content: none; }
 .twc-kanban__count { font-size: var(--text-xs); font-weight: var(--font-bold); color: var(--color-text-subtle); background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-full); padding: 1px 8px; }
 .twc-kanban__list { display: flex; flex-direction: column; gap: var(--space-2); padding: 0 var(--space-3) var(--space-3); overflow-y: auto; min-height: 24px; }
 .twc-kanban__card { background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-3); box-shadow: var(--shadow-xs); cursor: grab;
-  transition: box-shadow var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring), border-color var(--duration-fast); }
+transition: box-shadow var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring), border-color var(--duration-fast); }
 .twc-kanban__card:hover { box-shadow: var(--shadow-sm); border-color: var(--color-border-strong); }
 .twc-kanban__card[data-dragging="true"] { opacity: 0.5; }
 .twc-kanban__card:focus-visible { outline: none; box-shadow: var(--ring); }
@@ -18392,14 +17928,14 @@ ${FRAG_FIELDS} .twc-field::after { content: none; }
   }
   var LIST_CSS = `
 .twc-list { display: flex; flex-direction: column; font-family: var(--font-sans); margin: 0; padding: 0; list-style: none;
-  background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; }
+background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; }
 .twc-list[data-plain="true"] { background: transparent; border: none; border-radius: 0; }
 .twc-list__item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4);
-  border-bottom: var(--border-thin) solid var(--color-divider); text-align: start; }
+border-bottom: var(--border-thin) solid var(--color-divider); text-align: start; }
 .twc-list__item:last-child { border-bottom: none; }
 .twc-list[data-plain="true"] .twc-list__item { padding-inline-start: 0; padding-inline-end: 0; }
 .twc-list__item[data-interactive="true"] { cursor: pointer; background: transparent; border-inline-start: none; border-inline-end: none; border-top: none; width: 100%; font: inherit; color: inherit;
-  transition: background-color var(--duration-fast) var(--ease-standard); }
+transition: background-color var(--duration-fast) var(--ease-standard); }
 .twc-list__item[data-interactive="true"]:hover { background: var(--color-surface-sunken); }
 .twc-list__item[data-interactive="true"]:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-list__item[data-active="true"] { background: var(--color-primary-subtle); }
@@ -18408,10 +17944,7 @@ ${FRAG_FIELDS} .twc-field::after { content: none; }
 .twc-list__main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
 .twc-list__title { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .twc-list__desc { font-size: var(--text-xs); color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-/* #462: text-MUTED, not text-subtle. A hover/active rule swaps --color-surface-sunken (or
-   --color-primary-subtle) in under this text without changing its colour, and text-subtle on
-   either is 4.34:1 / 4.26:1 in light - the pairing the token rules forbid (docs/colors.md). It
-   passes at rest on --color-surface and fails only while hovered, which is why it survived. */
+
 .twc-list__trail { flex: none; display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text-muted); font-size: var(--text-sm); }
 .twc-list__empty { padding: 30px 12px; text-align: center; color: var(--color-text-subtle); font-size: var(--text-sm); }
 `;
@@ -18459,30 +17992,30 @@ ${FRAG_FIELDS} .twc-field::after { content: none; }
   }
   var NAVBAR_CSS = `
 .twc-navbar { display: flex; align-items: center; gap: var(--space-4); height: 60px; padding: 0 var(--space-5);
-  font-family: var(--font-sans); background: var(--color-surface); border-bottom: var(--border-thin) solid var(--color-border); }
+font-family: var(--font-sans); background: var(--color-surface); border-bottom: var(--border-thin) solid var(--color-border); }
 .twc-navbar[data-sticky="true"] { position: sticky; top: 0; z-index: var(--z-sticky);
-  background: color-mix(in srgb, var(--color-surface) 85%, transparent); backdrop-filter: blur(10px); }
+background: color-mix(in srgb, var(--color-surface) 85%, transparent); backdrop-filter: blur(10px); }
 .twc-navbar__brand { display: inline-flex; align-items: center; gap: var(--space-2-5); font-weight: var(--font-extrabold);
-  font-size: var(--text-lg); letter-spacing: -0.02em; color: var(--color-text); text-decoration: none; flex: none;
-  border: none; background: none; padding: 0; font-family: inherit; }
+font-size: var(--text-lg); letter-spacing: -0.02em; color: var(--color-text); text-decoration: none; flex: none;
+border: none; background: none; padding: 0; font-family: inherit; }
 button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-navbar__links { display: flex; align-items: center; gap: 2px; }
 .twc-navbar__link { display: inline-flex; align-items: center; gap: 7px; padding: 8px 12px; border-radius: var(--radius-md);
-  font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-muted); text-decoration: none; cursor: pointer;
-  background: none; border: none; font-family: inherit; transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-muted); text-decoration: none; cursor: pointer;
+background: none; border: none; font-family: inherit; transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
 .twc-navbar__link:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-navbar__link[data-active="true"] { color: var(--color-primary-subtle-fg); background: var(--color-primary-subtle); }
 .twc-navbar__link svg { width: 16px; height: 16px; }
 .twc-navbar__spacer { flex: 1; }
 .twc-navbar__actions { display: flex; align-items: center; gap: var(--space-2); flex: none; }
 .twc-navbar__menu-btn { display: none; place-items: center; width: 38px; height: 38px; flex: none; border: none; background: none;
-  color: var(--color-text); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast) var(--ease-standard); }
+color: var(--color-text); cursor: pointer; border-radius: var(--radius-md); transition: background-color var(--duration-fast) var(--ease-standard); }
 .twc-navbar__menu-btn:hover { background: var(--color-surface-sunken); }
 .twc-navbar__menu-btn:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-navbar__menu-btn svg { width: 20px; height: 20px; }
 @media (max-width: 720px) {
-  .twc-navbar__links { display: none; }
-  .twc-navbar__menu-btn { display: inline-grid; }
+.twc-navbar__links { display: none; }
+.twc-navbar__menu-btn { display: inline-grid; }
 }
 `;
   function safeHref8(url) {
@@ -18546,11 +18079,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   var POPOVER_CSS = `
 .twc-popover-wrap { position: relative; display: inline-flex; }
 .twc-popover {
-  position: fixed; z-index: var(--z-popover); min-width: 200px;
-  background: var(--color-surface-raised); color: var(--color-text);
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg); font-family: var(--font-sans);
-  transform-origin: top;
+position: fixed; z-index: var(--z-popover); min-width: 200px;
+background: var(--color-surface-raised); color: var(--color-text);
+border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
+box-shadow: var(--shadow-lg); font-family: var(--font-sans);
+transform-origin: top;
 }
 .twc-popover:focus { outline: none; }
 .twc-popover[data-state="open"] { animation: twico-scale-in var(--duration-fast) var(--ease-spring); }
@@ -18559,10 +18092,9 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 @media (prefers-reduced-motion: reduce) { .twc-popover[data-state] { animation-duration: 1ms; } }
 .twc-popover[data-flip="true"] { transform-origin: bottom; }
 .twc-popover__arrow { position: absolute; width: 11px; height: 11px; background: var(--color-surface-raised);
-  border-left: var(--border-thin) solid var(--color-border); border-top: var(--border-thin) solid var(--color-border);
-  transform: rotate(45deg); }
-/* #373: cap the panel to the room place() measured and scroll INSIDE the inner (not the panel \u2014 the panel
-   must keep overflow visible so the absolutely-positioned arrow isn't clipped) so a tall panel's footer stays reachable. */
+border-left: var(--border-thin) solid var(--color-border); border-top: var(--border-thin) solid var(--color-border);
+transform: rotate(45deg); }
+
 .twc-popover__inner { padding: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-normal); overflow-y: auto; }
 .twc-popover__title { font-size: var(--text-sm); font-weight: var(--font-bold); color: var(--color-text); margin-bottom: 4px; }
 `;
@@ -18782,37 +18314,35 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const __twcStyles = useScopedStyles("twc-progress-styles", `
 .twc-progress-wrap { display: flex; flex-direction: column; gap: 6px; font-family: var(--font-sans); }
 .twc-progress {
-  --_h: 8px;
-  position: relative; width: 100%; height: var(--_h); overflow: hidden;
-  background: var(--color-surface-sunken); border-radius: var(--radius-full);
+--_h: 8px;
+position: relative; width: 100%; height: var(--_h); overflow: hidden;
+background: var(--color-surface-sunken); border-radius: var(--radius-full);
 }
 .twc-progress[data-size="sm"] { --_h: 5px; }
 .twc-progress[data-size="lg"] { --_h: 12px; }
 .twc-progress__bar {
-  height: 100%; border-radius: var(--radius-full);
-  background: var(--_c, var(--color-primary-graphic));
-  transition: width var(--duration-slow) var(--ease-out);
+height: 100%; border-radius: var(--radius-full);
+background: var(--_c, var(--color-primary-graphic));
+transition: width var(--duration-slow) var(--ease-out);
 }
-/* #455: the bar is the ONLY rendering of the progressbar's value, so SC 1.4.11's 3:1 applies against
-   the sunken track - which the plain tones missed in light mode (warning 1.96:1, info 2.53:1). The
-   -graphic aliases are the same hues at a step that clears it. */
+
 .twc-progress[data-tone="info"]    .twc-progress__bar { --_c: var(--color-info-graphic); }
 .twc-progress[data-tone="success"] .twc-progress__bar { --_c: var(--color-success-graphic); }
 .twc-progress[data-tone="warning"] .twc-progress__bar { --_c: var(--color-warning-graphic); }
 .twc-progress[data-tone="danger"]  .twc-progress__bar { --_c: var(--color-danger-graphic); }
 .twc-progress[data-indeterminate="true"] .twc-progress__bar {
-  position: absolute; width: 40%; animation: twc-progress-indeterminate 1.3s var(--ease-standard) infinite;
+position: absolute; width: 40%; animation: twc-progress-indeterminate 1.3s var(--ease-standard) infinite;
 }
-/* Logical-property keyframe so the indeterminate bar follows document direction (RTL-safe). */
+
 @keyframes twc-progress-indeterminate {
-  0%   { inset-inline-start: -40%; inset-inline-end: 100%; }
-  60%  { inset-inline-start: 100%; inset-inline-end: -90%; }
-  100% { inset-inline-start: 100%; inset-inline-end: -90%; }
+0%   { inset-inline-start: -40%; inset-inline-end: 100%; }
+60%  { inset-inline-start: 100%; inset-inline-end: -90%; }
+100% { inset-inline-start: 100%; inset-inline-end: -90%; }
 }
 .twc-progress__meta { display: flex; justify-content: space-between; font-size: var(--text-xs); color: var(--color-text-muted); }
-/* Indeterminate progress signals ongoing work \u2014 keep it animating under reduced motion. */
+
 @media (prefers-reduced-motion: reduce) {
-  .twc-progress[data-indeterminate="true"] .twc-progress__bar { animation-duration: 1.3s !important; animation-iteration-count: infinite !important; }
+.twc-progress[data-indeterminate="true"] .twc-progress__bar { animation-duration: 1.3s !important; animation-iteration-count: infinite !important; }
 }
 `);
     const v = Number.isFinite(value) ? value : 0;
@@ -18867,7 +18397,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }, ref) {
     const __twcStyles = useScopedStyles("twc-radio-styles", `
 .twc-radio { display: inline-flex; align-items: flex-start; gap: var(--space-2-5); cursor: pointer; font-family: var(--font-sans); }
-/* tone \u2192 accent set (default primary). Mirrors Button's --_accent model; Badge's tone vocabulary. */
+
 .twc-radio { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); --_accent-border: var(--color-primary-border); }
 .twc-radio[data-tone="success"] { --_accent: var(--color-success); --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); --_accent-border: var(--color-success); }
 .twc-radio[data-tone="warning"] { --_accent: var(--color-warning); --_accent-fg: var(--color-warning-fg); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); --_accent-border: var(--color-warning); }
@@ -18877,20 +18407,20 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-radio[data-disabled="true"] { cursor: not-allowed; opacity: 0.55; }
 .twc-radio__input { position: absolute; opacity: 0; width: 0; height: 0; }
 .twc-radio__dot {
-  --_sz: 20px;
-  flex: none; width: var(--_sz); height: var(--_sz); margin-top: 1px;
-  display: grid; place-items: center;
-  border: var(--border-medium) solid var(--color-control-border);
-  border-radius: var(--radius-full);
-  background: var(--color-surface);
-  transition: border-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
+--_sz: 20px;
+flex: none; width: var(--_sz); height: var(--_sz); margin-top: 1px;
+display: grid; place-items: center;
+border: var(--border-medium) solid var(--color-control-border);
+border-radius: var(--radius-full);
+background: var(--color-surface);
+transition: border-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
 }
 .twc-radio[data-size="sm"] .twc-radio__dot { --_sz: 16px; }
 .twc-radio[data-size="lg"] .twc-radio__dot { --_sz: 25px; }
 .twc-radio__dot::after {
-  content: ""; width: 50%; height: 50%; border-radius: var(--radius-full);
-  background: var(--_accent); transform: scale(0);
-  transition: transform var(--duration-base) var(--ease-spring);
+content: ""; width: 50%; height: 50%; border-radius: var(--radius-full);
+background: var(--_accent); transform: scale(0);
+transition: transform var(--duration-base) var(--ease-spring);
 }
 .twc-radio__input:checked + .twc-radio__dot { border-color: var(--_accent); }
 .twc-radio__input:checked + .twc-radio__dot::after { transform: scale(1); }
@@ -18902,17 +18432,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-field__req { color: var(--color-danger); }
 .twc-radio__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
 `);
     const autoId = import_react.default.useId();
@@ -18962,17 +18485,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   });
   var RADIO_GROUP_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
@@ -19069,13 +18585,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-rating { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sans); }
 .twc-rating__stars { display: inline-flex; gap: 2px; }
 .twc-rating__btn { border: none; background: transparent; padding: 1px; cursor: pointer; line-height: 0;
-  transition: transform var(--duration-fast) var(--ease-spring); }
+transition: transform var(--duration-fast) var(--ease-spring); }
 .twc-rating__btn:focus-visible { outline: none; box-shadow: var(--ring); border-radius: var(--radius-sm); }
 .twc-rating[data-readonly="true"] .twc-rating__btn { cursor: default; }
 .twc-rating[data-disabled="true"] { opacity: 0.55; }
 .twc-rating[data-disabled="true"] .twc-rating__btn { cursor: not-allowed; }
 .twc-rating:not([data-readonly="true"]):not([data-disabled="true"]) .twc-rating__btn:hover { transform: scale(1.18); }
-/* tone -> star color (default warning = gold). An explicit color prop (--_c) still wins. */
+
 .twc-rating { --_accent: var(--color-warning); }
 .twc-rating[data-tone="primary"] { --_accent: var(--color-primary); }
 .twc-rating[data-tone="success"] { --_accent: var(--color-success); }
@@ -19083,7 +18599,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-rating[data-tone="danger"]  { --_accent: var(--color-danger); }
 .twc-rating[data-tone="info"]    { --_accent: var(--color-info); }
 .twc-rating[data-tone="neutral"] { --_accent: var(--color-text); }
-/* Per-star partial fill: an accent-colored star clipped to var(--twc-fill) over an empty star. */
+
 .twc-rating__star { position: relative; display: inline-block; line-height: 0; }
 .twc-rating__bg { color: var(--color-border-strong); }
 .twc-rating__fg { position: absolute; inset-block: 0; inset-inline-start: 0; width: var(--twc-fill, 0%); overflow: hidden; color: var(--_c, var(--_accent)); }
@@ -19212,34 +18728,27 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     );
   }
   var SIDEBAR_CSS = `
-/* Collapse/expand: the rail width eases (emphasis curve, --duration-slow), while text
-   FADES rather than display:none-popping, and items keep their alignment so nothing
-   jolts. Icons sit at space-3 + 11px (= 23px) from the edge, which is the centre of the
-   68px collapsed rail, so no justify-content switch is needed. Fades are directional:
-   instant on collapse (clear out, then slide), delayed on expand (slide open, then reveal). */
 .twc-sidebar { display: flex; flex-direction: column; height: 100%; font-family: var(--font-sans);
-  background: var(--color-surface); border-inline-end: var(--border-thin) solid var(--color-border);
-  flex: 0 0 248px; min-width: 0; width: 248px; max-width: 248px;
-  transition: flex-basis var(--duration-slow) var(--ease-emphasis), width var(--duration-slow) var(--ease-emphasis), max-width var(--duration-slow) var(--ease-emphasis); overflow: hidden; }
+background: var(--color-surface); border-inline-end: var(--border-thin) solid var(--color-border);
+flex: 0 0 248px; min-width: 0; width: 248px; max-width: 248px;
+transition: flex-basis var(--duration-slow) var(--ease-emphasis), width var(--duration-slow) var(--ease-emphasis), max-width var(--duration-slow) var(--ease-emphasis); overflow: hidden; }
 .twc-sidebar[data-collapsed="true"] { flex-basis: 68px; width: 68px; max-width: 68px; }
 .twc-sidebar__head { display: flex; align-items: center; gap: var(--space-2-5); height: 60px; padding: 0 var(--space-4); flex: none; overflow: hidden;
-  border-bottom: var(--border-thin) solid var(--color-divider); transition: padding var(--duration-slow) var(--ease-emphasis); }
+border-bottom: var(--border-thin) solid var(--color-divider); transition: padding var(--duration-slow) var(--ease-emphasis); }
 .twc-sidebar__brand { display: inline-flex; align-items: center; gap: var(--space-2-5); font-weight: var(--font-extrabold); font-size: var(--text-lg); letter-spacing: -0.02em; color: var(--color-text); white-space: nowrap; overflow: hidden; min-width: 0;
-  transition: font-size var(--duration-base) var(--ease-standard), gap var(--duration-base) var(--ease-standard); }
+transition: font-size var(--duration-base) var(--ease-standard), gap var(--duration-base) var(--ease-standard); }
 .twc-sidebar__nav { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: var(--space-3); display: flex; flex-direction: column; gap: 2px; }
 .twc-sidebar__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
-/* #401: keep the nav's flex children (section headings + lists) at their content height so a short rail
-   SCROLLS instead of squashing the headings to slivers. A flex item with non-visible overflow otherwise gets
-   an auto min-height of 0. Doesn't touch the section max-height collapse transition. */
+
 .twc-sidebar__nav > * { flex-shrink: 0; }
 .twc-sidebar__section { font-size: 10px; font-weight: var(--font-bold); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--color-text-subtle); padding: var(--space-3) var(--space-3) var(--space-1); white-space: nowrap; overflow: hidden; max-height: 2.5rem; opacity: 1; visibility: visible;
-  transition: max-height var(--duration-base) var(--ease-standard), padding var(--duration-base) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard) var(--duration-fast), visibility 0s; }
+transition: max-height var(--duration-base) var(--ease-standard), padding var(--duration-base) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard) var(--duration-fast), visibility 0s; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__section { max-height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; visibility: hidden;
-  transition: max-height var(--duration-base) var(--ease-standard), padding var(--duration-base) var(--ease-standard), opacity var(--duration-instant) var(--ease-standard), visibility 0s var(--duration-base); }
+transition: max-height var(--duration-base) var(--ease-standard), padding var(--duration-base) var(--ease-standard), opacity var(--duration-instant) var(--ease-standard), visibility 0s var(--duration-base); }
 .twc-sidebar__item { display: flex; align-items: center; gap: var(--space-3); padding: 9px 11px; border-radius: var(--radius-md);
-  font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-muted); text-decoration: none; cursor: pointer;
-  border: none; background: none; font-family: inherit; width: 100%; min-width: 0; text-align: start; white-space: nowrap; overflow: hidden;
-  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-muted); text-decoration: none; cursor: pointer;
+border: none; background: none; font-family: inherit; width: 100%; min-width: 0; text-align: start; white-space: nowrap; overflow: hidden;
+transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
 .twc-sidebar__item:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-sidebar__item[data-active="true"] { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); }
 .twc-sidebar__item:focus-visible { outline: none; box-shadow: var(--ring); }
@@ -19248,14 +18757,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-sidebar__ic--initial { width: 19px; justify-content: center; font-size: var(--text-sm); font-weight: var(--font-bold); text-transform: uppercase; line-height: 1; }
 .twc-sidebar:not([data-collapsed="true"]) .twc-sidebar__ic--initial { display: none; }
 .twc-sidebar__label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; opacity: 1; visibility: visible;
-  transition: opacity var(--duration-fast) var(--ease-standard) var(--duration-fast), visibility 0s; }
+transition: opacity var(--duration-fast) var(--ease-standard) var(--duration-fast), visibility 0s; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__label { opacity: 0; visibility: hidden; transition: opacity var(--duration-instant) var(--ease-standard), visibility 0s var(--duration-instant); }
 .twc-sidebar__badge { flex: none; font-size: 11px; font-weight: var(--font-bold); padding: 1px 7px; border-radius: var(--radius-full); background: var(--color-primary); color: var(--color-primary-fg); opacity: 1; visibility: visible;
-  transition: opacity var(--duration-fast) var(--ease-standard) var(--duration-fast), visibility 0s; }
+transition: opacity var(--duration-fast) var(--ease-standard) var(--duration-fast), visibility 0s; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__badge { opacity: 0; visibility: hidden; transition: opacity var(--duration-instant) var(--ease-standard), visibility 0s var(--duration-instant); }
-/* Collapsed: centre the brand mark in the 68px rail (\u2248 the nav icon column) with no
-   right padding, so a mark wider than the icons isn't clipped. flex-start (not
-   justify-content) keeps it from jolting to centre while the rail is still wide. */
+
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__head { padding-inline: 18px 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__brand, .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot-user { font-size: 0; gap: 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot-user { justify-content: center; }
@@ -19264,32 +18771,24 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot-user > * > :not(:first-child) { display: none; }
 .twc-sidebar__foot { flex: none; border-top: var(--border-thin) solid var(--color-divider); padding: var(--space-2); }
 .twc-sidebar__foot-user { display: flex; align-items: center; padding: 6px 6px 8px; }
-/* #402: footerInset={false} cancels the foot's built-in padding so a full-width account row's hover bg reaches
-   the rail edges + the top divider (a --space-1 gap is kept above). The negative margins mirror .twc-sidebar__foot's
-   own var(--space-2) padding \u2014 both live in this file, so they can't silently drift like a consumer workaround. */
+
 .twc-sidebar__foot-user[data-inset="false"] { padding: 0; margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) var(--space-1); }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot-user[data-inset="false"] { margin-inline: 0; }
-/* #417: when the account row is the foot's last child (collapsible=false / nothing follows), cancel the foot's
-   bottom padding too so the edge-to-edge row reaches the rail's bottom edge (no consumer negative margin). */
+
 .twc-sidebar__foot-user[data-inset="false"]:last-child { margin-bottom: calc(-1 * var(--space-2)); }
 .twc-sidebar__collapse { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 9px; border: none; background: none; cursor: pointer;
-  color: var(--color-text-muted); border-radius: var(--radius-md); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold);
-  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+color: var(--color-text-muted); border-radius: var(--radius-md); font-family: inherit; font-size: var(--text-xs); font-weight: var(--font-semibold);
+transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
 .twc-sidebar__collapse:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-sidebar__collapse svg { width: 18px; height: 18px; flex: none; transition: transform var(--duration-base) var(--ease-spring); }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse svg { transform: rotate(180deg); }
-/* #465: the rail's own edge is logical (border-inline-end), so under dir="rtl" it sits on the right
-   of the page - but the chevron still pointed left, away from the edge it collapses toward. The
-   library convention for a nav chevron (CLAUDE.md; Breadcrumb and the DateRangePicker nav do it). */
+
 [dir="rtl"] .twc-sidebar__collapse svg { transform: scaleX(-1); }
 [dir="rtl"] .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse svg { transform: scaleX(-1) rotate(180deg); }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__foot { display: flex; flex-direction: column; align-items: center; padding: var(--space-2) 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse { width: auto; padding: 11px; gap: 0; margin: 0; }
 .twc-sidebar[data-collapsed="true"] .twc-sidebar__collapse span { display: none; }
 
-/* Off-canvas overlay mode (mobile): the rail becomes a slide-over drawer behind a
-   scrim, mirroring Drawer.jsx. Logical inset + a --_off var slide it in from the
-   inline-start edge (mirrored under dir="rtl"). */
 .twc-sidebar__overlay { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--color-overlay); backdrop-filter: blur(2px); }
 .twc-sidebar__overlay[data-state="open"] { animation: twico-fade-in var(--duration-base) var(--ease-out); }
 .twc-sidebar__overlay[data-state="closed"] { animation: twc-sidebar-fade-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
@@ -19301,7 +18800,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 @keyframes twc-sidebar-in { from { transform: translateX(var(--_off)); } to { transform: translateX(0); } }
 @keyframes twc-sidebar-out { from { transform: translateX(0); } to { transform: translateX(var(--_off)); } }
 @media (prefers-reduced-motion: reduce) {
-  .twc-sidebar__overlay[data-state], .twc-sidebar--overlay[data-state] { animation-duration: 1ms; }
+.twc-sidebar__overlay[data-state], .twc-sidebar--overlay[data-state] { animation-duration: 1ms; }
 }
 `;
   function Sidebar({
@@ -19458,13 +18957,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const a11y = label != null ? { role: "status", "aria-live": "polite", "aria-busy": true } : { "aria-hidden": true };
     const __twcStyles = useScopedStyles("twc-skeleton-styles", `
 .twc-skeleton {
-  position: relative; overflow: hidden;
-  background: var(--color-surface-sunken); border-radius: var(--radius-md);
+position: relative; overflow: hidden;
+background: var(--color-surface-sunken); border-radius: var(--radius-md);
 }
 .twc-skeleton::after {
-  content: ""; position: absolute; inset: 0; transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-text) 8%, transparent), transparent);
-  animation: twico-shimmer 1.4s infinite;
+content: ""; position: absolute; inset: 0; transform: translateX(-100%);
+background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-text) 8%, transparent), transparent);
+animation: twico-shimmer 1.4s infinite;
 }
 .twc-skeleton[data-variant="text"] { height: 0.9em; border-radius: var(--radius-sm); }
 .twc-skeleton[data-variant="circle"] { aspect-ratio: 1; border-radius: var(--radius-full); }
@@ -19472,9 +18971,9 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-skeleton__group { display: flex; flex-direction: column; gap: 8px; }
 .twc-skeleton__group .twc-skeleton:last-child { width: 70%; }
 .twc-skeleton__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-/* The shimmer signals loading \u2014 keep it animating even under reduced motion. */
+
 @media (prefers-reduced-motion: reduce) {
-  .twc-skeleton::after { animation-duration: 1.4s !important; animation-iteration-count: infinite !important; }
+.twc-skeleton::after { animation-duration: 1.4s !important; animation-iteration-count: infinite !important; }
 }
 `);
     if (variant === "text" && lines > 1) {
@@ -19501,7 +19000,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }
   var SLIDER_CSS = `
 .twc-slider { font-family: var(--font-sans); }
-/* tone \u2192 accent set (default primary). Mirrors Button's --_accent model; Badge's tone vocabulary. */
+
 .twc-slider { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); --_accent-border: var(--color-primary-border); }
 .twc-slider[data-tone="success"] { --_accent: var(--color-success); --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); --_accent-border: var(--color-success); }
 .twc-slider[data-tone="warning"] { --_accent: var(--color-warning); --_accent-fg: var(--color-warning-fg); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); --_accent-border: var(--color-warning); }
@@ -19518,37 +19017,37 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-slider__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
 .twc-slider__value { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--_accent); font-variant-numeric: tabular-nums; }
 .twc-slider__track {
-  position: relative; height: var(--_track-h); display: flex; align-items: center; cursor: pointer; touch-action: none;
+position: relative; height: var(--_track-h); display: flex; align-items: center; cursor: pointer; touch-action: none;
 }
 .twc-slider[data-disabled="true"] { opacity: 0.55; }
 .twc-slider[data-disabled="true"] .twc-slider__track { cursor: not-allowed; }
 .twc-slider__rail { position: absolute; left: 0; right: 0; height: var(--_rail); border-radius: var(--radius-full); background: var(--color-surface-sunken); box-shadow: inset 0 0 0 1px var(--color-border); }
 .twc-slider__fill { position: absolute; height: var(--_rail); border-radius: var(--radius-full); background: var(--_accent); }
 .twc-slider__thumb {
-  position: absolute; width: var(--_thumb); height: var(--_thumb); border-radius: var(--radius-full);
-  background: var(--color-surface); border: var(--border-thick) solid var(--_accent);
-  box-shadow: var(--shadow-sm); transform: translateX(-50%); top: 50%; margin-top: calc(var(--_thumb) / -2);
-  transition: box-shadow var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
+position: absolute; width: var(--_thumb); height: var(--_thumb); border-radius: var(--radius-full);
+background: var(--color-surface); border: var(--border-thick) solid var(--_accent);
+box-shadow: var(--shadow-sm); transform: translateX(-50%); top: 50%; margin-top: calc(var(--_thumb) / -2);
+transition: box-shadow var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
 }
 .twc-slider__thumb:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-slider__thumb:active { transform: translateX(-50%) scale(1.15); }
 .twc-slider__ticks { position: absolute; left: 0; right: 0; top: 50%; }
 .twc-slider__tick { position: absolute; width: 3px; height: 3px; border-radius: var(--radius-full); background: var(--color-border-strong); transform: translate(-50%, -50%); }
 .twc-slider__bubble {
-  position: absolute; bottom: calc(100% + 8px); transform: translateX(-50%) scale(0.9); transform-origin: bottom center;
-  background: var(--color-text); color: var(--color-surface); font-size: var(--text-xs); font-weight: var(--font-semibold);
-  padding: 3px 8px; border-radius: var(--radius-md); white-space: nowrap; opacity: 0; pointer-events: none;
-  transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
+position: absolute; bottom: calc(100% + 8px); transform: translateX(-50%) scale(0.9); transform-origin: bottom center;
+background: var(--color-text); color: var(--color-surface); font-size: var(--text-xs); font-weight: var(--font-semibold);
+padding: 3px 8px; border-radius: var(--radius-md); white-space: nowrap; opacity: 0; pointer-events: none;
+transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
 }
 .twc-slider__track[data-show-bubble="true"] .twc-slider__bubble { opacity: 1; transform: translateX(-50%) scale(1); }
-/* #351: editable numeric inputs (manual entry, synced with the thumbs) */
+
 .twc-slider__inputs { display: inline-flex; align-items: center; gap: var(--space-1-5); }
 .twc-slider__input-sep { color: var(--color-text-muted); font-weight: var(--font-semibold); }
 .twc-slider__input {
-  min-width: 0; text-align: end; font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold);
-  color: var(--_accent); font-variant-numeric: tabular-nums;
-  padding: 2px 6px; border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface);
-  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+min-width: 0; text-align: end; font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold);
+color: var(--_accent); font-variant-numeric: tabular-nums;
+padding: 2px 6px; border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface);
+transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .twc-slider__input:hover:not(:disabled) { border-color: var(--color-border-strong); }
 .twc-slider__input:focus-visible { outline: none; border-color: var(--_accent); box-shadow: var(--ring); }
@@ -19796,13 +19295,12 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     const resolvedTone = tone ?? color ?? "current";
     const __twcStyles = useScopedStyles("twc-spinner-styles", `
 .twc-spinner {
-  --_sz: 24px; --_bw: 2.5px;
-  display: inline-block; width: var(--_sz); height: var(--_sz);
-  /* Default to currentColor so the spinner is visible in any context \u2014 including
-     inside a solid button, where it inherits the button's (light) text color. */
-  border: var(--_bw) solid var(--_track, color-mix(in srgb, currentColor 25%, transparent));
-  border-top-color: var(--_c, currentColor);
-  border-radius: var(--radius-full); animation: twico-spin 0.65s linear infinite;
+--_sz: 24px; --_bw: 2.5px;
+display: inline-block; width: var(--_sz); height: var(--_sz);
+
+border: var(--_bw) solid var(--_track, color-mix(in srgb, currentColor 25%, transparent));
+border-top-color: var(--_c, currentColor);
+border-radius: var(--radius-full); animation: twico-spin 0.65s linear infinite;
 }
 .twc-spinner[data-size="sm"] { --_sz: 16px; --_bw: 2px; }
 .twc-spinner[data-size="lg"] { --_sz: 36px; --_bw: 3.5px; }
@@ -19814,22 +19312,22 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-spinner[data-tone="info"]    { --_c: var(--color-info); --_track: var(--color-border); }
 .twc-spinner[data-tone="white"] { --_c: #fff; --_track: rgba(255,255,255,0.35); }
 .twc-spinner[data-tone="neutral"] { --_c: var(--color-text); --_track: var(--color-border); }
-/* A loading spinner conveys state \u2014 keep it spinning even under reduced motion. */
+
 @media (prefers-reduced-motion: reduce) {
-  .twc-spinner { animation-duration: 0.65s !important; animation-iteration-count: infinite !important; }
+.twc-spinner { animation-duration: 0.65s !important; animation-iteration-count: infinite !important; }
 }
 `);
     return /* @__PURE__ */ jsx("span", { className: `twc-spinner ${className}`, "data-size": size, "data-tone": resolvedTone, role: "status", "aria-label": label, ...rest, children: __twcStyles });
   }
   var STAT_CSS = `
 .twc-stat { display: flex; flex-direction: column; gap: 6px; font-family: var(--font-sans);
-  background: var(--color-surface); border: var(--border-thin) solid var(--color-border);
-  border-radius: var(--radius-lg); padding: var(--space-5); }
+background: var(--color-surface); border: var(--border-thin) solid var(--color-border);
+border-radius: var(--radius-lg); padding: var(--space-5); }
 .twc-stat[data-plain="true"] { background: transparent; border: none; padding: 0; }
 .twc-stat__top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
 .twc-stat__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-muted); }
 .twc-stat__icon { flex: none; display: inline-grid; place-items: center; width: 38px; height: 38px; border-radius: var(--radius-md);
-  background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); }
+background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); }
 .twc-stat__icon svg { width: 20px; height: 20px; }
 .twc-stat__value { font-size: var(--text-3xl); font-weight: var(--font-extrabold); letter-spacing: -0.02em; color: var(--color-text); line-height: 1.1; }
 .twc-stat__foot { display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); }
@@ -19873,7 +19371,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }
   var STEPPER_CSS = `
 .twc-stepper { display: flex; font-family: var(--font-sans); }
-/* tone \u2192 accent set (default primary). Mirrors Button's --_accent model; Badge's tone vocabulary. */
+
 .twc-stepper { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); --_accent-border: var(--color-primary-border); }
 .twc-stepper[data-tone="success"] { --_accent: var(--color-success); --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); --_accent-border: var(--color-success); }
 .twc-stepper[data-tone="warning"] { --_accent: var(--color-warning); --_accent-fg: var(--color-warning-fg); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); --_accent-border: var(--color-warning); }
@@ -19886,11 +19384,11 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-stepper[data-orientation="horizontal"] .twc-step { flex-direction: column; align-items: center; text-align: center; position: relative; }
 .twc-stepper[data-orientation="vertical"] .twc-step { flex-direction: row; align-items: flex-start; gap: var(--space-3); flex: none; }
 .twc-step__indicator {
-  position: relative; z-index: 1; flex: none; width: 32px; height: 32px; border-radius: var(--radius-full);
-  display: grid; place-items: center; font-size: var(--text-sm); font-weight: var(--font-bold);
-  background: var(--color-surface); color: var(--color-text-subtle);
-  border: var(--border-medium) solid var(--color-border-strong);
-  transition: background-color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard), color var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-spring);
+position: relative; z-index: 1; flex: none; width: 32px; height: 32px; border-radius: var(--radius-full);
+display: grid; place-items: center; font-size: var(--text-sm); font-weight: var(--font-bold);
+background: var(--color-surface); color: var(--color-text-subtle);
+border: var(--border-medium) solid var(--color-border-strong);
+transition: background-color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard), color var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-spring);
 }
 .twc-step__indicator svg { width: 17px; height: 17px; }
 .twc-step[data-state="active"] .twc-step__indicator { border-color: var(--_accent); color: var(--_accent); box-shadow: 0 0 0 4px var(--_accent-subtle); }
@@ -20021,7 +19519,6 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
     ...rest
   }, ref) {
     const __twcStyles = useScopedStyles("twc-switch-styles", `
-/* tone \u2192 accent set (default primary). Mirrors Button's --_accent model; Badge's tone vocabulary. */
 .twc-switch { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); --_accent-border: var(--color-primary-border); }
 .twc-switch[data-tone="success"] { --_accent: var(--color-success); --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); --_accent-border: var(--color-success); }
 .twc-switch[data-tone="warning"] { --_accent: var(--color-warning); --_accent-fg: var(--color-warning-fg); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); --_accent-border: var(--color-warning); }
@@ -20033,54 +19530,41 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-switch[data-disabled="true"] { cursor: not-allowed; opacity: 0.55; }
 .twc-switch__input { position: absolute; opacity: 0; width: 0; height: 0; }
 .twc-switch__track {
-  --_w: 44px; --_h: 24px; --_pad: 3px;
-  position: relative; flex: none; width: var(--_w); height: var(--_h);
-  background: var(--color-control-track); border-radius: var(--radius-full);
-  transition: background-color var(--duration-base) var(--ease-standard);
+--_w: 44px; --_h: 24px; --_pad: 3px;
+position: relative; flex: none; width: var(--_w); height: var(--_h);
+background: var(--color-control-track); border-radius: var(--radius-full);
+transition: background-color var(--duration-base) var(--ease-standard);
 }
 .twc-switch[data-size="sm"] .twc-switch__track { --_w: 36px; --_h: 20px; }
 .twc-switch[data-size="lg"] .twc-switch__track { --_w: 52px; --_h: 28px; --_pad: 4px; }
 .twc-switch__thumb {
-  position: absolute; top: var(--_pad); inset-inline-start: var(--_pad);
-  width: calc(var(--_h) - var(--_pad) * 2); height: calc(var(--_h) - var(--_pad) * 2);
-  background: var(--color-control-thumb); border-radius: var(--radius-full); box-shadow: var(--shadow-sm);
-  /* #454 (review 2): background-color is transitioned because the thumb's colour now CHANGES between
-     off and on (static thumb -> tone ink). With only a transform transition it snapped at the end of the
-     220ms slide, so for most of every toggle the moving thumb was still painted the old colour. */
-  transition: transform var(--duration-base) var(--ease-spring),
-              background-color var(--duration-base) var(--ease-standard);
+position: absolute; top: var(--_pad); inset-inline-start: var(--_pad);
+width: calc(var(--_h) - var(--_pad) * 2); height: calc(var(--_h) - var(--_pad) * 2);
+background: var(--color-control-thumb); border-radius: var(--radius-full); box-shadow: var(--shadow-sm);
+
+transition: transform var(--duration-base) var(--ease-spring),
+background-color var(--duration-base) var(--ease-standard);
 }
 .twc-switch__input:checked + .twc-switch__track { background: var(--_accent); }
-/* #454 (review): the tone ink applies only ON, where it is paired with its own fill. */
+
 .twc-switch__input:checked + .twc-switch__track .twc-switch__thumb { background: var(--_accent-fg); }
 .twc-switch__input:checked + .twc-switch__track .twc-switch__thumb { transform: translateX(calc((var(--_w) - var(--_h)) * var(--_tx))); }
 .twc-switch__input:focus-visible + .twc-switch__track { box-shadow: var(--ring); }
 .twc-switch__input:active + .twc-switch__track .twc-switch__thumb { width: calc(var(--_h) - var(--_pad) * 2 + 4px); }
 .twc-switch[data-invalid="true"] .twc-switch__track { box-shadow: inset 0 0 0 var(--border-medium) var(--color-danger); }
-/* Pre-existing, found while reviewing #454: the rule above and the :focus-visible rule both set
-   box-shadow at (0,3,0) and this one is later, so an invalid Switch lost its focus ring entirely - a
-   keyboard user in a form with an error could not see which control held focus (SC 2.4.7). Checkbox
-   and Radio paint their invalid state with border-color, so only Switch was affected. Both shadows
-   are composited here, at a specificity that beats either rule alone. */
+
 .twc-switch[data-invalid="true"] .twc-switch__input:focus-visible + .twc-switch__track {
-  box-shadow: var(--ring), inset 0 0 0 var(--border-medium) var(--color-danger);
+box-shadow: var(--ring), inset 0 0 0 var(--border-medium) var(--color-danger);
 }
 .twc-switch__text { display: flex; flex-direction: column; gap: 2px; }
 .twc-switch__label { font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); line-height: 1.3; }
 .twc-field__req { color: var(--color-danger); }
 .twc-switch__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
 `);
     const autoId = import_react.default.useId();
@@ -20131,10 +19615,10 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-table-wrap { width: 100%; overflow-x: auto; border-radius: var(--radius-lg); border: var(--border-thin) solid var(--color-border); background: var(--color-surface); }
 .twc-table { width: 100%; border-collapse: collapse; font-family: var(--font-sans); font-size: var(--text-sm); color: var(--color-text); }
 .twc-table thead th {
-  text-align: start; font-weight: var(--font-semibold); color: var(--color-text-muted);
-  font-size: var(--text-xs); letter-spacing: var(--tracking-wide); text-transform: uppercase;
-  padding: var(--space-3) var(--space-4); background: var(--color-surface-sunken);
-  border-bottom: var(--border-thin) solid var(--color-border); white-space: nowrap;
+text-align: start; font-weight: var(--font-semibold); color: var(--color-text-muted);
+font-size: var(--text-xs); letter-spacing: var(--tracking-wide); text-transform: uppercase;
+padding: var(--space-3) var(--space-4); background: var(--color-surface-sunken);
+border-bottom: var(--border-thin) solid var(--color-border); white-space: nowrap;
 }
 .twc-table th[data-align="right"], .twc-table td[data-align="right"] { text-align: end; }
 .twc-table th[data-align="center"], .twc-table td[data-align="center"] { text-align: center; }
@@ -20157,14 +19641,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-table[data-size="lg"] tbody td { padding: var(--space-4) var(--space-5); font-size: var(--text-base); }
 .twc-table[data-sticky="true"] thead th { position: sticky; top: 0; z-index: 2; background: var(--color-surface); box-shadow: inset 0 calc(-1 * var(--border-thin)) 0 0 var(--color-border); }
 .twc-table__caption { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-/* #462 (review 2): text-MUTED. The row underneath takes a sunken hover fill and the hover rule sets
-   no colour, so this text stays put at 4.34:1 in light. */
+
 .twc-table__empty { padding: 30px 12px; text-align: center; color: var(--color-text-muted); font-size: var(--text-sm); }
 .twc-table__sk { display: inline-block; height: 12px; border-radius: var(--radius-sm); background: var(--color-surface-sunken);
-  position: relative; overflow: hidden; width: var(--_w, 70%); }
+position: relative; overflow: hidden; width: var(--_w, 70%); }
 .twc-table__sk::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-text) 8%, transparent), transparent);
-  animation: twico-shimmer 1.4s infinite; }
+background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-text) 8%, transparent), transparent);
+animation: twico-shimmer 1.4s infinite; }
 `;
   function Table({
     columns,
@@ -20266,7 +19749,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }
   var TABS_CSS = `
 .twc-tabs { font-family: var(--font-sans); }
-/* tone \u2192 accent set (default primary). Mirrors Button's --_accent model; Badge's tone vocabulary. */
+
 .twc-tabs { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); --_accent-border: var(--color-primary-border); }
 .twc-tabs[data-tone="success"] { --_accent: var(--color-success); --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); --_accent-border: var(--color-success); }
 .twc-tabs[data-tone="warning"] { --_accent: var(--color-warning); --_accent-fg: var(--color-warning-fg); --_accent-subtle: var(--color-warning-subtle); --_accent-subtle-fg: var(--color-warning-subtle-fg); --_accent-border: var(--color-warning); }
@@ -20274,20 +19757,20 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-tabs[data-tone="info"]    { --_accent: var(--color-info); --_accent-fg: var(--color-info-fg); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); --_accent-border: var(--color-info); }
 .twc-tabs[data-tone="neutral"] { --_accent: var(--color-text); --_accent-fg: var(--color-surface); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text-muted); --_accent-border: var(--color-border-strong); }
 .twc-tabs__list {
-  position: relative; display: flex; gap: 2px;
-  border-bottom: var(--border-thin) solid var(--color-border);
+position: relative; display: flex; gap: 2px;
+border-bottom: var(--border-thin) solid var(--color-border);
 }
 .twc-tabs[data-variant="pill"] .twc-tabs__list {
-  gap: 4px; border-bottom: none; padding: 4px;
-  background: var(--color-surface-sunken); border-radius: var(--radius-lg);
-  display: inline-flex;
+gap: 4px; border-bottom: none; padding: 4px;
+background: var(--color-surface-sunken); border-radius: var(--radius-lg);
+display: inline-flex;
 }
 .twc-tab {
-  position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 7px;
-  padding: var(--space-2-5) var(--space-4); border: none; background: transparent;
-  font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold);
-  color: var(--color-text-muted); cursor: pointer; white-space: nowrap;
-  transition: color var(--duration-fast) var(--ease-standard);
+position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 7px;
+padding: var(--space-2-5) var(--space-4); border: none; background: transparent;
+font-family: inherit; font-size: var(--text-sm); font-weight: var(--font-semibold);
+color: var(--color-text-muted); cursor: pointer; white-space: nowrap;
+transition: color var(--duration-fast) var(--ease-standard);
 }
 .twc-tab:hover:not([data-active="true"]) { color: var(--color-text); }
 .twc-tab[data-active="true"] { color: var(--_accent); }
@@ -20298,44 +19781,40 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-tab__count { font-size: 11px; padding: 1px 6px; border-radius: var(--radius-full); background: var(--color-surface-sunken); color: var(--color-text-muted); }
 .twc-tab[data-active="true"] .twc-tab__count { background: var(--_accent-subtle); color: var(--_accent-subtle-fg); }
 .twc-tabs__indicator {
-  position: absolute; bottom: -1px; height: 2.5px; border-radius: var(--radius-full);
-  background: var(--_accent);
-  transition: left var(--duration-base) var(--ease-spring), width var(--duration-base) var(--ease-spring);
+position: absolute; bottom: -1px; height: 2.5px; border-radius: var(--radius-full);
+background: var(--_accent);
+transition: left var(--duration-base) var(--ease-spring), width var(--duration-base) var(--ease-spring);
 }
 .twc-tabs[data-variant="pill"] .twc-tabs__indicator {
-  top: 4px; bottom: 4px; height: auto; background: var(--color-surface); box-shadow: var(--shadow-sm); border-radius: var(--radius-md);
+top: 4px; bottom: 4px; height: auto; background: var(--color-surface); box-shadow: var(--shadow-sm); border-radius: var(--radius-md);
 }
 .twc-tab[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
-/* Horizontal tablist scrolls when tabs overflow (vertical orientation untouched). Making
-   overflow-x non-visible makes overflow-y compute to auto, which would clip the bottom:-1px
-   indicator \u2014 so pin the horizontal indicator to bottom:0 (the list border-bottom is the baseline). */
+
 .twc-tabs:not([data-orientation="vertical"]) .twc-tabs__list { overflow-x: auto; scrollbar-width: none; }
 .twc-tabs:not([data-orientation="vertical"]) .twc-tabs__list::-webkit-scrollbar { display: none; }
 .twc-tabs:not([data-orientation="vertical"]) .twc-tabs__indicator { bottom: 0; }
 .twc-tabs__panel { padding-top: var(--space-4); }
 
-/* Vertical orientation */
 .twc-tabs[data-orientation="vertical"] { display: flex; gap: var(--space-4); align-items: flex-start; }
 .twc-tabs[data-orientation="vertical"] .twc-tabs__list {
-  flex-direction: column; gap: 2px;
-  border-bottom: none; border-inline-end: var(--border-thin) solid var(--color-border);
+flex-direction: column; gap: 2px;
+border-bottom: none; border-inline-end: var(--border-thin) solid var(--color-border);
 }
 .twc-tabs[data-orientation="vertical"] .twc-tab { justify-content: flex-start; }
 .twc-tabs[data-orientation="vertical"][data-variant="pill"] .twc-tabs__list {
-  display: inline-flex; flex-direction: column; border-inline-end: none;
+display: inline-flex; flex-direction: column; border-inline-end: none;
 }
 .twc-tabs[data-orientation="vertical"] .twc-tabs__indicator {
-  bottom: auto; inset-inline-start: auto; inset-inline-end: -1px; width: 2.5px; height: auto;
-  transition: top var(--duration-base) var(--ease-spring), height var(--duration-base) var(--ease-spring);
+bottom: auto; inset-inline-start: auto; inset-inline-end: -1px; width: 2.5px; height: auto;
+transition: top var(--duration-base) var(--ease-spring), height var(--duration-base) var(--ease-spring);
 }
 .twc-tabs[data-orientation="vertical"][data-variant="pill"] .twc-tabs__indicator {
-  top: auto; inset-inline-end: 4px; inset-inline-start: 4px; width: auto;
+top: auto; inset-inline-end: 4px; inset-inline-start: 4px; width: auto;
 }
 .twc-tabs[data-orientation="vertical"] .twc-tabs__panel { padding-top: 0; flex: 1; min-width: 0; }
-/* WCAG 2.3.3: the active-tab indicator jumps instead of sliding under reduced motion (both
-   the horizontal left/width and vertical top/height variants). */
+
 @media (prefers-reduced-motion: reduce) {
-  .twc-tabs__indicator, .twc-tabs[data-orientation="vertical"] .twc-tabs__indicator { transition: none; }
+.twc-tabs__indicator, .twc-tabs[data-orientation="vertical"] .twc-tabs__indicator { transition: none; }
 }
 `;
   function Tabs({
@@ -20460,18 +19939,15 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }
   var TAG_CSS = `
 .twc-tag {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding-block: 4px; padding-inline: 11px 6px; height: 28px;
-  font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-medium);
-  border: var(--border-thin) solid transparent;
-  border-radius: var(--radius-full); white-space: nowrap;
-  transition: background-color var(--duration-fast) var(--ease-standard);
+display: inline-flex; align-items: center; gap: 6px;
+padding-block: 4px; padding-inline: 11px 6px; height: 28px;
+font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-medium);
+border: var(--border-thin) solid transparent;
+border-radius: var(--radius-full); white-space: nowrap;
+transition: background-color var(--duration-fast) var(--ease-standard);
 }
 .twc-tag[data-no-remove="true"] { padding-inline-end: 11px; }
 
-/* tone \u2192 accent set (default neutral; mirrors Badge's tone vocabulary). neutral's
-   subtle-fg is full --color-text and its border is --color-border so the default
-   soft+neutral tag reproduces the original bordered chip exactly. */
 .twc-tag { --_accent: var(--color-text); --_accent-fg: var(--color-surface); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text); --_accent-border: var(--color-border); }
 .twc-tag[data-tone="primary"] { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); --_accent-border: var(--color-primary-border); }
 .twc-tag[data-tone="success"] { --_accent: var(--color-success); --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); --_accent-border: var(--color-success); }
@@ -20483,14 +19959,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-tag[data-variant="solid"]   { background: var(--_accent); color: var(--_accent-fg); border-color: transparent; }
 .twc-tag[data-variant="outline"] { background: transparent; color: var(--_accent-subtle-fg); border-color: var(--_accent-border); }
 .twc-tag__remove {
-  display: inline-grid; place-items: center;
-  width: 18px; height: 18px; border: none; padding: 0; margin: 0;
-  border-radius: var(--radius-full); background: transparent;
-  color: var(--color-text-subtle); cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
+display: inline-grid; place-items: center;
+width: 18px; height: 18px; border: none; padding: 0; margin: 0;
+border-radius: var(--radius-full); background: transparent;
+color: var(--color-text-subtle); cursor: pointer;
+transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
 }
-/* Intentionally danger-tinted regardless of tone: this signals the destructive REMOVE
-   action, not the tag's color (matches the per-item destructive-affordance convention). */
+
 .twc-tag__remove:hover { background: var(--color-danger-subtle); color: var(--color-danger-subtle-fg); }
 .twc-tag__remove:active { transform: scale(0.85); }
 .twc-tag__remove svg { width: 13px; height: 13px; }
@@ -20520,42 +19995,30 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   var useIso = typeof document !== "undefined" ? import_react.default.useLayoutEffect : import_react.default.useEffect;
   var TEXTAREA_CSS = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
-/* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
-   moment ONE of them has a hint, because that field grows a footer and the others do not - and the
-   caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
-   flex-start lines up the labels instead, so the controls part company as soon as one label wraps.
-   The lane is held open by generated content rather than a fixed height so it matches the real
-   footer by construction - same font metrics, same flex gap - instead of by a number that drifts.
-   Whitespace-only generated content is not announced, and :has() lets the CSS tell on its own
-   whether a footer is already there, so no component has to report it. */
+
 .twc-field[data-reserve-footer]:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after,
 [data-reserve-footer] .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
-  content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
+content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }
 .twc-field__req { color: var(--color-danger); }
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
 .twc-textarea__el {
-  width: 100%; resize: vertical; min-height: 80px;
-  padding: var(--space-2-5) var(--space-3);
-  font-family: var(--font-sans); font-size: var(--text-sm); line-height: var(--leading-normal);
-  color: var(--color-text); background: var(--color-surface);
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
-  outline: none;
-  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+width: 100%; resize: vertical; min-height: 80px;
+padding: var(--space-2-5) var(--space-3);
+font-family: var(--font-sans); font-size: var(--text-sm); line-height: var(--leading-normal);
+color: var(--color-text); background: var(--color-surface);
+border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
+outline: none;
+transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 }
 .twc-textarea__el[data-size="sm"] { padding: var(--space-2) var(--space-2-5); }
 .twc-textarea__el[data-size="lg"] { padding: var(--space-3) var(--space-4); }
 .twc-textarea__el::placeholder { color: var(--color-text-subtle); }
-/* #462: a readonly field fills with --color-surface-sunken, where text-subtle is 4.34:1 - and
-   readonly gets NO SC 1.4.3 exemption (unlike the sibling :disabled rules, which are exempt as
-   inactive controls and additionally dim the wrapper). The readonly rules deliberately apply no
-   opacity, which is exactly why the ratio lands on the failing value. An empty readonly field
-   showing its placeholder is the reachable case. The affix beside it carries icons, so it clears
-   its own 3:1 graphics floor and stays. */
+
 .twc-textarea__el[data-readonly]::placeholder { color: var(--color-text-muted); }
 .twc-textarea__el:hover:not(:focus):not(:disabled) { border-color: var(--color-border-strong); }
-/* tone \u2192 focus/open accent (default primary; reproduces current look). */
+
 .twc-textarea__el { --_accent: var(--color-primary); --_ring: var(--ring); }
 .twc-textarea__el[data-tone="success"] { --_accent: var(--color-success); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-success) 32%, transparent); }
 .twc-textarea__el[data-tone="warning"] { --_accent: var(--color-warning); --_ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-warning) 32%, transparent); }
@@ -20567,7 +20030,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-textarea__el:disabled { background: var(--color-surface-sunken); opacity: 0.7; cursor: not-allowed; }
 .twc-textarea__el[data-readonly] { background: var(--color-surface-sunken); }
 .twc-textarea__el[data-autosize="true"] { resize: none; overflow: hidden; }
-/* #328: clearable (X). Wrap positions the button top-inline-end so it dodges the bottom-right resize handle. */
+
 .twc-textarea__wrap { position: relative; display: block; }
 .twc-textarea__clear { position: absolute; top: 6px; inset-inline-end: 8px; display: inline-grid; place-items: center; width: 22px; height: 22px; padding: 0; border: none; background: var(--color-surface); color: var(--color-text-subtle); cursor: pointer; border-radius: var(--radius-sm); transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
 .twc-textarea__clear:hover { background: var(--color-surface-sunken); color: var(--color-text); }
@@ -20700,15 +20163,14 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-timeline__item:last-child { padding-bottom: 0; }
 .twc-timeline__rail { position: relative; flex: none; width: 32px; display: flex; justify-content: center; }
 .twc-timeline__dot { z-index: 1; flex: none; width: 32px; height: 32px; border-radius: var(--radius-full); display: grid; place-items: center;
-  background: var(--color-surface); border: var(--border-medium) solid var(--color-border-strong); color: var(--color-text-subtle); box-shadow: 0 0 0 4px var(--color-surface); }
+background: var(--color-surface); border: var(--border-medium) solid var(--color-border-strong); color: var(--color-text-subtle); box-shadow: 0 0 0 4px var(--color-surface); }
 .twc-timeline__dot svg { width: 15px; height: 15px; }
 .twc-timeline__item[data-tone="primary"] .twc-timeline__dot { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-primary-fg); }
 .twc-timeline__item[data-tone="info"] .twc-timeline__dot { background: var(--color-info); border-color: var(--color-info); color: var(--color-info-fg); }
 .twc-timeline__item[data-tone="success"] .twc-timeline__dot { background: var(--color-success); border-color: var(--color-success); color: var(--color-success-fg); }
 .twc-timeline__item[data-tone="danger"] .twc-timeline__dot { background: var(--color-danger); border-color: var(--color-danger); color: var(--color-danger-fg); }
 .twc-timeline__item[data-tone="warning"] .twc-timeline__dot { background: var(--color-warning); border-color: var(--color-warning); color: var(--color-warning-fg); }
-/* Extend the rail through the item's bottom padding (--space-6) and slightly into
-   the next dot so the line actually connects the dots instead of stopping short. */
+
 .twc-timeline__line { position: absolute; top: 32px; bottom: calc(-1 * var(--space-6) - 8px); left: 50%; width: 2px; transform: translateX(-50%); background: var(--color-border); border-radius: var(--radius-full); }
 .twc-timeline__item:last-child .twc-timeline__line { display: none; }
 .twc-timeline__body { flex: 1; min-width: 0; padding-top: 5px; }
@@ -20738,34 +20200,32 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   }
   var TOAST_CSS = `
 .twc-toast {
-  position: relative; display: flex; gap: var(--space-3); align-items: flex-start;
-  width: 360px; max-width: calc(100vw - 32px);
-  padding: var(--space-3) var(--space-4);
-  background: var(--color-surface-raised); color: var(--color-text);
-  border: var(--border-thin) solid var(--color-border);
-  border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
-  font-family: var(--font-sans); overflow: hidden;
-  animation: twc-toast-slide-in var(--duration-base) var(--ease-spring);
+position: relative; display: flex; gap: var(--space-3); align-items: flex-start;
+width: 360px; max-width: calc(100vw - 32px);
+padding: var(--space-3) var(--space-4);
+background: var(--color-surface-raised); color: var(--color-text);
+border: var(--border-thin) solid var(--color-border);
+border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+font-family: var(--font-sans); overflow: hidden;
+animation: twc-toast-slide-in var(--duration-base) var(--ease-spring);
 }
-/* Slides in from the inline-end edge. LTR behaviour matches the previous translateX(24px); */
-/* the [dir="rtl"] override flips the offset so RTL toasts enter from the left as expected. */
+
 @keyframes twc-toast-slide-in {
-  from { opacity: 0; transform: translateX(24px); }
-  to   { opacity: 1; transform: translateX(0); }
+from { opacity: 0; transform: translateX(24px); }
+to   { opacity: 1; transform: translateX(0); }
 }
 [dir="rtl"] .twc-toast { animation-name: twc-toast-slide-in-rtl; }
 @keyframes twc-toast-slide-in-rtl {
-  from { opacity: 0; transform: translateX(-24px); }
-  to   { opacity: 1; transform: translateX(0); }
+from { opacity: 0; transform: translateX(-24px); }
+to   { opacity: 1; transform: translateX(0); }
 }
-/* WCAG 2.3.3: appear without the slide under reduced motion (covers the RTL variant too). */
+
 @media (prefers-reduced-motion: reduce) {
-  .twc-toast, [dir="rtl"] .twc-toast { animation: none; }
+.twc-toast, [dir="rtl"] .twc-toast { animation: none; }
 }
-/* #209: visually-hidden persistent live-region announcers (rendered by ToastProvider). */
+
 .twc-toast-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
-/* #455: the 4px edge stripe and the status icon are non-text carriers of the tone (SC 1.4.11, 3:1),
-   and the plain light-mode tones sat at 2.15:1 (warning) / 2.77:1 (info) on the raised surface. */
+
 .twc-toast::before { content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 4px; background: var(--_accent, var(--color-primary-graphic)); }
 .twc-toast[data-tone="success"] { --_accent: var(--color-success-graphic); }
 .twc-toast[data-tone="warning"] { --_accent: var(--color-warning-graphic); }
@@ -20777,15 +20237,15 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-toast__title { font-weight: var(--font-bold); font-size: var(--text-sm); }
 .twc-toast__desc { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: 2px; line-height: var(--leading-snug); }
 .twc-toast__close {
-  flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px;
-  border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer;
-  border-radius: var(--radius-sm); transition: background-color var(--duration-fast), color var(--duration-fast);
+flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px;
+border: none; background: transparent; color: var(--color-text-subtle); cursor: pointer;
+border-radius: var(--radius-sm); transition: background-color var(--duration-fast), color var(--duration-fast);
 }
 .twc-toast__close:hover { background: var(--color-surface-sunken); color: var(--color-text); }
 .twc-toast__close svg { width: 15px; height: 15px; }
 .twc-toast-viewport {
-  position: fixed; z-index: var(--z-toast); display: flex; flex-direction: column; gap: 12px;
-  bottom: 20px; inset-inline-end: 20px;
+position: fixed; z-index: var(--z-toast); display: flex; flex-direction: column; gap: 12px;
+bottom: 20px; inset-inline-end: 20px;
 }
 `;
   var TOAST_ICONS = {
@@ -20945,13 +20405,13 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-tree__group { list-style: none; margin: 0; padding: 0; }
 .twc-tree__group--child { margin-inline-start: 0; overflow: hidden; }
 .twc-tree__row { display: flex; align-items: center; gap: 6px; width: 100%; border: none; background: none; font: inherit; cursor: pointer;
-  color: var(--color-text); text-align: start; padding: 6px 8px; border-radius: var(--radius-md);
-  transition: background-color var(--duration-fast) var(--ease-standard); }
+color: var(--color-text); text-align: start; padding: 6px 8px; border-radius: var(--radius-md);
+transition: background-color var(--duration-fast) var(--ease-standard); }
 .twc-tree__row:hover { background: var(--color-surface-sunken); }
 .twc-tree__row:focus-visible { outline: none; box-shadow: var(--ring); }
 .twc-tree__row[data-selected="true"] { background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg); font-weight: var(--font-semibold); }
 .twc-tree__caret { flex: none; width: 18px; height: 18px; display: grid; place-items: center; color: var(--color-text-subtle);
-  transition: transform var(--duration-base) var(--ease-spring); }
+transition: transform var(--duration-base) var(--ease-spring); }
 .twc-tree__caret[data-open="true"] { transform: rotate(90deg); }
 [dir="rtl"] .twc-tree__caret { transform: scaleX(-1); }
 [dir="rtl"] .twc-tree__caret[data-open="true"] { transform: scaleX(-1) rotate(90deg); }
@@ -20961,9 +20421,7 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
 .twc-tree__ic svg { width: 16px; height: 16px; }
 .twc-tree__row[data-selected="true"] .twc-tree__ic { color: var(--color-primary); }
 .twc-tree__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-/* #462 (review): text-MUTED. This text sits inside an element that takes a sunken or tinted fill,
-   and a child's own color declaration beats the parent's, so it does not follow the row. Subtle on
-   either fill is 4.26-4.34:1 in light - the pairing the token rules forbid. */
+
 .twc-tree__badge { flex: none; font-size: 11px; color: var(--color-text-muted); }
 `;
   function Node({ node, depth, posInSet, setSize, expanded, selectedId, tabbableId, rowRefs, onToggle, onSelect, onRowFocus }) {
@@ -21142,25 +20600,20 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   var SHELL_CSS = `
 .twc-shell { position: relative; display: flex; overflow: hidden; background: var(--color-bg); color: var(--color-text); font-family: var(--font-sans); }
 .twc-shell__skip { position: absolute; inset-inline-start: var(--space-3); inset-block-start: var(--space-3); z-index: 100;
-  padding: var(--space-2) var(--space-4); background: var(--color-surface); color: var(--color-text);
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-sans);
-  transform: translateY(-200%); transition: transform var(--duration-fast) var(--ease-standard); }
+padding: var(--space-2) var(--space-4); background: var(--color-surface); color: var(--color-text);
+border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-sans);
+transform: translateY(-200%); transition: transform var(--duration-fast) var(--ease-standard); }
 .twc-shell__skip:focus-visible { transform: translateY(0); outline: none; box-shadow: var(--ring); }
 .twc-shell__main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; height: 100%; }
 .twc-shell__header { flex: none; display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
-  min-height: 60px; padding-inline: var(--space-5); border-bottom: var(--border-thin) solid var(--color-border); background: var(--color-surface); }
+min-height: 60px; padding-inline: var(--space-5); border-bottom: var(--border-thin) solid var(--color-border); background: var(--color-surface); }
 .twc-shell__content { flex: 1 1 auto; min-height: 0; overflow: auto; }
 .twc-shell__content[data-padded="true"] { padding: var(--space-6) var(--space-5); }
-/* #190: <main> is the skip-link target (tabindex="-1") \u2014 a programmatic focus target,
-   not tab-reachable and not an interactive control. Clicking content mouse-focuses it,
-   then the first keypress flips to keyboard modality and :focus-visible would draw a UA
-   outline around the ENTIRE content area. Suppress it \u2014 the skip LINK keeps its own
-   visible ring (.twc-shell__skip:focus-visible) and SR focus announcement is unaffected. */
+
 .twc-shell__content:focus, .twc-shell__content:focus-visible { outline: none; }
-/* Mobile: stack the shell so the sidebar (rendered as an off-canvas overlay) no
-   longer reserves a column \u2014 the main content spans the full width. */
+
 @media (max-width: 720px) {
-  .twc-shell { flex-direction: column; }
+.twc-shell { flex-direction: column; }
 }
 `;
   function AppShell({
@@ -21371,22 +20824,22 @@ button.twc-navbar__brand, a.twc-navbar__brand { cursor: pointer; }
   });
   var CODE_CSS = `
 .twc-code {
-  font-family: var(--font-mono); font-size: 0.875em;
-  background: var(--color-surface-sunken); color: var(--color-text);
-  padding: 1px 6px; border-radius: var(--radius-sm);
-  border: var(--border-thin) solid var(--color-border);
-  white-space: normal; overflow-wrap: anywhere; word-break: break-word;
+font-family: var(--font-mono); font-size: 0.875em;
+background: var(--color-surface-sunken); color: var(--color-text);
+padding: 1px 6px; border-radius: var(--radius-sm);
+border: var(--border-thin) solid var(--color-border);
+white-space: normal; overflow-wrap: anywhere; word-break: break-word;
 }
 .twc-code[data-block="true"] {
-  display: block; position: relative; white-space: pre; overflow-x: auto;
-  padding: 12px 14px; padding-inline-end: 40px; line-height: 1.6; font-size: 0.8125em;
-  overflow-wrap: normal; word-break: normal;
+display: block; position: relative; white-space: pre; overflow-x: auto;
+padding: 12px 14px; padding-inline-end: 40px; line-height: 1.6; font-size: 0.8125em;
+overflow-wrap: normal; word-break: normal;
 }
 .twc-code__copy {
-  position: absolute; top: 6px; inset-inline-end: 6px; display: inline-grid; place-items: center;
-  width: 26px; height: 26px; border: none; border-radius: var(--radius-sm);
-  background: var(--color-surface); color: var(--color-text-subtle); cursor: pointer;
-  transition: color var(--duration-fast), background-color var(--duration-fast);
+position: absolute; top: 6px; inset-inline-end: 6px; display: inline-grid; place-items: center;
+width: 26px; height: 26px; border: none; border-radius: var(--radius-sm);
+background: var(--color-surface); color: var(--color-text-subtle); cursor: pointer;
+transition: color var(--duration-fast), background-color var(--duration-fast);
 }
 .twc-code__copy:hover { color: var(--color-text); }
 .twc-code__copy:focus-visible { outline: none; box-shadow: var(--ring); }

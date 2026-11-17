@@ -1033,8 +1033,28 @@ export const VARIATIONS = [
   },
   {
     "component": "FieldRow",
-    "title": "The per-field escape hatch",
+    "title": "A shared group of fields, wrapping",
     "i": 8
+  },
+  {
+    "component": "FieldRow",
+    "title": "...or as a value, for real cells",
+    "i": 9
+  },
+  {
+    "component": "FieldRow",
+    "title": "A fragment group with a trailing button",
+    "i": 10
+  },
+  {
+    "component": "FieldRow",
+    "title": "A wrapping row nested in a band row",
+    "i": 11
+  },
+  {
+    "component": "FieldRow",
+    "title": "The per-field escape hatch",
+    "i": 12
   },
   {
     "component": "Field",

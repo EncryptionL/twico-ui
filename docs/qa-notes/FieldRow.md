@@ -153,11 +153,14 @@ inline.**
 
 ### What it does not fix
 
-Four shapes keep today's behaviour, because the band cannot take their parts apart without a wrapper
+Three shapes keep today's behaviour, because the band cannot take their parts apart without a wrapper
 inside another component: `Slider` (head + track + msgs), `FileUpload` (label + zone + list + error),
-a `Field` holding two controls, and a fragment cell that also holds a plain control. Each measured
-identical to base, so nothing regresses — but #526 is closed for every *field-shaped* cell, not
-universally.
+and a `Field` holding two controls. Each measured identical to base, so nothing regresses — but #526
+is closed for every *field-shaped* cell, not universally.
+
+> A fourth shape was listed here — a fragment cell that also holds a plain control — and should not
+> have been. See "#531" below: "measured identical to base" was the wrong test, because base was
+> already 24px out.
 
 ### A trap worth recording
 
@@ -167,3 +170,156 @@ The band's column rules use a depth-2 term spelled `> * >`, **not** the `WRAP` g
 implementation every natural cell silently lost its hug — a Button column measuring 121px instead
 of 48.2px — while alignment still looked correct. `tests/fieldrow-natural-roots.test.jsx` now pins
 the spelling.
+
+
+---
+
+## #530 / #531 / #532 / #533 — the wrap path, and three defects found while fixing it
+
+#530 was reported against 1.51.1 with measurements. Reproducing it surfaced three more in the same
+rule block — #531, #532 and #533 — each filed separately and then fixed. #530–#532 shipped together;
+#533 followed, once measuring it showed the cause was three rules rather than the one reported.
+
+### #530 — `minChildWidth` could not reach the fields inside a fragment cell
+
+#524 put the wrap floor on the **cell**, and a *component* returning a fragment is one cell —
+`React.Children` cannot see through a render. So when every field in a row came from one shared
+component, the row had a single flex item: nothing to break against, and no way to ask for a floor
+on the fields themselves. A host cannot reach past it either, which is the same reason the floor
+became a prop in the first place — the cell is created *between* the row and the child.
+
+The cell now lets the row's floor through to its own children and becomes a wrap container. The two
+declarations are **one inseparable pair**: a floor with `nowrap` does not squash, it makes the cell's
+min-content wider than the row and **overflows** — strictly worse than the squash it replaces.
+
+| container, `minChildWidth="15rem"`, `gap={2}` | before | after | hand-laid target |
+| --- | --- | --- | --- |
+| 760px | 1 line, `[248, 248, 248]` | 1 line, `[248, 248, 248]` | `[248, 248, 248]` |
+| 520px | 1 line, **`[168, 168, 168]`** | **2 lines, `[256, 256, 520]`** | `[256, 256, 520]` |
+| 360px | 1 line, `[114.7, 114.7, 114.7]` | 3 lines, `[360, 360, 360]` | — |
+
+The component now matches the hand-laid row exactly at both widths the report measured.
+
+**Gated to a wrapping row, and to a fragment cell holding only fields.** The gate is the
+character-for-character complement of the natural-roots cell test, so the two are mutually exclusive
+by construction rather than by cascade. The depth-2 arm is **not** redundant with the depth-1 per-child
+rule: measured without it, a fragment cell holding a Tooltip-wrapped Button stayed 480px wide and broke
+into three 480px lines. Gated, both the depth-1 and depth-2 forms are byte-identical to 1.51.1.
+
+**Behaviour changes to expect**, both consequences of the break happening inside the cell:
+
+| shape | before | after |
+| --- | --- | --- |
+| trio + a sibling cell, 760px | 1 line, `[120, 120, 120, 376]` | 3 lines, `[376, 376, 376, 376]` |
+| trio, **no** `minChildWidth`, 480px | 1 line, `[154.7, 154.7, 154.7]` | 2 lines, `[236, 236, 480]` |
+| trio, **no** `minChildWidth`, 500px+ | unchanged | unchanged |
+
+The default `10rem` floor means a wrapping row with a fragment child and `gap={2}` now breaks below
+~496px (3 × 160 + 2 × 8) where it used to squash.
+
+### The escape hatch — the report's premise was false
+
+The issue stated that the only way to pass a shared group as direct children is to duplicate it at
+each call site. It is not: `toCells` descends into a Fragment **element** and `Children.toArray`
+flattens arrays, so a group shared as a **value** gets three real cells, the real floor, the real
+wrap and the #527 band — at zero duplication. Measured at 520px: `[256, 256, 520]`, identical to
+writing the fields out by hand.
+
+```jsx
+const trio = () => (<><Select … /><Select … /><Input … /></>);
+<FieldRow wrap minChildWidth="15rem">{trio()}</FieldRow>   // three real cells
+```
+
+This is the documented answer for every shape #530's fix does not reach.
+
+### #531 — a fragment cell's non-field child got no lane (24px, both paths)
+
+The fragment lane rule can only reach a `.twc-field`, because a field is a **column** flex container
+so its `::after` lands below its control. A `.twc-btn` is `inline-flex` — a **row** — so an `::after`
+on it becomes a flex item *inside* the button. The cell cannot draw one either: the cell is a row, so
+a cell-level `::after` sits *beside* the children.
+
+So the lane-less child takes the lane's **height as margin** instead — geometrically identical, built
+from the same two tokens, touching nothing inside the child.
+
+| shape | before | after |
+| --- | --- | --- |
+| fragment cell + `Button`, band path | **24px** | **0px** |
+| fragment cell + `Button`, band path, 520px | **24px** | **0px** |
+| fragment cell + `Button`, wrapping path | **24px** | **0px** |
+| the same three as direct children | 0px | 0px |
+
+24px is exactly `var(--space-1-5)` + one `--text-xs` line at `--leading-normal`. This was #508's own
+symptom inside a fragment cell — the shape the component exists to fix.
+
+### #532 — a nested wrapping row was placed by no rule at all (163px)
+
+The chain rule reaches a nested row through `ROW`, which carries `:not([data-wrap="true"])`, and both
+band fallbacks carry `:not(.twc-fieldrow)`. A **wrapping** inner row therefore matched none of them,
+stayed an unplaced grid item, and auto-placed into row 1 — the label track.
+
+| parent | inner row | label track | spread |
+| --- | --- | --- | --- |
+| non-wrapping | **`wrap`** | **190px** | **163px** |
+| non-wrapping | no wrap | 27px | 0px |
+
+It must stay flex (grid has no `flex-wrap`), so it gets what every undecomposable child gets: all
+three tracks, bottom edge. Only this pairing is affected — a wrapping parent has no band.
+
+### #533 — a validation error changed the cell's layout mode
+
+Reported as one rule testing depth 1; it was **three**, and the band half mattered more than the
+per-child half.
+
+`Checkbox`/`Switch`/`Radio` grow a bare `div.twc-field` root **only when they have an `error`**
+(`Checkbox.jsx:126`). Three fragment-cell tests looked at depth 1 only, so each saw `.twc-check` when
+clean and `.twc-field` when errored, and the two states fell on opposite sides:
+
+| rule | what it decides | was |
+| --- | --- | --- |
+| the per-child hug | does this child hug or stretch | depth 1 |
+| `FRAG_FIELDS` | is this an all-field cell, i.e. **bandable** | depth 1 |
+| the band's keep-on-flex rule | or does it stay flex | depth 1 |
+
+while the **cell** test has tested depth ≤ 2 since #519, precisely so "a validation error no longer
+re-flows the row".
+
+So in the clean state the cell stayed flex and the control hugged at **100.4px**; in the errored
+state `FRAG_FIELDS` matched, the cell was banded as an all-field cell and gridded into
+`minmax(0, 1fr)` columns, and the control became **189px**. All three tests are now depth ≤ 2, from
+one interpolated `FRAG_NAT` constant rather than three hand-written copies.
+
+| state | direct child | `flex` | width before | width after |
+| --- | --- | --- | --- | --- |
+| clean | `label.twc-check` | `0 1 auto` | 100.4px | 100.4px |
+| `error` | `div.twc-field` | `0 1 auto` | **189px** | **100.4px** |
+
+**Why no within-case check could catch it.** Each state is internally consistent and 0px out — the
+defect is that the two states *disagree*. It only appears when the same shape is measured twice and
+the results compared, so the probe now has a cross-case section for exactly this. Validated by
+reverting both halves: `100.4px → 189px` returns.
+
+### Two process notes worth keeping
+
+**"Identical to base" is not a test.** #531 was recorded in #527 as one of four shapes that keep
+today's behaviour, verified as "measured identical to base, so nothing regresses". That was true, and
+useless: base was already 24px wrong. Comparing against a baseline without first checking the
+baseline is correct turned a bug into a documented limit.
+
+**Do not derive an alignment assertion from position.** Three successive versions of the probe's
+alignment check were wrong in the same direction — each silently *skipping* rows rather than failing
+them:
+
+1. comparing cell **tops** — `align-items: flex-end` makes tops differ whenever heights differ, so
+   any row containing a short child was labelled "wrapped" and skipped the assertion. This is what
+   hid #531.
+2. grouping **controls** by vertical overlap — circular: a misalignment splits the controls into two
+   "lines" and each line is then trivially flat. It reported 0 problems with #532's 64px present.
+3. the version that works: assert the **structure**. Group the *cells* (a cell is a flex or
+   full-span grid item, so cells sharing a line share a bottom edge), then compare each cell's
+   bottom-most control within a line; and within a fragment cell, group the *children's boxes* and
+   compare their controls. A lane/margin defect lives *inside* an item, so the boxes still agree
+   while the controls do not — which is exactly what makes it visible.
+
+Each fix in this change was then validated by **disabling it and confirming the probe fails**:
+#530 → `[168, 168, 168]` returns, #531 → 24px × 3, #532 → 64px.
