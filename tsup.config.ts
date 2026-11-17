@@ -15,8 +15,20 @@
 // strips module-level directives — "...was ignored"), so we prepend it after the
 // build via `onSuccess` -> scripts/add-use-client.mjs. In a plain React app
 // (Vite/CRA) the directive is an inert string literal — harmless.
+//
+// #534: the scoped CSS lives in template literals, so its comments are STRING content and no
+// minifier touches them - tsup, esbuild and terser all strip comments from CODE and leave string
+// bytes alone. The library was therefore shipping 96,366 bytes of its own CSS commentary to every
+// consumer, 8.5% of the raw bundle. `stripCssCommentsPlugin` removes it at LOAD time, so esbuild
+// generates the sourcemaps from the stripped text and each map stays self-consistent - it embeds
+// the same source it points into. Doing it as a post-build rewrite of dist/ would mean shifting a
+// finished map past thousands of removed lines. The comments stay in components/** untouched: the
+// source is what contributors and the guard tests read, and only the shipped copy loses them.
+import { stripCssCommentsPlugin } from "./scripts/strip-css-comments.mjs";
+
 export default {
   entry: { index: "src/index.ts", colors: "src/colors.ts", icons: "src/icons.ts" },
+  esbuildPlugins: [stripCssCommentsPlugin()],
   format: ["esm", "cjs"],
   onSuccess: "node scripts/add-use-client.mjs",
   dts: true,
