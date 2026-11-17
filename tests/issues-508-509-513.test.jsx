@@ -165,11 +165,20 @@ describe("FieldRow (#508)", () => {
   });
 
   it("passes gap through as a spacing token, and a string straight through", () => {
+    // #527: a band row has no row axis to gap — its three tracks are label/control/footer and their
+    // 6px lives on the parts' own margins — so the prop drives COLUMN gap there, and row-gap is
+    // pinned to 0 so a host's own `gap` cannot prise the bands apart. A wrapping row is still flex
+    // and still gaps both ways.
     const { container } = render(<FieldRow gap={2}><Input label="A" /></FieldRow>);
-    expect(container.querySelector(".twc-fieldrow").style.gap).toBe("var(--space-2)");
+    const row = container.querySelector(".twc-fieldrow");
+    expect(row.style.columnGap).toBe("var(--space-2)");
+    expect(row.style.rowGap).toBe("0px");
     cleanup();
     const { container: c2 } = render(<FieldRow gap="14px"><Input label="A" /></FieldRow>);
-    expect(c2.querySelector(".twc-fieldrow").style.gap).toBe("14px");
+    expect(c2.querySelector(".twc-fieldrow").style.columnGap).toBe("14px");
+    cleanup();
+    const { container: c3 } = render(<FieldRow wrap gap={2}><Input label="A" /></FieldRow>);
+    expect(c3.querySelector(".twc-fieldrow").style.gap, "a wrapping row stays flex").toBe("var(--space-2)");
   });
 
   it("wrap is opt-in", () => {
@@ -316,6 +325,35 @@ describe("FieldRow (#508)", () => {
     const dts = readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.d.ts"), "utf8");
     expect(dts, "the wrapping-footer limit must be stated in the props contract").toContain("#526");
     expect(dts).toContain("footerLines?: number;");
+  });
+
+  // ---------------------------------------------------------------------------------- #527
+  it("#527: a non-wrapping row is a three-track band, and a wrapping row stays flex", () => {
+    // The lane reserved whole LINES, so a hint that wrapped past the reserve lifted its control -
+    // measured 0px with a one-line hint and 54px when it wrapped to four, and it tracks the cell's
+    // RENDERED width, so no reserve can bound it. A shared band can: label / control / footer, each
+    // track sized to its tallest member, so every control bottom lands on one line by construction.
+    const src = readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.jsx"), "utf8");
+    expect(src).toContain("grid-template-rows: subgrid");
+    // the band's floor is the lane it replaces, so footerLines keeps meaning something
+    expect(src).toContain("var(--twc-fieldrow-footer-lines, 1) * var(--text-xs)");
+    // wrap keeps the flex path byte for byte: grid has no flex-wrap, and minChildWidth is a
+    // flex-basis floor that only means anything with wrap.
+    expect(src).toContain("const ROW = ");
+    expect(src).toContain("twc-fieldrow:not([data-wrap=");
+
+    const { container } = render(
+      <FieldRow><Input label="A" /><Input label="B" hint="A hint." /><Button>Go</Button></FieldRow>
+    );
+    const row = container.querySelector(".twc-fieldrow");
+    // one column per cell, each an equal share unless the sheet flips it to `auto`. The track LIST
+    // has to be on the container, and only the container knows the cell count - which is the whole
+    // reason a grid row can still express flex's stretch-vs-natural.
+    expect(row.style.gridTemplateColumns).toBe(
+      "var(--twc-fieldrow-c1, minmax(0, 1fr)) var(--twc-fieldrow-c2, minmax(0, 1fr)) var(--twc-fieldrow-c3, minmax(0, 1fr))");
+    cleanup();
+    const { container: c2 } = render(<FieldRow wrap><Input label="A" /><Button>Go</Button></FieldRow>);
+    expect(c2.querySelector(".twc-fieldrow").style.gridTemplateColumns, "a wrapping row is flex").toBe("");
   });
 
   it("the Field wrapper still works, for a row the host lays out itself", () => {

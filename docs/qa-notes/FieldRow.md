@@ -2,7 +2,7 @@
 
 - **Group:** inputs
 - **Status:** clean
-- **Reviewed:** 2026-11-16 (new in #508; reworked in #519-#521 after review)
+- **Reviewed:** 2026-11-16 (new in #508; reworked in #519-#521; footer band in #527)
 
 ## Open issues
 
@@ -109,3 +109,61 @@ footer?") from **one** markup test, `:has(> .twc-field)` - a *direct-child* sele
   from the page component, so a `useState` there joins that component's hook list and throws React
   #310 when the list shifts. `FieldRowVariations.jsx` keeps its stateful example in a named
   `ConditionalFieldExample` component, which is the pattern the other Variations files already use.
+
+## The footer band (#527, closing #526)
+
+The lane reserved a whole number of LINES per cell, so a field whose real `hint` wrapped past the
+reserve was taller than its siblings and `align-items: flex-end` lifted its control by the
+difference — #494's own symptom, inside the component built to prevent it. Measured on one row at
+one width, changing only the hint's length: control bottoms `[272,272,272,272]` with one line,
+`[141,87,141,141]` when it wrapped to four. Because it tracks the cell's **rendered width**, no
+per-cell reserve can bound it — a host would have to know the wrap count at every viewport.
+
+A non-wrapping row is now a three-track grid — label / control / footer — each track sized to its
+tallest member, so every control bottom lands on one line by construction and a footer that wraps
+makes the ROW taller instead of moving a control. The parts have to be separate grid items and a
+field's footer is a child *inside* the single `.twc-field`, so **subgrid** is what reaches it: the
+cell subgrids the row's tracks, the `.twc-field` subgrids the cell's, and each part is pinned by
+selector. The whole band is assembled from `FieldRow.jsx` — **no change to `Field.jsx`, to the 16
+stylesheets that re-declare the `.twc-field` family, or to the 17 JSX returns that build that markup
+inline.**
+
+### Why this was affordable
+
+- **Subgrid costs no browser support here.** It reached Baseline Sept 2023 (Chrome 117); the
+  `:has()` this file already requires reached it Dec 2023 (Firefox 121). A browser with `:has()` has
+  subgrid, so there is no fallback question and no `@supports` gate.
+- **Stretch-vs-natural survives.** `grid-template-columns` must be declared on the container, so the
+  JSX — which already maps children to cells and therefore knows the count — emits one `var()` per
+  cell defaulting to `minmax(0, 1fr)`, and the sheet flips `--twc-fieldrow-cN: auto` for a cell
+  holding an inline-level control, using the same derived list and the same depth-2 test as the flex
+  rules. Measured identical to the flex path: `[145.3, 145.3, 145.3, 48.2]`.
+- **`wrap` keeps the flex path byte for byte.** Grid has no `flex-wrap`, and `minChildWidth` is a
+  flex-basis floor that only means anything with wrap.
+
+### Verified
+
+| shape | before | after |
+| --- | --- | --- |
+| hint wrapping to four lines | **54px** | **0px** |
+| same row, `footerLines={2}` | 18px | **0px** |
+| same row, one-line hint | 0px | 0px |
+| component returning a fragment | 0px | 0px |
+| the 12 shapes from #519-#525 | 0px | **0px, widths unchanged** |
+
+### What it does not fix
+
+Four shapes keep today's behaviour, because the band cannot take their parts apart without a wrapper
+inside another component: `Slider` (head + track + msgs), `FileUpload` (label + zone + list + error),
+a `Field` holding two controls, and a fragment cell that also holds a plain control. Each measured
+identical to base, so nothing regresses — but #526 is closed for every *field-shaped* cell, not
+universally.
+
+### A trap worth recording
+
+The band's column rules use a depth-2 term spelled `> * >`, **not** the `WRAP` gate used elsewhere.
+`WRAP` is `:not(:has(...))`, and `:has()` may not be nested inside `:has()`; its argument list is
+**unforgiving**, so one invalid member drops the entire rule. When that happened during
+implementation every natural cell silently lost its hug — a Button column measuring 121px instead
+of 48.2px — while alignment still looked correct. `tests/fieldrow-natural-roots.test.jsx` now pins
+the spelling.

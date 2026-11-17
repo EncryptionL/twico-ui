@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"08c8a9da5fee","components/buttons/IconButton.jsx":"9625cb6f6231","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"724cf4b45ecc","components/data-display/AvatarMenu.jsx":"14b280842168","components/data-display/Badge.jsx":"69e6aff0081a","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"e1985980f3d8","components/data-display/Carousel.jsx":"4c0981ca4ea9","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"0074c3619a19","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"79c72470804e","components/data-display/ImageViewer.jsx":"51561e515465","components/data-display/Kanban.jsx":"389caa2e45d2","components/data-display/List.jsx":"89e1b0ef9c72","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"38b0431624b9","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"92e0de3c6efe","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"9a58f8174004","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"456f691e9b3c","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"52c1c5a0ca83","components/inputs/ColorPicker.jsx":"1efc64d10bf0","components/inputs/Combobox.jsx":"f0e2302a782d","components/inputs/Currency.jsx":"9e0a15b51ef1","components/inputs/CurrencyField.jsx":"6117a20400b6","components/inputs/DatePicker.jsx":"03c9789765bb","components/inputs/DateRangePicker.jsx":"6ecea0ba13b5","components/inputs/DateTimePicker.jsx":"d3d54cf176a5","components/inputs/Field.jsx":"e4c5ba6b0455","components/inputs/FieldRow.jsx":"728f405dee74","components/inputs/FileUpload.jsx":"ff8d288c9063","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"cd71f1e096d1","components/inputs/Input.jsx":"0a5b231c716d","components/inputs/Label.jsx":"dfdad32670fd","components/inputs/MultiSelect.jsx":"597e989dbf2a","components/inputs/Radio.jsx":"3dcda0eaacb0","components/inputs/RadioGroup.jsx":"224928157fc4","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5ef91a521869","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a09dc2f23ff0","components/inputs/Textarea.jsx":"086de8befb61","components/inputs/TimePicker.jsx":"122ef8fd0ced","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"724003a42299","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"baa21c063fe4","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"cac42c569080","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"b0045c78a736","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"57ea77870c8d","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"e5c9a898a0d7","components/navigation/Breadcrumb.jsx":"bbbef6c9957f","components/navigation/Navbar.jsx":"7fb1f2629199","components/navigation/Sidebar.jsx":"e87e28eef508","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"95154a884c47","components/navigation/TreeView.jsx":"72f08e1f44c8","components/overlay/CommandPalette.jsx":"39bb3dbe155e","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"c68a9c904738","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"e2de1e0866af","components/typography/Code.jsx":"a6a74f93cb2b","components/typography/Heading.jsx":"e98181d4d72f","components/typography/Kbd.jsx":"ff96e9dbdbe0","components/typography/Pre.jsx":"97379158f0ce","components/typography/Text.jsx":"642a06610251","src/index.ts":"9475e47b39e5"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"08c8a9da5fee","components/buttons/IconButton.jsx":"9625cb6f6231","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"724cf4b45ecc","components/data-display/AvatarMenu.jsx":"14b280842168","components/data-display/Badge.jsx":"69e6aff0081a","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"b8dd7ed9d94b","components/data-display/CardGrid.jsx":"e1985980f3d8","components/data-display/Carousel.jsx":"4c0981ca4ea9","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"0074c3619a19","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"ea26f440482a","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"79c72470804e","components/data-display/ImageViewer.jsx":"51561e515465","components/data-display/Kanban.jsx":"389caa2e45d2","components/data-display/List.jsx":"89e1b0ef9c72","components/data-display/Pagination.jsx":"86bbd8fdd2bc","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"08fca7982924","components/data-display/Table.jsx":"38b0431624b9","components/data-display/Tag.jsx":"0a9ab81b7292","components/data-display/Timeline.jsx":"db89ee374157","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"92e0de3c6efe","components/feedback/EmptyState.jsx":"4d152dde9c2b","components/feedback/Progress.jsx":"9a58f8174004","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"456f691e9b3c","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"52c1c5a0ca83","components/inputs/ColorPicker.jsx":"1efc64d10bf0","components/inputs/Combobox.jsx":"f0e2302a782d","components/inputs/Currency.jsx":"9e0a15b51ef1","components/inputs/CurrencyField.jsx":"6117a20400b6","components/inputs/DatePicker.jsx":"03c9789765bb","components/inputs/DateRangePicker.jsx":"6ecea0ba13b5","components/inputs/DateTimePicker.jsx":"d3d54cf176a5","components/inputs/Field.jsx":"e4c5ba6b0455","components/inputs/FieldRow.jsx":"9d5c1ddba320","components/inputs/FileUpload.jsx":"ff8d288c9063","components/inputs/FilterBar.jsx":"61a4bd403dd9","components/inputs/Form.jsx":"cd71f1e096d1","components/inputs/Input.jsx":"0a5b231c716d","components/inputs/Label.jsx":"dfdad32670fd","components/inputs/MultiSelect.jsx":"597e989dbf2a","components/inputs/Radio.jsx":"3dcda0eaacb0","components/inputs/RadioGroup.jsx":"224928157fc4","components/inputs/Rating.jsx":"2c881cfc87ed","components/inputs/Select.jsx":"5ef91a521869","components/inputs/Slider.jsx":"07c558211c01","components/inputs/Switch.jsx":"a09dc2f23ff0","components/inputs/Textarea.jsx":"086de8befb61","components/inputs/TimePicker.jsx":"122ef8fd0ced","components/layout/AppShell.jsx":"4c814b21a9e7","components/layout/Box.jsx":"724003a42299","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"baa21c063fe4","components/layout/Divider.jsx":"bf05cecd5a4a","components/layout/Grid.jsx":"cac42c569080","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"b0045c78a736","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"57ea77870c8d","components/navigation/Accordion.jsx":"d96b24defbb5","components/navigation/Anchor.jsx":"e5c9a898a0d7","components/navigation/Breadcrumb.jsx":"bbbef6c9957f","components/navigation/Navbar.jsx":"7fb1f2629199","components/navigation/Sidebar.jsx":"e87e28eef508","components/navigation/Stepper.jsx":"df0f9d1ccfbf","components/navigation/Tabs.jsx":"95154a884c47","components/navigation/TreeView.jsx":"72f08e1f44c8","components/overlay/CommandPalette.jsx":"39bb3dbe155e","components/overlay/Dialog.jsx":"b525e75ffe7c","components/overlay/Drawer.jsx":"ebedfde66e80","components/overlay/Menu.jsx":"c68a9c904738","components/overlay/Popover.jsx":"7c7bebdfb99e","components/overlay/Tooltip.jsx":"e2de1e0866af","components/typography/Code.jsx":"a6a74f93cb2b","components/typography/Heading.jsx":"e98181d4d72f","components/typography/Kbd.jsx":"ff96e9dbdbe0","components/typography/Pre.jsx":"97379158f0ce","components/typography/Text.jsx":"642a06610251","src/index.ts":"9475e47b39e5"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -17558,6 +17558,22 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     if (typeof v === "number") return `var(--space-${String(v).replace(".", "-")})`;
     return v;
   }
+  var NATURAL_ROOTS = ".twc-avatar-menu, .twc-badge, .twc-btn, .twc-check, .twc-iconbtn, .twc-kbd, .twc-label, .twc-pagination, .twc-radio, .twc-rating, .twc-switch, .twc-tab, .twc-tag, .twc-togglegroup";
+  var ROW = '.twc-fieldrow:not([data-wrap="true"])';
+  var CELL = ROW + " > .twc-fieldrow__cell";
+  var SOLO = CELL + ":not(:has(> * + *))";
+  var FRAG = CELL + ":has(> * + *)";
+  var FRAG_FIELDS = FRAG + ":not(:has(> :is(" + NATURAL_ROOTS + ")))";
+  var WRAP = ":not(:has(> * + *))";
+  var SOLO_WRAP = WRAP + ":has(> .twc-field)";
+  var CTRL = ':not(.twc-field__label):not(.twc-field__footer):not(.twc-field__hint):not(.twc-field__error):not([type="hidden"])';
+  var ONE = ".twc-field:not(:has(> " + CTRL + " ~ " + CTRL + "))";
+  var MANY = ".twc-field:has(> " + CTRL + " ~ " + CTRL + ")";
+  var FOOTER = ":is(.twc-field__footer, .twc-field__hint, .twc-field__error)";
+  var HAS_FOOTER = ":has(.twc-field__footer, .twc-field__hint, .twc-field__error)";
+  var BANDED = ":is(" + SOLO + " > " + ONE + ", " + SOLO + " > " + WRAP + " > " + ONE + ", " + FRAG_FIELDS + " > " + ONE + ")";
+  var SEP = String.fromCharCode(10);
+  var BAND_COLS = Array.from({ length: 12 }, (_, i) => i + 1).map((n) => ROW + ":has(> .twc-fieldrow__cell:nth-of-type(" + n + ") > :is(" + NATURAL_ROOTS + "), > .twc-fieldrow__cell:nth-of-type(" + n + ") > * > :is(" + NATURAL_ROOTS + ")) { --twc-fieldrow-c" + n + ": auto; }").join(SEP);
   var FIELDROW_CSS = `
 /* #508: a row of fields PLUS one plain control - an "insert at the cursor" button beside the box it
    writes into, a remove button at the end of a condition row - which is arguably the more common
@@ -17619,8 +17635,8 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
    Menu trigger= / Tooltip put a *-wrap span in between. Both now answer "natural" whether the
    message is there or not, so a validation error no longer re-flows the row (#519). It stops at 2
    deliberately: .twc-radio sits at depth 3 inside a RadioGroup, which fills. */
-.twc-fieldrow__cell:has(> :is(.twc-avatar-menu, .twc-badge, .twc-btn, .twc-check, .twc-iconbtn, .twc-kbd, .twc-label, .twc-pagination, .twc-radio, .twc-rating, .twc-switch, .twc-tab, .twc-tag, .twc-togglegroup),
-                       > * > :is(.twc-avatar-menu, .twc-badge, .twc-btn, .twc-check, .twc-iconbtn, .twc-kbd, .twc-label, .twc-pagination, .twc-radio, .twc-rating, .twc-switch, .twc-tab, .twc-tag, .twc-togglegroup)) {
+.twc-fieldrow__cell:has(> :is(${NATURAL_ROOTS}),
+                       > * > :is(${NATURAL_ROOTS})) {
   flex: 0 1 auto; min-inline-size: auto; }
 /* END NATURAL ROOTS */
 
@@ -17642,7 +17658,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
    another row item. gap is inherited from the row, so a fragment pair spaces like real siblings. */
 .twc-fieldrow__cell:has(> * + *) { flex-direction: row; align-items: flex-end; gap: inherit; }
 .twc-fieldrow__cell:has(> * + *) > * { flex: 1 1 0; min-inline-size: 0; }
-.twc-fieldrow__cell:has(> * + *) > :is(.twc-avatar-menu, .twc-badge, .twc-btn, .twc-check, .twc-iconbtn, .twc-kbd, .twc-label, .twc-pagination, .twc-radio, .twc-rating, .twc-switch, .twc-tab, .twc-tag, .twc-togglegroup) { flex: 0 1 auto; min-inline-size: auto; }
+.twc-fieldrow__cell:has(> * + *) > :is(${NATURAL_ROOTS}) { flex: 0 1 auto; min-inline-size: auto; }
 .twc-fieldrow__cell:has(> * + *) > .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
   content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 
@@ -17690,6 +17706,97 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
    and this rule outranked them - leaving the pair with no lane while a trailing button's cell kept
    one, 24px out. */
 .twc-fieldrow .twc-fieldrow__cell:not(:has(> * + *)) .twc-field:not([data-reserve-footer])::after { content: none; }
+
+/* ==================== THE FOOTER BAND (#527, the real fix for #526) ====================
+   The lane above reserves a whole number of LINES, so a field whose real hint wraps to more than
+   that is taller than its siblings and align-items:flex-end lifts its control by the difference -
+   #494's own symptom, inside the component built to prevent it. Measured on one row at one width,
+   changing only the hint's length: control bottoms [272,272,272,272] with one line and
+   [141,87,141,141] when it wrapped to four. It depends on the cell's RENDERED width, not on the
+   markup, so a row aligns at desktop width and breaks when a dialog narrows or a translation runs
+   longer. No per-cell reserve can fix that, because no cell knows what the widest footer in the row
+   costs. A shared BAND can: three row tracks - label, control, footer - each sized to its tallest
+   member, so every control bottom lands on one line by construction and a footer that wraps makes
+   the ROW taller instead of moving a control.
+   That needs the parts to be separate grid items, and a field's footer is a child INSIDE the single
+   .twc-field element. SUBGRID is what reaches it: the cell subgrids the row's three tracks, the
+   .twc-field inside it subgrids the cell's, and each part is pinned to its track - so the band is
+   assembled from HERE, with no change to Field.jsx, to the 16 stylesheets that re-declare the
+   .twc-field family, or to the 17 JSX returns that build that markup inline.
+   Scoped to :not([data-wrap="true"]) deliberately: grid has no flex-wrap, and minChildWidth is a
+   flex-basis floor that only means anything with wrap. A wrapping row keeps the flex path above,
+   byte for byte, lane included.
+   Subgrid is Baseline newly available Sept 2023 - EARLIER than the :has() this file already
+   requires (Dec 2023) - so the band costs no browser support and no fallback question arises.
+   Row gaps are pinned to 0 at all three levels and the 6px lives on the label's margin-block-end
+   and the footer's margin-block-start instead: a gap is charged between tracks even when they
+   collapse to 0, so a row with no labels would otherwise gain 6px at the top. */
+${ROW} {
+  display: grid;
+  /* At least the lane it replaces, so a row's HEIGHT does not move until a footer actually needs
+     more: footerLines keeps working, now as the band's floor rather than a per-cell reserve. */
+  grid-template-rows: auto auto minmax(calc(var(--space-1-5) + var(--twc-fieldrow-footer-lines, 1) * var(--text-xs) * var(--leading-normal, 1.5)), auto);
+  row-gap: 0;
+  /* start: auto tracks must not share leftover space, or a row of plain controls would spread out.
+     end: a row given more height than it needs keeps its contents on its bottom edge, which is what
+     align-items:flex-end does on the flex path. */
+  justify-content: start;
+  align-content: end; }
+${BAND_COLS}
+
+/* The cell spans all three tracks and re-exposes them to its child. The --twc-fieldrow-cN reset
+   stops a nested row's column flips inheriting out of it. */
+${CELL} { display: grid; grid-template-rows: subgrid; row-gap: 0; grid-row: 1 / -1;
+  --twc-fieldrow-c1: initial; --twc-fieldrow-c2: initial; --twc-fieldrow-c3: initial;
+  --twc-fieldrow-c4: initial; --twc-fieldrow-c5: initial; --twc-fieldrow-c6: initial;
+  --twc-fieldrow-c7: initial; --twc-fieldrow-c8: initial; --twc-fieldrow-c9: initial;
+  --twc-fieldrow-c10: initial; --twc-fieldrow-c11: initial; --twc-fieldrow-c12: initial; }
+
+/* What chains the subgrid one level further: a one-control field, that field behind one transparent
+   wrapper (a Tooltip's span, a host div), the same inside a fragment cell, and a nested FieldRow,
+   whose own fields then share this row's bands. The wrapper gates are ${WRAP} - exactly one child -
+   because without them a host div holding TWO fields becomes two grid COLUMNS. */
+${SOLO} > ${ONE},
+${SOLO} > ${SOLO_WRAP},
+${SOLO} > ${WRAP} > ${ONE},
+${SOLO} > ${ROW},
+${FRAG_FIELDS} > ${ONE} { display: grid; grid-template-rows: subgrid; row-gap: 0; grid-row: 1 / -1; }
+
+/* The parts, pinned to their track. This also wins over the five pickers, which put .twc-dp /
+   .twc-tp / .twc-cp / .twc-drp / .twc-dtp on the SAME element as .twc-field and re-declare the same
+   flex column there: those tie .twc-field at (0,1,0) and are settled today by mount order, i.e. by
+   nothing in the source. */
+${BANDED} > .twc-field__label { grid-row: 1; align-self: end; margin-block-end: var(--space-1-5); }
+${BANDED} > ${FOOTER} { grid-row: 3; align-self: start; margin-block-start: var(--space-1-5); }
+${BANDED} > ${CTRL} { grid-row: 2; align-self: end; }
+
+/* A cell child the band cannot take apart - Slider (head + track + msgs), FileUpload (label + zone
+   + list + error), a Field holding two controls, any host subtree with a footer somewhere inside -
+   keeps its own layout and is bottom-aligned across all three tracks, which is what
+   align-items:flex-end gave it before. Those are the shapes this does not improve; banding them
+   needs a wrapper inside another component. */
+${SOLO} > :not(.twc-field):not(${SOLO_WRAP}):not(.twc-fieldrow)${HAS_FOOTER},
+${SOLO} > ${MANY} { grid-row: 1 / -1; align-self: end; }
+/* ...and a plain control - a Button, a Menu trigger, a Checkbox with no error - sits in the control
+   band, which is what makes #508's shape line up with no lane at all. */
+${SOLO} > :not(.twc-field):not(${SOLO_WRAP}):not(.twc-fieldrow):not(${HAS_FOOTER}) {
+  grid-row: 2; align-self: end; }
+
+/* #525's fragment cell, when every child is a field: banded too, so the pair lines up with the rest
+   of the row. With a natural child among them it stays FLEX, because a cell's implicit columns are
+   all sized alike and the button inside would stop hugging. */
+${FRAG_FIELDS} { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); column-gap: inherit; }
+${FRAG}:has(> :is(${NATURAL_ROOTS})) { display: flex; grid-row: 1 / -1; align-self: end; }
+
+/* NO GENERATED LANE IN BAND MODE. The band IS the lane. Not merely redundant: in a subgrid an
+   ::after is a grid item, and left to auto-place it lands in the LABEL band. So this kills the
+   cell's lane and #494's, however a host switched the latter on - on the field itself, or on an
+   ancestor above the row. A fragment cell that stayed on flex keeps its inner lanes, because there
+   they are the mechanism. */
+${SOLO}::after,
+${ROW} .twc-fieldrow__cell:not(:has(> * + *)) .twc-field::after,
+${FRAG_FIELDS} .twc-field::after { content: none; }
+
 `;
   function toCells(children, out, prefix) {
     import_react.default.Children.toArray(children).forEach((child, i) => {
@@ -17714,6 +17821,7 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
     ...rest
   }, ref) {
     const __twcStyles = useScopedStyles("twc-fieldrow-styles", FIELDROW_CSS);
+    const cells = toCells(children, [], "");
     return /* @__PURE__ */ jsxs(
       "div",
       {
@@ -17721,17 +17829,31 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
         className: `twc-fieldrow ${className}`.trim(),
         "data-wrap": wrap || void 0,
         style: {
-          gap: space2(gap),
+          // #527: a band row has no row axis to gap - its three tracks are label/control/footer and
+          // their 6px lives on the parts' margins - so the prop drives column-gap alone there. A
+          // wrapping row is still flex and still gaps both ways.
+          ...wrap ? { gap: space2(gap) } : { columnGap: space2(gap) },
           // #524: the wrap floor, on the cell via a custom property because the cell is the flex item
-          // and a consumer cannot reach it. #526: how many footer lines the lane holds open.
+          // and a consumer cannot reach it. #526: how many footer lines the band holds open.
           ...minChildWidth != null ? { "--twc-fieldrow-min": len2(minChildWidth) } : null,
           ...footerLines != null ? { "--twc-fieldrow-footer-lines": footerLines } : null,
-          ...style
+          // #527: one column per cell, each an equal share unless the stylesheet flips it to `auto`
+          // for a cell holding an inline-level control. This is the whole reason a grid row can keep
+          // flex's stretch-vs-natural: the track LIST must be declared on the container, and only the
+          // container knows how many cells there are. Before `style`, so a host with a row wider than
+          // the twelve positions the sheet covers can write its own.
+          ...wrap ? null : {
+            gridTemplateColumns: cells.map((_, i) => `var(--twc-fieldrow-c${i + 1}, minmax(0, 1fr))`).join(" ")
+          },
+          ...style,
+          // AFTER `style` on purpose: a host's own `gap` would otherwise set row-gap too and prise the
+          // three bands apart. row-gap means nothing in a row that does not wrap.
+          ...wrap ? null : { rowGap: 0 }
         },
         ...rest,
         children: [
           __twcStyles,
-          toCells(children, [], "").map(({ key, child }) => /* @__PURE__ */ jsx("div", { className: "twc-fieldrow__cell", children: child }, key))
+          cells.map(({ key, child }) => /* @__PURE__ */ jsx("div", { className: "twc-fieldrow__cell", children: child }, key))
         ]
       }
     );

@@ -43,18 +43,14 @@ function deriveInlineFlexRoots() {
 // comment and its END marker so a stray `.twc-*` elsewhere in the file cannot pad it.
 function shippedNaturalRoots() {
   const src = readFileSync(FIELDROW, "utf8");
-  const start = src.indexOf("/* NATURAL ROOTS");
-  const end = src.indexOf("/* END NATURAL ROOTS */");
-  expect(start, "the NATURAL ROOTS block must stay delimited for this guard to read it").toBeGreaterThan(-1);
-  expect(end).toBeGreaterThan(start);
-  const block = src.slice(start, end);
-  // only the names inside the `:is(...)` lists — the block's prose cites `.twc-field` and the
-  // selector itself names `.twc-fieldrow__cell`, neither of which is a natural root.
-  const names = new Set();
-  for (const m of block.matchAll(/:is\(([^)]*)\)/g)) {
-    for (const n of m[1].matchAll(/\.twc-[a-z0-9-]+/g)) names.add(n[0]);
-  }
-  return [...names].sort();
+  // #527: the list used to be written out twice in the NATURAL ROOTS block and a third time in
+  // #525's fragment rule, and this guard only read the block — so the third copy was unguarded and a
+  // new inline-flex control could have been added to two rules and silently missed in the third. It
+  // is now ONE constant interpolated everywhere, so the guard reads the constant and covers every
+  // use, including the #527 band's column rules.
+  const m = src.match(/const NATURAL_ROOTS =([\s\S]*?);/);
+  expect(m, "FieldRow.jsx must declare a single NATURAL_ROOTS constant").not.toBe(null);
+  return [...new Set([...m[1].matchAll(/\.twc-[a-z0-9-]+/g)].map((x) => x[0]))].sort();
 }
 
 describe("FieldRow natural-roots list is derived, not curated (#519)", () => {
@@ -82,15 +78,23 @@ describe("FieldRow natural-roots list is derived, not curated (#519)", () => {
     // otherwise a validation error re-flows the row.
     const src = readFileSync(FIELDROW, "utf8");
     const block = src.slice(src.indexOf("/* NATURAL ROOTS"), src.indexOf("/* END NATURAL ROOTS */"));
-    expect(block).toContain(".twc-fieldrow__cell:has(> :is(");
-    expect(block).toContain("> * > :is(");
+    expect(block).toContain(".twc-fieldrow__cell:has(> :is(${NATURAL_ROOTS})");
+    expect(block).toContain("> * > :is(${NATURAL_ROOTS})");
     // and it must NOT reach deeper: .twc-radio sits at depth 3 inside a RadioGroup, which fills.
     expect(block).not.toContain("> * > * > :is(");
+    // #527: the band's column rules use the same list and the same depth-2 test. Their depth term
+    // must stay "> * >" and NOT the WRAP gate used elsewhere — WRAP is :not(:has(...)), :has() may
+    // not be nested inside :has(), and its argument list is UNFORGIVING, so one invalid member drops
+    // the whole rule. Measured when that happened: every natural cell lost its hug, a Button column
+    // going from 48.2px to 121px, while alignment still looked correct.
+    const cols = src.slice(src.indexOf("const BAND_COLS ="), src.indexOf("const FIELDROW_CSS"));
+    expect(cols).toContain('") > * > :is(" + NATURAL_ROOTS +');
+    expect(cols, ":has() must not be nested inside :has() here").not.toContain("WRAP");
   });
 
   it("the three overlay wrappers are handled as transparent, not as natural", () => {
     const src = readFileSync(FIELDROW, "utf8");
-    const block = src.slice(src.indexOf("/* NATURAL ROOTS"), src.indexOf("/* END NATURAL ROOTS */"));
+    const block = src.match(/const NATURAL_ROOTS =([\s\S]*?);/)[1];
     for (const w of WRAPPERS) {
       expect(block, `${w} is a transparent wrapper, it must not be in the natural-roots list`).not.toContain(w);
     }

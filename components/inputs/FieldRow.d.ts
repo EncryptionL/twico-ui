@@ -71,17 +71,20 @@ export interface FieldRowProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * How many lines of footer the shared lane holds open. @default 1
    *
-   * **A wrapping footer re-breaks the row (#526).** The lane reserves whole lines, so a field whose
-   * real `hint` or `error` wraps to two lines is one line taller than its siblings and
-   * `align-items: flex-end` lifts its control by that much — the very symptom `reserveFooter` exists
-   * to prevent. It depends on the cell's *rendered width*, not on the markup, so a row can align at
-   * desktop width and break when a dialog narrows, when a translation runs longer, or when one more
-   * field joins the row.
+   * A non-wrapping row lays its cells out as a three-track grid — label, control, footer —
+   * so the footer track sizes to the TALLEST footer in the row and every control bottom lands on one
+   * line by construction (#527). `footerLines` is that track's FLOOR: the band never shrinks below
+   * the lane it replaced, so a row's height does not move until a footer genuinely needs more.
    *
-   * `FieldRow` cannot equalise this on its own: that needs every cell to contribute a control part
-   * and a footer part as separate grid items, and a field's footer lives *inside* the single
-   * `.twc-field` element, so no row-level selector can hoist it out. Either keep row hints to one
-   * line and put longer help beneath the row, or set `footerLines` to the number you know you need.
+   * Before #527 the lane reserved whole lines per cell, so a field whose `hint` wrapped past the
+   * reserve was taller than its siblings and `align-items: flex-end` lifted its control by the
+   * difference (#526) — measured 0px out with a one-line hint and 54px when it wrapped to four.
+   * Because it tracked the cell's *rendered width*, no reserve could bound it.
+   *
+   * Four shapes still behave as they did, because the band cannot take their parts apart without a
+   * wrapper inside another component: `Slider`, `FileUpload`, a `Field` holding two controls, and a
+   * fragment cell that also holds a plain control. A **wrapping** row keeps the flex path entirely,
+   * since grid has no `flex-wrap` and `minChildWidth` is a flex-basis floor.
    */
   footerLines?: number;
 }

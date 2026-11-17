@@ -8,6 +8,59 @@ function space(v) {
   return v;
 }
 
+// The derived natural-roots list, in ONE place. The file carried three copies - two in the NATURAL
+// ROOTS block, one in #525's fragment rule - and tests/fieldrow-natural-roots.test.jsx read only the
+// delimited block, so the third was unguarded: a new inline-flex control would have been required in
+// two rules and silently missing from the third.
+const NATURAL_ROOTS =
+  ".twc-avatar-menu, .twc-badge, .twc-btn, .twc-check, .twc-iconbtn, .twc-kbd, .twc-label, " +
+  ".twc-pagination, .twc-radio, .twc-rating, .twc-switch, .twc-tab, .twc-tag, .twc-togglegroup";
+
+// ---- #527 selector vocabulary. The expanded text is unreadable and every band rule needs two or
+// three of these. Everything here is a SELECTOR fragment; none of it changes the flex rules above.
+const ROW = '.twc-fieldrow:not([data-wrap="true"])';   // a band row; a wrapping row stays on flex
+const CELL = ROW + " > .twc-fieldrow__cell";
+const SOLO = CELL + ":not(:has(> * + *))";             // ...holding exactly one child
+const FRAG = CELL + ":has(> * + *)";                   // #525's fragment cell
+const FRAG_FIELDS = FRAG + ":not(:has(> :is(" + NATURAL_ROOTS + ")))";
+// A transparent wrapper is ONE box around ONE field. Without this gate the chain rule also matches a
+// host div holding TWO fields, turning the cell's vertical stack into two grid COLUMNS and putting a
+// stray non-field sibling beside the field in the label band.
+const WRAP = ":not(:has(> * + *))";
+const SOLO_WRAP = WRAP + ":has(> .twc-field)";
+// "a control part": any direct child of a field that is neither the label nor the footer. No class
+// marks a control - 17 JSX returns put a different element there - so the complement is the only
+// generic handle. [type="hidden"] is excluded because Select/Combobox render one as a direct child
+// and MultiSelect one per value: no box, but a child all the same.
+const CTRL = ':not(.twc-field__label):not(.twc-field__footer):not(.twc-field__hint):not(.twc-field__error):not([type="hidden"])';
+// a field with exactly ONE control part. Two would be pinned to the same track and overlap, so such
+// a field is left on flex.
+const ONE = ".twc-field:not(:has(> " + CTRL + " ~ " + CTRL + "))";
+const MANY = ".twc-field:has(> " + CTRL + " ~ " + CTRL + ")";
+const FOOTER = ":is(.twc-field__footer, .twc-field__hint, .twc-field__error)";
+const HAS_FOOTER = ":has(.twc-field__footer, .twc-field__hint, .twc-field__error)";
+// every field whose parts this sheet pins to the band
+const BANDED = ":is(" + SOLO + " > " + ONE + ", " + SOLO + " > " + WRAP + " > " + ONE + ", " + FRAG_FIELDS + " > " + ONE + ")";
+
+// One rule per column position. A cell cannot size its own grid track - track sizing is declared on
+// the CONTAINER - so the ROW asks, for each position, whether that cell holds an inline-level
+// control and flips that column from "share the row" to "hug your content". Same derived list and
+// same depth-<=2 test as the flex rules; :has() may not be nested, so the depth test is spelled as
+// two relative selectors rather than a :has() inside a :has(). The depth-2 term is "> * >" and
+// NOT the WRAP gate used elsewhere: WRAP is :not(:has(...)), and :has() cannot be nested inside
+// :has(). Its argument list is UNFORGIVING, so one invalid member drops the whole rule - which
+// silently cost every natural cell its hug (a Button column measured 121px instead of 48px).
+// nth-of-TYPE, not nth-child: the cells are the row's only div children, so a stray element React or
+// a host inserts cannot shift the count.
+// Twelve positions, not unbounded: past the twelfth a natural cell shares the row like any other -
+// still ALIGNED, it just stops hugging - and a host can set --twc-fieldrow-c13 or its own
+// grid-template-columns through style.
+const SEP = String.fromCharCode(10);
+const BAND_COLS = Array.from({ length: 12 }, (_, i) => i + 1)
+  .map((n) =>
+    ROW + ":has(> .twc-fieldrow__cell:nth-of-type(" + n + ") > :is(" + NATURAL_ROOTS + "), > .twc-fieldrow__cell:nth-of-type(" + n + ") > * > :is(" + NATURAL_ROOTS + ")) { --twc-fieldrow-c" + n + ": auto; }")
+  .join(SEP);
+
 const FIELDROW_CSS = `
 /* #508: a row of fields PLUS one plain control - an "insert at the cursor" button beside the box it
    writes into, a remove button at the end of a condition row - which is arguably the more common
@@ -69,8 +122,8 @@ const FIELDROW_CSS = `
    Menu trigger= / Tooltip put a *-wrap span in between. Both now answer "natural" whether the
    message is there or not, so a validation error no longer re-flows the row (#519). It stops at 2
    deliberately: .twc-radio sits at depth 3 inside a RadioGroup, which fills. */
-.twc-fieldrow__cell:has(> :is(.twc-avatar-menu, .twc-badge, .twc-btn, .twc-check, .twc-iconbtn, .twc-kbd, .twc-label, .twc-pagination, .twc-radio, .twc-rating, .twc-switch, .twc-tab, .twc-tag, .twc-togglegroup),
-                       > * > :is(.twc-avatar-menu, .twc-badge, .twc-btn, .twc-check, .twc-iconbtn, .twc-kbd, .twc-label, .twc-pagination, .twc-radio, .twc-rating, .twc-switch, .twc-tab, .twc-tag, .twc-togglegroup)) {
+.twc-fieldrow__cell:has(> :is(${NATURAL_ROOTS}),
+                       > * > :is(${NATURAL_ROOTS})) {
   flex: 0 1 auto; min-inline-size: auto; }
 /* END NATURAL ROOTS */
 
@@ -92,7 +145,7 @@ const FIELDROW_CSS = `
    another row item. gap is inherited from the row, so a fragment pair spaces like real siblings. */
 .twc-fieldrow__cell:has(> * + *) { flex-direction: row; align-items: flex-end; gap: inherit; }
 .twc-fieldrow__cell:has(> * + *) > * { flex: 1 1 0; min-inline-size: 0; }
-.twc-fieldrow__cell:has(> * + *) > :is(.twc-avatar-menu, .twc-badge, .twc-btn, .twc-check, .twc-iconbtn, .twc-kbd, .twc-label, .twc-pagination, .twc-radio, .twc-rating, .twc-switch, .twc-tab, .twc-tag, .twc-togglegroup) { flex: 0 1 auto; min-inline-size: auto; }
+.twc-fieldrow__cell:has(> * + *) > :is(${NATURAL_ROOTS}) { flex: 0 1 auto; min-inline-size: auto; }
 .twc-fieldrow__cell:has(> * + *) > .twc-field:not(:has(> .twc-field__footer, > .twc-field__hint, > .twc-field__error))::after {
   content: "\\00a0"; font-size: var(--text-xs); user-select: none; }
 
@@ -140,6 +193,97 @@ const FIELDROW_CSS = `
    and this rule outranked them - leaving the pair with no lane while a trailing button's cell kept
    one, 24px out. */
 .twc-fieldrow .twc-fieldrow__cell:not(:has(> * + *)) .twc-field:not([data-reserve-footer])::after { content: none; }
+
+/* ==================== THE FOOTER BAND (#527, the real fix for #526) ====================
+   The lane above reserves a whole number of LINES, so a field whose real hint wraps to more than
+   that is taller than its siblings and align-items:flex-end lifts its control by the difference -
+   #494's own symptom, inside the component built to prevent it. Measured on one row at one width,
+   changing only the hint's length: control bottoms [272,272,272,272] with one line and
+   [141,87,141,141] when it wrapped to four. It depends on the cell's RENDERED width, not on the
+   markup, so a row aligns at desktop width and breaks when a dialog narrows or a translation runs
+   longer. No per-cell reserve can fix that, because no cell knows what the widest footer in the row
+   costs. A shared BAND can: three row tracks - label, control, footer - each sized to its tallest
+   member, so every control bottom lands on one line by construction and a footer that wraps makes
+   the ROW taller instead of moving a control.
+   That needs the parts to be separate grid items, and a field's footer is a child INSIDE the single
+   .twc-field element. SUBGRID is what reaches it: the cell subgrids the row's three tracks, the
+   .twc-field inside it subgrids the cell's, and each part is pinned to its track - so the band is
+   assembled from HERE, with no change to Field.jsx, to the 16 stylesheets that re-declare the
+   .twc-field family, or to the 17 JSX returns that build that markup inline.
+   Scoped to :not([data-wrap="true"]) deliberately: grid has no flex-wrap, and minChildWidth is a
+   flex-basis floor that only means anything with wrap. A wrapping row keeps the flex path above,
+   byte for byte, lane included.
+   Subgrid is Baseline newly available Sept 2023 - EARLIER than the :has() this file already
+   requires (Dec 2023) - so the band costs no browser support and no fallback question arises.
+   Row gaps are pinned to 0 at all three levels and the 6px lives on the label's margin-block-end
+   and the footer's margin-block-start instead: a gap is charged between tracks even when they
+   collapse to 0, so a row with no labels would otherwise gain 6px at the top. */
+${ROW} {
+  display: grid;
+  /* At least the lane it replaces, so a row's HEIGHT does not move until a footer actually needs
+     more: footerLines keeps working, now as the band's floor rather than a per-cell reserve. */
+  grid-template-rows: auto auto minmax(calc(var(--space-1-5) + var(--twc-fieldrow-footer-lines, 1) * var(--text-xs) * var(--leading-normal, 1.5)), auto);
+  row-gap: 0;
+  /* start: auto tracks must not share leftover space, or a row of plain controls would spread out.
+     end: a row given more height than it needs keeps its contents on its bottom edge, which is what
+     align-items:flex-end does on the flex path. */
+  justify-content: start;
+  align-content: end; }
+${BAND_COLS}
+
+/* The cell spans all three tracks and re-exposes them to its child. The --twc-fieldrow-cN reset
+   stops a nested row's column flips inheriting out of it. */
+${CELL} { display: grid; grid-template-rows: subgrid; row-gap: 0; grid-row: 1 / -1;
+  --twc-fieldrow-c1: initial; --twc-fieldrow-c2: initial; --twc-fieldrow-c3: initial;
+  --twc-fieldrow-c4: initial; --twc-fieldrow-c5: initial; --twc-fieldrow-c6: initial;
+  --twc-fieldrow-c7: initial; --twc-fieldrow-c8: initial; --twc-fieldrow-c9: initial;
+  --twc-fieldrow-c10: initial; --twc-fieldrow-c11: initial; --twc-fieldrow-c12: initial; }
+
+/* What chains the subgrid one level further: a one-control field, that field behind one transparent
+   wrapper (a Tooltip's span, a host div), the same inside a fragment cell, and a nested FieldRow,
+   whose own fields then share this row's bands. The wrapper gates are ${WRAP} - exactly one child -
+   because without them a host div holding TWO fields becomes two grid COLUMNS. */
+${SOLO} > ${ONE},
+${SOLO} > ${SOLO_WRAP},
+${SOLO} > ${WRAP} > ${ONE},
+${SOLO} > ${ROW},
+${FRAG_FIELDS} > ${ONE} { display: grid; grid-template-rows: subgrid; row-gap: 0; grid-row: 1 / -1; }
+
+/* The parts, pinned to their track. This also wins over the five pickers, which put .twc-dp /
+   .twc-tp / .twc-cp / .twc-drp / .twc-dtp on the SAME element as .twc-field and re-declare the same
+   flex column there: those tie .twc-field at (0,1,0) and are settled today by mount order, i.e. by
+   nothing in the source. */
+${BANDED} > .twc-field__label { grid-row: 1; align-self: end; margin-block-end: var(--space-1-5); }
+${BANDED} > ${FOOTER} { grid-row: 3; align-self: start; margin-block-start: var(--space-1-5); }
+${BANDED} > ${CTRL} { grid-row: 2; align-self: end; }
+
+/* A cell child the band cannot take apart - Slider (head + track + msgs), FileUpload (label + zone
+   + list + error), a Field holding two controls, any host subtree with a footer somewhere inside -
+   keeps its own layout and is bottom-aligned across all three tracks, which is what
+   align-items:flex-end gave it before. Those are the shapes this does not improve; banding them
+   needs a wrapper inside another component. */
+${SOLO} > :not(.twc-field):not(${SOLO_WRAP}):not(.twc-fieldrow)${HAS_FOOTER},
+${SOLO} > ${MANY} { grid-row: 1 / -1; align-self: end; }
+/* ...and a plain control - a Button, a Menu trigger, a Checkbox with no error - sits in the control
+   band, which is what makes #508's shape line up with no lane at all. */
+${SOLO} > :not(.twc-field):not(${SOLO_WRAP}):not(.twc-fieldrow):not(${HAS_FOOTER}) {
+  grid-row: 2; align-self: end; }
+
+/* #525's fragment cell, when every child is a field: banded too, so the pair lines up with the rest
+   of the row. With a natural child among them it stays FLEX, because a cell's implicit columns are
+   all sized alike and the button inside would stop hugging. */
+${FRAG_FIELDS} { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); column-gap: inherit; }
+${FRAG}:has(> :is(${NATURAL_ROOTS})) { display: flex; grid-row: 1 / -1; align-self: end; }
+
+/* NO GENERATED LANE IN BAND MODE. The band IS the lane. Not merely redundant: in a subgrid an
+   ::after is a grid item, and left to auto-place it lands in the LABEL band. So this kills the
+   cell's lane and #494's, however a host switched the latter on - on the field itself, or on an
+   ancestor above the row. A fragment cell that stayed on flex keeps its inner lanes, because there
+   they are the mechanism. */
+${SOLO}::after,
+${ROW} .twc-fieldrow__cell:not(:has(> * + *)) .twc-field::after,
+${FRAG_FIELDS} .twc-field::after { content: none; }
+
 `;
 
 // Flattens one child list into the cells the row renders. Two things React.Children.map does not do
@@ -179,6 +323,8 @@ export const FieldRow = /*#__PURE__*/ React.forwardRef(function FieldRow({
   ...rest
 }, ref) {
   const __twcStyles = useScopedStyles("twc-fieldrow-styles", FIELDROW_CSS);
+  // hoisted: the column template needs the cell COUNT, and only the container can declare it
+  const cells = toCells(children, [], "");
   return (
     <div
       ref={ref}
@@ -189,17 +335,31 @@ export const FieldRow = /*#__PURE__*/ React.forwardRef(function FieldRow({
          DateTimePicker's two pickers, each of a FilterBar's filters) and stack a second lane under
          the one the cell already owns. The cell lane covers a direct field and a wrapped one alike. */
       style={{
-        gap: space(gap),
+        // #527: a band row has no row axis to gap - its three tracks are label/control/footer and
+        // their 6px lives on the parts' margins - so the prop drives column-gap alone there. A
+        // wrapping row is still flex and still gaps both ways.
+        ...(wrap ? { gap: space(gap) } : { columnGap: space(gap) }),
         // #524: the wrap floor, on the cell via a custom property because the cell is the flex item
-        // and a consumer cannot reach it. #526: how many footer lines the lane holds open.
+        // and a consumer cannot reach it. #526: how many footer lines the band holds open.
         ...(minChildWidth != null ? { "--twc-fieldrow-min": len(minChildWidth) } : null),
         ...(footerLines != null ? { "--twc-fieldrow-footer-lines": footerLines } : null),
+        // #527: one column per cell, each an equal share unless the stylesheet flips it to `auto`
+        // for a cell holding an inline-level control. This is the whole reason a grid row can keep
+        // flex's stretch-vs-natural: the track LIST must be declared on the container, and only the
+        // container knows how many cells there are. Before `style`, so a host with a row wider than
+        // the twelve positions the sheet covers can write its own.
+        ...(wrap ? null : {
+          gridTemplateColumns: cells.map((_, i) => `var(--twc-fieldrow-c${i + 1}, minmax(0, 1fr))`).join(" "),
+        }),
         ...style,
+        // AFTER `style` on purpose: a host's own `gap` would otherwise set row-gap too and prise the
+        // three bands apart. row-gap means nothing in a row that does not wrap.
+        ...(wrap ? null : { rowGap: 0 }),
       }}
       {...rest}
     >
       {__twcStyles}
-      {toCells(children, [], "").map(({ key, child }) => (
+      {cells.map(({ key, child }) => (
         <div key={key} className="twc-fieldrow__cell">{child}</div>
       ))}
     </div>
