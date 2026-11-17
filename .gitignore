@@ -23,3 +23,6 @@ coverage/
 .design-sync/learnings/
 .design-sync/node_modules
 scratch-*
+
+# Scratch workspace: probe harnesses, issue drafts, measurement output. Repo-only, never shipped.
+/.work/

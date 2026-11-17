@@ -13438,7 +13438,7 @@ export const components = [
         "type": "number | string",
         "required": false,
         "default": "\"10rem\"",
-        "description": "Minimum width a stretching cell may shrink to before wrap breaks the line — a number is px, a string passes through, same as Grid's prop of this name. Only meaningful with wrap."
+        "description": "Minimum width a stretching cell may shrink to before wrap breaks the line — a number is px, a string passes through, same as Grid's prop of this name. Only meaningful with wrap; in a wrapping row it also floors the fields inside a fragment cell, which then wraps within itself (#530)."
       },
       {
         "prop": "footerLines",

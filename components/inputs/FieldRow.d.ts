@@ -66,6 +66,38 @@ export interface FieldRowProps extends React.HTMLAttributes<HTMLDivElement> {
    *
    * Only meaningful with `wrap`. Equal widths are preserved — `flex-basis` stays `0`, so cells that
    * share a line still share it evenly. @default "10rem"
+   *
+   * In a wrapping row the floor also reaches the fields **inside** a fragment cell, and that cell
+   * wraps within itself (#530). A *component* returning a fragment is one cell — nothing sees
+   * through a render — so before this, a row whose fields all came from one shared component had a
+   * single flex item, nothing to break against, and no way to ask for a floor on the fields: a
+   * 520px row with `minChildWidth="15rem"` measured `[168, 168, 168]`, 72px under its own floor,
+   * where the hand-laid equivalent gives `[256, 256, 520]`. It now matches the hand-laid row.
+   *
+   * Three things follow from the break happening *inside* the cell:
+   *
+   * - **The group breaks against its own share of the row, not the row's width.** Once the fragment
+   *   cell has siblings this is visibly not the same as three cells: measured at 760px, a trio plus
+   *   one sibling field goes from one line of `[120, 120, 120, 376]` to three stacked 376px fields.
+   *   Honouring the floor is the point — 120px was already half of it — but it is a reflow.
+   * - **A fragment cell that also holds a plain control is deliberately untouched**, because such a
+   *   cell hugs its content instead of filling the row, and a floor inside it would break a line the
+   *   row still has room for. Both the depth-1 and depth-2 forms measured byte-identical.
+   * - **`gap` now also spaces the cell's inner lines**, since a fragment cell inherits the row's
+   *   gap — so tuning the horizontal gap of a wrapping row tunes something one level deeper too.
+   *
+   * With no `minChildWidth` the default `10rem` floor applies at both levels, so a wrapping row with
+   * a fragment child and `gap={2}` breaks below ~496px where it used to squash. At 500px and above
+   * nothing moves.
+   *
+   * **To get real per-cell behaviour, pass the group as a value rather than as a component.**
+   * Children are flattened through fragments and arrays, so this needs no duplication at the call
+   * site and is the answer for every shape above:
+   *
+   * ```jsx
+   * const trio = () => (<><Select … /><Select … /><Input … /></>);
+   * <FieldRow wrap minChildWidth="15rem">{trio()}</FieldRow>   // three real cells
+   * ```
    */
   minChildWidth?: number | string;
   /**
@@ -81,10 +113,16 @@ export interface FieldRowProps extends React.HTMLAttributes<HTMLDivElement> {
    * difference (#526) — measured 0px out with a one-line hint and 54px when it wrapped to four.
    * Because it tracked the cell's *rendered width*, no reserve could bound it.
    *
-   * Four shapes still behave as they did, because the band cannot take their parts apart without a
-   * wrapper inside another component: `Slider`, `FileUpload`, a `Field` holding two controls, and a
-   * fragment cell that also holds a plain control. A **wrapping** row keeps the flex path entirely,
-   * since grid has no `flex-wrap` and `minChildWidth` is a flex-basis floor.
+   * Three shapes still behave as they did, because the band cannot take their parts apart without a
+   * wrapper inside another component: `Slider`, `FileUpload`, and a `Field` holding two controls.
+   * A **wrapping** row keeps the flex path entirely, since grid has no `flex-wrap` and
+   * `minChildWidth` is a flex-basis floor.
+   *
+   * A fourth shape was listed here and should not have been — a fragment cell that also holds a
+   * plain control. It was recorded as "measured identical to base, so nothing regresses", which was
+   * true and the wrong test: base was already **24px** out, because the fragment lane rule can only
+   * reach a `.twc-field` and so the plain control got no lane at all. Fixed in #531 — that control
+   * now takes the lane's height as margin — in both the band and the wrapping path.
    */
   footerLines?: number;
 }

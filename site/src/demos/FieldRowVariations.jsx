@@ -19,6 +19,27 @@ const TrashIcon = (
 );
 
 const box = { width: "100%", maxWidth: 560 };
+const narrow = { width: "100%", maxWidth: 420 };
+
+// A group of fields shared between rows. As a COMPONENT it renders into one cell, because nothing
+// sees through a render; as a VALUE it is flattened into one cell per field.
+function Trio() {
+  return (
+    <>
+      <Select label="Field" options={FIELDS} defaultValue="material" />
+      <Select label="Operator" options={OPS} defaultValue="contains" />
+      <Input label="Value" defaultValue="leather" />
+    </>
+  );
+}
+
+const trio = () => (
+  <>
+    <Select label="Field" options={FIELDS} defaultValue="material" />
+    <Select label="Operator" options={OPS} defaultValue="contains" />
+    <Input label="Value" defaultValue="leather" />
+  </>
+);
 
 // Hooks live in a component, never in a `render` callback — Variations calls render() inline.
 function CheckboxErrorExample() {
@@ -206,6 +227,83 @@ const variations = [
         <Input label="Value" defaultValue="leather" />
         <Button size="sm" variant="outline">Add</Button>
       </FieldRow>
+    ),
+  },
+  {
+    title: "A shared group of fields, wrapping",
+    description:
+      "A component returning a fragment renders into ONE cell, because React.Children cannot see through a render. In a wrapping row the floor reaches the fields inside that cell anyway, and the cell wraps within itself (#530) — so a shared group breaks at a readable width instead of squashing. Narrow the window to see it break.",
+    code: `function Trio() {
+  return (
+    <>
+      <Select label="Field" options={FIELDS} />
+      <Select label="Operator" options={OPS} />
+      <Input label="Value" />
+    </>
+  );
+}
+
+<FieldRow gap={2} wrap minChildWidth="15rem"><Trio /></FieldRow>`,
+    render: () => (
+      <div style={narrow}>
+        <FieldRow gap={2} wrap minChildWidth="15rem"><Trio /></FieldRow>
+      </div>
+    ),
+  },
+  {
+    title: "...or as a value, for real cells",
+    description:
+      "Pass the same group as a VALUE rather than as a component element and it is flattened into one cell per field — the real floor, the real wrap and the footer band — with no duplication at the call site. This is the answer whenever you want the group to break against the ROW's width rather than its own cell's.",
+    code: `const trio = () => (
+  <>
+    <Select label="Field" options={FIELDS} />
+    <Select label="Operator" options={OPS} />
+    <Input label="Value" />
+  </>
+);
+
+<FieldRow gap={2} wrap minChildWidth="15rem">{trio()}</FieldRow>`,
+    render: () => (
+      <div style={narrow}>
+        <FieldRow gap={2} wrap minChildWidth="15rem">{trio()}</FieldRow>
+      </div>
+    ),
+  },
+  {
+    title: "A fragment group with a trailing button",
+    description:
+      "Such a cell keeps its natural size rather than filling the row, so the floor deliberately does not reach inside it. The button gets the shared lane as margin instead of generated content (#531), because a button is an inline-flex ROW — an ::after on it would land beside the label rather than beneath the control.",
+    code: `<FieldRow gap={2}><Trio /><IconButton label="Remove" icon={trash} /></FieldRow>`,
+    render: () => (
+      <div style={box}>
+        <FieldRow gap={2}>
+          <Trio />
+          <IconButton label="Remove" variant="ghost" tone="danger" icon={TrashIcon} />
+        </FieldRow>
+      </div>
+    ),
+  },
+  {
+    title: "A wrapping row nested in a band row",
+    description:
+      "The outer row bands its three tracks; the inner row has to stay flex, since grid has no flex-wrap. It is placed across all three tracks on the bottom edge (#532) — without that it matched no placement rule and auto-placed into the LABEL track, inflating it from 27px to 190px.",
+    code: `<FieldRow gap={2}>
+  <Select label="Field" options={FIELDS} />
+  <FieldRow gap={2} wrap minChildWidth="12rem">
+    <Input label="From" />
+    <Input label="To" />
+  </FieldRow>
+</FieldRow>`,
+    render: () => (
+      <div style={box}>
+        <FieldRow gap={2}>
+          <Select label="Field" options={FIELDS} defaultValue="material" />
+          <FieldRow gap={2} wrap minChildWidth="12rem">
+            <Input label="From" defaultValue="0" />
+            <Input label="To" defaultValue="100" />
+          </FieldRow>
+        </FieldRow>
+      </div>
     ),
   },
   {
