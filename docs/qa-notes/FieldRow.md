@@ -479,10 +479,21 @@ without it there are no tokens either. A scoped rule rather than relying on `bas
 component self-contained (§5).
 
 At `(0,1,0)` the reset still wins a tie against the element reset and still loses to any rule that
-*means* to move it — FieldRow's lane is `(0,3,0)` — so the lane lands, and a consumer's own CSS now
-works where before it could not. Everything else in those two components stays inline on purpose:
-those declarations carry **prop values** (size, tone, weight, align, truncate), which no shared
-stylesheet can express. Only the constant moved.
+*means* to move it — FieldRow's lane is `(0,3,0)` — so the lane lands.
+
+Two things an adversarial review corrected about how this was first written up, both recorded in
+`docs/qa-notes/Text.md`:
+
+- **"Everything else left inline carries prop values" is false.** `Text` keeps two constants inline
+  (`font-family`, `line-height`) and `Heading` keeps five (`font-family`, `font-weight`, `color`,
+  `line-height`, `letter-spacing`), and `Heading` has no `tone`/`color`/`weight` prop at all. Those
+  seven are as un-overridable as the margin was. #543 fixed the case where the library vetoed
+  *itself*; it did not close the class.
+- **"A consumer's own CSS now works" cuts both ways at `(0,1,0)`.** React inserts a hoisted sheet at
+  `head.firstChild`, ahead of the app's own CSS, so at equal specificity the consumer wins on source
+  order — including third-party rules written with no knowledge of twico, such as
+  `@tailwindcss/typography`'s `.prose :where(p)`, which is `(0,1,0)` because `:where()` scores zero.
+  Whether the reset should hold that tie at `(0,2,0)` is an open decision, not a defect — **#547**.
 
 | | before | after |
 | --- | --- | --- |

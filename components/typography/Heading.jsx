@@ -16,9 +16,15 @@ import { useScopedStyles } from "../_styles.js";
 // rule that means to move it - FieldRow's is (0,3,0) - so the lane lands and a consumer's CSS works
 // where it previously could not. Text and Pre do the same; this is the in-house pattern, not a new one.
 //
-// Everything else stays inline on purpose: those declarations carry PROP VALUES (size, tone,
-// weight, align, truncate), and a value derived from a prop is not something a stylesheet can
-// express. Only the constant reset moves.
+// ONLY THE MARGIN MOVES, and the rest is NOT all prop-derived - an earlier version of this comment
+// said it carried "size, tone, weight, align, truncate", which is Text's prop list: Heading has no
+// tone, color or weight prop at all. font-size (level/size/display), text-align (align) and the
+// truncate/lineClamp block are the prop-derived ones. FIVE constants stay inline below -
+// font-family, font-weight, color, line-height, letter-spacing - and they are as un-overridable by
+// any stylesheet as the margin was, the same defect class. #543 fixed the one case where the library
+// vetoed ITSELF (FieldRow's lane); it did not close the class. Widening it is a public-API decision
+// rather than a cleanup, because moving a VISUAL constant changes what third-party CSS can do to
+// every Heading on a page. Tracked separately.
 const HEADING_CSS = `
 .twc-heading { margin: 0; }
 `;

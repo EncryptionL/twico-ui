@@ -48,10 +48,26 @@ It is now `.twc-text { margin: 0; }` in a scoped stylesheet (`twc-text-styles`):
 - At `(0,1,0)` it still wins a tie against the element reset and still loses to any rule that
   *means* to move it. **A consumer's own CSS now works where it previously could not.**
 
-**Everything else stays inline on purpose.** Those declarations carry **prop values** — `size`,
-`tone`/`color`, `weight`, `align`, `truncate`/`lineClamp` — and a value derived from a prop is not
-something a shared stylesheet can express. Only the constant moved. `...style` is still spread
-after them, so the `style` prop escape hatch is unchanged (asserted).
+**What else is still inline, accurately.** The first version of this note claimed the remaining
+declarations "carry prop values" and that "only the constant moved". That is wrong, and wrong in the
+direction that matters: it describes the defect class as closed when it is not.
+
+| | prop-derived (a stylesheet cannot express these) | **constant, and still inline** |
+| --- | --- | --- |
+| `Text` | `font-size` (`size`), `color` (`tone`), `font-weight` (`weight`), `text-align` (`align`), the `truncate`/`lineClamp` block | `font-family: var(--font-sans)`, `line-height: 1.6` |
+| `Heading` | `font-size` (`level`/`size`/`display`), `text-align` (`align`), the `truncate`/`lineClamp` block | `font-family: var(--font-sans)`, `font-weight: var(--font-bold)`, `color: var(--color-text)`, `line-height: 1.2`, `letter-spacing: -0.02em` |
+
+`Heading` has **no `tone`, `color` or `weight` prop** — the original list was `Text`'s pasted onto it.
+
+Those seven constants are **exactly as un-overridable by any stylesheet as the margin was**, which is
+the defect class #543 is named after. #543 fixed the one case where the library was vetoing *itself*
+(FieldRow's lane); it did not fix the class. So `.twc-text { font-weight: 500 }` in a consumer's CSS
+still does nothing for `line-height` or `font-family`, and this note previously implied otherwise. Tracked separately rather than
+widened here, because moving a *visual* constant changes what third-party CSS can do to every
+`Text` on a page — a public-API decision, not a cleanup.
+
+`...style` is still spread after the base declarations, so the `style` prop escape hatch is
+unchanged (asserted).
 
 **The `<style>` does not land inside the element.** `<style>` is metadata content and `<p>`
 accepts only phrasing content, so an always-on style child would be invalid HTML. On React 19
@@ -63,3 +79,26 @@ element carries no style child, and the rule reaches `<head>` **once** across ev
 
 Validated by reverting one inline `marginBottom: 0`: all three wrap cases return to 24px, and the
 band path stays at 0px — which is also the proof that the band path never depended on the margin.
+
+**One measurable shape change.** On React 19 the hoistable `<style>` is a rendered child, so an
+`as={SomeComponent}` that introspects its children sees one more entry:
+`React.Children.toArray(children).length` goes 1 → 2 for `<Text as={Spy}>c</Text></`, and
+`React.Children.count` 2 → 3. `React.Children.only` threw before and still throws, so that path is
+unchanged, and no component in this library renders `Text`, so the exposure is consumer-side and
+only for `as={Component}` *plus* children introspection. Measured on react 19.2.7.
+
+## Open, from the adversarial review of #543 — tracked as #547
+
+Two decisions this change surfaced and deliberately did not take, because both are about what
+third-party CSS may do to every `Text` on a page rather than about the bug:
+
+1. **The remaining inline constants** (the table above). Same defect class, not closed.
+2. **The `(0,1,0)` tie.** React inserts a hoisted sheet at `head.firstChild`, *ahead of* the app's
+   own CSS, and at equal specificity the later rule wins — so a consumer rule that merely *reaches*
+   `(0,1,0)` now beats the reset on source order, with no need to out-specify it. That includes rules
+   written with no knowledge of twico: `@tailwindcss/typography` emits
+   `.prose :where(p):not(…) { margin-top: 1.25em; margin-bottom: 1.25em }`, which is `(0,1,0)`
+   because `:where()` scores zero. Before #543 the inline reset beat it unconditionally; now
+   `.prose` wins. `.twc-text.twc-text { margin: 0 }` at `(0,2,0)` would hold that tie while still
+   losing to FieldRow's `(0,3,0)` lane — the exact bracket — but which side of that is *correct* is a
+   judgement about the library's posture toward consumer CSS, not a defect.

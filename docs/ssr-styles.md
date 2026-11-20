@@ -17,9 +17,22 @@ React hydrated and the effect ran. Verified: a production SSR render of a page c
 `useScopedStyles(id, css)` is version-aware:
 
 - **React 19+** — returns a hoistable `<style href={id} precedence="twc-ui">{css}</style>`. React
-  deduplicates it by `href`, hoists it to `<head>`, and **includes it in the server-rendered HTML**,
-  so the styles are present on first paint — no FOUC. The component renders the returned node as a
-  child of its root (placement is irrelevant — React hoists it).
+  deduplicates it by `href`, hoists it **out of the component**, and **includes it in the
+  server-rendered HTML**, so the styles are present on first paint — no FOUC. The component renders
+  the returned node as a child of its root (placement is irrelevant — React hoists it).
+
+  **Where it lands depends on the render tree.** With `<html>/<head>` in the tree — the Next.js App
+  Router case, and `renderToPipeableStream` including across a late Suspense boundary — it goes into
+  `<head>`, at `head.firstChild`, *ahead of* the app's own `<link rel="stylesheet">` tags. For a
+  **fragment** render (`renderToString(<App/>)` into a `<div id="root">`) there is no `<head>` in the
+  output, so React emits it as the **first node of the output string** and it stays in `<body>` after
+  `hydrateRoot` — hydration is clean either way, and the rule works from `<body>`, but
+  `root.firstElementChild` is then the `<style>`. Measured on React 19.2.7.
+
+  Being first in `<head>` matters for ties: at **equal specificity the later rule wins**, so a
+  consumer rule that matches a twico selector at the same specificity beats these sheets on source
+  order alone. That is intended for component CSS, and it is the open question on the #543 typography
+  reset — see `docs/qa-notes/Text.md`.
 - **React 18** — falls back to the original client-only `useInsertionEffect` injection (deduped by
   element id) and returns `null`. No SSR styles, but **no regression** for React 18 consumers.
 

@@ -77,15 +77,51 @@ describe("typography margin reset is a stylesheet rule, not an inline style (#54
     expect(screen.getByText("spaced").style.marginBottom).toBe("12px");
   });
 
-  it("everything that carries a PROP VALUE stays inline", () => {
-    // Only the constant reset moved. A value derived from a prop is not something a shared
-    // stylesheet can express, so size/tone/weight/align stay where they were.
+  it("the prop-derived declarations stay inline, because no stylesheet can express them", () => {
     render(<Text size="sm" tone="muted" weight="bold" align="right">v</Text>);
     const el = screen.getByText("v");
     expect(el.style.fontSize).toBe("var(--text-sm)");
     expect(el.style.color).toBe("var(--color-text-muted)");
     expect(el.style.fontWeight).toBe("var(--font-bold)");
     expect(el.style.textAlign).toBe("right");
+  });
+
+  // An adversarial review caught the first version of this change claiming that everything left
+  // inline "carries prop values" and that "only the constant moved". Both false: Text keeps two
+  // constants inline and Heading keeps five, and the claim was written with Text's prop list pasted
+  // onto Heading, which has no tone, color or weight prop at all. Those constants are as
+  // un-overridable by a stylesheet as the margin was - the same defect class #543 is named after -
+  // so the EXACT split is pinned here. If a constant is later moved to the sheet, or a new one is
+  // added inline, this fails and the prose has to be updated with it.
+  it("pins exactly which constants are STILL inline - the claim this change got wrong", () => {
+    const inlineProps = (el) => [...el.style].sort();
+    render(<div><Text>t</Text><Heading level={2}>h</Heading></div>);
+
+    // Text: 2 constants + 2 prop-derived defaults (size -> font-size, tone -> color).
+    expect(inlineProps(screen.getByText("t"))).toEqual(
+      ["color", "font-family", "font-size", "line-height"]);
+    // Heading: 5 constants + 1 prop-derived default (level -> font-size).
+    expect(inlineProps(screen.getByText("h"))).toEqual(
+      ["color", "font-family", "font-size", "font-weight", "letter-spacing", "line-height"]);
+
+    // ...and NONE of them is in the scoped sheet, which carries the margin and nothing else.
+    expect(src(TEXT)).toContain(".twc-text { margin: 0; }");
+    expect(src(HEADING)).toContain(".twc-heading { margin: 0; }");
+    for (const [file, cls] of [[TEXT, "twc-text"], [HEADING, "twc-heading"]]) {
+      const css = src(file).slice(src(file).indexOf("." + cls + " {"), src(file).indexOf("`;"));
+      for (const p of ["font-family", "line-height", "color", "font-weight", "letter-spacing"]) {
+        expect(css, p + " is still inline, so it must not also be in the sheet").not.toContain(p);
+      }
+    }
+  });
+
+  it("Heading has no tone, color or weight prop - the mis-pasted list", () => {
+    // The false claim named props Heading does not have. Pinned so the prose cannot drift back.
+    const d = src("components/typography/Heading.d.ts");
+    for (const p of ["tone?", "weight?"]) {
+      expect(d, "Heading must not have a " + p + " prop, or the note needs rewriting").not.toContain(p);
+    }
+    expect(src("components/typography/Text.d.ts")).toContain("tone?");
   });
 
   it("the lane that was being vetoed is still a margin-block-end at (0,3,0)", () => {
