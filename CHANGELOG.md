@@ -2,6 +2,12 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.53.0](https://github.com/EncryptionL/twico-ui/compare/v1.52.0...v1.53.0) (2026-11-20)
+
+### Features
+
+* **typography:** finish moving Text's and Heading's base styles off the style attribute ([dae8143](https://github.com/EncryptionL/twico-ui/commit/dae8143a1743275a1698d7fa639228522bd325a8)), closes [#547](https://github.com/EncryptionL/twico-ui/issues/547) [#549](https://github.com/EncryptionL/twico-ui/issues/549)
+
 # [1.52.0](https://github.com/EncryptionL/twico-ui/compare/v1.51.2...v1.52.0) (2026-11-20)
 
 ### Bug Fixes
