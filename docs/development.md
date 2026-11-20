@@ -77,9 +77,17 @@ same).
 differing bytes on pages nothing touched: after the three Datatable variations landed, four other
 baselines changed by 14–66 pixels out of 7–8 million, `maxDelta` 1–3 of 255, all inside `y=17..46`
 — the navbar's text band, i.e. antialiasing variance between runner instances. Committing the set
-on trust would have buried a real change among them. `.work/baselines/diff.mjs` loads both PNGs
-into canvases and reports the differing-pixel count, the max per-channel delta and the bounding box;
-a dimension change (24,162 → 26,454 px tall, there) is the honest signal that content moved.
+on trust would have buried a real change among them.
+
+```bash
+cd site && npm run diff:baselines -- ../path/to/updated-baselines
+```
+
+`site/scripts/diff-baselines.mjs` skips byte-identical files, then loads the rest into canvases and
+reports the differing-pixel count, the max per-channel delta and the bounding box. A **dimension**
+change is the honest signal that content moved (24,162 → 26,454 px tall, there — the three new
+Datatable variations); a few dozen pixels at `maxDelta ≤ 3/255` inside `y=17..46` is the navbar
+re-antialiasing and means nothing.
 
 ## Branch flow
 

@@ -13,7 +13,8 @@
     "render-check": "node scripts/render-check.mjs",
     "test:visual": "playwright test",
     "test:visual:update": "playwright test --update-snapshots=all",
-    "gen:props": "node scripts/enrich-props.mjs"
+    "gen:props": "node scripts/enrich-props.mjs",
+    "diff:baselines": "node scripts/diff-baselines.mjs"
   },
   "dependencies": {
     "prism-react-renderer": "^2.4.0",
