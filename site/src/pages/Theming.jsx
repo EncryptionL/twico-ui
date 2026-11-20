@@ -29,6 +29,13 @@ export default function Theming() {
 }`}
           language="css"
         />
+        <Text tone="muted" size="sm">
+          Open <Code>twico-ui/styles.css</Code> while you work: every token there carries the
+          comment that says why it holds the value it does — the contrast ratio a colour was
+          picked to clear, which aliases to remap to re-skin the whole library, which boundaries
+          are a control&rsquo;s only affordance. That copy exists to be read.{" "}
+          <Code>twico-ui/styles.min.css</Code> is the same rules for loading.
+        </Text>
       </Stack>
 
       <Stack as="section" gap={3}>
