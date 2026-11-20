@@ -1057,6 +1057,21 @@ export const VARIATIONS = [
     "i": 12
   },
   {
+    "component": "FieldRow",
+    "title": "A range row — a word between two fields",
+    "i": 13
+  },
+  {
+    "component": "FieldRow",
+    "title": "footerLines reaches a shared group too",
+    "i": 14
+  },
+  {
+    "component": "FieldRow",
+    "title": "A shared group stays on the band when a sibling's footer wraps",
+    "i": 15
+  },
+  {
     "component": "Field",
     "title": "Label, hint & required",
     "i": 0

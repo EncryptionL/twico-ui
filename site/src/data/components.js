@@ -13438,14 +13438,14 @@ export const components = [
         "type": "number | string",
         "required": false,
         "default": "\"10rem\"",
-        "description": "Minimum width a stretching cell may shrink to before wrap breaks the line — a number is px, a string passes through, same as Grid's prop of this name. Only meaningful with wrap; in a wrapping row it also floors the fields inside a fragment cell, which then wraps within itself (#530)."
+        "description": "Minimum width a stretching cell may shrink to before wrap breaks the line — a number is px, a string passes through, same as Grid's prop of this name. Only meaningful with wrap; in a wrapping row it also floors the FIELDS inside a fragment cell, which then wraps within itself (#530, #536) — not a plain child like a range row's \"to\"."
       },
       {
         "prop": "footerLines",
         "type": "number",
         "required": false,
         "default": "1",
-        "description": "How many lines of footer the shared band holds open — its FLOOR, not a per-cell reserve. A non-wrapping row is a three-track grid (label / control / footer) whose footer track sizes to the tallest footer in the row, so a hint that wraps makes the row taller instead of lifting its own control."
+        "description": "How many lines of footer the shared band holds open — its FLOOR, not a per-cell reserve. A non-wrapping row is a three-track grid (label / control / footer) whose footer track sizes to the tallest footer in the row, so a hint that wraps makes the row taller instead of lifting its own control. Reaches every lane, a shared fragment's included (#537)."
       },
       {
         "prop": "className",

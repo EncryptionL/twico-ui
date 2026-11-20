@@ -91,22 +91,33 @@ describe("FieldRow natural-roots list is derived, not curated (#519)", () => {
     expect(cols).toContain('") > * > :is(" + NATURAL_ROOTS +');
     expect(cols, ":has() must not be nested inside :has() here").not.toContain("WRAP");
 
+
     // #530: the wrap-path fragment-cell gate is a THIRD hand-maintained copy of the same depth-2
     // structure, and the two slices above do not cover it. It is the complement of the cell test:
     // the two #530 rules must reach a fragment cell holding ONLY fields, and must not reach one
     // holding an inline-level control at depth 1 OR depth 2. Measured when the depth-2 arm is
     // missing: a fragment cell with a Tooltip-wrapped Button stays 480px wide and breaks into three
-    // 480px lines, where gated it is one untouched line. Both arms are pinned here because the
-    // failure is silent - an unforgiving :has() list drops the whole rule and the cell simply stops
-    // being excluded.
+    // 480px lines, where gated it is one untouched line.
+    //
+    // #536 made it ONE constant rather than two hand-kept copies, which is what this now pins. The
+    // two rules must still be gated identically - a floor without the matching flex-wrap makes the
+    // cell's min-content wider than the row and it overflows horizontally instead of breaking a
+    // line - but a shared constant is how that is guaranteed rather than asserted. #536 WAS the
+    // second copy being wrong.
     const SCOPE = ':where(.twc-fieldrow[data-wrap="true"])';
-    const gate = '.twc-fieldrow__cell:has(> * + *):not(:has(> :is(${NATURAL_ROOTS}), > * > :is(${NATURAL_ROOTS})))';
-    const wrapRules = src.split(gate).length - 1;
-    expect(wrapRules, "#530's two rules must both carry the full depth-2 gate").toBe(2);
-    // ...and both must be scoped to a WRAPPING row, or they would reach the band, where a fragment
-    // cell is a grid with minmax(0, 1fr) tracks and a floor overflows the track instead of breaking.
-    const scoped = SCOPE + ' > ' + gate;
-    expect(src.split(scoped).length - 1, "#530: both rules must carry the wrap scope").toBe(2);
+    const gate = '.twc-fieldrow__cell:has(> * + *):not(' + "' + FRAG_NAT + \")";
+    expect(src, "#530's gate must be ONE constant").toContain("const FRAG_WRAP = '" + SCOPE + " > " + gate);
+    // ...and FRAG_NAT itself must carry both depth arms, since the gate now reads through it.
+    expect(src).toContain('const FRAG_NAT = ":has(> :is(" + NATURAL_ROOTS + "), > * > :is(" + NATURAL_ROOTS + "))"');
+    // Both rules read the constant: the wrap switch, and the floor (which takes two selectors of
+    // its own since #536, one for a field and one for a one-box wrapper around a field).
+    expect(src).toContain("${FRAG_WRAP} { flex-wrap: wrap; align-content: flex-end; }");
+    expect(src).toContain("${FRAG_WRAP} > .twc-field,");
+    expect(src).toContain("${FRAG_WRAP} > :has(> .twc-field) {");
+    // #536: the floor must NOT be back on `> *`. That floored a fragment cell's non-field child -
+    // the 12px word in a range row - which no longer fit beside the two inputs and took its own
+    // line: 1 line and 91px became 2 lines and 190px, fields at 256/520.
+    expect(src, "#536: the floor's subject is the field, never every child").not.toContain("${FRAG_WRAP} > * {");
     // The floor MUST carry a real length fallback. Without one, min(100%, var(--twc-fieldrow-min))
     // is invalid at computed-value time when the prop is unset, and because min-inline-size is not
     // inherited, IACVT drops it to the INITIAL value `auto` - a content-based minimum, i.e. an
@@ -128,12 +139,56 @@ describe("FieldRow natural-roots list is derived, not curated (#519)", () => {
 
     // #531: a fragment child that cannot take an ::after lane gets the lane's HEIGHT as margin.
     // Pinned because the expression has to stay token-built and one line: a literal length would
-    // drift from the lane when a token changes, and footer-lines would not match the sibling lanes.
-    expect(src).toContain("margin-block-end: calc(var(--space-1-5) + var(--text-xs) * var(--leading-normal, 1.5)); }");
+    // drift from the lane when a token changes.
+    // #537: and it must carry footer-lines, like the two lanes it aligns against - the cell ::after
+    // and the band's footer track both hold footerLines x a line, so a constant one line put this
+    // child (n - 1) x 18px out: measured 0/18/36px at footerLines 1/2/3.
+    const LANE = "calc(var(--space-1-5) + var(--twc-fieldrow-footer-lines, 1) * var(--text-xs) * var(--leading-normal, 1.5))";
+    expect(src, "#537: the fragment margin lane must scale with footerLines")
+      .toContain("margin-block-end: " + LANE + "; }");
+    expect(src, "#537: a constant one-line lane is the defect")
+      .not.toContain("margin-block-end: calc(var(--space-1-5) + var(--text-xs) * var(--leading-normal, 1.5))");
+    // ...and so must the OTHER lane in the same cell: the ::after a fragment cell's FIELD children
+    // draw. Fixing only the margin moved the misalignment from cell-vs-row to sibling-vs-sibling
+    // inside the cell, still 36px at footerLines=3. The two have to move together.
+    expect(src, "#537: the fragment field ::after must scale too")
+      .toContain("  min-block-size: calc(var(--twc-fieldrow-footer-lines, 1) * var(--text-xs) * var(--leading-normal, 1.5)); }");
+    // #537: WRAP-ONLY. On the band path #538 places these children by grid-row, and a bottom margin
+    // on a row-2 item pinned with align-self:end lifts it straight back out of the band.
+    expect(src).toContain(':where(.twc-fieldrow[data-wrap="true"]) > .twc-fieldrow__cell:has(> * + *) > *:not(.twc-field)');
     // #532: a nested WRAPPING row must be placed explicitly - it matches neither the chain rule
     // (${ROW} excludes it) nor the two fallbacks (both carry :not(.twc-fieldrow)), so without this
-    // it auto-places into the LABEL track and inflated it from 27px to 190px.
-    expect(src).toContain('${SOLO} > .twc-fieldrow[data-wrap="true"] { grid-row: 1 / -1; align-self: end; }');
+    // it auto-places into the LABEL track and inflated it from 27px to 190px. Since #538 the same
+    // arm covers a fragment cell, whose children had no placement rule at all.
+    expect(src).toContain('${SOLO} > .twc-fieldrow[data-wrap="true"],');
+    expect(src).toContain('${FRAG} > .twc-fieldrow[data-wrap="true"] { grid-row: 1 / -1; align-self: end; }');
+
+    // #538: a FRAG_NAT cell stays IN the row template. It used to drop out of it (display:flex,
+    // grid-row: 1/-1, align-self:end), so it carried only its own 24px lane while the row's footer
+    // track grew to the tallest footer in the row - 18px out at 760px, 54px at 520px. The only
+    // thing flex was buying was column sizing, and `auto` tracks with justify-content:start are
+    // content-sized, which is the width flex already resolved to (189px + 100.4px, both ways).
+    expect(src, "#538: FRAG_NAT must not drop out of the row template")
+      .not.toContain("${FRAG}${FRAG_NAT} { display: flex;");
+    expect(src).toContain("${FRAG}${FRAG_NAT} { grid-auto-flow: column; grid-auto-columns: auto; column-gap: inherit;");
+    expect(src).toContain("  justify-content: start; }");
+    // minmax(0,1fr) is what FRAG_FIELDS uses and is exactly wrong here - it sizes every implicit
+    // column alike, and the natural child stops hugging.
+    expect(src).toContain("${FRAG_FIELDS} { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); column-gap: inherit; }");
+    // The band's lane kill must now cover EVERY fragment cell, not just the all-field ones: a
+    // FRAG_NAT cell's fields are banded too, and in a subgrid an ::after auto-places into the LABEL
+    // track. The wrap path keeps its inner lanes, because there they are the mechanism.
+    expect(src).toContain("${FRAG} .twc-field::after { content: none; }");
+    expect(src).not.toContain("${FRAG_FIELDS} .twc-field::after");
+    // The chain and both fallbacks are mirrored onto FRAG, so a fragment cell's children are
+    // placed exactly as a solo cell's child is.
+    for (const arm of ["${FRAG} > ${ONE},", "${FRAG} > ${SOLO_WRAP},", "${FRAG} > ${WRAP} > ${ONE},", "${FRAG} > ${ROW} {"]) {
+      expect(src, "#538: the subgrid chain must reach a fragment cell's " + arm).toContain(arm);
+    }
+    expect(src).toContain('${FRAG} > :not(.twc-field):not(${SOLO_WRAP}):not(.twc-fieldrow):not(${HAS_FOOTER}) {');
+    expect(src).toContain('${FRAG} > ${MANY} { grid-row: 1 / -1; align-self: end; }');
+    // BANDED covers both cell kinds from one list rather than FRAG carrying a narrower one.
+    expect(src).toContain('const BANDED = ":is(" + [SOLO, FRAG].map(');
   });
 
   it("the three overlay wrappers are handled as transparent, not as natural", () => {

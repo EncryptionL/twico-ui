@@ -86,6 +86,14 @@ export interface FieldRowProps extends React.HTMLAttributes<HTMLDivElement> {
    * - **`gap` now also spaces the cell's inner lines**, since a fragment cell inherits the row's
    *   gap — so tuning the horizontal gap of a wrapping row tunes something one level deeper too.
    *
+   * The floor reaches the **fields** in that cell, not every child (#536). A child that is neither a
+   * field nor an inline-level control — the 12px word in a range row,
+   * `<Input/><Text>to</Text><Input/>` — is not something a readable-width floor applies to. Flooring
+   * it measured 2 lines and 190px at 520px with `minChildWidth="15rem"` where 1 line and 91px is
+   * right, and only once `floor x children` passed the container width, i.e. exactly when a host set
+   * the prop because they needed it. A field behind a `Tooltip` or a host `div` **does** keep the
+   * floor: that wrapper is the flex item, so it is the thing the floor has to land on.
+   *
    * With no `minChildWidth` the default `10rem` floor applies at both levels, so a wrapping row with
    * a fragment child and `gap={2}` breaks below ~496px where it used to squash. At 500px and above
    * nothing moves.
@@ -123,6 +131,24 @@ export interface FieldRowProps extends React.HTMLAttributes<HTMLDivElement> {
    * true and the wrong test: base was already **24px** out, because the fragment lane rule can only
    * reach a `.twc-field` and so the plain control got no lane at all. Fixed in #531 — that control
    * now takes the lane's height as margin — in both the band and the wrapping path.
+   *
+   * `footerLines` reaches **all four** places that reserve footer space (#537). The two inside a
+   * fragment cell — the `::after` its field children draw and the margin its other children take —
+   * were a constant one line, so a shared group's plain control sat `(n - 1) x 18px` out the moment
+   * a host passed the prop: measured 0 / 18 / 36px at `footerLines` 1 / 2 / 3, while a row of
+   * all-field cells held 0px at every value. At the default it reduces to the old value, so nothing
+   * moves for a caller not passing it.
+   *
+   * On the band path a fragment cell no longer uses a lane at all: since #538 each of its children
+   * is placed in the row's control track by `grid-row`, the same way a single-child cell's child is.
+   * That cell used to drop out of the row template entirely and carry only its own 24px lane, so a
+   * **sibling's** wrapping footer moved the row's footer track without moving it — 18px out at
+   * 760px, 54px at 520px, and 0px only when nothing in the row had a footer.
+   *
+   * One case remains on the **wrapping** path: a child that resets its own margin with an inline
+   * style (`Text`, `Heading`) cannot be given a margin-based lane by any stylesheet rule, so it
+   * sits one lane low. See #543 — the band path is unaffected, because placement is layout rather
+   * than an offset.
    */
   footerLines?: number;
 }
