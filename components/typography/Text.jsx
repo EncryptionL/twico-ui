@@ -25,7 +25,7 @@ import { useScopedStyles } from "../_styles.js";
 // Widening it is a public-API decision rather than a cleanup, because moving a VISUAL constant
 // changes what third-party CSS can do to every Text on a page. Tracked separately.
 const TEXT_CSS = `
-.twc-text { margin: 0; }
+.twc-text { margin: 0; line-height: var(--leading-body, 1.6); }
 `;
 
 const TONE = {
@@ -77,8 +77,6 @@ export const Text = /*#__PURE__*/ React.forwardRef(function Text({
       className={`twc-text ${className}`.trim()}
       data-twc-sx={sxAttr}
       style={{
-        fontFamily: "var(--font-sans)",
-        lineHeight: 1.6,
         fontSize: `var(--text-${size})`,
         color: toneToken.startsWith("--") ? `var(${toneToken})` : toneToken,
         fontWeight: weight ? `var(--font-${weight})` : undefined,

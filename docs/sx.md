@@ -82,7 +82,9 @@ can't fire. Nested `sx` (the scoped-`<style>` channel) is emitted as CSS text an
   so the node only ever carries leaf longhands.
 
   **Text/Heading used to be the other example here** — their `margin: 0` was expanded to four
-  longhands for exactly this reason. Since #543 they carry **no base margin on the node at all**: the
+  longhands for exactly this reason. Since #543/#547 they carry **no base style on the node at all**
+  beyond prop-derived declarations (`font-size`, and `color` for Text's `tone`), so there is no base
+  box shorthand *or* longhand left to collide with: the
   reset moved to `.twc-text`/`.twc-heading` in each component's scoped stylesheet, because an inline
   declaration beats every stylesheet rule and was vetoing FieldRow's own fragment-cell lane. The
   invariant is therefore satisfied more strongly than before rather than broken — `margin: 0` in
