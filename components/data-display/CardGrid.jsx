@@ -111,6 +111,8 @@ export function CardGrid({
   // one - a card grid is the surface where "pick several of these and do one thing to them" is close to
   // the whole point, and it was the only Datatable affordance CardGrid lacked.
   checkboxSelection = false,
+  // #541: a controlled selection, the same split page/onPageChange has.
+  selectedKeys, onSelectionChange,
   batchActions = [],
   selectionSummary,
   onRowSelectionChange,
@@ -209,7 +211,53 @@ export function CardGrid({
   const keyOf = typeof rowKey === "function" ? rowKey : (r) => r && r[rowKey];
 
   // ── #478 selection ────────────────────────────────────────────────────────────────────────────
-  const [selected, setSelected] = React.useState(() => new Set());
+  //
+  // #541: CONTROLLED when `selectedKeys` is passed, uncontrolled when it is not - the same split
+  // `page`/`onPageChange` already has. #478 put the selection here, which is the right place for
+  // it, but left the host no way to CORRECT it: the only writes were clearSelection, toggleKey and
+  // togglePage, all user gestures, and clearSelection was reachable only as the third argument to a
+  // batch action's onClick - i.e. after the user had already pressed the button whose count was
+  // wrong. So an ordinary host-driven rows refresh (the reloadKey pattern) left ticked keys with no
+  // card left to untick them from: the toolbar said "3 selected" with two cards on screen, the size
+  // summary priced three, a cap predicate counted three, and onClick was handed three. The server
+  // then refused the whole batch, and the only recovery was a page reload.
+  // onRowSelectionChange cannot close it - it is an OUTPUT, and it is guarded on a keys-only
+  // signature, so it does not even re-fire when `rows` is replaced.
+  const [internalSelected, setInternalSelected] = React.useState(() => new Set());
+  const selControlled = selectedKeys !== undefined;
+  // Memoised on a SIGNATURE, not on the array: a host writing selectedKeys={[...]} hands us a new
+  // identity every render, and `selected` feeds selKeys -> selectedRows, which rebuilds a Map over
+  // the page.
+  const selKeysSig = selControlled ? JSON.stringify(selectedKeys) : "";
+  const selectedKeysRef = React.useRef(selectedKeys);
+  selectedKeysRef.current = selectedKeys;
+  const selected = React.useMemo(
+    () => (selControlled ? new Set(selectedKeysRef.current) : internalSelected),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selControlled, selKeysSig, internalSelected]
+  );
+  const onSelectionChangeRef = React.useRef(onSelectionChange);
+  onSelectionChangeRef.current = onSelectionChange;
+  // The only write path. Reports first, then writes internal state only when uncontrolled - exactly
+  // how commitPage behaves, so a controlled host stays the single source of truth.
+  //
+  // It takes an UPDATER, not a value, because two toggles can land in one React batch and a value
+  // computed from `selected` would be computed from the same stale set twice - the second write
+  // would drop the first. The old code got this free from setSelected((s) => ...); controlled mode
+  // cannot, because the previous value is a prop that has not re-rendered yet. So the last set
+  // committed this tick is held in a ref and used as the base, and cleared once a render lands.
+  // Measured before the fix, driving two checkbox clicks in one evaluate: the host received [2]
+  // where it should have received [1, 2].
+  const selectedRef = React.useRef(null);
+  selectedRef.current = selected;
+  const pendingRef = React.useRef(null);
+  React.useEffect(() => { pendingRef.current = null; });
+  const commitSelection = React.useCallback((mutate) => {
+    const next = mutate(new Set(pendingRef.current || selectedRef.current));
+    pendingRef.current = next;
+    onSelectionChangeRef.current?.([...next]);
+    if (!selControlled) setInternalSelected(next);
+  }, [selControlled]);
   // Off-page row objects. `keys` is the authoritative cross-page selection (as in Datatable), but a
   // batch action over a multi-page selection also wants the ROWS, and the grid only renders one page -
   // which is exactly the Map<id,row> consumers were hand-rolling. Opt-in because it holds references
@@ -223,10 +271,12 @@ export function CardGrid({
     return selKeys.map((k) => onPage.get(k) ?? retainedRef.current.get(k)).filter((r) => r !== undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selKeys, pageRows]);
-  const clearSelection = React.useCallback(() => { retainedRef.current.clear(); setSelected(new Set()); }, []);
+  const clearSelection = React.useCallback(() => {
+    retainedRef.current.clear();
+    commitSelection(() => new Set());
+  }, [commitSelection]);
   const toggleKey = React.useCallback((key, row) => {
-    setSelected((prev) => {
-      const next = new Set(prev);
+    commitSelection((next) => {
       if (next.has(key)) { next.delete(key); retainedRef.current.delete(key); }
       else {
         next.add(key);
@@ -234,7 +284,22 @@ export function CardGrid({
       }
       return next;
     });
-  }, [retainCap]);
+  }, [retainCap, commitSelection]);
+  // #541: keep the retained rows honest about two things the gestures above cannot see.
+  //  - A CONTROLLED host can drop a key without going through toggleKey, and the retained copy
+  //    would otherwise outlive the selection that justified holding it.
+  //  - A retained row's object is written once, at toggle time, and never refreshed - so after the
+  //    host re-reads `rows`, a key that is still selected resolved to the object it had BEFORE. The
+  //    issue's own wording: with retention on, a removed row does not resolve to nothing, it
+  //    resolves to a stale object the host cannot distinguish from a live one. Refreshing it
+  //    whenever the key reappears on a rendered page is the part of that with no guesswork in it -
+  //    it needs no rowCount arithmetic and cannot discard a row the host still has.
+  React.useEffect(() => {
+    const m = retainedRef.current;
+    for (const k of [...m.keys()]) if (!selected.has(k)) m.delete(k);
+    pageRows.forEach((r, i) => { const k = keyOf(r, i); if (m.has(k)) m.set(k, r); });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selected, pageRows]);
 
   const pageKeys = pageRows.map((r, i) => keyOf(r, i));
   const pageSelectedCount = pageKeys.filter((k) => selected.has(k)).length;
@@ -243,8 +308,7 @@ export function CardGrid({
   // Page-scoped, like Datatable's header checkbox: it must never silently select rows the user cannot
   // see, and in serverMode it could not anyway.
   const togglePage = () => {
-    setSelected((prev) => {
-      const next = new Set(prev);
+    commitSelection((next) => {
       pageRows.forEach((r, i) => {
         const k = keyOf(r, i);
         if (allPageSelected) { next.delete(k); retainedRef.current.delete(k); }

@@ -322,6 +322,11 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "CardGrid",
+    "title": "A selection the host owns",
+    "i": 6
+  },
+  {
     "component": "Card",
     "title": "Variants",
     "i": 0
@@ -745,6 +750,21 @@ export const VARIATIONS = [
     "component": "Datatable",
     "title": "Custom column header (renderHeader)",
     "i": 19
+  },
+  {
+    "component": "Datatable",
+    "title": "Rows that cannot be selected",
+    "i": 20
+  },
+  {
+    "component": "Datatable",
+    "title": "A selection the host owns",
+    "i": 21
+  },
+  {
+    "component": "Datatable",
+    "title": "Drag a row taller, and keep it",
+    "i": 22
   },
   {
     "component": "DatePicker",

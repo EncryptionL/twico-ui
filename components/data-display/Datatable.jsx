@@ -471,6 +471,13 @@ th.twc-dt__rownum .twc-dt__th-inner { padding-inline: 8px; gap: 2px; justify-con
 .twc-dt__check { width: 20px; height: 20px; display: grid; place-items: center; border: var(--border-medium) solid var(--color-border-strong);
   border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-primary-fg); cursor: pointer; transition: background-color var(--duration-fast), border-color var(--duration-fast); }
 .twc-dt__check[data-checked="true"], .twc-dt__check[data-indeterminate="true"] { background: var(--color-primary); border-color: var(--color-primary); }
+/* #540: a row the grid itself has decided nothing can be done to. Rendered rather than removed, so
+   the column keeps its rhythm and the row still reads as a row - an absent box in one cell of a
+   checkbox column looks like a rendering fault, and a user cannot tell "not selectable" from
+   "failed to draw". aria-disabled rather than natively disabled, because this is a span: it stays in
+   the tab order so a reason Tooltip is keyboard-reachable, the same contract #479 settled for a
+   batch button. cursor: not-allowed is the only affordance that says WHY before the click. */
+.twc-dt__check[aria-disabled="true"] { cursor: not-allowed; opacity: 0.45; border-color: var(--color-border); background: var(--color-surface-sunken); }
 .twc-dt__check svg { width: 13px; height: 13px; opacity: 0; }
 .twc-dt__check[data-checked="true"] svg, .twc-dt__check[data-indeterminate="true"] svg { opacity: 1; }
 
@@ -1177,6 +1184,8 @@ export function Datatable({
   page, onPageChange, onPageSizeChange,
   height = 440, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [], onRowSelectionChange,
   selectionSummary,
+  // #540 / #541: per-row selectability, and a controlled selection.
+  isRowSelectable, rowSelectionDisabledReason, selectedKeys, onSelectionChange,
   verticalAlign, getRowVerticalAlign,
   getRowStyle, getRowClassName,
   showExport = false, showDensity = false, showPivot = false, showColumns, showFilters, exportFilename = "export", aggregationValues = null,
@@ -1205,6 +1214,7 @@ export function Datatable({
   resizablePopovers = true, // #314: default-on (matches resizableFilters) — set false to opt a grid out
   filterFieldMaxWidth,
   rowPinning = false, rowReorder = false, rowResize = false, onRowOrderChange,
+  persistRowHeights = false, onRowResize,
   pivot = null, pivotMode = false,
   virtualized = false, overscan = 8, rowHeight,
   // #350 (first pass): expandable/collapsible rows. `renderRowDetail(row)` returns the detail panel for a
@@ -1417,7 +1427,81 @@ export function Datatable({
   const [internalQuick, setInternalQuick] = React.useState("");
   const quick = quickFilter !== undefined ? quickFilter : internalQuick;
   const commitQuick = (v) => { onQuickFilterChange?.(v); if (quickFilter === undefined) setInternalQuick(v); commitPage(0); };
-  const [selected, setSelected] = React.useState(() => new Set());
+  // ---- Row selection. Two layers over one Set (#540, #541).
+  //
+  // #541: CONTROLLED, mirroring the page/onPageChange split this component already uses -
+  // uncontrolled when `selectedKeys` is omitted, controlled when it is passed. Without it the host
+  // could only CLEAR the selection, and only from inside a batch action's onClick: the sole writes
+  // were user gestures, so an ordinary host-driven `rows` refresh left ticked keys with no row to
+  // untick them from. The toolbar then said "3 selected" with two rows on screen, every predicate
+  // counted three, onClick was handed three, and there was no gesture that could remove the third.
+  // onRowSelectionChange is an OUTPUT and does not help: it is guarded on a keys-only signature, so
+  // it does not even re-fire when `rows` is replaced.
+  const [internalSelected, setInternalSelected] = React.useState(() => new Set());
+  const selControlled = selectedKeys !== undefined;
+  // Memoised on a SIGNATURE rather than on the array, because a host writing selectedKeys={[...]}
+  // hands us a new array identity every render, and `selected` feeds selectedRows / batchSelection /
+  // the aggregation footer - all O(rows) memos that would then recompute on every unrelated render.
+  const selKeysSig = selControlled ? JSON.stringify(selectedKeys) : "";
+  const selectedKeysRef = React.useRef(selectedKeys);
+  selectedKeysRef.current = selectedKeys;
+  const selectedRaw = React.useMemo(
+    () => (selControlled ? new Set(selectedKeysRef.current) : internalSelected),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selControlled, selKeysSig, internalSelected]
+  );
+  // #540: per-row selectability. `checkboxSelection` was a single boolean for the whole grid, so a
+  // grid whose rows are not uniformly actionable had no way to say so: a tombstone row rendered
+  // struck through with its per-row actions correctly withheld still got an identical checkbox, and
+  // the only place left to notice was each batch action, AFTER the click. The repair then had to be
+  // written per action rather than per grid, had to re-derive eligibility from the `rows` argument
+  // and join it to `keys` on an assumed id, and could not reach the checkbox at all - so the row
+  // still invited a selection that could do nothing, select-all still took it, and "3 selected"
+  // could mean one deletable row. Same signature MUI's DataGrid has carried for years.
+  const unselectable = React.useMemo(() => {
+    if (typeof isRowSelectable !== "function") return null;
+    const s = new Set();
+    rows.forEach((r, i) => { if (!isRowSelectable(r, i)) s.add(keyOf(r, i)); });
+    return s;
+  }, [rows, isRowSelectable, keyOf]);
+  const canSelectRow = React.useCallback((k) => !unselectable || !unselectable.has(k), [unselectable]);
+  // The PRUNED view, and the one every reader below sees. Guarding the three write paths is not
+  // enough on its own: a row can become unselectable while it is ticked (the record is withdrawn by
+  // someone else, and `rows` comes back saying so), and a selection the grid itself has decided
+  // nothing can be done to must not reach batchActions, selectionSummary or onRowSelectionChange.
+  // Only keys we can actually judge are dropped - in serverMode an off-page key is absent from
+  // `rows`, so it is left alone rather than silently discarded.
+  const selected = React.useMemo(() => {
+    if (!unselectable || unselectable.size === 0) return selectedRaw;
+    let dirty = false;
+    for (const k of selectedRaw) if (unselectable.has(k)) { dirty = true; break; }
+    if (!dirty) return selectedRaw;
+    const n = new Set();
+    for (const k of selectedRaw) if (!unselectable.has(k)) n.add(k);
+    return n;
+  }, [selectedRaw, unselectable]);
+  const onSelectionChangeRef = React.useRef(onSelectionChange);
+  onSelectionChangeRef.current = onSelectionChange;
+  // The only write path. Reports first, then writes internal state only when uncontrolled - exactly
+  // how commitPage behaves, so a controlled host stays the single source of truth.
+  //
+  // It takes an UPDATER, not a value, because two toggles can land in one React batch and a value
+  // computed from `selected` would be computed from the same stale set twice - the second write
+  // would drop the first. The old code got this free from setSelected((s) => ...); controlled mode
+  // cannot, because the previous value is a prop that has not re-rendered yet. So the last set
+  // committed this tick is held in a ref and used as the base, and cleared once a render lands.
+  // Measured before the fix, driving two checkbox clicks in one evaluate: the host received [2]
+  // where it should have received [1, 2].
+  const selectedRef = React.useRef(null);
+  selectedRef.current = selected;
+  const pendingRef = React.useRef(null);
+  React.useEffect(() => { pendingRef.current = null; });
+  const commitSelection = React.useCallback((mutate) => {
+    const next = mutate(new Set(pendingRef.current || selectedRef.current));
+    pendingRef.current = next;
+    onSelectionChangeRef.current?.([...next]);
+    if (!selControlled) setInternalSelected(next);
+  }, [selControlled]);
   const [activeRow, setActiveRow] = React.useState(null);
   // #324: controlled active row (selectionMode="row"), mirroring the controlled/uncontrolled `page` split —
   // when `activeRowId` is provided the highlight follows the prop; onRowClick still fires so the host updates it.
@@ -1492,7 +1576,34 @@ export function Datatable({
   // remounting. Client mode is intentionally excluded: there the overlay IS the source of truth, so it
   // must survive unrelated `rows` updates (e.g. a cell edit) rather than being reset by them.
   React.useEffect(() => { if (serverMode) setRowOrder(null); }, [rows, serverMode]);
+  // #542: a drag-resized row height was the ONE user resize that did not survive a reload.
+  // columnWidths, filterPanelSize, filterFieldWidths, popoverSizes and batchNameWidth all round-trip
+  // through DatatableState (#292/#304/#341) and "density" is persisted as the table-wide row-height
+  // control; the per-row one lived in a map that never left the component, with no onRowResize to
+  // observe it either. So the two halves of one gesture behaved differently: resize a COLUMN and the
+  // width comes back, resize a ROW and the height is gone on the next reload, route change or
+  // remount.
+  //
+  // WHAT to persist is the real question, because column widths are safe only because "field" is a
+  // bounded, stable set - a table has a dozen columns and the same dozen tomorrow. Row keys are
+  // neither: on a server-paged table a key is a record id, so a per-row map grows an entry for every
+  // row anyone has ever dragged, unbounded, and for a host persisting onStateChange to a user
+  // profile that blob is written to a server on every change.
+  // So the default is ONE height for every row. "Make the rows taller so I can read the wrapped
+  // cells" is what the drag usually means; a single number is bounded, stable, survives paging and
+  // applies to rows the user has never scrolled to. It is the density control with a continuous
+  // scale instead of three presets - and it answers what a capped or opt-in per-row map cannot: a
+  // row dragged taller on page 1 says nothing about page 2, so per-row heights reset every time you
+  // move. rowResize="row" keeps the per-row gesture, and its map persists only behind
+  // persistRowHeights.
+  const rowResizeMode = rowResize === "row" ? "row" : rowResize ? "all" : null;
   const [rowHeights, setRowHeights] = React.useState({});
+  // Named dragRowH, not rowHeight: "rowHeight" is already a PROP here - the virtualizer's estimate
+  // for rows it has not measured yet. The two are the same shape as the density prop and
+  // DatatableState.density: one is what the host asks for, the other is what the user did. The
+  // persisted key is DatatableState.rowHeight for that reason, and the prop keeps meaning only
+  // "estimate", so passing it still does not force a height on anything.
+  const [dragRowH, setDragRowH] = React.useState(null);
   const [rowDrag, setRowDrag] = React.useState({ from: null, over: null, after: false });
   // Keyboard row reorder ("grab" mode): { key, index } where index is the live target slot among middleRows.
   const [rowGrab, setRowGrab] = React.useState(null);
@@ -1537,6 +1648,12 @@ export function Datatable({
     // #393: additive, optional — the active grouping fields + which groups are collapsed.
     grouping: groupBy.length ? groupBy : undefined,
     collapsedGroups: collapsedSet.size ? [...collapsedSet] : undefined,
+    // #542: additive, optional. The shared height is one bounded number, so it always round-trips.
+    // The per-row map does not, unless the host says its storage can take it - a key there is a
+    // record id, so the map grows one entry per row anyone has ever dragged, and a host persisting
+    // this to a user profile writes that blob to a server on every change.
+    rowHeight: dragRowH != null ? dragRowH : undefined,
+    rowHeights: persistRowHeights && Object.keys(rowHeights).length ? rowHeights : undefined,
   });
   const applyState = (s) => {
     if (!s || typeof s !== "object") return;
@@ -1603,6 +1720,14 @@ export function Datatable({
     // #393: restore grouping fields (known only) + collapsed groups (skip collapsed when host-controlled).
     if (Array.isArray(s.grouping)) setGroupBy(s.grouping.filter((f) => known.has(f)));
     if (Array.isArray(s.collapsedGroups) && !collapsedControlled) setInternalCollapsed(new Set(s.collapsedGroups.filter((k) => typeof k === "string")));
+    // #542: clamped to the same floor the drag enforces, and sanity-capped - a hand-authored
+    // initialState or a corrupted snapshot must not be able to make one row taller than the grid.
+    if (typeof s.rowHeight === "number") setDragRowH(clampNum(s.rowHeight, 32, 2000));
+    if (s.rowHeights && typeof s.rowHeights === "object") {
+      setRowHeights(Object.fromEntries(Object.entries(s.rowHeights)
+        .filter(([, h]) => typeof h === "number")
+        .map(([k, h]) => [k, clampNum(h, 32, 2000)])));
+    }
   };
   const stateReadyRef = React.useRef(false);
   const stateRestoredRef = React.useRef(false); // #298: restore applied at most once (survives a Strict Mode remount)
@@ -1619,7 +1744,7 @@ export function Datatable({
     if (stateKey) { try { window.localStorage.setItem(stateKey, JSON.stringify(state)); } catch { /* storage unavailable/full */ } }
     return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedKey]);
+  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedKey, dragRowH, rowHeights, persistRowHeights]);
   // Reads localStorage[stateKey] (else initialState) and applies it. Cheap to call more than once —
   // applyState is idempotent for a given snapshot — but callers gate it (see the two effects below).
   const restoreState = () => {
@@ -2185,9 +2310,23 @@ export function Datatable({
   }
   function startRowResize(e, key, tr) {
     e.preventDefault(); e.stopPropagation();
-    const startY = e.clientY; const startH = rowHeights[key] || tr?.offsetHeight || 44;
-    const onMove = (ev) => { const h = Math.max(32, Math.round(startH + (ev.clientY - startY))); setRowHeights((m) => ({ ...m, [key]: h })); };
-    const onUp = () => { window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp); };
+    const perRow = rowResizeMode === "row";
+    const startY = e.clientY;
+    const startH = (perRow ? rowHeights[key] : dragRowH) || tr?.offsetHeight || 44;
+    let last = startH;
+    const onMove = (ev) => {
+      last = Math.max(32, Math.round(startH + (ev.clientY - startY)));
+      if (perRow) setRowHeights((m) => ({ ...m, [key]: last }));
+      else setDragRowH(last);
+    };
+    const onUp = () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      // #542: reported once per DRAG, not once per pointermove - a drag fires dozens, and a host
+      // writing each one to a server or a profile would be writing the whole gesture. onStateChange
+      // is coalesced by its own effect; this one is imperative, so it coalesces itself.
+      if (last !== startH) onRowResize?.(last, perRow ? key : null);
+    };
     window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
   }
 
@@ -2249,7 +2388,9 @@ export function Datatable({
   // Estimated fixed row height from density (overridable via rowHeight). Windowing only kicks in
   // when there's a fixed scroll viewport to measure against AND pagination is off, and never while
   // row grouping is active (group rows have variable structure) — see docs for the trade-off.
-  const estRowH = rowHeight ?? (density === "compact" ? 36 : density === "comfortable" ? 56 : 44);
+  // #542: a dragged shared height wins over the prop estimate - after the user has set a real
+  // height, estimating from the density preset would window against a number that is simply wrong.
+  const estRowH = dragRowH ?? rowHeight ?? (density === "compact" ? 36 : density === "comfortable" ? 56 : 44);
   // Only window when pagination is off (a paginated slice is already small) and not grouping/loading.
   const virtualizing = virtualized && !paginated && !activeGroupBy.length && !loading;
   // Measure the scroll viewport so the window matches what's actually visible.
@@ -2574,12 +2715,32 @@ export function Datatable({
   // #393: when grouping is active, select-all covers only the VISIBLE leaf rows (leafRows excludes rows inside
   // collapsed groups), so a bulk action can't silently include rows the user can't see.
   const selRows = activeGroupBy.length ? leafRows : paged;
-  const allSel = selRows.length > 0 && selRows.every((r) => selected.has(keyOf(r)));
-  const someSel = selRows.some((r) => selected.has(keyOf(r)));
+  // #540: select-all covers only the rows that CAN be selected. Without this the header box took a
+  // tombstone row along with the live ones and the toolbar count included it - so the one gesture
+  // that is meant to mean "everything actionable here" was the one most likely to be wrong. When
+  // nothing on the page is selectable the header box has nothing to do, and renders disabled.
+  const selectableRows = React.useMemo(
+    () => (unselectable ? selRows.filter((r) => !unselectable.has(keyOf(r))) : selRows),
+    [selRows, unselectable, keyOf]);
+  const allSel = selectableRows.length > 0 && selectableRows.every((r) => selected.has(keyOf(r)));
+  const someSel = selectableRows.some((r) => selected.has(keyOf(r)));
   function toggleAll() {
-    setSelected((s) => { const n = new Set(s); if (allSel) selRows.forEach((r) => n.delete(keyOf(r))); else selRows.forEach((r) => n.add(keyOf(r))); return n; });
+    commitSelection((n) => {
+      if (allSel) selectableRows.forEach((r) => n.delete(keyOf(r)));
+      else selectableRows.forEach((r) => n.add(keyOf(r)));
+      return n;
+    });
   }
-  function toggleRow(k) { setSelected((s) => { const n = new Set(s); n.has(k) ? n.delete(k) : n.add(k); return n; }); }
+  function toggleRow(k) {
+    // #540: the invariant lives HERE as well as on the checkbox. Both of today's callers are that
+    // checkbox's own handlers and both are already gated, so this line is currently unreachable and
+    // no test can isolate it - which is the point: it is where a third caller (a keyboard shortcut,
+    // Space on a navigated cell) finds the rule instead of reintroducing the hole. The pruned view
+    // above is the part that is load-bearing now, and it covers what no gesture guard can: a row
+    // that becomes unselectable WHILE ticked.
+    if (!canSelectRow(k)) return;
+    commitSelection((n) => { n.has(k) ? n.delete(k) : n.add(k); return n; });
+  }
   // #350: expand/collapse a row's detail panel. Always fires onExpandedRowsChange; writes internal state
   // only when uncontrolled (mirrors commitPage). `k` is the row's keyOf(...) key.
   function toggleRowDetail(k) {
@@ -2865,7 +3026,7 @@ export function Datatable({
     if (grid && grid.contains(document.activeElement) && grid !== document.activeElement) focusCell(ri, ci);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeCellControlled, selectionMode, activeCellVal?.key, activeCellVal?.field, keyIndex, cellColIndex]);
-  function clearSelection() { setSelected(new Set()); }
+  function clearSelection() { commitSelection(() => new Set()); }
 
   // ---- Inline editing ----
   const [editing, setEditing] = React.useState(null); // { key, field, value }
@@ -3587,6 +3748,31 @@ export function Datatable({
     );
   }
   // Focusable keyboard drag handle for a reorderable row (mirrors the Kanban grab pattern).
+  // #540: one row's selection checkbox. Extracted because a disabled one carries three things the
+  // inline version could not: aria-disabled, no handlers, and an optional reason Tooltip.
+  //
+  // The reason is the other half of the ask, by the same argument disabledReason (#479) makes for a
+  // batch button: a disabled control with no reason is a control that looks broken. "Removed on 12
+  // March; nothing left to act on" is a fact only the host has, it is PER ROW, and the label cannot
+  // carry it. With a reason present the box stays in the tab order (aria-disabled, not an inert
+  // span) so the Tooltip is keyboard-reachable; with none it is still aria-disabled, because the
+  // affordance - greyed, not-allowed - has to be there either way.
+  function rowCheckbox(k, sel, row, ri) {
+    const can = canSelectRow(k);
+    const box = (
+      <span className="twc-dt__check" data-checked={sel || undefined}
+        onClick={can ? () => toggleRow(k) : undefined}
+        role="checkbox" aria-checked={sel} aria-label="Select row"
+        aria-disabled={can ? undefined : true} tabIndex={0}
+        onKeyDown={(e) => { if (!can) return; if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggleRow(k); } }}>
+        <Svg d={I.check} />
+      </span>
+    );
+    if (can || typeof rowSelectionDisabledReason !== "function") return box;
+    const why = rowSelectionDisabledReason(row, ri);
+    return why == null ? box : <Tooltip label={why} placement="top">{box}</Tooltip>;
+  }
+
   function rowHandle(k, midIdx, row) {
     const grabbed = rowGrab && rowGrab.key === k;
     const label = String(row[ordered[0]?.field] ?? `Row ${(midIdx ?? 0) + 1}`);
@@ -3614,7 +3800,7 @@ export function Datatable({
     const depth = getRowDepth ? (getRowDepth(row) || 0) : (depthByKey.get(k) || 0);
     const rowActive = selectionMode === "row" && activeRowVal === k;
     const stickyStyle = pinSide === "top" ? { position: "sticky", top: headH, zIndex: 5 } : pinSide === "bottom" ? { position: "sticky", bottom: 0, zIndex: 5 } : undefined;
-    const h = rowHeights[k];
+    const h = rowResizeMode === "row" ? rowHeights[k] : (dragRowH == null ? undefined : dragRowH);
     // #481: a row-level style/class hook. Without it, marking a row by its state meant assigning
     // cellStyle to EVERY column - O(columns) for a row-level fact, with the consumer hand-composing
     // against whatever else already used cellStyle, and no fixed column list to decorate at all when
@@ -3687,11 +3873,9 @@ export function Datatable({
           <td className="twc-dt__td" role="gridcell" data-pin="left" data-pin-edge={(visLeft.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: EXP_W, width: CHK_W }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
               {reorderable ? rowHandle(k, midIdx, row) : null}
-              <span className="twc-dt__check" data-checked={sel || undefined} onClick={() => toggleRow(k)}
-                role="checkbox" aria-checked={sel} aria-label="Select row" tabIndex={0}
-                onKeyDown={(e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggleRow(k); } }}><Svg d={I.check} /></span>
+              {rowCheckbox(k, sel, row, ri)}
             </span>
-            {rowResize && !pinSide ? <span className="twc-dt__row-resizer" title="Drag to resize row" onPointerDown={(e) => startRowResize(e, k, e.currentTarget.closest("tr"))} onClick={(e) => e.stopPropagation()} /> : null}
+            {rowResizeMode && !pinSide ? <span className="twc-dt__row-resizer" title={rowResizeMode === "row" ? "Drag to resize this row" : "Drag to resize every row"} onPointerDown={(e) => startRowResize(e, k, e.currentTarget.closest("tr"))} onClick={(e) => e.stopPropagation()} /> : null}
           </td>
         ) : null}
         {showRowNum ? (
@@ -4060,9 +4244,12 @@ export function Datatable({
               {checkboxSelection ? (
                 <th className="twc-dt__th" role="columnheader" aria-label="Select" data-pin="left" data-pin-edge={(visLeft.length || showRowNum) ? undefined : "left"} style={{ insetInlineStart: EXP_W, width: CHK_W, minWidth: CHK_W }}>
                   <div className="twc-dt__th-inner" style={{ justifyContent: "center", padding: 0 }}>
-                    <span className="twc-dt__check" data-checked={allSel || undefined} data-indeterminate={(!allSel && someSel) || undefined} onClick={toggleAll}
-                      role="checkbox" aria-checked={allSel ? true : someSel ? "mixed" : false} aria-label="Select all rows" tabIndex={0}
-                      onKeyDown={(e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggleAll(); } }}>
+                    {/* #540: nothing selectable on this page -> nothing for select-all to do. */}
+                    <span className="twc-dt__check" data-checked={allSel || undefined} data-indeterminate={(!allSel && someSel) || undefined}
+                      onClick={selectableRows.length ? toggleAll : undefined}
+                      role="checkbox" aria-checked={allSel ? true : someSel ? "mixed" : false} aria-label="Select all rows"
+                      aria-disabled={selectableRows.length ? undefined : true} tabIndex={0}
+                      onKeyDown={(e) => { if (!selectableRows.length) return; if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggleAll(); } }}>
                       <Svg d={allSel ? I.check : I.minus} />
                     </span>
                   </div>

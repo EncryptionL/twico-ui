@@ -532,7 +532,9 @@ route `cycleSort` / filter mutations / `setQuick` through controlled boundaries)
 
 Remember the user's view across reloads. The three props persist and restore the **whole** view state —
 `{ filters, sort, quickFilter, page, pageSize, columnOrder, columnWidths, columnVisibility, columnPinning,
-density }` (the exported `DatatableState` type):
+density }` plus the additive, optional `filterPanelSize`, `filterFieldWidths`, `popoverSizes`,
+`columnCombine`, `batchNameWidth`, `grouping`, `collapsedGroups`, `rowHeight` and `rowHeights`
+(the exported `DatatableState` type):
 
 - **`stateKey`** — a `localStorage` key. On mount the saved snapshot is read and applied; on every change
   it's written back.
@@ -578,6 +580,82 @@ and ignored (falls back to `initialState`).
 **Controlled props still win.** Restore only touches the *uncontrolled* view — a `page`, `pageSize`, or
 `quickFilter` you drive from props is left alone (persist those yourself). Sort/filter/quick control remain the
 follow-up noted above; this feature persists their *internal* state, which is orthogonal.
+
+### Row height (#542)
+
+Every user-performed resize in the grid round-trips through `DatatableState` — `columnWidths`,
+`filterPanelSize`, `filterFieldWidths`, `popoverSizes`, `batchNameWidth` — except, until #542, the one
+`rowResize` produces. That height lived in a map that never left the component, with no `onRowResize` to
+observe it either, so the two halves of one gesture behaved differently: resize a **column** and the width
+comes back after a reload; resize a **row** and it does not.
+
+What to persist is the real question, and it is not symmetric with columns. `field` is a bounded, stable set
+— a table has a dozen columns and the same dozen tomorrow. A row key is a record id, so a per-row map grows
+one entry for every row anyone has ever dragged, with no bound; and for a host persisting `onStateChange` to
+a user profile rather than to `localStorage`, that blob is written to a server on every change.
+
+So the default is **one height for every row**:
+
+| `rowResize` | the drag moves | persisted as |
+| --- | --- | --- |
+| `false` / absent | — | — |
+| `true` | every row | `rowHeight`, always |
+| `"row"` | the dragged row | `rowHeights`, only with `persistRowHeights` |
+
+One number is bounded, stable, survives paging, and applies to rows the user has never scrolled to — and it
+answers what neither a capped nor an opt-in per-row map can: a row dragged taller on page 1 says nothing
+about page 2, so per-row heights reset every time you page, which is the reload complaint one page at a time.
+It is `density` with a continuous scale instead of three presets.
+
+`rowResize={true}` was per-row in 1.51.x, where `rowResize` landed. `rowResize="row"` is that behaviour,
+unchanged, and still unpersisted unless you ask for it.
+
+Two details:
+
+- `DatatableState.rowHeight` is **not** the `rowHeight` prop. The prop is the virtualizer's *estimate* for
+  rows it has not measured; the state key is the height the user dragged. The relationship is the one
+  `density` already has — prop asks, state records — and the prop still forces no height on anything.
+- A dragged height feeds that estimate (`estRowH`), or windowing keeps measuring against the density preset
+  after the user has set a real height.
+
+`onRowResize(height, key)` fires once per completed **drag**, not once per `pointermove`; `key` is `null` for
+a shared height. It is not needed to persist anything — `onStateChange` already carries it. A restored height
+is clamped to `[32, 2000]`, so a hand-authored `initialState` or a corrupted snapshot cannot make one row
+taller than the grid.
+
+## Row selection the host can correct — `isRowSelectable` / `selectedKeys` (#540, #541)
+
+`checkboxSelection` was one boolean for the whole grid and the selection was internal-only. Two separate
+holes followed, and both only showed up after a click.
+
+**`isRowSelectable(row, index)`** — a grid whose rows are not uniformly actionable can now say so. A row
+returning `false` renders a disabled checkbox, is skipped by select-all, and never enters the selection that
+`batchActions`, `selectionSummary` and `onRowSelectionChange` receive. Before it, a tombstone row with its
+per-row actions correctly withheld still got an identical checkbox, and the repair had to be written into
+every batch action, re-deriving eligibility from the `rows` argument and joining it to `keys` on an assumed
+`r.id` — per action rather than per grid, and unable to reach the checkbox at all, so "3 selected" could mean
+one deletable row.
+
+Pair it with **`rowSelectionDisabledReason(row, index)`** for the checkbox's own tooltip, by the same
+argument `disabledReason` (#479) makes for a batch button. The box is rendered rather than removed (an absent
+box in one cell of a checkbox column reads as a rendering fault) and is `aria-disabled` rather than natively
+disabled, so it stays in the tab order and the reason is keyboard-reachable.
+
+A row that becomes unselectable **while ticked** is dropped from the reported selection too — no gesture
+guard can cover that, because the row was legitimately selectable when it was ticked. In `serverMode` an
+off-page key is absent from `rows`, so it is left alone rather than silently discarded.
+
+**`selectedKeys` + `onSelectionChange`** — the same uncontrolled/controlled split `page`/`onPageChange` has.
+Without it a host could only *clear* the selection, and only from inside a batch action's `onClick`: every
+write was a user gesture, so an ordinary host-driven `rows` refresh left ticked keys with no row to untick
+them from. `onRowSelectionChange` cannot close that — it is an output, and it is guarded on a keys-only
+signature, so it does not even re-fire when `rows` is replaced. It keeps firing as the observation hook it
+has always been; `onSelectionChange` is the write-time report.
+
+`CardGrid` has the same `selectedKeys`/`onSelectionChange` pair (#541), and additionally refreshes a
+`retainSelectedRows` row object whenever its key reappears on a rendered page — it used to be written at
+toggle time and never refreshed, so a still-selected key resolved to the object it had before the host's
+update. `isRowSelectable` is `Datatable`-only for now.
 
 ## Row virtualization (windowing)
 

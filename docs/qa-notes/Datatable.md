@@ -858,3 +858,206 @@
   `runDatatableQuery` reads the caller's *raw* `options.columns` and never runs the `defaultColumn`
   merge that supplies `filterable`, so a truthy test there would discard every filter an ordinary
   consumer passes. A proposed fix did exactly that, and two independent reviewers caught it.
+
+
+---
+
+## #540 / #541 / #542 — selection the host can trust, and the last resize that did not persist
+
+All three reported against 1.51.2 with a repro and, for #542, with the four places the gap shows.
+
+### #540 — `isRowSelectable`: `checkboxSelection` was all-or-nothing
+
+`checkboxSelection` is one boolean for the whole grid, so a grid whose rows are **not uniformly
+actionable** had no way to say so. The reported shape is a grid listing live rows beside tombstones
+for records already withdrawn: the tombstone renders struck through, badged `Removed`, and its
+`actionsColumn` actions are correctly withheld — and its **checkbox was identical to every other
+row's**. Tick it, press the batch Delete, confirm, and the request goes out against a row the grid
+has already drawn as gone. Two delete paths over the same row, disagreeing, and only one of them was
+told.
+
+The repair the host was left with had to live in each batch action:
+
+```tsx
+const submittable = (keys, rows) => {
+  const blocked = new Set(rows.filter((r) => !deletable(r)).map((r) => String(r.id)));
+  return keys.map(String).filter((k) => !blocked.has(k));
+};
+```
+
+Three things wrong with that as the answer, all of them structural rather than stylistic:
+
+1. **Per action, not per grid.** Every batch action repeats it, and one added later silently does
+   not.
+2. **It joins rows to keys on `r.id`** — an assumption about the key the host happens to use, not
+   something it is told. The grid knows the real key; the batch action is handed two parallel
+   collections and left to match them.
+3. **It cannot reach the checkbox.** The row still invited a selection that could do nothing,
+   select-all still took it, and the toolbar count still included it — so "3 selected" could mean
+   one deletable row. The best available was to grey out the button *afterwards* and explain.
+
+So the predicate is evaluated where the checkbox is rendered, and the rule lives in four places:
+
+| | |
+| --- | --- |
+| the checkbox | `aria-disabled`, no handlers, `cursor: not-allowed`, 45% opacity |
+| select-all | iterates `selectableRows`, so the count is already true — and reads **checked**, not `mixed`, once every selectable row is ticked |
+| `toggleRow` | the invariant's home (see below) |
+| the reported selection | a **pruned view**, so a row that becomes unselectable *while ticked* leaves it |
+
+The box is **rendered, not removed**. An absent box in one cell of a checkbox column reads as a
+rendering fault, and a user cannot tell "not selectable" from "failed to draw". `aria-disabled`
+rather than natively disabled because it is a `span`: it stays in the tab order, so a
+`rowSelectionDisabledReason` tooltip is keyboard-reachable — the contract #479 settled for a batch
+button, for the same reason ("a disabled control with no reason is a control that looks broken").
+
+**What the validation showed.** Disabling the `toggleRow` guard failed **nothing**: its only two
+callers are the checkbox's own handlers, which are already gated, so the line is unreachable today.
+It is kept, and the comment now says that — it is where a third caller (a keyboard shortcut, Space
+on a navigated cell) finds the rule instead of reintroducing the hole. Disabling the **pruned view**
+failed 2 tests, which is the part that is load-bearing now, and it covers what no gesture guard can:
+the row was legitimately selectable when it was ticked, and `rows` came back afterwards saying it is
+not.
+
+In `serverMode` an off-page key is absent from `rows`, so it cannot be judged — those are left alone
+rather than silently discarded.
+
+### #541 — a controlled selection
+
+#478 put the selection in the grid, which is the right place for it, and left the host no way to
+**correct** it. Every write was a user gesture, and `clearSelection` was reachable only as the third
+argument to a batch action's `onClick` — after the user had already pressed the button whose count
+was wrong.
+
+So an ordinary host-driven `rows` refresh (the `reloadKey` pattern, used precisely because something
+elsewhere on the page can delete a row being shown) left ticked keys with no row to untick them
+from: the toolbar said "3 selected" with two rows on screen, a `disabled` predicate testing
+`keys.length` against a cap counted three, and `onClick` was handed three. `onRowSelectionChange`
+does not close it — it is an **output**, and it is guarded on a keys-only signature, so it does not
+even re-fire when `rows` is replaced.
+
+`selectedKeys` + `onSelectionChange`, the same uncontrolled/controlled split `page`/`onPageChange`
+already has. `onRowSelectionChange` keeps firing as the observation hook it has always been.
+
+**What the validation showed.** Breaking `commitSelection` so it always writes internal state failed
+**nothing** — when controlled, the read path ignores internal state, so the write is invisible. The
+`if (!selControlled)` is state hygiene, not behaviour. Breaking the **read** path failed 8 tests
+across both components, and dropping the `onSelectionChange` report failed 5. Those two are the
+feature.
+
+The memo is keyed on `JSON.stringify(selectedKeys)` rather than on the array, because a host writing
+`selectedKeys={[...]}` hands over a new identity every render and `selected` feeds `selectedRows`,
+`batchSelection` and the aggregation footer — all O(rows) memos.
+
+**One regression the rewrite introduced, caught in the real browser.** Making the selection
+controllable meant replacing `setSelected((s) => …)` with a value computed from `selected` — and
+controlled mode cannot use a functional updater at all, because the previous value is a prop that has
+not re-rendered yet. Two toggles landing in **one React batch** therefore both read the same set, and
+the second dropped the first. Measured on the docs site by clicking two checkboxes inside one
+`evaluate`: the host received `[2]` where it should have had `[1, 2]`.
+
+Neither jsdom test nor the earlier break-it validation caught it — the jsdom tests clicked one box at
+a time, and the browser probe was written to *demonstrate* the feature, which is why it was the thing
+that drove two clicks at once. `commitSelection` now takes an **updater** and keeps the last set it
+committed this tick in a ref, cleared by an effect once a render lands; two tests pin it, one
+controlled and one not. This was never reachable by a human clicking (clicks are separate React
+batches) but it was reachable by any programmatic burst, and the old code did not have the hole.
+
+### #542 — row height in `DatatableState`
+
+`rowResize` (1.51.2) did the hard part. The height it produced was internal runtime state only: no
+`rowHeights` in `DatatableState`, no `onRowResize` to observe one, and the map was read as
+`rowHeights[key] || tr?.offsetHeight || 44` and never left the component. So the two halves of one
+gesture behaved differently — resize a **column** and the width is in the next `onStateChange`
+payload and comes back through `initialState`/`stateKey`; resize a **row** and the height is gone on
+the next reload, route change or remount. It was the only user-performed resize in the grid that was
+not durable: `columnWidths`, `filterPanelSize`, `filterFieldWidths`, `popoverSizes` and
+`batchNameWidth` all round-trip (#292/#304/#341), and `density` is persisted as the table-wide
+row-height control.
+
+**The design question, which the issue deliberately left open.** Column widths are safe to persist
+because `field` is a bounded, stable set — a table has a dozen columns and the same dozen tomorrow.
+Row keys are neither: on a server-paged table a key is a record id, so a per-row map grows an entry
+for every row anyone has ever dragged, with no bound, and for a host persisting `onStateChange` to a
+user profile rather than to `localStorage` that blob is written to a server on every change.
+
+Of the three options the issue set out — cap it, gate it, or keep one height — this takes the third
+as the default with the second layered on, which is what the reporter asked for:
+
+| `rowResize` | the drag moves | persisted as |
+| --- | --- | --- |
+| `false` / absent | — | — |
+| `true` (default) | **every** row | `DatatableState.rowHeight`, always |
+| `"row"` | the dragged row | `DatatableState.rowHeights`, only with `persistRowHeights` |
+
+One number is bounded, stable, survives paging, and applies to rows the user has never scrolled to —
+and it answers what neither a capped nor an opt-in per-row map can: a row dragged taller on page 1
+says nothing about page 2, so per-row heights reset every time you move, which is the same complaint
+as losing them on reload, one page at a time. "Make the rows taller so I can read the wrapped cells"
+is what the drag usually means. It is `density` with a continuous scale instead of three presets.
+
+**Note the behaviour change.** `rowResize={true}` was per-row in 1.51.x, where it landed three days
+earlier. `rowResize="row"` is that behaviour, unchanged, and still unpersisted unless asked for.
+
+Two details worth recording:
+
+- **The internal state is `dragRowH`, not `rowHeight`**, because `rowHeight` is already a **prop** —
+  the virtualizer's estimate for rows it has not measured. The persisted key is still
+  `DatatableState.rowHeight`, because the prop/state relationship is exactly the one `density`
+  already has: one is what the host asks for, the other is what the user did. The prop keeps meaning
+  only "estimate", so passing it still forces no height on anything.
+- **A dragged height now feeds `estRowH`.** Otherwise windowing keeps estimating from the density
+  preset after the user has set a real height, i.e. measuring against a number that is simply wrong.
+
+`onRowResize` fires once per completed **drag**, not once per `pointermove` — a drag fires dozens,
+and a host writing each one to a server would be writing the whole gesture. `onStateChange` is
+coalesced by its own effect; this one is imperative, so it coalesces itself.
+
+A restored height is clamped to `[32, 2000]`, the same floor the drag enforces, so a hand-authored
+`initialState` or a corrupted snapshot cannot make one row taller than the grid.
+
+### Validated by breaking each piece
+
+| broken | tests that fail |
+| --- | --- |
+| #540's pruned view | 2 |
+| #540's `toggleRow` guard | **0** — unreachable today; kept and documented as such |
+| #541's read path (both components) | 8 |
+| #541's `onSelectionChange` report | 5 |
+| #541's retained-row refresh | 1 |
+| #542's shared-height render branch | 2 |
+| #542's restore clamp | 1 |
+| #542's serialize entry | 1 |
+| `commitSelection`'s pending-set base | 2 |
+
+The retained-row refresh needed the **test** fixed first: the original passed with the refresh
+disabled, because `selectedRows` resolves a key from the current page before consulting the retained
+map, so the row has to be off-page when the batch action reads it. Select on page 1, let the host
+re-read `rows`, then page away.
+
+Tests: [`tests/issues-540-541-542.test.jsx`](../../tests/issues-540-541-542.test.jsx) — 35.
+
+### The real-browser pass, and what it found that jsdom could not
+
+Beyond the 38 jsdom tests, the three features are driven against the **built docs site** —
+34 assertions over four scoped variations, the established bar here ("render-check proves zero page
+errors; this proves the things actually do what the issue asked for"):
+
+| | |
+| --- | --- |
+| #540 | 6 of 11 boxes `aria-disabled`, each carrying its reason tooltip, each `cursor: not-allowed` at 45% opacity; a click on one selects nothing; select-all takes 4 of 10 rows and reads **checked**, not mixed |
+| #541 Datatable | the host receives `[1, 2]`, the toolbar agrees, Remove takes the rows **and** the keys (8 → 6), no stale count |
+| #542 | the grip says "Drag to resize every row"; a 40px drag takes the dragged row 56 → 96px and **every** row to 96px |
+| #541 CardGrid | both keys reach the host, the summary prices the selection, Remove drops two from the set (12 → 10) and prunes the keys |
+
+Three of those failed first, and only one was the implementation:
+
+1. **The batching bug above** — real, and the only thing that found it.
+2. **The variations mount lazily.** A straight query found 2 grids on a page with 25 variations, so
+   `scopeTo` has to scroll the heading into view and wait. Worse, it then has to scroll the **grid**
+   into view too: the first drag was dispatched at `y: 3258` with the grip off-screen, so the pointer
+   events landed on whatever happened to be at that viewport position and the row never moved. The
+   probe now asserts the grip is on screen *and* is `elementFromPoint` at its own centre before
+   dragging — otherwise a silent miss reads as "the feature does not work".
+3. **`textContent` concatenates with no separator.** CardGrid's footer "1–8 of 12" runs straight into
+   the per-page selector's "12", so the total read as `1212`. Read the element, not the subtree.
