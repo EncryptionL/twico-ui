@@ -1,9 +1,9 @@
 {
   "_comment": "Docs version manifest. The selector in the navbar reads this. 'Latest' is the live site at the root base; each other entry is a frozen snapshot built from that release's git tag and deployed under its own base path by .github/workflows/deploy-docs.yml. Keep only the latest ~3 minors here so the switcher stays short. When you cut a new minor: bump the latest entry's `version`, add the previous minor as a new snapshot entry (newest first, after Latest), drop the now-4th-oldest, AND keep DOC_SNAPSHOTS in deploy-docs.yml matched to the snapshot entries below.",
   "items": [
-    { "label": "Latest", "version": "v1.51", "base": "/twico-ui/", "latest": true },
+    { "label": "Latest", "version": "v1.52", "base": "/twico-ui/", "latest": true },
+    { "label": "v1.51", "base": "/twico-ui/v1.51/" },
     { "label": "v1.50", "base": "/twico-ui/v1.50/" },
-    { "label": "v1.49", "base": "/twico-ui/v1.49/" },
-    { "label": "v1.48", "base": "/twico-ui/v1.48/" }
+    { "label": "v1.49", "base": "/twico-ui/v1.49/" }
   ]
 }
