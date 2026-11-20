@@ -3,7 +3,7 @@ import { useScopedStyles } from "../_styles.js";
 
 const NAVBAR_CSS = `
 .twc-navbar { display: flex; align-items: center; gap: var(--space-4); height: 60px; padding: 0 var(--space-5);
-  font-family: var(--font-sans); background: var(--color-surface); border-bottom: var(--border-thin) solid var(--color-border); }
+  background: var(--color-surface); border-bottom: var(--border-thin) solid var(--color-border); }
 .twc-navbar[data-sticky="true"] { position: sticky; top: 0; z-index: var(--z-sticky);
   background: color-mix(in srgb, var(--color-surface) 85%, transparent); backdrop-filter: blur(10px); }
 .twc-navbar__brand { display: inline-flex; align-items: center; gap: var(--space-2-5); font-weight: var(--font-extrabold);

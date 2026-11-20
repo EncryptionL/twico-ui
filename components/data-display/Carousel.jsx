@@ -3,7 +3,7 @@ import { useScopedStyles } from "../_styles.js";
 import { compose } from "../_compose.js";
 
 const CAROUSEL_CSS = `
-.twc-carousel { position: relative; font-family: var(--font-sans); }
+.twc-carousel { position: relative; }
 .twc-carousel__viewport { overflow: hidden; border-radius: var(--radius-xl); }
 .twc-carousel__track { display: flex; transition: transform var(--duration-slow) var(--ease-emphasis); }
 .twc-carousel__slide { flex: 0 0 100%; min-width: 0; }

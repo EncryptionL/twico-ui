@@ -6,7 +6,7 @@ import { warnOnce } from "../_warn.js";
 import { createPortal } from "react-dom";
 
 const SELECT_CSS = `
-.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); }
 /* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
    moment ONE of them has a hint, because that field grows a footer and the others do not - and the
    caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
@@ -23,7 +23,7 @@ const SELECT_CSS = `
 .twc-field__hint { font-size: var(--text-xs); color: var(--color-text-muted); }
 .twc-field__error { font-size: var(--text-xs); color: var(--color-danger-subtle-fg); font-weight: var(--font-medium); }
 
-.twc-sel { position: relative; font-family: var(--font-sans); }
+.twc-sel { position: relative; }
 .twc-sel__trigger {
   --_h: var(--control-h-md);
   display: flex; align-items: center; gap: var(--space-2); width: 100%;

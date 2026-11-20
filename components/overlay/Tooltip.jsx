@@ -25,7 +25,7 @@ const TOOLTIP_CSS = `
      which is this very background — and the re-scope can't feed back into the bg. */
   --_tt-bg: var(--color-text); --_tt-fg: var(--color-surface);
   background: var(--_tt-bg); color: var(--_tt-fg);
-  font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-medium);
+  font-size: var(--text-xs); font-weight: var(--font-medium);
   line-height: 1.3; white-space: normal;
   /* Grow horizontally to max-width, then wrap. max-content sizes to the content (capped by
      max-width) and — unlike shrink-to-fit width:auto — is NOT constrained by the space between

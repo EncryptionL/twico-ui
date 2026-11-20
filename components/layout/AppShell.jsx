@@ -2,10 +2,10 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 
 const SHELL_CSS = `
-.twc-shell { position: relative; display: flex; overflow: hidden; background: var(--color-bg); color: var(--color-text); font-family: var(--font-sans); }
+.twc-shell { position: relative; display: flex; overflow: hidden; background: var(--color-bg); color: var(--color-text); }
 .twc-shell__skip { position: absolute; inset-inline-start: var(--space-3); inset-block-start: var(--space-3); z-index: 100;
   padding: var(--space-2) var(--space-4); background: var(--color-surface); color: var(--color-text);
-  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-sans);
+  border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md); 
   transform: translateY(-200%); transition: transform var(--duration-fast) var(--ease-standard); }
 .twc-shell__skip:focus-visible { transform: translateY(0); outline: none; box-shadow: var(--ring); }
 .twc-shell__main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; height: 100%; }

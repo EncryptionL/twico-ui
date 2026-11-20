@@ -5,7 +5,7 @@ import { useScopedStyles } from "../_styles.js";
 const useIso = typeof document !== "undefined" ? React.useLayoutEffect : React.useEffect;
 
 const TEXTAREA_CSS = `
-.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); }
 /* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
    moment ONE of them has a hint, because that field grows a footer and the others do not - and the
    caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
@@ -24,7 +24,7 @@ const TEXTAREA_CSS = `
 .twc-textarea__el {
   width: 100%; resize: vertical; min-height: 80px;
   padding: var(--space-2-5) var(--space-3);
-  font-family: var(--font-sans); font-size: var(--text-sm); line-height: var(--leading-normal);
+  font-size: var(--text-sm); line-height: var(--leading-normal);
   color: var(--color-text); background: var(--color-surface);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);
   outline: none;

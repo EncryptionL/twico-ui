@@ -3,7 +3,7 @@ import { useScopedStyles } from "../_styles.js";
 
 const TABLE_CSS = `
 .twc-table-wrap { width: 100%; overflow-x: auto; border-radius: var(--radius-lg); border: var(--border-thin) solid var(--color-border); background: var(--color-surface); }
-.twc-table { width: 100%; border-collapse: collapse; font-family: var(--font-sans); font-size: var(--text-sm); color: var(--color-text); }
+.twc-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); color: var(--color-text); }
 .twc-table thead th {
   text-align: start; font-weight: var(--font-semibold); color: var(--color-text-muted);
   font-size: var(--text-xs); letter-spacing: var(--tracking-wide); text-transform: uppercase;

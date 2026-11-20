@@ -8,7 +8,7 @@ const AVATAR_CSS = `
   width: var(--_sz); height: var(--_sz);
   border-radius: var(--radius-full);
   background: var(--color-primary-subtle); color: var(--color-primary-subtle-fg);
-  font-family: var(--font-sans); font-weight: var(--font-semibold);
+  font-weight: var(--font-semibold);
   font-size: calc(var(--_sz) * 0.4); line-height: 1;
   overflow: visible; user-select: none;
 }

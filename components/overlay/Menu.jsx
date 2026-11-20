@@ -10,7 +10,7 @@ const MENU_CSS = `
   position: fixed; z-index: var(--z-popover); min-width: 200px;
   padding: var(--space-1-5); background: var(--color-surface-raised);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg); font-family: var(--font-sans);
+  box-shadow: var(--shadow-lg); 
   transform-origin: top; overflow-y: auto;
 }
 .twc-menu[data-state="open"] { animation: twico-scale-in var(--duration-fast) var(--ease-spring); }

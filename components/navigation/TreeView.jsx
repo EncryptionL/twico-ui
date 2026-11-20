@@ -3,7 +3,7 @@ import { useScopedStyles } from "../_styles.js";
 import { compose } from "../_compose.js";
 
 const TREE_CSS = `
-.twc-tree { font-family: var(--font-sans); font-size: var(--text-sm); user-select: none; }
+.twc-tree { font-size: var(--text-sm); user-select: none; }
 .twc-tree__group { list-style: none; margin: 0; padding: 0; }
 .twc-tree__group--child { margin-inline-start: 0; overflow: hidden; }
 .twc-tree__row { display: flex; align-items: center; gap: 6px; width: 100%; border: none; background: none; font: inherit; cursor: pointer;

@@ -3,7 +3,7 @@ import { useScopedStyles } from "../_styles.js";
 import { warnOnce } from "../_warn.js";
 
 const RATING_CSS = `
-.twc-rating { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sans); }
+.twc-rating { display: inline-flex; align-items: center; gap: 8px; }
 .twc-rating__stars { display: inline-flex; gap: 2px; }
 .twc-rating__btn { border: none; background: transparent; padding: 1px; cursor: pointer; line-height: 0;
   transition: transform var(--duration-fast) var(--ease-spring); }

@@ -20,7 +20,7 @@ export const Checkbox = /*#__PURE__*/ React.forwardRef(function Checkbox({
   ...rest
 }, forwardedRef) {
   const __twcStyles = useScopedStyles("twc-checkbox-styles", `
-.twc-check { display: inline-flex; align-items: flex-start; gap: var(--space-2-5); cursor: pointer; font-family: var(--font-sans); }
+.twc-check { display: inline-flex; align-items: flex-start; gap: var(--space-2-5); cursor: pointer; }
 /* tone → accent set (default primary). Mirrors Button's --_accent model; Badge's tone vocabulary. */
 .twc-check { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); --_accent-border: var(--color-primary-border); }
 .twc-check[data-tone="success"] { --_accent: var(--color-success); --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); --_accent-border: var(--color-success); }
@@ -56,7 +56,7 @@ export const Checkbox = /*#__PURE__*/ React.forwardRef(function Checkbox({
 .twc-check__label { font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); line-height: 1.3; }
 .twc-field__req { color: var(--color-danger); }
 .twc-check__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
-.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); }
 /* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
    moment ONE of them has a hint, because that field grows a footer and the others do not - and the
    caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:

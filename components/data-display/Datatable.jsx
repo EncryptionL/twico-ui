@@ -40,7 +40,7 @@ const dtCellWidgets = (td) => td ? Array.from(td.querySelectorAll(DT_CELL_WIDGET
 const EMPTY_BATCH_SEL = Object.freeze({ testable: Object.freeze([]), hasUntestable: false });
 
 const DT_CSS = `
-.twc-dt { display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--color-text);
+.twc-dt { display: flex; flex-direction: column; color: var(--color-text);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
   background: var(--color-surface); overflow: hidden;
   /* Stay inside the parent even in a flex/grid container: min-width:0 lets a wide

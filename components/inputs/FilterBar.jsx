@@ -6,7 +6,7 @@ import { Select } from "./Select.jsx";
 import { Input } from "./Input.jsx";
 
 const FILTERBAR_CSS = `
-.twc-fbar { font-family: var(--font-sans); display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-3); }
+.twc-fbar { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-3); }
 .twc-fbar__field { display: flex; flex-direction: column; min-width: 170px; }
 .twc-fbar__field[data-type="search"], .twc-fbar__field[data-type="text"] { flex: 1 1 200px; }
 .twc-fbar__field[data-type="daterange"] { min-width: 220px; }

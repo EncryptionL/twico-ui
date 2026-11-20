@@ -5,7 +5,7 @@ const TAG_CSS = `
 .twc-tag {
   display: inline-flex; align-items: center; gap: 6px;
   padding-block: 4px; padding-inline: 11px 6px; height: 28px;
-  font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-medium);
+  font-size: var(--text-xs); font-weight: var(--font-medium);
   border: var(--border-thin) solid transparent;
   border-radius: var(--radius-full); white-space: nowrap;
   transition: background-color var(--duration-fast) var(--ease-standard);

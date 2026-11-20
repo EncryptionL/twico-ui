@@ -101,7 +101,7 @@ const FIELDROW_CSS = `
    footer when a token changes. font-family is pinned on the row because --leading-normal is a
    NUMBER: were a host to set line-height:normal on a form container, the lane and a real footer
    would otherwise differ by the two fonts' metric gap. */
-.twc-fieldrow { display: flex; align-items: flex-end; font-family: var(--font-sans); }
+.twc-fieldrow { display: flex; align-items: flex-end; }
 .twc-fieldrow[data-wrap="true"] { flex-wrap: wrap; }
 
 /* Every cell shares the row's width and may be squeezed rather than overflow it. See the natural

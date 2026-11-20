@@ -9,7 +9,7 @@ const SIDEBAR_CSS = `
    jolts. Icons sit at space-3 + 11px (= 23px) from the edge, which is the centre of the
    68px collapsed rail, so no justify-content switch is needed. Fades are directional:
    instant on collapse (clear out, then slide), delayed on expand (slide open, then reveal). */
-.twc-sidebar { display: flex; flex-direction: column; height: 100%; font-family: var(--font-sans);
+.twc-sidebar { display: flex; flex-direction: column; height: 100%; 
   background: var(--color-surface); border-inline-end: var(--border-thin) solid var(--color-border);
   flex: 0 0 248px; min-width: 0; width: 248px; max-width: 248px;
   transition: flex-basis var(--duration-slow) var(--ease-emphasis), width var(--duration-slow) var(--ease-emphasis), max-width var(--duration-slow) var(--ease-emphasis); overflow: hidden; }

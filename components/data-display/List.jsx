@@ -2,7 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 
 const LIST_CSS = `
-.twc-list { display: flex; flex-direction: column; font-family: var(--font-sans); margin: 0; padding: 0; list-style: none;
+.twc-list { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none;
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; }
 .twc-list[data-plain="true"] { background: transparent; border: none; border-radius: 0; }
 .twc-list__item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4);

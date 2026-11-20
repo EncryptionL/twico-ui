@@ -5,7 +5,7 @@ const BADGE_CSS = `
 .twc-badge {
   display: inline-flex; align-items: center; gap: 5px;
   padding: 2px 9px; height: 22px;
-  font-family: var(--font-sans); font-size: var(--text-xs); font-weight: var(--font-semibold);
+  font-size: var(--text-xs); font-weight: var(--font-semibold);
   line-height: 1; letter-spacing: 0.01em; border-radius: var(--radius-full);
   border: var(--border-thin) solid transparent; white-space: nowrap;
 }

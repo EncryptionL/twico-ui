@@ -2,7 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 
 const BREADCRUMB_CSS = `
-.twc-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 2px; font-family: var(--font-sans); font-size: var(--text-sm); }
+.twc-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 2px; font-size: var(--text-sm); }
 .twc-breadcrumb__item { display: inline-flex; align-items: center; gap: 6px; color: var(--color-text-muted); text-decoration: none; padding: 3px 7px; border: 0; background: transparent; font: inherit; border-radius: var(--radius-sm); transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard); }
 a.twc-breadcrumb__item, button.twc-breadcrumb__item { cursor: pointer; }
 a.twc-breadcrumb__item:hover, button.twc-breadcrumb__item:hover { color: var(--color-text); background: var(--color-surface-sunken); }

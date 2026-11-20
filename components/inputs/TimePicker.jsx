@@ -4,7 +4,7 @@ import { useFocusTrap } from "../_overlay.js";
 import { createPortal } from "react-dom";
 
 const FIELD_CSS = `
-.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); }
 /* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
    moment ONE of them has a hint, because that field grows a footer and the others do not - and the
    caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:
@@ -23,7 +23,7 @@ const FIELD_CSS = `
 `;
 
 const TIMEPICKER_CSS = `
-.twc-tp { position: relative; font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-1-5); }
+.twc-tp { position: relative; display: flex; flex-direction: column; gap: var(--space-1-5); }
 .twc-tp__control {
   display: flex; align-items: center; gap: var(--space-2); --_h: var(--control-h-md); height: var(--_h); padding: 0 var(--space-3);
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-md);

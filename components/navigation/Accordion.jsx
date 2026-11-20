@@ -2,7 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 
 const ACCORDION_CSS = `
-.twc-accordion { display: flex; flex-direction: column; font-family: var(--font-sans);
+.twc-accordion { display: flex; flex-direction: column; 
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-surface); }
 .twc-accordion__item { border-bottom: var(--border-thin) solid var(--color-divider); }
 .twc-accordion__item:last-child { border-bottom: none; }
