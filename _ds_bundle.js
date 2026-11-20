@@ -10430,7 +10430,15 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
     }, [selectedRaw, unselectable]);
     const onSelectionChangeRef = import_react.default.useRef(onSelectionChange);
     onSelectionChangeRef.current = onSelectionChange;
-    const commitSelection = import_react.default.useCallback((next) => {
+    const selectedRef = import_react.default.useRef(null);
+    selectedRef.current = selected;
+    const pendingRef = import_react.default.useRef(null);
+    import_react.default.useEffect(() => {
+      pendingRef.current = null;
+    });
+    const commitSelection = import_react.default.useCallback((mutate) => {
+      const next = mutate(new Set(pendingRef.current || selectedRef.current));
+      pendingRef.current = next;
       onSelectionChangeRef.current?.([...next]);
       if (!selControlled) setInternalSelected(next);
     }, [selControlled]);
@@ -11556,16 +11564,18 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
     const allSel = selectableRows.length > 0 && selectableRows.every((r2) => selected.has(keyOf(r2)));
     const someSel = selectableRows.some((r2) => selected.has(keyOf(r2)));
     function toggleAll() {
-      const n = new Set(selected);
-      if (allSel) selectableRows.forEach((r2) => n.delete(keyOf(r2)));
-      else selectableRows.forEach((r2) => n.add(keyOf(r2)));
-      commitSelection(n);
+      commitSelection((n) => {
+        if (allSel) selectableRows.forEach((r2) => n.delete(keyOf(r2)));
+        else selectableRows.forEach((r2) => n.add(keyOf(r2)));
+        return n;
+      });
     }
     function toggleRow(k) {
       if (!canSelectRow(k)) return;
-      const n = new Set(selected);
-      n.has(k) ? n.delete(k) : n.add(k);
-      commitSelection(n);
+      commitSelection((n) => {
+        n.has(k) ? n.delete(k) : n.add(k);
+        return n;
+      });
     }
     function toggleRowDetail(k) {
       const n = new Set(expandedSet);
@@ -11841,7 +11851,7 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       if (grid && grid.contains(document.activeElement) && grid !== document.activeElement) focusCell(ri, ci);
     }, [activeCellControlled, selectionMode, activeCellVal?.key, activeCellVal?.field, keyIndex, cellColIndex]);
     function clearSelection() {
-      commitSelection(/* @__PURE__ */ new Set());
+      commitSelection(() => /* @__PURE__ */ new Set());
     }
     const [editing, setEditing] = import_react.default.useState(null);
     const stagedEditRef = import_react.default.useRef(null);
@@ -14713,7 +14723,15 @@ border: none; background: transparent; color: var(--color-primary-subtle-fg); cu
     );
     const onSelectionChangeRef = import_react.default.useRef(onSelectionChange);
     onSelectionChangeRef.current = onSelectionChange;
-    const commitSelection = import_react.default.useCallback((next) => {
+    const selectedRef = import_react.default.useRef(null);
+    selectedRef.current = selected;
+    const pendingRef = import_react.default.useRef(null);
+    import_react.default.useEffect(() => {
+      pendingRef.current = null;
+    });
+    const commitSelection = import_react.default.useCallback((mutate) => {
+      const next = mutate(new Set(pendingRef.current || selectedRef.current));
+      pendingRef.current = next;
       onSelectionChangeRef.current?.([...next]);
       if (!selControlled) setInternalSelected(next);
     }, [selControlled]);
@@ -14726,19 +14744,20 @@ border: none; background: transparent; color: var(--color-primary-subtle-fg); cu
     }, [selKeys, pageRows]);
     const clearSelection = import_react.default.useCallback(() => {
       retainedRef.current.clear();
-      commitSelection(/* @__PURE__ */ new Set());
+      commitSelection(() => /* @__PURE__ */ new Set());
     }, [commitSelection]);
     const toggleKey = import_react.default.useCallback((key, row) => {
-      const next = new Set(selected);
-      if (next.has(key)) {
-        next.delete(key);
-        retainedRef.current.delete(key);
-      } else {
-        next.add(key);
-        if (retainCap > 0 && row !== void 0 && retainedRef.current.size < retainCap) retainedRef.current.set(key, row);
-      }
-      commitSelection(next);
-    }, [selected, retainCap, commitSelection]);
+      commitSelection((next) => {
+        if (next.has(key)) {
+          next.delete(key);
+          retainedRef.current.delete(key);
+        } else {
+          next.add(key);
+          if (retainCap > 0 && row !== void 0 && retainedRef.current.size < retainCap) retainedRef.current.set(key, row);
+        }
+        return next;
+      });
+    }, [retainCap, commitSelection]);
     import_react.default.useEffect(() => {
       const m = retainedRef.current;
       for (const k of [...m.keys()]) if (!selected.has(k)) m.delete(k);
@@ -14752,18 +14771,19 @@ border: none; background: transparent; color: var(--color-primary-subtle-fg); cu
     const allPageSelected = pageKeys.length > 0 && pageSelectedCount === pageKeys.length;
     const somePageSelected = pageSelectedCount > 0 && !allPageSelected;
     const togglePage = () => {
-      const next = new Set(selected);
-      pageRows.forEach((r2, i) => {
-        const k = keyOf(r2, i);
-        if (allPageSelected) {
-          next.delete(k);
-          retainedRef.current.delete(k);
-        } else {
-          next.add(k);
-          if (retainCap > 0 && retainedRef.current.size < retainCap) retainedRef.current.set(k, r2);
-        }
+      commitSelection((next) => {
+        pageRows.forEach((r2, i) => {
+          const k = keyOf(r2, i);
+          if (allPageSelected) {
+            next.delete(k);
+            retainedRef.current.delete(k);
+          } else {
+            next.add(k);
+            if (retainCap > 0 && retainedRef.current.size < retainCap) retainedRef.current.set(k, r2);
+          }
+        });
+        return next;
       });
-      commitSelection(next);
     };
     const onSelRef = import_react.default.useRef(onRowSelectionChange);
     onSelRef.current = onRowSelectionChange;

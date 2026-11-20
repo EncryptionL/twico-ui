@@ -100,7 +100,13 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    * selection too; in `serverMode` an off-page key is absent from `rows`, so it cannot be judged
    * and is left alone rather than silently discarded.
    *
-   * Same signature MUI's DataGrid has carried for years.
+   * Governs `checkboxSelection` — the selection that `batchActions` act on. It does **not** gate the
+   * `selectionMode="row"` highlight or `onRowClick`, which are a cursor rather than a selection and
+   * feed nothing a batch action reads; withhold those with `actionsColumn`'s own predicates.
+   *
+   * MUI's DataGrid has carried this prop for years, which is some evidence it is the shape people
+   * reach for. The signature here is `(row, index)` rather than MUI's params object, to match
+   * `getRowStyle`, `getRowClassName` and `rowKey` in this component.
    */
   isRowSelectable?: (row: T, index: number) => boolean;
   /**
