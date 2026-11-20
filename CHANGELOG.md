@@ -2,6 +2,19 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.52.0](https://github.com/EncryptionL/twico-ui/compare/v1.51.2...v1.52.0) (2026-11-20)
+
+### Bug Fixes
+
+* **build:** exclude the new styles.min.css entrypoint from the types check ([796cace](https://github.com/EncryptionL/twico-ui/commit/796cace99db8fd776947611b4f7bb7c8215e5d15)), closes [#539](https://github.com/EncryptionL/twico-ui/issues/539)
+* **inputs:** give a fragment cell's non-field children a floor, a lane and a band ([6016cab](https://github.com/EncryptionL/twico-ui/commit/6016cab59aac95daceb43452b11987bbcf9ca9bf)), closes [#536](https://github.com/EncryptionL/twico-ui/issues/536) [#530](https://github.com/EncryptionL/twico-ui/issues/530) [#537](https://github.com/EncryptionL/twico-ui/issues/537) [#538](https://github.com/EncryptionL/twico-ui/issues/538) [#527](https://github.com/EncryptionL/twico-ui/issues/527) [#533](https://github.com/EncryptionL/twico-ui/issues/533) [#533](https://github.com/EncryptionL/twico-ui/issues/533) [#543](https://github.com/EncryptionL/twico-ui/issues/543) [#536](https://github.com/EncryptionL/twico-ui/issues/536) [#536](https://github.com/EncryptionL/twico-ui/issues/536) [#538](https://github.com/EncryptionL/twico-ui/issues/538) [#538](https://github.com/EncryptionL/twico-ui/issues/538) [#537](https://github.com/EncryptionL/twico-ui/issues/537) [530-#533](https://github.com/530-/issues/533) [#536](https://github.com/EncryptionL/twico-ui/issues/536) [#537](https://github.com/EncryptionL/twico-ui/issues/537) [#538](https://github.com/EncryptionL/twico-ui/issues/538)
+* **typography:** move Text's and Heading's margin reset out of the inline style object ([9111c93](https://github.com/EncryptionL/twico-ui/commit/9111c9310f887f63ed9f2915d51a3d7132b2f4bf)), closes [#543](https://github.com/EncryptionL/twico-ui/issues/543) [#531](https://github.com/EncryptionL/twico-ui/issues/531) [#536](https://github.com/EncryptionL/twico-ui/issues/536) [#543](https://github.com/EncryptionL/twico-ui/issues/543) [#543](https://github.com/EncryptionL/twico-ui/issues/543)
+
+### Features
+
+* **build:** keep the authoring stylesheet's comments, ship a minified copy beside it ([71d5c79](https://github.com/EncryptionL/twico-ui/commit/71d5c794b982eb7b3e2d35fd882b5cf4a2df3e37)), closes [#534](https://github.com/EncryptionL/twico-ui/issues/534) [454/#455](https://github.com/EncryptionL/twico-ui/issues/455) [#534](https://github.com/EncryptionL/twico-ui/issues/534) [#539](https://github.com/EncryptionL/twico-ui/issues/539) [#534](https://github.com/EncryptionL/twico-ui/issues/534) [#539](https://github.com/EncryptionL/twico-ui/issues/539)
+* **data-display:** per-row selectability, a controlled selection, and a row height that persists ([12383ef](https://github.com/EncryptionL/twico-ui/commit/12383ef26d70f724c7ab0d2d24a8efc4fae8ff6a)), closes [#540](https://github.com/EncryptionL/twico-ui/issues/540) [#479](https://github.com/EncryptionL/twico-ui/issues/479) [#541](https://github.com/EncryptionL/twico-ui/issues/541) [#478](https://github.com/EncryptionL/twico-ui/issues/478) [#542](https://github.com/EncryptionL/twico-ui/issues/542) [#540](https://github.com/EncryptionL/twico-ui/issues/540) [#541](https://github.com/EncryptionL/twico-ui/issues/541) [#542](https://github.com/EncryptionL/twico-ui/issues/542)
+
 ## [1.51.2](https://github.com/EncryptionL/twico-ui/compare/v1.51.1...v1.51.2) (2026-11-17)
 
 
