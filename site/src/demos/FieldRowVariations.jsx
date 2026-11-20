@@ -1,5 +1,28 @@
 import React from "react";
-import { FieldRow, Input, Select, Button, IconButton, Stack, Field, Tooltip, Checkbox } from "twico-ui";
+import { FieldRow, Input, Select, Button, IconButton, Stack, Field, Tooltip, Checkbox, Text } from "twico-ui";
+
+// A COMPONENT returning a fragment renders several elements into one cell - nothing sees through a
+// render - which is what the fragment-cell rules exist for. Declared here, used by the variations
+// below, so each snippet can show the component rather than the expansion.
+const Range = () => (
+  <>
+    <Input label="from" />
+    <Text size="sm" tone="muted">to</Text>
+    <Input label="to" />
+  </>
+);
+const PairInsert = () => (
+  <>
+    <Select label="Start from" options={FIELDS} defaultValue="material" />
+    <Button variant="outline">Insert</Button>
+  </>
+);
+const PairCheck = () => (
+  <>
+    <Input label="Name" />
+    <Checkbox label="Only active" error="Pick one." />
+  </>
+);
 
 const FIELDS = [
   { label: "Material", value: "material" },
@@ -325,6 +348,77 @@ const variations = [
           <Button size="sm" variant="outline">Insert</Button>
         </Field>
       </Stack>
+    ),
+  },
+  {
+    title: "A range row — a word between two fields",
+    description:
+      "The commonest reason to share a fragment, and the shape minChildWidth must not floor. The floor is a readable width for an input, not a width for a word (#536): it reaches the fields in the cell, and a field behind a Tooltip or a host div, but nothing else. Resize the page — the row breaks when the two fields no longer fit, not when the word does not.",
+    code: `const Range = () => (
+  <>
+    <Input label="from" />
+    <Text size="sm" tone="muted">to</Text>
+    <Input label="to" />
+  </>
+);
+
+<FieldRow gap={2} wrap minChildWidth="15rem">
+  <Range />
+</FieldRow>`,
+    render: () => (
+      <div style={box}>
+        <FieldRow gap={2} wrap minChildWidth="15rem">
+          <Range />
+        </FieldRow>
+      </div>
+    ),
+  },
+  {
+    title: "footerLines reaches a shared group too",
+    description:
+      "footerLines is the band's floor, and a fragment cell holds two lanes of its own — the one its fields draw and the one its plain children take as margin. Both read the same token now (#537); before, a shared group's Button sat (n − 1) × 18px above the row's band as soon as footerLines went past 1. The Insert button's bottom edge lines up with the Select's control at every value.",
+    code: `const Pair = () => (
+  <>
+    <Select label="Start from" options={FIELDS} defaultValue="material" />
+    <Button variant="outline">Insert</Button>
+  </>
+);
+
+<FieldRow gap={2} footerLines={3}>
+  <Input label="Rename to" hint="Three lines are held open for whatever the longest footer in this row turns out to be." />
+  <Pair />
+</FieldRow>`,
+    render: () => (
+      <div style={box}>
+        <FieldRow gap={2} footerLines={3}>
+          <Input label="Rename to" hint="Three lines are held open for whatever the longest footer in this row turns out to be." />
+          <PairInsert />
+        </FieldRow>
+      </div>
+    ),
+  },
+  {
+    title: "A shared group stays on the band when a sibling's footer wraps",
+    description:
+      "A fragment cell holding a plain control is laid out by the row's own three tracks (#538), so a sibling whose error wraps to three lines makes the ROW taller and moves nothing. It used to drop out of the row template and carry a fixed one-line lane instead, which left it up to 72px out of line — and only when something elsewhere in the row had a footer, so it looked fine in isolation.",
+    code: `const Pair = ({ err }) => (
+  <>
+    <Input label="Name" />
+    <Checkbox label="Only active" error={err} />
+  </>
+);
+
+<FieldRow gap={2}>
+  <Input label="Template" error="A message long enough that it wraps onto more than one line in this column." />
+  <Pair err="Pick one." />
+</FieldRow>`,
+    render: () => (
+      <div style={box}>
+        <FieldRow gap={2}>
+          <Input label="Template" error="A message long enough that it wraps onto more than one line in this column." />
+          <PairCheck />
+        </FieldRow>
+      </div>
     ),
   },
 ];

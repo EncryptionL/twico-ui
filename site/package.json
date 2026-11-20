@@ -13,7 +13,8 @@
     "render-check": "node scripts/render-check.mjs",
     "test:visual": "playwright test",
     "test:visual:update": "playwright test --update-snapshots=all",
-    "gen:props": "node scripts/enrich-props.mjs"
+    "gen:props": "node scripts/enrich-props.mjs",
+    "diff:baselines": "node scripts/diff-baselines.mjs"
   },
   "dependencies": {
     "prism-react-renderer": "^2.4.0",
@@ -22,9 +23,9 @@
     "react-router-dom": "^7.18.5"
   },
   "devDependencies": {
-    "@playwright/test": "^1.65.0",
+    "@playwright/test": "^1.65.1",
     "@vitejs/plugin-react": "^6.3.0",
-    "lucide-react": "^1.70.0",
-    "vite": "^8.3.7"
+    "lucide-react": "^1.73.0",
+    "vite": "^8.3.8"
   }
 }

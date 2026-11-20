@@ -78,8 +78,17 @@ can't fire. Nested `sx` (the scoped-`<style>` channel) is emitted as CSS text an
 - Only the box-model shorthands above are touched; every other property passes through unchanged.
 - **Invariant.** For the fix to hold, no box *shorthand* may survive on the node from the **base**
   style either — otherwise it would collide with an sx-expanded longhand. Box/Stack/Grid already
-  base-style with longhands; Container's `marginInline`/`paddingInline` and Text/Heading's `margin: 0`
-  were converted to their longhands so the node only ever carries leaf longhands.
+  base-style with longhands, and Container's `marginInline`/`paddingInline` were converted to theirs,
+  so the node only ever carries leaf longhands.
+
+  **Text/Heading used to be the other example here** — their `margin: 0` was expanded to four
+  longhands for exactly this reason. Since #543 they carry **no base margin on the node at all**: the
+  reset moved to `.twc-text`/`.twc-heading` in each component's scoped stylesheet, because an inline
+  declaration beats every stylesheet rule and was vetoing FieldRow's own fragment-cell lane. The
+  invariant is therefore satisfied more strongly than before rather than broken — `margin: 0` in
+  `TEXT_CSS` is a shorthand, but it lives in the **CSS text channel**, which is never reconciled as
+  inline style and so cannot collide with an sx-expanded longhand. A default `<Text>`'s `style`
+  attribute carries only `font-family`, `line-height`, `font-size` and `color`.
 - **Caveat: the raw `style` prop is not normalized.** `sx` only normalizes its own channel. If you
   *also* pass a box shorthand via the raw `style` prop (`style={{ padding: "1rem" }}`) alongside an
   `sx` box value for the same box, that shorthand can still collide with the expanded longhands on

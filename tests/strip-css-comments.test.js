@@ -170,8 +170,17 @@ describe("strip-css-comments: line-ending determinism (#534)", () => {
     expect(out, "a space before the CR survived an end-anchored strip").not.toContain("light; ");
   });
 
-  it("the shipped stylesheet generator is line-ending agnostic too", () => {
-    const src = readFileSync(resolve(process.cwd(), "scripts/build-css.mjs"), "utf8");
-    expect(src, "build-css must drop CR before splitting lines").toContain("input.split(CR).join(");
+  it("the shipped stylesheet generators are line-ending agnostic too", () => {
+    // Both of them, since #539: build-css.mjs normalises each SOURCE layer as it reads it (so the
+    // authoring copy is byte-identical from a CRLF and an LF checkout), and css-minify.mjs does the
+    // same to its input (so the .min.css copy is too). With core.autocrlf=true the working copy is
+    // CRLF and CI checks out LF, and a generator that passes line endings through produces a
+    // different file on each - #534's CI-only build:css:check failure.
+    const build = readFileSync(resolve(process.cwd(), "scripts/build-css.mjs"), "utf8");
+    expect(build, "build-css must drop CR as it reads each layer").toContain(".split(CR).join(");
+    expect(build, "...from a declared CR constant, not a literal escape").toContain("const CR = String.fromCharCode(13)");
+    const min = readFileSync(resolve(process.cwd(), "scripts/css-minify.mjs"), "utf8");
+    expect(min, "css-minify must drop CR before scanning").toContain("input.split(CR).join(");
+    expect(min).toContain("const CR = String.fromCharCode(13)");
   });
 });

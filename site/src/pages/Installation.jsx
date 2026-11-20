@@ -30,6 +30,14 @@ export default function Installation() {
           code={`// main.jsx
 import "twico-ui/styles.css";`}
         />
+        <Text tone="muted" size="sm">
+          Two copies of that stylesheet ship, and they are generated together from the same
+          sources. <Code>twico-ui/styles.css</Code> (29&nbsp;kB) keeps its comments — contrast
+          ratios, which aliases to remap to re-skin, which boundaries are a control&rsquo;s only
+          affordance — and is the file to open when theming.{" "}
+          <Code>twico-ui/styles.min.css</Code> (13&nbsp;kB, 2.99&nbsp;kB brotli) is the same rules
+          with the comments and whitespace gone; swap the import for it in production.
+        </Text>
         <CodeBlock
           code={`// App.jsx
 import { Button, Datatable, Input } from "twico-ui";

@@ -53,3 +53,73 @@ hand-roll the fetch/paginate/sort/loading/empty loop. `CardGrid` is that missing
   which is `width: 100%`). — added 2026-07-13
 - Tests: [`tests/cardgrid.test.jsx`](../../tests/cardgrid.test.jsx),
   [`tests/column-sizing-menu.test.jsx`](../../tests/column-sizing-menu.test.jsx).
+
+## #541 — a controlled selection, and retention that stays honest
+
+Reported against 1.51.2. `CardGrid` has owned the selection since #478, which is the right place for
+it — and the host had no way to **clear or correct** it except from inside a batch action's
+`onClick`. That turns an ordinary host-driven refresh into a selection the user can neither see nor
+untick.
+
+The shape is a server-paginated grid whose rows are re-read when the host bumps a counter — the
+standard `reloadKey` pattern, used precisely because something elsewhere on the page can delete one
+of the rows being shown:
+
+1. The user ticks cards A, B, C.
+2. Elsewhere on the page they delete B.
+3. The host bumps its counter; `rows` comes back without B and B's card disappears.
+4. `selected` still holds B's key. Nothing reconciles it against `rows` — the only writes were
+   `clearSelection`, `toggleKey` and `togglePage`, all user gestures.
+5. `retainedRef` still holds B's **stale row object**, written at toggle time and never refreshed.
+
+So the toolbar said "3 selected", the size summary priced three files, a `disabled` predicate
+testing `keys.length` against a cap counted three, and `onClick` was handed three — with two cards on
+screen and no gesture that could remove the third, because its checkbox was gone. The server then
+refused the whole batch (all-or-nothing by design) and the only recovery was a page reload.
+
+Why nothing already there covered it:
+
+- `onRowSelectionChange` is an **output**, and it is guarded on a keys-only signature
+  (`selKeys.join(",")`), so it does not even re-fire when `rows` is replaced.
+- `clearSelection` exists only as the third argument to a batch action's `onClick` — reachable after
+  the user has pressed the button whose count is wrong.
+- `retainSelectedRows` is documented as "those keys simply resolve to nothing in `rows`, so re-fetch
+  by key", which is the right contract — but with retention on a removed row does *not* resolve to
+  nothing; it resolves to a stale object the host cannot distinguish from a live one.
+- `key={counter}` remounts the grid, which clears the page and every other piece of internal state,
+  flashes, and fights `page` being controlled.
+
+**`selectedKeys` + `onSelectionChange`**, the same uncontrolled/controlled split `page`/`onPageChange`
+already has. Mirroring the selection into host state is *not* the workaround — it defeats the point
+of #478 and #492, and observing keys through `onRowSelectionChange` does not let you change them.
+
+A third, smaller ask in the report — exposing `clearSelection` through a ref — is not added: with
+`selectedKeys` the host can reset to `[]` directly, and a third mechanism over the same state is a
+third thing to keep consistent.
+
+**Retention is also no longer written once and never refreshed.** A retained row is re-read whenever
+its key reappears on a rendered page, and a retained key a controlled host drops is released. That
+is the part of "reconcile retention against `rows`" with no guesswork in it: it needs no `rowCount`
+arithmetic and cannot discard a row the host still has. Dropping a key whose row has genuinely gone
+is the host's call, which is what `selectedKeys` is for.
+
+The memo is keyed on `JSON.stringify(selectedKeys)`, not on the array, because a host writing
+`selectedKeys={[...]}` hands over a new identity every render and `selected` feeds `selKeys` →
+`selectedRows`, which rebuilds a `Map` over the page.
+
+**What the validation showed.** Breaking the read path failed 8 tests across `CardGrid` and
+`Datatable`; dropping the `onSelectionChange` report failed 5. The retained-row refresh needed the
+**test** fixed before it measured anything — the first version passed with the refresh disabled,
+because `selectedRows` resolves a key from the current page before consulting the retained map, so
+the row has to be off-page when the batch action reads it.
+
+`commitSelection` takes an **updater**, not a value. Controlled mode cannot use a functional state
+updater — the previous value is a prop that has not re-rendered yet — so two toggles in one React
+batch both read the same set and the second dropped the first. The last set committed this tick is
+held in a ref and used as the base. See the `Datatable` note for the measurement; it was found in
+the browser, not by any jsdom test.
+
+`isRowSelectable` (#540) was scoped to `Datatable`, where it was filed. `CardGrid` has the same
+shape and does not have it yet.
+
+Tests: [`tests/issues-540-541-542.test.jsx`](../../tests/issues-540-541-542.test.jsx).

@@ -44,6 +44,51 @@ runner's. `cd /D/…` and the same tree passes. Reproduced on vitest 5.0.5 and 5
 make no difference, so it is easy to mistake for a broken install. CI runs on Ubuntu and has never
 been affected — a red local suite with a green CI is this, not a platform bug worth chasing.
 
+### Check a guard by its exit code, not by grepping its output
+
+A pre-push sweep that pipes each command through a grep for the success markers is a filter that
+cannot fail. `npm run check:exports` was "verified" locally with `| grep -E "🟢|🔴|❌"`, which
+printed rows of 🟢 and omitted the `💀 Resolution failed` three lines above them — the new
+`twico-ui/styles.min.css` export has no type declarations, so `attw` needs it listed in
+`--exclude-entrypoints` beside `styles.css`. CI caught what the local run had reported as green.
+
+Note also that `cmd | tail -n` makes the **pipeline's** status `tail`'s, so a following `&&` runs
+whether or not `cmd` failed. The shape that works:
+
+```bash
+for c in "npm run build" "npm run typecheck" "npm run check:exports" "npm run build:css:check"          "npm run build:fonts:check" "npm run gen:llms:check" "npm run verify:palette"          "npm run check:ds-bundle" "npm run size" "npm pack --dry-run" "npm audit --omit=dev"; do
+  out=$(eval "$c" 2>&1); code=$?
+  [ $code -eq 0 ] && echo "PASS  $c" || { echo "FAIL($code)  $c"; echo "$out" | tail -6; }
+done
+```
+
+The generators (`build:css:check`, `gen:llms:check`, `verify:palette`, `build:fonts:check`) each
+print an explicit `✓ <claim>` only on success, so reading their output is safe. `attw`,
+`size-limit` and `npm pack` print a table either way.
+
+### Reseeding the visual baselines
+
+The pixel-diff baselines are **OS-sensitive** and this is a Windows checkout, so they cannot be
+regenerated locally. Dispatch `visual.yml` with `mode=update`, download the `updated-baselines`
+artifact, and commit the PNGs under `site/tests/__screenshots__/` (the workflow header says the
+same).
+
+**Diff them before committing them.** A regenerated set routinely comes back with a handful of
+differing bytes on pages nothing touched: after the three Datatable variations landed, four other
+baselines changed by 14–66 pixels out of 7–8 million, `maxDelta` 1–3 of 255, all inside `y=17..46`
+— the navbar's text band, i.e. antialiasing variance between runner instances. Committing the set
+on trust would have buried a real change among them.
+
+```bash
+cd site && npm run diff:baselines -- ../path/to/updated-baselines
+```
+
+`site/scripts/diff-baselines.mjs` skips byte-identical files, then loads the rest into canvases and
+reports the differing-pixel count, the max per-channel delta and the bounding box. A **dimension**
+change is the honest signal that content moved (24,162 → 26,454 px tall, there — the three new
+Datatable variations); a few dozen pixels at `maxDelta ≤ 3/255` inside `y=17..46` is the navbar
+re-antialiasing and means nothing.
+
 ## Branch flow
 
 - **`dev`** — integration branch. Do day-to-day work here, or on `feat/*` / `fix/*` branches that

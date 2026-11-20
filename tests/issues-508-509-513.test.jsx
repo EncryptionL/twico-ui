@@ -3,7 +3,7 @@ import { describe, it, expect, afterEach } from "vitest";
 import { render, cleanup } from "@testing-library/react";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { Datatable, Button, IconButton, FieldRow, Input, Field, Checkbox } from "../src/index.ts";
+import { Datatable, Button, IconButton, FieldRow, Input, Field, Checkbox, Text, Tooltip } from "../src/index.ts";
 
 afterEach(cleanup);
 
@@ -390,11 +390,13 @@ describe("FieldRow (#508)", () => {
     // Tooltip-wrapped Button stayed 480px wide and broke into three 480px lines. Gated, both the
     // depth-1 and depth-2 shapes measured byte-identical to 1.51.1.
     const src = readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.jsx"), "utf8");
-    const gate = ":not(:has(> :is(${NATURAL_ROOTS}), > * > :is(${NATURAL_ROOTS})))";
-    expect(src.split(gate).length - 1, "both #530 rules carry the depth-2 gate").toBe(2);
-    // and #530 is confined to a wrapping row - in the band a fragment cell is a grid with
-    // minmax(0, 1fr) tracks, where a floor overflows the track instead of breaking a line.
-    expect(src.split(':where(.twc-fieldrow[data-wrap="true"]) > .twc-fieldrow__cell:has(> * + *)' + gate).length - 1).toBe(2);
+    // #536 collapsed the two hand-kept copies of the gate into one constant, which is what keeps
+    // the two rules identical rather than merely asserting that they are - a floor without the
+    // matching flex-wrap makes the cell min-content wider than the row and it overflows instead of
+    // breaking, strictly worse than the squash it replaces. #536 WAS the second copy being wrong.
+    expect(src).toContain("const FRAG_WRAP = ':where(.twc-fieldrow[data-wrap=\"true\"]) > .twc-fieldrow__cell:has(> * + *):not(' + FRAG_NAT + \")\";");
+    expect(src).toContain("${FRAG_WRAP} { flex-wrap: wrap; align-content: flex-end; }");
+    expect(src).toContain("${FRAG_WRAP} > .twc-field,");
   });
 
   it("#531: a fragment child that cannot take a lane gets the lane's height as margin", () => {
@@ -410,9 +412,9 @@ describe("FieldRow (#508)", () => {
     const cell = container.querySelector(".twc-fieldrow__cell");
     expect(cell.children).toHaveLength(3);
     const src = readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.jsx"), "utf8");
-    // token-built, so it keeps matching the lane when a token changes - and ONE line, because it
-    // has to match the sibling lanes it aligns against rather than footerLines.
-    expect(src).toContain("margin-block-end: calc(var(--space-1-5) + var(--text-xs) * var(--leading-normal, 1.5)); }");
+    // token-built, so it keeps matching the lane when a token changes - and since #537 it carries
+    // footer-lines, because the sibling lanes it aligns against are NOT single-line.
+    expect(src).toContain("margin-block-end: calc(var(--space-1-5) + var(--twc-fieldrow-footer-lines, 1) * var(--text-xs) * var(--leading-normal, 1.5)); }");
     // the same DESCENDANT footer test as the cell lane, not a direct-child one (#519): a field
     // behind a Tooltip or a host div is the flex item, so the margin lands on the wrapper.
     expect(src).toContain('> *:not(.twc-field):not(:has(.twc-field__footer, .twc-field__hint, .twc-field__error, .twc-fieldrow, [data-reserve-footer]))');
@@ -434,7 +436,8 @@ describe("FieldRow (#508)", () => {
     expect(rows[0].getAttribute("data-wrap"), "the outer row bands").toBeNull();
     expect(rows[1].getAttribute("data-wrap"), "the inner row wraps").toBe("true");
     const src = readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.jsx"), "utf8");
-    expect(src).toContain('${SOLO} > .twc-fieldrow[data-wrap="true"] { grid-row: 1 / -1; align-self: end; }');
+    expect(src).toContain('${SOLO} > .twc-fieldrow[data-wrap="true"],');
+    expect(src).toContain('${FRAG} > .twc-fieldrow[data-wrap="true"] { grid-row: 1 / -1; align-self: end; }');
   });
 
   it("#530: a shared group passed as a VALUE gets real per-cell behaviour, at no duplication cost", () => {
@@ -479,7 +482,12 @@ describe("FieldRow (#508)", () => {
     // ONE depth-2 test, interpolated into both band rules that used to carry a depth-1 copy
     expect(src).toContain('const FRAG_NAT = ":has(> :is(" + NATURAL_ROOTS + "), > * > :is(" + NATURAL_ROOTS + "))";');
     expect(src).toContain('const FRAG_FIELDS = FRAG + ":not(" + FRAG_NAT + ")";');
-    expect(src).toContain("${FRAG}${FRAG_NAT} { display: flex;");
+    // #538: ...and that rule no longer drops the cell out of the row template. The depth-2 widening
+    // moved the errored-Checkbox cell INTO this class out of FRAG_FIELDS, where it had been on the
+    // #527 band - so #533 bought a horizontal guarantee with a vertical one. It is now placed by
+    // the same subgrid, hugging via `auto` tracks instead of via flex.
+    expect(src).not.toContain("${FRAG}${FRAG_NAT} { display: flex;");
+    expect(src).toContain("${FRAG}${FRAG_NAT} { grid-auto-flow: column; grid-auto-columns: auto; column-gap: inherit;");
     // and the per-child hug gets its own depth-2 arm - spelled relative to the CHILD, because here
     // the subject is the wrapper rather than the cell
     expect(src).toContain(".twc-fieldrow__cell:has(> * + *) > :has(> :is(${NATURAL_ROOTS})) { flex: 0 1 auto; min-inline-size: auto; }");
@@ -488,5 +496,119 @@ describe("FieldRow (#508)", () => {
   it("the Field wrapper still works, for a row the host lays out itself", () => {
     const { container } = render(<Field reserveFooter><Button>Insert</Button></Field>);
     expect(container.querySelector(".twc-field").getAttribute("data-reserve-footer")).toBe("true");
+  });
+});
+
+// ---------------------------------------------------------------------------------------------
+// #536 / #537 / #538 — the three defects 1.51.2's fixes left behind. jsdom has no layout, so the
+// geometry is proved by .work/probe (headless Chromium over SSR'd markup of the real components)
+// and recorded in docs/qa-notes/FieldRow.md; what is asserted here is the DOM shape each one
+// depends on, and the rule text, which is where a regression would actually land.
+// ---------------------------------------------------------------------------------------------
+describe("FieldRow — 1.51.2 follow-ups (#536, #537, #538)", () => {
+  afterEach(cleanup);
+  const SRC = () => readFileSync(resolve(process.cwd(), "components/inputs/FieldRow.jsx"), "utf8");
+
+  it("#536: a range row is ONE cell holding a field, a word and a field", () => {
+    // The shape the floor was flooring. `Text` is neither a .twc-field nor a natural root, so
+    // `> *` reached it: at 520px with minChildWidth="15rem" the 12px word took
+    // min-inline-size: min(100%, 240px), stopped fitting beside the two inputs, and was pushed
+    // onto its own line and stretched - 1 line/91px became 2 lines/190px, fields at 256/520.
+    const Range = () => (<><Input label="from" /><Text size="sm">to</Text><Input label="to" /></>);
+    const { container } = render(<FieldRow wrap minChildWidth="15rem"><Range /></FieldRow>);
+    const cell = container.querySelector(".twc-fieldrow__cell");
+    expect(cell.children, "a component returning a fragment is ONE cell").toHaveLength(3);
+    expect(cell.children[1].className).toContain("twc-text");
+    expect(cell.children[1].className, "the word is not a field").not.toContain("twc-field");
+    // the floor's subject is the field, plus a one-box wrapper around one - never every child
+    const src = SRC();
+    expect(src).toContain("${FRAG_WRAP} > .twc-field,");
+    expect(src).toContain("${FRAG_WRAP} > :has(> .twc-field) {");
+    expect(src).not.toContain("${FRAG_WRAP} > * {");
+  });
+
+  it("#536: the second arm is load-bearing - a wrapped field must keep the floor", () => {
+    // `> .twc-field` alone would take the floor off a field behind a Tooltip's span or a host div,
+    // which IS the flex item here - squashing a field to fix a word. Measured: the tipped and the
+    // host-div cells both keep [256,256,520] at 520px (three fields, three floors, a real break)
+    // while the range row returns to one line.
+    const Tipped = () => (
+      <><Input label="from" /><Tooltip label="Inclusive"><Input label="mid" /></Tooltip><Input label="to" /></>);
+    const { container } = render(<FieldRow wrap minChildWidth="15rem"><Tipped /></FieldRow>);
+    const kids = [...container.querySelector(".twc-fieldrow__cell").children];
+    expect(kids).toHaveLength(3);
+    expect(kids[1].className, "the Tooltip's span is the flex item").toContain("twc-tooltip-wrap");
+    expect(kids[1].querySelector(".twc-field"), "...with the field one level in").toBeTruthy();
+  });
+
+  it("#537: footerLines reaches the row as a custom property, which both lanes read", () => {
+    const { container } = render(
+      <FieldRow footerLines={3}><Input label="solo" /><Input label="two" /></FieldRow>);
+    const row = container.querySelector(".twc-fieldrow");
+    expect(row.style.getPropertyValue("--twc-fieldrow-footer-lines")).toBe("3");
+    // All FOUR places that reserve footer space read the same variable. Before #537 the two inside
+    // a fragment cell did not, so a Button there sat (n - 1) x 18px out: 0/18/36px at 1/2/3.
+    const src = SRC();
+    const uses = src.split("var(--twc-fieldrow-footer-lines, 1)").length - 1;
+    expect(uses, "row track + cell ::after + fragment ::after + fragment margin").toBe(4);
+  });
+
+  it("#537: the row reserves nothing extra at the default, so nothing moves for existing callers", () => {
+    const { container } = render(<FieldRow><Input label="solo" /></FieldRow>);
+    const row = container.querySelector(".twc-fieldrow");
+    expect(row.style.getPropertyValue("--twc-fieldrow-footer-lines"), "unset, so the fallback 1 applies").toBe("");
+  });
+
+  it("#538: a fragment cell with a natural child keeps the row's three tracks", () => {
+    // It used to answer `display: flex; grid-row: 1 / -1; align-self: end` and so carried only its
+    // own 24px lane while the row's footer track grew to the tallest footer in the row - 18px out
+    // at 760px, 54px at 520px, for an errored Checkbox, a clean one and a Button alike. The only
+    // thing flex bought was column sizing.
+    const Pair = ({ err }) => (<><Input label="name" /><Checkbox label="Only active" error={err} /></>);
+    const { container } = render(
+      <FieldRow>
+        <Input label="template" error="a message long enough to wrap" />
+        <Pair err="pick one" />
+      </FieldRow>);
+    const cells = [...container.querySelectorAll(".twc-fieldrow__cell")];
+    expect(cells).toHaveLength(2);
+    expect(cells[1].children, "the pair is one cell").toHaveLength(2);
+    expect(cells[1].children[1].className, "errored Checkbox grows a .twc-field root").toContain("twc-field");
+    const src = SRC();
+    expect(src).toContain("${FRAG}${FRAG_NAT} { grid-auto-flow: column; grid-auto-columns: auto; column-gap: inherit;");
+    expect(src).toContain("  justify-content: start; }");
+  });
+
+  it("#538: every placement rule a solo cell's child has, a fragment cell's children have", () => {
+    // The mirror is the point: a fragment cell is a cell whose children are each placed exactly as
+    // a solo cell's single child is, flowed into columns instead of occupying the one column. Before
+    // this, a fragment cell's non-field child matched NO placement rule and auto-placed into the
+    // LABEL track - measured 40px out for a Text in a non-wrapping range row, which no issue
+    // reported and the probe found.
+    const src = SRC();
+    for (const arm of [
+      "${FRAG} > ${ONE},",
+      "${FRAG} > ${SOLO_WRAP},",
+      "${FRAG} > ${WRAP} > ${ONE},",
+      "${FRAG} > ${ROW} {",
+      "${FRAG} > ${MANY} { grid-row: 1 / -1; align-self: end; }",
+      '${FRAG} > .twc-fieldrow[data-wrap="true"] { grid-row: 1 / -1; align-self: end; }',
+      "${FRAG} > :not(.twc-field):not(${SOLO_WRAP}):not(.twc-fieldrow):not(${HAS_FOOTER}) {",
+      "${FRAG} > :not(.twc-field):not(${SOLO_WRAP}):not(.twc-fieldrow)${HAS_FOOTER},",
+    ]) {
+      expect(src, "#538: missing the FRAG arm for " + arm).toContain(arm);
+    }
+    // ...and the band's lane kill covers every fragment cell, since their fields are banded now.
+    expect(src).toContain("${FRAG} .twc-field::after { content: none; }");
+  });
+
+  it("#538: a non-wrapping range row places its word too, with no lane", () => {
+    const Range = () => (<><Input label="from" /><Text size="sm">to</Text><Input label="to" /></>);
+    const { container } = render(<FieldRow><Range /></FieldRow>);
+    const row = container.querySelector(".twc-fieldrow");
+    expect(row.getAttribute("data-wrap"), "band path").toBeNull();
+    expect(row.style.gridTemplateColumns, "one column per cell, declared on the container")
+      .toContain("--twc-fieldrow-c1");
+    expect([...container.querySelector(".twc-fieldrow__cell").children]).toHaveLength(3);
   });
 });

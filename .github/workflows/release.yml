@@ -41,9 +41,16 @@ jobs:
           persist-credentials: true
 
       - name: Setup Node.js
+        # 26, not the 22 the other workflows use, because semantic-release enforces its own
+        # engines.node at runtime (bin/semantic-release.js checks process.version and exits):
+        #   [semantic-release]: node version >=26.13 is required. Found v22.x.
+        # semantic-release 26.0.1 arrived by Dependabot auto-merge (#546) and release.yml is the
+        # only workflow that runs it, so no CI job exercised the combination - the first sign would
+        # have been a failed release on main. tests/release-node-version.test.js now ties this
+        # version to that engines range, so the next such bump is a red suite on dev instead.
         uses: actions/setup-node@v7
         with:
-          node-version: "22"
+          node-version: "26"
           registry-url: "https://registry.npmjs.org"
           cache: "npm"
 

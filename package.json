@@ -64,6 +64,7 @@
       }
     },
     "./styles.css": "./styles/twico-ui.css",
+    "./styles.min.css": "./styles/twico-ui.min.css",
     "./package.json": "./package.json"
   },
   "files": [
@@ -84,7 +85,7 @@
     "gen:llms": "node scripts/gen-llms.mjs",
     "gen:llms:check": "node scripts/gen-llms.mjs --check",
     "typecheck": "tsc --noEmit",
-    "check:exports": "attw --pack . --profile node16 --exclude-entrypoints styles.css",
+    "check:exports": "attw --pack . --profile node16 --exclude-entrypoints styles.css styles.min.css",
     "gen:ds-bundle": "node scripts/gen-ds-bundle.mjs",
     "check:ds-bundle": "node scripts/check-ds-bundle.mjs",
     "test": "vitest",
@@ -118,7 +119,7 @@
     "@types/react-dom": "^19.2.4",
     "jsdom": "^31.0.0",
     "lucide-react": "^1.31.0",
-    "semantic-release": "^25.0.9",
+    "semantic-release": "^26.0.1",
     "size-limit": "^14.0.0",
     "tsup": "^9.0.0",
     "typescript": "^5.9.3",

@@ -5489,7 +5489,35 @@ export const components = [
         "type": "(keys,rows)=>void",
         "required": false,
         "default": "-",
-        "description": "Fires when the checkbox row selection changes, with the selected keys and rows — the row-mode analogue of onCellSelectionChange, for driving a batch action's disabled state."
+        "description": "Fires when the checkbox row selection changes, with the selected keys and rows — an OUTPUT, for driving a batch action's disabled state. To change the selection, see selectedKeys."
+      },
+      {
+        "prop": "isRowSelectable",
+        "type": "(row,index)=>boolean",
+        "required": false,
+        "default": "-",
+        "description": "Which rows may be selected; a row returning false renders a disabled checkbox, is skipped by select-all, and never enters the reported selection."
+      },
+      {
+        "prop": "rowSelectionDisabledReason",
+        "type": "(row,index)=>ReactNode",
+        "required": false,
+        "default": "-",
+        "description": "Tooltip for a checkbox isRowSelectable rejected — a disabled control with no reason reads as broken; the box stays keyboard-reachable."
+      },
+      {
+        "prop": "selectedKeys",
+        "type": "Array<string | number>",
+        "required": false,
+        "default": "-",
+        "description": "The selected row keys. Uncontrolled when omitted, controlled when passed — lets a host prune keys whose rows a refresh removed."
+      },
+      {
+        "prop": "onSelectionChange",
+        "type": "(keys)=>void",
+        "required": false,
+        "default": "-",
+        "description": "Fires from the gesture that changes the selection with the complete next key list; pair with selectedKeys to control it."
       },
       {
         "prop": "density",
@@ -5801,10 +5829,24 @@ export const components = [
       },
       {
         "prop": "rowResize",
+        "type": "boolean | \"row\" | \"all\"",
+        "required": false,
+        "default": "false",
+        "description": "Drag a row's bottom edge to resize. true resizes EVERY row and persists as DatatableState.rowHeight; \"row\" resizes just that row."
+      },
+      {
+        "prop": "persistRowHeights",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "Allows users to drag row edges to adjust individual row heights; off by default."
+        "description": "Persist the per-row height map when rowResize=\"row\". Off by default: keyed by row key, it is unbounded where columnWidths is not."
+      },
+      {
+        "prop": "onRowResize",
+        "type": "(height,key)=>void",
+        "required": false,
+        "default": "-",
+        "description": "Fires once per completed drag with the new height in px; key is the row key in \"row\" mode, null for a shared height."
       },
       {
         "prop": "renderRowDetail",
@@ -6382,7 +6424,21 @@ export const components = [
         "type": "(keys: Array<string | number>, rows: Row[]) => void",
         "required": false,
         "default": "—",
-        "description": "Fires when the selection changes, receiving the complete keys and the row objects that could be resolved."
+        "description": "Fires when the selection changes, receiving the complete keys and the row objects that could be resolved. An OUTPUT; see selectedKeys to change it."
+      },
+      {
+        "prop": "selectedKeys",
+        "type": "Array<string | number>",
+        "required": false,
+        "default": "—",
+        "description": "The selected row keys. Uncontrolled when omitted, controlled when passed — lets a host prune keys whose cards a refresh removed."
+      },
+      {
+        "prop": "onSelectionChange",
+        "type": "(keys: Array<string | number>) => void",
+        "required": false,
+        "default": "—",
+        "description": "Fires from the gesture that changes the selection with the complete next key list; pair with selectedKeys to control it."
       },
       {
         "prop": "selectionPlacement",
@@ -13438,14 +13494,14 @@ export const components = [
         "type": "number | string",
         "required": false,
         "default": "\"10rem\"",
-        "description": "Minimum width a stretching cell may shrink to before wrap breaks the line — a number is px, a string passes through, same as Grid's prop of this name. Only meaningful with wrap; in a wrapping row it also floors the fields inside a fragment cell, which then wraps within itself (#530)."
+        "description": "Minimum width a stretching cell may shrink to before wrap breaks the line — a number is px, a string passes through, same as Grid's prop of this name. Only meaningful with wrap; in a wrapping row it also floors the FIELDS inside a fragment cell, which then wraps within itself (#530, #536) — not a plain child like a range row's \"to\"."
       },
       {
         "prop": "footerLines",
         "type": "number",
         "required": false,
         "default": "1",
-        "description": "How many lines of footer the shared band holds open — its FLOOR, not a per-cell reserve. A non-wrapping row is a three-track grid (label / control / footer) whose footer track sizes to the tallest footer in the row, so a hint that wraps makes the row taller instead of lifting its own control."
+        "description": "How many lines of footer the shared band holds open — its FLOOR, not a per-cell reserve. A non-wrapping row is a three-track grid (label / control / footer) whose footer track sizes to the tallest footer in the row, so a hint that wraps makes the row taller instead of lifting its own control. Reaches every lane, a shared fragment's included (#537)."
       },
       {
         "prop": "className",

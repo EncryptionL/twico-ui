@@ -81,6 +81,44 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   rowKey?: (row: T, index: number) => string | number;
   /** Render a leading checkbox-selection column. @default false */
   checkboxSelection?: boolean;
+  /**
+   * Which rows may be selected (#540). A row returning `false` renders a **disabled** checkbox, is
+   * skipped by the header's select-all, and never enters the selection that `batchActions`,
+   * `selectionSummary` and `onRowSelectionChange` receive — so that selection is already true.
+   *
+   * `checkboxSelection` is one boolean for the whole grid, so a grid whose rows are **not uniformly
+   * actionable** had no way to say so. A tombstone row — struck through, badged `Removed`, with its
+   * `actionsColumn` actions correctly withheld — still got a checkbox identical to every other
+   * row's, and the only place left to notice was each batch action, *after* the click. The repair
+   * had to be written per action rather than per grid, had to re-derive eligibility from the `rows`
+   * argument and join it to `keys` on an assumed `r.id`, and could not reach the checkbox at all:
+   * the row still invited a selection that could do nothing, select-all still took it, and
+   * "3 selected" could mean one deletable row.
+   *
+   * Guarded at the write as well as at the checkbox, so click-to-select and a keyboard Space reach
+   * the same answer. A row that becomes unselectable **while ticked** is dropped from the reported
+   * selection too; in `serverMode` an off-page key is absent from `rows`, so it cannot be judged
+   * and is left alone rather than silently discarded.
+   *
+   * Governs `checkboxSelection` — the selection that `batchActions` act on. It does **not** gate the
+   * `selectionMode="row"` highlight or `onRowClick`, which are a cursor rather than a selection and
+   * feed nothing a batch action reads; withhold those with `actionsColumn`'s own predicates.
+   *
+   * MUI's DataGrid has carried this prop for years, which is some evidence it is the shape people
+   * reach for. The signature here is `(row, index)` rather than MUI's params object, to match
+   * `getRowStyle`, `getRowClassName` and `rowKey` in this component.
+   */
+  isRowSelectable?: (row: T, index: number) => boolean;
+  /**
+   * Why this row's checkbox is disabled — shown as its tooltip (#540). Only consulted for a row
+   * `isRowSelectable` rejected; return `undefined` to show none.
+   *
+   * The same argument `disabledReason` (#479) makes for a batch button: a disabled control with no
+   * reason is a control that looks broken. "Removed on 12 March; nothing left to act on" is a fact
+   * only the host has, it is per row, and the label cannot carry it. The box stays in the tab order
+   * either way (`aria-disabled`, not an inert span), so the tooltip is keyboard-reachable.
+   */
+  rowSelectionDisabledReason?: (row: T, index: number) => React.ReactNode;
   /** Render a leading auto-numbered row column (1, 2, 3…). The number reflects each row's position in
    *  the current sorted/filtered order and continues across pages (page 2 starts where page 1 ended;
    *  in server mode it uses the current page × pageSize). Sits after the checkbox column, sticky-left.
@@ -244,6 +282,26 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  `onCellSelectionChange`, so a consumer can track the selection and drive a batch action's own
    *  `disabled`/`hidden` (which also accept predicates). */
   onRowSelectionChange?: (keys: Array<string | number>, rows: T[]) => void;
+  /**
+   * The selected row keys. Uncontrolled when omitted, **controlled** when passed — the same split
+   * `page`/`onPageChange` already has (#541).
+   *
+   * Without it a host could only *clear* the selection, and only from inside a batch action's
+   * `onClick`: every write was a user gesture, so an ordinary host-driven `rows` refresh left ticked
+   * keys with no row left to untick them from. The toolbar then said "3 selected" with two rows on
+   * screen, a `disabled` predicate testing `keys.length` against a cap counted three, and `onClick`
+   * was handed three. `onRowSelectionChange` does not close that: it is an **output**, and it is
+   * guarded on a keys-only signature, so it does not even re-fire when `rows` is replaced.
+   *
+   * Controlled, the host prunes the keys itself against whatever it knows, and the selection becomes
+   * inspectable without mirroring it. `onRowSelectionChange` keeps firing as the observation hook it
+   * has always been.
+   */
+  selectedKeys?: Array<string | number>;
+  /** Fired from the gesture that changes the selection, with the complete next key list (#541). Pair
+   *  it with `selectedKeys` to control the selection; on its own it is a write-time alternative to
+   *  `onRowSelectionChange`'s effect-time report. */
+  onSelectionChange?: (keys: Array<string | number>) => void;
   /** Row height preset. With `showDensity`, the toolbar density button cycles it locally; changing this prop re-applies it. @default "comfortable" */
   density?: "compact" | "standard" | "comfortable";
   /**
@@ -475,8 +533,41 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    *  changes are announced via a visually-hidden live region). Persists via `onRowOrderChange`.
    *  Disabled while sorting or grouping. @default false */
   rowReorder?: boolean;
-  /** Enable drag-to-resize row height (handle on the row's bottom edge). @default false */
-  rowResize?: boolean;
+  /**
+   * Enable drag-to-resize row height (handle on the row's bottom edge). @default false
+   *
+   * `true` resizes **every** row to the dragged height, which persists through `DatatableState`
+   * (`rowHeight`) like every other user resize. `"row"` resizes only the dragged row and keeps a
+   * per-row map, which persists only with `persistRowHeights`.
+   *
+   * The shared height is the default because of what the two can promise. Column widths are safe to
+   * persist because `field` is a bounded, stable set — a table has a dozen columns and the same
+   * dozen tomorrow. Row keys are neither: on a server-paged table a key is a record id, so a per-row
+   * map grows an entry for every row anyone has ever dragged, with no bound, and for a host
+   * persisting `onStateChange` to a user profile rather than to `localStorage` that blob is written
+   * to a server on every change.
+   *
+   * A shared height is also the one that answers a question per-row heights cannot: a row dragged
+   * taller on page 1 says nothing about page 2, so per-row heights reset every time you move — the
+   * same complaint as losing them on reload, one page at a time. "Make the rows taller so I can read
+   * the wrapped cells" is usually what the drag means, and one number is bounded, stable, survives
+   * paging, and applies to rows the user has never scrolled to. It is `density` with a continuous
+   * scale instead of three presets.
+   *
+   * Note the change in 1.52: `rowResize` was per-row in 1.51.x, where it landed. `rowResize="row"`
+   * is that behaviour, unchanged and still unpersisted unless you ask for it.
+   */
+  rowResize?: boolean | "row" | "all";
+  /** Persist the per-row height map (`DatatableState.rowHeights`) when `rowResize="row"`. Off by
+   *  default: the map is keyed by row key, so it is unbounded in a way `columnWidths` is not — one
+   *  entry for every row anyone has ever dragged. Ignored for a shared height, which always
+   *  persists. @default false */
+  persistRowHeights?: boolean;
+  /** Fired once per completed drag with the new height in px, and the row key in `"row"` mode (`null`
+   *  for a shared height). Once per **drag**, not once per `pointermove` — a drag fires dozens, and a
+   *  host writing each one to a server would be writing the whole gesture. Not needed to persist the
+   *  height; `onStateChange` already carries it. */
+  onRowResize?: (height: number, key: string | number | null) => void;
   /** Called with the new array of row keys after a drag-reorder. In `serverMode` the drag order is
    *  an optimistic overlay: persist the keys, then hand back a new `rows` prop — the overlay clears on
    *  any `rows` change, so a rejected reorder reverts (reload the authoritative order) and a
@@ -632,6 +723,16 @@ export interface DatatableState {
   grouping?: string[];
   /** #393: collapsed group keys (internal group-path strings). Absent when every group is expanded. */
   collapsedGroups?: string[];
+  /** #542: user-dragged row height in px, applied to **every** row (`rowResize`). Absent until the
+   *  user drags a row's bottom edge. One bounded number, so it always round-trips — this is the key
+   *  that made row height the last user resize to survive a reload. Distinct from the `rowHeight`
+   *  *prop*, which is only the virtualizer's estimate for unmeasured rows; the relationship is the
+   *  same as between the `density` prop and `density` here. */
+  rowHeight?: number;
+  /** #542: user-dragged per-row heights in px, keyed by `rowKey` (`rowResize="row"`). Present only
+   *  with `persistRowHeights`, because unlike `columnWidths` this map is unbounded — a row key is a
+   *  record id, so it grows one entry per row anyone has ever dragged. */
+  rowHeights?: Record<string, number>;
 }
 
 export interface DatatableColumn<T = any> {

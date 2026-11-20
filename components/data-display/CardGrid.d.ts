@@ -152,8 +152,36 @@ export interface CardGridProps<Row = any> extends Omit<React.HTMLAttributes<HTML
    * instead of discovering the cap by hitting it.
    */
   selectionSummary?: React.ReactNode | ((keys: Array<string | number>, rows: Row[]) => React.ReactNode);
-  /** Fired when the selection changes — `(keys, rows)`, matching `Datatable.onRowSelectionChange`. */
+  /** Fired when the selection changes — `(keys, rows)`, matching `Datatable.onRowSelectionChange`. An
+   *  **output**: it reports the selection, it does not let you change it. See `selectedKeys`. */
   onRowSelectionChange?: (keys: Array<string | number>, rows: Row[]) => void;
+  /**
+   * The selected row keys. Uncontrolled when omitted, **controlled** when passed — the same split
+   * `page`/`onPageChange` already has (#541).
+   *
+   * #478 put the selection in the grid, which is the right place for it, but left the host no way to
+   * *correct* it. Every write was a user gesture, and `clearSelection` was reachable only as the
+   * third argument to a batch action's `onClick` — after the user had already pressed the button
+   * whose count was wrong. So an ordinary host-driven `rows` refresh (the `reloadKey` pattern, used
+   * because something elsewhere on the page can delete one of the rows being shown) left ticked keys
+   * with no card to untick them from: the toolbar said "3 selected" with two cards on screen, the
+   * size summary priced three, a cap predicate counted three, `onClick` was handed three, and the
+   * server refused the whole batch. The only recovery was a page reload — `key={counter}` remounts
+   * the grid, which also clears the page and internal state, and fights `page` being controlled.
+   *
+   * Controlled, the host prunes the keys itself against whatever it knows, and the selection becomes
+   * inspectable without mirroring it. Mirroring is **not** the workaround: it defeats the point of
+   * #478, and observing keys through `onRowSelectionChange` does not let you change them.
+   *
+   * Independently of this, `retainSelectedRows` no longer hands back a row object written at toggle
+   * time and never refreshed: a retained row is re-read whenever its key reappears on a rendered
+   * page, and a retained key the host drops is released.
+   */
+  selectedKeys?: Array<string | number>;
+  /** Fired from the gesture that changes the selection, with the complete next key list (#541). Pair
+   *  it with `selectedKeys` to control the selection; on its own it is a write-time alternative to
+   *  `onRowSelectionChange`'s effect-time report. */
+  onSelectionChange?: (keys: Array<string | number>) => void;
   /**
    * Where the grid draws its checkbox over each card. `"none"` suppresses the overlay entirely for
    * consumers who render the control themselves from `renderCard`'s third argument.
@@ -180,6 +208,12 @@ export interface CardGridProps<Row = any> extends Omit<React.HTMLAttributes<HTML
    * @default false
    */
   retainSelectedRows?: boolean | number;
+  /* #541 note: with retention on, a key whose row was deleted elsewhere used to resolve to the
+     object it had BEFORE the delete — indistinguishable from a live one — because the map was
+     written at toggle time and never refreshed. It is now refreshed whenever the key reappears on a
+     rendered page, which is the part of reconciling against `rows` that needs no guesswork: it
+     cannot discard a row the host still has. Dropping a key whose row has genuinely gone is the
+     host's call, which is what `selectedKeys` is for. */
 }
 
 /** Extra context handed to a CardGrid batch action's `onClick`. */

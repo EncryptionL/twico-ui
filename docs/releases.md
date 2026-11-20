@@ -102,9 +102,26 @@ The docs website links to the changelog from its header ("Changelog").
 
 ## Requirements
 
-- **Node ≥ 22.14** on the runner. semantic-release v25 requires `^22.14.0 || >= 24.10.0`, so every
-  workflow pins `node-version: "22"` (`release.yml` and the rest). Node 20 — used until June 2026 —
-  is EOL and fails the release with `node version ^22.14.0 || >= 24.10.0 is required`.
+- **Node ≥ 26.13** on the *release* runner. semantic-release reads its own `engines.node` at
+  **runtime** — `bin/semantic-release.js` compares `process.version` and exits — so the floor moves
+  with the tool, and npm only *warns* about it at install time. v26.0.1 requires `>=26.13`
+  (v26.13.1 "Lithium" is the current LTS); v25 required `^22.14.0 || >= 24.10.0`.
+
+  `release.yml` therefore pins `node-version: "26"` while **every other workflow stays on 22** —
+  nothing else runs semantic-release, and 22 is a deliberate mid-range test of the package's own
+  `engines: ">=18"`. Do not "normalise" release.yml back to 22.
+
+  **This is guarded**, because it got through once: Dependabot auto-merged v25 → v26 (#546) and
+  `release.yml` is the only workflow that runs the tool *and* it fires only on a push to `main`, so
+  no job on `dev` exercised the combination — the first sign would have been a failed release run
+  on `main`, after the merge.
+  [`tests/release-node-version.test.js`](../tests/release-node-version.test.js) now ties the pinned
+  version to the installed `engines.node`, so the next such bump is a red suite on `dev`. It is
+  dependency-free on purpose (`js-yaml` and `semver` are only transitive here) and **strict**: an
+  `engines` range or a `node-version` spelling it does not understand *fails* rather than passing
+  vacuously, and it fails if another workflow starts running semantic-release. It also allows for a
+  bare major: `node-version: "26"` resolves to the newest 26.x, so it is compared as `26.∞` rather
+  than `26.0.0`.
 - **`NPM_TOKEN`** repository secret (npm automation token with publish rights). Already configured.
 - `GITHUB_TOKEN` (provided automatically) for tags, the release, and the changelog commit.
 - If you enable **branch protection** on `main`, allow the `github-actions` bot to push the changelog

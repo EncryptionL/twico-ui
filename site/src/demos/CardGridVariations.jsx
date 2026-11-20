@@ -162,6 +162,66 @@ const variations = [
     code: `<CardGrid rows={[]} emptyState="No products match your filters." renderCard={(p) => <ProductCard {...p} />} />`,
     render: () => <CardGrid rows={[]} emptyState="No products match your filters." renderCard={ProductCard} />,
   },
+  {
+    title: "A selection the host owns",
+    description:
+      "CardGrid has owned the selection since #478, which is the right place for it — and the host had no way to clear or correct it except from inside a batch action's onClick. So an ordinary host-driven rows refresh left ticked keys with no card to untick them from: the toolbar said '3 selected' with two cards on screen, the summary priced three, and onClick was handed three. selectedKeys + onSelectionChange (#541) is the same split page/onPageChange already has. Press Remove: it drops the cards AND prunes their keys, which is the step that was impossible before.",
+    code: `const [keys, setKeys] = React.useState([]);
+const [rows, setRows] = React.useState(products);
+
+const remove = () => {
+  const gone = new Set(keys);
+  setRows((rs) => rs.filter((r) => !gone.has(r.id)));
+  setKeys([]);                      // prune, which no gesture could do before
+};
+
+<CardGrid
+  rows={rows}
+  rowKey="id"
+  pageSize={8}
+  checkboxSelection
+  selectedKeys={keys}
+  onSelectionChange={setKeys}
+  selectionSummary={(keys, picked) => (
+    <Text size="sm" tone="muted">\${picked.reduce((a, p) => a + p.price, 0)}</Text>
+  )}
+  batchActions={[{ label: "Remove", danger: true, onClick: remove }]}
+  renderCard={ProductCard}
+/>`,
+    render: () => {
+      const Harness = () => {
+        const [keys, setKeys] = React.useState([]);
+        const [rows, setRows] = React.useState(() => DATA.slice(0, 12));
+        const remove = () => {
+          const gone = new Set(keys);
+          setRows((rs) => rs.filter((r) => !gone.has(r.id)));
+          setKeys([]);
+        };
+        return (
+          <div>
+            <Text size="sm" tone="muted" style={{ marginBottom: 8 }}>
+              The host holds {keys.length === 0 ? "no keys" : `[${keys.join(", ")}]`} — {rows.length} cards left.
+            </Text>
+            <CardGrid
+              rows={rows}
+              rowKey="id"
+              pageSize={8}
+              minChildWidth="12rem"
+              checkboxSelection
+              selectedKeys={keys}
+              onSelectionChange={setKeys}
+              selectionSummary={(ks, picked) => (
+                <Text size="sm" tone="muted">${picked.reduce((a, p) => a + p.price, 0)}</Text>
+              )}
+              batchActions={[{ label: "Remove", danger: true, onClick: remove }]}
+              renderCard={ProductCard}
+            />
+          </div>
+        );
+      };
+      return <Harness />;
+    },
+  },
 ];
 
 export default variations;

@@ -1,5 +1,32 @@
 import React from "react";
 import { useSx } from "../_sx.js";
+import { useScopedStyles } from "../_styles.js";
+
+// #543: the UA margin reset lives in a SCOPED STYLESHEET, not in the inline style object.
+//
+// An inline declaration beats every stylesheet rule whatever its specificity, so while this was
+// `marginBottom: 0` inline it could not be overridden by anything - not by a consumer's own CSS,
+// not by a className, and not by the library itself. FieldRow's fragment-cell lane (#531) is a
+// `margin-block-end` on the cell's lane-less child, and it is the library itself that was being
+// vetoed: a Text between two inputs in a range row sat one lane (24px) below its siblings' control
+// boxes on the wrapping path, with the computed margin reading 0px instead of the calc() the rule
+// asked for. Measured at 520px, 760px and at the default floor: 24px each time.
+//
+// As a rule at (0,1,0) it still beats base.css's own element reset in a tie and still loses to any
+// rule that means to move it - FieldRow's is (0,3,0) - so the lane lands and a consumer's CSS works
+// where it previously could not. Pre already did it this way; this is the in-house pattern, not a new one.
+//
+// ONLY THE MARGIN MOVES, and the rest is NOT all prop-derived - an earlier version of this comment
+// said it was, which overstated the fix. font-size (size), color (tone), font-weight (weight),
+// text-align (align) and the truncate/lineClamp block genuinely are prop values, which no shared
+// stylesheet can express. But font-family and line-height below are CONSTANTS that stay inline, and
+// they are as un-overridable by any stylesheet as the margin was - the same defect class. #543 fixed
+// the one case where the library vetoed ITSELF (FieldRow's lane); it did not close the class.
+// Widening it is a public-API decision rather than a cleanup, because moving a VISUAL constant
+// changes what third-party CSS can do to every Text on a page. Tracked separately.
+const TEXT_CSS = `
+.twc-text { margin: 0; }
+`;
 
 const TONE = {
   default: "--color-text",
@@ -41,6 +68,7 @@ export const Text = /*#__PURE__*/ React.forwardRef(function Text({
   ...rest
 }, ref) {
   const { flatStyle, styleNode, sxAttr } = useSx(sx);
+  const __twcStyles = useScopedStyles("twc-text-styles", TEXT_CSS);
   if (Tag === "a" && rest.href != null) rest.href = safeHref(rest.href);
   const toneToken = TONE[tone] || TONE.default;
   return (
@@ -49,10 +77,6 @@ export const Text = /*#__PURE__*/ React.forwardRef(function Text({
       className={`twc-text ${className}`.trim()}
       data-twc-sx={sxAttr}
       style={{
-        marginTop: 0,
-        marginRight: 0,
-        marginBottom: 0,
-        marginLeft: 0,
         fontFamily: "var(--font-sans)",
         lineHeight: 1.6,
         fontSize: `var(--text-${size})`,
@@ -69,6 +93,7 @@ export const Text = /*#__PURE__*/ React.forwardRef(function Text({
       }}
       {...rest}
     >
+      {__twcStyles}
       {styleNode}
       {children}
     </Tag>

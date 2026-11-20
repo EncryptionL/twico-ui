@@ -2,11 +2,13 @@
 
 - **Group:** inputs
 - **Status:** clean
-- **Reviewed:** 2026-11-16 (new in #508; reworked in #519-#521; footer band in #527)
+- **Reviewed:** 2026-11-20 (new in #508; reworked in #519-#521; footer band in #527; wrap path in
+  #530-#533; the 1.51.2 follow-ups in #536-#538)
 
 ## Open issues
 
-None identified.
+None identified. #543 — a fragment cell's child vetoing the lane with an inline margin — is fixed;
+see [#543 — the library was vetoing itself](#543--the-library-was-vetoing-itself) below.
 
 ## Why it exists
 
@@ -323,3 +325,210 @@ them:
 
 Each fix in this change was then validated by **disabling it and confirming the probe fails**:
 #530 → `[168, 168, 168]` returns, #531 → 24px × 3, #532 → 64px.
+
+---
+
+## #536 / #537 / #538 — what 1.51.2's three fixes left behind
+
+All three were reported against **1.51.2 as installed**, with measurements, and all three reproduced
+exactly on the first probe run. Two more came out of the same run that no issue had reported.
+
+Everything below is headless Chromium over SSR'd markup of the real components
+(`.work/probe/app4.jsx` + `measure4.mjs`), numbers rounded to 0.1px.
+
+| | reported | measured on 1.51.2 | after |
+| --- | --- | --- | --- |
+| **#536** a 12px word floored to `minChildWidth` | 2 lines, 190px, fields 256/520 | identical | **1 line, 91px, `[240, 24, 240]`** |
+| **#537** the fragment lane ignores `footerLines` | 0 / 18 / 36px at 1 / 2 / 3 | identical | **0 / 0 / 0px** |
+| **#538** `FRAG_NAT` off the #527 band | 18px @760, 72px @520 | 18px @760, **54px** @520 | **0px / 0px** |
+| *(found)* a word 24px low inside the cell, wrap | — | 24px, all three widths | **0px** — #543 |
+| *(found)* a word 40px out inside the cell, band | — | **40px** | **0px** |
+
+The 520px number for #538 differs from the report (54 vs 72px) only because the probe's error string
+wraps to a different number of lines; the quantity is `footerTrack − 24px` either way.
+
+### #536 — the floor's subject was `> *`
+
+#530's floor landed on **every** direct child of a qualifying fragment cell, not on the fields. The
+shape that exposes it is the range row, which is one of the commonest reasons to share a fragment:
+
+```jsx
+const Range = () => (<><Input label="from" /><Text size="sm">to</Text><Input label="to" /></>);
+<FieldRow gap={2} wrap minChildWidth="15rem"><Range /></FieldRow>
+```
+
+| build | `minChildWidth` | inner lines | cell height | child widths |
+| --- | --- | --- | --- | --- |
+| 1.51.1 | `15rem` | 1 | 91px | `[168, 168, 168]` |
+| 1.51.2 | `15rem` | **2** | **190px** | `[256, 256, 520]` |
+| **after** | `15rem` | 1 | 91px | `[240, 24, 240]` |
+| 1.51.2 | default | 1 | 91px | `[168, 168, 168]` |
+
+At the default `10rem` the three happened to fit, so the defect appeared **only** once
+`floor × children` passed the container width — i.e. exactly when someone set the prop because they
+needed it.
+
+**The second selector is load-bearing.** `> .twc-field` alone — the issue's first suggestion, and the
+obvious reading — would take the floor off a field behind a `Tooltip`'s span or a host `div`, because
+*that wrapper* is the flex item. Measured both ways:
+
+| case | `> *` (1.51.2) | `> .twc-field` only | `> .twc-field, > :has(> .twc-field)` |
+| --- | --- | --- | --- |
+| `Input / Text / Input` | 2 lines ✗ | 1 line ✓ | **1 line ✓** |
+| `Input / Tooltip(Input) / Input` | 2 lines ✓ | 1 line, middle field squashed ✗ | **2 lines ✓** |
+| `Input / div(Input) / Input` | 2 lines ✓ | 1 line, middle field squashed ✗ | **2 lines ✓** |
+
+Two lines is the *right* answer for the last two: three real fields at a 240px floor do not fit in
+520px, and breaking is what #530 exists to do. Which is why the probe's assertion is on the computed
+`min-inline-size` per child, not on a line count — a line count would have passed the squash.
+
+The two #530 rules also now read **one shared constant** (`FRAG_WRAP`). They have to be gated
+identically — a floor without the matching `flex-wrap` makes the cell's min-content wider than the
+row and it overflows horizontally instead of breaking, strictly worse than the squash it replaces —
+and #536 *was* the second copy being wrong.
+
+### #537 — a fragment cell has TWO lanes, and neither scaled
+
+The reported half is the margin #531 added. Fixing only that moved the misalignment rather than
+removing it, from "cell vs row" to "sibling vs sibling inside the cell", still 36px: the `::after`
+that a fragment cell's **field** children draw was also a constant one line, while the row track and
+the cell lane both read `--twc-fieldrow-footer-lines`.
+
+| `footerLines` | 1.51.2 | margin fixed only | both fixed |
+| --- | --- | --- | --- |
+| 1 | 0px | 0px | 0px |
+| 2 | 18px | 0px (band) | 0px |
+| 3 | 36px | **36px** (wrap) | **0px** |
+
+Four places reserve footer space, and a test now pins that all four read the same variable. The
+band-path numbers are fixed by **#538**, not by the multiplier — after the cell is placed by
+`grid-row` it uses no lane at all — which is why the margin is now scoped to the wrap path. Leaving
+it unscoped would lift a row-2 item straight back out of the band.
+
+### #538 — `FRAG_NAT` had been traded off the band by #533
+
+Once a fragment cell answered `FRAG_NAT` it was placed by `display: flex; grid-row: 1 / -1;
+align-self: end` — spanning all three tracks and bottom-aligned, carrying only its own 24px lane,
+while the row's footer track grew to the tallest footer in the row. The error is `footerTrack − 24px`
+and it needs a footer *somewhere else* in the row to appear:
+
+| case | 1.51.2 | after |
+| --- | --- | --- |
+| 760px, sibling's error wraps to 3 lines | 18px | **0px** |
+| 520px, same | 54px | **0px** |
+| 760px, no footer anywhere | 0px | 0px |
+| 760px, *clean* Checkbox + wrapping sibling | 18px | **0px** |
+| 760px, Button instead of Checkbox | 18px | **0px** |
+| 760px, Button as a **direct** child (the #508 baseline) | 0px | 0px |
+
+#533 did not cause this; it *widened* `FRAG_NAT` to depth ≤ 2, which moved the errored-Checkbox cell
+into this class **out of** `FRAG_FIELDS`, where it had been on the band. So #533 bought a horizontal
+guarantee with #527's headline vertical one.
+
+**It did not have to choose.** The only thing `display: flex` was buying was column sizing:
+`FRAG_FIELDS` uses `minmax(0, 1fr)`, which sizes every implicit column alike and would stop the
+natural child hugging. `auto` tracks with `justify-content: start` are content-sized instead — and
+that is the width flex already resolved to, because the cell's own row column is flipped to `auto`
+by `BAND_COLS` for exactly this cell, so the track is its max-content either way:
+
+| | flex (1.51.2) | `auto` tracks |
+| --- | --- | --- |
+| `Input` + `Checkbox` in a 297.4px cell | 189 + 100.4 | **189 + 100.4** |
+
+So the cell keeps `CELL`'s subgrid and its `1 / -1` span, and the whole placement vocabulary a
+single-child cell already had is **mirrored onto a fragment cell**: the subgrid chain, both
+undecomposable fallbacks, the nested-wrapping-row arm, and the control-band arm. A fragment cell is
+now a cell whose children are each placed exactly as a solo cell's single child is, flowed into
+columns instead of occupying the one column.
+
+That mirror is what fixed the 40px case nobody reported: a non-wrapping range row's `Text` matched
+**no** placement rule, so it auto-placed into row 1 — the label track — exactly as #532's nested
+wrapping row did.
+
+### #543 — the library was vetoing itself
+
+`Text` and `Heading` reset their UA margins with an **inline style**, and an inline declaration
+beats every stylesheet rule whatever its specificity. So #531's margin-based lane could not reach
+them and such a child sat one lane (24px) low — on the **wrap** path only, measured at 24px across
+all three widths. The band path was already 0px, because since #538 it places the child with
+`grid-row` and *layout* cannot be vetoed by a margin.
+
+Not a regression: 1.51.1 had the same 24px, from the child getting no margin at all. #531 narrowed
+the family to "children that reset their own margin inline" rather than closing it.
+
+**No mechanism inside FieldRow closes it**, which is why the fix is elsewhere. Every alternative
+fails on a different child, and the reason is that the lane has to do two jobs at once — reserve the
+cell's height *and* lift the child's content — and only three properties do both:
+
+| mechanism | works for | breaks |
+| --- | --- | --- |
+| `margin-block-end` | `Button`, `Checkbox`, `Badge`, a host `div` | anything with an inline margin reset |
+| `padding-block-end` | `Text` | `Button` — padding is part of its box, so it grows |
+| `::after { display: block }` | `Text` | `Button` — flex items are blockified, so it lands *inside* |
+| `border-block-end: … transparent` | `Text` | `Button` — overrides its real bottom border |
+| `position: relative` + `inset-block-end` | both, visually | reserves no height, so a cell of only lane-less children loses the lane entirely |
+
+Picking per child needs the open-ended "every wrapper a host might write" list that
+`NATURAL_ROOTS`' polarity exists to avoid.
+
+**So the reset moved into each component's own scoped stylesheet.** `Pre` already did it that way
+(`.twc-pre { margin: 0; … }`), so this is the in-house pattern rather than a new one, and
+`base.css` already carries `p { margin: 0 }` and `h1, h2, … { margin: 0 }` — which means the inline
+copies were redundant for every consumer who imports `twico-ui/styles.css`, i.e. everyone, since
+without it there are no tokens either. A scoped rule rather than relying on `base.css` keeps each
+component self-contained (§5).
+
+At `(0,1,0)` the reset still wins a tie against the element reset and still loses to any rule that
+*means* to move it — FieldRow's lane is `(0,3,0)` — so the lane lands.
+
+Two things an adversarial review corrected about how this was first written up, both recorded in
+`docs/qa-notes/Text.md`:
+
+- **"Everything else left inline carries prop values" is false.** `Text` keeps two constants inline
+  (`font-family`, `line-height`) and `Heading` keeps five (`font-family`, `font-weight`, `color`,
+  `line-height`, `letter-spacing`), and `Heading` has no `tone`/`color`/`weight` prop at all. Those
+  seven are as un-overridable as the margin was. #543 fixed the case where the library vetoed
+  *itself*; it did not close the class.
+- **"A consumer's own CSS now works" cuts both ways at `(0,1,0)`.** React inserts a hoisted sheet at
+  `head.firstChild`, ahead of the app's own CSS, so at equal specificity the consumer wins on source
+  order — including third-party rules written with no knowledge of twico, such as
+  `@tailwindcss/typography`'s `.prose :where(p)`, which is `(0,1,0)` because `:where()` scores zero.
+  Whether the reset should hold that tie at `(0,2,0)` is an open decision, not a defect — **#547**.
+
+| | before | after |
+| --- | --- | --- |
+| 520px, `minChildWidth="15rem"` | 24px | **0px** |
+| 760px, same | 24px | **0px** |
+| 520px, default floor | 24px | **0px** |
+| 760px, no `wrap` (band) | 0px | 0px |
+
+The probe's `#543` block is now **asserted on both paths**, where it used to be
+printed-but-tolerated on the wrap one. Validated by reverting a single inline `marginBottom: 0` in
+`Text`: all three wrap cases return to 24px and the band case stays at 0px, which is also the proof
+that the band path never depended on the margin.
+
+A `<style>` element is metadata content and `<p>` accepts only phrasing content, so an always-on
+style child would have been invalid HTML. It is not one: on React 19 `useScopedStyles` returns a
+hoistable `<style href precedence>` that React lifts to `<head>` — in the SSR stream too — and on
+React 18 it returns `null` and injects imperatively. A test asserts the element carries no `<style>`
+child and that the rule reaches `<head>` exactly once across three instances.
+
+### Validated by disabling each fix
+
+| disabled | what returns |
+| --- | --- |
+| #536's floor subject | `range-520` back to `min(100%, 240px)` on the word, 2 lines, 190px |
+| #537's margin multiplier | `fl3-wrap-760` back to 36px |
+| #537's `::after` multiplier | `fl3-wrap-760` back to 36px — both halves have to move together |
+| #538's `auto` tracks | 42 / 78 / 24 / 42 / 42px across the five cases |
+
+The #538 row is worth reading twice: with #537's margin fixed but #538 reverted, the *no-footer*
+case goes from 0px to 24px. The three changes are one coupled change, and #537 alone would have
+regressed a case that was previously correct.
+
+### Regression suite
+
+The 28-case `#530`–`#533` probe (`app3.jsx`) runs **0 problems** throughout, with its headline
+numbers unmoved: 520px wrap `[256, 256, 520]` matching the hand-laid baseline, 760px
+`[248, 248, 248]`, 360px `[360, 360, 360]`, fragment+Button `[146.5, 146.5, 69.5]`, and the #533
+invariant at 100.4px clean and errored.

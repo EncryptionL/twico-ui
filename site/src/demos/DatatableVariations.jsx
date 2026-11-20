@@ -1548,6 +1548,131 @@ const columns = [
       );
     },
   },
+  {
+    title: "Rows that cannot be selected",
+    description:
+      "checkboxSelection is one boolean for the whole grid, so a grid whose rows are not uniformly actionable had no way to say so — a suspended account got a checkbox identical to an active one, and the only place left to notice was the batch action, after the click. isRowSelectable (#540) is evaluated where the checkbox is rendered: a row returning false renders a disabled box, is skipped by select-all, and never enters the selection batchActions and selectionSummary receive. So the count is already true — press Select all and it says 'suspended' nowhere. rowSelectionDisabledReason carries the why, by the same argument disabledReason makes for a batch button.",
+    code: `<Datatable
+  columns={cols}
+  rows={people}
+  rowKey={(r) => r.id}
+  checkboxSelection
+  isRowSelectable={(r) => r.status !== "suspended"}
+  rowSelectionDisabledReason={(r) => \`\${r.name}'s account is suspended — nothing to act on.\`}
+  batchActions={[{ label: "Send invite", onClick: (keys) => alert(keys.length + " invites") }]}
+  selectionSummary={(keys) => <Text size="sm" tone="muted">{keys.length} selectable</Text>}
+  height={320}
+/>`,
+    render: () => {
+      const rows = makePeople(10).map((r, i) => (i % 3 === 1 ? { ...r, status: "suspended" } : r));
+      return (
+        <Datatable
+          columns={[
+            { field: "name", header: "Name", minWidth: 160 },
+            { field: "role", header: "Role", width: 120 },
+            {
+              field: "status", header: "Status", width: 120,
+              renderCell: (v) => <Badge tone={STATUS_TONE[v]} size="sm">{v}</Badge>,
+            },
+          ]}
+          rows={rows}
+          rowKey={(r) => r.id}
+          checkboxSelection
+          isRowSelectable={(r) => r.status !== "suspended"}
+          rowSelectionDisabledReason={(r) => `${r.name}'s account is suspended — nothing to act on.`}
+          batchActions={[{ label: "Send invite", onClick: () => {} }]}
+          selectionSummary={(keys) => <Text size="sm" tone="muted">{keys.length} selectable</Text>}
+          height={320}
+        />
+      );
+    },
+  },
+  {
+    title: "A selection the host owns",
+    description:
+      "selectedKeys + onSelectionChange (#541), the same uncontrolled/controlled split page/onPageChange has. Without it the grid owned the selection and the host could only CLEAR it, from inside a batch action's onClick — so an ordinary rows refresh left ticked keys with no row to untick them from, and the toolbar said '3 selected' with two rows on screen. Press Remove below: it drops the row AND prunes its key, which is only possible because the selection is a prop. onRowSelectionChange still fires as the observation hook it has always been.",
+    code: `const [keys, setKeys] = React.useState([]);
+const [rows, setRows] = React.useState(people);
+
+const remove = () => {
+  const gone = new Set(keys);
+  setRows((rs) => rs.filter((r) => !gone.has(r.id)));
+  setKeys([]);                      // prune, which no gesture could do before
+};
+
+<Datatable
+  columns={cols}
+  rows={rows}
+  rowKey={(r) => r.id}
+  checkboxSelection
+  selectedKeys={keys}
+  onSelectionChange={setKeys}
+  batchActions={[{ label: "Remove", danger: true, onClick: remove }]}
+  height={320}
+/>`,
+    render: () => {
+      const Harness = () => {
+        const [keys, setKeys] = React.useState([]);
+        const [rows, setRows] = React.useState(() => makePeople(8));
+        const remove = () => {
+          const gone = new Set(keys);
+          setRows((rs) => rs.filter((r) => !gone.has(r.id)));
+          setKeys([]);
+        };
+        return (
+          <div>
+            <Text size="sm" tone="muted" style={{ marginBottom: 8 }}>
+              The host holds {keys.length === 0 ? "no keys" : `[${keys.join(", ")}]`} — {rows.length} rows left.
+            </Text>
+            <Datatable
+              columns={[
+                { field: "name", header: "Name", minWidth: 160 },
+                { field: "role", header: "Role", width: 120 },
+                { field: "department", header: "Department", width: 150 },
+              ]}
+              rows={rows}
+              rowKey={(r) => r.id}
+              checkboxSelection
+              selectedKeys={keys}
+              onSelectionChange={setKeys}
+              batchActions={[{ label: "Remove", danger: true, onClick: remove }]}
+              height={320}
+            />
+          </div>
+        );
+      };
+      return <Harness />;
+    },
+  },
+  {
+    title: "Drag a row taller, and keep it",
+    description:
+      "rowResize was the one user resize that did not survive a reload (#542): the height lived in a map that never left the component, while columnWidths, filterPanelSize and the rest all round-trip through DatatableState. It now does — and by default the drag sets ONE height for every row, because a row key is a record id and a per-row map grows an entry for every row anyone has ever dragged, with no bound. One number is bounded, survives paging, and applies to rows you have never scrolled to: it is density with a continuous scale. Pass rowResize=\"row\" for the per-row gesture, and persistRowHeights if your storage can take the map.",
+    code: `<Datatable
+  columns={cols}
+  rows={people}
+  rowKey={(r) => r.id}
+  checkboxSelection
+  rowResize                 // "row" for the per-row gesture
+  stateKey="demo-rows"      // the height comes back on reload
+  onRowResize={(h) => console.log("every row is now", h, "px")}
+  height={320}
+/>`,
+    render: () => (
+      <Datatable
+        columns={[
+          { field: "name", header: "Name", minWidth: 160 },
+          { field: "email", header: "Email", minWidth: 200, wrapText: true },
+          { field: "department", header: "Department", width: 150 },
+        ]}
+        rows={makePeople(8)}
+        rowKey={(r) => r.id}
+        checkboxSelection
+        rowResize
+        height={320}
+      />
+    ),
+  },
 ];
 
 export default variations;

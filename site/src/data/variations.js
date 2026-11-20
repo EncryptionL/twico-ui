@@ -322,6 +322,11 @@ export const VARIATIONS = [
     "i": 5
   },
   {
+    "component": "CardGrid",
+    "title": "A selection the host owns",
+    "i": 6
+  },
+  {
     "component": "Card",
     "title": "Variants",
     "i": 0
@@ -747,6 +752,21 @@ export const VARIATIONS = [
     "i": 19
   },
   {
+    "component": "Datatable",
+    "title": "Rows that cannot be selected",
+    "i": 20
+  },
+  {
+    "component": "Datatable",
+    "title": "A selection the host owns",
+    "i": 21
+  },
+  {
+    "component": "Datatable",
+    "title": "Drag a row taller, and keep it",
+    "i": 22
+  },
+  {
     "component": "DatePicker",
     "title": "With label",
     "i": 0
@@ -1055,6 +1075,21 @@ export const VARIATIONS = [
     "component": "FieldRow",
     "title": "The per-field escape hatch",
     "i": 12
+  },
+  {
+    "component": "FieldRow",
+    "title": "A range row — a word between two fields",
+    "i": 13
+  },
+  {
+    "component": "FieldRow",
+    "title": "footerLines reaches a shared group too",
+    "i": 14
+  },
+  {
+    "component": "FieldRow",
+    "title": "A shared group stays on the band when a sibling's footer wraps",
+    "i": 15
   },
   {
     "component": "Field",
