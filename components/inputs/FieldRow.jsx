@@ -210,10 +210,14 @@ const FIELDROW_CSS = `
    default, so nothing moves for anyone not passing the prop.
    WRAP-ONLY, which it was not before. On the band path #538 now places these children in the
    control track by grid-row, and a bottom margin on a row-2 item pinned with align-self:end lifts
-   it straight back out of the band. A margin is also the one mechanism a CHILD can veto: Text and
-   Heading reset their margins with an INLINE style, which beats any stylesheet rule, so the lane
-   never reaches them here. That is the wrap path's own limitation (#543) - on the band path, where
-   placement is layout rather than offset, it cannot arise. */
+   it straight back out of the band.
+   A margin is the one lane mechanism a CHILD can veto, and Text and Heading used to: they reset
+   their UA margins with an INLINE style, which beats every stylesheet rule whatever its
+   specificity, so this calc() never reached them and a word between two inputs sat 24px low with
+   its computed margin reading 0px. #543 moved those resets into each component's own scoped
+   stylesheet - .twc-text / .twc-heading at (0,1,0), against this rule's (0,3,0) - so the lane
+   lands. Keep this selector at three classes or more, and keep those resets a single class: the
+   two halves have to stay on opposite sides of that comparison. */
 :where(.twc-fieldrow[data-wrap="true"]) > .twc-fieldrow__cell:has(> * + *) > *:not(.twc-field):not(:has(.twc-field__footer, .twc-field__hint, .twc-field__error, .twc-fieldrow, [data-reserve-footer])) {
   margin-block-end: calc(var(--space-1-5) + var(--twc-fieldrow-footer-lines, 1) * var(--text-xs) * var(--leading-normal, 1.5)); }
 

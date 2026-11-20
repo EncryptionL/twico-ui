@@ -7,10 +7,8 @@
 
 ## Open issues
 
-- **#543** — a fragment cell's child that resets its own margin with an **inline** style (`Text`,
-  `Heading`) cannot be given the margin-based lane, so on the **wrapping** path it sits one lane
-  (24px) low. Not a regression — 1.51.1 had the same 24px — and the band path is 0px. The fix belongs
-  in the three typography components, not here; see the #536-#538 section below.
+None identified. #543 — a fragment cell's child vetoing the lane with an inline margin — is fixed;
+see [#543 — the library was vetoing itself](#543--the-library-was-vetoing-itself) below.
 
 ## Why it exists
 
@@ -343,7 +341,7 @@ Everything below is headless Chromium over SSR'd markup of the real components
 | **#536** a 12px word floored to `minChildWidth` | 2 lines, 190px, fields 256/520 | identical | **1 line, 91px, `[240, 24, 240]`** |
 | **#537** the fragment lane ignores `footerLines` | 0 / 18 / 36px at 1 / 2 / 3 | identical | **0 / 0 / 0px** |
 | **#538** `FRAG_NAT` off the #527 band | 18px @760, 72px @520 | 18px @760, **54px** @520 | **0px / 0px** |
-| *(found)* a word 24px low inside the cell, wrap | — | 24px, all three widths | 24px — **#543** |
+| *(found)* a word 24px low inside the cell, wrap | — | 24px, all three widths | **0px** — #543 |
 | *(found)* a word 40px out inside the cell, band | — | **40px** | **0px** |
 
 The 520px number for #538 differs from the report (54 vs 72px) only because the probe's error string
@@ -447,24 +445,62 @@ That mirror is what fixed the 40px case nobody reported: a non-wrapping range ro
 **no** placement rule, so it auto-placed into row 1 — the label track — exactly as #532's nested
 wrapping row did.
 
-### The one still open: #543
+### #543 — the library was vetoing itself
 
-`Text` and `Heading` reset their margins with an **inline style**, which beats any stylesheet rule
-whatever its specificity. So #531's margin-based lane cannot reach them, and such a child sits one
-lane (24px) low — on the **wrap** path only, measured at 24px across all three widths. The band path
-is 0px, because since #538 it places the child with `grid-row` and layout cannot be vetoed by an
-inline margin.
+`Text` and `Heading` reset their UA margins with an **inline style**, and an inline declaration
+beats every stylesheet rule whatever its specificity. So #531's margin-based lane could not reach
+them and such a child sat one lane (24px) low — on the **wrap** path only, measured at 24px across
+all three widths. The band path was already 0px, because since #538 it places the child with
+`grid-row` and *layout* cannot be vetoed by a margin.
 
-It is not a regression: 1.51.1 had the same 24px, from the child getting no margin at all. #531
-narrowed the family to "children that reset their own margin inline" rather than closing it. Every
-alternative mechanism inside FieldRow fails on a different child — `padding` grows a Button,
-`::after { display: block }` becomes a flex item inside one, `border-block-end` overrides its real
-border, `position: relative` reserves no height — so the fix belongs in the three typography
-components, and #543 carries the analysis.
+Not a regression: 1.51.1 had the same 24px, from the child getting no margin at all. #531 narrowed
+the family to "children that reset their own margin inline" rather than closing it.
 
-The probe prints that spread in a labelled `#543 (known, wrap path only)` section rather than
-asserting it, so its size stays visible and it cannot be mistaken for one of these three failing.
-The band-path case in the same block **is** asserted at 0px.
+**No mechanism inside FieldRow closes it**, which is why the fix is elsewhere. Every alternative
+fails on a different child, and the reason is that the lane has to do two jobs at once — reserve the
+cell's height *and* lift the child's content — and only three properties do both:
+
+| mechanism | works for | breaks |
+| --- | --- | --- |
+| `margin-block-end` | `Button`, `Checkbox`, `Badge`, a host `div` | anything with an inline margin reset |
+| `padding-block-end` | `Text` | `Button` — padding is part of its box, so it grows |
+| `::after { display: block }` | `Text` | `Button` — flex items are blockified, so it lands *inside* |
+| `border-block-end: … transparent` | `Text` | `Button` — overrides its real bottom border |
+| `position: relative` + `inset-block-end` | both, visually | reserves no height, so a cell of only lane-less children loses the lane entirely |
+
+Picking per child needs the open-ended "every wrapper a host might write" list that
+`NATURAL_ROOTS`' polarity exists to avoid.
+
+**So the reset moved into each component's own scoped stylesheet.** `Pre` already did it that way
+(`.twc-pre { margin: 0; … }`), so this is the in-house pattern rather than a new one, and
+`base.css` already carries `p { margin: 0 }` and `h1, h2, … { margin: 0 }` — which means the inline
+copies were redundant for every consumer who imports `twico-ui/styles.css`, i.e. everyone, since
+without it there are no tokens either. A scoped rule rather than relying on `base.css` keeps each
+component self-contained (§5).
+
+At `(0,1,0)` the reset still wins a tie against the element reset and still loses to any rule that
+*means* to move it — FieldRow's lane is `(0,3,0)` — so the lane lands, and a consumer's own CSS now
+works where before it could not. Everything else in those two components stays inline on purpose:
+those declarations carry **prop values** (size, tone, weight, align, truncate), which no shared
+stylesheet can express. Only the constant moved.
+
+| | before | after |
+| --- | --- | --- |
+| 520px, `minChildWidth="15rem"` | 24px | **0px** |
+| 760px, same | 24px | **0px** |
+| 520px, default floor | 24px | **0px** |
+| 760px, no `wrap` (band) | 0px | 0px |
+
+The probe's `#543` block is now **asserted on both paths**, where it used to be
+printed-but-tolerated on the wrap one. Validated by reverting a single inline `marginBottom: 0` in
+`Text`: all three wrap cases return to 24px and the band case stays at 0px, which is also the proof
+that the band path never depended on the margin.
+
+A `<style>` element is metadata content and `<p>` accepts only phrasing content, so an always-on
+style child would have been invalid HTML. It is not one: on React 19 `useScopedStyles` returns a
+hoistable `<style href precedence>` that React lifts to `<head>` — in the SSR stream too — and on
+React 18 it returns `null` and injects imperatively. A test asserts the element carries no `<style>`
+child and that the rule reaches `<head>` exactly once across three instances.
 
 ### Validated by disabling each fix
 

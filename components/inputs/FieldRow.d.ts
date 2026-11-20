@@ -145,10 +145,12 @@ export interface FieldRowProps extends React.HTMLAttributes<HTMLDivElement> {
    * **sibling's** wrapping footer moved the row's footer track without moving it — 18px out at
    * 760px, 54px at 520px, and 0px only when nothing in the row had a footer.
    *
-   * One case remains on the **wrapping** path: a child that resets its own margin with an inline
-   * style (`Text`, `Heading`) cannot be given a margin-based lane by any stylesheet rule, so it
-   * sits one lane low. See #543 — the band path is unaffected, because placement is layout rather
-   * than an offset.
+   * A child can no longer veto that lane (#543). `Text` and `Heading` reset their UA margins with
+   * an **inline** style, which beats every stylesheet rule whatever its specificity, so a word
+   * between two inputs in a range row sat one lane low on the wrapping path — 24px, with its
+   * computed margin reading `0px` instead of the `calc()`. Those resets are now scoped stylesheet
+   * rules at `(0,1,0)`, and the lane is `(0,3,0)`. The band path never had the problem, because
+   * placement is layout rather than an offset.
    */
   footerLines?: number;
 }
