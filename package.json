@@ -64,6 +64,7 @@
       }
     },
     "./styles.css": "./styles/twico-ui.css",
+    "./styles.min.css": "./styles/twico-ui.min.css",
     "./package.json": "./package.json"
   },
   "files": [

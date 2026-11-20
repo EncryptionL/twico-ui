@@ -81,6 +81,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
 ### SSR / hydration notes
 
+- Two copies of that stylesheet ship. `twico-ui/styles.css` (29 kB) keeps its comments — contrast ratios, which aliases to remap to re-skin — and is the file to open when theming. `twico-ui/styles.min.css` (13 kB, 2.99 kB brotli) is the same rules with the comments and whitespace gone; swap the import for it in production. Both are generated from the same sources by one build step, so they can never disagree.
 - Components are **SSR-safe** — nothing touches `window`/`document` during render; all browser access is inside effects and event handlers.
 - The global stylesheet (`twico-ui/styles.css`) provides the design tokens, base reset, and self-hosted fonts at first paint. Each component also injects its own scoped CSS on mount, so styles settle immediately after hydration.
 - Overlays (Menu, Popover, Select, CommandPalette, Drawer, Dialog) render through React **portals** to `document.body` only while open, so they never run on the server.
