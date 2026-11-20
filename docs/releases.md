@@ -95,6 +95,21 @@ Conventional Commits in that release — **never edit them by hand**:
 
 The docs website links to the changelog from its header ("Changelog").
 
+### Write issue numbers in a commit BODY carefully
+
+`conventional-changelog` harvests **every** `#NNN` in a commit message as a closes-reference, not
+just the ones after a `Closes`/`Fixes` keyword — and it renders each as a link in the changelog
+entry. A commit body that explains itself by citing prior issues therefore produces a long
+`closes [#536] [#530] [#537] …` tail with duplicates, and a range written as a bare
+hyphenated pair is parsed as one malformed reference: `#530-#533` became
+`https://github.com/530-/issues/533`. Both happened in 1.52.0 — the entry is accurate and the real
+links resolve, but it is noisy.
+
+It is cosmetic, and `CHANGELOG.md` must not be hand-edited to fix it (it is regenerated, and
+correcting it would mean a push to `main`). Avoid it at the source instead: in a commit **body**,
+name past work as "issue 530" rather than with a bare hash, and keep the hash form for the real
+`Closes` footers — one per issue, since a comma-separated `Closes #a, #b` only closes the first.
+
 ## Configuration
 
 - `.releaserc.json` — plugins: commit-analyzer, release-notes-generator, changelog, npm, github, git.
