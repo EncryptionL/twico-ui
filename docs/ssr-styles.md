@@ -29,10 +29,22 @@ React hydrated and the effect ran. Verified: a production SSR render of a page c
   `hydrateRoot` — hydration is clean either way, and the rule works from `<body>`, but
   `root.firstElementChild` is then the `<style>`. Measured on React 19.2.7.
 
-  Being first in `<head>` matters for ties: at **equal specificity the later rule wins**, so a
-  consumer rule that matches a twico selector at the same specificity beats these sheets on source
-  order alone. That is intended for component CSS, and it is the open question on the #543 typography
-  reset — see `docs/qa-notes/Text.md`.
+  **Where it lands decides ties, so a tie is render-mode dependent.** At equal specificity the later
+  rule wins. A consumer rule in `<head>` therefore *beats* a sheet hoisted to `head.firstChild`
+  (full-document/client render) and *loses* to the same sheet emitted into `<body>` (fragment
+  render). Measured both ways with a Tailwind-Typography-shaped `(0,1,0)` selector against
+  `.twc-text`:
+
+  | library bracket | sheet in `<head>` first | sheet at the start of `<body>` |
+  | --- | --- | --- |
+  | `(0,1,0)` | consumer wins | **library wins** |
+  | `(0,2,0)` | library wins | library wins |
+
+  This affects **every** scoped sheet in the library equally — it is React's hoisting, not a property
+  of any one component — and it is why the #547 typography decision landed on `(0,1,0)` with the
+  caveat documented rather than on a doubled class: a consumer who needs a tie settled should
+  out-specify by one step (`(0,1,1)` is enough) rather than rely on order. See
+  `docs/qa-notes/Text.md` for the full table.
 - **React 18** — falls back to the original client-only `useInsertionEffect` injection (deduped by
   element id) and returns `null`. No SSR styles, but **no regression** for React 18 consumers.
 

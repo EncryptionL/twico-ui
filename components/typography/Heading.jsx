@@ -26,7 +26,9 @@ import { useScopedStyles } from "../_styles.js";
 // rather than a cleanup, because moving a VISUAL constant changes what third-party CSS can do to
 // every Heading on a page. Tracked separately.
 const HEADING_CSS = `
-.twc-heading { margin: 0; }
+.twc-heading { margin: 0; font-weight: var(--font-bold);
+  color: var(--color-text); line-height: var(--leading-tight, 1.2);
+  letter-spacing: var(--tracking-heading, -0.02em); }
 `;
 
 const LEVEL_SIZE = { 1: "4xl", 2: "2xl", 3: "xl", 4: "lg", 5: "base", 6: "sm" };
@@ -65,11 +67,6 @@ export const Heading = /*#__PURE__*/ React.forwardRef(function Heading({
       className={`twc-heading ${className}`.trim()}
       data-twc-sx={sxAttr}
       style={{
-        fontFamily: "var(--font-sans)",
-        fontWeight: "var(--font-bold)",
-        color: "var(--color-text)",
-        lineHeight: 1.2,
-        letterSpacing: "-0.02em",
         fontSize: `var(--text-${sz})`,
         textAlign: align,
         ...(lineClamp != null

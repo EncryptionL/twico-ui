@@ -134,6 +134,9 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
   **includes in the SSR stream — no FOUC**; on **React 18** it falls back to the old client-only
   `useInsertionEffect` injection (no regression). The `<style>` is rendered as a child of the
   component's root; some related components share one id (the input family shares `twc-field-styles`).
+  `Text` and `Heading` gained `twc-text-styles` / `twc-heading-styles` in #543/#547: their base
+  styles used to be an inline `style` object, which beats every stylesheet rule and so vetoed the
+  library's own FieldRow lane. Only **prop-derived** declarations are inline now.
   Everything is styled through CSS custom properties (`--color-*`, `--radius-*`, `--ease-*`, …).
   Class names use a `twc-` BEM-ish prefix; **variants/states are `data-*` attributes**, not
   class toggles. No CSS-in-JS libs, no npm deps.

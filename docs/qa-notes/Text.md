@@ -87,18 +87,119 @@ band path stays at 0px — which is also the proof that the band path never depe
 unchanged, and no component in this library renders `Text`, so the exposure is consumer-side and
 only for `as={Component}` *plus* children introspection. Measured on react 19.2.7.
 
-## Open, from the adversarial review of #543 — tracked as #547
+## #547 — the class is closed, at (0,1,0)
 
-Two decisions this change surfaced and deliberately did not take, because both are about what
-third-party CSS may do to every `Text` on a page rather than about the bug:
+#543 moved the **margin** reset out of the inline style object. #547 moved the rest: all seven
+constants across `Text` and `Heading` now live in each component's own scoped stylesheet, and the
+style attribute carries **only prop-derived declarations**.
 
-1. **The remaining inline constants** (the table above). Same defect class, not closed.
-2. **The `(0,1,0)` tie.** React inserts a hoisted sheet at `head.firstChild`, *ahead of* the app's
-   own CSS, and at equal specificity the later rule wins — so a consumer rule that merely *reaches*
-   `(0,1,0)` now beats the reset on source order, with no need to out-specify it. That includes rules
-   written with no knowledge of twico: `@tailwindcss/typography` emits
-   `.prose :where(p):not(…) { margin-top: 1.25em; margin-bottom: 1.25em }`, which is `(0,1,0)`
-   because `:where()` scores zero. Before #543 the inline reset beat it unconditionally; now
-   `.prose` wins. `.twc-text.twc-text { margin: 0 }` at `(0,2,0)` would hold that tie while still
-   losing to FieldRow's `(0,3,0)` lane — the exact bracket — but which side of that is *correct* is a
-   judgement about the library's posture toward consumer CSS, not a defect.
+| | before #547 | after |
+| --- | --- | --- |
+| `Text` inline | `color`, `font-family`, `font-size`, `line-height` | `color` (`tone`), `font-size` (`size`) |
+| `Heading` inline | `color`, `font-family`, `font-size`, `font-weight`, `letter-spacing`, `line-height` | `font-size` (`level`/`size`/`display`) |
+
+Every remaining inline declaration demonstrably follows a prop — asserted, not asserted-about.
+`...style` is still spread last, so the `style` prop escape hatch is unchanged.
+
+**Values did not change.** Measured, not claimed: 29 typography shapes — the default, every
+polymorphic `as`, every prop that sat beside a moved constant, nested `Text`, the `style`-prop
+override, and both inside a consumer wrapper class — rendered from the published 1.52.0 bundle and
+from this one and compared computed-style for computed-style across 17 properties plus box size.
+**0 differing.**
+
+### Why (0,1,0) and not a doubled class
+
+A four-position judge panel ranked `(0,1,0)` first, and the deciding evidence was a measurement
+rather than specificity arithmetic. At equal specificity the later rule wins, and **React puts a
+hoisted sheet in a different place depending on how the app renders** — `head.firstChild` for a
+full-document render or a client render, the start of `<body>` for a fragment `renderToString`. So
+the lowest consumer specificity that overrides *deterministically*, in both arrangements:
+
+| library bracket | consumer (0,0,1) | (0,1,0) | (0,1,1) | (0,2,0) | (0,2,1) |
+| --- | --- | --- | --- | --- | --- |
+| **(0,1,0)** `.twc-text` | never | **depends on render mode** | **always** | always | always |
+| (0,2,0) `.twc-text.twc-text` | never | never | never | depends | **always** |
+
+`(0,2,0)` would mean a consumer cannot override with ordinary CSS at all — `.prose p` *never* wins —
+which trades "unoverridable by anything" for "unoverridable by anything reasonable" and recreates
+the #543 defect one specificity step up. `(0,1,0)` lets the normal form work deterministically.
+
+Both brackets keep criterion 1: FieldRow's fragment-cell lane at `(0,3,0)` wins either way
+(measured, `margin-bottom: 24px`).
+
+### Three things the panel changed about the shape
+
+- **`font-family` is deleted, not relocated.** `base.css` sets it on `body`, so it reaches every
+  `as` tag by **inheritance** — and an inherited value loses to *any* matching rule, where a class
+  rule at `(0,1,0)` blocks one. Measured: with the class rule a consumer's
+  `.content { font-family: Georgia }` is **blocked**; with it deleted, Georgia wins. With no
+  stylesheet loaded at all both are identical (`Times New Roman`), because an undefined `var()` is
+  invalid at computed-value time and `font-family` inherits regardless — so deletion costs nothing
+  even for a consumer who skips `twico-ui/styles.css`. All three judges named this as the best idea
+  in the panel, and it is the one place where *deleting* beats any bracket.
+- **Heading's `font-weight`, `color`, `line-height` and `letter-spacing` cannot be deleted**, even
+  though `base.css` sets them: it sets them on `h1..h6` **by tag**, and `Heading` is a class. A
+  `<Heading as="div">` or `as="p"` would lose them and render as body text. `as=` is the constraint,
+  and the library's own site ships `<Heading as=…>`.
+- **The `sx` promise is load-bearing on render order.** `docs/sx.md` promises nested `sx` rules beat
+  the component's own class rules. They are *also* `(0,1,0)` — `sx` scopes nested blocks to
+  `[data-twc-sx="uid"]`, and an attribute selector is class-grade — so the winner is source order
+  inside the shared `twc-ui` precedence group. The components render `{__twcStyles}` **before**
+  `{styleNode}`, which is what makes the promise true: measured, base-then-sx gives `line-height: 48px`
+  (sx wins) and sx-then-base gives `25.6px` (sx loses). A test pins that order, validated by swapping
+  the two nodes and watching it fail. Before #547 this did not arise for these properties, because an
+  inline declaration beat both sheets.
+
+### The honest caveat, corrected
+
+#547 originally stated that at `(0,1,0)` a consumer rule "now wins on source order". That is **only
+true for one of the two render modes** — the probe shows the library winning in a fragment render,
+because the sheet lands in `<body>`, after everything in `<head>`. So the `(0,1,0)` band is
+**render-mode dependent**, and that is a property of React's style hoisting shared by all of this
+library's scoped sheets, not something this component can fix. `@tailwindcss/typography` v0.5 wraps
+its generated element selectors in `:where()`, so *all* of its rules land in exactly that band.
+
+If a tie needs to be settled deterministically, the consumer should out-specify rather than rely on
+order: `(0,1,1)` is enough.
+
+### Why not @layer
+
+A layered rule loses to **any** unlayered author rule at any specificity and in any order, which
+would be maximally overridable and fully deterministic — the architecturally right answer. It is not
+available here: the library's own `base.css` is **unlayered**, so layering the component sheet hands
+`its leading` back to it. Measured on a default `<h2>`: unlayered keeps the component's `-0.02em`
+(`-0.48px`), `@layer` loses it to `base.css`'s `-0.015em` (`-0.36px`) — criterion 4 broken. Layering
+the whole shipped stylesheet is a real proposal, but it is a stylesheet-architecture change, not a
+typography fix.
+
+## #549 — the leading/tracking literals became role tokens
+
+While moving the constants it turned out two of them were **magic numbers that matched no step of
+the scale**:
+
+| | component | `base.css` applies to the element | token | |
+| --- | --- | --- | --- | --- |
+| `Text` line-height | `1.6` | `var(--leading-normal)` = 1.5 | between `normal` 1.5 and `relaxed` 1.65 | ✗ |
+| `Heading` letter-spacing | `-0.02em` | `var(--tracking-tight)` = -0.015em | between `tight` -0.015em and `tighter` -0.03em | ✗ |
+| `Heading` line-height | `1.2` | `var(--leading-tight)` = 1.2 | exactly `tight` | ✓ untokenised |
+
+So a `Text` and a bare `<p>` rendered at different leading, and a `Heading` and a bare `<h2>` at
+different tracking — measured `-0.48px` against `base.css`'s `-0.36px` on a default `<h2>` — for no
+stated reason, and a theme remapping `--leading-normal` or `--tracking-tight` silently failed to move
+either component.
+
+Fixed as **role tokens**, not by snapping to a step: `--leading-body: 1.6` and
+`--tracking-heading: -0.02em` in `tokens/typography.css`, beside the `--text-h1`-style role tokens
+already there. `Heading`'s `1.2` now reads `var(--leading-tight)`, which is value-identical.
+
+- **No pixels moved** — the same 29-shape computed-style comparison, 0 differing.
+- **They are now themable**, which is the point: remapping `--leading-body` to `2` moves `Text`'s
+  line-height 25.6px → 32px, and `--tracking-heading` moves `Heading`'s tracking. Measured. Before,
+  neither was reachable from a theme at all.
+- **Every reference carries a fallback** — `var(--leading-body, 1.6)`. Without one, a consumer who
+  does not load `twico-ui/styles.css` gets an undefined `var()`, which is invalid at computed-value
+  time, and `line-height` would collapse to `normal`. Measured: 25.6px with no stylesheet at all.
+
+What this deliberately does **not** settle is whether the roles *should* differ from the element
+defaults — whether body copy ought to be 1.6 or 1.5. That is a type-scale decision, and it is now a
+one-line change in the token file instead of a hunt through two components.

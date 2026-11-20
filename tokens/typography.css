@@ -44,6 +44,19 @@
   --tracking-wide:    0.02em;
   --tracking-wider:   0.06em;   /* eyebrows / labels (uppercase) */
 
+  /* Typography ROLES that are not a step on the scales above (#549). Both sit BETWEEN two steps,
+     which is how they drifted: Text's leading is between --leading-normal (1.5) and
+     --leading-relaxed (1.65), and Heading's tracking between --tracking-tight (-0.015em, the token
+     literally commented "headings") and --tracking-tighter (-0.03em). They were hardcoded inside
+     the components, so they were invisible here and a theme could not reach them. Naming them
+     changes no pixels - 29 typography shapes measured identical - and makes both facts reviewable
+     in the one file where the type scale is reviewed.
+     Whether these roles should instead SNAP to a step - i.e. whether a Text and a bare <p> ought to
+     share a leading at all - is the open half of #549 and a type-scale decision. It is now a
+     one-line change here rather than a hunt through two components. */
+  --leading-body:     1.6;
+  --tracking-heading: -0.02em;
+
   /* Semantic role tokens */
   --text-display:   var(--text-6xl);
   --text-h1:        var(--text-4xl);
