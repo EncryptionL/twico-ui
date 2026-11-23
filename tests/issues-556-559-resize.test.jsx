@@ -114,6 +114,20 @@ describe("Datatable — the strip's containing block is the row (#557)", () => {
     expect(container.querySelectorAll("[data-row-resizable]").length).toBe(0);
   });
 
+  it("the row's positioning lives in the STYLESHEET, not in an inline style", () => {
+    // What the leftover `inline` helper was evidence of. An inline declaration beats every
+    // stylesheet rule at any specificity - the whole substance of #543/#547/#551 - so if the row's
+    // `position`/`z-index` were ever "fixed" by putting them on the style attribute, a consumer
+    // could no longer override the row's stacking at all, and `data-row-resizable` would become
+    // decorative. A resizable row carries ONLY the height inline, and only once one is set.
+    const { container } = render(<Datatable columns={COLS} rows={ROWS} rowKey={key} rowResize />);
+    const tr = rows(container)[0];
+    expect(tr.hasAttribute("data-row-resizable")).toBe(true);
+    expect(inline(tr), "nothing inline until the user sets a height").toEqual([]);
+    fireEvent.keyDown(strips(container)[0], { key: "PageDown" });
+    expect(inline(rows(container)[0]), "the height, and nothing else").toEqual(["height"]);
+  });
+
   it("the CSS half carries BOTH declarations - the position AND the stacking context", () => {
     // Deleting either one leaves every DOM assertion above green while breaking the feature:
     // without `position: relative` the containing block becomes .twc-dt__scroll and the strip spans
