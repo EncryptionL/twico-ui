@@ -2,6 +2,17 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.54.0](https://github.com/EncryptionL/twico-ui/compare/v1.53.1...v1.54.0) (2026-11-23)
+
+### Bug Fixes
+
+* close the review findings on the row resizer, the grid height and provider defaults ([7c86e95](https://github.com/EncryptionL/twico-ui/commit/7c86e951f8cab595093b8589d419b9a8cff7b545)), closes [#557](https://github.com/EncryptionL/twico-ui/issues/557) [#554](https://github.com/EncryptionL/twico-ui/issues/554) [#558](https://github.com/EncryptionL/twico-ui/issues/558)
+* **difftable:** drop the last inline font-family [#551](https://github.com/EncryptionL/twico-ui/issues/551) left behind ([3ac72ed](https://github.com/EncryptionL/twico-ui/commit/3ac72ed9645dd3c3c172bb170d171bb78007fd56)), closes [#555](https://github.com/EncryptionL/twico-ui/issues/555)
+
+### Features
+
+* repair the Datatable row resizer, add heightResize, add provider defaults ([be16605](https://github.com/EncryptionL/twico-ui/commit/be166056f9f666883cc3c0fd25882874944ef7e3)), closes [#556](https://github.com/EncryptionL/twico-ui/issues/556) [#557](https://github.com/EncryptionL/twico-ui/issues/557) [#558](https://github.com/EncryptionL/twico-ui/issues/558) [#559](https://github.com/EncryptionL/twico-ui/issues/559) [#554](https://github.com/EncryptionL/twico-ui/issues/554) [#554](https://github.com/EncryptionL/twico-ui/issues/554) [#556](https://github.com/EncryptionL/twico-ui/issues/556) [#557](https://github.com/EncryptionL/twico-ui/issues/557) [#558](https://github.com/EncryptionL/twico-ui/issues/558) [#559](https://github.com/EncryptionL/twico-ui/issues/559)
+
 ## [1.53.1](https://github.com/EncryptionL/twico-ui/compare/v1.53.0...v1.53.1) (2026-11-23)
 
 ### Bug Fixes
