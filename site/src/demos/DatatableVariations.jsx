@@ -1647,12 +1647,10 @@ const remove = () => {
   {
     title: "Drag a row taller, and keep it",
     description:
-      "rowResize was the one user resize that did not survive a reload (#542): the height lived in a map that never left the component, while columnWidths, filterPanelSize and the rest all round-trip through DatatableState. It now does — and by default the drag sets ONE height for every row, because a row key is a record id and a per-row map grows an entry for every row anyone has ever dragged, with no bound. One number is bounded, survives paging, and applies to rows you have never scrolled to: it is density with a continuous scale. Pass rowResize=\"row\" for the per-row gesture, and persistRowHeights if your storage can take the map.",
+      "rowResize was the one user resize that did not survive a reload (#542): the height lived in a map that never left the component, while columnWidths, filterPanelSize and the rest all round-trip through DatatableState. It now does — and by default the drag sets ONE height for every row, because a row key is a record id and a per-row map grows an entry for every row anyone has ever dragged, with no bound. One number is bounded, survives paging, and applies to rows you have never scrolled to: it is density with a continuous scale. Pass rowResize=\"row\" for the per-row gesture, and persistRowHeights if your storage can take the map. This grid has NO checkbox column on purpose: until #556 the handle only ever mounted inside the checkbox cell, so rowResize was inert on every grid without checkboxSelection — and where it did mount, the strip was 44px wide in the bottom-left corner rather than the row's full bottom edge (#557), because a pinned cell is position:sticky and became its containing block. The handle is also keyboard-reachable now (#558): Tab to it, then Arrow keys for a fine step, PageUp/PageDown for a coarse one, Home for the floor.",
     code: `<Datatable
   columns={cols}
   rows={people}
-  rowKey={(r) => r.id}
-  checkboxSelection
   rowResize                 // "row" for the per-row gesture
   stateKey="demo-rows"      // the height comes back on reload
   onRowResize={(h) => console.log("every row is now", h, "px")}
@@ -1667,9 +1665,34 @@ const remove = () => {
         ]}
         rows={makePeople(8)}
         rowKey={(r) => r.id}
-        checkboxSelection
         rowResize
         height={320}
+      />
+    ),
+  },
+  {
+    title: "Drag the grid's own height",
+    description:
+      "Column widths were a user resize that persisted, and row height became one in 1.52 — the grid's own height was neither (#559). It was a developer constant with no affordance and no state field, although it is the number that decides how many rows a reader sees at once: a 13-inch laptop and a 27-inch monitor got the same 440px window onto the same data. Row height is not a substitute, because shortening rows to fit more of them in trades legibility for quantity. heightResize puts a grip on the bottom edge and DatatableState.height carries the result, so it round-trips with no opt-in; height stays the STARTING value rather than a cap, so existing call sites render unchanged. The ceiling is the viewport (95% of the window, re-measured on resize) because a flat pixel ceiling goes stale on another screen. The grip takes the COLUMN resizer's keyboard contract — Arrows, PageUp/PageDown, and Home/End for the bounds, since here \"as tall as my screen\" is worth one keystroke.",
+    code: `<Datatable
+  columns={cols}
+  rows={people}
+  rowKey={(r) => r.id}
+  height={240}              // the STARTING height, not a cap
+  heightResize              // drag the bottom edge, or Tab to it and use the arrows
+  stateKey="demo-height"    // comes back on reload, like columnWidths
+/>`,
+    render: () => (
+      <Datatable
+        columns={[
+          { field: "name", header: "Name", minWidth: 160 },
+          { field: "email", header: "Email", minWidth: 200 },
+          { field: "department", header: "Department", width: 150 },
+        ]}
+        rows={makePeople(24)}
+        rowKey={(r) => r.id}
+        height={240}
+        heightResize
       />
     ),
   },

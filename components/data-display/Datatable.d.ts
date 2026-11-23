@@ -318,8 +318,28 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   onPageChange?: (page: number) => void;
   /** Fires with the next rows-per-page when the user picks one; supplying it makes `pageSize` controlled. */
   onPageSizeChange?: (pageSize: number) => void;
-  /** Max height of the scroll area in px (header/footer stay fixed). @default 440 */
+  /** Starting height of the scroll area in px (header/footer stay fixed). With `heightResize` the
+   *  user can drag it from here; without it this is simply the height. @default 440 */
   height?: number;
+  /**
+   * #559: let the user drag the grid's own height, from a grip on the bottom edge of the scroll
+   * area. Persisted as `DatatableState.height`. @default false
+   *
+   * Column widths were a user resize that persisted and row height became one in 1.52
+   * (`DatatableState.rowHeight`); the grid's height was neither — a developer constant with no
+   * affordance and no state field, although it is the one of the three that decides **how many rows
+   * a reader sees at once**, and a 13" laptop and a 27" monitor got the same 440px window onto the
+   * same data. Row height is not a substitute: shortening rows to fit more of them in trades
+   * legibility for quantity, the opposite trade from "make the window taller".
+   *
+   * `height` stays the **starting** value rather than a cap, so existing call sites render unchanged
+   * until someone drags. The ceiling is viewport-relative (95% of the window, re-measured on resize)
+   * because a flat pixel ceiling goes stale on another screen; the floor is 160px. The grip takes
+   * the **column** resizer's accessibility contract — `role="separator"`, `aria-valuenow`/`min`/`max`,
+   * `tabIndex`, Arrow keys for a fine step, PageUp/PageDown for a coarse one, Home/End for the
+   * bounds — not the row handle's.
+   */
+  heightResize?: boolean;
   /**
    * Enable server-side data. When true, the table does NOT sort/filter/paginate
    * the `rows` you pass (they are treated as the already-fetched current page);
@@ -733,6 +753,13 @@ export interface DatatableState {
    *  with `persistRowHeights`, because unlike `columnWidths` this map is unbounded — a row key is a
    *  record id, so it grows one entry per row anyone has ever dragged. */
   rowHeights?: Record<string, number>;
+  /** #559: user-dragged height of the scroll area in px (`heightResize`). Absent until the user
+   *  drags the grip. One bounded number, so it round-trips with no opt-in — the argument
+   *  `rowHeight` makes for preferring that over an unbounded map applies here too, only more
+   *  simply: there is exactly one. Clamped to `[160, 2000]` on restore, and then to the viewport on
+   *  render, so a snapshot written on a large monitor does not render off the bottom of a laptop —
+   *  the stored number is left alone, so it un-clamps again on the large screen. */
+  height?: number;
 }
 
 export interface DatatableColumn<T = any> {

@@ -107,7 +107,7 @@ export * from "../hooks";
 export type { Tone, ActionTone, TextTone, ToastTone, BarTone, PolymorphicAs } from "../components/_types";
 export type { PolymorphicComponent, PolymorphicProps, PolymorphicPropsWithRef, PolymorphicRef } from "../components/_types";
 export type { Sx, WithSx } from "../components/_types";
-export type { TwicoProviderProps } from "../components/TwicoProvider";
+export type { TwicoProviderProps, TwicoDefaults } from "../components/TwicoProvider";
 export type { ThemeProviderProps, ThemeTokens, Theme } from "../components/layout/ThemeProvider";
 export type { FormProps } from "../components/inputs/Form";
 export type { VisuallyHiddenProps } from "../components/layout/VisuallyHidden";
