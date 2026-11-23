@@ -4,7 +4,6 @@ import { defineConfig } from "vitest/config";
 // not the built bundle — fast feedback, no build step. JSX uses the automatic
 // runtime so test files don't need to import React.
 export default defineConfig({
-  esbuild: { jsx: "automatic" },
   test: {
     environment: "jsdom",
     globals: true,

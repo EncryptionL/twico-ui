@@ -15,7 +15,7 @@ secured, and documented. (End-user API docs with live examples live on the **doc
 | [ssr-styles.md](./ssr-styles.md) | The `useScopedStyles` helper — how components render scoped CSS into the SSR output (no FOUC) on React 19, with a React 18 fallback. |
 | [development.md](./development.md) | Local setup, commands, adding or changing a component, conventions. |
 | [releases.md](./releases.md) | Automated semantic-versioning, Conventional Commits, `dev → main` flow, version sync, npm publishing. |
-| [security.md](./security.md) | Security standards: URL sanitization, the no-CDN rule, dependency auditing, CodeQL, Dependabot. |
+| [security.md](./security.md) | Security standards: URL sanitization, the no-CDN rule, dependency auditing, CodeQL (what the alerts actually are, and triaging them), Dependabot. |
 | [docs-site.md](./docs-site.md) | How the documentation website works, regenerating it, deploying to GitHub Pages, the render-check. |
 | [hooks.md](./hooks.md) | The exported React hooks API — where it lives, the full set, conventions, how to add one. |
 | [overlays.md](./overlays.md) | The shared modal-overlay pattern (Dialog/Drawer/CommandPalette), the `useFocusTrap` / `usePortal` hooks extracted into `components/_overlay.js` (#177), the dismissable-layer stack (#389), and disabled-trigger tooltips (#398). Includes the `trigger` contract (#447), the `{...rest}` handler-composition rule (#452), and why Menu moved to the APG focus model (#459). |
