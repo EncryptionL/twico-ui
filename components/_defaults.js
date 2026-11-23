@@ -46,12 +46,43 @@ export function useComponentDefaults(name, props) {
   return merged;
 }
 
+const hasOwn = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+const isPlainObject = (v) => {
+  if (typeof v !== "object" || v === null || Array.isArray(v)) return false;
+  const p = Object.getPrototypeOf(v);
+  return p === Object.prototype || p === null;
+};
+
+// How ONE prop's value is compared.
+//
+// `===` alone was not enough, and the gap was not academic: the documented spelling writes the blob
+// inline, so an array or object default is a fresh literal on every render and never equal to
+// itself. Measured before this: `defaults={{ Datatable: { pageSizeOptions: [5, 10, 25] } }}` gave 6
+// distinct context values across 6 renders, re-rendering every opted-in component in the tree -
+// and `pageSizeOptions` is one of the six props #554 itself names, as is `defaultColumn`.
+//
+// So an array or a PLAIN object of primitives compares element-wise. Anything else - a function, a
+// Map, a React element, a nested array/object - falls through to `===` and stays unstable, because
+// there is no comparison that is both correct and cheap for those. The docs say to hoist or useMemo
+// a default like that, and say it as a limit rather than as a guarantee.
+const leafEq = (a, b) => {
+  if (a === b) return true;
+  if (Array.isArray(a) && Array.isArray(b)) {
+    return a.length === b.length && a.every((v, i) => v === b[i]);
+  }
+  if (isPlainObject(a) && isPlainObject(b)) {
+    const ka = Object.keys(a), kb = Object.keys(b);
+    return ka.length === kb.length && ka.every((k) => hasOwn(b, k) && a[k] === b[k]);
+  }
+  return false;
+};
+
 const shallowEq = (a, b) => {
   if (a === b) return true;
   if (!a || !b || typeof a !== "object" || typeof b !== "object") return false;
   const ka = Object.keys(a), kb = Object.keys(b);
   if (ka.length !== kb.length) return false;
-  for (const k of ka) if (!Object.prototype.hasOwnProperty.call(b, k) || a[k] !== b[k]) return false;
+  for (const k of ka) if (!hasOwn(b, k) || !leafEq(a[k], b[k])) return false;
   return true;
 };
 
@@ -62,7 +93,7 @@ const defaultsEq = (a, b) => {
   if (!a || !b) return false;
   const ka = Object.keys(a), kb = Object.keys(b);
   if (ka.length !== kb.length) return false;
-  for (const k of ka) if (!shallowEq(a[k], b[k])) return false;
+  for (const k of ka) if (!hasOwn(b, k) || !shallowEq(a[k], b[k])) return false;
   return true;
 };
 
@@ -75,6 +106,12 @@ const defaultsEq = (a, b) => {
  * and re-render whenever anything above the provider did. A ref compared by value is the only way to
  * memoize a dependency that is itself unstable; it is idempotent and observes nothing outside the
  * render, so it is safe to write during one.
+ *
+ * The comparison reaches primitives, arrays of primitives and plain objects of primitives (see
+ * leafEq). It does NOT reach a function, a nested array/object, or anything with a prototype — a
+ * default like `isRowSelectable: (r) => …` written inline is a new value every render and this
+ * cannot tell otherwise. Hoist it to a module constant or useMemo it. That is a documented limit,
+ * not a silent one.
  */
 export function useStableDefaults(defaults) {
   const ref = React.useRef(null);

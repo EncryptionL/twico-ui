@@ -92,15 +92,57 @@ exists to remove, so it must not become this feature's own. `DEFAULTABLE` is wha
 
 **3. No `undefined` punch-through**, as above.
 
+### What the allow-list does not catch
+
+`TwicoDefaults` rejects an unknown **component** key and an unknown **prop** name — but only for an object
+*literal*, where TypeScript's excess-property check applies:
+
+```tsx
+<TwicoProvider defaults={{ Datatable: { rowReesize: true } }}>
+//                                     ~~~~~~~~~~ TS2561: Did you mean 'rowResize'?
+```
+
+Hoist the same blob to a `const` without annotating it and that check no longer applies, so the typo compiles.
+Annotate it — `const appDefaults: TwicoDefaults = { … }` — or write it inline. React still logs an
+unknown-prop error at runtime, because an unrecognised key reaches the component's `{...rest}` DOM spread, so
+it is not silent; it is just later than it should be.
+
+### DiffTable inherits `defaults.Datatable`
+
+`DiffTable` is a thin wrapper over `Datatable`'s diff mode (#239), so a `Datatable` default reaches its inner
+grid even though `DiffTable` is not in `DEFAULTABLE`. **This is intended** — a `DiffTable` *is* a `Datatable`,
+and standardising `density` or `rowResize` app-wide should reach it — but it was undocumented, which made it a
+surprise rather than a decision. It is now asserted in the tests.
+
+`DiffTable` is deliberately **not** added to `DEFAULTABLE`: its own signature does not accept `rowResize` and
+friends, so `defaults.DiffTable.rowResize` would land in `{...rest}` and be spread onto a `<div>`. A key that
+reaches the DOM instead of the component is worse than one that routes through the wrapper.
+
 ### Identity
 
-`useStableDefaults` keeps the previous `defaults` object while the next one is **structurally equal** to it,
-two levels deep (the outer map of component names, and each component's flat prop bag).
+`useStableDefaults` keeps the previous `defaults` object while the next one is **structurally equal** to it.
 
 Without it, the documented spelling — an object literal in JSX — would be a new object on every render of the
 provider's parent, so every opted-in component in the tree would see a new context value and re-render. A ref
 compared by value is the only way to memoize a dependency that is itself unstable; it is idempotent and
 observes nothing outside the render, so it is safe to write during one.
+
+**How deep it reaches, exactly.** The first version compared leaf values with `===`, and this doc asserted the
+guarantee unconditionally — which was false for any non-primitive. Measured over three parent renders:
+
+| inline default | distinct context values | |
+| --- | --- | --- |
+| `{ Datatable: { rowResize: true } }` | 1 | stable |
+| `{ Datatable: { pageSizeOptions: [5, 10, 25] } }` | **6** | every grid re-rendered |
+| `{ Datatable: { defaultColumn: { … } } }` | **6** | every grid re-rendered |
+
+Both of those are props #554 itself names. The comparison now reaches **primitives, arrays of primitives, and
+plain objects of primitives**, so all three cases above are stable.
+
+It does **not** reach a function, a nested array/object, a `Map`, or anything with a prototype — there is no
+comparison for those that is both correct and cheap. An inline `isRowSelectable: (r) => …` is a new value every
+render and this cannot tell otherwise: **hoist it to a module constant or `useMemo` it.** That is the limit,
+stated as a limit. `tests/issue-554-provider-defaults.test.jsx` pins all five cases, the function one included.
 
 ## Opting another component in
 
@@ -118,10 +160,19 @@ issue that asked for this argued for a curated list over a blanket one.
 
 ## Tests
 
-`tests/issue-554-provider-defaults.test.jsx` — a default reaching a directly-mounted grid, the precedence rule in both
-directions, `undefined` not vetoing, the built-in default still applying, nested providers, no provider at all,
-a provider with no defaults, `CardGrid`, the unknown-key warning (and its silence on a known key), and
-composition with the `nonce` context #57 already put there.
+`tests/issue-554-provider-defaults.test.jsx` — a default reaching a directly-mounted grid, the precedence rule
+in both directions, `undefined` not vetoing, the built-in default still applying, nested providers, no provider
+at all, a provider with no defaults, `CardGrid`, `DiffTable`'s transitive inheritance, the unknown-key warning
+(and its silence on a known key), and composition with the `nonce` context #57 already put there.
+
+Two of those were added after review found them missing, and both had been *provable* holes rather than
+theoretical ones:
+
+- **Context identity** (five cases). Nothing referenced `useStableDefaults`, which is why the non-primitive
+  defect above shipped. 
+- **SSR isolation.** A module-level-registry implementation — the exact thing the issue said not to build —
+  passed every behavioural assertion in the file. The test now interleaves `renderToString` of an
+  opted-in app, a bare app, and the opted-in app again in one process, and asserts no bleed.
 
 Every one of those was verified by **putting the bug back** — five separate reverts of `_defaults.js`, each
 caught by the test that claims to guard it. See [development.md](./development.md) → "Prove the assertion works

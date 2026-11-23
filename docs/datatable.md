@@ -679,15 +679,48 @@ grid where *every* unpinned column is editable reaches the fallback, and there t
 from the row's leading edge rather than the whole row — that cell has to stay positioned for its own hint, so
 it is a necessity rather than a choice, and it is still far from the 44px bottom-left corner.
 
+And if there are **no data cells at all** — every column hidden, which the Columns panel's "Hide all" reaches
+in two clicks — the checkbox cell takes the handle back. Moving the mount out of it had taken that case from
+one handle to *none*, a regression against the pre-#556 behaviour, because the checkbox cell always rendered.
+With no checkbox column either there is genuinely nowhere to put it and the count is zero.
+
 > The **editable** half of that was found by the docs-site interaction check, not by a unit test or an
 > isolated probe, because it needs `editMode` — which the page's "All props" variation has and a hand-built
 > probe did not. It is now pinned by two tests in `tests/issues-556-559-resize.test.jsx`, both verified by
 > injection.
 
-`position: relative` on a `<tr>` was the one risk worth checking, since a sticky box is clamped to its
-containing block and that containing block is now the row. Verified in Chromium: the strip spans the full row
-width from offset 0, the bottom edge is grabbable away from the left corner, and a pinned column still reports
-`position: sticky` and **holds its x while the grid scrolls horizontally**. jsdom has no layout, so
+#### The rule is `position: relative; z-index: 0`, and the `z-index` is not cosmetic
+
+The issue asked for "a check against the sticky/pinned cells **and the `z-index: 6` stacking**". The first pass
+did the first half and reported the risk cleared. The second half was a real bug, and here is the mechanism:
+
+a positioned box with `z-index: auto` creates **no stacking context**. Before the fix the strip lived inside
+`.twc-dt__td[data-pin]`, which is `position: sticky` and therefore always *is* a stacking context — that is
+what had been trapping its `z-index: 6`. Moving it into a static cell under a `z-index: auto` row let the 6
+escape and outrank the sticky header (`.twc-dt__th`, 3; `[data-pin]`, 5) and the sticky `tfoot` (3, 4).
+
+Measured in Chromium over a 301-offset scroll sweep on a 4-column, 40-row grid:
+
+| | header hit-tests taken by the strip | scroll offsets affected | footer probes taken |
+| --- | --- | --- | --- |
+| `position: relative` alone | 372 / 3612 | 31 | 35 / 301 |
+| `position: relative; z-index: 0` | **0** | **0** | **0** |
+
+At `scrollTop=74` the header's sort control was simply unreachable. `z-index: 0` gives the row a stacking
+context that confines the 6 inside it, and the strip keeps its full-row width (818px of an 818px row).
+
+It fixed a second thing for free. The strip's `bottom: -3px` overhang had started capturing **the top 3px of
+every row** once the strip spanned the full width — hit-testing a row's top edge returned the *previous* row's
+resizer, so cell click-to-select and double-click-to-edit were lost along that whole band. With each resizable
+row its own stacking context at the same level, row N+1 paints over row N's overhang: the same probe returns
+`cell` at +0/+1/+2px.
+
+The rest of the Chromium check: the strip spans the full row width from offset 0, the bottom edge is grabbable
+away from the left corner, and a pinned column still reports `position: sticky` and **holds its x while the
+grid scrolls horizontally**.
+
+No jsdom test can see any of this, so `tests/issues-556-559-resize.test.jsx` asserts the **CSS text** carries
+both declarations. Deleting either one left every DOM assertion green. jsdom has no layout, so
 `tests/issues-556-559-resize.test.jsx` asserts the structural half — the handle exists without
 `checkboxSelection`, one per row, never inside a `[data-pin]` or `[data-editable]` cell, and the row is
 marked — and the geometry is a browser check.
@@ -714,12 +747,31 @@ It now mirrors the column resizer: `role="separator"`, `aria-orientation="horizo
 | --- | --- |
 | `ArrowDown` / `ArrowUp` | ±8px (down grows the row, matching the drag) |
 | `PageDown` / `PageUp` | ±32px |
-| `Home` | the floor, 32px |
+| `Home` / `End` | the bounds, 32px and 2000px |
 
-There is deliberately **no `End`**: the ceiling is 2000px, which is not a row anyone wants in one keystroke,
-whereas the floor is the useful destination ("make the rows compact again"). The grid-height grip (#559) *does*
-bind `End`, because there the ceiling is the viewport. A keystroke fires `onRowResize` and persists, so it is
-as durable as a completed drag.
+`End` was left unbound at first, on the argument that a 2000px row is not a useful destination for one
+keystroke. That was wrong twice over: the issue asked for "Home/End for the bounds" in those words, the sibling
+grid-height grip binds `End`, and — because the strip now lives inside a `.twc-dt__td[data-r]` — an *unbound*
+`End` did not do nothing, it **ejected focus out of the handle into a grid cell**. See the next paragraph.
+Bound is better than absent, and `Home` undoes it in one keystroke.
+
+A keystroke fires `onRowResize` and persists, so it is as durable as a completed drag. It also steps from the
+same value the drag starts from — a set height, else the row's *measured* height, else the density estimate —
+so the keyboard and the pointer agree on a row that content has made taller, which is this feature's own
+audience.
+
+**The grid must not take the handle's keys.** Making the strip focusable *and* moving it into a data cell meant
+`onGridKeyDown`'s own guard, `e.target.closest(".twc-dt__td[data-r]")`, started matching events from the
+handle: `ArrowLeft`/`ArrowRight`/`End` drove cell navigation and moved focus off it, and `Enter`/`Space` fired
+`onRowClick` / `onCellSelectionChange` (`DT_CELL_WIDGET_SEL` carries no `[role="separator"]`, so the
+`onWidget` bail-out never covered it). The column resizer escapes all of this only because it lives in a
+`<th>`, which that selector cannot match. `onGridKeyDown` now returns early for `.twc-dt__row-resizer`.
+
+**Only the focusable strip is exposed to assistive tech.** Per ARIA 1.2, `aria-valuenow`/`min`/`max` on
+`role="separator"` are supported only when the separator is focusable, and in shared mode the other N−1 strips
+are duplicate affordances for one control — exposing each as a named separator reporting a value was both
+invalid and noisy. The duplicates keep the pointer gesture and carry `aria-hidden`. In `"row"` mode every strip
+is focusable, so every one is exposed.
 
 **One tab stop, not one per row, when the height is shared.** With `rowResize={true}` every row's strip drives
 the same number, so N focusable copies would be N identical tab stops in a grid body that deliberately has one
@@ -775,8 +827,12 @@ Two implementation notes:
   `aria-label` rather than a `Tooltip`: `.twc-tooltip-wrap` is `display: inline-flex` and collapses a
   full-width child to its content width. The visible grip is a centred bar so the affordance still reads as a
   handle.
-- The live value is local state for the duration of the drag; the store is written once the state settles, by
-  the persist effect, rather than once per `pointermove`. Same rule as `onRowResize`.
+- **The store is written once per gesture, on pointerup.** This was claimed before it was true: `gridH` is a
+  dependency of the persist effect, so a 200px drag emitted a full `serializeState` + `JSON.stringify` +
+  `localStorage.setItem` + `onStateChange` *per `pointermove`* — measured at 5 moves → 5 calls — while the
+  source comment asserted the opposite as a design decision. The persist effect now skips while a resize is
+  live and runs exactly once when the flag clears. The same gate fixed **#542's row height**, which had the
+  same per-move storm: `onRowResize` had always fired once per drag, but `onStateChange` had not.
 
 There is no `onHeightResize` callback. `onStateChange` already carries the number, which is the channel #542
 established for exactly this, and one fewer prop on a component with this many is worth something.

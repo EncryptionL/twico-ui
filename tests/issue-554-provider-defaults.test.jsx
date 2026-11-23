@@ -1,8 +1,10 @@
 import React from "react";
 import { describe, it, expect, afterEach, vi } from "vitest";
 import { render, cleanup } from "@testing-library/react";
-import { Datatable, CardGrid, TwicoProvider, Card, Text } from "../src/index.ts";
+import { renderToString } from "react-dom/server";
+import { Datatable, CardGrid, TwicoProvider, DiffTable, Card, Text } from "../src/index.ts";
 import { NonceContext } from "../components/_styles.js";
+import { DefaultsContext, useStableDefaults } from "../components/_defaults.js";
 
 afterEach(cleanup);
 
@@ -107,6 +109,82 @@ describe("TwicoProvider — component defaults (#554)", () => {
       </TwicoProvider>);
     expect(warn.mock.calls.filter((c) => String(c[0]).includes("TwicoProvider"))).toEqual([]);
     warn.mockRestore();
+  });
+
+  // The reason useStableDefaults exists, and it was entirely unguarded: `grep -rn useStableDefaults
+  // tests/` returned nothing, which is how the non-primitive hole below survived review.
+  describe("context identity", () => {
+    const seen = (valuesOut, defaultsFor) => {
+      const Probe = () => { valuesOut.push(React.useContext(DefaultsContext)); return null; };
+      const Host = ({ n }) => {
+        const value = useStableDefaults(defaultsFor(n));
+        return <DefaultsContext.Provider value={value}><Probe /></DefaultsContext.Provider>;
+      };
+      const { rerender } = render(<Host n={1} />);
+      rerender(<Host n={2} />);
+      rerender(<Host n={3} />);
+      return new Set(valuesOut).size;
+    };
+
+    it("an inline literal of primitives is one stable value across re-renders", () => {
+      const out = [];
+      expect(seen(out, () => ({ Datatable: { rowResize: true, height: 300 } }))).toBe(1);
+      expect(out.length).toBeGreaterThan(2);
+    });
+
+    it("...and so is an inline ARRAY default, which is the spelling #554 itself names", () => {
+      const out = [];
+      expect(seen(out, () => ({ Datatable: { pageSizeOptions: [5, 10, 25] } })),
+        "a fresh literal is never === itself, so this needs a real comparison").toBe(1);
+    });
+
+    it("...and an inline plain-object default", () => {
+      const out = [];
+      expect(seen(out, () => ({ Datatable: { defaultColumn: { resizable: false, width: 120 } } }))).toBe(1);
+    });
+
+    it("a genuine change still produces a new value", () => {
+      const out = [];
+      expect(seen(out, (n) => ({ Datatable: { height: 300 + n } }))).toBe(3);
+    });
+
+    it("an inline FUNCTION default stays unstable, which is the documented limit", () => {
+      const out = [];
+      expect(seen(out, () => ({ Datatable: { isRowSelectable: (r) => !!r } })),
+        "there is no correct cheap comparison for a function - hoist or useMemo it").toBe(3);
+    });
+  });
+
+  // The issue's own reason for plain context over a module registry. A registry passes every
+  // behavioural assertion in this file, so without an SSR case the decision was unguarded.
+  it("two apps rendered in ONE process do not share defaults", () => {
+    const grid = () => <Datatable columns={COLS} rows={ROWS} rowKey={key} />;
+    const withDefaults = () => renderToString(
+      <TwicoProvider defaults={{ Datatable: { rowResize: true } }}>{grid()}</TwicoProvider>);
+    const bare = () => renderToString(grid());
+    const a = withDefaults();
+    const b = bare();
+    const a2 = withDefaults();
+    // Count rendered ELEMENTS, not occurrences: the SSR output also carries the component's
+    // stylesheet, which mentions the class several times.
+    const count = (html) => (html.match(/class="twc-dt__row-resizer"/g) || []).length;
+    expect(count(a), "app A opted in").toBeGreaterThan(0);
+    expect(count(b), "app B shares the process and must be unaffected").toBe(0);
+    expect(count(a2), "and A is still itself afterwards").toBe(count(a));
+  });
+
+  it("DiffTable's inner grid inherits defaults.Datatable - documented, not accidental", () => {
+    // DiffTable is a thin wrapper over Datatable's diff mode (#239), so a Datatable default reaches
+    // it transitively even though DiffTable is not in DEFAULTABLE. Asserting it so the behaviour is
+    // a decision with a test rather than a surprise.
+    const from = [{ id: 1, sku: "A-1", qty: 2 }];
+    const to = [{ id: 1, sku: "A-1", qty: 5 }];
+    const cols = [{ field: "sku" }, { field: "qty" }];
+    const { container } = render(
+      <TwicoProvider defaults={{ Datatable: { rowResize: true } }}>
+        <DiffTable from={from} to={to} rowKey={key} columns={cols} />
+      </TwicoProvider>);
+    expect(container.querySelectorAll(".twc-dt__row-resizer").length).toBeGreaterThan(0);
   });
 
   it("composes with the nonce the provider already carried, rather than shadowing it", () => {

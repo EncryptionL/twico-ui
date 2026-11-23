@@ -5839,7 +5839,7 @@ export const components = [
         "type": "boolean | \"row\" | \"all\"",
         "required": false,
         "default": "false",
-        "description": "Drag a row's bottom edge to resize. true resizes EVERY row and persists as DatatableState.rowHeight; \"row\" resizes just that row."
+        "description": "Drag or Tab to a row's bottom edge to resize. true resizes EVERY row and persists as DatatableState.rowHeight; \"row\" resizes one."
       },
       {
         "prop": "persistRowHeights",

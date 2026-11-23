@@ -370,6 +370,19 @@ The count a consumer can check is now zero:
 ```
 $ grep -c 'fontFamily: "var(--font-sans)"' node_modules/twico-ui/dist/index.mjs
 0
-$ grep -c "font-family" node_modules/twico-ui/styles/twico-ui.css
-8        # the --font-mono declarations, untouched by design (see above)
 ```
+
+The stylesheet still has **8** `font-family` lines, and an earlier draft of this section called them
+"the `--font-mono` declarations", which was wrong — only one is. The real breakdown, because a count
+with no breakdown is how a wrong claim survives:
+
+| lines | what |
+| --- | --- |
+| 27, 35, 43 | `@font-face` **descriptors** — the two Plus Jakarta Sans faces and JetBrains Mono |
+| 652 | `body { font-family: var(--font-sans) }` — the inheritance root the whole fix depends on |
+| 684 | a comment, not a declaration |
+| 692 | `font-family: inherit` on the form controls — #551's actual fix |
+| 696 | `code, pre, kbd, samp { font-family: var(--font-mono) }` — the only mono rule |
+
+So there is exactly **one** `--font-sans` declaration in the shipped stylesheet (on `body`, where it
+belongs) and **one** `--font-mono` rule, scoped by tag.

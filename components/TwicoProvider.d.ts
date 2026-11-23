@@ -30,7 +30,11 @@ export interface TwicoProviderProps {
    * ```
    *
    * An object literal written inline is fine: the provider keeps the previous value while the next one
-   * is structurally equal, so it does not re-render the tree on every render of its own parent.
+   * is structurally equal. That comparison reaches primitives, arrays of primitives and plain objects
+   * of primitives — so `pageSizeOptions: [5, 10, 25]` is stable inline. It does **not** reach a
+   * function or a nested array/object: hoist an `isRowSelectable: (r) => …` default to a module
+   * constant or `useMemo` it, or every opted-in component re-renders whenever the provider's parent
+   * does. See docs/provider-defaults.md → Identity.
    */
   defaults?: TwicoDefaults;
   children?: React.ReactNode;

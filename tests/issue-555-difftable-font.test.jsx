@@ -50,6 +50,26 @@ describe("DiffTable — the last redundant font-family (#555)", () => {
       .toEqual(["color", "font-size", "font-weight"]);
   });
 
+  it("a consumer's own style prop composes with the wrapper's, rather than being dropped", () => {
+    // The component's style object was written AFTER {...rest}, so it replaced the consumer's
+    // `style` outright - the same shape of defect as the font-family, in the same expression.
+    const { container } = render(
+      <DiffTable from={from} to={to} rowKey={key} columns={dcols} label="Changes" className="wrap"
+        style={{ marginBlockStart: "8px", fontFamily: "Georgia, serif" }} />);
+    const wrap = container.querySelector(".wrap");
+    expect(wrap.style.marginBlockStart).toBe("8px");
+    expect(wrap.style.fontFamily, "and a consumer MAY set the font - it is the library that must not")
+      .toBe("Georgia, serif");
+    expect(wrap.style.display, "while the wrapper still lays itself out").toBe("flex");
+  });
+
+  it("...and on the bare branch too, where it reaches the grid", () => {
+    const { container } = render(
+      <DiffTable from={from} to={to} rowKey={key} columns={dcols} className="bare"
+        style={{ marginBlockStart: "8px" }} />);
+    expect(container.querySelector(".bare").style.marginBlockStart).toBe("8px");
+  });
+
   it("the two branches now answer the same question the same way", () => {
     const { container: withLabel } = render(
       <DiffTable from={from} to={to} rowKey={key} columns={dcols} label="Changes" className="wrap" />);

@@ -1651,6 +1651,7 @@ const remove = () => {
     code: `<Datatable
   columns={cols}
   rows={people}
+  rowKey={(r) => r.id}
   rowResize                 // "row" for the per-row gesture
   stateKey="demo-rows"      // the height comes back on reload
   onRowResize={(h) => console.log("every row is now", h, "px")}

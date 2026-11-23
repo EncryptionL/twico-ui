@@ -260,7 +260,7 @@ const DT_CSS = `
 .twc-dt__pivot-vh { display: inline-flex; flex-direction: column; align-items: center; gap: 1px; line-height: 1.15; }
 .twc-dt__pivot-vh-label { font-weight: var(--font-bold); color: var(--color-text); text-transform: none; letter-spacing: 0; }
 .twc-dt__pivot-vh-agg { font-size: 10px; font-weight: var(--font-semibold); color: var(--color-primary-subtle-fg); text-transform: uppercase; letter-spacing: 0.04em; }
-/* Row headers + record counts (must outrank .twc-dt__row > .twc-dt__td:first-child = (0,3,0)) */
+/* Row headers + record counts */
 .twc-dt__pivot tbody .twc-dt__pivot-rowhead[data-pin],
 .twc-dt__pivot tfoot .twc-dt__pivot-rowhead[data-pin] { position: sticky; inset-inline-start: 0; z-index: 5; }
 .twc-dt__pivot-rowhead { font-weight: var(--font-semibold); color: var(--color-text); background: var(--color-surface); border-inline-end: var(--border-medium) solid var(--color-border-strong); }
@@ -387,8 +387,21 @@ const DT_CSS = `
    non-pinned FIRST cell to be that containing block, but the checkbox cell always carries data-pin,
    so the selector could never match the one mount that existed: it was dead as shipped.
    data-row-resizable is set only on rows that actually render a resizer, so no grid without
-   rowResize changes its positioning. */
-.twc-dt__row[data-row-resizable] { position: relative; }
+   rowResize changes its positioning.
+   The 'z-index: 0' is not cosmetic and must not be dropped. #557 asked for "a check against the
+   sticky/pinned cells AND the z-index: 6 stacking", and only the first half was done: a positioned
+   box with 'z-index: auto' creates NO stacking context, so moving the strip out of the sticky
+   checkbox cell (whose context had trapped it) let its z-index: 6 escape and outrank the sticky
+   header (.twc-dt__th, 3; [data-pin], 5) and the sticky tfoot (3/4). Measured in Chromium over a
+   301-offset scroll sweep: 372 of 3612 header hit-tests landed on the strip across 31 offsets, the
+   sort control was unreachable, and 35 of 301 footer probes were taken too. 'z-index: 0' gives the
+   row a stacking context that confines the 6 inside it, and takes all of that to zero while the
+   strip stays full-row width.
+   It also fixes the strip's 'bottom: -3px' overhang: each resizable row is now its own stacking
+   context at the same level, so row N+1 paints over row N's overhang instead of the overhang
+   capturing the top 3px of every row - which, once the strip spanned the full width, had quietly
+   taken cell click-to-select and double-click-to-edit along that whole band. */
+.twc-dt__row[data-row-resizable] { position: relative; z-index: 0; }
 .twc-dt__row-resizer { position: absolute; left: 0; right: 0; bottom: -3px; height: 7px; cursor: row-resize; z-index: 6; touch-action: none; }
 .twc-dt__row-resizer::after { content: ""; position: absolute; left: 6px; right: 6px; bottom: 3px; height: 2px; border-radius: 2px; background: transparent; transition: background-color var(--duration-fast); }
 .twc-dt__row:hover .twc-dt__row-resizer::after { background: var(--color-border-strong); }
@@ -1663,13 +1676,19 @@ export function Datatable(twcProps) {
   // and an effect refines it after mount.
   const [vhCap, setVhCap] = React.useState(null);
   const heightMax = vhCap == null ? H_MAX : vhCap;
+  // Measure whenever the ceiling can matter: with the grip on, OR when a height has been restored
+  // from a snapshot without it. The effect used to bail on `!heightResize`, so `initialState.height`
+  // was applied but never viewport-clamped and a stored 1900 rendered 1900px on a 768px window with
+  // no grip to undo it - while the prop docs promised that clamp unconditionally. Still cheap for
+  // every other grid: no listener at all unless one of the two is true.
+  const needsVhCap = heightResize || gridH != null;
   React.useEffect(() => {
-    if (!heightResize) return undefined;
+    if (!needsVhCap) return undefined;
     const measure = () => setVhCap(Math.max(240, Math.round(window.innerHeight * 0.95)));
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, [heightResize]);
+  }, [needsVhCap]);
   // What the scroll area actually gets. A RESTORED height is re-clamped here as well as at apply
   // time, because applyState runs in a mount effect where vhCap is still unresolved: a snapshot
   // written on a 27" monitor would otherwise render at full height on a laptop. The STORED number is
@@ -1817,12 +1836,21 @@ export function Datatable(twcProps) {
   React.useEffect(() => {
     if (!stateReadyRef.current) return undefined;
     if (!stateKey && !onStateChange) return undefined;
+    // #559: a drag is ONE gesture, not dozens of commits. `gridH` (and #542's `dragRowH`) change on
+    // every pointermove to drive the live render, and both are deps here, so a 200px drag used to
+    // emit a full serializeState + JSON.stringify + localStorage.setItem + onStateChange per move -
+    // measured at 5 moves -> 5 calls. The issue asked for the store to be written "once on pointerup
+    // (the rule your own onRowResize doc states)", and the code claimed it did that while doing the
+    // opposite. Gating on the live-drag flags is what makes the claim true, for the row height as
+    // well as the new grid height: the flag clearing on pointerup re-runs this effect exactly once,
+    // with the settled value.
+    if (hResizing || rowResizing != null) return undefined;
     const state = serializeState();
     onStateChangeRef.current?.(state);
     if (stateKey) { try { window.localStorage.setItem(stateKey, JSON.stringify(state)); } catch { /* storage unavailable/full */ } }
     return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedKey, dragRowH, rowHeights, persistRowHeights, gridH]);
+  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedKey, dragRowH, rowHeights, persistRowHeights, gridH, hResizing, rowResizing]);
   // Reads localStorage[stateKey] (else initialState) and applies it. Cheap to call more than once —
   // applyState is idempotent for a given snapshot — but callers gate it (see the two effects below).
   const restoreState = () => {
@@ -2386,6 +2414,13 @@ export function Datatable(twcProps) {
     next.splice(idx, 0, fromKey);
     setRowOrder(next); onRowOrderChange?.(next);
   }
+  // Both resize gestures attach window listeners for their duration. If the grid unmounts mid-drag
+  // - a route change, a dialog closing - those listeners outlived it (measured: 1 pointermove added,
+  // 0 removed). Each gesture parks its own detach here, and unmount runs whatever is live.
+  const dragOffRef = React.useRef(null);
+  React.useEffect(() => () => {
+    if (dragOffRef.current) { dragOffRef.current(); dragOffRef.current = null; }
+  }, []);
   function startRowResize(e, key, tr) {
     e.preventDefault(); e.stopPropagation();
     const perRow = rowResizeMode === "row";
@@ -2404,6 +2439,7 @@ export function Datatable(twcProps) {
     const onUp = () => {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
+      dragOffRef.current = null;
       setRowResizing(null);
       // #542: reported once per DRAG, not once per pointermove - a drag fires dozens, and a host
       // writing each one to a server or a profile would be writing the whole gesture. onStateChange
@@ -2411,12 +2447,21 @@ export function Datatable(twcProps) {
       if (last !== startH) onRowResize?.(last, perRow ? key : null);
     };
     window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
+    dragOffRef.current = () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+    };
   }
   // #558: keyboard stepping for the row handle, so row height is reachable without a pointer.
-  // Arrows step finely, PageUp/PageDown coarsely, Home returns to the floor. There is deliberately
-  // no End: the ceiling is ROW_H_MAX, which is not a row anyone wants in one keystroke, while the
-  // floor is the useful destination ("make the rows compact again"). Down grows the row, matching
-  // the drag. stopPropagation keeps the arrows away from the grid's own cell navigation.
+  // Arrows step finely, PageUp/PageDown coarsely, Home/End go to the bounds - the contract the issue
+  // asked for, verbatim. Down grows the row, matching the drag. stopPropagation keeps the arrows away
+  // from the grid's own cell navigation, and onGridKeyDown bails on this element besides.
+  //
+  // End was deliberately left unbound at first, on the argument that a 2000px row is not a useful
+  // destination for one keystroke. That was the wrong call twice over: the issue asked for
+  // "Home/End for the bounds" in those words, the sibling grid-height grip binds End, and - until the
+  // guard in onGridKeyDown above - an unbound End did not do nothing, it ejected focus out of the
+  // handle into a grid cell. Bound is better than absent, and Home undoes it in one keystroke.
   function onRowResizeKey(e, key, current) {
     let next = null;
     if (e.key === "ArrowDown") next = current + 8;
@@ -2424,6 +2469,7 @@ export function Datatable(twcProps) {
     else if (e.key === "PageDown") next = current + 32;
     else if (e.key === "PageUp") next = current - 32;
     else if (e.key === "Home") next = ROW_H_MIN;
+    else if (e.key === "End") next = ROW_H_MAX;
     if (next == null) return;
     e.preventDefault(); e.stopPropagation();
     const h = clampNum(next, ROW_H_MIN, ROW_H_MAX);
@@ -2444,9 +2490,14 @@ export function Datatable(twcProps) {
     const onUp = () => {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
+      dragOffRef.current = null;
       setHResizing(false);
     };
     window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
+    dragOffRef.current = () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+    };
   }
   // Arrows step, PageUp/PageDown step coarsely, and here End IS a useful destination, unlike on a
   // row: the ceiling is the viewport, so "as tall as my screen" is one keystroke.
@@ -2940,6 +2991,14 @@ export function Datatable(twcProps) {
     // target inside a cell — e.g. an <input>/<select>/<textarea> in a custom renderCell. Mirrors the
     // editable-target guard in handleCellClick/handleRowClick so typing/selection there stays native.
     if (e.target.closest("input, textarea, select, [contenteditable='true']")) return;
+    // #558 follow-up: the row-resize handle owns its own keys. It became focusable, and #557 moved it
+    // out of the checkbox cell into a data cell - so `.twc-dt__td[data-r]` now matches events coming
+    // from it. Measured consequences before this guard: End and ArrowLeft/Right drove cell navigation
+    // and ejected focus OFF the handle into a cell, and Enter/Space fired onRowClick /
+    // onCellSelectionChange (DT_CELL_WIDGET_SEL has no [role="separator"], so the onWidget bail-out
+    // below did not cover it). The COLUMN resizer never had this problem only because it lives in a
+    // <th>, which that selector cannot match.
+    if (e.target.closest(".twc-dt__row-resizer")) return;
     if (editing) return;
     // #391: a child widget that owns a popup (an in-cell Menu/Select trigger) already handled this key —
     // `defaultPrevented` covers the keys it consumes (Arrow/Enter/Space), and an open trigger's
@@ -3932,14 +3991,28 @@ export function Datatable(twcProps) {
     // there is no height to read without measuring, so the density estimate stands in - which is
     // what the row is rendering at anyway.
     const now = h || estRowH;
+    // Per ARIA 1.2, aria-valuenow/min/max on role="separator" are supported only when the separator
+    // is FOCUSABLE - and in shared mode the other N-1 strips are duplicate affordances for one
+    // control, so exposing each of them as a named separator reporting a value was both invalid and
+    // noisy (N announced separators where there had been none). The duplicates stay pointer-
+    // draggable and are hidden from assistive tech.
+    const a11y = focusable
+      ? {
+        role: "separator", "aria-orientation": "horizontal", "aria-label": hint,
+        "aria-valuenow": now, "aria-valuemin": ROW_H_MIN, "aria-valuemax": ROW_H_MAX,
+      }
+      : { "aria-hidden": "true" };
     return (
       <span className="twc-dt__row-resizer" data-active={rowResizing === k || undefined}
-        role="separator" aria-orientation="horizontal" aria-label={hint}
-        aria-valuenow={now} aria-valuemin={ROW_H_MIN} aria-valuemax={ROW_H_MAX}
+        {...a11y}
         tabIndex={focusable ? 0 : -1} title={hint}
         onPointerDown={(e) => startRowResize(e, k, e.currentTarget.closest("tr"))}
         onClick={(e) => e.stopPropagation()}
-        onKeyDown={(e) => onRowResizeKey(e, k, now)} />
+        // Step from the SAME source the drag starts from - a set height, else the row's measured
+        // height, else the density estimate (startRowResize's `startH`). Reading only the estimate
+        // made the keyboard disagree with the drag on any row that content had made taller, which is
+        // this feature's own audience: wrapped cells.
+        onKeyDown={(e) => onRowResizeKey(e, k, h || (e.currentTarget.closest("tr") || {}).offsetHeight || estRowH)} />
     );
   }
 
@@ -4001,6 +4074,12 @@ export function Datatable(twcProps) {
       const next = ordered.findIndex(unpinned);
       return next !== -1 ? next : 0;
     })();
+    // Last resort: with EVERY data column hidden there is no data cell to mount in, and moving the
+    // handle out of the checkbox cell therefore took the count to zero where the old code always
+    // rendered one - a regression against pre-#556 behaviour, reachable in two clicks via the
+    // Columns panel's "Hide all". The checkbox cell takes it back in that one configuration; it is
+    // sticky, so the strip is that cell's width, which is all the row has to offer anyway.
+    const resizeInChk = !!rowResizeMode && !pinSide && resizeCi === -1 && checkboxSelection;
     // #481: a row-level style/class hook. Without it, marking a row by its state meant assigning
     // cellStyle to EVERY column - O(columns) for a row-level fact, with the consumer hand-composing
     // against whatever else already used cellStyle, and no fixed column list to decorate at all when
@@ -4052,7 +4131,7 @@ export function Datatable(twcProps) {
         data-row-dropbefore={(reorderable && rowDrag.over === k && !rowDrag.after) || undefined}
         data-row-dropafter={(reorderable && rowDrag.over === k && rowDrag.after) || undefined}
         data-vrow={virtualizing && midIdx != null ? String(k) : undefined}
-        data-row-resizable={resizeCi >= 0 ? "" : undefined}
+        data-row-resizable={resizeCi >= 0 || resizeInChk ? "" : undefined}
         data-selectable={selectionMode !== "none" || undefined}
         style={Object.keys(rowStyle).length ? rowStyle : undefined}
         draggable={reorderable || undefined}
@@ -4076,6 +4155,7 @@ export function Datatable(twcProps) {
               {reorderable ? rowHandle(k, midIdx, row) : null}
               {rowCheckbox(k, sel, row, ri)}
             </span>
+            {resizeInChk ? rowResizeHandle(k, h) : null}
           </td>
         ) : null}
         {showRowNum ? (

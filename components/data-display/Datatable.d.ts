@@ -318,8 +318,9 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
   onPageChange?: (page: number) => void;
   /** Fires with the next rows-per-page when the user picks one; supplying it makes `pageSize` controlled. */
   onPageSizeChange?: (pageSize: number) => void;
-  /** Starting height of the scroll area in px (header/footer stay fixed). With `heightResize` the
-   *  user can drag it from here; without it this is simply the height. @default 440 */
+  /** Max height of the scroll area in px (header/footer stay fixed) — a grid with less content than
+   *  this is shorter than it. With `heightResize` it is also the **starting** value the user drags
+   *  from, rather than a ceiling on the drag. @default 440 */
   height?: number;
   /**
    * #559: let the user drag the grid's own height, from a grip on the bottom edge of the scroll
@@ -332,12 +333,16 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    * same data. Row height is not a substitute: shortening rows to fit more of them in trades
    * legibility for quantity, the opposite trade from "make the window taller".
    *
-   * `height` stays the **starting** value rather than a cap, so existing call sites render unchanged
-   * until someone drags. The ceiling is viewport-relative (95% of the window, re-measured on resize)
-   * because a flat pixel ceiling goes stale on another screen; the floor is 160px. The grip takes
-   * the **column** resizer's accessibility contract — `role="separator"`, `aria-valuenow`/`min`/`max`,
-   * `tabIndex`, Arrow keys for a fine step, PageUp/PageDown for a coarse one, Home/End for the
-   * bounds — not the row handle's.
+   * `height` stays the **starting** value rather than a cap on the drag, so existing call sites render
+   * unchanged until someone drags. The ceiling is viewport-relative (95% of the window, re-measured on
+   * resize) because a flat pixel ceiling goes stale on another screen; the floor is 160px. The grip
+   * takes the **column** resizer's accessibility contract — `role="separator"`,
+   * `aria-valuenow`/`min`/`max`, `tabIndex`, Arrow keys for a fine step, PageUp/PageDown for a coarse
+   * one, Home/End for the bounds.
+   *
+   * The store is written **once per gesture**, on pointerup — not once per `pointermove`. The live
+   * value drives the render during the drag; `onStateChange` and the `stateKey` write are suppressed
+   * until it settles (this also fixed #542's row height, which had the same per-move storm).
    */
   heightResize?: boolean;
   /**

@@ -30,6 +30,7 @@ export function DiffTable({
   label,
   id,
   className = "",
+  style,
   ...rest
 }) {
   const dtColumns = React.useMemo(() => columns.map(toDatatableColumn), [columns]);
@@ -43,7 +44,7 @@ export function DiffTable({
       columns={dtColumns}
       diff={diff}
       emptyMessage={emptyState}
-      {...(label ? {} : { id, className, ...rest })}
+      {...(label ? {} : { id, className, style, ...rest })}
     />
   );
 
@@ -54,8 +55,15 @@ export function DiffTable({
   // applied on this branch only, so a labelled DiffTable and a bare one answered differently. The
   // label's own div below sets fontSize/fontWeight/color from tokens and no font-family - this
   // wrapper now reads what every other component reads. Do not add it back.
+  //
+  // `style` is destructured out of `...rest` and merged LAST rather than left in the spread: written
+  // after {...rest}, the component's own style object replaced a consumer's `style` prop outright
+  // instead of composing with it, so this branch silently dropped it. Same defect class as the
+  // font-family above - a declaration the component writes beating one the consumer asked for -
+  // in the same expression, which is why it is fixed here rather than filed.
   return (
-    <div id={id} className={className} {...rest} style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+    <div id={id} className={className} {...rest}
+      style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)", ...style }}>
       <div style={{ fontSize: "var(--text-sm)", fontWeight: "var(--font-semibold)", color: "var(--color-text)" }}>{label}</div>
       {table}
     </div>
