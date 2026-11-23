@@ -7,6 +7,7 @@ import { Input } from "../inputs/Input.jsx";
 import { Checkbox } from "../inputs/Checkbox.jsx";
 import { Tooltip } from "../overlay/Tooltip.jsx";
 import { runDatatableQuery } from "./Datatable.jsx";
+import { useComponentDefaults } from "../_defaults.js";
 
 const CARDGRID_CSS = `
 .twc-cardgrid { display: flex; flex-direction: column; gap: var(--space-3); }
@@ -72,7 +73,9 @@ const CARDGRID_CSS = `
 .twc-cardgrid__selall { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--color-text-muted); }
 `;
 
-export function CardGrid({
+export function CardGrid(twcProps) {
+  // #554: provider defaults merged UNDER the call site's own props - built-in < provider < prop.
+  const {
   rows = [],
   renderCard,
   rowKey = "id",
@@ -125,7 +128,7 @@ export function CardGrid({
   id,
   className = "",
   ...rest
-}) {
+  } = useComponentDefaults("CardGrid", twcProps);
   const styles = useScopedStyles("twc-cardgrid-styles", CARDGRID_CSS);
   const autoId = React.useId();
   const fieldId = id || autoId;

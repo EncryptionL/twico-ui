@@ -122,8 +122,9 @@ Work on **`dev`** (or `feat/*` / `fix/*` → `dev`). **`main` is release-only** 
 ## 5. Architecture notes
 
 - **Components are self-contained.** Each imports only `react` (and `react-dom` for portals, plus
-  the shared internal helpers `components/_styles.js`, `components/_warn.js`, and — for the modal
-  overlays — `components/_overlay.js`); the only other exceptions are composite
+  the shared internal helpers `components/_styles.js`, `components/_warn.js`, `components/_defaults.js`
+  (the `TwicoProvider defaults={…}` channel, #554 — `Datatable` and `CardGrid` read it), and — for the
+  modal overlays — `components/_overlay.js`); the only other exceptions are composite
   components that reuse siblings (`AvatarMenu` → `Menu`, `Datatable` →
   `Select`/`Input`/`MultiSelect`/`Pagination`, `CurrencyField` → `Select`, `Sidebar` → `Tooltip`
   for collapsed-item labels). Components never import the public `hooks/` barrel — shared hook logic

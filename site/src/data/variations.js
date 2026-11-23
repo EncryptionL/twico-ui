@@ -767,6 +767,11 @@ export const VARIATIONS = [
     "i": 22
   },
   {
+    "component": "Datatable",
+    "title": "Drag the grid's own height",
+    "i": 23
+  },
+  {
     "component": "DatePicker",
     "title": "With label",
     "i": 0

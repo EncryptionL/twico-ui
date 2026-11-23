@@ -227,7 +227,7 @@ while row grouping is active.
 
 **Row reordering & resizing** — `rowReorder` makes each row draggable to reorder (drop indicator shows the
 target; the new key order is reported via `onRowOrderChange`; disabled while a sort or grouping is active).
-`rowResize` adds a drag handle on each row's bottom edge to change its height.
+`rowResize` adds a resize strip along each row's bottom edge to change its height — draggable, and keyboard-reachable (`Tab` to it, then Arrows for a fine step, PageUp/PageDown for a coarse one, Home/End for the bounds). `heightResize` does the same for the grid's own height, from a grip under the scroll area.
 
 **Expandable rows** — `renderRowDetail={(row) => <YourPanel …/>}` gives each row an expand/collapse chevron
 (a leading column) that reveals a full-width detail panel beneath it; return `null` for a row to make it

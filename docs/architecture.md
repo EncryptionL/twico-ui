@@ -36,7 +36,9 @@ Each component is a self-contained React function:
   `components/_styles.js` for scoped CSS, `components/_warn.js` for dev-only, deduped
   `warnOnce` notices — no-ops in production, `components/_overlay.js` for the modal
   focus-trap/portal primitives, `components/_compose.js` to compose a consumer's event handler with
-  the component's own instead of letting `{...rest}` delete it (#452), and `components/_name.js` to
+  the component's own instead of letting `{...rest}` delete it (#452), `components/_defaults.js` for the
+  `TwicoProvider defaults={…}` channel that merges app-wide component defaults under each call site's own
+  props (#554 — see [provider-defaults.md](./provider-defaults.md)), and `components/_name.js` to
   decide whether a `role="combobox"` control needs a fallback accessible name — it asks the DOM, via
   `el.labels`, so the fallback can never override a consumer's own `<label>` (#459)).
   **No other runtime dependencies.** Components never import the

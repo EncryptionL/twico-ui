@@ -5566,7 +5566,14 @@ export const components = [
         "type": "number",
         "required": false,
         "default": "440",
-        "description": "Sets the maximum scroll height of the grid body in pixels before rows scroll internally, defaulting to 440."
+        "description": "Scroll height of the grid body in pixels before rows scroll internally; the starting value when heightResize is on."
+      },
+      {
+        "prop": "heightResize",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Let the user drag the grid's own height from a grip on the bottom edge; persists as DatatableState.height."
       },
       {
         "prop": "serverMode",
@@ -5832,7 +5839,7 @@ export const components = [
         "type": "boolean | \"row\" | \"all\"",
         "required": false,
         "default": "false",
-        "description": "Drag a row's bottom edge to resize. true resizes EVERY row and persists as DatatableState.rowHeight; \"row\" resizes just that row."
+        "description": "Drag or Tab to a row's bottom edge to resize. true resizes EVERY row and persists as DatatableState.rowHeight; \"row\" resizes one."
       },
       {
         "prop": "persistRowHeights",

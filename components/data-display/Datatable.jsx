@@ -8,6 +8,7 @@ import { Tooltip } from "../overlay/Tooltip.jsx";
 import { Badge } from "./Badge.jsx";
 import { classifyDiff, DIFF_OPS } from "../_diff.js";
 import { warnOnce } from "../_warn.js";
+import { useComponentDefaults } from "../_defaults.js";
 
 // #330: default Filters-panel width, shared by the JS-side consumers (resize-grip aria-valuetext fallback,
 // open-position clamp) so they stay in lockstep with the CSS default. NOTE: must equal the literal in DT_CSS
@@ -259,7 +260,7 @@ const DT_CSS = `
 .twc-dt__pivot-vh { display: inline-flex; flex-direction: column; align-items: center; gap: 1px; line-height: 1.15; }
 .twc-dt__pivot-vh-label { font-weight: var(--font-bold); color: var(--color-text); text-transform: none; letter-spacing: 0; }
 .twc-dt__pivot-vh-agg { font-size: 10px; font-weight: var(--font-semibold); color: var(--color-primary-subtle-fg); text-transform: uppercase; letter-spacing: 0.04em; }
-/* Row headers + record counts (must outrank .twc-dt__row > .twc-dt__td:first-child = (0,3,0)) */
+/* Row headers + record counts */
 .twc-dt__pivot tbody .twc-dt__pivot-rowhead[data-pin],
 .twc-dt__pivot tfoot .twc-dt__pivot-rowhead[data-pin] { position: sticky; inset-inline-start: 0; z-index: 5; }
 .twc-dt__pivot-rowhead { font-weight: var(--font-semibold); color: var(--color-text); background: var(--color-surface); border-inline-end: var(--border-medium) solid var(--color-border-strong); }
@@ -376,12 +377,48 @@ const DT_CSS = `
 .twc-dt__row-handle svg { width: 14px; height: 14px; }
 /* Visually-hidden aria-live region for reorder announcements */
 .twc-dt__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-/* Row resizing — must not steal positioning from a pinned first column (checkbox/select) */
-.twc-dt__row > .twc-dt__td:first-child:not([data-pin]) { position: relative; }
+/* Row resizing. #557: the strip is meant to span the whole row, so the ROW has to be the containing
+   block - 'left: 0; right: 0' resolves against the nearest POSITIONED ancestor, and the strip's only
+   mount used to be the checkbox cell, which carries data-pin="left" and is therefore position:sticky.
+   The grabbable area was 44x7px in each row's bottom-LEFT corner (68 with rowReorder) instead of the
+   full bottom edge, with the hover bar drawn under the checkbox - and "drag the bottom edge of the
+   row" is exactly what the cursor invites you to do anywhere along it.
+   The rule this replaces - '.twc-dt__row > .twc-dt__td:first-child:not([data-pin])' - prepared a
+   non-pinned FIRST cell to be that containing block, but the checkbox cell always carries data-pin,
+   so the selector could never match the one mount that existed: it was dead as shipped.
+   data-row-resizable is set only on rows that actually render a resizer, so no grid without
+   rowResize changes its positioning.
+   The 'z-index: 0' is not cosmetic and must not be dropped. #557 asked for "a check against the
+   sticky/pinned cells AND the z-index: 6 stacking", and only the first half was done: a positioned
+   box with 'z-index: auto' creates NO stacking context, so moving the strip out of the sticky
+   checkbox cell (whose context had trapped it) let its z-index: 6 escape and outrank the sticky
+   header (.twc-dt__th, 3; [data-pin], 5) and the sticky tfoot (3/4). Measured in Chromium over a
+   301-offset scroll sweep: 372 of 3612 header hit-tests landed on the strip across 31 offsets, the
+   sort control was unreachable, and 35 of 301 footer probes were taken too. 'z-index: 0' gives the
+   row a stacking context that confines the 6 inside it, and takes all of that to zero while the
+   strip stays full-row width.
+   It also fixes the strip's 'bottom: -3px' overhang: each resizable row is now its own stacking
+   context at the same level, so row N+1 paints over row N's overhang instead of the overhang
+   capturing the top 3px of every row - which, once the strip spanned the full width, had quietly
+   taken cell click-to-select and double-click-to-edit along that whole band. */
+.twc-dt__row[data-row-resizable] { position: relative; z-index: 0; }
 .twc-dt__row-resizer { position: absolute; left: 0; right: 0; bottom: -3px; height: 7px; cursor: row-resize; z-index: 6; touch-action: none; }
 .twc-dt__row-resizer::after { content: ""; position: absolute; left: 6px; right: 6px; bottom: 3px; height: 2px; border-radius: 2px; background: transparent; transition: background-color var(--duration-fast); }
 .twc-dt__row:hover .twc-dt__row-resizer::after { background: var(--color-border-strong); }
-.twc-dt__row-resizer:hover::after { background: var(--color-primary); }
+.twc-dt__row-resizer:hover::after, .twc-dt__row-resizer[data-active="true"]::after { background: var(--color-primary); }
+/* #558: the handle is keyboard-reachable now, so it has to show where focus is. Mirrors
+   .twc-dt__resizer, the column handle. */
+.twc-dt__row-resizer:focus-visible { outline: none; }
+.twc-dt__row-resizer:focus-visible::after { background: var(--color-primary); }
+/* #559: the grid's own height. A full-width strip under the scroll area is the better hit target,
+   and it is why the hint lives in aria-label rather than a Tooltip: .twc-tooltip-wrap is
+   inline-flex and would collapse a full-width child to its content width. The visible grip is a
+   centred bar, so the affordance still reads as a handle. */
+.twc-dt__hgrip { display: block; position: relative; width: 100%; height: 11px; cursor: ns-resize; touch-action: none; }
+.twc-dt__hgrip::after { content: ""; position: absolute; left: 50%; transform: translateX(-50%); top: 4px; width: 36px; height: 3px; border-radius: 2px; background: var(--color-border-strong); transition: background-color var(--duration-fast); }
+.twc-dt__hgrip:hover::after, .twc-dt__hgrip[data-active="true"]::after { background: var(--color-primary); }
+.twc-dt__hgrip:focus-visible { outline: none; }
+.twc-dt__hgrip:focus-visible::after { background: var(--color-primary); box-shadow: var(--ring); }
 
 /* #481: the cell background reads --twc-dt-row-bg, which getRowStyle sets on the <tr>. It has to come
    through a custom property rather than straight off the row, because this rule paints an OPAQUE
@@ -1177,12 +1214,17 @@ function xlsxPackage(sheetXml) {
   ]);
 }
 
-export function Datatable({
+export function Datatable(twcProps) {
+  // #554: provider defaults merged UNDER the call site's own props - built-in < provider < prop.
+  // Props are taken as one object rather than destructured in the signature so that there is
+  // something to merge into; the `=` defaults below still apply when neither the provider nor the
+  // call site supplies a value, because useComponentDefaults copies only DEFINED props over them.
+  const {
   columns: columnsProp, rows: rowsProp = [], loading = false, rowKey: rowKeyProp, checkboxSelection = false,
   diff,
   density: densityProp = "comfortable", pageSize = 10, pageSizeOptions = [5, 10, 25, 50],
   page, onPageChange, onPageSizeChange,
-  height = 440, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [], onRowSelectionChange,
+  height = 440, heightResize = false, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [], onRowSelectionChange,
   selectionSummary,
   // #540 / #541: per-row selectability, and a controlled selection.
   isRowSelectable, rowSelectionDisabledReason, selectedKeys, onSelectionChange,
@@ -1228,8 +1270,12 @@ export function Datatable({
   // in client mode `getSubRows(row)` supplies them. `getRowDepth(row)` indents nested rows so they read as a tree.
   getRowCanExpand, getRowDepth, getSubRows,
   className = "", ...rest
-}) {
+  } = useComponentDefaults("Datatable", twcProps);
   const __twcStyles = useScopedStyles("twc-dt-styles", DT_CSS);
+  // Bounds helper. Declared up here (it used to live beside the filter-panel resize) because the
+  // grid height (#559) has to clamp during RENDER - the virtualizer windows against the clamped
+  // value, and a restore applies before the viewport ceiling is known.
+  const clampNum = (v, lo, hi) => Math.max(lo, Math.min(hi, Math.round(v)));
 
   // #239: diff mode. When `diff` is set, pair diff.from↔diff.to, classify each row, and render
   // before→after through THIS engine — so density, resize, pin, reorder, sort, filter, grouping,
@@ -1604,6 +1650,50 @@ export function Datatable({
   // persisted key is DatatableState.rowHeight for that reason, and the prop keeps meaning only
   // "estimate", so passing it still does not force a height on anything.
   const [dragRowH, setDragRowH] = React.useState(null);
+  // #558: which row's strip is mid-drag, so the handle stays highlighted once the pointer leaves it.
+  // The column resizer has had `data-active` all along; `:hover` alone loses the cue the moment the
+  // drag outruns the 7px strip, which it does immediately.
+  const [rowResizing, setRowResizing] = React.useState(null);
+  // #558: the row-height bounds. The DRAG used to be floored at 32 and uncapped while applyState
+  // clamped a restored height to [32, 2000], so the gesture and the restore disagreed about what a
+  // legal height was - and a keyboard step needs a real ceiling to report as aria-valuemax.
+  const ROW_H_MIN = 32, ROW_H_MAX = 2000;
+  // #559: the grid's own height - the last user resize that was not one. Column widths persist
+  // (columnWidths) and row height became persistent in 1.52 (rowHeight), but `height` stayed a
+  // developer constant with no affordance and no state field, and it is the number that decides how
+  // many rows a reader sees at once: a 13" laptop and a 27" monitor got the same 440px window onto
+  // the same data. Row height is not a substitute - shortening rows to fit more of them in trades
+  // legibility for quantity, which is the opposite trade from "make the window taller".
+  // Null until the user drags, so every existing call site renders unchanged and `height` stays the
+  // STARTING value rather than a cap.
+  const [gridH, setGridH] = React.useState(null);
+  const [hResizing, setHResizing] = React.useState(false);
+  const H_MIN = 160, H_MAX = 2000;
+  // The ceiling is viewport-relative, because a flat pixel ceiling goes stale on another screen and
+  // a table taller than the window is not a useful thing to be able to drag to. It must NOT be read
+  // during render: `window` does not exist on the server, and an aria-valuemax that differs between
+  // the server and the first client render is a hydration mismatch. So it starts at the static bound
+  // and an effect refines it after mount.
+  const [vhCap, setVhCap] = React.useState(null);
+  const heightMax = vhCap == null ? H_MAX : vhCap;
+  // Measure whenever the ceiling can matter: with the grip on, OR when a height has been restored
+  // from a snapshot without it. The effect used to bail on `!heightResize`, so `initialState.height`
+  // was applied but never viewport-clamped and a stored 1900 rendered 1900px on a 768px window with
+  // no grip to undo it - while the prop docs promised that clamp unconditionally. Still cheap for
+  // every other grid: no listener at all unless one of the two is true.
+  const needsVhCap = heightResize || gridH != null;
+  React.useEffect(() => {
+    if (!needsVhCap) return undefined;
+    const measure = () => setVhCap(Math.max(240, Math.round(window.innerHeight * 0.95)));
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [needsVhCap]);
+  // What the scroll area actually gets. A RESTORED height is re-clamped here as well as at apply
+  // time, because applyState runs in a mount effect where vhCap is still unresolved: a snapshot
+  // written on a 27" monitor would otherwise render at full height on a laptop. The STORED number is
+  // left as the user set it, so it un-clamps again on the big screen.
+  const effHeight = gridH == null ? height : clampNum(gridH, H_MIN, heightMax);
   const [rowDrag, setRowDrag] = React.useState({ from: null, over: null, after: false });
   // Keyboard row reorder ("grab" mode): { key, index } where index is the live target slot among middleRows.
   const [rowGrab, setRowGrab] = React.useState(null);
@@ -1654,6 +1744,10 @@ export function Datatable({
     // this to a user profile writes that blob to a server on every change.
     rowHeight: dragRowH != null ? dragRowH : undefined,
     rowHeights: persistRowHeights && Object.keys(rowHeights).length ? rowHeights : undefined,
+    // #559: the scroll area's height. One bounded number - the argument rowHeight's doc comment
+    // makes for preferring that over an unbounded map applies here too, only more simply: there is
+    // exactly one - so it round-trips like columnWidths and rowHeight and needs no opt-in.
+    height: gridH != null ? gridH : undefined,
   });
   const applyState = (s) => {
     if (!s || typeof s !== "object") return;
@@ -1722,7 +1816,10 @@ export function Datatable({
     if (Array.isArray(s.collapsedGroups) && !collapsedControlled) setInternalCollapsed(new Set(s.collapsedGroups.filter((k) => typeof k === "string")));
     // #542: clamped to the same floor the drag enforces, and sanity-capped - a hand-authored
     // initialState or a corrupted snapshot must not be able to make one row taller than the grid.
-    if (typeof s.rowHeight === "number") setDragRowH(clampNum(s.rowHeight, 32, 2000));
+    if (typeof s.rowHeight === "number") setDragRowH(clampNum(s.rowHeight, ROW_H_MIN, ROW_H_MAX));
+    // #559: the STATIC bound here, not the viewport one - this runs in a mount effect, before the
+    // viewport ceiling has been measured. The render clamp above applies that ceiling.
+    if (typeof s.height === "number") setGridH(clampNum(s.height, H_MIN, H_MAX));
     if (s.rowHeights && typeof s.rowHeights === "object") {
       setRowHeights(Object.fromEntries(Object.entries(s.rowHeights)
         .filter(([, h]) => typeof h === "number")
@@ -1739,12 +1836,21 @@ export function Datatable({
   React.useEffect(() => {
     if (!stateReadyRef.current) return undefined;
     if (!stateKey && !onStateChange) return undefined;
+    // #559: a drag is ONE gesture, not dozens of commits. `gridH` (and #542's `dragRowH`) change on
+    // every pointermove to drive the live render, and both are deps here, so a 200px drag used to
+    // emit a full serializeState + JSON.stringify + localStorage.setItem + onStateChange per move -
+    // measured at 5 moves -> 5 calls. The issue asked for the store to be written "once on pointerup
+    // (the rule your own onRowResize doc states)", and the code claimed it did that while doing the
+    // opposite. Gating on the live-drag flags is what makes the claim true, for the row height as
+    // well as the new grid height: the flag clearing on pointerup re-runs this effect exactly once,
+    // with the settled value.
+    if (hResizing || rowResizing != null) return undefined;
     const state = serializeState();
     onStateChangeRef.current?.(state);
     if (stateKey) { try { window.localStorage.setItem(stateKey, JSON.stringify(state)); } catch { /* storage unavailable/full */ } }
     return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedKey, dragRowH, rowHeights, persistRowHeights]);
+  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedKey, dragRowH, rowHeights, persistRowHeights, gridH, hResizing, rowResizing]);
   // Reads localStorage[stateKey] (else initialState) and applies it. Cheap to call more than once —
   // applyState is idempotent for a given snapshot — but callers gate it (see the two effects below).
   const restoreState = () => {
@@ -2308,26 +2414,104 @@ export function Datatable({
     next.splice(idx, 0, fromKey);
     setRowOrder(next); onRowOrderChange?.(next);
   }
+  // Both resize gestures attach window listeners for their duration. If the grid unmounts mid-drag
+  // - a route change, a dialog closing - those listeners outlived it (measured: 1 pointermove added,
+  // 0 removed). Each gesture parks its own detach here, and unmount runs whatever is live.
+  const dragOffRef = React.useRef(null);
+  React.useEffect(() => () => {
+    if (dragOffRef.current) { dragOffRef.current(); dragOffRef.current = null; }
+  }, []);
   function startRowResize(e, key, tr) {
     e.preventDefault(); e.stopPropagation();
     const perRow = rowResizeMode === "row";
     const startY = e.clientY;
     const startH = (perRow ? rowHeights[key] : dragRowH) || tr?.offsetHeight || 44;
     let last = startH;
+    setRowResizing(key);
     const onMove = (ev) => {
-      last = Math.max(32, Math.round(startH + (ev.clientY - startY)));
+      // #558: clamped to BOTH bounds. The drag was floored at 32 and uncapped, while applyState
+      // clamped a restored height to [32, 2000] - so a height you could reach by dragging was one a
+      // reload would then refuse to give back.
+      last = clampNum(startH + (ev.clientY - startY), ROW_H_MIN, ROW_H_MAX);
       if (perRow) setRowHeights((m) => ({ ...m, [key]: last }));
       else setDragRowH(last);
     };
     const onUp = () => {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
+      dragOffRef.current = null;
+      setRowResizing(null);
       // #542: reported once per DRAG, not once per pointermove - a drag fires dozens, and a host
       // writing each one to a server or a profile would be writing the whole gesture. onStateChange
       // is coalesced by its own effect; this one is imperative, so it coalesces itself.
       if (last !== startH) onRowResize?.(last, perRow ? key : null);
     };
     window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
+    dragOffRef.current = () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+    };
+  }
+  // #558: keyboard stepping for the row handle, so row height is reachable without a pointer.
+  // Arrows step finely, PageUp/PageDown coarsely, Home/End go to the bounds - the contract the issue
+  // asked for, verbatim. Down grows the row, matching the drag. stopPropagation keeps the arrows away
+  // from the grid's own cell navigation, and onGridKeyDown bails on this element besides.
+  //
+  // End was deliberately left unbound at first, on the argument that a 2000px row is not a useful
+  // destination for one keystroke. That was the wrong call twice over: the issue asked for
+  // "Home/End for the bounds" in those words, the sibling grid-height grip binds End, and - until the
+  // guard in onGridKeyDown above - an unbound End did not do nothing, it ejected focus out of the
+  // handle into a grid cell. Bound is better than absent, and Home undoes it in one keystroke.
+  function onRowResizeKey(e, key, current) {
+    let next = null;
+    if (e.key === "ArrowDown") next = current + 8;
+    else if (e.key === "ArrowUp") next = current - 8;
+    else if (e.key === "PageDown") next = current + 32;
+    else if (e.key === "PageUp") next = current - 32;
+    else if (e.key === "Home") next = ROW_H_MIN;
+    else if (e.key === "End") next = ROW_H_MAX;
+    if (next == null) return;
+    e.preventDefault(); e.stopPropagation();
+    const h = clampNum(next, ROW_H_MIN, ROW_H_MAX);
+    if (rowResizeMode === "row") setRowHeights((m) => ({ ...m, [key]: h }));
+    else setDragRowH(h);
+    // One completed change per keystroke - the keyboard's analogue of one per drag.
+    if (h !== current) onRowResize?.(h, rowResizeMode === "row" ? key : null);
+  }
+  // #559: the grid-height drag. Same shape as startRowResize - the live value is local state for the
+  // duration of the gesture, and the store is written once the state settles (by the persist effect,
+  // which coalesces) rather than once per pointermove.
+  function startHeightResize(e) {
+    e.preventDefault(); e.stopPropagation();
+    const startY = e.clientY;
+    const startH = effHeight;
+    setHResizing(true);
+    const onMove = (ev) => setGridH(clampNum(startH + (ev.clientY - startY), H_MIN, heightMax));
+    const onUp = () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      dragOffRef.current = null;
+      setHResizing(false);
+    };
+    window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
+    dragOffRef.current = () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+    };
+  }
+  // Arrows step, PageUp/PageDown step coarsely, and here End IS a useful destination, unlike on a
+  // row: the ceiling is the viewport, so "as tall as my screen" is one keystroke.
+  function onHeightResizeKey(e) {
+    let next = null;
+    if (e.key === "ArrowDown") next = effHeight + 16;
+    else if (e.key === "ArrowUp") next = effHeight - 16;
+    else if (e.key === "PageDown") next = effHeight + 80;
+    else if (e.key === "PageUp") next = effHeight - 80;
+    else if (e.key === "Home") next = H_MIN;
+    else if (e.key === "End") next = heightMax;
+    if (next == null) return;
+    e.preventDefault(); e.stopPropagation();
+    setGridH(clampNum(next, H_MIN, heightMax));
   }
 
   // Commit a keyboard reorder that moves `fromKey` to the slot occupied by `middleRows[targetIndex]`,
@@ -2402,10 +2586,10 @@ export function Datatable({
     const ro = window.ResizeObserver ? new ResizeObserver(measure) : null;
     if (ro) ro.observe(el);
     return () => ro && ro.disconnect();
-  }, [virtualizing, height]);
+  }, [virtualizing, effHeight]);
   const onScrollVirtual = React.useCallback((e) => { setScrollTop(e.currentTarget.scrollTop); }, []);
   // Window the middle (non-pinned) rows. Pinned top/bottom rows always render (they're sticky).
-  const vh = viewportH || (typeof height === "number" ? height : 440);
+  const vh = viewportH || (typeof effHeight === "number" ? effHeight : 440);
   // Variable-height windowing: cache each row's MEASURED height by its stable key — rows can differ
   // in height (tall renderCell content, wrapped text, a drag-resized row), so a single fixed height
   // would drift the scrollbar. Unmeasured rows fall back to estRowH until they scroll into view once.
@@ -2807,6 +2991,14 @@ export function Datatable({
     // target inside a cell — e.g. an <input>/<select>/<textarea> in a custom renderCell. Mirrors the
     // editable-target guard in handleCellClick/handleRowClick so typing/selection there stays native.
     if (e.target.closest("input, textarea, select, [contenteditable='true']")) return;
+    // #558 follow-up: the row-resize handle owns its own keys. It became focusable, and #557 moved it
+    // out of the checkbox cell into a data cell - so `.twc-dt__td[data-r]` now matches events coming
+    // from it. Measured consequences before this guard: End and ArrowLeft/Right drove cell navigation
+    // and ejected focus OFF the handle into a cell, and Enter/Space fired onRowClick /
+    // onCellSelectionChange (DT_CELL_WIDGET_SEL has no [role="separator"], so the onWidget bail-out
+    // below did not cover it). The COLUMN resizer never had this problem only because it lives in a
+    // <th>, which that selector cannot match.
+    if (e.target.closest(".twc-dt__row-resizer")) return;
     if (editing) return;
     // #391: a child widget that owns a popup (an in-cell Menu/Select trigger) already handled this key —
     // `defaultPrevented` covers the keys it consumes (Arrow/Enter/Space), and an open trigger's
@@ -3518,7 +3710,6 @@ export function Datatable({
   const F_LABEL = { col: "column", op: "operator", val: "value", logic: "connector" };
   const fMaxW = () => (typeof window === "undefined" ? 9999 : window.innerWidth - 32);
   const fMaxH = () => (typeof window === "undefined" ? 9999 : window.innerHeight - 32);
-  const clampNum = (v, lo, hi) => Math.max(lo, Math.min(hi, Math.round(v)));
   // Live sibling widths from the DOM (NOT React state, which is undefined until a field is manually
   // resized — reading state on the first value drag would yield NaN and silently kill it).
   const fLiveW = (field) => { const p = filterPanelRef.current, el = p && p.querySelector(F_SEL[field]); return el ? el.getBoundingClientRect().width : F_MIN[field]; };
@@ -3773,6 +3964,58 @@ export function Datatable({
     return why == null ? box : <Tooltip label={why} placement="top">{box}</Tooltip>;
   }
 
+  // #558: the row-resize handle. It used to be a <span> with four props - className, a native
+  // title, onPointerDown and a click guard - so row height was unreachable without a pointer, its
+  // only affordance was a `title` (no reliable keyboard or touch path, and unstyleable), and
+  // assistive tech could not report the current height even if something had been able to focus it.
+  // For a setting whose whole purpose is legibility - making wrapped cells readable - that is the
+  // wrong audience to exclude.
+  //
+  // This mirrors the COLUMN resizer rendered further down, which has carried role="separator" +
+  // aria-value* + tabIndex + arrow keys since it landed. `title` stays beside `aria-label` for the
+  // same reason it does there: it is the sighted mouse user's hint, and aria-label is what AT reads.
+  //
+  // ONE tab stop, not one per row, when the height is SHARED. In "all" mode every row's strip drives
+  // the same number, so N focusable copies would be N identical stops in a grid body that
+  // deliberately has one (the cells use a roving tabindex). The first row to render a strip takes it
+  // - under virtualization that is the first row in the window, which is still exactly one - and the
+  // rest keep the pointer gesture but stay out of the tab order. In "row" mode each strip drives a
+  // different height, so every one is focusable, exactly like the column resizers.
+  let rowTabTaken = false;
+  function rowResizeHandle(k, h) {
+    const perRow = rowResizeMode === "row";
+    const hint = perRow ? "Drag to resize this row" : "Drag to resize every row";
+    const focusable = perRow || !rowTabTaken;
+    if (focusable) rowTabTaken = true;
+    // The height to report and to step from. `h` is what the user has set; with nothing set yet
+    // there is no height to read without measuring, so the density estimate stands in - which is
+    // what the row is rendering at anyway.
+    const now = h || estRowH;
+    // Per ARIA 1.2, aria-valuenow/min/max on role="separator" are supported only when the separator
+    // is FOCUSABLE - and in shared mode the other N-1 strips are duplicate affordances for one
+    // control, so exposing each of them as a named separator reporting a value was both invalid and
+    // noisy (N announced separators where there had been none). The duplicates stay pointer-
+    // draggable and are hidden from assistive tech.
+    const a11y = focusable
+      ? {
+        role: "separator", "aria-orientation": "horizontal", "aria-label": hint,
+        "aria-valuenow": now, "aria-valuemin": ROW_H_MIN, "aria-valuemax": ROW_H_MAX,
+      }
+      : { "aria-hidden": "true" };
+    return (
+      <span className="twc-dt__row-resizer" data-active={rowResizing === k || undefined}
+        {...a11y}
+        tabIndex={focusable ? 0 : -1} title={hint}
+        onPointerDown={(e) => startRowResize(e, k, e.currentTarget.closest("tr"))}
+        onClick={(e) => e.stopPropagation()}
+        // Step from the SAME source the drag starts from - a set height, else the row's measured
+        // height, else the density estimate (startRowResize's `startH`). Reading only the estimate
+        // made the keyboard disagree with the drag on any row that content had made taller, which is
+        // this feature's own audience: wrapped cells.
+        onKeyDown={(e) => onRowResizeKey(e, k, h || (e.currentTarget.closest("tr") || {}).offsetHeight || estRowH)} />
+    );
+  }
+
   function rowHandle(k, midIdx, row) {
     const grabbed = rowGrab && rowGrab.key === k;
     const label = String(row[ordered[0]?.field] ?? `Row ${(midIdx ?? 0) + 1}`);
@@ -3801,6 +4044,42 @@ export function Datatable({
     const rowActive = selectionMode === "row" && activeRowVal === k;
     const stickyStyle = pinSide === "top" ? { position: "sticky", top: headH, zIndex: 5 } : pinSide === "bottom" ? { position: "sticky", bottom: 0, zIndex: 5 } : undefined;
     const h = rowResizeMode === "row" ? rowHeights[k] : (dragRowH == null ? undefined : dragRowH);
+    // #556/#557: WHERE the resize strip mounts. It used to render inside the checkbox cell and
+    // nowhere else, so on a grid without `checkboxSelection` it was not degraded - it was inert: no
+    // handle, no way to set a height, nothing in the console, and the prop typechecks. For a
+    // consumer standardising rowResize that is every read-only table, dashboard panel and dialog
+    // grid, plus any USER whose permissions withhold selection on a grid that otherwise has it,
+    // since checkboxSelection is commonly bound to a permission. Two things say oversight rather
+    // than decision: rowReorder solves exactly this case 46 lines further down (its handle falls
+    // back to the first data cell), and the CSS carried a rule for a non-pinned FIRST cell that the
+    // one existing mount could never match.
+    // It now mounts in the first cell that is NOT pinned - a pinned cell is position:sticky and
+    // would become the containing block again, which is what made the strip 44px wide (#557) - and
+    // with the row positioned instead (see the CSS) the strip spans the row's whole bottom edge. If
+    // every column happens to be pinned there is no unpinned cell to use, so the first one takes it:
+    // one cell wide, the pre-#557 geometry, rather than nothing at all.
+    // Two kinds of cell establish a containing block of their own and so would take the strip's
+    // width back off the row: a PINNED cell (position: sticky, CSS ~9239) and an EDITABLE one
+    // (position: relative, so it can anchor its pencil edit-hint). The second was caught by the
+    // docs-site interaction check and not by an isolated probe, because it needs editMode. So the
+    // preference is ordered: an unpinned, non-editable cell first; failing that any unpinned cell;
+    // failing that cell 0. Only a grid where EVERY unpinned column is editable lands on the
+    // fallback, and there the strip spans its host cell from the row's leading edge rather than the
+    // whole row - the cell must stay positioned for its own hint, so that one is by necessity.
+    const resizeCi = (() => {
+      if (!rowResizeMode || pinSide || !ordered.length) return -1;
+      const unpinned = (c) => !stickyOf(c.field).pin;
+      const best = ordered.findIndex((c) => unpinned(c) && !isCellEditable(c, row));
+      if (best !== -1) return best;
+      const next = ordered.findIndex(unpinned);
+      return next !== -1 ? next : 0;
+    })();
+    // Last resort: with EVERY data column hidden there is no data cell to mount in, and moving the
+    // handle out of the checkbox cell therefore took the count to zero where the old code always
+    // rendered one - a regression against pre-#556 behaviour, reachable in two clicks via the
+    // Columns panel's "Hide all". The checkbox cell takes it back in that one configuration; it is
+    // sticky, so the strip is that cell's width, which is all the row has to offer anyway.
+    const resizeInChk = !!rowResizeMode && !pinSide && resizeCi === -1 && checkboxSelection;
     // #481: a row-level style/class hook. Without it, marking a row by its state meant assigning
     // cellStyle to EVERY column - O(columns) for a row-level fact, with the consumer hand-composing
     // against whatever else already used cellStyle, and no fixed column list to decorate at all when
@@ -3852,6 +4131,7 @@ export function Datatable({
         data-row-dropbefore={(reorderable && rowDrag.over === k && !rowDrag.after) || undefined}
         data-row-dropafter={(reorderable && rowDrag.over === k && rowDrag.after) || undefined}
         data-vrow={virtualizing && midIdx != null ? String(k) : undefined}
+        data-row-resizable={resizeCi >= 0 || resizeInChk ? "" : undefined}
         data-selectable={selectionMode !== "none" || undefined}
         style={Object.keys(rowStyle).length ? rowStyle : undefined}
         draggable={reorderable || undefined}
@@ -3875,7 +4155,7 @@ export function Datatable({
               {reorderable ? rowHandle(k, midIdx, row) : null}
               {rowCheckbox(k, sel, row, ri)}
             </span>
-            {rowResizeMode && !pinSide ? <span className="twc-dt__row-resizer" title={rowResizeMode === "row" ? "Drag to resize this row" : "Drag to resize every row"} onPointerDown={(e) => startRowResize(e, k, e.currentTarget.closest("tr"))} onClick={(e) => e.stopPropagation()} /> : null}
+            {resizeInChk ? rowResizeHandle(k, h) : null}
           </td>
         ) : null}
         {showRowNum ? (
@@ -3950,6 +4230,7 @@ export function Datatable({
                 )
               ) : isActions ? renderActions(c, row) : c.renderCell ? c.renderCell(val, row) : display}
               {editable && !isEditing ? <span className="twc-dt__edit-hint" aria-hidden="true"><Svg d={I.pencil} /></span> : null}
+              {ci === resizeCi ? rowResizeHandle(k, h) : null}
             </td>
           );
         })}
@@ -4010,7 +4291,7 @@ export function Datatable({
     );
 
     return (
-      <div className="twc-dt__scroll" style={{ maxHeight: height }}>
+      <div className="twc-dt__scroll" style={{ maxHeight: effHeight }}>
         <table className="twc-dt__table twc-dt__pivot" role="grid" aria-label={(ariaLabelAttr || ariaLabel) + " (pivot)"}>
           <thead>
             {/* One row per column-grouping field (e.g. Year, then Month) */}
@@ -4229,7 +4510,7 @@ export function Datatable({
 
       {/* Grid */}
       {pivotActive ? renderPivot() : (
-      <div className="twc-dt__scroll" style={{ maxHeight: height }} ref={scrollRef} onScroll={virtualizing ? onScrollVirtual : undefined}
+      <div className="twc-dt__scroll" style={{ maxHeight: effHeight }} ref={scrollRef} onScroll={virtualizing ? onScrollVirtual : undefined}
         onMouseOver={onOverflowOver} onMouseOut={onOverflowOut} onFocus={onOverflowFocus} onBlur={hideOverflowTip}>
         <table className="twc-dt__table" style={{ width: tableMinWidth, minWidth: "100%" }}
           ref={gridRef} role="grid" aria-label={ariaLabelAttr || ariaLabel}
@@ -4391,6 +4672,18 @@ export function Datatable({
         </table>
       </div>
       )}
+      {/* #559: the grid-height grip. Outside the scroll area so it does not scroll away with the
+          rows, and after it so it reads as the bottom edge of the window it resizes. A full-width
+          strip is the better hit target, which is why its hint is in aria-label rather than a
+          Tooltip (.twc-tooltip-wrap is inline-flex and collapses a full-width child to its content
+          width). It takes the COLUMN resizer's a11y contract, not the row handle's - see #558. */}
+      {heightResize ? (
+        <span className="twc-dt__hgrip" data-active={hResizing || undefined}
+          role="separator" aria-orientation="horizontal" aria-label="Resize the table height"
+          aria-valuenow={effHeight} aria-valuemin={H_MIN} aria-valuemax={heightMax}
+          tabIndex={0} title="Drag to resize the table"
+          onPointerDown={startHeightResize} onKeyDown={onHeightResizeKey} />
+      ) : null}
 
       {/* #265: shared overflow tooltip (twico Tooltip, anchored mode) — full text of a truncated
           cell/header, only while one is hovered/focused and actually clipped. */}

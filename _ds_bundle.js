@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"df9a3aec581e","components/buttons/Button.jsx":"cba4ca6bac13","components/buttons/IconButton.jsx":"9625cb6f6231","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"19fb80348fc4","components/data-display/AvatarMenu.jsx":"88d8f92a0e72","components/data-display/Badge.jsx":"da9e94aaad2f","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"2a04c008b8a7","components/data-display/CardGrid.jsx":"0e12d4bf2a22","components/data-display/Carousel.jsx":"663301f5f002","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"11a1e0488796","components/data-display/DiffTable.jsx":"ebf45961daa9","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"3794f273e39b","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"79c72470804e","components/data-display/ImageViewer.jsx":"c0e5bd3a59ef","components/data-display/Kanban.jsx":"c1c54a97fa4b","components/data-display/List.jsx":"4b911e7e6211","components/data-display/Pagination.jsx":"d416e6d6435b","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"2fa0e2d767f0","components/data-display/Table.jsx":"83b2fb40d7b6","components/data-display/Tag.jsx":"ec36b46f99e4","components/data-display/Timeline.jsx":"8d43346e2b60","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"bfeea0edbf52","components/feedback/EmptyState.jsx":"1e1093812348","components/feedback/Progress.jsx":"24b5c2cca6b0","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"09486e872aa9","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"26b57d1bfa85","components/inputs/ColorPicker.jsx":"deae0cb20d21","components/inputs/Combobox.jsx":"693e0ffdb064","components/inputs/Currency.jsx":"186e8743dfc7","components/inputs/CurrencyField.jsx":"6117a20400b6","components/inputs/DatePicker.jsx":"e4efd6090473","components/inputs/DateRangePicker.jsx":"d9d283b9e420","components/inputs/DateTimePicker.jsx":"10eb35093dbd","components/inputs/Field.jsx":"ba5ab4960818","components/inputs/FieldRow.jsx":"a44ad0193fe9","components/inputs/FileUpload.jsx":"a592a63ebacb","components/inputs/FilterBar.jsx":"df6872b9005d","components/inputs/Form.jsx":"36b87e621b74","components/inputs/Input.jsx":"519e936f4099","components/inputs/Label.jsx":"dfdad32670fd","components/inputs/MultiSelect.jsx":"d9acf11680a5","components/inputs/Radio.jsx":"ab3754d3dbac","components/inputs/RadioGroup.jsx":"40bb7800dc90","components/inputs/Rating.jsx":"eb841fc84469","components/inputs/Select.jsx":"17de649cfc27","components/inputs/Slider.jsx":"a6937b91154b","components/inputs/Switch.jsx":"436f5880e67d","components/inputs/Textarea.jsx":"6b6f8f5d2642","components/inputs/TimePicker.jsx":"f3c3ee758f8f","components/layout/AppShell.jsx":"6d922b91f5ba","components/layout/Box.jsx":"724003a42299","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"baa21c063fe4","components/layout/Divider.jsx":"eb122a52126f","components/layout/Grid.jsx":"cac42c569080","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"b0045c78a736","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"57ea77870c8d","components/navigation/Accordion.jsx":"620239f7f59d","components/navigation/Anchor.jsx":"e5c9a898a0d7","components/navigation/Breadcrumb.jsx":"81da7c00cd34","components/navigation/Navbar.jsx":"8102bd5a45d7","components/navigation/Sidebar.jsx":"381c26969813","components/navigation/Stepper.jsx":"60ba7ccbd1c8","components/navigation/Tabs.jsx":"c8931a9dc92f","components/navigation/TreeView.jsx":"ea74f166fbe5","components/overlay/CommandPalette.jsx":"9d90aa90091d","components/overlay/Dialog.jsx":"87c40d5fc8ed","components/overlay/Drawer.jsx":"9ee607766262","components/overlay/Menu.jsx":"2c9ec395a8e0","components/overlay/Popover.jsx":"fa5d8e2b7023","components/overlay/Tooltip.jsx":"0c81df406763","components/typography/Code.jsx":"a6a74f93cb2b","components/typography/Heading.jsx":"851279ac7563","components/typography/Kbd.jsx":"ff96e9dbdbe0","components/typography/Pre.jsx":"97379158f0ce","components/typography/Text.jsx":"0c8ada482c42","src/index.ts":"9475e47b39e5"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"62b3dee5a483","components/buttons/Button.jsx":"cba4ca6bac13","components/buttons/IconButton.jsx":"9625cb6f6231","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"19fb80348fc4","components/data-display/AvatarMenu.jsx":"88d8f92a0e72","components/data-display/Badge.jsx":"da9e94aaad2f","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"2a04c008b8a7","components/data-display/CardGrid.jsx":"88badc7b73ff","components/data-display/Carousel.jsx":"663301f5f002","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"0020e4722e8b","components/data-display/DiffTable.jsx":"556beb2d7089","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"3794f273e39b","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"79c72470804e","components/data-display/ImageViewer.jsx":"c0e5bd3a59ef","components/data-display/Kanban.jsx":"c1c54a97fa4b","components/data-display/List.jsx":"4b911e7e6211","components/data-display/Pagination.jsx":"d416e6d6435b","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"2fa0e2d767f0","components/data-display/Table.jsx":"83b2fb40d7b6","components/data-display/Tag.jsx":"ec36b46f99e4","components/data-display/Timeline.jsx":"8d43346e2b60","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"bfeea0edbf52","components/feedback/EmptyState.jsx":"1e1093812348","components/feedback/Progress.jsx":"24b5c2cca6b0","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"09486e872aa9","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"26b57d1bfa85","components/inputs/ColorPicker.jsx":"deae0cb20d21","components/inputs/Combobox.jsx":"693e0ffdb064","components/inputs/Currency.jsx":"186e8743dfc7","components/inputs/CurrencyField.jsx":"6117a20400b6","components/inputs/DatePicker.jsx":"e4efd6090473","components/inputs/DateRangePicker.jsx":"d9d283b9e420","components/inputs/DateTimePicker.jsx":"10eb35093dbd","components/inputs/Field.jsx":"ba5ab4960818","components/inputs/FieldRow.jsx":"a44ad0193fe9","components/inputs/FileUpload.jsx":"a592a63ebacb","components/inputs/FilterBar.jsx":"df6872b9005d","components/inputs/Form.jsx":"36b87e621b74","components/inputs/Input.jsx":"519e936f4099","components/inputs/Label.jsx":"dfdad32670fd","components/inputs/MultiSelect.jsx":"d9acf11680a5","components/inputs/Radio.jsx":"ab3754d3dbac","components/inputs/RadioGroup.jsx":"40bb7800dc90","components/inputs/Rating.jsx":"eb841fc84469","components/inputs/Select.jsx":"17de649cfc27","components/inputs/Slider.jsx":"a6937b91154b","components/inputs/Switch.jsx":"436f5880e67d","components/inputs/Textarea.jsx":"6b6f8f5d2642","components/inputs/TimePicker.jsx":"f3c3ee758f8f","components/layout/AppShell.jsx":"6d922b91f5ba","components/layout/Box.jsx":"724003a42299","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"baa21c063fe4","components/layout/Divider.jsx":"eb122a52126f","components/layout/Grid.jsx":"cac42c569080","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"b0045c78a736","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"57ea77870c8d","components/navigation/Accordion.jsx":"620239f7f59d","components/navigation/Anchor.jsx":"e5c9a898a0d7","components/navigation/Breadcrumb.jsx":"81da7c00cd34","components/navigation/Navbar.jsx":"8102bd5a45d7","components/navigation/Sidebar.jsx":"381c26969813","components/navigation/Stepper.jsx":"60ba7ccbd1c8","components/navigation/Tabs.jsx":"c8931a9dc92f","components/navigation/TreeView.jsx":"ea74f166fbe5","components/overlay/CommandPalette.jsx":"9d90aa90091d","components/overlay/Dialog.jsx":"87c40d5fc8ed","components/overlay/Drawer.jsx":"9ee607766262","components/overlay/Menu.jsx":"2c9ec395a8e0","components/overlay/Popover.jsx":"fa5d8e2b7023","components/overlay/Tooltip.jsx":"0c81df406763","components/typography/Code.jsx":"a6a74f93cb2b","components/typography/Heading.jsx":"851279ac7563","components/typography/Kbd.jsx":"ff96e9dbdbe0","components/typography/Pre.jsx":"97379158f0ce","components/typography/Text.jsx":"0c8ada482c42","src/index.ts":"a1cfc15ff82f"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -182,7 +182,7 @@ var TwicoUiDesignSystem_f2f16a = (() => {
     useToggle: () => useToggle,
     useWindowSize: () => useWindowSize
   });
-  var React55 = __toESM(require_react(), 1);
+  var React56 = __toESM(require_react(), 1);
   var import_react = __toESM(require_react(), 1);
 
   // rg:react/jsx-runtime
@@ -200,11 +200,11 @@ var TwicoUiDesignSystem_f2f16a = (() => {
 
   // dist/index.mjs
   var import_react_dom = __toESM(require_react_dom(), 1);
-  var SUPPORTS_STYLE_HOIST = parseInt(String(React55.version), 10) >= 19;
-  var NonceContext = React55.createContext(void 0);
+  var SUPPORTS_STYLE_HOIST = parseInt(String(React56.version), 10) >= 19;
+  var NonceContext = React56.createContext(void 0);
   function useScopedStyles(id, css) {
-    const nonce = React55.useContext(NonceContext);
-    React55.useInsertionEffect(() => {
+    const nonce = React56.useContext(NonceContext);
+    React56.useInsertionEffect(() => {
       if (SUPPORTS_STYLE_HOIST) return;
       if (typeof document === "undefined") return;
       if (!css) return;
@@ -220,10 +220,82 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       }
       if (el.textContent !== css) el.textContent = css;
     }, [id, css, nonce]);
-    return SUPPORTS_STYLE_HOIST && css ? React55.createElement("style", { href: id, precedence: "twc-ui" }, css) : null;
+    return SUPPORTS_STYLE_HOIST && css ? React56.createElement("style", { href: id, precedence: "twc-ui" }, css) : null;
   }
-  function TwicoProvider({ nonce, children }) {
-    return import_react.default.createElement(NonceContext.Provider, { value: nonce }, children);
+  var seen = /* @__PURE__ */ new Set();
+  function warnOnce(key, message) {
+    if (typeof process !== "undefined" && process.env && false) return;
+    if (seen.has(key)) return;
+    seen.add(key);
+    if (typeof console !== "undefined" && console.warn) console.warn(message);
+  }
+  var DefaultsContext = import_react.default.createContext(null);
+  var DEFAULTABLE = ["Datatable", "CardGrid"];
+  function useComponentDefaults(name, props) {
+    const all = import_react.default.useContext(DefaultsContext);
+    const d = all && all[name];
+    if (!d) return props;
+    const merged = { ...d };
+    for (const k in props) if (props[k] !== void 0) merged[k] = props[k];
+    return merged;
+  }
+  var hasOwn = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+  var isPlainObject = (v) => {
+    if (typeof v !== "object" || v === null || Array.isArray(v)) return false;
+    const p = Object.getPrototypeOf(v);
+    return p === Object.prototype || p === null;
+  };
+  var leafEq = (a, b) => {
+    if (a === b) return true;
+    if (Array.isArray(a) && Array.isArray(b)) {
+      return a.length === b.length && a.every((v, i) => v === b[i]);
+    }
+    if (isPlainObject(a) && isPlainObject(b)) {
+      const ka = Object.keys(a), kb = Object.keys(b);
+      return ka.length === kb.length && ka.every((k) => hasOwn(b, k) && a[k] === b[k]);
+    }
+    return false;
+  };
+  var shallowEq = (a, b) => {
+    if (a === b) return true;
+    if (!a || !b || typeof a !== "object" || typeof b !== "object") return false;
+    const ka = Object.keys(a), kb = Object.keys(b);
+    if (ka.length !== kb.length) return false;
+    for (const k of ka) if (!hasOwn(b, k) || !leafEq(a[k], b[k])) return false;
+    return true;
+  };
+  var defaultsEq = (a, b) => {
+    if (a === b) return true;
+    if (!a || !b) return false;
+    const ka = Object.keys(a), kb = Object.keys(b);
+    if (ka.length !== kb.length) return false;
+    for (const k of ka) if (!hasOwn(b, k) || !shallowEq(a[k], b[k])) return false;
+    return true;
+  };
+  function useStableDefaults(defaults) {
+    const ref = import_react.default.useRef(null);
+    const next = defaults ?? null;
+    if (!defaultsEq(ref.current, next)) ref.current = next;
+    return ref.current;
+  }
+  function warnUnknownDefaults(defaults) {
+    if (!defaults || typeof defaults !== "object") return;
+    for (const k of Object.keys(defaults)) {
+      if (DEFAULTABLE.includes(k)) continue;
+      warnOnce(
+        `twc-defaults-unknown-${k}`,
+        `[twico-ui] TwicoProvider: defaults.${k} is ignored \u2014 "${k}" does not read provider defaults. Components that do: ${DEFAULTABLE.join(", ")}.`
+      );
+    }
+  }
+  function TwicoProvider({ nonce, defaults, children }) {
+    warnUnknownDefaults(defaults);
+    const value = useStableDefaults(defaults);
+    return import_react.default.createElement(
+      NonceContext.Provider,
+      { value: nonce },
+      import_react.default.createElement(DefaultsContext.Provider, { value }, children)
+    );
   }
   var GROUPS = { colors: "color", space: "space", radius: "radius", font: "font", shadow: "shadow", motion: "" };
   function createTheme(partial = {}) {
@@ -307,13 +379,6 @@ var TwicoUiDesignSystem_f2f16a = (() => {
       children
     ] });
   });
-  var seen = /* @__PURE__ */ new Set();
-  function warnOnce(key, message) {
-    if (typeof process !== "undefined" && process.env && false) return;
-    if (seen.has(key)) return;
-    seen.add(key);
-    if (typeof console !== "undefined" && console.warn) console.warn(message);
-  }
   var canUseDOM = typeof window !== "undefined" && typeof document !== "undefined";
   var useIsoLayoutEffect = canUseDOM ? import_react.default.useLayoutEffect : import_react.default.useEffect;
   var FOCUSABLE = 'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])';
@@ -5961,7 +6026,7 @@ border-radius: var(--radius-md); box-shadow: var(--shadow-sm); cursor: pointer;
     return typeof label === "string" || typeof label === "number" ? String(label) : "";
   }
   function useMergedRef(...refs) {
-    return React55.useCallback((node) => {
+    return React56.useCallback((node) => {
       const cleanups = [];
       for (const r2 of refs) {
         if (typeof r2 === "function") {
@@ -9369,11 +9434,20 @@ background: transparent; border: none; padding: 0; margin: 0; cursor: grab; bord
 
 .twc-dt__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-.twc-dt__row > .twc-dt__td:first-child:not([data-pin]) { position: relative; }
+.twc-dt__row[data-row-resizable] { position: relative; z-index: 0; }
 .twc-dt__row-resizer { position: absolute; left: 0; right: 0; bottom: -3px; height: 7px; cursor: row-resize; z-index: 6; touch-action: none; }
 .twc-dt__row-resizer::after { content: ""; position: absolute; left: 6px; right: 6px; bottom: 3px; height: 2px; border-radius: 2px; background: transparent; transition: background-color var(--duration-fast); }
 .twc-dt__row:hover .twc-dt__row-resizer::after { background: var(--color-border-strong); }
-.twc-dt__row-resizer:hover::after { background: var(--color-primary); }
+.twc-dt__row-resizer:hover::after, .twc-dt__row-resizer[data-active="true"]::after { background: var(--color-primary); }
+
+.twc-dt__row-resizer:focus-visible { outline: none; }
+.twc-dt__row-resizer:focus-visible::after { background: var(--color-primary); }
+
+.twc-dt__hgrip { display: block; position: relative; width: 100%; height: 11px; cursor: ns-resize; touch-action: none; }
+.twc-dt__hgrip::after { content: ""; position: absolute; left: 50%; transform: translateX(-50%); top: 4px; width: 36px; height: 3px; border-radius: 2px; background: var(--color-border-strong); transition: background-color var(--duration-fast); }
+.twc-dt__hgrip:hover::after, .twc-dt__hgrip[data-active="true"]::after { background: var(--color-primary); }
+.twc-dt__hgrip:focus-visible { outline: none; }
+.twc-dt__hgrip:focus-visible::after { background: var(--color-primary); box-shadow: var(--ring); }
 
 .twc-dt__td { padding: 0 12px; height: var(--_rowh, 44px); border-bottom: var(--border-thin) solid var(--color-divider);
 font-size: var(--text-sm); color: var(--color-text); background: var(--twc-dt-row-bg, var(--color-surface));
@@ -10092,125 +10166,128 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       { name: "xl/worksheets/sheet1.xml", data: enc(sheetXml) }
     ]);
   }
-  function Datatable({
-    columns: columnsProp,
-    rows: rowsProp = [],
-    loading = false,
-    rowKey: rowKeyProp,
-    checkboxSelection = false,
-    diff,
-    density: densityProp = "comfortable",
-    pageSize = 10,
-    pageSizeOptions = [5, 10, 25, 50],
-    page,
-    onPageChange,
-    onPageSizeChange,
-    height = 440,
-    serverMode = false,
-    rowCount,
-    onServerChange,
-    onColumnVisibilityChange,
-    batchActions = [],
-    onRowSelectionChange,
-    selectionSummary,
-    // #540 / #541: per-row selectability, and a controlled selection.
-    isRowSelectable,
-    rowSelectionDisabledReason,
-    selectedKeys,
-    onSelectionChange,
-    verticalAlign,
-    getRowVerticalAlign,
-    getRowStyle,
-    getRowClassName,
-    showExport = false,
-    showDensity = false,
-    showPivot = false,
-    showColumns,
-    showFilters,
-    exportFilename = "export",
-    aggregationValues = null,
-    disableColumnReorder = false,
-    disableColumnResize = false,
-    defaultColumn,
-    columnCombining = false,
-    emptyMessage,
-    renderEmpty,
-    editMode = false,
-    onRowUpdate,
-    onRowsChange,
-    onBatchUpdate,
-    onEditingChange,
-    showBatchEdit = true,
-    batchEditFields = null,
-    stateKey,
-    initialState,
-    onStateChange,
-    showPageJumper = true,
-    selectionMode = "none",
-    cellNavigation = "cell",
-    onRowClick,
-    onCellClick,
-    onActiveCellChange,
-    onCellSelectionChange,
-    activeRowId,
-    scrollActiveRowIntoView = true,
-    activeCell,
-    scrollActiveCellIntoView = false,
-    enableClipboard = false,
-    onCellsCopy,
-    onCellsPaste,
-    onCellsCommit,
-    showAggregation = false,
-    ariaLabel = "Data table",
-    "aria-label": ariaLabelAttr,
-    rowGrouping = [],
-    showGroupBar = true,
-    renderGroupLabel,
-    collapsedGroups,
-    defaultCollapsedGroups = [],
-    onCollapsedGroupsChange,
-    rowNumbers = false,
-    searchFields = null,
-    searchable = true,
-    quickFilter,
-    onQuickFilterChange,
-    filterLogic: filterLogicProp,
-    defaultFilterLogic = "and",
-    onFilterLogicChange,
-    toolbarActions,
-    resizableFilters = true,
-    resizablePopovers = true,
-    // #314: default-on (matches resizableFilters) — set false to opt a grid out
-    filterFieldMaxWidth,
-    rowPinning = false,
-    rowReorder = false,
-    rowResize = false,
-    onRowOrderChange,
-    persistRowHeights = false,
-    onRowResize,
-    pivot = null,
-    pivotMode = false,
-    virtualized = false,
-    overscan = 8,
-    rowHeight,
-    // #350 (first pass): expandable/collapsible rows. `renderRowDetail(row)` returns the detail panel for a
-    // row (return null/undefined ⇒ that row isn't expandable). Presence of the fn enables a leading chevron
-    // column + a full-width detail <tr> under each expanded row. Expansion is uncontrolled unless
-    // `expandedRowIds` is supplied; `onExpandedRowsChange` fires the next expanded-key array on every toggle.
-    renderRowDetail,
-    expandedRowIds,
-    onExpandedRowsChange,
-    // #359: server-mode lazy row-tree — `getRowCanExpand(row)` draws the same leading chevron on parent DATA
-    // rows (independent of renderRowDetail); expanding reveals CHILD data rows in the SAME columns rather than a
-    // panel. In server mode the host returns children inline (the expanded set is folded into onServerChange);
-    // in client mode `getSubRows(row)` supplies them. `getRowDepth(row)` indents nested rows so they read as a tree.
-    getRowCanExpand,
-    getRowDepth,
-    getSubRows,
-    className = "",
-    ...rest
-  }) {
+  function Datatable(twcProps) {
+    const {
+      columns: columnsProp,
+      rows: rowsProp = [],
+      loading = false,
+      rowKey: rowKeyProp,
+      checkboxSelection = false,
+      diff,
+      density: densityProp = "comfortable",
+      pageSize = 10,
+      pageSizeOptions = [5, 10, 25, 50],
+      page,
+      onPageChange,
+      onPageSizeChange,
+      height = 440,
+      heightResize = false,
+      serverMode = false,
+      rowCount,
+      onServerChange,
+      onColumnVisibilityChange,
+      batchActions = [],
+      onRowSelectionChange,
+      selectionSummary,
+      // #540 / #541: per-row selectability, and a controlled selection.
+      isRowSelectable,
+      rowSelectionDisabledReason,
+      selectedKeys,
+      onSelectionChange,
+      verticalAlign,
+      getRowVerticalAlign,
+      getRowStyle,
+      getRowClassName,
+      showExport = false,
+      showDensity = false,
+      showPivot = false,
+      showColumns,
+      showFilters,
+      exportFilename = "export",
+      aggregationValues = null,
+      disableColumnReorder = false,
+      disableColumnResize = false,
+      defaultColumn,
+      columnCombining = false,
+      emptyMessage,
+      renderEmpty,
+      editMode = false,
+      onRowUpdate,
+      onRowsChange,
+      onBatchUpdate,
+      onEditingChange,
+      showBatchEdit = true,
+      batchEditFields = null,
+      stateKey,
+      initialState,
+      onStateChange,
+      showPageJumper = true,
+      selectionMode = "none",
+      cellNavigation = "cell",
+      onRowClick,
+      onCellClick,
+      onActiveCellChange,
+      onCellSelectionChange,
+      activeRowId,
+      scrollActiveRowIntoView = true,
+      activeCell,
+      scrollActiveCellIntoView = false,
+      enableClipboard = false,
+      onCellsCopy,
+      onCellsPaste,
+      onCellsCommit,
+      showAggregation = false,
+      ariaLabel = "Data table",
+      "aria-label": ariaLabelAttr,
+      rowGrouping = [],
+      showGroupBar = true,
+      renderGroupLabel,
+      collapsedGroups,
+      defaultCollapsedGroups = [],
+      onCollapsedGroupsChange,
+      rowNumbers = false,
+      searchFields = null,
+      searchable = true,
+      quickFilter,
+      onQuickFilterChange,
+      filterLogic: filterLogicProp,
+      defaultFilterLogic = "and",
+      onFilterLogicChange,
+      toolbarActions,
+      resizableFilters = true,
+      resizablePopovers = true,
+      // #314: default-on (matches resizableFilters) — set false to opt a grid out
+      filterFieldMaxWidth,
+      rowPinning = false,
+      rowReorder = false,
+      rowResize = false,
+      onRowOrderChange,
+      persistRowHeights = false,
+      onRowResize,
+      pivot = null,
+      pivotMode = false,
+      virtualized = false,
+      overscan = 8,
+      rowHeight,
+      // #350 (first pass): expandable/collapsible rows. `renderRowDetail(row)` returns the detail panel for a
+      // row (return null/undefined ⇒ that row isn't expandable). Presence of the fn enables a leading chevron
+      // column + a full-width detail <tr> under each expanded row. Expansion is uncontrolled unless
+      // `expandedRowIds` is supplied; `onExpandedRowsChange` fires the next expanded-key array on every toggle.
+      renderRowDetail,
+      expandedRowIds,
+      onExpandedRowsChange,
+      // #359: server-mode lazy row-tree — `getRowCanExpand(row)` draws the same leading chevron on parent DATA
+      // rows (independent of renderRowDetail); expanding reveals CHILD data rows in the SAME columns rather than a
+      // panel. In server mode the host returns children inline (the expanded set is folded into onServerChange);
+      // in client mode `getSubRows(row)` supplies them. `getRowDepth(row)` indents nested rows so they read as a tree.
+      getRowCanExpand,
+      getRowDepth,
+      getSubRows,
+      className = "",
+      ...rest
+    } = useComponentDefaults("Datatable", twcProps);
     const __twcStyles = useScopedStyles("twc-dt-styles", DT_CSS);
+    const clampNum = (v, lo, hi) => Math.max(lo, Math.min(hi, Math.round(v)));
     const isDiff = !!diff;
     const [diffOnly, setDiffOnly] = import_react.default.useState(diff && diff.onlyChanged !== void 0 ? diff.onlyChanged : true);
     const diffRowKey = diff && diff.rowKey || rowKeyProp || ((r2) => r2 == null ? r2 : r2.id);
@@ -10504,6 +10581,22 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
     const rowResizeMode = rowResize === "row" ? "row" : rowResize ? "all" : null;
     const [rowHeights, setRowHeights] = import_react.default.useState({});
     const [dragRowH, setDragRowH] = import_react.default.useState(null);
+    const [rowResizing, setRowResizing] = import_react.default.useState(null);
+    const ROW_H_MIN = 32, ROW_H_MAX = 2e3;
+    const [gridH, setGridH] = import_react.default.useState(null);
+    const [hResizing, setHResizing] = import_react.default.useState(false);
+    const H_MIN = 160, H_MAX = 2e3;
+    const [vhCap, setVhCap] = import_react.default.useState(null);
+    const heightMax = vhCap == null ? H_MAX : vhCap;
+    const needsVhCap = heightResize || gridH != null;
+    import_react.default.useEffect(() => {
+      if (!needsVhCap) return void 0;
+      const measure = () => setVhCap(Math.max(240, Math.round(window.innerHeight * 0.95)));
+      measure();
+      window.addEventListener("resize", measure);
+      return () => window.removeEventListener("resize", measure);
+    }, [needsVhCap]);
+    const effHeight = gridH == null ? height : clampNum(gridH, H_MIN, heightMax);
     const [rowDrag, setRowDrag] = import_react.default.useState({ from: null, over: null, after: false });
     const [rowGrab, setRowGrab] = import_react.default.useState(null);
     const [reorderMsg, setReorderMsg] = import_react.default.useState("");
@@ -10544,7 +10637,11 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       // record id, so the map grows one entry per row anyone has ever dragged, and a host persisting
       // this to a user profile writes that blob to a server on every change.
       rowHeight: dragRowH != null ? dragRowH : void 0,
-      rowHeights: persistRowHeights && Object.keys(rowHeights).length ? rowHeights : void 0
+      rowHeights: persistRowHeights && Object.keys(rowHeights).length ? rowHeights : void 0,
+      // #559: the scroll area's height. One bounded number - the argument rowHeight's doc comment
+      // makes for preferring that over an unbounded map applies here too, only more simply: there is
+      // exactly one - so it round-trips like columnWidths and rowHeight and needs no opt-in.
+      height: gridH != null ? gridH : void 0
     });
     const applyState = (s) => {
       if (!s || typeof s !== "object") return;
@@ -10602,7 +10699,8 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       if (typeof s.batchNameWidth === "number") setBatchNameW(clampNum(s.batchNameWidth, 88, 260));
       if (Array.isArray(s.grouping)) setGroupBy(s.grouping.filter((f) => known.has(f)));
       if (Array.isArray(s.collapsedGroups) && !collapsedControlled) setInternalCollapsed(new Set(s.collapsedGroups.filter((k) => typeof k === "string")));
-      if (typeof s.rowHeight === "number") setDragRowH(clampNum(s.rowHeight, 32, 2e3));
+      if (typeof s.rowHeight === "number") setDragRowH(clampNum(s.rowHeight, ROW_H_MIN, ROW_H_MAX));
+      if (typeof s.height === "number") setGridH(clampNum(s.height, H_MIN, H_MAX));
       if (s.rowHeights && typeof s.rowHeights === "object") {
         setRowHeights(Object.fromEntries(Object.entries(s.rowHeights).filter(([, h]) => typeof h === "number").map(([k, h]) => [k, clampNum(h, 32, 2e3)])));
       }
@@ -10614,6 +10712,7 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
     import_react.default.useEffect(() => {
       if (!stateReadyRef.current) return void 0;
       if (!stateKey && !onStateChange) return void 0;
+      if (hResizing || rowResizing != null) return void 0;
       const state = serializeState();
       onStateChangeRef.current?.(state);
       if (stateKey) {
@@ -10623,7 +10722,7 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
         }
       }
       return void 0;
-    }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedKey, dragRowH, rowHeights, persistRowHeights]);
+    }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedKey, dragRowH, rowHeights, persistRowHeights, gridH, hResizing, rowResizing]);
     const restoreState = () => {
       let saved = null;
       if (stateKey) {
@@ -11182,6 +11281,13 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       setRowOrder(next);
       onRowOrderChange?.(next);
     }
+    const dragOffRef = import_react.default.useRef(null);
+    import_react.default.useEffect(() => () => {
+      if (dragOffRef.current) {
+        dragOffRef.current();
+        dragOffRef.current = null;
+      }
+    }, []);
     function startRowResize(e, key, tr) {
       e.preventDefault();
       e.stopPropagation();
@@ -11189,18 +11295,74 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       const startY = e.clientY;
       const startH = (perRow ? rowHeights[key] : dragRowH) || tr?.offsetHeight || 44;
       let last = startH;
+      setRowResizing(key);
       const onMove = (ev) => {
-        last = Math.max(32, Math.round(startH + (ev.clientY - startY)));
+        last = clampNum(startH + (ev.clientY - startY), ROW_H_MIN, ROW_H_MAX);
         if (perRow) setRowHeights((m) => ({ ...m, [key]: last }));
         else setDragRowH(last);
       };
       const onUp = () => {
         window.removeEventListener("pointermove", onMove);
         window.removeEventListener("pointerup", onUp);
+        dragOffRef.current = null;
+        setRowResizing(null);
         if (last !== startH) onRowResize?.(last, perRow ? key : null);
       };
       window.addEventListener("pointermove", onMove);
       window.addEventListener("pointerup", onUp);
+      dragOffRef.current = () => {
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onUp);
+      };
+    }
+    function onRowResizeKey(e, key, current) {
+      let next = null;
+      if (e.key === "ArrowDown") next = current + 8;
+      else if (e.key === "ArrowUp") next = current - 8;
+      else if (e.key === "PageDown") next = current + 32;
+      else if (e.key === "PageUp") next = current - 32;
+      else if (e.key === "Home") next = ROW_H_MIN;
+      else if (e.key === "End") next = ROW_H_MAX;
+      if (next == null) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const h = clampNum(next, ROW_H_MIN, ROW_H_MAX);
+      if (rowResizeMode === "row") setRowHeights((m) => ({ ...m, [key]: h }));
+      else setDragRowH(h);
+      if (h !== current) onRowResize?.(h, rowResizeMode === "row" ? key : null);
+    }
+    function startHeightResize(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const startY = e.clientY;
+      const startH = effHeight;
+      setHResizing(true);
+      const onMove = (ev) => setGridH(clampNum(startH + (ev.clientY - startY), H_MIN, heightMax));
+      const onUp = () => {
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onUp);
+        dragOffRef.current = null;
+        setHResizing(false);
+      };
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", onUp);
+      dragOffRef.current = () => {
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onUp);
+      };
+    }
+    function onHeightResizeKey(e) {
+      let next = null;
+      if (e.key === "ArrowDown") next = effHeight + 16;
+      else if (e.key === "ArrowUp") next = effHeight - 16;
+      else if (e.key === "PageDown") next = effHeight + 80;
+      else if (e.key === "PageUp") next = effHeight - 80;
+      else if (e.key === "Home") next = H_MIN;
+      else if (e.key === "End") next = heightMax;
+      if (next == null) return;
+      e.preventDefault();
+      e.stopPropagation();
+      setGridH(clampNum(next, H_MIN, heightMax));
     }
     function commitRowMove(fromKey, targetIndex) {
       const targetRow = middleRows[Math.max(0, Math.min(targetIndex, middleRows.length - 1))];
@@ -11269,11 +11431,11 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       const ro = window.ResizeObserver ? new ResizeObserver(measure) : null;
       if (ro) ro.observe(el);
       return () => ro && ro.disconnect();
-    }, [virtualizing, height]);
+    }, [virtualizing, effHeight]);
     const onScrollVirtual = import_react.default.useCallback((e) => {
       setScrollTop(e.currentTarget.scrollTop);
     }, []);
-    const vh = viewportH || (typeof height === "number" ? height : 440);
+    const vh = viewportH || (typeof effHeight === "number" ? effHeight : 440);
     const rowHRef = import_react.default.useRef(/* @__PURE__ */ new Map());
     const [measureTick, setMeasureTick] = import_react.default.useState(0);
     const offsets = import_react.default.useMemo(() => {
@@ -11629,6 +11791,7 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
     }
     function onGridKeyDown(e) {
       if (e.target.closest("input, textarea, select, [contenteditable='true']")) return;
+      if (e.target.closest(".twc-dt__row-resizer")) return;
       if (editing) return;
       if (e.defaultPrevented) return;
       if (e.target.closest('[aria-expanded="true"]')) return;
@@ -12358,7 +12521,6 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
     const F_LABEL = { col: "column", op: "operator", val: "value", logic: "connector" };
     const fMaxW = () => typeof window === "undefined" ? 9999 : window.innerWidth - 32;
     const fMaxH = () => typeof window === "undefined" ? 9999 : window.innerHeight - 32;
-    const clampNum = (v, lo, hi) => Math.max(lo, Math.min(hi, Math.round(v)));
     const fLiveW = (field) => {
       const p = filterPanelRef.current, el = p && p.querySelector(F_SEL[field]);
       return el ? el.getBoundingClientRect().width : F_MIN[field];
@@ -12760,6 +12922,35 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       const why = rowSelectionDisabledReason(row, ri);
       return why == null ? box : /* @__PURE__ */ jsx(Tooltip, { label: why, placement: "top", children: box });
     }
+    let rowTabTaken = false;
+    function rowResizeHandle(k, h) {
+      const perRow = rowResizeMode === "row";
+      const hint = perRow ? "Drag to resize this row" : "Drag to resize every row";
+      const focusable = perRow || !rowTabTaken;
+      if (focusable) rowTabTaken = true;
+      const now = h || estRowH;
+      const a11y = focusable ? {
+        role: "separator",
+        "aria-orientation": "horizontal",
+        "aria-label": hint,
+        "aria-valuenow": now,
+        "aria-valuemin": ROW_H_MIN,
+        "aria-valuemax": ROW_H_MAX
+      } : { "aria-hidden": "true" };
+      return /* @__PURE__ */ jsx(
+        "span",
+        {
+          className: "twc-dt__row-resizer",
+          "data-active": rowResizing === k || void 0,
+          ...a11y,
+          tabIndex: focusable ? 0 : -1,
+          title: hint,
+          onPointerDown: (e) => startRowResize(e, k, e.currentTarget.closest("tr")),
+          onClick: (e) => e.stopPropagation(),
+          onKeyDown: (e) => onRowResizeKey(e, k, h || (e.currentTarget.closest("tr") || {}).offsetHeight || estRowH)
+        }
+      );
+    }
     function rowHandle(k, midIdx, row) {
       const grabbed = rowGrab && rowGrab.key === k;
       const label = String(row[ordered[0]?.field] ?? `Row ${(midIdx ?? 0) + 1}`);
@@ -12796,6 +12987,15 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       const rowActive = selectionMode === "row" && activeRowVal === k;
       const stickyStyle = pinSide === "top" ? { position: "sticky", top: headH, zIndex: 5 } : pinSide === "bottom" ? { position: "sticky", bottom: 0, zIndex: 5 } : void 0;
       const h = rowResizeMode === "row" ? rowHeights[k] : dragRowH == null ? void 0 : dragRowH;
+      const resizeCi = (() => {
+        if (!rowResizeMode || pinSide || !ordered.length) return -1;
+        const unpinned = (c) => !stickyOf(c.field).pin;
+        const best = ordered.findIndex((c) => unpinned(c) && !isCellEditable(c, row));
+        if (best !== -1) return best;
+        const next = ordered.findIndex(unpinned);
+        return next !== -1 ? next : 0;
+      })();
+      const resizeInChk = !!rowResizeMode && !pinSide && resizeCi === -1 && checkboxSelection;
       const userRowStyle = getRowStyle ? getRowStyle(row, ri) : void 0;
       const userRowClass = getRowClassName ? getRowClassName(row, ri) : void 0;
       const rowValign = getRowVerticalAlign ? getRowVerticalAlign(row, ri) : void 0;
@@ -12830,6 +13030,7 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
             "data-row-dropbefore": reorderable && rowDrag.over === k && !rowDrag.after || void 0,
             "data-row-dropafter": reorderable && rowDrag.over === k && rowDrag.after || void 0,
             "data-vrow": virtualizing && midIdx != null ? String(k) : void 0,
+            "data-row-resizable": resizeCi >= 0 || resizeInChk ? "" : void 0,
             "data-selectable": selectionMode !== "none" || void 0,
             style: Object.keys(rowStyle).length ? rowStyle : void 0,
             draggable: reorderable || void 0,
@@ -12860,7 +13061,7 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
                   reorderable ? rowHandle(k, midIdx, row) : null,
                   rowCheckbox(k, sel, row, ri)
                 ] }),
-                rowResizeMode && !pinSide ? /* @__PURE__ */ jsx("span", { className: "twc-dt__row-resizer", title: rowResizeMode === "row" ? "Drag to resize this row" : "Drag to resize every row", onPointerDown: (e) => startRowResize(e, k, e.currentTarget.closest("tr")), onClick: (e) => e.stopPropagation() }) : null
+                resizeInChk ? rowResizeHandle(k, h) : null
               ] }) : null,
               showRowNum ? /* @__PURE__ */ jsx("td", { className: "twc-dt__td twc-dt__rownum", role: "gridcell", "aria-hidden": "true", "data-pin": "left", "data-pin-edge": visLeft.length ? void 0 : "left", style: { insetInlineStart: numLeft, width: NUM_W }, children: treeSeqByKey ? treeSeqByKey.get(k) + 1 : typeof ri === "number" ? (paginated || serverMode ? pageVal * sizeVal : 0) + ri + 1 : "" }) : null,
               ordered.map((c, ci) => {
@@ -12958,7 +13159,8 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
                           onKeyDown: onEditKey
                         }
                       ) : isActions ? renderActions(c, row) : c.renderCell ? c.renderCell(val, row) : display,
-                      editable && !isEditing ? /* @__PURE__ */ jsx("span", { className: "twc-dt__edit-hint", "aria-hidden": "true", children: /* @__PURE__ */ jsx(Svg, { d: I.pencil }) }) : null
+                      editable && !isEditing ? /* @__PURE__ */ jsx("span", { className: "twc-dt__edit-hint", "aria-hidden": "true", children: /* @__PURE__ */ jsx(Svg, { d: I.pencil }) }) : null,
+                      ci === resizeCi ? rowResizeHandle(k, h) : null
                     ]
                   },
                   c.field
@@ -13025,7 +13227,7 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
         /* @__PURE__ */ jsx("span", { className: "twc-dt__pivot-vh-label", children: vlabel(v) }),
         /* @__PURE__ */ jsx("span", { className: "twc-dt__pivot-vh-agg", children: v.agg || "sum" })
       ] });
-      return /* @__PURE__ */ jsx("div", { className: "twc-dt__scroll", style: { maxHeight: height }, children: /* @__PURE__ */ jsxs("table", { className: "twc-dt__table twc-dt__pivot", role: "grid", "aria-label": (ariaLabelAttr || ariaLabel) + " (pivot)", children: [
+      return /* @__PURE__ */ jsx("div", { className: "twc-dt__scroll", style: { maxHeight: effHeight }, children: /* @__PURE__ */ jsxs("table", { className: "twc-dt__table twc-dt__pivot", role: "grid", "aria-label": (ariaLabelAttr || ariaLabel) + " (pivot)", children: [
         /* @__PURE__ */ jsxs("thead", { children: [
           cFields.map((cf, lvl) => /* @__PURE__ */ jsxs("tr", { role: "row", children: [
             lvl === 0 ? /* @__PURE__ */ jsx("th", { className: "twc-dt__th twc-dt__pivot-corner", "data-pin": "left", "data-pin-edge": "left", style: { insetInlineStart: 0 }, rowSpan: totalHeaderRows, scope: "col", children: /* @__PURE__ */ jsx("span", { className: "twc-dt__pivot-corner-label", children: rowFieldLabel }) }) : null,
@@ -13299,7 +13501,7 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
         "div",
         {
           className: "twc-dt__scroll",
-          style: { maxHeight: height },
+          style: { maxHeight: effHeight },
           ref: scrollRef,
           onScroll: virtualizing ? onScrollVirtual : void 0,
           onMouseOver: onOverflowOver,
@@ -13545,6 +13747,23 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
           )
         }
       ),
+      heightResize ? /* @__PURE__ */ jsx(
+        "span",
+        {
+          className: "twc-dt__hgrip",
+          "data-active": hResizing || void 0,
+          role: "separator",
+          "aria-orientation": "horizontal",
+          "aria-label": "Resize the table height",
+          "aria-valuenow": effHeight,
+          "aria-valuemin": H_MIN,
+          "aria-valuemax": heightMax,
+          tabIndex: 0,
+          title: "Drag to resize the table",
+          onPointerDown: startHeightResize,
+          onKeyDown: onHeightResizeKey
+        }
+      ) : null,
       /* @__PURE__ */ jsx(Tooltip, { anchor: ovTip ? ovTip.anchor : null, open: !!ovTip, label: ovTip ? ovTip.text : null, placement: "top" }),
       !pivotActive ? /* @__PURE__ */ jsxs("div", { className: "twc-dt__footer", children: [
         /* @__PURE__ */ jsxs("div", { className: "twc-dt__footer-row", "data-bottom": "true", children: [
@@ -14586,61 +14805,62 @@ border: none; background: transparent; color: var(--color-primary-subtle-fg); cu
 .twc-cardgrid__batch-x svg { width: 15px; height: 15px; }
 .twc-cardgrid__selall { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--color-text-muted); }
 `;
-  function CardGrid({
-    rows = [],
-    renderCard,
-    rowKey = "id",
-    minChildWidth = "18rem",
-    gap = 4,
-    columns,
-    // pagination
-    pageSize = 12,
-    pageSizeOptions = [12, 24, 48, 96],
-    page,
-    defaultPage = 0,
-    onPageChange,
-    onPageSizeChange,
-    showPageSize = true,
-    // query / server contract (mirrors Datatable serverMode)
-    serverMode = false,
-    rowCount,
-    loading = false,
-    onServerChange,
-    // filtering & sorting
-    filters = [],
-    quickFilter,
-    defaultQuickFilter = "",
-    onQuickFilterChange,
-    searchable = false,
-    searchFields,
-    searchPlaceholder = "Search\u2026",
-    sort,
-    defaultSort = null,
-    onSortChange,
-    sortOptions,
-    sortMinWidth,
-    // slots / states
-    toolbar,
-    // #478: selection + batch actions, deliberately the SAME vocabulary as Datatable rather than a new
-    // one - a card grid is the surface where "pick several of these and do one thing to them" is close to
-    // the whole point, and it was the only Datatable affordance CardGrid lacked.
-    checkboxSelection = false,
-    // #541: a controlled selection, the same split page/onPageChange has.
-    selectedKeys,
-    onSelectionChange,
-    batchActions = [],
-    selectionSummary,
-    onRowSelectionChange,
-    selectionPlacement = "top-start",
-    selectionLabel,
-    showSelectAll = true,
-    retainSelectedRows = false,
-    emptyState = "No results.",
-    label,
-    id,
-    className = "",
-    ...rest
-  }) {
+  function CardGrid(twcProps) {
+    const {
+      rows = [],
+      renderCard,
+      rowKey = "id",
+      minChildWidth = "18rem",
+      gap = 4,
+      columns,
+      // pagination
+      pageSize = 12,
+      pageSizeOptions = [12, 24, 48, 96],
+      page,
+      defaultPage = 0,
+      onPageChange,
+      onPageSizeChange,
+      showPageSize = true,
+      // query / server contract (mirrors Datatable serverMode)
+      serverMode = false,
+      rowCount,
+      loading = false,
+      onServerChange,
+      // filtering & sorting
+      filters = [],
+      quickFilter,
+      defaultQuickFilter = "",
+      onQuickFilterChange,
+      searchable = false,
+      searchFields,
+      searchPlaceholder = "Search\u2026",
+      sort,
+      defaultSort = null,
+      onSortChange,
+      sortOptions,
+      sortMinWidth,
+      // slots / states
+      toolbar,
+      // #478: selection + batch actions, deliberately the SAME vocabulary as Datatable rather than a new
+      // one - a card grid is the surface where "pick several of these and do one thing to them" is close to
+      // the whole point, and it was the only Datatable affordance CardGrid lacked.
+      checkboxSelection = false,
+      // #541: a controlled selection, the same split page/onPageChange has.
+      selectedKeys,
+      onSelectionChange,
+      batchActions = [],
+      selectionSummary,
+      onRowSelectionChange,
+      selectionPlacement = "top-start",
+      selectionLabel,
+      showSelectAll = true,
+      retainSelectedRows = false,
+      emptyState = "No results.",
+      label,
+      id,
+      className = "",
+      ...rest
+    } = useComponentDefaults("CardGrid", twcProps);
     const styles = useScopedStyles("twc-cardgrid-styles", CARDGRID_CSS);
     const autoId = import_react.default.useId();
     const fieldId = id || autoId;
@@ -15000,6 +15220,7 @@ border: none; background: transparent; color: var(--color-primary-subtle-fg); cu
     label,
     id,
     className = "",
+    style,
     ...rest
   }) {
     const dtColumns = import_react.default.useMemo(() => columns.map(toDatatableColumn), [columns]);
@@ -15013,14 +15234,23 @@ border: none; background: transparent; color: var(--color-primary-subtle-fg); cu
         columns: dtColumns,
         diff,
         emptyMessage: emptyState,
-        ...label ? {} : { id, className, ...rest }
+        ...label ? {} : { id, className, style, ...rest }
       }
     );
     if (!label) return table;
-    return /* @__PURE__ */ jsxs("div", { id, className, ...rest, style: { display: "flex", flexDirection: "column", gap: "var(--space-2)", fontFamily: "var(--font-sans)" }, children: [
-      /* @__PURE__ */ jsx("div", { style: { fontSize: "var(--text-sm)", fontWeight: "var(--font-semibold)", color: "var(--color-text)" }, children: label }),
-      table
-    ] });
+    return /* @__PURE__ */ jsxs(
+      "div",
+      {
+        id,
+        className,
+        ...rest,
+        style: { display: "flex", flexDirection: "column", gap: "var(--space-2)", ...style },
+        children: [
+          /* @__PURE__ */ jsx("div", { style: { fontSize: "var(--text-sm)", fontWeight: "var(--font-semibold)", color: "var(--color-text)" }, children: label }),
+          table
+        ]
+      }
+    );
   }
   var FIELD_CSS3 = `
 .twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); }
