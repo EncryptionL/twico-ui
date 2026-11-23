@@ -48,8 +48,14 @@ export function DiffTable({
   );
 
   if (!label) return table;
+  // #555 - the last of #551's 59 redundant font-family declarations. base.css supplies --font-sans on
+  // body and it inherits here, so this re-declared it; and being INLINE it beat a container font a
+  // consumer sets on an ancestor, which is exactly the override #551 exists to let through. It also
+  // applied on this branch only, so a labelled DiffTable and a bare one answered differently. The
+  // label's own div below sets fontSize/fontWeight/color from tokens and no font-family - this
+  // wrapper now reads what every other component reads. Do not add it back.
   return (
-    <div id={id} className={className} {...rest} style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)", fontFamily: "var(--font-sans)" }}>
+    <div id={id} className={className} {...rest} style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
       <div style={{ fontSize: "var(--text-sm)", fontWeight: "var(--font-semibold)", color: "var(--color-text)" }}>{label}</div>
       {table}
     </div>

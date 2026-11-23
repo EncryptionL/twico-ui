@@ -339,3 +339,37 @@ while its `font-family` could go.
    rewritten; the script normalises to LF and restores the file's own ending, like
    `scripts/build-css.mjs`. Both were found by diffing the files line-by-line rather than by reading
    the diff.
+
+### #555 — the one it left behind
+
+#551 took the count from 59 to **one**. The survivor was in `DiffTable`, on the wrapper it renders
+only when `label` is set:
+
+```js
+if (!label) return table;
+return <div id={id} className={className} {...rest} style={{ display: "flex",
+  flexDirection: "column", gap: "var(--space-2)", fontFamily: "var(--font-sans)" }}>…
+```
+
+Same argument as #551, just narrower — `base.css` already supplies the font, so this re-declared it,
+and being **inline** it beat a container font a consumer set on an ancestor, which is the override
+#551 exists to let through. Two details made it the kind of thing nobody looks for:
+
+- It applied on **one branch**, so a labelled `DiffTable` and a bare one answered differently.
+- The label's own child `div` in the same `return` sets `fontSize`, `fontWeight` and `color` from
+  tokens and **no** `fontFamily`, so the asymmetry was inside a single expression.
+
+Dropping the line leaves that subtree reading exactly what every other component reads. Verified by
+enumerating the declaration rather than probing property names — `[...el.style]` on the wrapper is
+now `["column-gap", "display", "flex-direction", "row-gap"]`, so *any* inline addition fails the
+test ([development.md](./development.md) → "To assert the ABSENCE of a declaration, enumerate"). Regression
+test: `tests/issue-555-difftable-font.test.jsx`.
+
+The count a consumer can check is now zero:
+
+```
+$ grep -c 'fontFamily: "var(--font-sans)"' node_modules/twico-ui/dist/index.mjs
+0
+$ grep -c "font-family" node_modules/twico-ui/styles/twico-ui.css
+8        # the --font-mono declarations, untouched by design (see above)
+```
