@@ -25,21 +25,30 @@ const FIELDROW = "components/inputs/FieldRow.jsx";
 // (headless Chromium, 24px -> 0px at 520px, 760px and the default floor, validated by reverting a
 // single inline declaration). What is asserted here is the mechanism each side depends on.
 // =================================================================================================
+// Every margin property actually SET on the style attribute, read off the declaration itself
+// rather than probed by name.
+//
+// The first three versions of these tests listed the five PHYSICAL longhands
+// (margin/marginTop/marginRight/marginBottom/marginLeft) and asked for each to be "". That has a
+// hole, found by injecting the regression rather than by reading the test: `style={{ marginBlock:
+// 0 }}` sets margin-block-start/-end, which no physical longhand reflects, so the inline reset
+// came back and all three tests still passed. Logical properties are not an exotic case here -
+// the library is written in them throughout (CLAUDE.md §5, RTL), so they are the spelling a
+// regression would most plausibly use. Enumerating the declaration catches every spelling,
+// including shorthands this list would never have thought to name.
+const inlineMargins = (el) => Array.from(el.style).filter((p) => p.includes("margin"));
+
 describe("typography margin reset is a stylesheet rule, not an inline style (#543)", () => {
   it("Text renders NO inline margin", () => {
     render(<Text>x</Text>);
     const el = screen.getByText("x");
-    for (const p of ["margin", "marginTop", "marginRight", "marginBottom", "marginLeft"]) {
-      expect(el.style[p], `inline ${p} would be unoverridable`).toBe("");
-    }
+    expect(inlineMargins(el), "an inline margin would be unoverridable").toEqual([]);
   });
 
   it("Heading renders NO inline margin", () => {
     render(<Heading level={3}>y</Heading>);
     const el = screen.getByText("y");
-    for (const p of ["margin", "marginTop", "marginRight", "marginBottom", "marginLeft"]) {
-      expect(el.style[p], `inline ${p} would be unoverridable`).toBe("");
-    }
+    expect(inlineMargins(el), "an inline margin would be unoverridable").toEqual([]);
   });
 
   it("...and every CONSTANT is in each component's own scoped stylesheet instead", () => {
@@ -67,6 +76,19 @@ describe("typography margin reset is a stylesheet rule, not an inline style (#54
   });
 
   it("Pre already did it this way - the pattern is in-house, not new", () => {
+    // Pre is the precedent this whole issue appeals to, and the claim was asserted only by
+    // grepping its source for one spelling of the reset. That passes even if Pre moves the reset
+    // back INLINE under a different spelling (`margin: 0` in a style object, or marginBlock), which
+    // is precisely the regression #543 was about. The behavioural assertion its Text and Heading
+    // siblings get was missing here, and the unused `Pre` import was the evidence - it is what
+    // CodeQL alert 61 (js/unused-local-variable) was pointing at.
+    const { container } = render(<Pre>preformatted</Pre>);
+    const el = container.querySelector(".twc-pre");
+    expect(el, "Pre must render a .twc-pre element").not.toBeNull();
+    expect(inlineMargins(el), "an inline margin would be unoverridable").toEqual([]);
+    // Same hoisting contract as Text/Heading: <style> is metadata content, and `pre` takes
+    // phrasing content, so a <style> child would be invalid HTML.
+    expect(el.querySelector("style"), "a <style> inside <pre> is invalid HTML").toBeNull();
     expect(src(PRE)).toContain(".twc-pre { margin: 0;");
     expect(src(PRE)).not.toContain("marginBottom: 0");
   });
