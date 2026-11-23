@@ -13,7 +13,7 @@ const CSS = `
   gap: var(--space-2);
   height: var(--_h);
   padding-inline: var(--_px);
-  font-family: var(--font-sans);
+  
   font-size: var(--_fs);
   font-weight: var(--font-semibold);
   line-height: 1;

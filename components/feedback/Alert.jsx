@@ -5,7 +5,7 @@ const ALERT_CSS = `
 .twc-alert {
   display: flex; gap: var(--space-3); align-items: flex-start;
   padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-lg); font-family: var(--font-sans);
+  border-radius: var(--radius-lg); 
   border: var(--border-thin) solid transparent;
   animation: twico-slide-down var(--duration-base) var(--ease-out);
 }

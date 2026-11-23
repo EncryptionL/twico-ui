@@ -7,7 +7,7 @@ const CARD_CSS = `
   display: flex; flex-direction: column;
   background: var(--color-surface);
   border-radius: var(--radius-lg);
-  font-family: var(--font-sans); color: var(--color-text);
+  color: var(--color-text);
   overflow: hidden;
   transition: box-shadow var(--duration-base) var(--ease-standard),
               transform var(--duration-base) var(--ease-spring),

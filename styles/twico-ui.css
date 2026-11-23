@@ -679,6 +679,19 @@ a {
 }
 a:hover { color: var(--color-primary-hover); }
 
+/* #551: form controls do NOT inherit font-family - the UA stylesheet gives <button>, <input>,
+   <select>, <textarea> and <optgroup> their own (typically a 13.33px system sans). This reset is
+   the reason 59 components each had to re-declare `font-family: var(--font-sans)` on their own
+   root: without it, deleting those declarations would drop every control to the UA font.
+   `inherit`, not the token, deliberately: by default it resolves through `body` to the same
+   --font-sans, so nothing moves - but a consumer who sets a font on a container now has it reach
+   the controls inside, which a component-level token reference blocks at any specificity.
+   font-SIZE is left alone: components set their own from the type scale, and making controls
+   inherit 16px would resize every one of them. */
+button, input, select, textarea, optgroup {
+  font-family: inherit;
+}
+
 code, pre, kbd, samp {
   font-family: var(--font-mono);
   font-size: 0.9em;

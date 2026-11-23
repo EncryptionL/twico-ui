@@ -16,7 +16,7 @@ const DIALOG_CSS = `
   background: var(--color-surface); color: var(--color-text);
   border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-2xl); box-shadow: var(--shadow-xl);
-  font-family: var(--font-sans);
+  
 }
 .twc-dialog[data-state="open"] { animation: twico-pop-in var(--duration-base) var(--ease-spring); }
 .twc-dialog[data-state="closed"] { animation: twc-dialog-pop-out var(--duration-exit) var(--ease-in) forwards; }

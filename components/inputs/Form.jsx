@@ -2,7 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 
 const FORM_CSS = `
-.twc-form { display: flex; flex-direction: column; gap: var(--space-4); font-family: var(--font-sans); }
+.twc-form { display: flex; flex-direction: column; gap: var(--space-4); }
 .twc-form__fieldset { border: 0; margin: 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: inherit; }
 `;
 

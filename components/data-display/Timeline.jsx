@@ -2,7 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 
 const TIMELINE_CSS = `
-.twc-timeline { display: flex; flex-direction: column; font-family: var(--font-sans); margin: 0; padding: 0; list-style: none; }
+.twc-timeline { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
 .twc-timeline__item { position: relative; display: flex; gap: var(--space-4); padding-bottom: var(--space-6); }
 .twc-timeline__item:last-child { padding-bottom: 0; }
 .twc-timeline__rail { position: relative; flex: none; width: 32px; display: flex; justify-content: center; }

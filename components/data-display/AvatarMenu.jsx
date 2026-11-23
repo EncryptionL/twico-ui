@@ -5,7 +5,7 @@ import { Menu } from "../overlay/Menu";
 
 const AVATARMENU_CSS = `
 .twc-avatar-menu { display: inline-flex; align-items: center; gap: var(--space-2); padding: 3px 4px 3px 3px; border: none; background: transparent;
-  cursor: pointer; border-radius: var(--radius-full); font-family: var(--font-sans); color: var(--color-text);
+  cursor: pointer; border-radius: var(--radius-full); color: var(--color-text);
   transition: background-color var(--duration-fast) var(--ease-standard); }
 .twc-avatar-menu:hover { background: var(--color-surface-sunken); }
 .twc-avatar-menu:focus-visible { outline: none; box-shadow: var(--ring); }

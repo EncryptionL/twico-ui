@@ -7,7 +7,7 @@ import {
 
 const FUNNEL_CSS = `
 .twc-chart--funnel svg { overflow: visible; }
-.twc-funnel__label { fill: var(--color-chart-on-fill); paint-order: stroke; stroke: var(--color-chart-on-fill-halo); stroke-width: 3px; stroke-linejoin: round; vector-effect: non-scaling-stroke; font-family: var(--font-sans); pointer-events: none; }
+.twc-funnel__label { fill: var(--color-chart-on-fill); paint-order: stroke; stroke: var(--color-chart-on-fill-halo); stroke-width: 3px; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; }
 .twc-funnel__name { font-size: 12px; font-weight: 600; }
 .twc-funnel__value { font-size: 11px; fill-opacity: 0.9; }
 /* Explode: nudge the selected stage shape outward so it separates from the funnel

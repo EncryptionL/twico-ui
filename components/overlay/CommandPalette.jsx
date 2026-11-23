@@ -9,7 +9,7 @@ const COMMAND_CSS = `
 .twc-cmdk__overlay[data-state="closed"] { animation: twc-cmdk-fade-out var(--duration-exit) var(--ease-in) forwards; pointer-events: none; }
 .twc-cmdk { width: 100%; max-width: 560px; max-height: 60vh; display: flex; flex-direction: column; overflow: hidden;
   background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-xl); font-family: var(--font-sans); }
+  box-shadow: var(--shadow-xl); }
 .twc-cmdk[data-state="open"] { animation: twico-pop-in var(--duration-base) var(--ease-spring); }
 .twc-cmdk[data-state="closed"] { animation: twc-cmdk-pop-out var(--duration-exit) var(--ease-in) forwards; }
 @keyframes twc-cmdk-fade-out { from { opacity: 1; } to { opacity: 0; } }

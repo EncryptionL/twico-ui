@@ -25,7 +25,7 @@ export const Switch = /*#__PURE__*/ React.forwardRef(function Switch({
 .twc-switch[data-tone="danger"]  { --_accent: var(--color-danger); --_accent-fg: var(--color-danger-fg); --_accent-subtle: var(--color-danger-subtle); --_accent-subtle-fg: var(--color-danger-subtle-fg); --_accent-border: var(--color-danger); }
 .twc-switch[data-tone="info"]    { --_accent: var(--color-info); --_accent-fg: var(--color-info-fg); --_accent-subtle: var(--color-info-subtle); --_accent-subtle-fg: var(--color-info-subtle-fg); --_accent-border: var(--color-info); }
 .twc-switch[data-tone="neutral"] { --_accent: var(--color-text); --_accent-fg: var(--color-surface); --_accent-subtle: var(--color-surface-sunken); --_accent-subtle-fg: var(--color-text-muted); --_accent-border: var(--color-border-strong); }
-.twc-switch { display: inline-flex; align-items: center; gap: var(--space-3); cursor: pointer; font-family: var(--font-sans); --_tx: 1; }
+.twc-switch { display: inline-flex; align-items: center; gap: var(--space-3); cursor: pointer; --_tx: 1; }
 [dir="rtl"] .twc-switch { --_tx: -1; }
 .twc-switch[data-disabled="true"] { cursor: not-allowed; opacity: 0.55; }
 .twc-switch__input { position: absolute; opacity: 0; width: 0; height: 0; }
@@ -66,7 +66,7 @@ export const Switch = /*#__PURE__*/ React.forwardRef(function Switch({
 .twc-switch__label { font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text); line-height: 1.3; }
 .twc-field__req { color: var(--color-danger); }
 .twc-switch__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
-.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); font-family: var(--font-sans); }
+.twc-field { display: flex; flex-direction: column; gap: var(--space-1-5); }
 /* #494: reserve the footer lane. A row of fields aligned with align="flex-end" splits in two the
    moment ONE of them has a hint, because that field grows a footer and the others do not - and the
    caption then moves a DIFFERENT control, which nothing in the JSX suggests. align= cannot fix it:

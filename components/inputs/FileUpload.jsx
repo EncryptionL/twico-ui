@@ -3,7 +3,7 @@ import { useScopedStyles } from "../_styles.js";
 import { fileKey, partitionFiles } from "../_upload.js";
 
 const UPLOAD_CSS = `
-.twc-upload { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-3); }
+.twc-upload { display: flex; flex-direction: column; gap: var(--space-3); }
 .twc-upload[data-size="sm"] { --_pad-y: var(--space-5); --_pad-x: var(--space-4); }
 .twc-upload[data-size="lg"] { --_pad-y: var(--space-10); --_pad-x: var(--space-8); }
 .twc-field__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); display: flex; gap: 4px; align-items: center; }

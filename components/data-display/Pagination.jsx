@@ -3,7 +3,7 @@ import { useScopedStyles } from "../_styles.js";
 import { warnOnce } from "../_warn.js";
 
 const PAGINATION_CSS = `
-.twc-pagination { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-sans); }
+.twc-pagination { display: inline-flex; align-items: center; gap: 4px; }
 .twc-page {
   display: inline-grid; place-items: center; min-width: 36px; height: 36px; padding: 0 8px;
   font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-text-muted);

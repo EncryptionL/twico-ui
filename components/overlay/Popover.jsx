@@ -9,7 +9,7 @@ const POPOVER_CSS = `
   position: fixed; z-index: var(--z-popover); min-width: 200px;
   background: var(--color-surface-raised); color: var(--color-text);
   border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg); font-family: var(--font-sans);
+  box-shadow: var(--shadow-lg); 
   transform-origin: top;
 }
 .twc-popover:focus { outline: none; }

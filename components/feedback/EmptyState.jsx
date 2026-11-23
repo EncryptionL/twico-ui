@@ -4,7 +4,7 @@ import { warnOnce } from "../_warn.js";
 
 const EMPTY_CSS = `
 .twc-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-3);
-  padding: var(--space-10) var(--space-6); font-family: var(--font-sans); }
+  padding: var(--space-10) var(--space-6); }
 .twc-empty__icon { display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: var(--radius-2xl);
   background: var(--color-surface-sunken); color: var(--color-text-subtle); margin-bottom: var(--space-1); }
 .twc-empty__icon svg { width: 30px; height: 30px; }

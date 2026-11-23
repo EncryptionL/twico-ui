@@ -2,7 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 
 const KANBAN_CSS = `
-.twc-kanban { display: flex; gap: var(--space-4); font-family: var(--font-sans); overflow-x: auto; padding-bottom: var(--space-2); align-items: flex-start; }
+.twc-kanban { display: flex; gap: var(--space-4); overflow-x: auto; padding-bottom: var(--space-2); align-items: flex-start; }
 .twc-kanban__col { flex: 0 0 280px; display: flex; flex-direction: column; max-height: 100%;
   background: var(--color-surface-sunken); border: var(--border-thin) solid var(--color-border); border-radius: var(--radius-xl); }
 .twc-kanban__col[data-over="true"] { box-shadow: inset 0 0 0 2px var(--color-primary); background: var(--color-primary-subtle); }

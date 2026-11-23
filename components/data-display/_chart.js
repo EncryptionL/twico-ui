@@ -183,7 +183,7 @@ export function polygonPath(points) {
  * dedupes by id), so all chart components stay visually consistent.
  */
 export const CHART_BASE_CSS = `
-.twc-chart { font-family: var(--font-sans); width: 100%; position: relative; color: var(--color-text); }
+.twc-chart { width: 100%; position: relative; color: var(--color-text); }
 .twc-chart svg { display: block; width: 100%; }
 .twc-chart svg text { fill: var(--color-text-subtle); }
 .twc-chart__sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
@@ -240,7 +240,7 @@ export const CHART_BASE_CSS = `
 .twc-chart__zoom-reset {
   position: absolute; top: 6px; inset-inline-end: 8px; z-index: 2;
   display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px;
-  font-family: var(--font-sans); font-size: var(--text-xs); color: var(--color-text-muted);
+  font-size: var(--text-xs); color: var(--color-text-muted);
   background: var(--color-surface-raised); border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-md); box-shadow: var(--shadow-sm); cursor: pointer;
 }

@@ -9,7 +9,7 @@ const TOAST_CSS = `
   background: var(--color-surface-raised); color: var(--color-text);
   border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
-  font-family: var(--font-sans); overflow: hidden;
+  overflow: hidden;
   animation: twc-toast-slide-in var(--duration-base) var(--ease-spring);
 }
 /* Slides in from the inline-end edge. LTR behaviour matches the previous translateX(24px); */

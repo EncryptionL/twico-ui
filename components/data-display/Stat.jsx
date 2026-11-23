@@ -2,7 +2,7 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 
 const STAT_CSS = `
-.twc-stat { display: flex; flex-direction: column; gap: 6px; font-family: var(--font-sans);
+.twc-stat { display: flex; flex-direction: column; gap: 6px; 
   background: var(--color-surface); border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-lg); padding: var(--space-5); }
 .twc-stat[data-plain="true"] { background: transparent; border: none; padding: 0; }

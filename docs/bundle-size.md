@@ -254,3 +254,88 @@ values above. The carve-out is what that measurement bought.
   missing. It lives in the generator, not in `size-limit`: that preset runs every `path` it is given
   through rolldown, and a `.css` entry is not a JS module. The authoring copy deliberately has no
   budget — legibility is its job.
+
+---
+
+## #551 — 59 components were re-declaring a font the document already supplies
+
+Not a size story, but it lives next to #534/#539 because it is the same shape: something shipped to
+every consumer that said nothing.
+
+`base.css` sets `font-family: var(--font-sans)` on `body`, and `font-family` is **inherited**, so it
+reaches every descendant without any component declaring it. 59 components declared it anyway, 73
+times. Each one was:
+
+- **redundant** when nobody is overriding — measured identical with and without the declaration; and
+- **blocking** when somebody is. A declaration that *matches* the element beats an inherited value at
+  **any** specificity, so a consumer's `.content { font-family: Georgia }` on a wrapper reached
+  nothing inside it.
+
+That is #543's defect class — the library vetoing an override — at library scale, and #547 had only
+fixed two components.
+
+### The reset `base.css` was missing
+
+Deleting all 73 on its own would have been a **regression**, and this is the part worth recording:
+form controls do **not** inherit `font-family`. The UA stylesheet gives `<button>`, `<input>`,
+`<select>`, `<textarea>` and `<optgroup>` their own, and `base.css` had no
+
+```css
+button, input, select, textarea, optgroup { font-family: inherit; }
+```
+
+That missing rule is *why* 59 components each re-declared the font: without it, anything rooted on a
+control would fall back to the UA face. The reset is `inherit` rather than the token deliberately —
+by default it resolves through `body` to the same `--font-sans`, so nothing moves, but a container
+font now reaches the controls inside. `font-size` is left alone: components set their own from the
+type scale, and making controls inherit 16px would resize every one of them.
+
+### The latent bug this uncovered
+
+The parity probe reported 84 elements changing — and the **direction** was the finding:
+
+```
+Arial  ->  "Plus Jakarta Sans", ui-sans-serif, …
+```
+
+Those 84 were rendering in the **UA form-control font in the published build**, across 12
+components, because the component declared the font on its *root* while the control inside it is a
+`<button>` that does not inherit: `button.twc-page` in `Pagination`, `CardGrid` and `DiffTable`
+(the page-number buttons — three of them carry visible text), `button.twc-cb__chev` in `Combobox`,
+`button.twc-dt__menu-btn`, `input.twc-check__input`, and the `<svg>`/`<path>` children that inherit
+from them.
+
+So the brand font was never reaching a visible pagination control, and nothing caught it because no
+test and no baseline looked at `font-family`.
+
+### Measured
+
+Three scenarios, 113 components rendered from each bundle and compared element-for-element on
+computed `font-family` (`.work/probe/ff-ssr.jsx` + `ff-diff.mjs`):
+
+| scenario | result |
+| --- | --- |
+| **control** — the published bundle against itself | 724 elements, **0 changed** (the probe is calibrated) |
+| **no ancestor font** — parity | 640 identical, **84 gained** the brand font, **0 regressions** |
+| **with an ancestor font** — the point of #551 | **611 elements now pick it up**, 0 moved the wrong way |
+
+The `--font-mono` declarations are untouched — 8 across 6 files. `base.css` sets mono on
+`code, pre, kbd, samp` **by tag**, so a component rendering a `<div>` or `<span>` would lose it.
+Same reasoning that kept `Heading`'s `font-weight`/`color`/`line-height` as class rules in #547
+while its `font-family` could go.
+
+### Two things the probe caught that review would not have
+
+1. **A counting checker cannot tell a fix from a regression.** The first run printed
+   `PARITY BROKEN — 84 elements differ` for 84 elements moving *toward* the brand font. The tool now
+   takes the expected target on the command line, because "good direction" is the opposite in the
+   two scenarios: without an ancestor font nothing may *lose* the brand font, and with one the
+   components *should* lose it.
+2. **A tidy-up regex quietly reformatted files.** `/ {2,}([a-z-]+:)/` also matches line-start
+   indentation, so it reindented every continuation line of the multi-line rules — `FieldRow.jsx`'s
+   source-text tests caught it. There is now no whitespace tidying at all: a leftover double space
+   inside a CSS string costs nothing. A second pass then found the whole-rule pattern consuming the
+   `\n` of a **CRLF** pair and orphaning the `\r`, which made git report two files as entirely
+   rewritten; the script normalises to LF and restores the file's own ending, like
+   `scripts/build-css.mjs`. Both were found by diffing the files line-by-line rather than by reading
+   the diff.

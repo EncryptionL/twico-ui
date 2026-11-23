@@ -8,7 +8,7 @@ import { Tooltip } from "../overlay/Tooltip.jsx";
 // use), drag to pan when zoomed (clamped to the stage), +/-/0 keys, double-click to toggle. Reuses the
 // already-barrelled IconButton + Tooltip for the built-in controls (the AvatarMenu→Menu sibling-reuse pattern).
 const IV_CSS = `
-.twc-iv { position: relative; display: block; width: 100%; font-family: var(--font-sans); }
+.twc-iv { position: relative; display: block; width: 100%; }
 .twc-iv__stage { position: relative; overflow: hidden; width: 100%; height: 100%; min-height: 200px; touch-action: none;
   /* #414: styleable via --twc-iv-bg / --twc-iv-radius (or the radius prop) — current values as the fallback. */
   background: var(--twc-iv-bg, var(--color-surface-sunken)); border-radius: var(--twc-iv-radius, var(--radius-lg)); }

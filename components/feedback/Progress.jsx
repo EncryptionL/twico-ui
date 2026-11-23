@@ -16,7 +16,7 @@ export function Progress({
   // Forward aria-label/aria-labelledby onto the inner role="progressbar" track (not the wrapper).
   const { "aria-label": ariaLabel, "aria-labelledby": ariaLabelledby, ...restProps } = rest;
   const __twcStyles = useScopedStyles("twc-progress-styles", `
-.twc-progress-wrap { display: flex; flex-direction: column; gap: 6px; font-family: var(--font-sans); }
+.twc-progress-wrap { display: flex; flex-direction: column; gap: 6px; }
 .twc-progress {
   --_h: 8px;
   position: relative; width: 100%; height: var(--_h); overflow: hidden;

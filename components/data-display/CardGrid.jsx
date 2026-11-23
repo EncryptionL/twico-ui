@@ -9,7 +9,7 @@ import { Tooltip } from "../overlay/Tooltip.jsx";
 import { runDatatableQuery } from "./Datatable.jsx";
 
 const CARDGRID_CSS = `
-.twc-cardgrid { font-family: var(--font-sans); display: flex; flex-direction: column; gap: var(--space-3); }
+.twc-cardgrid { display: flex; flex-direction: column; gap: var(--space-3); }
 .twc-cardgrid__label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text); }
 .twc-cardgrid__toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
 .twc-cardgrid__search { flex: 1 1 200px; min-width: 160px; }

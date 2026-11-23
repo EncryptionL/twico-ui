@@ -9,7 +9,7 @@ const DRAWER_CSS = `
 @keyframes twc-drawer-fade-out { from { opacity: 1; } to { opacity: 0; } }
 .twc-drawer {
   position: fixed; z-index: var(--z-modal); background: var(--color-surface); color: var(--color-text);
-  display: flex; flex-direction: column; box-shadow: var(--shadow-xl); font-family: var(--font-sans);
+  display: flex; flex-direction: column; box-shadow: var(--shadow-xl); 
 }
 .twc-drawer[data-side="right"] { top: 0; right: 0; height: 100%; width: var(--_w, 380px); max-width: 92vw; border-left: var(--border-thin) solid var(--color-border); border-top-left-radius: var(--radius-2xl); border-bottom-left-radius: var(--radius-2xl); }
 .twc-drawer[data-side="left"] { top: 0; left: 0; height: 100%; width: var(--_w, 380px); max-width: 92vw; border-right: var(--border-thin) solid var(--color-border); border-top-right-radius: var(--radius-2xl); border-bottom-right-radius: var(--radius-2xl); }

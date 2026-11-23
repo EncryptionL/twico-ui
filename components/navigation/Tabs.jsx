@@ -2,7 +2,6 @@ import React from "react";
 import { useScopedStyles } from "../_styles.js";
 
 const TABS_CSS = `
-.twc-tabs { font-family: var(--font-sans); }
 /* tone → accent set (default primary). Mirrors Button's --_accent model; Badge's tone vocabulary. */
 .twc-tabs { --_accent: var(--color-primary); --_accent-fg: var(--color-primary-fg); --_accent-subtle: var(--color-primary-subtle); --_accent-subtle-fg: var(--color-primary-subtle-fg); --_accent-border: var(--color-primary-border); }
 .twc-tabs[data-tone="success"] { --_accent: var(--color-success); --_accent-fg: var(--color-success-fg); --_accent-subtle: var(--color-success-subtle); --_accent-subtle-fg: var(--color-success-subtle-fg); --_accent-border: var(--color-success); }
