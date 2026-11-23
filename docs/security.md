@@ -68,7 +68,39 @@ hit `403`/blocked-asset failures.
   a strict SVG-path allowlist + printable-ASCII title sanitization. Triage findings on the **Security ›
   Code scanning** tab; fix at the source file (don't edit generated/excluded output).
 - **Dependabot** (`.github/dependabot.yml`) — weekly npm (root + `site/`) and github-actions updates,
-  PRs targeting `dev`.
+  PRs targeting `dev`. Note this is **version updates only**; Dependabot *security alerts* are
+  disabled at the repository level, so the consumer-facing dependency check is `npm audit
+  --omit=dev` (below), run locally and required to stay at 0 by CLAUDE.md §4.5.
+
+### What the alerts actually are, and how to triage the common one
+
+Across the 53 code-scanning alerts this repo has raised, **45 were dead code, not security**:
+41 `js/unused-local-variable` + 4 `js/useless-assignment-to-local`. Only 6 were ever
+security-relevant (3 × `js/bad-code-sanitization`, `js/incomplete-url-scheme-check`,
+`js/incomplete-sanitization`, `js/http-to-file-access`), plus 2 × `js/file-system-race`.
+
+That skew has a cause: **there is no linter configured** — no eslint, oxlint or biome in either
+`package.json` — so CodeQL is the only thing that catches an unused import, and the feedback loop
+is a push plus a GitHub alert rather than a local failure. Worth knowing before concluding that a
+new alert is a security problem.
+
+Two rules when one appears:
+
+1. **Fix it in the source file.** Never dismiss it on GitHub — if a finding is genuinely not
+   actionable, exclude the path in `codeql-config.yml` with a stated reason, as the three entries
+   above do. A finding inside a *generated* file is fixed in its generator.
+2. **Ask what the dead binding is evidence of before deleting it.** An unused import in a *test*
+   usually means an assertion was never written. Alert 61 was an unused `Pre` import in
+   `tests/issue-543-typography-margin-reset.test.jsx`: deleting the line would have cleared the
+   alert and left the real gap, which was that the test's claim about `Pre` rested on grepping
+   `Pre.jsx` for one spelling of its margin reset, while the behavioural assertion `Text` and
+   `Heading` get was absent. The fix was to write that assertion — which uses the import.
+
+`React` default imports in `.jsx` files are a deliberate non-finding: CodeQL does not flag them
+(the classic JSX transform would reference `React`), and 219 files here carry one. Both JSX
+runtimes in this repo are automatic — `tsconfig.json` `jsx: "react-jsx"` for the build, and oxc's
+default for vitest — so they are dead weight, but removing them is cosmetic and is not what this
+rule is pointing at.
 
 ## Triaging advisories
 

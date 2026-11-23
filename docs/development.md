@@ -124,6 +124,34 @@ longhand back off the declaration (`el.style.left`, `el.style.getPropertyValue("
 value out (`imgOffset()` in `tests/image-viewer.test.jsx`). Both forms pass on jsdom 30 **and** 31,
 so the assertion does not have to be retargeted at each bump.
 
+### To assert the ABSENCE of a declaration, enumerate — don't list property names
+
+The counterpart to the above. When a test's claim is "this element carries no inline *X*", probing a
+hand-written list of property names leaves a hole the size of every spelling you didn't think of —
+and in this library the spelling a regression will most likely use is the **logical** one, because
+the components are written in logical properties throughout (CLAUDE.md §5, for RTL).
+
+`tests/issue-543-typography-margin-reset.test.jsx` made that mistake: three tests looped over
+`margin`, `marginTop`, `marginRight`, `marginBottom`, `marginLeft` and required each to be `""`.
+Injecting the regression they exist to catch — `style={{ marginBlock: 0 }}`, which sets
+`margin-block-start`/`-end` and no physical longhand — left all 15 tests passing.
+
+Enumerate the declaration instead:
+
+```js
+const inlineMargins = (el) => Array.from(el.style).filter((p) => p.includes("margin"));
+expect(inlineMargins(el), "an inline margin would be unoverridable").toEqual([]);
+```
+
+`CSSStyleDeclaration` is array-like over the properties actually set, so this covers shorthands,
+logical properties and anything added later. The same shape pins a positive claim — the
+`#547 pins exactly what is left inline` test asserts `[...el.style].sort()` equals
+`["color", "font-size"]`, so adding *any* inline declaration fails it.
+
+**Prove the assertion works by breaking the code**, not by reading it. A test that cannot fail is
+the same silent pass as a guard checked by grepping its output ([above](#check-a-guard-by-its-exit-code-not-by-grepping-its-output)):
+inject the regression, watch the test go red, then restore.
+
 ## Dependency updates (Dependabot auto-merge)
 
 Dependency bumps are hands-off. [`.github/dependabot.yml`](../.github/dependabot.yml) opens **weekly**
