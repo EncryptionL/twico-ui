@@ -2,6 +2,12 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+## [1.53.1](https://github.com/EncryptionL/twico-ui/compare/v1.53.0...v1.53.1) (2026-11-23)
+
+### Bug Fixes
+
+* **styles:** stop 59 components re-declaring a font base.css already supplies ([b5665c5](https://github.com/EncryptionL/twico-ui/commit/b5665c54567e4a832e4a52fb09b288b914feb8a7)), closes [#551](https://github.com/EncryptionL/twico-ui/issues/551)
+
 # [1.53.0](https://github.com/EncryptionL/twico-ui/compare/v1.52.0...v1.53.0) (2026-11-20)
 
 ### Features
