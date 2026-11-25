@@ -5576,6 +5576,20 @@ export const components = [
         "description": "Let the user drag the grid's own height from a grip on the bottom edge; persists as DatatableState.height."
       },
       {
+        "prop": "heightMax",
+        "type": "number | false",
+        "required": false,
+        "default": "-",
+        "description": "Ceiling for a heightResize drag. Defaults to 95% of the window; a number sets one, false removes it."
+      },
+      {
+        "prop": "onHeightResize",
+        "type": "(height)=>void",
+        "required": false,
+        "default": "-",
+        "description": "Fires once per completed height gesture with the new px, or null when the user double-clicks to reset."
+      },
+      {
         "prop": "serverMode",
         "type": "boolean",
         "required": false,

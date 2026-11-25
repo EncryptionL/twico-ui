@@ -327,13 +327,16 @@ describe("Datatable — row height in DatatableState (#542)", () => {
       <Datatable columns={COLS} rows={ROWS} rowKey={(r) => r.id} checkboxSelection rowResize />);
     const grips = [...container.querySelectorAll(".twc-dt__row-resizer")];
     expect(grips.length).toBeGreaterThan(0);
-    expect(grips[0].getAttribute("title")).toBe("Drag to resize every row");
+    // #567 removed the native `title`, which duplicated the aria-label word for word one line
+    // below it; aria-label is now the single source.
+    expect(grips[0].getAttribute("aria-label")).toBe("Drag to resize every row (double-click to reset)");
   });
 
   it('rowResize="row" keeps the per-row gesture, and says so', () => {
     const { container } = render(
       <Datatable columns={COLS} rows={ROWS} rowKey={(r) => r.id} checkboxSelection rowResize="row" />);
-    expect(container.querySelector(".twc-dt__row-resizer").getAttribute("title")).toBe("Drag to resize this row");
+    expect(container.querySelector(".twc-dt__row-resizer").getAttribute("aria-label"))
+      .toBe("Drag to resize this row (double-click to reset)");
   });
 
   it("rowResize={false} draws no grip", () => {

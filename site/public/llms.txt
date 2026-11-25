@@ -1699,6 +1699,8 @@ Props:
 - `pageSizeOptions` — `number array` · default `[5,10,25,50]` — Lists the selectable rows-per-page values offered in the pagination control, defaulting to [5,10,25,50].
 - `height` — `number` · default `440` — Scroll height of the grid body in pixels before rows scroll internally; the starting value when heightResize is on.
 - `heightResize` — `boolean` · default `false` — Let the user drag the grid's own height from a grip on the bottom edge; persists as DatatableState.height.
+- `heightMax` — `number | false` · default `-` — Ceiling for a heightResize drag. Defaults to 95% of the window; a number sets one, false removes it.
+- `onHeightResize` — `(height)=>void` · default `-` — Fires once per completed height gesture with the new px, or null when the user double-clicks to reset.
 - `serverMode` — `boolean` · default `false` — Switches to server-side data handling so sorting, filtering, and paging are delegated to your backend; off by default.
 - `rowCount` — `number` · default `-` — Tells the grid the total number of server-side rows so pagination can render correctly in serverMode.
 - `onServerChange` — `(state)=>void` · default `-` — Fires (debounced) with the serverMode query — sort, filters, filterLogic ('and'|'or'), page, quickFilter, and visibleColumns/hiddenColumns — so you fetch and project the data.
