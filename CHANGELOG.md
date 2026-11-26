@@ -2,6 +2,12 @@
 
 All notable changes to Twico UI are documented here (newest first). This file is generated automatically on each release by [semantic-release](https://semantic-release.gitbook.io/) from [Conventional Commits](https://www.conventionalcommits.org/) — do not edit it by hand. The same notes appear on each [GitHub Release](https://github.com/EncryptionL/twico-ui/releases).
 
+# [1.55.0](https://github.com/EncryptionL/twico-ui/compare/v1.54.0...v1.55.0) (2026-11-26)
+
+### Features
+
+* **datatable:** heightMax + onHeightResize, and seven resize follow-ups ([69a3471](https://github.com/EncryptionL/twico-ui/commit/69a34710741fbf8d28b88a5732ee109b4e3e7af5)), closes [#562](https://github.com/EncryptionL/twico-ui/issues/562) [#563](https://github.com/EncryptionL/twico-ui/issues/563) [#564](https://github.com/EncryptionL/twico-ui/issues/564) [#565](https://github.com/EncryptionL/twico-ui/issues/565) [#566](https://github.com/EncryptionL/twico-ui/issues/566) [#567](https://github.com/EncryptionL/twico-ui/issues/567) [#568](https://github.com/EncryptionL/twico-ui/issues/568) [#564](https://github.com/EncryptionL/twico-ui/issues/564) [#562](https://github.com/EncryptionL/twico-ui/issues/562) [#563](https://github.com/EncryptionL/twico-ui/issues/563) [#564](https://github.com/EncryptionL/twico-ui/issues/564) [#565](https://github.com/EncryptionL/twico-ui/issues/565) [#566](https://github.com/EncryptionL/twico-ui/issues/566) [#567](https://github.com/EncryptionL/twico-ui/issues/567) [#568](https://github.com/EncryptionL/twico-ui/issues/568)
+
 # [1.54.0](https://github.com/EncryptionL/twico-ui/compare/v1.53.1...v1.54.0) (2026-11-23)
 
 ### Bug Fixes
