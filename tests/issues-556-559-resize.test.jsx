@@ -1,12 +1,19 @@
 import React from "react";
 import { describe, it, expect, afterEach, vi } from "vitest";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { render, cleanup, fireEvent, act } from "@testing-library/react";
 import { Datatable } from "../src/index.ts";
 
 // The component's scoped stylesheet, wherever React put it (React 19 hoists it to <head>, so it is
 // not inside `container`). Reading it is the only way a jsdom test can guard a CSS-only claim -
 // jsdom has no layout, so the geometry itself is a browser check.
 const dtCss = () => [...document.querySelectorAll("style")].map((s) => s.textContent || "").join("");
+
+// #566: both drags coalesce their state updates to one per animation frame, so a pointermove does
+// not land synchronously any more. Tests drive the frame rather than pretending it is synchronous.
+const frame = () => act(() => new Promise((r) => requestAnimationFrame(() => r())));
+// #566: a run of resize KEYSTROKES is one gesture too - the store write lands once it goes idle.
+const kbIdle = () => act(() => new Promise((r) => setTimeout(r, KB_IDLE + 60)));
+const KB_IDLE = 180;
 
 afterEach(cleanup);
 
@@ -60,7 +67,7 @@ describe("Datatable — rowResize without checkboxSelection (#556)", () => {
   it('rowResize="row" reaches a checkbox-less grid too', () => {
     const { container } = render(<Datatable columns={COLS} rows={ROWS} rowKey={key} rowResize="row" />);
     expect(strips(container).length).toBe(ROWS.length);
-    expect(strips(container)[0].getAttribute("title")).toBe("Drag to resize this row");
+    expect(strips(container)[0].getAttribute("aria-label")).toBe("Drag to resize this row (double-click to reset)");
   });
 });
 
@@ -180,11 +187,23 @@ describe("Datatable — the row handle's accessibility contract (#558)", () => {
       .toBeGreaterThan(0);
   });
 
-  it("carries the hint in aria-label, not only in a native title", () => {
+  it("carries the hint in aria-label, and no longer in a duplicate native title", () => {
     const { s } = one();
-    expect(s.getAttribute("aria-label")).toBe("Drag to resize every row");
-    expect(s.getAttribute("title"), "title stays for the sighted mouse user, as on the column resizer")
-      .toBe("Drag to resize every row");
+    expect(s.getAttribute("aria-label")).toBe("Drag to resize every row (double-click to reset)");
+    // #567: the title duplicated the aria-label word for word one line below it, so assistive tech
+    // could announce the same string twice - a title becomes the DESCRIPTION when aria-label names
+    // the control - and a native tooltip is neither themeable nor reachable by keyboard or touch.
+    expect(s.getAttribute("title"), "dropped on all three resizers").toBeNull();
+  });
+
+  it("no resizer in the grid carries a native title any more", () => {
+    const { container } = render(
+      <Datatable columns={COLS} rows={ROWS} rowKey={key} rowResize heightResize />);
+    for (const sel of [".twc-dt__row-resizer", ".twc-dt__hgrip", ".twc-dt__resizer"]) {
+      const els = [...container.querySelectorAll(sel)];
+      expect(els.length, sel).toBeGreaterThan(0);
+      for (const el of els) expect(el.getAttribute("title"), sel).toBeNull();
+    }
   });
 
   it("is reachable by keyboard - exactly ONE tab stop while the height is shared", () => {
@@ -229,7 +248,7 @@ describe("Datatable — the row handle's accessibility contract (#558)", () => {
     expect(hs[2]).toBe("");
   });
 
-  it("a ROW drag also writes the store once, and reports once", () => {
+  it("a ROW drag also writes the store once, and reports once", async () => {
     const onState = vi.fn();
     const onRowResize = vi.fn();
     const { container } = render(
@@ -239,6 +258,8 @@ describe("Datatable — the row handle's accessibility contract (#558)", () => {
     const before = onState.mock.calls.length;
     fireEvent.pointerDown(s, { clientY: 100 });
     for (const clientY of [110, 120, 130, 140, 150]) fireEvent.pointerMove(window, { clientY });
+    // #566: five moves, ONE state update - they coalesce into the next frame.
+    await frame();
     expect(onState.mock.calls.length - before, "#542 wrote state on every move too").toBe(0);
     expect(rows(container)[0].style.height, "the live drag still renders").toBe("94px");
     fireEvent.pointerUp(window, { clientY: 150 });
@@ -247,10 +268,28 @@ describe("Datatable — the row handle's accessibility contract (#558)", () => {
     expect(onRowResize).toHaveBeenCalledWith(94, null);
   });
 
-  it("a row drag honours the same ceiling a restore does", () => {
+  it("five pointermoves inside one frame produce ONE render, not five", async () => {
+    // #566: a pointer emits 60-120 events a second and a row height feeds every row, every cell
+    // and every custom renderCell, so the uncoalesced drag re-rendered the whole body that often.
+    let renders = 0;
+    const Cell = () => { renders += 1; return <span>x</span>; };
+    const cols = [{ field: "name", headerName: "Name", renderCell: () => <Cell /> }];
+    const { container } = render(
+      <Datatable columns={cols} rows={ROWS} rowKey={key} rowResize />);
+    fireEvent.pointerDown(strips(container)[0], { clientY: 100 });
+    renders = 0;
+    for (const clientY of [110, 120, 130, 140, 150]) fireEvent.pointerMove(window, { clientY });
+    expect(renders, "nothing has rendered yet - the frame has not run").toBe(0);
+    await frame();
+    expect(renders, "one render for the whole burst, one cell per row").toBe(ROWS.length);
+    fireEvent.pointerUp(window, { clientY: 150 });
+  });
+
+  it("a row drag honours the same ceiling a restore does", async () => {
     const { container } = render(<Datatable columns={COLS} rows={ROWS} rowKey={key} rowResize />);
     fireEvent.pointerDown(strips(container)[0], { clientY: 0 });
     fireEvent.pointerMove(window, { clientY: 99999 });
+    await frame();
     expect(rows(container)[0].style.height, "the drag used to be uncapped").toBe("2000px");
     fireEvent.pointerUp(window, { clientY: 99999 });
   });
@@ -289,13 +328,29 @@ describe("Datatable — the row handle's accessibility contract (#558)", () => {
     expect(onRowResize).toHaveBeenCalledWith(start + 8, null);
   });
 
-  it("and persists it, so a keystroke is as durable as a drag", () => {
+  it("and persists it, so a keystroke is as durable as a drag", async () => {
     const onState = vi.fn();
     const { container } = render(
       <Datatable columns={COLS} rows={ROWS} rowKey={key} rowResize onStateChange={onState} />);
     expect(onState.mock.calls.at(-1)[0].rowHeight, "nothing set yet").toBeUndefined();
     fireEvent.keyDown(strips(container)[0], { key: "PageDown" });
+    await kbIdle();
     expect(onState.mock.calls.at(-1)[0].rowHeight).toBeGreaterThan(32);
+  });
+
+  it("a RUN of keystrokes writes the store once, not once per keypress", async () => {
+    // #566: the keyboard path bypassed the persist gate entirely, so every auto-repeat of a held
+    // Arrow wrote the whole state and called onStateChange - ~60 writes for a two-second hold.
+    const onState = vi.fn();
+    const { container } = render(
+      <Datatable columns={COLS} rows={ROWS} rowKey={key} rowResize onStateChange={onState} />);
+    const before = onState.mock.calls.length;
+    const s = strips(container)[0];
+    for (let i = 0; i < 12; i++) fireEvent.keyDown(s, { key: "ArrowDown" });
+    expect(onState.mock.calls.length - before, "nothing written while the keys are still coming").toBe(0);
+    await kbIdle();
+    expect(onState.mock.calls.length - before, "one write, once it goes idle").toBe(1);
+    expect(rows(container)[0].style.height, "and every keystroke still moved the height").toBe("152px");
   });
 
   it("the keyboard honours the SAME ceiling a restore does", () => {
@@ -392,7 +447,7 @@ describe("Datatable — heightResize and DatatableState.height (#559)", () => {
     const g = grip(container);
     expect(g.getAttribute("role")).toBe("separator");
     expect(g.getAttribute("aria-orientation")).toBe("horizontal");
-    expect(g.getAttribute("aria-label")).toBe("Resize the table height");
+    expect(g.getAttribute("aria-label")).toBe("Resize the table height (double-click to reset)");
     expect(g.getAttribute("tabindex")).toBe("0");
     expect(g.getAttribute("aria-valuenow"), "height is the STARTING value, not a cap").toBe("300");
     expect(g.getAttribute("aria-valuemin")).toBe("160");
@@ -432,12 +487,13 @@ describe("Datatable — heightResize and DatatableState.height (#559)", () => {
     expect(scrollH(container)).toBe("380px");
   });
 
-  it("round-trips through onStateChange, like every other user resize", () => {
+  it("round-trips through onStateChange, like every other user resize", async () => {
     const onState = vi.fn();
     const { container } = render(
       <Datatable columns={COLS} rows={ROWS} rowKey={key} heightResize height={300} onStateChange={onState} />);
     expect(onState.mock.calls.at(-1)[0].height, "absent until the user moves it").toBeUndefined();
     fireEvent.keyDown(grip(container), { key: "ArrowDown" });
+    await kbIdle(); // #566: the keyboard commits once the run goes idle
     expect(onState.mock.calls.at(-1)[0].height).toBe(316);
     expect(onState.mock.calls.at(-1)[0].columnWidths, "beside the resize that always did").toBeDefined();
   });
@@ -457,8 +513,10 @@ describe("Datatable — heightResize and DatatableState.height (#559)", () => {
         initialState={{ height: 999999 }} onStateChange={onState} />);
     const cap = Math.max(240, Math.round(window.innerHeight * 0.95));
     expect(scrollH(container), "clamped on render, so it cannot run off the bottom here").toBe(`${cap}px`);
+    // #568 raised the absolute sanity bound from 2000, which doubled as "about two viewports" and
+    // became too low once a host can opt out of the viewport ceiling entirely.
     expect(onState.mock.calls.at(-1)[0].height,
-      "kept at the static bound, so it un-clamps again on the big monitor").toBe(2000);
+      "kept at the absolute bound, so it un-clamps again on the big monitor").toBe(10000);
   });
 
   it("ignores a non-numeric height rather than applying it", () => {
@@ -470,7 +528,7 @@ describe("Datatable — heightResize and DatatableState.height (#559)", () => {
 
   // The drag itself had no test anywhere in the suite - `grep -rln pointerDown tests/` was empty
   // across all 186 files - although it is the headline gesture of all four resize issues.
-  it("a height drag writes the store ONCE per gesture, not once per pointermove", () => {
+  it("a height drag writes the store ONCE per gesture, not once per pointermove", async () => {
     const onState = vi.fn();
     const { container } = render(
       <Datatable columns={COLS} rows={ROWS} rowKey={key} heightResize height={300} onStateChange={onState} />);
@@ -478,6 +536,7 @@ describe("Datatable — heightResize and DatatableState.height (#559)", () => {
     const before = onState.mock.calls.length;
     fireEvent.pointerDown(g, { clientY: 400 });
     for (const clientY of [410, 420, 430, 440, 450]) fireEvent.pointerMove(window, { clientY });
+    await frame();
     const during = onState.mock.calls.length;
     expect(scrollH(container), "the live value still drives the render").toBe("350px");
     expect(during - before, "a 200px drag used to emit one full state write per move").toBe(0);
@@ -487,25 +546,53 @@ describe("Datatable — heightResize and DatatableState.height (#559)", () => {
     expect(onState.mock.calls.at(-1)[0].height).toBe(350);
   });
 
-  it("a height drag is clamped at both ends", () => {
+  it("a height drag is clamped at both ends", async () => {
     const { container } = render(
       <Datatable columns={COLS} rows={ROWS} rowKey={key} heightResize height={300} />);
     const g = container.querySelector(".twc-dt__hgrip");
     const cap = Math.max(240, Math.round(window.innerHeight * 0.95));
     fireEvent.pointerDown(g, { clientY: 400 });
     fireEvent.pointerMove(window, { clientY: -5000 });
+    await frame();
     expect(scrollH(container)).toBe("160px");
     fireEvent.pointerMove(window, { clientY: 5000 });
+    await frame();
     expect(scrollH(container)).toBe(`${cap}px`);
     fireEvent.pointerUp(window, { clientY: 5000 });
   });
 
-  it("a restored height is viewport-clamped even with heightResize OFF, as the docs promise", () => {
-    const cap = Math.max(240, Math.round(window.innerHeight * 0.95));
+  it("a stored height is NOT applied with heightResize off - turning it off turns it off", () => {
+    // 1.54.0 applied it anyway, so a stale preference silently overrode the developer's `height`
+    // with no grip left to change it (#564). The previous version of this test asserted that
+    // behaviour and only checked the clamp; the restore is now gated on the prop instead.
     const { container } = render(
-      <Datatable columns={COLS} rows={ROWS} rowKey={key} initialState={{ height: 1900 }} />);
+      <Datatable columns={COLS} rows={ROWS} rowKey={key} height={420} initialState={{ height: 1900 }} />);
     expect(container.querySelector(".twc-dt__hgrip"), "no grip without the prop").toBeNull();
-    expect(scrollH(container), "and no grip means no way to undo an off-screen height").toBe(`${cap}px`);
+    expect(scrollH(container), "the developer's height stands").toBe("420px");
+  });
+
+  it("...but it is KEPT, so switching the prop back on gets the user's size back", () => {
+    const onState = vi.fn();
+    const { container, rerender } = render(
+      <Datatable columns={COLS} rows={ROWS} rowKey={key} height={420}
+        initialState={{ height: 600 }} onStateChange={onState} />);
+    expect(scrollH(container)).toBe("420px");
+    expect(onState.mock.calls.at(-1)[0].height, "still round-trips while unapplied").toBe(600);
+    rerender(
+      <Datatable columns={COLS} rows={ROWS} rowKey={key} height={420} heightResize
+        initialState={{ height: 600 }} onStateChange={onState} />);
+    // The restore ran at mount, so the carried value is applied when the grip appears.
+    expect(container.querySelector(".twc-dt__hgrip")).not.toBeNull();
+  });
+
+  it("a dragged height is un-applied if the prop goes false", async () => {
+    const { container, rerender } = render(
+      <Datatable columns={COLS} rows={ROWS} rowKey={key} height={420} heightResize />);
+    fireEvent.keyDown(container.querySelector(".twc-dt__hgrip"), { key: "PageDown" });
+    expect(scrollH(container)).toBe("500px");
+    rerender(<Datatable columns={COLS} rows={ROWS} rowKey={key} height={420} />);
+    expect(scrollH(container), "no grip, so the height must not be left standing").toBe("420px");
+    await kbIdle();
   });
 
   it("existing call sites render unchanged - the prop alone moves nothing", () => {

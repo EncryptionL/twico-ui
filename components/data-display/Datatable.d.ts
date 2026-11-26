@@ -340,11 +340,47 @@ export interface DatatableProps<T = any> extends Omit<React.HTMLAttributes<HTMLD
    * `aria-valuenow`/`min`/`max`, `tabIndex`, Arrow keys for a fine step, PageUp/PageDown for a coarse
    * one, Home/End for the bounds.
    *
-   * The store is written **once per gesture**, on pointerup — not once per `pointermove`. The live
-   * value drives the render during the drag; `onStateChange` and the `stateKey` write are suppressed
-   * until it settles (this also fixed #542's row height, which had the same per-move storm).
+   * The store is written **once per gesture** — on pointerup for a drag, and once a run of keystrokes
+   * goes idle (#566). The live value drives the render; `onStateChange` and the `stateKey` write are
+   * suppressed until it settles. The same gate covers #542's row height and a column resize.
+   *
+   * A cancelled gesture (`pointercancel` — a second finger, a long-press menu, an OS interruption)
+   * **aborts** rather than commits: the height reverts, because a cancelled drag is not a size the
+   * user chose (#562). Double-click the grip to reset to the `height` prop (#563).
    */
   heightResize?: boolean;
+  /**
+   * #568: the ceiling a `heightResize` drag may reach.
+   *
+   * - omitted — **the default**: viewport-relative, 95% of `window.innerHeight`, re-measured on resize.
+   * - a number — an explicit ceiling in px (itself clamped to `[160, 10000]`).
+   * - `false` — no ceiling beyond the absolute sanity bound, so a reader can size a grid past the
+   *   window.
+   *
+   * The viewport cap is the right **default**: a grid taller than the window pushes its own pager and
+   * grip below the fold, which is a real trap. But it is a judgement about layout, and that belongs to
+   * the application — "a long grid inside a scrolling page" is a legitimate shape, where the reader
+   * scrolls the page instead of the grid, which is exactly what they asked for by dragging past the
+   * viewport. A host could not work around it either, because the clamp applies to the **render** and
+   * not only to the gesture, so feeding a larger number through `initialState.height` did not help.
+   *
+   * The 160px **floor** and the absolute `[160, 10000]` sanity bound on a restored value are kept
+   * whatever you pass: a grid dragged to nothing has no grip left to grab, and a corrupt preference
+   * must not be able to hand the grid an absurd height. If you do allow an over-tall grid, the
+   * recovery paths matter more than the cap did — `Home` on the grip returns to the floor,
+   * double-click resets to the `height` prop, and the grip stays directly below the grid so it is
+   * always findable by scrolling.
+   */
+  heightMax?: number | false;
+  /**
+   * #563: fired once per completed height gesture with the new height in px, and with **`null`** when
+   * the user resets it (double-click the grip) — `null` meaning "the `height` prop decides again".
+   *
+   * Symmetric with `onRowResize`, and not needed to persist anything: `onStateChange` already carries
+   * `DatatableState.height`. It exists because a host otherwise had to diff `onStateChange` to notice
+   * a drag, and because there was no signal at all for a reset.
+   */
+  onHeightResize?: (height: number | null) => void;
   /**
    * Enable server-side data. When true, the table does NOT sort/filter/paginate
    * the `rows` you pass (they are treated as the already-fetched current page);
@@ -761,9 +797,20 @@ export interface DatatableState {
   /** #559: user-dragged height of the scroll area in px (`heightResize`). Absent until the user
    *  drags the grip. One bounded number, so it round-trips with no opt-in — the argument
    *  `rowHeight` makes for preferring that over an unbounded map applies here too, only more
-   *  simply: there is exactly one. Clamped to `[160, 2000]` on restore, and then to the viewport on
+   *  simply: there is exactly one. Clamped to `[160, 10000]` on restore and then to `heightMax` on
    *  render, so a snapshot written on a large monitor does not render off the bottom of a laptop —
-   *  the stored number is left alone, so it un-clamps again on the large screen. */
+   *  the stored number is left alone, so it un-clamps again on the large screen.
+   *
+   *  **Applied only when `heightResize` is on** (#564). A grid with the prop off used to adopt a
+   *  stored height anyway, so turning the feature off did not turn it off: a stale preference
+   *  silently overrode the developer's `height` with no grip left to change it. The value is still
+   *  kept and still round-trips, so switching the prop back on restores it. `rowHeights` already had
+   *  this shape of gate via `persistRowHeights`; this was the field without one.
+   *
+   *  An explicit `null` **clears** it, back to the `height` prop — the only value that means "the
+   *  prop decides" (#563). The same holds for `rowHeight` and the density preset. Any other
+   *  non-numeric value is ignored rather than read as a reset, so a corrupt preference cannot wipe a
+   *  deliberate height. */
   height?: number;
 }
 

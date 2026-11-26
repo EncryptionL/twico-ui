@@ -834,8 +834,157 @@ Two implementation notes:
   live and runs exactly once when the flag clears. The same gate fixed **#542's row height**, which had the
   same per-move storm: `onRowResize` had always fired once per drag, but `onStateChange` had not.
 
-There is no `onHeightResize` callback. `onStateChange` already carries the number, which is the channel #542
-established for exactly this, and one fewer prop on a component with this many is worth something.
+There *is* an `onHeightResize` callback now — see below. The first pass argued that `onStateChange` already
+carried the number and one fewer prop was worth something; what that missed is that a host then has to **diff**
+`onStateChange` to notice a drag, and that there was no signal at all for a reset.
+
+## The resize follow-ups (#562 – #568)
+
+1.54.0 shipped the three resize grips with one shared gesture model, and seven issues came straight back at it.
+Five were defects in that model, one was an accessibility debt it exposed, and one was a judgement that turned
+out not to be the library's to make.
+
+### #562 — a cancelled drag wedged the grid, not just the handle
+
+Each drag registered exactly two window listeners, `pointermove` and `pointerup`, and cleared its state flag
+only in the `pointerup` path. There was no `pointercancel`, no pointer capture, and no `lostpointercapture`.
+`touch-action: none` stops the browser's own scroll/zoom gesture from taking over; it does **not** stop a
+`pointercancel`, which a second finger, a long-press context menu, an OS-level interruption or an edge gesture
+all produce.
+
+The visible half was a stuck handle: `onMove` stayed attached and checked no button state, so the grip then
+followed a plain hover. **The half that mattered was invisible.** The persist effect is gated on those flags —
+that is the mechanism that makes the store write happen once per gesture (#559) — so one cancelled height drag
+left `hResizing` true *forever*, and the effect returned early for every later state change: column widths,
+order, visibility, pinning, filters, sort, density, grouping. The grid kept working and saved nothing until it
+was remounted, with `onStateChange` going quiet too. A host persisting to a server had no way to notice.
+
+That is the cost of gating persistence on a flag, and it is why the fix is a single harness rather than three
+hand-rolled gesture loops:
+
+- **Pointer capture** is the end-of-gesture signal that cannot be missed: the spec fires
+  `lostpointercapture` on `pointerup`, on `pointercancel` **and** on the element being removed. Window
+  listeners stay alongside it, because a synthetic pointer has none (jsdom implements neither
+  `setPointerCapture` nor `hasPointerCapture`, and that fallback is the path its tests take).
+- **One idempotent teardown** runs on every exit path and always clears the flag.
+- **`pointercancel` aborts rather than commits** — it reverts to the value the gesture started from, because
+  a cancelled drag is not a size the user chose. For a row that means restoring *nothing* where nothing was
+  set: reverting to the measured start height would leave an explicit height where the density preset had been.
+- **Every live drag is registered in a `Set`.** 1.54.0 kept a single `dragOffRef`, so starting the second of
+  two grips — both reachable in one grid, so ordinary use — overwrote the first's cleanup closure without
+  calling it, and those listeners outlived even the unmount the ref existed for.
+
+Verified in Chromium with a real mouse, since jsdom cannot take capture at all: `gotpointercapture` fires with
+the live pointer id, `hasPointerCapture` is true mid-drag and false after, and after a dispatched
+`pointercancel` the grid still writes state on the next unrelated change.
+
+### #563 / #564 — a dragged height you could not reset, applied when the feature was off
+
+`setGridH` was called from three places and `applyState` assigned only on a number, so `gridH` could never
+return to `null` — and `null` is the only value that means "use the `height` prop". A host's **Reset layout**
+control was therefore a no-op for this one field.
+
+Three things close it:
+
+| | |
+| --- | --- |
+| `applyState` | an explicit `null` (or a key present and `undefined`) **clears**. Any *other* non-numeric value is still ignored rather than read as a reset, so a corrupt preference cannot wipe a deliberate height. |
+| `onHeightResize?: (h: number \| null) => void` | symmetric with `onRowResize`, and `null` reports the reset |
+| double-click | resets the height grip to the `height` prop, and a row grip to the density preset — the gesture the column resizer has always used for auto-fit |
+
+The row grip's double-click deliberately does **not** call `onRowResize`: that callback is typed
+`(height: number, key)`, and widening it to `number | null` fails to compile for any consumer under
+`strictFunctionTypes`. A row reset is observable through `onStateChange`, where `rowHeight` becomes absent.
+
+And a stored `DatatableState.height` is now **applied only when `heightResize` is on** (#564). It used to
+apply regardless, so turning the feature off did not turn it off: a stale preference silently overrode the
+developer's `height`, with no grip left to change it and nothing in the code to explain it. The value is still
+kept and still round-trips, so switching the prop back on gets the user's size back. `rowHeights` already had
+exactly this shape of gate via `persistRowHeights`; `height` was the field without one.
+
+> Two honest notes on coverage. The `applyState` **gate** is redundant with the effect that un-applies a
+> height when the prop goes false — removing the gate alone changes nothing observable — and it earns its
+> place only by avoiding the render in between, where a stored 1900 would paint once at full size on a small
+> screen. And `rowHeight`'s clearing semantics have **no reachable runtime path**: the row grip needs columns
+> to exist, and once columns exist the late restore has already run, so `applyState` can never meet a live
+> grid with a dragged row height. Both were found by injecting the bug and watching nothing fail.
+
+### #565 — a drag left you standing somewhere else
+
+All three grips open with `preventDefault()` on `pointerdown`, which is right — it stops text selection and
+the native drag — but it also suppresses the default focus. 1.54.0 is what gave these grips a keyboard
+contract, so the consequence was specific and new: a user who had just dragged one was not *on* it. The arrows
+they reached for next scrolled the page, the `aria-valuenow` changing during the drag had no audience, and the
+`:focus-visible` ring was unreachable from the gesture that most obviously means "I am using this". One line,
+in three places: `e.currentTarget.focus()`.
+
+### #566 — one render per frame, one write per gesture
+
+Two uneven halves of the same feature.
+
+The **row drag** called `setRowHeights`/`setDragRowH` on every `pointermove`. A pointer emits 60–120 events a
+second and a row height feeds the render of every row, every cell and every custom `renderCell`, so a drag on a
+wide grid re-rendered the whole body that often. Both drags now coalesce to one state update per
+`requestAnimationFrame`: the live value sits in a closure, one frame is scheduled, and any pending frame is
+dropped on teardown. A test fires five moves and counts renders — one burst, one render.
+
+The **keyboard** bypassed the persist gate entirely, because `onRowResizeKey` and `onHeightResizeKey` never
+touched the drag flags. Every keydown — including every auto-repeat of a held Arrow — wrote the whole state and
+called `onStateChange`; two seconds of held ArrowDown was ~60 writes, which is precisely the host the row-height
+docs single out as the reason to prefer one bounded number. A run of resize keystrokes is now one gesture,
+cleared by a **180 ms idle timer rather than by `keyup`**: `keyup` never arrives if focus moves mid-hold, and a
+flag that gates persistence must not be able to stick — that is #562, and this must not reintroduce it one axis
+over.
+
+### #567 — the column resizer had become the least accessible of the three
+
+Fixing the row resizer in 1.54.0 left the resizer that had carried `role="separator"` longest behind it:
+
+| | column (before) | column (now) | row grip | height grip |
+| --- | --- | --- | --- | --- |
+| `aria-valuemax` | **absent** | ✓ | ✓ | ✓ |
+| PageUp / PageDown | **absent** | ±40 | ±32 | ±80 |
+| Home / End | **absent** | ✓ | ✓ | ✓ |
+| native `title` | yes | **dropped** | **dropped** | **dropped** |
+
+A `separator` with `valuenow` and `valuemin` but no `valuemax` hands assistive tech an open-ended range.
+Column widths genuinely had no ceiling, which is why it could not report one; there is now a `COL_W_MAX` of
+2000, and a per-column `maxWidth` wins when it is tighter.
+
+The `title` is gone from all three. It sat one line below the `aria-label` it duplicated word for word, so
+assistive tech could announce the same string twice — `aria-label` names the control and a `title` becomes its
+*description* — and a native tooltip is neither themeable nor reachable by keyboard or touch. The trade-off is
+a lost hover hint for sighted mouse users, which a `Tooltip` cannot replace here because `.twc-tooltip-wrap` is
+`inline-flex` and collapses a full-width child; the labels now end in "(double-click to reset)" so the gesture
+is at least discoverable to anyone who reads them.
+
+`End` on the row grip still goes to `ROW_H_MAX`. The issue is right that 2000px is not a *useful* row, but a
+`separator`'s `End` means `aria-valuemax`, and splitting them would lie to assistive tech about the range. The
+worry it raises — one keystroke making every row 2000px tall, recoverable only with `Home` — is answered by
+the double-click reset above instead.
+
+### #568 — the ceiling is the application's call
+
+`heightResize` capped the drag at 95% of the window with no way out. That cap is the right **default**: a grid
+taller than the window pushes its own pager and grip below the fold, which is a real trap. But it is a
+judgement about layout, and some applications have the opposite requirement — "a long grid inside a scrolling
+page", where the reader scrolls the page instead of the grid, which is exactly what they asked for by dragging
+past the viewport.
+
+A host could not work around it, either, because the clamp applies to the **render** and not only to the
+gesture, so feeding a larger number through `initialState.height` did not help. The only route left was to turn
+the feature off and re-implement it — re-adding the code 1.54.0 had just let a consumer delete.
+
+```tsx
+<Datatable heightResize />                    {/* default: 95% of the window */}
+<Datatable heightResize heightMax={1400} />   {/* an explicit ceiling */}
+<Datatable heightResize heightMax={false} />  {/* no ceiling beyond the sanity bound */}
+```
+
+Kept whatever you pass: the **160px floor**, because a grid dragged to nothing has no grip left to grab, and an
+absolute `[160, 10000]` **sanity bound** on a restored value, so a corrupt preference cannot hand the grid an
+absurd height. That bound was `[160, 2000]` in 1.54.0, where 2000 doubled as "about two viewports" — too low
+once the viewport ceiling is optional.
 
 ## Row selection the host can correct — `isRowSelectable` / `selectedKeys` (#540, #541)
 

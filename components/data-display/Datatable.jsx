@@ -1224,7 +1224,7 @@ export function Datatable(twcProps) {
   diff,
   density: densityProp = "comfortable", pageSize = 10, pageSizeOptions = [5, 10, 25, 50],
   page, onPageChange, onPageSizeChange,
-  height = 440, heightResize = false, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [], onRowSelectionChange,
+  height = 440, heightResize = false, heightMax, onHeightResize, serverMode = false, rowCount, onServerChange, onColumnVisibilityChange, batchActions = [], onRowSelectionChange,
   selectionSummary,
   // #540 / #541: per-row selectability, and a controlled selection.
   isRowSelectable, rowSelectionDisabledReason, selectedKeys, onSelectionChange,
@@ -1658,6 +1658,12 @@ export function Datatable(twcProps) {
   // clamped a restored height to [32, 2000], so the gesture and the restore disagreed about what a
   // legal height was - and a keyboard step needs a real ceiling to report as aria-valuemax.
   const ROW_H_MIN = 32, ROW_H_MAX = 2000;
+  // Column widths had a floor and no ceiling at all, which is why the column resizer could not
+  // report an aria-valuemax (#567). A per-column `maxWidth` wins when it is tighter.
+  const COL_W_MIN = 72, COL_W_MAX = 2000;
+  const colMaxOf = (c) => (c && typeof c.maxWidth === "number" ? Math.max(COL_W_MIN, Math.min(COL_W_MAX, c.maxWidth)) : COL_W_MAX);
+  // How long after the last resize keystroke the gesture is considered over (#566).
+  const KB_GESTURE_MS = 180;
   // #559: the grid's own height - the last user resize that was not one. Column widths persist
   // (columnWidths) and row height became persistent in 1.52 (rowHeight), but `height` stayed a
   // developer constant with no affordance and no state field, and it is the number that decides how
@@ -1668,32 +1674,82 @@ export function Datatable(twcProps) {
   // STARTING value rather than a cap.
   const [gridH, setGridH] = React.useState(null);
   const [hResizing, setHResizing] = React.useState(false);
-  const H_MIN = 160, H_MAX = 2000;
-  // The ceiling is viewport-relative, because a flat pixel ceiling goes stale on another screen and
-  // a table taller than the window is not a useful thing to be able to drag to. It must NOT be read
-  // during render: `window` does not exist on the server, and an aria-valuemax that differs between
-  // the server and the first client render is a hydration mismatch. So it starts at the static bound
-  // and an effect refines it after mount.
+  // H_MIN is the floor and is not negotiable: a grid dragged to nothing has no grip left to grab.
+  // H_SANITY is the absolute bound, so a corrupt or hand-authored preference cannot hand the grid an
+  // absurd height; it was 2000 in 1.54.0, which doubled as "about two viewports" and became too low
+  // once a host could opt out of the viewport ceiling (#568). H_PRE is the ceiling used before the
+  // viewport has been measured - the server and the first client render - and keeps 1.54.0's value.
+  const H_MIN = 160, H_SANITY = 10000, H_PRE = 2000;
+  // The DEFAULT ceiling is viewport-relative, because a flat pixel ceiling goes stale on another
+  // screen. It must NOT be read during render: `window` does not exist on the server, and an
+  // aria-valuemax that differs between the server and the first client render is a hydration
+  // mismatch. So it starts at H_PRE and an effect refines it after mount.
   const [vhCap, setVhCap] = React.useState(null);
-  const heightMax = vhCap == null ? H_MAX : vhCap;
-  // Measure whenever the ceiling can matter: with the grip on, OR when a height has been restored
-  // from a snapshot without it. The effect used to bail on `!heightResize`, so `initialState.height`
-  // was applied but never viewport-clamped and a stored 1900 rendered 1900px on a 768px window with
-  // no grip to undo it - while the prop docs promised that clamp unconditionally. Still cheap for
-  // every other grid: no listener at all unless one of the two is true.
-  const needsVhCap = heightResize || gridH != null;
+  const viewportCeil = vhCap == null ? H_PRE : vhCap;
+  // #568: the ceiling is the application's judgement, not the library's. A grid taller than the
+  // window pushes its own pager and grip below the fold, which is a real trap - so the
+  // viewport-relative cap stays the default. But "a long grid inside a scrolling page" is a
+  // legitimate shape: the reader scrolls the page instead of the grid, which is exactly what they
+  // asked for by dragging past the viewport. A host could not work around it either, because the
+  // clamp is applied to the RENDER and not only to the gesture, so feeding a larger number through
+  // initialState did not help.
+  const heightCeil = heightMax === false
+    ? H_SANITY
+    : typeof heightMax === "number" ? clampNum(heightMax, H_MIN, H_SANITY) : viewportCeil;
+  // Measured whenever the grip is on. It no longer has to wait for a height to exist: since #564
+  // gates the restore on the prop, `gridH` can only be set while `heightResize` is true, and
+  // measuring from mount means a restored height is already viewport-clamped on its FIRST paint
+  // rather than painting once at full size on a small screen.
   React.useEffect(() => {
-    if (!needsVhCap) return undefined;
+    if (!heightResize) return undefined;
     const measure = () => setVhCap(Math.max(240, Math.round(window.innerHeight * 0.95)));
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, [needsVhCap]);
+  }, [heightResize]);
+  // #564: a stored height that is NOT applied is still remembered, so turning the prop off and on
+  // again restores it rather than losing it. Holds a value only while the prop is off.
+  const storedHRef = React.useRef(null);
+  // ...and if the prop goes false while a dragged height is live, the height is un-applied rather
+  // than left standing with no grip to change it. Turning the feature off has to turn it off.
+  //
+  // This effect is the load-bearing half of #564 and the gate in applyState is the braces: with
+  // both in place, removing the gate alone changes nothing observable, because this un-applies a
+  // height the gate would have refused. The gate still earns its place by avoiding the render in
+  // between - a stored 1900 would otherwise paint once at full size on a small screen before this
+  // took it away.
+  React.useEffect(() => {
+    if (heightResize || gridH == null) return;
+    storedHRef.current = gridH;
+    setGridH(null);
+  }, [heightResize, gridH]);
   // What the scroll area actually gets. A RESTORED height is re-clamped here as well as at apply
-  // time, because applyState runs in a mount effect where vhCap is still unresolved: a snapshot
-  // written on a 27" monitor would otherwise render at full height on a laptop. The STORED number is
-  // left as the user set it, so it un-clamps again on the big screen.
-  const effHeight = gridH == null ? height : clampNum(gridH, H_MIN, heightMax);
+  // time, because applyState clamps only to the absolute bound: the ceiling may be viewport-relative
+  // and a snapshot written on a 27" monitor would otherwise render at full height on a laptop. The
+  // STORED number is left as the user set it, so it un-clamps again on the big screen.
+  const effHeight = gridH == null ? height : clampNum(gridH, H_MIN, heightCeil);
+  // #566: a run of key events is one gesture as well. The drag flags suppress the persist effect,
+  // and the keyboard path bypassed them entirely - so every keydown, including every auto-repeat of
+  // a held Arrow, wrote the whole state and called onStateChange. Holding ArrowDown for two seconds
+  // was ~60 writes, which is exactly the host the row-height docs single out as the reason to prefer
+  // one bounded number: one persisting to a server rather than to localStorage.
+  //
+  // Cleared by an idle timer rather than by keyup, deliberately. keyup never arrives if focus moves
+  // mid-hold, and a flag that gates persistence must not be able to stick - that is #562, and this
+  // must not reintroduce it one axis over.
+  //
+  // Declared HERE, beside the other resize state, and not next to the drag harness that uses it:
+  // the persist effect lists it as a dependency, and a dependency array is evaluated during RENDER,
+  // so a later `const` put every Datatable render into a temporal-dead-zone ReferenceError.
+  const [kbResizing, setKbResizing] = React.useState(false);
+  const kbTimerRef = React.useRef(0);
+  React.useEffect(() => () => { if (kbTimerRef.current) clearTimeout(kbTimerRef.current); }, []);
+  const markKbResize = () => {
+    setKbResizing(true);
+    if (kbTimerRef.current) clearTimeout(kbTimerRef.current);
+    kbTimerRef.current = setTimeout(() => { kbTimerRef.current = 0; setKbResizing(false); }, KB_GESTURE_MS);
+  };
+
   const [rowDrag, setRowDrag] = React.useState({ from: null, over: null, after: false });
   // Keyboard row reorder ("grab" mode): { key, index } where index is the live target slot among middleRows.
   const [rowGrab, setRowGrab] = React.useState(null);
@@ -1747,7 +1803,9 @@ export function Datatable(twcProps) {
     // #559: the scroll area's height. One bounded number - the argument rowHeight's doc comment
     // makes for preferring that over an unbounded map applies here too, only more simply: there is
     // exactly one - so it round-trips like columnWidths and rowHeight and needs no opt-in.
-    height: gridH != null ? gridH : undefined,
+    // #564: a height that is held but not applied (the prop is off) still round-trips, so switching
+    // the prop back on gets the user's size back instead of losing it.
+    height: gridH != null ? gridH : (storedHRef.current != null ? storedHRef.current : undefined),
   });
   const applyState = (s) => {
     if (!s || typeof s !== "object") return;
@@ -1816,10 +1874,27 @@ export function Datatable(twcProps) {
     if (Array.isArray(s.collapsedGroups) && !collapsedControlled) setInternalCollapsed(new Set(s.collapsedGroups.filter((k) => typeof k === "string")));
     // #542: clamped to the same floor the drag enforces, and sanity-capped - a hand-authored
     // initialState or a corrupted snapshot must not be able to make one row taller than the grid.
-    if (typeof s.rowHeight === "number") setDragRowH(clampNum(s.rowHeight, ROW_H_MIN, ROW_H_MAX));
-    // #559: the STATIC bound here, not the viewport one - this runs in a mount effect, before the
-    // viewport ceiling has been measured. The render clamp above applies that ceiling.
-    if (typeof s.height === "number") setGridH(clampNum(s.height, H_MIN, H_MAX));
+    // #563: an explicit null - or a key that is present and undefined - CLEARS. That is the only
+    // way back to the density preset and to the `height` prop, and 1.54.0 assigned only on a number,
+    // so re-applying a cleared snapshot left the dragged value standing: a host's "Reset layout"
+    // control was a no-op for these two fields, and `dragRowH`/`gridH` could never return to null.
+    // Any OTHER non-numeric value is still ignored rather than read as a reset, so a corrupt
+    // preference cannot wipe a deliberate height.
+    if (s.rowHeight === null || ("rowHeight" in s && s.rowHeight === undefined)) setDragRowH(null);
+    else if (typeof s.rowHeight === "number") setDragRowH(clampNum(s.rowHeight, ROW_H_MIN, ROW_H_MAX));
+    if (s.height === null || ("height" in s && s.height === undefined)) { storedHRef.current = null; setGridH(null); }
+    else if (typeof s.height === "number") {
+      // The ABSOLUTE bound here, not the ceiling: this runs in a mount effect and the ceiling may be
+      // viewport-relative. The render clamp applies that.
+      const v = clampNum(s.height, H_MIN, H_SANITY);
+      // #564: applied only when the prop is ON. A grid with heightResize off used to adopt a height
+      // from its saved state anyway, so turning the feature off did not turn it off: a stale
+      // preference silently overrode the developer's `height`, with no grip left to change it and
+      // nothing in the code to explain it. `rowHeights` already had exactly this shape of gate, via
+      // persistRowHeights - `height` was the field without one. The value is kept either way.
+      if (heightResize) { storedHRef.current = null; setGridH(v); }
+      else storedHRef.current = v;
+    }
     if (s.rowHeights && typeof s.rowHeights === "object") {
       setRowHeights(Object.fromEntries(Object.entries(s.rowHeights)
         .filter(([, h]) => typeof h === "number")
@@ -1844,13 +1919,13 @@ export function Datatable(twcProps) {
     // opposite. Gating on the live-drag flags is what makes the claim true, for the row height as
     // well as the new grid height: the flag clearing on pointerup re-runs this effect exactly once,
     // with the settled value.
-    if (hResizing || rowResizing != null) return undefined;
+    if (hResizing || rowResizing != null || kbResizing) return undefined;
     const state = serializeState();
     onStateChangeRef.current?.(state);
     if (stateKey) { try { window.localStorage.setItem(stateKey, JSON.stringify(state)); } catch { /* storage unavailable/full */ } }
     return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedKey, dragRowH, rowHeights, persistRowHeights, gridH, hResizing, rowResizing]);
+  }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedKey, dragRowH, rowHeights, persistRowHeights, gridH, hResizing, rowResizing, kbResizing]);
   // Reads localStorage[stateKey] (else initialState) and applies it. Cheap to call more than once —
   // applyState is idempotent for a given snapshot — but callers gate it (see the two effects below).
   const restoreState = () => {
@@ -2417,40 +2492,110 @@ export function Datatable(twcProps) {
   // Both resize gestures attach window listeners for their duration. If the grid unmounts mid-drag
   // - a route change, a dialog closing - those listeners outlived it (measured: 1 pointermove added,
   // 0 removed). Each gesture parks its own detach here, and unmount runs whatever is live.
-  const dragOffRef = React.useRef(null);
-  React.useEffect(() => () => {
-    if (dragOffRef.current) { dragOffRef.current(); dragOffRef.current = null; }
-  }, []);
+  // ---- One harness for every resize drag (#562, #565, #566) --------------------------------------
+  //
+  // 1.54.0 gave each drag its own pair of window listeners (pointermove + pointerup) and a SINGLE
+  // cleanup slot. Three things were wrong, and the third was not cosmetic:
+  //
+  //   1. No pointercancel and no pointer capture, so a second finger, a long-press context menu, an
+  //      OS interruption or an edge gesture ended the pointer without ending the gesture: onMove
+  //      stayed attached and checked no button state, so the grip then followed a plain hover.
+  //   2. Worse - the persist effect is GATED on the drag flags (that is what makes the store write
+  //      happen once per gesture), and the flag was cleared only in onUp. One cancelled height drag
+  //      therefore left `hResizing` true forever and the grid silently stopped persisting ANY state:
+  //      column widths, order, visibility, pinning, filters, sort, density, grouping. It kept
+  //      working and saved nothing until it was remounted, with onStateChange going quiet too.
+  //   3. One `dragOffRef` slot for two grips that are both reachable in one grid: starting the
+  //      second overwrote the first's cleanup closure without calling it, so those listeners
+  //      outlived even the unmount cleanup the ref existed for.
+  //
+  // So: pointer capture is the end-of-gesture signal that cannot be missed - the spec fires
+  // lostpointercapture on pointerup, on pointercancel AND on the element being removed - with
+  // window listeners alongside it, because jsdom implements neither setPointerCapture nor
+  // hasPointerCapture and a browser without capture still bubbles the events. Every exit path runs
+  // ONE idempotent teardown that clears the flag, and every live drag is registered in a Set, so
+  // unmount ends all of them and a second drag cannot orphan the first.
+  const dragsRef = React.useRef(new Set());
+  React.useEffect(() => () => { for (const stop of [...dragsRef.current]) stop(false); }, []);
+
+  /**
+   * Run one pointer drag. `onMove` is called with the latest event at most once per frame;
+   * `onEnd(committed)` runs exactly once, with `false` when the gesture was cancelled or torn down.
+   */
+  function beginDrag(e, onMove, onEnd) {
+    const el = e.currentTarget;
+    const pointerId = e.pointerId;
+    let done = false, frame = 0, pending = null;
+    // #566: coalesce to one state update per FRAME. A pointer emits 60-120 events a second, and a
+    // row height feeds the render of every row, every cell and every custom renderCell, so the row
+    // drag was re-rendering the whole body that many times a second on a wide grid.
+    const flush = () => { frame = 0; const ev = pending; pending = null; if (ev) onMove(ev); };
+    const move = (ev) => { pending = ev; if (!frame) frame = requestAnimationFrame(flush); };
+    const stop = (commit) => {
+      if (done) return;
+      done = true;
+      if (frame) { cancelAnimationFrame(frame); frame = 0; }
+      // A cancelled gesture is not a size the user chose, so its last pending move is dropped
+      // rather than flushed.
+      if (commit) flush(); else pending = null;
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      window.removeEventListener("pointercancel", cancel);
+      el.removeEventListener("lostpointercapture", lost);
+      try {
+        if (el.hasPointerCapture && el.hasPointerCapture(pointerId)) el.releasePointerCapture(pointerId);
+      } catch { /* already released, or never captured */ }
+      dragsRef.current.delete(stop);
+      onEnd(commit);
+    };
+    const up = () => stop(true);
+    const cancel = () => stop(false);
+    // Capture is lost on up and on cancel too, but `done` has already been set by then, so this
+    // only fires on its own when the element goes away mid-drag.
+    const lost = () => stop(true);
+    dragsRef.current.add(stop);
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+    window.addEventListener("pointercancel", cancel);
+    el.addEventListener("lostpointercapture", lost);
+    try { if (el.setPointerCapture) el.setPointerCapture(pointerId); } catch { /* not supported */ }
+    return stop;
+  }
+
   function startRowResize(e, key, tr) {
     e.preventDefault(); e.stopPropagation();
+    // #565: preventDefault suppresses the default focus, and 1.54.0 is what gave these grips a
+    // keyboard contract - so without this, a user who has just dragged one is not standing on it:
+    // the arrows they reach for next scroll the page, the aria-valuenow changing during the drag has
+    // no audience, and the :focus-visible ring is unreachable from the gesture that most obviously
+    // means "I am interacting with this".
+    if (e.currentTarget.focus) e.currentTarget.focus();
     const perRow = rowResizeMode === "row";
     const startY = e.clientY;
-    const startH = (perRow ? rowHeights[key] : dragRowH) || tr?.offsetHeight || 44;
+    const orig = perRow ? rowHeights[key] : dragRowH;
+    const startH = orig || tr?.offsetHeight || 44;
     let last = startH;
+    const apply = (h) => { if (perRow) setRowHeights((m) => ({ ...m, [key]: h })); else setDragRowH(h); };
     setRowResizing(key);
-    const onMove = (ev) => {
+    beginDrag(e, (ev) => {
       // #558: clamped to BOTH bounds. The drag was floored at 32 and uncapped, while applyState
       // clamped a restored height to [32, 2000] - so a height you could reach by dragging was one a
       // reload would then refuse to give back.
       last = clampNum(startH + (ev.clientY - startY), ROW_H_MIN, ROW_H_MAX);
-      if (perRow) setRowHeights((m) => ({ ...m, [key]: last }));
-      else setDragRowH(last);
-    };
-    const onUp = () => {
-      window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerup", onUp);
-      dragOffRef.current = null;
+      apply(last);
+    }, (commit) => {
       setRowResizing(null);
+      if (!commit) {
+        // Restore exactly what was there, which for an un-dragged row is NOTHING - reverting to
+        // `startH` would leave an explicit height where the density preset had been.
+        if (perRow) setRowHeights((m) => { const n = { ...m }; if (orig == null) delete n[key]; else n[key] = orig; return n; });
+        else setDragRowH(orig == null ? null : orig);
+        return;
+      }
       // #542: reported once per DRAG, not once per pointermove - a drag fires dozens, and a host
-      // writing each one to a server or a profile would be writing the whole gesture. onStateChange
-      // is coalesced by its own effect; this one is imperative, so it coalesces itself.
+      // writing each one to a server or a profile would be writing the whole gesture.
       if (last !== startH) onRowResize?.(last, perRow ? key : null);
-    };
-    window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
-    dragOffRef.current = () => {
-      window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerup", onUp);
-    };
+    });
   }
   // #558: keyboard stepping for the row handle, so row height is reachable without a pointer.
   // Arrows step finely, PageUp/PageDown coarsely, Home/End go to the bounds - the contract the issue
@@ -2472,32 +2617,51 @@ export function Datatable(twcProps) {
     else if (e.key === "End") next = ROW_H_MAX;
     if (next == null) return;
     e.preventDefault(); e.stopPropagation();
+    markKbResize(); // #566: one store write per run of keys, not one per keypress
     const h = clampNum(next, ROW_H_MIN, ROW_H_MAX);
     if (rowResizeMode === "row") setRowHeights((m) => ({ ...m, [key]: h }));
     else setDragRowH(h);
-    // One completed change per keystroke - the keyboard's analogue of one per drag.
+    // onRowResize still reports each completed change - a keystroke IS one - while the STORE write
+    // is what coalesces. The two are different promises: this one is "what did the user choose",
+    // the store's is "how often do we write it".
     if (h !== current) onRowResize?.(h, rowResizeMode === "row" ? key : null);
+  }
+  // #563: double-click resets, which is the discoverable way back and the gesture the column
+  // resizer has always used for auto-fit. It also answers #567's worry about End landing on a
+  // 2000px row: that is now one double-click from undone, not only one Home.
+  //
+  // It deliberately does NOT call onRowResize. That callback is typed `(height: number, key)`, and
+  // widening it to `number | null` would fail to compile for any consumer under
+  // strictFunctionTypes - so a reset is observable through onStateChange, where `rowHeight` simply
+  // becomes absent, and `onHeightResize` (new in this release) takes `number | null` from birth.
+  function resetRowHeight(key) {
+    if (rowResizeMode === "row") setRowHeights((m) => { const n = { ...m }; delete n[key]; return n; });
+    else setDragRowH(null);
+  }
+  function resetGridHeight() {
+    storedHRef.current = null;
+    setGridH(null);
+    onHeightResize?.(null);
   }
   // #559: the grid-height drag. Same shape as startRowResize - the live value is local state for the
   // duration of the gesture, and the store is written once the state settles (by the persist effect,
   // which coalesces) rather than once per pointermove.
   function startHeightResize(e) {
     e.preventDefault(); e.stopPropagation();
+    if (e.currentTarget.focus) e.currentTarget.focus(); // #565
     const startY = e.clientY;
+    const orig = gridH;
     const startH = effHeight;
+    let last = startH;
     setHResizing(true);
-    const onMove = (ev) => setGridH(clampNum(startH + (ev.clientY - startY), H_MIN, heightMax));
-    const onUp = () => {
-      window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerup", onUp);
-      dragOffRef.current = null;
+    beginDrag(e, (ev) => {
+      last = clampNum(startH + (ev.clientY - startY), H_MIN, heightCeil);
+      setGridH(last);
+    }, (commit) => {
       setHResizing(false);
-    };
-    window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
-    dragOffRef.current = () => {
-      window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerup", onUp);
-    };
+      if (!commit) { setGridH(orig == null ? null : orig); return; }
+      if (last !== startH) { storedHRef.current = null; onHeightResize?.(last); }
+    });
   }
   // Arrows step, PageUp/PageDown step coarsely, and here End IS a useful destination, unlike on a
   // row: the ceiling is the viewport, so "as tall as my screen" is one keystroke.
@@ -2508,10 +2672,14 @@ export function Datatable(twcProps) {
     else if (e.key === "PageDown") next = effHeight + 80;
     else if (e.key === "PageUp") next = effHeight - 80;
     else if (e.key === "Home") next = H_MIN;
-    else if (e.key === "End") next = heightMax;
+    else if (e.key === "End") next = heightCeil;
     if (next == null) return;
     e.preventDefault(); e.stopPropagation();
-    setGridH(clampNum(next, H_MIN, heightMax));
+    markKbResize(); // #566
+    const h = clampNum(next, H_MIN, heightCeil);
+    storedHRef.current = null;
+    setGridH(h);
+    if (h !== effHeight) onHeightResize?.(h);
   }
 
   // Commit a keyboard reorder that moves `fromKey` to the slot occupied by `middleRows[targetIndex]`,
@@ -2747,16 +2915,24 @@ export function Datatable(twcProps) {
 
   // ---- Column resize (pointer drag on the right edge) ----
   const [resizing, setResizing] = React.useState(false);
+  // #567: the column resizer was the one of the three that had carried role="separator" longest and
+  // ended up the least accessible of them - no aria-valuemax, no coarse step, no bounds keys - so it
+  // now shares the row grip's harness and contract. It also shared #562's stuck-flag shape (its flag
+  // only drives `data-resizing`, so the cost was cosmetic rather than a grid that stops saving) and
+  // #565's missing focus.
   function startResize(e, field) {
     e.preventDefault(); e.stopPropagation();
+    if (e.currentTarget.focus) e.currentTarget.focus(); // #565
     const startX = e.clientX; const startW = widthOf(colByField[field]);
+    const orig = widths[field];
     setResizing(true);
-    const onMove = (ev) => {
-      const w = Math.max(72, Math.round(startW + (ev.clientX - startX)));
+    beginDrag(e, (ev) => {
+      const w = clampNum(startW + (ev.clientX - startX), COL_W_MIN, colMaxOf(colByField[field]));
       setWidths((m) => ({ ...m, [field]: w }));
-    };
-    const onUp = () => { setResizing(false); window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp); };
-    window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp);
+    }, (commit) => {
+      setResizing(false);
+      if (!commit) setWidths((m) => { const n = { ...m }; if (orig == null) delete n[field]; else n[field] = orig; return n; });
+    });
   }
 
   // Excel-style auto-fit: double-clicking the resize handle sizes the column to the
@@ -3998,14 +4174,21 @@ export function Datatable(twcProps) {
     // draggable and are hidden from assistive tech.
     const a11y = focusable
       ? {
-        role: "separator", "aria-orientation": "horizontal", "aria-label": hint,
+        role: "separator", "aria-orientation": "horizontal", "aria-label": `${hint} (double-click to reset)`,
         "aria-valuenow": now, "aria-valuemin": ROW_H_MIN, "aria-valuemax": ROW_H_MAX,
       }
       : { "aria-hidden": "true" };
+    // #567: no native `title`. It sat one line below the aria-label it duplicated word for word, so
+    // assistive tech could announce the same string twice (aria-label names the control, a title
+    // becomes its description), and a native tooltip is neither themeable nor reachable by keyboard
+    // or touch. Dropping it on all three resizers leaves aria-label as the single source; the
+    // trade-off is the loss of a hover hint for sighted mouse users, which a tooltip cannot replace
+    // here because .twc-tooltip-wrap is inline-flex and collapses a full-width child.
     return (
       <span className="twc-dt__row-resizer" data-active={rowResizing === k || undefined}
         {...a11y}
-        tabIndex={focusable ? 0 : -1} title={hint}
+        tabIndex={focusable ? 0 : -1}
+        onDoubleClick={(e) => { e.preventDefault(); e.stopPropagation(); resetRowHeight(k); }}
         onPointerDown={(e) => startRowResize(e, k, e.currentTarget.closest("tr"))}
         onClick={(e) => e.stopPropagation()}
         // Step from the SAME source the drag starts from - a set height, else the row's measured
@@ -4588,9 +4771,13 @@ export function Datatable(twcProps) {
                         </button>
                       ) : null}
                     </div>
+                    {/* #567: fixing the ROW resizer's keyboard in 1.54.0 left this one - the resizer
+                        that had carried role="separator" longest - as the least accessible of the
+                        three: no aria-valuemax (an open-ended range for assistive tech), no coarse
+                        step, no bounds keys. It now has the same contract as the two newer grips. */}
                     {resizable ? <span className="twc-dt__resizer" data-active={resizing || undefined}
                       role="separator" aria-orientation="vertical" aria-label={`Resize ${colLabel(c)} column (double-click to fit content)`}
-                      aria-valuenow={w} aria-valuemin={72} tabIndex={0}
+                      aria-valuenow={w} aria-valuemin={COL_W_MIN} aria-valuemax={colMaxOf(c)} tabIndex={0}
                       onPointerDown={(e) => startResize(e, c.field)} onClick={(e) => e.stopPropagation()}
                       onDoubleClick={(e) => { e.preventDefault(); e.stopPropagation(); autoFitColumn(c.field, e.currentTarget.closest("th")); }}
                       onKeyDown={(e) => {
@@ -4599,12 +4786,20 @@ export function Datatable(twcProps) {
                           autoFitColumn(c.field, e.currentTarget.closest("th"));
                           return;
                         }
-                        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+                        const max = colMaxOf(c);
+                        const cur = () => widths[c.field] ?? intrinsicWidth(c);
+                        let next = null;
+                        if (e.key === "ArrowRight") next = cur() + 10;
+                        else if (e.key === "ArrowLeft") next = cur() - 10;
+                        else if (e.key === "PageUp") next = cur() + 40;
+                        else if (e.key === "PageDown") next = cur() - 40;
+                        else if (e.key === "Home") next = COL_W_MIN;
+                        else if (e.key === "End") next = max;
+                        if (next == null) return;
                         e.preventDefault(); e.stopPropagation();
-                        const delta = e.key === "ArrowRight" ? 10 : -10;
-                        setWidths((m) => ({ ...m, [c.field]: Math.max(72, (m[c.field] ?? intrinsicWidth(c)) + delta) }));
-                      }}
-                      title="Drag to resize · double-click to fit content" /> : null}
+                        markKbResize(); // #566
+                        setWidths((m) => ({ ...m, [c.field]: clampNum(next, COL_W_MIN, max) }));
+                      }} /> : null}
                   </th>
                 );
               })}
@@ -4679,10 +4874,13 @@ export function Datatable(twcProps) {
           width). It takes the COLUMN resizer's a11y contract, not the row handle's - see #558. */}
       {heightResize ? (
         <span className="twc-dt__hgrip" data-active={hResizing || undefined}
-          role="separator" aria-orientation="horizontal" aria-label="Resize the table height"
-          aria-valuenow={effHeight} aria-valuemin={H_MIN} aria-valuemax={heightMax}
-          tabIndex={0} title="Drag to resize the table"
-          onPointerDown={startHeightResize} onKeyDown={onHeightResizeKey} />
+          role="separator" aria-orientation="horizontal"
+          aria-label="Resize the table height (double-click to reset)"
+          aria-valuenow={effHeight} aria-valuemin={H_MIN} aria-valuemax={heightCeil}
+          tabIndex={0}
+          onPointerDown={startHeightResize} onKeyDown={onHeightResizeKey}
+          onClick={(e) => e.stopPropagation()}
+          onDoubleClick={(e) => { e.preventDefault(); e.stopPropagation(); resetGridHeight(); }} />
       ) : null}
 
       {/* #265: shared overflow tooltip (twico Tooltip, anchored mode) — full text of a truncated

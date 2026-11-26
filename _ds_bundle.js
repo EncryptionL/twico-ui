@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"62b3dee5a483","components/buttons/Button.jsx":"cba4ca6bac13","components/buttons/IconButton.jsx":"9625cb6f6231","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"19fb80348fc4","components/data-display/AvatarMenu.jsx":"88d8f92a0e72","components/data-display/Badge.jsx":"da9e94aaad2f","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"2a04c008b8a7","components/data-display/CardGrid.jsx":"88badc7b73ff","components/data-display/Carousel.jsx":"663301f5f002","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"0020e4722e8b","components/data-display/DiffTable.jsx":"556beb2d7089","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"3794f273e39b","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"79c72470804e","components/data-display/ImageViewer.jsx":"c0e5bd3a59ef","components/data-display/Kanban.jsx":"c1c54a97fa4b","components/data-display/List.jsx":"4b911e7e6211","components/data-display/Pagination.jsx":"d416e6d6435b","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"2fa0e2d767f0","components/data-display/Table.jsx":"83b2fb40d7b6","components/data-display/Tag.jsx":"ec36b46f99e4","components/data-display/Timeline.jsx":"8d43346e2b60","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"bfeea0edbf52","components/feedback/EmptyState.jsx":"1e1093812348","components/feedback/Progress.jsx":"24b5c2cca6b0","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"09486e872aa9","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"26b57d1bfa85","components/inputs/ColorPicker.jsx":"deae0cb20d21","components/inputs/Combobox.jsx":"693e0ffdb064","components/inputs/Currency.jsx":"186e8743dfc7","components/inputs/CurrencyField.jsx":"6117a20400b6","components/inputs/DatePicker.jsx":"e4efd6090473","components/inputs/DateRangePicker.jsx":"d9d283b9e420","components/inputs/DateTimePicker.jsx":"10eb35093dbd","components/inputs/Field.jsx":"ba5ab4960818","components/inputs/FieldRow.jsx":"a44ad0193fe9","components/inputs/FileUpload.jsx":"a592a63ebacb","components/inputs/FilterBar.jsx":"df6872b9005d","components/inputs/Form.jsx":"36b87e621b74","components/inputs/Input.jsx":"519e936f4099","components/inputs/Label.jsx":"dfdad32670fd","components/inputs/MultiSelect.jsx":"d9acf11680a5","components/inputs/Radio.jsx":"ab3754d3dbac","components/inputs/RadioGroup.jsx":"40bb7800dc90","components/inputs/Rating.jsx":"eb841fc84469","components/inputs/Select.jsx":"17de649cfc27","components/inputs/Slider.jsx":"a6937b91154b","components/inputs/Switch.jsx":"436f5880e67d","components/inputs/Textarea.jsx":"6b6f8f5d2642","components/inputs/TimePicker.jsx":"f3c3ee758f8f","components/layout/AppShell.jsx":"6d922b91f5ba","components/layout/Box.jsx":"724003a42299","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"baa21c063fe4","components/layout/Divider.jsx":"eb122a52126f","components/layout/Grid.jsx":"cac42c569080","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"b0045c78a736","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"57ea77870c8d","components/navigation/Accordion.jsx":"620239f7f59d","components/navigation/Anchor.jsx":"e5c9a898a0d7","components/navigation/Breadcrumb.jsx":"81da7c00cd34","components/navigation/Navbar.jsx":"8102bd5a45d7","components/navigation/Sidebar.jsx":"381c26969813","components/navigation/Stepper.jsx":"60ba7ccbd1c8","components/navigation/Tabs.jsx":"c8931a9dc92f","components/navigation/TreeView.jsx":"ea74f166fbe5","components/overlay/CommandPalette.jsx":"9d90aa90091d","components/overlay/Dialog.jsx":"87c40d5fc8ed","components/overlay/Drawer.jsx":"9ee607766262","components/overlay/Menu.jsx":"2c9ec395a8e0","components/overlay/Popover.jsx":"fa5d8e2b7023","components/overlay/Tooltip.jsx":"0c81df406763","components/typography/Code.jsx":"a6a74f93cb2b","components/typography/Heading.jsx":"851279ac7563","components/typography/Kbd.jsx":"ff96e9dbdbe0","components/typography/Pre.jsx":"97379158f0ce","components/typography/Text.jsx":"0c8ada482c42","src/index.ts":"a1cfc15ff82f"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
+/* @ds-bundle: {"format":3,"namespace":"TwicoUiDesignSystem_f2f16a","components":[{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"Carousel","sourcePath":"components/data-display/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data-display/Chart.jsx"},{"name":"ColorPicker","sourcePath":"components/inputs/ColorPicker.jsx"},{"name":"CommandPalette","sourcePath":"components/overlay/CommandPalette.jsx"},{"name":"Avatar","sourcePath":"components/data-display/Avatar.jsx"},{"name":"AvatarMenu","sourcePath":"components/data-display/AvatarMenu.jsx"},{"name":"Badge","sourcePath":"components/data-display/Badge.jsx"},{"name":"Card","sourcePath":"components/data-display/Card.jsx"},{"name":"Tag","sourcePath":"components/data-display/Tag.jsx"},{"name":"Datatable","sourcePath":"components/data-display/Datatable.jsx"},{"name":"DateRangePicker","sourcePath":"components/inputs/DateRangePicker.jsx"},{"name":"DatePicker","sourcePath":"components/inputs/DatePicker.jsx"},{"name":"Divider","sourcePath":"components/layout/Divider.jsx"},{"name":"Drawer","sourcePath":"components/overlay/Drawer.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Progress","sourcePath":"components/feedback/Progress.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"ToastViewport","sourcePath":"components/feedback/Toast.jsx"},{"name":"FileUpload","sourcePath":"components/inputs/FileUpload.jsx"},{"name":"CURRENCIES","sourcePath":"components/inputs/Currency.jsx"},{"name":"CURRENCY_OPTIONS","sourcePath":"components/inputs/Currency.jsx"},{"name":"Currency","sourcePath":"components/inputs/Currency.jsx"},{"name":"CurrencyField","sourcePath":"components/inputs/CurrencyField.jsx"},{"name":"Input","sourcePath":"components/inputs/Input.jsx"},{"name":"Textarea","sourcePath":"components/inputs/Textarea.jsx"},{"name":"Kanban","sourcePath":"components/data-display/Kanban.jsx"},{"name":"List","sourcePath":"components/data-display/List.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Accordion","sourcePath":"components/navigation/Accordion.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Dialog","sourcePath":"components/overlay/Dialog.jsx"},{"name":"Menu","sourcePath":"components/overlay/Menu.jsx"},{"name":"Tooltip","sourcePath":"components/overlay/Tooltip.jsx"},{"name":"Popover","sourcePath":"components/overlay/Popover.jsx"},{"name":"Rating","sourcePath":"components/inputs/Rating.jsx"},{"name":"Combobox","sourcePath":"components/inputs/Combobox.jsx"},{"name":"MultiSelect","sourcePath":"components/inputs/MultiSelect.jsx"},{"name":"Select","sourcePath":"components/inputs/Select.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Slider","sourcePath":"components/inputs/Slider.jsx"},{"name":"Stat","sourcePath":"components/data-display/Stat.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Pagination","sourcePath":"components/data-display/Pagination.jsx"},{"name":"Table","sourcePath":"components/data-display/Table.jsx"},{"name":"Timeline","sourcePath":"components/data-display/Timeline.jsx"},{"name":"Checkbox","sourcePath":"components/inputs/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/inputs/Radio.jsx"},{"name":"Switch","sourcePath":"components/inputs/Switch.jsx"},{"name":"TreeView","sourcePath":"components/navigation/TreeView.jsx"}],"sourceHashes":{"components/TwicoProvider.jsx":"62b3dee5a483","components/buttons/Button.jsx":"cba4ca6bac13","components/buttons/IconButton.jsx":"9625cb6f6231","components/buttons/ToggleGroup.jsx":"dfd6ec02e607","components/data-display/Avatar.jsx":"19fb80348fc4","components/data-display/AvatarMenu.jsx":"88d8f92a0e72","components/data-display/Badge.jsx":"da9e94aaad2f","components/data-display/Boxplot.jsx":"2238629e229e","components/data-display/BubbleChart.jsx":"7e5e9c5f55a8","components/data-display/Candlestick.jsx":"aeb17bb3a03c","components/data-display/Card.jsx":"2a04c008b8a7","components/data-display/CardGrid.jsx":"88badc7b73ff","components/data-display/Carousel.jsx":"663301f5f002","components/data-display/Chart.jsx":"ed918e115072","components/data-display/Datatable.jsx":"0e192789825c","components/data-display/DiffTable.jsx":"556beb2d7089","components/data-display/DonutChart.jsx":"2acda70aae2b","components/data-display/FunnelChart.jsx":"3794f273e39b","components/data-display/Gauge.jsx":"9cf38a78f6c3","components/data-display/Heatmap.jsx":"674d25706b6b","components/data-display/Image.jsx":"79c72470804e","components/data-display/ImageViewer.jsx":"c0e5bd3a59ef","components/data-display/Kanban.jsx":"c1c54a97fa4b","components/data-display/List.jsx":"4b911e7e6211","components/data-display/Pagination.jsx":"d416e6d6435b","components/data-display/PieChart.jsx":"0ba2bb0aceef","components/data-display/PolarAreaChart.jsx":"62e59743dd72","components/data-display/RadarChart.jsx":"47e2064bebc3","components/data-display/RangeChart.jsx":"036f8a9b1ce1","components/data-display/ScatterChart.jsx":"d24f08403615","components/data-display/Sparkline.jsx":"12e9c8142f7d","components/data-display/Stat.jsx":"2fa0e2d767f0","components/data-display/Table.jsx":"83b2fb40d7b6","components/data-display/Tag.jsx":"ec36b46f99e4","components/data-display/Timeline.jsx":"8d43346e2b60","components/data-display/Treemap.jsx":"669553f2c7d3","components/feedback/Alert.jsx":"bfeea0edbf52","components/feedback/EmptyState.jsx":"1e1093812348","components/feedback/Progress.jsx":"24b5c2cca6b0","components/feedback/Skeleton.jsx":"1e6493f826fd","components/feedback/Spinner.jsx":"ac147d577015","components/feedback/Toast.jsx":"09486e872aa9","components/feedback/ToastProvider.jsx":"60da6c16b038","components/inputs/Checkbox.jsx":"26b57d1bfa85","components/inputs/ColorPicker.jsx":"deae0cb20d21","components/inputs/Combobox.jsx":"693e0ffdb064","components/inputs/Currency.jsx":"186e8743dfc7","components/inputs/CurrencyField.jsx":"6117a20400b6","components/inputs/DatePicker.jsx":"e4efd6090473","components/inputs/DateRangePicker.jsx":"d9d283b9e420","components/inputs/DateTimePicker.jsx":"10eb35093dbd","components/inputs/Field.jsx":"ba5ab4960818","components/inputs/FieldRow.jsx":"a44ad0193fe9","components/inputs/FileUpload.jsx":"a592a63ebacb","components/inputs/FilterBar.jsx":"df6872b9005d","components/inputs/Form.jsx":"36b87e621b74","components/inputs/Input.jsx":"519e936f4099","components/inputs/Label.jsx":"dfdad32670fd","components/inputs/MultiSelect.jsx":"d9acf11680a5","components/inputs/Radio.jsx":"ab3754d3dbac","components/inputs/RadioGroup.jsx":"40bb7800dc90","components/inputs/Rating.jsx":"eb841fc84469","components/inputs/Select.jsx":"17de649cfc27","components/inputs/Slider.jsx":"a6937b91154b","components/inputs/Switch.jsx":"436f5880e67d","components/inputs/Textarea.jsx":"6b6f8f5d2642","components/inputs/TimePicker.jsx":"f3c3ee758f8f","components/layout/AppShell.jsx":"6d922b91f5ba","components/layout/Box.jsx":"724003a42299","components/layout/ColorSchemeScript.jsx":"d26533a93034","components/layout/Container.jsx":"baa21c063fe4","components/layout/Divider.jsx":"eb122a52126f","components/layout/Grid.jsx":"cac42c569080","components/layout/Portal.jsx":"4760a37d634a","components/layout/Stack.jsx":"b0045c78a736","components/layout/ThemeProvider.jsx":"5939adede045","components/layout/VisuallyHidden.jsx":"57ea77870c8d","components/navigation/Accordion.jsx":"620239f7f59d","components/navigation/Anchor.jsx":"e5c9a898a0d7","components/navigation/Breadcrumb.jsx":"81da7c00cd34","components/navigation/Navbar.jsx":"8102bd5a45d7","components/navigation/Sidebar.jsx":"381c26969813","components/navigation/Stepper.jsx":"60ba7ccbd1c8","components/navigation/Tabs.jsx":"c8931a9dc92f","components/navigation/TreeView.jsx":"ea74f166fbe5","components/overlay/CommandPalette.jsx":"9d90aa90091d","components/overlay/Dialog.jsx":"87c40d5fc8ed","components/overlay/Drawer.jsx":"9ee607766262","components/overlay/Menu.jsx":"2c9ec395a8e0","components/overlay/Popover.jsx":"fa5d8e2b7023","components/overlay/Tooltip.jsx":"0c81df406763","components/typography/Code.jsx":"a6a74f93cb2b","components/typography/Heading.jsx":"851279ac7563","components/typography/Kbd.jsx":"ff96e9dbdbe0","components/typography/Pre.jsx":"97379158f0ce","components/typography/Text.jsx":"0c8ada482c42","src/index.ts":"a1cfc15ff82f"},"inlinedExternals":[],"builtBy":"scripts/gen-ds-bundle.mjs"} */
 "use strict";
 "use client";
 var TwicoUiDesignSystem_f2f16a = (() => {
@@ -10182,6 +10182,8 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       onPageSizeChange,
       height = 440,
       heightResize = false,
+      heightMax,
+      onHeightResize,
       serverMode = false,
       rowCount,
       onServerChange,
@@ -10583,20 +10585,42 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
     const [dragRowH, setDragRowH] = import_react.default.useState(null);
     const [rowResizing, setRowResizing] = import_react.default.useState(null);
     const ROW_H_MIN = 32, ROW_H_MAX = 2e3;
+    const COL_W_MIN = 72, COL_W_MAX = 2e3;
+    const colMaxOf = (c) => c && typeof c.maxWidth === "number" ? Math.max(COL_W_MIN, Math.min(COL_W_MAX, c.maxWidth)) : COL_W_MAX;
+    const KB_GESTURE_MS = 180;
     const [gridH, setGridH] = import_react.default.useState(null);
     const [hResizing, setHResizing] = import_react.default.useState(false);
-    const H_MIN = 160, H_MAX = 2e3;
+    const H_MIN = 160, H_SANITY = 1e4, H_PRE = 2e3;
     const [vhCap, setVhCap] = import_react.default.useState(null);
-    const heightMax = vhCap == null ? H_MAX : vhCap;
-    const needsVhCap = heightResize || gridH != null;
+    const viewportCeil = vhCap == null ? H_PRE : vhCap;
+    const heightCeil = heightMax === false ? H_SANITY : typeof heightMax === "number" ? clampNum(heightMax, H_MIN, H_SANITY) : viewportCeil;
     import_react.default.useEffect(() => {
-      if (!needsVhCap) return void 0;
+      if (!heightResize) return void 0;
       const measure = () => setVhCap(Math.max(240, Math.round(window.innerHeight * 0.95)));
       measure();
       window.addEventListener("resize", measure);
       return () => window.removeEventListener("resize", measure);
-    }, [needsVhCap]);
-    const effHeight = gridH == null ? height : clampNum(gridH, H_MIN, heightMax);
+    }, [heightResize]);
+    const storedHRef = import_react.default.useRef(null);
+    import_react.default.useEffect(() => {
+      if (heightResize || gridH == null) return;
+      storedHRef.current = gridH;
+      setGridH(null);
+    }, [heightResize, gridH]);
+    const effHeight = gridH == null ? height : clampNum(gridH, H_MIN, heightCeil);
+    const [kbResizing, setKbResizing] = import_react.default.useState(false);
+    const kbTimerRef = import_react.default.useRef(0);
+    import_react.default.useEffect(() => () => {
+      if (kbTimerRef.current) clearTimeout(kbTimerRef.current);
+    }, []);
+    const markKbResize = () => {
+      setKbResizing(true);
+      if (kbTimerRef.current) clearTimeout(kbTimerRef.current);
+      kbTimerRef.current = setTimeout(() => {
+        kbTimerRef.current = 0;
+        setKbResizing(false);
+      }, KB_GESTURE_MS);
+    };
     const [rowDrag, setRowDrag] = import_react.default.useState({ from: null, over: null, after: false });
     const [rowGrab, setRowGrab] = import_react.default.useState(null);
     const [reorderMsg, setReorderMsg] = import_react.default.useState("");
@@ -10641,7 +10665,9 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       // #559: the scroll area's height. One bounded number - the argument rowHeight's doc comment
       // makes for preferring that over an unbounded map applies here too, only more simply: there is
       // exactly one - so it round-trips like columnWidths and rowHeight and needs no opt-in.
-      height: gridH != null ? gridH : void 0
+      // #564: a height that is held but not applied (the prop is off) still round-trips, so switching
+      // the prop back on gets the user's size back instead of losing it.
+      height: gridH != null ? gridH : storedHRef.current != null ? storedHRef.current : void 0
     });
     const applyState = (s) => {
       if (!s || typeof s !== "object") return;
@@ -10699,8 +10725,18 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       if (typeof s.batchNameWidth === "number") setBatchNameW(clampNum(s.batchNameWidth, 88, 260));
       if (Array.isArray(s.grouping)) setGroupBy(s.grouping.filter((f) => known.has(f)));
       if (Array.isArray(s.collapsedGroups) && !collapsedControlled) setInternalCollapsed(new Set(s.collapsedGroups.filter((k) => typeof k === "string")));
-      if (typeof s.rowHeight === "number") setDragRowH(clampNum(s.rowHeight, ROW_H_MIN, ROW_H_MAX));
-      if (typeof s.height === "number") setGridH(clampNum(s.height, H_MIN, H_MAX));
+      if (s.rowHeight === null || "rowHeight" in s && s.rowHeight === void 0) setDragRowH(null);
+      else if (typeof s.rowHeight === "number") setDragRowH(clampNum(s.rowHeight, ROW_H_MIN, ROW_H_MAX));
+      if (s.height === null || "height" in s && s.height === void 0) {
+        storedHRef.current = null;
+        setGridH(null);
+      } else if (typeof s.height === "number") {
+        const v = clampNum(s.height, H_MIN, H_SANITY);
+        if (heightResize) {
+          storedHRef.current = null;
+          setGridH(v);
+        } else storedHRef.current = v;
+      }
       if (s.rowHeights && typeof s.rowHeights === "object") {
         setRowHeights(Object.fromEntries(Object.entries(s.rowHeights).filter(([, h]) => typeof h === "number").map(([k, h]) => [k, clampNum(h, 32, 2e3)])));
       }
@@ -10712,7 +10748,7 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
     import_react.default.useEffect(() => {
       if (!stateReadyRef.current) return void 0;
       if (!stateKey && !onStateChange) return void 0;
-      if (hResizing || rowResizing != null) return void 0;
+      if (hResizing || rowResizing != null || kbResizing) return void 0;
       const state = serializeState();
       onStateChangeRef.current?.(state);
       if (stateKey) {
@@ -10722,7 +10758,7 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
         }
       }
       return void 0;
-    }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedKey, dragRowH, rowHeights, persistRowHeights, gridH, hResizing, rowResizing]);
+    }, [filters, filterLogic, sort, quick, pageVal, sizeVal, order, widths, hidden, pins, density, fWidths, fPanelSize, popSizes, userCombine, batchNameW, stateKey, groupBy, collapsedKey, dragRowH, rowHeights, persistRowHeights, gridH, hResizing, rowResizing, kbResizing]);
     const restoreState = () => {
       let saved = null;
       if (stateKey) {
@@ -11281,39 +11317,89 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       setRowOrder(next);
       onRowOrderChange?.(next);
     }
-    const dragOffRef = import_react.default.useRef(null);
+    const dragsRef = import_react.default.useRef(/* @__PURE__ */ new Set());
     import_react.default.useEffect(() => () => {
-      if (dragOffRef.current) {
-        dragOffRef.current();
-        dragOffRef.current = null;
-      }
+      for (const stop of [...dragsRef.current]) stop(false);
     }, []);
+    function beginDrag(e, onMove, onEnd) {
+      const el = e.currentTarget;
+      const pointerId = e.pointerId;
+      let done = false, frame = 0, pending = null;
+      const flush = () => {
+        frame = 0;
+        const ev = pending;
+        pending = null;
+        if (ev) onMove(ev);
+      };
+      const move = (ev) => {
+        pending = ev;
+        if (!frame) frame = requestAnimationFrame(flush);
+      };
+      const stop = (commit) => {
+        if (done) return;
+        done = true;
+        if (frame) {
+          cancelAnimationFrame(frame);
+          frame = 0;
+        }
+        if (commit) flush();
+        else pending = null;
+        window.removeEventListener("pointermove", move);
+        window.removeEventListener("pointerup", up);
+        window.removeEventListener("pointercancel", cancel);
+        el.removeEventListener("lostpointercapture", lost);
+        try {
+          if (el.hasPointerCapture && el.hasPointerCapture(pointerId)) el.releasePointerCapture(pointerId);
+        } catch {
+        }
+        dragsRef.current.delete(stop);
+        onEnd(commit);
+      };
+      const up = () => stop(true);
+      const cancel = () => stop(false);
+      const lost = () => stop(true);
+      dragsRef.current.add(stop);
+      window.addEventListener("pointermove", move);
+      window.addEventListener("pointerup", up);
+      window.addEventListener("pointercancel", cancel);
+      el.addEventListener("lostpointercapture", lost);
+      try {
+        if (el.setPointerCapture) el.setPointerCapture(pointerId);
+      } catch {
+      }
+      return stop;
+    }
     function startRowResize(e, key, tr) {
       e.preventDefault();
       e.stopPropagation();
+      if (e.currentTarget.focus) e.currentTarget.focus();
       const perRow = rowResizeMode === "row";
       const startY = e.clientY;
-      const startH = (perRow ? rowHeights[key] : dragRowH) || tr?.offsetHeight || 44;
+      const orig = perRow ? rowHeights[key] : dragRowH;
+      const startH = orig || tr?.offsetHeight || 44;
       let last = startH;
+      const apply = (h) => {
+        if (perRow) setRowHeights((m) => ({ ...m, [key]: h }));
+        else setDragRowH(h);
+      };
       setRowResizing(key);
-      const onMove = (ev) => {
+      beginDrag(e, (ev) => {
         last = clampNum(startH + (ev.clientY - startY), ROW_H_MIN, ROW_H_MAX);
-        if (perRow) setRowHeights((m) => ({ ...m, [key]: last }));
-        else setDragRowH(last);
-      };
-      const onUp = () => {
-        window.removeEventListener("pointermove", onMove);
-        window.removeEventListener("pointerup", onUp);
-        dragOffRef.current = null;
+        apply(last);
+      }, (commit) => {
         setRowResizing(null);
+        if (!commit) {
+          if (perRow) setRowHeights((m) => {
+            const n = { ...m };
+            if (orig == null) delete n[key];
+            else n[key] = orig;
+            return n;
+          });
+          else setDragRowH(orig == null ? null : orig);
+          return;
+        }
         if (last !== startH) onRowResize?.(last, perRow ? key : null);
-      };
-      window.addEventListener("pointermove", onMove);
-      window.addEventListener("pointerup", onUp);
-      dragOffRef.current = () => {
-        window.removeEventListener("pointermove", onMove);
-        window.removeEventListener("pointerup", onUp);
-      };
+      });
     }
     function onRowResizeKey(e, key, current) {
       let next = null;
@@ -11326,30 +11412,48 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       if (next == null) return;
       e.preventDefault();
       e.stopPropagation();
+      markKbResize();
       const h = clampNum(next, ROW_H_MIN, ROW_H_MAX);
       if (rowResizeMode === "row") setRowHeights((m) => ({ ...m, [key]: h }));
       else setDragRowH(h);
       if (h !== current) onRowResize?.(h, rowResizeMode === "row" ? key : null);
     }
+    function resetRowHeight(key) {
+      if (rowResizeMode === "row") setRowHeights((m) => {
+        const n = { ...m };
+        delete n[key];
+        return n;
+      });
+      else setDragRowH(null);
+    }
+    function resetGridHeight() {
+      storedHRef.current = null;
+      setGridH(null);
+      onHeightResize?.(null);
+    }
     function startHeightResize(e) {
       e.preventDefault();
       e.stopPropagation();
+      if (e.currentTarget.focus) e.currentTarget.focus();
       const startY = e.clientY;
+      const orig = gridH;
       const startH = effHeight;
+      let last = startH;
       setHResizing(true);
-      const onMove = (ev) => setGridH(clampNum(startH + (ev.clientY - startY), H_MIN, heightMax));
-      const onUp = () => {
-        window.removeEventListener("pointermove", onMove);
-        window.removeEventListener("pointerup", onUp);
-        dragOffRef.current = null;
+      beginDrag(e, (ev) => {
+        last = clampNum(startH + (ev.clientY - startY), H_MIN, heightCeil);
+        setGridH(last);
+      }, (commit) => {
         setHResizing(false);
-      };
-      window.addEventListener("pointermove", onMove);
-      window.addEventListener("pointerup", onUp);
-      dragOffRef.current = () => {
-        window.removeEventListener("pointermove", onMove);
-        window.removeEventListener("pointerup", onUp);
-      };
+        if (!commit) {
+          setGridH(orig == null ? null : orig);
+          return;
+        }
+        if (last !== startH) {
+          storedHRef.current = null;
+          onHeightResize?.(last);
+        }
+      });
     }
     function onHeightResizeKey(e) {
       let next = null;
@@ -11358,11 +11462,15 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       else if (e.key === "PageDown") next = effHeight + 80;
       else if (e.key === "PageUp") next = effHeight - 80;
       else if (e.key === "Home") next = H_MIN;
-      else if (e.key === "End") next = heightMax;
+      else if (e.key === "End") next = heightCeil;
       if (next == null) return;
       e.preventDefault();
       e.stopPropagation();
-      setGridH(clampNum(next, H_MIN, heightMax));
+      markKbResize();
+      const h = clampNum(next, H_MIN, heightCeil);
+      storedHRef.current = null;
+      setGridH(h);
+      if (h !== effHeight) onHeightResize?.(h);
     }
     function commitRowMove(fromKey, targetIndex) {
       const targetRow = middleRows[Math.max(0, Math.min(targetIndex, middleRows.length - 1))];
@@ -11594,20 +11702,23 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
     function startResize(e, field) {
       e.preventDefault();
       e.stopPropagation();
+      if (e.currentTarget.focus) e.currentTarget.focus();
       const startX = e.clientX;
       const startW = widthOf(colByField[field]);
+      const orig = widths[field];
       setResizing(true);
-      const onMove = (ev) => {
-        const w = Math.max(72, Math.round(startW + (ev.clientX - startX)));
+      beginDrag(e, (ev) => {
+        const w = clampNum(startW + (ev.clientX - startX), COL_W_MIN, colMaxOf(colByField[field]));
         setWidths((m) => ({ ...m, [field]: w }));
-      };
-      const onUp = () => {
+      }, (commit) => {
         setResizing(false);
-        window.removeEventListener("pointermove", onMove);
-        window.removeEventListener("pointerup", onUp);
-      };
-      window.addEventListener("pointermove", onMove);
-      window.addEventListener("pointerup", onUp);
+        if (!commit) setWidths((m) => {
+          const n = { ...m };
+          if (orig == null) delete n[field];
+          else n[field] = orig;
+          return n;
+        });
+      });
     }
     function autoFitColumn(field, thEl) {
       const ci = ordered.findIndex((x) => x.field === field);
@@ -12932,7 +13043,7 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
       const a11y = focusable ? {
         role: "separator",
         "aria-orientation": "horizontal",
-        "aria-label": hint,
+        "aria-label": `${hint} (double-click to reset)`,
         "aria-valuenow": now,
         "aria-valuemin": ROW_H_MIN,
         "aria-valuemax": ROW_H_MAX
@@ -12944,7 +13055,11 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
           "data-active": rowResizing === k || void 0,
           ...a11y,
           tabIndex: focusable ? 0 : -1,
-          title: hint,
+          onDoubleClick: (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            resetRowHeight(k);
+          },
           onPointerDown: (e) => startRowResize(e, k, e.currentTarget.closest("tr")),
           onClick: (e) => e.stopPropagation(),
           onKeyDown: (e) => onRowResizeKey(e, k, h || (e.currentTarget.closest("tr") || {}).offsetHeight || estRowH)
@@ -13674,7 +13789,8 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
                               "aria-orientation": "vertical",
                               "aria-label": `Resize ${colLabel(c)} column (double-click to fit content)`,
                               "aria-valuenow": w,
-                              "aria-valuemin": 72,
+                              "aria-valuemin": COL_W_MIN,
+                              "aria-valuemax": colMaxOf(c),
                               tabIndex: 0,
                               onPointerDown: (e) => startResize(e, c.field),
                               onClick: (e) => e.stopPropagation(),
@@ -13690,13 +13806,21 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
                                   autoFitColumn(c.field, e.currentTarget.closest("th"));
                                   return;
                                 }
-                                if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+                                const max = colMaxOf(c);
+                                const cur = () => widths[c.field] ?? intrinsicWidth(c);
+                                let next = null;
+                                if (e.key === "ArrowRight") next = cur() + 10;
+                                else if (e.key === "ArrowLeft") next = cur() - 10;
+                                else if (e.key === "PageUp") next = cur() + 40;
+                                else if (e.key === "PageDown") next = cur() - 40;
+                                else if (e.key === "Home") next = COL_W_MIN;
+                                else if (e.key === "End") next = max;
+                                if (next == null) return;
                                 e.preventDefault();
                                 e.stopPropagation();
-                                const delta = e.key === "ArrowRight" ? 10 : -10;
-                                setWidths((m) => ({ ...m, [c.field]: Math.max(72, (m[c.field] ?? intrinsicWidth(c)) + delta) }));
-                              },
-                              title: "Drag to resize \xB7 double-click to fit content"
+                                markKbResize();
+                                setWidths((m) => ({ ...m, [c.field]: clampNum(next, COL_W_MIN, max) }));
+                              }
                             }
                           ) : null
                         ]
@@ -13754,14 +13878,19 @@ transition: border-color var(--duration-fast), color var(--duration-fast), backg
           "data-active": hResizing || void 0,
           role: "separator",
           "aria-orientation": "horizontal",
-          "aria-label": "Resize the table height",
+          "aria-label": "Resize the table height (double-click to reset)",
           "aria-valuenow": effHeight,
           "aria-valuemin": H_MIN,
-          "aria-valuemax": heightMax,
+          "aria-valuemax": heightCeil,
           tabIndex: 0,
-          title: "Drag to resize the table",
           onPointerDown: startHeightResize,
-          onKeyDown: onHeightResizeKey
+          onKeyDown: onHeightResizeKey,
+          onClick: (e) => e.stopPropagation(),
+          onDoubleClick: (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            resetGridHeight();
+          }
         }
       ) : null,
       /* @__PURE__ */ jsx(Tooltip, { anchor: ovTip ? ovTip.anchor : null, open: !!ovTip, label: ovTip ? ovTip.text : null, placement: "top" }),
