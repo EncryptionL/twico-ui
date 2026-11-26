@@ -855,9 +855,18 @@ all produce.
 The visible half was a stuck handle: `onMove` stayed attached and checked no button state, so the grip then
 followed a plain hover. **The half that mattered was invisible.** The persist effect is gated on those flags —
 that is the mechanism that makes the store write happen once per gesture (#559) — so one cancelled height drag
-left `hResizing` true *forever*, and the effect returned early for every later state change: column widths,
-order, visibility, pinning, filters, sort, density, grouping. The grid kept working and saved nothing until it
-was remounted, with `onStateChange` going quiet too. A host persisting to a server had no way to notice.
+left `hResizing` true, and the effect returned early for every state change that followed: column widths,
+order, visibility, pinning, filters, sort, density, grouping. The grid kept working and saved nothing, with
+`onStateChange` going quiet too, and a host persisting to a server had no way to notice.
+
+The window of loss ended at the next `pointerup` anywhere in the document, not at remount: the stale
+`pointerup` listener was never removed, so the next click or tap ran it and cleared the flag. That is narrower
+than it first looks, and worse where it bites — what falls in the gap is every change made *without* an
+intervening pointer release: the keyboard paths, and anything a host drives programmatically. Measured against
+the published packages with a real CDP `touchCancel` and a keyboard-only column resize — the keyboard route
+matters, because any *click* would itself run that stale listener and hide the wedge — on 1.54.0 the same four
+keypresses emitted four `onStateChange` calls before the cancelled drag and **zero** after it, recovering only
+once a pointerup landed; on 1.55.0 they persist either side of the cancel.
 
 That is the cost of gating persistence on a flag, and it is why the fix is a single harness rather than three
 hand-rolled gesture loops:
